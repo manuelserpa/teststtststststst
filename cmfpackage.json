@@ -1,0 +1,37 @@
+{
+  "packageId": "Cmf.Custom.Package",
+  "version": "1.0.0",
+  "description": "This package deploys Critical Manufacturing MES AMSOsram Customization",
+  "packageType": "Root",
+  "isInstallable": true,
+  "isUniqueInstall": false,
+  "dependencies": [
+    {
+      "id": "Criticalmanufacturing.DeploymentMetadata",
+      "version": "8.3.0"
+    },
+    {
+      "id": "Cmf.Custom.Business",
+      "version": "1.0.0"
+    },
+    {
+      "id": "Cmf.Custom.IoT",
+      "version": "1.0.0"
+    },
+    {
+      "id": "Cmf.Custom.Data",
+      "version": "1.0.0"
+    },
+    {
+      "id": "Cmf.Custom.HTML",
+      "version": "1.0.0"
+    }
+  ],
+  "testPackages": [
+    {
+      "id": "Cmf.Custom.Tests",
+      "version": "1.0.0"
+    }
+  ],
+  "handlerVersion": 0
+}

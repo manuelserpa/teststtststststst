@@ -1,0 +1,17 @@
+{
+  "packageId": "Cmf.Custom.Business",
+  "version": "1.0.0",
+  "description": "Cmf Custom AMSOsram Cmf.Custom.Business Package",
+  "packageType": "Business",
+  "isInstallable": true,
+  "isUniqueInstall": false,
+  "contentToPack": [
+    {
+      "source": "Release/*.dll",
+      "target": ""
+    }
+  ],
+  "steps": [
+    { "order": "1", "type": "DeployFiles", "ContentPath": "**/!(Cmf.Custom.*.BusinessObjects*).dll" }
+  ]
+}

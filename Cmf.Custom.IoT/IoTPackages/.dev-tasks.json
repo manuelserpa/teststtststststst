@@ -1,0 +1,9 @@
+{
+  "isWebAppCompilable": false,
+  "dependencies": [
+  ],
+  "packages": [
+  ],
+  "registry": "http://cmf-nuget:4873/",
+  "channel": "*"
+}
