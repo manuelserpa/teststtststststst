@@ -1,0 +1,158 @@
+{
+  "ref": "MES",
+  "debug": {
+    "isEnabled": false
+  },
+  "host": {
+    "rest": {
+      "enableSsl": false,
+      "address": "localhost",
+      "port": 443,
+      "timeout": 0
+    },
+    "tenant": {
+      "name": "AMSOsram"
+    },
+    "loadBalancer": {
+      "enableSsl": 0,
+      "address": "0",
+      "urlSuffix": "discoveryservice",
+      "port": 0,
+      "timeout": 120000
+    },
+    "useExternalAuthentication": false,
+    "isLoadBalancerEnabled": false
+  },
+  "packages": {
+    "available": [
+      "cmf.core.shell",
+      "cmf.core.business.controls",
+      "cmf.core.controls",
+      "cmf.core.checklist",
+      "cmf.core.dashboards",
+      "cmf.core.documents",
+      "cmf.core.fablive",
+      "cmf.core.folder",
+      "cmf.core.reports",
+      "cmf.core.camera",
+      "cmf.core.search",
+      "cmf.core.changeset",
+      "cmf.core.rule",
+      "cmf.core.multimedia",
+      "cmf.core.security",
+      "cmf.core.admin.host",
+      "cmf.core.admin.i18n",
+      "cmf.core.admin.queries",
+      "cmf.core.admin.messagebus",
+      "cmf.core.admin.statemodel",
+      "cmf.core.admin.dee",
+      "cmf.core.connect.iot",
+      "cmf.core.iotevents",
+      "cmf.core.augmentedreality",
+      "cmf.core.admin.tables",
+      "cmf.core.admin.config",
+      "cmf.core.admin.entitytype",
+      "cmf.core.admin.erp",
+      "cmf.core.enterprise",
+      "cmf.core.site",
+      "cmf.core.masterdata",
+      "cmf.mes.maintenance",
+      "cmf.mes.mapping",
+      "cmf.mes.datacollection",
+      "cmf.mes.business.controls",
+      "cmf.mes.recipe",
+      "cmf.mes.sampling",
+      "cmf.mes.scheduling",
+      "cmf.mes.bom",
+      "cmf.mes.material",
+      "cmf.mes.notification",
+      "cmf.mes.task",
+      "cmf.mes.productionorder",
+      "cmf.mes.experiment",
+      "cmf.mes.kpi",
+      "cmf.mes.statisticalprocesscontrol",
+      "cmf.mes.resource",
+      "cmf.mes.container",
+      "cmf.mes.protocol",
+      "cmf.mes.step",
+      "cmf.mes.printabledocument",
+      "cmf.mes.weighdispense",
+      "cmf.mes.experiment",
+      "cmf.mes.warehouse",
+      "cmf.mes.competence",
+      "cmf.mes.shift",
+      "cmf.mes.product",
+      "cmf.mes.flow",
+      "cmf.mes.employee",
+      "cmf.mes.area",
+      "cmf.mes.facility",
+      "cmf.mes.materiallogistics",
+      "cmf.mes.newproductintroduction"
+    ],
+    "baseDir": "node_modules/",
+    "bundlePath": "node_modules/@criticalmanufacturing/mes-ui-web/bundles",
+    "bundles": {
+      "metadata": true,
+      "i18n": true
+    }
+  },
+  "general": {
+    "supportedCultures": [
+      "en-US",
+      "pt-PT",
+      "de-DE",
+      "vi-VN",
+      "zh-CN",
+      "zh-TW",
+      "es-ES",
+      "pl-PL",
+      "sv-SE"
+    ],
+    "environmentName": "AMSOsramLocal",
+    "supportedThemes": [
+      "cmf.style.dark.blue",
+      "cmf.style.light.blue",
+      "cmf.style.blue",
+      "cmf.style.blue.grey"
+    ],
+    "defaultDomain": "cmf",
+    "passwordEncryption": "rsa",
+    "startup": {
+      "startupCulture": "en-US",
+      "startupTheme": "cmf.style.light.blue"
+    }
+  },
+  "connectiot": {
+    "packages": [
+      {
+        "path": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks"
+      },
+      {
+        "path": "@criticalmanufacturing/connect-iot-controller-engine-filedrivers-tasks"
+      },
+      {
+        "path": "@criticalmanufacturing/connect-iot-controller-engine-mes-tasks"
+      },
+      {
+        "path": "@criticalmanufacturing/connect-iot-controller-engine-oib-tasks"
+      },
+      {
+        "path": "@criticalmanufacturing/connect-iot-controller-engine-secsgem-tasks"
+      },
+      {
+        "path": "@criticalmanufacturing/connect-iot-controller-engine-factoryautomation-tasks"
+      },
+      {
+        "path": "@criticalmanufacturing/connect-iot-controller-engine-opcua-tasks"
+      },
+      {
+        "path": "@criticalmanufacturing/connect-iot-controller-engine-ipccfx-tasks"
+      },
+      {
+        "path": "@criticalmanufacturing/connect-iot-controller-engine-fujinexim-tasks"
+      }
+    ]
+  },
+  "cacheId": "212184",
+  "version": "AMSOsram $(Build.BuildNumber) - 8.3.3"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "cmf.docs.area",
+  "version": "1.0.0",
+  "description": "Help customization package for AMSOsram",
+  "private": true,
+  "scripts": {
+    "preinstall": "node npm.preinstall.js",
+    "postinstall": "node npm.postinstall.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://tfs-projects.cmf.criticalmanufacturing.com/ImplementationProjects/AMSOSRAM/_git/AMSOSRAM"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "run-sequence": "~1.1.0",
+    "yargs": "~4.8.0",
+    "@criticalmanufacturing/dev-tasks": "8.2.0",
+    "@criticalmanufacturing/generator-html": "8.1.1"
+  }
+}
