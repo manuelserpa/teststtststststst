@@ -1,0 +1,9 @@
+{
+  "@criticalmanufacturing/generator-html": {
+    "isRoot": true,
+    "promptValues": {
+      "packagePrefix": "cmf.docs.area",
+      "registry": "http://cmf-nuget:4873/"
+    }
+  }
+}

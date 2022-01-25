@@ -1,0 +1,13 @@
+{
+  "name": "customization.web",
+  "version": "0.0.1",
+  "description": "customization.web package",
+  "dependencies": {
+    "@criticalmanufacturing/mes-ui-web": "release-833",
+    "lodash": "3.10.1"
+  },
+  "optionalDependencies": {},
+  "cmfLinkDependencies": {
+    "cmf.lbos": "file:../../../Libs/LBOs/TypeScript"
+  }
+}

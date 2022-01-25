@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+    <link rel="shortcut icon" href="node_modules/cmf.style/assets/img/favicon.ico" />
+
+    <!-- Mobile configuration -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <title>Documentation Portal</title>
+    <base href="/">
+
+    <!-- cmf.core.bootstrap with all other core dependencies required by the app -->
+    <script src="node_modules/cmf.core/cmf.core.bootstrap.js?cacheId=$(Product.Presentation.CacheToken)"></script>
+    <!-- CSS hack to allow the footer to be sticky to the bottom -->
+    <style>
+        router-outlet + * {
+            flex: 1 0 auto;
+        }
+
+        cmf-core-controls-page-sections > div.content {
+            padding-left: 0 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <cmf-docs-shell-shell>
+    <!--Critical Manufacturing loading animation-->
+        <div class="cmf-loading-container">
+            <div class="cmf-loading-center">
+                <div class="cmf-loading-cmf-logo"></div>
+                <div class="cmf-loading-spinner"></div>
+            </div>
+        </div>
+    </cmf-docs-shell-shell>
+</body>
+
+</html>

@@ -25,6 +25,10 @@
     {
       "id": "Cmf.Custom.HTML",
       "version": "1.0.0"
+    },
+    {
+      "id": "Cmf.Custom.Help",
+      "version": "1.0.0"
     }
   ],
   "testPackages": [

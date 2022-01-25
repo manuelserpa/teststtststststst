@@ -1,0 +1,12 @@
+{
+  "packagePrefix": "cmf.docs.area",
+  "framework": "",
+  "webAppPrefix": "cmf.docs.area",
+  "isWebAppCompilable": false,
+  "dependencies": [],
+  "packages": [
+    "cmf.docs.area.amsosram"
+  ],
+  "registry": "http://cmf-nuget:4873/",
+  "channel": "release-833"
+}

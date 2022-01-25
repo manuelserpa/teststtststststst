@@ -1,0 +1,17 @@
+{
+  "packageId": "Cmf.Custom.Help",
+  "version": "1.0.0",
+  "description": "Cmf Custom AMSOsram Cmf.Custom.Help Package",
+  "packageType": "Help",
+  "isInstallable": true,
+  "isUniqueInstall": false,
+  "contentToPack": [
+    {
+      "source": "src/packages/*",
+      "target": "node_modules",
+      "ignoreFiles": [
+        ".npmignore"
+      ]
+    }
+  ]
+}

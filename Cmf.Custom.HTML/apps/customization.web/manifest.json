@@ -1,0 +1,21 @@
+{
+    "background_color": "#007ac9",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "/node_modules/cmf.style/assets/img/logoCMF_192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/node_modules/cmf.style/assets/img/logoCMF_512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "name": "Critical Manufacturing",
+    "start_url": "/",
+    "short_name": "MES",
+    "theme_color": "#ffffff"
+  }
+  

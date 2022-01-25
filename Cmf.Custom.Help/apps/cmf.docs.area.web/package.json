@@ -1,0 +1,15 @@
+{
+  "name": "cmf.docs.area.web",
+  "version": "0.0.1",
+  "description": "cmf.docs.area.web package",
+  "dependencies": {
+    "cmf.docs.web": "release-833",
+    "lodash": "3.10.1"
+  },
+  "optionalDependencies": {
+    "cmf.docs.area.amsosram": "release-833"
+  },
+  "cmfLinkDependencies": {
+    "cmf.docs.area.amsosram": "file:../../src/packages/cmf.docs.area.amsosram"
+  }
+}
