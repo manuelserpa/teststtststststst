@@ -7,10 +7,14 @@
   "isUniqueInstall": false,
   "dependencies": [
     {
+      "id": "CriticalManufacturing.DeploymentMetadata",
+      "version": "8.3.3"
+    },
+    {
       "id": "Cmf.Custom.IoT.Packages",
       "version": "1.0.0"
     },
-	{
+	  {
       "id": "Cmf.Custom.IoT.Data",
       "version": "1.0.0"
     }

@@ -8,7 +8,7 @@
   "dependencies": [
     {
       "id": "CriticalManufacturing.DeploymentMetadata",
-      "version": "8.3.0"
+      "version": "8.3.3"
     },
     {
       "id": "Cmf.Custom.Business",
@@ -34,6 +34,10 @@
   "testPackages": [
     {
       "id": "Cmf.Custom.Tests",
+      "version": "1.0.0"
+    },
+    {
+      "id": "Cmf.Custom.Tests.MasterData",
       "version": "1.0.0"
     }
   ],
