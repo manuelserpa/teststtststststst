@@ -1,0 +1,8 @@
+# Entity Types
+
+The following Entity Types were created or updated to support customer requirements.
+
+| Entity Type                     | Description       |
+| ------                    | ------            |
+
+

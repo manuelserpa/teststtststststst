@@ -2,7 +2,7 @@
   "packageId": "Cmf.Custom.Tests",
   "version": "1.0.0",
   "description": "This package tests Critical Manufacturing MES AMSOsram Customization",
-  "packageType": "Test",
+  "packageType": "Tests",
   "isInstallable": false,
   "isUniqueInstall": false,
   "contentToPack": [

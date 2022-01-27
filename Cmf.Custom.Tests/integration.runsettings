@@ -9,11 +9,11 @@
     <!-- Parameters used by tests at runtime -->
   <TestRunParameters>
     <Parameter name="applicationName" value="AutomaticTests" />
-	<Parameter name="websiteAdress" value="AMSOsramDevelopment.ds.criticalmanufacturing.dev" />
+	<Parameter name="websiteAdress" value="VM-AMS-OSRAM.cmf.criticalmanufacturing.com" />
 	<Parameter name="websitePort" value="443" />
     <Parameter name="websiteUseSSL" value="True" />
-    <Parameter name="hostAdress" value="AMSOsramDevelopment.ds.criticalmanufacturing.dev" />
-    <Parameter name="hostPort" value="443" />
+    <Parameter name="hostAdress" value="VM-AMS-OSRAM.cmf.criticalmanufacturing.com" />
+    <Parameter name="hostPort" value="8083" />
     <Parameter name="clientTenantName" value="AMSOsram" />  
     <Parameter name="culture" value="en-US"/>
     <Parameter name="userRole" value="Administrators"/>
@@ -35,9 +35,9 @@
     <Parameter name="filePathRemote" value="./RunSettings/integration.runsettings" />
     <Parameter name="filePathLocal" value="../../../../integration.runsettings" />
     <!-- test output -->
-    <Parameter name="screenshotPath" value="\\AMSOsramDevelopment.ds.criticalmanufacturing.dev\Deployment\TestArtifacts" />
-    <Parameter name="logsPath" value="\\AMSOsramDevelopment.ds.criticalmanufacturing.dev\Deployment\TestArtifacts" />
-    <Parameter name="documentationScreenshotPath" value="\\AMSOsramDevelopment.ds.criticalmanufacturing.dev\Deployment\TestArtifacts\Documentation" />
+    <Parameter name="screenshotPath" value="\\VM-AMS-OSRAM.cmf.criticalmanufacturing.com\Deployment\TestArtifacts" />
+    <Parameter name="logsPath" value="\\VM-AMS-OSRAM.cmf.criticalmanufacturing.com\Deployment\TestArtifacts" />
+    <Parameter name="documentationScreenshotPath" value="\\VM-AMS-OSRAM.cmf.criticalmanufacturing.com\Deployment\TestArtifacts\Documentation" />
   </TestRunParameters>
 
   <!-- MSTest adapter -->

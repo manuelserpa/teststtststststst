@@ -7,7 +7,7 @@
     "rest": {
       "enableSsl": false,
       "address": "localhost",
-      "port": 443,
+      "port": 8083,
       "timeout": 0
     },
     "tenant": {
@@ -54,7 +54,7 @@
       "cmf.style.blue",
       "cmf.style.blue.grey"
     ],
-    "defaultDomain": "cmf",
+    "defaultDomain": "CMF",
     "passwordEncryption": "rsa",
     "startup": {
       "startupCulture": "en-US",
