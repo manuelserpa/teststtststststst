@@ -15,6 +15,6 @@
     }
   ],
   "xmlInjection": [
-    "../.././DeploymentMetadata/ui.xml"
+    "ui.xml"
   ]
 }
