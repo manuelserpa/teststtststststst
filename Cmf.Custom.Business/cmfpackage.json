@@ -12,6 +12,8 @@
     }
   ],
   "steps": [
-    { "order": "1", "type": "DeployFiles", "ContentPath": "**/!(Cmf.Custom.*.BusinessObjects*).dll" }
+    { "order": "1", "type": "Generic", "onExecute": "$(Agent.Root)/agent/scripts/stop_host.ps1" },
+    { "order": "2", "type": "DeployFiles", "ContentPath": "**/!(Cmf.Custom.*.BusinessObjects*).dll" },
+    { "order": "3", "type": "Generic", "onExecute": "$(Agent.Root)/agent/scripts/start_host.ps1" }
   ]
 }

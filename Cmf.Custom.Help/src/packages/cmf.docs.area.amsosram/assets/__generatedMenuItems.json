@@ -1,0 +1,164 @@
+[
+{
+   "id": "artifacts",
+   "menuGroupId": "techspec",
+   "title": "Artifacts",
+   "actionId": ""
+},
+{
+   "id": "connectiot",
+   "menuGroupId": "techspec",
+   "title": "Connect IoT",
+   "actionId": ""
+},
+{
+   "id": "erpintegration",
+   "menuGroupId": "techspec",
+   "title": "ERP Integration",
+   "actionId": ""
+},
+{
+   "id": "features",
+   "menuGroupId": "techspec",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "c_analytics",
+   "menuGroupId": "artifacts",
+   "title": "Analytics",
+   "actionId": ""
+},
+{
+   "id": "configurations",
+   "menuGroupId": "artifacts",
+   "title": "Configuration Entries",
+   "actionId": ""
+},
+{
+   "id": "deeactions",
+   "menuGroupId": "artifacts",
+   "title": "DEE Actions",
+   "actionId": ""
+},
+{
+   "id": "entitytypes",
+   "menuGroupId": "artifacts",
+   "title": "Entity Types",
+   "actionId": ""
+},
+{
+   "id": "exportedobjects",
+   "menuGroupId": "artifacts",
+   "title": "Exported Objects",
+   "actionId": ""
+},
+{
+   "id": "generictables",
+   "menuGroupId": "artifacts",
+   "title": "Generic Tables",
+   "actionId": ""
+},
+{
+   "id": "html",
+   "menuGroupId": "artifacts",
+   "title": "Html",
+   "actionId": ""
+},
+{
+   "id": "lookuptables",
+   "menuGroupId": "artifacts",
+   "title": "Lookup Tables",
+   "actionId": ""
+},
+{
+   "id": "namegenerators",
+   "menuGroupId": "artifacts",
+   "title": "Name Generators",
+   "actionId": ""
+},
+{
+   "id": "services",
+   "menuGroupId": "artifacts",
+   "title": "Services",
+   "actionId": ""
+},
+{
+   "id": "smarttables",
+   "menuGroupId": "artifacts",
+   "title": "Smart Tables",
+   "actionId": ""
+},
+{
+   "id": "cconverters",
+   "menuGroupId": "html",
+   "title": "Converters",
+   "actionId": ""
+},
+{
+   "id": "components",
+   "menuGroupId": "html",
+   "title": "Components",
+   "actionId": ""
+},
+{
+   "id": "datasources",
+   "menuGroupId": "html",
+   "title": "Data Sources",
+   "actionId": ""
+},
+{
+   "id": "iotartifacts",
+   "menuGroupId": "connectiot",
+   "title": "Artifacts",
+   "actionId": ""
+},
+{
+   "id": "iotequipmenttypes",
+   "menuGroupId": "connectiot",
+   "title": "Equipment Types",
+   "actionId": ""
+},
+{
+   "id": "equipmenttypea",
+   "menuGroupId": "iotequipmenttypes",
+   "title": "Equipment Type A",
+   "actionId": ""
+},
+{
+   "id": "equipmenttypea-configuration",
+   "menuGroupId": "equipmenttypea",
+   "title": "Configuration",
+   "actionId": ""
+},
+{
+   "id": "equipmenttypea-features",
+   "menuGroupId": "equipmenttypea",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "equipmenttypea-setup",
+   "menuGroupId": "equipmenttypea",
+   "title": "Setup",
+   "actionId": ""
+},
+{
+   "id": "equipmenttypea-workflows",
+   "menuGroupId": "equipmenttypea",
+   "title": "Workflows",
+   "actionId": ""
+},
+{
+   "id": "erpfeatures",
+   "menuGroupId": "erpintegration",
+   "title": "ERP Features",
+   "actionId": ""
+},
+{
+   "id": "erphandlers",
+   "menuGroupId": "erpintegration",
+   "title": "ERP Handlers",
+   "actionId": ""
+}
+]

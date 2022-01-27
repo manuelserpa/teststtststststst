@@ -28,9 +28,9 @@ parameters:
 - name: Environment
   displayName: AzureDevOps Environment name
   type: string
-  default: AMSOsramDevelopment
+  default: AMSOsram
   values:
-  - AMSOsramDevelopment
+  - AMSOsram
 # Stages to Run
 - name: executeAllStages
   displayName: ExecuteAllStages

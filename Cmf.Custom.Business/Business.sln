@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmf.Custom.AMSOsram.Orchest
 		{6C3D698D-7F9E-4E39-A571-DEB63582CA52} = {6C3D698D-7F9E-4E39-A571-DEB63582CA52}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cmf.Custom.AMSOsram.Actions", "..\Cmf.Custom.Data\DEEs\Cmf.Custom.AMSOsram.Actions.csproj", "{6E410B7F-1025-4A58-B9D9-A55834D13226}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cmf.Custom.AMSOsram.Actions", "..\Cmf.Custom.Data\DEEs\Cmf.Custom.AMSOsram.Actions.csproj", "{5CFF1C0D-E852-4F73-8EF0-71BA35B0E8F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{4F4342A5-3D64-4D54-B83B-368F768E2A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F4342A5-3D64-4D54-B83B-368F768E2A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F4342A5-3D64-4D54-B83B-368F768E2A95}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E410B7F-1025-4A58-B9D9-A55834D13226}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E410B7F-1025-4A58-B9D9-A55834D13226}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E410B7F-1025-4A58-B9D9-A55834D13226}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E410B7F-1025-4A58-B9D9-A55834D13226}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CFF1C0D-E852-4F73-8EF0-71BA35B0E8F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CFF1C0D-E852-4F73-8EF0-71BA35B0E8F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CFF1C0D-E852-4F73-8EF0-71BA35B0E8F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CFF1C0D-E852-4F73-8EF0-71BA35B0E8F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,7 +14,6 @@
 		<OutputPath>..\Release</OutputPath>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="cmf.common.customactionutilities" Version="8.3.3" GeneratePathProperty="true" />
 		<PackageReference Include="Cmf.Foundation.BusinessObjects" Version="8.3.3"/>
 		<PackageReference Include="Cmf.Navigo.BusinessObjects" Version="8.3.3"/>
 	</ItemGroup>

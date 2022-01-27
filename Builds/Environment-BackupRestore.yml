@@ -31,9 +31,9 @@ parameters:
 - name: EnvironmentConfigName
   displayName: EnvironmentConfig file name
   type: string
-  default: AMSOsramDevelopment_Development_parameters.json
+  default: AMSOsram_8.3.json
   values:
-  - AMSOsramDevelopment_Development_parameters.json
+  - AMSOsram_8.3.json
 - name: BackupRestoreIdentifier
   type: string
   default: 'ORIGINAL'
