@@ -797,8 +797,8 @@
             "TokenFormat" : "00",
             "TokenOrder" : 2,
             "CalculationMethod" : "FiscalDateTime",
-            "CalendarPath" : "General",
-            "TokenValue" : "FiscalYear"
+            "CalendarPath" : "General.FiscalYear",
+            "TokenValue" : "General.FiscalYear"
         },
         "3" : {
             "Name" : "CustomProductionLotNameGenerator",
