@@ -172,7 +172,7 @@
 	"Package.ReportingServices.Username": "CMF\\CMFSU",
 	"Package.ReportingServices.Password": "D8D79D7E22472B8C22972205076862CE",
 	"Product.Security.Domain": "CMF",
-	"Product.Security.LdapServer": "CMF.COM",
+	"Product.Security.LdapServer": "CMF.CRITICALMANUFACTURING.COM",
 	"Product.ApplicationServer.ServiceUser.UserName": "CMF\\CMFSU",
 	"Product.ApplicationServer.ServiceUser.Password": "D8D79D7E22472B8C22972205076862CE",
 	"Product.Presentation.IisConfiguration.Binding.IsSslEnabled": true,
