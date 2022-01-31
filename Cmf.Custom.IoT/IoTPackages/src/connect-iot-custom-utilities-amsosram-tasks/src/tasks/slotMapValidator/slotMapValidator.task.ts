@@ -25,7 +25,7 @@ import { calculateSlotMapMismatch } from "../../utilities/slotMapValidationUtili
  */
 @Task.Task({
     name: i18n.TITLE,
-    iconClass: "icon-core-connect-iot-lg-checksum",
+    iconClass: "icon-core-tasks-connect-iot-lg-checksum",
     inputs: {
         materialData: Task.TaskValueType.Object,
         equipmentSlotMap: Task.TaskValueType.Object,
@@ -85,39 +85,39 @@ export class SlotMapValidatorTask implements Task.TaskInstance, SlotMapValidator
             this.activate = undefined;
             try {
 
-                if ( this.materialData == null || this.materialData[0] == null) {
+                if (this.materialData == null || this.materialData[0] == null) {
                     throw new Error("No MaterialData received");
                 }
 
-                 // either null, no content or one character (default retrieve from an empty slot map will be considered empty)
-                 if (this.equipmentSlotMap == null || this.equipmentSlotMap.length < 2) {
+                // either null, no content or one character (default retrieve from an empty slot map will be considered empty)
+                if (this.equipmentSlotMap == null || this.equipmentSlotMap.length < 2) {
                     throw new Error("Slot Map was not read by the equipment for current container");
                 }
 
-                    if (this.separator == null) {
-                        this.separator = "";
+                if (this.separator == null) {
+                    this.separator = "";
+                }
+
+                if (this.terminator == null) {
+                    this.terminator = "";
+                }
+
+
+                const slotMapArray = this.SlotMapToArray(this.equipmentSlotMap);
+
+                if (slotMapArray === null) {
+                    throw new Error("Unsupported type");
+                }
+
+                const materialDataSubMaterials = this.materialData[0].SubMaterials.map(x => x.Slot);
+
+                // if fixed size calculate slot map incoming from equipment has defined size
+                if (this.fixedSize) {
+                    if (this.size !== slotMapArray.length) {
+                        throw new Error("Slot Map is not the correct size");
                     }
 
-                    if (this.terminator == null) {
-                        this.terminator = "";
-                    }
-
-
-                    const slotMapArray = this.SlotMapToArray(this.equipmentSlotMap);
-
-                    if (slotMapArray === null) {
-                        throw new Error("Unsupported type");
-                    }
-
-                    const materialDataSubMaterials = this.materialData[0].SubMaterials.map(x => x.Slot);
-
-                    // if fixed size calculate slot map incoming from equipment has defined size
-                    if (this.fixedSize) {
-                        if (this.size !== slotMapArray.length) {
-                            throw new Error("Slot Map is not the correct size");
-                        }
-
-                    } else {
+                } else {
                     const biggestMaterialDataPosition = materialDataSubMaterials.reduce(function (a, b) {
                         return Math.max(a, b);
                     });
@@ -125,32 +125,32 @@ export class SlotMapValidatorTask implements Task.TaskInstance, SlotMapValidator
                     if (biggestMaterialDataPosition => slotMapArray.length) {
                         throw new Error("Lengths do not match");
                     }
-                   }
+                }
 
-                    for (let i = 0; i < slotMapArray.length; i++) {
+                for (let i = 0; i < slotMapArray.length; i++) {
 
-                        const slotValue = slotMapArray[i];
+                    const slotValue = slotMapArray[i];
 
-                        const physicalPosition = i + 1;
-                        const found = materialDataSubMaterials.some(element => element.toString() === physicalPosition.toString());
+                    const physicalPosition = i + 1;
+                    const found = materialDataSubMaterials.some(element => element.toString() === physicalPosition.toString());
 
-                        // calculate if slot does not match
-                        if ((found && slotValue.toString() === this.emptySlot) || (!found && slotValue.toString() === this.occupiedSlot)) {
-                            // slot mismatch found
-                            const containerName = this.materialData[0].ContainerName;
-                            const slotMapLog = calculateSlotMapMismatch(
-                                containerName,
-                                slotMapArray,
-                                this.materialData[0].SubMaterials,
-                                this.occupiedSlot,
-                                this.emptySlot
-                            );
-                            throw new Error(slotMapLog);
-                        }
-
+                    // calculate if slot does not match
+                    if ((found && slotValue.toString() === this.emptySlot) || (!found && slotValue.toString() === this.occupiedSlot)) {
+                        // slot mismatch found
+                        const containerName = this.materialData[0].ContainerName;
+                        const slotMapLog = calculateSlotMapMismatch(
+                            containerName,
+                            slotMapArray,
+                            this.materialData[0].SubMaterials,
+                            this.occupiedSlot,
+                            this.emptySlot
+                        );
+                        throw new Error(slotMapLog);
                     }
 
-                    this.Success.emit(true);
+                }
+
+                this.Success.emit(true);
 
             } catch (error) {
                 this._logger.error(`Error occurred: ${error.message}`);
@@ -165,7 +165,7 @@ export class SlotMapValidatorTask implements Task.TaskInstance, SlotMapValidator
 
         } else if (Array.isArray(equipmentSlotMap)) {
             if (this.terminator !== "") {
-               return equipmentSlotMap.slice(0, equipmentSlotMap.indexOf(this.terminator) - 1);
+                return equipmentSlotMap.slice(0, equipmentSlotMap.indexOf(this.terminator) - 1);
             }
             return equipmentSlotMap;
         }
