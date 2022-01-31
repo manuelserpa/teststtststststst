@@ -1,0 +1,51 @@
+<cmf-core-connect-iot-taskSettings>
+
+    <!-- General Tab: Settings -->
+ <cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS" >
+     
+    <cmf-core-business-controls-propertyEditor
+    [label]="i18n.MATERIAL_STATE"
+    nestedEditorType="Custom"   
+>
+    <cmf-core-controls-enumComboBox
+        [enum]="MaterialStateEnum"
+        [(value)]="settings.materialState"
+    ></cmf-core-controls-enumComboBox>
+
+</cmf-core-business-controls-propertyEditor>  
+
+    <cmf-core-business-controls-propertyEditor
+    [label]="i18n.SUB_MATERIAL_STATE"
+    nestedEditorType="Custom"   
+>
+    <cmf-core-controls-enumComboBox
+        [enum]="SubMaterialStateEnum"
+        [(value)]="settings.subMaterialState"
+    ></cmf-core-controls-enumComboBox>
+
+</cmf-core-business-controls-propertyEditor>  
+
+<cmf-core-business-controls-propertyEditor
+[label]="i18n.SLOT_ORDER_PICKING_DIRECTION"
+nestedEditorType="Custom"   
+>
+<cmf-core-controls-enumComboBox
+    [enum]="SlotOrderPickingDirectionEnum"
+    [(value)]="settings.slotOrderPickingDirection"
+></cmf-core-controls-enumComboBox>
+
+</cmf-core-business-controls-propertyEditor>  
+    
+</cmf-core-controls-baseWidget>
+
+      <!-- Outputs tab -->
+      <cmf-core-connect-iot-taskSettingsTab [mainTitle]="i18n.OUTPUTS" [fullHeight]="true" tab-id="Outputs">
+        <connect-iot-controller-engine-core-tasks-retrieveSubMaterialProperty-settings-output
+            [data]="settings.outputs"
+            #outputs
+        >
+        </connect-iot-controller-engine-core-tasks-retrieveSubMaterialProperty-settings-output>
+    </cmf-core-connect-iot-taskSettingsTab>
+    
+    
+</cmf-core-connect-iot-taskSettings>

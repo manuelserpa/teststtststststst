@@ -1,0 +1,29 @@
+<cmf-core-connect-iot-taskSettings>
+<!-- General Tab: Settings -->
+<cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS" >     
+    <cmf-core-business-controls-propertyEditor
+    [label]="i18n.STORAGE_NAME"
+    [(value)]="settings.storageName"
+    [required]="true"
+    valueType="String"
+    [infoMessage]="i18n.STORAGE_NAME_HELP"
+></cmf-core-business-controls-propertyEditor>
+<cmf-core-business-controls-propertyEditor
+    [label]="i18n.PADDING_CHARACTER"
+    [(value)]="settings.paddingCharacter"
+    valueType="String"
+    [infoMessage]="i18n.PADDING_CHARACTER_HELP"
+></cmf-core-business-controls-propertyEditor> 
+<cmf-core-business-controls-propertyEditor
+    [label]="i18n.PADDING_SIZE"
+    [(value)]="settings.paddingSize"
+    valueType="Integer"
+    [infoMessage]="i18n.PADDING_SIZE_HELP"
+    step="1"
+    min="0"
+></cmf-core-business-controls-propertyEditor>
+<cmf-core-business-controls-propertyEditor [label]="i18n.IS_BOTTOM_UP" [(value)]="settings.isBottomUp"
+[required]="true" valueType="Boolean" >
+   </cmf-core-business-controls-propertyEditor>   
+</cmf-core-controls-baseWidget>      
+</cmf-core-connect-iot-taskSettings>

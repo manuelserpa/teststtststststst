@@ -1,0 +1,75 @@
+<cmf-core-connect-iot-taskSettings>
+
+    <cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS">
+
+        <!-- Stream Function Name -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.STREAM_FUNCTION_NAME"
+            [(value)]="settings.streamFunctionName"
+            [required]="true"
+            valueType="String"
+            [infoMessage]="i18n.STREAM_FUNCTION_NAME_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+    </cmf-core-controls-baseWidget>
+
+    <cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS_PRIMARY">
+
+        <!-- Primary Request Message -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.PRIMARY_REQUEST_MESSAGE"
+            [value]="_primaryMessage"
+            (valueChange)="_onSettingsValueChange($event, 'PrimaryMessageValueChange')"
+            [required]="false"
+            valueType="Object"
+            [infoMessage]="i18n.PRIMARY_REQUEST_MESSAGE_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+
+        <!-- Recipe Name Path Location -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.RECIPE_NAME_PRIMARY_PATH"
+            [(value)]="settings.recipeNamePrimaryPath"
+            [required]="false"
+            valueType="String"
+            [infoMessage]="i18n.RECIPE_NAME_PRIMARY_PATH_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+
+    </cmf-core-controls-baseWidget>
+
+    <cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS_SECONDARY">
+
+        <!-- Secondary RecipeName Location Path  -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.RECIPE_NAME_SECONDARY_PATH"
+            [(value)]="settings.recipeNameSecondaryPath"
+            [required]="true"
+            valueType="String"
+            [infoMessage]="i18n.RECIPE_NAME_SECONDARY_PATH_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+        
+        <!-- Recipe Body Location Path  -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.RECIPE_BODY_PATH"
+            [(value)]="settings.recipeBodyPath"
+            [required]="true"
+            valueType="String"
+            [infoMessage]="i18n.RECIPE_BODY_PATH_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+
+        <!-- Body Type -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.RECIPE_BODY_TYPE"
+            nestedEditorType="BasicEnumComboBox"
+            [infoMessage]="i18n.RECIPE_BODY_TYPE_HELP"
+            [enum]="RecipeBodyType"
+            [value]="settings.recipeBodyType"
+            (valueChange)="_onSettingsValueChange($event,'recipeBodyType')">
+        </cmf-core-business-controls-propertyEditor>    
+    
+    </cmf-core-controls-baseWidget>
+
+    <cmf-core-connect-iot-taskSettingsTab [mainTitle]="i18nHelp.HELP_HEADER" [fullHeight]="true">
+        <cmf-core-controls-result-message class="link-permissions-alert" [content]= "help">
+        </cmf-core-controls-result-message>
+    </cmf-core-connect-iot-taskSettingsTab>
+
+</cmf-core-connect-iot-taskSettings>

@@ -1,0 +1,18 @@
+
+
+<cmf-core-connect-iot-taskSettings [showInputsTab]="true" [showOutputsTab]="true">
+
+
+    <cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS">
+        <cmf-core-business-controls-propertyEditor
+        [label]="i18n.STATE_TO_SET"
+        nestedEditorType="Custom"   
+    >
+        <cmf-core-controls-enumComboBox
+            [enum]="EquipmentStateEnum"
+            [(value)]="settings.stateToSet"
+        ></cmf-core-controls-enumComboBox>
+    </cmf-core-business-controls-propertyEditor>
+    </cmf-core-controls-baseWidget>
+    
+</cmf-core-connect-iot-taskSettings>

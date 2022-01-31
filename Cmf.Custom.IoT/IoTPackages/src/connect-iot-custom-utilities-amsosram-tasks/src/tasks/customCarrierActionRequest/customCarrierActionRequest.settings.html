@@ -1,0 +1,12 @@
+<cmf-core-connect-iot-taskSettings>
+    <!-- Outputs tab -->
+
+    <!-- General Tab: Settings -->
+    <cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS">
+        <cmf-core-business-controls-propertyEditor [label]="i18n.CARRIER_ACTION" nestedEditorType="Custom">
+            <cmf-core-controls-enumComboBox [enum]="CarrierActionRequest" [(value)]="settings.CarrierActionRequest"
+                (valueChange)="_onSettingsValueChange($event, 'commandName')"></cmf-core-controls-enumComboBox>
+        </cmf-core-business-controls-propertyEditor>
+    </cmf-core-controls-baseWidget>
+
+</cmf-core-connect-iot-taskSettings>

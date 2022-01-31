@@ -1,0 +1,34 @@
+<cmf-core-connect-iot-taskSettings>
+<!-- General Tab: Settings -->
+<cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS" >     
+<cmf-core-business-controls-propertyEditor
+    [label]="i18n.MATERIAL_STATE"
+    nestedEditorType="Custom"   
+>
+    <cmf-core-controls-enumComboBox
+        [enum]="MaterialStateEnum"
+        [(value)]="settings.materialState"
+    ></cmf-core-controls-enumComboBox>
+</cmf-core-business-controls-propertyEditor>  
+
+<cmf-core-business-controls-propertyEditor
+    [label]="i18n.MATERIAL_STATE_TO_SET"
+    nestedEditorType="Custom"   
+>
+<cmf-core-controls-enumComboBox
+    [enum]="MaterialStateEnum"
+    [(value)]="settings.materialStateToSet"
+></cmf-core-controls-enumComboBox>   
+</cmf-core-business-controls-propertyEditor>   
+
+<cmf-core-business-controls-propertyEditor
+    [label]="i18n.LOT_PROCESS_DEFINITION"
+    nestedEditorType="Custom"   
+>
+<cmf-core-controls-enumComboBox
+    [enum]="LotProcessDefinitionEnum"
+    [(value)]="settings.lotProcessDefinition"
+></cmf-core-controls-enumComboBox>   
+</cmf-core-business-controls-propertyEditor>   
+</cmf-core-controls-baseWidget>      
+</cmf-core-connect-iot-taskSettings>

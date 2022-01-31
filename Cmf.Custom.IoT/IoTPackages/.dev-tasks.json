@@ -3,7 +3,8 @@
   "dependencies": [
   ],
   "packages": [
+    "connect-iot-custom-utilities-amsosram-tasks"
   ],
-  "registry": "http://cmf-nuget:4873/",
+  "registry": "http://cmf-nuget:4873",
   "channel": "*"
 }
