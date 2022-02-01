@@ -780,49 +780,24 @@
             "Name" : "CustomProductionLotNameGenerator",
             "Description" : "Name Generator for Production Lots",
             "Sample" : "",
-            "TokenName" : "Constant",
-            "TokenDescription" : "Site Description",
+            "TokenName" : "Dee",
+            "TokenDescription" : "Calculates the value",
             "TokenFormat" : "",
             "TokenOrder" : 1,
-            "CalculationMethod" : "Constant",
+            "CalculationMethod" : "Dee",
             "CalendarPath" : "",
-            "TokenValue" : "T"
-        },
-        "2" : {
-            "Name" : "CustomProductionLotNameGenerator",
-            "Description" : "Name Generator for Production Lots",
-            "Sample" : "",
-            "TokenName" : "FiscalYear",
-            "TokenDescription" : "Fiscal Year",
-            "TokenFormat" : "00",
-            "TokenOrder" : 2,
-            "CalculationMethod" : "FiscalDateTime",
-            "CalendarPath" : "General.FiscalYear",
-            "TokenValue" : "General.FiscalYear"
-        },
-        "3" : {
-            "Name" : "CustomProductionLotNameGenerator",
-            "Description" : "Name Generator for Production Lots",
-            "Sample" : "",
-            "TokenName" : "FiscalWeek",
-            "TokenDescription" : "Fiscal Week",
-            "TokenFormat" : "00",
-            "TokenOrder" : 3,
-            "CalculationMethod" : "FiscalDateTime",
-            "CalendarPath" : "General",
-            "TokenValue" : "FiscalWeek"
-        },
-        "4" : {
-            "Name" : "CustomProductionLotNameGenerator",
-            "Description" : "Name Generator for Production Lots",
-            "Sample" : "",
-            "TokenName" : "Running number",
-            "TokenDescription" : "Running number",
-            "TokenFormat" : "000",
-            "TokenOrder" : 4,
-            "CalculationMethod" : "RolloverCounter",
-            "CalendarPath" : "",
-            "TokenValue" : ""
+            "TokenValue" : "CustomGenerateProductionLotNames"
         }
+    },
+    "<SM>DEEAction" : {
+      "1" : {
+        "Action" : "CustomGenerateProductionLotNames",
+        "Description"	: "Generate Production Lot Names - Called by name generator",
+        "CodeFileRelativePath" : "NameGenerators\\CustomGenerateProductionLotNames.cs",
+        "IsEnabled"	: "True",
+        "Classification" : ""
+      }
+    },
+    "DEEActionOrder" : {
     }
   }
