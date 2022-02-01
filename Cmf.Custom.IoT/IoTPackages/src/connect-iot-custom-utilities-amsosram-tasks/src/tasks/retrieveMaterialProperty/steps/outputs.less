@@ -1,0 +1,42 @@
+cmf-core-controls-columnView {
+    height: 100%;
+}
+
+cmf-core-controls-codeEditor {
+    height: 100px;
+    min-height: 200px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.03);
+    bmaterial: 1px solid rgba(0, 0, 0, 0.5);
+    text-shadow: none;
+    color: #000000;
+    box-shadow: none;
+}
+
+.container {
+    width: 100%;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    .container-inner {
+        display: block;
+        position: absolute;
+        width: 100%;
+        overflow: visible;
+    }
+}
+
+
+span {
+    margin-left: 5px;
+}
+
+.content-wrapper {
+    display: flex;
+    cmf-core-controls-baseWidget {
+        flex:1 ;
+    }
+}
+.editor-wrapper {
+    margin-right: 20px;
+}

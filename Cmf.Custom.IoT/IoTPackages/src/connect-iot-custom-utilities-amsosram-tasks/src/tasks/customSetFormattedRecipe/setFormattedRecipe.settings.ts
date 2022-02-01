@@ -1,0 +1,186 @@
+/** Core */
+import { Module, Component } from "cmf.core/src/core";
+import { TaskSettingsBase, TaskSettingsModule, TaskSettingsService, WorkflowModel } from "cmf.core.connect.iot/src/components/taskSettings/taskSettings";
+import * as SetFormattedRecipeTask from "./setFormattedRecipe.task";
+
+/** Angular */
+import * as ng from "@angular/core";
+
+/** Nested components */
+import { BaseWidgetModule } from "cmf.core.controls/src/components/baseWidget/baseWidget";
+import { PropertyEditorModule } from "cmf.core.business.controls/src/components/propertyEditor/propertyEditor";
+import { PropertyContainerModule } from "cmf.core.business.controls/src/components/propertyContainer/propertyContainer";
+import { PopOverInfoModule } from "cmf.core.controls/src/components/popOverInfo/popOverInfo";
+import { ResultMessageBag, ResultMessageType } from "cmf.core.controls/src/components/resultMessage/resultMessageBag";
+import { ResultMessageModule } from "cmf.core.controls/src/components/resultMessage/resultMessage";
+
+/** i18n */
+import i18n from "./i18n/setFormattedRecipe.settings.default";
+import i18nHelp from "../../common/i18n/common.default";
+
+/** Constants */
+export interface SetFormattedRecipeTaskSettings extends SetFormattedRecipeTask.SetFormattedRecipeSettings, WorkflowModel.TaskDefinitionSettings { }
+
+export const HELP_INFO: ResultMessageBag = {
+    message: i18nHelp.HELP_DETAILS,
+    type: ResultMessageType.Info
+}
+/**
+ *
+ */
+
+@Component({
+    moduleId: module.id,
+    selector: "connect-iot-controller-engine-core-tasks-setRecipeBody-settings",
+    templateUrl: "setFormattedRecipe.settings.html",
+    assign: {
+        i18n: i18n,
+        i18nHelp: i18nHelp,
+        help: HELP_INFO
+    }
+})
+export class SetFormattedRecipeSettings extends TaskSettingsBase implements ng.OnInit {
+
+    //#region Public properties
+
+    /**
+     * Task settings
+     */
+    public settings: SetFormattedRecipeTaskSettings;
+
+    //#endregion
+
+    /**
+     * Helper to access main task (for defaults loading)
+     */
+    private _taskInstance: SetFormattedRecipeTask.SetFormattedRecipeTask;
+
+
+    /**
+     * PrimaryMessage as an object for property editor with valueType=Object
+     */
+    private _primaryMessage: any = undefined
+
+    /** inquiryMessage as an object for property editor with valueType=Object */
+    private _inquiryMessage: any = undefined
+
+    /**
+     * Constructor
+     */
+    constructor(private _elementRef: ng.ElementRef, viewContainerRef: ng.ViewContainerRef, service: TaskSettingsService) {
+        super(viewContainerRef, service);
+    }
+
+    /** Triggered when the task is created and define the default values */
+    public ngOnInit(): void {
+
+        if (this.task != null) {
+            this._taskInstance = (<any>this.task)._taskInstance;
+        }
+
+        // Initialize default values for settings page
+        if (this.settings) {
+
+            if (this._primaryMessage == null) {
+                if (this.isJson(this.settings.primaryRequestMessage)) {
+                    this._primaryMessage = JSON.parse(this.settings.primaryRequestMessage);
+                } else {
+                    this._primaryMessage = JSON.parse(this._taskInstance.primaryRequestMessage);
+                };
+            }
+
+            if (this._inquiryMessage == null) {
+                if (this.isJson(this.settings.primaryInquiryRequestMessage)) {
+                    this._inquiryMessage = JSON.parse(this.settings.primaryInquiryRequestMessage);
+                } else {
+                    this._inquiryMessage = JSON.parse(this._taskInstance.primaryInquiryRequestMessage);
+                };
+            }
+            this.settings.primaryInquiryRequestMessage = JSON.stringify(this._inquiryMessage);
+
+            this.settings.recipeNameInquiryPrimaryPath = this.settings.recipeNameInquiryPrimaryPath != null ?
+                this.settings.recipeNameInquiryPrimaryPath : this._taskInstance.recipeNameInquiryPrimaryPath;
+            this.settings.recipeBodyLengthInquiryPrimaryPath = this.settings.recipeBodyLengthInquiryPrimaryPath != null ?
+                this.settings.recipeBodyLengthInquiryPrimaryPath : this._taskInstance.recipeBodyLengthInquiryPrimaryPath;
+
+
+            this.settings.primaryRequestMessage = JSON.stringify(this._primaryMessage);
+
+            this.settings.streamFunctionName = this.settings.streamFunctionName != null ?
+                this.settings.streamFunctionName : this._taskInstance.streamFunctionName;
+
+            this.settings.useS7F1Message = this.settings.useS7F1Message != null ?
+                this.settings.useS7F1Message : this._taskInstance.useS7F1Message;
+            this.settings.successCodesS7F1 = this.settings.successCodesS7F1 != null ?
+                this.settings.successCodesS7F1 : this._taskInstance.successCodesS7F1;
+
+            this.settings.recipeNamePrimaryPath = this.settings.recipeNamePrimaryPath != null ?
+                this.settings.recipeNamePrimaryPath : this._taskInstance.recipeNamePrimaryPath;
+
+            this.settings.modelNamePrimaryPath = this.settings.modelNamePrimaryPath != null ?
+                this.settings.modelNamePrimaryPath : this._taskInstance.modelNamePrimaryPath;
+
+            this.settings.softwareRevisionPrimaryPath = this.settings.softwareRevisionPrimaryPath != null ?
+                this.settings.softwareRevisionPrimaryPath : this._taskInstance.softwareRevisionPrimaryPath;
+
+            this.settings.recipeParameterListPrimaryPath = this.settings.recipeParameterListPrimaryPath != null ?
+                this.settings.recipeParameterListPrimaryPath : this._taskInstance.recipeParameterListPrimaryPath;
+
+            this.settings.isBase64Encoded = this.settings.isBase64Encoded != null ?
+                this.settings.isBase64Encoded : this._taskInstance.isBase64Encoded;
+
+            this.settings.replyPath = this.settings.replyPath != null ?
+                this.settings.replyPath : this._taskInstance.replyPath;
+            this.settings.successCodes = this.settings.successCodes != null ?
+                this.settings.successCodes : this._taskInstance.successCodes;
+        }
+
+    }
+
+    /**
+     * Checks if string is a parsable JSON
+     * @param message string to test
+     */
+    private isJson(message: string): boolean {
+        try {
+            JSON.parse(message);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Handles a change in the settings.
+     * Update the settings property with given value and path
+     * @param value New value
+     * @param destPath Destination property
+     */
+    public _onSettingsValueChange(value: any, destPath: string): void {
+        if (destPath === "PrimaryMessageValueChange") {
+            if (value != null) {
+                this._primaryMessage = value;
+                this.settings.primaryRequestMessage = JSON.stringify(this._primaryMessage)
+            }
+        } else {
+            // Set the settings with new value
+            this.framework.sandbox.util.setNestedPropertyByPath(this.settings, destPath, value, true);
+        }
+    }
+
+}
+
+/** Module */
+@Module({
+    imports: [
+        TaskSettingsModule,
+        PropertyEditorModule,
+        BaseWidgetModule,
+        PropertyContainerModule,
+        PopOverInfoModule,
+        ResultMessageModule
+    ],
+    declarations: [SetFormattedRecipeSettings],
+    defaultRoute: SetFormattedRecipeSettings
+})
+export class SetFormattedRecipeSettingsModule { }

@@ -1,0 +1,2 @@
+import { CustomMaterialTransferStatusRequestSettingsModule } from "./customMaterialTransferStatusRequest.settings";
+export default CustomMaterialTransferStatusRequestSettingsModule;
