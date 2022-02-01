@@ -50,11 +50,10 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             //Please start code here
             UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
 
-            System.Text.StringBuilder message = new System.Text.StringBuilder();
             System.Text.StringBuilder newName = new System.Text.StringBuilder();
 
             NameGenerator ng = new NameGenerator();
-            ng.Load("asda");
+            ng.Load("CustomProductionLotNameGenerator"); // Need to match the Name Generator name
             GeneratorContext existingContext = null;
 
             // Site
@@ -62,7 +61,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
 
             // Fiscal Information
             Calendar c = new Calendar();
-            c.Load("General");
+            c.Load("General");                          // Need to match the Calendar name
             var y = c.GetFiscalInformation(DateTime.Now);
             newName.Append(y.FiscalYear.ToString().Substring(2));
             newName.AppendFormat("{0:00}", y.FiscalWeek);
@@ -70,7 +69,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             // Running Number
             string contextToSearch = newName.ToString();
 
-            string oldRunningNumberInt = "484848";
+            string oldRunningNumberInt = "484848";  // Counter Value for '000'
             // Get Previous Counter Value
             {
                 ng.LoadGeneratorContexts(out int totalRows);
@@ -81,7 +80,6 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                 {
                     oldRunningNumberInt = string.Format("{0:000000}", existingContext.LastCounterValue);
                 }
-                message.AppendLine("oldRunningNumberInt - " + oldRunningNumberInt);
             }
 
             // Convert Previous Counter Value to digits
@@ -90,7 +88,8 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             char thirdDigit = (char)int.Parse(oldRunningNumberInt.Substring(oldRunningNumberInt.Length-2));
             string oldRunningNumber = string.Format("{0}{1}{2}",firstDigit , secondDigit , thirdDigit);
 
-            string charList = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            // Alphanumeric need to exclude the following letters B,D,E,G,I,J,K,O,P,Q,S,V,W,Y,Z
+            string charList = "0123456789ACFHLMNRTUX";
 
             // Calculate new counter Value
             bool addValue = true;
