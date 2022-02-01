@@ -1,0 +1,37 @@
+<cmf-core-controls-columnView [model]="_model" [mainTitle]="i18n.OUTPUTS" [leafTitle]="i18n.OUTPUT" [showActionAdd]="true" [showActionRemove]="true"
+    [max-columns]="1" (add)="onColumnViewAdd($event)" (remove)="onColumnViewRemove($event)" (selected)="onColumnViewSelect($event)"
+    cmf-core-controls-validator>
+
+    <leaf-content>
+        <div class="container">
+            <cmf-core-business-controls-propertyContainer class="container-inner" *ngIf="_selected && _selected.rootNode">
+
+               <!-- name -->
+               <cmf-core-business-controls-propertyEditor
+                    [label]="i18n.NAME" 
+                    [value]="_selected.rootNode.tag.name" 
+                    [required]="true"
+                    valueType="String"
+                    (valueChange)="onLeafChanged($event, 'name')"
+                ></cmf-core-business-controls-propertyEditor>
+                <!-- propertyPath -->
+                <cmf-core-business-controls-propertyEditor
+                    [label]="i18n.PROPERTY_PATH" 
+                    [value]="_selected.rootNode.tag.path" 
+                    [required]="true"
+                    valueType="String"
+                    (valueChange)="onLeafChanged($event, 'path')"
+                ></cmf-core-business-controls-propertyEditor>
+                <!-- value type -->
+                <cmf-core-connect-iot-typeSelector
+                    [required]="true"
+                    [showFriendlyNameInput]="false" 
+                    [value]="_selected.rootNode.tag.valueType"
+                    (valueChange)="onLeafChanged($event, 'valueType')"
+                ></cmf-core-connect-iot-typeSelector>
+
+            </cmf-core-business-controls-propertyContainer>
+        </div>
+    </leaf-content>
+
+</cmf-core-controls-columnView>

@@ -1,0 +1,12 @@
+<cmf-core-connect-iot-taskSettings>
+    <!-- Outputs tab -->
+
+    <!-- General Tab: Settings -->
+    <cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS">
+        <cmf-core-business-controls-propertyEditor [label]="i18n.CONTROL_JOB_COMMAND" nestedEditorType="Custom">
+            <cmf-core-controls-enumComboBox [enum]="ControlJobCommand" [(value)]="settings.ControlJobCommand"
+                (valueChange)="_onSettingsValueChange($event, 'commandName')"></cmf-core-controls-enumComboBox>
+        </cmf-core-business-controls-propertyEditor>
+    </cmf-core-controls-baseWidget>
+
+</cmf-core-connect-iot-taskSettings>

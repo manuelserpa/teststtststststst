@@ -1,0 +1,47 @@
+<cmf-core-connect-iot-taskSettings>
+<!-- General Tab: Settings -->
+<cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS" >     
+    <cmf-core-business-controls-propertyEditor
+    [label]="i18n.OCCUPIED_SLOT"
+    [(value)]="settings.occupiedSlot"
+    [required]="true"
+    valueType="String"
+    [infoMessage]="i18n.OCCUPIED_SLOT_HELP"
+></cmf-core-business-controls-propertyEditor>
+<cmf-core-business-controls-propertyEditor
+    [label]="i18n.EMPTY_SLOT"
+    [(value)]="settings.emptySlot"
+    valueType="String"
+    [infoMessage]="i18n.EMPTY_SLOT_HELP"
+></cmf-core-business-controls-propertyEditor> 
+</cmf-core-controls-baseWidget>
+<cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS_PARSING" >           
+<cmf-core-business-controls-propertyEditor
+    [label]="i18n.SEPARATOR"
+    [(value)]="settings.separator"
+    valueType="String"
+    [infoMessage]="i18n.SEPARATOR_HELP"
+    step="1"
+    min="0"
+></cmf-core-business-controls-propertyEditor> 
+<cmf-core-business-controls-propertyEditor
+    [label]="i18n.TERMINATOR"
+    [(value)]="settings.terminator"
+    valueType="String"
+    step="1"
+    min="0"
+></cmf-core-business-controls-propertyEditor> 
+</cmf-core-controls-baseWidget>
+<cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS_SIZE" > 
+<cmf-core-business-controls-propertyEditor
+    [label]="i18n.FIXED_SIZE"
+    [(value)]="settings.fixedSize"
+    valueType="Boolean"
+></cmf-core-business-controls-propertyEditor> 
+<cmf-core-business-controls-propertyEditor
+    [label]="i18n.SIZE"
+    [(value)]="settings.size"
+    valueType="Integer"
+></cmf-core-business-controls-propertyEditor> 
+</cmf-core-controls-baseWidget>
+</cmf-core-connect-iot-taskSettings>

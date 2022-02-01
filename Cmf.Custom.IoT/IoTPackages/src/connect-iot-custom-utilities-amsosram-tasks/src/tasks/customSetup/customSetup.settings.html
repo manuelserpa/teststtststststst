@@ -1,0 +1,258 @@
+<cmf-core-connect-iot-taskSettings>
+<!-- Outputs tab -->
+
+    <!-- General Tab: Settings -->
+    <cmf-core-controls-baseWidget
+      [mainTitle]="i18n.ESTABLISH_COMMUNICATION"
+    >
+        <!-- Establish Communication Message -->
+        <cmf-core-business-controls-propertyEditor
+          [label]="i18n.ESTABLISH_COMMUNICATION_MESSAGE"
+          [value]="establishCommunicationMessageObj"
+          (valueChange)="_onSettingsValueChange($event, 'EstablishCommunicationMessageValueChange')"
+          [required]="false"
+          valueType="Object"
+          [infoMessage]="i18n.ESTABLISH_COMMUNICATION_MESSAGE_HELP"
+        >
+        </cmf-core-business-controls-propertyEditor>
+
+        <!-- Establish Communication Success Codes -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.ESTABLISH_COMMUNICATION_SUCCESS_CODES"
+            [(value)]="settings.establishCommunicationSuccessCodes"
+            [required]="false"
+            valueType="String"
+            [infoMessage]="i18n.ESTABLISH_COMMUNICATION_SUCCESS_CODES_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+
+        <!-- Establish Communication Additional Actions -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.ESTABLISH_COMMUNICATION_ADDITIONAL_ACTIONS"
+            [(value)]="settings.establishCommunicationAdditionalActions"
+            [required]="false"
+            valueType="Boolean"
+            (valueChange)="_onSettingsValueChange($event, 'EstablishCommunicationAdditionalActions')"
+            [infoMessage]="i18n.ESTABLISH_COMMUNICATION_ADDITIONAL_ACTIONS_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+
+        <!-- Establish Communication Additional Actions Timeout -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.ESTABLISH_COMMUNICATION_ADDITIONAL_ACTIONS_TIMEOUT"
+            [(value)]="settings.establishCommunicationAdditionalActionsTimeout"
+            valueType="Integer"
+            [infoMessage]="i18n.ESTABLISH_COMMUNICATION_ADDITIONAL_ACTIONS_TIMEOUT_HELP"
+            *ngIf="settings.establishCommunicationAdditionalActions"
+            step="1"
+            min="0"
+        ></cmf-core-business-controls-propertyEditor>
+    </cmf-core-controls-baseWidget>
+    <cmf-core-controls-baseWidget
+    [mainTitle]="i18n.SET_ONLINE"
+  >
+        <!-- Set Online Communication Message -->
+        <cmf-core-business-controls-propertyEditor
+          [label]="i18n.SET_ONLINE_COMMUNICATION_MESSAGE"
+          [value]="setOnlineCommunicationMessageObj"
+          (valueChange)="_onSettingsValueChange($event, 'SetOnlineCommunicationMessageValueChange')"
+          [required]="false"
+          valueType="Object"
+          [infoMessage]="i18n.SET_ONLINE_COMMUNICATION_MESSAGE_HELP"
+        >
+        </cmf-core-business-controls-propertyEditor>
+
+        <!-- Set Online Success Codes -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.SET_ONLINE_SUCCESS_CODES"
+            [(value)]="settings.setOnlineSuccessCodes"
+            [required]="false"
+            valueType="String"
+            [infoMessage]="i18n.SET_ONLINE_SUCCESS_CODES_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+
+        <!-- Set Online Additional Actions -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.SET_ONLINE_ADDITIONAL_ACTIONS"
+            [(value)]="settings.setOnlineAdditionalActions"
+            [required]="false"
+            valueType="Boolean"
+            (valueChange)="_onSettingsValueChange($event, 'SetOnlineAdditionalActions')"
+            [infoMessage]="i18n.SET_ONLINE_ADDITIONAL_ACTIONS_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+
+        <!-- Set Online Additional Actions Timeout -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.SET_ONLINE_ADDITIONAL_ACTIONS_TIMEOUT"
+            [(value)]="settings.setOnlineAdditionalActionsTimeout"
+            valueType="Integer"
+            [infoMessage]="i18n.SET_ONLINE_ADDITIONAL_ACTIONS_TIMEOUT_HELP"
+            *ngIf="settings.setOnlineAdditionalActions"
+            step="1"
+            min="0"
+        ></cmf-core-business-controls-propertyEditor>
+    </cmf-core-controls-baseWidget>
+    <cmf-core-controls-baseWidget
+    [mainTitle]="i18n.DELETE_REPORTS"
+  >
+        <!-- Delete Reports Additional Actions -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.DELETE_REPORTS_ADDITIONAL_ACTIONS"
+            [(value)]="settings.deleteReportsAdditionalActions"
+            [required]="false"
+            valueType="Boolean"
+            (valueChange)="_onSettingsValueChange($event, 'DeleteReportsAdditionalActions')"
+            [infoMessage]="i18n.DELETE_REPORTS_ADDITIONAL_ACTIONS_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+
+        <!-- Delete Reports Additional Actions Timeout -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.DELETE_REPORTS_ADDITIONAL_ACTIONS_TIMEOUT"
+            [(value)]="settings.deleteReportsAdditionalActionsTimeout"
+            valueType="Integer"
+            [infoMessage]="i18n.DELETE_REPORTS_ADDITIONAL_ACTIONS_TIMEOUT_HELP"
+            *ngIf="settings.deleteReportsAdditionalActions"
+            step="1"
+            min="0"
+        ></cmf-core-business-controls-propertyEditor>
+    </cmf-core-controls-baseWidget>
+    <cmf-core-controls-baseWidget
+    [mainTitle]="i18n.INTERNAL_DEFINE_REPORTS"
+  >
+        <!-- Internal Define Reports Additional Actions -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.INTERNAL_DEFINE_REPORTS_ADDITIONAL_ACTIONS"
+            [(value)]="settings.internalDefineReportsAdditionalActions"
+            [required]="false"
+            valueType="Boolean"
+            (valueChange)="_onSettingsValueChange($event, 'InternalDefineReportsAdditionalActions')"
+            [infoMessage]="i18n.INTERNAL_DEFINE_REPORTS_ADDITIONAL_ACTIONS_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+
+        <!-- Internal Define Reports Additional Actions Timeout -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.INTERNAL_DEFINE_REPORTS_ADDITIONAL_ACTIONS_TIMEOUT"
+            [(value)]="settings.internalDefineReportsAdditionalActionsTimeout"
+            valueType="Integer"
+            [infoMessage]="i18n.INTERNAL_DEFINE_REPORTS_ADDITIONAL_ACTIONS_TIMEOUT_HELP"
+            *ngIf="settings.internalDefineReportsAdditionalActions"
+            step="1"
+            min="0"
+        ></cmf-core-business-controls-propertyEditor>
+    </cmf-core-controls-baseWidget>
+    <cmf-core-controls-baseWidget
+    [mainTitle]="i18n.LINK_EVENTS"
+  >
+        <!-- Link Events Additional Actions -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.LINK_EVENTS_ADDITIONAL_ACTIONS"
+            [(value)]="settings.linkEventsAdditionalActions"
+            [required]="false"
+            valueType="Boolean"
+            (valueChange)="_onSettingsValueChange($event, 'LinkEventsAdditionalActions')"
+            [infoMessage]="i18n.LINK_EVENTS_ADDITIONAL_ACTIONS_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+
+        <!-- Link Events Additional Actions Timeout -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.LINK_EVENTS_ADDITIONAL_ACTIONS_TIMEOUT"
+            [(value)]="settings.linkEventsAdditionalActionsTimeout"
+            valueType="Integer"
+            [infoMessage]="i18n.LINK_EVENTS_ADDITIONAL_ACTIONS_TIMEOUT_HELP"
+            *ngIf="settings.linkEventsAdditionalActions"
+            step="1"
+            min="0"
+        ></cmf-core-business-controls-propertyEditor>
+    </cmf-core-controls-baseWidget>
+    <cmf-core-controls-baseWidget
+    [mainTitle]="i18n.ENABLE_DISABLE_EVENTS"
+  >
+        <!-- Enable Disable Events Additional Actions -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.ENABLE_DISABLE_EVENTS_ADDITIONAL_ACTIONS"
+            [(value)]="settings.enableDisableEventsAdditionalActions"
+            [required]="false"
+            valueType="Boolean"
+            (valueChange)="_onSettingsValueChange($event, 'EnableDisableEventsAdditionalActions')"
+            [infoMessage]="i18n.ENABLE_DISABLE_EVENTS_ADDITIONAL_ACTIONS_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+
+        <!-- Enable Disable Events Additional Actions Timeout -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.ENABLE_DISABLE_EVENTS_ADDITIONAL_ACTIONS_TIMEOUT"
+            [(value)]="settings.enableDisableEventsAdditionalActionsTimeout"
+            valueType="Integer"
+            [infoMessage]="i18n.ENABLE_DISABLE_EVENTS_ADDITIONAL_ACTIONS_TIMEOUT_HELP"
+            *ngIf="settings.enableDisableEventsAdditionalActions"
+            step="1"
+            min="0"
+        ></cmf-core-business-controls-propertyEditor>
+    </cmf-core-controls-baseWidget>
+    <cmf-core-controls-baseWidget
+    [mainTitle]="i18n.ENABLE_DISABLE_ALARMS"
+  >
+        <!-- Enable Disable Alarms Additional Actions -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.ENABLE_DISABLE_ALARMS_ADDITIONAL_ACTIONS"
+            [(value)]="settings.enableDisableAlarmsAdditionalActions"
+            [required]="false"
+            valueType="Boolean"
+            (valueChange)="_onSettingsValueChange($event, 'EnableDisableAlarmsAdditionalActions')"
+            [infoMessage]="i18n.ENABLE_DISABLE_ALARMS_ADDITIONAL_ACTIONS_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+
+        <!-- Enable Disable Alarms Additional Actions Timeout -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.ENABLE_DISABLE_ALARMS_ADDITIONAL_ACTIONS_TIMEOUT"
+            [(value)]="settings.enableDisableAlarmsAdditionalActionsTimeout"
+            valueType="Integer"
+            [infoMessage]="i18n.ENABLE_DISABLE_ALARMS_ADDITIONAL_ACTIONS_TIMEOUT_HELP"
+            *ngIf="settings.enableDisableAlarmsAdditionalActions"
+            step="1"
+            min="0"
+        ></cmf-core-business-controls-propertyEditor>
+    </cmf-core-controls-baseWidget>
+    <cmf-core-controls-baseWidget
+    [mainTitle]="i18n.RETRY_DEFINITION"
+  >   
+        <!-- Wait Time Between Retries -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.WAIT_TIME_BETWEEN_RETRIES"
+            [(value)]="settings.waitTimeBetweenRetries"
+            valueType="Integer"
+            [infoMessage]="i18n.WAIT_TIME_BETWEEN_RETRIES_HELP"
+            step="1"
+            min="0"
+        ></cmf-core-business-controls-propertyEditor>
+        <!-- Reset Setup On Establish Communication Received -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.RESET_SETUP_ON_ESTABLISH_COMMUNICATION_RECEIVED"
+            [(value)]="settings.resetSetupOnEstablishCommunicationReceived"
+            [required]="false"
+            valueType="Boolean"
+        ></cmf-core-business-controls-propertyEditor>
+      </cmf-core-controls-baseWidget>
+    <cmf-core-controls-baseWidget
+    [mainTitle]="i18n.HEARTBEAT"
+  >   
+        <!-- Stream and Function -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.HEARTBEAT_SXFY"
+            [(value)]="settings.heartbeatSxFy"
+            valueType="String"
+            [infoMessage]="i18n.HEARTBEAT_SXFY_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+        <!-- SxFy Body -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.HEARTBEAT_BODY"
+            [(value)]="settings.heartbeatBody"
+            valueType="Object"
+            [infoMessage]="i18n.HEARTBEAT_BODY_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+        <!-- Timeout -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.HEARTBEAT_TIMEOUT"
+            [(value)]="settings.heartbeatTimeout"
+            valueType="Integer"
+            [infoMessage]="i18n.HEARTBEAT_TIMEOUT_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+    </cmf-core-controls-baseWidget>
+</cmf-core-connect-iot-taskSettings>

@@ -1,0 +1,97 @@
+<cmf-core-connect-iot-taskSettings>
+
+    <!-- Input in General tab -->
+    <cmf-core-controls-baseWidget [mainTitle]="i18n.LOGGING_SETTINGS">
+
+        <cmf-core-business-controls-propertyContainer>
+
+            <!-- mode -->
+            <cmf-core-business-controls-propertyEditor data-tag="Mode"
+                [label]="i18n.MODE"
+                nestedEditorType="BasicEnumComboBox"
+                [enum]="LogMode"
+                [(value)]="settings.mode"                    
+                (valueChange)="_onSettingsValueChange($event, 'mode')">
+            </cmf-core-business-controls-propertyEditor>
+
+            <!-- isCustomFormat -->
+            <cmf-core-business-controls-propertyEditor
+                *ngIf="settings.mode === LogMode.MultipleInputs"
+                [label]="i18n.CUSTOM_FORMAT"
+                [value]="settings.isCustomFormat"
+                [required]="false"
+                valueType="Boolean"
+                (valueChange)="_onSettingsValueChange($event, 'isCustomFormat')"
+                data-tag="CustomFormat"
+            ></cmf-core-business-controls-propertyEditor>
+
+            <!-- messageFormat -->
+            <cmf-core-business-controls-propertyEditor
+                *ngIf="settings.mode === LogMode.MultipleInputs && settings.isCustomFormat === true"
+                [label]="i18n.MESSAGE_FORMAT"
+                [value]="settings.messageFormat"
+                [required]="false"
+                nestedEditorType="TextArea"
+                valueType="String"
+                (valueChange)="_onSettingsValueChange($event, 'messageFormat')"
+                [infoMessage]="i18n.MESSAGE_FORMAT_TOOLTIP"
+                data-tag="MessageFormat"
+            ></cmf-core-business-controls-propertyEditor>    
+
+            <!-- message -->
+            <cmf-core-business-controls-propertyEditor
+                *ngIf="settings.mode === LogMode.RawText"
+                [label]="i18n.MESSAGE"
+                [value]="settings.message"
+                [required]="false"
+                valueType="String"
+                (valueChange)="_onSettingsValueChange($event, 'message')"
+                data-tag="DefaultMessage"
+            ></cmf-core-business-controls-propertyEditor>
+
+            <!-- error code to set -->
+            <cmf-core-business-controls-propertyEditor data-tag="ErrorCode"
+                [label]="i18n.ERROR_CODE"
+                nestedEditorType="BasicEnumComboBox"
+                [enum]="ErrorCodeEnum"
+                [value]="settings.errorCodeToEmit"
+                (valueChange)="_onSettingsValueChange($event, 'errorCodeToEmit')">
+            </cmf-core-business-controls-propertyEditor>
+            
+            <!-- error number -->
+            <cmf-core-business-controls-propertyEditor
+                [label]="i18n.ERROR_NUMBER"
+                [(value)]="settings.errorNumber"
+                [required]="false"
+                valueType="Number"
+                (valueChange)="_onSettingsValueChange($event, 'errorNumber')"
+            ></cmf-core-business-controls-propertyEditor>
+            
+            <!-- clearInputs -->
+            <cmf-core-business-controls-propertyEditor
+                [label]="i18n.CLEAR_INPUTS"
+                [(value)]="settings.clearInputs"
+                [required]="false"
+                valueType="Boolean"
+                (valueChange)="_onSettingsValueChange($event, 'clearInputs')"
+            ></cmf-core-business-controls-propertyEditor>
+
+        </cmf-core-business-controls-propertyContainer>
+
+    </cmf-core-controls-baseWidget>
+
+    <!-- Inputs tab -->
+    <cmf-core-connect-iot-taskSettingsTab
+        [mainTitle]="i18n.INPUTS"
+        [fullHeight]="true"
+        [isHidden]="settings.mode === LogMode.RawText">
+        <cmf-core-connect-iot-taskSettingsTabProperties            
+            [mainTitle]="i18n.INPUTS"
+            [leafTitle]="i18n.SELECTED_INPUT"
+            [properties]="settings.inputs"
+            (propertiesChange)="onInputsChanged($event)"
+            [showDefaultValueInput]="true">
+        </cmf-core-connect-iot-taskSettingsTabProperties>
+    </cmf-core-connect-iot-taskSettingsTab>
+
+</cmf-core-connect-iot-taskSettings>

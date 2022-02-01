@@ -1,0 +1,20 @@
+export default {
+    SETTINGS: "Settings",
+    NAME: "Name",
+    PROPERTY_PATH: "Property path",
+    TYPE: "Type",
+    OUTPUTS: "Outputs",
+    OUTPUT: "Output",
+    INVALID_OUTPUT: "There are invalid outputs",
+    OCCUPIED_SLOT: "Occupied Slot",
+    OCCUPIED_SLOT_HELP: "Occupied Slot Value",
+    EMPTY_SLOT: "Empty Slot",
+    EMPTY_SLOT_HELP: "Empty Slot Value",
+    SEPARATOR: "Separator",
+    SEPARATOR_HELP: "Separator String",
+    FIXED_SIZE: "Slot Map has fixed size",
+    SIZE: "Size of the Slot Map",
+    SETTINGS_PARSING: "Parsing definition",
+    SETTINGS_SIZE: "Slot Map Size",
+    TERMINATOR: "Terminator Character"
+};
