@@ -2,15 +2,11 @@
     "packageId": "Cmf.Custom.IoT.Package.CoreSolution",
     "version": "1.0.0",
     "description": "This package deploys Critical Manufacturing MES Template Workflows and Shared Workflows, as well as the basic SecsGEM configuration.",
-    "packageType": "Root",
+    "packageType": "Data",
 	"isInstallable": true,
 	"isUniqueInstall": true,
 	"isToSetDefaultSteps": true,
     "dependencies": [
-		{
-			"id": "CriticalManufacturing.DeploymentMetadata",
-			"version": "8.3.3"
-		},
         {
           "id": "Cmf.Custom.IoT.Packages",
           "version": "1.0.0"
@@ -21,5 +17,12 @@
         }
     ],
     "testPackages": [
-    ]
+    ],
+	,
+	"steps": [
+		{ "order": "1", "type": "Generic", "onExecute": "$(Agent.Root)/agent/scripts/stop_host.ps1" },
+		{ "order": "2", "type": "TransformFile", "file": "Cmf.Foundation.Services.HostService.dll.config", "tagFile": true },
+		{ "order": "3", "type": "Generic", "onExecute": "$(Agent.Root)/agent/scripts/start_host.ps1" },
+		{ "order": "4", "type": "Generic", "onExecute": "$(Package[Cmf.Custom.Package].TargetDirectory)/GenerateLBOs.ps1" }
+	]
 }
