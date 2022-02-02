@@ -17,8 +17,8 @@
     <Parameter name="clientTenantName" value="AMSOsram" />
     <Parameter name="culture" value="en-US"/>
     <Parameter name="userRole" value="Administrators"/>
-    <Parameter name="userName" value="TestUserAccountHere" />
-    <Parameter name="password" value="TestUserPasswordHere" />
+    <Parameter name="userName" value="CMF\cmfsu" />
+    <Parameter name="password" value="qaz123WSX" />
     <Parameter name="auxiliaryUserName" value="TestUserAccountHere" />
     <Parameter name="auxiliaryUserPassword" value="TestUserPasswordHere" />
     <Parameter name="skipLogin" value="true" />

@@ -4,4 +4,4 @@ Everything that is created or updated in the MES system to support customer requ
 
 The features are grouped in the following sections:
 
-
+* [Custom Receive Stibo Messages](/AMSOsram/tecspecs>features>CustomReceiveStiboMessages)
