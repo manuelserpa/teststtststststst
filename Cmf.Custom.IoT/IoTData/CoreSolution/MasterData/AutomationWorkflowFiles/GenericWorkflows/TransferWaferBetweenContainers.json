@@ -1,0 +1,782 @@
+{
+	"tasks": [
+		{
+			"id": "task_36235",
+			"reference": {
+				"name": "subWorkflowStart",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"outputs": [
+					{
+						"name": "SourceContainerId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SourceContainerId"
+						}
+					},
+					{
+						"name": "SourceLoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SourceLoadPort"
+						}
+					},
+					{
+						"name": "SourceSlotNumber",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SourceSlotNumber"
+						}
+					},
+					{
+						"name": "EquipmentWaferId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "EquipmentWaferId"
+						}
+					},
+					{
+						"name": "MaterialWaferId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialWaferId"
+						}
+					},
+					{
+						"name": "TargetContainerId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "TargetContainerId"
+						}
+					},
+					{
+						"name": "TargetLoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "TargetLoadPort"
+						}
+					},
+					{
+						"name": "TargetSlotNumber",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "RargetSlotNumber"
+						}
+					},
+					{
+						"name": "CreateInventory",
+						"valueType": {
+							"friendlyName": "CreateInventory",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Start"
+			}
+		},
+		{
+			"id": "task_36237",
+			"reference": {
+				"name": "subWorkflowEnd",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"inputs": [
+					{
+						"name": "SourceContainer",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SourceContainer"
+						}
+					},
+					{
+						"name": "TargetContainer",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "TargetContainer"
+						}
+					},
+					{
+						"name": "Wafer",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Wafer"
+						}
+					},
+					{
+						"name": "CreateInventoryFailed",
+						"valueType": {
+							"friendlyName": "Create Inventory Failed",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						},
+						"defaultValue": false
+					}
+				],
+				"___cmf___name": "End"
+			}
+		},
+		{
+			"id": "task_3464",
+			"reference": {
+				"name": "executeAction",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_inputs": [
+					{
+						"name": "CarrierId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": "-"
+					},
+					{
+						"name": "WaferId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": "-"
+					},
+					{
+						"name": "SlotNumber",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": "-"
+					},
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Resource Name"
+						},
+						"defaultValue": "-"
+					},
+					{
+						"name": "CreateInventory",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": false
+					}
+				],
+				"_outputs": [
+					{
+						"name": "CreateInventoryFailed",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Create Inventory Failed"
+						},
+						"defaultValue": false
+					}
+				],
+				"action": "CustomSetWaferToContainerSlot",
+				"retries": 30,
+				"sleepBetweenRetries": 1000,
+				"___cmf___name": "Execute Action",
+				"___cmf___color": "#0080ff"
+			}
+		},
+		{
+			"id": "task_3466",
+			"reference": {
+				"name": "retrieve",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_retrieveOnValueChange": false,
+				"_emitInNewContext": false,
+				"___cmf___name": "Retrieve Resource",
+				"_outputs": [
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"identifier": "Generic_ResourceName",
+						"defaultValue": "-"
+					}
+				],
+				"___cmf___description": "",
+				"___cmf___color": "#808078"
+			}
+		},
+		{
+			"id": "task_3581",
+			"reference": {
+				"name": "changeWaferContainer",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"inputs": [],
+				"outputs": [],
+				"message": "",
+				"___cmf___name": "Change Wafer Container",
+				"___cmf___color": "#808078"
+			}
+		},
+		{
+			"id": "task_27711",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ErrorHandling",
+					"IsShared": true,
+					"Name": "ErrorHandling"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorCode",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorText",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"friendlyName": "Error",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Workflow",
+				"___cmf___color": "#ff0000"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "task_3466_ResourceName-task_3464_ResourceName",
+			"sourceId": "task_3466",
+			"targetId": "task_3464",
+			"inputName": "ResourceName",
+			"outputName": "ResourceName",
+			"converters": []
+		},
+		{
+			"id": "task_3466_ResourceName-task_3464_activate",
+			"sourceId": "task_3466",
+			"targetId": "task_3464",
+			"inputName": "activate",
+			"outputName": "ResourceName",
+			"converters": []
+		},
+		{
+			"id": "a1d485c6-8b20-4a83-96b3-585b895c8ab8",
+			"sourceId": "task_36235",
+			"targetId": "task_3581",
+			"inputName": "activate",
+			"outputName": "activateOut"
+		},
+		{
+			"id": "b306623c-49be-4225-a90e-31d999694417",
+			"sourceId": "task_3581",
+			"targetId": "task_3466",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "01c01af5-8d71-4a60-8e63-eba4f63ea9f1",
+			"sourceId": "task_3464",
+			"targetId": "task_36237",
+			"inputName": "success",
+			"outputName": "success"
+		},
+		{
+			"id": "944cdd7a-7509-495a-a22f-e0330e1497ec",
+			"sourceId": "task_3464",
+			"targetId": "task_36237",
+			"inputName": "CreateInventoryFailed",
+			"outputName": "CreateInventoryFailed"
+		},
+		{
+			"id": "bae55ea7-e218-4c0e-9639-ee28666ea183",
+			"sourceId": "task_3581",
+			"targetId": "task_3464",
+			"inputName": "WaferId",
+			"outputName": "wafer",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "MaterialWaferId",
+						"type": 4
+					}
+				}
+			]
+		},
+		{
+			"id": "cd603fe0-2c4f-4e61-8caa-995e9b3183aa",
+			"sourceId": "task_3581",
+			"targetId": "task_3464",
+			"inputName": "SlotNumber",
+			"outputName": "wafer",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "Slot",
+						"type": 4
+					}
+				}
+			]
+		},
+		{
+			"id": "3f123eab-6701-49b5-a209-e060f2c16021",
+			"sourceId": "task_3581",
+			"targetId": "task_3464",
+			"inputName": "CarrierId",
+			"outputName": "targetContainer",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "ContainerName",
+						"type": 4
+					}
+				}
+			]
+		},
+		{
+			"id": "ce53a0c2-e41a-42b7-bc61-a5ec42e3b05a",
+			"sourceId": "task_36235",
+			"targetId": "task_3464",
+			"inputName": "CreateInventory",
+			"outputName": "CreateInventoryOut"
+		},
+		{
+			"id": "36fc4312-e2a5-4fa7-a5de-8640eab91397",
+			"sourceId": "task_36235",
+			"targetId": "task_3464",
+			"inputName": "CreateInventory",
+			"outputName": "CreateInventoryOut"
+		},
+		{
+			"id": "e0d6772f-94be-481d-a824-1fa3df584ffd",
+			"sourceId": "task_36235",
+			"targetId": "task_3581",
+			"inputName": "sourceContainerId",
+			"outputName": "SourceContainerIdOut"
+		},
+		{
+			"id": "98b9318c-35f9-4090-bf6d-feb7943eb98c",
+			"sourceId": "task_36235",
+			"targetId": "task_3581",
+			"inputName": "sourceLoadPort",
+			"outputName": "SourceLoadPortOut"
+		},
+		{
+			"id": "1d0d94c6-c1fd-48e0-8979-1af23e76a896",
+			"sourceId": "task_36235",
+			"targetId": "task_3581",
+			"inputName": "sourceSlotNumber",
+			"outputName": "SourceSlotNumberOut"
+		},
+		{
+			"id": "4ad10219-34a1-4f34-9071-5f64f96e426b",
+			"sourceId": "task_36235",
+			"targetId": "task_3581",
+			"inputName": "equipmentWaferId",
+			"outputName": "EquipmentWaferIdOut"
+		},
+		{
+			"id": "27b10320-31ed-4571-aa32-aa6a00148f7e",
+			"sourceId": "task_36235",
+			"targetId": "task_3581",
+			"inputName": "materialWaferId",
+			"outputName": "MaterialWaferIdOut"
+		},
+		{
+			"id": "bad62f89-b925-4578-8295-ff9afa364f6e",
+			"sourceId": "task_36235",
+			"targetId": "task_3581",
+			"inputName": "targetContainerId",
+			"outputName": "TargetContainerIdOut"
+		},
+		{
+			"id": "6bb7fb2e-7d86-43bf-b708-63b7fae78c18",
+			"sourceId": "task_36235",
+			"targetId": "task_3581",
+			"inputName": "targetLoadPort",
+			"outputName": "TargetLoadPortOut"
+		},
+		{
+			"id": "c734e976-a8a6-47ee-976e-1fc66a29506f",
+			"sourceId": "task_36235",
+			"targetId": "task_3581",
+			"inputName": "targetSlotNumber",
+			"outputName": "TargetSlotNumberOut"
+		},
+		{
+			"id": "e73e76f8-e492-4fd8-b971-7ff6fb21f4fb",
+			"sourceId": "task_3581",
+			"targetId": "task_36237",
+			"inputName": "SourceContainer",
+			"outputName": "sourceContainer"
+		},
+		{
+			"id": "65261027-30d8-47ec-8de3-91d4c5a5c5b3",
+			"sourceId": "task_3581",
+			"targetId": "task_36237",
+			"inputName": "TargetContainer",
+			"outputName": "targetContainer"
+		},
+		{
+			"id": "d9ef69d9-b706-43f7-a8f5-bb3060517065",
+			"sourceId": "task_3581",
+			"targetId": "task_36237",
+			"inputName": "Wafer",
+			"outputName": "wafer"
+		},
+		{
+			"id": "01f19cbe-5221-40e3-bc03-ec4eb9421563",
+			"sourceId": "task_3464",
+			"targetId": "task_27711",
+			"inputName": "ErrorIn",
+			"outputName": "error"
+		},
+		{
+			"id": "90d0736c-7431-41af-8de7-cb5cbf70a517",
+			"sourceId": "task_3464",
+			"targetId": "task_27711",
+			"inputName": "activate",
+			"outputName": "error"
+		},
+		{
+			"id": "f396ebe2-d8e9-4511-adf4-fcb438b4a32b",
+			"sourceId": "task_3581",
+			"targetId": "task_27711",
+			"inputName": "ErrorIn",
+			"outputName": "error"
+		},
+		{
+			"id": "dd408394-ed8f-47d9-a46f-e93ff74eee21",
+			"sourceId": "task_3581",
+			"targetId": "task_27711",
+			"inputName": "activate",
+			"outputName": "error"
+		},
+		{
+			"id": "9a62315e-b5d7-4835-9f63-8dfeb3dfcd4e",
+			"sourceId": "task_27711",
+			"targetId": "task_36237",
+			"inputName": "error",
+			"outputName": "ErrorOut"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": null,
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_36237": {
+						"collapsed": false,
+						"position": {
+							"x": 3451,
+							"y": 209
+						},
+						"outdated": false
+					},
+					"task_36235": {
+						"collapsed": false,
+						"position": {
+							"x": 59,
+							"y": 200
+						},
+						"outdated": false
+					},
+					"task_3464": {
+						"collapsed": false,
+						"position": {
+							"x": 2120,
+							"y": 367
+						},
+						"outdated": false
+					},
+					"task_3466": {
+						"collapsed": false,
+						"position": {
+							"x": 1304,
+							"y": 518
+						},
+						"outdated": false
+					},
+					"task_3581": {
+						"collapsed": false,
+						"position": {
+							"x": 874,
+							"y": 101
+						},
+						"outdated": false
+					},
+					"task_27711": {
+						"collapsed": false,
+						"position": {
+							"x": 2711,
+							"y": 1112
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"task_3466_ResourceName-task_3464_ResourceName": {
+						"vertices": []
+					},
+					"task_3466_ResourceName-task_3464_activate": {
+						"vertices": []
+					},
+					"a1d485c6-8b20-4a83-96b3-585b895c8ab8": {
+						"vertices": []
+					},
+					"b306623c-49be-4225-a90e-31d999694417": {
+						"vertices": []
+					},
+					"01c01af5-8d71-4a60-8e63-eba4f63ea9f1": {
+						"vertices": []
+					},
+					"944cdd7a-7509-495a-a22f-e0330e1497ec": {
+						"vertices": []
+					},
+					"ce53a0c2-e41a-42b7-bc61-a5ec42e3b05a": {
+						"vertices": []
+					},
+					"36fc4312-e2a5-4fa7-a5de-8640eab91397": {
+						"vertices": []
+					},
+					"e0d6772f-94be-481d-a824-1fa3df584ffd": {
+						"vertices": []
+					},
+					"98b9318c-35f9-4090-bf6d-feb7943eb98c": {
+						"vertices": []
+					},
+					"1d0d94c6-c1fd-48e0-8979-1af23e76a896": {
+						"vertices": []
+					},
+					"4ad10219-34a1-4f34-9071-5f64f96e426b": {
+						"vertices": []
+					},
+					"27b10320-31ed-4571-aa32-aa6a00148f7e": {
+						"vertices": []
+					},
+					"bad62f89-b925-4578-8295-ff9afa364f6e": {
+						"vertices": []
+					},
+					"6bb7fb2e-7d86-43bf-b708-63b7fae78c18": {
+						"vertices": []
+					},
+					"c734e976-a8a6-47ee-976e-1fc66a29506f": {
+						"vertices": []
+					},
+					"e73e76f8-e492-4fd8-b971-7ff6fb21f4fb": {
+						"vertices": []
+					},
+					"65261027-30d8-47ec-8de3-91d4c5a5c5b3": {
+						"vertices": []
+					},
+					"d9ef69d9-b706-43f7-a8f5-bb3060517065": {
+						"vertices": []
+					},
+					"01f19cbe-5221-40e3-bc03-ec4eb9421563": {
+						"vertices": []
+					},
+					"90d0736c-7431-41af-8de7-cb5cbf70a517": {
+						"vertices": []
+					},
+					"f396ebe2-d8e9-4511-adf4-fcb438b4a32b": {
+						"vertices": []
+					},
+					"dd408394-ed8f-47d9-a46f-e93ff74eee21": {
+						"vertices": []
+					},
+					"9a62315e-b5d7-4835-9f63-8dfeb3dfcd4e": {
+						"vertices": []
+					},
+					"bae55ea7-e218-4c0e-9639-ee28666ea183": {
+						"vertices": []
+					},
+					"cd603fe0-2c4f-4e61-8caa-995e9b3183aa": {
+						"vertices": []
+					},
+					"3f123eab-6701-49b5-a209-e060f2c16021": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"pan": {
+					"x": 303,
+					"y": 17
+				},
+				"zoom": 0.43000000000000016
+			}
+		}
+	}
+}

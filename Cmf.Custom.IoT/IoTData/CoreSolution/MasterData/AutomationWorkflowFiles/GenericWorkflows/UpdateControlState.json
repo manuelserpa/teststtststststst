@@ -1,0 +1,642 @@
+{
+	"tasks": [
+		{
+			"id": "task_36205",
+			"reference": {
+				"name": "subWorkflowStart",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"outputs": [
+					{
+						"name": "StateName",
+						"valueType": {
+							"friendlyName": "StateName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "value",
+						"valueType": {
+							"friendlyName": "ControlState",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				]
+			}
+		},
+		{
+			"id": "task_36207",
+			"reference": {
+				"name": "subWorkflowEnd",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"inputs": []
+			}
+		},
+		{
+			"id": "task_36823",
+			"reference": {
+				"name": "logMessage",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"message": "",
+				"verbosity": "Information",
+				"clearInputs": true,
+				"mode": "MultipleInputs",
+				"isCustomFormat": true,
+				"messageFormat": "State ControlStateOffline was set in Resource ${Resource} on MES",
+				"inputs": [
+					{
+						"name": "Resource",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Resource"
+						},
+						"defaultValue": "-"
+					}
+				],
+				"___cmf___name": "Log Message",
+				"___cmf___color": "#00ff40"
+			}
+		},
+		{
+			"id": "task_36827",
+			"reference": {
+				"name": "retrieve",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_retrieveOnValueChange": false,
+				"_emitInNewContext": false,
+				"___cmf___name": "Retrieve Data",
+				"_outputs": [
+					{
+						"name": "Resource",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Resource"
+						},
+						"identifier": "Generic_ResourceName",
+						"defaultValue": "-"
+					}
+				],
+				"___cmf___color": "#c0c0c0"
+			}
+		},
+		{
+			"id": "task_36829",
+			"reference": {
+				"name": "executeAction",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_inputs": [
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ResourceName"
+						},
+						"defaultValue": "-"
+					},
+					{
+						"name": "StateName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "StateName"
+						},
+						"defaultValue": "-"
+					},
+					{
+						"name": "StateModelName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "StateModelName"
+						},
+						"defaultValue": "CustomSecsGemControlStateModel"
+					}
+				],
+				"_outputs": [],
+				"action": "CustomAutomationSetCustomResourceState",
+				"retries": 30,
+				"sleepBetweenRetries": 1000,
+				"___cmf___name": "Execute Action",
+				"___cmf___color": "#0080ff"
+			}
+		},
+		{
+			"id": "task_37524",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ErrorHandling",
+					"IsShared": true,
+					"Name": "ErrorHandling"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorCode",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorText",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"friendlyName": "Error",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Workflow",
+				"___cmf___color": "#ff0000"
+			}
+		},
+		{
+			"id": "task_39951",
+			"reference": {
+				"name": "switch",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_default": null,
+				"___cmf___name": "Switch",
+				"_inputType": {
+					"name": "",
+					"friendlyName": "ControlState",
+					"type": 5,
+					"collectionType": null,
+					"referenceType": null,
+					"referenceTypeName": null
+				},
+				"_outputs": [
+					{
+						"name": "EquipmentOffline",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"equalsTo": 1,
+						"value": "EquipmentOffline",
+						"defaultValue": null
+					},
+					{
+						"name": "AttemptOnline",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"equalsTo": 2,
+						"value": "AttemptOnline",
+						"defaultValue": null
+					},
+					{
+						"name": "HostOffline",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"equalsTo": 3,
+						"value": "HostOffline",
+						"defaultValue": null
+					},
+					{
+						"name": "OnlineLocal",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"equalsTo": 4,
+						"value": "OnlineLocal",
+						"defaultValue": null
+					},
+					{
+						"name": "OnlineRemote",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"equalsTo": 5,
+						"value": "OnlineRemote",
+						"defaultValue": null
+					}
+				]
+			}
+		}
+	],
+	"converters": [],
+	"links": [
+		{
+			"id": "task_36827_Resource-task_36829_ResourceName",
+			"sourceId": "task_36827",
+			"targetId": "task_36829",
+			"inputName": "ResourceName",
+			"outputName": "Resource",
+			"converters": []
+		},
+		{
+			"id": "task_36827_Resource-task_36829_activate",
+			"sourceId": "task_36827",
+			"targetId": "task_36829",
+			"inputName": "activate",
+			"outputName": "Resource",
+			"converters": []
+		},
+		{
+			"id": "task_36827_Resource-task_36823_ResourceIn",
+			"sourceId": "task_36827",
+			"targetId": "task_36823",
+			"inputName": "ResourceIn",
+			"outputName": "Resource",
+			"converters": []
+		},
+		{
+			"id": "task_36829_success-task_36823_activate",
+			"sourceId": "task_36829",
+			"targetId": "task_36823",
+			"inputName": "activate",
+			"outputName": "success",
+			"converters": []
+		},
+		{
+			"id": "9cedb610-b768-42ec-931a-41a39fef4430",
+			"sourceId": "task_36205",
+			"targetId": "task_36829",
+			"inputName": "StateName",
+			"outputName": "StateNameOut"
+		},
+		{
+			"id": "b95d9c3f-f155-4fba-b55c-a9ab0d41e7f5",
+			"sourceId": "task_36829",
+			"targetId": "task_36207",
+			"inputName": "success",
+			"outputName": "success"
+		},
+		{
+			"id": "1f4c9c2b-5b30-41f6-9081-3c03b3e0184e",
+			"sourceId": "task_37524",
+			"targetId": "task_36207",
+			"inputName": "error",
+			"outputName": "ErrorOut"
+		},
+		{
+			"id": "732e7d39-a0fc-40c0-a33e-3cbddb7055f1",
+			"sourceId": "task_36205",
+			"targetId": "task_39951",
+			"inputName": "value",
+			"outputName": "valueOut"
+		},
+		{
+			"id": "d78815df-4b2a-4955-bcf4-5d81127bf377",
+			"sourceId": "task_39951",
+			"targetId": "task_36827",
+			"inputName": "activate",
+			"outputName": "AttemptOnline"
+		},
+		{
+			"id": "39c2a720-3322-4011-9a1b-b6a924680b3b",
+			"sourceId": "task_39951",
+			"targetId": "task_36827",
+			"inputName": "activate",
+			"outputName": "EquipmentOffline"
+		},
+		{
+			"id": "78be94da-ba25-410b-9446-823d05bdacbe",
+			"sourceId": "task_39951",
+			"targetId": "task_36827",
+			"inputName": "activate",
+			"outputName": "HostOffline"
+		},
+		{
+			"id": "04a3504d-6508-46cb-81bb-0d82d0603395",
+			"sourceId": "task_39951",
+			"targetId": "task_36827",
+			"inputName": "activate",
+			"outputName": "OnlineLocal"
+		},
+		{
+			"id": "92cc5932-fb82-4c9b-bf82-6a2a9ec2e76f",
+			"sourceId": "task_39951",
+			"targetId": "task_36827",
+			"inputName": "activate",
+			"outputName": "OnlineRemote"
+		},
+		{
+			"id": "612ab039-302e-4eb6-bf70-e07c211d025c",
+			"sourceId": "task_39951",
+			"targetId": "task_36829",
+			"inputName": "StateName",
+			"outputName": "EquipmentOffline"
+		},
+		{
+			"id": "6158b4eb-c42b-4e24-b984-59f06c13a692",
+			"sourceId": "task_39951",
+			"targetId": "task_36829",
+			"inputName": "StateName",
+			"outputName": "AttemptOnline"
+		},
+		{
+			"id": "1c2465f7-fb4f-4c21-bfea-6939295b3181",
+			"sourceId": "task_39951",
+			"targetId": "task_36829",
+			"inputName": "StateName",
+			"outputName": "HostOffline"
+		},
+		{
+			"id": "a03294b1-2e1e-4bd2-9647-a35962aaf261",
+			"sourceId": "task_39951",
+			"targetId": "task_36829",
+			"inputName": "StateName",
+			"outputName": "OnlineLocal"
+		},
+		{
+			"id": "fb1ca658-0c7b-49b6-97a8-fe757bfa4010",
+			"sourceId": "task_39951",
+			"targetId": "task_36829",
+			"inputName": "StateName",
+			"outputName": "OnlineRemote"
+		},
+		{
+			"id": "3285b72a-a3bf-475d-8308-0e0be1297e9e",
+			"sourceId": "task_36205",
+			"targetId": "task_36827",
+			"inputName": "activate",
+			"outputName": "StateNameOut"
+		},
+		{
+			"id": "7e5aefbb-7dc5-49a8-9c21-9a45db570057",
+			"sourceId": "task_36829",
+			"targetId": "task_37524",
+			"inputName": "ErrorIn",
+			"outputName": "error"
+		},
+		{
+			"id": "6de71433-a3f2-4a62-9798-ef8453c225f3",
+			"sourceId": "task_36829",
+			"targetId": "task_37524",
+			"inputName": "activate",
+			"outputName": "error"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": null,
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_36207": {
+						"collapsed": false,
+						"position": {
+							"x": 3390,
+							"y": 385
+						},
+						"outdated": false
+					},
+					"task_36823": {
+						"collapsed": false,
+						"position": {
+							"x": 2427,
+							"y": 209
+						},
+						"outdated": false
+					},
+					"task_36205": {
+						"collapsed": false,
+						"position": {
+							"x": -1,
+							"y": 185
+						},
+						"outdated": false
+					},
+					"task_36827": {
+						"collapsed": false,
+						"position": {
+							"x": 1232,
+							"y": 318
+						},
+						"outdated": false
+					},
+					"task_36829": {
+						"collapsed": false,
+						"position": {
+							"x": 1860,
+							"y": 684
+						},
+						"outdated": false
+					},
+					"task_37524": {
+						"collapsed": false,
+						"position": {
+							"x": 2795,
+							"y": 934
+						},
+						"outdated": false
+					},
+					"task_39951": {
+						"collapsed": false,
+						"position": {
+							"x": 460,
+							"y": 508
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"task_36827_Resource-task_36829_ResourceName": {
+						"vertices": []
+					},
+					"task_36827_Resource-task_36829_activate": {
+						"vertices": []
+					},
+					"task_36827_Resource-task_36823_ResourceIn": {
+						"vertices": []
+					},
+					"task_36829_success-task_36823_activate": {
+						"vertices": []
+					},
+					"9cedb610-b768-42ec-931a-41a39fef4430": {
+						"vertices": []
+					},
+					"b95d9c3f-f155-4fba-b55c-a9ab0d41e7f5": {
+						"vertices": []
+					},
+					"1f4c9c2b-5b30-41f6-9081-3c03b3e0184e": {
+						"vertices": []
+					},
+					"732e7d39-a0fc-40c0-a33e-3cbddb7055f1": {
+						"vertices": []
+					},
+					"d78815df-4b2a-4955-bcf4-5d81127bf377": {
+						"vertices": []
+					},
+					"39c2a720-3322-4011-9a1b-b6a924680b3b": {
+						"vertices": []
+					},
+					"78be94da-ba25-410b-9446-823d05bdacbe": {
+						"vertices": []
+					},
+					"04a3504d-6508-46cb-81bb-0d82d0603395": {
+						"vertices": []
+					},
+					"92cc5932-fb82-4c9b-bf82-6a2a9ec2e76f": {
+						"vertices": []
+					},
+					"612ab039-302e-4eb6-bf70-e07c211d025c": {
+						"vertices": []
+					},
+					"6158b4eb-c42b-4e24-b984-59f06c13a692": {
+						"vertices": []
+					},
+					"1c2465f7-fb4f-4c21-bfea-6939295b3181": {
+						"vertices": []
+					},
+					"a03294b1-2e1e-4bd2-9647-a35962aaf261": {
+						"vertices": []
+					},
+					"fb1ca658-0c7b-49b6-97a8-fe757bfa4010": {
+						"vertices": []
+					},
+					"3285b72a-a3bf-475d-8308-0e0be1297e9e": {
+						"vertices": []
+					},
+					"7e5aefbb-7dc5-49a8-9c21-9a45db570057": {
+						"vertices": []
+					},
+					"6de71433-a3f2-4a62-9798-ef8453c225f3": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"pan": {
+					"x": 32,
+					"y": 0
+				},
+				"zoom": 0.37999999999999967
+			}
+		}
+	}
+}
