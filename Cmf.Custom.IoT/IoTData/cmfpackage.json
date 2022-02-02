@@ -22,7 +22,7 @@
   ],
   "dependencies": [
         {
-            "id": "Cmf.Custom.IoT.Package.CoreSolution",
+            "id": "Cmf.Custom.IoT.Data.CoreSolution",
             "version": "1.0.0"
         }
   ],
