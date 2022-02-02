@@ -42,7 +42,7 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                     IntegrationEntry integrationEntry = new IntegrationEntry
                     {
                         Name = Guid.NewGuid().ToString("N"),
-                        EventName = AMSOsramConstants.CustomIntegrationInboundStiboEventName,
+                        EventName = AMSOsramConstants.CustomIntegrationInboundEventName,
                         SourceSystem = AMSOsramConstants.CustomStiboSystem,
                         TargetSystem = Constants.MesSystemDesignation,
                         MessageType = input.MessageType,
@@ -63,7 +63,7 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                 }
                 else
                 {
-                    throw new Exception(LocalizedMessage.GetLocalizedMessage(messageName: AMSOsramConstants.CustomErrorMessageIEStiboMessageEmpty).MessageText);
+                    throw new Exception(LocalizedMessage.GetLocalizedMessage(messageName: AMSOsramConstants.CustomReceiveEmptyMessage).MessageText);
                 }
 
                 Utilities.EndMethod(

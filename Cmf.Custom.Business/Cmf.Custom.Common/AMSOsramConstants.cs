@@ -2,7 +2,7 @@
 {
     public class AMSOsramConstants
     {
-        #region Stibo
+        #region Integration Entries
 
         /// <summary>
         /// Stibo System
@@ -12,7 +12,7 @@
         /// <summary>
         /// Integration Inbound Event Name
         /// </summary>
-        public const string CustomIntegrationInboundStiboEventName = "Inbound";
+        public const string CustomIntegrationInboundEventName = "Inbound";
 
         #endregion
 
@@ -21,7 +21,7 @@
         /// <summary>
         /// Received message from Stibo is empty
         /// </summary>
-        public const string CustomErrorMessageIEStiboMessageEmpty = "CustomErrorMessageIEStiboMessageEmpty";
+        public const string CustomReceiveEmptyMessage = "CustomReceiveEmptyMessage";
 
         #endregion
     }

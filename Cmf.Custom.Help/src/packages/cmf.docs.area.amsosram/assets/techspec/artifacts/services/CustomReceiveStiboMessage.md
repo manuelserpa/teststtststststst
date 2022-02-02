@@ -4,8 +4,6 @@
 
 Service to receive a Stibo Message and create an **Integration Entry** accordingly.
 
-<Service Description>
-
 ## Input Object
 
 The table below describes the input parameters for the service.
@@ -29,7 +27,9 @@ The table below describes the output parameters for the service.
 
 ## How it works
 
-The system validates the received message from the Stibo and creates  the **Integration Entry** with the required information to after be processed.
+The system validates the message received and creates one **Integration Entry** for asynchronous processing.
+
+This integration entries will have different processing rules depending on the **source system**, **target system** and **message type**.
 
 ## Assumptions
 

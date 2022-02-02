@@ -90,33 +90,26 @@ namespace Cmf.Custom.Tests.Biz.Stibo
         [TestMethod]
         public void CustomReceiveStiboMessage_SendStiboMessage_ThrowErrorMessage()
         {
-            try
+            /// <Step>
+            /// Send empty message
+            /// </Step>
+            string message = null;
+            string messageType = "MessageType";
+
+            CustomReceiveStiboMessageInput input = new CustomReceiveStiboMessageInput
             {
-                /// <Step>
-                /// Send empty message
-                /// </Step>
-                string message = null;
-                string messageType = "MessageType";
+                Message = message,
+                MessageType = messageType
+            };
 
-                CustomReceiveStiboMessageInput input = new CustomReceiveStiboMessageInput
-                {
-                    Message = message,
-                    MessageType = messageType
-                };
+            string expectedErrorMessage = "Message Received is empty.";
 
-                string expectedErrorMessage = "Received message from Stibo is empty.";
+            CmfFaultException emptyMessageException = Assert.ThrowsException<CmfFaultException>(() => input.CustomReceiveStiboMessageSync());
 
-                CmfFaultException emptyMessageException = Assert.ThrowsException<CmfFaultException>(() => input.CustomReceiveStiboMessageSync());
-
-                /// <ExpectedResult>
-                /// Message should be presented
-                /// </ExpectedResult>
-                Assert.IsTrue(emptyMessageException.Message.Contains(expectedErrorMessage), $"Error message should be {expectedErrorMessage}, instead is {emptyMessageException.Message}");
-            }
-            finally
-            {
-
-            }
+            /// <ExpectedResult>
+            /// Message should be presented
+            /// </ExpectedResult>
+            Assert.IsTrue(emptyMessageException.Message.Contains(expectedErrorMessage), $"Error message should be {expectedErrorMessage}, instead is {emptyMessageException.Message}");
         }
     }
 }

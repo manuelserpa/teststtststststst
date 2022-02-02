@@ -1,29 +1,39 @@
-# Custom Receive Stibo Messages
+# Stibo System Integration
 
 ## Requirement Specification
-Mechanism to receive a message from Stibo system and create an **Integration Entry** on the MES system.
+Mechanism to integrate Stibo system with MES system.
 
 ## Design Specification
 
 ### Relevant Artifacts
 The table below describes the properties for this entity type:
 
-Name              | Type             | Is Mandatory | Data Type | Description 
-:---------------- | :--------------- | :----------: | :-------- | :-----------------------------------------------------------
-MessageType       | LookupTable      | No           | string    | Type of the Integration
-IntegrationSystem | LookupTable      | Yes          | string    | Possible types of systems that are available for integration
-
-
+Name                         | Type             | Is Mandatory | Data Type | Description 
+:--------------------------- | :--------------- | :----------: | :-------- | :-----------------------------------------------------------
+MessageType                  | LookupTable      | Yes          | -         | Type of the Integration
+IntegrationSystem            | LookupTable      | Yes          | -         | Possible types of systems that are available for integration
+IntegrationHandlerResolution | SmartTable       | Yes          | -         | Used to resolve the integration handler
 
 ### How it works
-Upon execution when a message is received the system will validate if it is not empty and if the validation is successfully the system will create an **Integration Empty**.
+The Smart Table IntegrationHandlerResolution contains the configuration so that the system execute different services depending on the message type.
+
+* Upon execution when a message is received the system will:
+  * Validate if it is not empty;
+  * If the validation is successful the system will create an **Integration Entry**.
+* After create the **Integration Entry** the system will execute the service that is configure on Smart Table IntegrationHandlerResolution using the message type.
+
+The table below describes the services that are used on this feature.
+
+| Service                                                                                      | Description                                                                          |
+| -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| [CustomReceiveStiboMessage](/AMSOsram/tecspecs>artifacts>services>CustomReceiveStiboMessage) | Service to receive an Stibo Message and create an **Integration Entry** accordingly. |
 
 ### Assumptions
 N/A.
 
 ## Work items
 
-The table below describes de user stories that affect the current functionality
+The table below describes the user stories that affect the current functionality
 
 User Story | Type       | Title                                               | Description
 :--------- | :--------- | :-------------------------------------------------- | :----------

@@ -223,10 +223,10 @@
   },
   "<SM>LocalizedMessageKey": {
     "1": {
-      "Name": "CustomErrorMessageIEStiboMessageEmpty",
+      "Name": "CustomReceiveEmptyMessage",
       "Description": "Error message to inform that the received message is empty.",
       "MessageType": "Message",
-      "en-US": "Received message from Stibo is empty.",
+      "en-US": "Message Received is empty.",
       "de-DE": "",
       "zh-CN": "",
       "pt-PT": "",
