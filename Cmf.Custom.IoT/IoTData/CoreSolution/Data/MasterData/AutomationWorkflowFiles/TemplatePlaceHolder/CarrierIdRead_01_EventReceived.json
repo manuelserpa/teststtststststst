@@ -1,0 +1,163 @@
+{
+	"tasks": [
+		{
+			"id": "task_194418",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": []
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_194517",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "CarrierIdRead",
+					"IsShared": true,
+					"Name": "CarrierIdRead"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "ContainerId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "SlotMap",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "StateUpdatedOnMainEquipment"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "container",
+						"valueType": {
+							"friendlyName": "container",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"friendlyName": "LoadPort",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Workflow"
+			}
+		}
+	],
+	"converters": [],
+	"links": [],
+	"layout": {
+		"general": {
+			"color": "#80ffff",
+			"notes": [
+				{
+					"id": "note_195558",
+					"name": "TosCarrierIDRead",
+					"value": "<p><strong>What it does:</strong></p><p>Stores Container In on Container Data for Load Port;</p><p>Default behavior executes Dock of Container On MES.</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to TosCarrierIDRead for the Tool;</li><li>Pass Load Port and Container Id to the Workflow;&nbsp;</li><li>Pass any event Output to the Activate Input of the Workflow;</li></ol><ol><p>&nbsp;</p><p>&nbsp;</p></ol><p>&nbsp;</p>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_194418": {
+						"collapsed": false,
+						"position": {
+							"x": 937.9310344827586,
+							"y": 551.7241379310344
+						},
+						"outdated": false
+					},
+					"task_194517": {
+						"collapsed": false,
+						"position": {
+							"x": 1626,
+							"y": 557
+						},
+						"outdated": false
+					}
+				},
+				"links": {},
+				"notes": {
+					"note_195558": {
+						"collapsed": false,
+						"position": {
+							"x": 2161,
+							"y": 523
+						}
+					}
+				},
+				"zoom": 0.5600000000000003,
+				"pan": {
+					"x": 485,
+					"y": 158
+				}
+			}
+		}
+	}
+}

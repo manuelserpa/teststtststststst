@@ -20,6 +20,12 @@
       "contentType": "AutomationWorkFlows"
     }
   ],
+  "dependencies": [
+        {
+            "id": "Cmf.Custom.IoT.Package.CoreSolution",
+            "version": "1.0.0"
+        }
+  ],
   "steps": [
     { "order": "1", "type": "Generic", "onExecute": "$(Agent.Root)/agent/scripts/stop_host.ps1" },
     { "order": "2", "type": "TransformFile", "file": "Cmf.Foundation.Services.HostService.dll.config", "tagFile": true },

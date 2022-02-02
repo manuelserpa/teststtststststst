@@ -1,0 +1,20 @@
+﻿{
+  "version": "1.0.0",
+  "packageId": "Cmf.Custom.IoT.Data.CoreSolution",
+  "description": "Cmf Custom Template And Shared Solution Data Package",
+  "packageType": "IoTData",
+  "isInstallable": true,
+  "isUniqueInstall": true,
+  "isToSetDefaultSteps": true,
+  "contentToPack": [
+      {
+        "source": "../../../Libs/LBOs/NetStandard/Cmf.LightBusinessObjects.dll",
+        "target": "CMFInstallActions/References"
+      },
+      {
+        "source": "MasterData/*",
+        "target": "MasterData/$(version)/"
+      }
+  ],
+  "xmlInjection": ["../../../DeploymentMetadata/ui.xml"]
+}
