@@ -2,10 +2,11 @@
     "packageId": "Cmf.Custom.IoT.Package.CoreSolution",
     "version": "1.0.0",
     "description": "This package deploys Critical Manufacturing MES Template Workflows and Shared Workflows, as well as the basic SecsGEM configuration.",
-    "packageType": "Data",
+    "packageType": "IoTData",
 	"isInstallable": true,
 	"isUniqueInstall": true,
 	"isToSetDefaultSteps": true,
+	"contentToPack": [],
     "dependencies": [
         {
           "id": "Cmf.Custom.IoT.Packages",
