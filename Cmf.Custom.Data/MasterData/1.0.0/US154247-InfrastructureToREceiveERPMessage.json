@@ -373,10 +373,10 @@
   },
   "<SM>LocalizedMessageKey": {
     "1": {
-      "Name": "CustomErrorMessageIEERPMessageEmpty",
+      "Name": "CustomReceiveEmptyMessage",
       "Description": "Error message to inform that the received messsage is empty.",
       "MessageType": "Message",
-      "en-US": "Received messsage from ERP is empty.",
+      "en-US": "Received messsage is empty.",
       "de-DE": "",
       "zh-CN": "",
       "pt-PT": "",

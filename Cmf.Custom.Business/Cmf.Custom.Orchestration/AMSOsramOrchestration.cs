@@ -45,7 +45,7 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                     IntegrationEntry integrationEntry = new IntegrationEntry
                     {
                         Name = Guid.NewGuid().ToString("N"),
-                        EventName = AMSOsramConstants.CustomIntegrationInboundERPEventName,
+                        EventName = AMSOsramConstants.CustomIntegrationInboundEventName,
                         SourceSystem = AMSOsramConstants.CustomERPSystem,
                         TargetSystem = Constants.MesSystemDesignation,
                         MessageType = input.MessageType,
@@ -66,7 +66,7 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                 }
                 else
                 {
-                    throw new Exception(LocalizedMessage.GetLocalizedMessage(AMSOsramConstants.CustomErrorMessageIEERPMessageEmpty).MessageText); 
+                    throw new Exception(LocalizedMessage.GetLocalizedMessage(AMSOsramConstants.CustomReceiveEmptyMessage).MessageText); 
                 }
 
                 Utilities.EndMethod(

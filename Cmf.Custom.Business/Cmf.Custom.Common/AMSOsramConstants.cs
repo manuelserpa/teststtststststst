@@ -2,7 +2,7 @@
 {
     public class AMSOsramConstants
     {
-        #region ERP
+        #region Integration Entries
 
         /// <summary>
         /// System ERP
@@ -12,7 +12,7 @@
         /// <summary>
         /// Integration Inbound Event Name
         /// </summary>
-        public const string CustomIntegrationInboundERPEventName = "Inbound";
+        public const string CustomIntegrationInboundEventName = "Inbound";
 
         #endregion
 
@@ -21,7 +21,7 @@
         /// <summary>
         /// Received messsage from ERP is empty.
         /// </summary>
-        public const string CustomErrorMessageIEERPMessageEmpty = "CustomErrorMessageIEERPMessageEmpty";
+        public const string CustomReceiveEmptyMessage = "CustomReceiveEmptyMessage";
 
         #endregion
 
