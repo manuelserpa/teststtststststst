@@ -7,7 +7,7 @@
         /// <summary>
         /// Production lot Name Generator
         /// </summary>
-        public const string CustomGenerateProductionLotNames = "CustomGenerateProductionLotNames";
+        public const string CustomGenerateProductionLotNames = "CustomProductionLotNameGenerator";
 
         #endregion  
     }

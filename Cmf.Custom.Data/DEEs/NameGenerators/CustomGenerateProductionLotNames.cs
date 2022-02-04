@@ -4,6 +4,7 @@ using System.Linq;
 using Cmf.Foundation.Common;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Navigo.BusinessObjects;
+using Cmf.Custom.AMSOsram.Common;
 
 namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
 {
@@ -50,10 +51,13 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             //Please start code here
             UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
 
+            // Common
+            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
+
             System.Text.StringBuilder newName = new System.Text.StringBuilder();
 
             NameGenerator ng = new NameGenerator();
-            ng.Load("CustomProductionLotNameGenerator"); // Need to match the Name Generator name
+            ng.Load(AMSOsramConstants.CustomGenerateProductionLotNames); // Need to match the Name Generator name
             GeneratorContext existingContext = null;
 
             // Site

@@ -65,7 +65,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
 							{
 								if (string.IsNullOrWhiteSpace(((CreateMaterialInput)myKey.Value).Material.Name))
 								{
-									((CreateMaterialInput)myKey.Value).NameGeneratorName = "MaterialNameGenerator";
+									((CreateMaterialInput)myKey.Value).NameGeneratorName = AMSOsramConstants.CustomGenerateProductionLotNames;
 								}
 								isFound = true;
 							}
