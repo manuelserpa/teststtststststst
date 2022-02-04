@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using Cmf.Foundation.BusinessOrchestration;
 
 namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
 {

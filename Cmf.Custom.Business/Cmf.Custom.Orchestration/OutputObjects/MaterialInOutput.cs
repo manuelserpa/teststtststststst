@@ -1,4 +1,5 @@
-﻿using Cmf.Navigo.BusinessObjects;
+﻿using Cmf.Foundation.BusinessOrchestration;
+using Cmf.Navigo.BusinessObjects;
 using System.Runtime.Serialization;
 
 namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects

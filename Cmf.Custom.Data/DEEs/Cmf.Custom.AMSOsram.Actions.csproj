@@ -7,4 +7,10 @@
 		<AssemblyName>Cmf.Custom.AMSOsram.Actions</AssemblyName>
 		<RootNamespace>Cmf.Custom.AMSOsram.Actions</RootNamespace>
 	</PropertyGroup>
+	<ItemGroup>
+	  <PackageReference Include="Cmf.Foundation.BusinessOrchestration" Version="8.3.3" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Cmf.Custom.Business\Cmf.Custom.Common\Cmf.Custom.AMSOsram.Common.csproj" />
+	</ItemGroup>
 </Project>
