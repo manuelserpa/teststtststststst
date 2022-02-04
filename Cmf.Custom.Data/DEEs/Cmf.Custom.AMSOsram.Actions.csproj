@@ -8,8 +8,14 @@
 		<RootNamespace>Cmf.Custom.AMSOsram.Actions</RootNamespace>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Cmf.Foundation.Helpers" Version="8.3.3"/>
-		<PackageReference Include="Cmf.Foundation.BusinessObjects" Version="8.3.3"/>
-		<PackageReference Include="Cmf.Navigo.BusinessObjects" Version="8.3.3"/>
+		<PackageReference Include="Cmf.Foundation.BusinessOrchestration" Version="8.3.3" />
+		<PackageReference Include="Cmf.Foundation.Common" Version="8.3.3" />
+		<PackageReference Include="Cmf.Foundation.Helpers" Version="8.3.3" />
+		<PackageReference Include="Cmf.Foundation.BusinessObjects" Version="8.3.3" />
+		<PackageReference Include="Cmf.Navigo.BusinessObjects" Version="8.3.3" />
+		<PackageReference Include="Cmf.Navigo.BusinessOrchestration" Version="8.3.3" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Cmf.Custom.Business\Cmf.Custom.Common\Cmf.Custom.AMSOsram.Common.csproj" />
 	</ItemGroup>
 </Project>

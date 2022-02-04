@@ -796,8 +796,160 @@
         "CodeFileRelativePath" : "NameGenerators\\CustomGenerateProductionLotNames.cs",
         "IsEnabled"	: "True",
         "Classification" : ""
+      },
+      "2" : {
+        "Action" : "ResolveNameGenerator",
+        "Description"	: "Resolve Name Generator",
+        "CodeFileRelativePath" : "NameGenerators\\ResolveNameGenerator.cs",
+        "IsEnabled"	: "True",
+        "Classification" : ""
       }
     },
     "DEEActionOrder" : {
+      "1": {
+        "ActionGroup": "GenericServiceManagement.GenericServiceManagementOrchestration.CloneObject.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "2": {
+        "ActionGroup": "GenericServiceManagement.GenericServiceManagementOrchestration.CreateObject.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "3": {
+        "ActionGroup": "Rule.RuleOrchestration.CreateRule.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "4": {
+        "ActionGroup": "ContainerManagement.ContainerManagementOrchestration.CreateContainer.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "5": {
+        "ActionGroup": "ContainerManagement.ContainerManagementOrchestration.CreateContainers.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "6": {
+        "ActionGroup": "DataCollectionManagement.DataCollectionInstanceManagementOrchestration.OpenDataCollectionInstance.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "7": {
+        "ActionGroup": "DataCollectionManagement.DataCollectionInstanceManagementOrchestration.PerformImmediateDataCollection.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "8": {
+        "ActionGroup": "DataCollectionManagement.DataCollectionManagementOrchestration.CreateDataCollection.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "9": {
+        "ActionGroup": "DataCollectionManagement.DataCollectionManagementOrchestration.CreateDataCollectionTemplate.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "10": {
+        "ActionGroup": "FlowManagement.FlowManagementOrchestration.CreateFlow.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "11": {
+        "ActionGroup": "FlowManagement.FlowManagementOrchestration.CreateFlowTemplate.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "12": {
+        "ActionGroup": "FlowManagement.FlowManagementOrchestration.CreateFlowWithVersion.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "13": {
+        "ActionGroup": "MappingManagement.MappingManagementOrchestration.CreateMap.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "14": {
+        "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.CreateMaterial.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "15": {
+        "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.CreateMaterials.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "16": {
+        "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.CreateMaterialSubProducts.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "17": {
+        "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.ExpandMaterial.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "18": {
+        "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.GradeMaterial.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "19": {
+        "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.SplitMaterial.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "20": {
+        "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.SplitMaterialByProduct.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "21": {
+        "ActionGroup": "ProductManagement.ProductManagementOrchestration.CreateBom.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "22": {
+        "ActionGroup": "ProductManagement.ProductManagementOrchestration.CreateBomTemplate.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "23": {
+        "ActionGroup": "ProductManagement.ProductManagementOrchestration.CreateBomWithVersion.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "24": {
+        "ActionGroup": "ProductManagement.ProductManagementOrchestration.CreateProduct.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "25": {
+        "ActionGroup": "ProductManagement.ProductManagementOrchestration.CreateProductTemplate.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "26": {
+        "ActionGroup": "ProductManagement.ProductManagementOrchestration.CreateProductWithVersion.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "27": {
+        "ActionGroup": "ConnectIoTManagement.ConnectIoTManagementOrchestration.CreateAutomationControllerInstance.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "28": {
+        "ActionGroup": "ConnectIoTManagement.ConnectIoTManagementOrchestration.FullUpdateAutomationController.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      },
+      "29": {
+        "ActionGroup": "ConnectIoTManagement.ConnectIoTManagementOrchestration.FullUpdateAutomationDriverDefinition.Pre",
+        "Action": "ResolveNameGenerator",
+        "Order": "1"
+      }
     }
   }
