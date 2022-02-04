@@ -125,7 +125,7 @@ steps:
 - task: CopyFiles@2
   displayName: 'Copy Runsettings to Configurations'
   inputs:
-    SourceFolder: './Tests/'
+    SourceFolder: './Cmf.Custom.Tests/'
     Contents: '*.runsettings'
     TargetFolder: Configurations/Runsettings
 
