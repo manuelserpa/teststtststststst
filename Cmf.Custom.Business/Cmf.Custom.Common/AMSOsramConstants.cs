@@ -129,6 +129,11 @@
         #region Localized Messages
 
         /// <summary>
+        /// Received message from Stibo is empty
+        /// </summary>
+        public const string CustomReceiveEmptyMessage = "CustomReceiveEmptyMessage";
+
+        /// <summary>
         /// Localized Message: ConfigNotFound (config name)
         /// </summary>
         public static string LocalizedMessageConfigNotFound = "CustomLocalizedMessageConfigNotFound";
@@ -137,274 +142,6 @@
         /// Localized Message: IoT Connection Timeout
         /// </summary>
         public static string LocalizedMessageIoTConnectionTimeout = "CustomLocalizedMessageIoTConnectionTimeout";
-
-        /// <summary>
-        /// Localized Message: AdHoc IoT Actions Timeout
-        /// </summary>
-        public static string LocalizedMessageAdHocIotActionsTimeout = "CustomLocalizedMessageAdHocIotActionsTimeout";
-
-
-        /// <summary>
-        /// Localized Message: No Load Port Defined in Resource
-        /// </summary>
-        public static string LocalizedMessageLoadPortNotDefined = "CustomLocalizedMessageLoadPortNotDefined";
-
-        /// <summary>
-        /// Localized Message: No Load Port Defined in Resource
-        /// </summary>
-        public static string LocalizedMessageNoContainerAvailable = "CustomLocalizedMessageNoContainerAvailable";
-
-        /// <summary>
-        /// Localized Message: No Load Port Defined in Resource
-        /// </summary>
-        public static string LocalizedMessageNoOutputLoadPort = "CustomLocalizedMessageNoOutputLoadPort";
-
-        /// <summary>
-        /// Localized Message: No Load Port Defined in Resource
-        /// </summary>
-        public static string LocalizedMessageRequiresRework = "CustomLocalizedMessageRequiresRework";
-
-        /// <summary>
-        /// Localize dMessage: CustomLocalizedMessageMonitorLotCannotBeTerminated
-        /// </summary>
-        public static string LocalizedMessageMonitorLotCannotBeTerminated = "CustomLocalizedMessageMonitorLotCannotBeTerminated";
-
-        /// <summary>
-        /// Localized Message: CustomCannotAttachMonitorWafers
-        /// </summary>
-        public static string LocalizedMessageCannotAttachMonitorWafers = "CustomCannotAttachMonitorWafers";
-
-        /// <summary>
-        /// Localized Message: CustomCannotAttachNonMonitorWafers
-        /// </summary>
-        public static string LocalizedMessageCannotAttachNonMonitorWafers = "CustomCannotAttachNonMonitorWafers";
-
-        public static string LocalizedMessageRecipeWithoutBody = "CustomLocalizedMessageRecipeWithoutBody";
-        /// <summary> 
-        /// Localized Message: Custom Resource Notification Subject
-        /// </summary>
-        public static string LocalizedMessageResourceSubjectNotification = "CustomLocalizedMessageResourceSubjectNotification";
-
-        public static string LocalizedMessageRecipeBodyEmpty = "CustomLocalizedMessageRecipeBodyEmpty";
-
-        /// <summary>
-        /// Localized Message: Custom Resource Notification Body
-        /// </summary>
-        public static string LocalizedMessageResourceBodyNotification = "CustomLocalizedMessageResourceBodyNotification";
-
-        /// <summary>
-        /// Localized Message: Import Wafers Email Header
-        /// <b>Import Wafers Notification:</b> {0} <br><br> <b>Report:</b> <br>
-        /// </summary>
-        public static string LocalizedMessageImportWafersEmailHeader = "CustomLocalizedMessageImportWafersEmailHeader";
-
-        /// <summary>
-        /// Localized Message: Import Wafers Email Subject
-        /// Import Wafers Notification
-        /// </summary>
-        public static string LocalizedMessageImportWafersEmailSubject = "CustomLocalizedMessageImportWafersEmailSubject";
-
-        /// <summary>
-        /// Localized Message: Import Wafers Email Body
-        /// Material {0} was successfully imported. <br> 
-        /// </summary>
-        public static string LocalizedMessageImportWafersSuccessEmailBody = "CustomLocalizedMessageImportWafersSuccessEmailBody";
-
-        /// <summary>
-        /// Localized Message: Custom Resource Notification Body
-        /// </summary>
-        public const string LocalizedMessageMissingComment = "CustomLocalizedMessageMissingComment";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageNoHoldReasonsAvailableErrorMessage
-        /// </summary>
-        public static string LocalizedMessageNoHoldReasonAvailableErrorMessage = "CustomLocalizedMessageNoHoldReasonAvailableErrorMessage";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageNoHoldReasonAvailableAtConfig
-        /// </summary>
-        public static string LocalizedMessageNoHoldReasonAvailableAtConfig = "CustomLocalizedMessageNoHoldReasonAvailableAtConfig";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageLotOnHoldAfterAbortComment
-        /// </summary>
-        public static string LocalizedMessageAbortProcessHoldReasonComment = "CustomLocalizedMessageAbortProcessHoldReasonComment";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageTrackoutProcessHoldReasonComment
-        /// </summary>
-        public static string LocalizedMessageATrackoutProcessHoldReasonComment = "CustomLocalizedMessageTrackoutProcessHoldReasonComment";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageTrackoutProcessHoldOnMissingDataCollection
-        /// </summary>
-        public static string LocalizedMessageTrackoutProcessHoldOnMissingDataCollection = "CustomLocalizedMessageTrackoutProcessHoldOnMissingDataCollection";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageMissingDataCollectionInformation
-        /// </summary>
-        public static string LocalizedMessageMissingDataCollectionInformation = "CustomLocalizedMessageMissingDataCollectionInformation";
-
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageMissingDataCollectionInformation
-        /// </summary>
-        public static string LocalizedMessageMedianStringMissingForMedianCalculation = "CustomLocalizedMessageMedianStringMissingForMedianCalculation";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageMissingDataCollectionInformation
-        /// </summary>
-        public static string LocalizedMessage3SigmaStringMissingFor3SigmaCalculation = "CustomLocalizedMessage3SigmaStringMissingFor3SigmaCalculation";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageFutureActionSetNoteEmailSubject
-        /// </summary>
-        public static string LocalizedMessageFutureActionSetNoteEmailSubject = "CustomLocalizedMessageFutureActionSetNoteEmailSubject";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageFutureActionSetNoteEmailBody
-        /// </summary>
-        public static string LocalizedMessageFutureActionSetNoteEmailBody = "CustomLocalizedMessageFutureActionSetNoteEmailBody";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageTransportExceptionNotification
-        /// </summary>
-        public static string LocalizedMessageTransportExceptionNotification = "CustomLocalizedMessageTransportExceptionNotification";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageTransportAlarmNotification
-        /// </summary>
-        public static string LocalizedMessageTransportAlarmNotification = "CustomLocalizedMessageTransportAlarmNotification";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageSPCOutOfSpecEmailSubject
-        /// </summary>
-        public static string LocalizedMessageSPCOutOfSpecEmailSubject = "CustomLocalizedMessageSPCOutOfSpecEmailSubject";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageSPCOutOfSpecEmailBody
-        /// </summary>
-        public static string LocalizedMessageSPCOutOfSpecEmailBody = "CustomLocalizedMessageSPCOutOfSpecEmailBody";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageSPCHoldReasonComment
-        /// </summary>
-        public static string LocalizedMessageSPCHoldReasonComment = "CustomLocalizedMessageSPCHoldReasonComment";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageSPCOutOfSpecHoldLotEmailBody
-        /// </summary>
-        public static string LocalizedMessageSPCOutOfSpecHoldLotEmailBody = "CustomLocalizedMessageSPCOutOfSpecHoldLotEmailBody";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageSPCOutOfSpecToolDownEmailBody
-        /// </summary>
-        public static string LocalizedMessageSPCOutOfSpecToolDownEmailBody = "CustomLocalizedMessageSPCOutOfSpecToolDownEmailBody";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageSPCOutOfSpecHoldReasonNotFound
-        /// </summary>
-        public static string LocalizedMessageSPCOutOfSpecHoldReasonNotFound = "CustomLocalizedMessageSPCOutOfSpecHoldReasonNotFound";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageSPCOutOfSpecToolNotFound
-        /// </summary>
-        public static string LocalizedMessageSPCOutOfSpecToolNotFound = "CustomLocalizedMessageSPCOutOfSpecToolNotFound";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageSPCOutOfSpecHoldReasonNotInStep
-        /// </summary>
-        public static string LocalizedMessageSPCOutOfSpecHoldReasonNotInStep = "CustomLocalizedMessageSPCOutOfSpecHoldReasonNotInStep";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageSPCOutOfSpecHoldLotAndToolDownEmailBody
-        /// </summary>
-        public static string LocalizedMessageSPCOutOfSpecHoldLotAndToolDownEmailBody = "CustomLocalizedMessageSPCOutOfSpecHoldLotAndToolDownEmailBody";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageLotTypeNotConfiguredErrorMessage
-        /// </summary>
-        public static string LocalizedMessageLotTypeNotConfiguredErrorMessage = "CustomLocalizedMessageLotTypeNotConfiguredErrorMessage";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageCustomSorterJobDefinitionInvalidMovementList
-        /// </summary>
-        public static string LocalizedMessageCustomSorterJobDefinitionInvalidMovementList = "CustomLocalizedMessageCustomSorterJobDefinitionInvalidMovementList";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageNoOffFlowReasonAvailableErrorMessage
-        /// </summary>
-        public static string LocalizedMessageNoOffFlowReasonAvailableErrorMessage = "CustomLocalizedMessageNoOffFlowReasonAvailableErrorMessage";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageWafersDoNotBelongToSameContainerErrorMessage
-        /// </summary>
-        public static string LocalizedMessageWafersDoNotBelongToSameContainerErrorMessage = "CustomLocalizedMessageWafersDoNotBelongToSameContainerErrorMessage";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageWafersMustBeOnContainerErrorMessage
-        /// </summary>
-        public static string LocalizedMessageWafersMustBeOnContainerErrorMessage = "CustomLocalizedMessageWafersMustBeOnContainerErrorMessage";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageNoHoldAfterScrapReasonAvailableErrorMessage
-        /// </summary>
-        public static string LocalizedMessageNoHoldAfterScrapReasonAvailableErrorMessage = "CustomLocalizedMessageNoHoldAfterScrapReasonAvailableErrorMessage";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageHoldScrapProcessReasonComment
-        /// </summary>
-        public static string LocalizedMessageHoldScrapProcessReasonComment = "CustomLocalizedMessageHoldScrapProcessReasonComment";
-
-        /// <summary>
-        /// Localized Message: StateModelTransitionDoesNotExistException
-        /// </summary>
-        public static string LocalizedMessageStateModelTransitionDoesNotExistException = "StateModelTransitionDoesNotExistException";
-
-        /// <summary>
-        /// Localized Message: StateModelStateDoesNotExistException
-        /// </summary>
-        public static string LocalizedMessageStateModelStateDoesNotExistException = "StateModelStateDoesNotExistException";
-
-        /// <summary>
-        /// Localized Message: StateModelDoesNotExistException
-        /// </summary>
-        public static string LocalizedMessageStateModelDoesNotExistException = "StateModelDoesNotExistException";
-
-        /// <summary>
-        /// Localized Message: MoreThanOneEntityWasFoundException
-        /// </summary>
-        public static string LocalizedMessageMoreThanOneEntityWasFoundException = "MoreThanOneEntityWasFoundException";
-
-        /// <summary>
-        /// Localized Message: NoEntitiesWereFoundException
-        /// </summary>
-        public static string LocalizedMessageNoEntitiesWereFoundException = "NoEntitiesWereFoundException";
-
-        /// <summary>
-        /// Localized Message: TransportMovementCurrentMainStateNotDefinedException
-        /// </summary>
-        public static string LocalizedMessageTransportMovementCurrentMainStateNotDefinedException = "TransportMovementCurrentMainStateNotDefinedException";
-
-        /// <summary>
-        /// Localized Message: VariousTransportMovementsWithTheSameContextException
-        /// </summary>
-        public static string LocalizedMessageVariousTransportMovementsWithTheSameContextException = "VariousTransportMovementsWithTheSameContextException";
-
-        /// <summary>
-        /// Localized Message: LotMustNotBeOnHoldException
-        /// </summary>
-        public static string LocalizedMessageLotMustNotBeOnHoldException = "LotMustNotBeOnHoldException";
-
-        /// <summary>
-        /// Localized Message CustomLocalizedMessageLogicalChartsLimitSettings
-        /// </summary>
-        public static string LocalizedMessageLogicalChartsLimitSettings = "CustomLocalizedMessageLogicalChartsLimitSettings";
-
-        /// <summary>
-        /// Localized Message: CustomLocalizedMessageSubMaterialLossesNotProcessedStateErrorMessage
-        /// </summary>
-        public static string LocalizedMessageSubMaterialLossesNotProcessedStateErrorMessage = "CustomLocalizedMessageSubMaterialLossesNotProcessedStateErrorMessage";
 
 
         #endregion
@@ -764,6 +501,7 @@
         public static string CustomSorterJobDefinitionJsonPropertyScrapFutureActionType = "Scrap";
 
         #endregion
+
         #region Integration Entries
 
         /// <summary>
@@ -775,15 +513,6 @@
         /// Integration Inbound Event Name
         /// </summary>
         public const string CustomIntegrationInboundEventName = "Inbound";
-
-        #endregion
-
-        #region Localized Messages
-
-        /// <summary>
-        /// Received message from Stibo is empty
-        /// </summary>
-        public const string CustomReceiveEmptyMessage = "CustomReceiveEmptyMessage";
 
         #endregion
     }
