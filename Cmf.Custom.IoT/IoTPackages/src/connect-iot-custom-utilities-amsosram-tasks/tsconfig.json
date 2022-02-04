@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "lib": [
+           "dom", "es2017"
+        ],
+        "downlevelIteration": true,
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": false,
+        "declaration": true,
+        "pretty": true,
+        "strict": false,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "skipLibCheck": true,
+        "allowSyntheticDefaultImports": true
+        
+    },
+    "exclude": [
+        "test",
+        "node_modules"
+    ]
+}

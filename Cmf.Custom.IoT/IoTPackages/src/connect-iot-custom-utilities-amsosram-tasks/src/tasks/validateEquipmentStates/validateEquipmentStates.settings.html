@@ -1,0 +1,31 @@
+
+ 
+<cmf-core-connect-iot-taskSettings>
+
+
+    <cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS">
+        <cmf-core-business-controls-propertyEditor
+        [label]="i18n.CURRENT_EQUIPMENT_STATE"
+        nestedEditorType="Custom">
+        <cmf-core-controls-enumComboBox
+            [enum]="EquipmentStateEnum"
+            [(value)]="settings.currentState"
+        ></cmf-core-controls-enumComboBox>
+    </cmf-core-business-controls-propertyEditor>
+    <cmf-core-business-controls-propertyEditor
+    [label]="i18n.COMPARE_PREVIOUS_STATE"
+    [(value)]="settings.comparePreviousState" 
+    valueType="Boolean">
+</cmf-core-business-controls-propertyEditor>
+    <cmf-core-business-controls-propertyEditor
+    [label]="i18n.PREVIOUS_EQUIPMENT_STATE"
+    nestedEditorType="Custom">
+    <cmf-core-controls-enumComboBox
+        [enum]="EquipmentStateEnum"
+        [(value)]="settings.previousState"
+    ></cmf-core-controls-enumComboBox>
+</cmf-core-business-controls-propertyEditor>
+
+    </cmf-core-controls-baseWidget>
+    
+</cmf-core-connect-iot-taskSettings>

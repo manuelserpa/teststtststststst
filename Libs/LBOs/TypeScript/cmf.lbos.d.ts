@@ -36897,7 +36897,7 @@ export declare namespace Cmf.Connect.BusinessObjects {
     }
 }
 export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects {
-    class CustomReceiveERPMessageInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+    class CustomReceiveStiboMessageInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
         Message: string;
@@ -36905,7 +36905,7 @@ export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects {
     }
 }
 export declare namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects {
-    class CustomReceiveERPMessageOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+    class CustomReceiveStiboMessageOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
         Result: Cmf.Foundation.BusinessObjects.IntegrationEntry;
@@ -36923,7 +36923,7 @@ export declare namespace Cmf.Services.GenericServiceManagement {
 }
 export declare namespace Cmf.Services.ImportExportManagement {
 }
-export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveERPMessageInput {
+export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveStiboMessageInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;

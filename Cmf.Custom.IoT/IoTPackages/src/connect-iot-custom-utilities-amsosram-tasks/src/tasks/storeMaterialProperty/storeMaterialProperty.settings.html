@@ -1,0 +1,25 @@
+<cmf-core-connect-iot-taskSettings>
+
+    <cmf-core-connect-iot-taskSettingsTab [mainTitle]="i18n.INPUTS" [fullHeight]="true" tab-id="Inputs">
+        <connect-iot-controller-engine-core-tasks-storeMaterialProperty-settings-input
+            [data]="settings.inputs"
+            #inputs
+        >
+        </connect-iot-controller-engine-core-tasks-storeMaterialProperty-settings-input>
+    </cmf-core-connect-iot-taskSettingsTab>
+
+
+    
+ <!-- General Tab: Settings -->
+ <cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS" >
+  
+    <!-- Create property if does not exists-->
+    <cmf-core-business-controls-propertyEditor
+        [label]="i18n.CLEAR_ACTIVATE"
+        [(value)]="settings.clearActivate"
+        valueType="Boolean"
+    ></cmf-core-business-controls-propertyEditor>
+
+</cmf-core-controls-baseWidget>
+    
+</cmf-core-connect-iot-taskSettings>

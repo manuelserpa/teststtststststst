@@ -1,0 +1,125 @@
+<cmf-core-connect-iot-taskSettings>
+
+    <cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS">
+        <!-- Stream Function Name -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.STREAM_FUNCTION_NAME"
+            [(value)]="settings.streamFunctionName"
+            [required]="true"
+            valueType="String"
+            [infoMessage]="i18n.STREAM_FUNCTION_NAME_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+            
+        <!-- Use S7F1 -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.USE_S7F1"
+            [(value)]="settings.useS7F1Message"
+            [required]="false"
+            valueType="Boolean"
+            [infoMessage]="i18n.USE_S7F1_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+
+            <!-- Primary Request Message -->
+            <cmf-core-business-controls-propertyEditor
+                [label]="i18n. PRIMARY_INQUIRY_MESSAGE"
+                [value]="_inquiryMessage"
+                (valueChange)="_onSettingsValueChange($event, 'InquiryMessageValueChange')"
+                [required]="false"
+                valueType="Object"              
+            ></cmf-core-business-controls-propertyEditor>
+
+            <!-- Recipe Name Path Location -->
+        <cmf-core-business-controls-propertyEditor
+        [label]="i18n.RECIPE_NAME_INQUIRY_PRIMARY_PATH"
+        [(value)]="settings.recipeNameInquiryPrimaryPath"
+        [required]="false"
+        valueType="String"
+    ></cmf-core-business-controls-propertyEditor>
+
+    <!-- Recipe Body Location Path  -->
+    <cmf-core-business-controls-propertyEditor
+        [label]="i18n.RECIPE_BODY__LENGTH_INQUIRY_PRIMARY_PATH"
+        [(value)]="settings.recipeBodyLengthInquiryPrimaryPath"
+        [required]="false"
+        valueType="String"
+    ></cmf-core-business-controls-propertyEditor>
+    
+        <!-- S7F1 success code -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.S7F1_SUCCESS_CODES"
+            [(value)]="settings.successCodesS7F1"
+            [required]="false"
+            valueType="String"
+            [infoMessage]="i18n.S7F1_SUCCESS_CODES_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+    </cmf-core-controls-baseWidget>
+
+    <cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS_PRIMARY">
+        <!-- Primary Request Message -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.PRIMARY_REQUEST_MESSAGE"
+            [value]="_primaryMessage"
+            (valueChange)="_onSettingsValueChange($event, 'PrimaryMessageValueChange')"
+            [required]="false"
+            valueType="Object"
+            [infoMessage]="i18n.PRIMARY_REQUEST_MESSAGE_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+
+        <!-- Recipe Name Path Location -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.RECIPE_NAME_PRIMARY_PATH"
+            [(value)]="settings.recipeNamePrimaryPath"
+            [required]="false"
+            valueType="String"
+            [infoMessage]="i18n.RECIPE_NAME_PRIMARY_PATH_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+
+        <!-- Recipe Body Location Path  -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.RECIPE_BODY_PRIMARY_PATH"
+            [(value)]="settings.recipeBodyPrimaryPath"
+            [required]="false"
+            valueType="String"
+            [infoMessage]="i18n.RECIPE_BODY_PRIMARY_PATH_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+        
+        <!-- Body Type -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.RECIPE_BODY_TYPE"
+            nestedEditorType="Custom"
+            [infoMessage]="i18n.RECIPE_BODY_TYPE_HELP">
+            <cmf-core-controls-enumComboBox
+                [enum]="RecipeBodyType"
+                [required]="true"
+                [value]="settings.recipeBodyType"
+                (valueChange)="_onSettingsValueChange($event,'recipeBodyType')"
+            ></cmf-core-controls-enumComboBox>
+        </cmf-core-business-controls-propertyEditor>  
+    </cmf-core-controls-baseWidget>
+
+    <cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS_SECONDARY">
+        <!-- Reply Path -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.REPLY_PATH"
+            [(value)]="settings.replyPath"
+            [required]="true"
+            valueType="String"
+            [infoMessage]="i18n.REPLY_PATH_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+        
+        <!-- Success Codes -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.SUCCESS_CODES"
+            [(value)]="settings.successCodes"
+            [required]="false"
+            valueType="String"
+            [infoMessage]="i18n.SUCCESS_CODES_HELP"
+        ></cmf-core-business-controls-propertyEditor>
+    </cmf-core-controls-baseWidget>
+
+    <cmf-core-connect-iot-taskSettingsTab [mainTitle]="i18nHelp.HELP_HEADER" [fullHeight]="true">
+        <cmf-core-controls-result-message class="link-permissions-alert" [content]= "help">
+        </cmf-core-controls-result-message>
+    </cmf-core-connect-iot-taskSettingsTab>
+
+</cmf-core-connect-iot-taskSettings>

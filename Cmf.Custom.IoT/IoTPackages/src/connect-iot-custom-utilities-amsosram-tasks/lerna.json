@@ -1,0 +1,14 @@
+{
+  "packages": [
+    "src/*"
+  ],
+  "command": {
+    "exec": {},
+    "bootstrap": {},
+    "publish": {
+      "message": "chore(release): publish %s",
+      "allowBranch": "master"
+    }
+  },
+  "version": "0.0.0"
+}

@@ -2,7 +2,7 @@ declare const _default: {
     AMSOsram: {
         FullNamespace: string;
         APIs: {
-            CustomReceiveERPMessage: {
+            CustomReceiveStiboMessage: {
                 Description: string;
                 Input: {
                     Name: string;
