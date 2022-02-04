@@ -811,11 +811,6 @@ export namespace Cmf.Foundation.Configuration
 	var dummy = 0;
 }
 
-export namespace Cmf.Foundation.DataPlatform.Framework.Spark
-{
-	var dummy = 0;
-}
-
 export namespace Cmf.Foundation.DataPlatform.IoTEventHandler.Domain
 {
 	var dummy = 0;
@@ -1207,6 +1202,16 @@ export namespace Cmf.CodeParserWalker.Core
 }
 
 export namespace Cmf.Connect.BusinessObjects
+{
+	var dummy = 0;
+}
+
+export namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects
+{
+	var dummy = 0;
+}
+
+export namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
 {
 	var dummy = 0;
 }
@@ -20247,33 +20252,6 @@ export namespace Cmf.Foundation.Configuration
 		public IsSystem : boolean;
 	}
 
-}
-export namespace Cmf.Foundation.DataPlatform.Framework.Spark
-{
-
-	// data objects
-
-	export class SparkIoTConsumerConfiguration
-	{
-		protected $id:string = null;
-		protected $type:string = "Cmf.Foundation.DataPlatform.Framework.Spark.SparkIoTConsumerConfiguration, Cmf.Foundation.DataPlatform.Framework.Spark";
-		public Packages : string[];
-	}
-
-	// business objects
-	export enum DriverState
-	{
-		SUBMITTED = 0,
-		RUNNING = 1,
-		KILLED = 2,
-		FAILED = 3,
-		ERROR = 4,
-		RELAUNCHING = 5,
-		RECLAIMED = 6,
-		FINISHED = 7,
-		UNKNOWN = 8,
-	}
-	
 }
 export namespace Cmf.Foundation.DataPlatform.IoTEventHandler.Domain
 {
@@ -57813,6 +57791,37 @@ export namespace Cmf.Connect.BusinessObjects
 	}
 	
 }
+export namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects
+{
+
+	// data objects
+
+	// business objects
+	
+
+	export class CustomReceiveStiboMessageInput extends Cmf.Foundation.BusinessOrchestration.BaseInput
+	{
+		protected $id:string = null;
+		protected $type:string = "Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveStiboMessageInput, Cmf.Custom.AMSOsram.Orchestration";
+		public Message : string;		
+		public MessageType : string;		
+	}
+
+}
+export namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
+{
+
+	// data objects
+
+	// business objects
+	export class CustomReceiveStiboMessageOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput
+	{
+		protected $id:string = null;
+		protected $type:string = "Cmf.Custom.AMSOsram.Orchestration.OutputObjects.CustomReceiveStiboMessageOutput, Cmf.Custom.AMSOsram.Orchestration";
+		public Result : Cmf.Foundation.BusinessObjects.IntegrationEntry;
+		
+	}
+}
 export namespace Cmf.MessageBus.Client.messages
 {
 
@@ -57841,6 +57850,12 @@ export namespace Cmf.Services.ImportExportManagement
 	// data objects
 
 	// business objects
+}
+export namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveStiboMessageInput
+{
+	export var _CMFInternal_URLSuffix = "api/AMSOsram/CustomReceiveStiboMessage";
+	export var _CMFInternal_FullNamespace = "Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveStiboMessageInput";
+	export var _CMFInternal_HTTPMethod = "POST";                
 }
 export namespace Cmf.Foundation.BusinessOrchestration.Administration.InputObjects.GetAllAddressInput
 {
@@ -68491,7 +68506,6 @@ export namespace Cmf.Lbos
 		{ FullName : "Cmf.Foundation.Common.Licenses.Enums.EnvironmentType" , Value : Cmf.Foundation.Common.Licenses.Enums.EnvironmentType },
 		{ FullName : "Cmf.Foundation.Common.Licenses.Enums.ValidationType" , Value : Cmf.Foundation.Common.Licenses.Enums.ValidationType },
 		{ FullName : "Cmf.Foundation.CommunicationLayer.Converters.ERPType" , Value : Cmf.Foundation.CommunicationLayer.Converters.ERPType },
-		{ FullName : "Cmf.Foundation.DataPlatform.Framework.Spark.DriverState" , Value : Cmf.Foundation.DataPlatform.Framework.Spark.DriverState },
 		{ FullName : "Cmf.Foundation.DataPlatform.IoTEventHandler.Domain.IoTPublishRequestScope" , Value : Cmf.Foundation.DataPlatform.IoTEventHandler.Domain.IoTPublishRequestScope },
 		{ FullName : "Cmf.Foundation.DiffComputationTool.DiffComputationChangeType" , Value : Cmf.Foundation.DiffComputationTool.DiffComputationChangeType },
 		{ FullName : "Cmf.Foundation.DiffComputationTool.DiffComputationResultStatus" , Value : Cmf.Foundation.DiffComputationTool.DiffComputationResultStatus },

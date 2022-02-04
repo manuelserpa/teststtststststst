@@ -230,8 +230,6 @@ export declare namespace Cmf.Foundation.CommunicationLayer.Converters {
 }
 export declare namespace Cmf.Foundation.Configuration {
 }
-export declare namespace Cmf.Foundation.DataPlatform.Framework.Spark {
-}
 export declare namespace Cmf.Foundation.DataPlatform.IoTEventHandler.Domain {
 }
 export declare namespace Cmf.Foundation.DiffComputationTool {
@@ -389,6 +387,10 @@ export declare namespace Cmf.Navigo.Services.MappingManagement {
 export declare namespace Cmf.CodeParserWalker.Core {
 }
 export declare namespace Cmf.Connect.BusinessObjects {
+}
+export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects {
+}
+export declare namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects {
 }
 export declare namespace Cmf.MessageBus.Client.messages {
 }
@@ -12574,24 +12576,6 @@ export declare namespace Cmf.Foundation.Configuration {
         Value: any;
         ValueType: string;
         IsSystem: boolean;
-    }
-}
-export declare namespace Cmf.Foundation.DataPlatform.Framework.Spark {
-    class SparkIoTConsumerConfiguration {
-        protected $id: string;
-        protected $type: string;
-        Packages: string[];
-    }
-    enum DriverState {
-        SUBMITTED = 0,
-        RUNNING = 1,
-        KILLED = 2,
-        FAILED = 3,
-        ERROR = 4,
-        RELAUNCHING = 5,
-        RECLAIMED = 6,
-        FINISHED = 7,
-        UNKNOWN = 8
     }
 }
 export declare namespace Cmf.Foundation.DataPlatform.IoTEventHandler.Domain {
@@ -36912,6 +36896,21 @@ export declare namespace Cmf.Connect.BusinessObjects {
         LastShutdownUnexpected = 9
     }
 }
+export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects {
+    class CustomReceiveStiboMessageInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Message: string;
+        MessageType: string;
+    }
+}
+export declare namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects {
+    class CustomReceiveStiboMessageOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Result: Cmf.Foundation.BusinessObjects.IntegrationEntry;
+    }
+}
 export declare namespace Cmf.MessageBus.Client.messages {
     enum ClientMessageType {
         Subscription = 1,
@@ -36923,6 +36922,11 @@ export declare namespace Cmf.MessageBus.Client.messages {
 export declare namespace Cmf.Services.GenericServiceManagement {
 }
 export declare namespace Cmf.Services.ImportExportManagement {
+}
+export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveStiboMessageInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.Administration.InputObjects.GetAllAddressInput {
     var _CMFInternal_URLSuffix: string;
