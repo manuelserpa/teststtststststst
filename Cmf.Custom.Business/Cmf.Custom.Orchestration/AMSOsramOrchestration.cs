@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using Cmf.Custom.AMSOsram.BusinessObjects;
 using Cmf.Custom.AMSOsram.Common;
@@ -9,7 +10,10 @@ using Cmf.Custom.AMSOsram.Orchestration.InputObjects;
 using Cmf.Custom.AMSOsram.Orchestration.OutputObjects;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.Cultures;
+using Cmf.Foundation.BusinessOrchestration.GenericServiceManagement;
+using Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects;
 using Cmf.Foundation.Common;
+using Cmf.Foundation.Common.Integration;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
@@ -26,30 +30,7 @@ namespace Cmf.Custom.AMSOsram.Orchestration
         private const string MATERIAL_OUT = "MaterialOut";
         private const string MATERIAL_OUT_INPUT = "MaterialOutInput";
         private const string MATERIAL_OUT_OUTPUT = "MaterialOutOutput";
-        private const string DOCK_CONTAINER = "DockContainer";
-        private const string DOCK_CONTAINER_INPUT = "DockContainerInput";
-        private const string DOCK_CONTAINER_OUTPUT = "DockContainerOutput";
-        private const string UNDOCK_CONTAINER = "UndockContainer";
-        private const string UNDOCK_CONTAINER_INPUT = "UndockContainerInput";
-        private const string UNDOCK_CONTAINER_OUTPUT = "UndockContainerOutput";
-        private const string REQUEST_CONTAINER_MOVEMENT = "RequestContainerMovement";
-        private const string REQUEST_CONTAINER_MOVEMENT_INPUT = "RequestContainerMovementInput";
-        private const string REQUEST_CONTAINER_MOVEMENT_OUTPUT = "RequestContainerMovementOutput";
-        private const string AUTOMATION_MANAGER_DOWNLOADER = "AutomationManagerDownloadArtifacts";
-        private const string AUTOMATION_MANAGER_DOWNLOADER_INPUT = "CustomAutomationManagerDownloaderInput";
-        private const string AUTOMATION_MANAGER_DOWNLOADER_OUTPUT = "CustomAutomationManagerDownloaderOutput";
-        private const string GET_ALL_RECIPES_VERSION = "GetAllRecipeVersions";
-        private const string GET_ALL_RECIPES_VERSION_INPUT = "GetAllRecipeVersionsInput";
-        private const string GET_ALL_RECIPES_VERSION_OUTPUT = "GetAllRecipeVersionsOutput";
-        private const string IMPORT_ERP_MESSAGE = "ImportERPMessage";
-        private const string IMPORT_ERP_MESSAGE_INPUT = "ImportERPMessageInput";
-        private const string IMPORT_ERP_MESSAGE_OUTPUT = "ImportERPMessageOutput";
-        private const string SET_HOLD_FOR_PRODUCT_LINE = "SetHoldForProductLine";
-        private const string SET_HOLD_FOR_PRODUCT_LINE_INPUT = "SetHoldForProductLineInput";
-        private const string SET_HOLD_FOR_PRODUCT_LINE_OUTPUT = "SetHoldForProductLineOutput";
-        private const string RELEASE_HOLD_FOR_PRODUCT_LINE = "ReleaseHoldForProductLine";
-        private const string RELEASE_HOLD_FOR_PRODUCT_LINE_INPUT = "ReleaseHoldForProductLineInput";
-        private const string RELEASE_HOLD_FOR_PRODUCT_LINE_OUTPUT = "ReleaseHoldForProductLineOutput";
+
 
         #region Material
         /// <summary>
