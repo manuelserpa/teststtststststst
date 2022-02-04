@@ -97,7 +97,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
                 MessageType = messageType,
                 Message = message
             };
-            string expectedErrorMessage = "Received messsage is empty.";
+            string expectedErrorMessage = "Message Received is empty.";
             CmfFaultException emptyMessageException = Assert.ThrowsException<CmfFaultException>(() => input.CustomReceiveERPMessageSync());
 
             ///<ExpectedResult> Error message should be presented </ExpectedResult>
