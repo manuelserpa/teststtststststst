@@ -10,6 +10,11 @@
         public const string CustomStiboSystem = "Stibo";
 
         /// <summary>
+        /// System ERP
+        /// </summary>
+        public const string CustomERPSystem = "ERP";
+
+        /// <summary>
         /// Integration Inbound Event Name
         /// </summary>
         public const string CustomIntegrationInboundEventName = "Inbound";
@@ -19,10 +24,11 @@
         #region Localized Messages
 
         /// <summary>
-        /// Received message from Stibo is empty
+        /// Received message is empty
         /// </summary>
         public const string CustomReceiveEmptyMessage = "CustomReceiveEmptyMessage";
 
         #endregion
+        
     }
 }

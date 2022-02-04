@@ -54,5 +54,42 @@ namespace Cmf.Custom.AMSOsram.Services
 
             return output;
         }
+
+        /// <summary>
+        /// CustomReceiveERPMessage
+        /// </summary>
+        /// <param name="input">CustomReceiveERPMessage Input</param>
+        /// <returns>CustomReceiveERPMessage Output</returns>
+        /// <exception cref="Cmf.Foundation.Common.CmfBaseException">If any unexpected error occurs.</exception>
+        [HttpPost()]
+        public CustomReceiveERPMessageOutput CustomReceiveERPMessage(CustomReceiveERPMessageInput input)
+        {
+            Utilities.StartMethod(
+                    OBJECT_TYPE_NAME,
+                    "CustomReceiveERPMessage",
+                    new KeyValuePair<string, object>("CustomReceiveERPMessageInput", input));
+
+            CustomReceiveERPMessageOutput output = null;
+            try
+            {
+                output = AMSOsramOrchestration.CustomReceiveERPMessage(input);
+
+                Utilities.EndMethod(
+                    -1,
+                    -1,
+                    new KeyValuePair<string, object>("CustomReceiveERPMessageInput", input),
+                    new KeyValuePair<string, object>("CustomReceiveERPMessageOutput", output));
+            }
+            catch (CmfBaseException)
+            {
+                throw;
+            }
+            catch (Exception excep)
+            {
+                throw new CmfBaseException(excep.Message, excep);
+            }
+
+            return output;
+        }
     }
 }
