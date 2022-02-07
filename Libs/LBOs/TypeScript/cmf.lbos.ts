@@ -1201,11 +1201,6 @@ export namespace Cmf.CodeParserWalker.Core
 	var dummy = 0;
 }
 
-export namespace Cmf.Common.CustomActionUtilities
-{
-	var dummy = 0;
-}
-
 export namespace Cmf.Connect.BusinessObjects
 {
 	var dummy = 0;
@@ -1217,16 +1212,6 @@ export namespace Cmf.Custom.AMSOsram.BusinessObjects
 }
 
 export namespace Cmf.Custom.AMSOsram.Common.DataStructures
-{
-	var dummy = 0;
-}
-
-export namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects
-{
-	var dummy = 0;
-}
-
-export namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
 {
 	var dummy = 0;
 }
@@ -57785,20 +57770,6 @@ export namespace Cmf.CodeParserWalker.Core
 	}
 	
 }
-export namespace Cmf.Common.CustomActionUtilities
-{
-
-	// data objects
-
-	// business objects
-	export enum DeeTriggerPoint
-	{
-		Unknown = 0,
-		Pre = 1,
-		Post = 2,
-	}
-	
-}
 export namespace Cmf.Connect.BusinessObjects
 {
 
@@ -57897,94 +57868,6 @@ export namespace Cmf.Custom.AMSOsram.Common.DataStructures
 	}
 	
 }
-export namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects
-{
-
-	// data objects
-
-	// business objects
-	
-
-	export class MaterialInInput extends Cmf.Foundation.BusinessOrchestration.BaseInput
-	{
-		protected $id:string = null;
-		protected $type:string = "Cmf.Custom.AMSOsram.Orchestration.InputObjects.MaterialInInput, Cmf.Custom.AMSOsram.Orchestration";
-		public MaterialName : string;		
-		public ResourceName : string;		
-		public CarrierId : string;		
-		public SubResourceOrder : number;		
-	}
-
-	
-
-	export class MaterialOutInput extends Cmf.Foundation.BusinessOrchestration.BaseInput
-	{
-		protected $id:string = null;
-		protected $type:string = "Cmf.Custom.AMSOsram.Orchestration.InputObjects.MaterialOutInput, Cmf.Custom.AMSOsram.Orchestration";
-		public MaterialName : string;		
-		public ResourceName : string;		
-		public CarrierId : string;		
-		public ContainerOnlyProcess : boolean;		
-		public CustomSorterJobDefinition : Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition;		
-	}
-
-	
-
-	export class CustomReceiveStiboMessageInput extends Cmf.Foundation.BusinessOrchestration.BaseInput
-	{
-		protected $id:string = null;
-		protected $type:string = "Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveStiboMessageInput, Cmf.Custom.AMSOsram.Orchestration";
-		public Message : string;		
-		public MessageType : string;		
-	}
-
-	
-
-	export class CustomReceiveERPMessageInput extends Cmf.Foundation.BusinessOrchestration.BaseInput
-	{
-		protected $id:string = null;
-		protected $type:string = "Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveERPMessageInput, Cmf.Custom.AMSOsram.Orchestration";
-		public Message : string;		
-		public MessageType : string;		
-	}
-
-}
-export namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
-{
-
-	// data objects
-
-	// business objects
-	export class MaterialInOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput
-	{
-		protected $id:string = null;
-		protected $type:string = "Cmf.Custom.AMSOsram.Orchestration.OutputObjects.MaterialInOutput, Cmf.Custom.AMSOsram.Orchestration";
-		public Material : Cmf.Navigo.BusinessObjects.Material;
-		
-	}
-	export class MaterialOutOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput
-	{
-		protected $id:string = null;
-		protected $type:string = "Cmf.Custom.AMSOsram.Orchestration.OutputObjects.MaterialOutOutput, Cmf.Custom.AMSOsram.Orchestration";
-		public MaterialName : string;
-		public ResourceName : string;
-		
-	}
-	export class CustomReceiveStiboMessageOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput
-	{
-		protected $id:string = null;
-		protected $type:string = "Cmf.Custom.AMSOsram.Orchestration.OutputObjects.CustomReceiveStiboMessageOutput, Cmf.Custom.AMSOsram.Orchestration";
-		public Result : Cmf.Foundation.BusinessObjects.IntegrationEntry;
-		
-	}
-	export class CustomReceiveERPMessageOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput
-	{
-		protected $id:string = null;
-		protected $type:string = "Cmf.Custom.AMSOsram.Orchestration.OutputObjects.CustomReceiveERPMessageOutput, Cmf.Custom.AMSOsram.Orchestration";
-		public Result : Cmf.Foundation.BusinessObjects.IntegrationEntry;
-		
-	}
-}
 export namespace Cmf.MessageBus.Client.messages
 {
 
@@ -58013,30 +57896,6 @@ export namespace Cmf.Services.ImportExportManagement
 	// data objects
 
 	// business objects
-}
-export namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.MaterialInInput
-{
-	export var _CMFInternal_URLSuffix = "api/AMSOsram/MaterialIn";
-	export var _CMFInternal_FullNamespace = "Cmf.Custom.AMSOsram.Orchestration.InputObjects.MaterialInInput";
-	export var _CMFInternal_HTTPMethod = "POST";                
-}
-export namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.MaterialOutInput
-{
-	export var _CMFInternal_URLSuffix = "api/AMSOsram/MaterialOut";
-	export var _CMFInternal_FullNamespace = "Cmf.Custom.AMSOsram.Orchestration.InputObjects.MaterialOutInput";
-	export var _CMFInternal_HTTPMethod = "POST";                
-}
-export namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveStiboMessageInput
-{
-	export var _CMFInternal_URLSuffix = "api/AMSOsram/CustomReceiveStiboMessage";
-	export var _CMFInternal_FullNamespace = "Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveStiboMessageInput";
-	export var _CMFInternal_HTTPMethod = "POST";                
-}
-export namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveERPMessageInput
-{
-	export var _CMFInternal_URLSuffix = "api/AMSOsram/CustomReceiveERPMessage";
-	export var _CMFInternal_FullNamespace = "Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveERPMessageInput";
-	export var _CMFInternal_HTTPMethod = "POST";                
 }
 export namespace Cmf.Foundation.BusinessOrchestration.Administration.InputObjects.GetAllAddressInput
 {
@@ -69003,7 +68862,6 @@ export namespace Cmf.Lbos
 		{ FullName : "Cmf.Navigo.Common.CmfNavigoExceptionType" , Value : Cmf.Navigo.Common.CmfNavigoExceptionType },
 		{ FullName : "Cmf.Navigo.Common.TimeScale" , Value : Cmf.Navigo.Common.TimeScale },
 		{ FullName : "Cmf.CodeParserWalker.Core.DescriptionObjectType" , Value : Cmf.CodeParserWalker.Core.DescriptionObjectType },
-		{ FullName : "Cmf.Common.CustomActionUtilities.DeeTriggerPoint" , Value : Cmf.Common.CustomActionUtilities.DeeTriggerPoint },
 		{ FullName : "Cmf.Connect.BusinessObjects.EquipmentCommunicationState" , Value : Cmf.Connect.BusinessObjects.EquipmentCommunicationState },
 		{ FullName : "Cmf.Custom.AMSOsram.Common.DataStructures.AdHocActionTypes" , Value : Cmf.Custom.AMSOsram.Common.DataStructures.AdHocActionTypes },
 		{ FullName : "Cmf.MessageBus.Client.messages.ClientMessageType" , Value : Cmf.MessageBus.Client.messages.ClientMessageType },

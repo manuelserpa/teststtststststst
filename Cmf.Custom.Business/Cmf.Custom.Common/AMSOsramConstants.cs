@@ -10,11 +10,6 @@
         public static string AutomationTrackInTimeoutConfigurationPath = "/Cmf/Custom/Automation/TrackInTimeout";
 
         /// <summary>
-        /// System ERP
-        /// </summary>
-        public const string CustomERPSystem = "ERP";
-
-        /// <summary>
         /// Integration Inbound Event Name
         /// </summary>
         public static string AutomationGenericRequestTimeoutConfigurationPath = "/Cmf/Custom/Automation/GenericRequestTimeout";
@@ -508,6 +503,12 @@
         #endregion
 
         #region Integration Entries
+
+
+        /// <summary>
+        /// System ERP
+        /// </summary>
+        public const string CustomERPSystem = "ERP";
 
         /// <summary>
         /// Stibo System
