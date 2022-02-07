@@ -2,7 +2,7 @@ import { Task, Dependencies, System, DI, TYPES } from "@criticalmanufacturing/co
 import i18n from "./i18n/customMultiCreateProcessJob.default";
 import { SecsGem } from "../../common/secsGemItem"
 import { SecsItem } from "../../common/secsItem";
-
+import { SubMaterialStateEnum } from "../../persistence/model/subMaterialData";
 
 /**
  * @whatItDoes
@@ -126,7 +126,10 @@ export class CustomMultiCreateProcessJobTask implements Task.TaskInstance, Custo
                     carrierContent.push({ type: "A", value: material.ContainerName }); // Stepper Recipe PPID
                     carrierContent.push({ type: "L", value: slotMap }); // Empty parameter list
 
-                    material.SubMaterials.forEach(s => slotMap.push({ type: "U1", value: s.Slot }));
+                    material.SubMaterials.forEach(s => {
+                        if (s.MaterialState === SubMaterialStateEnum.Queued) {
+                            slotMap.push({ type: "U1", value: s.Slot})
+                    }});
                 }
 
                 const reply = await this._driverProxy.sendRaw("connect.iot.driver.secsgem.sendMessage", sendMessage);

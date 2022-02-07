@@ -6,7 +6,7 @@
 				"name": "subWorkflowStart",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -78,7 +78,7 @@
 				"name": "subWorkflowEnd",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -150,7 +150,7 @@
 				"name": "workflow",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -231,7 +231,7 @@
 				"name": "codeExecution",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -261,12 +261,12 @@
 					"        if (allowDownload) {",
 					"            return { DownloadAllowed: true};",
 					"        }",
-					"        return { DownloadNotAllowed: new Error(`TrackIn: Recipe ${recipe.replace(/\\\\/g,\"\\\\\\\\\")}  does not exist on the equipment`)}",
+					"        return { DownloadNotAllowed: new Error(`TrackIn: Recipe ${recipe.replace(/\\\\/g,\"\\\\\\\\\")} Body does not match the Checksum stored on MES`)}",
 					"    }",
 					"}",
 					""
 				],
-				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICBjb25zdCByZWNpcGUgPSBpbnB1dHMuUmVjaXBlTmFtZU9uRXF1aXBtZW50Ow0KICAgICAgICBjb25zdCBNYXRlcmlhbERhdGEgPSBpbnB1dHMuTWF0ZXJpYWxEYXRhOw0KICAgICAgICBjb25zdCBhbGxvd0Rvd25sb2FkID0gTWF0ZXJpYWxEYXRhWzBdLkFsbG93RG93bmxvYWRSZWNpcGVBdFRyYWNrSW47DQogICAgICAgIGlmIChhbGxvd0Rvd25sb2FkKSB7DQogICAgICAgICAgICByZXR1cm4geyBEb3dubG9hZEFsbG93ZWQ6IHRydWUgfTsNCiAgICAgICAgfQ0KICAgICAgICByZXR1cm4geyBEb3dubG9hZE5vdEFsbG93ZWQ6IG5ldyBFcnJvcihgVHJhY2tJbjogUmVjaXBlICR7cmVjaXBlLnJlcGxhY2UoL1xcL2csICJcXFxcIil9ICBkb2VzIG5vdCBleGlzdCBvbiB0aGUgZXF1aXBtZW50YCkgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICBjb25zdCByZWNpcGUgPSBpbnB1dHMuUmVjaXBlTmFtZU9uRXF1aXBtZW50Ow0KICAgICAgICBjb25zdCBNYXRlcmlhbERhdGEgPSBpbnB1dHMuTWF0ZXJpYWxEYXRhOw0KICAgICAgICBjb25zdCBhbGxvd0Rvd25sb2FkID0gTWF0ZXJpYWxEYXRhWzBdLkFsbG93RG93bmxvYWRSZWNpcGVBdFRyYWNrSW47DQogICAgICAgIGlmIChhbGxvd0Rvd25sb2FkKSB7DQogICAgICAgICAgICByZXR1cm4geyBEb3dubG9hZEFsbG93ZWQ6IHRydWUgfTsNCiAgICAgICAgfQ0KICAgICAgICByZXR1cm4geyBEb3dubG9hZE5vdEFsbG93ZWQ6IG5ldyBFcnJvcihgVHJhY2tJbjogUmVjaXBlICR7cmVjaXBlLnJlcGxhY2UoL1xcL2csICJcXFxcIil9IEJvZHkgZG9lcyBub3QgbWF0Y2ggdGhlIENoZWNrc3VtIHN0b3JlZCBvbiBNRVNgKSB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
 				"inputs": [
 					{
 						"name": "MaterialData",
@@ -329,7 +329,7 @@
 				"name": "expressionEvaluator",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -398,8 +398,8 @@
 			"reference": {
 				"name": "customCalculateChecksum",
 				"package": {
-					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-cree-tasks",
+					"version": "3.4.0"
 				}
 			},
 			"settings": {
@@ -409,12 +409,12 @@
 	],
 	"converters": [
 		{
-			"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+			"id": "@criticalmanufacturing/connect-iot-custom-utilities-cree-tasks#anyToErrorCodeConstant",
 			"reference": {
 				"name": "anyToErrorCodeConstant",
 				"package": {
-					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-cree-tasks",
+					"version": "3.4.0"
 				}
 			}
 		}
@@ -550,9 +550,11 @@
 			"outputName": "DownloadNotAllowedOut",
 			"converters": [
 				{
-					"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+					"id": "@criticalmanufacturing/connect-iot-custom-utilities-cree-tasks#anyToErrorCodeConstant",
 					"params": {
-						"ErrorCode": "RecipeValidationFailed"
+						"ErrorCode": "RecipeValidationFailed",
+						"SystemOfOrigin": "EI",
+						"ErrorNumber": 0
 					}
 				}
 			]
@@ -683,10 +685,10 @@
 				},
 				"notes": {},
 				"pan": {
-					"x": 434.6136641321675,
-					"y": 89.40054814171214
+					"x": -4.350024880116621,
+					"y": -8.719732662326635
 				},
-				"zoom": 0.5199999999999998
+				"zoom": 0.3899999999999997
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 				"name": "subWorkflowStart",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -45,6 +45,30 @@
 						}
 					},
 					{
+						"name": "ControlJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ControlJobId"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "ProcessJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ProcessJobId"
+						},
+						"defaultValue": null
+					},
+					{
 						"name": "IsBatchAction",
 						"valueType": {
 							"type": 3,
@@ -79,30 +103,6 @@
 							"friendlyName": ""
 						},
 						"defaultValue": null
-					},
-					{
-						"name": "ControlJobId",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "ControlJobId"
-						},
-						"defaultValue": null
-					},
-					{
-						"name": "ProcessJobId",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "ProcessJobId"
-						},
-						"defaultValue": null
 					}
 				],
 				"___cmf___name": "Start"
@@ -114,7 +114,7 @@
 				"name": "subWorkflowEnd",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -138,8 +138,8 @@
 			"reference": {
 				"name": "updateMaterialState",
 				"package": {
-					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-cree-tasks",
+					"version": "3.4.0"
 				}
 			},
 			"settings": {
@@ -156,7 +156,7 @@
 				"name": "executeAction",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -200,7 +200,7 @@
 				"name": "workflow",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -281,13 +281,13 @@
 				"name": "customLBO",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
-				"type": "Cmf.Custom.AMSOSRAM.Orchestration.InputObjects.MaterialOutInput, Cmf.Custom.AMSOSRAM.Orchestration",
+				"type": "Cmf.Custom.Cree.Orchestration.InputObjects.MaterialOutInput, Cmf.Custom.Cree.Orchestration",
 				"method": "POST",
-				"urlSuffix": "api/AMSOSRAM/MaterialOut",
+				"urlSuffix": "api/Cree/MaterialOut",
 				"ignoreLastServiceId": false,
 				"numberOfRetries": 30,
 				"sleepBetweenRetries": 1000,
@@ -333,7 +333,7 @@
 				"name": "retrieve",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -364,7 +364,7 @@
 				"name": "codeExecution",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -593,7 +593,7 @@
 				"name": "codeExecution",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -711,8 +711,8 @@
 			"reference": {
 				"name": "updateEquipmentState",
 				"package": {
-					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-cree-tasks",
+					"version": "3.4.0"
 				}
 			},
 			"settings": {
@@ -727,7 +727,7 @@
 				"name": "executeAction",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -818,8 +818,8 @@
 			"reference": {
 				"name": "updateEquipmentState",
 				"package": {
-					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-cree-tasks",
+					"version": "3.4.0"
 				}
 			},
 			"settings": {
@@ -834,7 +834,7 @@
 				"name": "executeAction",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -926,7 +926,7 @@
 				"name": "codeExecution",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -1026,7 +1026,7 @@
 				"name": "codeExecution",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -1130,6 +1130,116 @@
 				"executionExpirationInMilliseconds": 0,
 				"___cmf___name": "Code"
 			}
+		},
+		{
+			"id": "task_71776",
+			"reference": {
+				"name": "logMessage",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.2.2-202108275"
+				}
+			},
+			"settings": {
+				"message": "",
+				"verbosity": "Information",
+				"clearInputs": true,
+				"mode": "MultipleInputs",
+				"isCustomFormat": true,
+				"messageFormat": "[EI] Process Complete Workflow with Inputs: Material: \"${MaterialName}\"; Container: \"${ContainerName}\"; Load Port: \"${LoadPortId}\"; Control Job Id: \"${ControlJobId}\"; Process Job Id: \"${ProcessJobId}\"; Is Batch Action: \"${IsBatchAction}\"; DoNotTriggerMaterialOut: \"${DoNotTriggerMaterialOut}\"; State Update On Main Equipment: \"${StateUpdatedOnMainEquipment}\" ",
+				"inputs": [
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"friendlyName": "MaterialName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"friendlyName": "ContainerName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "LoadPortId",
+						"valueType": {
+							"friendlyName": "LoadPortId",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ControlJobId",
+						"valueType": {
+							"friendlyName": "ControlJobId",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ProcessJobId",
+						"valueType": {
+							"friendlyName": "ProcessJobId",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "IsBatchAction",
+						"valueType": {
+							"friendlyName": "IsBatchAction",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "DoNotTriggerMaterialOut",
+						"valueType": {
+							"friendlyName": "DoNotTriggerMaterialOut",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"friendlyName": "StateUpdatedOnMainEquipment",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Log Inputs",
+				"___cmf___color": "#ffff78"
+			}
 		}
 	],
 	"converters": [
@@ -1139,7 +1249,7 @@
 				"name": "anyToAny",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			}
 		},
@@ -1149,7 +1259,7 @@
 				"name": "objectProperty",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			}
 		},
@@ -1159,7 +1269,7 @@
 				"name": "anyToConstant",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			}
 		}
@@ -1612,6 +1722,69 @@
 			"targetId": "task_101095",
 			"inputName": "processJobId",
 			"outputName": "ProcessJobIdOut"
+		},
+		{
+			"id": "520d43d9-824d-44e8-9503-a34580f8b9ef",
+			"sourceId": "task_100492",
+			"targetId": "task_71776",
+			"inputName": "MaterialNameIn",
+			"outputName": "MaterialNameOut"
+		},
+		{
+			"id": "a4ac1942-673a-4d8f-94e4-7923669e11c1",
+			"sourceId": "task_100492",
+			"targetId": "task_71776",
+			"inputName": "ContainerNameIn",
+			"outputName": "ContainerNameOut"
+		},
+		{
+			"id": "813b86d6-ea36-49af-92c8-1b70362d8c14",
+			"sourceId": "task_100492",
+			"targetId": "task_71776",
+			"inputName": "LoadPortIdIn",
+			"outputName": "LoadPortIdOut"
+		},
+		{
+			"id": "b1abc930-1561-4f5b-9c3a-844b40390fa1",
+			"sourceId": "task_100492",
+			"targetId": "task_71776",
+			"inputName": "ControlJobIdIn",
+			"outputName": "ControlJobIdOut"
+		},
+		{
+			"id": "9fa09e1e-d71a-48c9-ac60-187a5d6bfa4b",
+			"sourceId": "task_100492",
+			"targetId": "task_71776",
+			"inputName": "ProcessJobIdIn",
+			"outputName": "ProcessJobIdOut"
+		},
+		{
+			"id": "bbe783be-70cb-440a-8ae0-3cbbdd4d14c0",
+			"sourceId": "task_100492",
+			"targetId": "task_71776",
+			"inputName": "IsBatchActionIn",
+			"outputName": "IsBatchActionOut"
+		},
+		{
+			"id": "6ea7e81d-5aab-43e3-9a56-1f67bf062d2b",
+			"sourceId": "task_100492",
+			"targetId": "task_71776",
+			"inputName": "StateUpdatedOnMainEquipmentIn",
+			"outputName": "StateUpdatedOnMainEquipmentOut"
+		},
+		{
+			"id": "fec84f94-82dc-4838-8b97-e769c746325f",
+			"sourceId": "task_100492",
+			"targetId": "task_71776",
+			"inputName": "activate",
+			"outputName": "activateOut"
+		},
+		{
+			"id": "ad4d1d6f-e852-4b42-a83b-7b19021c5133",
+			"sourceId": "task_100492",
+			"targetId": "task_71776",
+			"inputName": "DoNotTriggerMaterialOutIn",
+			"outputName": "DoNotTriggerMaterialOutOut"
 		}
 	],
 	"layout": {
@@ -1633,8 +1806,8 @@
 					"task_100492": {
 						"collapsed": false,
 						"position": {
-							"x": 4,
-							"y": 571
+							"x": -25,
+							"y": 554
 						},
 						"outdated": false
 					},
@@ -1739,6 +1912,14 @@
 						"position": {
 							"x": 467,
 							"y": 217
+						},
+						"outdated": false
+					},
+					"task_71776": {
+						"collapsed": false,
+						"position": {
+							"x": 710,
+							"y": 1161
 						},
 						"outdated": false
 					}
@@ -1920,6 +2101,33 @@
 					"ed3002e6-ea71-404e-ae57-1299017f28cd": {
 						"vertices": []
 					},
+					"520d43d9-824d-44e8-9503-a34580f8b9ef": {
+						"vertices": []
+					},
+					"a4ac1942-673a-4d8f-94e4-7923669e11c1": {
+						"vertices": []
+					},
+					"813b86d6-ea36-49af-92c8-1b70362d8c14": {
+						"vertices": []
+					},
+					"b1abc930-1561-4f5b-9c3a-844b40390fa1": {
+						"vertices": []
+					},
+					"9fa09e1e-d71a-48c9-ac60-187a5d6bfa4b": {
+						"vertices": []
+					},
+					"bbe783be-70cb-440a-8ae0-3cbbdd4d14c0": {
+						"vertices": []
+					},
+					"6ea7e81d-5aab-43e3-9a56-1f67bf062d2b": {
+						"vertices": []
+					},
+					"fec84f94-82dc-4838-8b97-e769c746325f": {
+						"vertices": []
+					},
+					"ad4d1d6f-e852-4b42-a83b-7b19021c5133": {
+						"vertices": []
+					},
 					"task_101095_material-task_101097_MaterialName": {
 						"vertices": []
 					},
@@ -1939,9 +2147,9 @@
 				"notes": {},
 				"pan": {
 					"x": 0,
-					"y": 151.1999969482422
+					"y": 429
 				},
-				"zoom": 0.9200000000000006
+				"zoom": 0.6000000000000003
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 				"name": "subWorkflowStart",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -120,7 +120,7 @@
 				"name": "subWorkflowEnd",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -180,7 +180,7 @@
 				"name": "executeAction",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -273,7 +273,7 @@
 				"name": "retrieve",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -304,8 +304,8 @@
 			"reference": {
 				"name": "changeWaferContainer",
 				"package": {
-					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-cree-tasks",
+					"version": "3.4.0"
 				}
 			},
 			"settings": {
@@ -322,7 +322,7 @@
 				"name": "workflow",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			},
 			"settings": {
@@ -405,7 +405,7 @@
 				"name": "objectProperty",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "8.2.2-202108275"
 				}
 			}
 		}
