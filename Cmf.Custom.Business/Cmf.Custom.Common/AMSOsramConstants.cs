@@ -10,7 +10,12 @@
         public static string AutomationTrackInTimeoutConfigurationPath = "/Cmf/Custom/Automation/TrackInTimeout";
 
         /// <summary>
-        /// Automation Generic Request Timeout Configuration Path
+        /// System ERP
+        /// </summary>
+        public const string CustomERPSystem = "ERP";
+
+        /// <summary>
+        /// Integration Inbound Event Name
         /// </summary>
         public static string AutomationGenericRequestTimeoutConfigurationPath = "/Cmf/Custom/Automation/GenericRequestTimeout";
 
@@ -129,7 +134,7 @@
         #region Localized Messages
 
         /// <summary>
-        /// Received message from Stibo is empty
+        /// Received message is empty
         /// </summary>
         public const string CustomReceiveEmptyMessage = "CustomReceiveEmptyMessage";
 
@@ -515,5 +520,6 @@
         public const string CustomIntegrationInboundEventName = "Inbound";
 
         #endregion
+        
     }
 }
