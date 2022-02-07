@@ -6,7 +6,7 @@
 				"name": "subWorkflowStart",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.2.2-202108275"
+					"version": "8.3.3-202201212"
 				}
 			},
 			"settings": {
@@ -31,7 +31,7 @@
 				"name": "subWorkflowEnd",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.2.2-202108275"
+					"version": "8.3.3-202201212"
 				}
 			},
 			"settings": {
@@ -115,8 +115,8 @@
 			"reference": {
 				"name": "getEquipmentState",
 				"package": {
-					"name": "@criticalmanufacturing/connect-iot-custom-utilities-cree-tasks",
-					"version": "3.4.0"
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
 				}
 			},
 			"settings": {
@@ -130,7 +130,7 @@
 				"name": "codeExecution",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.2.2-202108275"
+					"version": "8.3.3-202201212"
 				}
 			},
 			"settings": {

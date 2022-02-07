@@ -6,7 +6,7 @@
 				"name": "subWorkflowStart",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.2.2-202108275"
+					"version": "8.3.3-202201212"
 				}
 			},
 			"settings": {
@@ -42,7 +42,7 @@
 				"name": "subWorkflowEnd",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.2.2-202108275"
+					"version": "8.3.3-202201212"
 				}
 			},
 			"settings": {
@@ -55,7 +55,7 @@
 				"name": "logMessage",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.2.2-202108275"
+					"version": "8.3.3-202201212"
 				}
 			},
 			"settings": {
@@ -101,7 +101,7 @@
 				"name": "executeAction",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.2.2-202108275"
+					"version": "8.3.3-202201212"
 				}
 			},
 			"settings": {
@@ -173,7 +173,7 @@
 				"name": "retrieve",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.2.2-202108275"
+					"version": "8.3.3-202201212"
 				}
 			},
 			"settings": {
@@ -204,7 +204,7 @@
 				"name": "workflow",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.2.2-202108275"
+					"version": "8.3.3-202201212"
 				}
 			},
 			"settings": {
