@@ -1,0 +1,521 @@
+{
+	"tasks": [
+		{
+			"id": "task_218166",
+			"reference": {
+				"name": "subWorkflowStart",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"outputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "RecipeName",
+						"valueType": {
+							"friendlyName": "RecipeName",
+							"type": null,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "DeleteRecipe",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					}
+				],
+				"___cmf___name": "Start"
+			}
+		},
+		{
+			"id": "task_218168",
+			"reference": {
+				"name": "subWorkflowEnd",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"inputs": [
+					{
+						"name": "RecipeNameOnEquipment",
+						"valueType": {
+							"friendlyName": "RecipeNameOnEquipment",
+							"type": null,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "RecipeBody",
+						"valueType": {
+							"friendlyName": "RecipeBody",
+							"type": null,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "DownloadRecipe",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": false
+					},
+					{
+						"name": "DeleteAndDownloadRecipe",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": false
+					},
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "End"
+			}
+		},
+		{
+			"id": "task_218629",
+			"reference": {
+				"name": "executeAction",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_inputs": [
+					{
+						"name": "RecipeName",
+						"type": {
+							"name": "",
+							"friendlyName": "",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null
+						},
+						"defaultValue": "-"
+					}
+				],
+				"_outputs": [
+					{
+						"name": "RecipeNameOnEquipment",
+						"type": {
+							"name": "",
+							"friendlyName": "",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null
+						},
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "RecipeBody",
+						"type": {
+							"name": "",
+							"friendlyName": "",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null
+						}
+					}
+				],
+				"action": "CustomAutomationGetRecipeBody",
+				"retries": 30,
+				"sleepBetweenRetries": 1000,
+				"___cmf___name": "Execute Action",
+				"___cmf___color": "#0080ff"
+			}
+		},
+		{
+			"id": "task_219819",
+			"reference": {
+				"name": "expressionEvaluator",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_expressionType": 0,
+				"_evaluatorBehavior": "EvaluateUntilTrue",
+				"___cmf___name": "Expression Evaluator",
+				"_inputs": [
+					{
+						"name": "IsToBeDeleted",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": false,
+						"required": false
+					},
+					{
+						"name": "RecipeBody",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": {},
+						"required": true
+					}
+				],
+				"_outputs": [
+					{
+						"name": "DoNotDelete",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null,
+						"expression": "IsToBeDeleted == false"
+					}
+				],
+				"_clearInputs": true
+			}
+		},
+		{
+			"id": "task_221572",
+			"reference": {
+				"name": "expressionEvaluator",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_expressionType": 0,
+				"_evaluatorBehavior": "EvaluateUntilTrue",
+				"___cmf___name": "Expression Evaluator",
+				"_inputs": [
+					{
+						"name": "IsToBeDeleted",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": "false",
+						"required": false
+					},
+					{
+						"name": "RecipeBody",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": {},
+						"required": true
+					}
+				],
+				"_outputs": [
+					{
+						"name": "Delete",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"expression": "IsToBeDeleted",
+						"defaultValue": null
+					}
+				],
+				"_clearInputs": true
+			}
+		}
+	],
+	"converters": [],
+	"links": [
+		{
+			"id": "f199a461-7b19-46d0-a96d-1f6a75e9b62d",
+			"sourceId": "task_218166",
+			"targetId": "task_218629",
+			"inputName": "RecipeName",
+			"outputName": "RecipeNameOut"
+		},
+		{
+			"id": "47dcd02b-ff28-4509-9012-2822979e41bd",
+			"sourceId": "task_218629",
+			"targetId": "task_218168",
+			"inputName": "RecipeBody",
+			"outputName": "RecipeBody"
+		},
+		{
+			"id": "27ba3c98-3c2e-411b-b9e3-e1e3dcb2bc71",
+			"sourceId": "task_218629",
+			"targetId": "task_218168",
+			"inputName": "RecipeNameOnEquipment",
+			"outputName": "RecipeNameOnEquipment"
+		},
+		{
+			"id": "2aefc4a1-448a-434b-a8c9-7656be5aa153",
+			"sourceId": "task_218166",
+			"targetId": "task_218168",
+			"inputName": "MaterialData",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "248d5f23-0d32-4679-b747-204e88a52528",
+			"sourceId": "task_218166",
+			"targetId": "task_219819",
+			"inputName": "IsToBeDeleted",
+			"outputName": "DeleteRecipeOut"
+		},
+		{
+			"id": "fd4dd534-49ad-41d8-85a1-46abd79ce7de",
+			"sourceId": "task_218629",
+			"targetId": "task_219819",
+			"inputName": "RecipeBody",
+			"outputName": "RecipeBody"
+		},
+		{
+			"id": "6776b574-da42-45a8-ac57-4aa63761e6ce",
+			"sourceId": "task_219819",
+			"targetId": "task_218168",
+			"inputName": "DownloadRecipe",
+			"outputName": "DoNotDelete"
+		},
+		{
+			"id": "9d9ddaec-542e-4ed5-83f3-737573d44a1d",
+			"sourceId": "task_221572",
+			"targetId": "task_218168",
+			"inputName": "DeleteAndDownloadRecipe",
+			"outputName": "Delete"
+		},
+		{
+			"id": "fd96d38a-e524-4e3e-9dd8-b4cfc0f10495",
+			"sourceId": "task_218629",
+			"targetId": "task_221572",
+			"inputName": "RecipeBody",
+			"outputName": "RecipeBody"
+		},
+		{
+			"id": "5b0074c0-8daa-48e1-88e3-85742c53d822",
+			"sourceId": "task_218166",
+			"targetId": "task_221572",
+			"inputName": "IsToBeDeleted",
+			"outputName": "DeleteRecipeOut"
+		},
+		{
+			"id": "621b27aa-750e-4dc2-92ee-5628d21a8437",
+			"sourceId": "task_218166",
+			"targetId": "task_218629",
+			"inputName": "activate",
+			"outputName": "activateOut"
+		},
+		{
+			"id": "6fbe9b4a-bb8b-4eb0-b842-a5dd6441b40c",
+			"sourceId": "task_218629",
+			"targetId": "task_218168",
+			"inputName": "error",
+			"outputName": "error"
+		},
+		{
+			"id": "55b524f1-0718-40bb-9b5a-452045809d2c",
+			"sourceId": "task_219819",
+			"targetId": "task_218168",
+			"inputName": "success",
+			"outputName": "DoNotDelete"
+		},
+		{
+			"id": "7248ed46-d96c-4bb3-9282-fc549a4bf0b9",
+			"sourceId": "task_221572",
+			"targetId": "task_218168",
+			"inputName": "success",
+			"outputName": "Delete"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff40",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_218168": {
+						"collapsed": false,
+						"position": {
+							"x": 1993,
+							"y": 153
+						},
+						"outdated": false
+					},
+					"task_218166": {
+						"collapsed": false,
+						"position": {
+							"x": 0,
+							"y": 108
+						},
+						"outdated": false
+					},
+					"task_218629": {
+						"collapsed": false,
+						"position": {
+							"x": 547,
+							"y": 252
+						},
+						"outdated": false
+					},
+					"task_219819": {
+						"collapsed": false,
+						"position": {
+							"x": 1122,
+							"y": 624
+						},
+						"outdated": false
+					},
+					"task_221572": {
+						"collapsed": false,
+						"position": {
+							"x": 1118,
+							"y": 850
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"f199a461-7b19-46d0-a96d-1f6a75e9b62d": {
+						"vertices": []
+					},
+					"47dcd02b-ff28-4509-9012-2822979e41bd": {
+						"vertices": []
+					},
+					"27ba3c98-3c2e-411b-b9e3-e1e3dcb2bc71": {
+						"vertices": []
+					},
+					"2aefc4a1-448a-434b-a8c9-7656be5aa153": {
+						"vertices": []
+					},
+					"248d5f23-0d32-4679-b747-204e88a52528": {
+						"vertices": [
+							{
+								"x": 583,
+								"y": 590
+							}
+						]
+					},
+					"fd4dd534-49ad-41d8-85a1-46abd79ce7de": {
+						"vertices": []
+					},
+					"6776b574-da42-45a8-ac57-4aa63761e6ce": {
+						"vertices": []
+					},
+					"9d9ddaec-542e-4ed5-83f3-737573d44a1d": {
+						"vertices": []
+					},
+					"fd96d38a-e524-4e3e-9dd8-b4cfc0f10495": {
+						"vertices": []
+					},
+					"5b0074c0-8daa-48e1-88e3-85742c53d822": {
+						"vertices": [
+							{
+								"x": 610,
+								"y": 714
+							}
+						]
+					},
+					"621b27aa-750e-4dc2-92ee-5628d21a8437": {
+						"vertices": []
+					},
+					"6fbe9b4a-bb8b-4eb0-b842-a5dd6441b40c": {
+						"vertices": []
+					},
+					"55b524f1-0718-40bb-9b5a-452045809d2c": {
+						"vertices": []
+					},
+					"7248ed46-d96c-4bb3-9282-fc549a4bf0b9": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"pan": {
+					"x": 0,
+					"y": 0
+				},
+				"zoom": 0.5799999999999998
+			}
+		}
+	}
+}

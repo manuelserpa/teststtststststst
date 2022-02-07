@@ -14,8 +14,10 @@
 		<OutputPath>..\Release</OutputPath>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Cmf.Foundation.BusinessObjects" Version="8.3.3"/>
-		<PackageReference Include="Cmf.Navigo.BusinessObjects" Version="8.3.3"/>
+		<PackageReference Include="Cmf.Common.CustomActionUtilities" Version="8.3.3" GeneratePathProperty="true"/>
+		<PackageReference Include="Cmf.Foundation.BusinessObjects" Version="8.3.3" />
+		<PackageReference Include="Cmf.Foundation.BusinessOrchestration" Version="8.3.3" />
+		<PackageReference Include="Cmf.Navigo.BusinessObjects" Version="8.3.3" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="$(Pkgcmf_common_customactionutilities)\lib\$(TargetFramework)\*" CopyToOutputDirectory="PreserveNewest" />

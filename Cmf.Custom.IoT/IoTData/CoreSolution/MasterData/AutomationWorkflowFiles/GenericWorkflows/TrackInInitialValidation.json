@@ -1,0 +1,952 @@
+{
+	"tasks": [
+		{
+			"id": "task_53077",
+			"reference": {
+				"name": "subWorkflowStart",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"outputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialData"
+						}
+					},
+					{
+						"name": "GemControlState",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "CassettePresent",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "DoNotValidateSlotMap",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "DoNotValidateGemControlState",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "DoNotValidateCassettePresent",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					}
+				],
+				"___cmf___name": "Start"
+			}
+		},
+		{
+			"id": "task_53079",
+			"reference": {
+				"name": "subWorkflowEnd",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"friendlyName": "ContainerName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "LoadPortPosition",
+						"valueType": {
+							"friendlyName": "LoadPortPosition",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "SorterJobInformation",
+						"valueType": {
+							"friendlyName": "SorterJobInformation",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "MovementList",
+						"valueType": {
+							"friendlyName": "MovementList",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "End"
+			}
+		},
+		{
+			"id": "task_53335",
+			"reference": {
+				"name": "slotMapValidator",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"emptySlot": "0",
+				"occupiedSlot": "1",
+				"fixedSize": true,
+				"size": 25
+			}
+		},
+		{
+			"id": "task_53515",
+			"reference": {
+				"name": "getContainer",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"inputs": [],
+				"outputs": [],
+				"message": "",
+				"___cmf___name": "Get Container",
+				"___cmf___color": "#808078"
+			}
+		},
+		{
+			"id": "task_53877",
+			"reference": {
+				"name": "expressionEvaluator",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_expressionType": 0,
+				"_evaluatorBehavior": "EvaluateAll",
+				"_outputs": [
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"expression": "TrackInObjects[1].ContainerName",
+						"defaultValue": null
+					},
+					{
+						"name": "LoadPortPosition",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"expression": "TrackInObjects[1].LoadPortPosition",
+						"defaultValue": null
+					}
+				],
+				"___cmf___name": "Expression Evaluator",
+				"_inputs": [
+					{
+						"name": "TrackInObjects",
+						"defaultValue": [],
+						"required": true,
+						"valueType": {
+							"name": "",
+							"friendlyName": "",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null
+						}
+					}
+				]
+			}
+		},
+		{
+			"id": "task_60576",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ErrorHandling",
+					"IsShared": true,
+					"Name": "ErrorHandling"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorCode",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorText",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"friendlyName": "Error",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Workflow",
+				"___cmf___color": "#ff0000"
+			}
+		},
+		{
+			"id": "task_62174",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        let controlState: string = \"-\";",
+					"        if (inputs.GemControlState) {",
+					"            controlState = inputs.GemControlState == 5 ? \"Online Remote\":",
+					"                           inputs.GemControlState == 4 ? \"Online Local\":",
+					"                           inputs.GemControlState == 3 ? \"Host Offline\":",
+					"                           inputs.GemControlState == 2 ? \"Attempt Online\" :",
+					"                           inputs.GemControlState == 1 ? \"Equipment Offline\":",
+					"                           \"Unknown Value\"",
+					"        }",
+					"        const materialData = inputs.MaterialData[0];",
+					"        const sorterJob = materialData.SorterJobInformation;     ",
+					"",
+					"        let movementList = null;",
+					"        if (sorterJob) {",
+					"            movementList = JSON.parse(sorterJob.MovementList);",
+					"        }",
+					"        if (inputs.DoNotValidateControlState && inputs.DoNotValidateCassettePresent) {",
+					"            return { SorterJobInformation: sorterJob, MovementList: movementList};",
+					"        } else if (!inputs.DoNotValidateControlState && inputs.DoNotValidateCassettePresent) {",
+					"            if (inputs.GemControlState == 5) {",
+					"                return { SorterJobInformation: sorterJob, MovementList: movementList };",
+					"            }",
+					"            throw new Error(`TrackIn: GemControl State is not Online Remote (5), is ${controlState} (${inputs.GemControlState})`)",
+					"        } else if (inputs.DoNotValidateControlState && !inputs.DoNotValidateCassettePresent) {",
+					"            if (inputs.CassettePresent == 1) {",
+					"                return { SorterJobInformation: sorterJob, MovementList: movementList };",
+					"            }",
+					"            throw new Error(`TrackIn: Cassette Present value is not valid (expected 1 value ${inputs.CassettePresent})`);",
+					"        } else {",
+					"            if (inputs.GemControlState != 5) {             ",
+					"                throw new Error(`TrackIn: GemControl State is not Online Remote (5), is ${controlState} (${inputs.GemControlState})`)",
+					"            }",
+					"            if (inputs.CassettePresent != 1) {",
+					"            throw new Error(`TrackIn: Cassette Present value is not valid (expected 1 value ${inputs.CassettePresent})`);",
+					"            }",
+					"            return { SorterJobInformation: sorterJob, MovementList: movementList };",
+					"        }",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICBsZXQgY29udHJvbFN0YXRlID0gIi0iOw0KICAgICAgICBpZiAoaW5wdXRzLkdlbUNvbnRyb2xTdGF0ZSkgew0KICAgICAgICAgICAgY29udHJvbFN0YXRlID0gaW5wdXRzLkdlbUNvbnRyb2xTdGF0ZSA9PSA1ID8gIk9ubGluZSBSZW1vdGUiIDoNCiAgICAgICAgICAgICAgICBpbnB1dHMuR2VtQ29udHJvbFN0YXRlID09IDQgPyAiT25saW5lIExvY2FsIiA6DQogICAgICAgICAgICAgICAgICAgIGlucHV0cy5HZW1Db250cm9sU3RhdGUgPT0gMyA/ICJIb3N0IE9mZmxpbmUiIDoNCiAgICAgICAgICAgICAgICAgICAgICAgIGlucHV0cy5HZW1Db250cm9sU3RhdGUgPT0gMiA/ICJBdHRlbXB0IE9ubGluZSIgOg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlucHV0cy5HZW1Db250cm9sU3RhdGUgPT0gMSA/ICJFcXVpcG1lbnQgT2ZmbGluZSIgOg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiVW5rbm93biBWYWx1ZSI7DQogICAgICAgIH0NCiAgICAgICAgY29uc3QgbWF0ZXJpYWxEYXRhID0gaW5wdXRzLk1hdGVyaWFsRGF0YVswXTsNCiAgICAgICAgY29uc3Qgc29ydGVySm9iID0gbWF0ZXJpYWxEYXRhLlNvcnRlckpvYkluZm9ybWF0aW9uOw0KICAgICAgICBsZXQgbW92ZW1lbnRMaXN0ID0gbnVsbDsNCiAgICAgICAgaWYgKHNvcnRlckpvYikgew0KICAgICAgICAgICAgbW92ZW1lbnRMaXN0ID0gSlNPTi5wYXJzZShzb3J0ZXJKb2IuTW92ZW1lbnRMaXN0KTsNCiAgICAgICAgfQ0KICAgICAgICBpZiAoaW5wdXRzLkRvTm90VmFsaWRhdGVDb250cm9sU3RhdGUgJiYgaW5wdXRzLkRvTm90VmFsaWRhdGVDYXNzZXR0ZVByZXNlbnQpIHsNCiAgICAgICAgICAgIHJldHVybiB7IFNvcnRlckpvYkluZm9ybWF0aW9uOiBzb3J0ZXJKb2IsIE1vdmVtZW50TGlzdDogbW92ZW1lbnRMaXN0IH07DQogICAgICAgIH0NCiAgICAgICAgZWxzZSBpZiAoIWlucHV0cy5Eb05vdFZhbGlkYXRlQ29udHJvbFN0YXRlICYmIGlucHV0cy5Eb05vdFZhbGlkYXRlQ2Fzc2V0dGVQcmVzZW50KSB7DQogICAgICAgICAgICBpZiAoaW5wdXRzLkdlbUNvbnRyb2xTdGF0ZSA9PSA1KSB7DQogICAgICAgICAgICAgICAgcmV0dXJuIHsgU29ydGVySm9iSW5mb3JtYXRpb246IHNvcnRlckpvYiwgTW92ZW1lbnRMaXN0OiBtb3ZlbWVudExpc3QgfTsNCiAgICAgICAgICAgIH0NCiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcihgVHJhY2tJbjogR2VtQ29udHJvbCBTdGF0ZSBpcyBub3QgT25saW5lIFJlbW90ZSAoNSksIGlzICR7Y29udHJvbFN0YXRlfSAoJHtpbnB1dHMuR2VtQ29udHJvbFN0YXRlfSlgKTsNCiAgICAgICAgfQ0KICAgICAgICBlbHNlIGlmIChpbnB1dHMuRG9Ob3RWYWxpZGF0ZUNvbnRyb2xTdGF0ZSAmJiAhaW5wdXRzLkRvTm90VmFsaWRhdGVDYXNzZXR0ZVByZXNlbnQpIHsNCiAgICAgICAgICAgIGlmIChpbnB1dHMuQ2Fzc2V0dGVQcmVzZW50ID09IDEpIHsNCiAgICAgICAgICAgICAgICByZXR1cm4geyBTb3J0ZXJKb2JJbmZvcm1hdGlvbjogc29ydGVySm9iLCBNb3ZlbWVudExpc3Q6IG1vdmVtZW50TGlzdCB9Ow0KICAgICAgICAgICAgfQ0KICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBUcmFja0luOiBDYXNzZXR0ZSBQcmVzZW50IHZhbHVlIGlzIG5vdCB2YWxpZCAoZXhwZWN0ZWQgMSB2YWx1ZSAke2lucHV0cy5DYXNzZXR0ZVByZXNlbnR9KWApOw0KICAgICAgICB9DQogICAgICAgIGVsc2Ugew0KICAgICAgICAgICAgaWYgKGlucHV0cy5HZW1Db250cm9sU3RhdGUgIT0gNSkgew0KICAgICAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcihgVHJhY2tJbjogR2VtQ29udHJvbCBTdGF0ZSBpcyBub3QgT25saW5lIFJlbW90ZSAoNSksIGlzICR7Y29udHJvbFN0YXRlfSAoJHtpbnB1dHMuR2VtQ29udHJvbFN0YXRlfSlgKTsNCiAgICAgICAgICAgIH0NCiAgICAgICAgICAgIGlmIChpbnB1dHMuQ2Fzc2V0dGVQcmVzZW50ICE9IDEpIHsNCiAgICAgICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYFRyYWNrSW46IENhc3NldHRlIFByZXNlbnQgdmFsdWUgaXMgbm90IHZhbGlkIChleHBlY3RlZCAxIHZhbHVlICR7aW5wdXRzLkNhc3NldHRlUHJlc2VudH0pYCk7DQogICAgICAgICAgICB9DQogICAgICAgICAgICByZXR1cm4geyBTb3J0ZXJKb2JJbmZvcm1hdGlvbjogc29ydGVySm9iLCBNb3ZlbWVudExpc3Q6IG1vdmVtZW50TGlzdCB9Ow0KICAgICAgICB9DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "GemControlState",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": 0
+					},
+					{
+						"name": "CassettePresent",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "DoNotValidateControlState",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": false
+					},
+					{
+						"name": "DoNotValidateCassettePresent",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": false
+					}
+				],
+				"outputs": [
+					{
+						"name": "SorterJobInformation",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MovementList",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
+		},
+		{
+			"id": "task_43562",
+			"reference": {
+				"name": "expressionEvaluator",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_expressionType": 0,
+				"_evaluatorBehavior": "EvaluateUntilTrue",
+				"___cmf___name": "Expression Evaluator",
+				"_inputs": [
+					{
+						"name": "Flag",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": false,
+						"required": false
+					},
+					{
+						"name": "Trigger",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": false,
+						"required": true
+					}
+				],
+				"_outputs": [
+					{
+						"name": "DoNotValidateSlotMap",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"expression": "Flag",
+						"defaultValue": null
+					},
+					{
+						"name": "ValidateSlotMap",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"expression": "not Flag",
+						"defaultValue": null
+					}
+				]
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "a612b00b-bb85-4d96-9303-a3bb2be62499",
+			"sourceId": "task_53877",
+			"targetId": "task_53515",
+			"inputName": "loadPort",
+			"outputName": "LoadPortPosition"
+		},
+		{
+			"id": "8af2d97d-651a-404b-a602-f7ae9e8b5a49",
+			"sourceId": "task_53077",
+			"targetId": "task_53335",
+			"inputName": "materialData",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "d8bd5ca1-4343-4454-8882-d62e21411685",
+			"sourceId": "task_53077",
+			"targetId": "task_53877",
+			"inputName": "TrackInObjects",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "35b4a757-c9e2-49b4-99af-4d233ddc06b5",
+			"sourceId": "task_53515",
+			"targetId": "task_60576",
+			"inputName": "activate",
+			"outputName": "error"
+		},
+		{
+			"id": "afaa1ec7-47c7-4620-bd51-e5d4935f753b",
+			"sourceId": "task_53077",
+			"targetId": "task_62174",
+			"inputName": "GemControlStateIn",
+			"outputName": "GemControlStateOut"
+		},
+		{
+			"id": "16f9997c-62b5-4e7e-bf85-c2c69b342e38",
+			"sourceId": "task_53077",
+			"targetId": "task_62174",
+			"inputName": "CassettePresentIn",
+			"outputName": "CassettePresentOut"
+		},
+		{
+			"id": "2ea4ad95-8161-4167-960d-b6f512ef8851",
+			"sourceId": "task_53077",
+			"targetId": "task_62174",
+			"inputName": "DoNotValidateControlStateIn",
+			"outputName": "DoNotValidateGemControlStateOut"
+		},
+		{
+			"id": "a225b3e3-b352-491b-a889-54b4787bc55c",
+			"sourceId": "task_53077",
+			"targetId": "task_62174",
+			"inputName": "DoNotValidateCassettePresentIn",
+			"outputName": "DoNotValidateCassettePresentOut"
+		},
+		{
+			"id": "4464f923-1dd4-4ae0-bd76-f3e403ab247a",
+			"sourceId": "task_53335",
+			"targetId": "task_62174",
+			"inputName": "activate",
+			"outputName": "Success"
+		},
+		{
+			"id": "3ec73c46-fea5-4462-94b6-04957a4cd3b9",
+			"sourceId": "task_53335",
+			"targetId": "task_60576",
+			"inputName": "ErrorIn",
+			"outputName": "Error"
+		},
+		{
+			"id": "4cc57c41-7f44-4ac5-a4df-32e9fdd2bc5b",
+			"sourceId": "task_53335",
+			"targetId": "task_60576",
+			"inputName": "activate",
+			"outputName": "Error"
+		},
+		{
+			"id": "37745ce2-f114-425f-a251-5cb3fffb646a",
+			"sourceId": "task_62174",
+			"targetId": "task_60576",
+			"inputName": "ErrorIn",
+			"outputName": "error"
+		},
+		{
+			"id": "c65a4a26-9dd3-475a-9d2a-6a2f3b299c28",
+			"sourceId": "task_62174",
+			"targetId": "task_60576",
+			"inputName": "activate",
+			"outputName": "error"
+		},
+		{
+			"id": "12dee41d-dbba-4bcf-8ac2-c751e0e6c8a5",
+			"sourceId": "task_53877",
+			"targetId": "task_53079",
+			"inputName": "ContainerName",
+			"outputName": "ContainerName"
+		},
+		{
+			"id": "081b6055-fb9f-4752-92b0-2202c4406750",
+			"sourceId": "task_53877",
+			"targetId": "task_53079",
+			"inputName": "LoadPortPosition",
+			"outputName": "LoadPortPosition"
+		},
+		{
+			"id": "e042b3ec-373e-4221-b602-f9731f823747",
+			"sourceId": "task_62174",
+			"targetId": "task_53079",
+			"inputName": "success",
+			"outputName": "success"
+		},
+		{
+			"id": "1b622c6e-6403-49aa-a3a5-f26ac8009779",
+			"sourceId": "task_60576",
+			"targetId": "task_53079",
+			"inputName": "error",
+			"outputName": "ErrorOut"
+		},
+		{
+			"id": "71652403-97cd-4a07-a6ab-44a3d1c4a198",
+			"sourceId": "task_53077",
+			"targetId": "task_53079",
+			"inputName": "MaterialData",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "ac68f0c1-4498-47a7-9687-607240f1b546",
+			"sourceId": "task_53077",
+			"targetId": "task_62174",
+			"inputName": "MaterialDataIn",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "2d02a790-f1b2-4663-aaec-fe4d94445bf8",
+			"sourceId": "task_62174",
+			"targetId": "task_53079",
+			"inputName": "SorterJobInformation",
+			"outputName": "SorterJobInformationOut"
+		},
+		{
+			"id": "5d090dd9-f5b7-4460-8509-e276a80826fb",
+			"sourceId": "task_62174",
+			"targetId": "task_53079",
+			"inputName": "MovementList",
+			"outputName": "MovementListOut"
+		},
+		{
+			"id": "ca8902ce-a34c-47ac-b430-4dbbd4fb1764",
+			"sourceId": "task_53515",
+			"targetId": "task_53335",
+			"inputName": "equipmentSlotMap",
+			"outputName": "slotMap"
+		},
+		{
+			"id": "4545b136-5c0e-4f00-ba36-f6702fce02f4",
+			"sourceId": "task_53515",
+			"targetId": "task_53335",
+			"inputName": "activate",
+			"outputName": "slotMap"
+		},
+		{
+			"id": "a24f5542-be69-4053-b1d3-9f83d7aaeffe",
+			"sourceId": "task_53077",
+			"targetId": "task_43562",
+			"inputName": "Flag",
+			"outputName": "DoNotValidateSlotMapOut"
+		},
+		{
+			"id": "e1175c6c-ea3f-4ada-a376-3e1c616ec5eb",
+			"sourceId": "task_43562",
+			"targetId": "task_53515",
+			"inputName": "activate",
+			"outputName": "ValidateSlotMap"
+		},
+		{
+			"id": "758e86b5-2aa5-4158-b577-fef356defc36",
+			"sourceId": "task_53877",
+			"targetId": "task_43562",
+			"inputName": "Trigger",
+			"outputName": "LoadPortPosition",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "true"
+					}
+				}
+			]
+		},
+		{
+			"id": "f9667fea-c229-4972-9ef1-7e8f6c0dd338",
+			"sourceId": "task_43562",
+			"targetId": "task_62174",
+			"inputName": "activate",
+			"outputName": "DoNotValidateSlotMap"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff40",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_53079": {
+						"collapsed": false,
+						"position": {
+							"x": 3828,
+							"y": 14
+						},
+						"outdated": false
+					},
+					"task_53077": {
+						"collapsed": false,
+						"position": {
+							"x": -6,
+							"y": 195
+						},
+						"outdated": false
+					},
+					"task_53335": {
+						"collapsed": false,
+						"position": {
+							"x": 2197,
+							"y": 724
+						},
+						"outdated": false
+					},
+					"task_53515": {
+						"collapsed": false,
+						"position": {
+							"x": 1688,
+							"y": 784
+						},
+						"outdated": false
+					},
+					"task_53877": {
+						"collapsed": false,
+						"position": {
+							"x": 496,
+							"y": 34
+						},
+						"outdated": false
+					},
+					"task_60576": {
+						"collapsed": false,
+						"position": {
+							"x": 3267,
+							"y": 754
+						},
+						"outdated": false
+					},
+					"task_62174": {
+						"collapsed": false,
+						"position": {
+							"x": 2656,
+							"y": 239
+						},
+						"outdated": false
+					},
+					"task_43562": {
+						"collapsed": false,
+						"position": {
+							"x": 907,
+							"y": 593
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"a612b00b-bb85-4d96-9303-a3bb2be62499": {
+						"vertices": []
+					},
+					"8af2d97d-651a-404b-a602-f7ae9e8b5a49": {
+						"vertices": []
+					},
+					"d8bd5ca1-4343-4454-8882-d62e21411685": {
+						"vertices": []
+					},
+					"35b4a757-c9e2-49b4-99af-4d233ddc06b5": {
+						"vertices": []
+					},
+					"afaa1ec7-47c7-4620-bd51-e5d4935f753b": {
+						"vertices": []
+					},
+					"16f9997c-62b5-4e7e-bf85-c2c69b342e38": {
+						"vertices": []
+					},
+					"2ea4ad95-8161-4167-960d-b6f512ef8851": {
+						"vertices": []
+					},
+					"a225b3e3-b352-491b-a889-54b4787bc55c": {
+						"vertices": []
+					},
+					"4464f923-1dd4-4ae0-bd76-f3e403ab247a": {
+						"vertices": []
+					},
+					"3ec73c46-fea5-4462-94b6-04957a4cd3b9": {
+						"vertices": []
+					},
+					"4cc57c41-7f44-4ac5-a4df-32e9fdd2bc5b": {
+						"vertices": []
+					},
+					"37745ce2-f114-425f-a251-5cb3fffb646a": {
+						"vertices": []
+					},
+					"c65a4a26-9dd3-475a-9d2a-6a2f3b299c28": {
+						"vertices": []
+					},
+					"12dee41d-dbba-4bcf-8ac2-c751e0e6c8a5": {
+						"vertices": [
+							{
+								"x": 2539,
+								"y": 171
+							}
+						]
+					},
+					"081b6055-fb9f-4752-92b0-2202c4406750": {
+						"vertices": [
+							{
+								"x": 2577,
+								"y": 203
+							}
+						]
+					},
+					"e042b3ec-373e-4221-b602-f9731f823747": {
+						"vertices": []
+					},
+					"1b622c6e-6403-49aa-a3a5-f26ac8009779": {
+						"vertices": []
+					},
+					"71652403-97cd-4a07-a6ab-44a3d1c4a198": {
+						"vertices": []
+					},
+					"ac68f0c1-4498-47a7-9687-607240f1b546": {
+						"vertices": []
+					},
+					"2d02a790-f1b2-4663-aaec-fe4d94445bf8": {
+						"vertices": []
+					},
+					"5d090dd9-f5b7-4460-8509-e276a80826fb": {
+						"vertices": []
+					},
+					"ca8902ce-a34c-47ac-b430-4dbbd4fb1764": {
+						"vertices": []
+					},
+					"4545b136-5c0e-4f00-ba36-f6702fce02f4": {
+						"vertices": []
+					},
+					"a24f5542-be69-4053-b1d3-9f83d7aaeffe": {
+						"vertices": []
+					},
+					"e1175c6c-ea3f-4ada-a376-3e1c616ec5eb": {
+						"vertices": []
+					},
+					"f9667fea-c229-4972-9ef1-7e8f6c0dd338": {
+						"vertices": []
+					},
+					"758e86b5-2aa5-4158-b577-fef356defc36": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"pan": {
+					"x": 651,
+					"y": 0
+				},
+				"zoom": 0.5500000000000003
+			}
+		}
+	}
+}

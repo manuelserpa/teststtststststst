@@ -16,5 +16,7 @@ The table below describes the common configurations for this features:
 |:------------ | :-------- | :-------- | :-----------|
 
 ## Integrations
+* [ERP Features](/AMSOsram/techspec>erpintegration>erpfeatures)
+* [ERP Handlers](/AMSOsram/techspec>erpintegration>erphandlers)
 
 
