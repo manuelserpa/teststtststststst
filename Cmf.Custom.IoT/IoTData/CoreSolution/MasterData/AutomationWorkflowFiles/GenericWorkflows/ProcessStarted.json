@@ -45,30 +45,6 @@
 						}
 					},
 					{
-						"name": "IsBatchAction",
-						"valueType": {
-							"type": 3,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "IsBatchAction"
-						},
-						"defaultValue": null
-					},
-					{
-						"name": "StateUpdatedOnMainEquipment",
-						"valueType": {
-							"type": 3,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"defaultValue": null
-					},
-					{
 						"name": "ControlJobId",
 						"valueType": {
 							"type": 4,
@@ -89,6 +65,30 @@
 							"referenceTypeName": null,
 							"referenceTypeId": null,
 							"friendlyName": "ProcessJobId"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "IsBatchAction",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "IsBatchAction"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
 						},
 						"defaultValue": null
 					}
@@ -828,6 +828,105 @@
 				"executionExpirationInMilliseconds": 0,
 				"___cmf___name": "Code"
 			}
+		},
+		{
+			"id": "task_60839",
+			"reference": {
+				"name": "logMessage",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"message": "",
+				"verbosity": "Information",
+				"clearInputs": true,
+				"mode": "MultipleInputs",
+				"isCustomFormat": true,
+				"messageFormat": "[EI] Process Started Workflow with Inputs: Material: \"${MaterialName}\"; Container: \"${ContainerName}\"; Load Port: \"${LoadPortId}\"; Control Job Id: \"${ControlJobId}\"; Process Job Id: \"${ProcessJobId}\"; Is Batch Action: \"${IsBatchAction}\"; State Update On Main Equipment: \"${StateUpdatedOnMainEquipment}\" ",
+				"inputs": [
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"friendlyName": "MaterialName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"friendlyName": "ContainerName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "LoadPortId",
+						"valueType": {
+							"friendlyName": "LoadPortId",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ControlJobId",
+						"valueType": {
+							"friendlyName": "ControlJobId",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ProcessJobId",
+						"valueType": {
+							"friendlyName": "ProcessJobId",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "IsBatchAction",
+						"valueType": {
+							"friendlyName": "IsBatchAction",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"friendlyName": "StateUpdatedOnMainEquipment",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Log Inputs",
+				"___cmf___color": "#ffff78"
+			}
 		}
 	],
 	"converters": [
@@ -1217,6 +1316,62 @@
 			"targetId": "task_86871",
 			"inputName": "processJobId",
 			"outputName": "ProcessJobIdOut"
+		},
+		{
+			"id": "f5cd0e45-6d7c-4f05-a5b7-5d92d29e8e5e",
+			"sourceId": "task_86614",
+			"targetId": "task_60839",
+			"inputName": "MaterialNameIn",
+			"outputName": "MaterialNameOut"
+		},
+		{
+			"id": "50ec287a-d0bb-40aa-b895-cb888ace07af",
+			"sourceId": "task_86614",
+			"targetId": "task_60839",
+			"inputName": "ContainerNameIn",
+			"outputName": "ContainerNameOut"
+		},
+		{
+			"id": "97882729-eb1a-4fb0-8d23-59acb7b0879c",
+			"sourceId": "task_86614",
+			"targetId": "task_60839",
+			"inputName": "LoadPortIdIn",
+			"outputName": "LoadPortIdOut"
+		},
+		{
+			"id": "687d2c5e-fd90-4bc9-8046-275ade491d58",
+			"sourceId": "task_86614",
+			"targetId": "task_60839",
+			"inputName": "ControlJobIdIn",
+			"outputName": "ControlJobIdOut"
+		},
+		{
+			"id": "28ec97ae-5826-4d97-ad1f-e8ec8674c9d8",
+			"sourceId": "task_86614",
+			"targetId": "task_60839",
+			"inputName": "ProcessJobIdIn",
+			"outputName": "ProcessJobIdOut"
+		},
+		{
+			"id": "0120e572-c64e-4236-9f1c-f093dc356b7a",
+			"sourceId": "task_86614",
+			"targetId": "task_60839",
+			"inputName": "IsBatchActionIn",
+			"outputName": "IsBatchActionOut"
+		},
+		{
+			"id": "4d3547a3-9755-44de-bc78-058fb82afe23",
+			"sourceId": "task_86614",
+			"targetId": "task_60839",
+			"inputName": "StateUpdatedOnMainEquipmentIn",
+			"outputName": "StateUpdatedOnMainEquipmentOut"
+		},
+		{
+			"id": "334b9852-7e84-46d1-ad97-c6705745d21f",
+			"sourceId": "task_86614",
+			"targetId": "task_60839",
+			"inputName": "activate",
+			"outputName": "activateOut"
 		}
 	],
 	"layout": {
@@ -1232,6 +1387,14 @@
 						"position": {
 							"x": 5434,
 							"y": 368
+						},
+						"outdated": false
+					},
+					"task_60839": {
+						"collapsed": false,
+						"position": {
+							"x": 597,
+							"y": 1059
 						},
 						"outdated": false
 					},
@@ -1448,6 +1611,30 @@
 					"2ed54719-1c4c-4c12-906f-20a4908752da": {
 						"vertices": []
 					},
+					"f5cd0e45-6d7c-4f05-a5b7-5d92d29e8e5e": {
+						"vertices": []
+					},
+					"50ec287a-d0bb-40aa-b895-cb888ace07af": {
+						"vertices": []
+					},
+					"97882729-eb1a-4fb0-8d23-59acb7b0879c": {
+						"vertices": []
+					},
+					"687d2c5e-fd90-4bc9-8046-275ade491d58": {
+						"vertices": []
+					},
+					"28ec97ae-5826-4d97-ad1f-e8ec8674c9d8": {
+						"vertices": []
+					},
+					"0120e572-c64e-4236-9f1c-f093dc356b7a": {
+						"vertices": []
+					},
+					"4d3547a3-9755-44de-bc78-058fb82afe23": {
+						"vertices": []
+					},
+					"334b9852-7e84-46d1-ad97-c6705745d21f": {
+						"vertices": []
+					},
 					"task_86871_material-task_86873_MaterialName": {
 						"vertices": []
 					},
@@ -1469,7 +1656,7 @@
 					"x": 0,
 					"y": 0
 				},
-				"zoom": 0.78
+				"zoom": 0.25
 			}
 		}
 	}

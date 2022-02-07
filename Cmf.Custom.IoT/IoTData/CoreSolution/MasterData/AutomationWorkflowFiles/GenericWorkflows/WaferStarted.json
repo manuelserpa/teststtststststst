@@ -45,28 +45,6 @@
 						}
 					},
 					{
-						"name": "SubMaterialName",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "SubMaterialName"
-						}
-					},
-					{
-						"name": "SubMaterialSlot",
-						"valueType": {
-							"type": 5,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "SubMaterialSlot"
-						}
-					},
-					{
 						"name": "ControlJobId",
 						"valueType": {
 							"type": 4,
@@ -89,6 +67,28 @@
 							"friendlyName": "ProcessJobId"
 						},
 						"defaultValue": null
+					},
+					{
+						"name": "SubMaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SubMaterialName"
+						}
+					},
+					{
+						"name": "SubMaterialSlot",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SubMaterialSlot"
+						}
 					}
 				],
 				"___cmf___name": "Start"
@@ -163,9 +163,9 @@
 				}
 			},
 			"settings": {
-				"type": "Cmf.Custom.AMSOSRAM.Orchestration.InputObjects.MaterialInInput, Cmf.Custom.AMSOSRAM.Orchestration",
+				"type": "Cmf.Custom.Cree.Orchestration.InputObjects.MaterialInInput, Cmf.Custom.Cree.Orchestration",
 				"method": "POST",
-				"urlSuffix": "api/AMSOSRAM/MaterialIn",
+				"urlSuffix": "api/Cree/MaterialIn",
 				"ignoreLastServiceId": false,
 				"numberOfRetries": 30,
 				"sleepBetweenRetries": 1000,
@@ -316,6 +316,105 @@
 				"message": "",
 				"___cmf___name": "Set Wafer To Container",
 				"___cmf___color": "#808078"
+			}
+		},
+		{
+			"id": "task_83347",
+			"reference": {
+				"name": "logMessage",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"message": "",
+				"verbosity": "Information",
+				"clearInputs": true,
+				"mode": "MultipleInputs",
+				"isCustomFormat": true,
+				"messageFormat": "[EI] Wafer Started Workflow with Inputs: Material: \"${MaterialName}\"; Container: \"${ContainerName}\"; Load Port: \"${LoadPortId}\"; Control Job Id: \"${ControlJobId}\"; Process Job Id: \"${ProcessJobId}\"; Sub-Material: \"${SubMaterialName}\"; Sub-Material Slot: \"${SubMaterialSlot}\"",
+				"inputs": [
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"friendlyName": "MaterialName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"friendlyName": "ContainerName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "LoadPortId",
+						"valueType": {
+							"friendlyName": "LoadPortId",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ControlJobId",
+						"valueType": {
+							"friendlyName": "ControlJobId",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ProcessJobId",
+						"valueType": {
+							"friendlyName": "ProcessJobId",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "SubMaterialName",
+						"valueType": {
+							"friendlyName": "SubMaterialName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "SubMaterialSlot",
+						"valueType": {
+							"friendlyName": "SubMaterialSlot",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Log Inputs",
+				"___cmf___color": "#ffff78"
 			}
 		}
 	],
@@ -565,6 +664,62 @@
 			"targetId": "task_113959",
 			"inputName": "processJobId",
 			"outputName": "ProcessJobIdOut"
+		},
+		{
+			"id": "f2282624-c74c-40c9-bc05-3ba2a66a2c00",
+			"sourceId": "task_113699",
+			"targetId": "task_83347",
+			"inputName": "MaterialNameIn",
+			"outputName": "MaterialNameOut"
+		},
+		{
+			"id": "410cb199-01ad-4a50-8383-3f8d5fe9a1e9",
+			"sourceId": "task_113699",
+			"targetId": "task_83347",
+			"inputName": "ContainerNameIn",
+			"outputName": "ContainerNameOut"
+		},
+		{
+			"id": "efd3da30-ca07-47d7-8443-558f1a99a490",
+			"sourceId": "task_113699",
+			"targetId": "task_83347",
+			"inputName": "LoadPortIdIn",
+			"outputName": "LoadPortIdOut"
+		},
+		{
+			"id": "53d28d4f-072c-4768-abea-0bb33305b9b2",
+			"sourceId": "task_113699",
+			"targetId": "task_83347",
+			"inputName": "ControlJobIdIn",
+			"outputName": "ControlJobIdOut"
+		},
+		{
+			"id": "da033788-5739-4279-8464-e8f69a9ac846",
+			"sourceId": "task_113699",
+			"targetId": "task_83347",
+			"inputName": "ProcessJobIdIn",
+			"outputName": "ProcessJobIdOut"
+		},
+		{
+			"id": "acb80022-1d2e-408e-bb28-619f0519d873",
+			"sourceId": "task_113699",
+			"targetId": "task_83347",
+			"inputName": "SubMaterialNameIn",
+			"outputName": "SubMaterialNameOut"
+		},
+		{
+			"id": "5f7f48a5-9bea-403f-a7df-97e144199823",
+			"sourceId": "task_113699",
+			"targetId": "task_83347",
+			"inputName": "SubMaterialSlotIn",
+			"outputName": "SubMaterialSlotOut"
+		},
+		{
+			"id": "1dea5df4-5145-4d94-9cc6-f06d74990bb4",
+			"sourceId": "task_113699",
+			"targetId": "task_83347",
+			"inputName": "activate",
+			"outputName": "activateOut"
 		}
 	],
 	"layout": {
@@ -583,11 +738,19 @@
 						},
 						"outdated": false
 					},
+					"task_83347": {
+						"collapsed": false,
+						"position": {
+							"x": 672,
+							"y": 714
+						},
+						"outdated": false
+					},
 					"task_113699": {
 						"collapsed": false,
 						"position": {
-							"x": 100,
-							"y": 100
+							"x": 68,
+							"y": 222
 						},
 						"outdated": false
 					},
@@ -602,8 +765,8 @@
 					"task_113959": {
 						"collapsed": false,
 						"position": {
-							"x": 669,
-							"y": 67
+							"x": 674,
+							"y": 22
 						},
 						"outdated": false
 					},
@@ -626,8 +789,8 @@
 					"task_118357": {
 						"collapsed": false,
 						"position": {
-							"x": 1230,
-							"y": 314
+							"x": 1242,
+							"y": 301
 						},
 						"outdated": false
 					}
@@ -695,12 +858,7 @@
 						"vertices": []
 					},
 					"24e218e7-853f-4f48-be35-f90702e1ea42": {
-						"vertices": [
-							{
-								"x": 696,
-								"y": 496
-							}
-						]
+						"vertices": []
 					},
 					"35348bbd-0cec-40f3-a622-2de21a06367a": {
 						"vertices": []
@@ -718,6 +876,30 @@
 						"vertices": []
 					},
 					"ad87ce53-85bf-49f0-b4dc-469df30111e2": {
+						"vertices": []
+					},
+					"f2282624-c74c-40c9-bc05-3ba2a66a2c00": {
+						"vertices": []
+					},
+					"410cb199-01ad-4a50-8383-3f8d5fe9a1e9": {
+						"vertices": []
+					},
+					"efd3da30-ca07-47d7-8443-558f1a99a490": {
+						"vertices": []
+					},
+					"53d28d4f-072c-4768-abea-0bb33305b9b2": {
+						"vertices": []
+					},
+					"da033788-5739-4279-8464-e8f69a9ac846": {
+						"vertices": []
+					},
+					"acb80022-1d2e-408e-bb28-619f0519d873": {
+						"vertices": []
+					},
+					"5f7f48a5-9bea-403f-a7df-97e144199823": {
+						"vertices": []
+					},
+					"1dea5df4-5145-4d94-9cc6-f06d74990bb4": {
 						"vertices": []
 					},
 					"task_113959_subMaterial-task_113957_MaterialName": {
@@ -738,7 +920,7 @@
 					"x": 0,
 					"y": 0
 				},
-				"zoom": 1
+				"zoom": 0.48999999999999955
 			}
 		}
 	}
