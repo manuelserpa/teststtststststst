@@ -4,7 +4,8 @@
 
 The following name generators were created to support customer requirements.
 
-| Table                     | Description       |
-| ------                    | ------            |
+| Table                                                                                                               | Description                              |
+| ------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| [CustomGenerateProductionLotNames](/AMSOsram/tecspecs>artifacts>namegenerators>CustomGenerateProductionLotNames)    | Name generator for Production Lot Names. |
 
 

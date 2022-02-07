@@ -4,7 +4,8 @@
 
 The following DEE Actions were created to support customer requirements.
 
-| DEE Action                     | Description       |
-| ------                    | ------            |
+| DEE Action                                                                                                   | Description                                |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------ |
+| [CustomGenerateProductionLotNames](/AMSOsram/tecspecs>artifacts>deeactions>CustomGenerateProductionLotNames) | DEE action used to generate new Lot Names. |
 
 
