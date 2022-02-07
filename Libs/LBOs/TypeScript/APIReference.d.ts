@@ -2,6 +2,88 @@ declare const _default: {
     AMSOsram: {
         FullNamespace: string;
         APIs: {
+            MaterialIn: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            MaterialOut: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+            };
             CustomReceiveStiboMessage: {
                 Description: string;
                 Input: {
