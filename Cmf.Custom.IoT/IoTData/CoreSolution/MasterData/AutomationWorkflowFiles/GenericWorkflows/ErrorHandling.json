@@ -1,0 +1,1223 @@
+{
+	"tasks": [
+		{
+			"id": "task_89562",
+			"reference": {
+				"name": "subWorkflowStart",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"outputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "ErrorCode",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "ErrorText",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"friendlyName": "MaterialName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerData",
+						"valueType": {
+							"friendlyName": "ContainerData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"friendlyName": "ContainerName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Start"
+			}
+		},
+		{
+			"id": "task_89564",
+			"reference": {
+				"name": "subWorkflowEnd",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"inputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"friendlyName": "Error",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				]
+			}
+		},
+		{
+			"id": "task_4816",
+			"reference": {
+				"name": "executeAction",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_inputs": [
+					{
+						"name": "Resource",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Resource"
+						},
+						"defaultValue": "-"
+					},
+					{
+						"name": "Severity",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Severity"
+						},
+						"defaultValue": "Error"
+					},
+					{
+						"name": "Message",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Message"
+						},
+						"defaultValue": "-"
+					},
+					{
+						"name": "EquipmentTypeError",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "EquipmentTypeError"
+						},
+						"defaultValue": "EquipmentCommunication"
+					}
+				],
+				"_outputs": [],
+				"action": "CustomSendResourceNotification",
+				"retries": 30,
+				"sleepBetweenRetries": 1000,
+				"___cmf___name": "Execute Action",
+				"___cmf___color": "#0080ff"
+			}
+		},
+		{
+			"id": "task_13642",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"",
+					"        let errorText;",
+					"        let errorCode;",
+					"        ",
+					"        // get error object string",
+					"        if (inputs.Error) {",
+					"          errorText = inputs.Error.toString();",
+					"        }",
+					"        ",
+					"        // get error code if available",
+					"        if(inputs.ErrorCode) {",
+					"            errorCode = inputs.ErrorCode;",
+					"        }",
+					"        if (!errorCode && inputs.Error) {",
+					"            const parsedError = inputs.Error.toString().split(\":\",3);",
+					"            if(parsedError.length == 3) {",
+					"                errorCode = `${parsedError[0]}:${parsedError[1]}`;",
+					"            }",
+					"            else {",
+					"                errorCode = \"Unknown\";",
+					"            }             ",
+					"        }",
+					"        if (!errorCode && inputs.ErrorText) {",
+					"            const parsedError = inputs.Error.toString().split(\":\", 3);",
+					"            if (parsedError.length == 3) {",
+					"                errorCode = `${parsedError[0]}:${parsedError[1]}`;",
+					"            }",
+					"            else {",
+					"                errorCode = \"Unknown\";",
+					"            }",
+					"        }",
+					"        if(!errorCode) {",
+					"            errorCode = \"Unknown\";",
+					"        }",
+					"        ",
+					"        // get resource name ",
+					"        let resourceName = inputs.ResourceName;",
+					"        if (!resourceName) {",
+					"            resourceName = this.framework.dataStore.retrieve(\"Generic_ResourceName\", null);",
+					"        }",
+					"",
+					"        // compose error text",
+					"        if (!errorText) {",
+					"            errorText = `${inputs.ErrorCode} [${resourceName}] - ${inputs.ErrorText}`;",
+					"        }",
+					"        ",
+					"        // get material name if available",
+					"        let materialName;",
+					"        if(inputs.MaterialName) {",
+					"            materialName = inputs.MaterialName;",
+					"        }",
+					"        if (!materialName && inputs.MaterialData) {",
+					"            materialName = inputs.MaterialData.MaterialName;",
+					"        }",
+					"",
+					"        // get container name if available",
+					"        let containerName;",
+					"        if (inputs.ContainerName) {",
+					"            containerName = inputs.ContainerName;",
+					"        }",
+					"        if (!containerName && inputs.ContainerData) {",
+					"            containerName = inputs.ContainerData.ContainerName;",
+					"        }",
+					"        if (!containerName && inputs.MaterialData) {",
+					"            containerName = inputs.MaterialData.ContainerName;",
+					"        }",
+					"",
+					"        // logging error",
+					"        this.framework.logger.error(errorText);",
+					"",
+					"        if (errorCode.startsWith(\"MaterialArrivedError\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText)",
+					"            };",
+					"        } else if (errorCode.startsWith(\"CarrierFailedToClamp\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                ContainerName: containerName,",
+					"                // trigger will be sent here",
+					"                // TriggerHold: true",
+					"            };",
+					"        } else if (errorCode.startsWith(\"InvalidCarrierDocked\")) {",
+					"            // hold will be trigger by MES on Docking immediattelly, by container",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText)",
+					"            };",
+					"        } else if (errorCode.startsWith(\"CarrierFailedToOpen\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                ContainerName: containerName,",
+					"                TriggerHold: true",
+					"            };",
+					"        } else if (errorCode.startsWith(\"CassetteSlotMapFailed\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                ContainerName: containerName,",
+					"                TriggerHold: true",
+					"            };",
+					"        } else if (errorCode.startsWith(\"CassetteFailedToLoad\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                ContainerName: containerName,",
+					"                TriggerHold: true",
+					"            };",
+					"        } else if (errorCode.startsWith(\"TrackInValidationFailed\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                NoAdditionalAction: true",
+					"            };",
+					"        }",
+					"        else if (errorCode.startsWith(\"RecipeValidationFailed\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                NoAdditionalAction: true",
+					"            };",
+					"        }",
+					"        else if (errorCode.startsWith(\"FailingTrackIn\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                NoAdditionalAction: true",
+					"            };",
+					"        } else if (errorCode.startsWith(\"TrackInFailed\")) {",
+					"            return { Message: errorText, ",
+					"                     ResourceName: resourceName, ",
+					"                     Error: new Error(errorText), ",
+					"                     ContainerName: containerName,",
+					"                     SetMaterialOnContainerOnHold: true,",
+					"                     TriggerHold: true };",
+					"        } else if (errorCode.startsWith(\"PPSelectFailed\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                MaterialName: materialName,",
+					"                TriggerAbort: true",
+					"            };",
+					"        } else if (errorCode.startsWith(\"StartCommandFailed\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                MaterialName: materialName,",
+					"                TriggerAbort: true",
+					"            };",
+					"        } else if (errorCode.startsWith(\"LotProcessError\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                MaterialName: materialName,",
+					"                TriggerFutureHold: true",
+					"            };",
+					"        } else if (errorCode.startsWith(\"FatalLotProcessError\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                MaterialName: materialName,",
+					"                TriggerAbort: true",
+					"            };",
+					"        } else if (errorCode.startsWith(\"WaferProcessError\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                MaterialName: materialName,",
+					"                TriggerFutureHold: true",
+					"            };",
+					"        } else if (errorCode.startsWith(\"FatalWaferProcessError\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                MaterialName: materialName,",
+					"                TriggerAbort: true",
+					"            };",
+					"        } else if (errorCode.startsWith(\"CarrierFailedToClose\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                ContainerName: containerName,",
+					"                TriggerHold: true",
+					"            };",
+					"        } else if (errorCode.startsWith(\"CassetteFailedToUnload\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                ContainerName: containerName,",
+					"                TriggerHold: true",
+					"            };",
+					"        } else if (errorCode.startsWith(\"CarrierFailedToUnclamp\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                ContainerName: containerName,",
+					"                TriggerHold: true",
+					"            };",
+					"        } else if (errorCode.startsWith(\"FailedOnReadyToUnload\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                ContainerName: containerName,",
+					"                TriggerHold: true",
+					"            };",
+					"        } else if (errorCode.startsWith(\"MaterialRemovedError\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                ContainerName: containerName,",
+					"                TriggerHold: true",
+					"            };",
+					"        } else if (errorCode.startsWith(\"OtherError\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText)                ",
+					"            };",
+					"        } else if (errorCode.startsWith(\"NotifyErrorOnly\")) {",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                NoAdditionalAction: true",
+					"            };",
+					"        } else {",
+					"            // unknown error code, just send notification",
+					"            return {",
+					"                Message: errorText,",
+					"                ResourceName: resourceName,",
+					"                Error: new Error(errorText),",
+					"                NoAdditionalAction: true",
+					"            };",
+					"        }       ",
+					"      ",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICBsZXQgZXJyb3JUZXh0Ow0KICAgICAgICBsZXQgZXJyb3JDb2RlOw0KICAgICAgICAvLyBnZXQgZXJyb3Igb2JqZWN0IHN0cmluZw0KICAgICAgICBpZiAoaW5wdXRzLkVycm9yKSB7DQogICAgICAgICAgICBlcnJvclRleHQgPSBpbnB1dHMuRXJyb3IudG9TdHJpbmcoKTsNCiAgICAgICAgfQ0KICAgICAgICAvLyBnZXQgZXJyb3IgY29kZSBpZiBhdmFpbGFibGUNCiAgICAgICAgaWYgKGlucHV0cy5FcnJvckNvZGUpIHsNCiAgICAgICAgICAgIGVycm9yQ29kZSA9IGlucHV0cy5FcnJvckNvZGU7DQogICAgICAgIH0NCiAgICAgICAgaWYgKCFlcnJvckNvZGUgJiYgaW5wdXRzLkVycm9yKSB7DQogICAgICAgICAgICBjb25zdCBwYXJzZWRFcnJvciA9IGlucHV0cy5FcnJvci50b1N0cmluZygpLnNwbGl0KCI6IiwgMyk7DQogICAgICAgICAgICBpZiAocGFyc2VkRXJyb3IubGVuZ3RoID09IDMpIHsNCiAgICAgICAgICAgICAgICBlcnJvckNvZGUgPSBgJHtwYXJzZWRFcnJvclswXX06JHtwYXJzZWRFcnJvclsxXX1gOw0KICAgICAgICAgICAgfQ0KICAgICAgICAgICAgZWxzZSB7DQogICAgICAgICAgICAgICAgZXJyb3JDb2RlID0gIlVua25vd24iOw0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgICAgIGlmICghZXJyb3JDb2RlICYmIGlucHV0cy5FcnJvclRleHQpIHsNCiAgICAgICAgICAgIGNvbnN0IHBhcnNlZEVycm9yID0gaW5wdXRzLkVycm9yLnRvU3RyaW5nKCkuc3BsaXQoIjoiLCAzKTsNCiAgICAgICAgICAgIGlmIChwYXJzZWRFcnJvci5sZW5ndGggPT0gMykgew0KICAgICAgICAgICAgICAgIGVycm9yQ29kZSA9IGAke3BhcnNlZEVycm9yWzBdfToke3BhcnNlZEVycm9yWzFdfWA7DQogICAgICAgICAgICB9DQogICAgICAgICAgICBlbHNlIHsNCiAgICAgICAgICAgICAgICBlcnJvckNvZGUgPSAiVW5rbm93biI7DQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICAgICAgaWYgKCFlcnJvckNvZGUpIHsNCiAgICAgICAgICAgIGVycm9yQ29kZSA9ICJVbmtub3duIjsNCiAgICAgICAgfQ0KICAgICAgICAvLyBnZXQgcmVzb3VyY2UgbmFtZSANCiAgICAgICAgbGV0IHJlc291cmNlTmFtZSA9IGlucHV0cy5SZXNvdXJjZU5hbWU7DQogICAgICAgIGlmICghcmVzb3VyY2VOYW1lKSB7DQogICAgICAgICAgICByZXNvdXJjZU5hbWUgPSB0aGlzLmZyYW1ld29yay5kYXRhU3RvcmUucmV0cmlldmUoIkdlbmVyaWNfUmVzb3VyY2VOYW1lIiwgbnVsbCk7DQogICAgICAgIH0NCiAgICAgICAgLy8gY29tcG9zZSBlcnJvciB0ZXh0DQogICAgICAgIGlmICghZXJyb3JUZXh0KSB7DQogICAgICAgICAgICBlcnJvclRleHQgPSBgJHtpbnB1dHMuRXJyb3JDb2RlfSBbJHtyZXNvdXJjZU5hbWV9XSAtICR7aW5wdXRzLkVycm9yVGV4dH1gOw0KICAgICAgICB9DQogICAgICAgIC8vIGdldCBtYXRlcmlhbCBuYW1lIGlmIGF2YWlsYWJsZQ0KICAgICAgICBsZXQgbWF0ZXJpYWxOYW1lOw0KICAgICAgICBpZiAoaW5wdXRzLk1hdGVyaWFsTmFtZSkgew0KICAgICAgICAgICAgbWF0ZXJpYWxOYW1lID0gaW5wdXRzLk1hdGVyaWFsTmFtZTsNCiAgICAgICAgfQ0KICAgICAgICBpZiAoIW1hdGVyaWFsTmFtZSAmJiBpbnB1dHMuTWF0ZXJpYWxEYXRhKSB7DQogICAgICAgICAgICBtYXRlcmlhbE5hbWUgPSBpbnB1dHMuTWF0ZXJpYWxEYXRhLk1hdGVyaWFsTmFtZTsNCiAgICAgICAgfQ0KICAgICAgICAvLyBnZXQgY29udGFpbmVyIG5hbWUgaWYgYXZhaWxhYmxlDQogICAgICAgIGxldCBjb250YWluZXJOYW1lOw0KICAgICAgICBpZiAoaW5wdXRzLkNvbnRhaW5lck5hbWUpIHsNCiAgICAgICAgICAgIGNvbnRhaW5lck5hbWUgPSBpbnB1dHMuQ29udGFpbmVyTmFtZTsNCiAgICAgICAgfQ0KICAgICAgICBpZiAoIWNvbnRhaW5lck5hbWUgJiYgaW5wdXRzLkNvbnRhaW5lckRhdGEpIHsNCiAgICAgICAgICAgIGNvbnRhaW5lck5hbWUgPSBpbnB1dHMuQ29udGFpbmVyRGF0YS5Db250YWluZXJOYW1lOw0KICAgICAgICB9DQogICAgICAgIGlmICghY29udGFpbmVyTmFtZSAmJiBpbnB1dHMuTWF0ZXJpYWxEYXRhKSB7DQogICAgICAgICAgICBjb250YWluZXJOYW1lID0gaW5wdXRzLk1hdGVyaWFsRGF0YS5Db250YWluZXJOYW1lOw0KICAgICAgICB9DQogICAgICAgIC8vIGxvZ2dpbmcgZXJyb3INCiAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLmVycm9yKGVycm9yVGV4dCk7DQogICAgICAgIGlmIChlcnJvckNvZGUuc3RhcnRzV2l0aCgiTWF0ZXJpYWxBcnJpdmVkRXJyb3IiKSkgew0KICAgICAgICAgICAgcmV0dXJuIHsNCiAgICAgICAgICAgICAgICBNZXNzYWdlOiBlcnJvclRleHQsDQogICAgICAgICAgICAgICAgUmVzb3VyY2VOYW1lOiByZXNvdXJjZU5hbWUsDQogICAgICAgICAgICAgICAgRXJyb3I6IG5ldyBFcnJvcihlcnJvclRleHQpDQogICAgICAgICAgICB9Ow0KICAgICAgICB9DQogICAgICAgIGVsc2UgaWYgKGVycm9yQ29kZS5zdGFydHNXaXRoKCJDYXJyaWVyRmFpbGVkVG9DbGFtcCIpKSB7DQogICAgICAgICAgICByZXR1cm4gew0KICAgICAgICAgICAgICAgIE1lc3NhZ2U6IGVycm9yVGV4dCwNCiAgICAgICAgICAgICAgICBSZXNvdXJjZU5hbWU6IHJlc291cmNlTmFtZSwNCiAgICAgICAgICAgICAgICBFcnJvcjogbmV3IEVycm9yKGVycm9yVGV4dCksDQogICAgICAgICAgICAgICAgQ29udGFpbmVyTmFtZTogY29udGFpbmVyTmFtZSwNCiAgICAgICAgICAgIH07DQogICAgICAgIH0NCiAgICAgICAgZWxzZSBpZiAoZXJyb3JDb2RlLnN0YXJ0c1dpdGgoIkludmFsaWRDYXJyaWVyRG9ja2VkIikpIHsNCiAgICAgICAgICAgIC8vIGhvbGQgd2lsbCBiZSB0cmlnZ2VyIGJ5IE1FUyBvbiBEb2NraW5nIGltbWVkaWF0dGVsbHksIGJ5IGNvbnRhaW5lcg0KICAgICAgICAgICAgcmV0dXJuIHsNCiAgICAgICAgICAgICAgICBNZXNzYWdlOiBlcnJvclRleHQsDQogICAgICAgICAgICAgICAgUmVzb3VyY2VOYW1lOiByZXNvdXJjZU5hbWUsDQogICAgICAgICAgICAgICAgRXJyb3I6IG5ldyBFcnJvcihlcnJvclRleHQpDQogICAgICAgICAgICB9Ow0KICAgICAgICB9DQogICAgICAgIGVsc2UgaWYgKGVycm9yQ29kZS5zdGFydHNXaXRoKCJDYXJyaWVyRmFpbGVkVG9PcGVuIikpIHsNCiAgICAgICAgICAgIHJldHVybiB7DQogICAgICAgICAgICAgICAgTWVzc2FnZTogZXJyb3JUZXh0LA0KICAgICAgICAgICAgICAgIFJlc291cmNlTmFtZTogcmVzb3VyY2VOYW1lLA0KICAgICAgICAgICAgICAgIEVycm9yOiBuZXcgRXJyb3IoZXJyb3JUZXh0KSwNCiAgICAgICAgICAgICAgICBDb250YWluZXJOYW1lOiBjb250YWluZXJOYW1lLA0KICAgICAgICAgICAgICAgIFRyaWdnZXJIb2xkOiB0cnVlDQogICAgICAgICAgICB9Ow0KICAgICAgICB9DQogICAgICAgIGVsc2UgaWYgKGVycm9yQ29kZS5zdGFydHNXaXRoKCJDYXNzZXR0ZVNsb3RNYXBGYWlsZWQiKSkgew0KICAgICAgICAgICAgcmV0dXJuIHsNCiAgICAgICAgICAgICAgICBNZXNzYWdlOiBlcnJvclRleHQsDQogICAgICAgICAgICAgICAgUmVzb3VyY2VOYW1lOiByZXNvdXJjZU5hbWUsDQogICAgICAgICAgICAgICAgRXJyb3I6IG5ldyBFcnJvcihlcnJvclRleHQpLA0KICAgICAgICAgICAgICAgIENvbnRhaW5lck5hbWU6IGNvbnRhaW5lck5hbWUsDQogICAgICAgICAgICAgICAgVHJpZ2dlckhvbGQ6IHRydWUNCiAgICAgICAgICAgIH07DQogICAgICAgIH0NCiAgICAgICAgZWxzZSBpZiAoZXJyb3JDb2RlLnN0YXJ0c1dpdGgoIkNhc3NldHRlRmFpbGVkVG9Mb2FkIikpIHsNCiAgICAgICAgICAgIHJldHVybiB7DQogICAgICAgICAgICAgICAgTWVzc2FnZTogZXJyb3JUZXh0LA0KICAgICAgICAgICAgICAgIFJlc291cmNlTmFtZTogcmVzb3VyY2VOYW1lLA0KICAgICAgICAgICAgICAgIEVycm9yOiBuZXcgRXJyb3IoZXJyb3JUZXh0KSwNCiAgICAgICAgICAgICAgICBDb250YWluZXJOYW1lOiBjb250YWluZXJOYW1lLA0KICAgICAgICAgICAgICAgIFRyaWdnZXJIb2xkOiB0cnVlDQogICAgICAgICAgICB9Ow0KICAgICAgICB9DQogICAgICAgIGVsc2UgaWYgKGVycm9yQ29kZS5zdGFydHNXaXRoKCJUcmFja0luVmFsaWRhdGlvbkZhaWxlZCIpKSB7DQogICAgICAgICAgICByZXR1cm4gew0KICAgICAgICAgICAgICAgIE1lc3NhZ2U6IGVycm9yVGV4dCwNCiAgICAgICAgICAgICAgICBSZXNvdXJjZU5hbWU6IHJlc291cmNlTmFtZSwNCiAgICAgICAgICAgICAgICBFcnJvcjogbmV3IEVycm9yKGVycm9yVGV4dCksDQogICAgICAgICAgICAgICAgTm9BZGRpdGlvbmFsQWN0aW9uOiB0cnVlDQogICAgICAgICAgICB9Ow0KICAgICAgICB9DQogICAgICAgIGVsc2UgaWYgKGVycm9yQ29kZS5zdGFydHNXaXRoKCJSZWNpcGVWYWxpZGF0aW9uRmFpbGVkIikpIHsNCiAgICAgICAgICAgIHJldHVybiB7DQogICAgICAgICAgICAgICAgTWVzc2FnZTogZXJyb3JUZXh0LA0KICAgICAgICAgICAgICAgIFJlc291cmNlTmFtZTogcmVzb3VyY2VOYW1lLA0KICAgICAgICAgICAgICAgIEVycm9yOiBuZXcgRXJyb3IoZXJyb3JUZXh0KSwNCiAgICAgICAgICAgICAgICBOb0FkZGl0aW9uYWxBY3Rpb246IHRydWUNCiAgICAgICAgICAgIH07DQogICAgICAgIH0NCiAgICAgICAgZWxzZSBpZiAoZXJyb3JDb2RlLnN0YXJ0c1dpdGgoIkZhaWxpbmdUcmFja0luIikpIHsNCiAgICAgICAgICAgIHJldHVybiB7DQogICAgICAgICAgICAgICAgTWVzc2FnZTogZXJyb3JUZXh0LA0KICAgICAgICAgICAgICAgIFJlc291cmNlTmFtZTogcmVzb3VyY2VOYW1lLA0KICAgICAgICAgICAgICAgIEVycm9yOiBuZXcgRXJyb3IoZXJyb3JUZXh0KSwNCiAgICAgICAgICAgICAgICBOb0FkZGl0aW9uYWxBY3Rpb246IHRydWUNCiAgICAgICAgICAgIH07DQogICAgICAgIH0NCiAgICAgICAgZWxzZSBpZiAoZXJyb3JDb2RlLnN0YXJ0c1dpdGgoIlRyYWNrSW5GYWlsZWQiKSkgew0KICAgICAgICAgICAgcmV0dXJuIHsgTWVzc2FnZTogZXJyb3JUZXh0LA0KICAgICAgICAgICAgICAgIFJlc291cmNlTmFtZTogcmVzb3VyY2VOYW1lLA0KICAgICAgICAgICAgICAgIEVycm9yOiBuZXcgRXJyb3IoZXJyb3JUZXh0KSwNCiAgICAgICAgICAgICAgICBDb250YWluZXJOYW1lOiBjb250YWluZXJOYW1lLA0KICAgICAgICAgICAgICAgIFNldE1hdGVyaWFsT25Db250YWluZXJPbkhvbGQ6IHRydWUsDQogICAgICAgICAgICAgICAgVHJpZ2dlckhvbGQ6IHRydWUgfTsNCiAgICAgICAgfQ0KICAgICAgICBlbHNlIGlmIChlcnJvckNvZGUuc3RhcnRzV2l0aCgiUFBTZWxlY3RGYWlsZWQiKSkgew0KICAgICAgICAgICAgcmV0dXJuIHsNCiAgICAgICAgICAgICAgICBNZXNzYWdlOiBlcnJvclRleHQsDQogICAgICAgICAgICAgICAgUmVzb3VyY2VOYW1lOiByZXNvdXJjZU5hbWUsDQogICAgICAgICAgICAgICAgRXJyb3I6IG5ldyBFcnJvcihlcnJvclRleHQpLA0KICAgICAgICAgICAgICAgIE1hdGVyaWFsTmFtZTogbWF0ZXJpYWxOYW1lLA0KICAgICAgICAgICAgICAgIFRyaWdnZXJBYm9ydDogdHJ1ZQ0KICAgICAgICAgICAgfTsNCiAgICAgICAgfQ0KICAgICAgICBlbHNlIGlmIChlcnJvckNvZGUuc3RhcnRzV2l0aCgiU3RhcnRDb21tYW5kRmFpbGVkIikpIHsNCiAgICAgICAgICAgIHJldHVybiB7DQogICAgICAgICAgICAgICAgTWVzc2FnZTogZXJyb3JUZXh0LA0KICAgICAgICAgICAgICAgIFJlc291cmNlTmFtZTogcmVzb3VyY2VOYW1lLA0KICAgICAgICAgICAgICAgIEVycm9yOiBuZXcgRXJyb3IoZXJyb3JUZXh0KSwNCiAgICAgICAgICAgICAgICBNYXRlcmlhbE5hbWU6IG1hdGVyaWFsTmFtZSwNCiAgICAgICAgICAgICAgICBUcmlnZ2VyQWJvcnQ6IHRydWUNCiAgICAgICAgICAgIH07DQogICAgICAgIH0NCiAgICAgICAgZWxzZSBpZiAoZXJyb3JDb2RlLnN0YXJ0c1dpdGgoIkxvdFByb2Nlc3NFcnJvciIpKSB7DQogICAgICAgICAgICByZXR1cm4gew0KICAgICAgICAgICAgICAgIE1lc3NhZ2U6IGVycm9yVGV4dCwNCiAgICAgICAgICAgICAgICBSZXNvdXJjZU5hbWU6IHJlc291cmNlTmFtZSwNCiAgICAgICAgICAgICAgICBFcnJvcjogbmV3IEVycm9yKGVycm9yVGV4dCksDQogICAgICAgICAgICAgICAgTWF0ZXJpYWxOYW1lOiBtYXRlcmlhbE5hbWUsDQogICAgICAgICAgICAgICAgVHJpZ2dlckZ1dHVyZUhvbGQ6IHRydWUNCiAgICAgICAgICAgIH07DQogICAgICAgIH0NCiAgICAgICAgZWxzZSBpZiAoZXJyb3JDb2RlLnN0YXJ0c1dpdGgoIkZhdGFsTG90UHJvY2Vzc0Vycm9yIikpIHsNCiAgICAgICAgICAgIHJldHVybiB7DQogICAgICAgICAgICAgICAgTWVzc2FnZTogZXJyb3JUZXh0LA0KICAgICAgICAgICAgICAgIFJlc291cmNlTmFtZTogcmVzb3VyY2VOYW1lLA0KICAgICAgICAgICAgICAgIEVycm9yOiBuZXcgRXJyb3IoZXJyb3JUZXh0KSwNCiAgICAgICAgICAgICAgICBNYXRlcmlhbE5hbWU6IG1hdGVyaWFsTmFtZSwNCiAgICAgICAgICAgICAgICBUcmlnZ2VyQWJvcnQ6IHRydWUNCiAgICAgICAgICAgIH07DQogICAgICAgIH0NCiAgICAgICAgZWxzZSBpZiAoZXJyb3JDb2RlLnN0YXJ0c1dpdGgoIldhZmVyUHJvY2Vzc0Vycm9yIikpIHsNCiAgICAgICAgICAgIHJldHVybiB7DQogICAgICAgICAgICAgICAgTWVzc2FnZTogZXJyb3JUZXh0LA0KICAgICAgICAgICAgICAgIFJlc291cmNlTmFtZTogcmVzb3VyY2VOYW1lLA0KICAgICAgICAgICAgICAgIEVycm9yOiBuZXcgRXJyb3IoZXJyb3JUZXh0KSwNCiAgICAgICAgICAgICAgICBNYXRlcmlhbE5hbWU6IG1hdGVyaWFsTmFtZSwNCiAgICAgICAgICAgICAgICBUcmlnZ2VyRnV0dXJlSG9sZDogdHJ1ZQ0KICAgICAgICAgICAgfTsNCiAgICAgICAgfQ0KICAgICAgICBlbHNlIGlmIChlcnJvckNvZGUuc3RhcnRzV2l0aCgiRmF0YWxXYWZlclByb2Nlc3NFcnJvciIpKSB7DQogICAgICAgICAgICByZXR1cm4gew0KICAgICAgICAgICAgICAgIE1lc3NhZ2U6IGVycm9yVGV4dCwNCiAgICAgICAgICAgICAgICBSZXNvdXJjZU5hbWU6IHJlc291cmNlTmFtZSwNCiAgICAgICAgICAgICAgICBFcnJvcjogbmV3IEVycm9yKGVycm9yVGV4dCksDQogICAgICAgICAgICAgICAgTWF0ZXJpYWxOYW1lOiBtYXRlcmlhbE5hbWUsDQogICAgICAgICAgICAgICAgVHJpZ2dlckFib3J0OiB0cnVlDQogICAgICAgICAgICB9Ow0KICAgICAgICB9DQogICAgICAgIGVsc2UgaWYgKGVycm9yQ29kZS5zdGFydHNXaXRoKCJDYXJyaWVyRmFpbGVkVG9DbG9zZSIpKSB7DQogICAgICAgICAgICByZXR1cm4gew0KICAgICAgICAgICAgICAgIE1lc3NhZ2U6IGVycm9yVGV4dCwNCiAgICAgICAgICAgICAgICBSZXNvdXJjZU5hbWU6IHJlc291cmNlTmFtZSwNCiAgICAgICAgICAgICAgICBFcnJvcjogbmV3IEVycm9yKGVycm9yVGV4dCksDQogICAgICAgICAgICAgICAgQ29udGFpbmVyTmFtZTogY29udGFpbmVyTmFtZSwNCiAgICAgICAgICAgICAgICBUcmlnZ2VySG9sZDogdHJ1ZQ0KICAgICAgICAgICAgfTsNCiAgICAgICAgfQ0KICAgICAgICBlbHNlIGlmIChlcnJvckNvZGUuc3RhcnRzV2l0aCgiQ2Fzc2V0dGVGYWlsZWRUb1VubG9hZCIpKSB7DQogICAgICAgICAgICByZXR1cm4gew0KICAgICAgICAgICAgICAgIE1lc3NhZ2U6IGVycm9yVGV4dCwNCiAgICAgICAgICAgICAgICBSZXNvdXJjZU5hbWU6IHJlc291cmNlTmFtZSwNCiAgICAgICAgICAgICAgICBFcnJvcjogbmV3IEVycm9yKGVycm9yVGV4dCksDQogICAgICAgICAgICAgICAgQ29udGFpbmVyTmFtZTogY29udGFpbmVyTmFtZSwNCiAgICAgICAgICAgICAgICBUcmlnZ2VySG9sZDogdHJ1ZQ0KICAgICAgICAgICAgfTsNCiAgICAgICAgfQ0KICAgICAgICBlbHNlIGlmIChlcnJvckNvZGUuc3RhcnRzV2l0aCgiQ2FycmllckZhaWxlZFRvVW5jbGFtcCIpKSB7DQogICAgICAgICAgICByZXR1cm4gew0KICAgICAgICAgICAgICAgIE1lc3NhZ2U6IGVycm9yVGV4dCwNCiAgICAgICAgICAgICAgICBSZXNvdXJjZU5hbWU6IHJlc291cmNlTmFtZSwNCiAgICAgICAgICAgICAgICBFcnJvcjogbmV3IEVycm9yKGVycm9yVGV4dCksDQogICAgICAgICAgICAgICAgQ29udGFpbmVyTmFtZTogY29udGFpbmVyTmFtZSwNCiAgICAgICAgICAgICAgICBUcmlnZ2VySG9sZDogdHJ1ZQ0KICAgICAgICAgICAgfTsNCiAgICAgICAgfQ0KICAgICAgICBlbHNlIGlmIChlcnJvckNvZGUuc3RhcnRzV2l0aCgiRmFpbGVkT25SZWFkeVRvVW5sb2FkIikpIHsNCiAgICAgICAgICAgIHJldHVybiB7DQogICAgICAgICAgICAgICAgTWVzc2FnZTogZXJyb3JUZXh0LA0KICAgICAgICAgICAgICAgIFJlc291cmNlTmFtZTogcmVzb3VyY2VOYW1lLA0KICAgICAgICAgICAgICAgIEVycm9yOiBuZXcgRXJyb3IoZXJyb3JUZXh0KSwNCiAgICAgICAgICAgICAgICBDb250YWluZXJOYW1lOiBjb250YWluZXJOYW1lLA0KICAgICAgICAgICAgICAgIFRyaWdnZXJIb2xkOiB0cnVlDQogICAgICAgICAgICB9Ow0KICAgICAgICB9DQogICAgICAgIGVsc2UgaWYgKGVycm9yQ29kZS5zdGFydHNXaXRoKCJNYXRlcmlhbFJlbW92ZWRFcnJvciIpKSB7DQogICAgICAgICAgICByZXR1cm4gew0KICAgICAgICAgICAgICAgIE1lc3NhZ2U6IGVycm9yVGV4dCwNCiAgICAgICAgICAgICAgICBSZXNvdXJjZU5hbWU6IHJlc291cmNlTmFtZSwNCiAgICAgICAgICAgICAgICBFcnJvcjogbmV3IEVycm9yKGVycm9yVGV4dCksDQogICAgICAgICAgICAgICAgQ29udGFpbmVyTmFtZTogY29udGFpbmVyTmFtZSwNCiAgICAgICAgICAgICAgICBUcmlnZ2VySG9sZDogdHJ1ZQ0KICAgICAgICAgICAgfTsNCiAgICAgICAgfQ0KICAgICAgICBlbHNlIGlmIChlcnJvckNvZGUuc3RhcnRzV2l0aCgiT3RoZXJFcnJvciIpKSB7DQogICAgICAgICAgICByZXR1cm4gew0KICAgICAgICAgICAgICAgIE1lc3NhZ2U6IGVycm9yVGV4dCwNCiAgICAgICAgICAgICAgICBSZXNvdXJjZU5hbWU6IHJlc291cmNlTmFtZSwNCiAgICAgICAgICAgICAgICBFcnJvcjogbmV3IEVycm9yKGVycm9yVGV4dCkNCiAgICAgICAgICAgIH07DQogICAgICAgIH0NCiAgICAgICAgZWxzZSBpZiAoZXJyb3JDb2RlLnN0YXJ0c1dpdGgoIk5vdGlmeUVycm9yT25seSIpKSB7DQogICAgICAgICAgICByZXR1cm4gew0KICAgICAgICAgICAgICAgIE1lc3NhZ2U6IGVycm9yVGV4dCwNCiAgICAgICAgICAgICAgICBSZXNvdXJjZU5hbWU6IHJlc291cmNlTmFtZSwNCiAgICAgICAgICAgICAgICBFcnJvcjogbmV3IEVycm9yKGVycm9yVGV4dCksDQogICAgICAgICAgICAgICAgTm9BZGRpdGlvbmFsQWN0aW9uOiB0cnVlDQogICAgICAgICAgICB9Ow0KICAgICAgICB9DQogICAgICAgIGVsc2Ugew0KICAgICAgICAgICAgLy8gdW5rbm93biBlcnJvciBjb2RlLCBqdXN0IHNlbmQgbm90aWZpY2F0aW9uDQogICAgICAgICAgICByZXR1cm4gew0KICAgICAgICAgICAgICAgIE1lc3NhZ2U6IGVycm9yVGV4dCwNCiAgICAgICAgICAgICAgICBSZXNvdXJjZU5hbWU6IHJlc291cmNlTmFtZSwNCiAgICAgICAgICAgICAgICBFcnJvcjogbmV3IEVycm9yKGVycm9yVGV4dCksDQogICAgICAgICAgICAgICAgTm9BZGRpdGlvbmFsQWN0aW9uOiB0cnVlDQogICAgICAgICAgICB9Ow0KICAgICAgICB9DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
+				"inputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"friendlyName": "Error",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ErrorCode",
+						"valueType": {
+							"friendlyName": "ErrorCode",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ErrorText",
+						"valueType": {
+							"friendlyName": "ErrorText",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"friendlyName": "ResourceName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": {}
+					},
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "ContainerData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": {}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					}
+				],
+				"outputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "Severity",
+						"valueType": {
+							"friendlyName": "Severity",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "Message",
+						"valueType": {
+							"friendlyName": "Message",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "EquipmentTypeError",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "NoAdditionalAction",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "TriggerAbort",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "SetMaterialOnContainerOnHold",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "TriggerHold",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "TriggerFutureHold",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
+		},
+		{
+			"id": "task_75996",
+			"reference": {
+				"name": "logMessage",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"message": "",
+				"verbosity": "Information",
+				"clearInputs": true,
+				"mode": "RawText",
+				"isCustomFormat": false,
+				"messageFormat": "",
+				"inputs": []
+			}
+		},
+		{
+			"id": "task_2162",
+			"reference": {
+				"name": "executeAction",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_inputs": [
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": "-"
+					}
+				],
+				"_outputs": [],
+				"action": "CustomAutomationAbortMaterial",
+				"retries": 30,
+				"sleepBetweenRetries": 1000,
+				"___cmf___name": "Execute Action",
+				"___cmf___color": "#0080ff"
+			}
+		},
+		{
+			"id": "task_10817",
+			"reference": {
+				"name": "executeAction",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_inputs": [
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": "-"
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": "-"
+					},
+					{
+						"name": "SetMaterialOnContainerOnHold",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": false
+					}
+				],
+				"_outputs": [],
+				"action": "CustomSetHoldEntity",
+				"retries": 30,
+				"sleepBetweenRetries": 1000,
+				"___cmf___name": "Execute Action",
+				"___cmf___color": "#0080ff"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToString",
+			"reference": {
+				"name": "anyToString",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "4785d9d5-3449-43e5-ba48-a44f7e23f4b7",
+			"sourceId": "task_89562",
+			"targetId": "task_89564",
+			"inputName": "Error",
+			"outputName": "ErrorOut"
+		},
+		{
+			"id": "3dd70f4c-4ea9-43ff-bacf-293c6ccd6d2b",
+			"sourceId": "task_4816",
+			"targetId": "task_89564",
+			"inputName": "success",
+			"outputName": "success"
+		},
+		{
+			"id": "ecbf08fb-d5de-4bb2-af19-d0ca81165aff",
+			"sourceId": "task_89562",
+			"targetId": "task_13642",
+			"inputName": "ErrorIn",
+			"outputName": "ErrorOut"
+		},
+		{
+			"id": "279f4935-844e-4908-b5ba-12ab2ca9a495",
+			"sourceId": "task_89562",
+			"targetId": "task_13642",
+			"inputName": "ErrorCodeIn",
+			"outputName": "ErrorCodeOut"
+		},
+		{
+			"id": "ae908cc6-f392-440e-a6a8-754d755e0182",
+			"sourceId": "task_89562",
+			"targetId": "task_13642",
+			"inputName": "ErrorTextIn",
+			"outputName": "ErrorTextOut"
+		},
+		{
+			"id": "8c746cd8-060d-4864-8ea2-23f237c0f794",
+			"sourceId": "task_89562",
+			"targetId": "task_13642",
+			"inputName": "ResourceNameIn",
+			"outputName": "ResourceNameOut"
+		},
+		{
+			"id": "b9f5ff9d-2dcf-49f6-9909-9e78e5f9cae1",
+			"sourceId": "task_13642",
+			"targetId": "task_4816",
+			"inputName": "Severity",
+			"outputName": "SeverityOut"
+		},
+		{
+			"id": "e0ef924d-9796-4c57-97aa-3b8a50c2608a",
+			"sourceId": "task_13642",
+			"targetId": "task_4816",
+			"inputName": "Resource",
+			"outputName": "ResourceNameOut"
+		},
+		{
+			"id": "ef492e23-1e10-4410-9a40-08d081a7ac2c",
+			"sourceId": "task_13642",
+			"targetId": "task_4816",
+			"inputName": "Message",
+			"outputName": "MessageOut"
+		},
+		{
+			"id": "e3f07602-df28-4b92-85b6-7db7252ad9c4",
+			"sourceId": "task_4816",
+			"targetId": "task_89564",
+			"inputName": "success",
+			"outputName": "error",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "true"
+					}
+				}
+			]
+		},
+		{
+			"id": "14186c48-853c-4fa2-b432-0843cd9f6ada",
+			"sourceId": "task_13642",
+			"targetId": "task_89564",
+			"inputName": "Error",
+			"outputName": "ErrorOut"
+		},
+		{
+			"id": "55330c8f-449b-4d3e-96d4-de260ffe1a58",
+			"sourceId": "task_89562",
+			"targetId": "task_13642",
+			"inputName": "activate",
+			"outputName": "activateOut"
+		},
+		{
+			"id": "2c957f76-64db-4288-a886-e8e04f121575",
+			"sourceId": "task_4816",
+			"targetId": "task_75996",
+			"inputName": "message",
+			"outputName": "error"
+		},
+		{
+			"id": "9b2af5b7-8d2a-4a72-b9a1-2f9f3a8948a1",
+			"sourceId": "task_89562",
+			"targetId": "task_13642",
+			"inputName": "MaterialDataIn",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "ad6b8ff4-0d3d-49e1-82bb-d2931e565f1b",
+			"sourceId": "task_89562",
+			"targetId": "task_13642",
+			"inputName": "ContainerDataIn",
+			"outputName": "ContainerDataOut"
+		},
+		{
+			"id": "7885c1ed-b53a-4598-83f5-f42366c45679",
+			"sourceId": "task_13642",
+			"targetId": "task_4816",
+			"inputName": "activate",
+			"outputName": "NoAdditionalActionOut"
+		},
+		{
+			"id": "f6203b61-3c94-4290-9d9a-da94056cda73",
+			"sourceId": "task_13642",
+			"targetId": "task_2162",
+			"inputName": "activate",
+			"outputName": "TriggerAbortOut"
+		},
+		{
+			"id": "653e45d9-808a-4534-bb3f-f7dae5a56142",
+			"sourceId": "task_2162",
+			"targetId": "task_4816",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "8ee5d9b8-2a7c-4d5d-ae22-9d1c8d2f36e6",
+			"sourceId": "task_13642",
+			"targetId": "task_2162",
+			"inputName": "MaterialName",
+			"outputName": "MaterialNameOut"
+		},
+		{
+			"id": "f39277a7-b7b4-4f41-8e7e-2d4716777740",
+			"sourceId": "task_13642",
+			"targetId": "task_4816",
+			"inputName": "EquipmentTypeError",
+			"outputName": "EquipmentTypeErrorOut"
+		},
+		{
+			"id": "58a26e27-4191-4273-9576-df29e36be641",
+			"sourceId": "task_13642",
+			"targetId": "task_10817",
+			"inputName": "MaterialName",
+			"outputName": "MaterialNameOut"
+		},
+		{
+			"id": "5dacf37a-0bdb-4606-8e55-127d0653043d",
+			"sourceId": "task_13642",
+			"targetId": "task_10817",
+			"inputName": "ContainerName",
+			"outputName": "ContainerNameOut"
+		},
+		{
+			"id": "58d08c13-4c65-4882-8fb7-82dfcb9c135c",
+			"sourceId": "task_13642",
+			"targetId": "task_10817",
+			"inputName": "activate",
+			"outputName": "TriggerHoldOut"
+		},
+		{
+			"id": "906a9d58-3087-4c2c-89c9-28b40824590f",
+			"sourceId": "task_10817",
+			"targetId": "task_4816",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "203dcb45-bd31-4728-9787-8e7971a1261a",
+			"sourceId": "task_89562",
+			"targetId": "task_13642",
+			"inputName": "MaterialNameIn",
+			"outputName": "MaterialNameOut"
+		},
+		{
+			"id": "3a08e6e0-1ffc-4994-bb27-39b4fabe3b56",
+			"sourceId": "task_89562",
+			"targetId": "task_13642",
+			"inputName": "ContainerNameIn",
+			"outputName": "ContainerNameOut"
+		},
+		{
+			"id": "0c8ab76b-71d9-4944-a75b-dce409bfa5a9",
+			"sourceId": "task_13642",
+			"targetId": "task_10817",
+			"inputName": "SetMaterialOnContainerOnHold",
+			"outputName": "SetMaterialOnContainerOnHoldOut"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": null,
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_89564": {
+						"collapsed": false,
+						"position": {
+							"x": 2723,
+							"y": 38
+						},
+						"outdated": false
+					},
+					"task_75996": {
+						"collapsed": false,
+						"position": {
+							"x": 2638,
+							"y": 732
+						},
+						"outdated": false
+					},
+					"task_89562": {
+						"collapsed": false,
+						"position": {
+							"x": 12,
+							"y": 56
+						},
+						"outdated": false
+					},
+					"task_4816": {
+						"collapsed": false,
+						"position": {
+							"x": 2132,
+							"y": 182
+						},
+						"outdated": false
+					},
+					"task_13642": {
+						"collapsed": false,
+						"position": {
+							"x": 630,
+							"y": 252
+						},
+						"outdated": false
+					},
+					"task_2162": {
+						"collapsed": false,
+						"position": {
+							"x": 1332,
+							"y": 655
+						},
+						"outdated": false
+					},
+					"task_10817": {
+						"collapsed": false,
+						"position": {
+							"x": 1329,
+							"y": 996
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"4785d9d5-3449-43e5-ba48-a44f7e23f4b7": {
+						"vertices": []
+					},
+					"3dd70f4c-4ea9-43ff-bacf-293c6ccd6d2b": {
+						"vertices": []
+					},
+					"ecbf08fb-d5de-4bb2-af19-d0ca81165aff": {
+						"vertices": []
+					},
+					"279f4935-844e-4908-b5ba-12ab2ca9a495": {
+						"vertices": []
+					},
+					"ae908cc6-f392-440e-a6a8-754d755e0182": {
+						"vertices": []
+					},
+					"8c746cd8-060d-4864-8ea2-23f237c0f794": {
+						"vertices": []
+					},
+					"b9f5ff9d-2dcf-49f6-9909-9e78e5f9cae1": {
+						"vertices": []
+					},
+					"e0ef924d-9796-4c57-97aa-3b8a50c2608a": {
+						"vertices": []
+					},
+					"ef492e23-1e10-4410-9a40-08d081a7ac2c": {
+						"vertices": []
+					},
+					"14186c48-853c-4fa2-b432-0843cd9f6ada": {
+						"vertices": []
+					},
+					"55330c8f-449b-4d3e-96d4-de260ffe1a58": {
+						"vertices": []
+					},
+					"2c957f76-64db-4288-a886-e8e04f121575": {
+						"vertices": []
+					},
+					"9b2af5b7-8d2a-4a72-b9a1-2f9f3a8948a1": {
+						"vertices": []
+					},
+					"ad6b8ff4-0d3d-49e1-82bb-d2931e565f1b": {
+						"vertices": []
+					},
+					"7885c1ed-b53a-4598-83f5-f42366c45679": {
+						"vertices": []
+					},
+					"f6203b61-3c94-4290-9d9a-da94056cda73": {
+						"vertices": []
+					},
+					"653e45d9-808a-4534-bb3f-f7dae5a56142": {
+						"vertices": []
+					},
+					"8ee5d9b8-2a7c-4d5d-ae22-9d1c8d2f36e6": {
+						"vertices": []
+					},
+					"f39277a7-b7b4-4f41-8e7e-2d4716777740": {
+						"vertices": []
+					},
+					"58a26e27-4191-4273-9576-df29e36be641": {
+						"vertices": []
+					},
+					"5dacf37a-0bdb-4606-8e55-127d0653043d": {
+						"vertices": []
+					},
+					"58d08c13-4c65-4882-8fb7-82dfcb9c135c": {
+						"vertices": []
+					},
+					"906a9d58-3087-4c2c-89c9-28b40824590f": {
+						"vertices": []
+					},
+					"203dcb45-bd31-4728-9787-8e7971a1261a": {
+						"vertices": []
+					},
+					"3a08e6e0-1ffc-4994-bb27-39b4fabe3b56": {
+						"vertices": []
+					},
+					"0c8ab76b-71d9-4944-a75b-dce409bfa5a9": {
+						"vertices": []
+					},
+					"e3f07602-df28-4b92-85b6-7db7252ad9c4": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"pan": {
+					"x": -12.30492832174832,
+					"y": -6.735855224989848
+				},
+				"zoom": 0.6299999999999999
+			}
+		}
+	}
+}

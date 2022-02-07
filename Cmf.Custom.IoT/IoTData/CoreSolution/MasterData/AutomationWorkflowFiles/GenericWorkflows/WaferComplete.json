@@ -1,0 +1,577 @@
+{
+	"tasks": [
+		{
+			"id": "task_120556",
+			"reference": {
+				"name": "subWorkflowStart",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"outputs": [
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialName"
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerName"
+						}
+					},
+					{
+						"name": "LoadPortId",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LoadPortId"
+						}
+					},
+					{
+						"name": "SubMaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SubMaterialName"
+						}
+					},
+					{
+						"name": "SubMaterialSlot",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SubMaterialSlot"
+						}
+					},
+					{
+						"name": "ControlJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ControlJobId"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "ProcessJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ProcessJobId"
+						},
+						"defaultValue": null
+					}
+				],
+				"___cmf___name": "Start"
+			}
+		},
+		{
+			"id": "task_120558",
+			"reference": {
+				"name": "subWorkflowEnd",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"inputs": [
+					{
+						"name": "Material",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Material"
+						}
+					},
+					{
+						"name": "SubMaterial",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SubMaterial"
+						}
+					}
+				],
+				"___cmf___name": "End"
+			}
+		},
+		{
+			"id": "task_120809",
+			"reference": {
+				"name": "updateSubMaterialState",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"___cmf___name": "Update Sub Material Property",
+				"materialState": "InProcess",
+				"subMaterialState": "InProcess",
+				"slotOrderPickingDirection": 0,
+				"subMaterialStateToSet": "Processed",
+				"___cmf___color": "#808080"
+			}
+		},
+		{
+			"id": "task_120811",
+			"reference": {
+				"name": "customLBO",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"type": "Cmf.Custom.AMSOSRAM.Orchestration.InputObjects.MaterialOutInput, Cmf.Custom.AMSOSRAM.Orchestration",
+				"method": "POST",
+				"urlSuffix": "api/AMSOSRAM/MaterialOut",
+				"ignoreLastServiceId": false,
+				"numberOfRetries": 30,
+				"sleepBetweenRetries": 1000,
+				"serviceComments": "",
+				"clearInputs": true,
+				"inputs": [
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialName"
+						},
+						"propertyName": "MaterialName",
+						"defaultValue": "\"\""
+					},
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ResourceName"
+						},
+						"propertyName": "ResourceName",
+						"defaultValue": "\"\""
+					}
+				],
+				"outputs": [],
+				"___cmf___name": "Custom LBO",
+				"___cmf___color": "#0080ff"
+			}
+		},
+		{
+			"id": "task_120813",
+			"reference": {
+				"name": "retrieve",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_retrieveOnValueChange": false,
+				"_emitInNewContext": false,
+				"_outputs": [
+					{
+						"name": "ResourceName",
+						"identifier": "Generic_ResourceName",
+						"defaultValue": "-",
+						"valueType": {
+							"name": "",
+							"friendlyName": "",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null
+						}
+					}
+				],
+				"___cmf___name": "Retrieve Data",
+				"___cmf___color": "#808080"
+			}
+		},
+		{
+			"id": "task_122200",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ErrorHandling",
+					"IsShared": true,
+					"Name": "ErrorHandling"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"friendlyName": "Error",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Workflow",
+				"___cmf___color": "#ff0000"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "task_120809_subMaterial-task_120811_MaterialName",
+			"sourceId": "task_120809",
+			"targetId": "task_120811",
+			"inputName": "MaterialName",
+			"outputName": "subMaterial",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "MaterialName",
+						"type": 4
+					}
+				}
+			]
+		},
+		{
+			"id": "task_120813_ResourceName-task_120811_ResourceName",
+			"sourceId": "task_120813",
+			"targetId": "task_120811",
+			"inputName": "ResourceName",
+			"outputName": "ResourceName",
+			"converters": []
+		},
+		{
+			"id": "task_120809_subMaterial-task_120813_activate",
+			"sourceId": "task_120809",
+			"targetId": "task_120813",
+			"inputName": "activate",
+			"outputName": "subMaterial",
+			"converters": []
+		},
+		{
+			"id": "task_120813_ResourceName-task_120811_activate",
+			"sourceId": "task_120813",
+			"targetId": "task_120811",
+			"inputName": "activate",
+			"outputName": "ResourceName",
+			"converters": []
+		},
+		{
+			"id": "209bf5e4-ca48-4d6c-8db8-8f32d65bd874",
+			"sourceId": "task_120556",
+			"targetId": "task_120809",
+			"inputName": "activate",
+			"outputName": "activateOut"
+		},
+		{
+			"id": "3fd43ad4-2110-4240-9706-8495bb19e347",
+			"sourceId": "task_120811",
+			"targetId": "task_120558",
+			"inputName": "success",
+			"outputName": "success"
+		},
+		{
+			"id": "a73f5abd-5e42-4d8a-89dd-a7d3919e44fc",
+			"sourceId": "task_120811",
+			"targetId": "task_122200",
+			"inputName": "ErrorIn",
+			"outputName": "error"
+		},
+		{
+			"id": "9a53257a-a32e-47c0-854d-df45481531b3",
+			"sourceId": "task_120811",
+			"targetId": "task_122200",
+			"inputName": "activate",
+			"outputName": "error"
+		},
+		{
+			"id": "7bece297-2ac6-4a19-aa63-a82d71149330",
+			"sourceId": "task_120809",
+			"targetId": "task_122200",
+			"inputName": "ErrorIn",
+			"outputName": "error"
+		},
+		{
+			"id": "632d1dbe-0bc4-45ac-acae-8e2b596c5a19",
+			"sourceId": "task_120809",
+			"targetId": "task_122200",
+			"inputName": "activate",
+			"outputName": "error"
+		},
+		{
+			"id": "b41c3aac-6371-46d6-9cf7-a3dec80d15ba",
+			"sourceId": "task_122200",
+			"targetId": "task_120558",
+			"inputName": "error",
+			"outputName": "ErrorOut"
+		},
+		{
+			"id": "b1194157-f34a-4eb9-9f1f-aa6cc120f492",
+			"sourceId": "task_120809",
+			"targetId": "task_120558",
+			"inputName": "SubMaterial",
+			"outputName": "subMaterial"
+		},
+		{
+			"id": "987962af-fed5-4434-ac7a-024479fe06ad",
+			"sourceId": "task_120809",
+			"targetId": "task_120558",
+			"inputName": "Material",
+			"outputName": "material"
+		},
+		{
+			"id": "3e13ca5a-7343-439f-ac8c-0ca0489137c1",
+			"sourceId": "task_120556",
+			"targetId": "task_120809",
+			"inputName": "materialName",
+			"outputName": "MaterialNameOut"
+		},
+		{
+			"id": "87b890c7-f07a-4aa9-a195-3ea1f5540ff1",
+			"sourceId": "task_120556",
+			"targetId": "task_120809",
+			"inputName": "containerName",
+			"outputName": "ContainerNameOut"
+		},
+		{
+			"id": "2f836cfb-0702-4a66-ae4d-da33020a9149",
+			"sourceId": "task_120556",
+			"targetId": "task_120809",
+			"inputName": "loadPortId",
+			"outputName": "LoadPortIdOut"
+		},
+		{
+			"id": "c3ced25f-73b8-4b45-ab1a-6d0ca131f15f",
+			"sourceId": "task_120556",
+			"targetId": "task_120809",
+			"inputName": "subMaterialName",
+			"outputName": "SubMaterialNameOut"
+		},
+		{
+			"id": "47f71772-8cb5-4873-8b66-f2ff7d8c1daa",
+			"sourceId": "task_120556",
+			"targetId": "task_120809",
+			"inputName": "subMaterialSlot",
+			"outputName": "SubMaterialSlotOut"
+		},
+		{
+			"id": "de31ba95-ae82-45f1-a9ba-67861aec1d0d",
+			"sourceId": "task_120556",
+			"targetId": "task_120809",
+			"inputName": "controlJobId",
+			"outputName": "ControlJobIdOut"
+		},
+		{
+			"id": "13ca3971-ac0b-445e-b33c-64e37ac9bfba",
+			"sourceId": "task_120556",
+			"targetId": "task_120809",
+			"inputName": "processJobId",
+			"outputName": "ProcessJobIdOut"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": null,
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_120558": {
+						"collapsed": false,
+						"position": {
+							"x": 3025,
+							"y": 195
+						},
+						"outdated": false
+					},
+					"task_120556": {
+						"collapsed": false,
+						"position": {
+							"x": 73,
+							"y": 44
+						},
+						"outdated": false
+					},
+					"task_120809": {
+						"collapsed": false,
+						"position": {
+							"x": 617,
+							"y": 66
+						},
+						"outdated": false
+					},
+					"task_120811": {
+						"collapsed": false,
+						"position": {
+							"x": 1856,
+							"y": 306
+						},
+						"outdated": false
+					},
+					"task_120813": {
+						"collapsed": false,
+						"position": {
+							"x": 1169,
+							"y": 662
+						},
+						"outdated": false
+					},
+					"task_122200": {
+						"collapsed": false,
+						"position": {
+							"x": 2401,
+							"y": 900
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"task_120813_ResourceName-task_120811_ResourceName": {
+						"vertices": []
+					},
+					"task_120809_subMaterial-task_120813_activate": {
+						"vertices": []
+					},
+					"task_120813_ResourceName-task_120811_activate": {
+						"vertices": []
+					},
+					"209bf5e4-ca48-4d6c-8db8-8f32d65bd874": {
+						"vertices": []
+					},
+					"3fd43ad4-2110-4240-9706-8495bb19e347": {
+						"vertices": []
+					},
+					"a73f5abd-5e42-4d8a-89dd-a7d3919e44fc": {
+						"vertices": []
+					},
+					"9a53257a-a32e-47c0-854d-df45481531b3": {
+						"vertices": []
+					},
+					"7bece297-2ac6-4a19-aa63-a82d71149330": {
+						"vertices": []
+					},
+					"632d1dbe-0bc4-45ac-acae-8e2b596c5a19": {
+						"vertices": []
+					},
+					"b41c3aac-6371-46d6-9cf7-a3dec80d15ba": {
+						"vertices": []
+					},
+					"b1194157-f34a-4eb9-9f1f-aa6cc120f492": {
+						"vertices": []
+					},
+					"987962af-fed5-4434-ac7a-024479fe06ad": {
+						"vertices": []
+					},
+					"3e13ca5a-7343-439f-ac8c-0ca0489137c1": {
+						"vertices": []
+					},
+					"87b890c7-f07a-4aa9-a195-3ea1f5540ff1": {
+						"vertices": []
+					},
+					"2f836cfb-0702-4a66-ae4d-da33020a9149": {
+						"vertices": []
+					},
+					"c3ced25f-73b8-4b45-ab1a-6d0ca131f15f": {
+						"vertices": []
+					},
+					"47f71772-8cb5-4873-8b66-f2ff7d8c1daa": {
+						"vertices": []
+					},
+					"de31ba95-ae82-45f1-a9ba-67861aec1d0d": {
+						"vertices": []
+					},
+					"13ca3971-ac0b-445e-b33c-64e37ac9bfba": {
+						"vertices": []
+					},
+					"task_120809_subMaterial-task_120811_MaterialName": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"pan": {
+					"x": 0,
+					"y": 0
+				},
+				"zoom": 1
+			}
+		}
+	}
+}
