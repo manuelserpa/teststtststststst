@@ -8,9 +8,17 @@ using Cmf.Navigo.BusinessObjects;
 
 namespace Cmf.Custom.Tests.Biz.Common.Extensions
 {
+    /// <summary>
+    /// Extension class that extends the Flow features
+    /// </summary>
     public static class FlowExtensionMethods
     {
-
+        /// <summary>
+        /// Method that returns a list of the flow paths
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <param name="flowPath"></param>
+        /// <returns></returns>
         public static List<string> CustomGetFlowPaths(Flow instance, string flowPath = "")
         {
             string instacePath = "";
@@ -52,6 +60,13 @@ namespace Cmf.Custom.Tests.Biz.Common.Extensions
             return strs;
         }
 
+        /// <summary>
+        /// Method that returns the flow path
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <param name="stepName"></param>
+        /// <param name="stepOccurrenceNumber"></param>
+        /// <returns></returns>
         public static string CustomGetFlowPath(Flow instance, string stepName, int stepOccurrenceNumber = 1)
         {
             if (instance == null || string.IsNullOrEmpty(stepName))
