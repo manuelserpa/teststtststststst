@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Cmf.Custom.AMSOsram.Common.Extensions
 {
+    /// <summary>
+    /// Extensions to extend material functionalities
+    /// </summary>
 	public static class MaterialExtensions
 	{
         /// <summary>

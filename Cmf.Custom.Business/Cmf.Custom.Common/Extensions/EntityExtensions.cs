@@ -7,8 +7,17 @@ using System.Text;
 
 namespace Cmf.Custom.AMSOsram.Common.Extensions
 {
+    /// <summary>
+    /// Extensions to extend entity functionalities
+    /// </summary>
 	public static class EntityExtensions
 	{
+        /// <summary>
+        /// Creates an entity with just the Id and Name filled
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="original"></param>
+        /// <returns></returns>
 		public static T GenerateLightEntity<T>(this T original) where T: Entity, new()
 		{
 			T lightEntity = new T();

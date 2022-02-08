@@ -557,7 +557,12 @@ namespace Cmf.Custom.AMSOsram.Orchestration
 
             return output;
         }
-
+        /// <summary>
+        /// Sends the TrackOut message to IoT
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="resource"></param>
+        /// <param name="materialId"></param>
         private static void LocalSendTrackOutToIoT(MaterialOutInput input, Resource resource, string materialId = null)
         {
             resource.Load();

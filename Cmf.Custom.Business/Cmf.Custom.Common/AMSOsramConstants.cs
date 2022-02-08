@@ -1,5 +1,8 @@
 ﻿namespace Cmf.Custom.AMSOsram.Common
 {
+    /// <summary>
+    /// Support class that represents the constants to be used on the business layer
+    /// </summary>
     public class AMSOsramConstants
     {
         #region Automation

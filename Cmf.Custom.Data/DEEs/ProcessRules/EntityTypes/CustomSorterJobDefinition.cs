@@ -11,6 +11,9 @@ using Cmf.Foundation.Common.Base;
 
 namespace Cmf.Custom.AMSOsram.Actions.ProcessRules.EntityTypes
 {
+	/// <summary>
+	/// Process Rule to create the CustomSorterJobDefinition entity type
+	/// </summary>
 	class CustomSorterJobDefinition : DeeDevBase
 	{
 		public override bool DeeTestCondition(Dictionary<string, object> Input)

@@ -18,6 +18,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Cmf.Custom.AMSOsram.Common
 {
+	/// <summary>
+	/// Support class to encapsulate methods to support the development for the business layer
+	/// </summary>
     public class AMSOsramUtilities
     {
 
