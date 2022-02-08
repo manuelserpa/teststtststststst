@@ -10,6 +10,7 @@ using Cmf.TestScenarios.Others;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Cmf.Custom.Tests.Biz.NameGenerators
@@ -49,7 +50,7 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
                 ///<Step> Create a material </Step>
                 Material material = new Material()
                 {
-                    Name = Guid.NewGuid().ToString(),
+                    Name = Guid.NewGuid().ToString("N"),
                     Facility = GenericGetsScenario.GetObjectByName<Facility>(facilityName),
                     Product = GenericGetsScenario.GetObjectByName<Product>(productName),
                     Type = type,
@@ -58,7 +59,7 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
                         SequenceFlowPath = flowName + ":1/" + stepName + @":1"
                     }.GetCorrelationIdFlowPathSync().CorrelationIdFlowPath,
                     Form = materialFormName,
-                    PrimaryQuantity = 5,
+                    PrimaryQuantity = 10,
                     PrimaryUnits = defaultUnit
                 };
                 material.Create();
@@ -69,7 +70,7 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
                 {
                     new SplitInputParameters
                     {
-                        PrimaryQuantity = 1,
+                        PrimaryQuantity = 4,
                         MaterialContainer = null
                     },
                     new SplitInputParameters
@@ -91,6 +92,36 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
 
                 ///<ExpectedResult> The child materials follow the specified tokens </ExpectedResult>
                 int count = 1;
+                foreach (Material childMaterial in splitMaterialOutput.ChildMaterials)
+                {
+                    materials.Add(childMaterial);
+                    string childName = $"{material.Name}.0{count}";
+                    Assert.IsTrue(childName.Equals(childMaterial.Name), $"Child name should be {childName}, instead is {childMaterial.Name}.");
+                    count += 1;
+                }
+
+                ///<Step> Split a child material </Step>
+                Material splitedMaterial = splitMaterialOutput.ChildMaterials.FirstOrDefault();
+                splitInputParametersCollection = new SplitInputParametersCollection
+                {
+                    new SplitInputParameters
+                    {
+                        PrimaryQuantity = 2,
+                        MaterialContainer = null
+                    }
+                };
+
+                splitMaterialInput = new SplitMaterialInput
+                {
+                    Material = splitedMaterial,
+                    ChildMaterials = splitInputParametersCollection,
+                    SplitMode = MaterialSplitMode.SplitNotAssembled,
+                    IgnoreLastServiceId = true,
+                    ServiceComments = null
+                };
+                splitMaterialOutput = splitMaterialInput.SplitMaterialSync();
+
+                ///<ExpectedResult> The child material follow the specified tokens </ExpectedResult>
                 foreach (Material childMaterial in splitMaterialOutput.ChildMaterials)
                 {
                     materials.Add(childMaterial);
