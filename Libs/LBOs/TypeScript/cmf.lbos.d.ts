@@ -386,11 +386,17 @@ export declare namespace Cmf.Navigo.Services.MappingManagement {
 }
 export declare namespace Cmf.CodeParserWalker.Core {
 }
+export declare namespace Cmf.Common.CustomActionUtilities {
+}
 export declare namespace Cmf.Connect.BusinessObjects {
 }
 export declare namespace Cmf.Custom.AMSOsram.BusinessObjects {
 }
 export declare namespace Cmf.Custom.AMSOsram.Common.DataStructures {
+}
+export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects {
+}
+export declare namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects {
 }
 export declare namespace Cmf.MessageBus.Client.messages {
 }
@@ -36882,6 +36888,13 @@ export declare namespace Cmf.CodeParserWalker.Core {
         ParaRef = 4
     }
 }
+export declare namespace Cmf.Common.CustomActionUtilities {
+    enum DeeTriggerPoint {
+        Unknown = 0,
+        Pre = 1,
+        Post = 2
+    }
+}
 export declare namespace Cmf.Connect.BusinessObjects {
     enum EquipmentCommunicationState {
         NotRunning = 0,
@@ -36940,6 +36953,60 @@ export declare namespace Cmf.Custom.AMSOsram.Common.DataStructures {
         ExecuteCommand = 3
     }
 }
+export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects {
+    class MaterialInInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        MaterialName: string;
+        ResourceName: string;
+        CarrierId: string;
+        SubResourceOrder: number;
+    }
+    class MaterialOutInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        MaterialName: string;
+        ResourceName: string;
+        CarrierId: string;
+        ContainerOnlyProcess: boolean;
+        CustomSorterJobDefinition: Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition;
+    }
+    class CustomReceiveStiboMessageInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Message: string;
+        MessageType: string;
+    }
+    class CustomReceiveERPMessageInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Message: string;
+        MessageType: string;
+    }
+}
+export declare namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects {
+    class MaterialInOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+    }
+    class MaterialOutOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        MaterialName: string;
+        ResourceName: string;
+    }
+    class CustomReceiveStiboMessageOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Result: Cmf.Foundation.BusinessObjects.IntegrationEntry;
+    }
+    class CustomReceiveERPMessageOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Result: Cmf.Foundation.BusinessObjects.IntegrationEntry;
+    }
+}
 export declare namespace Cmf.MessageBus.Client.messages {
     enum ClientMessageType {
         Subscription = 1,
@@ -36951,6 +37018,26 @@ export declare namespace Cmf.MessageBus.Client.messages {
 export declare namespace Cmf.Services.GenericServiceManagement {
 }
 export declare namespace Cmf.Services.ImportExportManagement {
+}
+export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.MaterialInInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.MaterialOutInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveStiboMessageInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveERPMessageInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.Administration.InputObjects.GetAllAddressInput {
     var _CMFInternal_URLSuffix: string;
