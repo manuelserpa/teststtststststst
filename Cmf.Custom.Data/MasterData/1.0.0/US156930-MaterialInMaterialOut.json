@@ -1,0 +1,491 @@
+{
+  "Index": {
+    "1": {
+      "Tab Name": "Index",
+      "Object Type": "",
+      "Description": "Have the description for each tab in the excel",
+      "Execution Order": "0"
+    },
+    "2": {
+      "Tab Name": "Formats",
+      "Object Type": "",
+      "Description": "Have the specific cell content format for specific tabs and columns",
+      "Execution Order": "0"
+    },
+    "3": {
+      "Tab Name": "Assumptions",
+      "Object Type": "",
+      "Description": "Have assumptions for each tab",
+      "Execution Order": "0"
+    },
+    "4": {
+      "Tab Name": "WorksheetNameMapping",
+      "Object Type": "",
+      "Description": "Used to workaround the 31-character limit of the excel worksheet name. \nDefine your tab name using the tag <LOOKUP> and append a shortname for the object (e.g, <LOOKUP>MySmartTable). Then, in this tab,  map it to the tab name you would define otherwise (e.g, MySmartTable/<ST>TheRealNameForMySmartTable).",
+      "Execution Order": "0"
+    }
+  },
+  "Enums": {
+    "ScheduleCriteria": [
+      "MaximimizePriorityFulfilment",
+      "MaximizeResourceUtilization",
+      "MinimizeDeviationFromDeliveryDates",
+      "MinimizeLateMaterials",
+      "MinimizeMaximumLateness",
+      "MinimizeNumberOfLateMaterials",
+      "MinimizePriorityQuantityWeigthedCycleTime",
+      "MinimizePriorityWeightedLateness",
+      "MinimizeQuantityWeightedCycleTime",
+      "MinimizeSetupTimes",
+      "MinimizeTotalWaitingTime"
+    ],
+    "SchedulingType": [
+      "Machine",
+      "Batch",
+      "Tunnel"
+    ],
+    "ContentStorageType": [
+      "Internal",
+      "External"
+    ],
+    "StepSetupCharacteristic": [
+      "Service",
+      "Product",
+      "ProductGroup",
+      "Recipe"
+    ],
+    "AreaType": [
+      "Area",
+      "StorageArea",
+      "ProductionLine"
+    ],
+    "ProcessingType": [
+      "Process",
+      "Storage",
+      "LoadPort",
+      "ConsumableFeed",
+      "Durable",
+      "Instrument",
+      "Transport",
+      "Line"
+    ],
+    "KPIDimensionSource": [
+      "BusinessRule",
+      "OperationalDataStore",
+      "DataWarehouse",
+      "Cubes"
+    ],
+    "KPISourceType": [
+      "Static",
+      "Dynamic"
+    ],
+    "ScheduleSortingRule": [
+      "PossibleStartDate",
+      "Priority",
+      "ExecutionTime",
+      "MaterialName",
+      "Quantity",
+      "CharacteristicOfItemAtResource",
+      "DueDate",
+      "ItemCode"
+    ],
+    "DispatchScheduleType": [
+      "Dispatching",
+      "Scheduling"
+    ],
+    "DefaultSamplingType": [
+      "CounterBased",
+      "TimeBased",
+      "CounterAndTimeBased"
+    ],
+    "Frequency": [
+      "Daily",
+      "Weekly",
+      "Monthly",
+      "Yearly"
+    ],
+    "ReorderMode": [
+      "Automatic",
+      "None"
+    ],
+    "MaterialLogisticsMode": [
+      "None",
+      "Material",
+      "Product"
+    ],
+    "MaintenanceActivityScheduleMode": [
+      "Earliest",
+      "Latest"
+    ],
+    "KPIDimensionValueType": [
+      "DataValue",
+      "DataSeries"
+    ],
+    "RuleSortingDirection": [
+      "Ascending",
+      "Descending"
+    ],
+    "TimeScale": [
+      "Days",
+      "Hours",
+      "Minutes",
+      "Seconds"
+    ],
+    "SamplingContext": [
+      "MaterialType",
+      "MaterialProduct",
+      "MaterialProductMaturity",
+      "MaterialResource",
+      "MaterialStep",
+      "MaterialStepMaturity"
+    ],
+    "BOMScope": [
+      "MaterialTracking",
+      "MaintenanceManagement"
+    ],
+    "TimeDueScale": [
+      "Hours",
+      "Days",
+      "Weeks",
+      "Months",
+      "Years"
+    ],
+    "MoistureSensitivityLevel": [
+      "1",
+      "2",
+      "2a",
+      "3",
+      "4",
+      "5",
+      "5a",
+      "6"
+    ],
+    "StepInspectionSeveritySwitchingRuleFilterType": [
+      "Time",
+      "LastOccurrences"
+    ],
+    "StepInspectionSeveritySwitchingRuleDirection": [
+      "Tightening",
+      "Reducing"
+    ],
+    "FutureLogisticActionExecutionMode": [
+      "Manual",
+      "Automatic"
+    ],
+    "DefaultScheduleView": [
+      "Day",
+      "Week",
+      "Month"
+    ],
+    "MaintenanceInstanceType": [
+      "Resource",
+      "Container"
+    ],
+    "KPIType": [
+      "Maximum",
+      "Minimum",
+      "Deviation"
+    ],
+    "InstancesToSchedulePattern": [
+      "NumberOfInstances",
+      "Duration"
+    ],
+    "ProductType": [
+      "FinishedGood",
+      "SemiFinishedGood",
+      "RawMaterial",
+      "Part",
+      "Durable"
+    ],
+    "StepInspectionSeverityContextInformationContext": [
+      "MaterialType",
+      "Product",
+      "ProductGroup",
+      "Resource",
+      "Model",
+      "ResourceType",
+      "Flow"
+    ],
+    "IoTSchemaPropertyDataType": [
+      "Long",
+      "Decimal",
+      "DateTime",
+      "Boolean",
+      "String",
+      "Integer",
+      "Url",
+      "Date",
+      "Time",
+      "IoTSchema",
+      "EntityType",
+      "File"
+    ]
+  },
+  "<SM>LocalizedMessageKey": {
+    "1": {
+      "Name": "CustomLocalizedMessageConfigNotFound",
+      "Description": "",
+      "MessageType": "Message",
+      "en-US": "The following configuration was not found in the system : {0}",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": ""
+    },
+    "2": {
+      "Name": "CustomLocalizedMessageIoTConnectionTimeout",
+      "Description": "",
+      "MessageType": "Message",
+      "en-US": "The IoT call for {0} request was timeout.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": ""
+    }
+  },
+  "<SM>LookupTableValues": {
+			"1": {
+                "LookUp Table": "CustomSorterLogisticalProcess",
+                "Lookup Table Value Parent": "",
+                "Lookup Table Value": "MapCarrier",
+                "Lookup Table Value Description": "",
+                "Lookup Table IsEnabled": "true"
+            },
+            "2": {
+                "LookUp Table": "CustomSorterLogisticalProcess",
+                "Lookup Table Value Parent": "",
+                "Lookup Table Value": "TransferWafers",
+                "Lookup Table Value Description": "",
+                "Lookup Table IsEnabled": "true"
+            },
+            "3": {
+                "LookUp Table": "CustomSorterLogisticalProcess",
+                "Lookup Table Value Parent": "",
+                "Lookup Table Value": "Compose",
+                "Lookup Table Value Description": "",
+                "Lookup Table IsEnabled": "true"
+            }
+  },
+  "<SM>EntityTypeProperty": {
+    "1": {
+                    "EntityType": "Resource",
+                    "Name": "IsLoadPortInUse",
+                    "Description": "If set with true, then currently docked carrier is locked for sorter operation purposes",
+                    "PropertyType": "Attribute",
+                    "ScalarType": "Boolean",
+                    "ReferenceType": "None",
+                    "IsEnabled": "Yes",
+                    "IsHistoryEnable": "Yes",
+                    "CopyOnClone": "",
+                    "BelongsTo": "",
+                    "ScalarSize": "",
+                    "ScalarPrecision": "",
+                    "ReferenceName": "",
+                    "DefaultValue": "",
+                    "IsArray": "",
+                    "IsIndexed": "",
+                    "IsMandatory": "",
+                    "AccessLevel": "",
+                    "ValidationRange": "",
+                    "ValidationRegex": ""
+                },
+                "2": {
+                    "EntityType": "Resource",
+                    "Name": "IsSorter",
+                    "Description": "Check if resource is a sorter equipment",
+                    "PropertyType": "Attribute",
+                    "ScalarType": "Boolean",
+                    "ReferenceType": "None",
+                    "IsEnabled": "Yes",
+                    "IsHistoryEnable": "Yes",
+                    "CopyOnClone": "",
+                    "BelongsTo": "",
+                    "ScalarSize": "",
+                    "ScalarPrecision": "",
+                    "ReferenceName": "",
+                    "DefaultValue": "",
+                    "IsArray": "",
+                    "IsIndexed": "",
+                    "IsMandatory": "",
+                    "AccessLevel": "",
+                    "ValidationRange": "",
+                    "ValidationRegex": ""
+                },
+                "3": {
+                    "EntityType": "Container",
+                    "Name": "FlipWafer",
+                    "Description": "Is to flip wafers on sorter",
+                    "PropertyType": "Attribute",
+                    "ScalarType": "Boolean",
+                    "ReferenceType": "None",
+                    "IsEnabled": "Yes",
+                    "IsHistoryEnable": "Yes",
+                    "CopyOnClone": "",
+                    "BelongsTo": "",
+                    "ScalarSize": "",
+                    "ScalarPrecision": "",
+                    "ReferenceName": "",
+                    "DefaultValue": "",
+                    "IsArray": "",
+                    "IsIndexed": "",
+                    "IsMandatory": "",
+                    "AccessLevel": "",
+                    "ValidationRange": "",
+                    "ValidationRegex": ""
+                },
+                "4": {
+                    "EntityType": "Container",
+                    "Name": "AlignWafer",
+                    "Description": "Is to align wafers on sorter",
+                    "PropertyType": "Attribute",
+                    "ScalarType": "Boolean",
+                    "ReferenceType": "None",
+                    "IsEnabled": "Yes",
+                    "IsHistoryEnable": "Yes",
+                    "CopyOnClone": "",
+                    "BelongsTo": "",
+                    "ScalarSize": "",
+                    "ScalarPrecision": "",
+                    "ReferenceName": "",
+                    "DefaultValue": "",
+                    "IsArray": "",
+                    "IsIndexed": "",
+                    "IsMandatory": "",
+                    "AccessLevel": "",
+                    "ValidationRange": "",
+                    "ValidationRegex": ""
+                },
+                "5": {
+                    "EntityType": "Container",
+                    "Name": "WaferIdOnTop",
+                    "Description": "Is wafer Id on bottom",
+                    "PropertyType": "Attribute",
+                    "ScalarType": "Boolean",
+                    "ReferenceType": "None",
+                    "IsEnabled": "Yes",
+                    "IsHistoryEnable": "Yes",
+                    "CopyOnClone": "",
+                    "BelongsTo": "",
+                    "ScalarSize": "",
+                    "ScalarPrecision": "",
+                    "ReferenceName": "",
+                    "DefaultValue": "",
+                    "IsArray": "",
+                    "IsIndexed": "",
+                    "IsMandatory": "",
+                    "AccessLevel": "",
+                    "ValidationRange": "",
+                    "ValidationRegex": ""
+                },
+                "6": {
+                    "EntityType": "Container",
+                    "Name": "MapContainerNeeded",
+                    "Description": "If set to true, when arriving to a sorter the equipment will perform a Map Carrier",
+                    "PropertyType": "Attribute",
+                    "ScalarType": "Boolean",
+                    "ReferenceType": "None",
+                    "IsEnabled": "Yes",
+                    "IsHistoryEnable": "Yes",
+                    "CopyOnClone": "",
+                    "BelongsTo": "",
+                    "ScalarSize": "",
+                    "ScalarPrecision": "",
+                    "ReferenceName": "",
+                    "DefaultValue": "",
+                    "IsArray": "",
+                    "IsIndexed": "",
+                    "IsMandatory": "",
+                    "AccessLevel": "",
+                    "ValidationRange": "",
+                    "ValidationRegex": ""
+                },
+				"7": {
+				"EntityType": "Container",
+				"Name": "Lot",
+				"Description": "Identifies the current lot on this container",
+				"PropertyType": "Attribute",
+				"CopyOnClone": "No",
+				"BelongsTo": "Definition",
+				"ScalarType": "String",
+				"ScalarSize": "",
+				"ScalarPrecision": "",
+				"ReferenceType": "None",
+				"ReferenceName": "",
+				"DefaultValue": "",
+				"IsArray": "No",
+				"IsEnabled": "Yes",
+				"IsHistoryEnable": "Yes",
+				"IsIndexed": "No",
+				"IsMandatory": "No",
+				"AccessLevel": "0",
+				"ValidationRange": "",
+				"ValidationRegex": ""
+				},
+				    "8": {
+      "EntityType": "Container",
+      "Name": "Product",
+      "Description": "The product used to create wafers for the current container",
+      "PropertyType": "Attribute",
+      "CopyOnClone": "No",
+      "BelongsTo": "Definition",
+      "ScalarType": "String",
+      "ScalarSize": "",
+      "ScalarPrecision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "No",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "AccessLevel": "0",
+      "ValidationRange": "",
+      "ValidationRegex": ""
+    },
+				"9": {
+					"EntityType": "Container",
+					"Name": "TransportRequested",
+					"Description": "Set to true to avoid load port to trigger transport events",
+					"PropertyType": "Attribute",
+					"CopyOnClone": "",
+					"BelongsTo": "Definition",
+					"ScalarType": "Boolean",
+					"ScalarSize": "",
+					"ScalarPrecision": "",
+					"ReferenceType": "None",
+					"ReferenceName": "",
+					"DefaultValue": "",
+					"IsArray": "No",
+					"IsEnabled": "Yes",
+					"IsHistoryEnable": "Yes",
+					"IsIndexed": "No",
+					"IsMandatory": "No",
+					"AccessLevel": "",
+					"ValidationRange": "",
+					"ValidationRegex": ""
+				},
+                "10": {
+                    "EntityType": "Container",
+                    "Name": "WaferIdOnTop",
+                    "Description": "Is wafer Id on bottom",
+                    "PropertyType": "Attribute",
+                    "ScalarType": "Boolean",
+                    "ReferenceType": "None",
+                    "IsEnabled": "Yes",
+                    "IsHistoryEnable": "Yes",
+                    "CopyOnClone": "",
+                    "BelongsTo": "",
+                    "ScalarSize": "",
+                    "ScalarPrecision": "",
+                    "ReferenceName": "",
+                    "DefaultValue": "",
+                    "IsArray": "",
+                    "IsIndexed": "",
+                    "IsMandatory": "",
+                    "AccessLevel": "",
+                    "ValidationRange": "",
+                    "ValidationRegex": ""
+                }
+  }
+}
