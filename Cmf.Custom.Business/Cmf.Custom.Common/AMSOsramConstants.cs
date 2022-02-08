@@ -522,5 +522,10 @@
 
         #endregion
         
+        #region Name Generators
+
+        public const string CustomGenerateSplitLotNames = "CustomGenerateSplitLotNames";
+
+        #endregion
     }
 }
