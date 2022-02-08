@@ -1,0 +1,458 @@
+{
+	"tasks": [
+		{
+			"id": "task_24905",
+			"reference": {
+				"name": "subWorkflowStart",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"outputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				]
+			}
+		},
+		{
+			"id": "task_24907",
+			"reference": {
+				"name": "subWorkflowEnd",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "DoNothing",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": false
+					},
+					{
+						"name": "LoadPortNumber",
+						"valueType": {
+							"friendlyName": "LoadPortNumber",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"friendlyName": "ContainerName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "UnclampCarrier",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": false
+					},
+					{
+						"name": "UnloadContainer",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": false
+					}
+				],
+				"___cmf___name": "End"
+			}
+		},
+		{
+			"id": "task_25409",
+			"reference": {
+				"name": "getEquipmentState",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"___cmf___name": "Get Equipment State",
+				"___cmf___color": "#808078"
+			}
+		},
+		{
+			"id": "task_25600",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        ",
+					"        var materialData = inputs.MaterialData",
+					"        var state = inputs.currentState",
+					"",
+					"        var loadPort = materialData[0].LoadPortPosition",
+					"        var carrierId = materialData[0].ContainerName",
+					"",
+					"        if (state == \"CarrierClamped\" ||",
+					"            state == \"CarrierIDRead\"  ||",
+					"            state == \"InvalidCarrierDocked\" ||",
+					"            state == \"CarrierOpen\" ||",
+					"            state == \"CassetteMap\" ||",
+					"            state == \"CassetteSlotMap\")  {",
+					"            return { UnclampCarrier: true, LoadPortNumber: loadPort, ContainerName: carrierId}",
+					"        } else if (state == \"CassetteLoaded\" ||",
+					"            state == \"TrackInFailed\") {",
+					"            return { UnloadContainer: true, LoadPortNumber: loadPort, ContainerName: carrierId} ",
+					"        }        ",
+					"        return { DoNothing: true} ",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICB2YXIgbWF0ZXJpYWxEYXRhID0gaW5wdXRzLk1hdGVyaWFsRGF0YTsNCiAgICAgICAgdmFyIHN0YXRlID0gaW5wdXRzLmN1cnJlbnRTdGF0ZTsNCiAgICAgICAgdmFyIGxvYWRQb3J0ID0gbWF0ZXJpYWxEYXRhWzBdLkxvYWRQb3J0UG9zaXRpb247DQogICAgICAgIHZhciBjYXJyaWVySWQgPSBtYXRlcmlhbERhdGFbMF0uQ29udGFpbmVyTmFtZTsNCiAgICAgICAgaWYgKHN0YXRlID09ICJDYXJyaWVyQ2xhbXBlZCIgfHwNCiAgICAgICAgICAgIHN0YXRlID09ICJDYXJyaWVySURSZWFkIiB8fA0KICAgICAgICAgICAgc3RhdGUgPT0gIkludmFsaWRDYXJyaWVyRG9ja2VkIiB8fA0KICAgICAgICAgICAgc3RhdGUgPT0gIkNhcnJpZXJPcGVuIiB8fA0KICAgICAgICAgICAgc3RhdGUgPT0gIkNhc3NldHRlTWFwIiB8fA0KICAgICAgICAgICAgc3RhdGUgPT0gIkNhc3NldHRlU2xvdE1hcCIpIHsNCiAgICAgICAgICAgIHJldHVybiB7IFVuY2xhbXBDYXJyaWVyOiB0cnVlLCBMb2FkUG9ydE51bWJlcjogbG9hZFBvcnQsIENvbnRhaW5lck5hbWU6IGNhcnJpZXJJZCB9Ow0KICAgICAgICB9DQogICAgICAgIGVsc2UgaWYgKHN0YXRlID09ICJDYXNzZXR0ZUxvYWRlZCIgfHwNCiAgICAgICAgICAgIHN0YXRlID09ICJUcmFja0luRmFpbGVkIikgew0KICAgICAgICAgICAgcmV0dXJuIHsgVW5sb2FkQ29udGFpbmVyOiB0cnVlLCBMb2FkUG9ydE51bWJlcjogbG9hZFBvcnQsIENvbnRhaW5lck5hbWU6IGNhcnJpZXJJZCB9Ow0KICAgICAgICB9DQogICAgICAgIHJldHVybiB7IERvTm90aGluZzogdHJ1ZSB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "currentState",
+						"valueType": {
+							"friendlyName": "currentState",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "DoNothing",
+						"valueType": {
+							"friendlyName": "DoNothing",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "UnclampCarrier",
+						"valueType": {
+							"friendlyName": "UnclampCarrier",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "UnloadContainer",
+						"valueType": {
+							"friendlyName": "UnloadContainer",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "LoadPortNumber",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
+		}
+	],
+	"converters": [],
+	"links": [
+		{
+			"id": "49df34af-49d9-4bfb-beb3-ba4675653a3a",
+			"sourceId": "task_24905",
+			"targetId": "task_25409",
+			"inputName": "activate",
+			"outputName": "activateOut"
+		},
+		{
+			"id": "a2dfe714-3698-4889-9650-f872785f77b1",
+			"sourceId": "task_25409",
+			"targetId": "task_25600",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "86ba7a1c-f1c1-4913-9ba8-3ecae33b2dee",
+			"sourceId": "task_25600",
+			"targetId": "task_24907",
+			"inputName": "DoNothing",
+			"outputName": "DoNothingOut"
+		},
+		{
+			"id": "d99f05f9-8306-424b-80a3-c1a83a38c187",
+			"sourceId": "task_25600",
+			"targetId": "task_24907",
+			"inputName": "UnclampCarrier",
+			"outputName": "UnclampCarrierOut"
+		},
+		{
+			"id": "7278a8da-17ce-44c5-8e53-4c74d6586e5d",
+			"sourceId": "task_25600",
+			"targetId": "task_24907",
+			"inputName": "UnloadContainer",
+			"outputName": "UnloadContainerOut"
+		},
+		{
+			"id": "5ad2f709-63c6-4192-8191-e0dcc7c620ad",
+			"sourceId": "task_25600",
+			"targetId": "task_24907",
+			"inputName": "success",
+			"outputName": "success"
+		},
+		{
+			"id": "3c9513ff-0892-43b7-bada-1cb090d4494e",
+			"sourceId": "task_25600",
+			"targetId": "task_24907",
+			"inputName": "error",
+			"outputName": "error"
+		},
+		{
+			"id": "d646735a-fbd8-43ab-80aa-3ba5dc9fdbec",
+			"sourceId": "task_25409",
+			"targetId": "task_24907",
+			"inputName": "error",
+			"outputName": "error"
+		},
+		{
+			"id": "1ea356be-047d-4c54-a0fc-a1dc1997a33b",
+			"sourceId": "task_25409",
+			"targetId": "task_25600",
+			"inputName": "currentStateIn",
+			"outputName": "currentState"
+		},
+		{
+			"id": "e7a15b8e-ea7b-422a-b3d8-19e7569cc625",
+			"sourceId": "task_24905",
+			"targetId": "task_24907",
+			"inputName": "MaterialData",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "ecde923b-0276-4199-8fec-d797d7724fab",
+			"sourceId": "task_24905",
+			"targetId": "task_25600",
+			"inputName": "MaterialDataIn",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "b1e23124-c36f-4b9e-9445-4a115545d472",
+			"sourceId": "task_25600",
+			"targetId": "task_24907",
+			"inputName": "LoadPortNumber",
+			"outputName": "LoadPortNumberOut"
+		},
+		{
+			"id": "f5026149-a01c-4560-888a-ede4ac606d2f",
+			"sourceId": "task_25600",
+			"targetId": "task_24907",
+			"inputName": "ContainerName",
+			"outputName": "ContainerNameOut"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": null,
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_24907": {
+						"collapsed": false,
+						"position": {
+							"x": 1847,
+							"y": 321
+						},
+						"outdated": false
+					},
+					"task_24905": {
+						"collapsed": false,
+						"position": {
+							"x": -23,
+							"y": 69
+						},
+						"outdated": false
+					},
+					"task_25409": {
+						"collapsed": false,
+						"position": {
+							"x": 470,
+							"y": 311
+						},
+						"outdated": false
+					},
+					"task_25600": {
+						"collapsed": false,
+						"position": {
+							"x": 1091,
+							"y": 143
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"49df34af-49d9-4bfb-beb3-ba4675653a3a": {
+						"vertices": []
+					},
+					"a2dfe714-3698-4889-9650-f872785f77b1": {
+						"vertices": []
+					},
+					"86ba7a1c-f1c1-4913-9ba8-3ecae33b2dee": {
+						"vertices": []
+					},
+					"d99f05f9-8306-424b-80a3-c1a83a38c187": {
+						"vertices": []
+					},
+					"7278a8da-17ce-44c5-8e53-4c74d6586e5d": {
+						"vertices": []
+					},
+					"5ad2f709-63c6-4192-8191-e0dcc7c620ad": {
+						"vertices": []
+					},
+					"3c9513ff-0892-43b7-bada-1cb090d4494e": {
+						"vertices": []
+					},
+					"d646735a-fbd8-43ab-80aa-3ba5dc9fdbec": {
+						"vertices": []
+					},
+					"1ea356be-047d-4c54-a0fc-a1dc1997a33b": {
+						"vertices": []
+					},
+					"e7a15b8e-ea7b-422a-b3d8-19e7569cc625": {
+						"vertices": [
+							{
+								"x": 1446,
+								"y": 136
+							}
+						]
+					},
+					"ecde923b-0276-4199-8fec-d797d7724fab": {
+						"vertices": []
+					},
+					"b1e23124-c36f-4b9e-9445-4a115545d472": {
+						"vertices": []
+					},
+					"f5026149-a01c-4560-888a-ede4ac606d2f": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"pan": {
+					"x": 0,
+					"y": 0
+				},
+				"zoom": 0.5799999999999996
+			}
+		}
+	}
+}
