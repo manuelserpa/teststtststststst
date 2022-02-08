@@ -14,8 +14,8 @@ N/A.
 
 ## Tokens
 
-| Name             | Calculation Method | Value                                                                                                  |
-| :--------------- | :----------------- | :----------------------------------------------------------------------------------------------------- |
-| Dee              | Dee                | [Custom Generate Split Lot Names](/AMSOsram/tecspecs>artifacts>deeactions>CustomGenerateSplitLotNames) |
-| SeparatorChar    | Constant           |                                                                                                        |
-| CounterFormat    | Rollover Counter   |                                                                                                        |
+| Name             | Calculation Method | Value                                                                                                  | Format |
+| :--------------- | :----------------- | :----------------------------------------------------------------------------------------------------- | :----- |
+| Dee              | Dee                | [Custom Generate Split Lot Names](/AMSOsram/tecspecs>artifacts>deeactions>CustomGenerateSplitLotNames) |        |
+| SeparatorChar    | Constant           | .                                                                                                      |        |
+| CounterFormat    | Rollover Counter   |                                                                                                        | 00     |

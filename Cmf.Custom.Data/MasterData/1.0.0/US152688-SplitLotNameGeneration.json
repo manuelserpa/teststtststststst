@@ -227,7 +227,7 @@
       "Description": "Name Generator for split Lot names",
       "Sample": "",
       "TokenName": "Dee",
-      "TokenDescription": "Calculates the value",
+      "TokenDescription": "Retrieves the Main Material name",
       "TokenFormat": "",
       "TokenOrder": "1",
       "CalculationMethod": "Dee",
