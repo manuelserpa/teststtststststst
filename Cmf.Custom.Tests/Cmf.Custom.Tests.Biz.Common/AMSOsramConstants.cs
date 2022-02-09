@@ -47,10 +47,19 @@ namespace Cmf.Custom.Tests.Biz.Common
 
         #region Flows and Steps
 
+        /// <summary>
+        /// Test Flow: FOL-UX3_EPA
+        /// </summary>
         public static string TestFlow = "FOL-UX3_EPA";
 
+        /// <summary>
+        /// TestM3MTZnOSputterCluster6in00126F008_E: "M3-MT-ZnO-SputterCluster-6in-00126F008_E"
+        /// </summary>
         public static string TestM3MTZnOSputterCluster6in00126F008_E = "M3-MT-ZnO-SputterCluster-6in-00126F008_E";
 
+        /// <summary>
+        /// TestM3SSTRinseandDryinSRD02121F011_E: "M3-SST-Rinse-and-Dry-in-SRD-02121F011_E"
+        /// </summary>
         public static string TestM3SSTRinseandDryinSRD02121F011_E = "M3-SST-Rinse-and-Dry-in-SRD-02121F011_E";
         
         #endregion

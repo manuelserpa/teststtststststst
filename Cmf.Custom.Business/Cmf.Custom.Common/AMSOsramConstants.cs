@@ -76,7 +76,7 @@
         public static string ContainerAttributeLot = "Lot";
 
         /// <summary>
-        /// Resource Is Load Port In Use
+        /// Resource Is Sorter
         /// </summary>
         public static string ResourceAttributeIsSorter = "IsSorter";
 
