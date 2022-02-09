@@ -78,6 +78,11 @@
         /// <summary>
         /// Resource Is Load Port In Use
         /// </summary>
+        public static string ResourceAttributeIsSorter = "IsSorter";
+
+        /// <summary>
+        /// Resource Is Load Port In Use
+        /// </summary>
         public static string ResourceAttributeIsLoadPortInUse = "IsLoadPortInUse";
 
         #endregion

@@ -266,6 +266,16 @@
                 "Lookup Table IsEnabled": "true"
             }
   },
+  "<SM>DEEAction": {
+    "1": {
+      "Action": "CustomMaterialInValidation",
+      "Description": "DEE Action to validate input for the material in service.",
+      "CodeFileRelativePath": "Materials\\CustomMaterialInValidation.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    }
+   },
+  "DEEActionOrder": {},
   "<SM>EntityTypeProperty": {
     "1": {
                     "EntityType": "Resource",
