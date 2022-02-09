@@ -19,7 +19,7 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
     public class CustomGenerateSplitLotNames
     {
         private string facilityName = "Regensburg Production";
-        private string productName = "11067101";
+        private string productName = "11111335";
         private string type = "Production";
         private string flowName = "FOL-UX3_EPA";
         private string stepName = "M2-SL-Wafer-Start-07301F001_E";
