@@ -1,0 +1,54 @@
+{
+  "WorksheetNameMapping": {
+    "1": {
+      "WorksheetName": "CertifReqQualif",
+      "Value": "CertificationRequiredQualification"
+    },
+    "2": {
+      "WorksheetName": "AutomationInstances",
+      "Value": "<DM>AutomationControllerInstance"
+    },
+    "3": {
+      "WorksheetName": "StepContextInformation",
+      "Value": "StepInspectionSeverityContextInformation"
+    },
+    "4": {
+      "WorksheetName": "StepSwitchingRule",
+      "Value": "StepInspectionSeveritySwitchingRule"
+    }
+  },
+  "<DM>Calendar": {
+    "1": {
+      "Name": "General",
+      "Description": "Default Calendar",
+      "DayStartTime": "6:00:00 AM",
+      "YearStartDay": "1",
+      "YearStartMonth": "1",
+      "WeekStartDay": "Monday",
+      "IsReportingDimension": "No",
+      "DefaultMondayIsWorkingDay": "No",
+      "DefaultTuesdayIsWorkingDay": "No",
+      "DefaultWednesdayIsWorkingDay": "No",
+      "DefaultThursdayIsWorkingDay": "No",
+      "DefaultFridayIsWorkingDay": "No",
+      "DefaultSaturdayIsWorkingDay": "No",
+      "DefaultSundayIsWorkingDay": "No",
+      "DefaultMondayShiftDefinition": "",
+      "DefaultTuesdayShiftDefinition": "",
+      "DefaultWednesdayShiftDefinition": "",
+      "DefaultThursdayShiftDefinition": "",
+      "DefaultFridayShiftDefinition": "",
+      "DefaultSaturdayShiftDefinition": "",
+      "DefaultSundayShiftDefinition": "",
+      "DefaultMondayOvertimeFactor": "1",
+      "DefaultTuesdayOvertimeFactor": "1",
+      "DefaultWednesdayOvertimeFactor": "1",
+      "DefaultThursdayOvertimeFactor": "1",
+      "DefaultFridayOvertimeFactor": "1",
+      "DefaultSaturdayOvertimeFactor": "1",
+      "DefaultSundayOvertimeFactor": "1",
+      "StartsAtPreviousDay": "No",
+      "TimeZone": "UTC"
+    }
+  }
+}
