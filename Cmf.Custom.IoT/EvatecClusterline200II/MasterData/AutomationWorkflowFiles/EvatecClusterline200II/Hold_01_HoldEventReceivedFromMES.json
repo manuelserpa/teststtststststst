@@ -1,0 +1,126 @@
+{
+	"tasks": [
+		{
+			"id": "task_168546",
+			"reference": {
+				"name": "systemActionGroupEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"replyTimeout": 60000,
+				"___cmf___name": "On System Event",
+				"actionGroup": "Hold",
+				"___cmf___color": "#0080ff"
+			}
+		},
+		{
+			"id": "task_168548",
+			"reference": {
+				"name": "deleteMaterialOnPersistence",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"___cmf___name": "Delete Material On Persistence",
+				"___cmf___color": "#c0c0c0"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "task_168546_data-task_168548_activate",
+			"sourceId": "task_168546",
+			"targetId": "task_168548",
+			"inputName": "activate",
+			"outputName": "data",
+			"converters": []
+		},
+		{
+			"id": "task_168546_data-task_168548_materials",
+			"sourceId": "task_168546",
+			"targetId": "task_168548",
+			"inputName": "materials",
+			"outputName": "data",
+			"converters": []
+		},
+		{
+			"id": "task_168548_success-task_168546_reply",
+			"sourceId": "task_168548",
+			"targetId": "task_168546",
+			"inputName": "reply",
+			"outputName": "success",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff80",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_168546": {
+						"collapsed": false,
+						"position": {
+							"x": 232,
+							"y": 676
+						},
+						"outdated": false
+					},
+					"task_168548": {
+						"collapsed": false,
+						"position": {
+							"x": 908,
+							"y": 665
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"task_168546_data-task_168548_activate": {
+						"vertices": []
+					},
+					"task_168546_data-task_168548_materials": {
+						"vertices": []
+					},
+					"task_168548_success-task_168546_reply": {
+						"vertices": [
+							{
+								"x": 1265,
+								"y": 611
+							},
+							{
+								"x": 219,
+								"y": 607
+							}
+						]
+					}
+				},
+				"notes": {}
+			}
+		}
+	}
+}
