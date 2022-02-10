@@ -1,0 +1,888 @@
+{
+  "<SM>StateModel": {
+    "1": {
+      "Name": "CustomEquipmentProcessState",
+      "Description": "",
+      "DataGroup": "",
+      "EntityTypeName": "Resource"
+    }
+  },
+  "StateModelState": {
+    "1": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Material Arrived",
+      "Description": "Material Arrived",
+      "Role": "",
+      "IsInitial": "Yes",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "2": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Transfer Blocked",
+      "Description": "Transfer Blocked",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "3": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Carrier Clamped",
+      "Description": "Carrier Clamped",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "4": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Carrier ID Read",
+      "Description": "Carrier ID Read",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "5": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Invalid Carrier Docked",
+      "Description": "Invalid Carrier Docked",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "6": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Carrier Open",
+      "Description": "Carrier Open",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "7": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Cassette Map",
+      "Description": "Cassette Map",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "8": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Cassette Slot Map",
+      "Description": "Cassette Slot Map",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "9": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Cassette Loaded",
+      "Description": "Cassette Loaded",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "10": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Track In Failed",
+      "Description": "Track In Failed",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "11": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Track In Successful",
+      "Description": "Track In Successful",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "12": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "PP-Select Command Succeeded",
+      "Description": "PP-Select Command Succeeded",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "13": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "PP-Select Command Failed",
+      "Description": "PP-Select Command Failed",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "14": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Start Command Sent",
+      "Description": "Start Command Sent",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "15": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Start Command Failed",
+      "Description": "Start Command Failed",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "16": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Process Started",
+      "Description": "Process Started",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "17": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Process Complete",
+      "Description": "Process Complete",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "18": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Carrier Closed",
+      "Description": "Carrier Closed",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "19": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Cassette Unloaded",
+      "Description": "Cassette Unloaded",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "20": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Carrier Unclamped",
+      "Description": "Carrier Unclamped",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "21": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Ready To Unload",
+      "Description": "Ready To Unload",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "22": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Material Removed",
+      "Description": "Material Removed",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "23": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Ready To Load",
+      "Description": "Ready To Load",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "24": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Aborting",
+      "Description": "Aborting",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "25": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Aborted",
+      "Description": "Aborted",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "26": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Holding",
+      "Description": "Holding",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    }
+  },
+  "StateModelTransition": {
+    "1": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Material Arrived to Transfer Blocked",
+      "Description": "Material Arrived to Transfer Blocked",
+      "FromState": "Material Arrived",
+      "ToState": "Transfer Blocked",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "2": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Transfer Blocked to Carrier Clamped",
+      "Description": "Transfer Blocked to Carrier Clamped",
+      "FromState": "Transfer Blocked",
+      "ToState": "Carrier Clamped",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "3": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Carrier Clamped to Carrier ID Read",
+      "Description": "Carrier Clamped to Carrier ID Read",
+      "FromState": "Carrier Clamped",
+      "ToState": "Carrier ID Read",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "4": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Carrier Clamped to Holding",
+      "Description": "Carrier Clamped to Holding",
+      "FromState": "Carrier Clamped",
+      "ToState": "Holding",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "5": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Carrier ID Read to Invalid Carrier Docked",
+      "Description": "Carrier ID Read to Invalid Carrier Docked",
+      "FromState": "Carrier ID Read",
+      "ToState": "Invalid Carrier Docked",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "6": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Invalid Carrier Docked to Holding",
+      "Description": "Invalid Carrier Docked to Holding",
+      "FromState": "Invalid Carrier Docked",
+      "ToState": "Holding",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "7": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Holding to Carrier Unclamped",
+      "Description": "Holding to Carrier Unclamped",
+      "FromState": "Holding",
+      "ToState": "Carrier Unclamped",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "8": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Carrier ID Read to Carrier Open",
+      "Description": "Carrier ID Read to Carrier Open",
+      "FromState": "Carrier ID Read",
+      "ToState": "Carrier Open",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "9": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Carrier ID Read to Holding",
+      "Description": "Carrier ID Read to Holding",
+      "FromState": "Carrier ID Read",
+      "ToState": "Holding",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "10": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Carrier Open to Cassette Map",
+      "Description": "Carrier Open to Cassette Map",
+      "FromState": "Carrier Open",
+      "ToState": "Cassette Map",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "11": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Carrier Open to Holding",
+      "Description": "Carrier Open to Holding",
+      "FromState": "Carrier Open",
+      "ToState": "Holding",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "12": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Cassette Map to Cassette Slot Map",
+      "Description": "Cassette Map to Cassette Slot Map",
+      "FromState": "Cassette Map",
+      "ToState": "Cassette Slot Map",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "13": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Cassette Map to Holding",
+      "Description": "Cassette Map to Holding",
+      "FromState": "Cassette Map",
+      "ToState": "Holding",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "14": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Cassette Slot Map to Cassette Loaded",
+      "Description": "Cassette Slot Map to Cassette Loaded",
+      "FromState": "Cassette Slot Map",
+      "ToState": "Cassette Loaded",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "15": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Cassette Slot Map to Track In Failed",
+      "Description": "Cassette Slot Map to Track In Failed",
+      "FromState": "Cassette Slot Map",
+      "ToState": "Track In Failed",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "16": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Cassette Slot Map to Track In Successful",
+      "Description": "Cassette Slot Map to Track In Successful",
+      "FromState": "Cassette Slot Map",
+      "ToState": "Track In Successful",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "17": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Cassette Loaded to Track In Failed",
+      "Description": "Cassette Loaded to Track In Failed",
+      "FromState": "Cassette Loaded",
+      "ToState": "Track In Failed",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "18": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Cassette Loaded to Track In Successful",
+      "Description": "Cassette Loaded to Track In Successful",
+      "FromState": "Cassette Loaded",
+      "ToState": "Track In Successful",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "19": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Track In Failed to Holding",
+      "Description": "Track In Failed to Holding",
+      "FromState": "Track In Failed",
+      "ToState": "Holding",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "20": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Holding to Carrier Closed",
+      "Description": "Holding to Carrier Closed",
+      "FromState": "Holding",
+      "ToState": "Carrier Closed",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "21": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Track In Successful to PP-Select Command Succeeded",
+      "Description": "Track In Successful to PP-Select Command Succeeded",
+      "FromState": "Track In Successful",
+      "ToState": "PP-Select Command Succeeded",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "22": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "PP-Select Command Failed to Holding",
+      "Description": "PP-Select Command Failed to Holding",
+      "FromState": "PP-Select Command Failed",
+      "ToState": "Holding",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "23": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "PP-Select Command Failed to Aborting",
+      "Description": "PP-Select Command Failed to Aborting",
+      "FromState": "PP-Select Command Failed",
+      "ToState": "Aborting",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "24": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "PP-Select Command Succeeded to Start Command Sent",
+      "Description": "PP-Select Command Succeeded to Start Command Sent",
+      "FromState": "PP-Select Command Succeeded",
+      "ToState": "Start Command Sent",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "25": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Start Command Failed to Holding",
+      "Description": "Start Command Failed to Holding",
+      "FromState": "Start Command Failed",
+      "ToState": "Holding",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "26": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Start Command Failed to Aborting",
+      "Description": "Start Command Failed to Aborting",
+      "FromState": "Start Command Failed",
+      "ToState": "Aborting",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "27": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Start Command Sent to Process Started",
+      "Description": "Start Command Sent to Process Started",
+      "FromState": "Start Command Sent",
+      "ToState": "Process Started",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "28": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Process Started to Process Complete",
+      "Description": "Process Started to Process Complete",
+      "FromState": "Process Started",
+      "ToState": "Process Complete",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "29": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Process Started to Aborting",
+      "Description": "Process Started to Aborting",
+      "FromState": "Process Started",
+      "ToState": "Aborting",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "30": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Aborting to Aborted",
+      "Description": "Aborting to Aborted",
+      "FromState": "Aborting",
+      "ToState": "Aborted",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "31": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Aborted to Holding",
+      "Description": "Aborted to Holding",
+      "FromState": "Aborted",
+      "ToState": "Holding",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "32": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Process Complete to Carrier Closed",
+      "Description": "Process Complete to Carrier Closed",
+      "FromState": "Process Complete",
+      "ToState": "Carrier Closed",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "33": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Holding to Ready To Unload",
+      "Description": "Holding to Ready To Unload",
+      "FromState": "Holding",
+      "ToState": "Ready To Unload",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "34": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Carrier Closed to Cassette Unloaded",
+      "Description": "Carrier Closed to Cassette Unloaded",
+      "FromState": "Carrier Closed",
+      "ToState": "Cassette Unloaded",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "35": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Cassette Unloaded to Carrier Unclamped",
+      "Description": "Cassette Unloaded to Carrier Unclamped",
+      "FromState": "Cassette Unloaded",
+      "ToState": "Carrier Unclamped",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "36": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Carrier Unclamped to Ready To Unload",
+      "Description": "Carrier Unclamped to Ready To Unload",
+      "FromState": "Carrier Unclamped",
+      "ToState": "Ready To Unload",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "37": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Ready To Unload to Material Removed",
+      "Description": "Ready To Unload to Material Removed",
+      "FromState": "Ready To Unload",
+      "ToState": "Material Removed",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "38": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Material Removed to Ready To Load",
+      "Description": "Material Removed to Ready To Load",
+      "FromState": "Material Removed",
+      "ToState": "Ready To Load",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "39": {
+      "StateModel": "CustomEquipmentProcessState",
+      "Name": "Ready To Load to Material Arrived",
+      "Description": "Ready To Load to Material Arrived",
+      "FromState": "Ready To Load",
+      "ToState": "Material Arrived",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    }
+  },
+  "<DM>AutomationWorkflow": {
+    "1": {
+      "Name": "CarrierArrived",
+      "DisplayName": "CarrierArrived",
+      "Description": "Carrier Arrived to Load Port, Load Port Set to Occuppied",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\CarrierArrived.json",
+      "IsFile": "Yes"
+    },
+    "2": {
+      "Name": "CarrierIdRead",
+      "DisplayName": "CarrierIdRead",
+      "Description": "Carrier Id Read, Sets Carrier Id to ContainerData, Docks Container, , If error occurs Container is Set on Hold",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\CarrierIdRead.json",
+      "IsFile": "Yes"
+    },
+    "3": {
+      "Name": "SlotMapReceived",
+      "DisplayName": "SlotMapReceived",
+      "Description": "Slot Map Received, Store Slot Map on Container Data, Executes Material In, If error occurs Container is Set on Hold",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\SlotMapReceived.json",
+      "IsFile": "Yes"
+    },
+    "4": {
+      "Name": "CarrierRemoved",
+      "DisplayName": "CarrierRemoved",
+      "Description": "Carrier Removed from Load Port, Load Port Set to Available, Container Undocked",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\CarrierRemoved.json",
+      "IsFile": "Yes"
+    },
+    "5": {
+      "Name": "ErrorHandling",
+      "DisplayName": "ErrorHandling",
+      "Description": "Error Triggered, Logs error with Wolfspeed Logic, Creates Notification",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\ErrorHandling.json",
+      "IsFile": "Yes"
+    },
+    "6": {
+      "Name": "ProcessStarted",
+      "DisplayName": "ProcessStarted",
+      "Description": "Process Started, Change MaterialData to InProcess state and Material state to InProgress",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\ProcessStarted.json",
+      "IsFile": "Yes"
+    },
+    "7": {
+      "Name": "WaferStarted",
+      "DisplayName": "WaferStarted",
+      "Description": "Wafer Started, executes Material In for Sub-Material, sets SubMaterialData In Process",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\WaferStarted.json",
+      "IsFile": "Yes"
+    },
+    "8": {
+      "Name": "WaferComplete",
+      "DisplayName": "WaferComplete",
+      "Description": "Wafer Complete, executes Material Out for Sub-Material, sets SubMaterialData Complete",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\WaferComplete.json",
+      "IsFile": "Yes"
+    },
+    "9": {
+      "Name": "ProcessComplete",
+      "DisplayName": "ProcessComplete",
+      "Description": "Process Complete, executes Material Out for Lot, sets MaterialData to Complete",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\ProcessComplete.json",
+      "IsFile": "Yes"
+    },
+    "10": {
+      "Name": "UpdateEquipmentProcessState",
+      "DisplayName": "UpdateEquipmentProcessState",
+      "Description": "Update Equipment Process State, Updates Resource Custom Current State, Triggers automatic Update on Resource Main State",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\UpdateEquipmentProcessState.json",
+      "IsFile": "Yes"
+    },
+    "11": {
+      "Name": "UpdateControlState",
+      "DisplayName": "UpdateControlState",
+      "Description": "Updates Control State, Updates Control State on Resource Current State",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\UpdateControlState.json",
+      "IsFile": "Yes"
+    },
+    "12": {
+      "Name": "TrackInInitialValidation",
+      "DisplayName": "TrackInInitialValidation",
+      "Description": "Validates Initial Track In Conditions (Slot Map, Gem Control State, Cassette Present)",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\TrackInInitialValidation.json",
+      "IsFile": "Yes"
+    },
+    "13": {
+      "Name": "ValidateRecipeExists",
+      "DisplayName": "ValidateRecipeExists",
+      "Description": "Validates Recipe Exists on the List",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\ValidateRecipeExists.json",
+      "IsFile": "Yes"
+    },
+    "14": {
+      "Name": "ValidateRecipeBody",
+      "DisplayName": "ValidateRecipeBody",
+      "Description": "Validates Recipe Body Checksum",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\ValidateRecipeBody.json",
+      "IsFile": "Yes"
+    },
+    "15": {
+      "Name": "GetRecipeBody",
+      "DisplayName": "GetRecipeBody",
+      "Description": "Gets Recipe Body from MES",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\GetRecipeBody.json",
+      "IsFile": "Yes"
+    },
+    "16": {
+      "Name": "TransferWaferBetweenContainers",
+      "DisplayName": "TransferWaferBetweenContainers",
+      "Description": "Transfer Wafer Between Container and Container Datas",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\TransferWaferBetweenContainers.json",
+      "IsFile": "Yes"
+    },
+    "17": {
+      "Name": "ReadyToUnload",
+      "DisplayName": "ReadyToUnload",
+      "Description": "Sets Load Port CustomLoadPortStateModel to ReadyToUnload, sets CustomEquipmentProcessState to ReadyToUnload",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\ReadyToUnload.json",
+      "IsFile": "Yes"
+    },
+    "18": {
+      "Name": "TransferBlocked",
+      "DisplayName": "TransferBlocked",
+      "Description": "Sets CustomEquipmentProcessState to TransferBlocked",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\TransferBlocked.json",
+      "IsFile": "Yes"
+    },
+    "19": {
+      "Name": "CarrierClamped",
+      "DisplayName": "CarrierClamped",
+      "Description": "Sets CustomEquipmentProcessState to CarrierClamped",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\CarrierClamped.json",
+      "IsFile": "Yes"
+    },
+    "20": {
+      "Name": "CarrierOpen",
+      "DisplayName": "CarrierOpen",
+      "Description": "Sets CustomEquipmentProcessState to CarrierOpen",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\CarrierOpen.json",
+      "IsFile": "Yes"
+    },
+    "21": {
+      "Name": "CassetteMap",
+      "DisplayName": "CassetteMap",
+      "Description": "Sets CustomEquipmentProcessState to CassetteMap",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\CassetteMap.json",
+      "IsFile": "Yes"
+    },
+    "22": {
+      "Name": "CassetteLoaded",
+      "DisplayName": "CassetteLoaded",
+      "Description": "Sets CustomEquipmentProcessState to CassetteLoaded",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\CassetteLoaded.json",
+      "IsFile": "Yes"
+    },
+    "23": {
+      "Name": "PPSelectCommandSucceed",
+      "DisplayName": "PPSelectCommandSucceed",
+      "Description": "Sets CustomEquipmentProcessState to PPSelectCommandSucceed",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\PPSelectCommandSucceeded.json",
+      "IsFile": "Yes"
+    },
+    "24": {
+      "Name": "PPSelectCommandFailed",
+      "DisplayName": "PPSelectCommandFailed",
+      "Description": "Sets CustomEquipmentProcessState to PPSelectCommandFailed",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\PPSelectCommandFailed.json",
+      "IsFile": "Yes"
+    },
+    "25": {
+      "Name": "StartCommandSent",
+      "DisplayName": "StartCommandSent",
+      "Description": "Sets CustomEquipmentProcessState to StartCommandSent",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\StartCommandSent.json",
+      "IsFile": "Yes"
+    },
+    "26": {
+      "Name": "StartCommandFailed",
+      "DisplayName": "StartCommandFailed",
+      "Description": "Sets CustomEquipmentProcessState to StartCommandFailed",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\StartCommandFailed.json",
+      "IsFile": "Yes"
+    },
+    "27": {
+      "Name": "CarrierClosed",
+      "DisplayName": "CarrierClosed",
+      "Description": "Sets CustomEquipmentProcessState to CarrierClosed",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\CarrierClosed.json",
+      "IsFile": "Yes"
+    },
+    "28": {
+      "Name": "CassetteUnloaded",
+      "DisplayName": "CassetteUnloaded",
+      "Description": "Sets CustomEquipmentProcessState to CassetteUnloaded",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\CassetteUnloaded.json",
+      "IsFile": "Yes"
+    },
+    "29": {
+      "Name": "CarrierUnclamped",
+      "DisplayName": "CarrierUnclamped",
+      "Description": "Sets CustomEquipmentProcessState to CarrierUnclamped",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\CarrierUnclamped.json",
+      "IsFile": "Yes"
+    },
+    "30": {
+      "Name": "ReadyToLoad",
+      "DisplayName": "ReadyToLoad",
+      "Description": "Sets CustomEquipmentProcessState to ReadyToLoad",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\ReadyToLoad.json",
+      "IsFile": "Yes"
+    },
+    "31": {
+      "Name": "HoldActionCalculation",
+      "DisplayName": "HoldActionCalculation",
+      "Description": "Calculate action to take on Hold",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\HoldActionCalculation.json",
+      "IsFile": "Yes"
+    }
+  }
+}

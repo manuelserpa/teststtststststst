@@ -9,20 +9,20 @@
     <!-- Parameters used by tests at runtime -->
   <TestRunParameters>
     <Parameter name="applicationName" value="AutomaticTests" />
-	<Parameter name="websiteAdress" value="VM-AMS-OSRAM.cmf.criticalmanufacturing.com" />
-	<Parameter name="websitePort" value="443" />
+	  <Parameter name="websiteAdress" value="VM-AMS-OSRAM.cmf.criticalmanufacturing.com" />
+	  <Parameter name="websitePort" value="443" />
     <Parameter name="websiteUseSSL" value="True" />
     <Parameter name="hostAdress" value="VM-AMS-OSRAM.cmf.criticalmanufacturing.com" />
     <Parameter name="hostPort" value="8083" />
     <Parameter name="clientTenantName" value="AMSOsram" />  
     <Parameter name="culture" value="en-US"/>
     <Parameter name="userRole" value="Administrators"/>
-    <Parameter name="userName" value="CMF\\CMFSU" />
+    <Parameter name="userName" value="CMF\CMFSU" />
     <Parameter name="password" value="qaz123WSX" />
-    <Parameter name="auxiliaryUserName" value="TestUserAccountHere" />
-    <Parameter name="auxiliaryUserPassword" value="TestUserPasswordHere" />
+    <Parameter name="auxiliaryUserName" value="CMF\CMFSU" />
+    <Parameter name="auxiliaryUserPassword" value="qaz123WSX" />
     <Parameter name="skipLogin" value="true" />
-    <Parameter name="hostUseSSL" value="true" />
+    <Parameter name="hostUseSSL" value="false" />
     <Parameter name="securityToken" value="4n5g84uLK347" />
     <Parameter name="useLoadBalancer" value="false" />
     <Parameter name="requestTimeout" value="00:10:00" />
