@@ -233,7 +233,7 @@
         /// <summary>
         /// Hold Step reason when an abort process is performed at the lot
         /// </summary>
-        public static string DefaultAbortProcessHoldReasonConfig = "/Cree/AbortProcess/HoldReason/";
+        public static string DefaultAbortProcessHoldReasonConfig = "/AMSOsram/AbortProcess/HoldReason/";
         #endregion
 
         #region Queries
