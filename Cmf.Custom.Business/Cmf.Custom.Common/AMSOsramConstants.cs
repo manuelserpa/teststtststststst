@@ -85,6 +85,21 @@
         /// </summary>
         public static string ResourceAttributeIsLoadPortInUse = "IsLoadPortInUse";
 
+        /// <summary>
+        /// Container Attribute Map Container Needed for sorter
+        /// </summary>
+        public static string ContainerAttributeMapContainerNeeded = "MapContainerNeeded";
+
+        /// <summary>
+        /// Container Attribute Product
+        /// </summary>
+        public static string ContainerAttributeProduct = "Product";
+
+        /// <summary>
+        /// Product Attribute IsTestWaferMeasurementStep
+        /// </summary>
+        public static string ProductAttributeCanCreateInventory = "CanCreateInventory";
+
         #endregion
 
         #region SmartTables
@@ -151,7 +166,74 @@
         /// </summary>
         public static string LocalizedMessageIoTConnectionTimeout = "CustomLocalizedMessageIoTConnectionTimeout";
 
+        /// <summary>
+        /// Localized Message: CustomLocalizedMessageNoHoldReasonsAvailableErrorMessage
+        /// </summary>
+        public static string LocalizedMessageNoHoldReasonAvailableErrorMessage = "CustomLocalizedMessageNoHoldReasonAvailableErrorMessage";
 
+        /// <summary> 
+        /// Localized Message: Custom Localized Message Recipe Body Empty
+        /// </summary>
+        public static string LocalizedMessageRecipeBodyEmpty = "CustomLocalizedMessageRecipeBodyEmpty";
+
+        /// <summary> 
+        /// Localized Message: Custom Localized Message Recipe Without Body
+        /// </summary>
+        public static string LocalizedMessageRecipeWithoutBody = "CustomLocalizedMessageRecipeWithoutBody";
+
+        /// <summary>
+        /// Localized Message: StateModelStateDoesNotExistException
+        /// </summary>
+        public static string LocalizedMessageStateModelStateDoesNotExistException = "StateModelStateDoesNotExistException";
+
+        /// <summary>
+        /// Localized Message: StateModelDoesNotExistException
+        /// </summary>
+        public static string LocalizedMessageStateModelDoesNotExistException = "StateModelDoesNotExistException";
+
+
+        #endregion
+
+        #region State Model
+        /// <summary>
+        /// Custom Material State Model
+        /// </summary>
+        public static string MaterialStateModel = "CustomMaterialStateModel";
+
+        /// <summary>
+        /// Custom Load Port State Model
+        /// </summary>
+        public static string CustomLoadPortStateModel = "CustomLoadPortStateModelState";
+
+        /// <summary>
+        /// CustomLoadPortStateModelState Created State Model State
+        /// </summary>
+        public static string CustomLoadPortStateModelStateAvailableStateModelState = "Available";
+
+        /// <summary>
+        /// CustomLoadPortStateModelState TransportReserved State Model State
+        /// </summary>
+        public static string CustomLoadPortStateModelStateTransportReservedStateModelState = "TransportReserved";
+
+        /// <summary>
+        /// CustomLoadPortStateModelState In Progress State Model State
+        /// </summary>
+        public static string CustomLoadPortStateModelStateOccupiedStateModelState = "Occupied";
+
+        /// <summary>
+        /// CustomLoadPortStateModelState Delivered State Model State
+        /// </summary>
+        public static string CustomLoadPortStateModelStateReadyToUnloadStateModelState = "ReadyToUnload";
+
+
+        #endregion
+
+        #region Configuration
+
+        /// <summary>
+        /// Hold Step reason when an abort process is performed at the lot
+        /// </summary>
+        public static string DefaultAbortProcessHoldReasonConfig = "/Cree/AbortProcess/HoldReason/";
         #endregion
 
         #region Queries
