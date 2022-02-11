@@ -17,5 +17,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\Cmf.Custom.Business\Cmf.Custom.Common\Cmf.Custom.AMSOsram.Common.csproj" />
+		<ProjectReference Include="..\..\Cmf.Custom.Business\Cmf.Custom.Orchestration\Cmf.Custom.AMSOsram.Orchestration.csproj" />
 	</ItemGroup>
 </Project>

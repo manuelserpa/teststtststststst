@@ -1250,6 +1250,18 @@
       "Description": "",
       "DataGroup": "",
       "EntityTypeName": "Resource"
+    },
+	"2": {
+      "Name": "CustomLoadPortStateModelState",
+      "Description": "Custom State Model for LoadPort",
+      "DataGroup": "",
+      "EntityTypeName": "Resource"
+    },
+    "3": {
+      "Name": "CustomMaterialStateModel",
+      "Description": "",
+      "DataGroup": "",
+      "EntityTypeName": "Material"
     }
   },
   "StateModelState": {
@@ -1295,6 +1307,69 @@
       "Description": "Online Remote",
       "Role": "",
       "IsInitial": "Yes",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+	"6": {
+      "StateModel": "CustomLoadPortStateModelState",
+      "Name": "Available",
+      "Description": "LoadPort Available",
+      "Role": "",
+      "IsInitial": "Yes",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "7": {
+      "StateModel": "CustomLoadPortStateModelState",
+      "Name": "Occupied",
+      "Description": "LoadPort Occupied",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "8": {
+      "StateModel": "CustomMaterialStateModel",
+      "Name": "Queued",
+      "Description": "Queued",
+      "Role": "",
+      "IsInitial": "Yes",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "9": {
+      "StateModel": "CustomMaterialStateModel",
+      "Name": "Setup",
+      "Description": "Setup",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "10": {
+      "StateModel": "CustomMaterialStateModel",
+      "Name": "In Progress",
+      "Description": "In Progress",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "11": {
+      "StateModel": "CustomMaterialStateModel",
+      "Name": "Abort",
+      "Description": "Abort",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "12": {
+      "StateModel": "CustomMaterialStateModel",
+      "Name": "Complete",
+      "Description": "Complete",
+      "Role": "",
+      "IsInitial": "No",
       "IsFinal": "No",
       "Attributes": ""
     }
@@ -1439,6 +1514,106 @@
       "Role": "",
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
+    },
+	"15": {
+      "StateModel": "CustomLoadPortStateModelState",
+      "Name": "Available to Occupied",
+      "Description": "Available to Occupied",
+      "FromState": "Available",
+      "ToState": "Occupied",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "16": {
+      "StateModel": "CustomLoadPortStateModelState",
+      "Name": "Occupied to Available",
+      "Description": "Occupied to Available",
+      "FromState": "Occupied",
+      "ToState": "Available",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "17": {
+      "StateModel": "CustomMaterialStateModel",
+      "Name": "Queued to Setup",
+      "Description": "Queued to Setup",
+      "FromState": "Queued",
+      "ToState": "Setup",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "18": {
+      "StateModel": "CustomMaterialStateModel",
+      "Name": "Setup to In Progress",
+      "Description": "Setup to In Progress",
+      "FromState": "Setup",
+      "ToState": "In Progress",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "19": {
+      "StateModel": "CustomMaterialStateModel",
+      "Name": "Setup to Abort",
+      "Description": "Setup to Abort",
+      "FromState": "Setup",
+      "ToState": "Abort",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "20": {
+      "StateModel": "CustomMaterialStateModel",
+      "Name": "In Progress to Abort",
+      "Description": "In Progress to Abort",
+      "FromState": "In Progress",
+      "ToState": "Abort",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "21": {
+      "StateModel": "CustomMaterialStateModel",
+      "Name": "In Progress to Complete",
+      "Description": "In Progress to Complete",
+      "FromState": "In Progress",
+      "ToState": "Complete",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "22": {
+      "StateModel": "CustomMaterialStateModel",
+      "Name": "Abort to Setup",
+      "Description": "Abort to Setup",
+      "FromState": "Abort",
+      "ToState": "Setup",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "23": {
+      "StateModel": "CustomMaterialStateModel",
+      "Name": "Abort to Queued",
+      "Description": "Abort to Queued",
+      "FromState": "Abort",
+      "ToState": "Queued",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "24": {
+      "StateModel": "CustomMaterialStateModel",
+      "Name": "Complete to Queued",
+      "Description": "Complete to Queued",
+      "FromState": "Complete",
+      "ToState": "Queued",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
     }
   },
   "<SM>DEEAction": {
@@ -1469,7 +1644,36 @@
       "CodeFileRelativePath": "Automation\\CustomAutomationSetCustomResourceState.cs",
       "IsEnabled": "Yes",
       "Classification": "ConnectIoT"
+    },
+    "5": {
+      "Action": "CustomAutomationAbortMaterial",
+      "Description": "",
+      "CodeFileRelativePath": "Automation\\CustomAutomationAbortMaterial.cs",
+      "IsEnabled": "Yes",
+      "Classification": "ConnectIoT"
+    },
+    "6": {
+      "Action": "CustomSendMaterialToFutureHold",
+      "Description": "",
+      "CodeFileRelativePath": "Automation\\CustomSendMaterialToFutureHold.cs",
+      "IsEnabled": "Yes",
+      "Classification": "ConnectIoT"
+    },
+    "7": {
+      "Action": "CustomSetHoldEntity",
+      "Description": "",
+      "CodeFileRelativePath": "Automation\\CustomSetHoldEntity.cs",
+      "IsEnabled": "Yes",
+      "Classification": "ConnectIoT"
+    },
+    "8": {
+      "Action": "CustomSetWaferToContainerSlot",
+      "Description": "",
+      "CodeFileRelativePath": "Automation\\CustomSetWaferToContainerSlot.cs",
+      "IsEnabled": "Yes",
+      "Classification": "ConnectIoT"
     }
+	
   },
   "DEEActionOrder": {},
   "<DM>Rule": {
@@ -1496,7 +1700,32 @@
       "Description": "",
       "Scope": "ConnectIoT",
       "DEERule": "CustomAutomationSetCustomResourceState"
+    },
+    "5": {
+      "Name": "CustomAutomationAbortMaterial",
+      "Description": "",
+      "Scope": "ConnectIoT",
+      "DEERule": "CustomAutomationAbortMaterial"
+    },
+    "6": {
+      "Name": "CustomSendMaterialToFutureHold",
+      "Description": "",
+      "Scope": "ConnectIoT",
+      "DEERule": "CustomSendMaterialToFutureHold"
+    },
+    "7": {
+      "Name": "CustomSetHoldEntity",
+      "Description": "",
+      "Scope": "ConnectIoT",
+      "DEERule": "CustomSetHoldEntity"
+    },
+    "8": {
+      "Name": "CustomSetWaferToContainerSlot",
+      "Description": "",
+      "Scope": "ConnectIoT",
+      "DEERule": "CustomSetWaferToContainerSlot"
     }
+	
   },
   "<DM>AutomationManager": {},
   "<DM>AutomationProtocol": {
