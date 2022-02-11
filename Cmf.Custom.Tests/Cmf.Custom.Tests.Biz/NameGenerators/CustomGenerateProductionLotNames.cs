@@ -27,16 +27,14 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
             /// <Step>
             /// Get CustomGenerateProductionLotNames Name Generator.
             /// </Step>
-            var nameGenerator = GenericGetsScenario.GetObjectByName<NameGenerator>(Name: AMSOsramConstants.CustomGenerateProductionLotNames);
-
-            var productionLotName = string.Empty;
+            NameGenerator nameGenerator = GenericGetsScenario.GetObjectByName<NameGenerator>(Name: AMSOsramConstants.CustomGenerateProductionLotNames);
 
             for (int i = 0; i < 20; i++)
             {
                 /// <Step>
                 /// Generate names for Production Lot using CustomGenerateProductionLotNames Name Generator.
                 /// </Step>
-                productionLotName = GenerateName(nameGenerator: AMSOsramConstants.CustomGenerateProductionLotNames);
+                string productionLotName = GenerateName(nameGenerator: AMSOsramConstants.CustomGenerateProductionLotNames);
 
                 /// <Step>
                 /// Get last context of CustomGenerateProductionLotNames.
