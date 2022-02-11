@@ -57867,6 +57867,73 @@ export namespace Cmf.Custom.AMSOsram.Common.DataStructures
 
 	// data objects
 
+	export class ResourceLoadPortData
+	{
+		protected $id:string = null;
+		protected $type:string = "Cmf.Custom.AMSOsram.Common.DataStructures.ResourceLoadPortData, Cmf.Custom.AMSOsram.Common";
+		public ParentResourceId : string;
+		public ParentResourceName : string;
+		public LoadPortId : string;
+		public LoadPortName : string;
+		public LoadPortInUse : boolean;
+		public LoadPortLoadPortType : Cmf.Navigo.BusinessObjects.LoadPortType;
+		public LoadPortModifiedOn : moment.Moment;
+		public LoadPortStateModelStateId : string;
+		public ContainerId : string;
+		public ContainerName : string;
+		public ContainerType : string;
+		public ContainerTotalPositions : number;
+		public ContainerUsedPositions : number;
+		public ContainerResourceAssociationType : Cmf.Navigo.BusinessObjects.ContainerResourceAssociationType;
+		public ContainerLotAttribute : string;
+		public ContainerProductAttribute : string;
+		public ContainerMapContainerNeededAttribute : boolean;
+		public ContainerTransportRequestedAttribute : boolean;
+		public ParentMaterialId : string;
+		public ParentMaterialName : string;
+	}
+
+	export class RecipeParameterData
+	{
+		protected $id:string = null;
+		protected $type:string = "Cmf.Custom.AMSOsram.Common.DataStructures.RecipeParameterData, Cmf.Custom.AMSOsram.Common";
+		public Name : string;
+		public Value : string;
+	}
+
+	export class RecipeData
+	{
+		protected $id:string = null;
+		protected $type:string = "Cmf.Custom.AMSOsram.Common.DataStructures.RecipeData, Cmf.Custom.AMSOsram.Common";
+		public RecipeName : string;
+		public RecipeId : string;
+		public NameOnEquipment : string;
+		public Checksum : string;
+		public Order : string;
+		public SubRecipes : Cmf.Custom.AMSOsram.Common.DataStructures.RecipeData[];
+		public RecipeParameters : Cmf.Custom.AMSOsram.Common.DataStructures.RecipeParameterData[];
+	}
+
+	export class MaterialData
+	{
+		protected $id:string = null;
+		protected $type:string = "Cmf.Custom.AMSOsram.Common.DataStructures.MaterialData, Cmf.Custom.AMSOsram.Common";
+		public MaterialId : string;
+		public MaterialName : string;
+		public MaterialState : string;
+		public SubMaterials : Cmf.Custom.AMSOsram.Common.DataStructures.MaterialData[];
+		public Recipe : Cmf.Custom.AMSOsram.Common.DataStructures.RecipeData;
+		public ContainerName : string;
+		public ContainerId : string;
+		public Slot : string;
+		public LastUpdate : string;
+		public LoadPortName : string;
+		public LoadPortPosition : string;
+		public AllowDownloadRecipeAtTrackIn : boolean;
+		public ContainerOnlyProcess : boolean;
+		public SorterJobInformation : Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition;
+	}
+
 	export class AdHocRequestAction
 	{
 		protected $id:string = null;

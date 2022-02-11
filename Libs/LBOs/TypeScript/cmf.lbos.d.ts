@@ -36930,6 +36930,65 @@ export declare namespace Cmf.Custom.AMSOsram.BusinessObjects {
     }
 }
 export declare namespace Cmf.Custom.AMSOsram.Common.DataStructures {
+    class ResourceLoadPortData {
+        protected $id: string;
+        protected $type: string;
+        ParentResourceId: string;
+        ParentResourceName: string;
+        LoadPortId: string;
+        LoadPortName: string;
+        LoadPortInUse: boolean;
+        LoadPortLoadPortType: Cmf.Navigo.BusinessObjects.LoadPortType;
+        LoadPortModifiedOn: moment.Moment;
+        LoadPortStateModelStateId: string;
+        ContainerId: string;
+        ContainerName: string;
+        ContainerType: string;
+        ContainerTotalPositions: number;
+        ContainerUsedPositions: number;
+        ContainerResourceAssociationType: Cmf.Navigo.BusinessObjects.ContainerResourceAssociationType;
+        ContainerLotAttribute: string;
+        ContainerProductAttribute: string;
+        ContainerMapContainerNeededAttribute: boolean;
+        ContainerTransportRequestedAttribute: boolean;
+        ParentMaterialId: string;
+        ParentMaterialName: string;
+    }
+    class RecipeParameterData {
+        protected $id: string;
+        protected $type: string;
+        Name: string;
+        Value: string;
+    }
+    class RecipeData {
+        protected $id: string;
+        protected $type: string;
+        RecipeName: string;
+        RecipeId: string;
+        NameOnEquipment: string;
+        Checksum: string;
+        Order: string;
+        SubRecipes: Cmf.Custom.AMSOsram.Common.DataStructures.RecipeData[];
+        RecipeParameters: Cmf.Custom.AMSOsram.Common.DataStructures.RecipeParameterData[];
+    }
+    class MaterialData {
+        protected $id: string;
+        protected $type: string;
+        MaterialId: string;
+        MaterialName: string;
+        MaterialState: string;
+        SubMaterials: Cmf.Custom.AMSOsram.Common.DataStructures.MaterialData[];
+        Recipe: Cmf.Custom.AMSOsram.Common.DataStructures.RecipeData;
+        ContainerName: string;
+        ContainerId: string;
+        Slot: string;
+        LastUpdate: string;
+        LoadPortName: string;
+        LoadPortPosition: string;
+        AllowDownloadRecipeAtTrackIn: boolean;
+        ContainerOnlyProcess: boolean;
+        SorterJobInformation: Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition;
+    }
     class AdHocRequestAction {
         protected $id: string;
         protected $type: string;
