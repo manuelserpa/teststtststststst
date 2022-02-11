@@ -18,13 +18,13 @@ namespace AutomaticTests
         public static string m_mode = BaseContext.Mode.ToString();
         public static string m_FileNameRunSettings = BaseContext.FilePath;
 
-        public IoTEnvironmentSpecific ioTEnvironmentSpecific = new IoTEnvironmentSpecific();
+        public static IoTEnvironmentSpecific ioTEnvironmentSpecific = new IoTEnvironmentSpecific();
 
         public Persistency Persistency { get; internal set; }
 
         #endregion Static Variables
 
-        public virtual void PrepareTestScenario(string equipmentOrCluster)
+        public static void PrepareTestScenario(string equipmentOrCluster)
         {
             if (m_Scenarios.ContainsKey("Scenario"))
             {
