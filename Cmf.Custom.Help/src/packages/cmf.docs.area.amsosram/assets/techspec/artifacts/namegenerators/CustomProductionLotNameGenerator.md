@@ -1,4 +1,4 @@
-# Custom Generate Production Lot Names
+# Custom Production Lot Name Generator
 
 ## Overview
 
