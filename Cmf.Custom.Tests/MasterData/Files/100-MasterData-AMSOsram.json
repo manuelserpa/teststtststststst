@@ -1213,6 +1213,83 @@
       "IsRemote": "No"
     }
   },
+  "<DM>Calendar": {
+    "1": {
+      "Name": "General",
+      "Description": "Default Calendar",
+      "DayStartTime": "6:00:00 AM",
+      "YearStartDay": "1",
+      "YearStartMonth": "1",
+      "WeekStartDay": "Monday",
+      "IsReportingDimension": "No",
+      "DefaultMondayIsWorkingDay": "Yes",
+      "DefaultTuesdayIsWorkingDay": "Yes",
+      "DefaultWednesdayIsWorkingDay": "Yes",
+      "DefaultThursdayIsWorkingDay": "Yes",
+      "DefaultFridayIsWorkingDay": "Yes",
+      "DefaultSaturdayIsWorkingDay": "Yes",
+      "DefaultSundayIsWorkingDay": "Yes",
+      "DefaultMondayShiftDefinition": "General",
+      "DefaultTuesdayShiftDefinition": "General",
+      "DefaultWednesdayShiftDefinition": "General",
+      "DefaultThursdayShiftDefinition": "General",
+      "DefaultFridayShiftDefinition": "General",
+      "DefaultSaturdayShiftDefinition": "General",
+      "DefaultSundayShiftDefinition": "General",
+      "DefaultMondayOvertimeFactor": "1",
+      "DefaultTuesdayOvertimeFactor": "1",
+      "DefaultWednesdayOvertimeFactor": "1",
+      "DefaultThursdayOvertimeFactor": "1",
+      "DefaultFridayOvertimeFactor": "1",
+      "DefaultSaturdayOvertimeFactor": "1",
+      "DefaultSundayOvertimeFactor": "1",
+      "StartsAtPreviousDay": "No",
+      "TimeZone": "UTC"
+    }
+  },
+  "<DM>ShiftDefinition": {
+    "1": {
+      "Name": "General",
+      "Description": "General Calendar",
+      "StartTime": "6:00:00 AM",
+      "Calendar": "General"
+    }
+  },
+  "ShiftDefinitionShift": {
+    "1": {
+      "ShiftDefinition": "General",
+      "Name": "To early",
+      "ShiftNumber": "1",
+      "Code": "A",
+      "TeamPattern": "",
+      "StartTime": "6:00:00 AM",
+      "EndTime": "2:00:00 PM",
+      "OvertimeCostFactor": "1",
+      "NonWorkingTimes": ""
+    },
+    "2": {
+      "ShiftDefinition": "General",
+      "Name": "To Late",
+      "ShiftNumber": "2",
+      "Code": "B",
+      "TeamPattern": "",
+      "StartTime": "2:00:00 PM",
+      "EndTime": "10:00:00 PM",
+      "OvertimeCostFactor": "1",
+      "NonWorkingTimes": ""
+    },
+    "3": {
+      "ShiftDefinition": "General",
+      "Name": "To night",
+      "ShiftNumber": "3",
+      "Code": "C",
+      "TeamPattern": "",
+      "StartTime": "10:00:00 PM",
+      "EndTime": "6:00:00 AM",
+      "OvertimeCostFactor": "1",
+      "NonWorkingTimes": ""
+    }
+  },
   "<DM>Facility": {
     "1": {
       "Name": "Regensburg Production",
@@ -12159,7 +12236,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "100",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "Process",
       "SubResources": "",
       "Services": "",
@@ -12225,7 +12302,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "110",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "Process",
       "SubResources": "",
       "Services": "",
@@ -12291,7 +12368,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "120",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "Process",
       "SubResources": "",
       "Services": "",
@@ -12357,7 +12434,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "130",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "Process",
       "SubResources": "",
       "Services": "",
@@ -12423,7 +12500,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "140",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "Process",
       "SubResources": "",
       "Services": "",
@@ -12489,7 +12566,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "150",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "Process",
       "SubResources": "",
       "Services": "",
@@ -12555,7 +12632,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "160",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "Process",
       "SubResources": "",
       "Services": "",
@@ -12621,7 +12698,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "170",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "Process",
       "SubResources": "",
       "Services": "",
@@ -12687,7 +12764,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "180",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "Process",
       "SubResources": "",
       "Services": "",
@@ -12753,7 +12830,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "190",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "Process",
       "SubResources": "",
       "Services": "",
@@ -29913,7 +29990,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "LoadPort",
       "SubResources": "",
       "Services": "",
@@ -29979,7 +30056,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "LoadPort",
       "SubResources": "",
       "Services": "",
@@ -30045,7 +30122,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "",
       "SubResources": "",
       "Services": "",
@@ -30111,7 +30188,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "",
       "SubResources": "",
       "Services": "",
@@ -30177,7 +30254,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "",
       "SubResources": "",
       "Services": "",
@@ -30243,7 +30320,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "",
       "SubResources": "",
       "Services": "",
@@ -30309,7 +30386,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "",
       "SubResources": "",
       "Services": "",
@@ -30375,7 +30452,7 @@
       "SortRuleSet": "",
       "Area": "Metallization",
       "DisplayOrder": "",
-      "IsSubMaterialTrackingEnabled": "Yes",
+      "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "",
       "SubResources": "",
       "Services": "",
@@ -30472,51 +30549,6 @@
     "8": {
       "SourceEntity": "PDSP0101",
       "TargetEntity": "PDSP0101.CH6",
-      "ConsumableFeedPosition": ""
-    },
-    "9": {
-      "SourceEntity": "PDSP0103",
-      "TargetEntity": "",
-      "ConsumableFeedPosition": ""
-    },
-    "10": {
-      "SourceEntity": "PDSP0105",
-      "TargetEntity": "",
-      "ConsumableFeedPosition": ""
-    },
-    "11": {
-      "SourceEntity": "PDSP0108",
-      "TargetEntity": "",
-      "ConsumableFeedPosition": ""
-    },
-    "12": {
-      "SourceEntity": "PDSP0110",
-      "TargetEntity": "",
-      "ConsumableFeedPosition": ""
-    },
-    "13": {
-      "SourceEntity": "PDSP0104",
-      "TargetEntity": "",
-      "ConsumableFeedPosition": ""
-    },
-    "14": {
-      "SourceEntity": "PDSP0107",
-      "TargetEntity": "",
-      "ConsumableFeedPosition": ""
-    },
-    "15": {
-      "SourceEntity": "PDSP0102",
-      "TargetEntity": "",
-      "ConsumableFeedPosition": ""
-    },
-    "16": {
-      "SourceEntity": "PDSP0106",
-      "TargetEntity": "",
-      "ConsumableFeedPosition": ""
-    },
-    "17": {
-      "SourceEntity": "PDSP0109",
-      "TargetEntity": "",
       "ConsumableFeedPosition": ""
     }
   },
