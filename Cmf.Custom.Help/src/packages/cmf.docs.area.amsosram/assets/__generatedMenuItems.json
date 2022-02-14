@@ -90,6 +90,48 @@
    "actionId": ""
 },
 {
+   "id": "statemodels",
+   "menuGroupId": "artifacts",
+   "title": "State Models",
+   "actionId": ""
+},
+{
+   "id": "customautomationadjustloadportstate",
+   "menuGroupId": "deeactions",
+   "title": "CustomAutomationAdjustLoadPortState",
+   "actionId": ""
+},
+{
+   "id": "customautomationgetrecipebody",
+   "menuGroupId": "deeactions",
+   "title": "CustomAutomationGetRecipeBody",
+   "actionId": ""
+},
+{
+   "id": "customgenerateproductionlotnames",
+   "menuGroupId": "deeactions",
+   "title": "Custom Generate Production Lot Names",
+   "actionId": ""
+},
+{
+   "id": "customgeneratesplitlotnames",
+   "menuGroupId": "deeactions",
+   "title": "Custom Generate Split Lot Names",
+   "actionId": ""
+},
+{
+   "id": "customsorterjobdefinition",
+   "menuGroupId": "entitytypes",
+   "title": "CustomSorterJobDefinition",
+   "actionId": ""
+},
+{
+   "id": "customgetresourceloadportsdata",
+   "menuGroupId": "exportedobjects",
+   "title": "CustomGetResourceLoadPortsData",
+   "actionId": ""
+},
+{
    "id": "cconverters",
    "menuGroupId": "html",
    "title": "Converters",
@@ -105,6 +147,72 @@
    "id": "datasources",
    "menuGroupId": "html",
    "title": "Data Sources",
+   "actionId": ""
+},
+{
+   "id": "customgenerateproductionlotnames",
+   "menuGroupId": "namegenerators",
+   "title": "Custom Generate Production Lot Names",
+   "actionId": ""
+},
+{
+   "id": "customgeneratesplitlotnames",
+   "menuGroupId": "namegenerators",
+   "title": "Custom Generate Split Lot Names",
+   "actionId": ""
+},
+{
+   "id": "customreceiveerpmessage",
+   "menuGroupId": "services",
+   "title": "Custom Receive ERP Message",
+   "actionId": ""
+},
+{
+   "id": "customreceivestibomessage",
+   "menuGroupId": "services",
+   "title": "Custom Receive Stibo Message",
+   "actionId": ""
+},
+{
+   "id": "dockcontainer",
+   "menuGroupId": "services",
+   "title": "DockContainer",
+   "actionId": ""
+},
+{
+   "id": "materialin",
+   "menuGroupId": "services",
+   "title": "MaterialIn",
+   "actionId": ""
+},
+{
+   "id": "materialout",
+   "menuGroupId": "services",
+   "title": "MaterialOut",
+   "actionId": ""
+},
+{
+   "id": "undockcontainer",
+   "menuGroupId": "services",
+   "title": "UndockContainer",
+   "actionId": ""
+},
+{
+   "id": "customsorterjobdefinitioncontext",
+   "menuGroupId": "smarttables",
+   "title": "CustomSorterJobDefinitionContext",
+   "actionId": ""
+},
+{
+   "id": "customloadportstatemodelstate",
+   "menuGroupId": "statemodels",
+   "title": "CustomLoadPortStateModelState",
+   "actionId": ""
+},
+{
+   "id": "custommaterialstatemodel",
+   "menuGroupId": "statemodels",
+   "title": "CustomMaterialStateModel",
    "actionId": ""
 },
 {
@@ -159,6 +267,18 @@
    "id": "erphandlers",
    "menuGroupId": "erpintegration",
    "title": "ERP Handlers",
+   "actionId": ""
+},
+{
+   "id": "customerpsystemintegration",
+   "menuGroupId": "features",
+   "title": "ERP (SAP) System Integration",
+   "actionId": ""
+},
+{
+   "id": "customreceivestibomessages",
+   "menuGroupId": "features",
+   "title": "Stibo System Integration",
    "actionId": ""
 }
 ]
