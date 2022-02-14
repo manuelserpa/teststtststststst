@@ -53,6 +53,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             UseReference("", "Cmf.Navigo.BusinessOrchestration.ContainerManagement.InputObjects");
             UseReference("", "Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects");
             UseReference("", "Cmf.Navigo.BusinessOrchestration.MappingManagement.InputObjects");
+			UseReference("%MicrosoftNetPath%Microsoft.CSharp.dll", "");
 
             // Custom
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
@@ -69,7 +70,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                             {
                                 if (string.IsNullOrWhiteSpace(((CreateMaterialInput)myKey.Value).Material.Name))
                                 {
-                                    ((CreateMaterialInput)myKey.Value).NameGeneratorName = "MaterialNameGenerator";
+									((CreateMaterialInput)myKey.Value).NameGeneratorName = AMSOsramConstants.CustomGenerateProductionLotNames;
                                 }
                                 isFound = true;
                             }
@@ -83,7 +84,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                                     {
                                         if (myMat != null && string.IsNullOrWhiteSpace(myMat.Name))
                                         {
-                                            ((CreateMaterialsInput)myKey.Value).NameGeneratorName = "MaterialNameGenerator";
+											((CreateMaterialsInput)myKey.Value).NameGeneratorName = AMSOsramConstants.CustomGenerateProductionLotNames;
                                             break;
                                         }
                                     }
