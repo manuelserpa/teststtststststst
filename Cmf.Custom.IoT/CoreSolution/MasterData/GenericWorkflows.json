@@ -875,6 +875,22 @@
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
       "Workflow": ".\\GenericWorkflows\\ReadyToLoad.json",
       "IsFile": "Yes"
+    },
+    "31": {
+      "Name": "UpdateEquipmentE10MainState",
+      "DisplayName": "UpdateEquipmentE10MainState",
+      "Description": "Update Equipment E10 State",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\UpdateEquipmentE10MainState.json",
+      "IsFile": "Yes"
+    },
+    "32": {
+      "Name": "HoldActionCalculation",
+      "DisplayName": "HoldActionCalculation",
+      "Description": "Calculate Actions to Execute after Hold",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-cree-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\HoldActionCalculation.json",
+      "IsFile": "Yes"
     }
   }
 }

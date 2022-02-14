@@ -189,13 +189,37 @@
 				}
 			},
 			"settings": {
-				"_inputs": [],
-				"_command": null
+				"_inputs": [
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "PORTID",
+							"DataType": 0
+						},
+						"dataType": "String"
+					}
+				],
+				"_command": {
+					"$type": "Cmf.Foundation.BusinessObjects.AutomationCommand, Cmf.Foundation.BusinessObjects",
+					"Name": "UNLOADCARRIER"
+				},
+				"___cmf___name": "Execute Equipment Command"
 			},
 			"driver": "SecsGemEquipment"
 		}
 	],
-	"converters": [],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToString",
+			"reference": {
+				"name": "anyToString",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
 	"links": [
 		{
 			"id": "task_179896_activateOut-task_179900_activate",
@@ -250,6 +274,19 @@
 			"targetId": "task_179894",
 			"inputName": "CarrierId",
 			"outputName": "CarrierIdOut"
+		},
+		{
+			"id": "75bbad61-5924-48ba-9a00-a9d39109a3e7",
+			"sourceId": "task_179896",
+			"targetId": "task_179900",
+			"inputName": "$PORTID",
+			"outputName": "LoadPortOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToString",
+					"params": {}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -320,6 +357,9 @@
 						"vertices": []
 					},
 					"317fce26-5378-4bb2-a125-4333772d41e9": {
+						"vertices": []
+					},
+					"75bbad61-5924-48ba-9a00-a9d39109a3e7": {
 						"vertices": []
 					}
 				},

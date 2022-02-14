@@ -125,7 +125,63 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortTransferState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortReservationState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CarrierID_CarrierReport",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortAccessMode",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortAssociationState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortID_CarrierReport",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "MaterialRemoved"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -162,7 +218,22 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "3914a7df-b743-4207-8f5e-e64d1213eee8",
+			"sourceId": "task_189672",
+			"targetId": "task_95323",
+			"inputName": "LoadPortNumberIn",
+			"outputName": "$PortID_CarrierReport"
+		},
+		{
+			"id": "9db777d9-83d3-460d-9d2d-bd7214500d01",
+			"sourceId": "task_189672",
+			"targetId": "task_95323",
+			"inputName": "activate",
+			"outputName": "$PortID_CarrierReport"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -181,33 +252,40 @@
 					"task_95323": {
 						"collapsed": false,
 						"position": {
-							"x": 1065,
-							"y": 328
+							"x": 1158,
+							"y": 265
 						},
 						"outdated": false
 					},
 					"task_189672": {
 						"collapsed": false,
 						"position": {
-							"x": 502,
-							"y": 250
+							"x": 337,
+							"y": 124
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"3914a7df-b743-4207-8f5e-e64d1213eee8": {
+						"vertices": []
+					},
+					"9db777d9-83d3-460d-9d2d-bd7214500d01": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_189487": {
 						"collapsed": false,
 						"position": {
-							"x": 1529,
-							"y": 110
+							"x": 1629,
+							"y": 131
 						}
 					}
 				},
 				"pan": {
-					"x": 210.38029919356995,
-					"y": 45.47889645162047
+					"x": 187,
+					"y": 36
 				},
 				"zoom": 0.7200000000000002
 			}

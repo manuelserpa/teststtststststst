@@ -31,20 +31,51 @@
 			}
 		},
 		{
-			"id": "task_4361",
+			"id": "task_22898",
 			"reference": {
-				"name": "customControlJobRequest",
+				"name": "workflow",
 				"package": {
-					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
 				}
 			},
 			"settings": {
-				"___cmf___name": "Custom Control Job Request",
-				"ControlJobCommand": 7,
-				"commandName": 7
-			},
-			"driver": "SecsGemEquipment"
+				"automationWorkflow": {
+					"DisplayName": "AbortJob_01_ExecuteControlJobAbort",
+					"IsShared": false
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialData"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialData"
+						}
+					}
+				],
+				"___cmf___name": "Execute Abort Control Job",
+				"___cmf___color": "#ffff80"
+			}
 		}
 	],
 	"converters": [
@@ -71,20 +102,6 @@
 	],
 	"links": [
 		{
-			"id": "f13f7b27-ee07-427b-ba70-74c6bf5acf46",
-			"sourceId": "task_3640",
-			"targetId": "task_3786",
-			"inputName": "activate",
-			"outputName": "data"
-		},
-		{
-			"id": "829cc0e1-608d-4d3d-8b7b-bb5e75bdd4f6",
-			"sourceId": "task_3640",
-			"targetId": "task_3786",
-			"inputName": "materials",
-			"outputName": "data"
-		},
-		{
 			"id": "81ed7089-1805-4419-a4ea-aeb3bca529db",
 			"sourceId": "task_3786",
 			"targetId": "task_3640",
@@ -98,17 +115,31 @@
 			]
 		},
 		{
-			"id": "d759a348-5587-42b8-a91c-14f0fa424943",
-			"sourceId": "task_3640",
-			"targetId": "task_4361",
+			"id": "3da7ed5b-0673-4e2f-9670-ec05135e4476",
+			"sourceId": "task_22898",
+			"targetId": "task_3786",
+			"inputName": "materials",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "de425b02-c001-4c02-9131-ddc6e442f598",
+			"sourceId": "task_22898",
+			"targetId": "task_3786",
 			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "7d8780d7-9354-4c5a-8366-9b14880d70b3",
+			"sourceId": "task_3640",
+			"targetId": "task_22898",
+			"inputName": "MaterialDataIn",
 			"outputName": "data"
 		},
 		{
-			"id": "1e382517-ce66-4875-a64c-8c83c70052a4",
+			"id": "6d90239e-bfce-4ae8-bee1-60221be71c21",
 			"sourceId": "task_3640",
-			"targetId": "task_4361",
-			"inputName": "CommandParameterList",
+			"targetId": "task_22898",
+			"inputName": "activate",
 			"outputName": "data"
 		}
 	],
@@ -123,46 +154,46 @@
 					"task_3640": {
 						"collapsed": false,
 						"position": {
-							"x": 232,
-							"y": 676
+							"x": 121,
+							"y": 674
 						},
 						"outdated": false
 					},
 					"task_3786": {
 						"collapsed": false,
 						"position": {
-							"x": 866,
-							"y": 673
+							"x": 1311,
+							"y": 700
 						},
 						"outdated": false
 					},
-					"task_4361": {
+					"task_22898": {
 						"collapsed": false,
 						"position": {
-							"x": 865,
-							"y": 1183
+							"x": 712,
+							"y": 722
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"f13f7b27-ee07-427b-ba70-74c6bf5acf46": {
+					"3da7ed5b-0673-4e2f-9670-ec05135e4476": {
 						"vertices": []
 					},
-					"829cc0e1-608d-4d3d-8b7b-bb5e75bdd4f6": {
+					"de425b02-c001-4c02-9131-ddc6e442f598": {
 						"vertices": []
 					},
-					"d759a348-5587-42b8-a91c-14f0fa424943": {
+					"7d8780d7-9354-4c5a-8366-9b14880d70b3": {
 						"vertices": []
 					},
-					"1e382517-ce66-4875-a64c-8c83c70052a4": {
+					"6d90239e-bfce-4ae8-bee1-60221be71c21": {
 						"vertices": []
 					},
 					"81ed7089-1805-4419-a4ea-aeb3bca529db": {
 						"vertices": [
 							{
-								"x": 1265,
-								"y": 611
+								"x": 1738,
+								"y": 613
 							},
 							{
 								"x": 219,
@@ -172,10 +203,10 @@
 					}
 				},
 				"notes": {},
-				"zoom": 0.72,
+				"zoom": 0.7,
 				"pan": {
-					"x": 4,
-					"y": 257.6000061035156
+					"x": -9.591562856451901,
+					"y": 239.59454343520179
 				}
 			}
 		}

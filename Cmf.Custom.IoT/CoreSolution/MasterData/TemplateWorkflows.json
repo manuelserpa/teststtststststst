@@ -1231,6 +1231,14 @@
       "IsFile": "Yes",
       "Workflow": "TemplatePlaceHolder\\CarrierUnclamped_01_ExecuteCommand.json",
       "Order": "38"
+    },
+    "39": {
+      "AutomationController": "TemplatePlaceHolderController",
+      "Name": "AbortJob_01_ExecuteControlJobAbort",
+      "DisplayName": "AbortJob_01_ExecuteControlJobAbort",
+      "IsFile": "Yes",
+      "Workflow": "TemplatePlaceHolder\\CarrierUnclamped_01_ExecuteCommand.json",
+      "Order": "39"
     }
   },
   "<LOOKUP>AutomationInstances": {}

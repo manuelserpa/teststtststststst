@@ -186,6 +186,86 @@
 				]
 			},
 			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_73770",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "CassetteUnloaded",
+					"IsShared": true,
+					"Name": "CassetteUnloaded"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ResourceName"
+						}
+					},
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LoadPort"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "EquipmentStates",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "CurrentState",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "PreviousState",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"___cmf___name": "Workflow"
+			}
 		}
 	],
 	"converters": [
@@ -244,6 +324,33 @@
 			"targetId": "task_127417",
 			"inputName": "activate",
 			"outputName": "$ControlJobID"
+		},
+		{
+			"id": "bd48fc4c-a3d8-41d3-9ec6-010f0678e019",
+			"sourceId": "task_127417",
+			"targetId": "task_73770",
+			"inputName": "LoadPortIn",
+			"outputName": "MaterialDataObjectsOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "LoadPortPosition",
+						"type": 4
+					}
+				},
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		},
+		{
+			"id": "4651cec5-0188-4371-a9b9-b576a3c3ad15",
+			"sourceId": "task_127417",
+			"targetId": "task_73770",
+			"inputName": "activate",
+			"outputName": "success"
 		}
 	],
 	"layout": {
@@ -272,8 +379,8 @@
 					"task_127417": {
 						"collapsed": false,
 						"position": {
-							"x": 1134,
-							"y": 301
+							"x": 1109,
+							"y": 247
 						},
 						"outdated": false
 					},
@@ -284,6 +391,14 @@
 							"y": 323
 						},
 						"outdated": false
+					},
+					"task_73770": {
+						"collapsed": false,
+						"position": {
+							"x": 1619,
+							"y": 228
+						},
+						"outdated": false
 					}
 				},
 				"links": {
@@ -292,21 +407,27 @@
 					},
 					"e583366e-b9a6-44c9-9c95-6dcdf8148bc6": {
 						"vertices": []
+					},
+					"4651cec5-0188-4371-a9b9-b576a3c3ad15": {
+						"vertices": []
+					},
+					"bd48fc4c-a3d8-41d3-9ec6-010f0678e019": {
+						"vertices": []
 					}
 				},
 				"notes": {
 					"note_60654": {
 						"collapsed": false,
 						"position": {
-							"x": 1631,
-							"y": 74
+							"x": 2058,
+							"y": 13
 						}
 					}
 				},
-				"zoom": 0.6600000000000004,
+				"zoom": 0.7600000000000005,
 				"pan": {
-					"x": 219,
-					"y": 86
+					"x": 321,
+					"y": 40
 				}
 			}
 		}
