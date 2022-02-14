@@ -626,7 +626,15 @@
         
         #region Name Generators
 
+        /// <summary>
+        /// Split Lot Name Generator
+        /// </summary>
         public const string CustomGenerateSplitLotNames = "CustomGenerateSplitLotNames";
+
+        /// <summary>
+        /// Production lot Name Generator
+        /// </summary>
+        public const string CustomGenerateProductionLotNames = "CustomProductionLotNameGenerator";
 
         #endregion
     }

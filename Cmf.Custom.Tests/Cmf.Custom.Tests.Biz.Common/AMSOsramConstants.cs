@@ -77,5 +77,13 @@ namespace Cmf.Custom.Tests.Biz.Common
         #endregion
 
         #endregion
+        #region Name Generators
+
+        /// <summary>
+        /// Production lot Name Generator
+        /// </summary>
+        public const string CustomGenerateProductionLotNames = "CustomProductionLotNameGenerator";
+
+        #endregion  
     }
 }
