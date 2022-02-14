@@ -86,6 +86,12 @@
         public static string ResourceAttributeIsLoadPortInUse = "IsLoadPortInUse";
 
         /// <summary>
+        /// Resource Allow Download Recipe At TrackIn
+        /// </summary>
+        public static string ResourceAttributeAllowDownloadRecipeAtTrackIn = "AllowDownloadRecipeAtTrackIn";
+
+
+        /// <summary>
         /// Container Attribute Map Container Needed for sorter
         /// </summary>
         public static string ContainerAttributeMapContainerNeeded = "MapContainerNeeded";
@@ -99,6 +105,7 @@
         /// Product Attribute IsTestWaferMeasurementStep
         /// </summary>
         public static string ProductAttributeCanCreateInventory = "CanCreateInventory";
+
 
         #endregion
 
@@ -224,6 +231,11 @@
         /// CustomLoadPortStateModelState Delivered State Model State
         /// </summary>
         public static string CustomLoadPortStateModelStateReadyToUnloadStateModelState = "ReadyToUnload";
+
+        /// <summary>
+        /// Custom Material State Model State - Setup
+        /// </summary>
+        public static string MaterialStateModelStateSetup = "Setup";
 
 
         #endregion
