@@ -1,4 +1,4 @@
-# Custom Generate Split Lot Names
+# Custom Generate Split Lot Names Name Generator
 
 ## Overview
 

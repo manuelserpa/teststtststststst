@@ -13,5 +13,6 @@ Each sprint package includes the following artifacts:
   - Release Notes (MES portal)
 
 List of delivered packages:
+* [AMSOsram-20220215-1.0.0](/AMSOsram/releasenotes>AMSOsram-20220215-1_0_0)
 
 
