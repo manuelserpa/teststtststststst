@@ -330,7 +330,9 @@ stages:
                         <isInstallable>True</isInstallable>
                         <isToForceInstall>True</isToForceInstall>
                         <steps>
+                            <step type="Generic" onExecute="$(Agent.Root)/agent/scripts/stop_host.ps1" />
                             <step type="UpdateConfiguration" configPath="/Cmf/System/Configuration/MaintenanceMode/IsEnabled/" value="True"/>
+                            <step type="Generic" onExecute="$(Agent.Root)/agent/scripts/start_host.ps1" />
                         </steps>
                     </deploymentPackage>')
 
@@ -407,7 +409,9 @@ stages:
                         <isInstallable>True</isInstallable>
                         <isToForceInstall>True</isToForceInstall>
                         <steps>
+                            <step type="Generic" onExecute="$(Agent.Root)/agent/scripts/stop_host.ps1" />
                             <step type="UpdateConfiguration" configPath="/Cmf/System/Configuration/MaintenanceMode/IsEnabled/" value="False"/>
+                            <step type="Generic" onExecute="$(Agent.Root)/agent/scripts/start_host.ps1" />
                         </steps>
                     </deploymentPackage>')
 
