@@ -1,5 +1,11 @@
 [
 {
+   "id": "1.0.0",
+   "menuGroupId": "releasenotes",
+   "title": "1.0.0",
+   "actionId": ""
+},
+{
    "id": "artifacts",
    "menuGroupId": "techspec",
    "title": "Artifacts",
@@ -24,15 +30,15 @@
    "actionId": ""
 },
 {
-   "id": "c_analytics",
-   "menuGroupId": "artifacts",
-   "title": "Analytics",
-   "actionId": ""
-},
-{
    "id": "configurations",
    "menuGroupId": "artifacts",
    "title": "Configuration Entries",
+   "actionId": ""
+},
+{
+   "id": "c_analytics",
+   "menuGroupId": "artifacts",
+   "title": "Analytics",
    "actionId": ""
 },
 {
@@ -90,6 +96,18 @@
    "actionId": ""
 },
 {
+   "id": "01_customgenerateproductionlotnames",
+   "menuGroupId": "deeactions",
+   "title": "Custom Generate Production Lot Names",
+   "actionId": ""
+},
+{
+   "id": "02_customgeneratesplitlotnames",
+   "menuGroupId": "deeactions",
+   "title": "Custom Generate Split Lot Names",
+   "actionId": ""
+},
+{
    "id": "cconverters",
    "menuGroupId": "html",
    "title": "Converters",
@@ -105,6 +123,72 @@
    "id": "datasources",
    "menuGroupId": "html",
    "title": "Data Sources",
+   "actionId": ""
+},
+{
+   "id": "reasonsengineeringtoengineering",
+   "menuGroupId": "lookuptables",
+   "title": "Reasons Engineering to Engineering",
+   "actionId": ""
+},
+{
+   "id": "reasonsnonscheduledtononscheduled",
+   "menuGroupId": "lookuptables",
+   "title": "Reasons NonScheduled to NonScheduled",
+   "actionId": ""
+},
+{
+   "id": "reasonsproductivetoproductive",
+   "menuGroupId": "lookuptables",
+   "title": "Reasons Productive to Productive",
+   "actionId": ""
+},
+{
+   "id": "reasonsscheduleddowntoscheduleddown",
+   "menuGroupId": "lookuptables",
+   "title": "Reasons ScheduledDown to ScheduledDown",
+   "actionId": ""
+},
+{
+   "id": "reasonsstandbytostandby",
+   "menuGroupId": "lookuptables",
+   "title": "Reasons Standby to Standby",
+   "actionId": ""
+},
+{
+   "id": "reasonsunscheduleddowntounscheduleddown",
+   "menuGroupId": "lookuptables",
+   "title": "Reasons UnscheduledDown to UnscheduledDown",
+   "actionId": ""
+},
+{
+   "id": "customgenerateproductionlotnames",
+   "menuGroupId": "namegenerators",
+   "title": "Custom Generate Production Lot Names",
+   "actionId": ""
+},
+{
+   "id": "customgeneratesplitlotnames",
+   "menuGroupId": "namegenerators",
+   "title": "Custom Generate Split Lot Names",
+   "actionId": ""
+},
+{
+   "id": "customreceiveerpmessage",
+   "menuGroupId": "services",
+   "title": "Custom Receive ERP Message",
+   "actionId": ""
+},
+{
+   "id": "customreceivestibomessage",
+   "menuGroupId": "services",
+   "title": "Custom Receive Stibo Message",
+   "actionId": ""
+},
+{
+   "id": "defaultreasonssemie10",
+   "menuGroupId": "statemodel",
+   "title": "Default Reasons for SEMI E10",
    "actionId": ""
 },
 {
@@ -159,6 +243,18 @@
    "id": "erphandlers",
    "menuGroupId": "erpintegration",
    "title": "ERP Handlers",
+   "actionId": ""
+},
+{
+   "id": "customerpsystemintegration",
+   "menuGroupId": "features",
+   "title": "ERP (SAP) System Integration",
+   "actionId": ""
+},
+{
+   "id": "customreceivestibomessages",
+   "menuGroupId": "features",
+   "title": "Stibo System Integration",
    "actionId": ""
 }
 ]

@@ -1,4 +1,4 @@
-# Release Notes
+﻿# Release Notes
 
 Release information of CM MES implementation for AMSOsram
 
@@ -13,5 +13,6 @@ Each sprint package includes the following artifacts:
   - Release Notes (MES portal)
 
 List of delivered packages:
+* [1.0.0](/amsosram/releasenotes>1.0.0)
 
 
