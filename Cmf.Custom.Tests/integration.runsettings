@@ -51,18 +51,19 @@
   </MSTest>
 
   <!-- Connect IoT -->
-  <!-- <connectIotAutomaticTests>
+  <!-- Connect IoT -->
+  <connectIotAutomaticTests>
     <Global
-      dataDir="%TestsPath%\Cmf.Custom.Tests.IoT\bin\Debug\"
-      logDebug="true" />
+		  dataDir="\\vm-asmosram\c$\IoTTestsAutomationManagers\Libs\"
+		  logDebug="true"/>
+    <!--setAutomationControllerInstanceToNotRunning="false"/>-->
+    <!--   configLocation="C:\Users\raazevedo\Downloads\MCSInterface\config.json"/>-->
 
     <Equipments>
-      <Cluster name="%ResourceName%" automationManager="%ManagerName%">
-        <Equipment name="%EquipmentFriendlyName%" driverAlias="%DriverAlias%" description="" driver="%DriverType%" dataDir="" 
-          serviceName="%ManagerServiceName%" configLocation="%ConfigLocation%">
-          <Directory name="" path="" />
-        </Equipment>
-      </Cluster>
-    </Equipments>
+      <Equipment name="PDSP0101" automationManager="EvatecClusterline200II" driverAlias="SecsGemEquipment"
+					   description="SecsGemEquipment" driver="SecsGem" port="5011" serviceMachine="vm-cree"
+					   serviceName="ConnectIoT (PDSP0101)" configLocation="\\vm-cree\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json">
+      </Equipment>
+      </Equipments>
   </connectIotAutomaticTests> -->
 </RunSettings>
