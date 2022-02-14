@@ -1,4 +1,4 @@
-﻿# Smart Tables
+# Smart Tables
 
 Smart tables are general purpose context resolution tables to store data records. Each smart table has its own database table in the database, and therefore, requires a unique meta-data definition. In addition, the search precedence keys and order is part of the smart table definition.
 
@@ -8,5 +8,6 @@ The following smart tables were created to support customer requirements.
 
 | Table                     | Description       |
 | ------                    | ------            |
+| [CustomSorterJobDefinitionContext](/AMSOsram/techspec>artifacts>smarttables>CustomSorterJobDefinitionContext) | Used to resolve the CustomSorterJobDefinition for the specific Sorter context |
 
 

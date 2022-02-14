@@ -1,8 +1,8 @@
 [
 {
-   "id": "1.0.0",
+   "id": "amsosram-20220215-1_0_0",
    "menuGroupId": "releasenotes",
-   "title": "1.0.0",
+   "title": "AMSOsram-20220215-1.0.0",
    "actionId": ""
 },
 {
@@ -30,15 +30,15 @@
    "actionId": ""
 },
 {
-   "id": "configurations",
-   "menuGroupId": "artifacts",
-   "title": "Configuration Entries",
-   "actionId": ""
-},
-{
    "id": "c_analytics",
    "menuGroupId": "artifacts",
    "title": "Analytics",
+   "actionId": ""
+},
+{
+   "id": "configurations",
+   "menuGroupId": "artifacts",
+   "title": "Configuration Entries",
    "actionId": ""
 },
 {
@@ -96,15 +96,45 @@
    "actionId": ""
 },
 {
-   "id": "01_customgenerateproductionlotnames",
+   "id": "statemodels",
+   "menuGroupId": "artifacts",
+   "title": "State Models",
+   "actionId": ""
+},
+{
+   "id": "customautomationadjustloadportstate",
+   "menuGroupId": "deeactions",
+   "title": "CustomAutomationAdjustLoadPortState",
+   "actionId": ""
+},
+{
+   "id": "customautomationgetrecipebody",
+   "menuGroupId": "deeactions",
+   "title": "CustomAutomationGetRecipeBody",
+   "actionId": ""
+},
+{
+   "id": "customgenerateproductionlotnames",
    "menuGroupId": "deeactions",
    "title": "Custom Generate Production Lot Names",
    "actionId": ""
 },
 {
-   "id": "02_customgeneratesplitlotnames",
+   "id": "customgeneratesplitlotnames",
    "menuGroupId": "deeactions",
    "title": "Custom Generate Split Lot Names",
+   "actionId": ""
+},
+{
+   "id": "customsorterjobdefinition",
+   "menuGroupId": "entitytypes",
+   "title": "CustomSorterJobDefinition",
+   "actionId": ""
+},
+{
+   "id": "customgetresourceloadportsdata",
+   "menuGroupId": "exportedobjects",
+   "title": "CustomGetResourceLoadPortsData",
    "actionId": ""
 },
 {
@@ -162,15 +192,15 @@
    "actionId": ""
 },
 {
-   "id": "customgenerateproductionlotnames",
+   "id": "customgeneratesplitlotnamesnamegenerator",
    "menuGroupId": "namegenerators",
-   "title": "Custom Generate Production Lot Names",
+   "title": "Custom Generate Split Lot Names Name Generator",
    "actionId": ""
 },
 {
-   "id": "customgeneratesplitlotnames",
+   "id": "customproductionlotnamegenerator",
    "menuGroupId": "namegenerators",
-   "title": "Custom Generate Split Lot Names",
+   "title": "Custom Production Lot Name Generator",
    "actionId": ""
 },
 {
@@ -186,9 +216,51 @@
    "actionId": ""
 },
 {
+   "id": "dockcontainer",
+   "menuGroupId": "services",
+   "title": "DockContainer",
+   "actionId": ""
+},
+{
+   "id": "materialin",
+   "menuGroupId": "services",
+   "title": "MaterialIn",
+   "actionId": ""
+},
+{
+   "id": "materialout",
+   "menuGroupId": "services",
+   "title": "MaterialOut",
+   "actionId": ""
+},
+{
+   "id": "undockcontainer",
+   "menuGroupId": "services",
+   "title": "UndockContainer",
+   "actionId": ""
+},
+{
+   "id": "customsorterjobdefinitioncontext",
+   "menuGroupId": "smarttables",
+   "title": "CustomSorterJobDefinitionContext",
+   "actionId": ""
+},
+{
    "id": "defaultreasonssemie10",
    "menuGroupId": "statemodel",
    "title": "Default Reasons for SEMI E10",
+   "actionId": ""
+},
+{
+   "id": "customloadportstatemodelstate",
+   "menuGroupId": "statemodels",
+   "title": "CustomLoadPortStateModelState",
+   "actionId": ""
+},
+{
+   "id": "custommaterialstatemodel",
+   "menuGroupId": "statemodels",
+   "title": "CustomMaterialStateModel",
    "actionId": ""
 },
 {

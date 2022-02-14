@@ -1,4 +1,4 @@
-﻿# ERP Integration
+# ERP Integration
 
 This section describe the ERP Features delivered.
 
@@ -16,7 +16,7 @@ The table below describes the common configurations for this features:
 |:------------ | :-------- | :-------- | :-----------|
 
 ## Integrations
-* [ERP Features](/amsosram/techspec>erpintegration>erpfeatures)
-* [ERP Handlers](/amsosram/techspec>erpintegration>erphandlers)
+* [ERP Features](/AMSOsram/techspec>erpintegration>erpfeatures)
+* [ERP Handlers](/AMSOsram/techspec>erpintegration>erphandlers)
 
 

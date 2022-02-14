@@ -323,9 +323,115 @@
 			"CodeFileRelativePath": "Materials\\CustomMaterialInValidation.cs",
 			"IsEnabled": "Yes",
 			"Classification": ""
+		},
+		"2": {
+			"Action": "CustomAutomationAdjustLoadPortState",
+			"Description": "",
+			"CodeFileRelativePath": "Automation\\CustomAutomationAdjustLoadPortState.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		},
+		"3": {
+			"Action": "CustomAutomationGetRecipeBody",
+			"Description": "",
+			"CodeFileRelativePath": "Automation\\CustomAutomationGetRecipeBody.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		},
+		"4": {
+			"Action": "CustomAutomationSetMaterialState",
+			"Description": "",
+			"CodeFileRelativePath": "Automation\\CustomAutomationSetMaterialState.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		},
+		"5": {
+			"Action": "CustomAutomationSetCustomResourceState",
+			"Description": "",
+			"CodeFileRelativePath": "Automation\\CustomAutomationSetCustomResourceState.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		},
+		"6": {
+			"Action": "CustomAutomationAbortMaterial",
+			"Description": "",
+			"CodeFileRelativePath": "Automation\\CustomAutomationAbortMaterial.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		},
+		"7": {
+			"Action": "CustomSendMaterialToFutureHold",
+			"Description": "",
+			"CodeFileRelativePath": "Automation\\CustomSendMaterialToFutureHold.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		},
+		"8": {
+			"Action": "CustomSetHoldEntity",
+			"Description": "",
+			"CodeFileRelativePath": "Automation\\CustomSetHoldEntity.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		},
+		"9": {
+			"Action": "CustomSetWaferToContainerSlot",
+			"Description": "",
+			"CodeFileRelativePath": "Automation\\CustomSetWaferToContainerSlot.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
 		}
 	},
 	"DEEActionOrder": {},
+	"<DM>Rule": {
+		"1": {
+			"Name": "CustomAutomationAdjustLoadPortState",
+			"Description": "",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomAutomationAdjustLoadPortState"
+		},
+		"2": {
+			"Name": "CustomAutomationGetRecipeBody",
+			"Description": "",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomAutomationGetRecipeBody"
+		},
+		"3": {
+			"Name": "CustomAutomationSetMaterialState",
+			"Description": "",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomAutomationSetMaterialState"
+		},
+		"4": {
+			"Name": "CustomAutomationSetCustomResourceState",
+			"Description": "",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomAutomationSetCustomResourceState"
+		},
+		"5": {
+			"Name": "CustomAutomationAbortMaterial",
+			"Description": "",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomAutomationAbortMaterial"
+		},
+		"6": {
+			"Name": "CustomSendMaterialToFutureHold",
+			"Description": "",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomSendMaterialToFutureHold"
+		},
+		"7": {
+			"Name": "CustomSetHoldEntity",
+			"Description": "",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomSetHoldEntity"
+		},
+		"8": {
+			"Name": "CustomSetWaferToContainerSlot",
+			"Description": "",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomSetWaferToContainerSlot"
+		}
+	},
 	"<SM>EntityTypeProperty": {
 		"1": {
 			"EntityType": "Resource",
