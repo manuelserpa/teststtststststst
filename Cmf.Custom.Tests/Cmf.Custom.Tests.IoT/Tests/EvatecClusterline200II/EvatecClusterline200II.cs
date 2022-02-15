@@ -106,7 +106,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            ConfigureConnection(resourceName, 5007);
+            ConfigureConnection(resourceName, 5011);
 
         }
 
@@ -291,7 +291,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             CarrierIn(MESScenario, loadPortToSet);
 
             Log(String.Format("{0}: [S] Validating Load Port State Changed State Change to Occupied Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
-            ValidateLoadPortState(MESScenario, LoadPortStateModelStateEnum.Occupied.ToString(), 2);
+            //ValidateLoadPortState(MESScenario, LoadPortStateModelStateEnum.Occupied.ToString(), 2);
             Log(String.Format("{0}: [E] Validating Load Port State Changed State Change to Occupied Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
 
             //material received MaterialReceived
