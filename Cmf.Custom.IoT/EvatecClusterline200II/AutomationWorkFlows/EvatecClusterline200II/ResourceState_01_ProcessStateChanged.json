@@ -11,19 +11,19 @@
 			},
 			"settings": {
 				"automationWorkflow": {
-					"DisplayName": "UpdateEquipmentProcessState",
+					"DisplayName": "UpdateEquipmentE10MainState",
 					"IsShared": true,
-					"Name": "UpdateEquipmentProcessState"
+					"Name": "UpdateEquipmentE10MainState"
 				},
 				"executeWhenAllInputsDefined": false,
 				"contextsExpirationInMilliseconds": 60000,
 				"executionExpirationInMilliseconds": 1200000,
 				"inputs": [
 					{
-						"name": "StateName",
+						"name": "E10State",
 						"valueType": {
-							"friendlyName": "StateName",
-							"type": 4,
+							"friendlyName": "E10State",
+							"type": 5,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
@@ -31,14 +31,14 @@
 						}
 					},
 					{
-						"name": "StateModelName",
+						"name": "StateName",
 						"valueType": {
-							"friendlyName": "StateModelName",
 							"type": 4,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
-							"referenceTypeId": null
+							"referenceTypeId": null,
+							"friendlyName": "StateName"
 						}
 					}
 				],
@@ -58,7 +58,63 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "TimeSinceUDT",
+							"DataType": 4
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "TimeInState",
+							"DataType": 4
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "EntityType",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "EntityName",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "NewState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PreviousState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "E10StateChanged"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -95,7 +151,22 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "d177a1f6-0f70-4c88-9539-b09e17a849f7",
+			"sourceId": "task_123026",
+			"targetId": "task_150088",
+			"inputName": "E10StateIn",
+			"outputName": "$NewState"
+		},
+		{
+			"id": "5133c468-2388-41fc-81a3-e3c25c945fee",
+			"sourceId": "task_123026",
+			"targetId": "task_150088",
+			"inputName": "activate",
+			"outputName": "$NewState"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#0080ff",
@@ -114,8 +185,8 @@
 					"task_150088": {
 						"collapsed": false,
 						"position": {
-							"x": 1153,
-							"y": 293
+							"x": 1009,
+							"y": 412
 						},
 						"outdated": false
 					},
@@ -128,7 +199,14 @@
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"d177a1f6-0f70-4c88-9539-b09e17a849f7": {
+						"vertices": []
+					},
+					"5133c468-2388-41fc-81a3-e3c25c945fee": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_123288": {
 						"collapsed": false,
@@ -138,10 +216,10 @@
 						}
 					}
 				},
-				"zoom": 0.6399999999999999,
+				"zoom": 0.78,
 				"pan": {
-					"x": 164.2063687456283,
-					"y": 25.857167571168816
+					"x": 204.44444274902344,
+					"y": 63.333335876464844
 				}
 			}
 		}

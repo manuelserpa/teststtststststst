@@ -41,7 +41,16 @@
 				}
 			},
 			"settings": {
-				"_outputs": [],
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ControlState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
 				"___cmf___name": "Get Equipment Properties Values",
 				"___cmf___color": "#ffff80"
 			},
@@ -363,6 +372,16 @@
 					"version": "8.3.3-202201212"
 				}
 			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
 		}
 	],
 	"links": [
@@ -387,13 +406,6 @@
 			"outputName": "data"
 		},
 		{
-			"id": "1a002a2c-a298-45aa-8663-f88bbfe8cbea",
-			"sourceId": "task_70871",
-			"targetId": "task_73090",
-			"inputName": "activate",
-			"outputName": "success"
-		},
-		{
 			"id": "19cb355b-8e2a-4b26-8d6b-00849bbd8517",
 			"sourceId": "task_73090",
 			"targetId": "task_1796",
@@ -413,13 +425,6 @@
 			"targetId": "task_1796",
 			"inputName": "reply",
 			"outputName": "error"
-		},
-		{
-			"id": "66f9b9ef-32eb-4d03-959f-7582351d1b53",
-			"sourceId": "task_1796",
-			"targetId": "task_70871",
-			"inputName": "activate",
-			"outputName": "data"
 		},
 		{
 			"id": "5d35aa28-ad8d-41ea-a554-28a9cf33aff1",
@@ -483,6 +488,43 @@
 			"targetId": "task_1796",
 			"inputName": "reply",
 			"outputName": "error"
+		},
+		{
+			"id": "ce81c1e3-6dc2-471e-97bc-045d1d6b6967",
+			"sourceId": "task_1796",
+			"targetId": "task_70871",
+			"inputName": "activate",
+			"outputName": "data"
+		},
+		{
+			"id": "655ec03b-20e2-4461-abaf-401ae6a2478f",
+			"sourceId": "task_70871",
+			"targetId": "task_73090",
+			"inputName": "GemControlStateIn",
+			"outputName": "$ControlState"
+		},
+		{
+			"id": "392c0705-698b-4dbd-b832-a45cc699545b",
+			"sourceId": "task_70871",
+			"targetId": "task_73090",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "b74d983d-4614-4f88-9c3f-5bc26835cc5d",
+			"sourceId": "task_70871",
+			"targetId": "task_73090",
+			"inputName": "DoNotValidateCassettePresentIn",
+			"outputName": "success",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "true"
+					}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -526,19 +568,11 @@
 						},
 						"outdated": false
 					},
-					"task_1677": {
-						"collapsed": false,
-						"position": {
-							"x": 4989,
-							"y": 406
-						},
-						"outdated": false
-					},
 					"task_70871": {
 						"collapsed": false,
 						"position": {
-							"x": 1611,
-							"y": 492
+							"x": 1632,
+							"y": 442
 						},
 						"outdated": false
 					},
@@ -573,13 +607,18 @@
 							"y": 447
 						},
 						"outdated": false
+					},
+					"task_1677": {
+						"collapsed": false,
+						"position": {
+							"x": 4989,
+							"y": 406
+						},
+						"outdated": null
 					}
 				},
 				"links": {
 					"251493f1-4d91-4125-a606-d40d8e6ac3eb": {
-						"vertices": []
-					},
-					"1a002a2c-a298-45aa-8663-f88bbfe8cbea": {
 						"vertices": []
 					},
 					"19cb355b-8e2a-4b26-8d6b-00849bbd8517": {
@@ -608,9 +647,6 @@
 								"y": 935
 							}
 						]
-					},
-					"66f9b9ef-32eb-4d03-959f-7582351d1b53": {
-						"vertices": []
 					},
 					"5d35aa28-ad8d-41ea-a554-28a9cf33aff1": {
 						"vertices": []
@@ -657,6 +693,15 @@
 							}
 						]
 					},
+					"ce81c1e3-6dc2-471e-97bc-045d1d6b6967": {
+						"vertices": []
+					},
+					"655ec03b-20e2-4461-abaf-401ae6a2478f": {
+						"vertices": []
+					},
+					"392c0705-698b-4dbd-b832-a45cc699545b": {
+						"vertices": []
+					},
 					"cc8ce25c-4960-4556-84a0-86daf88a8e99": {
 						"vertices": [
 							{
@@ -676,6 +721,9 @@
 								"y": 165
 							}
 						]
+					},
+					"b74d983d-4614-4f88-9c3f-5bc26835cc5d": {
+						"vertices": []
 					}
 				},
 				"notes": {
@@ -708,10 +756,10 @@
 						}
 					}
 				},
-				"zoom": 0.5300000000000002,
+				"zoom": 0.6900000000000004,
 				"pan": {
-					"x": 1305,
-					"y": 163
+					"x": 902.2222290039062,
+					"y": 15.555556297302246
 				}
 			}
 		}

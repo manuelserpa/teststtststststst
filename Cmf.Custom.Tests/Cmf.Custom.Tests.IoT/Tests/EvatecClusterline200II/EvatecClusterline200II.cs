@@ -19,6 +19,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using AMSOsramEIAutomaticTests;
 using Cmf.Custom.TestUtilities;
+using Cmf.Custom.Tests.IoT.Tests.EvatecClusterline200II;
 
 namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 {
@@ -311,25 +312,39 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
                 return loadCommandReceived;
             });
 
-            //prepare slot maps 
-            var slotMapForMaterialContainer = new int[25];
+            ////prepare slot maps 
+            //var slotMapForMaterialContainer = new int[25];
 
+            //// scenario.ContainerScenario.Entity
+            //if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
+            //{
+            //    for (int i = 0; i < 25; i++)
+            //    {
+            //        if (MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1))
+            //        {
+            //            slotMapForMaterialContainer[i] = 3;
+            //        }
+            //        else
+            //        {
+            //            slotMapForMaterialContainer[i] = 1;
+            //        }
+
+            //    }
+            //}
+
+
+            var slotMap = new int[12];
             // scenario.ContainerScenario.Entity
             if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
             {
-                for (int i = 0; i < 25; i++)
+                for (int i = 0; i < 12; i++)
                 {
-                    if (MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1))
-                    {
-                        slotMapForMaterialContainer[i] = 3;
-                    }
-                    else
-                    {
-                        slotMapForMaterialContainer[i] = 1;
-                    }
-
+                    slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 1 : 0;
                 }
             }
+            SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
+
+
 
             //SlotMapReadVerifiedWaitHostEvent
             var CarrierContentMap = new SecsItem();
@@ -338,13 +353,17 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             base.Equipment.Variables["CarrierSubType"] = MESScenario.ContainerScenario.Entity.Name;
             base.Equipment.Variables["SubstrateSubType"] = "Substrate";
             base.Equipment.Variables["CarrierAccessingStatus"] = 0;
-            base.Equipment.Variables["CarrierCapacity"] = 25;
-            base.Equipment.Variables["CarrierContentMap"] = CarrierContentMap;
+            base.Equipment.Variables["CarrierCapacity"] =12;
+            base.Equipment.Variables["CarrierContentMap"] = slotMapDV;
             base.Equipment.Variables["CarrierID_CarrierReport"] = $"CarrierAtPort{loadPortToSet}";
             base.Equipment.Variables["CarrierIDStatus"] = 2;
             base.Equipment.Variables["CarrierLocationID"] = $"FIMS{loadPortToSet}";
-            base.Equipment.Variables["CarrierSlotMap"] = slotMapForMaterialContainer;
+            base.Equipment.Variables["CarrierSlotMap"] = slotMapDV;
             base.Equipment.Variables["PortID_CarrierReport"] = loadPortToSet;
+
+            // Trigger event
+            base.Equipment.SendMessage(String.Format($"SlotMapReadVerifiedWaitHostEvent"), null);
+
 
             Thread.Sleep(200);
             
