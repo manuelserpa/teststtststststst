@@ -113,7 +113,7 @@ namespace Cmf.Custom.Tests.Biz.SmartTables
                 /// The expected Precedence Key is equals to Rule value on SmartTablePrecedenceKeys.
                 /// </ExpectedResult>
                 Assert.IsTrue(expectedPrecedenceKeys[i].Equals(smartTable.SmartTablePrecedenceKeys[i].Rule),
-                              $"The precedence key {smartTable.SmartTablePrecedenceKeys[i].Rule} match to expected predence key on iteration {i}.");
+                              $"The precedence key {smartTable.SmartTablePrecedenceKeys[i].Rule} match to expected precedence key on iteration {i}.");
             }
         }
     }
