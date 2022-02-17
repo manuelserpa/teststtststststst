@@ -79,6 +79,25 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
                 loadPortNumber = int.Parse(Input["LoadPortNumber"].ToString());
             }
 
+            int? chamberResourceNumber = null;
+            if (Input.ContainsKey("ChamberResourceNumber") && Input["ChamberResourceNumber"] != null && String.IsNullOrEmpty(Input["ChamberResourceNumber"].ToString()))
+            {
+                chamberResourceNumber = int.Parse(Input["ChamberResourceNumber"].ToString());
+            }
+
+            int? componentResourceNumber = null;
+            if (Input.ContainsKey("ComponentResourceNumber") && Input["ComponentResourceNumber"] != null && String.IsNullOrEmpty(Input["ComponentResourceNumber"].ToString()))
+            {
+                componentResourceNumber = int.Parse(Input["ComponentResourceNumber"].ToString());
+            }
+
+            String reason = String.Empty;
+
+            if (!Input.ContainsKey("Reason"))
+            {
+                reason = Input["Reason"] as String;
+            }
+
             if (loadPortNumber != null && loadPortNumber > 0)
             {
                 resource.Load();
@@ -92,6 +111,32 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
                 resource = resourceHierarchy.FirstOrDefault(s => s.ChildResource.DisplayOrder != null && s.ChildResource.DisplayOrder.Value == loadPortNumber && s.ChildResource.ProcessingType == ProcessingType.LoadPort).ChildResource;
             }
+            else if (chamberResourceNumber != null && chamberResourceNumber > 0)
+            {
+                resource.Load();
+                var resourceHierarchy = resource.GetDescendentResources(1);
+
+                if (resourceHierarchy == null ||
+                    resourceHierarchy.Count <= 0)
+                {
+                    throw new MissingMandatoryPropertyCmfException("SubResource", resource.Name); ;
+                }
+
+                resource = resourceHierarchy.FirstOrDefault(s => s.ChildResource.DisplayOrder != null && s.ChildResource.DisplayOrder.Value == chamberResourceNumber && s.ChildResource.ProcessingType == ProcessingType.Process).ChildResource;
+            }
+            else if (componentResourceNumber != null && componentResourceNumber > 0)
+            {
+                resource.Load();
+                var resourceHierarchy = resource.GetDescendentResources(1);
+
+                if (resourceHierarchy == null ||
+                    resourceHierarchy.Count <= 0)
+                {
+                    throw new MissingMandatoryPropertyCmfException("SubResource", resource.Name); ;
+                }
+
+                resource = resourceHierarchy.FirstOrDefault(s => s.ChildResource.DisplayOrder != null && s.ChildResource.DisplayOrder.Value == componentResourceNumber && s.ChildResource.ProcessingType == ProcessingType.Component).ChildResource;
+            }
 
             resource.Load();
             resource.LoadCurrentStates();
@@ -104,14 +149,22 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
             {
                 var stateModelObject = new StateModel() { Name = stateModelName };
                 stateModelObject.Load();
-                resource.AddStateModels(new StateModelCollection() { stateModelObject });        
-                resource.LoadCurrentStates();               
+                resource.AddStateModels(new StateModelCollection() { stateModelObject });
+                resource.LoadCurrentStates();
                 current = resource.CurrentStates.FirstOrDefault(s => s.StateModel.Name == stateModelName);
 
             }
-          
-            resource.AdjustState(state, current.StateModel);
 
+            if (String.IsNullOrEmpty(reason))
+            {
+                resource.AdjustState(state, current.StateModel);
+            }
+            else
+            {
+                current.StateModel.Load();
+                var transition = current.StateModel.StateTransitions.FirstOrDefault(t => t.FromState.Name == current.CurrentState.Name && t.ToState.Name == state);
+                resource.LogEvent(transition.Name, current.StateModel, reason);
+            }
             //---End DEE Code---
 
             return Input;

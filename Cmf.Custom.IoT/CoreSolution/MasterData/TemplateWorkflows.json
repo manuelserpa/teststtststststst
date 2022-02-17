@@ -1130,115 +1130,123 @@
     },
     "26": {
       "AutomationController": "TemplatePlaceHolderController",
+      "Name": "ResourceEPTState_01_EptStateChangeReceived",
+      "DisplayName": "ResourceEPTState_01_EptStateChangeReceived",
+      "IsFile": "Yes",
+      "Workflow": "TemplatePlaceHolder\\ResourceEPTState_01_EptStateChangeReceived.json",
+      "Order": "26"
+    },
+    "27": {
+      "AutomationController": "TemplatePlaceHolderController",
       "Name": "ControlState_01_ControlStateUpdateReceived",
       "DisplayName": "ControlState_01_ControlStateUpdateReceived",
       "IsFile": "Yes",
       "Workflow": "TemplatePlaceHolder\\ControlState_01_ControlStateUpdateReceived.json",
-      "Order": "26"
+      "Order": "27"
     },
-    "27": {
+    "28": {
       "AutomationController": "TemplatePlaceHolderController",
       "Name": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "DisplayName": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "IsFile": "Yes",
       "Workflow": "TemplatePlaceHolder\\SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
-      "Order": "27"
+      "Order": "28"
     },
-    "28": {
+    "29": {
       "AutomationController": "TemplatePlaceHolderController",
       "Name": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "DisplayName": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "IsFile": "Yes",
       "Workflow": "TemplatePlaceHolder\\RecipeValidation_01_UnformattedRecipeMainFlow.json",
-      "Order": "28"
+      "Order": "29"
     },
-    "29": {
+    "30": {
       "AutomationController": "TemplatePlaceHolderController",
       "Name": "RecipeValidation_01_FormattedRecipeMainFlow",
       "DisplayName": "RecipeValidation_01_FormattedRecipeMainFlow",
       "IsFile": "Yes",
       "Workflow": "TemplatePlaceHolder\\RecipeValidation_01_FormattedRecipeMainFlow.json",
-      "Order": "29"
+      "Order": "30"
     },
-    "30": {
+    "31": {
       "AutomationController": "TemplatePlaceHolderController",
       "Name": "PPSelect_01_ExecuteCommand",
       "DisplayName": "PPSelect_01_ExecuteCommand",
       "IsFile": "Yes",
       "Workflow": "TemplatePlaceHolder\\PPSelect_01_ExecuteCommand.json",
-      "Order": "30"
+      "Order": "31"
     },
-    "31": {
+    "32": {
       "AutomationController": "TemplatePlaceHolderController",
       "Name": "StartCommand_01_ExecuteCommand",
       "DisplayName": "StartCommand_01_ExecuteCommand",
       "IsFile": "Yes",
       "Workflow": "TemplatePlaceHolder\\StartCommand_01_ExecuteCommand.json",
-      "Order": "31"
+      "Order": "32"
     },
-    "32": {
+    "33": {
       "AutomationController": "TemplatePlaceHolderController",
       "Name": "CreateProcessJob_01_CreateJob",
       "DisplayName": "CreateProcessJob_01_CreateJob",
       "IsFile": "Yes",
       "Workflow": "TemplatePlaceHolder\\CreateProcessJob_01_CreateJob.json",
-      "Order": "32"
+      "Order": "33"
     },
-    "33": {
+    "34": {
       "AutomationController": "TemplatePlaceHolderController",
       "Name": "MultiCreateProcessJob_01_MultiCreateJob",
       "DisplayName": "MultiCreateProcessJob_01_MultiCreateJob",
       "IsFile": "Yes",
       "Workflow": "TemplatePlaceHolder\\MultiCreateProcessJob_01_MultiCreateJob.json",
-      "Order": "33"
+      "Order": "34"
     },
-    "34": {
+    "35": {
       "AutomationController": "TemplatePlaceHolderController",
       "Name": "CreateControlJob_01_CreateJob",
       "DisplayName": "CreateControlJob_01_CreateJob",
       "IsFile": "Yes",
       "Workflow": "TemplatePlaceHolder\\CreateControlJob_01_CreateJob.json",
-      "Order": "34"
+      "Order": "35"
     },
-    "35": {
+    "36": {
       "AutomationController": "TemplatePlaceHolderController",
       "Name": "CassetteLoad_01_ExecuteCommand",
       "DisplayName": "CassetteLoad_01_ExecuteCommand",
       "IsFile": "Yes",
       "Workflow": "TemplatePlaceHolder\\CassetteLoad_01_ExecuteCommand.json",
-      "Order": "35"
+      "Order": "36"
     },
-    "36": {
+    "37": {
       "AutomationController": "TemplatePlaceHolderController",
       "Name": "CassetteUnload_01_ExecuteCommand",
       "DisplayName": "CassetteUnload_01_ExecuteCommand",
       "IsFile": "Yes",
       "Workflow": "TemplatePlaceHolder\\CassetteUnload_01_ExecuteCommand.json",
-      "Order": "36"
+      "Order": "37"
     },
-    "37": {
+    "38": {
       "AutomationController": "TemplatePlaceHolderController",
       "Name": "CarrierClamped_01_ExecuteCommand",
       "DisplayName": "CarrierClamped_01_ExecuteCommand",
       "IsFile": "Yes",
       "Workflow": "TemplatePlaceHolder\\CarrierClamped_01_ExecuteCommand.json",
-      "Order": "37"
+      "Order": "38"
     },
-    "38": {
+    "39": {
       "AutomationController": "TemplatePlaceHolderController",
       "Name": "CarrierUnclamped_01_ExecuteCommand",
       "DisplayName": "CarrierUnclamped_01_ExecuteCommand",
       "IsFile": "Yes",
       "Workflow": "TemplatePlaceHolder\\CarrierUnclamped_01_ExecuteCommand.json",
-      "Order": "38"
+      "Order": "39"
     },
-    "39": {
+    "40": {
       "AutomationController": "TemplatePlaceHolderController",
       "Name": "AbortJob_01_ExecuteControlJobAbort",
       "DisplayName": "AbortJob_01_ExecuteControlJobAbort",
       "IsFile": "Yes",
       "Workflow": "TemplatePlaceHolder\\CarrierUnclamped_01_ExecuteCommand.json",
-      "Order": "39"
+      "Order": "40"
     }
   },
   "<LOOKUP>AutomationInstances": {}

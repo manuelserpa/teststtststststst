@@ -1,0 +1,1011 @@
+{
+	"tasks": [
+		{
+			"id": "task_5942",
+			"reference": {
+				"name": "subWorkflowStart",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"outputs": [
+					{
+						"name": "EPTState",
+						"valueType": {
+							"friendlyName": "EPTState",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "StateName",
+						"valueType": {
+							"friendlyName": "StateName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "BlockedReason",
+						"valueType": {
+							"friendlyName": "BlockedReason",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "LoadPortNumber",
+						"valueType": {
+							"friendlyName": "LoadPortNumber",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ChamberResourceNumber",
+						"valueType": {
+							"friendlyName": "ChamberResourceNumber",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ComponentResourceNumber",
+						"valueType": {
+							"friendlyName": "ComponentResourceNumber",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Start"
+			}
+		},
+		{
+			"id": "task_5944",
+			"reference": {
+				"name": "subWorkflowEnd",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"inputs": []
+			}
+		},
+		{
+			"id": "task_9204",
+			"reference": {
+				"name": "executeAction",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_inputs": [
+					{
+						"name": "StateName",
+						"type": {
+							"name": "",
+							"friendlyName": "",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null
+						},
+						"defaultValue": "-",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "StateModelName",
+						"type": {
+							"name": "",
+							"friendlyName": "",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null
+						},
+						"defaultValue": " CustomEquipmentPerformanceTrackingStateModel",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "LoadPortNumber",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": 0
+					},
+					{
+						"name": "ChamberResourceNumber",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": 0
+					},
+					{
+						"name": "ComponentResourceNumber",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": 0
+					},
+					{
+						"name": "ResourceName",
+						"type": {
+							"name": "",
+							"friendlyName": "",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null
+						},
+						"defaultValue": "-",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "Reason",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": " "
+					}
+				],
+				"_outputs": [],
+				"action": "CustomAutomationSetCustomResourceState",
+				"retries": 30,
+				"sleepBetweenRetries": 1000,
+				"___cmf___name": "Execute Action",
+				"___cmf___color": "#0080ff"
+			}
+		},
+		{
+			"id": "task_9292",
+			"reference": {
+				"name": "switch",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_default": null,
+				"___cmf___name": "Switch",
+				"_inputType": {
+					"name": "",
+					"friendlyName": "EPTState",
+					"type": 5,
+					"collectionType": null,
+					"referenceType": null,
+					"referenceTypeName": null
+				},
+				"_outputs": [
+					{
+						"name": "Idle",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "Idle",
+						"defaultValue": null,
+						"equalsTo": 0
+					},
+					{
+						"name": "Blocked",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "Blocked",
+						"defaultValue": null,
+						"equalsTo": 1
+					},
+					{
+						"name": "Busy",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "Busy",
+						"defaultValue": null,
+						"equalsTo": 3
+					}
+				]
+			}
+		},
+		{
+			"id": "task_10761",
+			"reference": {
+				"name": "switch",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_default": null,
+				"___cmf___name": "Switch",
+				"_inputType": {
+					"name": "",
+					"friendlyName": "BlockedReason",
+					"type": 5,
+					"collectionType": null,
+					"referenceType": null,
+					"referenceTypeName": null
+				},
+				"_outputs": [
+					{
+						"name": "NotBlocked",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"equalsTo": 0,
+						"value": "NotBlocked",
+						"defaultValue": null
+					},
+					{
+						"name": "Unknown",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "Unknown",
+						"defaultValue": null,
+						"equalsTo": 1
+					},
+					{
+						"name": "SafetyThreshold",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "SafetyThreshold",
+						"defaultValue": null,
+						"equalsTo": 2
+					},
+					{
+						"name": "ErrorCondition",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "ErrorCondition",
+						"defaultValue": null,
+						"equalsTo": 3
+					},
+					{
+						"name": "ParametricExceptions",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "ParametricException",
+						"defaultValue": null,
+						"equalsTo": 4
+					},
+					{
+						"name": "AbortingAborted",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "AbortingAborted",
+						"defaultValue": null,
+						"equalsTo": 5
+					},
+					{
+						"name": "PausingPaused",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "PausingPaused",
+						"defaultValue": null,
+						"equalsTo": 6
+					},
+					{
+						"name": "Reserved",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"equalsTo": 7,
+						"value": "Reserved",
+						"defaultValue": null
+					},
+					{
+						"name": "Reserved",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"equalsTo": 8,
+						"value": "Reserved",
+						"defaultValue": null
+					},
+					{
+						"name": "Reserved",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "Reserved",
+						"defaultValue": null,
+						"equalsTo": 9
+					}
+				]
+			}
+		},
+		{
+			"id": "task_16553",
+			"reference": {
+				"name": "retrieve",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_retrieveOnValueChange": false,
+				"_emitInNewContext": false,
+				"___cmf___name": "Retrieve Data",
+				"_outputs": [
+					{
+						"name": "Resource",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Resource"
+						},
+						"identifier": "Generic_ResourceName",
+						"defaultValue": "-"
+					}
+				],
+				"___cmf___color": "#808078"
+			}
+		},
+		{
+			"id": "task_19228",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ErrorHandling",
+					"IsShared": true,
+					"Name": "ErrorHandling"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorCode",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorText",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"friendlyName": "MaterialName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerData",
+						"valueType": {
+							"friendlyName": "ContainerData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"friendlyName": "ContainerName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"friendlyName": "Error",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Workflow",
+				"___cmf___color": "#ff0000"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+			"reference": {
+				"name": "anyToErrorCodeConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "8694e7e1-35c8-48cb-88f0-c5ddf9dbeaad",
+			"sourceId": "task_9292",
+			"targetId": "task_9204",
+			"inputName": "StateName",
+			"outputName": "Idle"
+		},
+		{
+			"id": "2a5d373e-dd79-4fec-9afa-23a25cf69ec0",
+			"sourceId": "task_9292",
+			"targetId": "task_9204",
+			"inputName": "StateName",
+			"outputName": "Blocked"
+		},
+		{
+			"id": "003ea5a3-f638-44dd-ac71-f98e486e4cb4",
+			"sourceId": "task_9292",
+			"targetId": "task_9204",
+			"inputName": "StateName",
+			"outputName": "Busy"
+		},
+		{
+			"id": "ebd26d8b-89a5-4344-a901-0c995d1c5821",
+			"sourceId": "task_10761",
+			"targetId": "task_9204",
+			"inputName": "Reason",
+			"outputName": "NotBlocked"
+		},
+		{
+			"id": "1b77bc50-30cb-4846-ba26-ab47f44d3352",
+			"sourceId": "task_10761",
+			"targetId": "task_9204",
+			"inputName": "Reason",
+			"outputName": "Unknown"
+		},
+		{
+			"id": "0c347c82-3bf4-4337-bb7e-70fb217b447f",
+			"sourceId": "task_10761",
+			"targetId": "task_9204",
+			"inputName": "Reason",
+			"outputName": "SafetyThreshold"
+		},
+		{
+			"id": "bca5e0af-e82d-41a1-92e7-78bbea719196",
+			"sourceId": "task_10761",
+			"targetId": "task_9204",
+			"inputName": "Reason",
+			"outputName": "ErrorCondition"
+		},
+		{
+			"id": "9238187c-415e-407f-9fc3-91e4948cd34c",
+			"sourceId": "task_10761",
+			"targetId": "task_9204",
+			"inputName": "Reason",
+			"outputName": "ParametricExceptions"
+		},
+		{
+			"id": "208a05e5-56e4-4e20-806e-0a3dbccd00ef",
+			"sourceId": "task_10761",
+			"targetId": "task_9204",
+			"inputName": "Reason",
+			"outputName": "AbortingAborted"
+		},
+		{
+			"id": "bbf56d54-e310-4120-a824-9e86b798a440",
+			"sourceId": "task_10761",
+			"targetId": "task_9204",
+			"inputName": "Reason",
+			"outputName": "PausingPaused"
+		},
+		{
+			"id": "b96a39d4-67e3-47a5-a695-a05f97695e6d",
+			"sourceId": "task_10761",
+			"targetId": "task_9204",
+			"inputName": "Reason",
+			"outputName": "Reserved"
+		},
+		{
+			"id": "af4a1585-9e53-45df-bc40-7cda6e5db714",
+			"sourceId": "task_5942",
+			"targetId": "task_9292",
+			"inputName": "value",
+			"outputName": "EPTStateOut"
+		},
+		{
+			"id": "13f5c7cd-ec09-46d4-9350-a77a2358bc34",
+			"sourceId": "task_5942",
+			"targetId": "task_10761",
+			"inputName": "value",
+			"outputName": "BlockedReasonOut"
+		},
+		{
+			"id": "8ee9efc0-59be-49d4-afcf-bc0eb9c4e93a",
+			"sourceId": "task_5942",
+			"targetId": "task_9204",
+			"inputName": "StateName",
+			"outputName": "StateNameOut"
+		},
+		{
+			"id": "e038d817-8995-4a4e-ac41-f3ba5c687601",
+			"sourceId": "task_16553",
+			"targetId": "task_9204",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "5722ff12-716d-474f-866e-a3e3eea4bb82",
+			"sourceId": "task_16553",
+			"targetId": "task_9204",
+			"inputName": "ResourceName",
+			"outputName": "Resource"
+		},
+		{
+			"id": "a65b9479-97e8-44ef-bd07-21332f0f9c96",
+			"sourceId": "task_9292",
+			"targetId": "task_16553",
+			"inputName": "activate",
+			"outputName": "Idle"
+		},
+		{
+			"id": "ce3cc738-a595-47f8-8538-d8073228cacf",
+			"sourceId": "task_9292",
+			"targetId": "task_16553",
+			"inputName": "activate",
+			"outputName": "Blocked"
+		},
+		{
+			"id": "9bb11837-0511-4d8f-aeb0-4f01a6d5a7f1",
+			"sourceId": "task_9292",
+			"targetId": "task_16553",
+			"inputName": "activate",
+			"outputName": "Busy"
+		},
+		{
+			"id": "65d38b5e-f591-47a4-a306-960c41fa360b",
+			"sourceId": "task_5942",
+			"targetId": "task_16553",
+			"inputName": "activate",
+			"outputName": "StateNameOut"
+		},
+		{
+			"id": "db0b2c2f-6b56-4244-8456-870546923acf",
+			"sourceId": "task_9204",
+			"targetId": "task_5944",
+			"inputName": "success",
+			"outputName": "success"
+		},
+		{
+			"id": "d019b08d-468b-460f-8f95-2448b1081f0e",
+			"sourceId": "task_9204",
+			"targetId": "task_19228",
+			"inputName": "ErrorIn",
+			"outputName": "error"
+		},
+		{
+			"id": "13146cd5-68d2-4949-b80c-1d3e3d31866b",
+			"sourceId": "task_9204",
+			"targetId": "task_19228",
+			"inputName": "activate",
+			"outputName": "error"
+		},
+		{
+			"id": "69d15dde-f9f4-4dcb-9b4b-37746b38acc1",
+			"sourceId": "task_9204",
+			"targetId": "task_19228",
+			"inputName": "ErrorCodeIn",
+			"outputName": "error",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+					"params": {
+						"ErrorCode": "NotifyErrorOnly",
+						"ErrorNumber": 0
+					}
+				}
+			]
+		},
+		{
+			"id": "19519527-b62c-4bcb-bbec-7486c6c1db51",
+			"sourceId": "task_19228",
+			"targetId": "task_5944",
+			"inputName": "error",
+			"outputName": "ErrorOut"
+		},
+		{
+			"id": "370b1eb1-6f94-4db2-9251-5c7e159bcffd",
+			"sourceId": "task_16553",
+			"targetId": "task_19228",
+			"inputName": "ErrorIn",
+			"outputName": "error"
+		},
+		{
+			"id": "1eb32db4-abd6-426f-90c8-c439cfffd0d0",
+			"sourceId": "task_16553",
+			"targetId": "task_19228",
+			"inputName": "activate",
+			"outputName": "error"
+		},
+		{
+			"id": "d0e8a3cc-889f-4678-aaa3-b9193adc82a0",
+			"sourceId": "task_5942",
+			"targetId": "task_9204",
+			"inputName": "LoadPortNumber",
+			"outputName": "LoadPortNumberOut"
+		},
+		{
+			"id": "0a87274f-f52a-4456-8e20-3e210a3be285",
+			"sourceId": "task_5942",
+			"targetId": "task_9204",
+			"inputName": "ChamberResourceNumber",
+			"outputName": "ChamberResourceNumberOut"
+		},
+		{
+			"id": "7e7e3e07-67ac-4236-b451-2f4f0db54a89",
+			"sourceId": "task_5942",
+			"targetId": "task_9204",
+			"inputName": "ComponentResourceNumber",
+			"outputName": "ComponentResourceNumberOut"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": null,
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_5944": {
+						"collapsed": false,
+						"position": {
+							"x": 2823,
+							"y": 368
+						},
+						"outdated": false
+					},
+					"task_5942": {
+						"collapsed": false,
+						"position": {
+							"x": -209,
+							"y": 197
+						},
+						"outdated": false
+					},
+					"task_9204": {
+						"collapsed": false,
+						"position": {
+							"x": 1743,
+							"y": 69
+						},
+						"outdated": false
+					},
+					"task_9292": {
+						"collapsed": false,
+						"position": {
+							"x": 511,
+							"y": 50
+						},
+						"outdated": false
+					},
+					"task_10761": {
+						"collapsed": false,
+						"position": {
+							"x": 552,
+							"y": 872
+						},
+						"outdated": false
+					},
+					"task_16553": {
+						"collapsed": false,
+						"position": {
+							"x": 993,
+							"y": 569
+						},
+						"outdated": false
+					},
+					"task_19228": {
+						"collapsed": false,
+						"position": {
+							"x": 2282,
+							"y": 872
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"8694e7e1-35c8-48cb-88f0-c5ddf9dbeaad": {
+						"vertices": []
+					},
+					"2a5d373e-dd79-4fec-9afa-23a25cf69ec0": {
+						"vertices": []
+					},
+					"003ea5a3-f638-44dd-ac71-f98e486e4cb4": {
+						"vertices": []
+					},
+					"ebd26d8b-89a5-4344-a901-0c995d1c5821": {
+						"vertices": []
+					},
+					"1b77bc50-30cb-4846-ba26-ab47f44d3352": {
+						"vertices": []
+					},
+					"0c347c82-3bf4-4337-bb7e-70fb217b447f": {
+						"vertices": []
+					},
+					"bca5e0af-e82d-41a1-92e7-78bbea719196": {
+						"vertices": []
+					},
+					"9238187c-415e-407f-9fc3-91e4948cd34c": {
+						"vertices": []
+					},
+					"208a05e5-56e4-4e20-806e-0a3dbccd00ef": {
+						"vertices": []
+					},
+					"bbf56d54-e310-4120-a824-9e86b798a440": {
+						"vertices": []
+					},
+					"b96a39d4-67e3-47a5-a695-a05f97695e6d": {
+						"vertices": []
+					},
+					"af4a1585-9e53-45df-bc40-7cda6e5db714": {
+						"vertices": []
+					},
+					"13f5c7cd-ec09-46d4-9350-a77a2358bc34": {
+						"vertices": []
+					},
+					"8ee9efc0-59be-49d4-afcf-bc0eb9c4e93a": {
+						"vertices": []
+					},
+					"e038d817-8995-4a4e-ac41-f3ba5c687601": {
+						"vertices": []
+					},
+					"5722ff12-716d-474f-866e-a3e3eea4bb82": {
+						"vertices": []
+					},
+					"a65b9479-97e8-44ef-bd07-21332f0f9c96": {
+						"vertices": []
+					},
+					"ce3cc738-a595-47f8-8538-d8073228cacf": {
+						"vertices": []
+					},
+					"9bb11837-0511-4d8f-aeb0-4f01a6d5a7f1": {
+						"vertices": []
+					},
+					"65d38b5e-f591-47a4-a306-960c41fa360b": {
+						"vertices": []
+					},
+					"db0b2c2f-6b56-4244-8456-870546923acf": {
+						"vertices": []
+					},
+					"d019b08d-468b-460f-8f95-2448b1081f0e": {
+						"vertices": []
+					},
+					"13146cd5-68d2-4949-b80c-1d3e3d31866b": {
+						"vertices": []
+					},
+					"19519527-b62c-4bcb-bbec-7486c6c1db51": {
+						"vertices": []
+					},
+					"370b1eb1-6f94-4db2-9251-5c7e159bcffd": {
+						"vertices": []
+					},
+					"1eb32db4-abd6-426f-90c8-c439cfffd0d0": {
+						"vertices": []
+					},
+					"d0e8a3cc-889f-4678-aaa3-b9193adc82a0": {
+						"vertices": []
+					},
+					"0a87274f-f52a-4456-8e20-3e210a3be285": {
+						"vertices": []
+					},
+					"7e7e3e07-67ac-4236-b451-2f4f0db54a89": {
+						"vertices": []
+					},
+					"69d15dde-f9f4-4dcb-9b4b-37746b38acc1": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"pan": {
+					"x": 4,
+					"y": 5
+				},
+				"zoom": 0.4399999999999997
+			}
+		}
+	}
+}
