@@ -258,20 +258,6 @@
 						"equalsTo": 0
 					},
 					{
-						"name": "Blocked",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"value": "Blocked",
-						"defaultValue": null,
-						"equalsTo": 1
-					},
-					{
 						"name": "Busy",
 						"valueType": {
 							"type": 4,
@@ -283,7 +269,21 @@
 						},
 						"value": "Busy",
 						"defaultValue": null,
-						"equalsTo": 3
+						"equalsTo": 1
+					},
+					{
+						"name": "Blocked",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "Blocked",
+						"defaultValue": null,
+						"equalsTo": 2
 					}
 				]
 			}
@@ -1001,10 +1001,10 @@
 				},
 				"notes": {},
 				"pan": {
-					"x": 4,
-					"y": 5
+					"x": 102.22222900390625,
+					"y": 0
 				},
-				"zoom": 0.4399999999999997
+				"zoom": 0.5699999999999998
 			}
 		}
 	}

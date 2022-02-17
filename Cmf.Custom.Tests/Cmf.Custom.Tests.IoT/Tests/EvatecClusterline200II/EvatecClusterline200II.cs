@@ -261,6 +261,117 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         }
 
 
+        /// <summary> 
+        /// Scenario: Control State to Host Offline
+        /// </summary>
+        [TestMethod]
+        public void EvatecClusterline200II_EPTStateChangeTest()
+        {
+
+            base.Equipment.Variables["BlockedReason"] = 0;
+            base.Equipment.Variables["BlockedReasonText"] = "NotBlocked";
+            base.Equipment.Variables["EPTClock"] = "x";
+            base.Equipment.Variables["EPTState"] = 0;
+            base.Equipment.Variables["EPTStateTime"] = 3;
+            base.Equipment.Variables["PreviousEPTState"] = 1;
+            base.Equipment.Variables["PreviousTaskName"] = "x";
+            base.Equipment.Variables["PreviousTaskType"] = 1;
+            base.Equipment.Variables["TaskName"] = "x";
+            base.Equipment.Variables["TaskType"] = 1;
+
+            // Trigger event
+            base.Equipment.SendMessage("EquipmentEPTStateChangeEvent", null);
+
+            //
+            TestUtilities.WaitFor(10/*ValidationTimeout*/, "Equipment State was not updated to Idle", () =>
+            {
+                Resource resource = new Resource { Name = resourceName };
+                resource.Load();
+
+                var input = new LoadResourceStateModelsInput
+                {
+                    Resource = resource
+                }.LoadResourceStateModelsSync();
+
+                resource = input.Resource;
+
+                if (resource.CurrentStates == null)
+                    return false;
+
+                return resource.CurrentStates.FirstOrDefault(s => s.StateModel.Name == "CustomEquipmentPerformanceTrackingStateModel" && s.CurrentState.Name == "Idle") != null;
+            });
+            Thread.Sleep(1000);
+
+            base.Equipment.Variables["BlockedReason"] = 0;
+            base.Equipment.Variables["BlockedReasonText"] = "NotBlocked";
+            base.Equipment.Variables["EPTClock"] = "x";
+            base.Equipment.Variables["EPTState"] = 1;
+            base.Equipment.Variables["EPTStateTime"] = 3;
+            base.Equipment.Variables["PreviousEPTState"] = 1;
+            base.Equipment.Variables["PreviousTaskName"] = "x";
+            base.Equipment.Variables["PreviousTaskType"] = 1;
+            base.Equipment.Variables["TaskName"] = "x";
+            base.Equipment.Variables["TaskType"] = 1;
+
+            // Trigger event
+            base.Equipment.SendMessage("EquipmentEPTStateChangeEvent", null);
+
+            //
+            TestUtilities.WaitFor(10/*ValidationTimeout*/, "Equipment State was not updated to Busy", () =>
+            {
+                Resource resource = new Resource { Name = resourceName };
+                resource.Load();
+
+                var input = new LoadResourceStateModelsInput
+                {
+                    Resource = resource
+                }.LoadResourceStateModelsSync();
+
+                resource = input.Resource;
+
+                if (resource.CurrentStates == null)
+                    return false;
+
+                return resource.CurrentStates.FirstOrDefault(s => s.StateModel.Name == "CustomEquipmentPerformanceTrackingStateModel" && s.CurrentState.Name == "Busy") != null;
+            });
+
+            Thread.Sleep(1000);
+
+            base.Equipment.Variables["BlockedReason"] = 2;
+            base.Equipment.Variables["BlockedReasonText"] = "Cenas";
+            base.Equipment.Variables["EPTClock"] = "x";
+            base.Equipment.Variables["EPTState"] = 2;
+            base.Equipment.Variables["EPTStateTime"] = 3;
+            base.Equipment.Variables["PreviousEPTState"] = 1;
+            base.Equipment.Variables["PreviousTaskName"] = "x";
+            base.Equipment.Variables["PreviousTaskType"] = 1;
+            base.Equipment.Variables["TaskName"] = "x";
+            base.Equipment.Variables["TaskType"] = 1;
+
+            // Trigger event
+            base.Equipment.SendMessage("EquipmentEPTStateChangeEvent", null);
+
+            //
+            TestUtilities.WaitFor(10/*ValidationTimeout*/, "Equipment State was not updated to Blocked", () =>
+            {
+                Resource resource = new Resource { Name = resourceName };
+                resource.Load();
+
+                var input = new LoadResourceStateModelsInput
+                {
+                    Resource = resource
+                }.LoadResourceStateModelsSync();
+
+                resource = input.Resource;
+
+                if (resource.CurrentStates == null)
+                    return false;
+
+                return resource.CurrentStates.FirstOrDefault(s => s.StateModel.Name == "CustomEquipmentPerformanceTrackingStateModel" && s.CurrentState.Name == "Blocked") != null;
+            });
+
+        }
+
         #endregion Tests FullProcessScenario 
 
 

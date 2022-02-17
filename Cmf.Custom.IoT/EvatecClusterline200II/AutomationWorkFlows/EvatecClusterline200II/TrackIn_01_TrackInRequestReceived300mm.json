@@ -350,6 +350,21 @@
 				],
 				"___cmf___name": "Create Control Job"
 			}
+		},
+		{
+			"id": "task_30178",
+			"reference": {
+				"name": "createContainer",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"inputs": [],
+				"outputs": [],
+				"message": ""
+			}
 		}
 	],
 	"converters": [
@@ -425,13 +440,6 @@
 			"targetId": "task_1796",
 			"inputName": "reply",
 			"outputName": "error"
-		},
-		{
-			"id": "5d35aa28-ad8d-41ea-a554-28a9cf33aff1",
-			"sourceId": "task_73090",
-			"targetId": "task_83813",
-			"inputName": "activate",
-			"outputName": "success"
 		},
 		{
 			"id": "988fa7e7-cd09-4307-81d7-14809c907b57",
@@ -525,6 +533,34 @@
 					}
 				}
 			]
+		},
+		{
+			"id": "c5bb23b6-0a5f-40d6-9a00-bc34e110a54a",
+			"sourceId": "task_73090",
+			"targetId": "task_30178",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "8a054e78-3cde-4125-b315-3c673949b8a2",
+			"sourceId": "task_30178",
+			"targetId": "task_83813",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "71249dd2-06a1-407f-8976-035c2985f490",
+			"sourceId": "task_73090",
+			"targetId": "task_30178",
+			"inputName": "containerId",
+			"outputName": "ContainerNameOut"
+		},
+		{
+			"id": "9ee9905f-f3cb-4db4-b804-058cad82666e",
+			"sourceId": "task_73090",
+			"targetId": "task_30178",
+			"inputName": "loadPort",
+			"outputName": "LoadPortPositionOut"
 		}
 	],
 	"layout": {
@@ -568,6 +604,14 @@
 						},
 						"outdated": false
 					},
+					"task_1677": {
+						"collapsed": false,
+						"position": {
+							"x": 4989,
+							"y": 406
+						},
+						"outdated": false
+					},
 					"task_70871": {
 						"collapsed": false,
 						"position": {
@@ -587,8 +631,8 @@
 					"task_83813": {
 						"collapsed": false,
 						"position": {
-							"x": 3082,
-							"y": 413
+							"x": 3297,
+							"y": 379
 						},
 						"outdated": false
 					},
@@ -608,13 +652,13 @@
 						},
 						"outdated": false
 					},
-					"task_1677": {
+					"task_30178": {
 						"collapsed": false,
 						"position": {
-							"x": 4989,
-							"y": 406
+							"x": 2782,
+							"y": 436
 						},
-						"outdated": null
+						"outdated": false
 					}
 				},
 				"links": {
@@ -634,7 +678,12 @@
 						]
 					},
 					"03818fd8-aca1-4d0a-8f68-f241c5160ca1": {
-						"vertices": []
+						"vertices": [
+							{
+								"x": 3036,
+								"y": 377
+							}
+						]
 					},
 					"85e19b85-fbe6-481e-be0e-aa151ae6b852": {
 						"vertices": [
@@ -647,9 +696,6 @@
 								"y": 935
 							}
 						]
-					},
-					"5d35aa28-ad8d-41ea-a554-28a9cf33aff1": {
-						"vertices": []
 					},
 					"988fa7e7-cd09-4307-81d7-14809c907b57": {
 						"vertices": []
@@ -702,6 +748,18 @@
 					"392c0705-698b-4dbd-b832-a45cc699545b": {
 						"vertices": []
 					},
+					"c5bb23b6-0a5f-40d6-9a00-bc34e110a54a": {
+						"vertices": []
+					},
+					"8a054e78-3cde-4125-b315-3c673949b8a2": {
+						"vertices": []
+					},
+					"71249dd2-06a1-407f-8976-035c2985f490": {
+						"vertices": []
+					},
+					"9ee9905f-f3cb-4db4-b804-058cad82666e": {
+						"vertices": []
+					},
 					"cc8ce25c-4960-4556-84a0-86daf88a8e99": {
 						"vertices": [
 							{
@@ -737,8 +795,8 @@
 					"note_200147": {
 						"collapsed": false,
 						"position": {
-							"x": 3088,
-							"y": 735
+							"x": 3688,
+							"y": 1210
 						}
 					},
 					"note_36668": {
@@ -756,10 +814,10 @@
 						}
 					}
 				},
-				"zoom": 0.6900000000000004,
+				"zoom": 0.6800000000000004,
 				"pan": {
-					"x": 902.2222290039062,
-					"y": 15.555556297302246
+					"x": 1571.3561764574774,
+					"y": 185.73774205016673
 				}
 			}
 		}
