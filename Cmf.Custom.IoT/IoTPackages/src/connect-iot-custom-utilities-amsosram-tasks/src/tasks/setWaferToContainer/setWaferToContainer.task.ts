@@ -107,7 +107,7 @@ export class SetWaferToContainerTask implements Task.TaskInstance, SetWaferToCon
                 const containerName = this.material.ContainerName;
                 let movementList;
                 if (this.material.SorterJobInformation) {
-                movementList = <MovementData[]>JSON.parse(this.material.SorterJobInformation.MovementList);
+                    movementList = <MovementData[]>JSON.parse(this.material.SorterJobInformation.MovementList);
                 }
 
                 const slotNumber = this.slotNumber;
@@ -116,18 +116,19 @@ export class SetWaferToContainerTask implements Task.TaskInstance, SetWaferToCon
                 let movement;
                 let container: ContainerData = await this._containerProcess.getContainer(this.containerId, loadPort);
                 if (this.material) {
+
                     if (this.containerId === containerName) {
-                        slotMES = this.material.SubMaterials.find(s => s.Slot.toString() === slotNumber.toString());
+                        slotMES = this.material.SubMaterials.find(s => s.Slot.toString() === Number(slotNumber).toString());
                     } else if (movementList) {
                         movement = movementList.find(w => (w.SourceContainer === this.containerId && w.SourcePosition.toString() === slotNumber.toString())
-                        || (w.DestinationContainer === this.containerId && w.Destination.toString() === slotNumber.toString()))
+                            || (w.DestinationContainer === this.containerId && w.Destination.toString() === slotNumber.toString()))
                     }
                 }
                 let wafer: WaferData = {} as WaferData;
                 if (container) {
                     if (this.material) {
                         if (slotMES) {
-                        wafer.MaterialWaferId = slotMES.MaterialName;
+                            wafer.MaterialWaferId = slotMES.MaterialName;
                         }
                         if (movement) {
                             wafer.MaterialWaferId = movement.MaterialName;
@@ -154,10 +155,13 @@ export class SetWaferToContainerTask implements Task.TaskInstance, SetWaferToCon
                     if (this.equipmentWaferId) {
                         equipmentWaferId = this.equipmentWaferId
                     }
+
+
                     wafer = await this._containerProcess.setWaferToContainer(containerName, loadPort, slotNumber, equipmentWaferId, materialWaferId);
 
                 }
 
+                this._logger.error("passa AQUI!");
                 container = await this._containerProcess.getContainer(this.containerId, loadPort);
 
                 this.wafer.emit(wafer);

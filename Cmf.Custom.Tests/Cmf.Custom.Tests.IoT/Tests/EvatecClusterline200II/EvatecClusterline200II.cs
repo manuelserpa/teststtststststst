@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using cmConnect.TestFramework.Common.Utilities;
 using cmConnect.TestFramework.EquipmentSimulator.Drivers;
-using cmConnect.TestFramework.SystemRest.Entities;
-using Cmf.Custom.AMSOsram.BusinessObjects;
-using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Cmf.Navigo.BusinessObjects;
@@ -16,8 +12,6 @@ using Cmf.TestScenarios.ContainerManagement.ContainerScenarios;
 using AMSOsramEIAutomaticTests.Objects.Extensions;
 using AMSOsramEIAutomaticTests.Objects.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
-using AMSOsramEIAutomaticTests;
 using Cmf.Custom.TestUtilities;
 using Cmf.Custom.Tests.IoT.Tests.EvatecClusterline200II;
 
@@ -51,8 +45,11 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         public bool createControlJobReceived = false;
         public bool createControlJobDenied = false;
 
+        public bool failAtProcessJob = false;
         public bool createProcessJobReceived = false;
         public bool createProcessJobDenied = false;
+
+
 
         private int chamberToProcess = 1;
 
@@ -292,7 +289,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             CarrierIn(MESScenario, loadPortToSet);
 
             Log(String.Format("{0}: [S] Validating Load Port State Changed State Change to Occupied Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
-            //ValidateLoadPortState(MESScenario, LoadPortStateModelStateEnum.Occupied.ToString(), 2);
+            ValidateLoadPortState(MESScenario, LoadPortStateModelStateEnum.Occupied.ToString(), loadPortNumber);
             Log(String.Format("{0}: [E] Validating Load Port State Changed State Change to Occupied Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
 
             //material received MaterialReceived
@@ -373,7 +370,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         {
 
             // wait for load 
-            TestUtilities.WaitFor(60, String.Format($"Load Container Command never received"), () =>
+            TestUtilities.WaitFor(60, String.Format($"Unload Container Command never received"), () =>
             {
                 return unloadCommandReceived;
             });
@@ -495,9 +492,11 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             wafer.LoadRelations();
             wafer.ParentMaterial.Load();
 
-            base.Equipment.Variables["AcquiredId"] = "";
-            base.Equipment.Variables["LotId"] = "";
-            base.Equipment.Variables["SubId"] = String.Format("CarrierAtPort{0}.{1:D2}", loadPortNumber, wafer.MaterialContainer.First().Position); ;
+            var subId = String.Format("CarrierAtPort{0}.{1:D2}", loadPortNumber, wafer.MaterialContainer.First().Position);
+
+            base.Equipment.Variables["AcquiredId"] = "x";
+            base.Equipment.Variables["LotId"] = "y";
+            base.Equipment.Variables["SubId"] = subId;
 
             //// Trigger event
             base.Equipment.SendMessage($"ProcessChamber{chamberToProcess}_ProcessStarted", null);
@@ -622,6 +621,34 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
         protected bool OnS16F11(SecsMessage request, SecsMessage reply)
         {
+            reply.Item.Clear();
+            var jobItem = new SecsItem { ASCII = request.Item.GetChildList()[1].GetValue().ToString()};
+
+            var reportList = new SecsItem();
+            reportList.SetTypeToList();
+
+            var ack = new SecsItem { Bool = new bool[] { true } };
+            
+            var errorList = new SecsItem();
+            errorList.SetTypeToList();
+
+            if(failAtProcessJob)
+            {
+                ack = new SecsItem { Bool = new bool[] { false } };
+                var errCode = new SecsItem { ASCII = "cenas1" };
+                var errText = new SecsItem { ASCII = "cenas2" };
+
+                errorList.Add(errCode);
+                errorList.Add(errText);
+            }
+
+
+            reportList.Add(ack);
+            reportList.Add(errorList);
+
+            reply.Item.Add(jobItem);
+            reply.Item.Add(reportList);
+
             //Process Job Request
             createProcessJobReceived = true;
             return true;
