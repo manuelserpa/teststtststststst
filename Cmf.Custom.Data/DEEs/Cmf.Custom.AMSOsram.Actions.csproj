@@ -19,4 +19,9 @@
 		<ProjectReference Include="..\..\Cmf.Custom.Business\Cmf.Custom.Common\Cmf.Custom.AMSOsram.Common.csproj" />
 		<ProjectReference Include="..\..\Cmf.Custom.Business\Cmf.Custom.Orchestration\Cmf.Custom.AMSOsram.Orchestration.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+		<Reference Include="Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition">
+			<HintPath>..\..\Libs\EntityTypes\Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 </Project>

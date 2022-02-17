@@ -8,5 +8,6 @@ The following smart tables were created to support customer requirements.
 
 | Table                     | Description       |
 | ------                    | ------            |
+| [CustomSorterJobDefinitionContext](/AMSOsram/techspec>artifacts>smarttables>CustomSorterJobDefinitionContext) | Used to resolve the CustomSorterJobDefinition for the specific Sorter context |
 
 
