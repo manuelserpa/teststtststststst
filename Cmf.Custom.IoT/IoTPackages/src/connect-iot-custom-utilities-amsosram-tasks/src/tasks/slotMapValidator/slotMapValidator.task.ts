@@ -122,7 +122,7 @@ export class SlotMapValidatorTask implements Task.TaskInstance, SlotMapValidator
                         return Math.max(a, b);
                     });
 
-                    if (biggestMaterialDataPosition => slotMapArray.length) {
+                    if (biggestMaterialDataPosition > slotMapArray.length) {
                         throw new Error("Lengths do not match");
                     }
                 }
