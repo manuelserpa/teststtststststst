@@ -223,236 +223,6 @@
 			}
 		},
 		{
-			"id": "task_9292",
-			"reference": {
-				"name": "switch",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"_default": null,
-				"___cmf___name": "Switch",
-				"_inputType": {
-					"name": "",
-					"friendlyName": "EPTState",
-					"type": 5,
-					"collectionType": null,
-					"referenceType": null,
-					"referenceTypeName": null
-				},
-				"_outputs": [
-					{
-						"name": "Idle",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"value": "Idle",
-						"defaultValue": null,
-						"equalsTo": 0
-					},
-					{
-						"name": "Busy",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"value": "Busy",
-						"defaultValue": null,
-						"equalsTo": 1
-					},
-					{
-						"name": "Blocked",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"value": "Blocked",
-						"defaultValue": null,
-						"equalsTo": 2
-					}
-				]
-			}
-		},
-		{
-			"id": "task_10761",
-			"reference": {
-				"name": "switch",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"_default": null,
-				"___cmf___name": "Switch",
-				"_inputType": {
-					"name": "",
-					"friendlyName": "BlockedReason",
-					"type": 5,
-					"collectionType": null,
-					"referenceType": null,
-					"referenceTypeName": null
-				},
-				"_outputs": [
-					{
-						"name": "NotBlocked",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"equalsTo": 0,
-						"value": "NotBlocked",
-						"defaultValue": null
-					},
-					{
-						"name": "Unknown",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"value": "Unknown",
-						"defaultValue": null,
-						"equalsTo": 1
-					},
-					{
-						"name": "SafetyThreshold",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"value": "SafetyThreshold",
-						"defaultValue": null,
-						"equalsTo": 2
-					},
-					{
-						"name": "ErrorCondition",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"value": "ErrorCondition",
-						"defaultValue": null,
-						"equalsTo": 3
-					},
-					{
-						"name": "ParametricExceptions",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"value": "ParametricException",
-						"defaultValue": null,
-						"equalsTo": 4
-					},
-					{
-						"name": "AbortingAborted",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"value": "AbortingAborted",
-						"defaultValue": null,
-						"equalsTo": 5
-					},
-					{
-						"name": "PausingPaused",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"value": "PausingPaused",
-						"defaultValue": null,
-						"equalsTo": 6
-					},
-					{
-						"name": "Reserved",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"equalsTo": 7,
-						"value": "Reserved",
-						"defaultValue": null
-					},
-					{
-						"name": "Reserved",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"equalsTo": 8,
-						"value": "Reserved",
-						"defaultValue": null
-					},
-					{
-						"name": "Reserved",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"value": "Reserved",
-						"defaultValue": null,
-						"equalsTo": 9
-					}
-				]
-			}
-		},
-		{
 			"id": "task_16553",
 			"reference": {
 				"name": "retrieve",
@@ -607,6 +377,156 @@
 				"___cmf___name": "Workflow",
 				"___cmf___color": "#ff0000"
 			}
+		},
+		{
+			"id": "task_46773",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        let eptState = inputs.EPTState;",
+					"        let blockedReason = inputs.BlockedReason;",
+					"",
+					"        let stateName = \"Idle\";",
+					"        let blockedReasonName = \"\";",
+					"",
+					"        switch(eptState){",
+					"            case 0:",
+					"                stateName = \"Idle\";",
+					"                break;",
+					"            case 1:",
+					"                stateName = \"Busy\";",
+					"                break;",
+					"            case 2:",
+					"                stateName = \"Blocked\";",
+					"                break;",
+					"            default:",
+					"                stateName = \"Idle\";",
+					"                break;",
+					"",
+					"        }",
+					"        if (eptState == 2) {",
+					"        switch (blockedReason) {",
+					"            case 0:",
+					"                blockedReasonName = \"NotBlocked\";",
+					"                break;",
+					"            case 1:",
+					"                blockedReasonName = \"Unknown\";",
+					"                break;",
+					"            case 2:",
+					"                blockedReasonName = \"SafetyThreshold\";",
+					"                break;",
+					"            case 3:",
+					"                blockedReasonName = \"ErrorCondition\";",
+					"                break;",
+					"            case 4:",
+					"                blockedReasonName = \"ParametricExceptions\";",
+					"                break;",
+					"            case 5:",
+					"                blockedReasonName = \"AbortingAborted\";",
+					"                break;",
+					"            case 6:",
+					"                blockedReasonName = \"PausingPaused\";",
+					"                break;",
+					"            case 7:",
+					"                blockedReasonName = \"Reserved\";",
+					"                break;",
+					"            case 8:",
+					"                blockedReasonName = \"Reserved\";",
+					"                break;",
+					"            case 9:",
+					"                blockedReasonName = \"Reserved\";",
+					"                break;",
+					"            default:",
+					"                blockedReasonName = \"\";",
+					"                break;",
+					"",
+					"            }",
+					"        }",
+					"        // emit output during execution: outputs.output1.emit(\"something\");",
+					"        return { StateName: stateName, BlockedReasonName: blockedReasonName };",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGxldCBlcHRTdGF0ZSA9IGlucHV0cy5FUFRTdGF0ZTsNCiAgICAgICAgbGV0IGJsb2NrZWRSZWFzb24gPSBpbnB1dHMuQmxvY2tlZFJlYXNvbjsNCiAgICAgICAgbGV0IHN0YXRlTmFtZSA9ICJJZGxlIjsNCiAgICAgICAgbGV0IGJsb2NrZWRSZWFzb25OYW1lID0gIiI7DQogICAgICAgIHN3aXRjaCAoZXB0U3RhdGUpIHsNCiAgICAgICAgICAgIGNhc2UgMDoNCiAgICAgICAgICAgICAgICBzdGF0ZU5hbWUgPSAiSWRsZSI7DQogICAgICAgICAgICAgICAgYnJlYWs7DQogICAgICAgICAgICBjYXNlIDE6DQogICAgICAgICAgICAgICAgc3RhdGVOYW1lID0gIkJ1c3kiOw0KICAgICAgICAgICAgICAgIGJyZWFrOw0KICAgICAgICAgICAgY2FzZSAyOg0KICAgICAgICAgICAgICAgIHN0YXRlTmFtZSA9ICJCbG9ja2VkIjsNCiAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgICAgIGRlZmF1bHQ6DQogICAgICAgICAgICAgICAgc3RhdGVOYW1lID0gIklkbGUiOw0KICAgICAgICAgICAgICAgIGJyZWFrOw0KICAgICAgICB9DQogICAgICAgIGlmIChlcHRTdGF0ZSA9PSAyKSB7DQogICAgICAgICAgICBzd2l0Y2ggKGJsb2NrZWRSZWFzb24pIHsNCiAgICAgICAgICAgICAgICBjYXNlIDA6DQogICAgICAgICAgICAgICAgICAgIGJsb2NrZWRSZWFzb25OYW1lID0gIk5vdEJsb2NrZWQiOw0KICAgICAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgICAgICAgICBjYXNlIDE6DQogICAgICAgICAgICAgICAgICAgIGJsb2NrZWRSZWFzb25OYW1lID0gIlVua25vd24iOw0KICAgICAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgICAgICAgICBjYXNlIDI6DQogICAgICAgICAgICAgICAgICAgIGJsb2NrZWRSZWFzb25OYW1lID0gIlNhZmV0eVRocmVzaG9sZCI7DQogICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KICAgICAgICAgICAgICAgIGNhc2UgMzoNCiAgICAgICAgICAgICAgICAgICAgYmxvY2tlZFJlYXNvbk5hbWUgPSAiRXJyb3JDb25kaXRpb24iOw0KICAgICAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgICAgICAgICBjYXNlIDQ6DQogICAgICAgICAgICAgICAgICAgIGJsb2NrZWRSZWFzb25OYW1lID0gIlBhcmFtZXRyaWNFeGNlcHRpb25zIjsNCiAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQogICAgICAgICAgICAgICAgY2FzZSA1Og0KICAgICAgICAgICAgICAgICAgICBibG9ja2VkUmVhc29uTmFtZSA9ICJBYm9ydGluZ0Fib3J0ZWQiOw0KICAgICAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgICAgICAgICBjYXNlIDY6DQogICAgICAgICAgICAgICAgICAgIGJsb2NrZWRSZWFzb25OYW1lID0gIlBhdXNpbmdQYXVzZWQiOw0KICAgICAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgICAgICAgICBjYXNlIDc6DQogICAgICAgICAgICAgICAgICAgIGJsb2NrZWRSZWFzb25OYW1lID0gIlJlc2VydmVkIjsNCiAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQogICAgICAgICAgICAgICAgY2FzZSA4Og0KICAgICAgICAgICAgICAgICAgICBibG9ja2VkUmVhc29uTmFtZSA9ICJSZXNlcnZlZCI7DQogICAgICAgICAgICAgICAgICAgIGJyZWFrOw0KICAgICAgICAgICAgICAgIGNhc2UgOToNCiAgICAgICAgICAgICAgICAgICAgYmxvY2tlZFJlYXNvbk5hbWUgPSAiUmVzZXJ2ZWQiOw0KICAgICAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgICAgICAgICBkZWZhdWx0Og0KICAgICAgICAgICAgICAgICAgICBibG9ja2VkUmVhc29uTmFtZSA9ICIiOw0KICAgICAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgICAgICAvLyBlbWl0IG91dHB1dCBkdXJpbmcgZXhlY3V0aW9uOiBvdXRwdXRzLm91dHB1dDEuZW1pdCgic29tZXRoaW5nIik7DQogICAgICAgIHJldHVybiB7IFN0YXRlTmFtZTogc3RhdGVOYW1lLCBCbG9ja2VkUmVhc29uTmFtZTogYmxvY2tlZFJlYXNvbk5hbWUgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
+				"inputs": [
+					{
+						"name": "BlockedReason",
+						"valueType": {
+							"friendlyName": "BlockedReason",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "EPTState",
+						"valueType": {
+							"friendlyName": "EPTState",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "StateName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "StateName"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "BlockedReasonName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "BlockedReasonName"
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
 		}
 	],
 	"converters": [
@@ -619,107 +539,39 @@
 					"version": "1.0.0"
 				}
 			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToString",
+			"reference": {
+				"name": "anyToString",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
 		}
 	],
 	"links": [
-		{
-			"id": "8694e7e1-35c8-48cb-88f0-c5ddf9dbeaad",
-			"sourceId": "task_9292",
-			"targetId": "task_9204",
-			"inputName": "StateName",
-			"outputName": "Idle"
-		},
-		{
-			"id": "2a5d373e-dd79-4fec-9afa-23a25cf69ec0",
-			"sourceId": "task_9292",
-			"targetId": "task_9204",
-			"inputName": "StateName",
-			"outputName": "Blocked"
-		},
-		{
-			"id": "003ea5a3-f638-44dd-ac71-f98e486e4cb4",
-			"sourceId": "task_9292",
-			"targetId": "task_9204",
-			"inputName": "StateName",
-			"outputName": "Busy"
-		},
-		{
-			"id": "ebd26d8b-89a5-4344-a901-0c995d1c5821",
-			"sourceId": "task_10761",
-			"targetId": "task_9204",
-			"inputName": "Reason",
-			"outputName": "NotBlocked"
-		},
-		{
-			"id": "1b77bc50-30cb-4846-ba26-ab47f44d3352",
-			"sourceId": "task_10761",
-			"targetId": "task_9204",
-			"inputName": "Reason",
-			"outputName": "Unknown"
-		},
-		{
-			"id": "0c347c82-3bf4-4337-bb7e-70fb217b447f",
-			"sourceId": "task_10761",
-			"targetId": "task_9204",
-			"inputName": "Reason",
-			"outputName": "SafetyThreshold"
-		},
-		{
-			"id": "bca5e0af-e82d-41a1-92e7-78bbea719196",
-			"sourceId": "task_10761",
-			"targetId": "task_9204",
-			"inputName": "Reason",
-			"outputName": "ErrorCondition"
-		},
-		{
-			"id": "9238187c-415e-407f-9fc3-91e4948cd34c",
-			"sourceId": "task_10761",
-			"targetId": "task_9204",
-			"inputName": "Reason",
-			"outputName": "ParametricExceptions"
-		},
-		{
-			"id": "208a05e5-56e4-4e20-806e-0a3dbccd00ef",
-			"sourceId": "task_10761",
-			"targetId": "task_9204",
-			"inputName": "Reason",
-			"outputName": "AbortingAborted"
-		},
-		{
-			"id": "bbf56d54-e310-4120-a824-9e86b798a440",
-			"sourceId": "task_10761",
-			"targetId": "task_9204",
-			"inputName": "Reason",
-			"outputName": "PausingPaused"
-		},
-		{
-			"id": "b96a39d4-67e3-47a5-a695-a05f97695e6d",
-			"sourceId": "task_10761",
-			"targetId": "task_9204",
-			"inputName": "Reason",
-			"outputName": "Reserved"
-		},
-		{
-			"id": "af4a1585-9e53-45df-bc40-7cda6e5db714",
-			"sourceId": "task_5942",
-			"targetId": "task_9292",
-			"inputName": "value",
-			"outputName": "EPTStateOut"
-		},
-		{
-			"id": "13f5c7cd-ec09-46d4-9350-a77a2358bc34",
-			"sourceId": "task_5942",
-			"targetId": "task_10761",
-			"inputName": "value",
-			"outputName": "BlockedReasonOut"
-		},
-		{
-			"id": "8ee9efc0-59be-49d4-afcf-bc0eb9c4e93a",
-			"sourceId": "task_5942",
-			"targetId": "task_9204",
-			"inputName": "StateName",
-			"outputName": "StateNameOut"
-		},
 		{
 			"id": "e038d817-8995-4a4e-ac41-f3ba5c687601",
 			"sourceId": "task_16553",
@@ -733,34 +585,6 @@
 			"targetId": "task_9204",
 			"inputName": "ResourceName",
 			"outputName": "Resource"
-		},
-		{
-			"id": "a65b9479-97e8-44ef-bd07-21332f0f9c96",
-			"sourceId": "task_9292",
-			"targetId": "task_16553",
-			"inputName": "activate",
-			"outputName": "Idle"
-		},
-		{
-			"id": "ce3cc738-a595-47f8-8538-d8073228cacf",
-			"sourceId": "task_9292",
-			"targetId": "task_16553",
-			"inputName": "activate",
-			"outputName": "Blocked"
-		},
-		{
-			"id": "9bb11837-0511-4d8f-aeb0-4f01a6d5a7f1",
-			"sourceId": "task_9292",
-			"targetId": "task_16553",
-			"inputName": "activate",
-			"outputName": "Busy"
-		},
-		{
-			"id": "65d38b5e-f591-47a4-a306-960c41fa360b",
-			"sourceId": "task_5942",
-			"targetId": "task_16553",
-			"inputName": "activate",
-			"outputName": "StateNameOut"
 		},
 		{
 			"id": "db0b2c2f-6b56-4244-8456-870546923acf",
@@ -840,6 +664,71 @@
 			"targetId": "task_9204",
 			"inputName": "ComponentResourceNumber",
 			"outputName": "ComponentResourceNumberOut"
+		},
+		{
+			"id": "d85fac99-4b90-4dca-9782-113bb4c8421f",
+			"sourceId": "task_16553",
+			"targetId": "task_9204",
+			"inputName": "StateModelName",
+			"outputName": "Resource",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 4,
+						"value": "CustomEquipmentPerformanceTrackingStateModel"
+					}
+				}
+			]
+		},
+		{
+			"id": "58a91e06-c3af-4bd8-a529-5a8558a2db9c",
+			"sourceId": "task_5942",
+			"targetId": "task_9204",
+			"inputName": "StateName",
+			"outputName": "StateNameOut"
+		},
+		{
+			"id": "73ac4303-de7c-4757-87d7-3a013849cc2e",
+			"sourceId": "task_5942",
+			"targetId": "task_46773",
+			"inputName": "EPTStateIn",
+			"outputName": "EPTStateOut"
+		},
+		{
+			"id": "949e7a43-6aad-4477-8e19-c9c8e7ea2f82",
+			"sourceId": "task_46773",
+			"targetId": "task_9204",
+			"inputName": "StateName",
+			"outputName": "StateNameOut"
+		},
+		{
+			"id": "47b65f80-ba1b-4409-8266-42a841d29653",
+			"sourceId": "task_46773",
+			"targetId": "task_16553",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "969db33b-a566-4641-8780-efe8c1437513",
+			"sourceId": "task_5942",
+			"targetId": "task_46773",
+			"inputName": "BlockedReasonIn",
+			"outputName": "BlockedReasonOut"
+		},
+		{
+			"id": "9be3f695-e0ce-469a-a56e-e0408a3cd62e",
+			"sourceId": "task_46773",
+			"targetId": "task_9204",
+			"inputName": "Reason",
+			"outputName": "BlockedReasonNameOut"
+		},
+		{
+			"id": "6d3cf471-8ed6-45c4-a774-3b18cb3209a4",
+			"sourceId": "task_5942",
+			"targetId": "task_46773",
+			"inputName": "activate",
+			"outputName": "EPTStateOut"
 		}
 	],
 	"layout": {
@@ -874,22 +763,6 @@
 						},
 						"outdated": false
 					},
-					"task_9292": {
-						"collapsed": false,
-						"position": {
-							"x": 511,
-							"y": 50
-						},
-						"outdated": false
-					},
-					"task_10761": {
-						"collapsed": false,
-						"position": {
-							"x": 552,
-							"y": 872
-						},
-						"outdated": false
-					},
 					"task_16553": {
 						"collapsed": false,
 						"position": {
@@ -905,67 +778,21 @@
 							"y": 872
 						},
 						"outdated": false
+					},
+					"task_46773": {
+						"collapsed": false,
+						"position": {
+							"x": 538,
+							"y": 47
+						},
+						"outdated": false
 					}
 				},
 				"links": {
-					"8694e7e1-35c8-48cb-88f0-c5ddf9dbeaad": {
-						"vertices": []
-					},
-					"2a5d373e-dd79-4fec-9afa-23a25cf69ec0": {
-						"vertices": []
-					},
-					"003ea5a3-f638-44dd-ac71-f98e486e4cb4": {
-						"vertices": []
-					},
-					"ebd26d8b-89a5-4344-a901-0c995d1c5821": {
-						"vertices": []
-					},
-					"1b77bc50-30cb-4846-ba26-ab47f44d3352": {
-						"vertices": []
-					},
-					"0c347c82-3bf4-4337-bb7e-70fb217b447f": {
-						"vertices": []
-					},
-					"bca5e0af-e82d-41a1-92e7-78bbea719196": {
-						"vertices": []
-					},
-					"9238187c-415e-407f-9fc3-91e4948cd34c": {
-						"vertices": []
-					},
-					"208a05e5-56e4-4e20-806e-0a3dbccd00ef": {
-						"vertices": []
-					},
-					"bbf56d54-e310-4120-a824-9e86b798a440": {
-						"vertices": []
-					},
-					"b96a39d4-67e3-47a5-a695-a05f97695e6d": {
-						"vertices": []
-					},
-					"af4a1585-9e53-45df-bc40-7cda6e5db714": {
-						"vertices": []
-					},
-					"13f5c7cd-ec09-46d4-9350-a77a2358bc34": {
-						"vertices": []
-					},
-					"8ee9efc0-59be-49d4-afcf-bc0eb9c4e93a": {
-						"vertices": []
-					},
 					"e038d817-8995-4a4e-ac41-f3ba5c687601": {
 						"vertices": []
 					},
 					"5722ff12-716d-474f-866e-a3e3eea4bb82": {
-						"vertices": []
-					},
-					"a65b9479-97e8-44ef-bd07-21332f0f9c96": {
-						"vertices": []
-					},
-					"ce3cc738-a595-47f8-8538-d8073228cacf": {
-						"vertices": []
-					},
-					"9bb11837-0511-4d8f-aeb0-4f01a6d5a7f1": {
-						"vertices": []
-					},
-					"65d38b5e-f591-47a4-a306-960c41fa360b": {
 						"vertices": []
 					},
 					"db0b2c2f-6b56-4244-8456-870546923acf": {
@@ -995,16 +822,45 @@
 					"7e7e3e07-67ac-4236-b451-2f4f0db54a89": {
 						"vertices": []
 					},
+					"58a91e06-c3af-4bd8-a529-5a8558a2db9c": {
+						"vertices": [
+							{
+								"x": 908,
+								"y": 385
+							}
+						]
+					},
+					"73ac4303-de7c-4757-87d7-3a013849cc2e": {
+						"vertices": []
+					},
+					"949e7a43-6aad-4477-8e19-c9c8e7ea2f82": {
+						"vertices": []
+					},
+					"47b65f80-ba1b-4409-8266-42a841d29653": {
+						"vertices": []
+					},
+					"969db33b-a566-4641-8780-efe8c1437513": {
+						"vertices": []
+					},
+					"9be3f695-e0ce-469a-a56e-e0408a3cd62e": {
+						"vertices": []
+					},
+					"6d3cf471-8ed6-45c4-a774-3b18cb3209a4": {
+						"vertices": []
+					},
 					"69d15dde-f9f4-4dcb-9b4b-37746b38acc1": {
+						"vertices": []
+					},
+					"d85fac99-4b90-4dca-9782-113bb4c8421f": {
 						"vertices": []
 					}
 				},
 				"notes": {},
 				"pan": {
-					"x": 102.22222900390625,
-					"y": 0
+					"x": 863.3333740234375,
+					"y": 202.22222900390625
 				},
-				"zoom": 0.5699999999999998
+				"zoom": 0.75
 			}
 		}
 	}

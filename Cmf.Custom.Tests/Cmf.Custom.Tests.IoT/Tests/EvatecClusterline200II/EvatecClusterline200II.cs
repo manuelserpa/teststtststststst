@@ -316,7 +316,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             // Trigger event
             base.Equipment.SendMessage("EquipmentEPTStateChangeEvent", null);
 
-            //
+            ////
             TestUtilities.WaitFor(10/*ValidationTimeout*/, "Equipment State was not updated to Busy", () =>
             {
                 Resource resource = new Resource { Name = resourceName };
@@ -337,7 +337,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
             Thread.Sleep(1000);
 
-            base.Equipment.Variables["BlockedReason"] = 2;
+            base.Equipment.Variables["BlockedReason"] = 8;
             base.Equipment.Variables["BlockedReasonText"] = "Cenas";
             base.Equipment.Variables["EPTClock"] = "x";
             base.Equipment.Variables["EPTState"] = 2;

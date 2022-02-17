@@ -161,7 +161,6 @@ export class SetWaferToContainerTask implements Task.TaskInstance, SetWaferToCon
 
                 }
 
-                this._logger.error("passa AQUI!");
                 container = await this._containerProcess.getContainer(this.containerId, loadPort);
 
                 this.wafer.emit(wafer);

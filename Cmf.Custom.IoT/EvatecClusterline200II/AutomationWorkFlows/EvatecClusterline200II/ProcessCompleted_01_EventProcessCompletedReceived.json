@@ -188,7 +188,7 @@
 			"driver": "SecsGemEquipment"
 		},
 		{
-			"id": "task_73770",
+			"id": "task_64724",
 			"reference": {
 				"name": "workflow",
 				"package": {
@@ -198,25 +198,13 @@
 			},
 			"settings": {
 				"automationWorkflow": {
-					"DisplayName": "CassetteUnloaded",
-					"IsShared": true,
-					"Name": "CassetteUnloaded"
+					"DisplayName": "CassetteUnload_01_ExecuteCommand",
+					"IsShared": false
 				},
 				"executeWhenAllInputsDefined": false,
 				"contextsExpirationInMilliseconds": 60000,
 				"executionExpirationInMilliseconds": 1200000,
 				"inputs": [
-					{
-						"name": "ResourceName",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "ResourceName"
-						}
-					},
 					{
 						"name": "LoadPort",
 						"valueType": {
@@ -225,46 +213,47 @@
 							"referenceType": null,
 							"referenceTypeName": null,
 							"referenceTypeId": null,
-							"friendlyName": "LoadPort"
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "CarrierId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
 						}
 					}
 				],
 				"outputs": [
 					{
-						"name": "EquipmentStates",
+						"name": "LoadPort",
 						"valueType": {
-							"type": 10,
+							"friendlyName": "LoadPort",
+							"type": 5,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
+							"referenceTypeId": null
 						}
 					},
 					{
-						"name": "CurrentState",
+						"name": "CarrierId",
 						"valueType": {
+							"friendlyName": "CarrierId",
 							"type": 4,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						}
-					},
-					{
-						"name": "PreviousState",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
+							"referenceTypeId": null
 						}
 					}
 				],
-				"___cmf___name": "Workflow"
+				"___cmf___name": "CassetteUnload_01_ExecuteCommand",
+				"___cmf___color": "#ffff80"
 			}
 		}
 	],
@@ -326,9 +315,9 @@
 			"outputName": "$ControlJobID"
 		},
 		{
-			"id": "bd48fc4c-a3d8-41d3-9ec6-010f0678e019",
+			"id": "48c26df8-9235-4f14-8162-afbad9225e7e",
 			"sourceId": "task_127417",
-			"targetId": "task_73770",
+			"targetId": "task_64724",
 			"inputName": "LoadPortIn",
 			"outputName": "MaterialDataObjectsOut",
 			"converters": [
@@ -336,7 +325,7 @@
 					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
 					"params": {
 						"path": "LoadPortPosition",
-						"type": 4
+						"type": 5
 					}
 				},
 				{
@@ -346,11 +335,11 @@
 			]
 		},
 		{
-			"id": "4651cec5-0188-4371-a9b9-b576a3c3ad15",
+			"id": "d499fa2b-a719-42bb-bed0-2af086f27357",
 			"sourceId": "task_127417",
-			"targetId": "task_73770",
+			"targetId": "task_64724",
 			"inputName": "activate",
-			"outputName": "success"
+			"outputName": "MaterialDataObjectsOut"
 		}
 	],
 	"layout": {
@@ -392,11 +381,11 @@
 						},
 						"outdated": false
 					},
-					"task_73770": {
+					"task_64724": {
 						"collapsed": false,
 						"position": {
-							"x": 1619,
-							"y": 228
+							"x": 1771,
+							"y": 410
 						},
 						"outdated": false
 					}
@@ -408,10 +397,10 @@
 					"e583366e-b9a6-44c9-9c95-6dcdf8148bc6": {
 						"vertices": []
 					},
-					"4651cec5-0188-4371-a9b9-b576a3c3ad15": {
+					"d499fa2b-a719-42bb-bed0-2af086f27357": {
 						"vertices": []
 					},
-					"bd48fc4c-a3d8-41d3-9ec6-010f0678e019": {
+					"48c26df8-9235-4f14-8162-afbad9225e7e": {
 						"vertices": []
 					}
 				},
@@ -419,15 +408,15 @@
 					"note_60654": {
 						"collapsed": false,
 						"position": {
-							"x": 2058,
-							"y": 13
+							"x": 2569,
+							"y": 97
 						}
 					}
 				},
-				"zoom": 0.7600000000000005,
+				"zoom": 0.7900000000000005,
 				"pan": {
-					"x": 321,
-					"y": 40
+					"x": 884.392229578245,
+					"y": -5.388653941938685
 				}
 			}
 		}

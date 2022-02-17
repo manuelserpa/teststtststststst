@@ -47,7 +47,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
         {
             //---Start DEE Code--- 
             // Foundation
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
+			UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
             UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
             UseReference("", "Cmf.Foundation.Common");
             UseReference("", "Cmf.Foundation.BusinessObjects.Cultures");
@@ -55,6 +55,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
             UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
             // Custom
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
+
 
             if (!Input.ContainsKey("ResourceName"))
             {
@@ -93,7 +94,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
             String reason = String.Empty;
 
-            if (!Input.ContainsKey("Reason"))
+            if (Input.ContainsKey("Reason"))
             {
                 reason = Input["Reason"] as String;
             }
@@ -141,6 +142,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
             resource.Load();
             resource.LoadCurrentStates();
             CurrentEntityState current = null;
+
             if (resource.CurrentStates != null)
             {
                 current = resource.CurrentStates.FirstOrDefault(s => s != null && s.StateModel.Name == stateModelName);
