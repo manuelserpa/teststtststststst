@@ -169,7 +169,7 @@
 				"emptySlot": "0",
 				"occupiedSlot": "1",
 				"fixedSize": true,
-				"size": 12,
+				"size": 13,
 				"___cmf___name": "Slot Map Validator"
 			}
 		},
@@ -943,10 +943,10 @@
 				},
 				"notes": {},
 				"pan": {
-					"x": 873,
-					"y": 56
+					"x": 651,
+					"y": 0
 				},
-				"zoom": 0.4900000000000002
+				"zoom": 0.5500000000000003
 			}
 		}
 	}
