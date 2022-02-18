@@ -271,7 +271,7 @@
 							"referenceType": null,
 							"referenceTypeName": null
 						},
-						"defaultValue": "Available",
+						"defaultValue": "ReadyToLoad",
 						"valueType": {
 							"type": 4,
 							"collectionType": 0,
@@ -490,7 +490,7 @@
 				"clearInputs": true,
 				"mode": "MultipleInputs",
 				"isCustomFormat": true,
-				"messageFormat": "TosMaterialRemoved triggered with values: Container Id: ${containerId}; Load Port: ${loadPort}; ",
+				"messageFormat": "Material Removed triggered with values: Container Id: \"${containerId}\"; Load Port: \"${loadPort}\"; State Updated On Main Equipment : \"${StateUpdatedOnMainEquipment}\"",
 				"inputs": [
 					{
 						"name": "containerId",
@@ -513,9 +513,21 @@
 							"referenceTypeName": null,
 							"referenceTypeId": null
 						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"friendlyName": "StateUpdatedOnMainEquipment",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
 					}
 				],
-				"___cmf___name": "Log Message"
+				"___cmf___name": "Log Inputs",
+				"___cmf___color": "#ffff80"
 			}
 		},
 		{
@@ -1032,6 +1044,20 @@
 					}
 				}
 			]
+		},
+		{
+			"id": "8286d8d6-f2d1-4ed1-b551-f58d26159fc5",
+			"sourceId": "task_135276",
+			"targetId": "task_45892",
+			"inputName": "containerIdIn",
+			"outputName": "ContainerIdOut"
+		},
+		{
+			"id": "bf2daef8-861f-4f22-84ed-a057a95a260f",
+			"sourceId": "task_135276",
+			"targetId": "task_45892",
+			"inputName": "StateUpdatedOnMainEquipmentIn",
+			"outputName": "StateUpdatedOnMainEquipmentOut"
 		}
 	],
 	"layout": {
@@ -1250,6 +1276,12 @@
 					"9bbc0f17-01dd-4871-8395-247fd9c76e00": {
 						"vertices": []
 					},
+					"8286d8d6-f2d1-4ed1-b551-f58d26159fc5": {
+						"vertices": []
+					},
+					"bf2daef8-861f-4f22-84ed-a057a95a260f": {
+						"vertices": []
+					},
 					"task_135538_LoadPort-task_135534_LoadPortNameIn": {
 						"vertices": []
 					},
@@ -1265,10 +1297,10 @@
 				},
 				"notes": {},
 				"pan": {
-					"x": 6.25,
-					"y": 2.5
+					"x": 0,
+					"y": 148
 				},
-				"zoom": 0.31000000000000005
+				"zoom": 0.6800000000000004
 			}
 		}
 	}

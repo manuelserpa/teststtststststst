@@ -397,12 +397,8 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         public override void CarrierInValidation(CustomMaterialScenario MESScenario, int loadPortToSet)
         {
             //clamped
-            CarrierIn(MESScenario, loadPortToSet);
-
-            Log(String.Format("{0}: [S] Validating Load Port State Changed State Change to Occupied Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
-            ValidateLoadPortState(MESScenario, LoadPortStateModelStateEnum.Occupied.ToString(), loadPortNumber);
-            Log(String.Format("{0}: [E] Validating Load Port State Changed State Change to Occupied Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
-
+            base.CarrierInValidation(MESScenario, loadPortToSet);
+          
             //material received MaterialReceived
             base.Equipment.Variables["PortTransferState"] = 1;
             base.Equipment.Variables["PortReservationState"] = 0;
@@ -521,17 +517,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             return true;
         }
 
-        public override void CarrierOutValidation(CustomMaterialScenario MESScenario, int loadPortToSet)
-        {
-            Log(String.Format("{0}: [S] Carrier Out Resource {1} Load Port {2}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, loadPortToSet));
-            CarrierOut(MESScenario);
-            Log(String.Format("{0}: [E] Carrier Out Resource {1} Load Port {2}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, loadPortToSet));
 
-            Log(String.Format("{0}: [S] Validating Load Port State Changed State Change to Available Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
-            ValidateLoadPortState(MESScenario, LoadPortStateModelStateEnum.Available.ToString());
-            Log(String.Format("{0}: [E] Validating Load Port State Changed State Change to Available Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
-                      
-        }
         public override bool ProcessStartEvent(CustomMaterialScenario scenario)
         {
             base.Equipment.Variables["ControlJobID"] = $"CtrlJob_{scenario.Entity.Name}";

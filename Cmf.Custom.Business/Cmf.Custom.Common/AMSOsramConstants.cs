@@ -210,22 +210,22 @@
         /// <summary>
         /// Custom Load Port State Model
         /// </summary>
-        public static string CustomLoadPortStateModel = "CustomLoadPortStateModelState";
+        public static string CustomLoadPortStateModel = "CustomLoadPortStateModel";
 
         /// <summary>
         /// CustomLoadPortStateModelState Created State Model State
         /// </summary>
-        public static string CustomLoadPortStateModelStateAvailableStateModelState = "Available";
+        public static string CustomLoadPortStateModelStateReadyToLoadStateModelState = "ReadyToLoad";
 
         /// <summary>
         /// CustomLoadPortStateModelState TransportReserved State Model State
         /// </summary>
-        public static string CustomLoadPortStateModelStateTransportReservedStateModelState = "TransportReserved";
+        public static string CustomLoadPortStateModelStateReservedStateModelState = "Reserved";
 
         /// <summary>
         /// CustomLoadPortStateModelState In Progress State Model State
         /// </summary>
-        public static string CustomLoadPortStateModelStateOccupiedStateModelState = "Occupied";
+        public static string CustomLoadPortStateModelStateTransferBlockedStateModelState = "TransferBlocked";
 
         /// <summary>
         /// CustomLoadPortStateModelState Delivered State Model State

@@ -1388,20 +1388,20 @@
       "EntityTypeName": "Resource"
     },
     "2": {
-      "Name": "CustomLoadPortStateModelState",
-      "Description": "Custom State Model for LoadPort",
-      "DataGroup": "",
-      "EntityTypeName": "Resource"
-    },
-    "3": {
       "Name": "CustomMaterialStateModel",
       "Description": "",
       "DataGroup": "",
       "EntityTypeName": "Material"
     },
-    "4": {
+    "3": {
       "Name": "CustomEquipmentPerformanceTrackingStateModel",
       "Description": "",
+      "DataGroup": "",
+      "EntityTypeName": "Resource"
+    },
+    "4": {
+      "Name": "CustomLoadPortStateModel",
+      "Description": "Custom State Model for Load Ports",
       "DataGroup": "",
       "EntityTypeName": "Resource"
     }
@@ -1541,6 +1541,51 @@
       "IsInitial": "Yes",
       "IsFinal": "No",
       "Attributes": ""
+    },
+    "16": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "ReadyToLoad",
+      "Description": "Load Port Available",
+      "Role": "",
+      "IsInitial": "Yes",
+      "IsFinal": "No",
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up];"
+    },
+    "17": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "TransferBlocked",
+      "Description": "LoadPort Occupied",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up];"
+    },
+    "18": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "ReadyToUnload",
+      "Description": "Load Port's Carrier Ready to be removed",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up];"
+    },
+    "19": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "Reserved",
+      "Description": "Transport Reserved for Load Port",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up];"
+    },
+    "20": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "OutOfService",
+      "Description": "Load Port Out of Service",
+      "Role": "",
+      "IsInitial": "Yes",
+      "IsFinal": "No",
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Down];"
     }
   },
   "StateModelTransition": {
@@ -1873,13 +1918,151 @@
       "Role": "",
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
+    },
+    "34": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "ReadyToLoad to Reserved",
+      "Description": "",
+      "FromState": "ReadyToLoad",
+      "ToState": "Reserved",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "35": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "ReadyToLoad to TransferBlocked",
+      "Description": "",
+      "FromState": "ReadyToLoad",
+      "ToState": "TransferBlocked",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "36": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "ReadyToLoad to OutOfService",
+      "Description": "",
+      "FromState": "ReadyToLoad",
+      "ToState": "OutOfService",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "37": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "Reserved ve ReadyToLoad",
+      "Description": "",
+      "FromState": "Reserved",
+      "ToState": "ReadyToLoad",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "38": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "Reserved ve TransferBlocked",
+      "Description": "",
+      "FromState": "Reserved",
+      "ToState": "TransferBlocked",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "39": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "Reserved ve OutOfService",
+      "Description": "",
+      "FromState": "Reserved",
+      "ToState": "OutOfService",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "40": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "TransferBlocked transfer ReadyToUnload",
+      "Description": "",
+      "FromState": "TransferBlocked",
+      "ToState": "ReadyToUnload",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "41": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "TransferBlocked transfer OutOfService",
+      "Description": "",
+      "FromState": "TransferBlocked",
+      "ToState": "OutOfService",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "42": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "ReadyToUnload to ReadyToLoad",
+      "Description": "",
+      "FromState": "ReadyToUnload",
+      "ToState": "ReadyToLoad",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "43": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "ReadyToUnload to OutOfService",
+      "Description": "",
+      "FromState": "ReadyToUnload",
+      "ToState": "OutOfService",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "44": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "OutOfService of ReadyToLoad",
+      "Description": "",
+      "FromState": "OutOfService",
+      "ToState": "ReadyToLoad",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "45": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "OutOfService of TransferBlocked",
+      "Description": "",
+      "FromState": "OutOfService",
+      "ToState": "TransferBlocked",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "46": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "OutOfService of ReadyToUnload",
+      "Description": "",
+      "FromState": "OutOfService",
+      "ToState": "ReadyToUnload",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "47": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "OutOfService of Reserved",
+      "Description": "",
+      "FromState": "OutOfService",
+      "ToState": "Reserved",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
     }
   },
-  "<SM>DEEAction": {
-  },
+  "<SM>DEEAction": {},
   "DEEActionOrder": {},
-  "<DM>Rule": {
-  },
+  "<DM>Rule": {},
   "<DM>AutomationManager": {},
   "<DM>AutomationProtocol": {
     "1": {

@@ -8,9 +8,12 @@ namespace AMSOsramEIAutomaticTests.Objects.Utilities
 {
    public enum LoadPortStateModelStateEnum
     {
-        Available,
-        Occupied,
-        ReadyToUnload
+        ReadyToLoad,
+        TransferBlocked,
+        ReadyToUnload,
+        Reserved,
+        OutOfService
+
     }
 
     public enum MaterialStateModelStateEnum
