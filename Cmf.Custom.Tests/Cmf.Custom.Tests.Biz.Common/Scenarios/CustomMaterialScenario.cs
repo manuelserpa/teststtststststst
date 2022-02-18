@@ -30,7 +30,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
     {
         #region constants
 
-        private const int DefaultNumberOfWafers = 12;
+        private const int DefaultNumberOfWafers = 13;
 
         #endregion
 

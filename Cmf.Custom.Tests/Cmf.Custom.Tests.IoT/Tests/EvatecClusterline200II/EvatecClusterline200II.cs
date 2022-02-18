@@ -437,11 +437,11 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             //}
 
 
-            var slotMap = new int[12];
+            var slotMap = new int[13];
             // scenario.ContainerScenario.Entity
             if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
             {
-                for (int i = 0; i < 12; i++)
+                for (int i = 0; i < 13; i++)
                 {
                     slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 1 : 0;
                 }

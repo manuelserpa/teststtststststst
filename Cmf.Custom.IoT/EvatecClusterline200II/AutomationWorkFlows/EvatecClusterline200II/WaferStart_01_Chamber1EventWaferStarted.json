@@ -95,6 +95,17 @@
 							"referenceTypeId": null,
 							"friendlyName": "SubMaterialSlot"
 						}
+					},
+					{
+						"name": "SubResourceOrder",
+						"valueType": {
+							"friendlyName": "SubResourceOrder",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
 					}
 				],
 				"outputs": [
@@ -357,6 +368,22 @@
 			"targetId": "task_12257",
 			"inputName": "activate",
 			"outputName": "$SubId"
+		},
+		{
+			"id": "1ac3f9e1-74ad-4099-80cb-225796d4fa97",
+			"sourceId": "task_12257",
+			"targetId": "task_122639",
+			"inputName": "SubResourceOrderIn",
+			"outputName": "success",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "1"
+					}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -393,8 +420,8 @@
 					"task_12257": {
 						"collapsed": false,
 						"position": {
-							"x": 958,
-							"y": 247
+							"x": 969,
+							"y": 216
 						},
 						"outdated": false
 					}
@@ -414,6 +441,12 @@
 					},
 					"5b8844ed-de30-4f20-906e-82307c32aae4": {
 						"vertices": []
+					},
+					"2977a1e9-9f21-4d68-abb3-08b6b5ca3884": {
+						"vertices": []
+					},
+					"1ac3f9e1-74ad-4099-80cb-225796d4fa97": {
+						"vertices": []
 					}
 				},
 				"notes": {
@@ -425,9 +458,9 @@
 						}
 					}
 				},
-				"zoom": 0.8,
+				"zoom": 0.9200000000000002,
 				"pan": {
-					"x": 196.6666717529297,
+					"x": 552.2222290039062,
 					"y": 0
 				}
 			}

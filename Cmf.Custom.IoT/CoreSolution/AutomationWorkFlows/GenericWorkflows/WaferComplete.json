@@ -159,9 +159,9 @@
 				}
 			},
 			"settings": {
-				"type": "Cmf.Custom.Cree.Orchestration.InputObjects.MaterialOutInput, Cmf.Custom.Cree.Orchestration",
+				"type": "Cmf.Custom.AMSOsram.Orchestration.InputObjects.MaterialOutInput, Cmf.Custom.AMSOsram.Orchestration",
 				"method": "POST",
-				"urlSuffix": "api/Cree/MaterialOut",
+				"urlSuffix": "api/AMSOsram/MaterialOut",
 				"ignoreLastServiceId": false,
 				"numberOfRetries": 30,
 				"sleepBetweenRetries": 1000,
@@ -754,10 +754,10 @@
 				},
 				"notes": {},
 				"pan": {
-					"x": 0,
-					"y": 28
+					"x": 122.96297454833984,
+					"y": 2.222222328186035
 				},
-				"zoom": 0.5299999999999996
+				"zoom": 0.6499999999999997
 			}
 		}
 	}
