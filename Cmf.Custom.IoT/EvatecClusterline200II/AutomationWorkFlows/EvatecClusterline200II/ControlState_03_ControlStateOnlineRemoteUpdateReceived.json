@@ -72,7 +72,7 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "ControlStateLOCAL"
+						"Name": "ControlStateREMOTE"
 					}
 				]
 			},
@@ -146,8 +146,8 @@
 					}
 				},
 				"pan": {
-					"x": 535,
-					"y": 222
+					"x": 537.7777709960938,
+					"y": 236.6666717529297
 				},
 				"zoom": 0.8200000000000001
 			}

@@ -142,7 +142,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         /// <summary> 
         /// Scenario: Recipe Exists on Equipment
         /// </summary>
-        [TestMethod]
+        //[TestMethod]
         public void EvatecClusterline200II_SameRecipeOnlineLocal()
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
@@ -166,7 +166,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         /// <summary> 
         /// Scenario: Recipe Exists on Equipment
         /// </summary>
-        [TestMethod]
+        //[TestMethod]
         public void EvatecClusterline200II_RecipeDoesNotExist()
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
