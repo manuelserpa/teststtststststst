@@ -33,7 +33,9 @@
     <Parameter name="mode" value="RemoteService" />
     <!-- This is For build, to Run Locally point to your directory -->
     <Parameter name="filePathRemote" value="./RunSettings/integration.runsettings" />
-    <Parameter name="filePathLocal" value="../../../../integration.runsettings" />
+    <Parameter name="filePathLocal" value="../../../integration.runsettings" />
+	  
+	  
     <!-- test output -->
     <Parameter name="screenshotPath" value="\\VM-AMS-OSRAM.cmf.criticalmanufacturing.com\Deployment\TestArtifacts" />
     <Parameter name="logsPath" value="\\VM-AMS-OSRAM.cmf.criticalmanufacturing.com\Deployment\TestArtifacts" />
@@ -61,8 +63,8 @@
 
     <Equipments>
       <Equipment name="PDSP0101" automationManager="EvatecClusterline200II" driverAlias="SecsGemEquipment"
-					   description="SecsGemEquipment" driver="SecsGem" port="5011" serviceMachine="vm-cree"
-					   serviceName="ConnectIoT (PDSP0101)" configLocation="\\vm-cree\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json">
+					   description="SecsGemEquipment" driver="SecsGem" port="5011" serviceMachine="vm-ams-osram"
+					   serviceName="ConnectIoT (PDSP0101)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json">
       </Equipment>
       </Equipments>
   </connectIotAutomaticTests> -->
