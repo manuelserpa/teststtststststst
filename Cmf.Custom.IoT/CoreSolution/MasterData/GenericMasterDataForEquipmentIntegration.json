@@ -975,6 +975,76 @@
       "Lookup Table Value": "EnableAll",
       "Lookup Table Value Description": "EnableAll",
       "Lookup Table IsEnabled": "Yes"
+    },
+    "21": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "NotBlocked",
+      "Lookup Table Value Description": "NotBlocked",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "22": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Unknown",
+      "Lookup Table Value Description": "Unknown",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "23": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "SafetyThreshold",
+      "Lookup Table Value Description": "SafetyThreshold",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "24": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "ErrorCondition",
+      "Lookup Table Value Description": "ErrorCondition",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "25": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "ParametricException",
+      "Lookup Table Value Description": "ParametricException",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "26": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "AbortingAborted",
+      "Lookup Table Value Description": "AbortingAborted",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "27": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "PausingPaused",
+      "Lookup Table Value Description": "PausingPaused",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "28": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Reserved",
+      "Lookup Table Value Description": "Reserved",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "29": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Reserved",
+      "Lookup Table Value Description": "Reserved",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "30": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Reserved",
+      "Lookup Table Value Description": "Reserved",
+      "Lookup Table IsEnabled": "Yes"
     }
   },
   "<SM>EntityType": {},
@@ -1242,6 +1312,72 @@
       "AccessLevel": "6",
       "ValidationRange": "",
       "ValidationRegex": ""
+    },
+    "13": {
+      "EntityType": "Resource",
+      "Name": "AutomationEquipmentSerialPortName",
+      "Description": "Contains (Serial/TCP) COM port name to use",
+      "PropertyType": "Attribute",
+      "CopyOnClone": "",
+      "BelongsTo": "Definition",
+      "ScalarType": "String",
+      "ScalarSize": "256",
+      "ScalarPrecision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "No",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "AccessLevel": "",
+      "ValidationRange": "",
+      "ValidationRegex": ""
+    },
+    "14": {
+      "EntityType": "Resource",
+      "Name": "AutomationEquipmentSerialBaudRate",
+      "Description": "Contains the (Serial/TCP) Connection Speed (bps)",
+      "PropertyType": "Attribute",
+      "CopyOnClone": "",
+      "BelongsTo": "Definition",
+      "ScalarType": "Integer",
+      "ScalarSize": "",
+      "ScalarPrecision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "No",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "AccessLevel": "",
+      "ValidationRange": "",
+      "ValidationRegex": ""
+    },
+    "15": {
+      "EntityType": "Resource",
+      "Name": "AllowDownloadRecipeAtTrackIn",
+      "Description": "Check if the tool is able to download recipes at TrackIn",
+      "PropertyType": "Attribute",
+      "CopyOnClone": "Yes",
+      "BelongsTo": "Definition",
+      "ScalarType": "Boolean",
+      "ScalarSize": "",
+      "ScalarPrecision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "No",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "AccessLevel": "0",
+      "ValidationRange": "",
+      "ValidationRegex": ""
     }
   },
   "<SM>StateModel": {
@@ -1251,7 +1387,7 @@
       "DataGroup": "",
       "EntityTypeName": "Resource"
     },
-	"2": {
+    "2": {
       "Name": "CustomLoadPortStateModelState",
       "Description": "Custom State Model for LoadPort",
       "DataGroup": "",
@@ -1262,6 +1398,12 @@
       "Description": "",
       "DataGroup": "",
       "EntityTypeName": "Material"
+    },
+    "4": {
+      "Name": "CustomEquipmentPerformanceTrackingStateModel",
+      "Description": "",
+      "DataGroup": "",
+      "EntityTypeName": "Resource"
     }
   },
   "StateModelState": {
@@ -1310,7 +1452,7 @@
       "IsFinal": "No",
       "Attributes": ""
     },
-	"6": {
+    "6": {
       "StateModel": "CustomLoadPortStateModelState",
       "Name": "Available",
       "Description": "LoadPort Available",
@@ -1370,6 +1512,33 @@
       "Description": "Complete",
       "Role": "",
       "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "13": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Idle",
+      "Description": "Idle EPT State (E116-0707)",
+      "Role": "",
+      "IsInitial": "Yes",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "14": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Blocked",
+      "Description": "Blocked EPT State (E116-0707)",
+      "Role": "",
+      "IsInitial": "Yes",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "15": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Busy",
+      "Description": "Busy EPT State (E116-0707)",
+      "Role": "",
+      "IsInitial": "Yes",
       "IsFinal": "No",
       "Attributes": ""
     }
@@ -1515,7 +1684,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-	"15": {
+    "15": {
       "StateModel": "CustomLoadPortStateModelState",
       "Name": "Available to Occupied",
       "Description": "Available to Occupied",
@@ -1611,6 +1780,96 @@
       "Description": "Complete to Queued",
       "FromState": "Complete",
       "ToState": "Queued",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "25": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Idle to Idle",
+      "Description": "Idle to Idle",
+      "FromState": "Idle",
+      "ToState": "Idle",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "26": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Idle to Blocked",
+      "Description": "Idle to Blocked",
+      "FromState": "Idle",
+      "ToState": "Blocked",
+      "Role": "",
+      "ReasonLookupTable": "ReasonsEptBlockedReason",
+      "ReasonDefaultValue": "Unknown"
+    },
+    "27": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Idle to Busy",
+      "Description": "Idle to Busy",
+      "FromState": "Idle",
+      "ToState": "Busy",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "28": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Blocked to Idle",
+      "Description": "Blocked to Idle",
+      "FromState": "Blocked",
+      "ToState": "Idle",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "29": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Blocked to Blocked",
+      "Description": "Blocked to Blocked",
+      "FromState": "Blocked",
+      "ToState": "Blocked",
+      "Role": "",
+      "ReasonLookupTable": "ReasonsEptBlockedReason",
+      "ReasonDefaultValue": "Unknown"
+    },
+    "30": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Blocked to Busy",
+      "Description": "Blocked to Busy",
+      "FromState": "Blocked",
+      "ToState": "Busy",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "31": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Busy to Idle",
+      "Description": "Busy to Idle",
+      "FromState": "Busy",
+      "ToState": "Idle",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "32": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Busy to Blocked",
+      "Description": "Busy to Blocked",
+      "FromState": "Busy",
+      "ToState": "Blocked",
+      "Role": "",
+      "ReasonLookupTable": "ReasonsEptBlockedReason",
+      "ReasonDefaultValue": "Unknown"
+    },
+    "33": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Busy to Busy",
+      "Description": "Busy to Busy",
+      "FromState": "Busy",
+      "ToState": "Busy",
       "Role": "",
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""

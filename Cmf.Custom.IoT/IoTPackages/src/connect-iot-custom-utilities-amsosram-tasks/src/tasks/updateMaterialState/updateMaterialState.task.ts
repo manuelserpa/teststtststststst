@@ -66,8 +66,8 @@ export class UpdateMaterialStateTask implements Task.TaskInstance, UpdateMateria
     public success: Task.Output<boolean> = new Task.Output<boolean>();
     /** To output an error notification */
     public error: Task.Output<Error> = new Task.Output<Error>();
-    public material:  Task.Output<MaterialData> = new Task.Output<MaterialData>();
-    public batchProcessComplete:  Task.Output<boolean> = new Task.Output<boolean>();
+    public material: Task.Output<MaterialData> = new Task.Output<MaterialData>();
+    public batchProcessComplete: Task.Output<boolean> = new Task.Output<boolean>();
 
     /** Settings */
     /** Properties Settings */
@@ -98,7 +98,7 @@ export class UpdateMaterialStateTask implements Task.TaskInstance, UpdateMateria
                     material = await this._processMaterial.getMaterialObjectFromName(this.materialName);
 
                     if (material == null) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get a material property: the material with name '${this.materialName}' does not exist on the persistence`)
                     }
                 } else if (this.containerName != null && this.containerName !== "") {
@@ -106,26 +106,26 @@ export class UpdateMaterialStateTask implements Task.TaskInstance, UpdateMateria
 
                     if (material == null &&
                         (this.lotProcessDefinition === null ||
-                            (this.lotProcessDefinition !== null && this.lotProcessDefinition.toString() !== LotProcessDefinitionEnum.Batch.toString())))  {
-                        throw new Error (
+                            (this.lotProcessDefinition !== null && this.lotProcessDefinition.toString() !== LotProcessDefinitionEnum.Batch.toString()))) {
+                        throw new Error(
                             `Error trying to get a material property: the material with carrier '${this.containerName}' does not exist on the persistence`)
                     } else if (material == null && this.lotProcessDefinition !== null
                         && this.lotProcessDefinition.toString() !== LotProcessDefinitionEnum.Batch.toString()
                         && this.firstRequestOfBatch) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get a material property: there is no Material matching the batch process request with carrier '
                             ${this.containerName}' on the persistence`)
                     }
                 } else if (this.controlJobId != null && this.controlJobId !== "") {
                     material = await this._processMaterial.getMaterialByControlJobId(this.controlJobId);
                     if (material == null) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get an material property: the material with Control Job Id '${this.controlJobId}' does not exist on the persistence`);
                     }
                 } else if (this.processJobId != null && this.processJobId !== "") {
                     material = await this._processMaterial.getMaterialByProcessJobId(this.processJobId);
                     if (material == null) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get an material property: the material with Process Job Id '${this.processJobId}' does not exist on the persistence`);
                     }
                 } else if (this.loadPortId != null && this.materialState !== null) {
@@ -133,13 +133,13 @@ export class UpdateMaterialStateTask implements Task.TaskInstance, UpdateMateria
 
                     if (material == null && (this.lotProcessDefinition === null ||
                         (this.lotProcessDefinition !== null && this.lotProcessDefinition.toString() !== LotProcessDefinitionEnum.Batch.toString()))) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get an material property: the material in load port id '
                             ${this.loadPortId}' and state '${this.materialState}' does not exist on the persistence`)
                     } else if (material == null
                         && this.lotProcessDefinition !== null && this.lotProcessDefinition.toString() !== LotProcessDefinitionEnum.Batch.toString()
                         && this.firstRequestOfBatch) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get a material property: there is no Material matching the batch process request with load port id '
                             ${this.loadPortId}' and state '${this.materialState}' on the persistence`)
                     }
@@ -148,27 +148,27 @@ export class UpdateMaterialStateTask implements Task.TaskInstance, UpdateMateria
 
                     if (material == null && (this.lotProcessDefinition === null ||
                         (this.lotProcessDefinition !== null && this.lotProcessDefinition.toString() !== LotProcessDefinitionEnum.Batch.toString()))) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get a material property: the material with state '${this.materialState}' does not exist on the persistence`)
                     } else if (material == null
                         && this.lotProcessDefinition !== null && this.lotProcessDefinition.toString() !== LotProcessDefinitionEnum.Batch.toString()
                         && this.firstRequestOfBatch) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get a material property: there is no Material matching the batch process request with state '
                             ${this.materialState}' on the persistence`)
                     }
                 } else {
-                    throw new Error (
+                    throw new Error(
                         `Error: No valid information to retrieve material from persistence`)
                 }
 
                 if (material != null) {
-                   material.MaterialState = this.materialStateToSet;
-                   this._processMaterial.updateMaterial(material);
-                   this.material.emit(material);
+                    material.MaterialState = this.materialStateToSet;
+                    this._processMaterial.updateMaterial(material);
+                    this.material.emit(material);
                 } else if (this.lotProcessDefinition !== null
-                    && this.lotProcessDefinition.toString() !== LotProcessDefinitionEnum.Batch.toString() ) {
-                        this.batchProcessComplete.emit(true);
+                    && this.lotProcessDefinition.toString() !== LotProcessDefinitionEnum.Batch.toString()) {
+                    this.batchProcessComplete.emit(true);
                 }
 
                 this.success.emit(true);

@@ -33,7 +33,9 @@
     <Parameter name="mode" value="RemoteService" />
     <!-- This is For build, to Run Locally point to your directory -->
     <Parameter name="filePathRemote" value="./RunSettings/integration.runsettings" />
-    <Parameter name="filePathLocal" value="../../../../integration.runsettings" />
+    <Parameter name="filePathLocal" value="../../../integration.runsettings" />
+	  <Parameter name="filePath" value="../../../integration.runsettings" />
+	  
     <!-- test output -->
     <Parameter name="screenshotPath" value="\\VM-AMS-OSRAM.cmf.criticalmanufacturing.com\Deployment\TestArtifacts" />
     <Parameter name="logsPath" value="\\VM-AMS-OSRAM.cmf.criticalmanufacturing.com\Deployment\TestArtifacts" />
@@ -51,18 +53,21 @@
   </MSTest>
 
   <!-- Connect IoT -->
-  <!-- <connectIotAutomaticTests>
+  <!-- Connect IoT -->
+  <connectIotAutomaticTests>
     <Global
-      dataDir="%TestsPath%\Cmf.Custom.Tests.IoT\bin\Debug\"
-      logDebug="true" />
+		  dataDir="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\"
+		  logDebug="true"
+		  />
+    <!--setAutomationControllerInstanceToNotRunning="false"/>-->
+    <!--   configLocation="C:\Users\raazevedo\Downloads\MCSInterface\config.json"/>-->
 
     <Equipments>
-      <Cluster name="%ResourceName%" automationManager="%ManagerName%">
-        <Equipment name="%EquipmentFriendlyName%" driverAlias="%DriverAlias%" description="" driver="%DriverType%" dataDir="" 
-          serviceName="%ManagerServiceName%" configLocation="%ConfigLocation%">
-          <Directory name="" path="" />
-        </Equipment>
-      </Cluster>
-    </Equipments>
+      <Equipment name="PDSP0101" automationManager="EvatecClusterline200II" driverAlias="SecsGemEquipment"
+					   description="SecsGemEquipment" driver="SecsGem" port="5011" serviceMachine="vm-ams-osram"
+					   serviceName="ConnectIoT (PDSP0101)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json"
+				       library ="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc">
+      </Equipment>
+      </Equipments>
   </connectIotAutomaticTests> -->
 </RunSettings>

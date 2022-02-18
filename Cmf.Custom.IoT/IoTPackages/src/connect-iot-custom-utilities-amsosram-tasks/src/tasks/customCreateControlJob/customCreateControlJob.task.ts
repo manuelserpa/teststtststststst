@@ -109,7 +109,7 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                             { type: "L", value: [] }, // Identifier for a data collection plan to be used during execution of the control job.
                         ]
                     });
-                   }
+                }
 
                 objectContent.push({
                     type: "L", value: [
@@ -130,26 +130,27 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                         { type: "L", value: [] },  // Maps material from source to destination after processing.
                         // For uni-carrier operation, the list shall be empty.
                         // The list shall also be empty, if CarrierInputSpec is an empty list
-                    ]});
-
-               if (this.MtrlOutByStatus) { // not mandatory per E94 standard
-                objectContent.push({
-                    type: "L", value: [
-                        { type: "A", value: "MtrlOutByStatus" }, // Material Output by status
-                        { type: "L", value: [] }, // List structure which maps locations or Carriers
-                                                  // where processed material will be placed based on material status
                     ]
                 });
-               }
 
-               if (this.PauseEvent) { // not mandatory per E94 standard
-                objectContent.push({
-                    type: "L", value: [
-                        { type: "A", value: "PauseEvent" }, // Pause Event
-                        { type: "L", value: [] }, // Identifier of a list of events on which the Control Job shall PAUSE.
-                    ]
-                });
-               }
+                if (this.MtrlOutByStatus) { // not mandatory per E94 standard
+                    objectContent.push({
+                        type: "L", value: [
+                            { type: "A", value: "MtrlOutByStatus" }, // Material Output by status
+                            { type: "L", value: [] }, // List structure which maps locations or Carriers
+                            // where processed material will be placed based on material status
+                        ]
+                    });
+                }
+
+                if (this.PauseEvent) { // not mandatory per E94 standard
+                    objectContent.push({
+                        type: "L", value: [
+                            { type: "A", value: "PauseEvent" }, // Pause Event
+                            { type: "L", value: [] }, // Identifier of a list of events on which the Control Job shall PAUSE.
+                        ]
+                    });
+                }
 
                 objectContent.push({
                     type: "L", value: [
@@ -202,7 +203,7 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                     this.error.emit(error);
                     throw error;
                 }
-                this.Material.emit(material);
+                this.Material.emit(this.MaterialData);
                 this.success.emit(true);
 
             } catch (error) {

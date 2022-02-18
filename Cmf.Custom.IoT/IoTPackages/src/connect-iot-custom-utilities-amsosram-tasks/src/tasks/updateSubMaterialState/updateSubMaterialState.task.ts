@@ -68,8 +68,8 @@ export class UpdateSubMaterialStateTask implements Task.TaskInstance, UpdateSubM
     public success: Task.Output<boolean> = new Task.Output<boolean>();
     /** To output an error notification */
     public error: Task.Output<Error> = new Task.Output<Error>();
-    public material:  Task.Output<MaterialData> = new Task.Output<MaterialData>();
-    public subMaterial:  Task.Output<SubMaterialData> = new Task.Output<SubMaterialData>();
+    public material: Task.Output<MaterialData> = new Task.Output<MaterialData>();
+    public subMaterial: Task.Output<SubMaterialData> = new Task.Output<SubMaterialData>();
 
 
     /** Settings */
@@ -100,33 +100,33 @@ export class UpdateSubMaterialStateTask implements Task.TaskInstance, UpdateSubM
                     material = await this._processMaterial.getMaterialObjectFromName(this.materialName);
 
                     if (material == null) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get an material property: the material with name '${this.materialName}' does not exist on the persistence`)
                     }
                 } else if (this.containerName != null && this.containerName !== "") {
                     material = await this._processMaterial.getMaterialByCarrier(this.containerName);
 
                     if (material == null) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get an material property: the material with carrier '${this.containerName}' does not exist on the persistence`)
                     }
                 } else if (this.controlJobId != null && this.controlJobId !== "") {
                     material = await this._processMaterial.getMaterialByControlJobId(this.controlJobId);
                     if (material == null) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get an material property: the material with Control Job Id '${this.controlJobId}' does not exist on the persistence`);
                     }
                 } else if (this.processJobId != null && this.processJobId !== "") {
                     material = await this._processMaterial.getMaterialByProcessJobId(this.processJobId);
                     if (material == null) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get an material property: the material with Process Job Id '${this.processJobId}' does not exist on the persistence`);
                     }
                 } else if (this.loadPortId != null && this.materialState !== null) {
                     material = await this._processMaterial.getMaterialByLoadPortIdAndMaterialState(this.loadPortId.toString(), this.materialState);
 
                     if (material == null) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get an material property: the material in load port id '
                             ${this.loadPortId}' and state '${this.materialState}' does not exist on the persistence`)
                     }
@@ -134,11 +134,11 @@ export class UpdateSubMaterialStateTask implements Task.TaskInstance, UpdateSubM
                     material = await this._processMaterial.getMaterialByState(this.materialState);
 
                     if (material == null) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get an material property: the material with state '${this.materialState}' does not exist on the persistence`)
                     }
                 } else {
-                    throw new Error (
+                    throw new Error(
                         `Error: No valid information to retrieve material from persistence`)
                 }
 
@@ -148,41 +148,41 @@ export class UpdateSubMaterialStateTask implements Task.TaskInstance, UpdateSubM
                     subMaterial = material.SubMaterials.find(o => o.MaterialName.toLowerCase() === this.subMaterialName.toLowerCase())
 
                     if (subMaterial == null) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get a submaterial property: the submaterial with name '
                             ${this.subMaterialName}' does not exist on the persistence`)
                     }
                 } else if (this.subMaterialSlot != null) {
-                    subMaterial = material.SubMaterials.find(o => o.Slot.toString() === this.subMaterialSlot.toString())
+                    subMaterial = material.SubMaterials.find(o => o.Slot.toString() === Number(this.subMaterialSlot).toString())
 
                     if (subMaterial == null) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get a submaterial property: the submaterial with the slot '
                             ${this.subMaterialSlot}' does not exist on the persistence`)
                     }
                 } else if (this.subMaterialState !== null && this.slotOrderPickingDirection !== null) {
-                        subMaterial = material.SubMaterials.sort((n1, n2) => {
-                            if (this.slotOrderPickingDirection === SlotOrderPickingDirectionEnum.Descending) {
-                                return n2.Slot - n1.Slot;
-                               } else {
-                                return n1.Slot - n2.Slot;
-                               }
-                        }).find(o => o.MaterialState === this.subMaterialState)
+                    subMaterial = material.SubMaterials.sort((n1, n2) => {
+                        if (this.slotOrderPickingDirection === SlotOrderPickingDirectionEnum.Descending) {
+                            return n2.Slot - n1.Slot;
+                        } else {
+                            return n1.Slot - n2.Slot;
+                        }
+                    }).find(o => o.MaterialState === this.subMaterialState)
                     if (subMaterial == null) {
-                        throw new Error (
+                        throw new Error(
                             `Error trying to get an sub material: the sub material with state '${this.subMaterialState}' does not exist on the persistence`)
                     }
                 } else {
-                    throw new Error (
+                    throw new Error(
                         `Error: No valid information to retrieve sub material from persistence`)
                 }
 
-                   subMaterial.MaterialState = this.subMaterialStateToSet;
-                   this._processMaterial.updateMaterial(material);
+                subMaterial.MaterialState = this.subMaterialStateToSet;
+                this._processMaterial.updateMaterial(material);
 
-                   this.success.emit(true);
-                   this.material.emit(material);
-                   this.subMaterial.emit(subMaterial);
+                this.success.emit(true);
+                this.material.emit(material);
+                this.subMaterial.emit(subMaterial);
 
             } catch (error) {
                 this._logger.error(`Error occurred: ${error.message}`);

@@ -324,18 +324,18 @@ namespace AMSOsramEIAutomaticTests
 
         private void EnsureLoadPortStartConditions(Resource resource)
         {
-            var resourceHierarchy = resource.GetDescendentResources();
+            //var resourceHierarchy = resource.GetDescendentResources();
 
-            var loadPorts = resourceHierarchy.Where(s => s.ChildResource.ProcessingType == ProcessingType.LoadPort).Select(s => s.ChildResource).ToList();
+            //var loadPorts = resourceHierarchy.Where(s => s.ChildResource.ProcessingType == ProcessingType.LoadPort).Select(s => s.ChildResource).ToList();
 
-            if(loadPorts.Count > 0)
-            {
-                foreach(var lp in loadPorts)
-                {
-                    lp.Load();
-                    lp.AdjustState("Available");
-                }
-            }
+            //if(loadPorts.Count > 0)
+            //{
+            //    foreach(var lp in loadPorts)
+            //    {
+            //        lp.Load();
+            //        lp.AdjustState("Available");
+            //    }
+            //}
 
         }
 

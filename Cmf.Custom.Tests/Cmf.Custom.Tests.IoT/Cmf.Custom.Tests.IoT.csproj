@@ -42,6 +42,7 @@
     <ProjectReference Include="..\Cmf.Custom.Tests.Biz.Common\Cmf.Custom.Tests.Biz.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.14" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.3" />
     <PackageReference Include="MSTest.TestFramework" Version="2.2.3" />
@@ -50,5 +51,6 @@
     <PackageReference Include="Cmf.Common.TestUtilities" Version="2.3.157590" />
     <PackageReference Include="Cmf.Common.TestFramework.ConnectIoT" Version="1.0.131717" />
     <PackageReference Include="Cmf.Dev.Mes.TestScenarios" Version="8.2.1" />
+    <PackageReference Include="System.ServiceProcess.ServiceController" Version="6.0.0" />
   </ItemGroup>
 </Project>

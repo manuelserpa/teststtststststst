@@ -156,6 +156,7 @@ namespace AMSOsramEIAutomaticTests.Objects.Extensions
             }
         }
 
+        /*
         /// <summary>
         /// Loads a given Material's children
         /// </summary>
@@ -174,7 +175,7 @@ namespace AMSOsramEIAutomaticTests.Objects.Extensions
 
             return subMaterialsLoaded;
         }
-
+        */
         /// <summary>
         /// Attaches provided collection of materials to current Material instance
         /// </summary>
@@ -231,7 +232,7 @@ namespace AMSOsramEIAutomaticTests.Objects.Extensions
                 materialsToDetach.Load();
             }
         }
-
+        /*
         /// <summary>
         /// Detatches all existing sub materials from the current Material instance
         /// </summary>
@@ -272,7 +273,7 @@ namespace AMSOsramEIAutomaticTests.Objects.Extensions
 
             return detachedMaterials;
         }
-
+        */
         /// <summary>
         /// Transfer a given set of materials into the current Material instance
         /// </summary>
