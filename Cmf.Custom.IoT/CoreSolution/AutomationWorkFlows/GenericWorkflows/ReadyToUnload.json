@@ -588,6 +588,61 @@
 				"executionExpirationInMilliseconds": 0,
 				"___cmf___name": "Code"
 			}
+		},
+		{
+			"id": "task_13019",
+			"reference": {
+				"name": "logMessage",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"message": "",
+				"verbosity": "Information",
+				"clearInputs": true,
+				"mode": "MultipleInputs",
+				"isCustomFormat": true,
+				"messageFormat": "Ready to Unload triggered with values: Container Id: \"${containerId}\"; Load Port: \"${loadPort}\"; State Updated On Main Equipment : \"${StateUpdatedOnMainEquipment}\"",
+				"inputs": [
+					{
+						"name": "containerId",
+						"valueType": {
+							"friendlyName": "containerId",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "loadPort",
+						"valueType": {
+							"friendlyName": "loadPort",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"friendlyName": "StateUpdatedOnMainEquipment",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Log Inputs",
+				"___cmf___color": "#ffff80"
+			}
 		}
 	],
 	"converters": [
@@ -886,6 +941,34 @@
 					}
 				}
 			]
+		},
+		{
+			"id": "f14a20fd-f1c3-4f64-904b-72adb4f2cf42",
+			"sourceId": "task_7378",
+			"targetId": "task_13019",
+			"inputName": "loadPortIn",
+			"outputName": "LoadPortNumberOut"
+		},
+		{
+			"id": "ffd91b39-0ec2-45ff-ac93-a9910dc01be5",
+			"sourceId": "task_7378",
+			"targetId": "task_13019",
+			"inputName": "containerIdIn",
+			"outputName": "ContainerIdOut"
+		},
+		{
+			"id": "08696f47-2f18-4b2f-8aa3-9b2c59b9dc9e",
+			"sourceId": "task_7378",
+			"targetId": "task_13019",
+			"inputName": "StateUpdatedOnMainEquipmentIn",
+			"outputName": "StateUpdatedOnMainEquipmentOut"
+		},
+		{
+			"id": "84b752e6-64ce-47f2-8731-4491c1242afb",
+			"sourceId": "task_7378",
+			"targetId": "task_13019",
+			"inputName": "activate",
+			"outputName": "activateOut"
 		}
 	],
 	"layout": {
@@ -899,16 +982,24 @@
 					"task_7380": {
 						"collapsed": false,
 						"position": {
-							"x": 4248,
-							"y": 343
+							"x": 4273,
+							"y": 188
 						},
 						"outdated": false
 					},
 					"task_7858": {
 						"collapsed": false,
 						"position": {
-							"x": 3863,
-							"y": 163
+							"x": 3805,
+							"y": 74
+						},
+						"outdated": false
+					},
+					"task_13019": {
+						"collapsed": false,
+						"position": {
+							"x": 448,
+							"y": 948
 						},
 						"outdated": false
 					},
@@ -923,32 +1014,32 @@
 					"task_7862": {
 						"collapsed": false,
 						"position": {
-							"x": 3211,
-							"y": 550
+							"x": 3295,
+							"y": 772
 						},
 						"outdated": false
 					},
 					"task_10558": {
 						"collapsed": false,
 						"position": {
-							"x": 2582,
-							"y": 949
+							"x": 2538,
+							"y": 1038
 						},
 						"outdated": false
 					},
 					"task_14764": {
 						"collapsed": false,
 						"position": {
-							"x": 3772,
-							"y": 914
+							"x": 3783,
+							"y": 1186
 						},
 						"outdated": false
 					},
 					"task_16446": {
 						"collapsed": false,
 						"position": {
-							"x": 2092,
-							"y": 842
+							"x": 2056,
+							"y": 862
 						},
 						"outdated": false
 					},
@@ -1047,6 +1138,18 @@
 					"61f74ae2-f846-492f-9792-064dd3fdb36d": {
 						"vertices": []
 					},
+					"f14a20fd-f1c3-4f64-904b-72adb4f2cf42": {
+						"vertices": []
+					},
+					"ffd91b39-0ec2-45ff-ac93-a9910dc01be5": {
+						"vertices": []
+					},
+					"08696f47-2f18-4b2f-8aa3-9b2c59b9dc9e": {
+						"vertices": []
+					},
+					"84b752e6-64ce-47f2-8731-4491c1242afb": {
+						"vertices": []
+					},
 					"7abf4c1a-7fcc-4151-8f63-c53f62fecaed": {
 						"vertices": []
 					},
@@ -1071,10 +1174,10 @@
 				},
 				"notes": {},
 				"pan": {
-					"x": 761,
-					"y": 133
+					"x": 21,
+					"y": 41
 				},
-				"zoom": 0.44999999999999973
+				"zoom": 0.5299999999999998
 			}
 		}
 	}

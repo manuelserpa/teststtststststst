@@ -734,9 +734,9 @@ namespace AMSOsramEIAutomaticTests
             CarrierIn(MESScenario, loadPortToSet);
             Log(String.Format("{0}: [E] Carrier In Resource {1} Load Port {2}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, loadPortToSet));
 
-            Log(String.Format("{0}: [S] Validating Load Port State Changed State Change to Occupied Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
-            ValidateLoadPortState(MESScenario, LoadPortStateModelStateEnum.Occupied.ToString());
-            Log(String.Format("{0}: [E] Validating Load Port State Changed State Change to Occupied Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+            Log(String.Format("{0}: [S] Validating Load Port State Changed State Change to Transfer Blocked Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+            ValidateLoadPortState(MESScenario, LoadPortStateModelStateEnum.TransferBlocked.ToString());
+            Log(String.Format("{0}: [E] Validating Load Port State Changed State Change to Transfer Blocked Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
         }
 
         public virtual void CarrierOutValidation(CustomMaterialScenario MESScenario, int loadPortToSet)
@@ -745,9 +745,9 @@ namespace AMSOsramEIAutomaticTests
             CarrierOut(MESScenario);
             Log(String.Format("{0}: [E] Carrier Out Resource {1} Load Port {2}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, loadPortToSet));
 
-            Log(String.Format("{0}: [S] Validating Load Port State Changed State Change to Available Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
-            ValidateLoadPortState(MESScenario, LoadPortStateModelStateEnum.Available.ToString());
-            Log(String.Format("{0}: [E] Validating Load Port State Changed State Change to Available Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+            Log(String.Format("{0}: [S] Validating Load Port State Changed State Change to Ready To Load Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+            ValidateLoadPortState(MESScenario, LoadPortStateModelStateEnum.ReadyToLoad.ToString());
+            Log(String.Format("{0}: [E] Validating Load Port State Changed State Change to Ready To Load Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
 
         }
 

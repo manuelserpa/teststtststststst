@@ -209,7 +209,15 @@
 							"referenceType": null,
 							"referenceTypeName": null
 						},
-						"defaultValue": "-"
+						"defaultValue": "-",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
 					},
 					{
 						"name": "StateName",
@@ -221,7 +229,15 @@
 							"referenceType": null,
 							"referenceTypeName": null
 						},
-						"defaultValue": "Occupied"
+						"defaultValue": "TransferBlocked",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
 					},
 					{
 						"name": "LoadPortNumber",
@@ -360,7 +376,7 @@
 				"clearInputs": true,
 				"mode": "MultipleInputs",
 				"isCustomFormat": true,
-				"messageFormat": "TosMaterialReceived triggered with inputs: Load Port ${LoadPort}",
+				"messageFormat": "Material Received triggered with inputs: Load Port \"${LoadPort}\"; Do Not Delete Existing Container For Load Port: \"${DoNotDeleteExistingContainerForLoadPort}\"; State Updated On Main Equipment: \"${StateUpdatedOnMainEquipment}\"",
 				"inputs": [
 					{
 						"name": "LoadPort",
@@ -373,9 +389,32 @@
 							"friendlyName": "LoadPort"
 						},
 						"defaultValue": 0
+					},
+					{
+						"name": "DoNotDeleteExistingContainerForLoadPort",
+						"valueType": {
+							"friendlyName": "DoNotDeleteExistingContainerForLoadPort",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"friendlyName": "StateUpdatedOnMainEquipment",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
 					}
 				],
-				"___cmf___name": "Log Message"
+				"___cmf___name": "Log Inputs",
+				"___cmf___color": "#ffff78"
 			}
 		},
 		{
@@ -1017,6 +1056,20 @@
 					}
 				}
 			]
+		},
+		{
+			"id": "31a83eb7-44c5-48b3-8618-cc410970c8f1",
+			"sourceId": "task_127170",
+			"targetId": "task_27812",
+			"inputName": "DoNotDeleteExistingContainerForLoadPortIn",
+			"outputName": "DoNotDeleteExistingContainerForLoadPortOut"
+		},
+		{
+			"id": "3189fa6e-0edf-49fb-baf5-468b73546a8c",
+			"sourceId": "task_127170",
+			"targetId": "task_27812",
+			"inputName": "StateUpdatedOnMainEquipmentIn",
+			"outputName": "StateUpdatedOnMainEquipmentOut"
 		}
 	],
 	"layout": {
@@ -1234,6 +1287,12 @@
 					"7c6e996e-f830-493a-9186-02c05562fd12": {
 						"vertices": []
 					},
+					"31a83eb7-44c5-48b3-8618-cc410970c8f1": {
+						"vertices": []
+					},
+					"3189fa6e-0edf-49fb-baf5-468b73546a8c": {
+						"vertices": []
+					},
 					"task_127648_LoadPort-task_127642_LoadPortNameIn": {
 						"vertices": []
 					},
@@ -1249,10 +1308,10 @@
 				},
 				"notes": {},
 				"pan": {
-					"x": 82.5145211733784,
-					"y": -6.806217177566566
+					"x": 0,
+					"y": 164
 				},
-				"zoom": 0.6700000000000004
+				"zoom": 0.5400000000000003
 			}
 		}
 	}
