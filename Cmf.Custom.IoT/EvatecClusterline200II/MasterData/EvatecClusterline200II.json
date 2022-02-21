@@ -5266,9 +5266,9 @@
       "Name": "EvatecClusterline200IIController",
       "Description": "TemplateController",
       "Type": "General",
-      "ControllerPackageVersion": "8.2.2-202108275",
+      "ControllerPackageVersion": "8.3.3-202201212",
       "ObjectType": "Resource",
-      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-cree-tasks\",\"connect-iot-controller-engine-mes-tasks\",\"connect-iot-controller-engine-secsgem-tasks\"]",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\",\"connect-iot-controller-engine-secsgem-tasks\"]",
       "Scope": "ConnectIoT"
     }
   },
