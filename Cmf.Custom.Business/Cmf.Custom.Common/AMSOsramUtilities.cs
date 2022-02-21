@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Threading;
+using Cmf.Common.CustomActionUtilities;
 using Cmf.Custom.AMSOsram.BusinessObjects;
 using Cmf.Custom.AMSOsram.Common.DataStructures;
 using Cmf.Custom.AMSOsram.Common.Extensions;
@@ -45,8 +46,119 @@ namespace Cmf.Custom.AMSOsram.Common
 			}
 		}
 
-		#endregion Configs
+        #endregion Configs
 
+        #region SmartTables
+
+		public static Dictionary<string, string> CustomResolveSTCustomMaterialNiceLabelPrintContext(string step = null,
+																			string logicalFlowPath = null,
+																			string product = null, 
+																			string productGroup = null,
+																			string flow = null,
+																			string material = null,
+																			string materialType = null,
+																			string resource = null,
+																			string resourceType = null,
+																			string model = null,
+																			string operation = null)
+        {
+			Dictionary<string, string> result = new Dictionary<string, string>();
+			SmartTable customMaterialNiceLabelPrintContext = new SmartTable();
+			customMaterialNiceLabelPrintContext.Load(AMSOsramConstants.CustomMaterialNiceLabelPrintContextSmartTable);
+
+			var values = new NgpDataRow();
+
+			// If step name is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(step))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.Step, step);
+			}
+
+			// If logical flow path is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(logicalFlowPath))
+			{
+				values.Add("LogicalFlowPath", logicalFlowPath);
+			}
+
+			// If product name is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(product))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.Product, product);
+			}
+
+			// If product group is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(productGroup))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.ProductGroup, productGroup);
+			}
+
+			// If flow name is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(flow))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.Flow, flow);
+			}
+
+			// If material name is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(material))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.Material, material);
+			}
+
+			// If material type is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(materialType))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.MaterialType, materialType);
+			}
+
+			// If resource name is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(resource))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.Resource, resource);
+			}
+
+			// If resource type is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(resourceType))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.ResourceType, resourceType);
+			}
+
+			// If model is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(model))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.Model, model);
+			}
+
+			// If operation name is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(operation))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.Operation, operation);
+			}
+
+			NgpDataSet niceLabelPrintContextNgpDataSet = customMaterialNiceLabelPrintContext.Resolve(values, true);
+
+            if (niceLabelPrintContextNgpDataSet != null)
+            {
+				DataSet niceLabelPrintContextDataSet = NgpDataSet.ToDataSet(niceLabelPrintContextNgpDataSet);
+                if (niceLabelPrintContextDataSet.HasData())
+                {
+					DataRow row = niceLabelPrintContextDataSet.Tables[0].Rows[0];
+
+                    if (row.Field<bool>("IsEnabled"))
+                    {
+                        result.AddRange(new Dictionary<string, string>()
+						{
+							{ AMSOsramConstants.CustomMaterialNiceLabelPrintContextPrinter, row.Field<string>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextPrinter) },
+							{ AMSOsramConstants.CustomMaterialNiceLabelPrintContextLabel, row.Field<string>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextLabel) },
+							{ AMSOsramConstants.CustomMaterialNiceLabelPrintContextQuantity, row.Field<int>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextQuantity).ToString() }
+						}); 
+                    }
+				}
+			}
+
+			return result;
+		}
+
+		#endregion
 
 		#region Sorter
 

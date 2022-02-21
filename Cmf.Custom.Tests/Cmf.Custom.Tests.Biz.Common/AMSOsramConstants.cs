@@ -6,6 +6,54 @@ namespace Cmf.Custom.Tests.Biz.Common
 {
     public class AMSOsramConstants
     {
+        #region DEE
+
+        /// <summary>
+        /// Custom Nice Label Print DEE
+        /// </summary>
+        public const string CustomNiceLabelPrintDEE = "CustomNiceLabelPrint";
+
+        #endregion
+
+        #region Default
+
+        /// <summary>
+        /// DefaultFacilityName
+        /// </summary>
+        public const string DefaultFacilityName = "Regensburg Production";
+
+        /// <summary>
+        /// DefaultProductName
+        /// </summary>
+        public const string DefaultProductName = "11111335";
+
+        /// <summary>
+        /// DefaultMaterialType
+        /// </summary>
+        public const string DefaultMaterialType = "Production";
+
+        /// <summary>
+        /// DefaultFlowName
+        /// </summary>
+        public const string DefaultFlowName = "FOL-UX3_EPA";
+
+        /// <summary>
+        /// DefaultMVPStepName
+        /// </summary>
+        public const string DefaultMVPStepName = "M3-LO-Wafer Sorter-Split-01518F010_E";
+
+        /// <summary>
+        /// DefaultMaterialFormName
+        /// </summary>
+        public const string DefaultMaterialFormName = "Lot";
+
+        /// <summary>
+        /// DefaultMaterialUnit
+        /// </summary>
+        public const string DefaultMaterialUnit = "CM2";
+
+        #endregion
+
         #region MasterData
 
         /// <summary>
@@ -77,6 +125,7 @@ namespace Cmf.Custom.Tests.Biz.Common
         #endregion
 
         #endregion
+
         #region Name Generators
 
         /// <summary>
@@ -84,6 +133,15 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// </summary>
         public const string CustomGenerateProductionLotNames = "CustomProductionLotNameGenerator";
 
-        #endregion  
+        #endregion
+
+        #region SmartTables
+
+        /// <summary>
+        /// Smart Table Name CustomMaterialNiceLabelPrintContext
+        /// </summary>
+        public const string CustomMaterialNiceLabelPrintContextSmartTable = "CustomMaterialNiceLabelPrintContext";
+
+        #endregion
     }
 }

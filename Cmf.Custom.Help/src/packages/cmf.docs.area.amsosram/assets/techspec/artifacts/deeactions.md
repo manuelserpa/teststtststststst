@@ -10,5 +10,6 @@ The following DEE Actions were created to support customer requirements.
 | [CustomAutomationGetRecipeBody](/AMSOsram/techspec>artifacts>deeactions>CustomAutomationGetRecipeBody) | This DEE is responsible for validating the Recipe and return the RecipeBody, the RecipeNameOnEquipment and RecipeName of a given Recipe. |
 | [Custom Generate Production Lot Names](/AMSOsram/techspec>artifacts>deeactions>CustomGenerateProductionLotNames) | DEE action used to generate new Lots Name. |
 | [Custom Generate Split Lot Names](/AMSOsram/techspec>artifacts>deeactions>CustomGenerateSplitLotNames) | Dee Action used to generate splited Materials name. |
+| [Custom Nice Label Print](/AMSOsram/techspec>artifacts>deeactions>CustomNiceLabelPrint) | DEE to resolve information to print. |
 
 

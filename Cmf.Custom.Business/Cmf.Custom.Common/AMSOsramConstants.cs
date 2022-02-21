@@ -18,6 +18,11 @@
         public static string AutomationGenericRequestTimeoutConfigurationPath = "/Cmf/Custom/Automation/GenericRequestTimeout";
 
         /// <summary>
+        /// Automation Generic Nice Label Print Resource Path
+        /// </summary>
+        public static string AutomationGenericNiceLabelPrintResourcePath = "/Cmf/Custom/Automation/NiceLabelPrintResource";
+
+        /// <summary>
         /// Automation RequestType TrackIn
         /// </summary>
         public static string AutomationRequestTypeTrackIn = "TrackIn";
@@ -36,6 +41,32 @@
         /// Automation RequestType SendAdHocRequest
         /// </summary>
         public static string AutomationRequestSendAdHocRequest = "SendAdHocRequest";
+
+        /// <summary>
+        /// Automation RequestType SendNiceLabelPrintInformation
+        /// </summary>
+        public static string AutomationRequestSendNiceLabelPrintInformation = "SendNiceLabelPrintInformation";
+
+        #endregion
+
+        #region Defaults
+
+        /// <summary>
+        /// Default Column name Printer from ST CustomMaterialNiceLabelPrintContext
+        /// </summary>
+        public const string CustomMaterialNiceLabelPrintContextPrinter = "Printer";
+
+        /// <summary>
+        /// Default Column name Label from ST CustomMaterialNiceLabelPrintContext
+        /// </summary>
+        public const string CustomMaterialNiceLabelPrintContextLabel = "Label";
+
+        /// <summary>
+        /// Default Column name Quantity from ST CustomMaterialNiceLabelPrintContext
+        /// </summary>
+        public const string CustomMaterialNiceLabelPrintContextQuantity = "Quantity";
+
+        
 
         #endregion
 
@@ -111,6 +142,11 @@
 
         #region SmartTables
 
+        /// <summary>
+        /// Smart Table Name CustomMaterialNiceLabelPrintContext
+        /// </summary>
+        public const string CustomMaterialNiceLabelPrintContextSmartTable = "CustomMaterialNiceLabelPrintContext";
+
         #region CustomSorterJobDefinitionContext
 
         /// <summary>
@@ -154,6 +190,7 @@
         public static string CustomSorterJobDefinitionContextColumnCustomSorterJobDefinition = "CustomSorterJobDefinition";
 
         #endregion
+
         #endregion
 
         #region Localized Messages
