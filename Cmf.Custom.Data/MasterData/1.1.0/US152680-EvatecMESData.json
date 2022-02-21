@@ -854,13 +854,6 @@
 			"CodeFileRelativePath": "Automation\\CustomAutomationAdjustLoadPortState.cs",
 			"IsEnabled": "Yes",
 			"Classification": "ConnectIoT"
-		},
-		"3": {
-			"Action": "CustomKillProcesses",
-			"Description": "By default kill node processes executed from 'C:\\IoTTestsAutomationManagers'. Either way is configurable by 'ProcessName' and 'ExecutionPath'.",
-			"CodeFileRelativePath": "Automation\\CustomKillProcesses.cs",
-			"IsEnabled": "Yes",
-			"Classification": "SystemProcesses"
 		}
 	},
 	"<SM>Config": {}

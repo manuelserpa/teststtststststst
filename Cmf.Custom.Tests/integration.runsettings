@@ -32,7 +32,7 @@
     <!-- Connect IoT -->
     <Parameter name="mode" value="RemoteService" />
     <!-- This is For build, to Run Locally point to your directory -->
-    <Parameter name="filePathRemote" value="./RunSettings/integration.runsettings" />
+    <Parameter name="filePathRemote" value="../../../integration.runsettings" />
     <Parameter name="filePathLocal" value="../../../integration.runsettings" />
 	  <Parameter name="filePath" value="../../../integration.runsettings" />
 	  
