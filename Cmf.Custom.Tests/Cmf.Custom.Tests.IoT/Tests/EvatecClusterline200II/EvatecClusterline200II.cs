@@ -450,9 +450,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
 
 
-            //SlotMapReadVerifiedWaitHostEvent
-            var CarrierContentMap = new SecsItem();
-            CarrierContentMap.SetTypeToList();
+
            
             base.Equipment.Variables["CarrierSubType"] = MESScenario.ContainerScenario.Entity.Name;
             base.Equipment.Variables["SubstrateSubType"] = "Substrate";
@@ -483,17 +481,28 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             });
 
             //CarrierSMTrans21 ready to unload
-            var CarrierContentMap = new SecsItem();
-            CarrierContentMap.SetTypeToList();
+
+            var slotMap = new int[13];
+            // scenario.ContainerScenario.Entity
+            if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
+            {
+                for (int i = 0; i < 13; i++)
+                {
+                    slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 1 : 0;
+                }
+            }
+            SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
+
+
             base.Equipment.Variables["CarrierSubType"] = MESScenario.ContainerScenario.Entity.Name;
             base.Equipment.Variables["SubstrateSubType"] = "Substrate";
             base.Equipment.Variables["CarrierAccessingStatus"] = 0;
             base.Equipment.Variables["CarrierCapacity"] = 25;
-            base.Equipment.Variables["CarrierContentMap"] = CarrierContentMap;
+            base.Equipment.Variables["CarrierContentMap"] = slotMapDV;
             base.Equipment.Variables["CarrierID_CarrierReport"] = $"CarrierAtPort{loadPortNumber}";
             base.Equipment.Variables["CarrierIDStatus"] = 2;
             base.Equipment.Variables["CarrierLocationID"] = $"FIMS{loadPortNumber}";
-            base.Equipment.Variables["CarrierSlotMap"] = CarrierContentMap; 
+            base.Equipment.Variables["CarrierSlotMap"] = slotMapDV; 
             base.Equipment.Variables["PortID_CarrierReport"] = loadPortNumber;
 
 
