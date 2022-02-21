@@ -53,4 +53,12 @@
     <PackageReference Include="Cmf.Dev.Mes.TestScenarios" Version="8.2.1" />
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="6.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="HelperFiles\KillProcessesRules">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="RecipeBinaryFiles\" />
+  </ItemGroup>
 </Project>
