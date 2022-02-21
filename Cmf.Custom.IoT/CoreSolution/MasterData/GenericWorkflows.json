@@ -888,7 +888,7 @@
       "Name": "HoldActionCalculation",
       "DisplayName": "HoldActionCalculation",
       "Description": "Calculate Actions to Execute after Hold",
-      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-cree-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
       "Workflow": ".\\GenericWorkflows\\HoldActionCalculation.json",
       "IsFile": "Yes"
     },
@@ -896,7 +896,7 @@
       "Name": "UpdateEquipmentPerformanceTrackingState",
       "DisplayName": "UpdateEquipmentPerformanceTrackingState",
       "Description": "Updates Equipment Performance Tracking",
-      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-cree-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
       "Workflow": ".\\GenericWorkflows\\UpdateEquipmentPerformanceTrackingState.json",
       "IsFile": "Yes"
     }
