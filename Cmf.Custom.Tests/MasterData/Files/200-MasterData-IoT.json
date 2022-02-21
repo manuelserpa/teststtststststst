@@ -839,29 +839,39 @@
 			"Duration"
 		]
 	},
-  "<DM>AutomationManager": {
-    "1": {
-      "Name": "EvatecClusterline200II",
-      "Description": "PDSP0101",
-      "Type": "General",
-      "LogicalAddress": "PDSP0101",
-      "MonitorPackageVersion": "8.3.3-202201212",
-      "ManagerPackageVersion": "8.3.3-202201212",
-      "Configuration": ""
-    }
+	"<SM>DEEAction": {
+		"1": {
+			"Action": "CustomKillProcesses",
+			"Description": "By default kill node processes executed from 'C:\\IoTTestsAutomationManagers'. Either way is configurable by 'ProcessName' and 'ExecutionPath'.",
+			"CodeFileRelativePath": "Automation\\CustomKillProcesses.cs",
+			"IsEnabled": "Yes",
+			"Classification": "SystemProcesses"
+		}
 	},
-	 "<LOOKUP>AutomationInstances": {
-    "1": {
-      "AutomationController": "EvatecClusterline200IIController",
-      "AutomationManager": "EvatecClusterline200II",
-      "DriverName": "",
-      "EntityName": "PDSP0101"
-    },
-    "2": {
-      "AutomationController": "EvatecClusterline200IIController",
-      "AutomationManager": "EvatecClusterline200II",
-      "DriverName": "SecsGemEquipment",
-      "EntityName": "PDSP0101"
-    }
-	 }
+	"DEEActionOrder": {},
+	"<DM>AutomationManager": {
+		"1": {
+			"Name": "EvatecClusterline200II",
+			"Description": "PDSP0101",
+			"Type": "General",
+			"LogicalAddress": "PDSP0101",
+			"MonitorPackageVersion": "8.3.3-202201212",
+			"ManagerPackageVersion": "8.3.3-202201212",
+			"Configuration": ""
+		}
+	},
+	"<LOOKUP>AutomationInstances": {
+		"1": {
+			"AutomationController": "EvatecClusterline200IIController",
+			"AutomationManager": "EvatecClusterline200II",
+			"DriverName": "",
+			"EntityName": "PDSP0101"
+		},
+		"2": {
+			"AutomationController": "EvatecClusterline200IIController",
+			"AutomationManager": "EvatecClusterline200II",
+			"DriverName": "SecsGemEquipment",
+			"EntityName": "PDSP0101"
+		}
+	}
 }

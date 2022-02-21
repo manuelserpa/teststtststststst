@@ -53,4 +53,18 @@
     <PackageReference Include="Cmf.Dev.Mes.TestScenarios" Version="8.2.1" />
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="6.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="HelperFiles\KillProcessesRules">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="RecipeBinaryFiles\FormattedRecipe.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="RecipeBinaryFiles\FTMTL14PYCUR.bin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="RecipeBinaryFiles\HEX-TEST">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
