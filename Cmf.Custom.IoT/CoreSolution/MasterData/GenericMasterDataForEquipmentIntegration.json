@@ -1549,7 +1549,7 @@
       "Role": "",
       "IsInitial": "Yes",
       "IsFinal": "No",
-      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up];"
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up]"
     },
     "17": {
       "StateModel": "CustomLoadPortStateModel",
@@ -1558,7 +1558,7 @@
       "Role": "",
       "IsInitial": "No",
       "IsFinal": "No",
-      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up];"
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up]"
     },
     "18": {
       "StateModel": "CustomLoadPortStateModel",
@@ -1567,7 +1567,7 @@
       "Role": "",
       "IsInitial": "No",
       "IsFinal": "No",
-      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up];"
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up]"
     },
     "19": {
       "StateModel": "CustomLoadPortStateModel",
@@ -1576,7 +1576,7 @@
       "Role": "",
       "IsInitial": "No",
       "IsFinal": "No",
-      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up];"
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up]"
     },
     "20": {
       "StateModel": "CustomLoadPortStateModel",
@@ -1585,7 +1585,7 @@
       "Role": "",
       "IsInitial": "Yes",
       "IsFinal": "No",
-      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Down];"
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Down]"
     }
   },
   "StateModelTransition": {
