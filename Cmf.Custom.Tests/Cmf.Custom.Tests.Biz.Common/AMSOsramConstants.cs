@@ -71,9 +71,9 @@ namespace Cmf.Custom.Tests.Biz.Common
 
         #region Container
         /// <summary>
-        /// Fixed container size on AMS Osram
+        /// Fixed container size on CREE
         /// </summary>
-        public static int ContainerTotalPosition = 12;
+        public static int ContainerTotalPosition = 13;
 
 
 
