@@ -168,7 +168,8 @@
 				"___cmf___name": "Custom Create Process Job",
 				"SendCarrierContent": true,
 				"RecipeSpecificationType": 1,
-				"commandName": 1
+				"commandName": 1,
+				"MaterialFormat": "0x0e"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -178,6 +179,16 @@
 			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
 			"reference": {
 				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
 					"version": "8.3.3-202201212"
@@ -199,7 +210,8 @@
 			"sourceId": "task_170744",
 			"targetId": "task_171073",
 			"inputName": "activate",
-			"outputName": "MaterialDataOut"
+			"outputName": "MaterialDataOut",
+			"converters": []
 		},
 		{
 			"id": "7b244644-81d6-4f52-8f4d-2f118b835f17",
@@ -332,10 +344,10 @@
 					}
 				},
 				"notes": {},
-				"zoom": 0.6099999999999998,
+				"zoom": 0.7299999999999999,
 				"pan": {
-					"x": 533.6609313396759,
-					"y": 293.8455305506849
+					"x": 888.888916015625,
+					"y": 301.1111145019531
 				}
 			}
 		}
