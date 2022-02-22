@@ -223,10 +223,11 @@ namespace Cmf.Custom.Tests.Biz
 
         /// <summary>
         /// Description:
-        ///     - 
+        ///     - Execute DEE with information on the smart table with column IsEnabled = false
         ///     
         /// Acceptance Criteria:
-        ///     - Integration Entry created containing the ERP Message
+        ///     - Return empty result
+        ///     - Does not get an error
         ///     
         /// </summary>
         /// <TestCaseID>NiveLabelPrinting.NiveLabelPrinting_NotEnabledAtTrackOut_HappyPath</TestCaseID>
@@ -310,7 +311,7 @@ namespace Cmf.Custom.Tests.Biz
 
             Dictionary<string, object> outputInformation = (Dictionary<string, object>)output.Output["NiceLabelInformation"];
 
-            ///<ExpectedValue> The DEE should return the correct information filled on the smart table </ExpectedValue>
+            ///<ExpectedValue> The DEE should not return the correct information filled on the smart table </ExpectedValue>
             foreach (string materialName in outputInformation.Keys)
             {
                 Dictionary<string, object> materialInformatoinToPrint = (Dictionary<string, object>)outputInformation[materialName];
