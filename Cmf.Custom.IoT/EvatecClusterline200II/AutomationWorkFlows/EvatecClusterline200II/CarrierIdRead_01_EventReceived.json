@@ -1,0 +1,213 @@
+{
+	"tasks": [
+		{
+			"id": "task_194418",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortTransferState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortReservationState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CarrierID_CarrierReport",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortAccessMode",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortAssociationState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortID_CarrierReport",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "MaterialReceived"
+					}
+				]
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_29429",
+			"reference": {
+				"name": "equipmentCommand",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_inputs": [
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "PORTID",
+							"DataType": 0
+						},
+						"dataType": "String"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "CARRIERID",
+							"DataType": 0
+						},
+						"dataType": "String"
+					}
+				],
+				"_command": {
+					"$type": "Cmf.Foundation.BusinessObjects.AutomationCommand, Cmf.Foundation.BusinessObjects",
+					"Name": "LOADCARRIER"
+				},
+				"___cmf___name": "Execute Equipment Command"
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToString",
+			"reference": {
+				"name": "anyToString",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "3dc34883-6e92-4ee2-9e67-05b949e3ba66",
+			"sourceId": "task_194418",
+			"targetId": "task_29429",
+			"inputName": "$PORTID",
+			"outputName": "$PortID_CarrierReport",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToString",
+					"params": {}
+				}
+			]
+		},
+		{
+			"id": "fc0310c9-93aa-4a81-8f3d-be964946acbe",
+			"sourceId": "task_194418",
+			"targetId": "task_29429",
+			"inputName": "activate",
+			"outputName": "$PortID_CarrierReport"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#80ffff",
+			"notes": [
+				{
+					"id": "note_195558",
+					"name": "TosCarrierIDRead",
+					"value": "<p><strong>What it does:</strong></p><p>Stores Container In on Container Data for Load Port;</p><p>Default behavior executes Dock of Container On MES.</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to TosCarrierIDRead for the Tool;</li><li>Pass Load Port and Container Id to the Workflow;&nbsp;</li><li>Pass any event Output to the Activate Input of the Workflow;</li></ol><ol><p>&nbsp;</p><p>&nbsp;</p></ol><p>&nbsp;</p>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_194418": {
+						"collapsed": false,
+						"position": {
+							"x": 940,
+							"y": 489
+						},
+						"outdated": false
+					},
+					"task_29429": {
+						"collapsed": false,
+						"position": {
+							"x": 1946,
+							"y": 724
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"fc0310c9-93aa-4a81-8f3d-be964946acbe": {
+						"vertices": []
+					},
+					"3dc34883-6e92-4ee2-9e67-05b949e3ba66": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_195558": {
+						"collapsed": false,
+						"position": {
+							"x": 2877,
+							"y": 478
+						}
+					}
+				},
+				"zoom": 0.7500000000000004,
+				"pan": {
+					"x": 732.2222290039062,
+					"y": 376.66668701171875
+				}
+			}
+		}
+	}
+}

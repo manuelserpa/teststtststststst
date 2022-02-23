@@ -12,7 +12,7 @@
     },
     {
       "id": "Cmf.Custom.Business",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     {
       "id": "Cmf.Custom.Data",
@@ -24,7 +24,7 @@
     },
     {
       "id": "Cmf.Custom.IoT",
-      "version": "1.0.0"
+      "version": "1.1.0"
     }
   ],
   "testPackages": [
@@ -34,7 +34,7 @@
     },
     {
       "id": "Cmf.Custom.Tests.MasterData",
-      "version": "1.0.0"
+      "version": "1.1.0"
     }
   ],
   "handlerVersion": 0

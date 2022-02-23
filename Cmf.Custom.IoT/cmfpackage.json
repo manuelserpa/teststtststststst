@@ -1,6 +1,6 @@
 {
   "packageId": "Cmf.Custom.IoT",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Cmf Custom AMSOsram Cmf.Custom.IoT Package",
   "packageType": "Root",
   "isInstallable": true,
@@ -12,11 +12,16 @@
     },
     {
       "id": "Cmf.Custom.IoT.Packages",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
-	  {
+    {
       "id": "Cmf.Custom.IoT.CoreSolution",
-      "version": "1.0.0"
+      "version": "1.1.0"
+    },
+	{
+      "id": "Cmf.Custom.IoT.EvatecClusterline200II",
+      "version": "1.1.0"
     }
-  ]
+  ],
+  "handlerVersion": 0
 }
