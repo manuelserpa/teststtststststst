@@ -18,17 +18,17 @@ namespace AutomaticTests
         public static string m_mode = BaseContext.Mode.ToString();
         public static string m_FileNameRunSettings = BaseContext.FilePath;
 
+
         public static IoTEnvironmentSpecific ioTEnvironmentSpecific = new IoTEnvironmentSpecific();
 
         public Persistency Persistency { get; internal set; }
 
-        #endregion Static Variables
-
+        #endregion Static Variables       
         public static void PrepareTestScenario(string equipmentOrCluster)
         {
-            if (m_Scenarios.ContainsKey("Scenario"))
+            if (m_Scenarios.ContainsKey(equipmentOrCluster))
             {
-                m_Scenario = m_Scenarios["Scenario"];
+                m_Scenario = m_Scenarios[equipmentOrCluster];
             }
 
             if (m_Scenario == null || m_Scenario.EquipmentToTest != equipmentOrCluster)
@@ -50,11 +50,10 @@ namespace AutomaticTests
                 }
 
                 Console.Write("\r\n{0}: Running Tests for '{1}': .", DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss"), equipmentOrCluster);
-
+                ioTEnvironmentSpecific = new IoTEnvironmentSpecific();
                 m_Scenario = new AutomationScenario(ioTEnvironmentSpecific, equipmentOrCluster, m_mode,
                     pathToConfigurationFile: m_FileNameRunSettings);
-
-                m_Scenarios["Scenario"] = m_Scenario;
+                m_Scenarios[equipmentOrCluster] = m_Scenario;
             }
         }
 
@@ -67,8 +66,6 @@ namespace AutomaticTests
                     // Clear all variables values
                     equipment.Value.Variables.Clear();
                 }
-
-                Cleanup();
             }
             catch
             {
@@ -85,13 +82,16 @@ namespace AutomaticTests
                 {
                     try
                     {
-                        equipment.Value.Terminate();
+                        //equipment.Value.Terminate();
+                        equipment.Value.BaseImplementation.Terminate();
                     }
                     catch
                     {
                         //m_Log.Log("!!!! Error while terminating the equipment: {0}", e.Message);
                     }
                 }
+
+                m_Scenario.Cleanup();
             }
         }
     }
