@@ -1,8 +1,8 @@
-# How to inkove CustomReceiveERPMessage service?
+# How to invoke CustomReceiveERPMessage service?
 
 ## Overview
 
-On this topic will demonstrate all the necessary steps to invoke **CustomReceiveERPMessage** service.
+This section aims to demonstrate all the necessary steps to invoke **CustomReceiveERPMessage** service.
 
 ## Invoke CustomReceiveERPMessage service
 

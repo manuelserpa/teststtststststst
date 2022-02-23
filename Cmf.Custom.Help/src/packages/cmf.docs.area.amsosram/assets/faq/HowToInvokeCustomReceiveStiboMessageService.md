@@ -1,8 +1,8 @@
-# How to inkove CustomReceiveStiboMessage service?
+# How to invoke CustomReceiveStiboMessage service?
 
 ## Overview
 
-On this topic will demonstrate all the necessary steps to invoke **CustomReceiveStiboMessage** service.
+This section aims to demonstrate all the necessary steps to invoke **CustomReceiveStiboMessage** service.
 
 ## Invoke CustomReceiveStiboMessage service
 
