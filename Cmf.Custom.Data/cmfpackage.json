@@ -5,6 +5,29 @@
   "packageType": "Data",
   "isInstallable": true,
   "isUniqueInstall": true,
+  "steps": [
+    {
+      "type": 0,
+      "onExecute": "$(Agent.Root)/agent/scripts/stop_host.ps1",
+      "order": 1
+    },
+    {
+      "type": 2,
+      "file": "Cmf.Foundation.Services.HostService.dll.config",
+      "tagFile": true,
+      "order": 2
+    },
+    {
+      "type": 0,
+      "onExecute": "$(Agent.Root)/agent/scripts/start_host.ps1",
+      "order": 3
+    },
+    {
+      "type": 0,
+      "onExecute": "$(Package[Cmf.Custom.Package].TargetDirectory)/GenerateLBOs.ps1",
+      "order": 4
+    }
+  ],
   "contentToPack": [
     {
       "source": "DEEs/*",
@@ -67,10 +90,5 @@
       "contentType": "ProcessRulesPost"
     }
   ],
-  "steps": [
-    { "order": "1", "type": "Generic", "onExecute": "$(Agent.Root)/agent/scripts/stop_host.ps1" },
-    { "order": "2", "type": "TransformFile", "file": "Cmf.Foundation.Services.HostService.dll.config", "tagFile": true },
-    { "order": "3", "type": "Generic", "onExecute": "$(Agent.Root)/agent/scripts/start_host.ps1" },
-    { "order": "4", "type": "Generic", "onExecute": "$(Package[Cmf.Custom.Package].TargetDirectory)/GenerateLBOs.ps1" }
-  ]
+  "handlerVersion": 0
 }

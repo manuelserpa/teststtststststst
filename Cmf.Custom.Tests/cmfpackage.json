@@ -10,5 +10,6 @@
       "source": "Release/**",
       "target": ""
     }
-  ]
+  ],
+  "handlerVersion": 0
 }

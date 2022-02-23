@@ -2,11 +2,11 @@
 
 ## Overview
 
-On this topic will demonstrate all the necessary steps to create an Access Token and invoke a service exposed on the API endpoint using alphanumeric token created.
+This section aims to demonstrate the steps to create an Access Token and invoke a service exposed on the API endpoint using a created alphanumeric token.
 
 ## Create Access Token by User
 
-Follow the steps bellow to create Access Token:
+Below you will find the steps to Create Acess Token:
 
 1. Go to the *Administration* menu and select **Security**.
    - Select **Users**.
@@ -40,5 +40,5 @@ $ curl --location --request POST 'http://<HostURL>:<HostPort>/api/AMSOsram/<Serv
 | `<HostPort>`                    | Server port configured to access API                                           |
 | `<ServiceName>`                 | Name of the [service](/AMSOsram/techspec>artifacts>services.md)                |
 | `<Token>`                       | Alphanumeric code generated on previous [topic](#create-access-token-by-user)  |
-| `<CustomInputEntity>`           | Entity associted with the service                                              |
+| `<CustomInputEntity>`           | Entity associated with the service                                              |
 | `<CustomInputEntityProperties>` | All properties associated with the Entity                                      |
