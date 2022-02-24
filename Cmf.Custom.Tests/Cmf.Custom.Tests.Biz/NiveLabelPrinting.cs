@@ -136,6 +136,8 @@ namespace Cmf.Custom.Tests.Biz
                 Assert.IsTrue(materialInformatoinToPrint["Printer"].ToString().Equals(expectedPrinter), $"Column Printer should have the value: {expectedPrinter}, instead is: {materialInformatoinToPrint["Printer"]}.");
                 Assert.IsTrue(materialInformatoinToPrint["Label"].ToString().Equals(expectedLabel), $"Column Printer should have the value: {expectedLabel}, instead is: {materialInformatoinToPrint["Label"]}.");
                 Assert.IsTrue(materialInformatoinToPrint["Quantity"].ToString().Equals(expectedQuantity), $"Column Printer should have the value: {expectedQuantity}, instead is: {materialInformatoinToPrint["Quantity"]}.");
+                Assert.IsTrue(materialInformatoinToPrint["Product"].ToString().Equals(AMSOsramConstants.DefaultProductName), $"Column Product should have the value: {AMSOsramConstants.DefaultProductName}, instead is: {materialInformatoinToPrint["Product"]}.");
+                Assert.IsTrue(string.IsNullOrEmpty(materialInformatoinToPrint["ProductGroup"].ToString()), $"Column Product Group should be empty.");
             }
 
         }

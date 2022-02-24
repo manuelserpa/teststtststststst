@@ -45,7 +45,7 @@
         /// <summary>
         /// Automation RequestType SendNiceLabelPrintInformation
         /// </summary>
-        public static string AutomationRequestSendNiceLabelPrintInformation = "SendNiceLabelPrintInformation";
+        public static string AutomationRequestSendNiceLabelPrintInformation = "NiceLabelPrintInformation";
 
         #endregion
 

@@ -7,6 +7,7 @@ using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
@@ -79,9 +80,12 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
                 materialCollection = (Input["MoveMaterialsToNextStepOutput"] as MoveMaterialsToNextStepOutput).Materials;
                 operation = "Move Next";
             }
-            materialCollection.Load();
 
+            materialCollection.Load(1);
+            
             Dictionary<string, Dictionary<string, string>> materials = new Dictionary<string, Dictionary<string, string>>();
+
+            materialCollection.LoadRelations("MaterialContainer", 1);
 
             // resolve custom ST
             foreach (Material material in materialCollection)
@@ -96,8 +100,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
                 string flowName = material.Flow.Name;
                 Resource resource = material.LastProcessedResource;
 
-
-                Dictionary<string, string> materialNiceLabelPrintContext = AMSOsramUtilities.CustomResolveSTCustomMaterialNiceLabelPrintContext(stepName,
+                Dictionary<string, string> materialNiceLabelPrintInformation = AMSOsramUtilities.CustomResolveSTCustomMaterialNiceLabelPrintContext(stepName,
                                                                                                                                                 logicalFlowPath,
                                                                                                                                                 productName,
                                                                                                                                                 productGroupName,
@@ -108,14 +111,57 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
                                                                                                                                                 resource.Type,
                                                                                                                                                 resource.Model,
                                                                                                                                                 operation);
-                // missing information for tags
 
-
-                if (materialNiceLabelPrintContext != null)
+                if (materialNiceLabelPrintInformation != null)
                 {
-                    materials.Add(material.Name, materialNiceLabelPrintContext);
-                }
+                    // add addictional information about the material
+                    materialNiceLabelPrintInformation.Add("LotName", material.Name);
+                    materialNiceLabelPrintInformation.Add("LotAlias","");                                                   // TODO: Missing information to map
+                    materialNiceLabelPrintInformation.Add("ProductName", productName);
+                    materialNiceLabelPrintInformation.Add("ProductDesc", material.Product?.Description);
+                    materialNiceLabelPrintInformation.Add("ProductType",material.Product?.ProductType.ToString());
+                    materialNiceLabelPrintInformation.Add("Product_Type", material.Product?.Type);
+                    materialNiceLabelPrintInformation.Add("ProductGroupName", productGroupName);
+                    materialNiceLabelPrintInformation.Add("ProductGroup_Type", material.Product?.ProductGroup?.Type);
+                    materialNiceLabelPrintInformation.Add("FlowName", flowName);
+                    materialNiceLabelPrintInformation.Add("BatchName", "");                                                 // TODO: Missing information to map
 
+                    Container container = new Container();
+                    if (material.RelationCollection.ContainsKey("MaterialContainer"))
+                    {
+                        container = material.RelationCollection["MaterialContainer"][0].TargetEntity as Container;
+                        container.Load();
+                    }
+                    materialNiceLabelPrintInformation.Add("ContainerName", container.Name);
+                    materialNiceLabelPrintInformation.Add("ExperimentName", material.Experiment?.Name);
+                    materialNiceLabelPrintInformation.Add("ProductionOrder", material.ProductionOrder?.Name);
+                    materialNiceLabelPrintInformation.Add("LotOwner", "");                                                  // TODO: Missing information to map                                        
+                    materialNiceLabelPrintInformation.Add("ResourceName", resource.Name);
+                    materialNiceLabelPrintInformation.Add("WaferLogicalName", "");                                          // TODO: Missing information to map
+                    materialNiceLabelPrintInformation.Add("WaferSlotPosition", "");                                         // TODO: Missing information to map
+                    materialNiceLabelPrintInformation.Add("WaferCrystalName", "");                                          // TODO: Missing information to map
+                    materialNiceLabelPrintInformation.Add("LotWaferCount", "");                                             // TODO: Missing information to map
+                    materialNiceLabelPrintInformation.Add("LotPrimaryQty", material.PrimaryQuantity.HasValue?material.PrimaryQuantity.ToString():string.Empty);
+                    materialNiceLabelPrintInformation.Add("LotSecundaryQty", material.SecondaryQuantity.HasValue ? material.SecondaryQuantity.ToString() : string.Empty);
+                    materialNiceLabelPrintInformation.Add("WaferPrimaryQty", "");                                           // TODO: Missing information to map
+                    materialNiceLabelPrintInformation.Add("WaferSecundaryQty", "");                                         // TODO: Missing information to map
+                    materialNiceLabelPrintInformation.Add("Lot_Type", material.Type);
+
+                    Step step = material.Step;
+                    // Get Area from Step
+                    Area area = null;
+                    step.LoadStepAreas();
+                    if (step.StepAreas.Count > 0)
+                    {
+                        area = step.StepAreas.First().TargetEntity;
+                        area.Load();
+                    }
+                    materialNiceLabelPrintInformation.Add("Area", area?.Name);
+                    materialNiceLabelPrintInformation.Add("Facility", material.Facility.Name);
+
+                    // associate the material with the printing information
+                    materials.Add(material.Name, materialNiceLabelPrintInformation);
+                }
 
             }
 
@@ -130,22 +176,10 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
                 AutomationControllerInstance controllerInstance = resourceToPrint.GetAutomationControllerInstance();
                 if (controllerInstance != null)
                 {
-                    // Get EI default timeout
-                    //  --> /Cmf/Custom/Automation/TrackInTimeout
-                    int requestTimeout = AMSOsramUtilities.GetConfig<int>(AMSOsramConstants.AutomationTrackInTimeoutConfigurationPath);
-
-                    // Send Synchronous request to automation TrackIn the Material in the Equipment
+                    // Send an Assynchronous message to automation controller in the Equipment
                     string requestType = AMSOsramConstants.AutomationRequestSendNiceLabelPrintInformation;
-                    var obj = controllerInstance.SendRequest(requestType, materials.ToJsonString(), requestTimeout);
 
-                    if (obj == null)
-                    {
-                        throw new CmfBaseException(string.Format(LocalizedMessage.GetLocalizedMessage(Thread.CurrentThread.CurrentCulture.Name, AMSOsramConstants.LocalizedMessageIoTConnectionTimeout).MessageText, requestType));
-                    }
-                    else if (obj.ToString().Contains("Error"))
-                    {
-                        throw new CmfBaseException(obj.ToString());
-                    }
+                    controllerInstance.Publish(requestType, materials.ToJsonString());
                 }
             }
 
