@@ -15,6 +15,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Cmf.Custom.TestUtilities;
 using Cmf.Custom.Tests.IoT.Tests.EvatecClusterline200II;
 using cmConnect.TestFramework.EquipmentSimulator.Objects;
+using Cmf.Foundation.BusinessOrchestration.QueryManagement.InputObjects;
+using Cmf.Foundation.BusinessOrchestration.QueryManagement.OutputObjects;
+using System.Data;
+using Cmf.Foundation.BusinessObjects.QueryObject;
 
 namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 {
@@ -389,6 +393,13 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             // Trigger event
             base.Equipment.SendMessage(String.Format($"CarrierClamped"), null);
 
+            Resource resource = new Resource { Name = resourceName };
+            resource.Load();
+            //Load the instances and see how much is the count for the DataCollectionInstances
+
+
+            var dataCollectionInstancesBefore = this.GetDataCollectionInstanceByResourceId(resource.Id).Count;
+
             Alarm alarmExample = new Alarm
             {
                 AbstractName = "AName",
@@ -400,6 +411,12 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
             base.Equipment.SendAlarm(alarmExample, 0x01, null);
 
+
+            TestUtilities.WaitFor(10/*ValidationTimeout*/, "Alarm was not received", () =>
+            {
+                var dataCollectionInstancesAfter = this.GetDataCollectionInstanceByResourceId(resource.Id).Count;
+                return ((dataCollectionInstancesBefore + 1) == dataCollectionInstancesAfter);
+            });
 
             return true;
 
@@ -846,6 +863,95 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         public override bool PostSetupActions(CustomMaterialScenario MESScenario)
         {
             return true;
+        }
+
+        private DataCollectionInstanceCollection GetDataCollectionInstanceByResourceId(long resourceId)
+        {
+            QueryObject query = new QueryObject();
+            query.Description = "";
+            query.EntityTypeName = "DataCollectionInstance";
+            query.Name = "getDCIbyRes";
+            query.Query = new Query();
+            query.Query.Distinct = false;
+            query.Query.Filters = new FilterCollection() {
+                new Filter()
+                {
+                    Name = "Id",
+                    ObjectName = "Resource",
+                    ObjectAlias = "DataCollectionInstance_Resource_2",
+                    Operator = Cmf.Foundation.Common.FieldOperator.IsEqualTo,
+                    Value = resourceId,
+                    LogicalOperator = Cmf.Foundation.Common.LogicalOperator.Nothing,
+                    FilterType = Cmf.Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal,
+                }
+            };
+            query.Query.Fields = new FieldCollection() {
+                new Field()
+                {
+                    Alias = "Id",
+                    ObjectName = "DataCollectionInstance",
+                    ObjectAlias = "DataCollectionInstance_1",
+                    IsUserAttribute = false,
+                    Name = "Id",
+                    Position = 0,
+                    Sort = Cmf.Foundation.Common.FieldSort.NoSort
+                },
+                new Field()
+                {
+                    Alias = "Name",
+                    ObjectName = "DataCollectionInstance",
+                    ObjectAlias = "DataCollectionInstance_1",
+                    IsUserAttribute = false,
+                    Name = "Name",
+                    Position = 1,
+                    Sort = Cmf.Foundation.Common.FieldSort.NoSort
+                }
+            };
+            query.Query.Relations = new RelationCollection() {
+                new Relation()
+                {
+                    Alias = "",
+                    IsRelation = false,
+                    Name = "",
+                    SourceEntity = "DataCollectionInstance",
+                    SourceEntityAlias = "DataCollectionInstance_1",
+                    SourceJoinType = Cmf.Foundation.BusinessObjects.QueryObject.Enums.JoinType.InnerJoin,
+                    SourceProperty = "ResourceId",
+                    TargetEntity = "Resource",
+                    TargetEntityAlias = "DataCollectionInstance_Resource_2",
+                    TargetJoinType = Cmf.Foundation.BusinessObjects.QueryObject.Enums.JoinType.InnerJoin,
+                    TargetProperty = "Id"
+                }
+            };
+
+            var executeInput = new ExecuteQueryInput
+            {
+                QueryObject = query
+            };
+            ExecuteQueryOutput executeOutput = executeInput.ExecuteQuerySync();
+
+            DataSet ds = Cmf.TestScenarios.Others.Utilities.ToDataSet(executeOutput.NgpDataSet);
+
+            DataCollectionInstanceCollection dcic = new DataCollectionInstanceCollection();
+
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                DataRowCollection dataRows = ds.Tables[0].Rows;
+
+                foreach (DataRow dr in dataRows)
+                {
+                    DataCollectionInstance dci = new DataCollectionInstance
+                    {
+                        Id = (long)dr["Id"]
+                    };
+                    if (dci.Exists())
+                    {
+                        dcic.Add(dci);
+                    }
+                }
+            }
+
+            return dcic;
         }
     }
 }
