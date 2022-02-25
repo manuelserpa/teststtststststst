@@ -150,6 +150,9 @@
       },
       {
         "path": "@criticalmanufacturing/connect-iot-controller-engine-fujinexim-tasks"
+      },
+      {
+        "path": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks"
       }
     ]
   },

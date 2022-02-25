@@ -1,0 +1,488 @@
+{
+	"tasks": [
+		{
+			"id": "task_58911",
+			"reference": {
+				"name": "subWorkflowStart",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"outputs": [
+					{
+						"name": "E10State",
+						"valueType": {
+							"friendlyName": "E10State",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "StateName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "StateName"
+						},
+						"defaultValue": null
+					}
+				],
+				"___cmf___name": "Start"
+			}
+		},
+		{
+			"id": "task_58913",
+			"reference": {
+				"name": "subWorkflowEnd",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"inputs": []
+			}
+		},
+		{
+			"id": "task_59166",
+			"reference": {
+				"name": "retrieve",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_retrieveOnValueChange": true,
+				"_emitInNewContext": false,
+				"_outputs": [
+					{
+						"name": "Resource",
+						"identifier": "Generic_ResourceName",
+						"defaultValue": "-",
+						"valueType": {
+							"name": "",
+							"friendlyName": "",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null
+						}
+					}
+				],
+				"___cmf___name": "Retrieve Data",
+				"___cmf___color": "#808080"
+			}
+		},
+		{
+			"id": "task_59272",
+			"reference": {
+				"name": "entityAdjustState",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"entity": null,
+				"retries": 30,
+				"sleepBetweenRetries": 1000,
+				"baseEntity": {
+					"$type": "Cmf.Foundation.BusinessObjects.EntityType, Cmf.Foundation.BusinessObjects",
+					"Name": "Resource"
+				},
+				"___cmf___name": "Adjust State",
+				"___cmf___color": "#0080ff"
+			}
+		},
+		{
+			"id": "task_61072",
+			"reference": {
+				"name": "switch",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_default": null,
+				"___cmf___name": "Switch",
+				"_inputType": {
+					"name": "",
+					"friendlyName": "E10State",
+					"type": 5,
+					"collectionType": null,
+					"referenceType": null,
+					"referenceTypeName": null
+				},
+				"_outputs": [
+					{
+						"name": "Nonscheduled",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "Nonscheduled",
+						"defaultValue": null,
+						"equalsTo": 0
+					},
+					{
+						"name": "Engineering",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "Engineering",
+						"defaultValue": null,
+						"equalsTo": 1
+					},
+					{
+						"name": "Productive",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "Productive",
+						"defaultValue": null,
+						"equalsTo": 2
+					},
+					{
+						"name": "Standby",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "Standby",
+						"defaultValue": null,
+						"equalsTo": 3
+					},
+					{
+						"name": "Unscheduled Down",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "Unscheduled Down",
+						"defaultValue": null,
+						"equalsTo": 4
+					},
+					{
+						"name": "Scheduled Down",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"value": "Scheduled Down",
+						"defaultValue": null,
+						"equalsTo": 5
+					}
+				]
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringToEntityInstance",
+			"reference": {
+				"name": "stringToEntityInstance",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "6214feff-788c-428c-9d89-db372e8de3fa",
+			"sourceId": "task_59166",
+			"targetId": "task_59272",
+			"inputName": "entity",
+			"outputName": "Resource",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringToEntityInstance",
+					"params": {
+						"entityType": "Resource",
+						"identifier": "Name"
+					}
+				}
+			]
+		},
+		{
+			"id": "ad74a654-f8a8-4249-8202-ba96f41da001",
+			"sourceId": "task_59166",
+			"targetId": "task_59272",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "363bdd9f-e183-4e1c-9f0d-7e5a74bba4e7",
+			"sourceId": "task_58911",
+			"targetId": "task_61072",
+			"inputName": "value",
+			"outputName": "E10StateOut"
+		},
+		{
+			"id": "043e13aa-25a7-4068-b525-7358f3085b91",
+			"sourceId": "task_58911",
+			"targetId": "task_59166",
+			"inputName": "activate",
+			"outputName": "StateNameOut"
+		},
+		{
+			"id": "1b8be16e-8336-408f-b5e9-4e044aedd01a",
+			"sourceId": "task_59272",
+			"targetId": "task_58913",
+			"inputName": "success",
+			"outputName": "success"
+		},
+		{
+			"id": "2a98e7e3-2fba-4dbb-aabd-767b81bddc6c",
+			"sourceId": "task_59272",
+			"targetId": "task_58913",
+			"inputName": "error",
+			"outputName": "error"
+		},
+		{
+			"id": "24a8fd72-edf2-4702-a0e3-1513e86249b2",
+			"sourceId": "task_58911",
+			"targetId": "task_59272",
+			"inputName": "toState",
+			"outputName": "StateNameOut"
+		},
+		{
+			"id": "b4c47ac7-c152-4db9-8789-e69d5afd8889",
+			"sourceId": "task_61072",
+			"targetId": "task_59272",
+			"inputName": "toState",
+			"outputName": "Nonscheduled"
+		},
+		{
+			"id": "ad52074f-2c71-4d70-adda-d49543c2276d",
+			"sourceId": "task_61072",
+			"targetId": "task_59272",
+			"inputName": "toState",
+			"outputName": "Engineering"
+		},
+		{
+			"id": "5eb9fe3e-8a2d-47b4-a002-d5c58dfa5aa0",
+			"sourceId": "task_61072",
+			"targetId": "task_59272",
+			"inputName": "toState",
+			"outputName": "Productive"
+		},
+		{
+			"id": "5ada13d3-b2e6-4665-91a1-98fb947beec4",
+			"sourceId": "task_61072",
+			"targetId": "task_59272",
+			"inputName": "toState",
+			"outputName": "Standby"
+		},
+		{
+			"id": "ff794807-1d7c-4875-9439-129c81d4d3ba",
+			"sourceId": "task_61072",
+			"targetId": "task_59272",
+			"inputName": "toState",
+			"outputName": "Unscheduled Down"
+		},
+		{
+			"id": "ab184745-eed8-4081-b250-155f2a0d8b5f",
+			"sourceId": "task_61072",
+			"targetId": "task_59166",
+			"inputName": "activate",
+			"outputName": "Nonscheduled"
+		},
+		{
+			"id": "4d53849a-8ddb-45a5-94aa-5729ed2f1392",
+			"sourceId": "task_61072",
+			"targetId": "task_59166",
+			"inputName": "activate",
+			"outputName": "Engineering"
+		},
+		{
+			"id": "23744777-296b-4472-b42e-c263466fac5d",
+			"sourceId": "task_61072",
+			"targetId": "task_59166",
+			"inputName": "activate",
+			"outputName": "Productive"
+		},
+		{
+			"id": "2e018b42-56a8-4d01-a73b-0e25eeaa3d0e",
+			"sourceId": "task_61072",
+			"targetId": "task_59166",
+			"inputName": "activate",
+			"outputName": "Standby"
+		},
+		{
+			"id": "55bbbc1b-a25f-432c-9d9e-b27cc8b76006",
+			"sourceId": "task_61072",
+			"targetId": "task_59166",
+			"inputName": "activate",
+			"outputName": "Unscheduled Down"
+		},
+		{
+			"id": "b7bcf9f2-8fcb-439b-b16b-41ce0782e3f3",
+			"sourceId": "task_61072",
+			"targetId": "task_59166",
+			"inputName": "activate",
+			"outputName": "Scheduled Down"
+		},
+		{
+			"id": "1f958b3d-3477-47d8-9e31-8359fb47879d",
+			"sourceId": "task_61072",
+			"targetId": "task_59272",
+			"inputName": "toState",
+			"outputName": "Scheduled Down"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": null,
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_58913": {
+						"collapsed": false,
+						"position": {
+							"x": 2055,
+							"y": 176
+						},
+						"outdated": false
+					},
+					"task_59272": {
+						"collapsed": false,
+						"position": {
+							"x": 1568,
+							"y": 348
+						},
+						"outdated": false
+					},
+					"task_58911": {
+						"collapsed": false,
+						"position": {
+							"x": 20,
+							"y": 346
+						},
+						"outdated": false
+					},
+					"task_59166": {
+						"collapsed": false,
+						"position": {
+							"x": 1059,
+							"y": 546
+						},
+						"outdated": false
+					},
+					"task_61072": {
+						"collapsed": false,
+						"position": {
+							"x": 534,
+							"y": 12
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"ad74a654-f8a8-4249-8202-ba96f41da001": {
+						"vertices": []
+					},
+					"363bdd9f-e183-4e1c-9f0d-7e5a74bba4e7": {
+						"vertices": []
+					},
+					"043e13aa-25a7-4068-b525-7358f3085b91": {
+						"vertices": []
+					},
+					"1b8be16e-8336-408f-b5e9-4e044aedd01a": {
+						"vertices": []
+					},
+					"2a98e7e3-2fba-4dbb-aabd-767b81bddc6c": {
+						"vertices": []
+					},
+					"24a8fd72-edf2-4702-a0e3-1513e86249b2": {
+						"vertices": []
+					},
+					"b4c47ac7-c152-4db9-8789-e69d5afd8889": {
+						"vertices": []
+					},
+					"ad52074f-2c71-4d70-adda-d49543c2276d": {
+						"vertices": []
+					},
+					"5eb9fe3e-8a2d-47b4-a002-d5c58dfa5aa0": {
+						"vertices": []
+					},
+					"5ada13d3-b2e6-4665-91a1-98fb947beec4": {
+						"vertices": []
+					},
+					"ff794807-1d7c-4875-9439-129c81d4d3ba": {
+						"vertices": []
+					},
+					"ab184745-eed8-4081-b250-155f2a0d8b5f": {
+						"vertices": []
+					},
+					"4d53849a-8ddb-45a5-94aa-5729ed2f1392": {
+						"vertices": []
+					},
+					"23744777-296b-4472-b42e-c263466fac5d": {
+						"vertices": []
+					},
+					"2e018b42-56a8-4d01-a73b-0e25eeaa3d0e": {
+						"vertices": []
+					},
+					"55bbbc1b-a25f-432c-9d9e-b27cc8b76006": {
+						"vertices": []
+					},
+					"b7bcf9f2-8fcb-439b-b16b-41ce0782e3f3": {
+						"vertices": []
+					},
+					"1f958b3d-3477-47d8-9e31-8359fb47879d": {
+						"vertices": []
+					},
+					"6214feff-788c-428c-9d89-db372e8de3fa": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"pan": {
+					"x": 0,
+					"y": 3
+				},
+				"zoom": 0.5599999999999998
+			}
+		}
+	}
+}

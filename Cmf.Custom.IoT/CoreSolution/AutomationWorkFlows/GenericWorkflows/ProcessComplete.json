@@ -285,9 +285,9 @@
 				}
 			},
 			"settings": {
-				"type": "Cmf.Custom.Cree.Orchestration.InputObjects.MaterialOutInput, Cmf.Custom.Cree.Orchestration",
+				"type": "Cmf.Custom.AMSOsram.Orchestration.InputObjects.MaterialOutInput, Cmf.Custom.AMSOsram.Orchestration",
 				"method": "POST",
-				"urlSuffix": "api/Cree/MaterialOut",
+				"urlSuffix": "api/AMSOsram/MaterialOut",
 				"ignoreLastServiceId": false,
 				"numberOfRetries": 30,
 				"sleepBetweenRetries": 1000,
@@ -1803,6 +1803,14 @@
 						},
 						"outdated": false
 					},
+					"task_71776": {
+						"collapsed": false,
+						"position": {
+							"x": 710,
+							"y": 1161
+						},
+						"outdated": false
+					},
 					"task_100492": {
 						"collapsed": false,
 						"position": {
@@ -1912,14 +1920,6 @@
 						"position": {
 							"x": 467,
 							"y": 217
-						},
-						"outdated": false
-					},
-					"task_71776": {
-						"collapsed": false,
-						"position": {
-							"x": 710,
-							"y": 1161
 						},
 						"outdated": false
 					}
@@ -2146,10 +2146,10 @@
 				},
 				"notes": {},
 				"pan": {
-					"x": 0,
-					"y": 429
+					"x": 2874.444580078125,
+					"y": 347.7778015136719
 				},
-				"zoom": 0.6000000000000003
+				"zoom": 0.7400000000000004
 			}
 		}
 	}

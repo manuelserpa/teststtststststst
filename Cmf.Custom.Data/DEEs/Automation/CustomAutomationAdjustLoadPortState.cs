@@ -203,12 +203,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 			}
 			else
 			{
-				throw new CmfBaseException(string.Format(LocalizedMessage.GetLocalizedMessage(Thread.CurrentThread.CurrentCulture.Name, AMSOsramConstants.LocalizedMessageStateModelStateDoesNotExistException).MessageText, AMSOsramConstants.CustomLoadPortStateModelStateTransportReservedStateModelState));
+				throw new CmfBaseException(string.Format(LocalizedMessage.GetLocalizedMessage(Thread.CurrentThread.CurrentCulture.Name, AMSOsramConstants.LocalizedMessageStateModelStateDoesNotExistException).MessageText, AMSOsramConstants.CustomLoadPortStateModelStateReservedStateModelState));
 			}
 
 			#endregion Load Port State Model and State Model State Validations and Events
 
-			if (state.Equals("Available", StringComparison.InvariantCultureIgnoreCase) &&
+			if (state.Equals(AMSOsramConstants.CustomLoadPortStateModelStateReadyToLoadStateModelState, StringComparison.InvariantCultureIgnoreCase) &&
 				loadPort.AutomationMode == ResourceAutomationMode.Online)
 			{
 				loadPort.SaveAttributes(new AttributeCollection() { { AMSOsramConstants.ResourceAttributeIsLoadPortInUse, false } });
@@ -225,7 +225,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 					new KeyValuePair<string, object>("TriggerAction", "Undock")
 				);
 			}
-			else if (state.Equals("ReadyToUnload", StringComparison.InvariantCultureIgnoreCase) &&
+			else if (state.Equals(AMSOsramConstants.CustomLoadPortStateModelStateReadyToUnloadStateModelState, StringComparison.InvariantCultureIgnoreCase) &&
 				!string.IsNullOrEmpty(containerName) &&
 				loadPort.AutomationMode == ResourceAutomationMode.Online &&
 				loadPort.UsedPositions > 0)

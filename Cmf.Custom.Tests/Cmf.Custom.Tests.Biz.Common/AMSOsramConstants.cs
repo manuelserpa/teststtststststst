@@ -93,6 +93,11 @@ namespace Cmf.Custom.Tests.Biz.Common
         public static string MaterialTypeProduction = "Production";
 
 
+        /// <summary>
+        /// Custom Material State Model
+        /// </summary>
+        public static string MaterialStateModel = "CustomMaterialStateModel";
+
         #region Flows and Steps
 
         /// <summary>
@@ -116,7 +121,7 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// <summary>
         /// Fixed container size on CREE
         /// </summary>
-        public static int ContainerTotalPosition = 25;
+        public static int ContainerTotalPosition = 13;
 
 
 

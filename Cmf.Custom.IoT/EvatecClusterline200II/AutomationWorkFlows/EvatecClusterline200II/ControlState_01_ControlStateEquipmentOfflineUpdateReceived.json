@@ -1,0 +1,156 @@
+{
+	"tasks": [
+		{
+			"id": "task_141393",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "UpdateControlState",
+					"IsShared": true,
+					"Name": "UpdateControlState"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "StateName",
+						"valueType": {
+							"friendlyName": "StateName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "value",
+						"valueType": {
+							"friendlyName": "ControlState",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [],
+				"___cmf___name": "Update Control State Workflow"
+			}
+		},
+		{
+			"id": "task_124716",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ControlState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "EquipmentOFFLINE"
+					}
+				]
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [],
+	"links": [
+		{
+			"id": "dcc094e1-0df6-4c5e-a2ef-eb97f2c20d31",
+			"sourceId": "task_124716",
+			"targetId": "task_141393",
+			"inputName": "valueIn",
+			"outputName": "$ControlState"
+		},
+		{
+			"id": "fd56fd08-b3cc-4a89-9adb-9eefad0ad8e3",
+			"sourceId": "task_124716",
+			"targetId": "task_141393",
+			"inputName": "activate",
+			"outputName": "$ControlState"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#0080ff",
+			"notes": [
+				{
+					"id": "note_124525",
+					"name": "Control State Updated",
+					"value": "<p><strong>What it does:</strong></p><p>Updates the Control State of the Resource it is connected to (CustomAutomationSetCustomResourceState stored as Current State for the Resource).</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to the Control State update for the Tool;</li><li>If State Model values corresponds to the following enumeration pass the current Control State to the Control State input of the Workflow.<ul><li>EquipmentOffline = 1;</li><li>AttemptOnline = 2;</li><li>HostOffline = 3;</li><li>OnlineLocal = 4;</li><li>OnlineRemote = 5;</li></ul></li><li>If there is no Input with that information available, convert the received information to a valid state name and pass it to the State Name input of the Workflow;</li><li>Use any event Output to connect to the Workflow Activate input;</li></ol><ol><p>&nbsp;</p></ol><p>&nbsp;</p>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_141393": {
+						"collapsed": false,
+						"position": {
+							"x": 1655,
+							"y": 447
+						},
+						"outdated": false
+					},
+					"task_124716": {
+						"collapsed": false,
+						"position": {
+							"x": 692,
+							"y": 357
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"dcc094e1-0df6-4c5e-a2ef-eb97f2c20d31": {
+						"vertices": []
+					},
+					"fd56fd08-b3cc-4a89-9adb-9eefad0ad8e3": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_124525": {
+						"collapsed": false,
+						"position": {
+							"x": 2184,
+							"y": 280
+						}
+					}
+				},
+				"pan": {
+					"x": 535,
+					"y": 222
+				},
+				"zoom": 0.8200000000000001
+			}
+		}
+	}
+}
