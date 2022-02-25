@@ -14,6 +14,7 @@ using AMSOsramEIAutomaticTests.Objects.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Cmf.Custom.TestUtilities;
 using Cmf.Custom.Tests.IoT.Tests.EvatecClusterline200II;
+using cmConnect.TestFramework.EquipmentSimulator.Objects;
 
 namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 {
@@ -131,7 +132,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
 
             var recipe = new Recipe() { Name = RecipeName };
-            recipe.Load();           
+            recipe.Load();
             RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
@@ -181,7 +182,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             TrackInMustFail = true;
             base.RunBasicTest(base.MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
         }
-        
+
         /// <summary> 
         /// Scenario: Control State to Host Offline
         /// </summary>
@@ -380,7 +381,6 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         {
 
             //CarrierClamped
-
             base.Equipment.Variables["CarrierID_CarrierReport"] = $"CarrierAtPort{loadPortToSet}";
             base.Equipment.Variables["CarrierLocationID"] = $"LP{loadPortToSet}";
             base.Equipment.Variables["LocationID"] = $"LP{loadPortToSet}";
@@ -389,7 +389,18 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             // Trigger event
             base.Equipment.SendMessage(String.Format($"CarrierClamped"), null);
 
-            
+            Alarm alarmExample = new Alarm
+            {
+                AbstractName = "AName",
+                DataItemId = "DataItemId",
+                Id = 6,
+                Name = "NameOfAlarm",
+                Text = "Text of Alarm"
+            };
+
+            base.Equipment.SendAlarm(alarmExample, 0x01, null);
+
+
             return true;
 
         }
@@ -398,7 +409,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         {
             //clamped
             base.CarrierInValidation(MESScenario, loadPortToSet);
-          
+
             //material received MaterialReceived
             base.Equipment.Variables["PortTransferState"] = 1;
             base.Equipment.Variables["PortReservationState"] = 0;
@@ -451,11 +462,11 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
 
 
-           
+
             base.Equipment.Variables["CarrierSubType"] = MESScenario.ContainerScenario.Entity.Name;
             base.Equipment.Variables["SubstrateSubType"] = "Substrate";
             base.Equipment.Variables["CarrierAccessingStatus"] = 0;
-            base.Equipment.Variables["CarrierCapacity"] =12;
+            base.Equipment.Variables["CarrierCapacity"] = 12;
             base.Equipment.Variables["CarrierContentMap"] = slotMapDV;
             base.Equipment.Variables["CarrierID_CarrierReport"] = $"CarrierAtPort{loadPortToSet}";
             base.Equipment.Variables["CarrierIDStatus"] = 2;
@@ -468,7 +479,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
 
             Thread.Sleep(200);
-            
+
         }
 
         public override bool CarrierOut(CustomMaterialScenario scenario)
@@ -502,7 +513,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             base.Equipment.Variables["CarrierID_CarrierReport"] = $"CarrierAtPort{loadPortNumber}";
             base.Equipment.Variables["CarrierIDStatus"] = 2;
             base.Equipment.Variables["CarrierLocationID"] = $"FIMS{loadPortNumber}";
-            base.Equipment.Variables["CarrierSlotMap"] = slotMapDV; 
+            base.Equipment.Variables["CarrierSlotMap"] = slotMapDV;
             base.Equipment.Variables["PortID_CarrierReport"] = loadPortNumber;
 
 
@@ -568,13 +579,14 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         {
             if (!isOnlineRemote)
             {
-                Assert.Fail("Track In must fail on Online Local");  
+                Assert.Fail("Track In must fail on Online Local");
             }
             else
             {
-                if(!createControlJobReceived || !createProcessJobReceived)
+                if (!createControlJobReceived || !createProcessJobReceived)
                 {
-                    Assert.Fail("Control or Process Job creation requests were never received");                }
+                    Assert.Fail("Control or Process Job creation requests were never received");
+                }
             }
 
             TestUtilities.WaitFor(60, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
@@ -728,17 +740,17 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         protected bool OnS16F11(SecsMessage request, SecsMessage reply)
         {
             reply.Item.Clear();
-            var jobItem = new SecsItem { ASCII = request.Item.GetChildList()[1].GetValue().ToString()};
+            var jobItem = new SecsItem { ASCII = request.Item.GetChildList()[1].GetValue().ToString() };
 
             var reportList = new SecsItem();
             reportList.SetTypeToList();
 
             var ack = new SecsItem { Bool = new bool[] { true } };
-            
+
             var errorList = new SecsItem();
             errorList.SetTypeToList();
 
-            if(failAtProcessJob)
+            if (failAtProcessJob)
             {
                 ack = new SecsItem { Bool = new bool[] { false } };
                 var errCode = new SecsItem { ASCII = "cenas1" };
@@ -769,7 +781,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
             if (command == "LOADCARRIER")
             {
-               
+
                 loadCommandReceived = true;
 
                 if (!loadCommandDenied)
