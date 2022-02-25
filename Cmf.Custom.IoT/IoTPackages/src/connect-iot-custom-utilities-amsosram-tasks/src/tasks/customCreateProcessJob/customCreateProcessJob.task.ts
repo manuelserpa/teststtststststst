@@ -123,26 +123,25 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
 
                     material.SubMaterials.forEach(s => {
                         if (s.MaterialState === SubMaterialStateEnum.Queued) {
-                            slotMap.push({ type: "U1", value: s.Slot})
-                    }});
+                            slotMap.push({ type: "U1", value: s.Slot })
+                        }
+                    });
                 }
+
 
                 const reply = await this._driverProxy.sendRaw("connect.iot.driver.secsgem.sendMessage", sendMessage);
                 let successFound = false;
 
-
-
-                if (reply && reply.item && parseInt(reply.item.value[1].value[0].data) === 1) {
+                if (reply && reply.item && Number(reply.item.value[1].value[0].value) === 1) {
                     successFound = true;
                 }
 
-
                 if (!successFound) {
-                    const error = new Error(`EI: Create Process Job failed on Equipment: ${reply.item.value[1].value[1].value[0].value[0].data.toString()} - ${reply.item.value[1].value[1].value[0].value[1].data.toString()}`);
+                    const error = new Error(`EI: Create Process Job failed on Equipment: ${reply.item.value[1].value[1].value[0].value.toString()} - ${reply.item.value[1].value[1].value[1].value.toString()}`);
                     this.error.emit(error);
                     throw error;
                 }
-                this.Material.emit(material);
+                this.Material.emit(this.MaterialData);
                 this.success.emit(true);
             } catch (error) {
                 this.error.emit(error);

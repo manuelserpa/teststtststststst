@@ -89,6 +89,17 @@
 							"referenceTypeId": null,
 							"friendlyName": "SubMaterialSlot"
 						}
+					},
+					{
+						"name": "SubResourceOrder",
+						"valueType": {
+							"friendlyName": "SubResourceOrder",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
 					}
 				],
 				"___cmf___name": "Start"
@@ -163,9 +174,9 @@
 				}
 			},
 			"settings": {
-				"type": "Cmf.Custom.Cree.Orchestration.InputObjects.MaterialInInput, Cmf.Custom.Cree.Orchestration",
+				"type": "Cmf.Custom.AMSOsram.Orchestration.InputObjects.MaterialInInput, Cmf.Custom.AMSOsram.Orchestration",
 				"method": "POST",
-				"urlSuffix": "api/Cree/MaterialIn",
+				"urlSuffix": "api/AMSOsram/MaterialIn",
 				"ignoreLastServiceId": false,
 				"numberOfRetries": 30,
 				"sleepBetweenRetries": 1000,
@@ -197,6 +208,19 @@
 						},
 						"propertyName": "ResourceName",
 						"defaultValue": "\"\""
+					},
+					{
+						"name": "SubResourceOrder",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SubResourceOrder"
+						},
+						"propertyName": "SubResourceOrder",
+						"defaultValue": null
 					}
 				],
 				"outputs": [],
@@ -282,6 +306,83 @@
 							"referenceTypeId": null,
 							"friendlyName": ""
 						}
+					},
+					{
+						"name": "ErrorCode",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorText",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"friendlyName": "MaterialName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerData",
+						"valueType": {
+							"friendlyName": "ContainerData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"friendlyName": "ContainerName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
 					}
 				],
 				"outputs": [
@@ -333,7 +434,7 @@
 				"clearInputs": true,
 				"mode": "MultipleInputs",
 				"isCustomFormat": true,
-				"messageFormat": "[EI] Wafer Started Workflow with Inputs: Material: \"${MaterialName}\"; Container: \"${ContainerName}\"; Load Port: \"${LoadPortId}\"; Control Job Id: \"${ControlJobId}\"; Process Job Id: \"${ProcessJobId}\"; Sub-Material: \"${SubMaterialName}\"; Sub-Material Slot: \"${SubMaterialSlot}\"",
+				"messageFormat": "[EI] Wafer Started Workflow with Inputs: Material: \"${MaterialName}\"; Container: \"${ContainerName}\"; Load Port: \"${LoadPortId}\"; Control Job Id: \"${ControlJobId}\"; Process Job Id: \"${ProcessJobId}\"; Sub-Material: \"${SubMaterialName}\"; Sub-Material Slot: \"${SubMaterialSlot}\"; SubResourceOrder: \"${SubResourceOrder}\"",
 				"inputs": [
 					{
 						"name": "MaterialName",
@@ -405,6 +506,17 @@
 						"name": "SubMaterialSlot",
 						"valueType": {
 							"friendlyName": "SubMaterialSlot",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "SubResourceOrder",
+						"valueType": {
+							"friendlyName": "SubResourceOrder",
 							"type": 5,
 							"collectionType": 0,
 							"referenceType": null,
@@ -720,6 +832,20 @@
 			"targetId": "task_83347",
 			"inputName": "activate",
 			"outputName": "activateOut"
+		},
+		{
+			"id": "43435ac8-1569-4722-848e-975cf545ca1c",
+			"sourceId": "task_113699",
+			"targetId": "task_113957",
+			"inputName": "SubResourceOrder",
+			"outputName": "SubResourceOrderOut"
+		},
+		{
+			"id": "6d06568a-c826-432b-a76c-11af163fcff7",
+			"sourceId": "task_113699",
+			"targetId": "task_83347",
+			"inputName": "SubResourceOrderIn",
+			"outputName": "SubResourceOrderOut"
 		}
 	],
 	"layout": {
@@ -741,8 +867,8 @@
 					"task_83347": {
 						"collapsed": false,
 						"position": {
-							"x": 672,
-							"y": 714
+							"x": 727,
+							"y": 864
 						},
 						"outdated": false
 					},
@@ -757,8 +883,8 @@
 					"task_113957": {
 						"collapsed": false,
 						"position": {
-							"x": 2546,
-							"y": 446
+							"x": 2529,
+							"y": 427
 						},
 						"outdated": false
 					},
@@ -773,8 +899,8 @@
 					"task_113961": {
 						"collapsed": false,
 						"position": {
-							"x": 1892,
-							"y": 722
+							"x": 1735,
+							"y": 591
 						},
 						"outdated": false
 					},
@@ -789,8 +915,8 @@
 					"task_118357": {
 						"collapsed": false,
 						"position": {
-							"x": 1242,
-							"y": 301
+							"x": 1203,
+							"y": 280
 						},
 						"outdated": false
 					}
@@ -902,6 +1028,12 @@
 					"1dea5df4-5145-4d94-9cc6-f06d74990bb4": {
 						"vertices": []
 					},
+					"43435ac8-1569-4722-848e-975cf545ca1c": {
+						"vertices": []
+					},
+					"6d06568a-c826-432b-a76c-11af163fcff7": {
+						"vertices": []
+					},
 					"task_113959_subMaterial-task_113957_MaterialName": {
 						"vertices": []
 					},
@@ -917,10 +1049,10 @@
 				},
 				"notes": {},
 				"pan": {
-					"x": 0,
-					"y": 0
+					"x": 8.88888931274414,
+					"y": 100
 				},
-				"zoom": 0.48999999999999955
+				"zoom": 0.5300000000000002
 			}
 		}
 	}

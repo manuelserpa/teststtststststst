@@ -26,7 +26,7 @@ The table below describes the services that are used on this feature.
 
 | Service                                                                                      | Description                                                                          |
 | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| [CustomReceiveStiboMessage](/AMSOsram/tecspecs>artifacts>services>CustomReceiveStiboMessage) | Service to receive an Stibo Message and create an **Integration Entry** accordingly. |
+| [CustomReceiveStiboMessage](/AMSOsram/tecspec>artifacts>services>CustomReceiveStiboMessage) | Service to receive an Stibo Message and create an **Integration Entry** accordingly. |
 
 ### Assumptions
 N/A.

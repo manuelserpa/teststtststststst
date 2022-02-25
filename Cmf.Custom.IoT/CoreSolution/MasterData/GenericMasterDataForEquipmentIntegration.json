@@ -975,6 +975,76 @@
       "Lookup Table Value": "EnableAll",
       "Lookup Table Value Description": "EnableAll",
       "Lookup Table IsEnabled": "Yes"
+    },
+    "21": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "NotBlocked",
+      "Lookup Table Value Description": "NotBlocked",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "22": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Unknown",
+      "Lookup Table Value Description": "Unknown",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "23": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "SafetyThreshold",
+      "Lookup Table Value Description": "SafetyThreshold",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "24": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "ErrorCondition",
+      "Lookup Table Value Description": "ErrorCondition",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "25": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "ParametricException",
+      "Lookup Table Value Description": "ParametricException",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "26": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "AbortingAborted",
+      "Lookup Table Value Description": "AbortingAborted",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "27": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "PausingPaused",
+      "Lookup Table Value Description": "PausingPaused",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "28": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Reserved",
+      "Lookup Table Value Description": "Reserved",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "29": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Reserved",
+      "Lookup Table Value Description": "Reserved",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "30": {
+      "LookUp Table": "ReasonsEptBlockedReason",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Reserved",
+      "Lookup Table Value Description": "Reserved",
+      "Lookup Table IsEnabled": "Yes"
     }
   },
   "<SM>EntityType": {},
@@ -1242,6 +1312,72 @@
       "AccessLevel": "6",
       "ValidationRange": "",
       "ValidationRegex": ""
+    },
+    "13": {
+      "EntityType": "Resource",
+      "Name": "AutomationEquipmentSerialPortName",
+      "Description": "Contains (Serial/TCP) COM port name to use",
+      "PropertyType": "Attribute",
+      "CopyOnClone": "",
+      "BelongsTo": "Definition",
+      "ScalarType": "String",
+      "ScalarSize": "256",
+      "ScalarPrecision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "No",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "AccessLevel": "",
+      "ValidationRange": "",
+      "ValidationRegex": ""
+    },
+    "14": {
+      "EntityType": "Resource",
+      "Name": "AutomationEquipmentSerialBaudRate",
+      "Description": "Contains the (Serial/TCP) Connection Speed (bps)",
+      "PropertyType": "Attribute",
+      "CopyOnClone": "",
+      "BelongsTo": "Definition",
+      "ScalarType": "Integer",
+      "ScalarSize": "",
+      "ScalarPrecision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "No",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "AccessLevel": "",
+      "ValidationRange": "",
+      "ValidationRegex": ""
+    },
+    "15": {
+      "EntityType": "Resource",
+      "Name": "AllowDownloadRecipeAtTrackIn",
+      "Description": "Check if the tool is able to download recipes at TrackIn",
+      "PropertyType": "Attribute",
+      "CopyOnClone": "Yes",
+      "BelongsTo": "Definition",
+      "ScalarType": "Boolean",
+      "ScalarSize": "",
+      "ScalarPrecision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "No",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "AccessLevel": "0",
+      "ValidationRange": "",
+      "ValidationRegex": ""
     }
   },
   "<SM>StateModel": {
@@ -1251,17 +1387,23 @@
       "DataGroup": "",
       "EntityTypeName": "Resource"
     },
-	"2": {
-      "Name": "CustomLoadPortStateModelState",
-      "Description": "Custom State Model for LoadPort",
-      "DataGroup": "",
-      "EntityTypeName": "Resource"
-    },
-    "3": {
+    "2": {
       "Name": "CustomMaterialStateModel",
       "Description": "",
       "DataGroup": "",
       "EntityTypeName": "Material"
+    },
+    "3": {
+      "Name": "CustomEquipmentPerformanceTrackingStateModel",
+      "Description": "",
+      "DataGroup": "",
+      "EntityTypeName": "Resource"
+    },
+    "4": {
+      "Name": "CustomLoadPortStateModel",
+      "Description": "Custom State Model for Load Ports",
+      "DataGroup": "",
+      "EntityTypeName": "Resource"
     }
   },
   "StateModelState": {
@@ -1310,7 +1452,7 @@
       "IsFinal": "No",
       "Attributes": ""
     },
-	"6": {
+    "6": {
       "StateModel": "CustomLoadPortStateModelState",
       "Name": "Available",
       "Description": "LoadPort Available",
@@ -1372,6 +1514,78 @@
       "IsInitial": "No",
       "IsFinal": "No",
       "Attributes": ""
+    },
+    "13": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Idle",
+      "Description": "Idle EPT State (E116-0707)",
+      "Role": "",
+      "IsInitial": "Yes",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "14": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Blocked",
+      "Description": "Blocked EPT State (E116-0707)",
+      "Role": "",
+      "IsInitial": "Yes",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "15": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Busy",
+      "Description": "Busy EPT State (E116-0707)",
+      "Role": "",
+      "IsInitial": "Yes",
+      "IsFinal": "No",
+      "Attributes": ""
+    },
+    "16": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "ReadyToLoad",
+      "Description": "Load Port Available",
+      "Role": "",
+      "IsInitial": "Yes",
+      "IsFinal": "No",
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up]"
+    },
+    "17": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "TransferBlocked",
+      "Description": "LoadPort Occupied",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up]"
+    },
+    "18": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "ReadyToUnload",
+      "Description": "Load Port's Carrier Ready to be removed",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up]"
+    },
+    "19": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "Reserved",
+      "Description": "Transport Reserved for Load Port",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up]"
+    },
+    "20": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "OutOfService",
+      "Description": "Load Port Out of Service",
+      "Role": "",
+      "IsInitial": "Yes",
+      "IsFinal": "No",
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Down]"
     }
   },
   "StateModelTransition": {
@@ -1515,7 +1729,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-	"15": {
+    "15": {
       "StateModel": "CustomLoadPortStateModelState",
       "Name": "Available to Occupied",
       "Description": "Available to Occupied",
@@ -1614,13 +1828,241 @@
       "Role": "",
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
+    },
+    "25": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Idle to Idle",
+      "Description": "Idle to Idle",
+      "FromState": "Idle",
+      "ToState": "Idle",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "26": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Idle to Blocked",
+      "Description": "Idle to Blocked",
+      "FromState": "Idle",
+      "ToState": "Blocked",
+      "Role": "",
+      "ReasonLookupTable": "ReasonsEptBlockedReason",
+      "ReasonDefaultValue": "Unknown"
+    },
+    "27": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Idle to Busy",
+      "Description": "Idle to Busy",
+      "FromState": "Idle",
+      "ToState": "Busy",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "28": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Blocked to Idle",
+      "Description": "Blocked to Idle",
+      "FromState": "Blocked",
+      "ToState": "Idle",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "29": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Blocked to Blocked",
+      "Description": "Blocked to Blocked",
+      "FromState": "Blocked",
+      "ToState": "Blocked",
+      "Role": "",
+      "ReasonLookupTable": "ReasonsEptBlockedReason",
+      "ReasonDefaultValue": "Unknown"
+    },
+    "30": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Blocked to Busy",
+      "Description": "Blocked to Busy",
+      "FromState": "Blocked",
+      "ToState": "Busy",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "31": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Busy to Idle",
+      "Description": "Busy to Idle",
+      "FromState": "Busy",
+      "ToState": "Idle",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "32": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Busy to Blocked",
+      "Description": "Busy to Blocked",
+      "FromState": "Busy",
+      "ToState": "Blocked",
+      "Role": "",
+      "ReasonLookupTable": "ReasonsEptBlockedReason",
+      "ReasonDefaultValue": "Unknown"
+    },
+    "33": {
+      "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
+      "Name": "Busy to Busy",
+      "Description": "Busy to Busy",
+      "FromState": "Busy",
+      "ToState": "Busy",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "34": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "ReadyToLoad to Reserved",
+      "Description": "",
+      "FromState": "ReadyToLoad",
+      "ToState": "Reserved",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "35": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "ReadyToLoad to TransferBlocked",
+      "Description": "",
+      "FromState": "ReadyToLoad",
+      "ToState": "TransferBlocked",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "36": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "ReadyToLoad to OutOfService",
+      "Description": "",
+      "FromState": "ReadyToLoad",
+      "ToState": "OutOfService",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "37": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "Reserved ve ReadyToLoad",
+      "Description": "",
+      "FromState": "Reserved",
+      "ToState": "ReadyToLoad",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "38": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "Reserved ve TransferBlocked",
+      "Description": "",
+      "FromState": "Reserved",
+      "ToState": "TransferBlocked",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "39": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "Reserved ve OutOfService",
+      "Description": "",
+      "FromState": "Reserved",
+      "ToState": "OutOfService",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "40": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "TransferBlocked transfer ReadyToUnload",
+      "Description": "",
+      "FromState": "TransferBlocked",
+      "ToState": "ReadyToUnload",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "41": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "TransferBlocked transfer OutOfService",
+      "Description": "",
+      "FromState": "TransferBlocked",
+      "ToState": "OutOfService",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "42": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "ReadyToUnload to ReadyToLoad",
+      "Description": "",
+      "FromState": "ReadyToUnload",
+      "ToState": "ReadyToLoad",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "43": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "ReadyToUnload to OutOfService",
+      "Description": "",
+      "FromState": "ReadyToUnload",
+      "ToState": "OutOfService",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "44": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "OutOfService of ReadyToLoad",
+      "Description": "",
+      "FromState": "OutOfService",
+      "ToState": "ReadyToLoad",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "45": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "OutOfService of TransferBlocked",
+      "Description": "",
+      "FromState": "OutOfService",
+      "ToState": "TransferBlocked",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "46": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "OutOfService of ReadyToUnload",
+      "Description": "",
+      "FromState": "OutOfService",
+      "ToState": "ReadyToUnload",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "47": {
+      "StateModel": "CustomLoadPortStateModel",
+      "Name": "OutOfService of Reserved",
+      "Description": "",
+      "FromState": "OutOfService",
+      "ToState": "Reserved",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
     }
   },
-  "<SM>DEEAction": {
-  },
+  "<SM>DEEAction": {},
   "DEEActionOrder": {},
-  "<DM>Rule": {
-  },
+  "<DM>Rule": {},
   "<DM>AutomationManager": {},
   "<DM>AutomationProtocol": {
     "1": {

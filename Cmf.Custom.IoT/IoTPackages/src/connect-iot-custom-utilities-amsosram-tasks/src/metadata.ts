@@ -59,7 +59,6 @@ export default <PackageMetadata><unknown>{
         // secs gem generic action tasks
         "customMaterialTransferStatusRequest",
         "customCarrierActionRequest",
-        "customComplexCommand",
         // Secs-Gem Control and Process Job Tasks
         "customControlJobRequest",
         "customCreateProcessJob",

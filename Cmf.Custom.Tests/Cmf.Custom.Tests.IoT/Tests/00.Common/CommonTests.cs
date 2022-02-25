@@ -209,43 +209,45 @@ namespace AMSOsramEIAutomaticTests
 
         public static void ConfigureConnection(string resourceName, int? port = null, string library = null, Dictionary<string, object> connectionAttributes = null, bool? isEnableAllAlarms = null, bool? isEnableAllEvents = null)
         {
-            var action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action();
-            try
-            {
-                //Call DEE action called by Operator when clicking on GUI to Download Recipe to Equipment
-                action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.GetActionByNameInput()
-                {
-                    Name = "CustomKillProcesses"
-                }.GetActionByNameSync().Action;
-            }
-            catch
-            {
-                string ruleCode = "";
-                ruleCode = File.ReadAllText(".\\HelperFiles\\KillProcessesRules");
+            //var action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action();
+            //try
+            //{
+            //    //Call DEE action called by Operator when clicking on GUI to Download Recipe to Equipment
+            //    action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.GetActionByNameInput()
+            //    {
+            //        Name = "CustomKillProcesses"
+            //    }.GetActionByNameSync().Action;
+            //}
+            //catch
+            //{
+            //    string ruleCode = "";
+            //    ruleCode = File.ReadAllText(".\\HelperFiles\\KillProcessesRules");
 
-                action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action()
-                {
-                    Name = "CustomKillProcesses",
-                    ActionCode = ruleCode,
-                    IsEnabled = true
-                };
+            //    action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action()
+            //    {
+            //        Name = "CustomKillProcesses",
+            //        ActionCode = ruleCode,
+            //        IsEnabled = true
+            //    };
 
-                action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.CreateActionInput()
-                {
-                    Action = action
-                }.CreateActionSync().Action;
-            }
-            var deeOutput = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.ExecuteActionInput()
-            {
-                Action = action,
-                Input = new Dictionary<string, object>()
-                {
-                    //{ "ProcessName", "the name of the process" },
-                    //{ "ExecutionPath", "the execution path of the process" }
-                }
-            }.ExecuteActionSync();
+            //    action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.CreateActionInput()
+            //    {
+            //        Action = action
+            //    }.CreateActionSync().Action;
+            //}
 
-            Console.WriteLine(deeOutput.Output["Result"]);
+
+            //var deeOutput = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.ExecuteActionInput()
+            //{
+            //    Action = action,
+            //    Input = new Dictionary<string, object>()
+            //    {
+            //        //{ "ProcessName", "the name of the process" },
+            //        //{ "ExecutionPath", "the execution path of the process" }
+            //    }
+            //}.ExecuteActionSync();
+
+            //Console.WriteLine(deeOutput.Output["Result"]);
 
             if (!port.HasValue)
             {
@@ -324,18 +326,18 @@ namespace AMSOsramEIAutomaticTests
 
         private void EnsureLoadPortStartConditions(Resource resource)
         {
-            var resourceHierarchy = resource.GetDescendentResources();
+            //var resourceHierarchy = resource.GetDescendentResources();
 
-            var loadPorts = resourceHierarchy.Where(s => s.ChildResource.ProcessingType == ProcessingType.LoadPort).Select(s => s.ChildResource).ToList();
+            //var loadPorts = resourceHierarchy.Where(s => s.ChildResource.ProcessingType == ProcessingType.LoadPort).Select(s => s.ChildResource).ToList();
 
-            if(loadPorts.Count > 0)
-            {
-                foreach(var lp in loadPorts)
-                {
-                    lp.Load();
-                    lp.AdjustState("Available");
-                }
-            }
+            //if(loadPorts.Count > 0)
+            //{
+            //    foreach(var lp in loadPorts)
+            //    {
+            //        lp.Load();
+            //        lp.AdjustState("Available");
+            //    }
+            //}
 
         }
 
@@ -734,9 +736,9 @@ namespace AMSOsramEIAutomaticTests
             CarrierIn(MESScenario, loadPortToSet);
             Log(String.Format("{0}: [E] Carrier In Resource {1} Load Port {2}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, loadPortToSet));
 
-            Log(String.Format("{0}: [S] Validating Load Port State Changed State Change to Occupied Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
-            ValidateLoadPortState(MESScenario, LoadPortStateModelStateEnum.Occupied.ToString());
-            Log(String.Format("{0}: [E] Validating Load Port State Changed State Change to Occupied Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+            Log(String.Format("{0}: [S] Validating Load Port State Changed State Change to Transfer Blocked Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+            ValidateLoadPortState(MESScenario, LoadPortStateModelStateEnum.TransferBlocked.ToString());
+            Log(String.Format("{0}: [E] Validating Load Port State Changed State Change to Transfer Blocked Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
         }
 
         public virtual void CarrierOutValidation(CustomMaterialScenario MESScenario, int loadPortToSet)
@@ -745,9 +747,9 @@ namespace AMSOsramEIAutomaticTests
             CarrierOut(MESScenario);
             Log(String.Format("{0}: [E] Carrier Out Resource {1} Load Port {2}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, loadPortToSet));
 
-            Log(String.Format("{0}: [S] Validating Load Port State Changed State Change to Available Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
-            ValidateLoadPortState(MESScenario, LoadPortStateModelStateEnum.Available.ToString());
-            Log(String.Format("{0}: [E] Validating Load Port State Changed State Change to Available Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+            Log(String.Format("{0}: [S] Validating Load Port State Changed State Change to Ready To Load Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+            ValidateLoadPortState(MESScenario, LoadPortStateModelStateEnum.ReadyToLoad.ToString());
+            Log(String.Format("{0}: [E] Validating Load Port State Changed State Change to Ready To Load Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
 
         }
 

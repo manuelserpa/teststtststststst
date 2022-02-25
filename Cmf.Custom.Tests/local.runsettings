@@ -19,12 +19,14 @@
     <Parameter name="userRole" value="Administrators"/>
     <Parameter name="userName" value="CMF\cmfsu" />
     <Parameter name="password" value="qaz123WSX" />
-    <Parameter name="auxiliaryUserName" value="TestUserAccountHere" />
-    <Parameter name="auxiliaryUserPassword" value="TestUserPasswordHere" />
+    <Parameter name="auxiliaryUserName" value="cmf\cmfsu" />
+    <Parameter name="auxiliaryUserPassword" value="qaz123WSX" />
     <Parameter name="skipLogin" value="true" />
+	  <Parameter name="useSsl" value="false" />
     <Parameter name="hostUseSSL" value="false" />
     <Parameter name="securityToken" value="4n5g84uLK347" />
     <Parameter name="useLoadBalancer" value="false" />
+	  <Parameter name="hostUseLoadBalancer" value="false" />
     <Parameter name="requestTimeout" value="00:10:00" />
     <Parameter name="reuseWebDriver" value="true" />
     <Parameter name="browser" value="chrome" />
@@ -32,7 +34,8 @@
     <!-- Connect IoT -->
     <Parameter name="mode" value="Local" />
     <Parameter name="filePathRemote" value="./RunSettings/local.runsettings" />
-    <Parameter name="filePathLocal" value="../../local.runsettings" />
+    <Parameter name="filePathLocal" value="../../../local.runsettings" />
+	  <Parameter name="filePath" value="../../../local.runsettings" />
     <!-- test output -->
     <Parameter name="screenshotPath" value="\\VM-AMS-OSRAM.cmf.criticalmanufacturing.com\Deployment\TestArtifacts" />
     <Parameter name="logsPath" value="\\VM-AMS-OSRAM.cmf.criticalmanufacturing.com\Deployment\TestArtifacts" />
@@ -51,21 +54,21 @@
 
   
   <!-- Connect IoT -->
-  <!-- <connectIotAutomaticTests>
-    <Global
-      dataDir="%TestsPath%\Cmf.Custom.Tests.IoT\bin\Debug\"
-      configLocation="%ConfigLocation%"
-      logDebug="true"
-      setAutomationControllerInstanceToNotRunning= "false" />
+	<connectIotAutomaticTests>
+		<Global
+			  dataDir="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\"
+			  logDebug="true"
+			  configLocation="C:\AMSOsramMngrCfgs\config.json"/>
+		<!--setAutomationControllerInstanceToNotRunning="false"/>-->
+		<!--   configLocation="C:\Users\raazevedo\Downloads\MCSInterface\config.json"/>-->
 
-    <Equipments>
-      <Cluster name="%ResourceName%" automationManager="%ManagerName%">
-        <Equipment name="%EquipmentFriendlyName%" driverAlias="%DriverAlias%" description="" driver="%DriverType%" dataDir="" 
-          serviceName="%ManagerServiceName%" configLocation="%ConfigLocation%">
-          <Directory name="" path="" />
-        </Equipment>
-      </Cluster>
-    </Equipments>
-  </connectIotAutomaticTests> -->
-  
+		<Equipments>
+			<Equipment name="PDSP0101" automationManager="EvatecClusterline200II" driverAlias="SecsGemEquipment"
+							 description="SecsGemEquipment" driver="SecsGem" port="5011" serviceMachine="vm-ams-osram"
+							 serviceName="ConnectIoT (PDSP0101)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json"
+					   library ="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"
+					   >
+			</Equipment>
+		</Equipments>
+	</connectIotAutomaticTests>
 </RunSettings>
