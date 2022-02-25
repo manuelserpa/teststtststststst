@@ -1,0 +1,56 @@
+{
+  "Sheet1": {},
+  "<DM>AutomationDriverDefinition": {
+    "1": {
+      "Name": "NiceLabelDriver",
+      "Description": "Label for Nice Label Integration",
+      "Type": "General",
+      "AutomationProtocol": "FileRaw",
+      "ObjectType": "Resource"
+    }
+  },
+  "AutomationProperty": {},
+  "AutomationEvent": {},
+  "AutomationEventProperties": {},
+  "AutomationCommand": {},
+  "AutomationCommandParameter": {},
+  "<DM>AutomationController": {
+    "1": {
+      "Name": "NiceLabelController",
+      "Description": "Nice Label Controller",
+      "Type": "General",
+      "ControllerPackageVersion": "8.3.3-202201212",
+      "ObjectType": "Resource",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-cree-tasks\",\"connect-iot-controller-engine-mes-tasks\",\"connect-iot-controller-engine-secsgem-tasks\"]",
+      "Scope": "ConnectIoT"
+    }
+  },
+  "AutomationControllerDriverDef": {
+    "1": {
+      "AutomationController": "NiceLabelController",
+      "Name": "FileDriver",
+      "DisplayName": "FileDriver",
+      "AutomationDriverDefinition": "NiceLabelDriver",
+      "Color": "#ffff80"
+    }
+  },
+  "AutomationControllerIoTEventDef": {},
+  "AutomationControllerWorkflow": {
+    "1": {
+      "AutomationController": "NiceLabelController",
+      "Name": "Setup",
+      "DisplayName": "Setup",
+      "IsFile": "Yes",
+      "Workflow": "NiceLabel\\Setup.json",
+      "Order": "1"
+    },
+    "2": {
+      "AutomationController": "NiceLabelController",
+      "Name": "PrintRequest_01_PrintRequestReceived",
+      "DisplayName": "PrintRequest_01_PrintRequestReceived",
+      "IsFile": "Yes",
+      "Workflow": "NiceLabel\\PrintRequest_01_PrintRequestReceived.json",
+      "Order": "2"
+    }
+  }
+}

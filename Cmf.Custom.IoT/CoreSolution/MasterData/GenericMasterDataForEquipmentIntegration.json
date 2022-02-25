@@ -2071,6 +2071,13 @@
       "Type": "General",
       "Package": "@criticalmanufacturing/connect-iot-driver-secsgem",
       "PackageVersion": "8.3.3-202201212"
+    },
+    "2": {
+      "Name": "FileRaw",
+      "Description": "FileRaw",
+      "Type": "General",
+      "Package": "@criticalmanufacturing/connect-iot-driver-fileraw",
+      "PackageVersion": "8.3.3-202201212"
     }
   },
   "AutomationProtocolParameter": {},
