@@ -29,7 +29,7 @@
     "1": {
       "ParentPath": "/Cmf/Custom/Automation",
       "Name": "NiceLabelPrintResource",
-      "Value": "NiceLabelPrintResource",
+      "Value": "",
       "ValueType": "String"
     }
   }

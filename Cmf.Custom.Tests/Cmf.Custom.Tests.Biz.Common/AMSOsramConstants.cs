@@ -48,9 +48,19 @@ namespace Cmf.Custom.Tests.Biz.Common
         public const string DefaultMaterialFormName = "Lot";
 
         /// <summary>
+        /// Default Material Logistical Wafer Form
+        /// </summary>
+        public const string DefaultMaterialLogisticalWaferForm = "Logistical wafer";
+
+        /// <summary>
         /// DefaultMaterialUnit
         /// </summary>
         public const string DefaultMaterialUnit = "CM2";
+
+        /// <summary>
+        /// Default Test Container
+        /// </summary>
+        public const string DefaultContainerName = "3132323039303031";
 
         #endregion
 
