@@ -49,10 +49,10 @@ namespace Cmf.Custom.Tests.Biz
         ///     - Resolve the Smart Table information 
         ///     
         /// </summary>
-        /// <TestCaseID>NiveLabelPrinting.NiveLabelPrinting_TrackOutMaterial_HappyPath</TestCaseID>
+        /// <TestCaseID>NiveLabelPrinting.NiceLabelPrinting_TrackOutMaterial_HappyPath</TestCaseID>
         /// <Author>David Guilherme</Author>
         [TestMethod]
-        public void NiveLabelPrinting_TrackOutMaterial_HappyPath()
+        public void NiceLabelPrinting_TrackOutMaterial_HappyPath()
         {
 
             #region Setup
@@ -184,10 +184,10 @@ namespace Cmf.Custom.Tests.Biz
         ///     - Does not get an error
         ///     
         /// </summary>
-        /// <TestCaseID>NiveLabelPrinting.NiveLabelPrinting_EmptySmartTable_HappyPath</TestCaseID>
+        /// <TestCaseID>NiveLabelPrinting.NiceLabelPrinting_EmptySmartTable_HappyPath</TestCaseID>
         /// <Author>David Guilherme</Author>
         [TestMethod]
-        public void NiveLabelPrinting_EmptySmartTable_HappyPath()
+        public void NiceLabelPrinting_EmptySmartTable_HappyPath()
         {
 
             #region Setup
@@ -265,10 +265,10 @@ namespace Cmf.Custom.Tests.Biz
         ///     - Does not get an error
         ///     
         /// </summary>
-        /// <TestCaseID>NiveLabelPrinting.NiveLabelPrinting_NotEnabledAtTrackOut_HappyPath</TestCaseID>
+        /// <TestCaseID>NiveLabelPrinting.NiceLabelPrinting_NotEnabledAtTrackOut_HappyPath</TestCaseID>
         /// <Author>David Guilherme</Author>
         [TestMethod]
-        public void NiveLabelPrinting_NotEnabledAtTrackOut_HappyPath()
+        public void NiceLabelPrinting_NotEnabledAtTrackOut_HappyPath()
         {
             #region Setup
 

@@ -30,9 +30,15 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
             ///     
             /// </summary>
             #endregion
+
+            bool isToExecute = false;
+
+            if (string.IsNullOrEmpty(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.AutomationGenericNiceLabelPrintResourcePath)))
+            {
+                isToExecute = true;
+            }
             
-            
-            return true;
+            return isToExecute;
 
             //---End DEE Condition Code---
         }
@@ -119,7 +125,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
                     materialNiceLabelPrintInformation.Add("LotAlias","");                                                   // TODO: Missing information to map
                     materialNiceLabelPrintInformation.Add("ProductName", productName);
                     materialNiceLabelPrintInformation.Add("ProductDesc", material.Product?.Description);
-                    materialNiceLabelPrintInformation.Add("ProductType",material.Product?.ProductType.ToString());
+                    materialNiceLabelPrintInformation.Add("ProductType", material.Product?.ProductType.ToString());
                     materialNiceLabelPrintInformation.Add("Product_Type", material.Product?.Type);
                     materialNiceLabelPrintInformation.Add("ProductGroupName", productGroupName);
                     materialNiceLabelPrintInformation.Add("ProductGroup_Type", material.Product?.ProductGroup?.Type);
