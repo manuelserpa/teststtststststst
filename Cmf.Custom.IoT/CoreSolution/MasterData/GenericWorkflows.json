@@ -899,6 +899,14 @@
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
       "Workflow": ".\\GenericWorkflows\\UpdateEquipmentPerformanceTrackingState.json",
       "IsFile": "Yes"
+    },
+    "34": {
+      "Name": "AlarmCollection",
+      "DisplayName": "AlarmCollection",
+      "Description": "Stores Alarm Occurrences on a Data Collection",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
+      "Workflow": ".\\GenericWorkflows\\AlarmCollection.json",
+      "IsFile": "Yes"
     }
   }
 }
