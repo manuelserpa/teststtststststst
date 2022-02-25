@@ -54,17 +54,17 @@
         /// <summary>
         /// Default Column name Printer from ST CustomMaterialNiceLabelPrintContext
         /// </summary>
-        public const string CustomMaterialNiceLabelPrintContextPrinter = "Printer";
+        public const string CustomMaterialNiceLabelPrintContextPrinter = "Printer_Name";
 
         /// <summary>
         /// Default Column name Label from ST CustomMaterialNiceLabelPrintContext
         /// </summary>
-        public const string CustomMaterialNiceLabelPrintContextLabel = "Label";
+        public const string CustomMaterialNiceLabelPrintContextLabel = "Label_Name";
 
         /// <summary>
         /// Default Column name Quantity from ST CustomMaterialNiceLabelPrintContext
         /// </summary>
-        public const string CustomMaterialNiceLabelPrintContextQuantity = "Quantity";
+        public const string CustomMaterialNiceLabelPrintContextQuantity = "Label_Quantity";
 
         
 

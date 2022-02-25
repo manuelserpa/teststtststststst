@@ -33,7 +33,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
 
             bool isToExecute = false;
 
-            if (string.IsNullOrEmpty(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.AutomationGenericNiceLabelPrintResourcePath)))
+            if (!string.IsNullOrEmpty(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.AutomationGenericNiceLabelPrintResourcePath)))
             {
                 isToExecute = true;
             }
@@ -96,75 +96,10 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
             // resolve custom ST
             foreach (Material material in materialCollection)
             {
-                // Get Material information
-                string stepName = material.Step.Name;
-                string materialName = material.Name;
-                string productName = material.Product.Name;
-                string logicalFlowPath = material.LogicalFlowPath;
-                // Product group isn't mandatory, we have to null check it
-                string productGroupName = material.Product.ProductGroup?.Name;
-                string flowName = material.Flow.Name;
-                Resource resource = material.LastProcessedResource;
-
-                Dictionary<string, string> materialNiceLabelPrintInformation = AMSOsramUtilities.CustomResolveSTCustomMaterialNiceLabelPrintContext(stepName,
-                                                                                                                                                logicalFlowPath,
-                                                                                                                                                productName,
-                                                                                                                                                productGroupName,
-                                                                                                                                                flowName,
-                                                                                                                                                materialName,
-                                                                                                                                                material.Type,
-                                                                                                                                                resource.Name,
-                                                                                                                                                resource.Type,
-                                                                                                                                                resource.Model,
-                                                                                                                                                operation);
+                Dictionary<string, string> materialNiceLabelPrintInformation = AMSOsramUtilities.GetDataForNiceLabelPrinting(material, operation);
 
                 if (materialNiceLabelPrintInformation != null)
                 {
-                    // add addictional information about the material
-                    materialNiceLabelPrintInformation.Add("LotName", material.Name);
-                    materialNiceLabelPrintInformation.Add("LotAlias","");                                                   // TODO: Missing information to map
-                    materialNiceLabelPrintInformation.Add("ProductName", productName);
-                    materialNiceLabelPrintInformation.Add("ProductDesc", material.Product?.Description);
-                    materialNiceLabelPrintInformation.Add("ProductType", material.Product?.ProductType.ToString());
-                    materialNiceLabelPrintInformation.Add("Product_Type", material.Product?.Type);
-                    materialNiceLabelPrintInformation.Add("ProductGroupName", productGroupName);
-                    materialNiceLabelPrintInformation.Add("ProductGroup_Type", material.Product?.ProductGroup?.Type);
-                    materialNiceLabelPrintInformation.Add("FlowName", flowName);
-                    materialNiceLabelPrintInformation.Add("BatchName", "");                                                 // TODO: Missing information to map
-
-                    Container container = new Container();
-                    if (material.RelationCollection.ContainsKey("MaterialContainer"))
-                    {
-                        container = material.RelationCollection["MaterialContainer"][0].TargetEntity as Container;
-                        container.Load();
-                    }
-                    materialNiceLabelPrintInformation.Add("ContainerName", container.Name);
-                    materialNiceLabelPrintInformation.Add("ExperimentName", material.Experiment?.Name);
-                    materialNiceLabelPrintInformation.Add("ProductionOrder", material.ProductionOrder?.Name);
-                    materialNiceLabelPrintInformation.Add("LotOwner", "");                                                  // TODO: Missing information to map                                        
-                    materialNiceLabelPrintInformation.Add("ResourceName", resource.Name);
-                    materialNiceLabelPrintInformation.Add("WaferLogicalName", "");                                          // TODO: Missing information to map
-                    materialNiceLabelPrintInformation.Add("WaferSlotPosition", "");                                         // TODO: Missing information to map
-                    materialNiceLabelPrintInformation.Add("WaferCrystalName", "");                                          // TODO: Missing information to map
-                    materialNiceLabelPrintInformation.Add("LotWaferCount", "");                                             // TODO: Missing information to map
-                    materialNiceLabelPrintInformation.Add("LotPrimaryQty", material.PrimaryQuantity.HasValue?material.PrimaryQuantity.ToString():string.Empty);
-                    materialNiceLabelPrintInformation.Add("LotSecundaryQty", material.SecondaryQuantity.HasValue ? material.SecondaryQuantity.ToString() : string.Empty);
-                    materialNiceLabelPrintInformation.Add("WaferPrimaryQty", "");                                           // TODO: Missing information to map
-                    materialNiceLabelPrintInformation.Add("WaferSecundaryQty", "");                                         // TODO: Missing information to map
-                    materialNiceLabelPrintInformation.Add("Lot_Type", material.Type);
-
-                    Step step = material.Step;
-                    // Get Area from Step
-                    Area area = null;
-                    step.LoadStepAreas();
-                    if (step.StepAreas.Count > 0)
-                    {
-                        area = step.StepAreas.First().TargetEntity;
-                        area.Load();
-                    }
-                    materialNiceLabelPrintInformation.Add("Area", area?.Name);
-                    materialNiceLabelPrintInformation.Add("Facility", material.Facility.Name);
-
                     // associate the material with the printing information
                     materials.Add(material.Name, materialNiceLabelPrintInformation);
                 }

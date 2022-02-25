@@ -14,10 +14,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Cmf.Custom.Tests.Biz
+namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
 {
     [TestClass]
-    public class NiveLabelPrinting
+    public class CustomGetNiceLabelPrintingInformation
     {
         private CustomTearDownManager customTeardownManager = null;
         private SmartTableManager smartTableManager = null;
@@ -49,10 +49,10 @@ namespace Cmf.Custom.Tests.Biz
         ///     - Resolve the Smart Table information 
         ///     
         /// </summary>
-        /// <TestCaseID>NiveLabelPrinting.NiceLabelPrinting_TrackOutMaterial_HappyPath</TestCaseID>
+        /// <TestCaseID>CustomGetNiceLabelPrintingInformation.CustomGetNiceLabelPrintingInformation_TrackOutMaterial_HappyPath</TestCaseID>
         /// <Author>David Guilherme</Author>
         [TestMethod]
-        public void NiceLabelPrinting_TrackOutMaterial_HappyPath()
+        public void CustomGetNiceLabelPrintingInformation_TrackOutMaterial_HappyPath()
         {
 
             #region Setup
@@ -168,7 +168,8 @@ namespace Cmf.Custom.Tests.Biz
                 Assert.IsTrue(materialInformatoinToPrint["FlowName"].ToString().Equals(material.Flow.Name), $"Column Flow Name should have the value: {material.Flow.Name}, instead is: {materialInformatoinToPrint["FlowName"]}.");
                 Assert.IsTrue(materialInformatoinToPrint["ContainerName"].ToString().Equals(AMSOsramConstants.DefaultContainerName), $"Column Container Name should have the value: {AMSOsramConstants.DefaultContainerName}, instead is: {materialInformatoinToPrint["ContainerName"]}.");
                 Assert.IsTrue(materialInformatoinToPrint["ResourceName"].ToString().Equals(material.LastProcessedResource.Name), $"Column Resource Name should have the value: {material.LastProcessedResource.Name}, instead is: {materialInformatoinToPrint["ResourceName"]}.");
-                Assert.IsTrue(materialInformatoinToPrint["LotPrimaryQty"].ToString().Equals("10"), $"Column Lot Primary Quantity should have the value: 10, instead is: {materialInformatoinToPrint["LotPrimaryQty"]}.");
+
+                Assert.IsTrue(string.Format("{0:0.##}", Convert.ToDecimal(materialInformatoinToPrint["LotPrimaryQty"])).Equals("10"), $"Column Lot Primary Quantity should have the value: 10, instead is: {string.Format("{0:0.##}", Convert.ToDecimal(materialInformatoinToPrint["LotPrimaryQty"]))}.");
                 Assert.IsTrue(string.IsNullOrEmpty(materialInformatoinToPrint["LotSecundaryQty"]?.ToString()), $"Column Lot Secondary Quantity should have the value: {material.LastProcessedResource.Name}, instead is: {materialInformatoinToPrint["LotSecundaryQty"]}.");
                 Assert.IsTrue(materialInformatoinToPrint["Lot_Type"].ToString().Equals(material.Type), $"Column Lot Type should have the value: {material.Type}, instead is: {materialInformatoinToPrint["Lot_Type"]}.");
             }
@@ -184,10 +185,10 @@ namespace Cmf.Custom.Tests.Biz
         ///     - Does not get an error
         ///     
         /// </summary>
-        /// <TestCaseID>NiveLabelPrinting.NiceLabelPrinting_EmptySmartTable_HappyPath</TestCaseID>
+        /// <TestCaseID>CustomGetNiceLabelPrintingInformation.CustomGetNiceLabelPrintingInformation_EmptySmartTable_HappyPath</TestCaseID>
         /// <Author>David Guilherme</Author>
         [TestMethod]
-        public void NiceLabelPrinting_EmptySmartTable_HappyPath()
+        public void CustomGetNiceLabelPrintingInformation_EmptySmartTable_HappyPath()
         {
 
             #region Setup
@@ -265,10 +266,10 @@ namespace Cmf.Custom.Tests.Biz
         ///     - Does not get an error
         ///     
         /// </summary>
-        /// <TestCaseID>NiveLabelPrinting.NiceLabelPrinting_NotEnabledAtTrackOut_HappyPath</TestCaseID>
+        /// <TestCaseID>CustomGetNiceLabelPrintingInformation.CustomGetNiceLabelPrintingInformation_NotEnabledAtTrackOut_HappyPath</TestCaseID>
         /// <Author>David Guilherme</Author>
         [TestMethod]
-        public void NiceLabelPrinting_NotEnabledAtTrackOut_HappyPath()
+        public void CustomGetNiceLabelPrintingInformation_NotEnabledAtTrackOut_HappyPath()
         {
             #region Setup
 

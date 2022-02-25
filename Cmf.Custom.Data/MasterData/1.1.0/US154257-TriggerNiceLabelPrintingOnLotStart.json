@@ -2,7 +2,7 @@
   "<SM>DEEAction": {
     "1": {
       "Action": "CustomNiceLabelPrint",
-      "Description": "",
+      "Description": "Action to be triggered on material track out to send retrive and send information for the nice label printing.",
       "CodeFileRelativePath": "NiceLabelPrinting\\CustomNiceLabelPrint.cs",
       "IsEnabled": "Yes",
       "Classification": ""

@@ -20,12 +20,27 @@ Upon execution this DEE action, using the available information related to the c
 * Label - The label to be printed;
 * Printer - The printer to be used;
 * Quantity - Quantity of labels to print;
-* Zeile1 -
-* Zeile2 -
-* Zeile3 -
-* Zeile4 -
-* Zeile5 -
-* Zeile6 -
-* Zeile7 -
-* Zeile5RB -
-* Barcode -
+* LotName - Material Name;
+* LotAlias
+* ProductName
+* ProductDesc
+* ProductType
+* Product_Type
+* ProductGroupName
+* ProductGroup_Type
+* FlowName
+* BatchName
+* ContainerName
+* ExperimentName
+* ProductionOrder
+* LotOwner                                        
+* ResourceName
+* WaferLogicalName
+* WaferSlotPosition
+* WaferCrystalName
+* LotWaferCount
+* LotPrimaryQty
+* LotSecundaryQty
+* WaferPrimaryQty
+* WaferSecundaryQty
+* Lot_Type
