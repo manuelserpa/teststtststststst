@@ -102,7 +102,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
             {
                 Dictionary<string, string> materialNiceLabelPrintInformation = AMSOsramUtilities.GetDataForNiceLabelPrinting(material, resource, operation);
 
-                if (materialNiceLabelPrintInformation != null)
+                if (materialNiceLabelPrintInformation != null && materialNiceLabelPrintInformation.Count > 0)
                 {
                     // associate the material with the printing information
                     materials.Add(material.Name, materialNiceLabelPrintInformation);
@@ -112,7 +112,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
 
             #region IoT call
 
-            if (materials.Count > 0)
+            if (materials != null && materials.Count > 0)
             {
                 string resourceName = AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.AutomationGenericNiceLabelPrintResourcePath);
                 Resource resourceToPrint = new Resource();
