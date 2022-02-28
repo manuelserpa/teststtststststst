@@ -10,7 +10,7 @@
   },
   "<DM>Resource": {
     "1": {
-      "Name": "NiceLabelPrintResource",
+      "Name": "NiceLabelPrinter",
       "Description": "Resource to receive the printing information",
       "Type": "Process",
       "IsTemplate": "No",
@@ -97,7 +97,7 @@
     "1": {
       "ParentPath": "/Cmf/Custom/Automation",
       "Name": "NiceLabelPrintResource",
-      "Value": "NiceLabelPrintResource",
+      "Value": "NiceLabelPrinter",
       "ValueType": "String"
     }
   }
