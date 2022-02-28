@@ -999,9 +999,11 @@ namespace Cmf.Custom.AMSOsram.Common
 			// Product group isn't mandatory, we have to null check it
 			string productGroupName = material.Product.ProductGroup?.Name;
 			string flowName = material.Flow.Name;
-			Resource resource = material.LastProcessedResource;
+			string resourceName = material.LastProcessStepResource?.Name;
+			string resourceType = material.LastProcessStepResource?.Type;
+			string resourceModel = material.LastProcessStepResource?.Model;
 
-			DataRow row = AMSOsramUtilities.CustomResolveSTCustomMaterialNiceLabelPrintContext(stepName, logicalFlowPath, productName, productGroupName, flowName, materialName, material.Type, resource.Name, resource.Type, resource.Model, operation);
+			DataRow row = AMSOsramUtilities.CustomResolveSTCustomMaterialNiceLabelPrintContext(stepName, logicalFlowPath, productName, productGroupName, flowName, materialName, material.Type, resourceName, resourceType, resourceModel, operation);
 			Dictionary<string, string> materialNiceLabelPrintInformation = new Dictionary<string, string>();
 
 			if (row != null && row.Field<bool>("IsEnabled"))
