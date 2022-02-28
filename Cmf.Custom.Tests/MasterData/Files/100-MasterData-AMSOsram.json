@@ -31430,21 +31430,6 @@
       "CapacityPerPosition": "1",
       "IsAutoGeneratePositionEnabled": "No",
       "TotalPositions": "12"
-    },
-    "26": {
-      "Name": "3132323039303030",
-      "Description": "SMIF Pod 8-Inch",
-      "IsTemplate": "No",
-      "Type": "SMIF Pod 8-Inch",
-      "Facility": "Regensburg Production",
-      "Vendor": "General",
-      "VendorId": "",
-      "CapacityValidationMode": "Form",
-      "CapacityForm": "Logistical wafer",
-      "CapacityUnits": "",
-      "CapacityPerPosition": "1",
-      "IsAutoGeneratePositionEnabled": "No",
-      "TotalPositions": "12"
     }
   }
 }

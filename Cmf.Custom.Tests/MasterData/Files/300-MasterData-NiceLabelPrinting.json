@@ -73,7 +73,8 @@
       "LocationType": "",
       "DimensionXSize": "",
       "DimensionYSize": "",
-      "ConsumableFeedPositions": ""
+      "ConsumableFeedPositions": "",
+      "AutomationEquipmentAddress":"\\\\vm-ams-osram\\IoTTestsAutomationManagers\\PrinterTest"
     }
   },
   "<DM>Container": {
