@@ -147,7 +147,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         /// <summary> 
         /// Scenario: Recipe Exists on Equipment
         /// </summary>
-        //[TestMethod]
+        [TestMethod]
         public void EvatecClusterline200II_SameRecipeOnlineLocal()
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
@@ -155,7 +155,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             isOnlineRemote = false;
             TrackInMustFail = true;
 
-            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName, ".\\RecipeBinaryFiles\\FTMTL14PYCUR.bin");
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
 
             var recipe = new Recipe() { Name = RecipeName };
             recipe.Load();
@@ -171,7 +171,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         /// <summary> 
         /// Scenario: Recipe Exists on Equipment
         /// </summary>
-        //[TestMethod]
+        [TestMethod]
         public void EvatecClusterline200II_RecipeDoesNotExist()
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
@@ -186,7 +186,9 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             TrackInMustFail = true;
             base.RunBasicTest(base.MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
         }
+        #endregion Tests FullProcessScenario 
 
+        #region Test State and Data Collection
         /// <summary> 
         /// Scenario: Control State to Host Offline
         /// </summary>
@@ -377,6 +379,37 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
         }
 
+        /// <summary> 
+        /// Scenario: Alarm occurrs, validate ollection of alarm
+        /// </summary>
+        [TestMethod]
+        public void EvatecClusterline200II_AlarmDataCollection()
+        {
+
+            Resource resource = new Resource { Name = resourceName };
+            resource.Load();
+
+            //Load the instances and see how much is the count for the DataCollectionInstances
+            var dataCollectionInstancesBefore = this.GetDataCollectionInstanceByResourceId(resource.Id).Count;
+
+            Alarm alarmExample = new Alarm
+            {
+                AbstractName = "AName",
+                DataItemId = "DataItemId",
+                Id = 6,
+                Name = "NameOfAlarm",
+                Text = "Text of Alarm"
+            };
+
+            base.Equipment.SendAlarm(alarmExample, 0x01, null);
+
+
+            TestUtilities.WaitFor(30/*ValidationTimeout*/, "Alarm was not received", () =>
+            {
+                var dataCollectionInstancesAfter = this.GetDataCollectionInstanceByResourceId(resource.Id).Count;
+                return ((dataCollectionInstancesBefore + 1) == dataCollectionInstancesAfter);
+            });
+        }
         #endregion Tests FullProcessScenario 
 
 
@@ -392,32 +425,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
             // Trigger event
             base.Equipment.SendMessage(String.Format($"CarrierClamped"), null);
-
-            Resource resource = new Resource { Name = resourceName };
-            resource.Load();
-            //Load the instances and see how much is the count for the DataCollectionInstances
-
-
-            var dataCollectionInstancesBefore = this.GetDataCollectionInstanceByResourceId(resource.Id).Count;
-
-            Alarm alarmExample = new Alarm
-            {
-                AbstractName = "AName",
-                DataItemId = "DataItemId",
-                Id = 6,
-                Name = "NameOfAlarm",
-                Text = "Text of Alarm"
-            };
-
-            base.Equipment.SendAlarm(alarmExample, 0x01, null);
-
-
-            TestUtilities.WaitFor(10/*ValidationTimeout*/, "Alarm was not received", () =>
-            {
-                var dataCollectionInstancesAfter = this.GetDataCollectionInstanceByResourceId(resource.Id).Count;
-                return ((dataCollectionInstancesBefore + 1) == dataCollectionInstancesAfter);
-            });
-
+        
             return true;
 
         }
