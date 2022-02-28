@@ -157,9 +157,9 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
             {
                 Dictionary<string, object> materialInformationToPrint = (Dictionary<string, object>)outputInformation[materialName];
                 Assert.IsTrue(materialInformationToPrint["LotName"].ToString().Equals(materialName), $"Column LotName should have the value: {materialName}, instead is: {materialInformationToPrint["LotName"]}.");
-                Assert.IsTrue(materialInformationToPrint["PRINTER_NAME"].ToString().Equals(expectedPrinter), $"Column Printer should have the value: {expectedPrinter}, instead is: {materialInformationToPrint["Printer"]}.");
-                Assert.IsTrue(materialInformationToPrint["LABEL_NAME"].ToString().Equals(expectedLabel), $"Column Printer should have the value: {expectedLabel}, instead is: {materialInformationToPrint["Label"]}.");
-                Assert.IsTrue(materialInformationToPrint["LABEL_QUANTITY"].ToString().Equals(expectedQuantity), $"Column Printer should have the value: {expectedQuantity}, instead is: {materialInformationToPrint["Quantity"]}.");
+                Assert.IsTrue(materialInformationToPrint["PRINTER_NAME"].ToString().Equals(expectedPrinter), $"Column Printer should have the value: {expectedPrinter}, instead is: {materialInformationToPrint["PRINTER_NAME"]}.");
+                Assert.IsTrue(materialInformationToPrint["LABEL_NAME"].ToString().Equals(expectedLabel), $"Column Printer should have the value: {expectedLabel}, instead is: {materialInformationToPrint["LABEL_NAME"]}.");
+                Assert.IsTrue(materialInformationToPrint["LABEL_QUANTITY"].ToString().Equals(expectedQuantity), $"Column Printer should have the value: {expectedQuantity}, instead is: {materialInformationToPrint["LABEL_QUANTITY"]}.");
                 Assert.IsTrue(materialInformationToPrint["ProductName"].ToString().Equals(AMSOsramConstants.DefaultProductName), $"Column Product should have the value: {AMSOsramConstants.DefaultProductName}, instead is: {materialInformationToPrint["ProductName"]}.");
                 Assert.IsTrue(string.IsNullOrEmpty(materialInformationToPrint["ProductGroupName"]?.ToString()), $"Column Product Group should be empty.");
                 Assert.IsTrue(materialInformationToPrint["ProductDesc"].ToString().Equals(material.Product?.Description), $"Column Product Description should have the value: {material.Product?.Description}, instead is: {materialInformationToPrint["ProductDesc"]}.");
