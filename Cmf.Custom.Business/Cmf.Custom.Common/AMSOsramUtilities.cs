@@ -1006,49 +1006,46 @@ namespace Cmf.Custom.AMSOsram.Common
 
 			if (row != null && row.Field<bool>("IsEnabled"))
 			{
-				materialNiceLabelPrintInformation.AddRange(new Dictionary<string, string>()
-				{
-					{ AMSOsramConstants.CustomMaterialNiceLabelPrintContextPrinter, row.Field<string>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextPrinter) },
-					{ AMSOsramConstants.CustomMaterialNiceLabelPrintContextLabel, row.Field<string>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextLabel) },
-					{ AMSOsramConstants.CustomMaterialNiceLabelPrintContextQuantity, row.Field<int>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextQuantity).ToString() }
-				});
-			}
-
-			if (materialNiceLabelPrintInformation.Count > 0)
-			{
-				// add addictional information about the material
-				materialNiceLabelPrintInformation.Add("LotName", material.Name);
-				materialNiceLabelPrintInformation.Add("LotAlias", "");                                                   // TODO: Missing information to map
-				materialNiceLabelPrintInformation.Add("ProductName", productName);
-				materialNiceLabelPrintInformation.Add("ProductDesc", material.Product?.Description);
-				materialNiceLabelPrintInformation.Add("ProductType", material.Product?.ProductType.ToString());
-				materialNiceLabelPrintInformation.Add("Product_Type", material.Product?.Type);
-				materialNiceLabelPrintInformation.Add("ProductGroupName", productGroupName);
-				materialNiceLabelPrintInformation.Add("ProductGroup_Type", material.Product?.ProductGroup?.Type);
-				materialNiceLabelPrintInformation.Add("FlowName", flowName);
-				materialNiceLabelPrintInformation.Add("BatchName", "");                                                 // TODO: Missing information to map
-
 				Container container = new Container();
 				if (material.RelationCollection.ContainsKey("MaterialContainer"))
 				{
 					container = material.RelationCollection["MaterialContainer"][0].TargetEntity as Container;
 					container.Load();
 				}
-				materialNiceLabelPrintInformation.Add("ContainerName", container.Name);
-				materialNiceLabelPrintInformation.Add("ExperimentName", material.Experiment?.Name);
-				materialNiceLabelPrintInformation.Add("ProductionOrder", material.ProductionOrder?.Name);
-				materialNiceLabelPrintInformation.Add("LotOwner", "");                                                  // TODO: Missing information to map                                        
-				materialNiceLabelPrintInformation.Add("ResourceName", resource.Name);
-				materialNiceLabelPrintInformation.Add("WaferLogicalName", "");                                          // TODO: Missing information to map
-				materialNiceLabelPrintInformation.Add("WaferSlotPosition", "");                                         // TODO: Missing information to map
-				materialNiceLabelPrintInformation.Add("WaferCrystalName", "");                                          // TODO: Missing information to map
-				materialNiceLabelPrintInformation.Add("LotWaferCount", "");                                             // TODO: Missing information to map
-				materialNiceLabelPrintInformation.Add("LotPrimaryQty", material.PrimaryQuantity.HasValue ? material.PrimaryQuantity.ToString() : string.Empty);
-				materialNiceLabelPrintInformation.Add("LotSecundaryQty", material.SecondaryQuantity.HasValue ? material.SecondaryQuantity.ToString() : string.Empty);
-				materialNiceLabelPrintInformation.Add("WaferPrimaryQty", "");                                           // TODO: Missing information to map
-				materialNiceLabelPrintInformation.Add("WaferSecundaryQty", "");                                         // TODO: Missing information to map
-				materialNiceLabelPrintInformation.Add("Lot_Type", material.Type);
 
+				// add addictional information about the material
+				// TODO: Missing information to map: LotAlias; BatchName; LotOwner; WaferLogicalName; WaferSlotPosition; WaferCrystalName; LotWaferCount; WaferPrimaryQty; WaferSecundaryQty;
+				materialNiceLabelPrintInformation.AddRange(new Dictionary<string, string>()
+				{
+					{ AMSOsramConstants.CustomMaterialNiceLabelPrintContextPrinter, row.Field<string>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextPrinter) },
+					{ AMSOsramConstants.CustomMaterialNiceLabelPrintContextLabel, row.Field<string>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextLabel) },
+					{ AMSOsramConstants.CustomMaterialNiceLabelPrintContextQuantity, row.Field<int>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextQuantity).ToString() },
+					{ "LotName", material.Name },
+					{ "LotAlias", "" },
+					{ "ProductName", productName },
+					{ "ProductDesc", material.Product?.Description },
+					{ "ProductType", material.Product?.ProductType.ToString() },
+					{ "Product_Type", material.Product?.Type },
+					{ "ProductGroupName", productGroupName },
+					{ "ProductGroup_Type", material.Product?.ProductGroup?.Type },
+					{ "FlowName", flowName },
+					{ "BatchName", "" },
+					{ "ContainerName", container.Name },
+					{ "ExperimentName", material.Experiment?.Name },
+					{ "ProductionOrder", material.ProductionOrder?.Name },
+					{ "LotOwner", "" },
+					{ "ResourceName", resource.Name },
+					{ "WaferLogicalName", "" },
+					{ "WaferSlotPosition", "" },
+					{ "WaferCrystalName", "" },
+					{ "LotWaferCount", "" },
+					{ "LotPrimaryQty", material.PrimaryQuantity.HasValue ? material.PrimaryQuantity.ToString() : string.Empty },
+					{ "LotSecundaryQty", material.SecondaryQuantity.HasValue ? material.SecondaryQuantity.ToString() : string.Empty },
+					{ "WaferPrimaryQty", "" },
+					{ "WaferSecundaryQty", "" },
+					{ "Lot_Type", material.Type }
+				});
+			
 				Step step = material.Step;
 				// Get Area from Step
 				Area area = null;
