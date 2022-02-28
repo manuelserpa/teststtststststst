@@ -989,7 +989,7 @@ namespace Cmf.Custom.AMSOsram.Common
 			return returnObject;
 		}
 
-		public static Dictionary<string,string> GetDataForNiceLabelPrinting(Material material, string operation)
+		public static Dictionary<string,string> GetDataForNiceLabelPrinting(Material material, Resource resource, string operation)
         {
 			// Get Material information
 			string stepName = material.Step.Name;
@@ -999,9 +999,9 @@ namespace Cmf.Custom.AMSOsram.Common
 			// Product group isn't mandatory, we have to null check it
 			string productGroupName = material.Product.ProductGroup?.Name;
 			string flowName = material.Flow.Name;
-			string resourceName = material.LastProcessStepResource?.Name;
-			string resourceType = material.LastProcessStepResource?.Type;
-			string resourceModel = material.LastProcessStepResource?.Model;
+			string resourceName = resource?.Name;
+			string resourceType = resource?.Type;
+			string resourceModel = resource?.Model;
 
 			DataRow row = AMSOsramUtilities.CustomResolveSTCustomMaterialNiceLabelPrintContext(stepName, logicalFlowPath, productName, productGroupName, flowName, materialName, material.Type, resourceName, resourceType, resourceModel, operation);
 			Dictionary<string, string> materialNiceLabelPrintInformation = new Dictionary<string, string>();
@@ -1009,19 +1009,20 @@ namespace Cmf.Custom.AMSOsram.Common
 			if (row != null && row.Field<bool>("IsEnabled"))
 			{
 				Container container = new Container();
-				if (material.RelationCollection.ContainsKey("MaterialContainer"))
+
+				if (material.RelationCollection != null && material.RelationCollection.ContainsKey("MaterialContainer"))
 				{
 					container = material.RelationCollection["MaterialContainer"][0].TargetEntity as Container;
-					container.Load();
 				}
 
 				// add addictional information about the material
-				// TODO: Missing information to map: LotAlias; BatchName; LotOwner; WaferLogicalName; WaferSlotPosition; WaferCrystalName; LotWaferCount; WaferPrimaryQty; WaferSecundaryQty;
+				// TODO: Missing information to map: LotAlias; BatchName; LotOwner; LotWaferCount; 
 				materialNiceLabelPrintInformation.AddRange(new Dictionary<string, string>()
 				{
-					{ AMSOsramConstants.CustomMaterialNiceLabelPrintContextPrinter, row.Field<string>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextPrinter) },
-					{ AMSOsramConstants.CustomMaterialNiceLabelPrintContextLabel, row.Field<string>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextLabel) },
-					{ AMSOsramConstants.CustomMaterialNiceLabelPrintContextQuantity, row.Field<int>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextQuantity).ToString() },
+					
+					{ "LABEL_NAME", row.Field<string>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextLabel) },
+					{ "PRINTER_NAME", row.Field<string>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextPrinter) },
+					{ "LABEL_QUANTITY", row.Field<int>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextQuantity).ToString() },
 					{ "LotName", material.Name },
 					{ "LotAlias", "" },
 					{ "ProductName", productName },
@@ -1036,30 +1037,16 @@ namespace Cmf.Custom.AMSOsram.Common
 					{ "ExperimentName", material.Experiment?.Name },
 					{ "ProductionOrder", material.ProductionOrder?.Name },
 					{ "LotOwner", "" },
-					{ "ResourceName", resource.Name },
-					{ "WaferLogicalName", "" },
-					{ "WaferSlotPosition", "" },
-					{ "WaferCrystalName", "" },
+					{ "ResourceName", resourceName },
 					{ "LotWaferCount", "" },
 					{ "LotPrimaryQty", material.PrimaryQuantity.HasValue ? material.PrimaryQuantity.ToString() : string.Empty },
 					{ "LotSecundaryQty", material.SecondaryQuantity.HasValue ? material.SecondaryQuantity.ToString() : string.Empty },
-					{ "WaferPrimaryQty", "" },
-					{ "WaferSecundaryQty", "" },
-					{ "Lot_Type", material.Type }
+					{ "Lot_Type", material.Type },
+					{ "Area", resource?.Area.Name },
+					{ "Facility", material.Facility.Name }
 				});
-			
-				Step step = material.Step;
-				// Get Area from Step
-				Area area = null;
-				step.LoadStepAreas();
-				if (step.StepAreas.Count > 0)
-				{
-					area = step.StepAreas.First().TargetEntity;
-					area.Load();
-				}
-				materialNiceLabelPrintInformation.Add("Area", area?.Name);
-				materialNiceLabelPrintInformation.Add("Facility", material.Facility.Name);
 			}
+
 			return materialNiceLabelPrintInformation;
 		}
 

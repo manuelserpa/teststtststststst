@@ -69,21 +69,25 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
 
             MaterialCollection materialCollection = new MaterialCollection();
             string operation = null;
+            Resource resource = null;
 
             if (Input.ContainsKey("ComplexTrackOutMaterialsInput"))
             {
                 ComplexTrackOutMaterialsInput complexTrackOutInput = Input["ComplexTrackOutMaterialsInput"] as ComplexTrackOutMaterialsInput;
                 operation = GetDataForTrackOutAndMoveNextOperation.TrackOut.ToString();
                 materialCollection.AddRange(complexTrackOutInput.Materials.Keys);
+                resource = materialCollection.First().LastProcessStepResource;
             }
             else if (Input.ContainsKey("ComplexTrackInMaterialsOutput"))
             {
                 materialCollection = (Input["ComplexTrackInMaterialsOutput"] as ComplexTrackInMaterialsOutput).Materials;
                 operation = GetDataForTrackInOperation.TrackIn.ToString();
+                resource = (Input["ComplexTrackInMaterialsOutput"] as ComplexTrackInMaterialsOutput).Resource;
             }
             else if (Input.ContainsKey("MoveMaterialsToNextStepOutput"))
             {
                 materialCollection = (Input["MoveMaterialsToNextStepOutput"] as MoveMaterialsToNextStepOutput).Materials;
+                resource = materialCollection.First().LastProcessStepResource;
                 operation = "Move Next";
             }
 
@@ -96,7 +100,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
             // resolve custom ST
             foreach (Material material in materialCollection)
             {
-                Dictionary<string, string> materialNiceLabelPrintInformation = AMSOsramUtilities.GetDataForNiceLabelPrinting(material, operation);
+                Dictionary<string, string> materialNiceLabelPrintInformation = AMSOsramUtilities.GetDataForNiceLabelPrinting(material, resource, operation);
 
                 if (materialNiceLabelPrintInformation != null)
                 {
