@@ -155,23 +155,23 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
             ///<ExpectedValue> The DEE should return the correct information filled on the smart table </ExpectedValue>
             foreach (string materialName in outputInformation.Keys)
             {
-                Dictionary<string, object> materialInformatoinToPrint = (Dictionary<string, object>)outputInformation[materialName];
-                Assert.IsTrue(materialInformatoinToPrint["LotName"].ToString().Equals(materialName), $"Column LotName should have the value: {materialName}, instead is: {materialInformatoinToPrint["LotName"]}.");
-                Assert.IsTrue(materialInformatoinToPrint["Printer"].ToString().Equals(expectedPrinter), $"Column Printer should have the value: {expectedPrinter}, instead is: {materialInformatoinToPrint["Printer"]}.");
-                Assert.IsTrue(materialInformatoinToPrint["Label"].ToString().Equals(expectedLabel), $"Column Printer should have the value: {expectedLabel}, instead is: {materialInformatoinToPrint["Label"]}.");
-                Assert.IsTrue(materialInformatoinToPrint["Quantity"].ToString().Equals(expectedQuantity), $"Column Printer should have the value: {expectedQuantity}, instead is: {materialInformatoinToPrint["Quantity"]}.");
-                Assert.IsTrue(materialInformatoinToPrint["ProductName"].ToString().Equals(AMSOsramConstants.DefaultProductName), $"Column Product should have the value: {AMSOsramConstants.DefaultProductName}, instead is: {materialInformatoinToPrint["ProductName"]}.");
-                Assert.IsTrue(string.IsNullOrEmpty(materialInformatoinToPrint["ProductGroupName"]?.ToString()), $"Column Product Group should be empty.");
-                Assert.IsTrue(materialInformatoinToPrint["ProductDesc"].ToString().Equals(material.Product?.Description), $"Column Product Description should have the value: {material.Product?.Description}, instead is: {materialInformatoinToPrint["ProductDesc"]}.");
-                Assert.IsTrue(materialInformatoinToPrint["ProductType"].ToString().Equals(material.Product?.ProductType.ToString()), $"Column Product Product Type should have the value: {material.Product?.ProductType.ToString()}, instead is: {materialInformatoinToPrint["ProductType"]}.");
-                Assert.IsTrue(materialInformatoinToPrint["Product_Type"].ToString().Equals(material.Product?.Type), $"Column Product Type should have the value: {material.Product?.Type}, instead is: {materialInformatoinToPrint["Product_Type"]}.");
-                Assert.IsTrue(materialInformatoinToPrint["FlowName"].ToString().Equals(material.Flow.Name), $"Column Flow Name should have the value: {material.Flow.Name}, instead is: {materialInformatoinToPrint["FlowName"]}.");
-                Assert.IsTrue(materialInformatoinToPrint["ContainerName"].ToString().Equals(AMSOsramConstants.DefaultContainerName), $"Column Container Name should have the value: {AMSOsramConstants.DefaultContainerName}, instead is: {materialInformatoinToPrint["ContainerName"]}.");
-                Assert.IsTrue(materialInformatoinToPrint["ResourceName"].ToString().Equals(material.LastProcessedResource.Name), $"Column Resource Name should have the value: {material.LastProcessedResource.Name}, instead is: {materialInformatoinToPrint["ResourceName"]}.");
+                Dictionary<string, object> materialInformationToPrint = (Dictionary<string, object>)outputInformation[materialName];
+                Assert.IsTrue(materialInformationToPrint["LotName"].ToString().Equals(materialName), $"Column LotName should have the value: {materialName}, instead is: {materialInformationToPrint["LotName"]}.");
+                Assert.IsTrue(materialInformationToPrint["PRINTER_NAME"].ToString().Equals(expectedPrinter), $"Column Printer should have the value: {expectedPrinter}, instead is: {materialInformationToPrint["PRINTER_NAME"]}.");
+                Assert.IsTrue(materialInformationToPrint["LABEL_NAME"].ToString().Equals(expectedLabel), $"Column Printer should have the value: {expectedLabel}, instead is: {materialInformationToPrint["LABEL_NAME"]}.");
+                Assert.IsTrue(materialInformationToPrint["LABEL_QUANTITY"].ToString().Equals(expectedQuantity), $"Column Printer should have the value: {expectedQuantity}, instead is: {materialInformationToPrint["LABEL_QUANTITY"]}.");
+                Assert.IsTrue(materialInformationToPrint["ProductName"].ToString().Equals(AMSOsramConstants.DefaultProductName), $"Column Product should have the value: {AMSOsramConstants.DefaultProductName}, instead is: {materialInformationToPrint["ProductName"]}.");
+                Assert.IsTrue(string.IsNullOrEmpty(materialInformationToPrint["ProductGroupName"]?.ToString()), $"Column Product Group should be empty.");
+                Assert.IsTrue(materialInformationToPrint["ProductDesc"].ToString().Equals(material.Product?.Description), $"Column Product Description should have the value: {material.Product?.Description}, instead is: {materialInformationToPrint["ProductDesc"]}.");
+                Assert.IsTrue(materialInformationToPrint["ProductType"].ToString().Equals(material.Product?.ProductType.ToString()), $"Column Product Product Type should have the value: {material.Product?.ProductType.ToString()}, instead is: {materialInformationToPrint["ProductType"]}.");
+                Assert.IsTrue(materialInformationToPrint["Product_Type"].ToString().Equals(material.Product?.Type), $"Column Product Type should have the value: {material.Product?.Type}, instead is: {materialInformationToPrint["Product_Type"]}.");
+                Assert.IsTrue(materialInformationToPrint["FlowName"].ToString().Equals(material.Flow.Name), $"Column Flow Name should have the value: {material.Flow.Name}, instead is: {materialInformationToPrint["FlowName"]}.");
+                Assert.IsTrue(materialInformationToPrint["ContainerName"].ToString().Equals(AMSOsramConstants.DefaultContainerName), $"Column Container Name should have the value: {AMSOsramConstants.DefaultContainerName}, instead is: {materialInformationToPrint["ContainerName"]}.");
+                Assert.IsTrue(materialInformationToPrint["ResourceName"].ToString().Equals(material.LastProcessedResource.Name), $"Column Resource Name should have the value: {material.LastProcessedResource.Name}, instead is: {materialInformationToPrint["ResourceName"]}.");
 
-                Assert.IsTrue(string.Format("{0:0.##}", Convert.ToDecimal(materialInformatoinToPrint["LotPrimaryQty"])).Equals("10"), $"Column Lot Primary Quantity should have the value: 10, instead is: {string.Format("{0:0.##}", Convert.ToDecimal(materialInformatoinToPrint["LotPrimaryQty"]))}.");
-                Assert.IsTrue(string.IsNullOrEmpty(materialInformatoinToPrint["LotSecundaryQty"]?.ToString()), $"Column Lot Secondary Quantity should have the value: {material.LastProcessedResource.Name}, instead is: {materialInformatoinToPrint["LotSecundaryQty"]}.");
-                Assert.IsTrue(materialInformatoinToPrint["Lot_Type"].ToString().Equals(material.Type), $"Column Lot Type should have the value: {material.Type}, instead is: {materialInformatoinToPrint["Lot_Type"]}.");
+                Assert.IsTrue(string.Format("{0:0.##}", Convert.ToDecimal(materialInformationToPrint["LotPrimaryQty"])).Equals("10"), $"Column Lot Primary Quantity should have the value: 10, instead is: {string.Format("{0:0.##}", Convert.ToDecimal(materialInformationToPrint["LotPrimaryQty"]))}.");
+                Assert.IsTrue(string.IsNullOrEmpty(materialInformationToPrint["LotSecundaryQty"]?.ToString()), $"Column Lot Secondary Quantity should have the value: {material.LastProcessedResource.Name}, instead is: {materialInformationToPrint["LotSecundaryQty"]}.");
+                Assert.IsTrue(materialInformationToPrint["Lot_Type"].ToString().Equals(material.Type), $"Column Lot Type should have the value: {material.Type}, instead is: {materialInformationToPrint["Lot_Type"]}.");
             }
 
         }
@@ -251,8 +251,8 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
             ///<ExpectedValue> The DEE should return an empty output </ExpectedValue>
             foreach (string materialName in outputInformation.Keys)
             {
-                Dictionary<string, object> materialInformatoinToPrint = (Dictionary<string, object>)outputInformation[materialName];
-                Assert.IsTrue(materialInformatoinToPrint.Count == 0, $"Output should be empty.");
+                Dictionary<string, object> materialInformationToPrint = (Dictionary<string, object>)outputInformation[materialName];
+                Assert.IsTrue(materialInformationToPrint.Count == 0, $"Output should be empty.");
             }
            
         }
@@ -350,8 +350,8 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
             ///<ExpectedValue> The DEE should not return the correct information filled on the smart table </ExpectedValue>
             foreach (string materialName in outputInformation.Keys)
             {
-                Dictionary<string, object> materialInformatoinToPrint = (Dictionary<string, object>)outputInformation[materialName];
-                Assert.IsTrue(materialInformatoinToPrint.Count == 0, $"Output should be empty.");
+                Dictionary<string, object> materialInformationToPrint = (Dictionary<string, object>)outputInformation[materialName];
+                Assert.IsTrue(materialInformationToPrint.Count == 0, $"Output should be empty.");
             }
         }
 
