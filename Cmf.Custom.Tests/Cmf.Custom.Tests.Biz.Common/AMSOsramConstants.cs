@@ -79,7 +79,7 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// <summary>
         /// Test Container Type: "SMIFPod"
         /// </summary
-        public const string ContainerSMIFPod = "SMIFPod";
+        public const string ContainerSMIFPod = "SMIF Pod 8-Inch";
 
         /// <summary>
         /// Form: Logistical wafer
