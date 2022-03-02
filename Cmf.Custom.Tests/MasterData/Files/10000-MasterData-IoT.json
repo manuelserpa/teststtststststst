@@ -848,6 +848,15 @@
 			"MonitorPackageVersion": "8.3.3-202201212",
 			"ManagerPackageVersion": "8.3.3-202201212",
 			"Configuration": ""
+		},
+		"2": {
+			"Name": "NiceLabel",
+			"Description": "NiceLabelPrinter",
+			"Type": "General",
+			"LogicalAddress": "NiceLabelPrinter",
+			"MonitorPackageVersion": "8.3.3-202201212",
+			"ManagerPackageVersion": "8.3.3-202201212",
+			"Configuration": ""
 		}
 	},
 	"<LOOKUP>AutomationInstances": {
@@ -862,6 +871,18 @@
 			"AutomationManager": "EvatecClusterline200II",
 			"DriverName": "SecsGemEquipment",
 			"EntityName": "PDSP0101"
+		},
+		"3": {
+			"AutomationController": "NiceLabelController",
+			"AutomationManager": "NiceLabel",
+			"DriverName": "",
+			"EntityName": "NiceLabelPrinter"
+		},
+		"4": {
+			"AutomationController": "NiceLabelController",
+			"AutomationManager": "NiceLabel",
+			"DriverName": "FileDriver",
+			"EntityName": "NiceLabelPrinter"
 		}
 	}
 }
