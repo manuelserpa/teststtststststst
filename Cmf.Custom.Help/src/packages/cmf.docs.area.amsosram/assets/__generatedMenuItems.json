@@ -24,6 +24,12 @@
    "actionId": ""
 },
 {
+   "id": "amsosram-20220228-1_1_0",
+   "menuGroupId": "releasenotes",
+   "title": "AMSOsram-20220228-1.1.0",
+   "actionId": ""
+},
+{
    "id": "artifacts",
    "menuGroupId": "techspec",
    "title": "Artifacts",
@@ -141,6 +147,12 @@
    "id": "customgeneratesplitlotnames",
    "menuGroupId": "deeactions",
    "title": "Custom Generate Split Lot Names",
+   "actionId": ""
+},
+{
+   "id": "customnicelabelprint",
+   "menuGroupId": "deeactions",
+   "title": "Custom Nice Label Print",
    "actionId": ""
 },
 {
@@ -375,6 +387,12 @@
    "id": "customerpsystemintegration",
    "menuGroupId": "features",
    "title": "ERP (SAP) System Integration",
+   "actionId": ""
+},
+{
+   "id": "customnicelabelprint",
+   "menuGroupId": "features",
+   "title": "Custom Nice Label Print",
    "actionId": ""
 },
 {

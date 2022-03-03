@@ -930,6 +930,13 @@
 			"Lookup Table Value": "Production",
 			"Lookup Table Value Description": "DataCollection form Production",
 			"Lookup Table IsEnabled": "Yes"
+		},
+		"14": {
+			"LookUp Table": "ParameterType",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "Standard",
+			"Lookup Table Value Description": "Standard Type for Parameter",
+			"Lookup Table IsEnabled": "Yes"
 		}
 	},
 	"<DM>Parameter": {
