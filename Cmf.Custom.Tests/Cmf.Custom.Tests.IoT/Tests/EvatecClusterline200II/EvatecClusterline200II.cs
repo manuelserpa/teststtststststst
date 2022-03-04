@@ -14,6 +14,11 @@ using AMSOsramEIAutomaticTests.Objects.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Cmf.Custom.TestUtilities;
 using Cmf.Custom.Tests.IoT.Tests.EvatecClusterline200II;
+using cmConnect.TestFramework.EquipmentSimulator.Objects;
+using Cmf.Foundation.BusinessOrchestration.QueryManagement.InputObjects;
+using Cmf.Foundation.BusinessOrchestration.QueryManagement.OutputObjects;
+using System.Data;
+using Cmf.Foundation.BusinessObjects.QueryObject;
 
 namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 {
@@ -131,7 +136,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
 
             var recipe = new Recipe() { Name = RecipeName };
-            recipe.Load();           
+            recipe.Load();
             RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
@@ -142,7 +147,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         /// <summary> 
         /// Scenario: Recipe Exists on Equipment
         /// </summary>
-        //[TestMethod]
+        [TestMethod]
         public void EvatecClusterline200II_SameRecipeOnlineLocal()
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
@@ -150,7 +155,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             isOnlineRemote = false;
             TrackInMustFail = true;
 
-            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName, ".\\RecipeBinaryFiles\\FTMTL14PYCUR.bin");
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
 
             var recipe = new Recipe() { Name = RecipeName };
             recipe.Load();
@@ -166,7 +171,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         /// <summary> 
         /// Scenario: Recipe Exists on Equipment
         /// </summary>
-        //[TestMethod]
+        [TestMethod]
         public void EvatecClusterline200II_RecipeDoesNotExist()
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
@@ -181,7 +186,9 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             TrackInMustFail = true;
             base.RunBasicTest(base.MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
         }
-        
+        #endregion Tests FullProcessScenario 
+
+        #region Test State and Data Collection
         /// <summary> 
         /// Scenario: Control State to Host Offline
         /// </summary>
@@ -372,6 +379,37 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
         }
 
+        /// <summary> 
+        /// Scenario: Alarm occurrs, validate ollection of alarm
+        /// </summary>
+        [TestMethod]
+        public void EvatecClusterline200II_AlarmDataCollection()
+        {
+
+            Resource resource = new Resource { Name = resourceName };
+            resource.Load();
+
+            //Load the instances and see how much is the count for the DataCollectionInstances
+            var dataCollectionInstancesBefore = this.GetDataCollectionInstanceByResourceId(resource.Id).Count;
+
+            Alarm alarmExample = new Alarm
+            {
+                AbstractName = "AName",
+                DataItemId = "DataItemId",
+                Id = 6,
+                Name = "NameOfAlarm",
+                Text = "Text of Alarm"
+            };
+
+            base.Equipment.SendAlarm(alarmExample, 0x01, null);
+
+
+            TestUtilities.WaitFor(30/*ValidationTimeout*/, "Alarm was not received", () =>
+            {
+                var dataCollectionInstancesAfter = this.GetDataCollectionInstanceByResourceId(resource.Id).Count;
+                return ((dataCollectionInstancesBefore + 1) == dataCollectionInstancesAfter);
+            });
+        }
         #endregion Tests FullProcessScenario 
 
 
@@ -380,7 +418,6 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         {
 
             //CarrierClamped
-
             base.Equipment.Variables["CarrierID_CarrierReport"] = $"CarrierAtPort{loadPortToSet}";
             base.Equipment.Variables["CarrierLocationID"] = $"LP{loadPortToSet}";
             base.Equipment.Variables["LocationID"] = $"LP{loadPortToSet}";
@@ -388,8 +425,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
             // Trigger event
             base.Equipment.SendMessage(String.Format($"CarrierClamped"), null);
-
-            
+        
             return true;
 
         }
@@ -398,7 +434,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         {
             //clamped
             base.CarrierInValidation(MESScenario, loadPortToSet);
-          
+
             //material received MaterialReceived
             base.Equipment.Variables["PortTransferState"] = 1;
             base.Equipment.Variables["PortReservationState"] = 0;
@@ -451,11 +487,11 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
 
 
-           
+
             base.Equipment.Variables["CarrierSubType"] = MESScenario.ContainerScenario.Entity.Name;
             base.Equipment.Variables["SubstrateSubType"] = "Substrate";
             base.Equipment.Variables["CarrierAccessingStatus"] = 0;
-            base.Equipment.Variables["CarrierCapacity"] =12;
+            base.Equipment.Variables["CarrierCapacity"] = 12;
             base.Equipment.Variables["CarrierContentMap"] = slotMapDV;
             base.Equipment.Variables["CarrierID_CarrierReport"] = $"CarrierAtPort{loadPortToSet}";
             base.Equipment.Variables["CarrierIDStatus"] = 2;
@@ -468,7 +504,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
 
             Thread.Sleep(200);
-            
+
         }
 
         public override bool CarrierOut(CustomMaterialScenario scenario)
@@ -502,7 +538,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             base.Equipment.Variables["CarrierID_CarrierReport"] = $"CarrierAtPort{loadPortNumber}";
             base.Equipment.Variables["CarrierIDStatus"] = 2;
             base.Equipment.Variables["CarrierLocationID"] = $"FIMS{loadPortNumber}";
-            base.Equipment.Variables["CarrierSlotMap"] = slotMapDV; 
+            base.Equipment.Variables["CarrierSlotMap"] = slotMapDV;
             base.Equipment.Variables["PortID_CarrierReport"] = loadPortNumber;
 
 
@@ -568,13 +604,14 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         {
             if (!isOnlineRemote)
             {
-                Assert.Fail("Track In must fail on Online Local");  
+                Assert.Fail("Track In must fail on Online Local");
             }
             else
             {
-                if(!createControlJobReceived || !createProcessJobReceived)
+                if (!createControlJobReceived || !createProcessJobReceived)
                 {
-                    Assert.Fail("Control or Process Job creation requests were never received");                }
+                    Assert.Fail("Control or Process Job creation requests were never received");
+                }
             }
 
             TestUtilities.WaitFor(60, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
@@ -728,17 +765,17 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         protected bool OnS16F11(SecsMessage request, SecsMessage reply)
         {
             reply.Item.Clear();
-            var jobItem = new SecsItem { ASCII = request.Item.GetChildList()[1].GetValue().ToString()};
+            var jobItem = new SecsItem { ASCII = request.Item.GetChildList()[1].GetValue().ToString() };
 
             var reportList = new SecsItem();
             reportList.SetTypeToList();
 
             var ack = new SecsItem { Bool = new bool[] { true } };
-            
+
             var errorList = new SecsItem();
             errorList.SetTypeToList();
 
-            if(failAtProcessJob)
+            if (failAtProcessJob)
             {
                 ack = new SecsItem { Bool = new bool[] { false } };
                 var errCode = new SecsItem { ASCII = "cenas1" };
@@ -769,7 +806,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
             if (command == "LOADCARRIER")
             {
-               
+
                 loadCommandReceived = true;
 
                 if (!loadCommandDenied)
@@ -834,6 +871,95 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         public override bool PostSetupActions(CustomMaterialScenario MESScenario)
         {
             return true;
+        }
+
+        private DataCollectionInstanceCollection GetDataCollectionInstanceByResourceId(long resourceId)
+        {
+            QueryObject query = new QueryObject();
+            query.Description = "";
+            query.EntityTypeName = "DataCollectionInstance";
+            query.Name = "getDCIbyRes";
+            query.Query = new Query();
+            query.Query.Distinct = false;
+            query.Query.Filters = new FilterCollection() {
+                new Filter()
+                {
+                    Name = "Id",
+                    ObjectName = "Resource",
+                    ObjectAlias = "DataCollectionInstance_Resource_2",
+                    Operator = Cmf.Foundation.Common.FieldOperator.IsEqualTo,
+                    Value = resourceId,
+                    LogicalOperator = Cmf.Foundation.Common.LogicalOperator.Nothing,
+                    FilterType = Cmf.Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal,
+                }
+            };
+            query.Query.Fields = new FieldCollection() {
+                new Field()
+                {
+                    Alias = "Id",
+                    ObjectName = "DataCollectionInstance",
+                    ObjectAlias = "DataCollectionInstance_1",
+                    IsUserAttribute = false,
+                    Name = "Id",
+                    Position = 0,
+                    Sort = Cmf.Foundation.Common.FieldSort.NoSort
+                },
+                new Field()
+                {
+                    Alias = "Name",
+                    ObjectName = "DataCollectionInstance",
+                    ObjectAlias = "DataCollectionInstance_1",
+                    IsUserAttribute = false,
+                    Name = "Name",
+                    Position = 1,
+                    Sort = Cmf.Foundation.Common.FieldSort.NoSort
+                }
+            };
+            query.Query.Relations = new RelationCollection() {
+                new Relation()
+                {
+                    Alias = "",
+                    IsRelation = false,
+                    Name = "",
+                    SourceEntity = "DataCollectionInstance",
+                    SourceEntityAlias = "DataCollectionInstance_1",
+                    SourceJoinType = Cmf.Foundation.BusinessObjects.QueryObject.Enums.JoinType.InnerJoin,
+                    SourceProperty = "ResourceId",
+                    TargetEntity = "Resource",
+                    TargetEntityAlias = "DataCollectionInstance_Resource_2",
+                    TargetJoinType = Cmf.Foundation.BusinessObjects.QueryObject.Enums.JoinType.InnerJoin,
+                    TargetProperty = "Id"
+                }
+            };
+
+            var executeInput = new ExecuteQueryInput
+            {
+                QueryObject = query
+            };
+            ExecuteQueryOutput executeOutput = executeInput.ExecuteQuerySync();
+
+            DataSet ds = Cmf.TestScenarios.Others.Utilities.ToDataSet(executeOutput.NgpDataSet);
+
+            DataCollectionInstanceCollection dcic = new DataCollectionInstanceCollection();
+
+            if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+            {
+                DataRowCollection dataRows = ds.Tables[0].Rows;
+
+                foreach (DataRow dr in dataRows)
+                {
+                    DataCollectionInstance dci = new DataCollectionInstance
+                    {
+                        Id = (long)dr["Id"]
+                    };
+                    if (dci.Exists())
+                    {
+                        dcic.Add(dci);
+                    }
+                }
+            }
+
+            return dcic;
         }
     }
 }

@@ -1199,7 +1199,7 @@
       "IsHistoryEnable": "Yes",
       "IsIndexed": "No",
       "IsMandatory": "No",
-      "AccessLevel": "1",
+      "AccessLevel": "0",
       "ValidationRange": "",
       "ValidationRegex": ""
     },
@@ -1221,7 +1221,7 @@
       "IsHistoryEnable": "Yes",
       "IsIndexed": "No",
       "IsMandatory": "No",
-      "AccessLevel": "2",
+      "AccessLevel": "0",
       "ValidationRange": "",
       "ValidationRegex": ""
     },
@@ -1243,7 +1243,7 @@
       "IsHistoryEnable": "Yes",
       "IsIndexed": "No",
       "IsMandatory": "No",
-      "AccessLevel": "3",
+      "AccessLevel": "0",
       "ValidationRange": "",
       "ValidationRegex": ""
     },
@@ -1265,7 +1265,7 @@
       "IsHistoryEnable": "Yes",
       "IsIndexed": "No",
       "IsMandatory": "No",
-      "AccessLevel": "4",
+      "AccessLevel": "0",
       "ValidationRange": "",
       "ValidationRegex": ""
     },
@@ -1287,7 +1287,7 @@
       "IsHistoryEnable": "Yes",
       "IsIndexed": "No",
       "IsMandatory": "No",
-      "AccessLevel": "5",
+      "AccessLevel": "0",
       "ValidationRange": "",
       "ValidationRegex": ""
     },
@@ -1309,7 +1309,7 @@
       "IsHistoryEnable": "Yes",
       "IsIndexed": "No",
       "IsMandatory": "No",
-      "AccessLevel": "6",
+      "AccessLevel": "0",
       "ValidationRange": "",
       "ValidationRegex": ""
     },
@@ -1331,7 +1331,7 @@
       "IsHistoryEnable": "Yes",
       "IsIndexed": "No",
       "IsMandatory": "No",
-      "AccessLevel": "",
+      "AccessLevel": "0",
       "ValidationRange": "",
       "ValidationRegex": ""
     },
@@ -1353,7 +1353,7 @@
       "IsHistoryEnable": "Yes",
       "IsIndexed": "No",
       "IsMandatory": "No",
-      "AccessLevel": "",
+      "AccessLevel": "0",
       "ValidationRange": "",
       "ValidationRegex": ""
     },
@@ -2070,6 +2070,13 @@
       "Description": "SecsGem Protocol",
       "Type": "General",
       "Package": "@criticalmanufacturing/connect-iot-driver-secsgem",
+      "PackageVersion": "8.3.3-202201212"
+    },
+    "2": {
+      "Name": "FileRaw",
+      "Description": "FileRaw",
+      "Type": "General",
+      "Package": "@criticalmanufacturing/connect-iot-driver-fileraw",
       "PackageVersion": "8.3.3-202201212"
     }
   },

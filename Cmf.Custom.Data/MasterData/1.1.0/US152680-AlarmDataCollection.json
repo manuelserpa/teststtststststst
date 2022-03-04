@@ -839,29 +839,350 @@
 			"Duration"
 		]
 	},
-	"<DM>AutomationManager": {
+	"<SM>LookupTableValues": {
 		"1": {
-			"Name": "EvatecClusterline200II",
-			"Description": "PDSP0101",
-			"Type": "General",
-			"LogicalAddress": "PDSP0101",
-			"MonitorPackageVersion": "8.3.3-202201212",
-			"ManagerPackageVersion": "8.3.3-202201212",
-			"Configuration": ""
-		}
-	},
-	"<LOOKUP>AutomationInstances": {
-		"1": {
-			"AutomationController": "EvatecClusterline200IIController",
-			"AutomationManager": "EvatecClusterline200II",
-			"DriverName": "",
-			"EntityName": "PDSP0101"
+			"LookUp Table": "AlarmState",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "Set",
+			"Lookup Table Value Description": "Alarm is Set on the Equipment",
+			"Lookup Table IsEnabled": "Yes"
 		},
 		"2": {
-			"AutomationController": "EvatecClusterline200IIController",
-			"AutomationManager": "EvatecClusterline200II",
-			"DriverName": "SecsGemEquipment",
-			"EntityName": "PDSP0101"
+			"LookUp Table": "AlarmState",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "Clear",
+			"Lookup Table Value Description": "Alarm is Cleared on the Equipment",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"3": {
+			"LookUp Table": "AlarmCategory",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "NotUsed",
+			"Lookup Table Value Description": "Category is not used",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"4": {
+			"LookUp Table": "AlarmCategory",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "PersonalSafety",
+			"Lookup Table Value Description": "Category is personal safety",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"5": {
+			"LookUp Table": "AlarmCategory",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "EquipmentSafety",
+			"Lookup Table Value Description": "Category is equipment safety",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"6": {
+			"LookUp Table": "AlarmCategory",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "ParameterControlWarning",
+			"Lookup Table Value Description": "Category is parameter control warning",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"7": {
+			"LookUp Table": "AlarmCategory",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "ParameterControlError",
+			"Lookup Table Value Description": "Category is parameter control error",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"8": {
+			"LookUp Table": "AlarmCategory",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "IrrecoverableError",
+			"Lookup Table Value Description": "Category is irrecoverable error",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"9": {
+			"LookUp Table": "AlarmCategory",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "EquipmentStatusWarning",
+			"Lookup Table Value Description": "Category is equipment status warning",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"10": {
+			"LookUp Table": "AlarmCategory",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "AttentionFlags",
+			"Lookup Table Value Description": "Category is attention flags",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"11": {
+			"LookUp Table": "AlarmCategory",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "DataIntegrity",
+			"Lookup Table Value Description": "Category is data integrity",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"12": {
+			"LookUp Table": "AlarmCategory",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "OtherCategory(Reserved)",
+			"Lookup Table Value Description": "Category is other or reserved",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"13": {
+			"LookUp Table": "DataCollectionType",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "Production",
+			"Lookup Table Value Description": "DataCollection form Production",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"14": {
+			"LookUp Table": "ParameterType",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "Standard",
+			"Lookup Table Value Description": "Standard Type for Parameter",
+			"Lookup Table IsEnabled": "Yes"
+		}
+	},
+	"<DM>Parameter": {
+		"1": {
+			"Name": "AlarmCode",
+			"Description": "",
+			"Type": "Standard",
+			"DisplayName": "",
+			"ParameterScope": "EDC_SPC_Recipe",
+			"DataType": "Long",
+			"DataFormat": "",
+			"DataUnit": "",
+			"DataScale": "",
+			"DataNumValidationMin": "",
+			"DataNumValidationMax": "",
+			"DataTextValidation": ""
+		},
+		"2": {
+			"Name": "AlarmId",
+			"Description": "",
+			"Type": "Standard",
+			"DisplayName": "",
+			"ParameterScope": "EDC_SPC_Recipe",
+			"DataType": "String",
+			"DataFormat": "",
+			"DataUnit": "",
+			"DataScale": "",
+			"DataNumValidationMin": "",
+			"DataNumValidationMax": "",
+			"DataTextValidation": ""
+		},
+		"3": {
+			"Name": "AlarmText",
+			"Description": "",
+			"Type": "Standard",
+			"DisplayName": "",
+			"ParameterScope": "EDC_SPC_Recipe",
+			"DataType": "String",
+			"DataFormat": "",
+			"DataUnit": "",
+			"DataScale": "",
+			"DataNumValidationMin": "",
+			"DataNumValidationMax": "",
+			"DataTextValidation": ""
+		},
+		"4": {
+			"Name": "AlarmState",
+			"Description": "",
+			"Type": "Standard",
+			"DisplayName": "",
+			"ParameterScope": "EDC_SPC_Recipe",
+			"DataType": "String",
+			"DataFormat": "",
+			"DataUnit": "",
+			"DataScale": "",
+			"DataNumValidationMin": "",
+			"DataNumValidationMax": "",
+			"DataTextValidation": "AlarmState"
+		},
+		"5": {
+			"Name": "AlarmCategory",
+			"Description": "",
+			"Type": "Standard",
+			"DisplayName": "",
+			"ParameterScope": "EDC_SPC_Recipe",
+			"DataType": "String",
+			"DataFormat": "",
+			"DataUnit": "",
+			"DataScale": "",
+			"DataNumValidationMin": "",
+			"DataNumValidationMax": "",
+			"DataTextValidation": "AlarmCategory"
+		},
+		"6": {
+			"Name": "AlarmTimestamp",
+			"Description": "",
+			"Type": "Standard",
+			"DisplayName": "",
+			"ParameterScope": "EDC_SPC_Recipe",
+			"DataType": "DateTime",
+			"DataFormat": "",
+			"DataUnit": "",
+			"DataScale": "",
+			"DataNumValidationMin": "",
+			"DataNumValidationMax": "",
+			"DataTextValidation": ""
+		}
+	},
+	"<DM>DataCollection": {
+		"1": {
+			"Name": "AlarmDataCollection",
+			"Description": "",
+			"Type": "Production",
+			"SPCPostMode": "OnPostPerSample"
+		}
+	},
+	"DataCollectionParameters": {
+		"1": {
+			"DataCollection": "AlarmDataCollection",
+			"Parameter": "AlarmText",
+			"Order": "1",
+			"IsOptional": "Yes",
+			"DataCollectionParameterGroup": "",
+			"SampleKey": "FreeText",
+			"SampleKeySource": "",
+			"MaterialIdSampleProperty": "",
+			"SampleNamesList": "",
+			"SampleCountPercentage": "",
+			"SampleCountPercentageSource": "",
+			"MinimumSamples": "1",
+			"MaximumSamples": "1",
+			"MinimumSampleReadings": "1",
+			"MaximumSampleReadings": "1",
+			"DefaultValue": "",
+			"ReadingNamesList": "",
+			"Calculation": "None",
+			"CalculationGroupingMode": "None",
+			"LimitCheckingMode": "",
+			"Rule": "",
+			"WarningLimitViolationProtocol": "",
+			"ErrorLimitViolationProtocol": ""
+		},
+		"2": {
+			"DataCollection": "AlarmDataCollection",
+			"Parameter": "AlarmCode",
+			"Order": "1",
+			"IsOptional": "Yes",
+			"DataCollectionParameterGroup": "",
+			"SampleKey": "FreeText",
+			"SampleKeySource": "",
+			"MaterialIdSampleProperty": "",
+			"SampleNamesList": "",
+			"SampleCountPercentage": "",
+			"SampleCountPercentageSource": "",
+			"MinimumSamples": "1",
+			"MaximumSamples": "1",
+			"MinimumSampleReadings": "1",
+			"MaximumSampleReadings": "1",
+			"DefaultValue": "",
+			"ReadingNamesList": "",
+			"Calculation": "None",
+			"CalculationGroupingMode": "None",
+			"LimitCheckingMode": "",
+			"Rule": "",
+			"WarningLimitViolationProtocol": "",
+			"ErrorLimitViolationProtocol": ""
+		},
+		"3": {
+			"DataCollection": "AlarmDataCollection",
+			"Parameter": "AlarmId",
+			"Order": "1",
+			"IsOptional": "Yes",
+			"DataCollectionParameterGroup": "",
+			"SampleKey": "FreeText",
+			"SampleKeySource": "",
+			"MaterialIdSampleProperty": "",
+			"SampleNamesList": "",
+			"SampleCountPercentage": "",
+			"SampleCountPercentageSource": "",
+			"MinimumSamples": "1",
+			"MaximumSamples": "1",
+			"MinimumSampleReadings": "1",
+			"MaximumSampleReadings": "1",
+			"DefaultValue": "",
+			"ReadingNamesList": "",
+			"Calculation": "None",
+			"CalculationGroupingMode": "None",
+			"LimitCheckingMode": "",
+			"Rule": "",
+			"WarningLimitViolationProtocol": "",
+			"ErrorLimitViolationProtocol": ""
+		},
+		"4": {
+			"DataCollection": "AlarmDataCollection",
+			"Parameter": "AlarmState",
+			"Order": "1",
+			"IsOptional": "Yes",
+			"DataCollectionParameterGroup": "",
+			"SampleKey": "FreeText",
+			"SampleKeySource": "",
+			"MaterialIdSampleProperty": "",
+			"SampleNamesList": "",
+			"SampleCountPercentage": "",
+			"SampleCountPercentageSource": "",
+			"MinimumSamples": "1",
+			"MaximumSamples": "1",
+			"MinimumSampleReadings": "1",
+			"MaximumSampleReadings": "1",
+			"DefaultValue": "",
+			"ReadingNamesList": "",
+			"Calculation": "None",
+			"CalculationGroupingMode": "None",
+			"LimitCheckingMode": "",
+			"Rule": "",
+			"WarningLimitViolationProtocol": "",
+			"ErrorLimitViolationProtocol": ""
+		},
+		"5": {
+			"DataCollection": "AlarmDataCollection",
+			"Parameter": "AlarmCategory",
+			"Order": "1",
+			"IsOptional": "Yes",
+			"DataCollectionParameterGroup": "",
+			"SampleKey": "FreeText",
+			"SampleKeySource": "",
+			"MaterialIdSampleProperty": "",
+			"SampleNamesList": "",
+			"SampleCountPercentage": "",
+			"SampleCountPercentageSource": "",
+			"MinimumSamples": "1",
+			"MaximumSamples": "1",
+			"MinimumSampleReadings": "1",
+			"MaximumSampleReadings": "1",
+			"DefaultValue": "",
+			"ReadingNamesList": "",
+			"Calculation": "None",
+			"CalculationGroupingMode": "None",
+			"LimitCheckingMode": "",
+			"Rule": "",
+			"WarningLimitViolationProtocol": "",
+			"ErrorLimitViolationProtocol": ""
+		},
+		"6": {
+			"DataCollection": "AlarmDataCollection",
+			"Parameter": "AlarmTimestamp",
+			"Order": "1",
+			"IsOptional": "Yes",
+			"DataCollectionParameterGroup": "",
+			"SampleKey": "FreeText",
+			"SampleKeySource": "",
+			"MaterialIdSampleProperty": "",
+			"SampleNamesList": "",
+			"SampleCountPercentage": "",
+			"SampleCountPercentageSource": "",
+			"MinimumSamples": "1",
+			"MaximumSamples": "1",
+			"MinimumSampleReadings": "1",
+			"MaximumSampleReadings": "1",
+			"DefaultValue": "",
+			"ReadingNamesList": "",
+			"Calculation": "None",
+			"CalculationGroupingMode": "None",
+			"LimitCheckingMode": "",
+			"Rule": "",
+			"WarningLimitViolationProtocol": "",
+			"ErrorLimitViolationProtocol": ""
 		}
 	}
 }
