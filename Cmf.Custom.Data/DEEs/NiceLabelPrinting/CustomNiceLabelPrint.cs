@@ -76,7 +76,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
                 ComplexTrackOutMaterialsInput complexTrackOutInput = Input["ComplexTrackOutMaterialsInput"] as ComplexTrackOutMaterialsInput;
                 operation = GetDataForTrackOutAndMoveNextOperation.TrackOut.ToString();
                 materialCollection.AddRange(complexTrackOutInput.Materials.Keys);
-                resource = materialCollection.First().LastProcessStepResource;
+                resource = materialCollection.First().LastProcessedResource;
             }
             else if (Input.ContainsKey("ComplexTrackInMaterialsOutput"))
             {
@@ -87,15 +87,13 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
             else if (Input.ContainsKey("MoveMaterialsToNextStepOutput"))
             {
                 materialCollection = (Input["MoveMaterialsToNextStepOutput"] as MoveMaterialsToNextStepOutput).Materials;
-                resource = materialCollection.First().LastProcessStepResource;
+                resource = materialCollection.First().LastProcessedResource;
                 operation = "Move Next";
             }
 
             materialCollection.Load(1);
             
             Dictionary<string, Dictionary<string, string>> materials = new Dictionary<string, Dictionary<string, string>>();
-
-            materialCollection.LoadRelations("MaterialContainer", 1);
 
             // resolve custom ST
             foreach (Material material in materialCollection)
