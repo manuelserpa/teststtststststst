@@ -6,6 +6,64 @@ namespace Cmf.Custom.Tests.Biz.Common
 {
     public class AMSOsramConstants
     {
+        #region DEE
+
+        /// <summary>
+        /// Custom Nice Label Print DEE
+        /// </summary>
+        public const string CustomNiceLabelPrintDEE = "CustomNiceLabelPrint";
+
+        #endregion
+
+        #region Default
+
+        /// <summary>
+        /// DefaultFacilityName
+        /// </summary>
+        public const string DefaultFacilityName = "Regensburg Production";
+
+        /// <summary>
+        /// DefaultProductName
+        /// </summary>
+        public const string DefaultProductName = "11111335";
+
+        /// <summary>
+        /// DefaultMaterialType
+        /// </summary>
+        public const string DefaultMaterialType = "Production";
+
+        /// <summary>
+        /// DefaultFlowName
+        /// </summary>
+        public const string DefaultFlowName = "FOL-UX3_EPA";
+
+        /// <summary>
+        /// DefaultMVPStepName
+        /// </summary>
+        public const string DefaultMVPStepName = "M3-LO-Wafer Sorter-Split-01518F010_E";
+
+        /// <summary>
+        /// DefaultMaterialFormName
+        /// </summary>
+        public const string DefaultMaterialFormName = "Lot";
+
+        /// <summary>
+        /// Default Material Logistical Wafer Form
+        /// </summary>
+        public const string DefaultMaterialLogisticalWaferForm = "Logistical wafer";
+
+        /// <summary>
+        /// DefaultMaterialUnit
+        /// </summary>
+        public const string DefaultMaterialUnit = "CM2";
+
+        /// <summary>
+        /// Default Test Container
+        /// </summary>
+        public const string DefaultContainerName = "3132323039303031";
+
+        #endregion
+
         #region MasterData
 
         /// <summary>
@@ -21,7 +79,7 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// <summary>
         /// Test Container Type: "SMIFPod"
         /// </summary
-        public const string ContainerSMIFPod = "SMIFPod";
+        public const string ContainerSMIFPod = "SMIF Pod 8-Inch";
 
         /// <summary>
         /// Form: Logistical wafer
@@ -90,6 +148,15 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// </summary>
         public const string CustomGenerateProductionLotNames = "CustomProductionLotNameGenerator";
 
-        #endregion  
+        #endregion
+
+        #region SmartTables
+
+        /// <summary>
+        /// Smart Table Name CustomMaterialNiceLabelPrintContext
+        /// </summary>
+        public const string CustomMaterialNiceLabelPrintContextSmartTable = "CustomMaterialNiceLabelPrintContext";
+
+        #endregion
     }
 }

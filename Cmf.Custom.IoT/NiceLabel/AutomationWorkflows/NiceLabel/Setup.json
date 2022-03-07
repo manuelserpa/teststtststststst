@@ -1,0 +1,495 @@
+{
+	"tasks": [
+		{
+			"id": "task_84855",
+			"reference": {
+				"name": "equipmentSetup",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"driver": "FileDriver",
+			"settings": {
+				"reconnectInterval": 10000,
+				"reconnectMaxAttempts": 0,
+				"requireBuffering": true,
+				"heartbeatInterval": 60000,
+				"setupTimeout": 10000,
+				"intervalBeforeReconnect": 5000,
+				"connectingTimeout": 30000,
+				"emitInNewContext": false,
+				"_inputs": [
+					{
+						"name": "path",
+						"defaultValue": "",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "path"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "fileMask",
+						"defaultValue": "**/*",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "fileMask"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "archivePath",
+						"defaultValue": "",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "archivePath"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "watcherType",
+						"defaultValue": "Chokidar",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "watcherType"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "ignoreInitial",
+						"defaultValue": "False",
+						"dataType": "Boolean",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "ignoreInitial"
+						},
+						"automationDataType": 8
+					},
+					{
+						"name": "watcherMode",
+						"defaultValue": "Polling",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "watcherMode"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "pollingInterval",
+						"defaultValue": "100",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "pollingInterval"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "pollingBinaryInterval",
+						"defaultValue": "300",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "pollingBinaryInterval"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "alwaysStat",
+						"defaultValue": "True",
+						"dataType": "Boolean",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "alwaysStat"
+						},
+						"automationDataType": 8
+					},
+					{
+						"name": "depth",
+						"defaultValue": "0",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "depth"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "awaitWriteFinish",
+						"defaultValue": "True",
+						"dataType": "Boolean",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "awaitWriteFinish"
+						},
+						"automationDataType": 8
+					},
+					{
+						"name": "awaitWriteFinishStabilityThreshold",
+						"defaultValue": "2000",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "awaitWriteFinishStabilityThreshold"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "awaitWriteFinishPollInterval",
+						"defaultValue": "100",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "awaitWriteFinishPollInterval"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "atomic",
+						"defaultValue": "100",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "atomic"
+						},
+						"automationDataType": 5
+					}
+				]
+			}
+		},
+		{
+			"id": "task_84857",
+			"reference": {
+				"name": "equipmentSetupResult",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"driver": "FileDriver",
+			"settings": {
+				"___cmf___name": "Equipment Setup Result",
+				"___cmf___color": "#00ff80"
+			}
+		},
+		{
+			"id": "task_85361",
+			"reference": {
+				"name": "entityInstance",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"entityTypeName": "Resource",
+				"attributes": [
+					{
+						"Name": "AutomationEquipmentAddress",
+						"ScalarTypeName": "nvarchar"
+					}
+				],
+				"loadAllAttributes": false,
+				"levelsToLoad": 0,
+				"reloadEveryChange": false,
+				"retries": 30,
+				"sleepBetweenRetries": 1000,
+				"_autoActivate": false,
+				"___cmf___name": "Entity Instance",
+				"___cmf___color": "#0080ff"
+			},
+			"driver": "FileDriver"
+		},
+		{
+			"id": "task_86450",
+			"reference": {
+				"name": "mount",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-filedrivers-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"failIfLocalPathExists": false,
+				"___cmf___name": "Mount",
+				"localPath": "${temp}\\NiceLabelPrinter"
+			},
+			"driver": "FileDriver"
+		},
+		{
+			"id": "task_115776",
+			"reference": {
+				"name": "logMessage",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"message": "",
+				"verbosity": "Error",
+				"clearInputs": true,
+				"mode": "MultipleInputs",
+				"isCustomFormat": true,
+				"messageFormat": "Error On Directory Mount: ${error}",
+				"inputs": [
+					{
+						"name": "error",
+						"valueType": {
+							"friendlyName": "Error",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Log Message",
+				"___cmf___color": "#ff0000"
+			}
+		},
+		{
+			"id": "task_121870",
+			"reference": {
+				"name": "store",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "StoreOnActivate",
+				"___cmf___name": "Store Data",
+				"_inputs": [
+					{
+						"name": "Generic_Directory",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"storage": "Persistent",
+						"identifier": "_Generic_Directory",
+						"defaultValue": null
+					}
+				],
+				"___cmf___color": "#808078"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "e69e3dd5-e985-4e72-a068-06d3a7a53b86",
+			"sourceId": "task_84855",
+			"targetId": "task_85361",
+			"inputName": "activate",
+			"outputName": "onInitialize"
+		},
+		{
+			"id": "0f6ccf97-30e4-4c53-aa55-3d55e632d567",
+			"sourceId": "task_85361",
+			"targetId": "task_86450",
+			"inputName": "path",
+			"outputName": "AutomationEquipmentAddress"
+		},
+		{
+			"id": "ff5322af-ccb8-474f-9702-b4b70462eca8",
+			"sourceId": "task_84855",
+			"targetId": "task_84857",
+			"inputName": "success",
+			"outputName": "onSetup"
+		},
+		{
+			"id": "7649289c-d049-4d36-a606-f8876ce06918",
+			"sourceId": "task_86450",
+			"targetId": "task_84855",
+			"inputName": "path",
+			"outputName": "pathOut"
+		},
+		{
+			"id": "08556ec9-3196-4af8-bb84-de67b8f719c5",
+			"sourceId": "task_86450",
+			"targetId": "task_84855",
+			"inputName": "connect",
+			"outputName": "success"
+		},
+		{
+			"id": "d4f46415-4be9-4901-9ff5-b98995ebc35c",
+			"sourceId": "task_85361",
+			"targetId": "task_86450",
+			"inputName": "activate",
+			"outputName": "AutomationEquipmentAddress"
+		},
+		{
+			"id": "0fd1369f-4031-46f2-bb83-4190f9532c52",
+			"sourceId": "task_86450",
+			"targetId": "task_84857",
+			"inputName": "failure",
+			"outputName": "error"
+		},
+		{
+			"id": "d711fd62-dc72-4172-a445-0013c743c0de",
+			"sourceId": "task_86450",
+			"targetId": "task_115776",
+			"inputName": "errorIn",
+			"outputName": "error"
+		},
+		{
+			"id": "190c9519-382c-4b4e-907c-c7bd6728dc59",
+			"sourceId": "task_86450",
+			"targetId": "task_115776",
+			"inputName": "activate",
+			"outputName": "error"
+		},
+		{
+			"id": "94fb03e9-4613-480f-9c0f-9eedad2f7390",
+			"sourceId": "task_86450",
+			"targetId": "task_121870",
+			"inputName": "activate",
+			"outputName": "pathOut"
+		},
+		{
+			"id": "ecee3d26-a497-4f67-a40f-ef4893beb587",
+			"sourceId": "task_86450",
+			"targetId": "task_121870",
+			"inputName": "Generic_Directory",
+			"outputName": "pathOut"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#ffff80",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_115776": {
+						"collapsed": false,
+						"position": {
+							"x": 1032,
+							"y": 887
+						},
+						"outdated": false
+					},
+					"task_84855": {
+						"collapsed": false,
+						"position": {
+							"x": 1547,
+							"y": 676
+						},
+						"outdated": false
+					},
+					"task_84857": {
+						"collapsed": false,
+						"position": {
+							"x": 2256,
+							"y": 431
+						},
+						"outdated": false
+					},
+					"task_85361": {
+						"collapsed": false,
+						"position": {
+							"x": 82,
+							"y": 219
+						},
+						"outdated": false
+					},
+					"task_86450": {
+						"collapsed": false,
+						"position": {
+							"x": 552,
+							"y": 327
+						},
+						"outdated": false
+					},
+					"task_121870": {
+						"collapsed": false,
+						"position": {
+							"x": 1008,
+							"y": 180
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"e69e3dd5-e985-4e72-a068-06d3a7a53b86": {
+						"vertices": [
+							{
+								"x": 1978,
+								"y": 214
+							},
+							{
+								"x": 1208,
+								"y": 65
+							},
+							{
+								"x": 163,
+								"y": 127
+							}
+						]
+					},
+					"0f6ccf97-30e4-4c53-aa55-3d55e632d567": {
+						"vertices": []
+					},
+					"ff5322af-ccb8-474f-9702-b4b70462eca8": {
+						"vertices": []
+					},
+					"7649289c-d049-4d36-a606-f8876ce06918": {
+						"vertices": []
+					},
+					"08556ec9-3196-4af8-bb84-de67b8f719c5": {
+						"vertices": []
+					},
+					"d4f46415-4be9-4901-9ff5-b98995ebc35c": {
+						"vertices": []
+					},
+					"0fd1369f-4031-46f2-bb83-4190f9532c52": {
+						"vertices": []
+					},
+					"d711fd62-dc72-4172-a445-0013c743c0de": {
+						"vertices": []
+					},
+					"190c9519-382c-4b4e-907c-c7bd6728dc59": {
+						"vertices": []
+					},
+					"94fb03e9-4613-480f-9c0f-9eedad2f7390": {
+						"vertices": []
+					},
+					"ecee3d26-a497-4f67-a40f-ef4893beb587": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"pan": {
+					"x": -16.21425111385645,
+					"y": -8.304507020817596
+				},
+				"zoom": 0.4099999999999997
+			}
+		}
+	}
+}

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Xml.Serialization;
+﻿using Cmf.Common.CustomActionUtilities;
 using Cmf.Custom.AMSOsram.BusinessObjects;
 using Cmf.Custom.AMSOsram.Common.DataStructures;
 using Cmf.Custom.AMSOsram.Common.Extensions;
@@ -17,6 +10,14 @@ using Cmf.Foundation.Common;
 using Cmf.Foundation.Configuration;
 using Cmf.Navigo.BusinessObjects;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Xml.Serialization;
 
 namespace Cmf.Custom.AMSOsram.Common
 {
@@ -49,7 +50,111 @@ namespace Cmf.Custom.AMSOsram.Common
 
         #endregion Configs
 
-        #region Sorter
+        #region SmartTables
+
+		public static DataRow CustomResolveSTCustomMaterialNiceLabelPrintContext(string step = null,
+																			string logicalFlowPath = null,
+																			string product = null, 
+																			string productGroup = null,
+																			string flow = null,
+																			string material = null,
+																			string materialType = null,
+																			string resource = null,
+																			string resourceType = null,
+																			string model = null,
+																			string operation = null)
+        {
+			Dictionary<string, string> result = new Dictionary<string, string>();
+			SmartTable customMaterialNiceLabelPrintContext = new SmartTable();
+			customMaterialNiceLabelPrintContext.Load(AMSOsramConstants.CustomMaterialNiceLabelPrintContextSmartTable);
+
+			var values = new NgpDataRow();
+
+			// If step name is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(step))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.Step, step);
+			}
+
+			// If logical flow path is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(logicalFlowPath))
+			{
+				values.Add("LogicalFlowPath", logicalFlowPath);
+			}
+
+			// If product name is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(product))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.Product, product);
+			}
+
+			// If product group is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(productGroup))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.ProductGroup, productGroup);
+			}
+
+			// If flow name is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(flow))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.Flow, flow);
+			}
+
+			// If material name is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(material))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.Material, material);
+			}
+
+			// If material type is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(materialType))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.MaterialType, materialType);
+			}
+
+			// If resource name is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(resource))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.Resource, resource);
+			}
+
+			// If resource type is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(resourceType))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.ResourceType, resourceType);
+			}
+
+			// If model is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(model))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.Model, model);
+			}
+
+			// If operation name is filled apply it as a filter
+			if (!string.IsNullOrWhiteSpace(operation))
+			{
+				values.Add(Cmf.Navigo.Common.Constants.Operation, operation);
+			}
+
+			NgpDataSet niceLabelPrintContextNgpDataSet = customMaterialNiceLabelPrintContext.Resolve(values, true);
+
+			DataRow row = null;
+
+            if (niceLabelPrintContextNgpDataSet != null)
+            {
+				DataSet niceLabelPrintContextDataSet = NgpDataSet.ToDataSet(niceLabelPrintContextNgpDataSet);
+                if (niceLabelPrintContextDataSet.HasData())
+                {
+					row = niceLabelPrintContextDataSet.Tables[0].Rows[0];
+				}
+			}
+
+			return row;
+		}
+
+		#endregion
+
+		#region Sorter
 
         /// <summary>
         /// Resolve CustomSorterJobDefinitionContext
@@ -885,6 +990,67 @@ namespace Cmf.Custom.AMSOsram.Common
 
             return returnObject;
         }
+
+		public static Dictionary<string,string> GetDataForNiceLabelPrinting(Material material, Resource resource, string operation)
+        {
+			// Get Material information
+			string stepName = material.Step.Name;
+			string materialName = material.Name;
+			string productName = material.Product.Name;
+			string logicalFlowPath = material.LogicalFlowPath;
+			// Product group isn't mandatory, we have to null check it
+			string productGroupName = material.Product.ProductGroup?.Name;
+			string flowName = material.Flow.Name;
+			string resourceName = resource?.Name;
+			string resourceType = resource?.Type;
+			string resourceModel = resource?.Model;
+
+			DataRow row = AMSOsramUtilities.CustomResolveSTCustomMaterialNiceLabelPrintContext(stepName, logicalFlowPath, productName, productGroupName, flowName, materialName, material.Type, resourceName, resourceType, resourceModel, operation);
+			Dictionary<string, string> materialNiceLabelPrintInformation = new Dictionary<string, string>();
+
+			if (row != null && row.Field<bool>("IsEnabled"))
+			{
+				Container container = new Container();
+
+				if (material.RelationCollection != null && material.RelationCollection.ContainsKey("MaterialContainer"))
+				{
+					container = material.RelationCollection["MaterialContainer"][0].TargetEntity as Container;
+				}
+
+				// add addictional information about the material
+				// TODO: Missing information to map: LotAlias; BatchName; LotOwner; LotWaferCount; 
+				materialNiceLabelPrintInformation.AddRange(new Dictionary<string, string>()
+				{
+					
+					{ "LABEL_NAME", row.Field<string>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextLabel) },
+					{ "PRINTER_NAME", row.Field<string>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextPrinter) },
+					{ "LABEL_QUANTITY", row.Field<int>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextQuantity).ToString() },
+					{ "LotName", material.Name },
+					{ "LotAlias", "" },
+					{ "ProductName", productName },
+					{ "ProductDesc", material.Product?.Description },
+					{ "ProductType", material.Product?.ProductType.ToString() },
+					{ "Product_Type", material.Product?.Type },
+					{ "ProductGroupName", productGroupName },
+					{ "ProductGroup_Type", material.Product?.ProductGroup?.Type },
+					{ "FlowName", flowName },
+					{ "BatchName", "" },
+					{ "ContainerName", container.Name },
+					{ "ExperimentName", material.Experiment?.Name },
+					{ "ProductionOrder", material.ProductionOrder?.Name },
+					{ "LotOwner", "" },
+					{ "ResourceName", resourceName },
+					{ "LotWaferCount", "" },
+					{ "LotPrimaryQty", material.PrimaryQuantity.HasValue ? material.PrimaryQuantity.ToString() : string.Empty },
+					{ "LotSecundaryQty", material.SecondaryQuantity.HasValue ? material.SecondaryQuantity.ToString() : string.Empty },
+					{ "Lot_Type", material.Type },
+					{ "Area", resource?.Area.Name },
+					{ "Facility", material.Facility.Name }
+				});
+			}
+
+			return materialNiceLabelPrintInformation;
+		}
 
         #endregion
 
