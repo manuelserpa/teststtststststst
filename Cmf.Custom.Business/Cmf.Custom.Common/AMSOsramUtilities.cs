@@ -989,6 +989,13 @@ namespace Cmf.Custom.AMSOsram.Common
 			return returnObject;
 		}
 
+		/// <summary>
+		/// Method to get the available information for nice label printing
+		/// </summary>
+		/// <param name="lot"></param>
+		/// <param name="resource"></param>
+		/// <param name="operation"></param>
+		/// <returns></returns>
 		public static Dictionary<string,string> GetDataForNiceLabelPrinting(Material lot, Resource resource, string operation)
         {
 			// Get Material information
