@@ -53,7 +53,9 @@ namespace Cmf.Custom.AMSOsram.Actions.ERPIntegrations
 
             //Foundation
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
+            UseReference("Cmf.Foundation.BusinessObjects.GenericTables.dll", "Cmf.Foundation.BusinessObjects.GenericTables");
             UseReference("Cmf.Foundation.Common.Base.dll", "Cmf.Foundation.Common.Base");
+            UseReference("Cmf.Foundation.Security.dll", "Cmf.Foundation.Security");
 
             //Navigo
             UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
@@ -73,7 +75,7 @@ namespace Cmf.Custom.AMSOsram.Actions.ERPIntegrations
 
             #region Product
 
-            //ChangeSet to create / update Products
+            //ChangeSet to create/update Products
             ChangeSet productsChangeSet = new ChangeSet();
             {
                 productsChangeSet.Name = Guid.NewGuid().ToString("N");
@@ -99,7 +101,12 @@ namespace Cmf.Custom.AMSOsram.Actions.ERPIntegrations
                 product.Type = productData.Type;
                 product.ProductType = ProductType.FinishedGood; //productData.ProductType
                 product.DefaultUnits = productData.DefaultUnits;
-                product.IsEnabled = productData.IsEnabled.ToUpper() == "Y" ? true : false;
+
+                if (!string.IsNullOrWhiteSpace(productData.IsEnabled))
+                {
+                    product.IsEnabled = productData.IsEnabled.ToUpper() == "Y" ? true : false;
+                }
+
                 product.Yield = Convert.ToDecimal(productData.Yield) / 100; // How to convert the value?
 
                 ProductGroup productGroup = new ProductGroup()
@@ -131,35 +138,62 @@ namespace Cmf.Custom.AMSOsram.Actions.ERPIntegrations
                         };
                     }
                 }
-                //product.UnitConversionFactors = ;
 
                 // TO DO: SubProducts
-                //product.SubProducts = new SubProductCollection();
 
                 product.InitialUnitCost = Convert.ToDecimal(productData.InitialUnitCost);
                 product.FinishedUnitCost = Convert.ToDecimal(productData.FinishedUnitCost);
                 product.CycleTime = Convert.ToDecimal(productData.CycleTime);
-                product.IncludeInSchedule = productData.IncludeInSchedule.ToUpper() == "Y" ? true : false;
+
+                if (!string.IsNullOrWhiteSpace(productData.IncludeInSchedule))
+                {
+                    product.IncludeInSchedule = productData.IncludeInSchedule.ToUpper() == "Y" ? true : false;
+                }
+
                 product.CapacityClass = productData.CapacityClass;
                 product.MaterialTransferMode = MaterialTransferMode.None; //productData.MaterialTransferMode
                 product.MaterialTransferApprovalMode = MaterialTransferApprovalMode.AutoApproval; //productData.MaterialTransferApprovalMode
                 product.MaterialTransferAllowedPickup = MaterialTransferAllowedPickup.Any; //productData.MaterialTransferAllowedPickup
-                product.IsEnabledForMaintenanceManagement = productData.IsEnableForMaintenanceManagement.ToUpper() == "Y" ? true : false;
-                product.MaintenanceManagementConsumeQuantity = productData.MaintenanceManagementConsumerQuantity.ToUpper() == "Y" ? true : false;
-                product.IsDiscrete = productData.IsDiscrete.ToUpper() == "Y" ? true : false;
+
+                if (!string.IsNullOrWhiteSpace(productData.IsEnableForMaintenanceManagement))
+                {
+                    product.IsEnabledForMaintenanceManagement = productData.IsEnableForMaintenanceManagement.ToUpper() == "Y" ? true : false;
+                }
+
+                if (!string.IsNullOrWhiteSpace(productData.MaintenanceManagementConsumerQuantity))
+                {
+                    product.MaintenanceManagementConsumeQuantity = productData.MaintenanceManagementConsumerQuantity.ToUpper() == "Y" ? true : false;
+                }
+
+
+                product.IsDiscrete = !string.IsNullOrWhiteSpace(productData.IsDiscrete) && productData.IsDiscrete.ToUpper() == "Y" ? true : false;
                 product.MoistureSensitivityLevel = productData.MoistureSensitivityLevel;
                 product.FloorLife = Convert.ToInt32(productData.FloorLife);
-                product.FloorLifeUnitOfTime = UnitOfTime.Hours;//productData.FloorLifeUnitOfTime
-                product.RequiresApproval = productData.RequiresApproval.ToUpper() == "Y" ? true : false;
+                product.FloorLifeUnitOfTime = UnitOfTime.Hours; //productData.FloorLifeUnitOfTime
+
+                if (!string.IsNullOrWhiteSpace(productData.RequiresApproval))
+                {
+                    product.RequiresApproval = productData.RequiresApproval.ToUpper() == "Y" ? true : false;
+                }
+
                 product.ApprovalRole = new Role()
                 {
                     Name = productData.ApprovalRole
                 };
-                product.CanSplitForPicking = productData.CanSplitForPicking.ToUpper() == "Y" ? true : false;
+
+                if (!string.IsNullOrWhiteSpace(productData.CanSplitForPicking))
+                {
+                    product.CanSplitForPicking = productData.CanSplitForPicking.ToUpper() == "Y" ? true : false;
+                }
+
                 product.MaterialLogisticsDefaultRequestQuantity = Convert.ToDecimal(productData.MaterialLogisticsDefaultRequestQuantity);
                 product.ConsumptionScrap = Convert.ToDecimal(productData.ConsumptionScrap);
                 product.AdditionalConsumptionQuantity = Convert.ToDecimal(productData.AdditionalConsumptionQuantity);
-                product.IsEnabledForMaterialLogistics = productData.IsEnabledForMaterialLogistics.ToUpper() == "Y" ? true : false;
+
+                if (!string.IsNullOrWhiteSpace(productData.IsEnableForMaintenanceManagement))
+                {
+                    product.IsEnabledForMaterialLogistics = productData.IsEnabledForMaterialLogistics.ToUpper() == "Y" ? true : false;
+                }
 
                 if (!string.IsNullOrWhiteSpace(productData.DefaultBOM))
                 {
@@ -169,14 +203,17 @@ namespace Cmf.Custom.AMSOsram.Actions.ERPIntegrations
                     };
                 }
 
-                product.ProductManufacturers = new ProductManufacturerCollection()
+                if (productData.ProductManufacturer != null)
                 {
-                    new ProductManufacturer()
+                    product.ProductManufacturers = new ProductManufacturerCollection()
                     {
-                        Name = productData.ProductManufacturer.Name,
-                        Note = productData.ProductManufacturer.Note
-                    }
-                };
+                        new ProductManufacturer()
+                        {
+                            Name = productData.ProductManufacturer.Name,
+                            Note = productData.ProductManufacturer.Note
+                        }
+                    };
+                }
 
                 if (product.ObjectExists())
                 {
