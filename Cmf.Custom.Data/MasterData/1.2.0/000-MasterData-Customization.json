@@ -775,6 +775,110 @@
             "Value": "<ST>CustomResourceNotificationConfiguration"
         }
     },
+    "<SM>DEEAction": {
+        "1": {
+            "Action": "CustomGenerateSorterJobDefinitionFromFutureAction",
+            "Description": "Dee Action to Generate a Custom Sorter Job Definition if exists a Required Future Action for a given material",
+            "CodeFileRelativePath": "FutureActions\\CustomGenerateSorterJobDefinitionFromFutureAction.cs",
+            "IsEnabled": "No",
+            "Classification": ""
+        },
+        "2": {
+            "Action": "CustomAssociateSorterJobDefinitionToContextTable",
+            "Description": "",
+            "CodeFileRelativePath": "Materials\\CustomAssociateSorterJobDefinitionToContextTable.cs",
+            "IsEnabled": "No",
+            "Classification": ""
+        },
+        "3": {
+            "Action": "CustomMaterialInPostProcessSorterJobDefinition",
+            "Description": "DEE Action to set the necessary load ports to in Use.",
+            "CodeFileRelativePath": "Materials\\CustomMaterialInPostProcessSorterJobDefinition.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        },
+        "4": {
+            "Action": "CustomMaterialInProcessSorterJobDefinition",
+            "Description": "DEE Action responsible to check if it's posible to start the execution of the given sorter job definition.",
+            "CodeFileRelativePath": "Materials\\CustomMaterialInProcessSorterJobDefinition.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        },
+        "5": {
+            "Action": "CustomMaterialOutProcessSorterJobDefinition",
+            "Description": "DEE Action responsible to handle custom sorter job definition information.",
+            "CodeFileRelativePath": "Materials\\CustomMaterialOutProcessSorterJobDefinition.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        }
+    },
+    "DEEActionOrder": {
+        "1": {
+            "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.MoveMaterialsToNextStep.Post",
+            "Action": "CustomGenerateSorterJobDefinitionFromFutureAction",
+            "Order": "100"
+        },
+        "2": {
+            "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.ReleaseMaterial.Post",
+            "Action": "CustomGenerateSorterJobDefinitionFromFutureAction",
+            "Order": "100"
+        },
+        "3": {
+            "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.SpecialReleaseMaterial.Post",
+            "Action": "CustomGenerateSorterJobDefinitionFromFutureAction",
+            "Order": "100"
+        },
+        "4": {
+            "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.ChangeMaterialFlowAndStep.Post",
+            "Action": "CustomGenerateSorterJobDefinitionFromFutureAction",
+            "Order": "100"
+        }
+    },
+    "<GT>GenericTable": {
+        "1": {
+            "Name": "CustomReclaimContainerType",
+            "Description": "Contains the source and reclaim container type information for automatic wafer grading",
+            "HistoryRetentionTime": "180",
+            "IsHistoryEnabled": "Yes",
+            "DataGroup": ""
+        }
+    },
+    "GenericTableProperties": {
+        "1": {
+            "GenericTable": "CustomReclaimContainerType",
+            "Name": "SourceContainerType",
+            "Position": "",
+            "Description": "Source Container Type",
+            "DefaultValue": "",
+            "IsKey": "Yes",
+            "IsMandatory": "Yes",
+            "ScalarType": "String",
+            "Size": "256",
+            "Precision": "",
+            "ReferenceType": "LookupValue",
+            "ReferenceName": "ContainerType",
+            "ValidationRange": "",
+            "ValidationRegex": "",
+            "DataGroup": ""
+        },
+        "2": {
+            "GenericTable": "CustomReclaimContainerType",
+            "Name": "ReclaimContainerType",
+            "Position": "",
+            "Description": "Reclaim Container Type",
+            "DefaultValue": "",
+            "IsKey": "Yes",
+            "IsMandatory": "Yes",
+            "ScalarType": "String",
+            "Size": "256",
+            "Precision": "",
+            "ReferenceType": "LookupValue",
+            "ReferenceName": "ContainerType",
+            "ValidationRange": "",
+            "ValidationRegex": "",
+            "DataGroup": ""
+        }
+    },
     "<SM>LookupTableValues": {
         "1": {
             "LookUp Table": "CustomSorterLogisticalProcess",
@@ -946,6 +1050,18 @@
             "PrecedenceKey11": "Step+MaterialType",
             "PrecedenceKey12": "Step+Flow",
             "PrecedenceKey13": "Step"
+        }
+    },
+    "<SM>LocalizedMessageKey": {
+        "1": {
+            "Name": "CustomLocalizedMessageCustomSorterJobDefinitionInvalidMovementList",
+            "Description": "Custom Sorter Job Definition Movement List has a invalid JSON structure.",
+            "MessageType": "Message",
+            "en-US": "It's not possible to parse the Sorter Job Definition Movement List.{0}{1}.{0}",
+            "de-DE": "",
+            "zh-CN": "",
+            "pt-PT": "",
+            "zh-TW": ""
         }
     }
 }
