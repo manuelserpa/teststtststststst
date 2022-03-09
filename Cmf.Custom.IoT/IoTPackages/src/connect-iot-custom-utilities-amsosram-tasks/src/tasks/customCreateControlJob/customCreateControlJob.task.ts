@@ -199,7 +199,7 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                     successFound = true;
                 }
                 if (!successFound) {
-                    const error = new Error(`EI: Create Control Job failed. Error ${reply.item.value[2].value[1].value[0].value[0].value.toString()} - ${reply.item.value[0].value[2].value[1].value[0].value[1].value.toString()}`);
+                    const error = new Error(`EI: Create Control Job failed. Error ${reply.item.value[2].value[1].value[0].value[0].value.toString()} - ${reply.item.value[2].value[1].value[0].value[1].value.toString()}`);
                     this.error.emit(error);
                     throw error;
                 }
