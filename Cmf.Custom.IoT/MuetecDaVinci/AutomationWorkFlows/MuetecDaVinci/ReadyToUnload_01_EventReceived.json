@@ -103,13 +103,60 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortTransferState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortStateInfo",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "TransferBlocked2ReadyToUnload"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
 	],
 	"converters": [],
-	"links": [],
+	"links": [
+		{
+			"id": "8f7062d3-b4eb-4e76-bb32-1ca2db330f80",
+			"sourceId": "task_158180",
+			"targetId": "task_158178",
+			"inputName": "LoadPortNumberIn",
+			"outputName": "$PortID"
+		},
+		{
+			"id": "45dc615a-83e9-44cb-9205-ceac70d1432f",
+			"sourceId": "task_158180",
+			"targetId": "task_158178",
+			"inputName": "activate",
+			"outputName": "$PortID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -128,8 +175,8 @@
 					"task_158178": {
 						"collapsed": false,
 						"position": {
-							"x": 1053,
-							"y": 253
+							"x": 1054,
+							"y": 336
 						},
 						"outdated": false
 					},
@@ -142,7 +189,14 @@
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"8f7062d3-b4eb-4e76-bb32-1ca2db330f80": {
+						"vertices": []
+					},
+					"45dc615a-83e9-44cb-9205-ceac70d1432f": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_158182": {
 						"collapsed": false,

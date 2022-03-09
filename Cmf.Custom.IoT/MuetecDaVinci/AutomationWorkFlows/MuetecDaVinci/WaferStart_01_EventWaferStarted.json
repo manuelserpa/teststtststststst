@@ -53,6 +53,28 @@
 						}
 					},
 					{
+						"name": "ControlJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ControlJobId"
+						}
+					},
+					{
+						"name": "ProcessJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ProcessJobId"
+						}
+					},
+					{
 						"name": "SubMaterialName",
 						"valueType": {
 							"type": 4,
@@ -72,6 +94,17 @@
 							"referenceTypeName": null,
 							"referenceTypeId": null,
 							"friendlyName": "SubMaterialSlot"
+						}
+					},
+					{
+						"name": "SubResourceOrder",
+						"valueType": {
+							"friendlyName": "SubResourceOrder",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
 						}
 					}
 				],
@@ -136,7 +169,248 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstIDStatusList",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstSubstLocIDList",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstDestinationList",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstSourceList",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstHistoryList",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstMtrlStatusList",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "AcquiredIDList",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstIDList",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstProcStateList",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstStateList",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstLotIDList",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstTypeList",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstUsageList",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "SubstrateObject:18:NotConfirmed-WaitingForHost"
+					}
+				]
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_25576",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        const materialData = inputs.MaterialData[0];",
+					"        const remoteCommandSuccessCode = \"0x00,0x04\";",
+					"        let commandParameters: any[] = [];",
+					"        const sendMessage: Object = {",
+					"            type: \"S3F17\", ",
+					"            item: {",
+					"                type: \"L\", value: [",
+					"                    { type: \"U4\", value: 8 }, //DataID",
+					"                    { type: \"A\", value: \"ProceedWithCarrier\" }, ",
+					"                    { type: \"A\", value: materialData.ContainerName },",
+					"                    { type: \"U1\", value: materialData.LoadPortNumber }, ",
+					"                    { type: \"L\", value: commandParameters }",
+					"                ]",
+					"            }",
+					"        }",
+					"",
+					"        commandParameters.push({",
+					"            type: \"L\", value: [",
+					"                { type: \"A\", value: \"Capacity\" },",
+					"                { type: \"U1\", value: materialData.SubMaterials.length }",
+					"            ]",
+					"        });",
+					"",
+					"        commandParameters.push({",
+					"            type: \"L\", value: [",
+					"                { type: \"A\", value: \"SubstrateCount\" },",
+					"                { type: \"U1\", value: 0 }",
+					"            ]",
+					"        });",
+					"",
+					"        let waferParameters: any[] = [];",
+					"        commandParameters.push({",
+					"            type: \"L\", value: [",
+					"                { type: \"A\", value: \"ContentMap\" },",
+					"                { type: \"L\", value: waferParameters }",
+					"            ]",
+					"        });",
+					"",
+					"        for (let i = 1; i <= 13; i++) {",
+					"            let subMaterialInSlot = (<any[]>materialData.SubMaterials).find(subMaterial => subMaterial.Slot == i)",
+					"            if(subMaterialInSlot != null) {",
+					"                waferParameters.push({",
+					"                    type: \"L\", value: [",
+					"                        { type: \"A\", value: materialData.MaterialName },",
+					"                        { type: \"A\", value: subMaterialInSlot.MaterialName }",
+					"                    ]",
+					"                });",
+					"            }",
+					"            else {",
+					"                waferParameters.push({",
+					"                    type: \"L\", value: [",
+					"                        { type: \"A\", value: \"\" },",
+					"                        { type: \"A\", value: \"\" }",
+					"                    ]",
+					"                });",
+					"            }",
+					"            ",
+					"        }",
+					"",
+					"        const reply = await this.framework.driver.sendRaw(\"connect.iot.driver.secsgem.sendMessage\", sendMessage);",
+					"        let successFound = false;",
+					"",
+					"        for (const successCode of remoteCommandSuccessCode.split(\",\")) {",
+					"            if (reply && reply.item && parseInt(reply.item.value[0].value.data) === parseInt(successCode.trim())) {",
+					"                successFound = true;",
+					"                break;",
+					"            }",
+					"        }",
+					"",
+					"        if (!successFound) {",
+					"            throw new Error(`ProceedWithCarrier failed in TrackIn for LP${materialData.LoadPortNumber}: \\nReply:${JSON.stringify(reply)}`);",
+					"        }",
+					"",
+					"        // emit output during execution: outputs.output1.emit(\"something\");",
+					"        // return example: return { output1: inputs.input1, output2: \"Hello World\" };",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IG1hdGVyaWFsRGF0YSA9IGlucHV0cy5NYXRlcmlhbERhdGFbMF07DQogICAgICAgIGNvbnN0IHJlbW90ZUNvbW1hbmRTdWNjZXNzQ29kZSA9ICIweDAwLDB4MDQiOw0KICAgICAgICBsZXQgY29tbWFuZFBhcmFtZXRlcnMgPSBbXTsNCiAgICAgICAgY29uc3Qgc2VuZE1lc3NhZ2UgPSB7DQogICAgICAgICAgICB0eXBlOiAiUzNGMTciLA0KICAgICAgICAgICAgaXRlbTogew0KICAgICAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiVTQiLCB2YWx1ZTogOCB9LA0KICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJQcm9jZWVkV2l0aENhcnJpZXIiIH0sDQogICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogbWF0ZXJpYWxEYXRhLkNvbnRhaW5lck5hbWUgfSwNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiVTEiLCB2YWx1ZTogbWF0ZXJpYWxEYXRhLkxvYWRQb3J0TnVtYmVyIH0sDQogICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkwiLCB2YWx1ZTogY29tbWFuZFBhcmFtZXRlcnMgfQ0KICAgICAgICAgICAgICAgIF0NCiAgICAgICAgICAgIH0NCiAgICAgICAgfTsNCiAgICAgICAgY29tbWFuZFBhcmFtZXRlcnMucHVzaCh7DQogICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiQ2FwYWNpdHkiIH0sDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiVTEiLCB2YWx1ZTogbWF0ZXJpYWxEYXRhLlN1Yk1hdGVyaWFscy5sZW5ndGggfQ0KICAgICAgICAgICAgXQ0KICAgICAgICB9KTsNCiAgICAgICAgY29tbWFuZFBhcmFtZXRlcnMucHVzaCh7DQogICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiU3Vic3RyYXRlQ291bnQiIH0sDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiVTEiLCB2YWx1ZTogMCB9DQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICBsZXQgd2FmZXJQYXJhbWV0ZXJzID0gW107DQogICAgICAgIGNvbW1hbmRQYXJhbWV0ZXJzLnB1c2goew0KICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIkNvbnRlbnRNYXAiIH0sDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiTCIsIHZhbHVlOiB3YWZlclBhcmFtZXRlcnMgfQ0KICAgICAgICAgICAgXQ0KICAgICAgICB9KTsNCiAgICAgICAgZm9yIChsZXQgaSA9IDE7IGkgPD0gMTM7IGkrKykgew0KICAgICAgICAgICAgbGV0IHN1Yk1hdGVyaWFsSW5TbG90ID0gbWF0ZXJpYWxEYXRhLlN1Yk1hdGVyaWFscy5maW5kKHN1Yk1hdGVyaWFsID0+IHN1Yk1hdGVyaWFsLlNsb3QgPT0gaSk7DQogICAgICAgICAgICBpZiAoc3ViTWF0ZXJpYWxJblNsb3QgIT0gbnVsbCkgew0KICAgICAgICAgICAgICAgIHdhZmVyUGFyYW1ldGVycy5wdXNoKHsNCiAgICAgICAgICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiBtYXRlcmlhbERhdGEuTWF0ZXJpYWxOYW1lIH0sDQogICAgICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6IHN1Yk1hdGVyaWFsSW5TbG90Lk1hdGVyaWFsTmFtZSB9DQogICAgICAgICAgICAgICAgICAgIF0NCiAgICAgICAgICAgICAgICB9KTsNCiAgICAgICAgICAgIH0NCiAgICAgICAgICAgIGVsc2Ugew0KICAgICAgICAgICAgICAgIHdhZmVyUGFyYW1ldGVycy5wdXNoKHsNCiAgICAgICAgICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiIiB9LA0KICAgICAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiIiB9DQogICAgICAgICAgICAgICAgICAgIF0NCiAgICAgICAgICAgICAgICB9KTsNCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgICAgICBjb25zdCByZXBseSA9IGF3YWl0IHRoaXMuZnJhbWV3b3JrLmRyaXZlci5zZW5kUmF3KCJjb25uZWN0LmlvdC5kcml2ZXIuc2Vjc2dlbS5zZW5kTWVzc2FnZSIsIHNlbmRNZXNzYWdlKTsNCiAgICAgICAgbGV0IHN1Y2Nlc3NGb3VuZCA9IGZhbHNlOw0KICAgICAgICBmb3IgKGNvbnN0IHN1Y2Nlc3NDb2RlIG9mIHJlbW90ZUNvbW1hbmRTdWNjZXNzQ29kZS5zcGxpdCgiLCIpKSB7DQogICAgICAgICAgICBpZiAocmVwbHkgJiYgcmVwbHkuaXRlbSAmJiBwYXJzZUludChyZXBseS5pdGVtLnZhbHVlWzBdLnZhbHVlLmRhdGEpID09PSBwYXJzZUludChzdWNjZXNzQ29kZS50cmltKCkpKSB7DQogICAgICAgICAgICAgICAgc3VjY2Vzc0ZvdW5kID0gdHJ1ZTsNCiAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgICAgICBpZiAoIXN1Y2Nlc3NGb3VuZCkgew0KICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBQcm9jZWVkV2l0aENhcnJpZXIgZmFpbGVkIGluIFRyYWNrSW4gZm9yIExQJHttYXRlcmlhbERhdGEuTG9hZFBvcnROdW1iZXJ9OiBcblJlcGx5OiR7SlNPTi5zdHJpbmdpZnkocmVwbHkpfWApOw0KICAgICAgICB9DQogICAgICAgIC8vIGVtaXQgb3V0cHV0IGR1cmluZyBleGVjdXRpb246IG91dHB1dHMub3V0cHV0MS5lbWl0KCJzb21ldGhpbmciKTsNCiAgICAgICAgLy8gcmV0dXJuIGV4YW1wbGU6IHJldHVybiB7IG91dHB1dDE6IGlucHV0cy5pbnB1dDEsIG91dHB1dDI6ICJIZWxsbyBXb3JsZCIgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
+				"inputs": [
+					{
+						"name": "eventRawData",
+						"valueType": {
+							"friendlyName": "eventRawData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -192,8 +466,8 @@
 					"task_122639": {
 						"collapsed": false,
 						"position": {
-							"x": 1036,
-							"y": 159
+							"x": 1706,
+							"y": 220
 						},
 						"outdated": false
 					},
@@ -204,6 +478,14 @@
 							"y": 162
 						},
 						"outdated": false
+					},
+					"task_25576": {
+						"collapsed": false,
+						"position": {
+							"x": 1135,
+							"y": 397
+						},
+						"outdated": false
 					}
 				},
 				"links": {},
@@ -211,15 +493,15 @@
 					"note_107761": {
 						"collapsed": false,
 						"position": {
-							"x": 1544,
-							"y": 61
+							"x": 2270,
+							"y": 118
 						}
 					}
 				},
-				"zoom": 0.6099999999999999,
+				"zoom": 0.8300000000000001,
 				"pan": {
-					"x": 0,
-					"y": 6
+					"x": 425.5555725097656,
+					"y": 94.44445037841797
 				}
 			}
 		}

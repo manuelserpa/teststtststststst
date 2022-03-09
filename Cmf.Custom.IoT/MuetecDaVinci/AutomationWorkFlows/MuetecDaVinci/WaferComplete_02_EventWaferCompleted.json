@@ -53,28 +53,6 @@
 						}
 					},
 					{
-						"name": "ControlJobId",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "ControlJobId"
-						}
-					},
-					{
-						"name": "ProcessJobId",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "ProcessJobId"
-						}
-					},
-					{
 						"name": "SubMaterialName",
 						"valueType": {
 							"type": 4,
@@ -198,7 +176,7 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "PM1/ProcessingFinished"
+						"Name": "PM2/ProcessingFinished"
 					}
 				]
 			},
@@ -229,17 +207,17 @@
 	],
 	"links": [
 		{
-			"id": "31708bfa-659a-49e6-9f6c-ed4dfd927676",
-			"sourceId": "task_119709",
-			"targetId": "task_126394",
-			"inputName": "activate",
-			"outputName": "$WaferID"
-		},
-		{
-			"id": "d306cdd4-1176-4584-b964-6774cbd0e44a",
+			"id": "121867f7-a9ed-4027-85f2-084387d62720",
 			"sourceId": "task_119709",
 			"targetId": "task_126394",
 			"inputName": "SubMaterialNameIn",
+			"outputName": "$WaferID"
+		},
+		{
+			"id": "b260b834-bc7c-4c36-ac67-71da52568a67",
+			"sourceId": "task_119709",
+			"targetId": "task_126394",
+			"inputName": "activate",
 			"outputName": "$WaferID"
 		}
 	],
@@ -276,10 +254,10 @@
 					}
 				},
 				"links": {
-					"31708bfa-659a-49e6-9f6c-ed4dfd927676": {
+					"121867f7-a9ed-4027-85f2-084387d62720": {
 						"vertices": []
 					},
-					"d306cdd4-1176-4584-b964-6774cbd0e44a": {
+					"b260b834-bc7c-4c36-ac67-71da52568a67": {
 						"vertices": []
 					}
 				},
@@ -292,10 +270,10 @@
 						}
 					}
 				},
-				"zoom": 0.8600000000000001,
+				"zoom": 0.7400000000000004,
 				"pan": {
-					"x": 321.1111145019531,
-					"y": 204.44444274902344
+					"x": 88.8888931274414,
+					"y": 96.66667175292969
 				}
 			}
 		}

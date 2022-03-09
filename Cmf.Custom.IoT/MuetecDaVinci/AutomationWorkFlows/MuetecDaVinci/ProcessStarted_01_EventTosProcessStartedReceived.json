@@ -103,7 +103,23 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CtrlJobID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "ControlJob:5:Selected-Executing"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -150,7 +166,22 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "ae6d7ff7-7a5d-40c6-bab7-390ce0bd7ade",
+			"sourceId": "task_51951",
+			"targetId": "task_135964",
+			"inputName": "ContainerNameIn",
+			"outputName": "$CtrlJobID"
+		},
+		{
+			"id": "5e59c423-cb18-413c-9fe4-7a76dcaddaec",
+			"sourceId": "task_51951",
+			"targetId": "task_135964",
+			"inputName": "activate",
+			"outputName": "$CtrlJobID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#00ff80",
@@ -177,13 +208,20 @@
 					"task_51951": {
 						"collapsed": false,
 						"position": {
-							"x": 241,
-							"y": 234
+							"x": 400,
+							"y": 228
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"ae6d7ff7-7a5d-40c6-bab7-390ce0bd7ade": {
+						"vertices": []
+					},
+					"5e59c423-cb18-413c-9fe4-7a76dcaddaec": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_53240": {
 						"collapsed": false,
@@ -193,10 +231,10 @@
 						}
 					}
 				},
-				"zoom": 0.6399999999999999,
+				"zoom": 0.8400000000000001,
 				"pan": {
-					"x": 12.714301707373465,
-					"y": 5.539705914194883
+					"x": 188.88890075683594,
+					"y": 0
 				}
 			}
 		}

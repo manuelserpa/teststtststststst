@@ -119,14 +119,14 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "LP1/CarrierArrived"
+						"Name": "LP2/CarrierArrived"
 					}
 				]
 			},
 			"driver": "SecsGemEquipment"
 		},
 		{
-			"id": "task_4199",
+			"id": "task_8131",
 			"reference": {
 				"name": "codeExecution",
 				"package": {
@@ -270,7 +270,7 @@
 					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
 					"params": {
 						"type": 5,
-						"value": "1"
+						"value": "2"
 					}
 				}
 			]
@@ -283,16 +283,16 @@
 			"outputName": "event"
 		},
 		{
-			"id": "b639c513-4c0d-4763-8f71-aef05796b7cd",
+			"id": "ebe6eac2-229b-4394-a097-b125b3740fa7",
 			"sourceId": "task_93139",
-			"targetId": "task_4199",
+			"targetId": "task_8131",
 			"inputName": "LoadPortNumberIn",
 			"outputName": "LoadPortNumberOut"
 		},
 		{
-			"id": "82713058-421f-42ed-a8b0-34d10d70e233",
+			"id": "bcabd890-67cb-45a1-a83f-ed9f37226021",
 			"sourceId": "task_93139",
-			"targetId": "task_4199",
+			"targetId": "task_8131",
 			"inputName": "activate",
 			"outputName": "LoadPortNumberOut"
 		}
@@ -328,11 +328,11 @@
 						},
 						"outdated": false
 					},
-					"task_4199": {
+					"task_8131": {
 						"collapsed": false,
 						"position": {
-							"x": 1724,
-							"y": 465
+							"x": 1737,
+							"y": 445
 						},
 						"outdated": false
 					}
@@ -341,10 +341,10 @@
 					"b1cf0e5b-1096-4c3f-b7f6-f809888862eb": {
 						"vertices": []
 					},
-					"b639c513-4c0d-4763-8f71-aef05796b7cd": {
+					"ebe6eac2-229b-4394-a097-b125b3740fa7": {
 						"vertices": []
 					},
-					"82713058-421f-42ed-a8b0-34d10d70e233": {
+					"bcabd890-67cb-45a1-a83f-ed9f37226021": {
 						"vertices": []
 					},
 					"4ec6e0f3-83c4-4c0c-af45-3cbfc0e2afa4": {
@@ -355,16 +355,16 @@
 					"note_188651": {
 						"collapsed": false,
 						"position": {
-							"x": 2704,
-							"y": 266
+							"x": 2359,
+							"y": 268
 						}
 					}
 				},
 				"pan": {
-					"x": 466.66668701171875,
-					"y": 102.22222137451172
+					"x": 845.5556030273438,
+					"y": 165.55555725097656
 				},
-				"zoom": 0.7999999999999999
+				"zoom": 0.9500000000000004
 			}
 		}
 	}

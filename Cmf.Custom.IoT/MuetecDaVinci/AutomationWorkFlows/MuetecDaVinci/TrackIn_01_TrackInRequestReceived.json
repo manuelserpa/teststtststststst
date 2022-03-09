@@ -41,7 +41,16 @@
 				}
 			},
 			"settings": {
-				"_outputs": [],
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ControlState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
 				"___cmf___name": "Get Equipment Properties Values",
 				"___cmf___color": "#ffff80"
 			},
@@ -251,67 +260,115 @@
 			}
 		},
 		{
-			"id": "task_137349",
+			"id": "task_28440",
 			"reference": {
-				"name": "store",
+				"name": "codeExecution",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
 					"version": "8.3.3-202201212"
 				}
 			},
 			"settings": {
-				"_workingMode": "StoreOnActivate",
-				"___cmf___name": "Store Data",
-				"_inputs": [
-					{
-						"name": "TrackIn01_ActivatePostTrackIn",
-						"valueType": {
-							"type": 3,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "TrackIn01_ActivatePostTrackIn"
-						},
-						"storage": "Persistent",
-						"identifier": "TrackIn01_ActivatePostTrackIn",
-						"defaultValue": null
-					}
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        const materialData = inputs.MaterialData[0];",
+					"        const remoteCommandSuccessCode = \"0x00,0x04\";",
+					"        let commandParameters: any[] = [];",
+					"        const sendMessage: Object = {",
+					"            type: \"S3F17\", ",
+					"            item: {",
+					"                type: \"L\", value: [",
+					"                    { type: \"U4\", value: 8 }, //DataID",
+					"                    { type: \"A\", value: \"ProceedWithCarrier\" }, ",
+					"                    { type: \"A\", value: materialData.ContainerName },",
+					"                    { type: \"U1\", value: materialData.LoadPortNumber }, ",
+					"                    { type: \"L\", value: commandParameters }",
+					"                ]",
+					"            }",
+					"        }",
+					"",
+					"        commandParameters.push({",
+					"            type: \"L\", value: [",
+					"                { type: \"A\", value: \"Capacity\" },",
+					"                { type: \"U1\", value: materialData.SubMaterials.length }",
+					"            ]",
+					"        });",
+					"",
+					"        commandParameters.push({",
+					"            type: \"L\", value: [",
+					"                { type: \"A\", value: \"SubstrateCount\" },",
+					"                { type: \"U1\", value: 0 }",
+					"            ]",
+					"        });",
+					"",
+					"        let waferParameters: any[] = [];",
+					"        commandParameters.push({",
+					"            type: \"L\", value: [",
+					"                { type: \"A\", value: \"ContentMap\" },",
+					"                { type: \"L\", value: waferParameters }",
+					"            ]",
+					"        });",
+					"",
+					"        for (let i = 1; i <= 13; i++) {",
+					"            let subMaterialInSlot = (<any[]>materialData.SubMaterials).find(subMaterial => subMaterial.Slot == i)",
+					"            if(subMaterialInSlot != null) {",
+					"                waferParameters.push({",
+					"                    type: \"L\", value: [",
+					"                        { type: \"A\", value: materialData.MaterialName },",
+					"                        { type: \"A\", value: subMaterialInSlot.MaterialName }",
+					"                    ]",
+					"                });",
+					"            }",
+					"            else {",
+					"                waferParameters.push({",
+					"                    type: \"L\", value: [",
+					"                        { type: \"A\", value: \"\" },",
+					"                        { type: \"A\", value: \"\" }",
+					"                    ]",
+					"                });",
+					"            }",
+					"            ",
+					"        }",
+					"",
+					"        const reply = await this.framework.driver.sendRaw(\"connect.iot.driver.secsgem.sendMessage\", sendMessage);",
+					"        let successFound = false;",
+					"",
+					"        for (const successCode of remoteCommandSuccessCode.split(\",\")) {",
+					"            if (reply && reply.item && parseInt(reply.item.value[0].value.data) === parseInt(successCode.trim())) {",
+					"                successFound = true;",
+					"                break;",
+					"            }",
+					"        }",
+					"",
+					"        if (!successFound) {",
+					"            throw new Error(`ProceedWithCarrier failed in TrackIn for LP${materialData.LoadPortNumber}: \\nReply:${JSON.stringify(reply)}`);",
+					"        }",
+					"",
+					"        // emit output during execution: outputs.output1.emit(\"something\");",
+					"        // return example: return { output1: inputs.input1, output2: \"Hello World\" };",
+					"    }",
+					"}",
+					""
 				],
-				"___cmf___color": "#808078"
-			}
-		},
-		{
-			"id": "task_34616",
-			"reference": {
-				"name": "workflow",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"automationWorkflow": {
-					"DisplayName": "PPSelect_01_ExecuteCommand",
-					"IsShared": false
-				},
-				"executeWhenAllInputsDefined": false,
-				"contextsExpirationInMilliseconds": 60000,
-				"executionExpirationInMilliseconds": 1200000,
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IG1hdGVyaWFsRGF0YSA9IGlucHV0cy5NYXRlcmlhbERhdGFbMF07DQogICAgICAgIGNvbnN0IHJlbW90ZUNvbW1hbmRTdWNjZXNzQ29kZSA9ICIweDAwLDB4MDQiOw0KICAgICAgICBsZXQgY29tbWFuZFBhcmFtZXRlcnMgPSBbXTsNCiAgICAgICAgY29uc3Qgc2VuZE1lc3NhZ2UgPSB7DQogICAgICAgICAgICB0eXBlOiAiUzNGMTciLA0KICAgICAgICAgICAgaXRlbTogew0KICAgICAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiVTQiLCB2YWx1ZTogOCB9LA0KICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJQcm9jZWVkV2l0aENhcnJpZXIiIH0sDQogICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogbWF0ZXJpYWxEYXRhLkNvbnRhaW5lck5hbWUgfSwNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiVTEiLCB2YWx1ZTogbWF0ZXJpYWxEYXRhLkxvYWRQb3J0TnVtYmVyIH0sDQogICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkwiLCB2YWx1ZTogY29tbWFuZFBhcmFtZXRlcnMgfQ0KICAgICAgICAgICAgICAgIF0NCiAgICAgICAgICAgIH0NCiAgICAgICAgfTsNCiAgICAgICAgY29tbWFuZFBhcmFtZXRlcnMucHVzaCh7DQogICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiQ2FwYWNpdHkiIH0sDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiVTEiLCB2YWx1ZTogbWF0ZXJpYWxEYXRhLlN1Yk1hdGVyaWFscy5sZW5ndGggfQ0KICAgICAgICAgICAgXQ0KICAgICAgICB9KTsNCiAgICAgICAgY29tbWFuZFBhcmFtZXRlcnMucHVzaCh7DQogICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiU3Vic3RyYXRlQ291bnQiIH0sDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiVTEiLCB2YWx1ZTogMCB9DQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICBsZXQgd2FmZXJQYXJhbWV0ZXJzID0gW107DQogICAgICAgIGNvbW1hbmRQYXJhbWV0ZXJzLnB1c2goew0KICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIkNvbnRlbnRNYXAiIH0sDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiTCIsIHZhbHVlOiB3YWZlclBhcmFtZXRlcnMgfQ0KICAgICAgICAgICAgXQ0KICAgICAgICB9KTsNCiAgICAgICAgZm9yIChsZXQgaSA9IDE7IGkgPD0gMTM7IGkrKykgew0KICAgICAgICAgICAgbGV0IHN1Yk1hdGVyaWFsSW5TbG90ID0gbWF0ZXJpYWxEYXRhLlN1Yk1hdGVyaWFscy5maW5kKHN1Yk1hdGVyaWFsID0+IHN1Yk1hdGVyaWFsLlNsb3QgPT0gaSk7DQogICAgICAgICAgICBpZiAoc3ViTWF0ZXJpYWxJblNsb3QgIT0gbnVsbCkgew0KICAgICAgICAgICAgICAgIHdhZmVyUGFyYW1ldGVycy5wdXNoKHsNCiAgICAgICAgICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiBtYXRlcmlhbERhdGEuTWF0ZXJpYWxOYW1lIH0sDQogICAgICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6IHN1Yk1hdGVyaWFsSW5TbG90Lk1hdGVyaWFsTmFtZSB9DQogICAgICAgICAgICAgICAgICAgIF0NCiAgICAgICAgICAgICAgICB9KTsNCiAgICAgICAgICAgIH0NCiAgICAgICAgICAgIGVsc2Ugew0KICAgICAgICAgICAgICAgIHdhZmVyUGFyYW1ldGVycy5wdXNoKHsNCiAgICAgICAgICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiIiB9LA0KICAgICAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiIiB9DQogICAgICAgICAgICAgICAgICAgIF0NCiAgICAgICAgICAgICAgICB9KTsNCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgICAgICBjb25zdCByZXBseSA9IGF3YWl0IHRoaXMuZnJhbWV3b3JrLmRyaXZlci5zZW5kUmF3KCJjb25uZWN0LmlvdC5kcml2ZXIuc2Vjc2dlbS5zZW5kTWVzc2FnZSIsIHNlbmRNZXNzYWdlKTsNCiAgICAgICAgbGV0IHN1Y2Nlc3NGb3VuZCA9IGZhbHNlOw0KICAgICAgICBmb3IgKGNvbnN0IHN1Y2Nlc3NDb2RlIG9mIHJlbW90ZUNvbW1hbmRTdWNjZXNzQ29kZS5zcGxpdCgiLCIpKSB7DQogICAgICAgICAgICBpZiAocmVwbHkgJiYgcmVwbHkuaXRlbSAmJiBwYXJzZUludChyZXBseS5pdGVtLnZhbHVlWzBdLnZhbHVlLmRhdGEpID09PSBwYXJzZUludChzdWNjZXNzQ29kZS50cmltKCkpKSB7DQogICAgICAgICAgICAgICAgc3VjY2Vzc0ZvdW5kID0gdHJ1ZTsNCiAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgICAgICBpZiAoIXN1Y2Nlc3NGb3VuZCkgew0KICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBQcm9jZWVkV2l0aENhcnJpZXIgZmFpbGVkIGluIFRyYWNrSW4gZm9yIExQJHttYXRlcmlhbERhdGEuTG9hZFBvcnROdW1iZXJ9OiBcblJlcGx5OiR7SlNPTi5zdHJpbmdpZnkocmVwbHkpfWApOw0KICAgICAgICB9DQogICAgICAgIC8vIGVtaXQgb3V0cHV0IGR1cmluZyBleGVjdXRpb246IG91dHB1dHMub3V0cHV0MS5lbWl0KCJzb21ldGhpbmciKTsNCiAgICAgICAgLy8gcmV0dXJuIGV4YW1wbGU6IHJldHVybiB7IG91dHB1dDE6IGlucHV0cy5pbnB1dDEsIG91dHB1dDI6ICJIZWxsbyBXb3JsZCIgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
 				"inputs": [
-					{
-						"name": "MaterialData",
-						"valueType": {
-							"type": 10,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						}
-					}
-				],
-				"outputs": [
 					{
 						"name": "MaterialData",
 						"valueType": {
@@ -324,8 +381,12 @@
 						}
 					}
 				],
-				"___cmf___name": "Execute PP-Select Workflow"
-			}
+				"outputs": [],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			},
+			"driver": "SecsGemEquipment"
 		}
 	],
 	"converters": [
@@ -414,53 +475,39 @@
 			"outputName": "success"
 		},
 		{
-			"id": "e8a40c38-b471-4696-bf0f-e02f30268d2c",
+			"id": "32cd628f-3399-43bb-9435-353f1fa4b3b0",
+			"sourceId": "task_70871",
+			"targetId": "task_73090",
+			"inputName": "GemControlStateIn",
+			"outputName": "$ControlState"
+		},
+		{
+			"id": "dd6311ef-6828-4be7-ae97-4efcb669c704",
 			"sourceId": "task_83813",
-			"targetId": "task_34616",
+			"targetId": "task_28440",
 			"inputName": "MaterialDataIn",
 			"outputName": "MaterialDataOut"
 		},
 		{
-			"id": "988fa7e7-cd09-4307-81d7-14809c907b57",
+			"id": "6e8aafbb-40bf-4cb4-9911-e6e1dec4344f",
 			"sourceId": "task_83813",
-			"targetId": "task_34616",
+			"targetId": "task_28440",
 			"inputName": "activate",
-			"outputName": "success"
+			"outputName": "MaterialDataOut"
 		},
 		{
-			"id": "5870f17f-a532-4ead-9ea6-080675dd036b",
-			"sourceId": "task_34616",
+			"id": "45bd0312-9ae2-451a-9c8c-32f2a47bcf96",
+			"sourceId": "task_83813",
 			"targetId": "task_1677",
 			"inputName": "materialObject",
 			"outputName": "MaterialDataOut"
 		},
 		{
-			"id": "13221f9f-ab82-4846-80e3-44a0b18b7862",
-			"sourceId": "task_34616",
+			"id": "df10c37b-033a-4a92-8835-73eff8e8dd33",
+			"sourceId": "task_28440",
 			"targetId": "task_1677",
 			"inputName": "activate",
 			"outputName": "success"
-		},
-		{
-			"id": "665a4c69-d1e4-48a7-a62f-d3cb1f600ea0",
-			"sourceId": "task_34616",
-			"targetId": "task_137349",
-			"inputName": "TrackIn01_ActivatePostTrackIn",
-			"outputName": "success"
-		},
-		{
-			"id": "c7f03834-120a-4aae-afce-27debab2fd50",
-			"sourceId": "task_34616",
-			"targetId": "task_137349",
-			"inputName": "activate",
-			"outputName": "success"
-		},
-		{
-			"id": "f5e66a95-b9f5-444a-8441-26737bb53dca",
-			"sourceId": "task_34616",
-			"targetId": "task_1796",
-			"inputName": "reply",
-			"outputName": "error"
 		}
 	],
 	"layout": {
@@ -477,12 +524,6 @@
 					"id": "note_200147",
 					"name": "Track In - Recipe Validation Customization",
 					"value": "<p><strong>What it does:</strong></p><p>Runs through the RecipeData structure of the Material Data structure from the lowest level to the highest one (Child Recipes to Parent Recipe), doing:</p><ul><li>Verify Recipe exists on equipment by comparing PPID with field NameOnEquipment of RecipeData structure;<ul><li>Executes S7F19</li></ul></li><li>Verify Recipe checksum on MES matches checksum of the Recipe existing on the Equipment;<ul><li>Executes S7F5</li></ul></li><li>If any verification fails and MES Resource has the attribute AllowDownloadRecipeAtTrackIn set to true, download Recipe to tool;<ul><li>&nbsp;Executes S7F1 and S7F3</li></ul></li><li>Else fail Track In;</li></ul><p><strong>Note:</strong></p><p>By default the Workflow task is pointing to&nbsp;RecipeValidation_01_UnformattedRecipeMainFlow which implements Unformatted Recipe logic, to set to Formatted recipes logic change the workflow to&nbsp;RecipeValidation_01_FormattedRecipeMainFlow which implements the behavior and Stream and Functions corresponding to that.</p><ul></ul><p><strong>How to use it:</strong></p><ol><li>Pass Material Data to the MaterialData input of the of workflow;</li><li>Activate after executing the initial validation;</li></ol>",
-					"color": "#ffffa5"
-				},
-				{
-					"id": "note_36668",
-					"name": "Track In - Execute PP-Select",
-					"value": "<p><strong>What it does:</strong></p><p>Executes PP-Select.</p><ul></ul><p><strong>Note:</strong></p><p>Workflow executed on this task must be customized for every tool;</p><ul>&nbsp;</ul><p><strong>How to use it:</strong></p><ol><li>Pass Material Data to the MaterialData input of the of workflow;</li><li>Activate after executing the recipe validation;</li></ol>",
 					"color": "#ffffa5"
 				},
 				{
@@ -536,19 +577,11 @@
 						},
 						"outdated": false
 					},
-					"task_137349": {
+					"task_28440": {
 						"collapsed": false,
 						"position": {
-							"x": 4589,
-							"y": 580
-						},
-						"outdated": false
-					},
-					"task_34616": {
-						"collapsed": false,
-						"position": {
-							"x": 3891,
-							"y": 467
+							"x": 3895,
+							"y": 497
 						},
 						"outdated": false
 					}
@@ -593,49 +626,26 @@
 					"5d35aa28-ad8d-41ea-a554-28a9cf33aff1": {
 						"vertices": []
 					},
-					"e8a40c38-b471-4696-bf0f-e02f30268d2c": {
+					"32cd628f-3399-43bb-9435-353f1fa4b3b0": {
 						"vertices": []
 					},
-					"988fa7e7-cd09-4307-81d7-14809c907b57": {
+					"dd6311ef-6828-4be7-ae97-4efcb669c704": {
 						"vertices": []
 					},
-					"5870f17f-a532-4ead-9ea6-080675dd036b": {
+					"6e8aafbb-40bf-4cb4-9911-e6e1dec4344f": {
 						"vertices": []
 					},
-					"13221f9f-ab82-4846-80e3-44a0b18b7862": {
+					"45bd0312-9ae2-451a-9c8c-32f2a47bcf96": {
 						"vertices": []
 					},
-					"665a4c69-d1e4-48a7-a62f-d3cb1f600ea0": {
+					"df10c37b-033a-4a92-8835-73eff8e8dd33": {
 						"vertices": []
-					},
-					"c7f03834-120a-4aae-afce-27debab2fd50": {
-						"vertices": []
-					},
-					"f5e66a95-b9f5-444a-8441-26737bb53dca": {
-						"vertices": [
-							{
-								"x": 3722,
-								"y": 1066
-							},
-							{
-								"x": 894,
-								"y": 1063
-							}
-						]
 					},
 					"cc8ce25c-4960-4556-84a0-86daf88a8e99": {
 						"vertices": [
 							{
-								"x": 5058,
-								"y": 342
-							},
-							{
 								"x": 4784,
 								"y": 254
-							},
-							{
-								"x": 3202,
-								"y": 188
 							},
 							{
 								"x": 1035,
@@ -659,13 +669,6 @@
 							"y": 735
 						}
 					},
-					"note_36668": {
-						"collapsed": false,
-						"position": {
-							"x": 3912,
-							"y": 690
-						}
-					},
 					"note_37658": {
 						"collapsed": false,
 						"position": {
@@ -674,10 +677,10 @@
 						}
 					}
 				},
-				"zoom": 0.5100000000000002,
+				"zoom": 0.7800000000000005,
 				"pan": {
-					"x": 802.5352798764436,
-					"y": 65.35645623443963
+					"x": 2373.33349609375,
+					"y": 127.77777862548828
 				}
 			}
 		}
