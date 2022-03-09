@@ -1,7 +1,9 @@
 ﻿using Cmf.Custom.AMSOsram.Common;
 using Cmf.Custom.AMSOsram.Common.ERP;
 using Cmf.Foundation.BusinessObjects;
+using Cmf.Foundation.BusinessObjects.GenericTables;
 using Cmf.Foundation.Common.Base;
+using Cmf.Foundation.Security;
 using Cmf.Navigo.BusinessObjects;
 using System;
 using System.Collections.Generic;
@@ -67,17 +69,11 @@ namespace Cmf.Custom.AMSOsram.Actions.ERPIntegrations
             string message = Encoding.UTF8.GetString(integrationEntry.IntegrationMessage.Message);
 
             // Deserialize XML Message to an object
-            ProcessProductDataOutput processProduct = AMSOsramUtilities.DeserializeXmlToObject<ProcessProductDataOutput>(message);
+            ProductDataOutput productDataOutput = AMSOsramUtilities.DeserializeXmlToObject<ProductDataOutput>(message);
 
             #region Product
 
-            // Collection used to store new Products
-            ProductCollection nonExistentProducts = new ProductCollection();
-
-            // Collection used to store existing Products
-            ProductCollection existingProducts = new ProductCollection();
-
-            // ChangeSet to create/update Products
+            //ChangeSet to create / update Products
             ChangeSet productsChangeSet = new ChangeSet();
             {
                 productsChangeSet.Name = Guid.NewGuid().ToString("N");
@@ -88,8 +84,14 @@ namespace Cmf.Custom.AMSOsram.Actions.ERPIntegrations
 
             productsChangeSet.Create();
 
+            // Collection used to store new Products
+            ProductCollection nonExistentProducts = new ProductCollection();
+
+            // Collection used to store existing Products
+            ProductCollection existingProducts = new ProductCollection();
+
             // Create Product context using data received from Integration Entry
-            foreach (ProcessProductData productData in processProduct.ProcessProductsData)
+            foreach (ProductData productData in productDataOutput.ProductsData)
             {
                 Product product = new Product();
                 product.Name = productData.Name;
@@ -100,22 +102,81 @@ namespace Cmf.Custom.AMSOsram.Actions.ERPIntegrations
                 product.IsEnabled = productData.IsEnabled.ToUpper() == "Y" ? true : false;
                 product.Yield = Convert.ToDecimal(productData.Yield) / 100; // How to convert the value?
 
-                ProductGroup productGroup = new ProductGroup();
+                ProductGroup productGroup = new ProductGroup()
                 {
-                    productGroup.Name = productData.ProductGroup;
-                }
+                    Name = productData.ProductGroup
+                };
 
-                if (!productGroup.ObjectExists())
+                if (productGroup.ObjectExists())
                 {
-                    // TO DO
+                    productGroup.Load();
+
+                    product.ProductGroup = productGroup;
                 }
                 else
                 {
-                    productGroup.Load();
+                    // TO DO
                 }
 
-                product.ProductGroup = productGroup;
                 product.MaximumMaterialSize = Convert.ToDecimal(productData.MaximumMaterialSize);
+                product.FlowPath = productData.FlowPath;
+
+                if (productData.UnitConversionFactors != null && productData.UnitConversionFactors.Any())
+                {
+                    foreach (Conversion conversion in productData.UnitConversionFactors)
+                    {
+                        product.UnitConversionFactors = new GenericTable()
+                        {
+
+                        };
+                    }
+                }
+                //product.UnitConversionFactors = ;
+
+                // TO DO: SubProducts
+                //product.SubProducts = new SubProductCollection();
+
+                product.InitialUnitCost = Convert.ToDecimal(productData.InitialUnitCost);
+                product.FinishedUnitCost = Convert.ToDecimal(productData.FinishedUnitCost);
+                product.CycleTime = Convert.ToDecimal(productData.CycleTime);
+                product.IncludeInSchedule = productData.IncludeInSchedule.ToUpper() == "Y" ? true : false;
+                product.CapacityClass = productData.CapacityClass;
+                product.MaterialTransferMode = MaterialTransferMode.None; //productData.MaterialTransferMode
+                product.MaterialTransferApprovalMode = MaterialTransferApprovalMode.AutoApproval; //productData.MaterialTransferApprovalMode
+                product.MaterialTransferAllowedPickup = MaterialTransferAllowedPickup.Any; //productData.MaterialTransferAllowedPickup
+                product.IsEnabledForMaintenanceManagement = productData.IsEnableForMaintenanceManagement.ToUpper() == "Y" ? true : false;
+                product.MaintenanceManagementConsumeQuantity = productData.MaintenanceManagementConsumerQuantity.ToUpper() == "Y" ? true : false;
+                product.IsDiscrete = productData.IsDiscrete.ToUpper() == "Y" ? true : false;
+                product.MoistureSensitivityLevel = productData.MoistureSensitivityLevel;
+                product.FloorLife = Convert.ToInt32(productData.FloorLife);
+                product.FloorLifeUnitOfTime = UnitOfTime.Hours;//productData.FloorLifeUnitOfTime
+                product.RequiresApproval = productData.RequiresApproval.ToUpper() == "Y" ? true : false;
+                product.ApprovalRole = new Role()
+                {
+                    Name = productData.ApprovalRole
+                };
+                product.CanSplitForPicking = productData.CanSplitForPicking.ToUpper() == "Y" ? true : false;
+                product.MaterialLogisticsDefaultRequestQuantity = Convert.ToDecimal(productData.MaterialLogisticsDefaultRequestQuantity);
+                product.ConsumptionScrap = Convert.ToDecimal(productData.ConsumptionScrap);
+                product.AdditionalConsumptionQuantity = Convert.ToDecimal(productData.AdditionalConsumptionQuantity);
+                product.IsEnabledForMaterialLogistics = productData.IsEnabledForMaterialLogistics.ToUpper() == "Y" ? true : false;
+
+                if (!string.IsNullOrWhiteSpace(productData.DefaultBOM))
+                {
+                    product.DefaultBOM = new BOM
+                    {
+                        Name = productData.DefaultBOM
+                    };
+                }
+
+                product.ProductManufacturers = new ProductManufacturerCollection()
+                {
+                    new ProductManufacturer()
+                    {
+                        Name = productData.ProductManufacturer.Name,
+                        Note = productData.ProductManufacturer.Note
+                    }
+                };
 
                 if (product.ObjectExists())
                 {
@@ -145,8 +206,8 @@ namespace Cmf.Custom.AMSOsram.Actions.ERPIntegrations
 
             #region Product/Parameters
 
-            // Disassociate or associate relation between Product and Parameters
-            foreach (ProcessProductData productData in processProduct.ProcessProductsData)
+            //Disassociate or associate relation between Product and Parameters
+            foreach (ProductData productData in productDataOutput.ProductsData)
             {
                 // Load Product
                 Product product = new Product();
@@ -158,31 +219,31 @@ namespace Cmf.Custom.AMSOsram.Actions.ERPIntegrations
 
                 #region Desassociate Parameters
 
-                // Disassociate relation between Product and removed Parameters
-                ParameterSourceCollection parametersToRemoveRelations = new ParameterSourceCollection();
-                parametersToRemoveRelations.AddRange(product.GetProductParameters().Where(w => !productData.ProcessProductParameters.Any(a => w.Parameter.Name == a.Name)));
+                ////Disassociate relation between Product and removed Parameters
+                //ParameterSourceCollection parametersToRemoveRelations = new ParameterSourceCollection();
+                //parametersToRemoveRelations.AddRange(product.GetProductParameters().Where(w => !productData.ProductParametersData.Any(a => w.Parameter.Name == a.Name)));
 
-                if (parametersToRemoveRelations != null && parametersToRemoveRelations.Any())
-                {
-                    ProductParameterCollection productParametersToRemove = new ProductParameterCollection();
+                //if (parametersToRemoveRelations != null && parametersToRemoveRelations.Any())
+                //{
+                //    ProductParameterCollection productParametersToRemove = new ProductParameterCollection();
 
-                    foreach (ParameterSource parameterToRemove in parametersToRemoveRelations)
-                    {
-                        ProductParameter productParameter = new ProductParameter();
-                        {
-                            productParameter.SourceEntity = product;
-                            productParameter.TargetEntity = parameterToRemove.Parameter;
+                //    foreach (ParameterSource parameterToRemove in parametersToRemoveRelations)
+                //    {
+                //        ProductParameter productParameter = new ProductParameter();
+                //        {
+                //            productParameter.SourceEntity = product;
+                //            productParameter.TargetEntity = parameterToRemove.Parameter;
 
-                            productParametersToRemove.Add(productParameter);
-                        }
-                    }
+                //            productParametersToRemove.Add(productParameter);
+                //        }
+                //    }
 
-                    if (productParametersToRemove != null && productParametersToRemove.Any())
-                    {
-                        // Remove relations between Product and Parameters
-                        product.RemoveRelations(productParametersToRemove);
-                    }
-                }
+                //    if (productParametersToRemove != null && productParametersToRemove.Any())
+                //    {
+                //        //Remove relations between Product and Parameters
+                //        product.RemoveRelations(productParametersToRemove);
+                //    }
+                //}
 
                 #endregion
 
@@ -190,8 +251,8 @@ namespace Cmf.Custom.AMSOsram.Actions.ERPIntegrations
 
                 ProductParameterCollection productParametersCollection = new ProductParameterCollection();
 
-                // Associate relation between Product to Parameter
-                foreach (ProcessProductParametersData parameterData in productData.ProcessProductParameters)
+                //Associate relation between Product to Parameter
+                foreach (ProductParameterData parameterData in productData.ProductParametersData)
                 {
                     Parameter parameter = new Parameter();
                     {
@@ -201,36 +262,38 @@ namespace Cmf.Custom.AMSOsram.Actions.ERPIntegrations
                     if (parameter.ObjectExists())
                     {
                         parameter.Load();
+
+                        ProductParameter productParameter = new ProductParameter();
+                        {
+                            productParameter.SourceEntity = product;
+                            productParameter.TargetEntity = parameter;
+                            productParameter.Value = parameterData.Value;
+
+                            productParametersCollection.Add(productParameter);
+                        }
+
+                        if (productParametersCollection != null && productParametersCollection.Any())
+                        {
+                            //Add relation between Product and Parameters
+                            product.AddRelations(productParametersCollection);
+                        }
                     }
-                    else
-                    {
-                        parameter.Description = parameterData.Name;
-                        parameter.Type = "Production";
-                        parameter.DisplayName = parameter.Name;
-                        parameter.ParameterScope = ParameterScope.EDC_SPC;
-                        parameter.DataType = ParameterDataType.String;
+                    //else
+                    //{
+                    //    parameter.Description = parameterData.Name;
+                    //    parameter.Type = "Production";
+                    //    parameter.DisplayName = parameterData.Name;
+                    //    parameter.ParameterScope = ParameterScope.EDC_SPC;
+                    //    parameter.DataType = ParameterDataType.String;
 
-                        parameter.Create();
-                    }
-
-                    ProductParameter productParameter = new ProductParameter();
-                    {
-                        productParameter.SourceEntity = product;
-                        productParameter.TargetEntity = parameter;
-                        productParameter.Value = parameterData.Value;
-
-                        productParametersCollection.Add(productParameter);
-                    }
-                }
-
-                if (productParametersCollection != null && productParametersCollection.Any())
-                {
-                    // Add relation between Product and Parameters
-                    product.AddRelations(productParametersCollection);
+                    //    parameter.Create();
+                    //}
                 }
 
                 #endregion
             }
+
+            #endregion
 
             productsChangeSet.Load();
 
@@ -251,9 +314,8 @@ namespace Cmf.Custom.AMSOsram.Actions.ERPIntegrations
                 productsChangeSet.Terminate();
             }
 
-            #endregion
-
             //---End DEE Code---
+
 
             return Input;
         }
