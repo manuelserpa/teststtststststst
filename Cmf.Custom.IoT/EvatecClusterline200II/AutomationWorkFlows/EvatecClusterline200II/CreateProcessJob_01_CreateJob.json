@@ -169,9 +169,54 @@
 				"SendCarrierContent": true,
 				"RecipeSpecificationType": 1,
 				"commandName": 1,
-				"MaterialFormat": "0x0e"
+				"MaterialFormat": "13"
 			},
 			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_64317",
+			"reference": {
+				"name": "expressionEvaluator",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_expressionType": 0,
+				"_evaluatorBehavior": "EvaluateAll",
+				"___cmf___name": "Expression Evaluator",
+				"_inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialData"
+						},
+						"defaultValue": [],
+						"required": true
+					}
+				],
+				"_outputs": [
+					{
+						"name": "RecipeNameOnEquipment",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "RecipeNameOnEquipment"
+						},
+						"expression": "MaterialData[1].Recipe.NameOnEquipment",
+						"defaultValue": null
+					}
+				]
+			}
 		}
 	],
 	"converters": [
@@ -206,14 +251,6 @@
 			"converters": []
 		},
 		{
-			"id": "557a3cc2-87d8-4ba6-850c-0f1391ba8cd0",
-			"sourceId": "task_170744",
-			"targetId": "task_171073",
-			"inputName": "activate",
-			"outputName": "MaterialDataOut",
-			"converters": []
-		},
-		{
 			"id": "7b244644-81d6-4f52-8f4d-2f118b835f17",
 			"sourceId": "task_171073",
 			"targetId": "task_170742",
@@ -242,23 +279,6 @@
 			"outputName": "MaterialDataOut"
 		},
 		{
-			"id": "ad3b1e42-8b28-4740-98c0-4f7d9fb187a4",
-			"sourceId": "task_170744",
-			"targetId": "task_171073",
-			"inputName": "RecipeName",
-			"outputName": "MaterialDataOut",
-			"converters": [
-				{
-					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
-					"params": {
-						"path": "Recipe.RecipeName",
-						"type": 4,
-						"defaultValue": "-"
-					}
-				}
-			]
-		},
-		{
 			"id": "3f36c13e-822d-4368-9a40-33151a4e5525",
 			"sourceId": "task_170744",
 			"targetId": "task_170746",
@@ -271,6 +291,27 @@
 			"targetId": "task_170742",
 			"inputName": "MaterialData",
 			"outputName": "Material"
+		},
+		{
+			"id": "1f6b0fa1-bb8a-4264-bf24-f1a3c7a5adc4",
+			"sourceId": "task_170744",
+			"targetId": "task_64317",
+			"inputName": "MaterialData",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "6ba080ee-401e-443c-89d8-11e447eee39f",
+			"sourceId": "task_64317",
+			"targetId": "task_171073",
+			"inputName": "RecipeName",
+			"outputName": "RecipeNameOnEquipment"
+		},
+		{
+			"id": "89938254-fa5e-41a9-94e2-c3707de606fd",
+			"sourceId": "task_64317",
+			"targetId": "task_171073",
+			"inputName": "activate",
+			"outputName": "RecipeNameOnEquipment"
 		}
 	],
 	"layout": {
@@ -312,13 +353,18 @@
 							"y": 892
 						},
 						"outdated": false
+					},
+					"task_64317": {
+						"collapsed": false,
+						"position": {
+							"x": 1534,
+							"y": 613
+						},
+						"outdated": false
 					}
 				},
 				"links": {
 					"task_170746_ErrorOut-task_170742_error": {
-						"vertices": []
-					},
-					"557a3cc2-87d8-4ba6-850c-0f1391ba8cd0": {
 						"vertices": []
 					},
 					"7b244644-81d6-4f52-8f4d-2f118b835f17": {
@@ -339,15 +385,21 @@
 					"a9dc78b2-eca8-4381-b93b-51453f5a37e3": {
 						"vertices": []
 					},
-					"ad3b1e42-8b28-4740-98c0-4f7d9fb187a4": {
+					"1f6b0fa1-bb8a-4264-bf24-f1a3c7a5adc4": {
+						"vertices": []
+					},
+					"6ba080ee-401e-443c-89d8-11e447eee39f": {
+						"vertices": []
+					},
+					"89938254-fa5e-41a9-94e2-c3707de606fd": {
 						"vertices": []
 					}
 				},
 				"notes": {},
-				"zoom": 0.7299999999999999,
+				"zoom": 0.84,
 				"pan": {
-					"x": 888.888916015625,
-					"y": 301.1111145019531
+					"x": 675.5556030273438,
+					"y": 380
 				}
 			}
 		}
