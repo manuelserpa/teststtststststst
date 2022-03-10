@@ -103,7 +103,7 @@
 					}
 				],
 				"outputs": [],
-				"___cmf___name": "Workflow"
+				"___cmf___name": "UpdateEquipmentPerformanceTrackingState"
 			}
 		}
 	],
@@ -136,10 +136,10 @@
 				},
 				"links": {},
 				"notes": {},
-				"zoom": 0.5499999999999996,
+				"zoom": 0.7099999999999997,
 				"pan": {
-					"x": 433,
-					"y": 389
+					"x": 764.4444580078125,
+					"y": 362.22222900390625
 				}
 			}
 		}
