@@ -1,0 +1,402 @@
+{
+  "Index": {
+    "1": {
+      "Tab Name": "Index",
+      "Object Type": "",
+      "Description": "Have the description for each tab in the excel",
+      "Execution Order": "0"
+    },
+    "2": {
+      "Tab Name": "Formats",
+      "Object Type": "",
+      "Description": "Have the specific cell content format for specific tabs and columns",
+      "Execution Order": "0"
+    },
+    "3": {
+      "Tab Name": "Assumptions",
+      "Object Type": "",
+      "Description": "Have assumptions for each tab",
+      "Execution Order": "0"
+    },
+    "4": {
+      "Tab Name": "WorksheetNameMapping",
+      "Object Type": "",
+      "Description": "Used to workaround the 31-character limit of the excel worksheet name. \nDefine your tab name using the tag <LOOKUP> and append a shortname for the object (e.g, <LOOKUP>MySmartTable). Then, in this tab,  map it to the tab name you would define otherwise (e.g, MySmartTable/<ST>TheRealNameForMySmartTable).",
+      "Execution Order": "0"
+    }
+  },
+  "Enums": {
+    "ScheduleCriteria": [
+      "MaximimizePriorityFulfilment",
+      "MaximizeResourceUtilization",
+      "MinimizeDeviationFromDeliveryDates",
+      "MinimizeLateMaterials",
+      "MinimizeMaximumLateness",
+      "MinimizeNumberOfLateMaterials",
+      "MinimizePriorityQuantityWeigthedCycleTime",
+      "MinimizePriorityWeightedLateness",
+      "MinimizeQuantityWeightedCycleTime",
+      "MinimizeSetupTimes",
+      "MinimizeTotalWaitingTime"
+    ],
+    "SchedulingType": [
+      "Machine",
+      "Batch",
+      "Tunnel"
+    ],
+    "ContentStorageType": [
+      "Internal",
+      "External"
+    ],
+    "StepSetupCharacteristic": [
+      "Service",
+      "Product",
+      "ProductGroup",
+      "Recipe"
+    ],
+    "AreaType": [
+      "Area",
+      "StorageArea",
+      "ProductionLine"
+    ],
+    "ProcessingType": [
+      "Process",
+      "Storage",
+      "LoadPort",
+      "ConsumableFeed",
+      "Durable",
+      "Instrument",
+      "Transport",
+      "Line"
+    ],
+    "KPIDimensionSource": [
+      "BusinessRule",
+      "OperationalDataStore",
+      "DataWarehouse",
+      "Cubes"
+    ],
+    "KPISourceType": [
+      "Static",
+      "Dynamic"
+    ],
+    "ScheduleSortingRule": [
+      "PossibleStartDate",
+      "Priority",
+      "ExecutionTime",
+      "MaterialName",
+      "Quantity",
+      "CharacteristicOfItemAtResource",
+      "DueDate",
+      "ItemCode"
+    ],
+    "DispatchScheduleType": [
+      "Dispatching",
+      "Scheduling"
+    ],
+    "DefaultSamplingType": [
+      "CounterBased",
+      "TimeBased",
+      "CounterAndTimeBased"
+    ],
+    "Frequency": [
+      "Daily",
+      "Weekly",
+      "Monthly",
+      "Yearly"
+    ],
+    "ReorderMode": [
+      "Automatic",
+      "None"
+    ],
+    "MaterialLogisticsMode": [
+      "None",
+      "Material",
+      "Product"
+    ],
+    "MaintenanceActivityScheduleMode": [
+      "Earliest",
+      "Latest"
+    ],
+    "KPIDimensionValueType": [
+      "DataValue",
+      "DataSeries"
+    ],
+    "RuleSortingDirection": [
+      "Ascending",
+      "Descending"
+    ],
+    "TimeScale": [
+      "Days",
+      "Hours",
+      "Minutes",
+      "Seconds"
+    ],
+    "SamplingContext": [
+      "MaterialType",
+      "MaterialProduct",
+      "MaterialProductMaturity",
+      "MaterialResource",
+      "MaterialStep",
+      "MaterialStepMaturity"
+    ],
+    "BOMScope": [
+      "MaterialTracking",
+      "MaintenanceManagement"
+    ],
+    "TimeDueScale": [
+      "Hours",
+      "Days",
+      "Weeks",
+      "Months",
+      "Years"
+    ],
+    "MoistureSensitivityLevel": [
+      "1",
+      "2",
+      "2a",
+      "3",
+      "4",
+      "5",
+      "5a",
+      "6"
+    ],
+    "StepInspectionSeveritySwitchingRuleFilterType": [
+      "Time",
+      "LastOccurrences"
+    ],
+    "StepInspectionSeveritySwitchingRuleDirection": [
+      "Tightening",
+      "Reducing"
+    ],
+    "FutureLogisticActionExecutionMode": [
+      "Manual",
+      "Automatic"
+    ],
+    "DefaultScheduleView": [
+      "Day",
+      "Week",
+      "Month"
+    ],
+    "MaintenanceInstanceType": [
+      "Resource",
+      "Container"
+    ],
+    "KPIType": [
+      "Maximum",
+      "Minimum",
+      "Deviation"
+    ],
+    "InstancesToSchedulePattern": [
+      "NumberOfInstances",
+      "Duration"
+    ],
+    "ProductType": [
+      "FinishedGood",
+      "SemiFinishedGood",
+      "RawMaterial",
+      "Part",
+      "Durable"
+    ],
+    "StepInspectionSeverityContextInformationContext": [
+      "MaterialType",
+      "Product",
+      "ProductGroup",
+      "Resource",
+      "Model",
+      "ResourceType",
+      "Flow"
+    ],
+    "IoTSchemaPropertyDataType": [
+      "Long",
+      "Decimal",
+      "DateTime",
+      "Boolean",
+      "String",
+      "Integer",
+      "Url",
+      "Date",
+      "Time",
+      "IoTSchema",
+      "EntityType",
+      "File"
+    ]
+  },
+  "WorksheetNameMapping": {
+    "1": {
+      "WorksheetName": "IntegrationHandler",
+      "Value": "<ST>IntegrationHandlerResolution"
+    }
+  },
+  "<SM>DEEAction": {
+    "1": {
+      "Action": "CustomProcessProductsFromERP",
+      "Description": "Import Product Master information from ERP",
+      "CodeFileRelativePath": "ERPIntegrations\\CustomProcessProductsFromERP.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    }
+  },
+  "<SM>LookupTableValues": {
+    "1": {
+      "LookUp Table": "MessageType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "TBD",
+      "Lookup Table Value Description": "To be defined",
+      "Lookup Table IsEnabled": "Yes"
+    }
+  },
+  "DEEActionOrder": {},
+  "<LOOKUP>IntegrationHandler": {
+    "1": {
+      "FromSystem": "ERP",
+      "ToSystem": "MES",
+      "MessageType": "TBD",
+      "HandlerType": "GenericIntegrationHandler",
+      "ActionName": "CustomProcessProductsFromERP",
+      "ErrorHandlingActionName": "",
+      "IsEnabled": "Yes"
+    }
+  },
+  "<DM>Parameter": {
+    "1": {
+      "Name": "ProdType",
+      "Description": "ProdType",
+      "Type": "Production",
+      "DisplayName": "ProdType",
+      "ParameterScope": "EDC_SPC",
+      "DataType": "String",
+      "DataFormat": "",
+      "DataUnit": "",
+      "DataScale": "",
+      "DataNumValidationMin": "",
+      "DataNumValidationMax": "",
+      "DataTextValidation": ""
+    },
+    "2": {
+      "Name": "Raster X",
+      "Description": "Raster X",
+      "Type": "Production",
+      "DisplayName": "Raster X",
+      "ParameterScope": "EDC_SPC",
+      "DataType": "String",
+      "DataFormat": "",
+      "DataUnit": "",
+      "DataScale": "",
+      "DataNumValidationMin": "",
+      "DataNumValidationMax": "",
+      "DataTextValidation": ""
+    },
+    "3": {
+      "Name": "Raster Y",
+      "Description": "Raster Y",
+      "Type": "Production",
+      "DisplayName": "Raster Y",
+      "ParameterScope": "EDC_SPC",
+      "DataType": "String",
+      "DataFormat": "",
+      "DataUnit": "",
+      "DataScale": "",
+      "DataNumValidationMin": "",
+      "DataNumValidationMax": "",
+      "DataTextValidation": ""
+    },
+    "4": {
+      "Name": "CM2 Average",
+      "Description": "CM2 Average",
+      "Type": "Production",
+      "DisplayName": "CM2 Average",
+      "ParameterScope": "EDC_SPC",
+      "DataType": "String",
+      "DataFormat": "",
+      "DataUnit": "",
+      "DataScale": "",
+      "DataNumValidationMin": "",
+      "DataNumValidationMax": "",
+      "DataTextValidation": ""
+    },
+    "5": {
+      "Name": "Chips Fieldmask",
+      "Description": "Chips Fieldmask",
+      "Type": "Production",
+      "DisplayName": "Chips Fieldmask",
+      "ParameterScope": "EDC_SPC",
+      "DataType": "String",
+      "DataFormat": "",
+      "DataUnit": "",
+      "DataScale": "",
+      "DataNumValidationMin": "",
+      "DataNumValidationMax": "",
+      "DataTextValidation": ""
+    },
+    "6": {
+      "Name": "Technogoly",
+      "Description": "Technogoly",
+      "Type": "Production",
+      "DisplayName": "Technogoly",
+      "ParameterScope": "EDC_SPC",
+      "DataType": "String",
+      "DataFormat": "",
+      "DataUnit": "",
+      "DataScale": "",
+      "DataNumValidationMin": "",
+      "DataNumValidationMax": "",
+      "DataTextValidation": ""
+    },
+    "7": {
+      "Name": "Wafer Size",
+      "Description": "Wafer Size",
+      "Type": "Production",
+      "DisplayName": "Wafer Size",
+      "ParameterScope": "EDC_SPC",
+      "DataType": "String",
+      "DataFormat": "",
+      "DataUnit": "",
+      "DataScale": "",
+      "DataNumValidationMin": "",
+      "DataNumValidationMax": "",
+      "DataTextValidation": ""
+    },
+    "8": {
+      "Name": "Chips Whole Wafer",
+      "Description": "Chips Whole Wafer",
+      "Type": "Production",
+      "DisplayName": "Chips Whole Wafer",
+      "ParameterScope": "EDC_SPC",
+      "DataType": "String",
+      "DataFormat": "",
+      "DataUnit": "",
+      "DataScale": "",
+      "DataNumValidationMin": "",
+      "DataNumValidationMax": "",
+      "DataTextValidation": ""
+    },
+    "9": {
+      "Name": "Status",
+      "Description": "Status",
+      "Type": "Production",
+      "DisplayName": "Status",
+      "ParameterScope": "EDC_SPC",
+      "DataType": "String",
+      "DataFormat": "",
+      "DataUnit": "",
+      "DataScale": "",
+      "DataNumValidationMin": "",
+      "DataNumValidationMax": "",
+      "DataTextValidation": ""
+    },
+    "10": {
+      "Name": "Disp Level",
+      "Description": "Disp Level",
+      "Type": "Production",
+      "DisplayName": "Disp Level",
+      "ParameterScope": "EDC_SPC",
+      "DataType": "String",
+      "DataFormat": "",
+      "DataUnit": "",
+      "DataScale": "",
+      "DataNumValidationMin": "",
+      "DataNumValidationMax": "",
+      "DataTextValidation": ""
+    }
+  }
+}
