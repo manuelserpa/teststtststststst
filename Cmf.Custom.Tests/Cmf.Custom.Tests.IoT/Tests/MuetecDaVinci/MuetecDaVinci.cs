@@ -20,12 +20,12 @@ using System.Data;
 using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Custom.Tests.IoT.Tests.Common;
 
-namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
+namespace AMSOsramEIAutomaticTests.MuetecDaVinci
 {
     [TestClass]
-    public class EvatecClusterline200II : CommonTests
+    public class MuetecDaVinci : CommonTests
     {
-        private const string resourceName = "PDSP0101";
+        private const string resourceName = "MECD0101";
 
         public const int numberOfWafersPerLot = 3;
 
@@ -34,7 +34,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
         public const bool subMaterialTrackin = true;
 
-        public string recipeName = "TestRecipeForEvatecClusterline200II";
+        public string recipeName = "TestRecipeForMuetecDaVinci";
         public const string serviceName = "Sputtering ZnO with Etching";
 
         private int loadPortNumber = 1;
@@ -70,8 +70,9 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             base.Initialize(recipeName);
             base.SubMaterialTrackin = subMaterialTrackin;
 
-            base.Equipment.RegisterOnMessage("S2F41", OnS2F41);
             base.Equipment.RegisterOnMessage("S1F3", OnS1F3);
+
+            base.Equipment.RegisterOnMessage("S3F17", OnS3F17);
             base.Equipment.RegisterOnMessage("S14F9", OnS14F9);
             base.Equipment.RegisterOnMessage("S16F11", OnS16F11);
 
@@ -109,7 +110,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            ConfigureConnection(resourceName, 5011);
+            ConfigureConnection(resourceName, 5012);
 
         }
 
@@ -129,7 +130,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         /// Scenario: Recipe Exists on Equipment
         /// </summary>
         [TestMethod]
-        public void EvatecClusterline200II_FullProcessRecipeExists()
+        public void MuetecDaVinci_FullProcessRecipeExists()
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
 
@@ -148,7 +149,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         /// Scenario: Recipe Exists on Equipment
         /// </summary>
         [TestMethod]
-        public void EvatecClusterline200II_SameRecipeOnlineLocal()
+        public void MuetecDaVinci_SameRecipeOnlineLocal()
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
 
@@ -172,7 +173,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         /// Scenario: Recipe Exists on Equipment
         /// </summary>
         [TestMethod]
-        public void EvatecClusterline200II_RecipeDoesNotExist()
+        public void MuetecDaVinci_RecipeDoesNotExist()
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
@@ -193,7 +194,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         /// Scenario: Control State to Host Offline
         /// </summary>
         [TestMethod]
-        public void EvatecClusterline200II_ControlStateUpdateTest()
+        public void MuetecDaVinci_ControlStateUpdateTest()
         {
 
             base.Equipment.Variables["ControlState"] = 3;
@@ -272,7 +273,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         /// Scenario: Control State to Host Offline
         /// </summary>
         [TestMethod]
-        public void EvatecClusterline200II_EPTStateChangeTest()
+        public void MuetecDaVinci_EPTStateChangeTest()
         {
 
             base.Equipment.Variables["BlockedReason"] = 0;
@@ -383,7 +384,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         /// Scenario: Alarm occurrs, validate ollection of alarm
         /// </summary>
         [TestMethod]
-        public void EvatecClusterline200II_AlarmDataCollection()
+        public void MuetecDaVinci_AlarmDataCollection()
         {
 
             Resource resource = new Resource { Name = resourceName };
@@ -425,7 +426,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
             // Trigger event
             base.Equipment.SendMessage(String.Format($"CarrierClamped"), null);
-        
+
             return true;
 
         }
@@ -797,46 +798,11 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             return true;
         }
 
-        public virtual bool OnS2F41(SecsMessage request, SecsMessage reply)
+        public virtual bool OnS3F17(SecsMessage request, SecsMessage reply)
         {
             //TODO: Validate MSG
 
-            string command = request.Item.GetChildList()[0].GetValue().ToString();
-
-
-            if (command == "LOADCARRIER")
-            {
-
-                loadCommandReceived = true;
-
-                if (!loadCommandDenied)
-                {
-                    reply.Item.GetChildList()[0].Binary = new byte[] { 0x00 };
-                }
-                else
-                {
-                    reply.Item.GetChildList()[0].Binary = new byte[] { 0x02 };
-                }
-            }
-            else if (command == "UNLOADCARRIER")
-            {
-
-                unloadCommandReceived = true;
-
-                if (!unloadCommandDenied)
-                {
-                    reply.Item.GetChildList()[0].Binary = new byte[] { 0x00 };
-                }
-                else
-                {
-                    reply.Item.GetChildList()[0].Binary = new byte[] { 0x02 };
-                }
-            }
-            else
-            {
-                Assert.Fail("Unrecognized Command");
-            }
-
+            var x = request;
             return (true);
         }
 

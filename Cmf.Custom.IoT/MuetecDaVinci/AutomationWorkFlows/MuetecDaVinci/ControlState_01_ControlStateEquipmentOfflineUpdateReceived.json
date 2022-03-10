@@ -58,13 +58,55 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "Equipment OFF-LINE"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
 	],
-	"converters": [],
-	"links": [],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "caca0489-fe3e-4233-9375-123ab8a24e19",
+			"sourceId": "task_124716",
+			"targetId": "task_141393",
+			"inputName": "valueIn",
+			"outputName": "event",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "1"
+					}
+				}
+			]
+		},
+		{
+			"id": "db87a7b6-f47e-4ad2-b573-e1aeb60a5682",
+			"sourceId": "task_124716",
+			"targetId": "task_141393",
+			"inputName": "activate",
+			"outputName": "event"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#0080ff",
@@ -91,13 +133,20 @@
 					"task_124716": {
 						"collapsed": false,
 						"position": {
-							"x": 676,
-							"y": 423
+							"x": 639,
+							"y": 450
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"db87a7b6-f47e-4ad2-b573-e1aeb60a5682": {
+						"vertices": []
+					},
+					"caca0489-fe3e-4233-9375-123ab8a24e19": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_124525": {
 						"collapsed": false,

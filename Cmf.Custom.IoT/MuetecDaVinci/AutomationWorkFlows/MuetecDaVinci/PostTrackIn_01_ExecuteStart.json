@@ -169,7 +169,8 @@
 				"___cmf___name": "Retrieve Material Property",
 				"retrieveAllMaterialsInCondition": false,
 				"outputs": [],
-				"___cmf___color": "#808080"
+				"___cmf___color": "#808080",
+				"materialState": "Setup"
 			}
 		}
 	],
@@ -323,10 +324,10 @@
 					}
 				},
 				"notes": {},
-				"zoom": 0.6799999999999999,
+				"zoom": 0.81,
 				"pan": {
-					"x": 152.22222900390625,
-					"y": 307.77777099609375
+					"x": 248.88890075683594,
+					"y": 444.4444580078125
 				}
 			}
 		}
