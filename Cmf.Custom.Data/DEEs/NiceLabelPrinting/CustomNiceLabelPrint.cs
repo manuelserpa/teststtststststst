@@ -74,28 +74,28 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
             if (Input.ContainsKey("ComplexTrackOutMaterialsInput"))
             {
                 ComplexTrackOutMaterialsInput complexTrackOutInput = Input["ComplexTrackOutMaterialsInput"] as ComplexTrackOutMaterialsInput;
-                operation = GetDataForTrackOutAndMoveNextOperation.TrackOut.ToString();
                 materialCollection.AddRange(complexTrackOutInput.Materials.Keys);
+                materialCollection.Load();
                 resource = materialCollection.First().LastProcessedResource;
+                operation = GetDataForTrackOutAndMoveNextOperation.TrackOut.ToString();
             }
             else if (Input.ContainsKey("ComplexTrackInMaterialsOutput"))
             {
                 materialCollection = (Input["ComplexTrackInMaterialsOutput"] as ComplexTrackInMaterialsOutput).Materials;
-                operation = GetDataForTrackInOperation.TrackIn.ToString();
+                materialCollection.Load();
                 resource = (Input["ComplexTrackInMaterialsOutput"] as ComplexTrackInMaterialsOutput).Resource;
+                operation = GetDataForTrackInOperation.TrackIn.ToString();
             }
             else if (Input.ContainsKey("MoveMaterialsToNextStepOutput"))
             {
                 materialCollection = (Input["MoveMaterialsToNextStepOutput"] as MoveMaterialsToNextStepOutput).Materials;
+                materialCollection.Load();
                 resource = materialCollection.First().LastProcessedResource;
                 operation = "Move Next";
             }
-
-            materialCollection.Load(1);
             
             Dictionary<string, Dictionary<string, string>> materials = new Dictionary<string, Dictionary<string, string>>();
 
-            // resolve custom ST
             foreach (Material material in materialCollection)
             {
                 Dictionary<string, string> materialNiceLabelPrintInformation = AMSOsramUtilities.GetDataForNiceLabelPrinting(material, resource, operation);

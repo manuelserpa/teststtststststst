@@ -1002,32 +1002,34 @@ namespace Cmf.Custom.AMSOsram.Common
 			string stepName = lot.Step.Name;
 			string materialName = lot.Name;
 			string productName = lot.Product.Name;
-			string logicalFlowPath = lot.LogicalFlowPath;
-			// Product group isn't mandatory, we have to null check it
-			string productGroupName = lot.Product.ProductGroup?.Name;
+			string logicalFlowPath = lot.LogicalFlowPath !=null ? lot.LogicalFlowPath : string.Empty;
+			string productGroupName = lot.Product.ProductGroup !=null ? lot.Product.ProductGroup.Name : string.Empty;
 			string flowName = lot.Flow.Name;
-			string resourceName = resource?.Name;
-			string resourceType = resource?.Type;
-			string resourceModel = resource?.Model;
+			string resourceName = resource != null ? resource.Name : string.Empty;
+			string resourceType = resource != null ? resource.Type : string.Empty;
+			string resourceModel = resource != null ? resource.Model : string.Empty;
 
-			DataRow row = AMSOsramUtilities.CustomResolveSTCustomMaterialNiceLabelPrintContext(stepName, logicalFlowPath, productName, productGroupName, flowName, materialName, lot.Type, resourceName, resourceType, resourceModel, operation);
+			DataRow row = CustomResolveSTCustomMaterialNiceLabelPrintContext(stepName, logicalFlowPath, productName, productGroupName, flowName, materialName, lot.Type, resourceName, resourceType, resourceModel, operation);
+
 			Dictionary<string, string> materialNiceLabelPrintInformation = new Dictionary<string, string>();
 
 			if (row != null && row.Field<bool>("IsEnabled"))
 			{
-				Container container = new Container();
+				Container container = null;
 
-                if (lot.SubMaterialCount > 0)
-                {
+				if (lot.SubMaterialCount > 0)
+				{
 					lot.LoadChildren();
-					Material logicalWafer = lot.SubMaterials.FirstOrDefault();
-					logicalWafer.LoadRelations("MaterialContainer", 1);
 
-					if (logicalWafer.RelationCollection != null && logicalWafer.RelationCollection.ContainsKey("MaterialContainer"))
-                    {
-                        container = logicalWafer.RelationCollection["MaterialContainer"][0].TargetEntity as Container;
-                    } 
-                }
+					Material logicalWafer = lot.SubMaterials.First();
+
+					logicalWafer.LoadRelations("MaterialContainer");
+
+					if (logicalWafer.RelationCollection != null && logicalWafer.RelationCollection.ContainsKey("MaterialContainer") && logicalWafer.RelationCollection["MaterialContainer"].Count > 0)
+					{
+						container = logicalWafer.RelationCollection["MaterialContainer"].First().TargetEntity as Container;
+					}
+				}
 
 				// add addictional information about the lot
 				// TODO: Missing information to map: LotAlias; BatchName; LotOwner; LotWaferCount; 
@@ -1039,11 +1041,11 @@ namespace Cmf.Custom.AMSOsram.Common
 					{ "LotName", lot.Name },
 					{ "LotAlias", "" },
 					{ "ProductName", productName },
-					{ "ProductDesc", lot.Product?.Description },
-					{ "ProductType", lot.Product?.ProductType.ToString() },
-					{ "Product_Type", lot.Product?.Type },
+					{ "ProductDesc", lot.Product.Description },
+					{ "ProductType", lot.Product.ProductType.ToString() },
+					{ "Product_Type", lot.Product.Type },
 					{ "ProductGroupName", string.IsNullOrEmpty(productGroupName) ? string.Empty : productGroupName },
-					{ "ProductGroup_Type", lot.Product?.ProductGroup != null ? lot.Product?.ProductGroup.Type : string.Empty },
+					{ "ProductGroup_Type", lot.Product.ProductGroup != null ? lot.Product.ProductGroup.Type : string.Empty },
 					{ "FlowName", flowName },
 					{ "BatchName", "" },
 					{ "ContainerName", container != null ? container.Name : string.Empty },
@@ -1051,7 +1053,7 @@ namespace Cmf.Custom.AMSOsram.Common
 					{ "ProductionOrder", lot.ProductionOrder != null ? lot.ProductionOrder.Name : string.Empty },
 					{ "LotOwner", "" },
 					{ "ResourceName", string.IsNullOrEmpty(resourceName) ? string.Empty : resourceName },
-					{ "LotWaferCount", "" },
+					{ "LotWaferCount", lot.SubMaterialCount.ToString() },
 					{ "LotPrimaryQty", lot.PrimaryQuantity.HasValue ? lot.PrimaryQuantity.ToString() : string.Empty },
 					{ "LotSecondaryQty", lot.SecondaryQuantity.HasValue ? lot.SecondaryQuantity.ToString() : string.Empty },
 					{ "Lot_Type", lot.Type },

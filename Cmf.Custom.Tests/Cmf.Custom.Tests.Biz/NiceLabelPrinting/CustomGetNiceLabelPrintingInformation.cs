@@ -1,21 +1,16 @@
 ﻿using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Custom.TestUtilities;
-using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects;
-using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.OutputObjects;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ContainerManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.ContainerManagement.OutputObjects;
 using Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
-using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
 using Cmf.TestScenarios.Others;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 
 namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
@@ -82,6 +77,8 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
             lot.Create();
             customTeardownManager.Push(lot);
 
+            //Product 
+            Product product = GenericGetsScenario.GetObjectByName<Product>(AMSOsramConstants.DefaultProductName);
             // Expand MainMaterial to create 3 sub-materials
             MaterialCollection subMaterials = new MaterialCollection();
             for (var i = 0; i < subMaterialQuantity; i++)
@@ -90,7 +87,7 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
                 var wafer = new Material()
                 {
                     PrimaryQuantity = 1,
-                    Product = GenericGetsScenario.GetObjectByName<Product>(AMSOsramConstants.DefaultProductName),
+                    Product = product
                 };
                 subMaterials.Add(wafer);
             }
@@ -168,7 +165,7 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
             #endregion
 
             ///<Step> Track In Material </Step>
-            lot.Load(1);
+            lot.Load();
             lot.ComplexDispatchAndTrackIn(processResource);
             
             ///<Step> Execute Trackout </Step>
@@ -285,7 +282,7 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
 
             ///<Step> Track In Material </Step>
             lot.ComplexDispatchAndTrackIn();
-            lot.Load(1);
+            lot.Load();
 
             ///<Step> Execute Trackout </Step>
             lot.ComplexTrackOutMaterial();
@@ -365,7 +362,7 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
 
             ///<Step> Track In Material </Step>
             lot.ComplexDispatchAndTrackIn();
-            lot.Load(1);
+            lot.Load();
 
             ///<Step> Execute Trackout </Step>
             lot.ComplexTrackOutMaterial();
