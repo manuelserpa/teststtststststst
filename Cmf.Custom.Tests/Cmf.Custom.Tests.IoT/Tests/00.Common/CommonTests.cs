@@ -912,6 +912,29 @@ namespace AMSOsramEIAutomaticTests
 
         }
 
+        public void ValidatePersistenceContainerExists(int loadPortNumber, string containerName = "")
+        {
+            if(string.IsNullOrEmpty(containerName))
+            {
+                var containerPersistenceObj = new StoredItem();
+                TestUtilities.WaitFor(ValidationTimeout, String.Format($"Container for LP {loadPortNumber} should exist on persistence"), () =>
+                {
+                    try
+                    {
+                        containerPersistenceObj = (this.Equipment.BaseImplementation as IoTEquipment).Persistency.StoredItems.FirstOrDefault(p => p.Identifier.EndsWith($"LoadPort_{loadPortNumber}"));
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                    return (containerPersistenceObj != null);
+                });
+            }
+            
+
+
+        }
+
         public void ValidatePersistenceExists(string materialName)
         {
             var materialPersistenceObj = new StoredItem();
