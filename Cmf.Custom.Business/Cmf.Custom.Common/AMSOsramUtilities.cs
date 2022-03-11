@@ -17,6 +17,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace Cmf.Custom.AMSOsram.Common
@@ -24,7 +25,7 @@ namespace Cmf.Custom.AMSOsram.Common
     /// <summary>
     /// Support class to encapsulate methods to support the development for the business layer
     /// </summary>
-    public class AMSOsramUtilities
+    public static class AMSOsramUtilities
     {
 
         #region Configs
@@ -1077,6 +1078,28 @@ namespace Cmf.Custom.AMSOsram.Common
             }
 
             return newObject;
+        }
+
+        /// <summary>
+        /// Serialize Object to XML
+        /// </summary>
+        /// <typeparam name="T">Serializable Type</typeparam>
+        /// <param name="value">Object to be serialized</param>
+        /// <returns></returns>
+        public static string SerializeToXML<T>(this T value)
+        {
+            string output = string.Empty;
+
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+
+            using (TextWriter writer = new StringWriter())
+            {
+                serializer.Serialize(writer, value);
+
+                output = writer.ToString();
+            }
+
+            return output;
         }
 
         #endregion

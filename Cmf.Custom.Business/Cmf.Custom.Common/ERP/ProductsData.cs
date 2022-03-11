@@ -6,6 +6,7 @@ namespace Cmf.Custom.AMSOsram.Common.ERP
     /// <summary>
     /// Class representing the structure of the DM_Product element.
     /// </summary>
+    [XmlRoot]
     public class ProductData
     {
         [XmlAttribute("name")]
