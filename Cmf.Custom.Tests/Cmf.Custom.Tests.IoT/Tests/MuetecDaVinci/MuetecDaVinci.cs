@@ -273,7 +273,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
         /// <summary> 
         /// Scenario: Control State to Host Offline
         /// </summary>
-        [TestMethod]
+        //[TestMethod]
         public void MuetecDaVinci_EPTStateChangeTest()
         {
 
