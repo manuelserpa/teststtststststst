@@ -446,7 +446,17 @@
 				"enableDisableEventsAdditionalActionsTimeout": 30,
 				"enableDisableAlarmsAdditionalActions": false,
 				"enableDisableAlarmsAdditionalActionsTimeout": 30,
-				"waitTimeBetweenRetries": 5
+				"waitTimeBetweenRetries": 5,
+				"deleteReportsTimeout": 60,
+				"internalDefineReportsTimeout": 60,
+				"linkEventsTimeout": 60,
+				"enableDisableEventsTimeout": 60,
+				"enableDisableAlarmsTimeout": 60,
+				"resetSetupOnEstablishCommunicationReceived": true,
+				"heartbeatSxFy": "S1F1",
+				"heartbeatBody": "{}",
+				"heartbeatTimeout": 0,
+				"___cmf___name": "Custom Setup"
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -696,13 +706,6 @@
 			"outputName": "SetupSuccessfully"
 		},
 		{
-			"id": "712443ee-d20f-4d6e-8fbb-81b24d497b79",
-			"sourceId": "task_4093",
-			"targetId": "task_6759",
-			"inputName": "activate",
-			"outputName": "onSetup"
-		},
-		{
 			"id": "475cc0b4-ab2c-48ab-941d-b4c1b0ae9807",
 			"sourceId": "task_27901",
 			"targetId": "task_13811",
@@ -833,6 +836,13 @@
 			"targetId": "task_165548",
 			"inputName": "valueIn",
 			"outputName": "$ControlState"
+		},
+		{
+			"id": "434ac851-2432-40f0-b806-de6ab5f63f71",
+			"sourceId": "task_4093",
+			"targetId": "task_6759",
+			"inputName": "activate",
+			"outputName": "onSetup"
 		}
 	],
 	"layout": {
@@ -891,8 +901,8 @@
 					"task_6759": {
 						"collapsed": false,
 						"position": {
-							"x": 2492,
-							"y": 612
+							"x": 2405,
+							"y": 660
 						},
 						"outdated": false
 					},
@@ -943,9 +953,6 @@
 						"vertices": []
 					},
 					"150c23ae-6548-4c86-acca-ec60d81dab60": {
-						"vertices": []
-					},
-					"712443ee-d20f-4d6e-8fbb-81b24d497b79": {
 						"vertices": []
 					},
 					"69a75d19-f754-46ab-8aa3-e5140514324c": {
@@ -999,6 +1006,9 @@
 					"fa30d41f-fe28-41a8-b12b-5b4dc3a73881": {
 						"vertices": []
 					},
+					"434ac851-2432-40f0-b806-de6ab5f63f71": {
+						"vertices": []
+					},
 					"475cc0b4-ab2c-48ab-941d-b4c1b0ae9807": {
 						"vertices": []
 					},
@@ -1022,10 +1032,10 @@
 						}
 					}
 				},
-				"zoom": 0.6099999999999999,
+				"zoom": 0.6199999999999999,
 				"pan": {
-					"x": 1530,
-					"y": 544.4444580078125
+					"x": 1076.666748046875,
+					"y": 0
 				}
 			}
 		}

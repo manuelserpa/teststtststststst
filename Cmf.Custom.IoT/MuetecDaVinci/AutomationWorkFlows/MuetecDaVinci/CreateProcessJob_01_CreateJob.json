@@ -211,7 +211,7 @@
 							"referenceTypeId": null,
 							"friendlyName": "RecipeNameOnEquipment"
 						},
-						"expression": "MaterialData[1].Recipe.NameOnEquipment",
+						"expression": "MaterialData.Recipe.NameOnEquipment",
 						"defaultValue": null
 					}
 				]
@@ -385,10 +385,10 @@
 					}
 				},
 				"notes": {},
-				"zoom": 0.6099999999999998,
+				"zoom": 0.82,
 				"pan": {
-					"x": 151.11111450195312,
-					"y": 70
+					"x": 615.5555419921875,
+					"y": 502.22222900390625
 				}
 			}
 		}

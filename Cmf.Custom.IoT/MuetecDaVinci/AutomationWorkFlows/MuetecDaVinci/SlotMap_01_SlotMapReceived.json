@@ -306,6 +306,16 @@
 					"version": "8.3.3-202201212"
 				}
 			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
 		}
 	],
 	"links": [
@@ -322,13 +332,6 @@
 			"targetId": "task_93884",
 			"inputName": "LoadPortIn",
 			"outputName": "PortIdOut"
-		},
-		{
-			"id": "ee338d8e-d648-453c-bbc6-614d6435923c",
-			"sourceId": "task_16037",
-			"targetId": "task_93884",
-			"inputName": "ContainerIdIn",
-			"outputName": "ContainerIdOut"
 		},
 		{
 			"id": "f640d269-4b7b-4b78-b20c-78fdedec336b",
@@ -350,6 +353,22 @@
 			"targetId": "task_16037",
 			"inputName": "activate",
 			"outputName": "eventRawData"
+		},
+		{
+			"id": "f051532c-18c1-44f8-8898-8ef30ef3ccb5",
+			"sourceId": "task_16037",
+			"targetId": "task_93884",
+			"inputName": "DoNotTriggerMaterialInIn",
+			"outputName": "PortIdOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "true"
+					}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -399,9 +418,6 @@
 					"7b78e11b-f194-4953-8d09-939f5466d24b": {
 						"vertices": []
 					},
-					"ee338d8e-d648-453c-bbc6-614d6435923c": {
-						"vertices": []
-					},
 					"f640d269-4b7b-4b78-b20c-78fdedec336b": {
 						"vertices": []
 					},
@@ -409,6 +425,9 @@
 						"vertices": []
 					},
 					"4ca9c4c1-12f5-4ec8-b575-799db10df194": {
+						"vertices": []
+					},
+					"f051532c-18c1-44f8-8898-8ef30ef3ccb5": {
 						"vertices": []
 					}
 				},
@@ -421,10 +440,10 @@
 						}
 					}
 				},
-				"zoom": 0.7100000000000002,
+				"zoom": 0.7600000000000002,
 				"pan": {
-					"x": 345.5555725097656,
-					"y": 2.222222328186035
+					"x": 207.7777862548828,
+					"y": 0
 				}
 			}
 		}

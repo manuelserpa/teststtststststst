@@ -164,6 +164,75 @@
 				]
 			},
 			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_83099",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        const ctrlJobID = inputs.CtrlJobID;",
+					"        let materialName = ctrlJobID.replace(\"CtrlJob_\", \"\");",
+					"        // emit output during execution: outputs.output1.emit(\"something\");",
+					"        return { MaterialName: materialName};",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IGN0cmxKb2JJRCA9IGlucHV0cy5DdHJsSm9iSUQ7DQogICAgICAgIGxldCBtYXRlcmlhbE5hbWUgPSBjdHJsSm9iSUQucmVwbGFjZSgiQ3RybEpvYl8iLCAiIik7DQogICAgICAgIC8vIGVtaXQgb3V0cHV0IGR1cmluZyBleGVjdXRpb246IG91dHB1dHMub3V0cHV0MS5lbWl0KCJzb21ldGhpbmciKTsNCiAgICAgICAgcmV0dXJuIHsgTWF0ZXJpYWxOYW1lOiBtYXRlcmlhbE5hbWUgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
+				"inputs": [
+					{
+						"name": "CtrlJobID",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "CtrlJobID"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"friendlyName": "MaterialName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
 		}
 	],
 	"converters": [
@@ -210,17 +279,31 @@
 	],
 	"links": [
 		{
-			"id": "072a05ae-ab9a-4300-a9e3-8c264cf80080",
-			"sourceId": "task_75124",
+			"id": "10cfc684-360e-45d3-9e0d-864ea420908d",
+			"sourceId": "task_83099",
 			"targetId": "task_127417",
-			"inputName": "ContainerNameIn",
+			"inputName": "MaterialNameIn",
+			"outputName": "MaterialNameOut"
+		},
+		{
+			"id": "25b26753-30ad-4540-bade-ec8e36da2135",
+			"sourceId": "task_83099",
+			"targetId": "task_127417",
+			"inputName": "activate",
+			"outputName": "MaterialNameOut"
+		},
+		{
+			"id": "3b1c61b4-6fc7-4717-80f9-59285ce40590",
+			"sourceId": "task_75124",
+			"targetId": "task_83099",
+			"inputName": "activate",
 			"outputName": "$CtrlJobID"
 		},
 		{
-			"id": "54aa7f94-d9e5-4ff8-9a88-8729508ccefa",
+			"id": "f1e9e116-d166-4655-af24-679cc7f5d2eb",
 			"sourceId": "task_75124",
-			"targetId": "task_127417",
-			"inputName": "activate",
+			"targetId": "task_83099",
+			"inputName": "CtrlJobIDIn",
 			"outputName": "$CtrlJobID"
 		}
 	],
@@ -250,25 +333,39 @@
 					"task_127417": {
 						"collapsed": false,
 						"position": {
-							"x": 1134,
-							"y": 301
+							"x": 1288,
+							"y": 281
 						},
 						"outdated": false
 					},
 					"task_75124": {
 						"collapsed": false,
 						"position": {
-							"x": 372,
-							"y": 376
+							"x": 150,
+							"y": 338
+						},
+						"outdated": false
+					},
+					"task_83099": {
+						"collapsed": false,
+						"position": {
+							"x": 714,
+							"y": 419
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"072a05ae-ab9a-4300-a9e3-8c264cf80080": {
+					"10cfc684-360e-45d3-9e0d-864ea420908d": {
 						"vertices": []
 					},
-					"54aa7f94-d9e5-4ff8-9a88-8729508ccefa": {
+					"25b26753-30ad-4540-bade-ec8e36da2135": {
+						"vertices": []
+					},
+					"3b1c61b4-6fc7-4717-80f9-59285ce40590": {
+						"vertices": []
+					},
+					"f1e9e116-d166-4655-af24-679cc7f5d2eb": {
 						"vertices": []
 					}
 				},
@@ -276,15 +373,15 @@
 					"note_60654": {
 						"collapsed": false,
 						"position": {
-							"x": 1631,
-							"y": 74
+							"x": 1945,
+							"y": 55
 						}
 					}
 				},
-				"zoom": 0.7600000000000005,
+				"zoom": 0.7800000000000005,
 				"pan": {
-					"x": 0,
-					"y": 37.77777862548828
+					"x": 332.1322410472169,
+					"y": 9.631775319590872
 				}
 			}
 		}

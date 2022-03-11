@@ -115,30 +115,16 @@
 			]
 		},
 		{
-			"id": "3da7ed5b-0673-4e2f-9670-ec05135e4476",
-			"sourceId": "task_22898",
+			"id": "0f2d5a7a-0d29-45d6-8b71-312cbbe8f1d4",
+			"sourceId": "task_3640",
 			"targetId": "task_3786",
 			"inputName": "materials",
-			"outputName": "MaterialDataOut"
-		},
-		{
-			"id": "de425b02-c001-4c02-9131-ddc6e442f598",
-			"sourceId": "task_22898",
-			"targetId": "task_3786",
-			"inputName": "activate",
-			"outputName": "success"
-		},
-		{
-			"id": "7d8780d7-9354-4c5a-8366-9b14880d70b3",
-			"sourceId": "task_3640",
-			"targetId": "task_22898",
-			"inputName": "MaterialDataIn",
 			"outputName": "data"
 		},
 		{
-			"id": "6d90239e-bfce-4ae8-bee1-60221be71c21",
+			"id": "14dc06c3-c8b0-42e0-a46c-9eb20ee840ad",
 			"sourceId": "task_3640",
-			"targetId": "task_22898",
+			"targetId": "task_3786",
 			"inputName": "activate",
 			"outputName": "data"
 		}
@@ -170,23 +156,17 @@
 					"task_22898": {
 						"collapsed": false,
 						"position": {
-							"x": 712,
-							"y": 722
+							"x": 702,
+							"y": 804
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"3da7ed5b-0673-4e2f-9670-ec05135e4476": {
+					"0f2d5a7a-0d29-45d6-8b71-312cbbe8f1d4": {
 						"vertices": []
 					},
-					"de425b02-c001-4c02-9131-ddc6e442f598": {
-						"vertices": []
-					},
-					"7d8780d7-9354-4c5a-8366-9b14880d70b3": {
-						"vertices": []
-					},
-					"6d90239e-bfce-4ae8-bee1-60221be71c21": {
+					"14dc06c3-c8b0-42e0-a46c-9eb20ee840ad": {
 						"vertices": []
 					},
 					"81ed7089-1805-4419-a4ea-aeb3bca529db": {
@@ -205,8 +185,8 @@
 				"notes": {},
 				"zoom": 0.7,
 				"pan": {
-					"x": -9.591562856451901,
-					"y": 239.59454343520179
+					"x": 0,
+					"y": 212.22222900390625
 				}
 			}
 		}
