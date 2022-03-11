@@ -2,11 +2,14 @@
 using Cmf.Custom.AMSOsram.Common.ERP;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.GenericTables;
+using Cmf.Foundation.BusinessObjects.QueryObject;
+using Cmf.Foundation.Common;
 using Cmf.Foundation.Common.Base;
 using Cmf.Foundation.Security;
 using Cmf.Navigo.BusinessObjects;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -36,17 +39,20 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
-            //---Start DEE Code---     
+            //---Start DEE Code---
 
             //System
             UseReference("", "System");
             UseReference("", "System.Collections.Generic");
+            UseReference("", "System.Data");
             UseReference("", "System.Linq");
             UseReference("", "System.Text");
 
             //Foundation
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.GenericTables");
+            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.QueryObject");
+            UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common");
             UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common.Base");
             UseReference("Cmf.Foundation.Security.dll", "Cmf.Foundation.Security");
 
@@ -112,16 +118,55 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
             product.MaximumMaterialSize = Decimal.TryParse(productData.MaximumMaterialSize, out decimal maximumMaterialSize) ? maximumMaterialSize : (decimal?)null;
             product.FlowPath = productData.FlowPath;
 
-            //if (productData.UnitConversionFactors != null && productData.UnitConversionFactors.Any())
-            //{
-            //    foreach (Conversion conversion in productData.UnitConversionFactors)
-            //    {
-            //        product.UnitConversionFactors = new GenericTable()
-            //        {
+            GenericTable genericTable = new GenericTable();
+            {
+                genericTable.Load("ProductUnitConversionFactors");
+            }
 
-            //        };
-            //    }
-            //}
+            if (genericTable.ObjectExists())
+            {
+                DataTable unitConversionFactors = new DataTable();
+
+                if (productData.UnitConversionFactors != null && productData.UnitConversionFactors.Any())
+                {
+                    DataSet dataSet = new DataSet();
+
+                    foreach (Conversion conversion in productData.UnitConversionFactors)
+                    {
+                        FilterCollection filters = new FilterCollection();
+                        filters.Add(new Filter() { Name = "ProductName", Operator = FieldOperator.IsEqualTo, Value = productData.Name });
+                        filters.Add(new Filter() { Name = "FromUnit", Operator = FieldOperator.IsEqualTo, Value = conversion.FromUnit });
+                        filters.Add(new Filter() { Name = "ToUnit", Operator = FieldOperator.IsEqualTo, Value = conversion.ToUnit });
+
+                        genericTable.LoadData(filters);
+
+                        dataSet = NgpDataSet.ToDataSet(genericTable.Data);
+
+                        if (dataSet.Tables[0].Rows.Count == 0)
+                        {
+                            DataRow dataRow = dataSet.Tables[0].NewRow();
+                            dataRow["ProductUnitConversionFactorsId"] = -1;
+                            dataRow["LastServiceHistoryId"] = -1;
+                            dataRow["LastOperationHistorySeq"] = -1;
+                            dataRow["ProductName"] = productData.Name;
+                            dataRow["FromUnit"] = conversion.FromUnit;
+                            dataRow["ToUnit"] = conversion.ToUnit;
+                            dataRow["ConversionFactor"] = conversion.ConversionFactor;
+                        }
+                        else
+                        {
+                            dataSet.Tables[0].Rows[0]["ConversionFactor"] = conversion.ConversionFactor;
+                        }
+                    }
+
+                    if (dataSet != null & dataSet.Tables.Count > 0)
+                    {
+                        genericTable.InsertOrUpdateRows(NgpDataSet.FromDataSet(dataSet));
+
+                        product.UnitConversionFactors = genericTable;
+                    }
+                }
+            }
 
             // TO DO: SubProducts
 
