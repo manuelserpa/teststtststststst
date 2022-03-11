@@ -42,7 +42,22 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
             set;
         } = null;
 
+        public int ProductsToGenerate { get; set; } = 1;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string ProductsMessageType { get; set; } = "SAPMessage";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<ERPProduct> ERPProductList { get; set; } = new List<ERPProduct>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ProductDataOutput products { get; set; } = new ProductDataOutput();
 
         #endregion
 
@@ -50,29 +65,9 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         {
             if (IsToSendProducts)
             {
-                ERPProduct = new ERPProduct()
-                {
-                    Name = "",
-                    Description = "",
-                    Type = "",
-                    ProductType = "",
-                    DefaultUnits = "",
-                    IsEnabled = "",
-                    Yield = "",
-                    ProductGroup = "",
-                    MaximumMaterialSize = "",
-                    ProductParametersData = new List<ProductParameterData>()
-                    {
-                        new ProductParameterData()
-                        {
-                            Name = "",
-                            Value = "",
-                        }
-                    }
+                products.ProductsData = ERPProductList;
 
-                };
-
-                string xmlMessage = ERPMessageSerializer<ERPProduct>.Serialize(ERPProduct);
+                string xmlMessage = ERPMessageSerializer<ProductDataOutput>.Serialize(products);
 
                 CustomReceiveERPMessageInput input = new CustomReceiveERPMessageInput()
                 {
