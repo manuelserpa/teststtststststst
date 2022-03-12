@@ -6,6 +6,12 @@ namespace Cmf.Custom.Tests.Biz.Common
 {
     public class AMSOsramConstants
     {
+        #region Attributes 
+
+        
+
+        #endregion
+
         #region DEE
 
         /// <summary>

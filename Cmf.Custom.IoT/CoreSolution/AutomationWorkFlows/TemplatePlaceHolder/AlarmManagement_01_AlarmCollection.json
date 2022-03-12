@@ -45,7 +45,7 @@
 						}
 					},
 					{
-						"name": "AlarmId",
+						"name": "AlarmText",
 						"valueType": {
 							"type": 4,
 							"collectionType": 0,
@@ -67,7 +67,7 @@
 						}
 					},
 					{
-						"name": "AlarmText",
+						"name": "AlarmId",
 						"valueType": {
 							"type": 4,
 							"collectionType": 0,
@@ -90,7 +90,7 @@
 					}
 				],
 				"outputs": [],
-				"___cmf___name": "Workflow"
+				"___cmf___name": "AlarmCollection"
 			}
 		}
 	],
@@ -176,8 +176,8 @@
 				},
 				"notes": {},
 				"pan": {
-					"x": 1944.4444580078125,
-					"y": 736.6666870117188
+					"x": 1891.1112060546875,
+					"y": 827.7777709960938
 				},
 				"zoom": 0.8399999999999999
 			}
