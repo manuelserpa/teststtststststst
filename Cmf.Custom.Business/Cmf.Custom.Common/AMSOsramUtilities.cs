@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Xml.Serialization;
 using Cmf.Common.CustomActionUtilities;
 using Cmf.Custom.AMSOsram.BusinessObjects;
 using Cmf.Custom.AMSOsram.Common.DataStructures;
@@ -1065,6 +1067,47 @@ namespace Cmf.Custom.AMSOsram.Common
 			return materialNiceLabelPrintInformation;
 		}
 
-        #endregion
-    }
+		#endregion
+
+		#region XML 
+
+		/// <summary>
+		/// Deserialize Xml To Object
+		/// </summary>
+		/// <typeparam name="T">Serializable Class</typeparam>
+		/// <param name="xml">XML</param>
+		/// <returns>Object</returns>
+		public static T DeserializeXmlToObject<T>(string xml)
+		{
+			T newObject;
+			// Construct an instance of the XmlSerializer with the type
+			// of object that is being deserialized.
+			XmlSerializer serializer = new XmlSerializer(typeof(T));
+			using (TextReader reader = new StringReader(xml))
+			{
+				// Call the Deserialize method and cast to the object type.
+				newObject = (T)serializer.Deserialize(reader);
+			}
+			return newObject;
+		}
+		/// <summary>
+		/// Serialize Object to XML
+		/// </summary>
+		/// <typeparam name="T">Serializable Type</typeparam>
+		/// <param name="value">Object to be serialized</param>
+		/// <returns></returns>
+		public static string SerializeToXML<T>(this T value)
+		{
+			string output = string.Empty;
+			XmlSerializer serializer = new XmlSerializer(typeof(T));
+			using (TextWriter writer = new StringWriter())
+			{
+				serializer.Serialize(writer, value);
+				output = writer.ToString();
+			}
+			return output;
+		}
+
+		#endregion
+	}
 }
