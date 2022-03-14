@@ -91,7 +91,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
                 materialCollection = (Input["MoveMaterialsToNextStepOutput"] as MoveMaterialsToNextStepOutput).Materials;
                 materialCollection.Load();
                 resource = materialCollection.First().LastProcessedResource;
-                operation = "Move Next";
+                operation = "MoveNext";
             }
             
             Dictionary<string, Dictionary<string, string>> materials = new Dictionary<string, Dictionary<string, string>>();
