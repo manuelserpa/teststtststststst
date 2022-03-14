@@ -255,7 +255,7 @@
       "LookUp Table": "MessageType",
       "Lookup Table Value Parent": "",
       "Lookup Table Value": "PerformProductsMasterData",
-      "Lookup Table Value Description": "Message sent by SAP",
+      "Lookup Table Value Description": "Message sent by ERP",
       "Lookup Table IsEnabled": "Yes"
     }
   },

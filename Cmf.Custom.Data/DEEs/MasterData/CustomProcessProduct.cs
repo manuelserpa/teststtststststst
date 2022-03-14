@@ -114,64 +114,58 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             product.Yield = Convert.ToDecimal(productData.Yield);
 
-            ProductGroup productGroup = new ProductGroup();
+            product.ProductGroup = new ProductGroup()
             {
-                productGroup.Load(productData.ProductGroup);
+                Name = productData.Name
             };
 
-            product.ProductGroup = productGroup;
             product.MaximumMaterialSize = Decimal.TryParse(productData.MaximumMaterialSize, out decimal maximumMaterialSize) ? maximumMaterialSize : (decimal?)null;
             product.FlowPath = productData.FlowPath;
 
-            GenericTable genericTable = new GenericTable();
+            if (productData.UnitConversionFactors != null && productData.UnitConversionFactors.Any())
             {
-                genericTable.Load("ProductUnitConversionFactors");
-            }
+                GenericTable genericTable = new GenericTable();
+                {
+                    genericTable.Load("ProductUnitConversionFactors");
+                }
 
-            if (genericTable.ObjectExists())
-            {
                 DataTable unitConversionFactors = new DataTable();
 
-                if (productData.UnitConversionFactors != null && productData.UnitConversionFactors.Any())
+                DataSet dataSet = new DataSet();
+
+                foreach (Conversion conversion in productData.UnitConversionFactors)
                 {
-                    DataSet dataSet = new DataSet();
+                    Foundation.BusinessObjects.QueryObject.FilterCollection filters = new Foundation.BusinessObjects.QueryObject.FilterCollection();
+                    filters.Add(new Foundation.BusinessObjects.QueryObject.Filter() { Name = "ProductName", Operator = FieldOperator.IsEqualTo, Value = productData.Name });
+                    filters.Add(new Foundation.BusinessObjects.QueryObject.Filter() { Name = "FromUnit", Operator = FieldOperator.IsEqualTo, Value = conversion.FromUnit });
+                    filters.Add(new Foundation.BusinessObjects.QueryObject.Filter() { Name = "ToUnit", Operator = FieldOperator.IsEqualTo, Value = conversion.ToUnit });
 
-                    foreach (Conversion conversion in productData.UnitConversionFactors)
+                    genericTable.LoadData(filters);
+
+                    dataSet = NgpDataSet.ToDataSet(genericTable.Data);
+
+                    if (dataSet.Tables[0].Rows.Count == 0)
                     {
-                        Foundation.BusinessObjects.QueryObject.FilterCollection filters = new Foundation.BusinessObjects.QueryObject.FilterCollection();
-                        filters.Add(new Foundation.BusinessObjects.QueryObject.Filter() { Name = "ProductName", Operator = FieldOperator.IsEqualTo, Value = productData.Name });
-                        filters.Add(new Foundation.BusinessObjects.QueryObject.Filter() { Name = "FromUnit", Operator = FieldOperator.IsEqualTo, Value = conversion.FromUnit });
-                        filters.Add(new Foundation.BusinessObjects.QueryObject.Filter() { Name = "ToUnit", Operator = FieldOperator.IsEqualTo, Value = conversion.ToUnit });
+                        DataRow dataRow = dataSet.Tables[0].NewRow();
+                        dataRow["ProductUnitConversionFactorsId"] = -1;
+                        dataRow["LastServiceHistoryId"] = -1;
+                        dataRow["LastOperationHistorySeq"] = -1;
+                        dataRow["ProductName"] = productData.Name;
+                        dataRow["FromUnit"] = conversion.FromUnit;
+                        dataRow["ToUnit"] = conversion.ToUnit;
+                        dataRow["ConversionFactor"] = conversion.ConversionFactor;
 
-                        genericTable.LoadData(filters);
-
-                        dataSet = NgpDataSet.ToDataSet(genericTable.Data);
-
-                        if (dataSet.Tables[0].Rows.Count == 0)
-                        {
-                            DataRow dataRow = dataSet.Tables[0].NewRow();
-                            dataRow["ProductUnitConversionFactorsId"] = -1;
-                            dataRow["LastServiceHistoryId"] = -1;
-                            dataRow["LastOperationHistorySeq"] = -1;
-                            dataRow["ProductName"] = productData.Name;
-                            dataRow["FromUnit"] = conversion.FromUnit;
-                            dataRow["ToUnit"] = conversion.ToUnit;
-                            dataRow["ConversionFactor"] = conversion.ConversionFactor;
-
-                            dataSet.Tables[0].Rows.Add(dataRow);
-                        }
-                        else
-                        {
-                            dataSet.Tables[0].Rows[0]["ConversionFactor"] = conversion.ConversionFactor;
-                        }
+                        dataSet.Tables[0].Rows.Add(dataRow);
                     }
-
-                    if (dataSet != null & dataSet.Tables.Count > 0)
+                    else
                     {
-                        genericTable.InsertOrUpdateRows(NgpDataSet.FromDataSet(dataSet));
-
-                        product.UnitConversionFactors = genericTable;
+                        dataSet.Tables[0].Rows[0]["ConversionFactor"] = conversion.ConversionFactor;
                     }
+                }
+
+                if (dataSet != null & dataSet.Tables.Count > 0)
+                {
+                    genericTable.InsertOrUpdateRows(NgpDataSet.FromDataSet(dataSet));
                 }
             }
 
@@ -265,74 +259,87 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             #region Parameters
 
-            ProductParameterCollection productParameters = new ProductParameterCollection();
-
-            // Associate relation between Product to Parameter
-            foreach (ProductParameterData parameterData in productData.ProductParametersData)
+            if (productData.ProductParametersData != null && productData.ProductParametersData.Any())
             {
-                Parameter parameter = new Parameter();
-                {
-                    parameter.Name = parameterData.Name;
-                }
+                ProductParameterCollection productParameters = new ProductParameterCollection();
 
-                if (parameter.ObjectExists())
+                // Associate relation between Product to Parameter
+                foreach (ProductParameterData parameterData in productData.ProductParametersData)
                 {
-                    parameter.Load();
-
-                    ProductParameter productParameter = new ProductParameter();
+                    Parameter parameter = new Parameter();
                     {
-                        productParameter.SourceEntity = product;
-                        productParameter.TargetEntity = parameter;
-                        productParameter.Type = ProductGroupParameterType.Characteristic;
-                        productParameter.Value = parameterData.Value;
+                        parameter.Name = parameterData.Name;
+                    }
 
-                        productParameters.Add(productParameter);
+                    if (parameter.ObjectExists())
+                    {
+                        parameter.Load();
+
+                        ProductParameter productParameter = new ProductParameter();
+                        {
+                            productParameter.SourceEntity = product;
+                            productParameter.TargetEntity = parameter;
+                            productParameter.Type = ProductGroupParameterType.Characteristic;
+                            productParameter.Value = parameterData.Value;
+
+                            productParameters.Add(productParameter);
+                        }
                     }
                 }
-            }
 
-            if (productParameters != null && productParameters.Any())
-            {
-                //Add relation between Product and Parameters
-                product.AddRelations(productParameters);
+                if (productParameters != null && productParameters.Any())
+                {
+                    //Add relation between Product and Parameters
+                    product.AddRelations(productParameters);
+                }
             }
 
             #endregion
 
             #region Attributes
 
-            EntityType entityType = new EntityType();
+            if (productData.ProductAttributesData != null && productData.ProductAttributesData.Any())
             {
-                entityType.Name = "Product";
-                entityType.Load();
-                entityType.LoadProperties();
-            }
-
-            List<string> productAttributes = entityType.Properties.Where(w => w.PropertyType == EntityTypePropertyType.Attribute).Select(s => s.Name).ToList();
-
-            product.LoadAttributes();
-
-            AttributeCollection attributes = product.Attributes;
-
-            // Associate relation between Product to Attribute
-            foreach (ProductAttributeData attributeData in productData.ProductAttributesData)
-            {
-                if (productAttributes.Contains(attributeData.Name))
+                EntityType entityType = new EntityType();
                 {
-                    if (attributes.ContainsKey(attributeData.Name))
+                    entityType.Name = "Product";
+                    entityType.Load();
+                    entityType.LoadProperties();
+                }
+
+                // List of all attributes associated to Entity Type Product
+                List<string> productAttributes = entityType.Properties.Where(w => w.PropertyType == EntityTypePropertyType.Attribute).Select(s => s.Name).ToList();
+
+                product.LoadAttributes();
+
+                AttributeCollection attributes = product.Attributes;
+
+                // Associate relation between Product to Attribute
+                foreach (ProductAttributeData attributeData in productData.ProductAttributesData)
+                {
+                    if (attributeData.Name.ToUpper().Equals("STATUS"))
                     {
-                        attributes[attributeData.Name] = attributeData.Value;
+                        product.IsEnabled = Convert.ToInt32(attributeData.Value) < 97;
                     }
-                    else
+
+                    if (productAttributes.Contains(attributeData.Name))
                     {
-                        attributes.Add(attributeData.Name, attributeData.Value);
+                        if (attributes.ContainsKey(attributeData.Name))
+                        {
+                            attributes[attributeData.Name] = attributeData.Value;
+                        }
+                        else
+                        {
+                            attributes.Add(attributeData.Name, attributeData.Value);
+                        }
                     }
                 }
-            }
 
-            if (attributes != null && attributes.Any())
-            {
-                product.SaveAttributes(attributes);
+                if (attributes != null && attributes.Any())
+                {
+                    //Add relation between Product and Attributes
+                    product.SaveAttributes(attributes);
+                }
             }
 
             #endregion
