@@ -264,7 +264,7 @@
     "1": {
       "FromSystem": "ERP",
       "ToSystem": "MES",
-      "MessageType": "ImportObject",
+      "MessageType": "PerformProductsMasterData",
       "HandlerType": "GenericIntegrationHandler",
       "ActionName": "CustomProcessProductsFromERP",
       "ErrorHandlingActionName": "",
@@ -273,7 +273,7 @@
     "2": {
       "FromSystem": "MES",
       "ToSystem": "MES",
-      "MessageType": "ImportObject",
+      "MessageType": "PerformProductMasterData",
       "HandlerType": "GenericIntegrationHandler",
       "ActionName": "CustomProcessProduct",
       "ErrorHandlingActionName": "",
