@@ -555,6 +555,8 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
 
             ValidateLoadPortState(scenario, LoadPortStateModelStateEnum.ReadyToUnload.ToString());
             // MaterialRemoved
+
+            Thread.Sleep(2000);
             base.Equipment.Variables["PortID"] = loadPortNumber;
 
             // Trigger event

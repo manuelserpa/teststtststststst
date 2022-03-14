@@ -387,6 +387,21 @@
 				"___cmf___name": "Code"
 			},
 			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_19303",
+			"reference": {
+				"name": "createContainer",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"inputs": [],
+				"outputs": [],
+				"message": ""
+			}
 		}
 	],
 	"converters": [
@@ -478,13 +493,6 @@
 			"outputName": "data"
 		},
 		{
-			"id": "5d35aa28-ad8d-41ea-a554-28a9cf33aff1",
-			"sourceId": "task_73090",
-			"targetId": "task_83813",
-			"inputName": "activate",
-			"outputName": "success"
-		},
-		{
 			"id": "32cd628f-3399-43bb-9435-353f1fa4b3b0",
 			"sourceId": "task_70871",
 			"targetId": "task_73090",
@@ -534,6 +542,34 @@
 					}
 				}
 			]
+		},
+		{
+			"id": "718405f8-d720-4599-8a42-118c4deced70",
+			"sourceId": "task_73090",
+			"targetId": "task_19303",
+			"inputName": "containerId",
+			"outputName": "ContainerNameOut"
+		},
+		{
+			"id": "4895fa8d-eb81-49dd-bb14-6ede46e7e753",
+			"sourceId": "task_73090",
+			"targetId": "task_19303",
+			"inputName": "loadPort",
+			"outputName": "LoadPortPositionOut"
+		},
+		{
+			"id": "9b6a030f-d46d-4319-8f4e-050451c3febc",
+			"sourceId": "task_73090",
+			"targetId": "task_19303",
+			"inputName": "activate",
+			"outputName": "LoadPortPositionOut"
+		},
+		{
+			"id": "58e761a9-fa14-45f4-a739-018016427995",
+			"sourceId": "task_19303",
+			"targetId": "task_83813",
+			"inputName": "activate",
+			"outputName": "container"
 		}
 	],
 	"layout": {
@@ -598,8 +634,8 @@
 					"task_83813": {
 						"collapsed": false,
 						"position": {
-							"x": 3082,
-							"y": 413
+							"x": 3251,
+							"y": 343
 						},
 						"outdated": false
 					},
@@ -608,6 +644,14 @@
 						"position": {
 							"x": 3895,
 							"y": 497
+						},
+						"outdated": false
+					},
+					"task_19303": {
+						"collapsed": false,
+						"position": {
+							"x": 2781,
+							"y": 414
 						},
 						"outdated": false
 					}
@@ -649,9 +693,6 @@
 					"66f9b9ef-32eb-4d03-959f-7582351d1b53": {
 						"vertices": []
 					},
-					"5d35aa28-ad8d-41ea-a554-28a9cf33aff1": {
-						"vertices": []
-					},
 					"32cd628f-3399-43bb-9435-353f1fa4b3b0": {
 						"vertices": []
 					},
@@ -665,6 +706,18 @@
 						"vertices": []
 					},
 					"df10c37b-033a-4a92-8835-73eff8e8dd33": {
+						"vertices": []
+					},
+					"718405f8-d720-4599-8a42-118c4deced70": {
+						"vertices": []
+					},
+					"4895fa8d-eb81-49dd-bb14-6ede46e7e753": {
+						"vertices": []
+					},
+					"9b6a030f-d46d-4319-8f4e-050451c3febc": {
+						"vertices": []
+					},
+					"58e761a9-fa14-45f4-a739-018016427995": {
 						"vertices": []
 					},
 					"cc8ce25c-4960-4556-84a0-86daf88a8e99": {
@@ -708,8 +761,8 @@
 				},
 				"zoom": 0.9100000000000006,
 				"pan": {
-					"x": 1992.2222900390625,
-					"y": 146.6666717529297
+					"x": 1862,
+					"y": 269
 				}
 			}
 		}
