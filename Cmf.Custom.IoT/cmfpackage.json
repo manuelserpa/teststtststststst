@@ -25,6 +25,10 @@
 	{
       "id": "Cmf.Custom.IoT.NiceLabel",
       "version": "1.2.0"
+    },
+	{
+      "id": "Cmf.Custom.IoT.MuetecDaVinci",
+      "version": "1.2.0"
     }
   ],
   "handlerVersion": 0
