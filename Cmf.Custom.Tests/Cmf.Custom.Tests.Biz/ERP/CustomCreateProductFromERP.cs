@@ -68,7 +68,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string messageProductType = "FINISHED_GOODS";
             string messageProductUnits = "CM2";
             string messageProductIsEnabled = "Y";
-            string messageProductYield = "88.0";
+            string messageProductYield = "0.88";
             string messageProductGroup = "MG_PW_1500";
             string messageProductMaximumMaterialSize = "24";
             string firstProductName = Guid.NewGuid().ToString("N");
@@ -210,7 +210,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             Assert.IsTrue(firstProduct.ProductType.ToString().Equals("FinishedGood"), $"Product ProductType should be: {firstProduct.ProductType}, instead is: FinishedGood.");
             Assert.IsTrue(firstProduct.DefaultUnits.Equals(messageProductUnits), $"Product DefaultUnits should be: {firstProduct.DefaultUnits}, instead is: {messageProductUnits}.");
             Assert.IsTrue(firstProduct.IsEnabled, $"Product should be enabled.");
-            Assert.IsTrue(string.Format("{0:0.00}", firstProduct.Yield).Equals("0.88"), $"Product Yield should be: {string.Format("{0:0.00}", firstProduct.Yield)}, instead is: 0.88.");
+            Assert.IsTrue(string.Format("{0:0.00}", firstProduct.Yield).Equals(messageProductYield), $"Product Yield should be: {string.Format("{0:0.00}", firstProduct.Yield)}, instead is: {messageProductYield}.");
             Assert.IsTrue(firstProduct.ProductGroup.Name.Equals(messageProductGroup), $"Product Product Group Name should be: {firstProduct.ProductGroup.Name}, instead is: {messageProductGroup}.");
             Assert.IsTrue(string.Format("{0:0.##}", firstProduct.MaximumMaterialSize).Equals(messageProductMaximumMaterialSize), $"Product Maximum Material size should be: {string.Format("{0:0.##}", firstProduct.MaximumMaterialSize)}, instead is: {messageProductMaximumMaterialSize}.");
             Assert.IsTrue(firstProduct.HasRelation("ProductParameter"), "Product should have relations for product parameters");
