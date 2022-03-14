@@ -62,9 +62,27 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string secondProductName = Guid.NewGuid().ToString("N");
             string[] productAttributeNames = new string[] { "SAP Product Type", "Technology", "Status", "Dispo Level" };
             string[] productAttributeValues = new string[] { "F4653F00050", "PN", "97", "EOL" };
-            // Change to dic
-            string[] productParameterNames = new string[] { "Raster X", "Raster Y", "CM2 Average", "Chips Fieldmask", "Wafer Size", "Chips Whole Wafer" };
-            string[] productParameterValues = new string[] { "1020", "1020", "164.55", "15816", "150", "16916.571" };
+
+            Dictionary<string, string> parameterData = new Dictionary<string, string>() { 
+                { "Raster X", "1020" }, 
+                { "Raster Y", "1020" }, 
+                { "CM2 Average", "164.55" }, 
+                { "Chips Fieldmask", "15816" }, 
+                { "Wafer Size", "150" }, 
+                { "Chips Whole Wafer", "16916.571" } };
+
+            List<ProductParameterData> productParameterData = new List<ProductParameterData>();
+
+            foreach (string parameterName in parameterData.Keys)
+            {
+                ProductParameterData parameter = new ProductParameterData()
+                {
+                    Name = parameterName,
+                    Value = parameterData[parameterName]
+                };
+
+                productParameterData.Add(parameter);
+            }
 
             List < ERPProduct > productsLists = new List<ERPProduct>() {
                 new ERPProduct{
@@ -77,38 +95,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
                     Yield = messageProductYield,
                     ProductGroup = messageProductGroup,
                     MaximumMaterialSize = messageProductMaximumMaterialSize,
-                    ProductParametersData = new List<ProductParameterData>(){
-                        new ProductParameterData()
-                        {
-                            Name = productParameterNames[0],
-                            Value = productParameterValues[0]
-                        },
-                        new ProductParameterData()
-                        {
-                            Name = productParameterNames[1],
-                            Value = productParameterValues[1]
-                        },
-                        new ProductParameterData()
-                        {
-                            Name = productParameterNames[2],
-                            Value = productParameterValues[2]
-                        },
-                        new ProductParameterData()
-                        {
-                            Name = productParameterNames[3],
-                            Value = productParameterValues[3]
-                        },
-                        new ProductParameterData()
-                        {
-                            Name = productParameterNames[4],
-                            Value = productParameterValues[4]
-                        },
-                        new ProductParameterData()
-                        {
-                            Name = productParameterNames[5],
-                            Value = productParameterValues[5]
-                        }
-                    },
+                    ProductParametersData = productParameterData,
                     ProductAttributesData = new List<ProductAttributeData>()
                     {
                         new ProductAttributeData()
@@ -143,38 +130,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
                     Yield = messageProductYield,
                     ProductGroup = messageProductGroup,
                     MaximumMaterialSize = messageProductMaximumMaterialSize,
-                    ProductParametersData = new List<ProductParameterData>(){
-                        new ProductParameterData()
-                        {
-                            Name = productParameterNames[0],
-                            Value = productParameterValues[0]
-                        },
-                        new ProductParameterData()
-                        {
-                            Name = productParameterNames[1],
-                            Value = productParameterValues[1]
-                        },
-                        new ProductParameterData()
-                        {
-                            Name = productParameterNames[2],
-                            Value = productParameterValues[2]
-                        },
-                        new ProductParameterData()
-                        {
-                            Name = productParameterNames[3],
-                            Value = productParameterValues[3]
-                        },
-                        new ProductParameterData()
-                        {
-                            Name = productParameterNames[4],
-                            Value = productParameterValues[4]
-                        },
-                        new ProductParameterData()
-                        {
-                            Name = productParameterNames[5],
-                            Value = productParameterValues[5]
-                        }
-                    },
+                    ProductParametersData = productParameterData,
                     ProductAttributesData = new List<ProductAttributeData>()
                     {
                         new ProductAttributeData()
@@ -242,10 +198,10 @@ namespace Cmf.Custom.Tests.Biz.ERP
             ///<Step> Validate product paramters relation </Step>
             List<ProductParameter> partParameters = firstProduct.RelationCollection["ProductParameter"].Cast<ProductParameter>().ToList();
 
-            foreach (string productParameterName in productParameterNames)
+            foreach (string parameterName in parameterData.Keys)
             {
-                Parameter parameter = (Parameter)partParameters.FirstOrDefault(pp => pp.TargetEntity.Name.Equals(productParameterName)).TargetEntity;
-
+                ProductParameter parameter = (ProductParameter)partParameters.FirstOrDefault(pp => pp.TargetEntity.Name.Equals(parameterName));
+                Assert.IsTrue(parameter.Value.Equals(parameterData[parameterName]));
             }
 
             ///<Step> Validate product attributes </Step>

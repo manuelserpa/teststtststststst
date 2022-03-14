@@ -77,6 +77,11 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 
                 CustomReceiveERPMessageOutput outputProducts = input.CustomReceiveERPMessageSync();
 
+                if (outputProducts != null)
+                {
+                    IntegrationEntries.Add(outputProducts.Result);
+                }
+
                 CustomUtilities.DispatchIntegrationEntries(new IntegrationEntryCollection() { outputProducts.Result });
             }
         }
