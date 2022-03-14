@@ -10,6 +10,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
+using TestScenariosUtilities = Cmf.TestScenarios.Others.Utilities;
 
 namespace Cmf.Custom.Tests.Biz.Common.Utilities
 {
@@ -49,7 +50,12 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             }.DispatchIntegrationEntriesSync();
         } 
 
-        public static void GetIntegrationEntry(string name)
+        /// <summary>
+        /// Method to get an integration entry by name
+        /// </summary>
+        /// <param name="name"> Name of the Integration Entry </param>
+        /// <returns></returns>
+        public static IntegrationEntry GetIntegrationEntry(string name)
         {
             QueryObject query = new QueryObject();
             query.Description = "";
@@ -93,15 +99,18 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             };
             query.Query.Relations = new RelationCollection();
 
-            //DataSet dataSet = TestScenariosUtilities.ToDataSet(CustomUtilities.ExecuteQueryObject(query));
-            //if (dataSet.HasData())
-            //{
-            //    foreach (DataRow row in dataSet.Tables[0].Rows)
-            //    {
-                    
-            //    }
-            //}
+            // Execute Query 
+            DataSet dataSet = TestScenariosUtilities.ToDataSet(CustomUtilities.ExecuteQueryObject(query));
 
+            IntegrationEntry integrationEntry = new IntegrationEntry();
+
+            if (dataSet.HasData())
+            {
+                DataRow row = dataSet.Tables[0].Rows[0];
+                integrationEntry.Name = row.Field<string>("Name");
+            }
+
+            return integrationEntry;
         }
 
         #endregion

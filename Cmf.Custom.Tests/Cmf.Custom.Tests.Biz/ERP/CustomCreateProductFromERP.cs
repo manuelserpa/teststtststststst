@@ -2,6 +2,7 @@
 using Cmf.Custom.Tests.Biz.Common.ERP.Product;
 using Cmf.Custom.Tests.Biz.Common.Extensions;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
+using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Navigo.BusinessObjects;
@@ -19,6 +20,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
     {
 
         private ExecutionScenario _scenario;
+        private CustomTearDownManager customTeardownManager = null;
 
         /// <summary>
         /// Test Initialization
@@ -27,6 +29,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
         public void TestInitialization()
         {
             _scenario = new ExecutionScenario();
+            customTeardownManager = new CustomTearDownManager();
         }
 
         /// <summary>
@@ -35,6 +38,9 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestCleanup]
         public void TestCleanup()
         {
+            if (customTeardownManager != null)
+                customTeardownManager.TearDownSequentially();
+
             if (_scenario != null)
             {
                 _scenario.CompleteCleanUp();
@@ -42,7 +48,15 @@ namespace Cmf.Custom.Tests.Biz.ERP
         }
 
         /// <summary>
+        /// Description:
+        ///     - Create 3 Integration Entries
+        ///     - The information for one product is incorrect
+        ///     - The last product is to update
         /// 
+        /// Acceptance Citeria:
+        ///     - Process the first Integration Entry that has the correct information
+        ///     - Report error on the second integration entry
+        ///  
         /// </summary>
         /// <TestCaseID>CustomCreateProductFromERP.CustomCreateProductFromERP_SendERPMessage_CreateProducts</TestCaseID>
         /// <Author>David Guilherme</Author>
@@ -51,12 +65,12 @@ namespace Cmf.Custom.Tests.Biz.ERP
         {
 
             string messageProductDescription = "F4653F00050";
-            string messageType = "CHIP";
+            string messageType = "Production";
             string messageProductType = "FINISHED_GOODS";
             string messageProductUnits = "CM2";
             string messageProductIsEnabled = "Y";
-            string messageProductYield = "88.0";
-            string messageProductGroup = "MG_PW_1000";
+            string messageProductYield = "0.88";
+            string messageProductGroup = "MG_PW_1500";
             string messageProductMaximumMaterialSize = "24";
             string firstProductName = Guid.NewGuid().ToString("N");
             string secondProductName = Guid.NewGuid().ToString("N");
@@ -154,9 +168,44 @@ namespace Cmf.Custom.Tests.Biz.ERP
                             Value = productAttributeValues[3]
                         }
                     }
+                },
+                new ERPProduct
+                {
+                    Name = "TestProduct",
+                    Description = " New Product to test ERP product update",
+                    Type = messageType,
+                    ProductType = messageProductType,
+                    DefaultUnits = messageProductUnits,
+                    IsEnabled = messageProductIsEnabled,
+                    Yield = messageProductYield,
+                    ProductGroup = messageProductGroup,
+                    MaximumMaterialSize = messageProductMaximumMaterialSize,
+                    ProductParametersData = productParameterData,
+                    ProductAttributesData = new List<ProductAttributeData>()
+                    {
+                        new ProductAttributeData()
+                        {
+                            Name = productAttributeNames[0],
+                            Value = productAttributeValues[0]
+                        },
+                        new ProductAttributeData()
+                        {
+                            Name = productAttributeNames[1],
+                            Value = productAttributeValues[1]
+                        },
+                        new ProductAttributeData()
+                        {
+                            Name = productAttributeNames[2],
+                            Value = productAttributeValues[2]
+                        },
+                        new ProductAttributeData()
+                        {
+                            Name = productAttributeNames[3],
+                            Value = productAttributeValues[3]
+                        }
+                    }
                 }
             };
-
 
             _scenario.ERPProductList = productsLists;
 
@@ -169,45 +218,68 @@ namespace Cmf.Custom.Tests.Biz.ERP
                 Assert.IsTrue(ie.IsIntegrationEntryProcessed(), "Integration Entry was not processed. Error Message: {0}", ie.ResultDescription);
             }
 
-            ///<Step> Validate creation of Integration Entries </Step>
+            ///<Step> Validate creation of Integration Entries. </Step>
+            ///<ExpectedValue> First Integratio Entry should have been created. </ExpectedValue>
+            IntegrationEntry firstProductIE = CustomUtilities.GetIntegrationEntry(firstProductName);
+            Assert.IsTrue(firstProductIE.IsIntegrationEntryProcessed(), "Integration Entry was not processed. Error Message: {0}", firstProductIE.ResultDescription);
 
-            ///<Step> Validate only one product was created </Step>
+            ///<ExpectedValue> Second IE should fail since the product type does not exists on the system. </ExpectedValue>
+            IntegrationEntry secondProductIE = CustomUtilities.GetIntegrationEntry(secondProductName);
+            Assert.IsTrue(!secondProductIE.IsIntegrationEntryProcessed(), "Integration Entry was processed.");
+
+            string errorMessage = $"Element New{messageType} of type Product property Type, is not in the list ProductType. The error was reported by action CustomProcessProduct.";
+            Assert.IsTrue(secondProductIE.ResultDescription.Equals(errorMessage), $"Error message should be: {errorMessage}, but instead is: {secondProductIE.ResultDescription}");
+
+            ///<Step> Validate only one product was created. </Step>
+            ///<ExpectedValue> Only the first Product should be created. </ExpectedValue>
             Product firstProduct = new Product();
             firstProduct.Load(firstProductName);
             firstProduct.LoadAttributes(new Collection<string>() { productAttributeNames[0], productAttributeNames[1], productAttributeNames[2] });
             firstProduct.LoadRelation("ProductParameter");
             firstProduct.ProductGroup.Load();
+            customTeardownManager.Push(firstProduct);
 
-            Product secondProduct = new Product();
-            secondProduct.Load(secondProductName);
-
-            ///<Step> Validate product properties </Step>
-            Assert.IsTrue(firstProduct.Name.Equals(firstProductName), $"");
-            Assert.IsTrue(firstProduct.Description.Equals(messageProductDescription), $"");
-            Assert.IsTrue(firstProduct.Type.Equals(messageType), $"");
-            Assert.IsTrue(firstProduct.ProductType.ToString().Equals(messageType), $"");
-            Assert.IsTrue(firstProduct.DefaultUnits.Equals(messageProductUnits), $"");
-            Assert.IsTrue(firstProduct.IsEnabled, $"");
-            Assert.IsTrue(firstProduct.Yield.ToString().Equals(messageProductYield), $"");
-            Assert.IsTrue(firstProduct.ProductGroup.Name.Equals(messageProductGroup), $"");
-            Assert.IsTrue(firstProduct.MaximumMaterialSize.ToString().Equals(messageProductMaximumMaterialSize), $"");
+            ///<Step> Validate product properties. </Step>
+            ///<ExpectedValue> Product should have the information sent on the ERP message. </ExpectedValue>
+            Assert.IsTrue(firstProduct.Name.Equals(firstProductName), $"Product Name should be: {firstProduct.Name}, instead is: {firstProductName}.");
+            Assert.IsTrue(firstProduct.Description.Equals(messageProductDescription), $"Product Description should be: {firstProduct.Description}, instead is: {messageProductDescription}.");
+            Assert.IsTrue(firstProduct.Type.Equals(messageType), $"Product Type should be: {firstProduct.Type}, instead is: {messageType}.");
+            Assert.IsTrue(firstProduct.ProductType.ToString().Equals("FinishedGood"), $"Product ProductType should be: {firstProduct.ProductType}, instead is: FinishedGood.");
+            Assert.IsTrue(firstProduct.DefaultUnits.Equals(messageProductUnits), $"Product DefaultUnits should be: {firstProduct.DefaultUnits}, instead is: {messageProductUnits}.");
+            Assert.IsTrue(firstProduct.IsEnabled, $"Product should be enabled.");
+            Assert.IsTrue(string.Format("{0:0.00}", firstProduct.Yield).Equals(messageProductYield), $"Product Yield should be: {string.Format("{0:0.00}", firstProduct.Yield)}, instead is: {messageProductYield}.");
+            Assert.IsTrue(firstProduct.ProductGroup.Name.Equals(messageProductGroup), $"Product Product Group Name should be: {firstProduct.ProductGroup.Name}, instead is: {messageProductGroup}.");
+            Assert.IsTrue(string.Format("{0:0.##}", firstProduct.MaximumMaterialSize).Equals(messageProductMaximumMaterialSize), $"Product Maximum Material size should be: {string.Format("{0:0.##}", firstProduct.MaximumMaterialSize)}, instead is: {messageProductMaximumMaterialSize}.");
             Assert.IsTrue(firstProduct.HasRelation("ProductParameter"), "Product should have relations for product parameters");
-            Assert.IsTrue(firstProduct.RelationCollection["ProductParameter"].Count == 3, $"Product Parameter relation count should be 3, but was {firstProduct.RelationCollection["ProductParameter"].Count}");
-            Assert.IsTrue(firstProduct.RelatedAttributes.Count == 3 , $"Product attribute count should be 3, but was {firstProduct.RelatedAttributes.Count}");
 
-            ///<Step> Validate product paramters relation </Step>
+            ///<Step> Validate product paramters relation. </Step>
+            ///<ExpectedValue> Product should have 2 parameters added and one updated. </ExpectedValue>
             List<ProductParameter> partParameters = firstProduct.RelationCollection["ProductParameter"].Cast<ProductParameter>().ToList();
+            partParameters.Load(1);
 
             foreach (string parameterName in parameterData.Keys)
             {
-                ProductParameter parameter = (ProductParameter)partParameters.FirstOrDefault(pp => pp.TargetEntity.Name.Equals(parameterName));
-                Assert.IsTrue(parameter.Value.Equals(parameterData[parameterName]));
+                if (partParameters.Any(pp => pp.TargetEntity.Name.Equals(parameterName)))
+                {
+                    ProductParameter parameter = (ProductParameter)partParameters.FirstOrDefault(pp => pp.TargetEntity.Name.Equals(parameterName));
+                    Assert.IsTrue(parameter.Value.Equals(parameterData[parameterName])); 
+                }
             }
 
-            ///<Step> Validate product attributes </Step>
-            Assert.IsTrue(firstProduct.RelatedAttributes[productAttributeNames[0]].Equals(productAttributeValues[0]), $"Product attribute {productAttributeNames[0]} should be {productAttributeValues[0]}, but was {firstProduct.RelatedAttributes[productAttributeNames[0]]}");
-            Assert.IsTrue(firstProduct.RelatedAttributes[productAttributeNames[1]].Equals(productAttributeValues[1]), $"Product attribute {productAttributeNames[1]} should be {productAttributeValues[1]}, but was {firstProduct.RelatedAttributes[productAttributeNames[1]]}");
-            Assert.IsTrue(firstProduct.RelatedAttributes[productAttributeNames[2]].Equals(productAttributeValues[2]), $"Product attribute {productAttributeNames[2]} should be {productAttributeValues[2]}, but was {firstProduct.RelatedAttributes[productAttributeNames[2]]}");
+            ///<Step> Validate product attributes. </Step>
+            ///<ExpectedValue> The 3 product attributes should be updated. </ExpectedValue>
+            Assert.IsTrue(firstProduct.Attributes[productAttributeNames[0]].Equals(productAttributeValues[0]), $"Product attribute {productAttributeNames[0]} should be {productAttributeValues[0]}, but was {firstProduct.Attributes[productAttributeNames[0]]}");
+            Assert.IsTrue(firstProduct.Attributes[productAttributeNames[1]].Equals(productAttributeValues[1]), $"Product attribute {productAttributeNames[1]} should be {productAttributeValues[1]}, but was {firstProduct.Attributes[productAttributeNames[1]]}");
+            Assert.IsTrue(firstProduct.Attributes[productAttributeNames[2]].Equals(productAttributeValues[2]), $"Product attribute {productAttributeNames[2]} should be {productAttributeValues[2]}, but was {firstProduct.Attributes[productAttributeNames[2]]}");
+
+
+            ///<Step> Validate Second product to update </Step>
+            ///<ExpectedValues> Second product should be on version 2. </ExpectedValues>
+            Product secondProduct = new Product() { 
+                Name = "TestProduct"
+            };
+            secondProduct.Load();
+            Assert.IsTrue(secondProduct.Version == 2, $"Product TestProduct should be on version 2.");
 
         }
     }
