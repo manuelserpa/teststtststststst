@@ -114,10 +114,12 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             product.Yield = Convert.ToDecimal(productData.Yield);
 
-            product.ProductGroup = new ProductGroup()
+            ProductGroup productGroup = new ProductGroup();
             {
-                Name = productData.Name
+                productGroup.Load(productData.ProductGroup);
             };
+
+            product.ProductGroup = productGroup;
 
             product.MaximumMaterialSize = Decimal.TryParse(productData.MaximumMaterialSize, out decimal maximumMaterialSize) ? maximumMaterialSize : (decimal?)null;
             product.FlowPath = productData.FlowPath;

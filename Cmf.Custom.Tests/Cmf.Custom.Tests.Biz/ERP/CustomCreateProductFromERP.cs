@@ -271,16 +271,6 @@ namespace Cmf.Custom.Tests.Biz.ERP
             Assert.IsTrue(firstProduct.Attributes[productAttributeNames[0]].Equals(productAttributeValues[0]), $"Product attribute {productAttributeNames[0]} should be {productAttributeValues[0]}, but was {firstProduct.Attributes[productAttributeNames[0]]}");
             Assert.IsTrue(firstProduct.Attributes[productAttributeNames[1]].Equals(productAttributeValues[1]), $"Product attribute {productAttributeNames[1]} should be {productAttributeValues[1]}, but was {firstProduct.Attributes[productAttributeNames[1]]}");
             Assert.IsTrue(firstProduct.Attributes[productAttributeNames[2]].Equals(productAttributeValues[2]), $"Product attribute {productAttributeNames[2]} should be {productAttributeValues[2]}, but was {firstProduct.Attributes[productAttributeNames[2]]}");
-
-
-            ///<Step> Validate Second product to update </Step>
-            ///<ExpectedValues> Second product should be on version 2. </ExpectedValues>
-            Product secondProduct = new Product() { 
-                Name = "TestProduct"
-            };
-            secondProduct.Load();
-            Assert.IsTrue(secondProduct.Version == 2, $"Product TestProduct should be on version 2.");
-
         }
     }
 }
