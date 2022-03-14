@@ -60,7 +60,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string messageProductMaximumMaterialSize = "24";
             string firstProductName = Guid.NewGuid().ToString("N");
             string secondProductName = Guid.NewGuid().ToString("N");
-            string[] productAttributeNames = new string[] { "SAP Product Type", "Technology", "Status", "Dispo Level" };
+            string[] productAttributeNames = new string[] { "SAPProductType", "Technology", "Status", "DispoLevel" };
             string[] productAttributeValues = new string[] { "F4653F00050", "PN", "97", "EOL" };
 
             Dictionary<string, string> parameterData = new Dictionary<string, string>() { 

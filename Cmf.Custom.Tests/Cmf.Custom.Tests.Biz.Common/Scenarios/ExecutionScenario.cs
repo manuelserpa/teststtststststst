@@ -47,7 +47,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// <summary>
         /// 
         /// </summary>
-        public string ProductsMessageType { get; set; } = "SAPMessage";
+        public string ProductsMessageType { get; set; } = "PerformProductsMasterData";
 
         /// <summary>
         /// 
