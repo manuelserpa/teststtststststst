@@ -104,7 +104,7 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
                             { type: "U4", value: Number(Date.now().toString()) }, // dataid
                             { type: "A", value: material.ProcessJobId },
                             { type: "BI", value: Number(this.MaterialFormat) }, // Material format code 0x0e
-                            { type: "L", value: carrierContent }, // carrier and content (not passed on eqp characterization)
+                            { type: "L", value: { type: "L", value: carrierContent } }, // carrier and content (not passed on eqp characterization)
                             { type: "L", value: recipeContent },   // recipe specification area
                             { type: "BO", value: this.StartProcess ? 0x01 : 0x00 }, // PRPROCESSSTART
                             { type: "L", value: this.EventList }, // PRPAUSEEVENT
