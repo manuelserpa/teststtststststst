@@ -210,8 +210,8 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             if (!string.IsNullOrWhiteSpace(productData.FloorLife))
             {
-                product.FloorLife = Convert.ToInt32(productData.FloorLife);
-                product.FloorLifeUnitOfTime = UnitOfTime.Hours; //productData.FloorLifeUnitOfTime
+                product.FloorLife = Int32.TryParse(productData.FloorLife, out int floorLife) ? floorLife : default(int?);
+                product.FloorLifeUnitOfTime = Enum.TryParse(productData.FloorLifeUnitOfTime, out UnitOfTime floorLifeUnitOfTime) ? floorLifeUnitOfTime : default(UnitOfTime);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.RequiresApproval))
