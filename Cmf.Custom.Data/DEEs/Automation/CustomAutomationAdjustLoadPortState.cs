@@ -218,12 +218,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 					container.Undock();
 				}
 
-				// Call CustomGetTransportRequestForLoadPortOrContainer DEE
-				Cmf.Foundation.Common.DynamicExecutionEngine.Action.ExecuteAction("CustomGetTransportRequestForLoadPortOrContainer",
-					new KeyValuePair<string, object>("LoadPort", loadPort),
-					new KeyValuePair<string, object>("TriggerFor", "LoadPort"),
-					new KeyValuePair<string, object>("TriggerAction", "Undock")
-				);
+				//TODO: Call DEE ACtion to get Transport Request when Transport System is available
 			}
 			else if (state.Equals(AMSOsramConstants.CustomLoadPortStateModelStateReadyToUnloadStateModelState, StringComparison.InvariantCultureIgnoreCase) &&
 				!string.IsNullOrEmpty(containerName) &&
@@ -237,12 +232,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 					}
 				);
 
-				Cmf.Foundation.Common.DynamicExecutionEngine.Action.ExecuteAction(
-					"CustomGetTransportRequestForLoadPortOrContainer",
-					new KeyValuePair<string, object>("Container", container),
-					new KeyValuePair<string, object>("TriggerFor", "Container"),
-					new KeyValuePair<string, object>("TriggerAction", "LoadPortLogEvent")
-				);
+				//TODO: Call DEE ACtion to get Transport Request when Transport System is available
 			}
 
 			Input.Add("LoadPort", loadPort);
