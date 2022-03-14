@@ -51,7 +51,7 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
         /// </summary>
         /// <TestCaseID>CustomGetNiceLabelPrintingInformation.CustomGetNiceLabelPrintingInformation_TrackOutMaterial_HappyPath</TestCaseID>
         /// <Author>David Guilherme</Author>
-        [TestMethod]
+        //[TestMethod]
         public void CustomGetNiceLabelPrintingInformation_TrackOutMaterial_HappyPath()
         {
             int subMaterialQuantity = 2;
