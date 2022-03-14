@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Cmf.Custom.AMSOsram.Actions.ERPIntegrations
+namespace Cmf.Custom.AMSOsram.Actions.Integrations
 {
     public class CustomProcessProductsFromERP : DeeDevBase
     {
@@ -79,7 +79,7 @@ namespace Cmf.Custom.AMSOsram.Actions.ERPIntegrations
                     productIntegrationEntry.EventName = AMSOsramConstants.CustomIntegrationInboundEventName;
                     productIntegrationEntry.SourceSystem = Constants.MesSystemDesignation;
                     productIntegrationEntry.TargetSystem = Constants.MesSystemDesignation;
-                    productIntegrationEntry.MessageType = "SAPMessage";
+                    productIntegrationEntry.MessageType = "PerformProductMasterData";
                     productIntegrationEntry.IntegrationMessage = new IntegrationMessage
                     {
                         Message = Encoding.Default.GetBytes(productDataMessage)

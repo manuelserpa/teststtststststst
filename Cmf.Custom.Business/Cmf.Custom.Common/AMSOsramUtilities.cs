@@ -1,4 +1,12 @@
-﻿using Cmf.Common.CustomActionUtilities;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Xml.Serialization;
+using Cmf.Common.CustomActionUtilities;
 using Cmf.Custom.AMSOsram.BusinessObjects;
 using Cmf.Custom.AMSOsram.Common.DataStructures;
 using Cmf.Custom.AMSOsram.Common.Extensions;
@@ -10,15 +18,6 @@ using Cmf.Foundation.Common;
 using Cmf.Foundation.Configuration;
 using Cmf.Navigo.BusinessObjects;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace Cmf.Custom.AMSOsram.Common
 {
@@ -101,13 +100,13 @@ namespace Cmf.Custom.AMSOsram.Common
                 values.Add(Cmf.Navigo.Common.Constants.Flow, flow);
             }
 
-            // If material name is filled apply it as a filter
+            // If lot name is filled apply it as a filter
             if (!string.IsNullOrWhiteSpace(material))
             {
                 values.Add(Cmf.Navigo.Common.Constants.Material, material);
             }
 
-            // If material type is filled apply it as a filter
+            // If lot type is filled apply it as a filter
             if (!string.IsNullOrWhiteSpace(materialType))
             {
                 values.Add(Cmf.Navigo.Common.Constants.MaterialType, materialType);
@@ -160,7 +159,7 @@ namespace Cmf.Custom.AMSOsram.Common
         /// <summary>
         /// Resolve CustomSorterJobDefinitionContext
         /// </summary>
-        /// <param name="material">The material to trackin</param>
+        /// <param name="material">The lot to trackin</param>
         /// <returns>The custom sorter job definition</returns>
         public static CustomSorterJobDefinition GetSorterJobDefinition(Material material)
         {
@@ -607,9 +606,9 @@ namespace Cmf.Custom.AMSOsram.Common
         }
 
         /// <summary>
-        /// Retrieves the container and load port for the given material
+        /// Retrieves the container and load port for the given lot
         /// </summary>
-        /// <param name="material">The material</param>
+        /// <param name="material">The lot</param>
         /// <param name="container">The container</param>
         /// <param name="loadPort">The load port</param>
         /// <returns>True if container and loadport exists, false otherwise</returns>
@@ -889,7 +888,7 @@ namespace Cmf.Custom.AMSOsram.Common
         }
 
         /// <summary>
-        /// Retrives a BOM from BOM context for a specific material.
+        /// Retrives a BOM from BOM context for a specific lot.
         /// </summary>
         /// <param name="material"></param>
         /// <returns>The resolved BOM</returns>
@@ -992,61 +991,76 @@ namespace Cmf.Custom.AMSOsram.Common
             return returnObject;
         }
 
-        public static Dictionary<string, string> GetDataForNiceLabelPrinting(Material material, Resource resource, string operation)
+        /// <summary>
+        /// Method to get the available information for nice label printing
+        /// </summary>
+        /// <param name="lot"></param>
+        /// <param name="resource"></param>
+        /// <param name="operation"></param>
+        /// <returns></returns>
+        public static Dictionary<string, string> GetDataForNiceLabelPrinting(Material lot, Resource resource, string operation)
         {
             // Get Material information
-            string stepName = material.Step.Name;
-            string materialName = material.Name;
-            string productName = material.Product.Name;
-            string logicalFlowPath = material.LogicalFlowPath;
-            // Product group isn't mandatory, we have to null check it
-            string productGroupName = material.Product.ProductGroup?.Name;
-            string flowName = material.Flow.Name;
-            string resourceName = resource?.Name;
-            string resourceType = resource?.Type;
-            string resourceModel = resource?.Model;
+            string stepName = lot.Step.Name;
+            string materialName = lot.Name;
+            string productName = lot.Product.Name;
+            string logicalFlowPath = lot.LogicalFlowPath != null ? lot.LogicalFlowPath : string.Empty;
+            string productGroupName = lot.Product.ProductGroup != null ? lot.Product.ProductGroup.Name : string.Empty;
+            string flowName = lot.Flow.Name;
+            string resourceName = resource != null ? resource.Name : string.Empty;
+            string resourceType = resource != null ? resource.Type : string.Empty;
+            string resourceModel = resource != null ? resource.Model : string.Empty;
 
-            DataRow row = AMSOsramUtilities.CustomResolveSTCustomMaterialNiceLabelPrintContext(stepName, logicalFlowPath, productName, productGroupName, flowName, materialName, material.Type, resourceName, resourceType, resourceModel, operation);
+            DataRow row = CustomResolveSTCustomMaterialNiceLabelPrintContext(stepName, logicalFlowPath, productName, productGroupName, flowName, materialName, lot.Type, resourceName, resourceType, resourceModel, operation);
+
             Dictionary<string, string> materialNiceLabelPrintInformation = new Dictionary<string, string>();
 
             if (row != null && row.Field<bool>("IsEnabled"))
             {
-                Container container = new Container();
+                Container container = null;
 
-                if (material.RelationCollection != null && material.RelationCollection.ContainsKey("MaterialContainer"))
+                if (lot.SubMaterialCount > 0)
                 {
-                    container = material.RelationCollection["MaterialContainer"][0].TargetEntity as Container;
+                    lot.LoadChildren();
+
+                    Material logicalWafer = lot.SubMaterials.First();
+
+                    logicalWafer.LoadRelations("MaterialContainer");
+
+                    if (logicalWafer.RelationCollection != null && logicalWafer.RelationCollection.ContainsKey("MaterialContainer") && logicalWafer.RelationCollection["MaterialContainer"].Count > 0)
+                    {
+                        container = logicalWafer.RelationCollection["MaterialContainer"].First().TargetEntity as Container;
+                    }
                 }
 
-                // add addictional information about the material
+                // add addictional information about the lot
                 // TODO: Missing information to map: LotAlias; BatchName; LotOwner; LotWaferCount; 
                 materialNiceLabelPrintInformation.AddRange(new Dictionary<string, string>()
                 {
-
                     { "LABEL_NAME", row.Field<string>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextLabel) },
                     { "PRINTER_NAME", row.Field<string>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextPrinter) },
                     { "LABEL_QUANTITY", row.Field<int>(AMSOsramConstants.CustomMaterialNiceLabelPrintContextQuantity).ToString() },
-                    { "LotName", material.Name },
+                    { "LotName", lot.Name },
                     { "LotAlias", "" },
                     { "ProductName", productName },
-                    { "ProductDesc", material.Product?.Description },
-                    { "ProductType", material.Product?.ProductType.ToString() },
-                    { "Product_Type", material.Product?.Type },
-                    { "ProductGroupName", productGroupName },
-                    { "ProductGroup_Type", material.Product?.ProductGroup?.Type },
+                    { "ProductDesc", lot.Product.Description },
+                    { "ProductType", lot.Product.ProductType.ToString() },
+                    { "Product_Type", lot.Product.Type },
+                    { "ProductGroupName", string.IsNullOrEmpty(productGroupName) ? string.Empty : productGroupName },
+                    { "ProductGroup_Type", lot.Product.ProductGroup != null ? lot.Product.ProductGroup.Type : string.Empty },
                     { "FlowName", flowName },
                     { "BatchName", "" },
-                    { "ContainerName", container.Name },
-                    { "ExperimentName", material.Experiment?.Name },
-                    { "ProductionOrder", material.ProductionOrder?.Name },
+                    { "ContainerName", container != null ? container.Name : string.Empty },
+                    { "ExperimentName", lot.Experiment != null ? lot.Experiment.Name : string.Empty},
+                    { "ProductionOrder", lot.ProductionOrder != null ? lot.ProductionOrder.Name : string.Empty },
                     { "LotOwner", "" },
-                    { "ResourceName", resourceName },
-                    { "LotWaferCount", "" },
-                    { "LotPrimaryQty", material.PrimaryQuantity.HasValue ? material.PrimaryQuantity.ToString() : string.Empty },
-                    { "LotSecundaryQty", material.SecondaryQuantity.HasValue ? material.SecondaryQuantity.ToString() : string.Empty },
-                    { "Lot_Type", material.Type },
-                    { "Area", resource?.Area.Name },
-                    { "Facility", material.Facility.Name }
+                    { "ResourceName", string.IsNullOrEmpty(resourceName) ? string.Empty : resourceName },
+                    { "LotWaferCount", lot.SubMaterialCount.ToString() },
+                    { "LotPrimaryQty", lot.PrimaryQuantity.HasValue ? lot.PrimaryQuantity.ToString() : string.Empty },
+                    { "LotSecondaryQty", lot.SecondaryQuantity.HasValue ? lot.SecondaryQuantity.ToString() : string.Empty },
+                    { "Lot_Type", lot.Type },
+                    { "Area", resource != null ? resource.Area.Name : string.Empty },
+                    { "Facility", lot.Facility.Name }
                 });
             }
 
@@ -1055,7 +1069,7 @@ namespace Cmf.Custom.AMSOsram.Common
 
         #endregion
 
-        #region XML
+        #region XML 
 
         /// <summary>
         /// Deserialize Xml To Object
@@ -1066,20 +1080,16 @@ namespace Cmf.Custom.AMSOsram.Common
         public static T DeserializeXmlToObject<T>(string xml)
         {
             T newObject;
-
             // Construct an instance of the XmlSerializer with the type
             // of object that is being deserialized.
             XmlSerializer serializer = new XmlSerializer(typeof(T));
-
             using (TextReader reader = new StringReader(xml))
             {
                 // Call the Deserialize method and cast to the object type.
                 newObject = (T)serializer.Deserialize(reader);
             }
-
             return newObject;
         }
-
         /// <summary>
         /// Serialize Object to XML
         /// </summary>
@@ -1089,16 +1099,12 @@ namespace Cmf.Custom.AMSOsram.Common
         public static string SerializeToXML<T>(this T value)
         {
             string output = string.Empty;
-
             XmlSerializer serializer = new XmlSerializer(typeof(T));
-
             using (TextWriter writer = new StringWriter())
             {
                 serializer.Serialize(writer, value);
-
                 output = writer.ToString();
             }
-
             return output;
         }
 

@@ -231,7 +231,7 @@
     "1": {
       "Action": "CustomProcessProductsFromERP",
       "Description": "Create an Integration Entry by Product in ERP Message",
-      "CodeFileRelativePath": "ERPIntegrations\\CustomProcessProductsFromERP.cs",
+      "CodeFileRelativePath": "Integrations\\CustomProcessProductsFromERP.cs",
       "IsEnabled": "Yes",
       "Classification": ""
     },
@@ -247,7 +247,14 @@
     "1": {
       "LookUp Table": "MessageType",
       "Lookup Table Value Parent": "",
-      "Lookup Table Value": "SAPMessage",
+      "Lookup Table Value": "PerformProductMasterData",
+      "Lookup Table Value Description": "Product Integration Entry message",
+      "Lookup Table IsEnabled": "Yes"
+    },
+	"2": {
+      "LookUp Table": "MessageType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "PerformProductsMasterData",
       "Lookup Table Value Description": "Message sent by SAP",
       "Lookup Table IsEnabled": "Yes"
     }
@@ -257,7 +264,7 @@
     "1": {
       "FromSystem": "ERP",
       "ToSystem": "MES",
-      "MessageType": "SAPMessage",
+      "MessageType": "PerformProductsMasterData",
       "HandlerType": "GenericIntegrationHandler",
       "ActionName": "CustomProcessProductsFromERP",
       "ErrorHandlingActionName": "",
@@ -266,7 +273,7 @@
     "2": {
       "FromSystem": "MES",
       "ToSystem": "MES",
-      "MessageType": "SAPMessage",
+      "MessageType": "PerformProductMasterData",
       "HandlerType": "GenericIntegrationHandler",
       "ActionName": "CustomProcessProduct",
       "ErrorHandlingActionName": "",

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Cmf.Custom.AMSOsram.Orchestration;
+﻿using Cmf.Custom.AMSOsram.Orchestration;
 using Cmf.Custom.AMSOsram.Orchestration.InputObjects;
 using Cmf.Custom.AMSOsram.Orchestration.OutputObjects;
 using Cmf.Foundation.Common;
