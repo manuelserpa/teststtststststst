@@ -321,7 +321,9 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
                 {
                     if (attributeData.Name.ToUpper().Equals("STATUS"))
                     {
-                        product.IsEnabled = Convert.ToInt32(attributeData.Value) < 97;
+                        product.IsEnabled = !string.IsNullOrWhiteSpace(attributeData.Value) && Convert.ToInt32(attributeData.Value) < 97;
+
+                        product.Save();
                     }
 
                     if (productAttributes.Contains(attributeData.Name))
