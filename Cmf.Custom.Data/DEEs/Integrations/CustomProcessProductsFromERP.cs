@@ -79,7 +79,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     productIntegrationEntry.EventName = AMSOsramConstants.CustomIntegrationInboundEventName;
                     productIntegrationEntry.SourceSystem = Constants.MesSystemDesignation;
                     productIntegrationEntry.TargetSystem = Constants.MesSystemDesignation;
-                    productIntegrationEntry.MessageType = "ImportObject";
+                    productIntegrationEntry.MessageType = "PerformProductMasterData";
                     productIntegrationEntry.IntegrationMessage = new IntegrationMessage
                     {
                         Message = Encoding.Default.GetBytes(productDataMessage)
