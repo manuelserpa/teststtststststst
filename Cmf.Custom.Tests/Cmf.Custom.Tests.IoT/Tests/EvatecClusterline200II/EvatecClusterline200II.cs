@@ -719,17 +719,14 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             }*/
 
             reply.Item.Clear();
-            var mainList = new SecsItem();
-            mainList.SetTypeToList();
+  
 
             var jobItem = new SecsItem { ASCII = "Job1" };
 
-            mainList.Add(jobItem);
 
             var reportList = new SecsItem();
             reportList.SetTypeToList();
 
-            mainList.Add(reportList);
 
             var ackList = new SecsItem();
             ackList.SetTypeToList();
@@ -756,9 +753,9 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
             ackList.Add(errorList);
 
-            mainList.Add(ackList);
-
-            reply.Item.Add(mainList);
+            reply.Item.Add(jobItem);
+            reply.Item.Add(reportList);
+            reply.Item.Add(ackList);
             return true;
         }
 

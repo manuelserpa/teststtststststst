@@ -86,6 +86,17 @@
 							"referenceTypeId": null,
 							"friendlyName": ""
 						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerName"
+						}
 					}
 				],
 				"___cmf___name": "Ready to Unload Workflow"
