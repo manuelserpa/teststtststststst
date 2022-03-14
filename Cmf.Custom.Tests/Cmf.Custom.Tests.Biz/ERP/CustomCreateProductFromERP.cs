@@ -48,7 +48,14 @@ namespace Cmf.Custom.Tests.Biz.ERP
         }
 
         /// <summary>
+        /// Description:
+        ///     - Create 2 Integration Entries
+        ///     - The information for one product is incorrect
         /// 
+        /// Acceptance Citeria:
+        ///     - Process the first Integration Entry that has the correct information
+        ///     - Report error on the second integration entry
+        ///  
         /// </summary>
         /// <TestCaseID>CustomCreateProductFromERP.CustomCreateProductFromERP_SendERPMessage_CreateProducts</TestCaseID>
         /// <Author>David Guilherme</Author>
@@ -174,17 +181,20 @@ namespace Cmf.Custom.Tests.Biz.ERP
                 Assert.IsTrue(ie.IsIntegrationEntryProcessed(), "Integration Entry was not processed. Error Message: {0}", ie.ResultDescription);
             }
 
-            ///<Step> Validate creation of Integration Entries </Step>
+            ///<Step> Validate creation of Integration Entries. </Step>
+            ///<ExpectedValue> First Integratio Entry should have been created. </ExpectedValue>
             IntegrationEntry firstProductIE = CustomUtilities.GetIntegrationEntry(firstProductName);
             Assert.IsTrue(firstProductIE.IsIntegrationEntryProcessed(), "Integration Entry was not processed. Error Message: {0}", firstProductIE.ResultDescription);
 
+            ///<ExpectedValue> Second IE should fail since the product type does not exists on the system. </ExpectedValue>
             IntegrationEntry secondProductIE = CustomUtilities.GetIntegrationEntry(secondProductName);
             Assert.IsTrue(!secondProductIE.IsIntegrationEntryProcessed(), "Integration Entry was processed.");
 
             string errorMessage = $"Element New{messageType} of type Product property Type, is not in the list ProductType. The error was reported by action CustomProcessProduct.";
             Assert.IsTrue(secondProductIE.ResultDescription.Equals(errorMessage), $"Error message should be: {errorMessage}, but instead is: {secondProductIE.ResultDescription}");
 
-            ///<Step> Validate only one product was created </Step>
+            ///<Step> Validate only one product was created. </Step>
+            ///<ExpectedValue> Only the first Product should be created. </ExpectedValue>
             Product firstProduct = new Product();
             firstProduct.Load(firstProductName);
             firstProduct.LoadAttributes(new Collection<string>() { productAttributeNames[0], productAttributeNames[1], productAttributeNames[2] });
@@ -192,8 +202,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
             firstProduct.ProductGroup.Load();
             customTeardownManager.Push(firstProduct);
 
-            ///<Step> Validate product properties </Step>
-            ///<ExpectedValue> Product should have the information sent on the ERP message </ExpectedValue>
+            ///<Step> Validate product properties. </Step>
+            ///<ExpectedValue> Product should have the information sent on the ERP message. </ExpectedValue>
             Assert.IsTrue(firstProduct.Name.Equals(firstProductName), $"Product Name should be: {firstProduct.Name}, instead is: {firstProductName}.");
             Assert.IsTrue(firstProduct.Description.Equals(messageProductDescription), $"Product Description should be: {firstProduct.Description}, instead is: {messageProductDescription}.");
             Assert.IsTrue(firstProduct.Type.Equals(messageType), $"Product Type should be: {firstProduct.Type}, instead is: {messageType}.");
@@ -205,8 +215,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
             Assert.IsTrue(string.Format("{0:0.##}", firstProduct.MaximumMaterialSize).Equals(messageProductMaximumMaterialSize), $"Product Maximum Material size should be: {string.Format("{0:0.##}", firstProduct.MaximumMaterialSize)}, instead is: {messageProductMaximumMaterialSize}.");
             Assert.IsTrue(firstProduct.HasRelation("ProductParameter"), "Product should have relations for product parameters");
 
-            ///<Step> Validate product paramters relation </Step>
-            ///<ExpectedValue> Product should have the information sent on the ERP message </ExpectedValue>
+            ///<Step> Validate product paramters relation. </Step>
+            ///<ExpectedValue> Product should have 2 parameters added and one updated. </ExpectedValue>
             List<ProductParameter> partParameters = firstProduct.RelationCollection["ProductParameter"].Cast<ProductParameter>().ToList();
             partParameters.Load(1);
 
@@ -219,7 +229,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
                 }
             }
 
-            ///<Step> Validate product attributes </Step>
+            ///<Step> Validate product attributes. </Step>
+            ///<ExpectedValue> The 3 product attributes should be updated. </ExpectedValue>
             Assert.IsTrue(firstProduct.Attributes[productAttributeNames[0]].Equals(productAttributeValues[0]), $"Product attribute {productAttributeNames[0]} should be {productAttributeValues[0]}, but was {firstProduct.Attributes[productAttributeNames[0]]}");
             Assert.IsTrue(firstProduct.Attributes[productAttributeNames[1]].Equals(productAttributeValues[1]), $"Product attribute {productAttributeNames[1]} should be {productAttributeValues[1]}, but was {firstProduct.Attributes[productAttributeNames[1]]}");
             Assert.IsTrue(firstProduct.Attributes[productAttributeNames[2]].Equals(productAttributeValues[2]), $"Product attribute {productAttributeNames[2]} should be {productAttributeValues[2]}, but was {firstProduct.Attributes[productAttributeNames[2]]}");
