@@ -75,7 +75,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string firstProductName = Guid.NewGuid().ToString("N");
             string secondProductName = Guid.NewGuid().ToString("N");
             string[] productAttributeNames = new string[] { "SAPProductType", "Technology", "Status", "DispoLevel" };
-            string[] productAttributeValues = new string[] { "F4653F00050", "PN", "97", "EOL" };
+            string[] productAttributeValues = new string[] { "F4653F00050", "PN", "95", "EOL" };
 
             Dictionary<string, string> parameterData = new Dictionary<string, string>() { 
                 { "Raster X", "1020" }, 
@@ -148,42 +148,6 @@ namespace Cmf.Custom.Tests.Biz.ERP
                     Name = secondProductName,
                     Description = messageProductDescription,
                     Type = $"New{messageType}",
-                    ProductType = messageProductType,
-                    DefaultUnits = messageProductUnits,
-                    IsEnabled = messageProductIsEnabled,
-                    Yield = messageProductYield,
-                    ProductGroup = messageProductGroup,
-                    MaximumMaterialSize = messageProductMaximumMaterialSize,
-                    ProductParametersData = productParameterData,
-                    ProductAttributesData = new List<ProductAttributeData>()
-                    {
-                        new ProductAttributeData()
-                        {
-                            Name = productAttributeNames[0],
-                            Value = productAttributeValues[0]
-                        },
-                        new ProductAttributeData()
-                        {
-                            Name = productAttributeNames[1],
-                            Value = productAttributeValues[1]
-                        },
-                        new ProductAttributeData()
-                        {
-                            Name = productAttributeNames[2],
-                            Value = productAttributeValues[2]
-                        },
-                        new ProductAttributeData()
-                        {
-                            Name = productAttributeNames[3],
-                            Value = productAttributeValues[3]
-                        }
-                    }
-                },
-                new ERPProduct
-                {
-                    Name = "TestProduct",
-                    Description = " New Product to test ERP product update",
-                    Type = messageType,
                     ProductType = messageProductType,
                     DefaultUnits = messageProductUnits,
                     IsEnabled = messageProductIsEnabled,
