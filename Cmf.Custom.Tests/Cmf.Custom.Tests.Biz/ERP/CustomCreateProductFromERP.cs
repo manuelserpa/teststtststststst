@@ -87,6 +87,15 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             List<ProductParameterData> productParameterData = new List<ProductParameterData>();
 
+            List<Conversion> Conversions = new List<Conversion>();
+
+            Conversions.Add(new Common.ERP.Product.Conversion()
+            {
+                FromUnit = "CM2",
+                ToUnit = "nm",
+                ConversionFactor = "120"
+            });
+
             foreach (string parameterName in parameterData.Keys)
             {
                 ProductParameterData parameter = new ProductParameterData()
@@ -110,6 +119,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
                     ProductGroup = messageProductGroup,
                     MaximumMaterialSize = messageProductMaximumMaterialSize,
                     ProductParametersData = productParameterData,
+                    UnitConversionFactors = Conversions,
                     ProductAttributesData = new List<ProductAttributeData>()
                     {
                         new ProductAttributeData()
