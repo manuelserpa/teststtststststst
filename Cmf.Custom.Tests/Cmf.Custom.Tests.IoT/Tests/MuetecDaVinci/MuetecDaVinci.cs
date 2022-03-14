@@ -823,7 +823,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             var mainList = new SecsItem();
             mainList.SetTypeToList();
 
-            var jobItem = new SecsItem { ASCII = "Job1" };
+            var jobItem = new SecsItem { ASCII = controlJobName };
 
             mainList.Add(jobItem);
 
