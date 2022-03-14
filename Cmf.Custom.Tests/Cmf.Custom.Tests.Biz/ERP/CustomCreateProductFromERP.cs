@@ -2,10 +2,14 @@
 using Cmf.Custom.Tests.Biz.Common.ERP.Product;
 using Cmf.Custom.Tests.Biz.Common.Extensions;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
+using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
+using Cmf.Navigo.BusinessObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 
 namespace Cmf.Custom.Tests.Biz.ERP
@@ -46,145 +50,152 @@ namespace Cmf.Custom.Tests.Biz.ERP
         public void CustomCreateProductFromERP_SendERPMessage_CreateProducts()
         {
 
-            string MessageProductDescription = "F4653F00050";
-            string MessageType = "CHIP";
-            string MessageProductType = "FINISHED_GOODS";
-            string MessageProductUnits = "CM2";
-            string MessageProductIsEnabled = "Y";
-            string MessageProductYield = "88.0";
-            string MessageProductGroup = "MG_PW_1000";
-            string MessageProductMaximumMaterialSize = "24";
+            string messageProductDescription = "F4653F00050";
+            string messageType = "CHIP";
+            string messageProductType = "FINISHED_GOODS";
+            string messageProductUnits = "CM2";
+            string messageProductIsEnabled = "Y";
+            string messageProductYield = "88.0";
+            string messageProductGroup = "MG_PW_1000";
+            string messageProductMaximumMaterialSize = "24";
+            string firstProductName = Guid.NewGuid().ToString("N");
+            string secondProductName = Guid.NewGuid().ToString("N");
+            string[] productAttributeNames = new string[] { "SAP Product Type", "Technology", "Status", "Dispo Level" };
+            string[] productAttributeValues = new string[] { "F4653F00050", "PN", "97", "EOL" };
+            // Change to dic
+            string[] productParameterNames = new string[] { "Raster X", "Raster Y", "CM2 Average", "Chips Fieldmask", "Wafer Size", "Chips Whole Wafer" };
+            string[] productParameterValues = new string[] { "1020", "1020", "164.55", "15816", "150", "16916.571" };
 
             List < ERPProduct > productsLists = new List<ERPProduct>() {
                 new ERPProduct{
-                    Name = Guid.NewGuid().ToString("N"),
-                    Description = MessageProductDescription,
-                    Type = MessageType,
-                    ProductType = MessageProductType,
-                    DefaultUnits = MessageProductUnits,
-                    IsEnabled = MessageProductIsEnabled,
-                    Yield = MessageProductYield,
-                    ProductGroup = MessageProductGroup,
-                    MaximumMaterialSize = MessageProductMaximumMaterialSize,
+                    Name = firstProductName,
+                    Description = messageProductDescription,
+                    Type = messageType,
+                    ProductType = messageProductType,
+                    DefaultUnits = messageProductUnits,
+                    IsEnabled = messageProductIsEnabled,
+                    Yield = messageProductYield,
+                    ProductGroup = messageProductGroup,
+                    MaximumMaterialSize = messageProductMaximumMaterialSize,
                     ProductParametersData = new List<ProductParameterData>(){
                         new ProductParameterData()
                         {
-                            Name = "Raster X",
-                            Value = "1020"
+                            Name = productParameterNames[0],
+                            Value = productParameterValues[0]
                         },
                         new ProductParameterData()
                         {
-                            Name = "Raster Y",
-                            Value = "1020"
+                            Name = productParameterNames[1],
+                            Value = productParameterValues[1]
                         },
                         new ProductParameterData()
                         {
-                            Name = "CM2 Average",
-                            Value = "1020"
+                            Name = productParameterNames[2],
+                            Value = productParameterValues[2]
                         },
                         new ProductParameterData()
                         {
-                            Name = "Chips Fieldmask",
-                            Value = "1020"
+                            Name = productParameterNames[3],
+                            Value = productParameterValues[3]
                         },
                         new ProductParameterData()
                         {
-                            Name = "Wafer Size",
-                            Value = "1020"
+                            Name = productParameterNames[4],
+                            Value = productParameterValues[4]
                         },
                         new ProductParameterData()
                         {
-                            Name = "Chips Whole Wafer",
-                            Value = "1020"
+                            Name = productParameterNames[5],
+                            Value = productParameterValues[5]
                         }
                     },
                     ProductAttributesData = new List<ProductAttributeData>()
                     {
                         new ProductAttributeData()
                         {
-                            Name = "SAP Product Type",
-                            Value = "F4653F00050"
+                            Name = productAttributeNames[0],
+                            Value = productAttributeValues[0]
                         },
                         new ProductAttributeData()
                         {
-                            Name = "Technogoly",
-                            Value = "PN"
+                            Name = productAttributeNames[1],
+                            Value = productAttributeValues[1]
                         },
                         new ProductAttributeData()
                         {
-                            Name = "Status",
-                            Value = "97"
+                            Name = productAttributeNames[2],
+                            Value = productAttributeValues[2]
                         },
                         new ProductAttributeData()
                         {
-                            Name = "Dispo Level",
-                            Value = "EOL"
+                            Name = productAttributeNames[3],
+                            Value = productAttributeValues[3]
                         }
                     }
                 },
                 new ERPProduct{
-                    Name = Guid.NewGuid().ToString("N"),
-                    Description = MessageProductDescription,
-                    Type = MessageType,
-                    ProductType = MessageProductType,
-                    DefaultUnits = MessageProductUnits,
-                    IsEnabled = MessageProductIsEnabled,
-                    Yield = MessageProductYield,
-                    ProductGroup = MessageProductGroup,
-                    MaximumMaterialSize = MessageProductMaximumMaterialSize,
+                    Name = secondProductName,
+                    Description = messageProductDescription,
+                    Type = $"New{messageType}",
+                    ProductType = messageProductType,
+                    DefaultUnits = messageProductUnits,
+                    IsEnabled = messageProductIsEnabled,
+                    Yield = messageProductYield,
+                    ProductGroup = messageProductGroup,
+                    MaximumMaterialSize = messageProductMaximumMaterialSize,
                     ProductParametersData = new List<ProductParameterData>(){
                         new ProductParameterData()
                         {
-                            Name = "Raster X",
-                            Value = "1020"
+                            Name = productParameterNames[0],
+                            Value = productParameterValues[0]
                         },
                         new ProductParameterData()
                         {
-                            Name = "Raster Y",
-                            Value = "1020"
+                            Name = productParameterNames[1],
+                            Value = productParameterValues[1]
                         },
                         new ProductParameterData()
                         {
-                            Name = "CM2 Average",
-                            Value = "1020"
+                            Name = productParameterNames[2],
+                            Value = productParameterValues[2]
                         },
                         new ProductParameterData()
                         {
-                            Name = "Chips Fieldmask",
-                            Value = "1020"
+                            Name = productParameterNames[3],
+                            Value = productParameterValues[3]
                         },
                         new ProductParameterData()
                         {
-                            Name = "Wafer Size",
-                            Value = "1020"
+                            Name = productParameterNames[4],
+                            Value = productParameterValues[4]
                         },
                         new ProductParameterData()
                         {
-                            Name = "Chips Whole Wafer",
-                            Value = "1020"
+                            Name = productParameterNames[5],
+                            Value = productParameterValues[5]
                         }
                     },
                     ProductAttributesData = new List<ProductAttributeData>()
                     {
                         new ProductAttributeData()
                         {
-                            Name = "SAP Product Type",
-                            Value = "F4653F00050"
+                            Name = productAttributeNames[0],
+                            Value = productAttributeValues[0]
                         },
                         new ProductAttributeData()
                         {
-                            Name = "Technogoly",
-                            Value = "PN"
+                            Name = productAttributeNames[1],
+                            Value = productAttributeValues[1]
                         },
                         new ProductAttributeData()
                         {
-                            Name = "Status",
-                            Value = "97"
+                            Name = productAttributeNames[2],
+                            Value = productAttributeValues[2]
                         },
                         new ProductAttributeData()
                         {
-                            Name = "Dispo Level",
-                            Value = "EOL"
+                            Name = productAttributeNames[3],
+                            Value = productAttributeValues[3]
                         }
                     }
                 }
@@ -201,6 +212,47 @@ namespace Cmf.Custom.Tests.Biz.ERP
             {
                 Assert.IsTrue(ie.IsIntegrationEntryProcessed(), "Integration Entry was not processed. Error Message: {0}", ie.ResultDescription);
             }
+
+            ///<Step> Validate creation of Integration Entries </Step>
+
+            ///<Step> Validate only one product was created </Step>
+            Product firstProduct = new Product();
+            firstProduct.Load(firstProductName);
+            firstProduct.LoadAttributes(new Collection<string>() { productAttributeNames[0], productAttributeNames[1], productAttributeNames[2] });
+            firstProduct.LoadRelation("ProductParameter");
+            firstProduct.ProductGroup.Load();
+
+            Product secondProduct = new Product();
+            secondProduct.Load(secondProductName);
+
+            ///<Step> Validate product properties </Step>
+            Assert.IsTrue(firstProduct.Name.Equals(firstProductName), $"");
+            Assert.IsTrue(firstProduct.Description.Equals(messageProductDescription), $"");
+            Assert.IsTrue(firstProduct.Type.Equals(messageType), $"");
+            Assert.IsTrue(firstProduct.ProductType.ToString().Equals(messageType), $"");
+            Assert.IsTrue(firstProduct.DefaultUnits.Equals(messageProductUnits), $"");
+            Assert.IsTrue(firstProduct.IsEnabled, $"");
+            Assert.IsTrue(firstProduct.Yield.ToString().Equals(messageProductYield), $"");
+            Assert.IsTrue(firstProduct.ProductGroup.Name.Equals(messageProductGroup), $"");
+            Assert.IsTrue(firstProduct.MaximumMaterialSize.ToString().Equals(messageProductMaximumMaterialSize), $"");
+            Assert.IsTrue(firstProduct.HasRelation("ProductParameter"), "Product should have relations for product parameters");
+            Assert.IsTrue(firstProduct.RelationCollection["ProductParameter"].Count == 3, $"Product Parameter relation count should be 3, but was {firstProduct.RelationCollection["ProductParameter"].Count}");
+            Assert.IsTrue(firstProduct.RelatedAttributes.Count == 3 , $"Product attribute count should be 3, but was {firstProduct.RelatedAttributes.Count}");
+
+            ///<Step> Validate product paramters relation </Step>
+            List<ProductParameter> partParameters = firstProduct.RelationCollection["ProductParameter"].Cast<ProductParameter>().ToList();
+
+            foreach (string productParameterName in productParameterNames)
+            {
+                Parameter parameter = (Parameter)partParameters.FirstOrDefault(pp => pp.TargetEntity.Name.Equals(productParameterName)).TargetEntity;
+
+            }
+
+            ///<Step> Validate product attributes </Step>
+            Assert.IsTrue(firstProduct.RelatedAttributes[productAttributeNames[0]].Equals(productAttributeValues[0]), $"Product attribute {productAttributeNames[0]} should be {productAttributeValues[0]}, but was {firstProduct.RelatedAttributes[productAttributeNames[0]]}");
+            Assert.IsTrue(firstProduct.RelatedAttributes[productAttributeNames[1]].Equals(productAttributeValues[1]), $"Product attribute {productAttributeNames[1]} should be {productAttributeValues[1]}, but was {firstProduct.RelatedAttributes[productAttributeNames[1]]}");
+            Assert.IsTrue(firstProduct.RelatedAttributes[productAttributeNames[2]].Equals(productAttributeValues[2]), $"Product attribute {productAttributeNames[2]} should be {productAttributeValues[2]}, but was {firstProduct.RelatedAttributes[productAttributeNames[2]]}");
+
         }
     }
 }
