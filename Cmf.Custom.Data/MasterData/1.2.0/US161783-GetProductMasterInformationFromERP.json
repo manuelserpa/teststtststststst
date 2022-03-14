@@ -231,7 +231,7 @@
     "1": {
       "Action": "CustomProcessProductsFromERP",
       "Description": "Create an Integration Entry by Product in ERP Message",
-      "CodeFileRelativePath": "ERPIntegrations\\CustomProcessProductsFromERP.cs",
+      "CodeFileRelativePath": "Integrations\\CustomProcessProductsFromERP.cs",
       "IsEnabled": "Yes",
       "Classification": ""
     },
@@ -243,21 +243,12 @@
       "Classification": ""
     }
   },
-  "<SM>LookupTableValues": {
-    "1": {
-      "LookUp Table": "MessageType",
-      "Lookup Table Value Parent": "",
-      "Lookup Table Value": "SAPMessage",
-      "Lookup Table Value Description": "Message sent by SAP",
-      "Lookup Table IsEnabled": "Yes"
-    }
-  },
   "DEEActionOrder": {},
   "<LOOKUP>IntegrationHandler": {
     "1": {
       "FromSystem": "ERP",
       "ToSystem": "MES",
-      "MessageType": "SAPMessage",
+      "MessageType": "ImportObject",
       "HandlerType": "GenericIntegrationHandler",
       "ActionName": "CustomProcessProductsFromERP",
       "ErrorHandlingActionName": "",
@@ -266,7 +257,7 @@
     "2": {
       "FromSystem": "MES",
       "ToSystem": "MES",
-      "MessageType": "SAPMessage",
+      "MessageType": "ImportObject",
       "HandlerType": "GenericIntegrationHandler",
       "ActionName": "CustomProcessProduct",
       "ErrorHandlingActionName": "",
