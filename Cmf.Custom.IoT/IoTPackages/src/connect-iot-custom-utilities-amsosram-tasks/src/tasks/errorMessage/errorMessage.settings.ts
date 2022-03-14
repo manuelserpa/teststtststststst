@@ -17,6 +17,7 @@ import { TaskSettingsTabPropertiesModule } from "cmf.core.connect.iot/src/compon
 import i18n from "./i18n/errorMessage.settings.default";
 import { Input } from "@criticalmanufacturing/connect-iot-controller-engine/src/system/systemProxy";
 import { CustomErrorCodeEnum } from "../../utilities/customErrorCodeEnum";
+import { CustomSystemOfOriginEnum } from "../../utilities/customSystemOfOriginEnum";
 
 export interface ErrorMessageTaskSettings extends ErrorMessageTask.ErrorMessageSettings, WorkflowModel.TaskDefinitionSettings {}
 
@@ -31,7 +32,8 @@ export interface ErrorMessageTaskSettings extends ErrorMessageTask.ErrorMessageS
     assign: {
         i18n: i18n,
         LogMode: ErrorMessageTask.LogMode,
-        ErrorCodeEnum: CustomErrorCodeEnum
+        ErrorCodeEnum: CustomErrorCodeEnum,
+        SystemOfOriginEnum: CustomSystemOfOriginEnum
     }
 })
 export class ErrorMessageSettings extends TaskSettingsBase implements ng.OnInit {

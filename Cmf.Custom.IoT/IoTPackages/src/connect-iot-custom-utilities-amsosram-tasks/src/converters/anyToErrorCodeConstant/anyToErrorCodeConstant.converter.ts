@@ -1,6 +1,7 @@
 import { Converter, DI, Dependencies, TYPES, Task } from "@criticalmanufacturing/connect-iot-controller-engine";
 import i18n from "./i18n/anyToErrorCodeConstant.default";
 import { CustomErrorCodeEnum } from "../../utilities/customErrorCodeEnum";
+import { CustomSystemOfOriginEnum } from "../../utilities/customSystemOfOriginEnum";
 /**}
  * @whatItDoes
  *
@@ -85,6 +86,19 @@ import { CustomErrorCodeEnum } from "../../utilities/customErrorCodeEnum";
             friendlyName: "NotifyErrorOnly",
             value: CustomErrorCodeEnum.NotifyErrorOnly
         }],
+        SystemOfOrigin: [{
+            friendlyName: "EI",
+            value: CustomSystemOfOriginEnum.EI
+        }, {
+            friendlyName: "MES",
+            value: CustomSystemOfOriginEnum.MES
+        }, {
+            friendlyName: "AMHS",
+            value: CustomSystemOfOriginEnum.AMHS
+        }, {
+            friendlyName: "Unknown",
+            value: CustomSystemOfOriginEnum.Unknown
+        }],
         ErrorNumber: Task.TaskValueType.Integer,
     },
 })
@@ -99,7 +113,7 @@ export class AnyToErrorCodeConstantConverter implements Converter.ConverterInsta
      * @param parameters Transformation parameters
      */
     transform(value: any, parameters: { [key: string]: any; }): string {
-        return `${parameters["ErrorCode"]}_${parameters["ErrorNumber"]}`;
+        return `${parameters["ErrorCode"]}_${parameters["SystemOfOrigin"]}_${parameters["ErrorNumber"]}`;
     }
 
 }

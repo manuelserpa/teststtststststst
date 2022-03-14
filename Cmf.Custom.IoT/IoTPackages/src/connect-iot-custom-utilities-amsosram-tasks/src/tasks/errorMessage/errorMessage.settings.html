@@ -58,6 +58,15 @@
                 (valueChange)="_onSettingsValueChange($event, 'errorCodeToEmit')">
             </cmf-core-business-controls-propertyEditor>
             
+            <!-- system of origin -->
+            <cmf-core-business-controls-propertyEditor data-tag="SystemOfOrigin"
+                [label]="i18n.SYSTEM_OF_ORIGIN"
+                nestedEditorType="BasicEnumComboBox"
+                [enum]="SystemOfOriginEnum"
+                [value]="settings.systemOfOrigin"
+                (valueChange)="_onSettingsValueChange($event, 'systemOfOrigin')">
+            </cmf-core-business-controls-propertyEditor>
+
             <!-- error number -->
             <cmf-core-business-controls-propertyEditor
                 [label]="i18n.ERROR_NUMBER"
