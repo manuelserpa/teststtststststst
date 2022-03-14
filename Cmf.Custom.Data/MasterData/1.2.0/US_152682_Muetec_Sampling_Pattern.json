@@ -1,0 +1,291 @@
+{
+  "Formats": {
+    "1": {
+      "Sheet": "All Objects",
+      "Column": "MainStateModel",
+      "Format Sample": "SEMI E10 > Standby",
+      "Description": "State Model Name , \">\", State Name\nif the \">\" is not provided then the value will be the StateModel Name, and the object will be setted in the default state for the state model"
+    },
+    "2": {
+      "Sheet": "All Objects",
+      "Column": "OtherStateModels",
+      "Format Sample": "SEMI E10 > Standby; SEMI E10 > Standby; SEMI E10 > Standby",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is:\nState Model Name , \">\", State Name\nif the \">\" is not provided then the value will be the StateModel Name, and the object will be setted in the default state for the state model"
+    },
+    "3": {
+      "Sheet": "All Objects",
+      "Column": "Attributes",
+      "Format Sample": "Name[Basic] ScalarType[VarChar] Value[Up];\nName[Scheduled] ScalarType[VarChar] Value[Scheduled Up]",
+      "Description": "Each item is delimited by a semi-colon ';'\r\nFormat of each item is:\r\nName[AttributeName] ScalarType[ScalarTypeName] Value[AttributeValue]\r\nIf Attribute is Array Values will be separated by comma (',')"
+    },
+    "4": {
+      "Sheet": "StateModelStates",
+      "Column": "Forbiden Operations",
+      "Format Sample": "Save;Terminate",
+      "Description": "Each item is delimited by a semi-colon ';'\nEach item must be the name of one Operation of the State Model Entity Type"
+    },
+    "5": {
+      "Sheet": "StateModelTransitions",
+      "Column": "Allowed Operations",
+      "Format Sample": "Save;Terminate",
+      "Description": "Each item is delimited by a semi-colon ';'\nEach item must be the name of one Operation of the State Model Entity Type"
+    },
+    "6": {
+      "Sheet": "ShiftDefinitionShift",
+      "Column": "NonWorkingTime",
+      "Format Sample": "Name[Lunch] Start[12:00] End[13:00]",
+      "Description": "Each non working time is delimited by a semi-colon ';'\nEach item is described by tokens according to the sample on the left."
+    },
+    "7": {
+      "Sheet": "SortRuleSets",
+      "Column": "Rules",
+      "Format Sample": "Name[ResourceQueueSize] Direction[Ascending]",
+      "Description": "Each rule is delimited by a semi-colon ';', the sequence is the order in which it appears, starting with 1 and the format is Name[SortRuleName] Direction[Ascending] (Direction can be 'Ascending' or 'Descending')"
+    },
+    "8": {
+      "Sheet": "FlowStructures",
+      "Column": "Reworks",
+      "Format Sample": "GotoFlowPath[Mold Rework:1/Remove Mold:1] ReturnStep[Packaging:5] Reason[Mold Damage]",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is like:\nGotoFlowPath[TargetFlowPath] ReturnStep[ReturnStep] Reason[ReworkReason]\n\nwhere the ReturnStep must include the information about the Correlation Id ( for example \"Step:2\" )"
+    },
+    "9": {
+      "Sheet": "Products",
+      "Column": "Unit Conversion Factors",
+      "Format Sample": "FromUnit[Wafers] ToUnit[Dies] Factor[100]",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is like:\nFromUnit[unitA] ToUnit[unitB] Factor[factor]\n\nWhere \n - Units must exist in lookupTable Units\n - factor can have decimal places"
+    },
+    "10": {
+      "Sheet": "Products",
+      "Column": "Sub Products",
+      "Format Sample": "TargetProduct[WAFCOMP1] Facility[Null] Step[Wafer Saw] ProductChangeDescription[Standard] Type[Standard] IsChangeAutomatic[Yes]",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is like:\nTargetProduct[ProductName] Facility[Null] Step[StepName] ProductChangeDescription[Standard] Type[Standard] IsChangeAutomatic[Yes]"
+    },
+    "11": {
+      "Sheet": "Products",
+      "Column": "Binning Tree",
+      "Format Sample": "TargetProduct[PRODUCTA] BinGroup[Null] BinNumber[1] BinType[MainProduct] Reason[Null] Step[Null]",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is like:\nTargetProduct[PRODUCTA] BinGroup[Null] BinNumber[1] BinType[MainProduct] Reason[Null] Step[Null]\n\nWhere BinType must be one of the following\n - MainProduct\n - SubProduct\n - Loss\nWhere Reason must be the name of one valid Reason"
+    },
+    "12": {
+      "Sheet": "Protocols",
+      "Column": "Parameters",
+      "Format Sample": "Name[MyString] DataType[String] DefaultValue[Null];\nName[MyLong] DataType[Long] DefaultValue[0];\nName[MyDecimal] DataType[Decimal] DefaultValue[0]",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is like:\nName[ParameterName] DataType[String] DefaultValue[Null]\n\nDataType=Long or String or Decimal or Boolean or DateTime\nDefaultValue= Value or Null"
+    },
+    "13": {
+      "Sheet": "ProtocolStates",
+      "Column": "Parameters",
+      "Format Sample": "Name[MyString] IsOptional[No] IsReadOnly[No] SourceType[FreeText] Source[Null];\nName[MyLong] IsOptional[Yes] IsReadOnly[No] SourceType[FreeText] Source[Null]",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is like:\nName[ParameterName] IsOptional[No] IsReadOnly[No] SourceType[] Source[Null]\n\nSourceType=FreeText, LookupTable or Query"
+    },
+    "14": {
+      "Sheet": "Data Collection Limit Sets",
+      "Column": "Parameter Limits",
+      "Format Sample": "Parameter[Scratch Count] LimitType[Absolute] LowerErrorLimit[0] \nLowerWarningLimit[0] Target[0] UpperErrorLimit[105] UpperWarningLimit[50]",
+      "Description": "Each parameter is delimited by a semi-colon (';')\nWhen the text is 'Null' it means that there is no value\nThe decimal separator can be either '.' or ','\nFormat is:\nParameter[ParamName] LimitType[Absolute] LowerErrorLimit[0] LowerWarningLimit[1] Target[0] UpperWarningLimit[49] UpperErrorLimit[50]\n\nLimitType can be 'Absolute' or 'Relative'"
+    },
+    "15": {
+      "Sheet": "BOMProducts",
+      "Column": "Substitutes",
+      "Format Sample": "SourceProduct[UMG] Step[Crystallization] Quantity[0,8]",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is like:\nSourceProduct[ProductName] Step[StepName] Quantity[1]"
+    },
+    "16": {
+      "Sheet": "Charts",
+      "Column": "Rules",
+      "Format Sample": "Rule[UpperSpecSpcViolationRule] Protocol[PDCA]",
+      "Description": "Each item is delimeted by a semi-colon ';'\nformat of each item is like:\nRule[RuleName] Protocol[ProtocolName]\n\nProtocol can be null"
+    },
+    "17": {
+      "Sheet": "Charts",
+      "Column": "Contexts",
+      "Format Sample": "KeyOrder[1] Name[Resource] Description[Resource] Type[Object] Source[Resource]",
+      "Description": "Each item is delimeted by a semi-colon ';'\nformat of each item is like:\nKeyOrder[1] Name[Resource] Description[Resource] Type[Object] Source[Resource]\nWhere \n - Type=Object, FreeText or LookupTable\n - KeyOrder (or zero if non-key)"
+    },
+    "18": {
+      "Sheet": "SubRecipes",
+      "Column": "ParameterMapping",
+      "Format Sample": "Parameter1=Expression1;Parameter2=Expression2",
+      "Description": "Each item is delimited by a semi-colon ';'\r\nFormat of each item is:\r\nParameterName, equals ('='), Expression\r\nWhere \r\n - ParameterName should be the name of a valid Parameter in the subrecipe."
+    }
+  },
+  "Assumptions": {
+    "1": {
+      "Sheet": "All Objects",
+      "Assumption": "- Name Field is Mandatory\n - All Excel columns must match the Object properties (if defined)\n - Column \"MainStateModel\" can set the Main State Model to the object\n - Column \"OtherStateModel\" can set other State Models to the Object\n - Column \"DataGroup\" can set DataGroup to the Object"
+    },
+    "2": {
+      "Sheet": "All Objects",
+      "Assumption": "FlowPath\nIt represents the position in one Flow, for example\nFlowA:1/FlowB:2/FlowC:1/StepA:1\n\nEach Flow Part in the FlowPath is delimited by '/'\nEach Flow Part is splited in two by ':'\n 1) the first part is the name of the Object (Flow Name, or Step Name if is the last flow part in the FlowPath)\n 2) the second part is the CorrelationId, or it can be the position on the parent flow"
+    },
+    "3": {
+      "Sheet": "Rules",
+      "Assumption": "Rule Type will be UserDefined"
+    },
+    "4": {
+      "Sheet": "Facilities",
+      "Assumption": "If Site is passed then the Facility will have IsRemote set to true, false otherwise"
+    },
+    "5": {
+      "Sheet": "Generic Tables",
+      "Assumption": "If you want the first field to be empty, type \"NULL\" without the quotes."
+    },
+    "6": {
+      "Sheet": "Smart Tables",
+      "Assumption": "If you want the first field to be empty, type \"NULL\" without the quotes."
+    }
+  },
+  "WorksheetNameMapping": {
+    "1": {
+      "WorksheetName": "SamplingPattern",
+      "Value": "<DM>SamplingPattern"
+    }
+  },
+  "Enums": {
+    "ScheduleCriteria": [
+      "MaximimizePriorityFulfilment",
+      "MaximizeResourceUtilization",
+      "MinimizeDeviationFromDeliveryDates",
+      "MinimizeLateMaterials",
+      "MinimizeMaximumLateness",
+      "MinimizeNumberOfLateMaterials",
+      "MinimizePriorityQuantityWeigthedCycleTime",
+      "MinimizePriorityWeightedLateness",
+      "MinimizeQuantityWeightedCycleTime",
+      "MinimizeSetupTimes",
+      "MinimizeTotalWaitingTime"
+    ],
+    "SchedulingType": [
+      "Machine",
+      "Batch",
+      "Tunnel"
+    ],
+    "ContentStorageType": [
+      "Internal",
+      "External"
+    ],
+    "StepSetupCharacteristic": [
+      "Service",
+      "Product",
+      "ProductGroup",
+      "Recipe"
+    ],
+    "ScheduleSortingRule": [
+      "PossibleStartDate",
+      "Priority",
+      "ExecutionTime",
+      "MaterialName",
+      "Quantity",
+      "CharacteristicOfItemAtResource",
+      "DueDate",
+      "ItemCode"
+    ],
+    "DispatchScheduleType": [
+      "Dispatching",
+      "Scheduling"
+    ],
+    "DefaultSamplingType": [
+      "CounterBased",
+      "TimeBased",
+      "CounterAndTimeBased"
+    ],
+    "Frequency": [
+      "Daily",
+      "Weekly",
+      "Monthly",
+      "Yearly"
+    ],
+    "RuleSortingDirection": [
+      "Ascending",
+      "Descending"
+    ],
+    "TimeScale": [
+      "Days",
+      "Hours",
+      "Minutes",
+      "Seconds"
+    ],
+    "SamplingContext": [
+      "MaterialType",
+      "MaterialProduct",
+      "MaterialProductMaturity",
+      "MaterialResource",
+      "MaterialStep",
+      "MaterialStepMaturity"
+    ],
+    "BOMScope": [
+      "MaterialTracking",
+      "MaintenanceManagement"
+    ],
+    "TimeDueScale": [
+      "Hours",
+      "Days",
+      "Weeks",
+      "Months",
+      "Years"
+    ],
+    "FutureLogisticActionExecutionMode": [
+      "Manual",
+      "Automatic"
+    ],
+    "DefaultScheduleView": [
+      "Day",
+      "Week",
+      "Month"
+    ],
+    "MaintenanceInstanceType": [
+      "Resource",
+      "Container"
+    ],
+    "KPIType": [
+      "Maximum",
+      "Minimum",
+      "Deviation"
+    ],
+    "InstancesToSchedulePattern": [
+      "NumberOfInstances",
+      "Duration"
+    ]
+  },
+  "<SM>LookupTableValues": {
+    "1": {
+      "LookUp Table": "SamplingPatternType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Logistical wafer",
+      "Lookup Table Value Description": "Logistical Wafer",
+      "Lookup Table IsEnabled": ""
+    }
+  },
+  "<LOOKUP>SamplingPattern": {
+    "1": {
+      "Name": "FIRST",
+      "Type": "Logistical wafer",
+      "SamplingPatternType": "System",
+      "SystemSamplingSource": "Logistical wafer",
+      "SystemSamplingCount": "1",
+      "SystemSamplingCountIsPercentage": "0",
+      "SystemSamplingSelection": "Bottom",
+      "SystemSamplingSequence": "0"
+    },
+    "2": {
+      "Name": "MIDDLE",
+      "Type": "Logistical wafer",
+      "SamplingPatternType": "System",
+      "SystemSamplingSource": "Logistical wafer",
+      "SystemSamplingCount": "1",
+      "SystemSamplingCountIsPercentage": "0",
+      "SystemSamplingSelection": "Middle",
+      "SystemSamplingSequence": "0"
+    },
+    "3": {
+      "Name": "LAST",
+      "Type": "Logistical wafer",
+      "SamplingPatternType": "System",
+      "SystemSamplingSource": "Logistical wafer",
+      "SystemSamplingCount": "1",
+      "SystemSamplingCountIsPercentage": "0",
+      "SystemSamplingSelection": "Top",
+      "SystemSamplingSequence": "0"
+    }
+  }
+}
