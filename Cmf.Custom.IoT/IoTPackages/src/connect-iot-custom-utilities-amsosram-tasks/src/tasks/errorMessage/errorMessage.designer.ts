@@ -10,6 +10,7 @@ import {
 import { LinkingPort, AutoLinkResult } from "@criticalmanufacturing/connect-iot-controller-engine/src/task/designer/taskDesignerInstance";
 import { Input } from "@criticalmanufacturing/connect-iot-controller-engine/src/system/systemProxy";
 import { CustomErrorCodeEnum } from "../../utilities/customErrorCodeEnum";
+import { CustomSystemOfOriginEnum } from "../../utilities/customSystemOfOriginEnum";
 
 @Task.Designer.TaskDesigner()
 export class ErrorMessageDesigner implements Task.Designer.TaskDesignerInstance, ErrorMessageSettings {
@@ -29,6 +30,7 @@ export class ErrorMessageDesigner implements Task.Designer.TaskDesignerInstance,
 
     message: string;
     errorCodeToEmit: CustomErrorCodeEnum;
+    systemOfOrigin: CustomSystemOfOriginEnum;
     errorNumber: number;
     clearInputs: boolean;
     mode: LogMode;
