@@ -3,6 +3,7 @@ import i18n from "./i18n/errorMessage.default";
 import * as moment from "moment";
 import { TaskDefaultSettings } from "@criticalmanufacturing/connect-iot-controller-engine/src/system/systemProxy";
 import { CustomErrorCodeEnum } from "../../utilities/customErrorCodeEnum";
+import { CustomSystemOfOriginEnum } from "../../utilities/customSystemOfOriginEnum";
 
 /**
  * Verbosity types for the log message
@@ -28,6 +29,7 @@ export enum LogMode {
 export const SETTINGS_DEFAULTS: ErrorMessageSettings = {
     message: "",
     errorCodeToEmit: CustomErrorCodeEnum.OtherError,
+    systemOfOrigin: CustomSystemOfOriginEnum.EI,
     errorNumber: 0,
     clearInputs: true,
     mode: LogMode.RawText,
@@ -83,7 +85,7 @@ export const DEFAULT_FORMAT_SEPARATOR: string = " = ";
             friendlyName: i18n.AUTO_INPUT_PORT_TEXT,
             type: Task.AUTO
         },
-        message: undefined,
+        message: undefined
     },
     outputs: {
         errorCode: Task.TaskValueType.String,
@@ -104,6 +106,7 @@ export class ErrorMessageTask implements Task.TaskInstance, ErrorMessageSettings
      */
     message: any;
     errorCodeToEmit: CustomErrorCodeEnum;
+    systemOfOrigin: CustomSystemOfOriginEnum;
     errorNumber: number = 0;
     clearInputs: boolean;
     mode: LogMode;
@@ -168,8 +171,8 @@ export class ErrorMessageTask implements Task.TaskInstance, ErrorMessageSettings
                 }
                 break;
         }
-
-        this.errorCode.emit(`${this.errorCodeToEmit}_${this.errorNumber}`);
+        // emit error code with structure [ErrorCode]_[System]_[ErrorNumber]
+        this.errorCode.emit(`${this.errorCodeToEmit}_${this.systemOfOrigin}_${this.errorNumber}`);
         this.errorText.emit(text);
     }
 
@@ -217,6 +220,10 @@ export interface ErrorMessageSettings extends TaskDefaultSettings {
      * Error Code
      */
     errorCodeToEmit: CustomErrorCodeEnum;
+    /**
+     * System of Origin
+     */
+    systemOfOrigin: CustomSystemOfOriginEnum;
     /**
      * Error Number
      */
