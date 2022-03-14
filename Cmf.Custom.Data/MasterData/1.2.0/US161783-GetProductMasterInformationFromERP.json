@@ -258,7 +258,7 @@
       "Lookup Table Value Description": "Message sent by SAP",
       "Lookup Table IsEnabled": "Yes"
     }
-  }
+  },
   "DEEActionOrder": {},
   "<LOOKUP>IntegrationHandler": {
     "1": {
