@@ -2,7 +2,6 @@
 using Cmf.Custom.AMSOsram.Common.ERP;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.GenericTables;
-using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.Common;
 using Cmf.Foundation.Common.Base;
 using Cmf.Foundation.Security;
@@ -58,7 +57,6 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
             //Foundation
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.GenericTables");
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.QueryObject");
             UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common");
             UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common.Base");
             UseReference("Cmf.Foundation.Security.dll", "Cmf.Foundation.Security");
@@ -140,10 +138,10 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
                     foreach (Conversion conversion in productData.UnitConversionFactors)
                     {
-                        FilterCollection filters = new FilterCollection();
-                        filters.Add(new Filter() { Name = "ProductName", Operator = FieldOperator.IsEqualTo, Value = productData.Name });
-                        filters.Add(new Filter() { Name = "FromUnit", Operator = FieldOperator.IsEqualTo, Value = conversion.FromUnit });
-                        filters.Add(new Filter() { Name = "ToUnit", Operator = FieldOperator.IsEqualTo, Value = conversion.ToUnit });
+                        Foundation.BusinessObjects.QueryObject.FilterCollection filters = new Foundation.BusinessObjects.QueryObject.FilterCollection();
+                        filters.Add(new Foundation.BusinessObjects.QueryObject.Filter() { Name = "ProductName", Operator = FieldOperator.IsEqualTo, Value = productData.Name });
+                        filters.Add(new Foundation.BusinessObjects.QueryObject.Filter() { Name = "FromUnit", Operator = FieldOperator.IsEqualTo, Value = conversion.FromUnit });
+                        filters.Add(new Foundation.BusinessObjects.QueryObject.Filter() { Name = "ToUnit", Operator = FieldOperator.IsEqualTo, Value = conversion.ToUnit });
 
                         genericTable.LoadData(filters);
 
