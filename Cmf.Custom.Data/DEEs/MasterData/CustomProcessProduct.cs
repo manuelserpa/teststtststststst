@@ -152,6 +152,8 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
                             dataRow["FromUnit"] = conversion.FromUnit;
                             dataRow["ToUnit"] = conversion.ToUnit;
                             dataRow["ConversionFactor"] = conversion.ConversionFactor;
+
+                            dataSet.Tables[0].Rows.Add(dataRow);
                         }
                         else
                         {
