@@ -53,6 +53,28 @@
 						}
 					},
 					{
+						"name": "ControlJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ControlJobId"
+						}
+					},
+					{
+						"name": "ProcessJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ProcessJobId"
+						}
+					},
+					{
 						"name": "SubMaterialName",
 						"valueType": {
 							"type": 4,
@@ -72,6 +94,17 @@
 							"referenceTypeName": null,
 							"referenceTypeId": null,
 							"friendlyName": "SubMaterialSlot"
+						}
+					},
+					{
+						"name": "SubResourceOrder",
+						"valueType": {
+							"friendlyName": "SubResourceOrder",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
 						}
 					}
 				],

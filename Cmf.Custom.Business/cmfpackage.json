@@ -1,19 +1,32 @@
 {
   "packageId": "Cmf.Custom.Business",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Cmf Custom AMSOsram Cmf.Custom.Business Package",
   "packageType": "Business",
   "isInstallable": true,
   "isUniqueInstall": false,
+  "steps": [
+    {
+      "type": 0,
+      "onExecute": "$(Agent.Root)/agent/scripts/stop_host.ps1",
+      "order": 1
+    },
+    {
+      "type": 1,
+      "contentPath": "**/!(Cmf.Custom.*.BusinessObjects*).dll",
+      "order": 2
+    },
+    {
+      "type": 0,
+      "onExecute": "$(Agent.Root)/agent/scripts/start_host.ps1",
+      "order": 3
+    }
+  ],
   "contentToPack": [
     {
       "source": "Release/*.dll",
       "target": ""
     }
   ],
-  "steps": [
-    { "order": "1", "type": "Generic", "onExecute": "$(Agent.Root)/agent/scripts/stop_host.ps1" },
-    { "order": "2", "type": "DeployFiles", "ContentPath": "**/!(Cmf.Custom.*.BusinessObjects*).dll" },
-    { "order": "3", "type": "Generic", "onExecute": "$(Agent.Root)/agent/scripts/start_host.ps1" }
-  ]
+  "handlerVersion": 0
 }
