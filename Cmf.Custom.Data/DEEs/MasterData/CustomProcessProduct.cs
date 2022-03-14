@@ -32,6 +32,13 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
             /// </summary>
             #endregion
 
+            IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, "IntegrationEntry");
+
+            if (integrationEntry is null || integrationEntry.IntegrationMessage is null || integrationEntry.IntegrationMessage.Message is null || integrationEntry.IntegrationMessage.Message.Length <= 0)
+            {
+                return false;
+            }
+
             return true;
 
             //---End DEE Condition Code---
