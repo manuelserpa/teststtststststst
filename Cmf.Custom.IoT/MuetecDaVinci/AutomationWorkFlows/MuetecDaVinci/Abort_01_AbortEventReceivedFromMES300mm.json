@@ -1,0 +1,194 @@
+{
+	"tasks": [
+		{
+			"id": "task_3640",
+			"reference": {
+				"name": "systemActionGroupEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"replyTimeout": 60000,
+				"___cmf___name": "On System Event",
+				"actionGroup": "Abort",
+				"___cmf___color": "#0080ff"
+			}
+		},
+		{
+			"id": "task_3786",
+			"reference": {
+				"name": "deleteMaterialOnPersistence",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"___cmf___name": "Delete Material On Persistence",
+				"___cmf___color": "#c0c0c0"
+			}
+		},
+		{
+			"id": "task_22898",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "AbortJob_01_ExecuteControlJobAbort",
+					"IsShared": false
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialData"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialData"
+						}
+					}
+				],
+				"___cmf___name": "Execute Abort Control Job",
+				"___cmf___color": "#ffff80"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "81ed7089-1805-4419-a4ea-aeb3bca529db",
+			"sourceId": "task_3786",
+			"targetId": "task_3640",
+			"inputName": "reply",
+			"outputName": "success",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		},
+		{
+			"id": "0f2d5a7a-0d29-45d6-8b71-312cbbe8f1d4",
+			"sourceId": "task_3640",
+			"targetId": "task_3786",
+			"inputName": "materials",
+			"outputName": "data"
+		},
+		{
+			"id": "14dc06c3-c8b0-42e0-a46c-9eb20ee840ad",
+			"sourceId": "task_3640",
+			"targetId": "task_3786",
+			"inputName": "activate",
+			"outputName": "data"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff80",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_3640": {
+						"collapsed": false,
+						"position": {
+							"x": 121,
+							"y": 674
+						},
+						"outdated": false
+					},
+					"task_3786": {
+						"collapsed": false,
+						"position": {
+							"x": 1311,
+							"y": 700
+						},
+						"outdated": false
+					},
+					"task_22898": {
+						"collapsed": false,
+						"position": {
+							"x": 702,
+							"y": 804
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"0f2d5a7a-0d29-45d6-8b71-312cbbe8f1d4": {
+						"vertices": []
+					},
+					"14dc06c3-c8b0-42e0-a46c-9eb20ee840ad": {
+						"vertices": []
+					},
+					"81ed7089-1805-4419-a4ea-aeb3bca529db": {
+						"vertices": [
+							{
+								"x": 1738,
+								"y": 613
+							},
+							{
+								"x": 219,
+								"y": 607
+							}
+						]
+					}
+				},
+				"notes": {},
+				"zoom": 0.7,
+				"pan": {
+					"x": 0,
+					"y": 212.22222900390625
+				}
+			}
+		}
+	}
+}

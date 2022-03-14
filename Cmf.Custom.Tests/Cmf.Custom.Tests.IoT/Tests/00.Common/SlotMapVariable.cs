@@ -5,7 +5,7 @@ using cmConnect.TestFramework.Common.Drivers.SpecialVariables;
 using cmConnect.TestFramework.EquipmentSimulator.Drivers;
 using Cmf.SECS.Driver;
 
-namespace Cmf.Custom.Tests.IoT.Tests.EvatecClusterline200II
+namespace Cmf.Custom.Tests.IoT.Tests.Common
 {
     public class SlotMapVariable : ICustomVariable
     {

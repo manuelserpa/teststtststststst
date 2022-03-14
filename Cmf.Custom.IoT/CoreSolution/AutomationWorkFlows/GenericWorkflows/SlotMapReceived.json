@@ -254,9 +254,9 @@
 				}
 			},
 			"settings": {
-				"type": "Cmf.Custom.AMSOSRAM.Orchestration.InputObjects.MaterialInInput, Cmf.Custom.AMSOSRAM.Orchestration",
+				"type": "Cmf.Custom.AMSOsram.Orchestration.InputObjects.MaterialInInput, Cmf.Custom.AMSOsram.Orchestration",
 				"method": "POST",
-				"urlSuffix": "api/AMSOSRAM/MaterialIn",
+				"urlSuffix": "api/AMSOsram/MaterialIn",
 				"ignoreLastServiceId": true,
 				"numberOfRetries": 30,
 				"sleepBetweenRetries": 1000,
@@ -1155,8 +1155,8 @@
 				},
 				"notes": {},
 				"pan": {
-					"x": 1387.77783203125,
-					"y": 53.333335876464844
+					"x": 1211.111083984375,
+					"y": 21.111112594604492
 				},
 				"zoom": 0.6100000000000003
 			}
