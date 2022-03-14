@@ -820,17 +820,16 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             }*/
 
             reply.Item.Clear();
-            var mainList = new SecsItem();
-            mainList.SetTypeToList();
+            var attributeList = new SecsItem();
+            attributeList.SetTypeToList();
 
             var jobItem = new SecsItem { ASCII = controlJobName };
 
-            mainList.Add(jobItem);
+            //mainList.Add(jobItem);
 
             var reportList = new SecsItem();
             reportList.SetTypeToList();
 
-            mainList.Add(reportList);
 
             var ackList = new SecsItem();
             ackList.SetTypeToList();
@@ -839,6 +838,10 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
 
             var errorList = new SecsItem();
             errorList.SetTypeToList();
+
+            reportList.Add(ack);
+            reportList.Add(errorList);
+
 
             if (createControlJobDenied)
             {
@@ -853,13 +856,9 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
                 errorList.Add(error);
             }
 
-            ackList.Add(ack);
-
-            ackList.Add(errorList);
-
-            mainList.Add(ackList);
-
-            reply.Item.Add(mainList);
+            reply.Item.Add(jobItem);
+            reply.Item.Add(attributeList);
+            reply.Item.Add(reportList);
             return true;
         }
 

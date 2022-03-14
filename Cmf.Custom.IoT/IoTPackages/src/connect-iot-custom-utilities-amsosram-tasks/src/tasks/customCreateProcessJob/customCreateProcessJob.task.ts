@@ -95,7 +95,7 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
             }
             material.ProcessJobId = `PrJob_${material.MaterialName}`;
             try {
-
+                const carrierContentWrapper = [];
                 const carrierContent = [];
                 const recipeContent = [];
                 const sendMessage: Object = {
@@ -104,7 +104,7 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
                             { type: "U4", value: Number(Date.now().toString()) }, // dataid
                             { type: "A", value: material.ProcessJobId },
                             { type: "BI", value: Number(this.MaterialFormat) }, // Material format code 0x0e
-                            { type: "L", value: { type: "L", value: carrierContent } }, // carrier and content (not passed on eqp characterization)
+                            { type: "L", value: carrierContentWrapper }, // carrier and content (not passed on eqp characterization)
                             { type: "L", value: recipeContent },   // recipe specification area
                             { type: "BO", value: this.StartProcess ? 0x01 : 0x00 }, // PRPROCESSSTART
                             { type: "L", value: this.EventList }, // PRPAUSEEVENT
@@ -117,6 +117,8 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
                 recipeContent.push({ type: "L", value: this.RecipeParameterList }); // Empty parameter list
 
                 if (this.SendCarrierContent) {
+
+                    carrierContentWrapper.push({ type: "L", value: carrierContent });
                     const slotMap = [];
                     carrierContent.push({ type: "A", value: material.ContainerName }); // Carrier Content
                     carrierContent.push({ type: "L", value: slotMap }); // Empty parameter list
