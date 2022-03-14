@@ -75,7 +75,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
                 IntegrationEntry productIntegrationEntry = new IntegrationEntry();
                 {
-                    productIntegrationEntry.Name = $"CustomProcessProduct_{productData.Name}_{Guid.NewGuid().ToString("N")}";
+                    productIntegrationEntry.Name = $"PerformProductMasterData_{productData.Name}_{Guid.NewGuid().ToString("N")}";
                     productIntegrationEntry.EventName = AMSOsramConstants.CustomIntegrationInboundEventName;
                     productIntegrationEntry.SourceSystem = Constants.MesSystemDesignation;
                     productIntegrationEntry.TargetSystem = Constants.MesSystemDesignation;
