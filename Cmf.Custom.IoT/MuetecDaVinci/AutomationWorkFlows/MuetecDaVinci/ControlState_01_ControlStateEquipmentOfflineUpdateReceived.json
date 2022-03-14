@@ -94,7 +94,7 @@
 					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
 					"params": {
 						"type": 5,
-						"value": "1"
+						"value": "3"
 					}
 				}
 			]
@@ -157,8 +157,8 @@
 					}
 				},
 				"pan": {
-					"x": 535,
-					"y": 222
+					"x": 553.3333740234375,
+					"y": 177.7777862548828
 				},
 				"zoom": 0.8200000000000001
 			}

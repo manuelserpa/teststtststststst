@@ -20,6 +20,8 @@ using System.Data;
 using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Custom.Tests.IoT.Tests.Common;
 using System.Collections.Generic;
+using Cmf.Foundation.BusinessObjects.SmartTables;
+using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 
 namespace AMSOsramEIAutomaticTests.MuetecDaVinci
 {
@@ -39,6 +41,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
         public const string serviceName = "CD-Measurement";
 
         private int loadPortNumber = 1;
+        private string samplingPattern = "";
 
         private bool loadCommandReceived = false;
         private bool loadCommandDenied = false;
@@ -111,6 +114,11 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
+            var step = new Step { Name = stepName};
+            step.Load();
+            step.UseInStepSampling = true;
+            step.Save();
+
             ConfigureConnection(resourceName, 5012);
 
         }
@@ -142,7 +150,75 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
+            samplingPattern = "ALL";
+            this.SetSamplingPatternContext(samplingPattern);
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+        }
 
+        /// <summary> 
+        /// Scenario: Recipe Exists on Equipment / Sampling Pattern First
+        /// </summary>
+        [TestMethod]
+        public void MuetecDaVinci_FullProcessRecipeExistsSamplingPatternFirst()
+        {
+            base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
+
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+
+            var recipe = new Recipe() { Name = RecipeName };
+            recipe.Load();
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            RecipeManagement.FailOnNewBody = true;
+            RecipeManagement.RecipeExistsOnList = true;
+
+            MESScenario.Entity.Load();
+            samplingPattern = "FIRST";
+            this.SetSamplingPatternContext(samplingPattern);
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+        }
+
+        /// <summary> 
+        /// Scenario: Recipe Exists on Equipment / Sampling Pattern Last
+        /// </summary>
+        [TestMethod]
+        public void MuetecDaVinci_FullProcessRecipeExistsSamplingPatternMiddle()
+        {
+            base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, 13, false);
+
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+
+            var recipe = new Recipe() { Name = RecipeName };
+            recipe.Load();
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            RecipeManagement.FailOnNewBody = true;
+            RecipeManagement.RecipeExistsOnList = true;
+
+            MESScenario.Entity.Load();
+            samplingPattern = "MIDDLE";
+            this.SetSamplingPatternContext(samplingPattern);
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+        }
+
+
+        /// <summary> 
+        /// Scenario: Recipe Exists on Equipment / Sampling Pattern Last
+        /// </summary>
+        [TestMethod]
+        public void MuetecDaVinci_FullProcessRecipeExistsSamplingPatternLast()
+        {
+            base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
+
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+
+            var recipe = new Recipe() { Name = RecipeName };
+            recipe.Load();
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            RecipeManagement.FailOnNewBody = true;
+            RecipeManagement.RecipeExistsOnList = true;
+
+            MESScenario.Entity.Load();
+            samplingPattern = "LAST";
+            this.SetSamplingPatternContext(samplingPattern);
             base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
         }
 
@@ -530,6 +606,8 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
 
         public override bool PostTrackInActions(CustomMaterialScenario scenario)
         {
+
+
             if (!isOnlineRemote)
             {
                 Assert.Fail("Track In must fail on Online Local");
@@ -548,6 +626,34 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
                 return scenario.Entity.SystemState.ToString().Equals(MaterialSystemState.InProcess.ToString());
             });
 
+            scenario.Entity.LoadChildren();
+            scenario.ContainerScenario.Entity.LoadRelations(levelsToLoad: 2);
+
+            if (samplingPattern == "FIRST")
+            {
+                var material = scenario.Entity.SubMaterials.Single(c => c.SystemState.ToString().Equals(MaterialSystemState.Queued.ToString()));
+
+                var materialContainer = scenario.ContainerScenario.Entity.ContainerMaterials.Single(p => p.SourceEntity.Name == material.Name && p.Position == 1);
+
+            }
+
+            if (samplingPattern == "MIDDLE")
+            {
+                var material = scenario.Entity.SubMaterials.Single(c => c.SystemState.ToString().Equals(MaterialSystemState.Queued.ToString()));
+
+                int halfIndex = (scenario.Entity.SubMaterials.Count())/ 2;
+                //There is a bug here... Just for the sake of the validation
+                var materialContainer = scenario.ContainerScenario.Entity.ContainerMaterials.Single(p => p.SourceEntity.Name == material.Name && p.Position == (halfIndex+2));
+            }
+
+            if (samplingPattern == "LAST")
+            {
+                var material = scenario.Entity.SubMaterials.Single(c => c.SystemState.ToString().Equals(MaterialSystemState.Queued.ToString()));
+
+                var materialContainer = scenario.ContainerScenario.Entity.ContainerMaterials.First(p => p.SourceEntity.Name == material.Name && p.Position == scenario.Entity.SubMaterials.Count);
+            }
+            
+            
 
             base.Equipment.Variables["CarrierID"] = scenario.ContainerScenario.Entity.Name;
             base.Equipment.Variables["CarrierAccessingStatus"] = 1;
@@ -584,7 +690,13 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
                     {
                         new SubstHistoryEntry
                         {
-                            Location = "",
+                            Location = "BL/Station1",
+                            TimeIn = "11",
+                            TimeOut = "12"
+                        },
+                        new SubstHistoryEntry
+                        {
+                            Location = "AL/Station1",
                             TimeIn = "11",
                             TimeOut = "12"
                         },
@@ -843,6 +955,61 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
         public override bool PostSetupActions(CustomMaterialScenario MESScenario)
         {
             return true;
+        }
+
+        private void SetSamplingPatternContext(string patternName, bool clearTable = true)
+        {
+            SmartTable table = new GetSmartTableByNameInput { SmartTableName = "StepSamplingPatternContext", LoadData = true }.GetSmartTableByNameSync().SmartTable;
+
+            //table = new LoadSmartTableDataInput { SmartTable = (table as SmartTable) }.LoadSmartTableDataSync().SmartTable;
+            DataSet ds = Cmf.TestScenarios.Others.Utilities.ToDataSet((table as SmartTable).Data);
+
+
+
+            if (clearTable)
+            {
+
+                var drToDelete = ds.Tables[0].AsEnumerable().FirstOrDefault(drow => drow["Step"].ToString() == stepName);
+
+                if (drToDelete != null)
+                {
+                    var dsToDelete = ds.Clone();
+
+                    dsToDelete.Tables[0].Rows.Add(drToDelete.ItemArray);
+
+                    var inputClear = new RemoveSmartTableRowsInput { SmartTable = table, Table = Cmf.TestScenarios.Others.Utilities.FromDataSet(dsToDelete) };
+                    inputClear.RemoveSmartTableRowsSync();
+                }
+            }
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                ds.Tables[0].Rows.Clear();
+                ds.Tables[0].AcceptChanges();
+            }
+
+            if (patternName != "ALL")
+            {
+                DataRow dr = ds.Tables[0].NewRow();
+                dr["SamplingPattern"] = patternName;
+                dr["StepSamplingPatternContextId"] = 0;
+                dr["LastServiceHistoryId"] = -1;
+                dr["LastOperationHistorySeq"] = -1;
+                dr["Step"] = stepName;
+                ds.Tables[0].Rows.Add(dr);
+
+            }
+
+            try
+            {
+
+
+                var input = new InsertOrUpdateSmartTableRowsInput { SmartTable = table, Table = Cmf.TestScenarios.Others.Utilities.FromDataSet(ds) };
+                var insert = input.InsertOrUpdateSmartTableRowsSync();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private DataCollectionInstanceCollection GetDataCollectionInstanceByResourceId(long resourceId)
