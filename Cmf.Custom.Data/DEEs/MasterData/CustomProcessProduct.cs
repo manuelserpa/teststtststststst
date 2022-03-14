@@ -93,7 +93,7 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
             product.Name = productData.Name;
             product.Description = productData.Description;
             product.Type = productData.Type;
-            product.ProductType = ProductType.FinishedGood; //productData.ProductType
+            product.ProductType = Enum.TryParse(productData.ProductType, out ProductType productType) ? productType : default(ProductType);
             product.DefaultUnits = productData.DefaultUnits;
 
             if (product.ObjectExists())
@@ -112,7 +112,7 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
                 product.IsEnabled = productData.IsEnabled.ToUpper() == "Y" ? true : false;
             }
 
-            product.Yield = Convert.ToDecimal(productData.Yield) / 100; // How to convert the value?
+            product.Yield = Convert.ToDecimal(productData.Yield);
 
             ProductGroup productGroup = new ProductGroup();
             {
@@ -187,9 +187,9 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
             }
 
             product.CapacityClass = productData.CapacityClass;
-            product.MaterialTransferMode = MaterialTransferMode.None; //productData.MaterialTransferMode
-            product.MaterialTransferApprovalMode = MaterialTransferApprovalMode.AutoApproval; //productData.MaterialTransferApprovalMode
-            product.MaterialTransferAllowedPickup = MaterialTransferAllowedPickup.Any; //productData.MaterialTransferAllowedPickup
+            product.MaterialTransferMode = Enum.TryParse(productData.MaterialTransferMode, out MaterialTransferMode materialTransferMode) ? materialTransferMode : default(MaterialTransferMode);
+            product.MaterialTransferApprovalMode = Enum.TryParse(productData.MaterialTransferApprovalMode, out MaterialTransferApprovalMode materialTransferApprovalMode) ? materialTransferApprovalMode : default(MaterialTransferApprovalMode);
+            product.MaterialTransferAllowedPickup = Enum.TryParse(productData.MaterialTransferAllowedPickup, out MaterialTransferAllowedPickup materialTransferAllowedPickup) ? materialTransferAllowedPickup : default(MaterialTransferAllowedPickup);
 
             if (!string.IsNullOrWhiteSpace(productData.IsEnableForMaintenanceManagement))
             {
