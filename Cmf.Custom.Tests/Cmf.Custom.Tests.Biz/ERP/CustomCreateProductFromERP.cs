@@ -49,8 +49,9 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
         /// <summary>
         /// Description:
-        ///     - Create 2 Integration Entries
+        ///     - Create 3 Integration Entries
         ///     - The information for one product is incorrect
+        ///     - The last product is to update
         /// 
         /// Acceptance Citeria:
         ///     - Process the first Integration Entry that has the correct information
@@ -167,6 +168,42 @@ namespace Cmf.Custom.Tests.Biz.ERP
                             Value = productAttributeValues[3]
                         }
                     }
+                },
+                new ERPProduct
+                {
+                    Name = "TestProduct",
+                    Description = " New Product to test ERP product update",
+                    Type = messageType,
+                    ProductType = messageProductType,
+                    DefaultUnits = messageProductUnits,
+                    IsEnabled = messageProductIsEnabled,
+                    Yield = messageProductYield,
+                    ProductGroup = messageProductGroup,
+                    MaximumMaterialSize = messageProductMaximumMaterialSize,
+                    ProductParametersData = productParameterData,
+                    ProductAttributesData = new List<ProductAttributeData>()
+                    {
+                        new ProductAttributeData()
+                        {
+                            Name = productAttributeNames[0],
+                            Value = productAttributeValues[0]
+                        },
+                        new ProductAttributeData()
+                        {
+                            Name = productAttributeNames[1],
+                            Value = productAttributeValues[1]
+                        },
+                        new ProductAttributeData()
+                        {
+                            Name = productAttributeNames[2],
+                            Value = productAttributeValues[2]
+                        },
+                        new ProductAttributeData()
+                        {
+                            Name = productAttributeNames[3],
+                            Value = productAttributeValues[3]
+                        }
+                    }
                 }
             };
 
@@ -234,6 +271,15 @@ namespace Cmf.Custom.Tests.Biz.ERP
             Assert.IsTrue(firstProduct.Attributes[productAttributeNames[0]].Equals(productAttributeValues[0]), $"Product attribute {productAttributeNames[0]} should be {productAttributeValues[0]}, but was {firstProduct.Attributes[productAttributeNames[0]]}");
             Assert.IsTrue(firstProduct.Attributes[productAttributeNames[1]].Equals(productAttributeValues[1]), $"Product attribute {productAttributeNames[1]} should be {productAttributeValues[1]}, but was {firstProduct.Attributes[productAttributeNames[1]]}");
             Assert.IsTrue(firstProduct.Attributes[productAttributeNames[2]].Equals(productAttributeValues[2]), $"Product attribute {productAttributeNames[2]} should be {productAttributeValues[2]}, but was {firstProduct.Attributes[productAttributeNames[2]]}");
+
+
+            ///<Step> Validate Second product to update </Step>
+            ///<ExpectedValues> Second product should be on version 2. </ExpectedValues>
+            Product secondProduct = new Product() { 
+                Name = "TestProduct"
+            };
+            secondProduct.Load();
+            Assert.IsTrue(secondProduct.Version == 2, $"Product TestProduct should be on version 2.");
 
         }
     }
