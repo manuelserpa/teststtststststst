@@ -256,7 +256,7 @@
       "Lookup Table IsEnabled": ""
     }
   },
-  "<LOOKUP>SamplingPattern": {
+  "<DM>SamplingPattern": {
     "1": {
       "Name": "FIRST",
       "Type": "Logistical wafer",

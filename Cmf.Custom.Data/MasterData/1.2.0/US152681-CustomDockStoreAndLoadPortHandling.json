@@ -15,6 +15,8 @@
       "Classification": "ConnectIoT"
     }
   },
+  "DEEActionOrder": {
+  },
   "<DM>Rule": {
     "1": {
       "Name": "CustomDockStoreIoT",

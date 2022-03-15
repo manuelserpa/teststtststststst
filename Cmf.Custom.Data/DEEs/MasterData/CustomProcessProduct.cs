@@ -314,7 +314,9 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
                 product.LoadAttributes();
 
-                AttributeCollection attributes = product.Attributes;
+                AttributeCollection attributes = product.RelatedAttributes;
+
+                AttributeCollection relatedAttributes = new AttributeCollection();
 
                 // Associate relation between Product to Attribute
                 foreach (ProductAttributeData attributeData in productData.ProductAttributesData)
@@ -330,19 +332,19 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
                     {
                         if (attributes.ContainsKey(attributeData.Name))
                         {
-                            attributes[attributeData.Name] = attributeData.Value;
+                            relatedAttributes[attributeData.Name] = attributeData.Value;
                         }
                         else
                         {
-                            attributes.Add(attributeData.Name, attributeData.Value);
+                            relatedAttributes.Add(attributeData.Name, attributeData.Value);
                         }
                     }
                 }
 
-                if (attributes != null && attributes.Any())
+                if (relatedAttributes != null && relatedAttributes.Any())
                 {
                     //Add relation between Product and Attributes
-                    product.SaveAttributes(attributes);
+                    product.SaveRelatedAttributes(relatedAttributes);
                 }
             }
 
