@@ -72,7 +72,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string messageProductYield = "0.88";
             string messageProductGroup = "MG_PW_1500";
             string messageProductMaximumMaterialSize = "24";
-            string firstProductName = "firstProductName";
+            string firstProductName = Guid.NewGuid().ToString("N");
             string secondProductName = Guid.NewGuid().ToString("N");
             string[] productAttributeNames = new string[] { "SAPProductType", "Technology", "Status", "DispoLevel" };
             string[] productAttributeValues = new string[] { "F4653F00050", "PN", "95", "EOL" };
