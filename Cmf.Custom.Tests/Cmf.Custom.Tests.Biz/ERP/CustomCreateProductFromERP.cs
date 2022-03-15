@@ -72,7 +72,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string messageProductYield = "0.88";
             string messageProductGroup = "MG_PW_1500";
             string messageProductMaximumMaterialSize = "24";
-            string firstProductName = Guid.NewGuid().ToString("N");
+            string firstProductName = "firstProductName";
             string secondProductName = Guid.NewGuid().ToString("N");
             string[] productAttributeNames = new string[] { "SAPProductType", "Technology", "Status", "DispoLevel" };
             string[] productAttributeValues = new string[] { "F4653F00050", "PN", "95", "EOL" };
@@ -242,9 +242,9 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             ///<Step> Validate product attributes. </Step>
             ///<ExpectedValue> The 3 product attributes should be updated. </ExpectedValue>
-            Assert.IsTrue(firstProduct.Attributes[productAttributeNames[0]].Equals(productAttributeValues[0]), $"Product attribute {productAttributeNames[0]} should be {productAttributeValues[0]}, but was {firstProduct.Attributes[productAttributeNames[0]]}");
-            Assert.IsTrue(firstProduct.Attributes[productAttributeNames[1]].Equals(productAttributeValues[1]), $"Product attribute {productAttributeNames[1]} should be {productAttributeValues[1]}, but was {firstProduct.Attributes[productAttributeNames[1]]}");
-            Assert.IsTrue(firstProduct.Attributes[productAttributeNames[2]].Equals(productAttributeValues[2]), $"Product attribute {productAttributeNames[2]} should be {productAttributeValues[2]}, but was {firstProduct.Attributes[productAttributeNames[2]]}");
+            Assert.IsTrue(firstProduct.RelatedAttributes[productAttributeNames[0]].Equals(productAttributeValues[0]), $"Product attribute {productAttributeNames[0]} should be {productAttributeValues[0]}, but was {firstProduct.RelatedAttributes[productAttributeNames[0]]}");
+            Assert.IsTrue(firstProduct.RelatedAttributes[productAttributeNames[1]].Equals(productAttributeValues[1]), $"Product attribute {productAttributeNames[1]} should be {productAttributeValues[1]}, but was {firstProduct.RelatedAttributes[productAttributeNames[1]]}");
+            Assert.IsTrue(firstProduct.RelatedAttributes[productAttributeNames[2]].Equals(productAttributeValues[2]), $"Product attribute {productAttributeNames[2]} should be {productAttributeValues[2]}, but was {firstProduct.RelatedAttributes[productAttributeNames[2]]}");
         }
     }
 }
