@@ -24,5 +24,13 @@
       "Action": "CustomNiceLabelPrint",
       "Order": "1"
     }
+  },
+  "<SM>Config": {
+    "1": {
+      "ParentPath": "/Cmf/Custom/Automation",
+      "Name": "NiceLabelPrintResource",
+      "Value": "NiceLabelPrinter",
+      "ValueType": "String"
+    }
   }
 }
