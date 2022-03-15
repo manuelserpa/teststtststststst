@@ -254,6 +254,13 @@
       "Lookup Table Value": "Logistical wafer",
       "Lookup Table Value Description": "Logistical Wafer",
       "Lookup Table IsEnabled": ""
+    },
+  "2": {
+      "LookUp Table": "MaterialForm",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Logistical wafer",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "Yes"
     }
   },
   "<DM>SamplingPattern": {
