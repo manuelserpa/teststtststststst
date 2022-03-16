@@ -13,12 +13,12 @@ using AMSOsramEIAutomaticTests.Objects.Extensions;
 using AMSOsramEIAutomaticTests.Objects.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Cmf.Custom.TestUtilities;
-using Cmf.Custom.Tests.IoT.Tests.EvatecClusterline200II;
 using cmConnect.TestFramework.EquipmentSimulator.Objects;
 using Cmf.Foundation.BusinessOrchestration.QueryManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.QueryManagement.OutputObjects;
 using System.Data;
 using Cmf.Foundation.BusinessObjects.QueryObject;
+using Cmf.Custom.Tests.IoT.Tests.Common;
 
 namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 {
@@ -719,10 +719,12 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             }*/
 
             reply.Item.Clear();
-  
+            var attributeList = new SecsItem();
+            attributeList.SetTypeToList();
 
-            var jobItem = new SecsItem { ASCII = "Job1" };
+            var jobItem = new SecsItem { ASCII = controlJobName };
 
+            //mainList.Add(jobItem);
 
             var reportList = new SecsItem();
             reportList.SetTypeToList();
@@ -735,6 +737,10 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
             var errorList = new SecsItem();
             errorList.SetTypeToList();
+
+            reportList.Add(ack);
+            reportList.Add(errorList);
+
 
             if (createControlJobDenied)
             {
@@ -749,13 +755,9 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
                 errorList.Add(error);
             }
 
-            ackList.Add(ack);
-
-            ackList.Add(errorList);
-
             reply.Item.Add(jobItem);
+            reply.Item.Add(attributeList);
             reply.Item.Add(reportList);
-            reply.Item.Add(ackList);
             return true;
         }
 

@@ -1,0 +1,283 @@
+{
+  "Index": {
+    "1": {
+      "Tab Name": "Index",
+      "Object Type": "",
+      "Description": "Have the description for each tab in the excel",
+      "Execution Order": "0"
+    },
+    "2": {
+      "Tab Name": "Formats",
+      "Object Type": "",
+      "Description": "Have the specific cell content format for specific tabs and columns",
+      "Execution Order": "0"
+    },
+    "3": {
+      "Tab Name": "Assumptions",
+      "Object Type": "",
+      "Description": "Have assumptions for each tab",
+      "Execution Order": "0"
+    },
+    "4": {
+      "Tab Name": "WorksheetNameMapping",
+      "Object Type": "",
+      "Description": "Used to workaround the 31-character limit of the excel worksheet name. \nDefine your tab name using the tag <LOOKUP> and append a shortname for the object (e.g, <LOOKUP>MySmartTable). Then, in this tab,  map it to the tab name you would define otherwise (e.g, MySmartTable/<ST>TheRealNameForMySmartTable).",
+      "Execution Order": "0"
+    }
+  },
+  "Enums": {
+    "ScheduleCriteria": [
+      "MaximimizePriorityFulfilment",
+      "MaximizeResourceUtilization",
+      "MinimizeDeviationFromDeliveryDates",
+      "MinimizeLateMaterials",
+      "MinimizeMaximumLateness",
+      "MinimizeNumberOfLateMaterials",
+      "MinimizePriorityQuantityWeigthedCycleTime",
+      "MinimizePriorityWeightedLateness",
+      "MinimizeQuantityWeightedCycleTime",
+      "MinimizeSetupTimes",
+      "MinimizeTotalWaitingTime"
+    ],
+    "SchedulingType": [
+      "Machine",
+      "Batch",
+      "Tunnel"
+    ],
+    "ContentStorageType": [
+      "Internal",
+      "External"
+    ],
+    "StepSetupCharacteristic": [
+      "Service",
+      "Product",
+      "ProductGroup",
+      "Recipe"
+    ],
+    "AreaType": [
+      "Area",
+      "StorageArea",
+      "ProductionLine"
+    ],
+    "ProcessingType": [
+      "Process",
+      "Storage",
+      "LoadPort",
+      "ConsumableFeed",
+      "Durable",
+      "Instrument",
+      "Transport",
+      "Line"
+    ],
+    "KPIDimensionSource": [
+      "BusinessRule",
+      "OperationalDataStore",
+      "DataWarehouse",
+      "Cubes"
+    ],
+    "KPISourceType": [
+      "Static",
+      "Dynamic"
+    ],
+    "ScheduleSortingRule": [
+      "PossibleStartDate",
+      "Priority",
+      "ExecutionTime",
+      "MaterialName",
+      "Quantity",
+      "CharacteristicOfItemAtResource",
+      "DueDate",
+      "ItemCode"
+    ],
+    "DispatchScheduleType": [
+      "Dispatching",
+      "Scheduling"
+    ],
+    "DefaultSamplingType": [
+      "CounterBased",
+      "TimeBased",
+      "CounterAndTimeBased"
+    ],
+    "Frequency": [
+      "Daily",
+      "Weekly",
+      "Monthly",
+      "Yearly"
+    ],
+    "ReorderMode": [
+      "Automatic",
+      "None"
+    ],
+    "MaterialLogisticsMode": [
+      "None",
+      "Material",
+      "Product"
+    ],
+    "MaintenanceActivityScheduleMode": [
+      "Earliest",
+      "Latest"
+    ],
+    "KPIDimensionValueType": [
+      "DataValue",
+      "DataSeries"
+    ],
+    "RuleSortingDirection": [
+      "Ascending",
+      "Descending"
+    ],
+    "TimeScale": [
+      "Days",
+      "Hours",
+      "Minutes",
+      "Seconds"
+    ],
+    "SamplingContext": [
+      "MaterialType",
+      "MaterialProduct",
+      "MaterialProductMaturity",
+      "MaterialResource",
+      "MaterialStep",
+      "MaterialStepMaturity"
+    ],
+    "BOMScope": [
+      "MaterialTracking",
+      "MaintenanceManagement"
+    ],
+    "TimeDueScale": [
+      "Hours",
+      "Days",
+      "Weeks",
+      "Months",
+      "Years"
+    ],
+    "MoistureSensitivityLevel": [
+      "1",
+      "2",
+      "2a",
+      "3",
+      "4",
+      "5",
+      "5a",
+      "6"
+    ],
+    "StepInspectionSeveritySwitchingRuleFilterType": [
+      "Time",
+      "LastOccurrences"
+    ],
+    "StepInspectionSeveritySwitchingRuleDirection": [
+      "Tightening",
+      "Reducing"
+    ],
+    "FutureLogisticActionExecutionMode": [
+      "Manual",
+      "Automatic"
+    ],
+    "DefaultScheduleView": [
+      "Day",
+      "Week",
+      "Month"
+    ],
+    "MaintenanceInstanceType": [
+      "Resource",
+      "Container"
+    ],
+    "KPIType": [
+      "Maximum",
+      "Minimum",
+      "Deviation"
+    ],
+    "InstancesToSchedulePattern": [
+      "NumberOfInstances",
+      "Duration"
+    ],
+    "ProductType": [
+      "FinishedGood",
+      "SemiFinishedGood",
+      "RawMaterial",
+      "Part",
+      "Durable"
+    ],
+    "StepInspectionSeverityContextInformationContext": [
+      "MaterialType",
+      "Product",
+      "ProductGroup",
+      "Resource",
+      "Model",
+      "ResourceType",
+      "Flow"
+    ],
+    "IoTSchemaPropertyDataType": [
+      "Long",
+      "Decimal",
+      "DateTime",
+      "Boolean",
+      "String",
+      "Integer",
+      "Url",
+      "Date",
+      "Time",
+      "IoTSchema",
+      "EntityType",
+      "File"
+    ]
+  },
+  "WorksheetNameMapping": {
+    "1": {
+      "WorksheetName": "IntegrationHandler",
+      "Value": "<ST>IntegrationHandlerResolution"
+    }
+  },
+  "<SM>DEEAction": {
+    "1": {
+      "Action": "CustomProcessProductsFromERP",
+      "Description": "Create an Integration Entry by Product in ERP Message",
+      "CodeFileRelativePath": "Integrations\\CustomProcessProductsFromERP.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "2": {
+      "Action": "CustomProcessProduct",
+      "Description": "Import Product information to MES",
+      "CodeFileRelativePath": "MasterData\\CustomProcessProduct.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    }
+  },
+  "<SM>LookupTableValues": {
+    "1": {
+      "LookUp Table": "MessageType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "PerformProductMasterData",
+      "Lookup Table Value Description": "Product Integration Entry message",
+      "Lookup Table IsEnabled": "Yes"
+    },
+	"2": {
+      "LookUp Table": "MessageType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "PerformProductsMasterData",
+      "Lookup Table Value Description": "Message sent by ERP",
+      "Lookup Table IsEnabled": "Yes"
+    }
+  },
+  "DEEActionOrder": {},
+  "<LOOKUP>IntegrationHandler": {
+    "1": {
+      "FromSystem": "ERP",
+      "ToSystem": "MES",
+      "MessageType": "PerformProductsMasterData",
+      "HandlerType": "GenericIntegrationHandler",
+      "ActionName": "CustomProcessProductsFromERP",
+      "ErrorHandlingActionName": "",
+      "IsEnabled": "Yes"
+    },
+    "2": {
+      "FromSystem": "MES",
+      "ToSystem": "MES",
+      "MessageType": "PerformProductMasterData",
+      "HandlerType": "GenericIntegrationHandler",
+      "ActionName": "CustomProcessProduct",
+      "ErrorHandlingActionName": "",
+      "IsEnabled": "Yes"
+    }
+  }
+}

@@ -1,0 +1,339 @@
+{
+	"tasks": [
+		{
+			"id": "task_135964",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ProcessStarted",
+					"IsShared": true,
+					"Name": "ProcessStarted"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialName"
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerName"
+						}
+					},
+					{
+						"name": "LoadPortId",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LoadPortId"
+						}
+					},
+					{
+						"name": "IsBatchAction",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "IsBatchAction"
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "MaterialDataObjects",
+						"valueType": {
+							"friendlyName": "MaterialDataObjects",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Process Started Workflow"
+			}
+		},
+		{
+			"id": "task_51951",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CtrlJobID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "ControlJob:5:Selected-Executing"
+					}
+				]
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_80878",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        const ctrlJobID = inputs.CtrlJobID;",
+					"        let materialName = ctrlJobID.replace(\"CtrlJob_\", \"\");",
+					"        // emit output during execution: outputs.output1.emit(\"something\");",
+					"        return { MaterialName: materialName};",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IGN0cmxKb2JJRCA9IGlucHV0cy5DdHJsSm9iSUQ7DQogICAgICAgIGxldCBtYXRlcmlhbE5hbWUgPSBjdHJsSm9iSUQucmVwbGFjZSgiQ3RybEpvYl8iLCAiIik7DQogICAgICAgIC8vIGVtaXQgb3V0cHV0IGR1cmluZyBleGVjdXRpb246IG91dHB1dHMub3V0cHV0MS5lbWl0KCJzb21ldGhpbmciKTsNCiAgICAgICAgcmV0dXJuIHsgTWF0ZXJpYWxOYW1lOiBtYXRlcmlhbE5hbWUgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
+				"inputs": [
+					{
+						"name": "CtrlJobID",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "CtrlJobID"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"friendlyName": "MaterialName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringToEntityInstance",
+			"reference": {
+				"name": "stringToEntityInstance",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "7501f823-7549-401e-b145-82a49a19c929",
+			"sourceId": "task_51951",
+			"targetId": "task_80878",
+			"inputName": "activate",
+			"outputName": "$CtrlJobID"
+		},
+		{
+			"id": "068c0462-d0be-4a04-a5cc-4e1261bb0574",
+			"sourceId": "task_80878",
+			"targetId": "task_135964",
+			"inputName": "MaterialNameIn",
+			"outputName": "MaterialNameOut"
+		},
+		{
+			"id": "b16dbfe8-3bb5-4e16-b0ce-bace1593ad11",
+			"sourceId": "task_80878",
+			"targetId": "task_135964",
+			"inputName": "activate",
+			"outputName": "MaterialNameOut"
+		},
+		{
+			"id": "481c7ead-7539-4957-9bb3-0969f6fea668",
+			"sourceId": "task_51951",
+			"targetId": "task_80878",
+			"inputName": "CtrlJobIDIn",
+			"outputName": "$CtrlJobID"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff80",
+			"notes": [
+				{
+					"id": "note_53240",
+					"name": "TosProcessStarted",
+					"value": "<p><strong>What it does:</strong></p><p>Updates MaterialData state from Setup to In Process.</p><p>Updates MES Material CustomMaterialStateModel state (Main State Model State) to In Progress.</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to TosProcessStarted for the Tool;</li><li>Use the information received to drive the Process Started workflow;</li><li>Pass any event Output to the Activate Input of the Workflow; </li></ol><p><strong>Note:</strong><strong></strong></p><p>The Workflow Process Start will try to retrieve the MaterialData using the inputs following the next logic:<br /><br /></p><ol><li>If the materialName is available retrieve the corresponding materialData;</li><li>If the containerName is available retrieve the materialData which references it on containerName;</li><li>If the loadPortId is passed it will use a match using load port id and materialState defined on the settings;</li><li>If no information is available on the inputs, if defined, use the materialState defined on the settings to retrieve the first (oldest) materialData available in the persistence;</li><li>If none of this criteria corresponds to available information, return an error.</li></ol><p>The logic described before will be triggered by order, but only one the first matching selection criteria will be run. If the criteria fails to return a materialData an Error will be returned.<br /><br />If a material is found, then it sets its state to the state defined in the setting parameter Material To Set, update the materialData on persistence. When successful output the updated materialData on the output material.</p><p>If IsBatch input is passed as True all the MaterialData that match the inputs, and corresponding Material on MES, will be set to the new state, if not passed or passed as False only the first one will be actuated.&nbsp;</p>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_135964": {
+						"collapsed": false,
+						"position": {
+							"x": 1448,
+							"y": 191
+						},
+						"outdated": false
+					},
+					"task_51951": {
+						"collapsed": false,
+						"position": {
+							"x": 400,
+							"y": 228
+						},
+						"outdated": false
+					},
+					"task_80878": {
+						"collapsed": false,
+						"position": {
+							"x": 898,
+							"y": 308
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"7501f823-7549-401e-b145-82a49a19c929": {
+						"vertices": []
+					},
+					"068c0462-d0be-4a04-a5cc-4e1261bb0574": {
+						"vertices": []
+					},
+					"b16dbfe8-3bb5-4e16-b0ce-bace1593ad11": {
+						"vertices": []
+					},
+					"481c7ead-7539-4957-9bb3-0969f6fea668": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_53240": {
+						"collapsed": false,
+						"position": {
+							"x": 1920,
+							"y": 50
+						}
+					}
+				},
+				"zoom": 0.74,
+				"pan": {
+					"x": 173.33334350585938,
+					"y": 53.333335876464844
+				}
+			}
+		}
+	}
+}

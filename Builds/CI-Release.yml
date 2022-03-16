@@ -357,6 +357,7 @@ stages:
                   Invoke-Command -ComputerName $(ServerAddress) -ScriptBlock $sc | Out-Host
                 }
                 catch { throw (" *  Invoke-Command ERROR " + $_) }
+            enabled: false
 
           # Customization Installation
           - task: PowerShell@2
@@ -436,6 +437,7 @@ stages:
                   Invoke-Command -ComputerName $(ServerAddress) -ScriptBlock $sc | Out-Host
                 }
                 catch { throw (" *  Invoke-Command ERROR " + $_) }
+            enabled: false
 
           # Clean
           - task: PostBuildCleanup@3
