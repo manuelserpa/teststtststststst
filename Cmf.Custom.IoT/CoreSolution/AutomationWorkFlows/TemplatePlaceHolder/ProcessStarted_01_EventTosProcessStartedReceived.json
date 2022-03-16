@@ -53,6 +53,28 @@
 						}
 					},
 					{
+						"name": "ControlJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ControlJobId"
+						}
+					},
+					{
+						"name": "ProcessJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ProcessJobId"
+						}
+					},
+					{
 						"name": "IsBatchAction",
 						"valueType": {
 							"type": 3,
@@ -193,10 +215,10 @@
 						}
 					}
 				},
-				"zoom": 0.6399999999999999,
+				"zoom": 0.6799999999999999,
 				"pan": {
-					"x": 12.714301707373465,
-					"y": 5.539705914194883
+					"x": 61.372528999363,
+					"y": 27.32143047733888
 				}
 			}
 		}

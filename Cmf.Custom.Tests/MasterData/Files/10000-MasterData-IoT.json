@@ -857,6 +857,15 @@
 			"MonitorPackageVersion": "8.3.3-202201212",
 			"ManagerPackageVersion": "8.3.3-202201212",
 			"Configuration": ""
+		},
+		"3": {
+			"Name": "MuetecDaVinci",
+			"Description": "MECD0101",
+			"Type": "General",
+			"LogicalAddress": "MECD0101",
+			"MonitorPackageVersion": "8.3.3-202201212",
+			"ManagerPackageVersion": "8.3.3-202201212",
+			"Configuration": ""
 		}
 	},
 	"<LOOKUP>AutomationInstances": {
@@ -883,6 +892,18 @@
 			"AutomationManager": "NiceLabel",
 			"DriverName": "FileDriver",
 			"EntityName": "NiceLabelPrinter"
+		},
+		"5": {
+			"AutomationController": "MuetecDaVinciController",
+			"AutomationManager": "MuetecDaVinci",
+			"DriverName": "",
+			"EntityName": "MECD0101"
+		},
+		"6": {
+			"AutomationController": "MuetecDaVinciController",
+			"AutomationManager": "MuetecDaVinci",
+			"DriverName": "SecsGemEquipment",
+			"EntityName": "MECD0101"
 		}
 	}
 }

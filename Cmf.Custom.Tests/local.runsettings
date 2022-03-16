@@ -69,6 +69,12 @@
 					   library ="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"
 					   >
 			</Equipment>
+			<Equipment name="MECD0101" automationManager="MuetecDaVinci" driverAlias="SecsGemEquipment"
+							 description="SecsGemEquipment" driver="SecsGem" port="5012" serviceMachine="vm-ams-osram"
+							 serviceName="ConnectIoT (MECD0101)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\MECD0101\remoteTestingConfig.json"
+					   library ="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"
+					   >
+			</Equipment>
 		</Equipments>
 	</connectIotAutomaticTests>
 </RunSettings>

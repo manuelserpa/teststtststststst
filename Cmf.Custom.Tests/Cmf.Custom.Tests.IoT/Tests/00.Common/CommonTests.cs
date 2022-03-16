@@ -326,18 +326,22 @@ namespace AMSOsramEIAutomaticTests
 
         private void EnsureLoadPortStartConditions(Resource resource)
         {
-            //var resourceHierarchy = resource.GetDescendentResources();
+            var resourceHierarchy = resource.GetDescendentResources();
 
-            //var loadPorts = resourceHierarchy.Where(s => s.ChildResource.ProcessingType == ProcessingType.LoadPort).Select(s => s.ChildResource).ToList();
+            var loadPorts = resourceHierarchy.Where(s => s.ChildResource.ProcessingType == ProcessingType.LoadPort).Select(s => s.ChildResource).ToList();
 
-            //if(loadPorts.Count > 0)
-            //{
-            //    foreach(var lp in loadPorts)
-            //    {
-            //        lp.Load();
-            //        lp.AdjustState("Available");
-            //    }
-            //}
+            if (loadPorts.Count > 0)
+            {
+                foreach (var lp in loadPorts)
+                {
+                    lp.Load();
+                    if (lp.CurrentMainState.StateModel.Name == "CustomLoadPortStateModel")
+                    {
+                        lp.AdjustState("ReadyToUnload");
+                    }
+
+                }
+            }
 
         }
 
@@ -908,6 +912,29 @@ namespace AMSOsramEIAutomaticTests
                 }
                 return materialPersistenceObj == null;
             });
+
+
+        }
+
+        public void ValidatePersistenceContainerExists(int loadPortNumber, string containerName = "")
+        {
+            if(string.IsNullOrEmpty(containerName))
+            {
+                var containerPersistenceObj = new StoredItem();
+                TestUtilities.WaitFor(ValidationTimeout, String.Format($"Container for LP {loadPortNumber} should exist on persistence"), () =>
+                {
+                    try
+                    {
+                        containerPersistenceObj = (this.Equipment.BaseImplementation as IoTEquipment).Persistency.StoredItems.FirstOrDefault(p => p.Identifier.EndsWith($"LoadPort_{loadPortNumber}"));
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                    return (containerPersistenceObj != null);
+                });
+            }
+            
 
 
         }
