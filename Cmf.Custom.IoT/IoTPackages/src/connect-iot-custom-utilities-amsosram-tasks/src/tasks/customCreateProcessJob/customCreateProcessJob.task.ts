@@ -4,6 +4,7 @@ import i18n from "./i18n/customCreateProcessJob.default";
 import { SecsGem } from "../../common/secsGemItem"
 import { SecsItem } from "../../common/secsItem";
 import { SubMaterialStateEnum } from "../../persistence/model/subMaterialData";
+import { MaterialData, MovementData } from "../../persistence/";
 
 /**
  * @whatItDoes
@@ -87,7 +88,7 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
             // It is advised to reset the activate to allow being reactivated without the value being different
             this.activate = undefined;
 
-            let material;
+            let material: MaterialData;
             if (Array.isArray(this.MaterialData)) {
                 material = this.MaterialData[0];
             } else {
@@ -96,7 +97,6 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
             material.ProcessJobId = `PrJob_${material.MaterialName}`;
             try {
                 const carrierContentWrapper = [];
-                const carrierContent = [];
                 const recipeContent = [];
                 const sendMessage: Object = {
                     type: "S16F11", item: {
@@ -117,17 +117,36 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
                 recipeContent.push({ type: "L", value: this.RecipeParameterList }); // Empty parameter list
 
                 if (this.SendCarrierContent) {
+                    if (!material.SorterJobInformation) {
+                        const slotMap = [];
+                        const carrierContent = { type: "L", value: [
+                            { type: "A", value: material.ContainerName }, // Carrier Content
+                            { type: "L", value: slotMap } // Empty parameter list
+                         ]};
+                         carrierContentWrapper.push(carrierContent);
+                         material.SubMaterials.forEach(s => {
+                            if (s.MaterialState === SubMaterialStateEnum.Queued) {
+                                slotMap.push({ type: "U1", value: s.Slot })
+                            }
+                         });
+                   } else {
+                    const sorterMovementList = JSON.parse(material.SorterJobInformation.MovementList);
+                    sorterMovementList.forEach(element => {
+                        const movementData: MovementData = <MovementData> element;
+                        const sourceContainer = movementData.SourceContainer;
+                        const sourceSlot = movementData.SourcePosition;
+                        let carrierContent = carrierContentWrapper.find(c => c.value[0].value === sourceContainer);
 
-                    carrierContentWrapper.push({ type: "L", value: carrierContent });
-                    const slotMap = [];
-                    carrierContent.push({ type: "A", value: material.ContainerName }); // Carrier Content
-                    carrierContent.push({ type: "L", value: slotMap }); // Empty parameter list
-
-                    material.SubMaterials.forEach(s => {
-                        if (s.MaterialState === SubMaterialStateEnum.Queued) {
-                            slotMap.push({ type: "U1", value: s.Slot })
-                        }
+                        if (!carrierContent) {
+                            carrierContent = { type: "L", value: [
+                                { type: "A", value: sourceContainer }, // Carrier Content
+                                { type: "L", value: [] } // Empty parameter list
+                             ]};
+                             carrierContentWrapper.push(carrierContent);
+                          }
+                          carrierContent.value[1].value.push({ type: "U1", value: sourceSlot })
                     });
+                   }
                 }
 
 
