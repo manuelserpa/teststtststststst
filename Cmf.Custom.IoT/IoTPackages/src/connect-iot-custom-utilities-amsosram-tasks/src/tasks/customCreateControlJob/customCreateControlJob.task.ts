@@ -3,6 +3,7 @@ import i18n from "./i18n/customCreateControlJob.default";
 
 import { SecsGem } from "../../common/secsGemItem"
 import { SecsItem } from "../../common/secsItem";
+import { MaterialData, MovementData} from "../../persistence"
 
 
 /**
@@ -33,6 +34,7 @@ import { SecsItem } from "../../common/secsItem";
         StartMethod: Task.TaskValueType.Boolean,
         PauseEvents: Task.TaskValueType.Object,
         MtrlOutByStatus: Task.TaskValueType.Object,
+        ProcessingControlSpecification: Task.TaskValueType.Object,
         DataCollectionPlan: Task.TaskValueType.Object,
         activate: Task.INPUT_ACTIVATE
     },
@@ -57,8 +59,8 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
     public StartMethod: boolean = false;
     public PauseEvent: any = undefined;
     public MtrlOutByStatus: any = undefined;
+    public ProcessingControlSpecification: any = undefined;
     public DataCollectionPlan: any = undefined;
-
     /** **Outputs** */
     /** To output a success notification */
     public success: Task.Output<boolean> = new Task.Output<boolean>();
@@ -86,11 +88,70 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
             // It is advised to reset the activate to allow being reactivated without the value being different
             this.activate = undefined;
 
-            let material;
+            let material: MaterialData;
             if (Array.isArray(this.MaterialData)) {
                 material = this.MaterialData[0];
             } else {
                 material = this.MaterialData;
+            }
+
+            // calculate MaterialOutSpec based on input or sorter job information (if existing) and calculate Carrier Input Spec
+            const carrierInputSpec = [];
+            let materialMovement = this.MaterialMovement;
+            if (!materialMovement) {
+                materialMovement = [];
+                if (material.SorterJobInformation) {
+                    const sorter = material.SorterJobInformation;
+//                    if (material.SorterJobInformation.LogisticalProcess === "MapCarrier") {
+//                        carrierInputSpec.push({ type: "A", value: material.ContainerName }) // Carrier Name
+//                    } else {
+                       const sorterMovementList = JSON.parse(material.SorterJobInformation.MovementList);
+                       sorterMovementList.forEach(element => {
+                          const movementData: MovementData = <MovementData> element;
+                          const destinationContainer = movementData.DestinationContainer;
+                          const destinationSlot = movementData.DestinationPosition
+                          const sourceContainer = movementData.SourceContainer;
+                          const sourceSlot = movementData.SourcePosition;
+                          let transferPair = materialMovement.find(c => c.value[0].value[0].value === sourceContainer
+                            && c.value[0].value[1].value === destinationContainer);
+
+                          if (!transferPair) {
+                                transferPair = { type: "L", value: [
+                                    {
+                                        type: "L", value: [
+                                            { type: "A", value: sourceContainer }, // source container
+                                            { type: "L", value: [] }, // slot list
+                                            ]
+                                    },
+                                    {
+                                        type: "L", value: [
+                                            { type: "A", value: destinationContainer }, // destination container
+                                            { type: "L", value: [] }, // slot list
+                                        ]
+                                    }]
+                                };
+                                materialMovement.push(transferPair);
+                                // check if source container is on container input
+                                if (!carrierInputSpec.find(c => c.value === sourceContainer)) {
+                                    carrierInputSpec.push( { type: "A", value: sourceContainer })
+                                }
+                                // check ig target container is on container input
+                                if (!carrierInputSpec.find(c => c.value === destinationContainer)) {
+                                    carrierInputSpec.push( { type: "A", value: destinationContainer })
+                                }
+                            }
+
+                            transferPair.value[0].value[1].value.push({ type: "U1", value: sourceSlot })
+                            transferPair.value[0].value[1].value.push({ type: "U1", value: destinationSlot })
+                          });
+//                    }
+
+                } else {
+                   if (material.ContainerName) { // if no container used, spec allows for empty list
+                   // if no sorter job exists push Container name to Carrier Input Spec
+                   carrierInputSpec.push( { type: "A", value: material.ContainerName }) // Carrier Name
+                   }
+                }
             }
             material.ControlJobId = `CtrlJob_${material.MaterialName}`;
             try {
@@ -106,7 +167,8 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                     objectContent.push({
                         type: "L", value: [
                             { type: "A", value: "DataCollectionPlan" }, // Data Collection Plan
-                            { type: "L", value: [] }, // Identifier for a data collection plan to be used during execution of the control job.
+                            { type: "L", value: this.DataCollectionPlan },
+                            // Identifier for a data collection plan to be used during execution of the control job.
                         ]
                     });
                 }
@@ -117,9 +179,7 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                         {
                             // A list of carrierID for material that will be used by the ControlJob.
                             // An empty list is allowed.
-                            type: "L", value: [
-                                { type: "A", value: material.ContainerName }, // Carrier Name
-                            ]
+                            type: "L", value: carrierInputSpec
                         }
                     ]
                 });
@@ -127,7 +187,7 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                 objectContent.push({
                     type: "L", value: [
                         { type: "A", value: "MtrlOutSpec" }, // material movement Inputs
-                        { type: "L", value: [] },  // Maps material from source to destination after processing.
+                        { type: "L", value: materialMovement },  // Maps material from source to destination after processing.
                         // For uni-carrier operation, the list shall be empty.
                         // The list shall also be empty, if CarrierInputSpec is an empty list
                     ]
@@ -137,7 +197,7 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                     objectContent.push({
                         type: "L", value: [
                             { type: "A", value: "MtrlOutByStatus" }, // Material Output by status
-                            { type: "L", value: [] }, // List structure which maps locations or Carriers
+                            { type: "L", value: this.MtrlOutByStatus }, // List structure which maps locations or Carriers
                             // where processed material will be placed based on material status
                         ]
                     });
@@ -147,26 +207,36 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                     objectContent.push({
                         type: "L", value: [
                             { type: "A", value: "PauseEvent" }, // Pause Event
-                            { type: "L", value: [] }, // Identifier of a list of events on which the Control Job shall PAUSE.
+                            { type: "L", value: this.PauseEvent }, // Identifier of a list of events on which the Control Job shall PAUSE.
                         ]
                     });
                 }
 
-                objectContent.push({
-                    type: "L", value: [
-                        { type: "A", value: "ProcessingCtrlSpec" }, // Carrier Inputs
-                        {
-                            // A list of structures that defines the process jobs and rules for running each that will be run within this ControlJob.
-                            type: "L", value: [{
-                                type: "L", value: [
-                                    { type: "A", value: material.ProcessJobId },
-                                    { type: "L", value: [] },
-                                    { type: "L", value: [] },
-                                ]
-                            }]
-                        },
-                    ]
-                });
+                if (this.ProcessingControlSpecification) {
+                    objectContent.push({
+                        type: "L", value: [
+                            { type: "A", value: "ProcessingCtrlSpec" }, // Carrier Inputs
+                            {
+                                // A list of structures that defines the process jobs and rules for running each that will be run within this ControlJob.
+                                type: "L", value: this.ProcessingControlSpecification
+                            }]});
+                } else {
+                    objectContent.push({
+                        type: "L", value: [
+                            { type: "A", value: "ProcessingCtrlSpec" }, // Carrier Inputs
+                            {
+                                // A list of structures that defines the process jobs and rules for running each that will be run within this ControlJob.
+                                type: "L", value: [{
+                                    type: "L", value: [
+                                        { type: "A", value: material.ProcessJobId },
+                                        { type: "L", value: [] },
+                                        { type: "L", value: [] },
+                                    ]
+                                }]
+                            },
+                        ]
+                    })
+                }
                 objectContent.push({
                     type: "L", value: [
                         { type: "A", value: "ProcessOrderMgmt" }, // ProcessOrderMgmt

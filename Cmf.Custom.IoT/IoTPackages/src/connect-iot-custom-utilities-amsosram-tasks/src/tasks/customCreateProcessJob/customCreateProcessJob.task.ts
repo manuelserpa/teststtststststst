@@ -179,4 +179,8 @@ export enum RecipeSpecificationType {
     RecipeWithVariableTuning = 2
 }
 
+export enum MaterialFormat {
+    Carriers = 0x0d,
+    Substrate = 0x0e
+}
 
