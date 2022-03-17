@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -26,6 +27,116 @@ namespace Cmf.Custom.AMSOsram.Common
     /// </summary>
     public static class AMSOsramUtilities
     {
+        #region Generic
+
+        /// <summary>
+        /// Get Value as nullable decimal
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static decimal? GetValueAsNullableDecimal(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return null;
+            }
+
+            return decimal.Parse(value.Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), NumberStyles.Number | NumberStyles.AllowExponent);
+        }
+
+        /// <summary>
+        /// Get Value as nullable boolean
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool? GetValueAsNullableBoolean(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return null;
+            }
+
+            // True: Possible values 
+            string[] positiveValues = { "y", "true", "yes", "1" };
+
+            if (positiveValues.Contains(value, StringComparer.InvariantCultureIgnoreCase))
+            {
+                return true;
+            }
+
+            // False: Possible values
+            string[] negativeValues = { "n", "false", "no", "0" };
+
+            if (negativeValues.Contains(value, StringComparer.InvariantCultureIgnoreCase))
+            {
+                return false;
+            }
+
+            return default(bool?);
+        }
+
+        /// <summary>
+        /// Get Value as decimal
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static decimal GetValueAsDecimal(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return default(decimal);
+            }
+
+            return decimal.Parse(value.Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), NumberStyles.Number | NumberStyles.AllowExponent);
+        }
+
+        /// <summary>
+        /// Get Value as boolean
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static bool GetValueAsBoolean(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return false;
+            }
+
+            string[] booleanValues = { "y", "true", "yes", "1" };
+
+            if (booleanValues.Contains(value, StringComparer.InvariantCultureIgnoreCase))
+            {
+                return true;
+            }
+
+            return default(bool);
+        } 
+
+        /// <summary>
+        /// Determines whether the collection is null or contains no elements.
+        /// </summary>
+        /// <typeparam name="T">The IEnumerable type.</typeparam>
+        /// <param name="enumerable">The enumerable, which may be null or empty.</param>
+        /// <returns>
+        ///     <c>true</c> if the IEnumerable is null or empty; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> enumerable)
+        {
+            if (enumerable == null)
+            {
+                return true;
+            }
+            /* If this is a list, use the Count property for efficiency.
+			 * The Count property is O(1) while IEnumerable.Count() is O(N). */
+            var collection = enumerable as ICollection<T>;
+            if (collection != null)
+            {
+                return collection.Count < 1;
+            }
+            return !enumerable.Any();
+        }
+
+        #endregion
 
         #region Configs
 
