@@ -20,4 +20,4 @@ After the action is triggered:
     * If the validation is **successful** the system will create/update Product using body message.
 2. If any problem occurs during the process, the error will be associated with the Integration Entry.
 
-![IECreateProductError](/assets/techspec/images/IECreateProductError.png)
+![IECreateProductError](images/IECreateProductError.png)

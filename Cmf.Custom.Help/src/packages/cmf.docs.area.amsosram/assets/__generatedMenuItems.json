@@ -132,6 +132,12 @@
    "actionId": ""
 },
 {
+   "id": "customassociatesorterjobdefinitiontocontexttable",
+   "menuGroupId": "deeactions",
+   "title": "CustomAssociateSorterJobDefinitionToContextTable",
+   "actionId": ""
+},
+{
    "id": "customautomationadjustloadportstate",
    "menuGroupId": "deeactions",
    "title": "CustomAutomationAdjustLoadPortState",
@@ -147,6 +153,12 @@
    "id": "customgenerateproductionlotnames",
    "menuGroupId": "deeactions",
    "title": "Custom Generate Production Lot Names",
+   "actionId": ""
+},
+{
+   "id": "customgeneratesorterjobdefinitionfromfutureaction",
+   "menuGroupId": "deeactions",
+   "title": "CustomGenerateSorterJobDefinitionFromFutureAction",
    "actionId": ""
 },
 {
@@ -201,6 +213,12 @@
    "id": "customgetresourceloadportsdata",
    "menuGroupId": "exportedobjects",
    "title": "CustomGetResourceLoadPortsData",
+   "actionId": ""
+},
+{
+   "id": "customreclaimcontainertype",
+   "menuGroupId": "generictables",
+   "title": "CustomReclaimContainerType",
    "actionId": ""
 },
 {
@@ -423,6 +441,12 @@
    "id": "erpintegrations",
    "menuGroupId": "features",
    "title": "ERP Integrations",
+   "actionId": ""
+},
+{
+   "id": "generatesorterjobdefinitionfromfutureaction",
+   "menuGroupId": "features",
+   "title": "Generate Sorter Job Definition From Future Action",
    "actionId": ""
 },
 {
