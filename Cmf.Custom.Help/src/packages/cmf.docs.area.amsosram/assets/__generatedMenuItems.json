@@ -162,6 +162,18 @@
    "actionId": ""
 },
 {
+   "id": "customprocessproduct",
+   "menuGroupId": "deeactions",
+   "title": "Custom Process Product",
+   "actionId": ""
+},
+{
+   "id": "customprocessproductsfromerp",
+   "menuGroupId": "deeactions",
+   "title": "Custom Process Products From ERP",
+   "actionId": ""
+},
+{
    "id": "customsendabortinformationtoiot",
    "menuGroupId": "deeactions",
    "title": "CustomSendAbortInformationToIoT",
@@ -405,6 +417,18 @@
    "id": "customstibosystemintegration",
    "menuGroupId": "features",
    "title": "Stibo System Integration",
+   "actionId": ""
+},
+{
+   "id": "erpintegrations",
+   "menuGroupId": "features",
+   "title": "ERP Integrations",
+   "actionId": ""
+},
+{
+   "id": "customproductmasterinformation",
+   "menuGroupId": "erpintegrations",
+   "title": "Product Master Information",
    "actionId": ""
 }
 ]
