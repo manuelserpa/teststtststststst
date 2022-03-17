@@ -3,6 +3,7 @@ import i18n from "./i18n/customMultiCreateProcessJob.default";
 import { SecsGem } from "../../common/secsGemItem"
 import { SecsItem } from "../../common/secsItem";
 import { SubMaterialStateEnum } from "../../persistence/model/subMaterialData";
+import { MaterialData, MovementData } from "../../persistence/";
 
 /**
  * @whatItDoes
@@ -85,7 +86,7 @@ export class CustomMultiCreateProcessJobTask implements Task.TaskInstance, Custo
             // It is advised to reset the activate to allow being reactivated without the value being different
             this.activate = undefined;
 
-            let material;
+            let material: MaterialData;
             if (Array.isArray(this.MaterialData)) {
                 material = this.MaterialData[0];
             } else {
@@ -93,8 +94,7 @@ export class CustomMultiCreateProcessJobTask implements Task.TaskInstance, Custo
             }
             material.ProcessJobId = `PrJob_${material.MaterialName}`;
             try {
-
-                const carrierContent = [];
+                const carrierContentWrapper = [];
                 const recipeContent = [];
 
                 const sendMessage: Object = {
@@ -106,7 +106,7 @@ export class CustomMultiCreateProcessJobTask implements Task.TaskInstance, Custo
                                     type: "L", value: [
                                         { type: "A", value: material.ProcessJobId }, // process job id
                                         { type: "BI", value: Number(this.MaterialFormat) }, // Material format code 0x0e
-                                        { type: "L", value: carrierContent }, // carrier and content (not passed on eqp characterization)
+                                        { type: "L", value: carrierContentWrapper }, // carrier and content (not passed on eqp characterization)
                                         { type: "L", value: recipeContent },   // recipe specification area
                                         { type: "BO", value: this.StartProcess ? 0x01 : 0x00 }, // PRPROCESSSTART
                                         { type: "L", value: this.EventList }, // PRPAUSEEVENT
@@ -122,14 +122,36 @@ export class CustomMultiCreateProcessJobTask implements Task.TaskInstance, Custo
 
 
                 if (this.SendCarrierContent) {
-                    const slotMap = [];
-                    carrierContent.push({ type: "A", value: material.ContainerName }); // Stepper Recipe PPID
-                    carrierContent.push({ type: "L", value: slotMap }); // Empty parameter list
+                    if (!material.SorterJobInformation) {
+                        const slotMap = [];
+                        const carrierContent = { type: "L", value: [
+                            { type: "A", value: material.ContainerName }, // Carrier Content
+                            { type: "L", value: slotMap } // Empty parameter list
+                         ]};
+                         carrierContentWrapper.push(carrierContent);
+                         material.SubMaterials.forEach(s => {
+                            if (s.MaterialState === SubMaterialStateEnum.Queued) {
+                                slotMap.push({ type: "U1", value: s.Slot })
+                            }
+                         });
+                   } else {
+                    const sorterMovementList = JSON.parse(material.SorterJobInformation.MovementList);
+                    sorterMovementList.forEach(element => {
+                        const movementData: MovementData = <MovementData> element;
+                        const sourceContainer = movementData.SourceContainer;
+                        const sourceSlot = movementData.SourcePosition;
+                        let carrierContent = carrierContentWrapper.find(c => c.value[0].value === sourceContainer);
 
-                    material.SubMaterials.forEach(s => {
-                        if (s.MaterialState === SubMaterialStateEnum.Queued) {
-                            slotMap.push({ type: "U1", value: s.Slot})
-                    }});
+                        if (!carrierContent) {
+                            carrierContent = { type: "L", value: [
+                                { type: "A", value: sourceContainer }, // Carrier Content
+                                { type: "L", value: [] } // Empty parameter list
+                             ]};
+                             carrierContentWrapper.push(carrierContent);
+                          }
+                          carrierContent.value[1].value.push({ type: "U1", value: sourceSlot })
+                    });
+                   }
                 }
 
                 const reply = await this._driverProxy.sendRaw("connect.iot.driver.secsgem.sendMessage", sendMessage);
