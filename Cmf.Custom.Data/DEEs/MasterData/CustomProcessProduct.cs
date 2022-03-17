@@ -9,6 +9,7 @@ using Cmf.Navigo.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -112,7 +113,7 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
                 product.IsEnabled = productData.IsEnabled.ToUpper() == "Y" ? true : false;
             }
 
-            product.Yield = Convert.ToDecimal(productData.Yield);
+            product.Yield = Convert.ToDecimal(productData.Yield, CultureInfo.InvariantCulture);
 
             ProductGroup productGroup = new ProductGroup();
             {
@@ -121,7 +122,7 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             product.ProductGroup = productGroup;
 
-            product.MaximumMaterialSize = Decimal.TryParse(productData.MaximumMaterialSize, out decimal maximumMaterialSize) ? maximumMaterialSize : (decimal?)null;
+            product.MaximumMaterialSize = Decimal.TryParse(productData.MaximumMaterialSize, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal maximumMaterialSize) ? maximumMaterialSize : default(decimal?);
             product.FlowPath = productData.FlowPath;
 
             if (productData.UnitConversionFactors != null && productData.UnitConversionFactors.Any())
@@ -130,8 +131,6 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
                 {
                     genericTable.Load("ProductUnitConversionFactors");
                 }
-
-                DataTable unitConversionFactors = new DataTable();
 
                 DataSet dataSet = new DataSet();
 
@@ -173,9 +172,9 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             // TO DO: SubProducts
 
-            product.InitialUnitCost = Convert.ToDecimal(productData.InitialUnitCost);
-            product.FinishedUnitCost = Convert.ToDecimal(productData.FinishedUnitCost);
-            product.CycleTime = Convert.ToDecimal(productData.CycleTime);
+            product.InitialUnitCost = Convert.ToDecimal(productData.InitialUnitCost, CultureInfo.InvariantCulture);
+            product.FinishedUnitCost = Convert.ToDecimal(productData.FinishedUnitCost, CultureInfo.InvariantCulture);
+            product.CycleTime = Convert.ToDecimal(productData.CycleTime, CultureInfo.InvariantCulture);
 
             if (!string.IsNullOrWhiteSpace(productData.IncludeInSchedule))
             {
@@ -207,7 +206,7 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
             if (!string.IsNullOrWhiteSpace(productData.FloorLife))
             {
                 product.FloorLife = Int32.TryParse(productData.FloorLife, out int floorLife) ? floorLife : default(int?);
-                product.FloorLifeUnitOfTime = Enum.TryParse(productData.FloorLifeUnitOfTime, out UnitOfTime floorLifeUnitOfTime) ? floorLifeUnitOfTime : default(UnitOfTime);
+                product.FloorLifeUnitOfTime = Enum.TryParse(productData.FloorLifeUnitOfTime, out UnitOfTime floorLifeUnitOfTime) ? floorLifeUnitOfTime : default(UnitOfTime?);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.RequiresApproval))
@@ -228,9 +227,9 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
                 product.CanSplitForPicking = productData.CanSplitForPicking.ToUpper() == "Y" ? true : false;
             }
 
-            product.MaterialLogisticsDefaultRequestQuantity = Decimal.TryParse(productData.MaterialLogisticsDefaultRequestQuantity, out decimal materialLogisticsDefaultRequestQuantity) ? materialLogisticsDefaultRequestQuantity : (decimal?)null;
-            product.ConsumptionScrap = Convert.ToDecimal(productData.ConsumptionScrap);
-            product.AdditionalConsumptionQuantity = Convert.ToDecimal(productData.AdditionalConsumptionQuantity);
+            product.MaterialLogisticsDefaultRequestQuantity = Decimal.TryParse(productData.MaterialLogisticsDefaultRequestQuantity, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal materialLogisticsDefaultRequestQuantity) ? materialLogisticsDefaultRequestQuantity : default(decimal?);
+            product.ConsumptionScrap = Convert.ToDecimal(productData.ConsumptionScrap, CultureInfo.InvariantCulture);
+            product.AdditionalConsumptionQuantity = Convert.ToDecimal(productData.AdditionalConsumptionQuantity, CultureInfo.InvariantCulture);
 
             if (!string.IsNullOrWhiteSpace(productData.IsEnableForMaintenanceManagement))
             {
