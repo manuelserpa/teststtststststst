@@ -10418,7 +10418,7 @@
       "ApplicableToRework": "",
       "ApplicableToTemporaryOffFlow": ""
     },
-    "161": {
+	"161": {
       "SourceEntity": "Canon I4 - Stepper - L4-00800F043_E",
       "TargetEntity": "Broken",
       "ApplicableToAssemble": "No",
@@ -49856,7 +49856,7 @@
       "ConsumableFeedPositions": ""
     },
     "279": {
-      "Name": "PDSP0101-AL",
+      "Name": "PDSP0101.AL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
       "IsTemplate": "No",
@@ -49877,11 +49877,11 @@
       "AutomationAddress": "",
       "AutomationMode": "",
       "DisplayPath": "",
-      "IsAutoGeneratePositionEnabled": "Yes",
+      "IsAutoGeneratePositionEnabled": "",
       "IsDownloadRecipeCapable": "",
       "IsJobManagementCapable": "",
       "IsNotifyRecipeSelectionChangeCapable": "",
-      "IsProductMixAllowed": "Yes",
+      "IsProductMixAllowed": "",
       "IsRecipeManagementEnabled": "",
       "IsUploadRecipeCapable": "",
       "LoadPortType": "InputOutput",
@@ -49922,7 +49922,7 @@
       "ConsumableFeedPositions": ""
     },
     "280": {
-      "Name": "PDSP0101-BL",
+      "Name": "PDSP0101.BL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
       "IsTemplate": "No",
@@ -49943,11 +49943,11 @@
       "AutomationAddress": "",
       "AutomationMode": "",
       "DisplayPath": "",
-      "IsAutoGeneratePositionEnabled": "Yes",
+      "IsAutoGeneratePositionEnabled": "",
       "IsDownloadRecipeCapable": "",
       "IsJobManagementCapable": "",
       "IsNotifyRecipeSelectionChangeCapable": "",
-      "IsProductMixAllowed": "Yes",
+      "IsProductMixAllowed": "",
       "IsRecipeManagementEnabled": "",
       "IsUploadRecipeCapable": "",
       "LoadPortType": "InputOutput",
@@ -49988,7 +49988,7 @@
       "ConsumableFeedPositions": ""
     },
     "281": {
-      "Name": "PDSP0101-PM01",
+      "Name": "PDSP0101.PM01",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
       "IsTemplate": "No",
@@ -50054,7 +50054,7 @@
       "ConsumableFeedPositions": ""
     },
     "282": {
-      "Name": "PDSP0101-PM02",
+      "Name": "PDSP0101.PM02",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
       "IsTemplate": "No",
@@ -50120,7 +50120,7 @@
       "ConsumableFeedPositions": ""
     },
     "283": {
-      "Name": "PDSP0101-PM03",
+      "Name": "PDSP0101.PM03",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
       "IsTemplate": "No",
@@ -50186,7 +50186,7 @@
       "ConsumableFeedPositions": ""
     },
     "284": {
-      "Name": "PDSP0101-PM04",
+      "Name": "PDSP0101.PM04",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
       "IsTemplate": "No",
@@ -50252,7 +50252,7 @@
       "ConsumableFeedPositions": ""
     },
     "285": {
-      "Name": "PDSP0101-PM05",
+      "Name": "PDSP0101.PM05",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
       "IsTemplate": "No",
@@ -50318,7 +50318,7 @@
       "ConsumableFeedPositions": ""
     },
     "286": {
-      "Name": "PDSP0101-PM06",
+      "Name": "PDSP0101.PM06",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
       "IsTemplate": "No",
@@ -50384,7 +50384,7 @@
       "ConsumableFeedPositions": ""
     },
     "287": {
-      "Name": "MECD0101-1",
+      "Name": "MECD0101.1",
       "Description": "Muetec | CD Overlay Measurement",
       "Type": "Measure",
       "IsTemplate": "No",
@@ -50405,11 +50405,11 @@
       "AutomationAddress": "",
       "AutomationMode": "",
       "DisplayPath": "",
-      "IsAutoGeneratePositionEnabled": "Yes",
+      "IsAutoGeneratePositionEnabled": "",
       "IsDownloadRecipeCapable": "",
       "IsJobManagementCapable": "",
       "IsNotifyRecipeSelectionChangeCapable": "",
-      "IsProductMixAllowed": "Yes",
+      "IsProductMixAllowed": "",
       "IsRecipeManagementEnabled": "",
       "IsUploadRecipeCapable": "",
       "LoadPortType": "InputOutput",
@@ -50450,36 +50450,102 @@
       "ConsumableFeedPositions": ""
     },
     "288": {
-      "Name": "MECD0101-2",
+      "AllowTrackInScheduleOverride": "",
+      "Area": "PhotoLithography",
+      "AutomaticReplenishmentTransferRequirementType": "",
+      "AutomationAddress": "",
+      "AutomationMode": "",
+      "CalibrationStatus": "",
+      "CanProcessInNonWorkingTime": "",
+      "ConsumableFeedPositions": "",
+      "ConsumableFeedType": "",
+      "CostPerHour": "",
+      "CostPerUnit": "",
+      "DefaultScheduleView": "",
+      "DefaultSetupTime": "",
+      "DefaultSetupTimeTimeScale": "",
       "Description": "Muetec | CD Overlay Measurement",
+      "DimensionXSize": "",
+      "DimensionYSize": "",
+      "DispatchScheduleType": "",
+      "DisplayOrder": "2",
+      "DisplayPath": "",
+      "Efficiency": "",
+      "EnableAutomaticReplenishment": "",
+      "FixedCost": "",
+      "HasResourceLocations": "",
+      "HasStorageBins": "",
+      "InstrumentExclusiveUsage": "",
+      "InstrumentType": "",
+      "IsAutoGeneratePositionEnabled": "",
+      "IsDownloadRecipeCapable": "",
+      "IsFloorLifeSafe": "",
+      "IsJobManagementCapable": "",
+      "IsNotifyRecipeSelectionChangeCapable": "",
+      "IsPickingPlace": "",
+      "IsProductMixAllowed": "",
+      "IsRecipeManagementEnabled": "",
+      "IsSubMaterialTrackingEnabled": "No",
+      "IsTemplate": "No",
+      "IsUploadRecipeCapable": "",
+      "LastCalibrationDate": "",
+      "LoadPortType": "InputOutput",
+      "Location": "",
+      "LocationType": "",
+      "MainStateModel": "SEMI E10>Standby",
+      "MaxConcurrentMaterialsInProcess": "",
+      "MinimumBatchCapacityUsage": "",
+      "Model": "Others",
+      "Name": "MECD0101.2",
+      "PositionUnitType": "Container",
+      "Priority": "",
+      "ProcessingType": "LoadPort",
+      "RequireCheckInForResourceOperations": "",
+      "ResourceType": "",
+      "RestrictedToMaterialForm": "",
+      "RunningMode": "",
+      "Saturation": "",
+      "SchedulingType": "",
+      "SerialNumber": "",
+      "Services": "",
+      "SortRuleSet": "",
+      "StartFloorLifeCounterOnRetrieve": "",
+      "SubResources": "",
+      "TransportService": "",
       "Type": "Measure",
+      "Vendor": "MueTec Metrology and Inspection"
+    },
+	"289": {
+      "Name": "NiceLabelPrinter",
+      "Description": "Resource to receive the printing information",
+      "Type": "Process",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",
-      "Vendor": "MueTec Metrology and Inspection",
+      "Vendor": "SPTS",
       "Model": "Others",
       "ResourceType": "",
       "SerialNumber": "",
       "Priority": "",
       "SortRuleSet": "",
-      "Area": "PhotoLithography",
-      "DisplayOrder": "2",
+      "Area": "Start Lot",
+      "DisplayOrder": "10",
       "IsSubMaterialTrackingEnabled": "No",
-      "ProcessingType": "LoadPort",
+      "ProcessingType": "Process",
       "SubResources": "",
       "Services": "",
       "MaxConcurrentMaterialsInProcess": "",
       "AutomationAddress": "",
       "AutomationMode": "",
       "DisplayPath": "",
-      "IsAutoGeneratePositionEnabled": "Yes",
+      "IsAutoGeneratePositionEnabled": "",
       "IsDownloadRecipeCapable": "",
       "IsJobManagementCapable": "",
       "IsNotifyRecipeSelectionChangeCapable": "",
-      "IsProductMixAllowed": "Yes",
+      "IsProductMixAllowed": "",
       "IsRecipeManagementEnabled": "",
       "IsUploadRecipeCapable": "",
-      "LoadPortType": "InputOutput",
-      "PositionUnitType": "Container",
+      "LoadPortType": "",
+      "PositionUnitType": "Material",
       "RestrictedToMaterialForm": "",
       "RunningMode": "",
       "FixedCost": "",
@@ -50513,9 +50579,10 @@
       "LocationType": "",
       "DimensionXSize": "",
       "DimensionYSize": "",
-      "ConsumableFeedPositions": ""
+      "ConsumableFeedPositions": "",
+	    "AutomationEquipmentAddress":"\\\\vm-ams-osram\\IoTTestsAutomationManagers\\PrinterTest"
     },
-    "289": {
+  	"290": {
       "Name": "PDSP0103-AL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -50581,7 +50648,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "290": {
+    "291": {
       "Name": "PDSP0103-BL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -50647,7 +50714,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "291": {
+    "292": {
       "Name": "PDSP0103-PM01",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -50713,7 +50780,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "292": {
+    "293": {
       "Name": "PDSP0103-PM02",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -50779,7 +50846,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "293": {
+    "294": {
       "Name": "PDSP0103-PM03",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -50845,7 +50912,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "294": {
+    "295": {
       "Name": "PDSP0103-PM04",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -50911,7 +50978,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "295": {
+    "296": {
       "Name": "PDSP0103-PM05",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -50977,7 +51044,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "296": {
+    "297": {
       "Name": "PDSP0103-PM06",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -51043,7 +51110,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "297": {
+    "298": {
       "Name": "PDSP0105-AL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -51109,7 +51176,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "298": {
+    "299": {
       "Name": "PDSP0105-BL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -51175,7 +51242,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "299": {
+    "300": {
       "Name": "PDSP0105-PM01",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -51241,7 +51308,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "300": {
+    "301": {
       "Name": "PDSP0105-PM02",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -51307,7 +51374,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "301": {
+    "302": {
       "Name": "PDSP0105-PM03",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -51373,7 +51440,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "302": {
+    "303": {
       "Name": "PDSP0105-PM04",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -51439,7 +51506,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "303": {
+    "304": {
       "Name": "PDSP0105-PM05",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -51505,7 +51572,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "304": {
+    "305": {
       "Name": "PDSP0105-PM06",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -51571,7 +51638,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "305": {
+    "306": {
       "Name": "PDSP0108-AL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -51637,7 +51704,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "306": {
+    "307": {
       "Name": "PDSP0108-BL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -51703,7 +51770,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "307": {
+    "308": {
       "Name": "PDSP0108-PM01",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -51769,7 +51836,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "308": {
+    "309": {
       "Name": "PDSP0108-PM02",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -51835,7 +51902,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "309": {
+    "310": {
       "Name": "PDSP0108-PM03",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -51901,7 +51968,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "310": {
+    "311": {
       "Name": "PDSP0108-PM04",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -51967,7 +52034,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "311": {
+    "312": {
       "Name": "PDSP0108-PM05",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -52033,7 +52100,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "312": {
+    "313": {
       "Name": "PDSP0108-PM06",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -52099,7 +52166,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "313": {
+    "314": {
       "Name": "PDSP0110-AL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -52165,7 +52232,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "314": {
+    "315": {
       "Name": "PDSP0110-BL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -52231,7 +52298,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "315": {
+    "316": {
       "Name": "PDSP0110-PM01",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -52297,7 +52364,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "316": {
+    "317": {
       "Name": "PDSP0104-AL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -52363,7 +52430,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "317": {
+    "318": {
       "Name": "PDSP0104-BL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -52429,7 +52496,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "318": {
+    "319": {
       "Name": "PDSP0104-PM01",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -52495,7 +52562,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "319": {
+    "320": {
       "Name": "PDSP0104-PM02",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -52561,7 +52628,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "320": {
+    "321": {
       "Name": "PDSP0104-PM03",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -52627,7 +52694,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "321": {
+    "322": {
       "Name": "PDSP0104-PM04",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -52693,7 +52760,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "322": {
+    "323": {
       "Name": "PDSP0104-PM05",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -52759,7 +52826,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "323": {
+    "324": {
       "Name": "PDSP0104-PM06",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -52825,7 +52892,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "324": {
+    "325": {
       "Name": "PDSP0107-AL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -52891,7 +52958,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "325": {
+    "326": {
       "Name": "PDSP0107-BL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -52957,7 +53024,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "326": {
+    "327": {
       "Name": "PDSP0107-PM01",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -53023,7 +53090,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "327": {
+    "328": {
       "Name": "PDSP0107-PM02",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -53089,7 +53156,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "328": {
+    "329": {
       "Name": "PDSP0107-PM03",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -53155,7 +53222,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "329": {
+    "340": {
       "Name": "PDSP0107-PM04",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -53221,7 +53288,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "330": {
+    "341": {
       "Name": "PDSP0107-PM05",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -53287,7 +53354,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "331": {
+    "342": {
       "Name": "PDSP0107-PM06",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -53353,7 +53420,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "332": {
+    "343": {
       "Name": "PDSP0102-AL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -53419,7 +53486,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "333": {
+    "344": {
       "Name": "PDSP0102-BL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -53485,7 +53552,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "334": {
+    "345": {
       "Name": "PDSP0102-PM01",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -53551,7 +53618,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "335": {
+    "346": {
       "Name": "PDSP0102-PM02",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -53617,7 +53684,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "336": {
+    "347": {
       "Name": "PDSP0102-PM03",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -53683,7 +53750,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "337": {
+    "348": {
       "Name": "PDSP0102-PM04",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -53749,7 +53816,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "338": {
+    "349": {
       "Name": "PDSP0102-PM05",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -53815,7 +53882,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "339": {
+    "350": {
       "Name": "PDSP0102-PM06",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -53881,7 +53948,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "340": {
+    "351": {
       "Name": "PDSP0106-AL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -53947,7 +54014,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "341": {
+    "352": {
       "Name": "PDSP0106-BL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -54013,7 +54080,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "342": {
+    "353": {
       "Name": "PDSP0106-PM01",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -54079,7 +54146,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "343": {
+    "354": {
       "Name": "PDSP0106-PM02",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -54145,7 +54212,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "344": {
+    "355": {
       "Name": "PDSP0106-PM03",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -54211,7 +54278,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "345": {
+    "356": {
       "Name": "PDSP0106-PM04",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -54277,7 +54344,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "346": {
+    "357": {
       "Name": "PDSP0106-PM05",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -54343,7 +54410,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "347": {
+    "358": {
       "Name": "PDSP0106-PM06",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -54409,7 +54476,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "348": {
+    "359": {
       "Name": "PDSP0109-AL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -54475,7 +54542,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "349": {
+    "360": {
       "Name": "PDSP0109-BL",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -54541,7 +54608,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "350": {
+    "361": {
       "Name": "PDSP0109-PM01",
       "Description": "Evatec | Clusterline 200 II",
       "Type": "Process",
@@ -54607,7 +54674,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "351": {
+    "362": {
       "Name": "MECD0101.3",
       "Description": "Muetec | CD Overlay Measurement",
       "Type": "Measure",
@@ -54673,7 +54740,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "352": {
+    "363": {
       "Name": "MECD0101.PM01",
       "Description": "Muetec | CD Overlay Measurement",
       "Type": "Measure",
@@ -54739,7 +54806,7 @@
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
     },
-    "353": {
+    "364": {
       "Name": "MECD0101.PM02",
       "Description": "Muetec | CD Overlay Measurement",
       "Type": "Measure",
@@ -54804,72 +54871,6 @@
       "DimensionXSize": "",
       "DimensionYSize": "",
       "ConsumableFeedPositions": ""
-    },
-	"354": {
-      "Name": "NiceLabelPrinter",
-      "Description": "Resource to receive the printing information",
-      "Type": "Process",
-      "IsTemplate": "No",
-      "MainStateModel": "SEMI E10>Standby",
-      "Vendor": "SPTS",
-      "Model": "Others",
-      "ResourceType": "",
-      "SerialNumber": "",
-      "Priority": "",
-      "SortRuleSet": "",
-      "Area": "Start Lot",
-      "DisplayOrder": "10",
-      "IsSubMaterialTrackingEnabled": "No",
-      "ProcessingType": "Process",
-      "SubResources": "",
-      "Services": "",
-      "MaxConcurrentMaterialsInProcess": "",
-      "AutomationAddress": "",
-      "AutomationMode": "",
-      "DisplayPath": "",
-      "IsAutoGeneratePositionEnabled": "Yes",
-      "IsDownloadRecipeCapable": "",
-      "IsJobManagementCapable": "",
-      "IsNotifyRecipeSelectionChangeCapable": "",
-      "IsProductMixAllowed": "Yes",
-      "IsRecipeManagementEnabled": "",
-      "IsUploadRecipeCapable": "",
-      "LoadPortType": "",
-      "PositionUnitType": "Material",
-      "RestrictedToMaterialForm": "",
-      "RunningMode": "",
-      "FixedCost": "",
-      "CostPerHour": "",
-      "CostPerUnit": "",
-      "AllowTrackInScheduleOverride": "",
-      "CanProcessInNonWorkingTime": "",
-      "DefaultScheduleView": "",
-      "DefaultSetupTime": "",
-      "DefaultSetupTimeTimeScale": "",
-      "DispatchScheduleType": "",
-      "Efficiency": "",
-      "MinimumBatchCapacityUsage": "",
-      "Saturation": "",
-      "SchedulingType": "",
-      "Location": "",
-      "RequireCheckInForResourceOperations": "",
-      "HasStorageBins": "",
-      "IsPickingPlace": "",
-      "IsFloorLifeSafe": "",
-      "StartFloorLifeCounterOnRetrieve": "",
-      "EnableAutomaticReplenishment": "",
-      "AutomaticReplenishmentTransferRequirementType": "",
-      "TransportService": "",
-      "ConsumableFeedType": "",
-      "InstrumentType": "",
-      "CalibrationStatus": "",
-      "LastCalibrationDate": "",
-      "InstrumentExclusiveUsage": "",
-      "HasResourceLocations": "",
-      "LocationType": "",
-      "DimensionXSize": "",
-      "DimensionYSize": "",
-      "ConsumableFeedPositions": ""
     }
   },
   "ResourceInstruments": {},
@@ -54880,55 +54881,55 @@
   "<DM>SubResource": {
     "1": {
       "SourceEntity": "PDSP0101",
-      "TargetEntity": "PDSP0101-AL",
+      "TargetEntity": "PDSP0101.AL",
       "ConsumableFeedPosition": ""
     },
     "2": {
       "SourceEntity": "PDSP0101",
-      "TargetEntity": "PDSP0101-BL",
+      "TargetEntity": "PDSP0101.BL",
       "ConsumableFeedPosition": ""
     },
     "3": {
       "SourceEntity": "PDSP0101",
-      "TargetEntity": "PDSP0101-PM01",
+      "TargetEntity": "PDSP0101.PM01",
       "ConsumableFeedPosition": ""
     },
     "4": {
       "SourceEntity": "PDSP0101",
-      "TargetEntity": "PDSP0101-PM02",
+      "TargetEntity": "PDSP0101.PM02",
       "ConsumableFeedPosition": ""
     },
     "5": {
       "SourceEntity": "PDSP0101",
-      "TargetEntity": "PDSP0101-PM03",
+      "TargetEntity": "PDSP0101.PM03",
       "ConsumableFeedPosition": ""
     },
     "6": {
       "SourceEntity": "PDSP0101",
-      "TargetEntity": "PDSP0101-PM04",
+      "TargetEntity": "PDSP0101.PM04",
       "ConsumableFeedPosition": ""
     },
     "7": {
       "SourceEntity": "PDSP0101",
-      "TargetEntity": "PDSP0101-PM05",
+      "TargetEntity": "PDSP0101.PM05",
       "ConsumableFeedPosition": ""
     },
     "8": {
       "SourceEntity": "PDSP0101",
-      "TargetEntity": "PDSP0101-PM06",
+      "TargetEntity": "PDSP0101.PM06",
       "ConsumableFeedPosition": ""
     },
     "9": {
       "SourceEntity": "MECD0101",
-      "TargetEntity": "MECD0101-1",
+      "TargetEntity": "MECD0101.1",
       "ConsumableFeedPosition": ""
     },
     "10": {
       "SourceEntity": "MECD0101",
-      "TargetEntity": "MECD0101-2",
+      "TargetEntity": "MECD0101.2",
       "ConsumableFeedPosition": ""
     },
-    "11": {
+	  "11": {
       "SourceEntity": "PDSP0103",
       "TargetEntity": "PDSP0103-AL",
       "ConsumableFeedPosition": ""
@@ -55722,14 +55723,7 @@
       "Checklist": "ME-Sputtering Ti/ TiW with Etching"
     }
   },
-  "<SM>Config": { 
-    "1": {
-    "ParentPath": "/Cmf/Custom/Automation",
-    "Name": "NiceLabelPrintResource",
-    "Value": "NiceLabelPrinter",
-    "ValueType": "String"
-    }
-  },
+  "<SM>Config": {},
   "<DM>Material": {
     "1": {
       "Name": "LotProposal_001",
