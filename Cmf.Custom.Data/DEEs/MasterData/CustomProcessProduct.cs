@@ -54,7 +54,8 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
             UseReference("", "System.Data");
             UseReference("", "System.Linq");
             UseReference("", "System.Text");
-
+            UseReference("", "System.Globalization");
+            
             //Foundation
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.GenericTables");
@@ -122,7 +123,7 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             product.ProductGroup = productGroup;
 
-            product.MaximumMaterialSize = Decimal.TryParse(productData.MaximumMaterialSize, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal maximumMaterialSize) ? maximumMaterialSize : default(decimal?);
+            product.MaximumMaterialSize = Decimal.TryParse(productData.MaximumMaterialSize, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal maximumMaterialSize) ? maximumMaterialSize : default(decimal?);
             product.FlowPath = productData.FlowPath;
 
             if (productData.UnitConversionFactors != null && productData.UnitConversionFactors.Any())
@@ -227,7 +228,7 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
                 product.CanSplitForPicking = productData.CanSplitForPicking.ToUpper() == "Y" ? true : false;
             }
 
-            product.MaterialLogisticsDefaultRequestQuantity = Decimal.TryParse(productData.MaterialLogisticsDefaultRequestQuantity, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal materialLogisticsDefaultRequestQuantity) ? materialLogisticsDefaultRequestQuantity : default(decimal?);
+            product.MaterialLogisticsDefaultRequestQuantity = Decimal.TryParse(productData.MaterialLogisticsDefaultRequestQuantity, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal materialLogisticsDefaultRequestQuantity) ? materialLogisticsDefaultRequestQuantity : default(decimal?);
             product.ConsumptionScrap = Convert.ToDecimal(productData.ConsumptionScrap, CultureInfo.InvariantCulture);
             product.AdditionalConsumptionQuantity = Convert.ToDecimal(productData.AdditionalConsumptionQuantity, CultureInfo.InvariantCulture);
 
