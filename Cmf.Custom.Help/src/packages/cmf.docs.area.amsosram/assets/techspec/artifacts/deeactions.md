@@ -14,5 +14,6 @@ The following DEE Actions were created to support customer requirements.
 | [CustomSendAbortInformationToIoT](/AMSOsram/techspec>artifacts>deeactions>CustomSendAbortInformationToIoT) | DEE action to Trigger IoT call to send information about Aborted Materials. |
 | [CustomSendTrackInInformationToIoT](/AMSOsram/techspec>artifacts>deeactions>CustomSendTrackInInformationToIoT) | DEE action to Trigger IoT call to send the Materials TrackIn related information. |
 | [CustomSendTrackOutInformationToIoT](/AMSOsram/techspec>artifacts>deeactions>CustomSendTrackOutInformationToIoT) | DEE action to Trigger IoT call to send the Materials Track Out related information. |
+[CustomGenerateSorterJobDefinitionFromFutureAction](/AMSOsram/TechSpec>Artifacts>deeactions>CustomGenerateSorterJobDefinitionFromFutureAction) | Dee action to Generate a Custom Sorter Job Definition if exists a Required Future Action for a given material. | 
 
 
