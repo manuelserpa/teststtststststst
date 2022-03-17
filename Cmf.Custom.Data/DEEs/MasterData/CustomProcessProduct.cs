@@ -55,7 +55,7 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
             UseReference("", "System.Linq");
             UseReference("", "System.Text");
             UseReference("", "System.Globalization");
-            
+
             //Foundation
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.GenericTables");
@@ -114,7 +114,10 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
                 product.IsEnabled = productData.IsEnabled.ToUpper() == "Y" ? true : false;
             }
 
-            product.Yield = Convert.ToDecimal(productData.Yield, CultureInfo.InvariantCulture);
+            if (!string.IsNullOrWhiteSpace(productData.Yield))
+            {
+                product.Yield = Decimal.TryParse(productData.Yield.ToString(CultureInfo.InvariantCulture).Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture, out decimal yield) ? yield : default(decimal);
+            }
 
             ProductGroup productGroup = new ProductGroup();
             {
@@ -123,7 +126,11 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             product.ProductGroup = productGroup;
 
-            product.MaximumMaterialSize = Decimal.TryParse(productData.MaximumMaterialSize, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal maximumMaterialSize) ? maximumMaterialSize : default(decimal?);
+            if (!string.IsNullOrWhiteSpace(productData.MaximumMaterialSize))
+            {
+                product.MaximumMaterialSize = Decimal.TryParse(productData.MaximumMaterialSize.ToString(CultureInfo.InvariantCulture).Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture, out decimal maximumMaterialSize) ? maximumMaterialSize : default(decimal?);
+            }
+
             product.FlowPath = productData.FlowPath;
 
             if (productData.UnitConversionFactors != null && productData.UnitConversionFactors.Any())
@@ -173,9 +180,20 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             // TO DO: SubProducts
 
-            product.InitialUnitCost = Convert.ToDecimal(productData.InitialUnitCost, CultureInfo.InvariantCulture);
-            product.FinishedUnitCost = Convert.ToDecimal(productData.FinishedUnitCost, CultureInfo.InvariantCulture);
-            product.CycleTime = Convert.ToDecimal(productData.CycleTime, CultureInfo.InvariantCulture);
+            if (!string.IsNullOrWhiteSpace(productData.InitialUnitCost))
+            {
+                product.InitialUnitCost = Decimal.TryParse(productData.InitialUnitCost.ToString(CultureInfo.InvariantCulture).Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture, out decimal initialUnitCost) ? initialUnitCost : default(decimal);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.FinishedUnitCost))
+            {
+                product.FinishedUnitCost = Decimal.TryParse(productData.FinishedUnitCost.ToString(CultureInfo.InvariantCulture).Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture, out decimal finishedUnitCost) ? finishedUnitCost : default(decimal);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.CycleTime))
+            {
+                product.CycleTime = Decimal.TryParse(productData.CycleTime.ToString(CultureInfo.InvariantCulture).Replace(",", "."), NumberStyles.Float, CultureInfo.InvariantCulture, out decimal cycleTime) ? cycleTime : default(decimal);
+            }
 
             if (!string.IsNullOrWhiteSpace(productData.IncludeInSchedule))
             {
@@ -228,9 +246,20 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
                 product.CanSplitForPicking = productData.CanSplitForPicking.ToUpper() == "Y" ? true : false;
             }
 
-            product.MaterialLogisticsDefaultRequestQuantity = Decimal.TryParse(productData.MaterialLogisticsDefaultRequestQuantity, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal materialLogisticsDefaultRequestQuantity) ? materialLogisticsDefaultRequestQuantity : default(decimal?);
-            product.ConsumptionScrap = Convert.ToDecimal(productData.ConsumptionScrap, CultureInfo.InvariantCulture);
-            product.AdditionalConsumptionQuantity = Convert.ToDecimal(productData.AdditionalConsumptionQuantity, CultureInfo.InvariantCulture);
+            if (!string.IsNullOrWhiteSpace(productData.MaterialLogisticsDefaultRequestQuantity))
+            {
+                product.MaterialLogisticsDefaultRequestQuantity = Decimal.TryParse(productData.MaterialLogisticsDefaultRequestQuantity.ToString(CultureInfo.InvariantCulture).Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out decimal materialLogisticsDefaultRequestQuantity) ? materialLogisticsDefaultRequestQuantity : default(decimal?);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.ConsumptionScrap))
+            {
+                product.ConsumptionScrap = Decimal.TryParse(productData.ConsumptionScrap.ToString(CultureInfo.InvariantCulture).Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out decimal consumptionScrap) ? consumptionScrap : default(decimal);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.AdditionalConsumptionQuantity))
+            {
+                product.AdditionalConsumptionQuantity = Decimal.TryParse(productData.AdditionalConsumptionQuantity.ToString(CultureInfo.InvariantCulture).Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out decimal additionalConsumptionQuantity) ? additionalConsumptionQuantity : default(decimal);
+            }
 
             if (!string.IsNullOrWhiteSpace(productData.IsEnableForMaintenanceManagement))
             {
