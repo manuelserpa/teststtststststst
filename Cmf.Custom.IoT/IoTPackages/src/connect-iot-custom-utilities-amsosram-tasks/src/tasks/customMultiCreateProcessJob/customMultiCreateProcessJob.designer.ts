@@ -8,7 +8,7 @@ export class CustomMultiCreateProcessJobDesigner implements Task.Designer.TaskDe
     MaterialFormat: string;
     SendCarrierContent: boolean;
     RecipeSpecificationType: RecipeSpecificationType;
-
+    occupiedSlot: string;
     /**
      * Resolve the inputs to be displayed in the task during design time
      * @param inputs List of inputs automatically resolved.
