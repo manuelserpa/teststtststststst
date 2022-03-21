@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Xml.Serialization;
-using Cmf.Common.CustomActionUtilities;
+﻿using Cmf.Common.CustomActionUtilities;
 using Cmf.Custom.AMSOsram.BusinessObjects;
 using Cmf.Custom.AMSOsram.Common.DataStructures;
 using Cmf.Custom.AMSOsram.Common.Extensions;
@@ -19,6 +10,15 @@ using Cmf.Foundation.Common;
 using Cmf.Foundation.Configuration;
 using Cmf.Navigo.BusinessObjects;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Xml.Serialization;
 
 namespace Cmf.Custom.AMSOsram.Common
 {
@@ -30,9 +30,9 @@ namespace Cmf.Custom.AMSOsram.Common
         #region Generic
 
         /// <summary>
-        /// Get Value as nullable decimal
+        /// Get Value as nullable decimal.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">Value to be converted.</param>
         /// <returns></returns>
         public static decimal? GetValueAsNullableDecimal(string value)
         {
@@ -47,7 +47,7 @@ namespace Cmf.Custom.AMSOsram.Common
         /// <summary>
         /// Get Value as nullable boolean
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">Value to be converted.</param>
         /// <returns></returns>
         public static bool? GetValueAsNullableBoolean(string value)
         {
@@ -59,7 +59,7 @@ namespace Cmf.Custom.AMSOsram.Common
             // True: Possible values 
             string[] positiveValues = { "y", "true", "yes", "1" };
 
-            if (positiveValues.Contains(value, StringComparer.InvariantCultureIgnoreCase))
+            if (positiveValues.Contains(value.Trim(), StringComparer.InvariantCultureIgnoreCase))
             {
                 return true;
             }
@@ -67,7 +67,7 @@ namespace Cmf.Custom.AMSOsram.Common
             // False: Possible values
             string[] negativeValues = { "n", "false", "no", "0" };
 
-            if (negativeValues.Contains(value, StringComparer.InvariantCultureIgnoreCase))
+            if (negativeValues.Contains(value.Trim(), StringComparer.InvariantCultureIgnoreCase))
             {
                 return false;
             }
@@ -76,9 +76,9 @@ namespace Cmf.Custom.AMSOsram.Common
         }
 
         /// <summary>
-        /// Get Value as decimal
+        /// Get Value as decimal.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">Value to be converted.</param>
         /// <returns></returns>
         public static decimal GetValueAsDecimal(string value)
         {
@@ -91,9 +91,9 @@ namespace Cmf.Custom.AMSOsram.Common
         }
 
         /// <summary>
-        /// Get Value as boolean
+        /// Get Value as boolean.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">Value to be converted.</param>
         /// <returns></returns>
         public static bool GetValueAsBoolean(string value)
         {
@@ -104,13 +104,31 @@ namespace Cmf.Custom.AMSOsram.Common
 
             string[] booleanValues = { "y", "true", "yes", "1" };
 
-            if (booleanValues.Contains(value, StringComparer.InvariantCultureIgnoreCase))
+            if (booleanValues.Contains(value.Trim(), StringComparer.InvariantCultureIgnoreCase))
             {
                 return true;
             }
 
             return default(bool);
-        } 
+        }
+
+        /// <summary>
+        /// Gets the value as enum.
+        /// </summary>
+        /// <typeparam name="T">Type of the enum.</typeparam>
+        /// <param name="value">Value to be converted.</param>
+        /// <returns>Return the value as enum value.</returns>
+        public static T GetValueAsEnum<T>(string value) where T : struct
+        {
+            T result;
+
+            if (Enum.TryParse<T>(value, out result))
+            {
+                return result;
+            }
+
+            return default(T);
+        }
 
         /// <summary>
         /// Determines whether the collection is null or contains no elements.
@@ -126,13 +144,16 @@ namespace Cmf.Custom.AMSOsram.Common
             {
                 return true;
             }
+
             /* If this is a list, use the Count property for efficiency.
 			 * The Count property is O(1) while IEnumerable.Count() is O(N). */
             var collection = enumerable as ICollection<T>;
+
             if (collection != null)
             {
                 return collection.Count < 1;
             }
+
             return !enumerable.Any();
         }
 
