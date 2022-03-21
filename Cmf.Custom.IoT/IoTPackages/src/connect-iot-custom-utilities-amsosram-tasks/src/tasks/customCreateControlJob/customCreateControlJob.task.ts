@@ -3,7 +3,7 @@ import i18n from "./i18n/customCreateControlJob.default";
 
 import { SecsGem } from "../../common/secsGemItem"
 import { SecsItem } from "../../common/secsItem";
-import { MaterialData, MovementData} from "../../persistence"
+import { MaterialData, MovementData, ContainerProcessHandler} from "../../persistence"
 
 
 /**
@@ -79,6 +79,16 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
     public successCodes = "0x00";
     public replyPath = "/[1]";
     public objectSpec = "Equipment"
+    public occupiedSlot = "1"
+
+    @DI.Inject("GlobalContainerProcessHandler")
+    private _containerProcess: ContainerProcessHandler;
+
+    /**
+     * name
+     */
+    public name() {
+    }
     /**
      * When one or more input values is changed this will be triggered,
      * @param changes Task changes
@@ -102,9 +112,36 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                 materialMovement = [];
                 if (material.SorterJobInformation) {
                     const sorter = material.SorterJobInformation;
-//                    if (material.SorterJobInformation.LogisticalProcess === "MapCarrier") {
-//                        carrierInputSpec.push({ type: "A", value: material.ContainerName }) // Carrier Name
-//                    } else {
+                    if (material.SorterJobInformation.LogisticalProcess === "MapCarrier") {
+                        // pickup the wafer, read it, set it back on the same position, use slot map obtained from equipment
+                        carrierInputSpec.push({ type: "A", value: material.ContainerName }) // Carrier Name
+                        // get container from persistence to get stored slot map
+                        const container = await this._containerProcess.getContainer(material.ContainerName, Number(material.LoadPortPosition))
+                        // sets slot map to known format
+                        const slotMap = this.SlotMapToArray(container.SlotMap);
+                        // slot map parsing
+                        const slotValues = []
+                        const transferPair = { type: "L", value: [
+                            {
+                                type: "L", value: [
+                                    { type: "A", value: slotValues }, // source container
+                                    { type: "L", value: [] }, // slot list
+                                    ]
+                            },
+                            {
+                                type: "L", value: [
+                                    { type: "A", value: slotValues }, // destination container
+                                    { type: "L", value: [] }, // slot list
+                                ]
+                            }]
+                        };
+                        for ( let position; position < slotMap.length; position++) {
+                              if (slotMap[position].toString() === this.occupiedSlot.toString()) {
+                              slotValues.push({ type: "U1", value: position })
+                              }
+                            }
+                        materialMovement.push(transferPair);
+                    } else {
                        const sorterMovementList = JSON.parse(material.SorterJobInformation.MovementList);
                        sorterMovementList.forEach(element => {
                           const movementData: MovementData = <MovementData> element;
@@ -144,7 +181,7 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                             transferPair.value[0].value[1].value.push({ type: "U1", value: sourceSlot })
                             transferPair.value[0].value[1].value.push({ type: "U1", value: destinationSlot })
                           });
-//                    }
+                    }
 
                 } else {
                    if (material.ContainerName) { // if no container used, spec allows for empty list
@@ -284,6 +321,20 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
         }
     }
 
+    SlotMapToArray(equipmentSlotMap: any, terminator: string = "", separator: string = ""): string[] {
+        if (typeof equipmentSlotMap === "string") {
+            return equipmentSlotMap.replace(terminator, "").split(separator);
+
+        } else if (Array.isArray(equipmentSlotMap)) {
+            if (terminator !== "") {
+                return equipmentSlotMap.slice(0, equipmentSlotMap.indexOf(terminator) - 1);
+            }
+            return equipmentSlotMap;
+        }
+
+        return null;
+    }
+
     /**
      * Right after settings are loaded, create the needed dynamic outputs.
      */
@@ -304,6 +355,7 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
 export interface CustomCreateControlJobSettings {
     [key: string]: any;
     objectSpec: string;
+    occupiedSlot: string;
 }
 
 export enum RecipeSpecificationType {

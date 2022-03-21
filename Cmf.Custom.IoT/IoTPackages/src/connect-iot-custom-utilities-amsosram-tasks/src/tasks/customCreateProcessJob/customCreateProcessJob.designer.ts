@@ -9,6 +9,7 @@ export class CustomCreateProcessJobDesigner implements Task.Designer.TaskDesigne
     MaterialFormat: string;
     SendCarrierContent: boolean;
     RecipeSpecificationType: RecipeSpecificationType;
+    occupiedSlot: string;
 
     /**
      * Resolve the inputs to be displayed in the task during design time

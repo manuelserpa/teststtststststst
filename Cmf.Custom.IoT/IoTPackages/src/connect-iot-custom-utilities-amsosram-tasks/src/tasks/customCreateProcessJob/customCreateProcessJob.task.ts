@@ -4,7 +4,7 @@ import i18n from "./i18n/customCreateProcessJob.default";
 import { SecsGem } from "../../common/secsGemItem"
 import { SecsItem } from "../../common/secsItem";
 import { SubMaterialStateEnum } from "../../persistence/model/subMaterialData";
-import { MaterialData, MovementData } from "../../persistence/";
+import { MaterialData, MovementData, ContainerProcessHandler } from "../../persistence/";
 
 /**
  * @whatItDoes
@@ -61,6 +61,7 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
     public MaterialFormat: string = "0x0e";
     public SendCarrierContent: boolean = false;
     public RecipeSpecificationType: RecipeSpecificationType = RecipeSpecificationType.RecipeWithoutVariableTuning;
+    public occupiedSlot = "1"
 
     /** **Outputs** */
     /** To output a success notification */
@@ -79,6 +80,9 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
 
     public successCodes = "0x00";
     public replyPath = "/[1]";
+
+    @DI.Inject("GlobalContainerProcessHandler")
+    private _containerProcess: ContainerProcessHandler;
     /**
      * When one or more input values is changed this will be triggered,
      * @param changes Task changes
@@ -130,22 +134,40 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
                             }
                          });
                    } else {
-                    const sorterMovementList = JSON.parse(material.SorterJobInformation.MovementList);
-                    sorterMovementList.forEach(element => {
-                        const movementData: MovementData = <MovementData> element;
-                        const sourceContainer = movementData.SourceContainer;
-                        const sourceSlot = movementData.SourcePosition;
-                        let carrierContent = carrierContentWrapper.find(c => c.value[0].value === sourceContainer);
+                        if (material.SorterJobInformation.LogisticalProcess === "MapCarrier") {
+                            // get container from persistence to get stored slot map
+                            const container = await this._containerProcess.getContainer(material.ContainerName, Number(material.LoadPortPosition))
+                            // sets slot map to known format
+                            const slotMap = this.SlotMapToArray(container.SlotMap);
+                            // slot map parsing
+                            const slotValue = [];
+                            const carrierContent = { type: "L", value: [
+                                { type: "A", value: material.ContainerName }, // Carrier Content
+                                { type: "L", value: slotValue } // Empty parameter list
+                            ]};
+                            for ( let position; position < slotMap.length; position++) {
+                                if (slotMap[position].toString() === this.occupiedSlot.toString()) {
+                                    slotValue.push({ type: "U1", value: position })
+                                }
+                                }
+                        } else {
+                        const sorterMovementList = JSON.parse(material.SorterJobInformation.MovementList);
+                        sorterMovementList.forEach(element => {
+                            const movementData: MovementData = <MovementData> element;
+                            const sourceContainer = movementData.SourceContainer;
+                            const sourceSlot = movementData.SourcePosition;
+                            let carrierContent = carrierContentWrapper.find(c => c.value[0].value === sourceContainer);
 
-                        if (!carrierContent) {
-                            carrierContent = { type: "L", value: [
-                                { type: "A", value: sourceContainer }, // Carrier Content
-                                { type: "L", value: [] } // Empty parameter list
-                             ]};
-                             carrierContentWrapper.push(carrierContent);
-                          }
-                          carrierContent.value[1].value.push({ type: "U1", value: sourceSlot })
-                    });
+                            if (!carrierContent) {
+                                carrierContent = { type: "L", value: [
+                                    { type: "A", value: sourceContainer }, // Carrier Content
+                                    { type: "L", value: [] } // Empty parameter list
+                                ]};
+                                carrierContentWrapper.push(carrierContent);
+                            }
+                            carrierContent.value[1].value.push({ type: "U1", value: sourceSlot })
+                            });
+                        }
                    }
                 }
 
@@ -172,6 +194,20 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
         }
     }
 
+    SlotMapToArray(equipmentSlotMap: any, terminator: string = "", separator: string = ""): string[] {
+        if (typeof equipmentSlotMap === "string") {
+            return equipmentSlotMap.replace(terminator, "").split(separator);
+
+        } else if (Array.isArray(equipmentSlotMap)) {
+            if (terminator !== "") {
+                return equipmentSlotMap.slice(0, equipmentSlotMap.indexOf(terminator) - 1);
+            }
+            return equipmentSlotMap;
+        }
+
+        return null;
+    }
+
     /**
      * Right after settings are loaded, create the needed dynamic outputs.
      */
@@ -193,6 +229,7 @@ export interface CustomCreateProcessJobSettings {
     MaterialFormat: string;
     SendCarrierContent: boolean;
     RecipeSpecificationType: RecipeSpecificationType;
+    occupiedSlot: string;
 }
 
 export enum RecipeSpecificationType {
