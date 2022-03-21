@@ -775,6 +775,53 @@
             "Value": "<ST>CustomResourceNotificationConfiguration"
         }
     },
+"<SM>Features": {
+    "1": {
+      "Name": "CustomSorterJobDefinition.Show",
+      "Description": "",
+      "FeatureGroup": "Custom Sorter Job Definition",
+      "IsWritable": "No",
+      "ForceSignature": "No",
+      "Roles": "",
+      "PresentationBehavior": ""
+    },
+    "2": {
+      "Name": "CustomSorterJobDefinition.Create",
+      "Description": "",
+      "FeatureGroup": "Custom Sorter Job Definition",
+      "IsWritable": "No",
+      "ForceSignature": "No",
+      "Roles": "",
+      "PresentationBehavior": ""
+    },
+    "3": {
+      "Name": "CustomSorterJobDefinition.Edit",
+      "Description": "",
+      "FeatureGroup": "Custom Sorter Job Definition",
+      "IsWritable": "No",
+      "ForceSignature": "No",
+      "Roles": "",
+      "PresentationBehavior": ""
+    },
+    "4": {
+      "Name": "CustomSorterJobDefinition.History",
+      "Description": "",
+      "FeatureGroup": "Custom Sorter Job Definition",
+      "IsWritable": "No",
+      "ForceSignature": "No",
+      "Roles": "",
+      "PresentationBehavior": ""
+    },
+    "5": {
+      "Name": "CustomSorterJobDefinition.Terminate",
+      "Description": "",
+      "FeatureGroup": "Custom Sorter Job Definition",
+      "IsWritable": "No",
+      "ForceSignature": "No",
+      "Roles": "",
+      "PresentationBehavior": ""
+    }
+  },
     "<SM>DEEAction": {
         "1": {
             "Action": "CustomGenerateSorterJobDefinitionFromFutureAction",
