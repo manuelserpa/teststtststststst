@@ -420,6 +420,12 @@
    "actionId": ""
 },
 {
+   "id": "importproductfromerp",
+   "menuGroupId": "erpfeatures",
+   "title": "Import Product From ERP",
+   "actionId": ""
+},
+{
    "id": "customerpsystemintegration",
    "menuGroupId": "features",
    "title": "ERP (SAP) System Integration",
@@ -438,21 +444,9 @@
    "actionId": ""
 },
 {
-   "id": "erpintegrations",
-   "menuGroupId": "features",
-   "title": "ERP Integrations",
-   "actionId": ""
-},
-{
    "id": "generatesorterjobdefinitionfromfutureaction",
    "menuGroupId": "features",
    "title": "Generate Sorter Job Definition From Future Action",
-   "actionId": ""
-},
-{
-   "id": "customproductmasterinformation",
-   "menuGroupId": "erpintegrations",
-   "title": "Product Master Information",
    "actionId": ""
 }
 ]
