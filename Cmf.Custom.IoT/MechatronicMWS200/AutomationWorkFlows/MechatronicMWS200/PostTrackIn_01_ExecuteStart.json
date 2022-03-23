@@ -1,108 +1,7 @@
 {
 	"tasks": [
 		{
-			"id": "task_46559",
-			"reference": {
-				"name": "retrieve",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"_retrieveOnValueChange": true,
-				"_emitInNewContext": false,
-				"___cmf___name": "Retrieve Data",
-				"___cmf___color": "#808078",
-				"_outputs": [
-					{
-						"name": "TrackIn01_ActivatePostTrackIn",
-						"valueType": {
-							"type": 3,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "TrackIn01_ActivatePostTrackIn"
-						},
-						"identifier": "TrackIn01_ActivatePostTrackIn",
-						"defaultValue": ""
-					}
-				]
-			}
-		},
-		{
-			"id": "task_50034",
-			"reference": {
-				"name": "timer",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"_timerType": "Timeout",
-				"_timerWorkingMode": "UntilDeactivation",
-				"_autoActivate": false,
-				"interval": "30000",
-				"_numberOfOccurrencesAllowed": 30,
-				"_cronExpression": "* * * * * *",
-				"_timeZone": "Etc/UTC",
-				"emitInNewContext": false,
-				"___cmf___name": "Timer"
-			}
-		},
-		{
-			"id": "task_129232",
-			"reference": {
-				"name": "retrieveMaterialProperty",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
-				}
-			},
-			"settings": {
-				"___cmf___name": "Retrieve Material Property",
-				"materialState": "Setup",
-				"outputs": [],
-				"___cmf___color": "#808078"
-			}
-		},
-		{
-			"id": "task_132762",
-			"reference": {
-				"name": "retrieveMaterialProperty",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
-				}
-			},
-			"settings": {
-				"___cmf___name": "Retrieve Material Property",
-				"materialState": "Setup",
-				"outputs": [],
-				"retrieveAllMaterialsInCondition": true,
-				"___cmf___color": "#808078"
-			}
-		},
-		{
-			"id": "task_41812",
-			"reference": {
-				"name": "equipmentEvent",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"_workingMode": "AlwaysActive",
-				"_acceptAllEvents": false,
-				"_outputs": []
-			},
-			"driver": "SecsGemEquipment"
-		},
-		{
-			"id": "task_42157",
+			"id": "task_33379",
 			"reference": {
 				"name": "workflow",
 				"package": {
@@ -112,110 +11,7 @@
 			},
 			"settings": {
 				"automationWorkflow": {
-					"DisplayName": "ErrorHandling",
-					"IsShared": true,
-					"Name": "ErrorHandling"
-				},
-				"executeWhenAllInputsDefined": false,
-				"contextsExpirationInMilliseconds": 60000,
-				"executionExpirationInMilliseconds": 1200000,
-				"inputs": [
-					{
-						"name": "Error",
-						"valueType": {
-							"type": 10,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						}
-					},
-					{
-						"name": "ErrorCode",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						}
-					},
-					{
-						"name": "ErrorText",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						}
-					},
-					{
-						"name": "ResourceName",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						}
-					},
-					{
-						"name": "MaterialData",
-						"valueType": {
-							"friendlyName": "MaterialData",
-							"type": 10,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null
-						}
-					},
-					{
-						"name": "ContainerData",
-						"valueType": {
-							"friendlyName": "ContainerData",
-							"type": 10,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null
-						}
-					}
-				],
-				"outputs": [
-					{
-						"name": "Error",
-						"valueType": {
-							"friendlyName": "Error",
-							"type": 10,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null
-						}
-					}
-				],
-				"___cmf___name": "Workflow",
-				"___cmf___color": "#ff0000"
-			}
-		},
-		{
-			"id": "task_43411",
-			"reference": {
-				"name": "workflow",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"automationWorkflow": {
-					"DisplayName": "StartCommand_01_ExecuteCommand",
+					"DisplayName": "CreateProcessJob_01_CreateJob",
 					"IsShared": false
 				},
 				"executeWhenAllInputsDefined": false,
@@ -247,77 +43,44 @@
 						}
 					}
 				],
-				"___cmf___name": "Execute Start Command"
+				"___cmf___name": "Execute Create Process Job"
 			}
 		},
 		{
-			"id": "task_120235",
+			"id": "task_33381",
 			"reference": {
-				"name": "errorMessage",
+				"name": "workflow",
 				"package": {
-					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
 				}
 			},
 			"settings": {
-				"message": "",
-				"errorCodeToEmit": "PPSelectFailed",
-				"errorNumber": "1",
-				"clearInputs": true,
-				"mode": "MultipleInputs",
-				"isCustomFormat": true,
-				"messageFormat": "PP-Select Succeeded never occurred for Material  ${MaterialName}",
+				"automationWorkflow": {
+					"DisplayName": "CreateControlJob_01_CreateJob",
+					"IsShared": false
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
 				"inputs": [
 					{
-						"name": "MaterialName",
+						"name": "MaterialData",
 						"valueType": {
-							"type": 4,
+							"type": 10,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
 							"referenceTypeId": null,
 							"friendlyName": ""
-						},
-						"defaultValue": "-"
+						}
 					}
 				],
-				"___cmf___name": "Create Error Message"
-			}
-		},
-		{
-			"id": "task_123453",
-			"reference": {
-				"name": "errorMessage",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
-				}
-			},
-			"settings": {
-				"message": "",
-				"errorCodeToEmit": "StartCommandFailed",
-				"errorNumber": "1",
-				"clearInputs": true,
-				"mode": "MultipleInputs",
-				"isCustomFormat": true,
-				"messageFormat": "Start Command failed for Material  ${MaterialName} with Error ${error}",
-				"inputs": [
+				"outputs": [
 					{
-						"name": "MaterialName",
+						"name": "MaterialData",
 						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"defaultValue": "-"
-					},
-					{
-						"name": "error",
-						"valueType": {
-							"friendlyName": "Error",
+							"friendlyName": "MaterialData",
 							"type": 10,
 							"collectionType": 0,
 							"referenceType": null,
@@ -326,8 +89,89 @@
 						}
 					}
 				],
-				"___cmf___name": "Create Error Message"
+				"___cmf___name": "Create Control Job"
 			}
+		},
+		{
+			"id": "task_33383",
+			"reference": {
+				"name": "retrieveMaterialProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"___cmf___name": "Retrieve Material Property",
+				"retrieveAllMaterialsInCondition": false,
+				"outputs": [],
+				"___cmf___color": "#808080",
+				"materialState": "Setup"
+			}
+		},
+		{
+			"id": "task_33385",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CarrierID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CarrierAccessingStatus",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "LocationID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SlotMapStatus",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "WaitingForHost2SlotMapVerificationOk"
+					}
+				]
+			},
+			"driver": "SecsGemEquipment"
 		}
 	],
 	"converters": [
@@ -374,339 +218,120 @@
 	],
 	"links": [
 		{
-			"id": "eadd8fa2-9eb4-4e43-9af8-290266c96a89",
-			"sourceId": "task_50034",
-			"targetId": "task_132762",
-			"inputName": "activate",
-			"outputName": "error"
-		},
-		{
-			"id": "de5963ee-e370-44c7-b1bb-2e723dd11ed2",
-			"sourceId": "task_46559",
-			"targetId": "task_50034",
-			"inputName": "activate",
-			"outputName": "TrackIn01_ActivatePostTrackIn"
-		},
-		{
-			"id": "0744934e-8081-43bd-87c3-1be9665912a9",
-			"sourceId": "task_41812",
-			"targetId": "task_50034",
-			"inputName": "activate",
-			"outputName": "eventRawData",
-			"converters": [
-				{
-					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
-					"params": {
-						"type": 3,
-						"value": "False"
-					}
-				}
-			]
-		},
-		{
-			"id": "e35ea977-f024-4408-a2d6-bc894019dcc9",
-			"sourceId": "task_41812",
-			"targetId": "task_129232",
-			"inputName": "activate",
-			"outputName": "eventRawData"
-		},
-		{
-			"id": "3c0d95e7-5219-422d-8196-5cc6b2c31c33",
-			"sourceId": "task_129232",
-			"targetId": "task_43411",
+			"id": "task_33379_MaterialDataOut-task_33381_MaterialDataIn",
+			"sourceId": "task_33379",
+			"targetId": "task_33381",
 			"inputName": "MaterialDataIn",
-			"outputName": "material"
-		},
-		{
-			"id": "9f75100c-97d1-493e-a113-44907ec966f8",
-			"sourceId": "task_129232",
-			"targetId": "task_43411",
-			"inputName": "activate",
-			"outputName": "success"
-		},
-		{
-			"id": "433ee7f9-c314-460e-a143-f9ecd87665aa",
-			"sourceId": "task_43411",
-			"targetId": "task_42157",
-			"inputName": "MaterialDataIn",
-			"outputName": "MaterialDataOut"
-		},
-		{
-			"id": "f346d0aa-ee80-4002-873a-2d5102d0acf7",
-			"sourceId": "task_120235",
-			"targetId": "task_42157",
-			"inputName": "ErrorCodeIn",
-			"outputName": "errorCode"
-		},
-		{
-			"id": "1acf5308-2996-4d4b-b3f9-901e87b87571",
-			"sourceId": "task_120235",
-			"targetId": "task_42157",
-			"inputName": "ErrorTextIn",
-			"outputName": "errorText"
-		},
-		{
-			"id": "329f2c56-b604-423e-a2fc-8fb41cee3e08",
-			"sourceId": "task_132762",
-			"targetId": "task_120235",
-			"inputName": "MaterialNameIn",
-			"outputName": "material",
-			"converters": [
-				{
-					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
-					"params": {
-						"path": "MaterialName",
-						"type": 4
-					}
-				}
-			]
-		},
-		{
-			"id": "06e87b31-0d5d-4822-87c4-2cddf5a09756",
-			"sourceId": "task_132762",
-			"targetId": "task_120235",
-			"inputName": "activate",
-			"outputName": "success"
-		},
-		{
-			"id": "71d72bee-2864-4af5-acb3-68cf876420a1",
-			"sourceId": "task_120235",
-			"targetId": "task_42157",
-			"inputName": "activate",
-			"outputName": "errorCode"
-		},
-		{
-			"id": "74b83f6b-7deb-45d5-bcd4-c7ce2dd5bc49",
-			"sourceId": "task_43411",
-			"targetId": "task_123453",
-			"inputName": "errorIn",
-			"outputName": "error"
-		},
-		{
-			"id": "fff921b1-3a83-4463-9b76-be3763e66452",
-			"sourceId": "task_43411",
-			"targetId": "task_123453",
-			"inputName": "MaterialNameIn",
 			"outputName": "MaterialDataOut",
-			"converters": [
-				{
-					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
-					"params": {
-						"path": "MaterialName",
-						"type": 4
-					}
-				}
-			]
+			"converters": []
 		},
 		{
-			"id": "4a28d2cb-09a4-430c-a84b-08a560561aaa",
-			"sourceId": "task_43411",
-			"targetId": "task_123453",
+			"id": "task_33379_success-task_33381_activate",
+			"sourceId": "task_33379",
+			"targetId": "task_33381",
 			"inputName": "activate",
-			"outputName": "error"
+			"outputName": "success",
+			"converters": []
 		},
 		{
-			"id": "91b685a1-0d7a-40b3-a0b1-1c362865af5b",
-			"sourceId": "task_123453",
-			"targetId": "task_42157",
-			"inputName": "ErrorCodeIn",
-			"outputName": "errorCode"
-		},
-		{
-			"id": "e7b5a814-ae35-4e02-b1db-bf86e19d3eb9",
-			"sourceId": "task_123453",
-			"targetId": "task_42157",
-			"inputName": "ErrorTextIn",
-			"outputName": "errorText"
-		},
-		{
-			"id": "0a724cb2-bcef-4981-8acf-29e4b64d8180",
-			"sourceId": "task_123453",
-			"targetId": "task_42157",
-			"inputName": "activate",
-			"outputName": "errorCode"
-		},
-		{
-			"id": "d16a4aab-ca34-4ff4-bf14-18f071e02b25",
-			"sourceId": "task_132762",
-			"targetId": "task_42157",
+			"id": "task_33383_material-task_33379_MaterialDataIn",
+			"sourceId": "task_33383",
+			"targetId": "task_33379",
 			"inputName": "MaterialDataIn",
-			"outputName": "material"
+			"outputName": "material",
+			"converters": []
+		},
+		{
+			"id": "task_33383_material-task_33379_activate",
+			"sourceId": "task_33383",
+			"targetId": "task_33379",
+			"inputName": "activate",
+			"outputName": "material",
+			"converters": []
+		},
+		{
+			"id": "task_33385_$PortID-task_33383_loadPortId",
+			"sourceId": "task_33385",
+			"targetId": "task_33383",
+			"inputName": "loadPortId",
+			"outputName": "$PortID",
+			"converters": []
+		},
+		{
+			"id": "task_33385_$PortID-task_33383_activate",
+			"sourceId": "task_33385",
+			"targetId": "task_33383",
+			"inputName": "activate",
+			"outputName": "$PortID",
+			"converters": []
 		}
 	],
 	"layout": {
 		"general": {
 			"color": "#00ff40",
-			"notes": [
-				{
-					"id": "note_47497",
-					"name": "Post Track In - On Event Received",
-					"value": "<p><strong>What it does:</strong></p><p>When the intended event is received (expected PP-Select Succeeded or similar) deactivate the Timer and execute the Start Command.</p><p><strong>Note:</strong></p><p>Workflow executed on for the Start command must be customized for every tool;</p><ul></ul><p><strong>How to use it:</strong></p><ol><li>From the data received on the event get the correct Material Data by using Retrieve Material Data task;</li><li>Pass the Material Data to the workflow responsible for executing the Start Command;</li></ol>",
-					"color": "#ffffa5"
-				},
-				{
-					"id": "note_48680",
-					"name": "Post Track In - On Event Received",
-					"value": "<p><strong>What it does:</strong></p><p>If a Timeout occurs before the Event being received find the Material Data with state Setup and calls Error Handling workflow to Abort the run</p><p><strong>&nbsp;</strong></p>",
-					"color": "#ffffa5"
-				}
-			]
+			"notes": []
 		},
 		"drawers": {
 			"DIAGRAM": {
 				"tasks": {
-					"task_120235": {
+					"task_33379": {
 						"collapsed": false,
 						"position": {
-							"x": 2449,
-							"y": 1467
+							"x": 1474,
+							"y": 1009
 						},
 						"outdated": false
 					},
-					"task_123453": {
+					"task_33381": {
 						"collapsed": false,
 						"position": {
-							"x": 2470,
-							"y": 796
+							"x": 2019,
+							"y": 1040
 						},
 						"outdated": false
 					},
-					"task_46559": {
+					"task_33383": {
 						"collapsed": false,
 						"position": {
-							"x": 411,
-							"y": 1477
+							"x": 973,
+							"y": 979
 						},
 						"outdated": false
 					},
-					"task_50034": {
+					"task_33385": {
 						"collapsed": false,
 						"position": {
-							"x": 1258,
-							"y": 1557
-						},
-						"outdated": false
-					},
-					"task_129232": {
-						"collapsed": false,
-						"position": {
-							"x": 1206,
-							"y": 768
-						},
-						"outdated": false
-					},
-					"task_132762": {
-						"collapsed": false,
-						"position": {
-							"x": 1852,
-							"y": 1398
-						},
-						"outdated": false
-					},
-					"task_41812": {
-						"collapsed": false,
-						"position": {
-							"x": 386,
-							"y": 769
-						},
-						"outdated": false
-					},
-					"task_42157": {
-						"collapsed": false,
-						"position": {
-							"x": 3246,
-							"y": 1078
-						},
-						"outdated": false
-					},
-					"task_43411": {
-						"collapsed": false,
-						"position": {
-							"x": 1817,
-							"y": 984
+							"x": 366,
+							"y": 855
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"eadd8fa2-9eb4-4e43-9af8-290266c96a89": {
+					"task_33379_MaterialDataOut-task_33381_MaterialDataIn": {
 						"vertices": []
 					},
-					"de5963ee-e370-44c7-b1bb-2e723dd11ed2": {
+					"task_33379_success-task_33381_activate": {
 						"vertices": []
 					},
-					"e35ea977-f024-4408-a2d6-bc894019dcc9": {
+					"task_33383_material-task_33379_MaterialDataIn": {
 						"vertices": []
 					},
-					"3c0d95e7-5219-422d-8196-5cc6b2c31c33": {
+					"task_33383_material-task_33379_activate": {
 						"vertices": []
 					},
-					"9f75100c-97d1-493e-a113-44907ec966f8": {
+					"task_33385_$PortID-task_33383_loadPortId": {
 						"vertices": []
 					},
-					"433ee7f9-c314-460e-a143-f9ecd87665aa": {
-						"vertices": []
-					},
-					"f346d0aa-ee80-4002-873a-2d5102d0acf7": {
-						"vertices": []
-					},
-					"1acf5308-2996-4d4b-b3f9-901e87b87571": {
-						"vertices": []
-					},
-					"06e87b31-0d5d-4822-87c4-2cddf5a09756": {
-						"vertices": []
-					},
-					"71d72bee-2864-4af5-acb3-68cf876420a1": {
-						"vertices": []
-					},
-					"74b83f6b-7deb-45d5-bcd4-c7ce2dd5bc49": {
-						"vertices": []
-					},
-					"4a28d2cb-09a4-430c-a84b-08a560561aaa": {
-						"vertices": []
-					},
-					"91b685a1-0d7a-40b3-a0b1-1c362865af5b": {
-						"vertices": []
-					},
-					"e7b5a814-ae35-4e02-b1db-bf86e19d3eb9": {
-						"vertices": []
-					},
-					"0a724cb2-bcef-4981-8acf-29e4b64d8180": {
-						"vertices": []
-					},
-					"d16a4aab-ca34-4ff4-bf14-18f071e02b25": {
-						"vertices": []
-					},
-					"0744934e-8081-43bd-87c3-1be9665912a9": {
-						"vertices": []
-					},
-					"329f2c56-b604-423e-a2fc-8fb41cee3e08": {
-						"vertices": []
-					},
-					"fff921b1-3a83-4463-9b76-be3763e66452": {
+					"task_33385_$PortID-task_33383_activate": {
 						"vertices": []
 					}
 				},
-				"notes": {
-					"note_47497": {
-						"collapsed": false,
-						"position": {
-							"x": 868,
-							"y": 476
-						}
-					},
-					"note_48680": {
-						"collapsed": false,
-						"position": {
-							"x": 1359,
-							"y": 1333
-						}
-					}
-				},
-				"zoom": 0.5099999999999997,
+				"notes": {},
+				"zoom": 0.83,
 				"pan": {
-					"x": 120,
-					"y": 163.75
+					"x": 995.9319235760465,
+					"y": 420.2030317465445
 				}
 			}
 		}

@@ -114,13 +114,84 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortTransferState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "AccessMode",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "LoadPortReservationState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortAssociationState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortStateInfo",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "LPTSM9_TRANSFERBLOCKED_READYTOUNLOAD"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
 	],
 	"converters": [],
-	"links": [],
+	"links": [
+		{
+			"id": "7a7feb02-dd1c-4dd6-bb4e-a5c00d69eee6",
+			"sourceId": "task_158180",
+			"targetId": "task_158178",
+			"inputName": "LoadPortNumberIn",
+			"outputName": "$PortID"
+		},
+		{
+			"id": "feb10f31-cf01-4659-a2e0-f4878c9ee2da",
+			"sourceId": "task_158180",
+			"targetId": "task_158178",
+			"inputName": "activate",
+			"outputName": "$PortID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -139,8 +210,8 @@
 					"task_158178": {
 						"collapsed": false,
 						"position": {
-							"x": 1053,
-							"y": 253
+							"x": 1030,
+							"y": 316
 						},
 						"outdated": false
 					},
@@ -153,7 +224,14 @@
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"7a7feb02-dd1c-4dd6-bb4e-a5c00d69eee6": {
+						"vertices": []
+					},
+					"feb10f31-cf01-4659-a2e0-f4878c9ee2da": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_158182": {
 						"collapsed": false,
@@ -162,6 +240,10 @@
 							"y": 110
 						}
 					}
+				},
+				"pan": {
+					"x": 304.4444580078125,
+					"y": 51.11111068725586
 				}
 			}
 		}

@@ -106,6 +106,17 @@
 							"referenceTypeName": null,
 							"referenceTypeId": null
 						}
+					},
+					{
+						"name": "DoNotTriggerMaterialIn",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "DoNotTriggerMaterialIn"
+						}
 					}
 				],
 				"outputs": [
@@ -169,9 +180,166 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstLotID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstSubstLocID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstProcState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "AcquiredID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstHistory",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "Clock",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "SOSM1_NOSTATE_ATSOURCE"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_22511",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"",
+					"        var substrateId = inputs.SubstSubstLocID.toString();",
+					"        var splitted = substrateId.split(\".\");",
+					"        var carrierId = splitted[0].trim();",
+					"        var slotNumber = splitted[1].trim();",
+					"",
+					"        return { CarrierId: carrierId, SubMaterialSlot: Number(slotNumber) }",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIHZhciBzdWJzdHJhdGVJZCA9IGlucHV0cy5TdWJzdFN1YnN0TG9jSUQudG9TdHJpbmcoKTsNCiAgICAgICAgdmFyIHNwbGl0dGVkID0gc3Vic3RyYXRlSWQuc3BsaXQoIi4iKTsNCiAgICAgICAgdmFyIGNhcnJpZXJJZCA9IHNwbGl0dGVkWzBdLnRyaW0oKTsNCiAgICAgICAgdmFyIHNsb3ROdW1iZXIgPSBzcGxpdHRlZFsxXS50cmltKCk7DQogICAgICAgIHJldHVybiB7IENhcnJpZXJJZDogY2FycmllcklkLCBTdWJNYXRlcmlhbFNsb3Q6IE51bWJlcihzbG90TnVtYmVyKSB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
+				"inputs": [
+					{
+						"name": "SubstSubstLocID",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SubstSubstLocID"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "CarrierId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "CarrierId"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "SubMaterialSlot",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SubMaterialSlot"
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
 		}
 	],
 	"converters": [
@@ -206,7 +374,73 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "c91ed65d-67a6-4cbd-ac44-0cad8272a19d",
+			"sourceId": "task_106935",
+			"targetId": "task_122639",
+			"inputName": "SubMaterialNameIn",
+			"outputName": "$SubstID"
+		},
+		{
+			"id": "762781ac-16a6-4fe6-a430-de10c0128d11",
+			"sourceId": "task_106935",
+			"targetId": "task_122639",
+			"inputName": "MaterialNameIn",
+			"outputName": "$SubstLotID"
+		},
+		{
+			"id": "00223140-8dc4-499f-ab6f-3363a767d6d9",
+			"sourceId": "task_106935",
+			"targetId": "task_22511",
+			"inputName": "activate",
+			"outputName": "$SubstSubstLocID"
+		},
+		{
+			"id": "fc8f1a3a-eef9-49e2-88c4-f492a71961e6",
+			"sourceId": "task_106935",
+			"targetId": "task_22511",
+			"inputName": "SubstSubstLocIDIn",
+			"outputName": "$SubstSubstLocID"
+		},
+		{
+			"id": "3778332a-582c-4bd5-803e-7524c99f779b",
+			"sourceId": "task_22511",
+			"targetId": "task_122639",
+			"inputName": "ContainerNameIn",
+			"outputName": "CarrierIdOut"
+		},
+		{
+			"id": "e9aa6b90-1c8d-454e-962a-35619cede624",
+			"sourceId": "task_22511",
+			"targetId": "task_122639",
+			"inputName": "SubMaterialSlotIn",
+			"outputName": "SubMaterialSlotOut"
+		},
+		{
+			"id": "876538fa-36c0-424f-bff7-ba4590d6a05f",
+			"sourceId": "task_22511",
+			"targetId": "task_122639",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "9714c80f-cca0-43bb-9dbc-36aee4213362",
+			"sourceId": "task_22511",
+			"targetId": "task_122639",
+			"inputName": "DoNotTriggerMaterialInIn",
+			"outputName": "success",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "true"
+					}
+				}
+			]
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#00ff80",
@@ -225,21 +459,54 @@
 					"task_122639": {
 						"collapsed": false,
 						"position": {
-							"x": 1036,
-							"y": 159
+							"x": 1107,
+							"y": 66
 						},
 						"outdated": false
 					},
 					"task_106935": {
 						"collapsed": false,
 						"position": {
-							"x": 268,
-							"y": 162
+							"x": 79,
+							"y": 38
+						},
+						"outdated": false
+					},
+					"task_22511": {
+						"collapsed": false,
+						"position": {
+							"x": 549,
+							"y": 444
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"c91ed65d-67a6-4cbd-ac44-0cad8272a19d": {
+						"vertices": []
+					},
+					"762781ac-16a6-4fe6-a430-de10c0128d11": {
+						"vertices": []
+					},
+					"00223140-8dc4-499f-ab6f-3363a767d6d9": {
+						"vertices": []
+					},
+					"fc8f1a3a-eef9-49e2-88c4-f492a71961e6": {
+						"vertices": []
+					},
+					"3778332a-582c-4bd5-803e-7524c99f779b": {
+						"vertices": []
+					},
+					"e9aa6b90-1c8d-454e-962a-35619cede624": {
+						"vertices": []
+					},
+					"876538fa-36c0-424f-bff7-ba4590d6a05f": {
+						"vertices": []
+					},
+					"9714c80f-cca0-43bb-9dbc-36aee4213362": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_107761": {
 						"collapsed": false,
@@ -249,10 +516,10 @@
 						}
 					}
 				},
-				"zoom": 0.6099999999999999,
+				"zoom": 0.8400000000000001,
 				"pan": {
-					"x": 0,
-					"y": 6
+					"x": 191.11111450195312,
+					"y": 3.3333334922790527
 				}
 			}
 		}

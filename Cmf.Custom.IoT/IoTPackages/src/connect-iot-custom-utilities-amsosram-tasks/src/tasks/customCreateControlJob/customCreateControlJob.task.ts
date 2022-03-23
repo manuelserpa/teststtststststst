@@ -3,7 +3,10 @@ import i18n from "./i18n/customCreateControlJob.default";
 
 import { SecsGem } from "../../common/secsGemItem"
 import { SecsItem } from "../../common/secsItem";
-import { MaterialData, MovementData, ContainerProcessHandler} from "../../persistence"
+import { ContainerProcessHandler } from "../../persistence/implementation/containerDataHandler";
+import { MovementData } from "../../persistence/model/movementData";
+import { MaterialData } from "../../persistence";
+
 
 
 /**
@@ -121,73 +124,75 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                         const slotMap = this.SlotMapToArray(container.SlotMap);
                         // slot map parsing
                         const slotValues = []
-                        const transferPair = { type: "L", value: [
-                            {
-                                type: "L", value: [
-                                    { type: "A", value: slotValues }, // source container
-                                    { type: "L", value: [] }, // slot list
+                        const transferPair = {
+                            type: "L", value: [
+                                {
+                                    type: "L", value: [
+                                        { type: "A", value: slotValues }, // source container
+                                        { type: "L", value: [] }, // slot list
                                     ]
-                            },
-                            {
-                                type: "L", value: [
-                                    { type: "A", value: slotValues }, // destination container
-                                    { type: "L", value: [] }, // slot list
-                                ]
-                            }]
+                                },
+                                {
+                                    type: "L", value: [
+                                        { type: "A", value: slotValues }, // destination container
+                                        { type: "L", value: [] }, // slot list
+                                    ]
+                                }]
                         };
-                        for ( let position; position < slotMap.length; position++) {
-                              if (slotMap[position].toString() === this.occupiedSlot.toString()) {
-                              slotValues.push({ type: "U1", value: position })
-                              }
+                        for (let position; position < slotMap.length; position++) {
+                            if (slotMap[position].toString() === this.occupiedSlot.toString()) {
+                                slotValues.push({ type: "U1", value: position })
                             }
+                        }
                         materialMovement.push(transferPair);
                     } else {
-                       const sorterMovementList = JSON.parse(material.SorterJobInformation.MovementList);
-                       sorterMovementList.forEach(element => {
-                          const movementData: MovementData = <MovementData> element;
-                          const destinationContainer = movementData.DestinationContainer;
-                          const destinationSlot = movementData.DestinationPosition
-                          const sourceContainer = movementData.SourceContainer;
-                          const sourceSlot = movementData.SourcePosition;
-                          let transferPair = materialMovement.find(c => c.value[0].value[0].value === sourceContainer
-                            && c.value[0].value[1].value === destinationContainer);
+                        const sorterMovementList = JSON.parse(material.SorterJobInformation.MovementList);
+                        sorterMovementList.forEach(element => {
+                            const movementData: MovementData = <MovementData>element;
+                            const destinationContainer = movementData.DestinationContainer;
+                            const destinationSlot = movementData.DestinationPosition
+                            const sourceContainer = movementData.SourceContainer;
+                            const sourceSlot = movementData.SourcePosition;
+                            let transferPair = materialMovement.find(c => c.value[0].value[0].value === sourceContainer
+                                && c.value[0].value[1].value === destinationContainer);
 
-                          if (!transferPair) {
-                                transferPair = { type: "L", value: [
-                                    {
-                                        type: "L", value: [
-                                            { type: "A", value: sourceContainer }, // source container
-                                            { type: "L", value: [] }, // slot list
+                            if (!transferPair) {
+                                transferPair = {
+                                    type: "L", value: [
+                                        {
+                                            type: "L", value: [
+                                                { type: "A", value: sourceContainer }, // source container
+                                                { type: "L", value: [] }, // slot list
                                             ]
-                                    },
-                                    {
-                                        type: "L", value: [
-                                            { type: "A", value: destinationContainer }, // destination container
-                                            { type: "L", value: [] }, // slot list
-                                        ]
-                                    }]
+                                        },
+                                        {
+                                            type: "L", value: [
+                                                { type: "A", value: destinationContainer }, // destination container
+                                                { type: "L", value: [] }, // slot list
+                                            ]
+                                        }]
                                 };
                                 materialMovement.push(transferPair);
                                 // check if source container is on container input
                                 if (!carrierInputSpec.find(c => c.value === sourceContainer)) {
-                                    carrierInputSpec.push( { type: "A", value: sourceContainer })
+                                    carrierInputSpec.push({ type: "A", value: sourceContainer })
                                 }
                                 // check ig target container is on container input
                                 if (!carrierInputSpec.find(c => c.value === destinationContainer)) {
-                                    carrierInputSpec.push( { type: "A", value: destinationContainer })
+                                    carrierInputSpec.push({ type: "A", value: destinationContainer })
                                 }
                             }
 
                             transferPair.value[0].value[1].value.push({ type: "U1", value: sourceSlot })
                             transferPair.value[0].value[1].value.push({ type: "U1", value: destinationSlot })
-                          });
+                        });
                     }
 
                 } else {
-                   if (material.ContainerName) { // if no container used, spec allows for empty list
-                   // if no sorter job exists push Container name to Carrier Input Spec
-                   carrierInputSpec.push( { type: "A", value: material.ContainerName }) // Carrier Name
-                   }
+                    if (material.ContainerName) { // if no container used, spec allows for empty list
+                        // if no sorter job exists push Container name to Carrier Input Spec
+                        carrierInputSpec.push({ type: "A", value: material.ContainerName }) // Carrier Name
+                    }
                 }
             }
             material.ControlJobId = `CtrlJob_${material.MaterialName}`;
@@ -256,7 +261,8 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                             {
                                 // A list of structures that defines the process jobs and rules for running each that will be run within this ControlJob.
                                 type: "L", value: this.ProcessingControlSpecification
-                            }]});
+                            }]
+                    });
                 } else {
                     objectContent.push({
                         type: "L", value: [

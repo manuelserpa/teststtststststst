@@ -100,6 +100,18 @@
 							"referenceTypeName": null,
 							"referenceTypeId": null
 						}
+					},
+					{
+						"name": "DoNotTriggerMaterialIn",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "DoNotTriggerMaterialIn"
+						},
+						"defaultValue": null
 					}
 				],
 				"___cmf___name": "Start"
@@ -528,6 +540,90 @@
 				"___cmf___name": "Log Inputs",
 				"___cmf___color": "#ffff78"
 			}
+		},
+		{
+			"id": "task_15817",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        ",
+					"        this.framework.logger.warning(`Do Not Trigger Material In: ${inputs.DoNotTriggerMaterialIn} `)",
+					"        if (!inputs.DoNotTriggerMaterialIn) {",
+					"            return { Trigger: true};",
+					"        }",
+					"        return { DoNotTrigger: true};",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIud2FybmluZyhgRG8gTm90IFRyaWdnZXIgTWF0ZXJpYWwgSW46ICR7aW5wdXRzLkRvTm90VHJpZ2dlck1hdGVyaWFsSW59IGApOw0KICAgICAgICBpZiAoIWlucHV0cy5Eb05vdFRyaWdnZXJNYXRlcmlhbEluKSB7DQogICAgICAgICAgICByZXR1cm4geyBUcmlnZ2VyOiB0cnVlIH07DQogICAgICAgIH0NCiAgICAgICAgcmV0dXJuIHsgRG9Ob3RUcmlnZ2VyOiB0cnVlIH07DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
+				"inputs": [
+					{
+						"name": "DoNotTriggerMaterialIn",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": false
+					}
+				],
+				"outputs": [
+					{
+						"name": "DoNotTrigger",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "Trigger",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
 		}
 	],
 	"converters": [
@@ -566,14 +662,6 @@
 					}
 				}
 			]
-		},
-		{
-			"id": "task_113961_success-task_113957_activate",
-			"sourceId": "task_113961",
-			"targetId": "task_113957",
-			"inputName": "activate",
-			"outputName": "success",
-			"converters": []
 		},
 		{
 			"id": "0bede349-2d8b-4d39-9105-e694fc43c055",
@@ -846,6 +934,34 @@
 			"targetId": "task_83347",
 			"inputName": "SubResourceOrderIn",
 			"outputName": "SubResourceOrderOut"
+		},
+		{
+			"id": "01062a41-9986-4376-9392-fe4fb900ac82",
+			"sourceId": "task_15817",
+			"targetId": "task_113957",
+			"inputName": "activate",
+			"outputName": "TriggerOut"
+		},
+		{
+			"id": "5f2db16a-be02-439b-a477-97b1dc506dd0",
+			"sourceId": "task_113961",
+			"targetId": "task_15817",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "87f19e0e-4669-4bce-92cf-fe7b3a48cd81",
+			"sourceId": "task_15817",
+			"targetId": "task_113701",
+			"inputName": "success",
+			"outputName": "DoNotTriggerOut"
+		},
+		{
+			"id": "fea59cd3-44ab-4e23-ad77-eb7cfa688e19",
+			"sourceId": "task_113699",
+			"targetId": "task_15817",
+			"inputName": "DoNotTriggerMaterialInIn",
+			"outputName": "DoNotTriggerMaterialInOut"
 		}
 	],
 	"layout": {
@@ -899,7 +1015,7 @@
 					"task_113961": {
 						"collapsed": false,
 						"position": {
-							"x": 1735,
+							"x": 1631,
 							"y": 591
 						},
 						"outdated": false
@@ -919,13 +1035,18 @@
 							"y": 280
 						},
 						"outdated": false
+					},
+					"task_15817": {
+						"collapsed": false,
+						"position": {
+							"x": 2094,
+							"y": 1037
+						},
+						"outdated": false
 					}
 				},
 				"links": {
 					"task_113961_ResourceName-task_113957_ResourceName": {
-						"vertices": []
-					},
-					"task_113961_success-task_113957_activate": {
 						"vertices": []
 					},
 					"0bede349-2d8b-4d39-9105-e694fc43c055": {
@@ -950,6 +1071,10 @@
 							{
 								"x": 1379,
 								"y": 908
+							},
+							{
+								"x": 1899,
+								"y": 1446
 							}
 						]
 					},
@@ -987,10 +1112,20 @@
 						"vertices": []
 					},
 					"35348bbd-0cec-40f3-a622-2de21a06367a": {
-						"vertices": []
+						"vertices": [
+							{
+								"x": 2272,
+								"y": 272
+							}
+						]
 					},
 					"249c83a6-8482-4e34-aaab-5c09b797a44d": {
-						"vertices": []
+						"vertices": [
+							{
+								"x": 2219,
+								"y": 228
+							}
+						]
 					},
 					"f53d9e97-583c-47c5-a28a-fbdba5457764": {
 						"vertices": []
@@ -1029,9 +1164,31 @@
 						"vertices": []
 					},
 					"43435ac8-1569-4722-848e-975cf545ca1c": {
-						"vertices": []
+						"vertices": [
+							{
+								"x": 1070,
+								"y": 815
+							}
+						]
 					},
 					"6d06568a-c826-432b-a76c-11af163fcff7": {
+						"vertices": []
+					},
+					"01062a41-9986-4376-9392-fe4fb900ac82": {
+						"vertices": []
+					},
+					"5f2db16a-be02-439b-a477-97b1dc506dd0": {
+						"vertices": []
+					},
+					"87f19e0e-4669-4bce-92cf-fe7b3a48cd81": {
+						"vertices": [
+							{
+								"x": 2935,
+								"y": 1012
+							}
+						]
+					},
+					"fea59cd3-44ab-4e23-ad77-eb7cfa688e19": {
 						"vertices": []
 					},
 					"task_113959_subMaterial-task_113957_MaterialName": {
@@ -1049,10 +1206,10 @@
 				},
 				"notes": {},
 				"pan": {
-					"x": 8.88888931274414,
-					"y": 100
+					"x": 460,
+					"y": 73.33333587646484
 				},
-				"zoom": 0.5300000000000002
+				"zoom": 0.6200000000000003
 			}
 		}
 	}

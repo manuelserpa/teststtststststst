@@ -74,6 +74,12 @@
 					   library ="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"
 					   >
 		</Equipment>
+		<Equipment name="ENA01" automationManager="MechatronicMWS200" driverAlias="SecsGemEquipment"
+				 description="SecsGemEquipment" driver="SecsGem" port="5013" serviceMachine="vm-ams-osram"
+				 serviceName="ConnectIoT (ENA01)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\ENA01\remoteTestingConfig.json"
+		   library ="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"
+					   >
+		</Equipment>
       </Equipments>
   </connectIotAutomaticTests> -->
 </RunSettings>

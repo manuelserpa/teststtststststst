@@ -167,7 +167,31 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CtrlJobID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CtrlJobState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "CJSM10_EXECUTING_COMPLETED"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -214,7 +238,22 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "581475a5-af39-4b7e-8601-f1b947b047c0",
+			"sourceId": "task_75124",
+			"targetId": "task_127417",
+			"inputName": "ControlJobIdIn",
+			"outputName": "$CtrlJobID"
+		},
+		{
+			"id": "edf30cc6-3d25-40c5-a034-c8326e2dc100",
+			"sourceId": "task_75124",
+			"targetId": "task_127417",
+			"inputName": "activate",
+			"outputName": "$CtrlJobID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#00ff80",
@@ -249,13 +288,20 @@
 					"task_75124": {
 						"collapsed": false,
 						"position": {
-							"x": 494.3396226415092,
-							"y": 320.75471698113193
+							"x": 516,
+							"y": 397
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"581475a5-af39-4b7e-8601-f1b947b047c0": {
+						"vertices": []
+					},
+					"edf30cc6-3d25-40c5-a034-c8326e2dc100": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_60654": {
 						"collapsed": false,

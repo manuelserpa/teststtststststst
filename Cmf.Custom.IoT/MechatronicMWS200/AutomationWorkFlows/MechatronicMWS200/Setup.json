@@ -460,7 +460,16 @@
 				}
 			},
 			"settings": {
-				"_outputs": [],
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ControlState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
 				"___cmf___name": "Get Equipment Properties Values",
 				"___cmf___color": "#ffff80"
 			},
@@ -817,6 +826,13 @@
 					"params": {}
 				}
 			]
+		},
+		{
+			"id": "1d37b9ef-c2a8-4f7a-8378-912ac7298473",
+			"sourceId": "task_21307",
+			"targetId": "task_165548",
+			"inputName": "valueIn",
+			"outputName": "$ControlState"
 		}
 	],
 	"layout": {
@@ -980,6 +996,9 @@
 					"14249132-70cd-4b5b-8537-deafebc5a8cf": {
 						"vertices": []
 					},
+					"1d37b9ef-c2a8-4f7a-8378-912ac7298473": {
+						"vertices": []
+					},
 					"475cc0b4-ab2c-48ab-941d-b4c1b0ae9807": {
 						"vertices": []
 					},
@@ -1003,10 +1022,10 @@
 						}
 					}
 				},
-				"zoom": 0.33999999999999964,
+				"zoom": 0.5899999999999999,
 				"pan": {
-					"x": 223,
-					"y": 23
+					"x": 1028.888916015625,
+					"y": 341.1111145019531
 				}
 			}
 		}

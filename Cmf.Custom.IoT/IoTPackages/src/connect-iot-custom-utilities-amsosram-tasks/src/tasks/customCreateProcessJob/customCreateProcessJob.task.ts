@@ -4,7 +4,10 @@ import i18n from "./i18n/customCreateProcessJob.default";
 import { SecsGem } from "../../common/secsGemItem"
 import { SecsItem } from "../../common/secsItem";
 import { SubMaterialStateEnum } from "../../persistence/model/subMaterialData";
-import { MaterialData, MovementData, ContainerProcessHandler } from "../../persistence/";
+import { ContainerProcessHandler } from "../../persistence/implementation/containerDataHandler";
+import { MovementData } from "../../persistence/model/movementData";
+import { MaterialData } from "../../persistence";
+
 
 /**
  * @whatItDoes
@@ -123,17 +126,19 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
                 if (this.SendCarrierContent) {
                     if (!material.SorterJobInformation) {
                         const slotMap = [];
-                        const carrierContent = { type: "L", value: [
-                            { type: "A", value: material.ContainerName }, // Carrier Content
-                            { type: "L", value: slotMap } // Empty parameter list
-                         ]};
-                         carrierContentWrapper.push(carrierContent);
-                         material.SubMaterials.forEach(s => {
+                        const carrierContent = {
+                            type: "L", value: [
+                                { type: "A", value: material.ContainerName }, // Carrier Content
+                                { type: "L", value: slotMap } // Empty parameter list
+                            ]
+                        };
+                        carrierContentWrapper.push(carrierContent);
+                        material.SubMaterials.forEach(s => {
                             if (s.MaterialState === SubMaterialStateEnum.Queued) {
                                 slotMap.push({ type: "U1", value: s.Slot })
                             }
-                         });
-                   } else {
+                        });
+                    } else {
                         if (material.SorterJobInformation.LogisticalProcess === "MapCarrier") {
                             // get container from persistence to get stored slot map
                             const container = await this._containerProcess.getContainer(material.ContainerName, Number(material.LoadPortPosition))
@@ -141,34 +146,38 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
                             const slotMap = this.SlotMapToArray(container.SlotMap);
                             // slot map parsing
                             const slotValue = [];
-                            const carrierContent = { type: "L", value: [
-                                { type: "A", value: material.ContainerName }, // Carrier Content
-                                { type: "L", value: slotValue } // Empty parameter list
-                            ]};
-                            for ( let position; position < slotMap.length; position++) {
+                            const carrierContent = {
+                                type: "L", value: [
+                                    { type: "A", value: material.ContainerName }, // Carrier Content
+                                    { type: "L", value: slotValue } // Empty parameter list
+                                ]
+                            };
+                            for (let position; position < slotMap.length; position++) {
                                 if (slotMap[position].toString() === this.occupiedSlot.toString()) {
                                     slotValue.push({ type: "U1", value: position })
                                 }
-                                }
-                        } else {
-                        const sorterMovementList = JSON.parse(material.SorterJobInformation.MovementList);
-                        sorterMovementList.forEach(element => {
-                            const movementData: MovementData = <MovementData> element;
-                            const sourceContainer = movementData.SourceContainer;
-                            const sourceSlot = movementData.SourcePosition;
-                            let carrierContent = carrierContentWrapper.find(c => c.value[0].value === sourceContainer);
-
-                            if (!carrierContent) {
-                                carrierContent = { type: "L", value: [
-                                    { type: "A", value: sourceContainer }, // Carrier Content
-                                    { type: "L", value: [] } // Empty parameter list
-                                ]};
-                                carrierContentWrapper.push(carrierContent);
                             }
-                            carrierContent.value[1].value.push({ type: "U1", value: sourceSlot })
+                        } else {
+                            const sorterMovementList = JSON.parse(material.SorterJobInformation.MovementList);
+                            sorterMovementList.forEach(element => {
+                                const movementData: MovementData = <MovementData>element;
+                                const sourceContainer = movementData.SourceContainer;
+                                const sourceSlot = movementData.SourcePosition;
+                                let carrierContent = carrierContentWrapper.find(c => c.value[0].value === sourceContainer);
+
+                                if (!carrierContent) {
+                                    carrierContent = {
+                                        type: "L", value: [
+                                            { type: "A", value: sourceContainer }, // Carrier Content
+                                            { type: "L", value: [] } // Empty parameter list
+                                        ]
+                                    };
+                                    carrierContentWrapper.push(carrierContent);
+                                }
+                                carrierContent.value[1].value.push({ type: "U1", value: sourceSlot })
                             });
                         }
-                   }
+                    }
                 }
 
 

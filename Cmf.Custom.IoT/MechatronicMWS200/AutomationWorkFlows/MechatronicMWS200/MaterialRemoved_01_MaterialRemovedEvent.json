@@ -125,7 +125,55 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PlacedCarrierPattern1",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PlacedCarrierPattern2",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PlacedCarrierPattern3",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PlacedCarrierPattern4",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "MATERIAL_REMOVED"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -162,7 +210,22 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "e3854042-72cb-474f-a07b-f06b11990eff",
+			"sourceId": "task_189672",
+			"targetId": "task_95323",
+			"inputName": "LoadPortNumberIn",
+			"outputName": "$PortID"
+		},
+		{
+			"id": "efc85a89-1e73-430e-9826-c80c63db4a38",
+			"sourceId": "task_189672",
+			"targetId": "task_95323",
+			"inputName": "activate",
+			"outputName": "$PortID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -181,21 +244,28 @@
 					"task_95323": {
 						"collapsed": false,
 						"position": {
-							"x": 1065,
-							"y": 328
+							"x": 1066,
+							"y": 307
 						},
 						"outdated": false
 					},
 					"task_189672": {
 						"collapsed": false,
 						"position": {
-							"x": 502,
-							"y": 250
+							"x": 465,
+							"y": 240
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"e3854042-72cb-474f-a07b-f06b11990eff": {
+						"vertices": []
+					},
+					"efc85a89-1e73-430e-9826-c80c63db4a38": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_189487": {
 						"collapsed": false,
@@ -206,10 +276,10 @@
 					}
 				},
 				"pan": {
-					"x": 210.38029919356995,
-					"y": 45.47889645162047
+					"x": 196.1455529428025,
+					"y": 36.805806480980266
 				},
-				"zoom": 0.7200000000000002
+				"zoom": 0.7100000000000002
 			}
 		}
 	}
