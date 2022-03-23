@@ -24,6 +24,8 @@ using Cmf.Custom.AMSOsram.BusinessObjects;
 using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Foundation.Common.Base;
 using Newtonsoft.Json.Linq;
+using System.Text;
+using cmConnect.TestFramework.SystemRest.Entities;
 
 namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 {
@@ -32,7 +34,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
     {
         private const string resourceName = "ENA01";
 
-        public const int numberOfWafersPerLot = 3;
+        public const int numberOfWafersPerLot = 4;
 
         public const string stepName = "M3-LO-Wafer Sorter-Split-01518F010_E";
         public const string flowName = "FOL-UX3_EPA";
@@ -45,7 +47,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
         private static SmartTableManager smartTableManager = new SmartTableManager();
         private static GenericTableManager genericTableManager = new GenericTableManager();
-
+        private Dictionary<int, ContainerScenario> containerScenariosUsed = new Dictionary<int, ContainerScenario>();
         private List<int> loadPortsUsed = new List<int>();
         private readonly Dictionary<int, string> loadPortNames = new Dictionary<int, string>()
         {
@@ -75,8 +77,6 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
         public bool createProcessJobDenied = false;
 
 
-        ContainerScenario containerScenarioForLoadPort2;
-
         #region Test Basics
         [TestInitialize]
         public void TestInit()
@@ -87,6 +87,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             base.Initialize(recipeName);
             base.SubMaterialTrackin = subMaterialTrackin;
 
+            base.Equipment.RegisterOnMessage("S3F17", OnS3F17);
             base.Equipment.RegisterOnMessage("S1F3", OnS1F3);
             base.Equipment.RegisterOnMessage("S14F9", OnS14F9);
             base.Equipment.RegisterOnMessage("S16F11", OnS16F11);
@@ -106,9 +107,12 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             createProcessJobReceived = false;
             createProcessJobDenied = false;
 
-            if (containerScenarioForLoadPort2 != null)
+            foreach(var containerScenario in containerScenariosUsed)
             {
-                containerScenarioForLoadPort2.TearDown();
+                if (MESScenario.ContainerScenario.Entity.Name != containerScenario.Value.Entity.Name)
+                {
+                    containerScenario.Value.TearDown();
+                }
             }
 
             #region Handle custom sorter job definition
@@ -142,6 +146,15 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             Cleanup();
         }
 
+        private void PrepareSorterScenarioInitializeAndSetup(bool ignoreCarrierIn = false, bool IgnoreMaterialScenarioSetup = true)
+        {
+            base.IgnoreCarrierIn = ignoreCarrierIn;
+            base.IgnoreMaterialScenarioSetup = IgnoreMaterialScenarioSetup;
+            base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot);
+            MESScenario.Setup(false, automaticContainerPositions: false, containerType: base.ContainerType);
+            PostSetupActions(MESScenario);
+        }
+
         #endregion Test Basic
 
         #region Tests FullProcessScenario   
@@ -164,6 +177,245 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
             customSorterJobDefinition = GetCustomSorterJobDefinition(AMSOsramConstants.CustomSorterLogisticalProcessMapCarrier, new ContainerCollection() { }, new ContainerCollection() { });
             InsertDataIntoCustomSorterJobDefinitionContextTable(stepName, customSorterJobDefinition.Name, materialName: MESScenario.Entity.Name);
+
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+
+            var recipe = new Recipe() { Name = RecipeName };
+            recipe.Load();
+
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            RecipeManagement.FailOnNewBody = true;
+            RecipeManagement.RecipeExistsOnList = true;
+
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+        }
+
+        /// <summary>
+        /// Perform Transfer with a CustomSorterJobDefinitionContext in place
+        /// </summary>
+        [TestMethod,
+            Description
+            (
+            "- Dock a container into Load Port 1" +
+            "- Calls Material IN orchestration" +
+            "- SorterJobDefinitionContext is resolved" +
+            "- ")]
+        public void MechatronicMWS200_Transfer_WithSorterJobDefinitionContext()
+        {
+            base.LoadPortNumber = sourceLoadPortNumber = 1;
+            destinationLoadPortNumber = 2;
+            loadPortsUsed.Add(1);
+            loadPortsUsed.Add(2);
+            PrepareSorterScenarioInitializeAndSetup();
+
+            ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(destinationLoadPortNumber, null, AMSOsramConstants.ContainerSMIFPod);
+            MESContainer mesContainer = new MESContainer(containerScenarioForLoadPort2.Entity.Name);
+            m_Scenario.ScenarioContainers.Add(mesContainer.Container);
+
+            customSorterJobDefinition = GetCustomSorterJobDefinition(AMSOsramConstants.CustomSorterLogisticalProcessTransferWafers,
+                sourceContainers: new ContainerCollection() { base.MESScenario.ContainerScenario.Entity },
+                destinationContainers: new ContainerCollection() { containerScenarioForLoadPort2.Entity },
+                fullTransferWafers: true);
+
+            containerScenariosUsed.Add(sourceLoadPortNumber, base.MESScenario.ContainerScenario);
+            containerScenariosUsed.Add(destinationLoadPortNumber, containerScenarioForLoadPort2);
+
+            InsertDataIntoCustomSorterJobDefinitionContextTable(stepName, customSorterJobDefinition.Name, materialName: MESScenario.Entity.Name);
+
+            
+
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+
+
+            var recipe = new Recipe() { Name = RecipeName };
+            recipe.Load();
+
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            RecipeManagement.FailOnNewBody = true;
+            RecipeManagement.RecipeExistsOnList = true;
+
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+        }
+
+        /// <summary>
+        /// Perform Transfer with a CustomSorterJobDefinitionContext in place
+        /// </summary>
+        [TestMethod,
+            Description
+            (
+            "- Dock a container into Load Port 1" +
+            "- Calls Material IN orchestration" +
+            "- SorterJobDefinitionContext is resolved" +
+            "- ")]
+        public void MechatronicMWS200_Split_WithSorterJobDefinitionContext()
+        {
+            base.LoadPortNumber = sourceLoadPortNumber = 1;
+            destinationLoadPortNumber = 2;
+            loadPortsUsed.Add(1);
+            loadPortsUsed.Add(2);
+            PrepareSorterScenarioInitializeAndSetup();
+
+            ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(destinationLoadPortNumber, null, AMSOsramConstants.ContainerSMIFPod);
+            MESContainer mesContainer = new MESContainer(containerScenarioForLoadPort2.Entity.Name);
+            m_Scenario.ScenarioContainers.Add(mesContainer.Container);
+
+            customSorterJobDefinition = GetCustomSorterJobDefinition(AMSOsramConstants.CustomSorterLogisticalProcessTransferWafers,
+                sourceContainers: new ContainerCollection() { base.MESScenario.ContainerScenario.Entity },
+                destinationContainers: new ContainerCollection() { containerScenarioForLoadPort2.Entity },
+                fullTransferWafers: true);
+
+            containerScenariosUsed.Add(sourceLoadPortNumber, base.MESScenario.ContainerScenario);
+            containerScenariosUsed.Add(destinationLoadPortNumber, containerScenarioForLoadPort2);
+
+            InsertDataIntoCustomSorterJobDefinitionContextTable(stepName, customSorterJobDefinition.Name, materialName: MESScenario.Entity.Name);
+
+
+
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+
+
+            var recipe = new Recipe() { Name = RecipeName };
+            recipe.Load();
+
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            RecipeManagement.FailOnNewBody = true;
+            RecipeManagement.RecipeExistsOnList = true;
+
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+        }
+
+        /// <summary>
+        /// Perform Transfer with a CustomSorterJobDefinitionContext in place
+        /// </summary>
+        [TestMethod,
+            Description
+            (
+            "- Dock a container into Load Port 1" +
+            "- Calls Material IN orchestration" +
+            "- SorterJobDefinitionContext is resolved" +
+            "- ")]
+        public void MechatronicMWS200_Merge_WithSorterJobDefinitionContext()
+        {
+            base.LoadPortNumber = sourceLoadPortNumber = 1;
+            destinationLoadPortNumber = 2;
+            loadPortsUsed.Add(1);
+            loadPortsUsed.Add(2);
+            loadPortsUsed.Add(3);
+
+            CustomMaterialScenario matScenario = InitializeMaterialScenario(resourceName, flowName, stepName, 13);
+            base.MESScenario = matScenario;
+            base.MESScenario.Setup();
+            IgnoreMaterialScenarioSetup = true;
+
+            #region Create containers scenario
+
+            ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(2, MESScenario.Entity.Facility.Name ?? null, AMSOsramConstants.ContainerSMIFPod);
+            ContainerScenario containerScenarioForLoadPort3 = CreateEmptyContainerScenario(3, MESScenario.Entity.Facility.Name ?? null, AMSOsramConstants.ContainerSMIFPod);
+
+            #endregion Create containers scenario
+
+            #region SPLIT
+
+            SplitInputParametersCollection splitInputParameters = new SplitInputParametersCollection();
+            string lotName = DateTime.Now.Ticks.ToString();
+            MESScenario.Entity.Load();
+            MESScenario.LoadChildren();
+
+            SplitInputParameters splitInputParameters1 = new SplitInputParameters
+            {
+                Name = lotName + ".001",
+                PrimaryQuantity = 0,
+                MaterialContainer = null,
+                SubMaterials = new SplitInputSubMaterialCollection()
+                {
+                    new SplitInputSubMaterial
+                    {
+                        IsToDisassociate = false,
+                        SubMaterial = MESScenario.Entity.SubMaterials[0],
+                        MaterialContainer = new MaterialContainer()
+                        {
+                            SourceEntity = matScenario.Entity.SubMaterials[0],
+                            TargetEntity =containerScenarioForLoadPort2.Entity,
+                            Position = 1
+                        }
+                    },
+                    new SplitInputSubMaterial
+                    {
+                        IsToDisassociate = false,
+                        SubMaterial = MESScenario.Entity.SubMaterials[1],
+                        MaterialContainer = new MaterialContainer()
+                        {
+                            SourceEntity = matScenario.Entity.SubMaterials[1],
+                            TargetEntity = containerScenarioForLoadPort2.Entity,
+                            Position = 2
+                        }
+                    }
+                }
+            };
+
+            splitInputParameters.Add(splitInputParameters1);
+
+            SplitInputParameters splitInputParameters2 = new SplitInputParameters
+            {
+                Name = lotName + ".002",
+                PrimaryQuantity = 0,
+                MaterialContainer = null,
+                SubMaterials = new SplitInputSubMaterialCollection()
+                {
+                    new SplitInputSubMaterial
+                    {
+                        IsToDisassociate = false,
+                        SubMaterial = matScenario.Entity.SubMaterials[2],
+                        MaterialContainer = new MaterialContainer()
+                        {
+                            SourceEntity = matScenario.Entity.SubMaterials[2],
+                            TargetEntity = containerScenarioForLoadPort3.Entity,
+                            Position = 1
+                        }
+                    },
+                    new SplitInputSubMaterial
+                    {
+                        IsToDisassociate = false,
+                        SubMaterial = matScenario.Entity.SubMaterials[3],
+                        MaterialContainer = new MaterialContainer()
+                        {
+                            SourceEntity = matScenario.Entity.SubMaterials[3],
+                            TargetEntity = containerScenarioForLoadPort3.Entity,
+                            Position = 2
+                        }
+                    }
+                }
+            };
+
+            splitInputParameters.Add(splitInputParameters2);
+
+            MESScenario.Entity.Split(splitInputParameters);
+            MESScenario.Entity.Load();
+
+            #endregion SPLIT
+
+            customSorterJobDefinition = GetCustomSorterJobDefinition(AMSOsramConstants.CustomSorterLogisticalProcessTransferWafers,
+                sourceContainers: new ContainerCollection() { containerScenarioForLoadPort2.Entity, containerScenarioForLoadPort3.Entity },
+                destinationContainers: new ContainerCollection() { base.MESScenario.ContainerScenario.Entity },
+                futureActionType: "Merge");
+
+            containerScenariosUsed.Add(1, base.MESScenario.ContainerScenario);
+            containerScenariosUsed.Add(2, containerScenarioForLoadPort2);
+            containerScenariosUsed.Add(3, containerScenarioForLoadPort3);
+
+            InsertDataIntoCustomSorterJobDefinitionContextTable(stepName, customSorterJobDefinition.Name, materialName: matScenario.Entity.Name);
+
+
+
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+
+
+            var recipe = new Recipe() { Name = RecipeName };
+            recipe.Load();
+
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            RecipeManagement.FailOnNewBody = true;
+            RecipeManagement.RecipeExistsOnList = true;
 
             base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
         }
@@ -400,15 +652,26 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
         public override bool CarrierIn(CustomMaterialScenario scenario, int loadPortToSet)
         {
 
-            //CarrierClamped
-            base.Equipment.Variables["PortID"] = loadPortToSet;
-            base.Equipment.Variables["PlacedCarrierPattern1"] = 1;
-            base.Equipment.Variables["PlacedCarrierPattern2"] = 2;
-            base.Equipment.Variables["PlacedCarrierPattern3"] = 3;
-            base.Equipment.Variables["PlacedCarrierPattern4"] = 4;
+            foreach(var lp in loadPortsUsed) 
+            {
+                base.Equipment.Variables["PortID"] = lp;
+                base.Equipment.Variables["PlacedCarrierPattern1"] = 1;
+                base.Equipment.Variables["PlacedCarrierPattern2"] = 2;
+                base.Equipment.Variables["PlacedCarrierPattern3"] = 3;
+                base.Equipment.Variables["PlacedCarrierPattern4"] = 4;
 
-            // Trigger event
-            base.Equipment.SendMessage(String.Format($"MATERIAL_PLACED"), null);
+                // Trigger event
+                base.Equipment.SendMessage(String.Format($"MATERIAL_PLACED"), null);
+
+                Thread.Sleep(300);
+
+                if (lp != loadPortToSet)
+                {
+                    DockContainer(containerScenariosUsed[lp], lp, MESScenario);
+                }
+
+            }
+            
 
             return true;
 
@@ -420,13 +683,13 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             base.CarrierInValidation(MESScenario, loadPortToSet);
 
 
-            var slotMap = new int[13];
+            var slotMap = new int[MESScenario.ContainerScenario.Entity.ContainerMaterials.Count];
             // scenario.ContainerScenario.Entity
             if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
             {
-                for (int i = 0; i < 13; i++)
+                for (int i = 0; i < MESScenario.ContainerScenario.Entity.ContainerMaterials.Count; i++)
                 {
-                    slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 1 : 0;
+                    slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
                 }
             }
             SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
@@ -465,7 +728,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             {
                 for (int i = 0; i < 13; i++)
                 {
-                    slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 1 : 0;
+                    slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
                 }
             }
             SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
@@ -547,13 +810,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             {
                 Assert.Fail("Track In must fail on Online Local");
             }
-            else
-            {
-                if (!createControlJobReceived || !createProcessJobReceived)
-                {
-                    Assert.Fail("Control or Process Job creation requests were never received");
-                }
-            }
+            
 
             TestUtilities.WaitFor(60, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
             {
@@ -566,6 +823,32 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
                 scenario.Entity.Load();
                 return scenario.Entity.SystemState.ToString().Equals(MaterialSystemState.InProcess.ToString());
             });
+
+            var slotMap = new int[13];
+            // scenario.ContainerScenario.Entity
+            if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
+            {
+                for (int i = 0; i < 13; i++)
+                {
+                    slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
+                }
+            }
+            SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
+
+
+            base.Equipment.Variables["CarrierID"] = scenario.ContainerScenario.Entity.Name;
+            base.Equipment.Variables["PortID"] = loadPortNumber;
+            base.Equipment.Variables["ContentMap"] = slotMapDV;
+            base.Equipment.Variables["SlotMap"] = slotMapDV;
+
+
+            base.Equipment.SendMessage("COSM15_SLOTMAPWAITINGFORHOST_SLOTMAPVERIFICATIONOK", null);
+
+            TestUtilities.WaitFor(60, String.Format($"Control or Process Job creation requests were never received"), () =>
+            {
+                return (createControlJobReceived && createProcessJobReceived);
+            });
+
 
             return true;
         }
@@ -737,7 +1020,33 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             return true;
         }
 
-        
+        public virtual bool OnS3F17(SecsMessage request, SecsMessage reply)
+        {
+            reply.Item.Clear();
+            var ack = new SecsItem { U1 = new byte[] { 0x00 } };
+
+            var errorList = new SecsItem();
+            errorList.SetTypeToList();
+
+            //if (createControlJobDenied)
+            //{
+            //    ack = new SecsItem { U1 = new byte[] { 0x01 } };
+
+            //    errorList = new SecsItem();
+            //    errorList.SetTypeToList();
+            //    var error = new SecsItem();
+            //    error.SetTypeToList();
+            //    error.Add(new SecsItem() { U1 = new byte[] { 7 } });
+            //    error.Add(new SecsItem() { ASCII = $"{MESScenario.Entity.Name} : RecID : IllegalValue'" });
+            //    errorList.Add(error);
+            //}
+
+            reply.Item.Add(ack);
+
+            reply.Item.Add(errorList);
+
+            return (true);
+        }
 
         protected virtual bool OnS1F3(SecsMessage request, SecsMessage reply)
         {

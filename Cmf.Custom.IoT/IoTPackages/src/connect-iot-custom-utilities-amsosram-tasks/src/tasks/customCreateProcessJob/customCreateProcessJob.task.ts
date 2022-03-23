@@ -140,10 +140,12 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
                         });
                     } else {
                         if (material.SorterJobInformation.LogisticalProcess === "MapCarrier") {
+
                             // get container from persistence to get stored slot map
                             const container = await this._containerProcess.getContainer(material.ContainerName, Number(material.LoadPortPosition))
                             // sets slot map to known format
                             const slotMap = this.SlotMapToArray(container.SlotMap);
+
                             // slot map parsing
                             const slotValue = [];
                             const carrierContent = {
@@ -152,11 +154,14 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
                                     { type: "L", value: slotValue } // Empty parameter list
                                 ]
                             };
-                            for (let position; position < slotMap.length; position++) {
-                                if (slotMap[position].toString() === this.occupiedSlot.toString()) {
-                                    slotValue.push({ type: "U1", value: position })
+                            for (let position = 0; position < slotMap.length; position++) {
+                                if (slotMap[position].trim().toString() === this.occupiedSlot.trim().toString()) {
+                                    slotValue.push({ type: "U1", value: (position + 1) });
                                 }
+
                             }
+
+                            carrierContentWrapper.push(carrierContent);
                         } else {
                             const sorterMovementList = JSON.parse(material.SorterJobInformation.MovementList);
                             sorterMovementList.forEach(element => {

@@ -139,9 +139,9 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                                     ]
                                 }]
                         };
-                        for (let position; position < slotMap.length; position++) {
+                        for (let position = 0; position < slotMap.length; position++) {
                             if (slotMap[position].toString() === this.occupiedSlot.toString()) {
-                                slotValues.push({ type: "U1", value: position })
+                                slotValues.push({ type: "U1", value: position + 1 })
                             }
                         }
                         materialMovement.push(transferPair);
@@ -154,7 +154,7 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                             const sourceContainer = movementData.SourceContainer;
                             const sourceSlot = movementData.SourcePosition;
                             let transferPair = materialMovement.find(c => c.value[0].value[0].value === sourceContainer
-                                && c.value[0].value[1].value === destinationContainer);
+                                && c.value[1].value[0].value === destinationContainer);
 
                             if (!transferPair) {
                                 transferPair = {
@@ -184,7 +184,7 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                             }
 
                             transferPair.value[0].value[1].value.push({ type: "U1", value: sourceSlot })
-                            transferPair.value[0].value[1].value.push({ type: "U1", value: destinationSlot })
+                            transferPair.value[1].value[1].value.push({ type: "U1", value: destinationSlot })
                         });
                     }
 
