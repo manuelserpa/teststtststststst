@@ -1,5 +1,4 @@
-﻿using Cmf.Custom.Tests.Biz.Common.ERP;
-using Cmf.Custom.Tests.Biz.Common.ERP.Product;
+﻿using Cmf.Custom.Tests.Biz.Common.ERP.Product;
 using Cmf.Custom.Tests.Biz.Common.Extensions;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
@@ -11,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 
 namespace Cmf.Custom.Tests.Biz.ERP
 {
@@ -19,7 +17,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
     public class CustomCreateProductFromERP
     {
 
-        private ExecutionScenario _scenario;
+        private CustomExecutionScenario _scenario;
         private CustomTearDownManager customTeardownManager = null;
 
         /// <summary>
@@ -28,7 +26,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestInitialize]
         public void TestInitialization()
         {
-            _scenario = new ExecutionScenario();
+            _scenario = new CustomExecutionScenario();
             customTeardownManager = new CustomTearDownManager();
         }
 
@@ -77,12 +75,12 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string[] productAttributeNames = new string[] { "SAPProductType", "Technology", "Status", "DispoLevel" };
             string[] productAttributeValues = new string[] { "F4653F00050", "PN", "95", "EOL" };
 
-            Dictionary<string, string> parameterData = new Dictionary<string, string>() { 
-                { "Raster X", "1020" }, 
-                { "Raster Y", "1020" }, 
-                { "CM2 Average", "164.55" }, 
-                { "Chips Fieldmask", "15816" }, 
-                { "Wafer Size", "150" }, 
+            Dictionary<string, string> parameterData = new Dictionary<string, string>() {
+                { "Raster X", "1020" },
+                { "Raster Y", "1020" },
+                { "CM2 Average", "164.55" },
+                { "Chips Fieldmask", "15816" },
+                { "Wafer Size", "150" },
                 { "Chips Whole Wafer", "16916.571" } };
 
             List<ProductParameterData> productParameterData = new List<ProductParameterData>();
@@ -107,7 +105,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
                 productParameterData.Add(parameter);
             }
 
-            List < ERPProduct > productsLists = new List<ERPProduct>() {
+            List<ERPProduct> productsLists = new List<ERPProduct>() {
                 new ERPProduct{
                     Name = firstProductName,
                     Description = messageProductDescription,
@@ -181,7 +179,9 @@ namespace Cmf.Custom.Tests.Biz.ERP
                 }
             };
 
-            _scenario.ERPProductList = productsLists;
+            _scenario.IsToSendProducts = true;
+
+            _scenario.ProductOutput.ProductsData = productsLists;
 
             _scenario.Setup();
 
@@ -236,7 +236,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
                 if (partParameters.Any(pp => pp.TargetEntity.Name.Equals(parameterName)))
                 {
                     ProductParameter parameter = (ProductParameter)partParameters.FirstOrDefault(pp => pp.TargetEntity.Name.Equals(parameterName));
-                    Assert.IsTrue(parameter.Value.Equals(parameterData[parameterName])); 
+                    Assert.IsTrue(parameter.Value.Equals(parameterData[parameterName]));
                 }
             }
 
