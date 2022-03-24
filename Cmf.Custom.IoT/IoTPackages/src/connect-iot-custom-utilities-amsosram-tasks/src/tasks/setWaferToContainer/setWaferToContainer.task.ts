@@ -126,6 +126,7 @@ export class SetWaferToContainerTask implements Task.TaskInstance, SetWaferToCon
                 }
                 let wafer: WaferData = {} as WaferData;
                 if (container) {
+                    this._logger.error("1 ===========>");
                     if (this.material) {
                         if (slotMES) {
                             wafer.MaterialWaferId = slotMES.MaterialName;
@@ -140,9 +141,11 @@ export class SetWaferToContainerTask implements Task.TaskInstance, SetWaferToCon
                     if (this.equipmentWaferId) {
                         wafer.EquipmentWaferId = this.equipmentWaferId;
                     }
+                    this._logger.error("3 ===========>");
                     wafer = await this._containerProcess.setWaferDataToContainerData(container, wafer);
 
                 } else {
+                    this._logger.error("2 ===========>");
                     let materialWaferId: string;
                     let equipmentWaferId: string;
 
@@ -156,7 +159,7 @@ export class SetWaferToContainerTask implements Task.TaskInstance, SetWaferToCon
                         equipmentWaferId = this.equipmentWaferId
                     }
 
-
+                    this._logger.error("4 ===========>");
                     wafer = await this._containerProcess.setWaferToContainer(containerName, loadPort, slotNumber, equipmentWaferId, materialWaferId);
 
                 }

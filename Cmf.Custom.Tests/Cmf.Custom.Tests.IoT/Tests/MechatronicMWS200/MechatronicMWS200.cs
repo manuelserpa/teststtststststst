@@ -26,6 +26,7 @@ using Cmf.Foundation.Common.Base;
 using Newtonsoft.Json.Linq;
 using System.Text;
 using cmConnect.TestFramework.SystemRest.Entities;
+using AMSOsramEIAutomaticTests.Objects.Persistence;
 
 namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 {
@@ -34,7 +35,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
     {
         private const string resourceName = "ENA01";
 
-        public const int numberOfWafersPerLot = 4;
+        private int numberOfWafersPerLot = 4;
 
         public const string stepName = "M3-LO-Wafer Sorter-Split-01518F010_E";
         public const string flowName = "FOL-UX3_EPA";
@@ -77,7 +78,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
         public bool createProcessJobDenied = false;
 
 
-        #region Test Basics
+
         [TestInitialize]
         public void TestInit()
         {
@@ -107,7 +108,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             createProcessJobReceived = false;
             createProcessJobDenied = false;
 
-            foreach(var containerScenario in containerScenariosUsed)
+            foreach (var containerScenario in containerScenariosUsed)
             {
                 if (MESScenario.ContainerScenario.Entity.Name != containerScenario.Value.Entity.Name)
                 {
@@ -129,6 +130,8 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             //regular teardown
             AfterTest();
             base.CleanUp(MESScenario);
+
+
         }
 
         [ClassInitialize]
@@ -153,11 +156,9 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot);
             MESScenario.Setup(false, automaticContainerPositions: false, containerType: base.ContainerType);
             PostSetupActions(MESScenario);
+            EnsureLoadPortStartConditions(MESScenario.Resource);
         }
 
-        #endregion Test Basic
-
-        #region Tests FullProcessScenario   
 
         /// <summary>
         /// Perform MapCarrier with a CustomSorterJobDefinitionContext in place
@@ -178,6 +179,8 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             customSorterJobDefinition = GetCustomSorterJobDefinition(AMSOsramConstants.CustomSorterLogisticalProcessMapCarrier, new ContainerCollection() { }, new ContainerCollection() { });
             InsertDataIntoCustomSorterJobDefinitionContextTable(stepName, customSorterJobDefinition.Name, materialName: MESScenario.Entity.Name);
 
+
+            containerScenariosUsed.Add(1, MESScenario.ContainerScenario);
             RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
 
             var recipe = new Recipe() { Name = RecipeName };
@@ -186,6 +189,8 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
+
+
 
             base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
         }
@@ -222,7 +227,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
             InsertDataIntoCustomSorterJobDefinitionContextTable(stepName, customSorterJobDefinition.Name, materialName: MESScenario.Entity.Name);
 
-            
+
 
             RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
 
@@ -249,26 +254,31 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             "- ")]
         public void MechatronicMWS200_Split_WithSorterJobDefinitionContext()
         {
+            #region TestPreparation
             base.LoadPortNumber = sourceLoadPortNumber = 1;
             destinationLoadPortNumber = 2;
             loadPortsUsed.Add(1);
             loadPortsUsed.Add(2);
+            loadPortsUsed.Add(3);
+
+            numberOfWafersPerLot = 6;
             PrepareSorterScenarioInitializeAndSetup();
 
-            ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(destinationLoadPortNumber, null, AMSOsramConstants.ContainerSMIFPod);
-            MESContainer mesContainer = new MESContainer(containerScenarioForLoadPort2.Entity.Name);
-            m_Scenario.ScenarioContainers.Add(mesContainer.Container);
+            ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(destinationLoadPortNumber, MESScenario.Entity.Facility.Name ?? null, AMSOsramConstants.ContainerSMIFPod);
 
-            customSorterJobDefinition = GetCustomSorterJobDefinition(AMSOsramConstants.CustomSorterLogisticalProcessTransferWafers,
-                sourceContainers: new ContainerCollection() { base.MESScenario.ContainerScenario.Entity },
-                destinationContainers: new ContainerCollection() { containerScenarioForLoadPort2.Entity },
-                fullTransferWafers: true);
+            ContainerScenario containerScenarioForLoadPort3 = CreateEmptyContainerScenario(3, MESScenario.Entity.Facility.Name ?? null, AMSOsramConstants.ContainerSMIFPod);
 
-            containerScenariosUsed.Add(sourceLoadPortNumber, base.MESScenario.ContainerScenario);
-            containerScenariosUsed.Add(destinationLoadPortNumber, containerScenarioForLoadPort2);
+            customSorterJobDefinition = GetCustomSorterJobDefinition(
+                logisticalProcess: AMSOsramConstants.CustomSorterLogisticalProcessTransferWafers,
+                sourceContainers: new ContainerCollection() { MESScenario.ContainerScenario.Entity },
+                destinationContainers: new ContainerCollection() { containerScenarioForLoadPort2.Entity, containerScenarioForLoadPort3.Entity },
+                futureActionType: "Split");
 
             InsertDataIntoCustomSorterJobDefinitionContextTable(stepName, customSorterJobDefinition.Name, materialName: MESScenario.Entity.Name);
 
+            containerScenariosUsed.Add(1, base.MESScenario.ContainerScenario);
+            containerScenariosUsed.Add(2, containerScenarioForLoadPort2);
+            containerScenariosUsed.Add(3, containerScenarioForLoadPort3);
 
 
             RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
@@ -281,7 +291,89 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
 
-            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+            #endregion
+
+
+            //CarrierInValidation(MESScenario, loadPortNumber);
+            
+            SorterCarrierIn();
+
+            Thread.Sleep(1000);
+
+            #region TrackIn
+
+            Log(String.Format("{0}: [S] Track In of Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            try
+            {
+                TrackInEvaluator(RecipeName);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == "TrackInFailed")
+                    return;
+                else
+                    Assert.Fail(ex.Message);
+            }
+            Log(String.Format("{0}: [E] Track In of Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+            Log(String.Format("{0}: [S] Post Track In Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+            bool postTrackInResult = PostTrackInActions(MESScenario);
+            Log(String.Format("{0}: [E] Post Track In Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+
+            //intentional step out of the test by returning false on post track in result
+            if (!postTrackInResult)
+            {
+                Log(String.Format("{0}: [S] Test Concluded by Returning false on Post Track In Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+                return;
+            }
+
+            #endregion
+
+            // Fetching Material Data also validates the material is in state 'Setup'
+            MaterialData materialData = GetMaterialDataFromPersistence(MESScenario.Entity.Name);
+
+            Log(String.Format("{0}: [S] Sending Process Start Event Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ProcessStartEvent(MESScenario);
+            Log(String.Format("{0}: [E] Sending Process Start Event Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+            System.Threading.Thread.Sleep(5000);
+
+            Log(String.Format("{0}: [S] Validate Material is In Progress on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ValidateMaterialStateModelState(MESScenario, "In Progress");
+            Log(String.Format("{0}: [E] Validate Material is In Progress on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+            Log(String.Format("{0}: [S] Validate Material Persistence is In Process on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ValidatePersistenceState(MESScenario.Entity.Name, MaterialStateEnum.InProcess);
+            Log(String.Format("{0}: [E] Validate Material Persistence is In Process on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+
+            CustomProcessWafersInMovementList(materialData, 6, "Split");
+
+            Log(String.Format("{0}: [S] Sending Process Complete Event Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ProcessCompleteEvent(MESScenario);
+            Log(String.Format("{0}: [E] Sending Process Complete Event Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+            Log(String.Format("{0}: [S] Validate Material is Complete on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ValidateMaterialStateModelState(MESScenario, MaterialStateModelStateEnum.Complete.ToString());
+            Log(String.Format("{0}: [E] Validate Material is Complete on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+
+
+            //Track Out occurs automatically, validate either Processed or Queued
+            TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material {MESScenario.Entity.Name} System State is not Processed or Queued, automatic Track Out Failed"), () =>
+            {
+                MESScenario.Entity.Load();
+                return MESScenario.Entity.SystemState.ToString().Equals(MaterialSystemState.Processed.ToString()) || MESScenario.Entity.SystemState.ToString().Equals(MaterialSystemState.Queued.ToString());
+            });
+
+            Log(String.Format("{0}: [S] Validate Persistence Does Not Exist Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ValidatePersistenceDoesNotExists(MESScenario.Entity.Name);
+            Log(String.Format("{0}: [E] Validate Persistence Does Not Exist Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+
+            CarrierOutValidation(MESScenario, loadPortNumber);
+
+            //base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
         }
 
         /// <summary>
@@ -302,7 +394,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             loadPortsUsed.Add(2);
             loadPortsUsed.Add(3);
 
-            CustomMaterialScenario matScenario = InitializeMaterialScenario(resourceName, flowName, stepName, 13);
+            CustomMaterialScenario matScenario = InitializeMaterialScenario(resourceName, flowName, stepName, 6);
             base.MESScenario = matScenario;
             base.MESScenario.Setup();
             IgnoreMaterialScenarioSetup = true;
@@ -417,13 +509,86 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
 
-            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+            SorterCarrierIn();
+
+            Thread.Sleep(1000);
+
+            #region TrackIn
+
+            Log(String.Format("{0}: [S] Track In of Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            try
+            {
+                TrackInEvaluator(RecipeName);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == "TrackInFailed")
+                    return;
+                else
+                    Assert.Fail(ex.Message);
+            }
+            Log(String.Format("{0}: [E] Track In of Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+            Log(String.Format("{0}: [S] Post Track In Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+            bool postTrackInResult = PostTrackInActions(MESScenario);
+            Log(String.Format("{0}: [E] Post Track In Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+
+            //intentional step out of the test by returning false on post track in result
+            if (!postTrackInResult)
+            {
+                Log(String.Format("{0}: [S] Test Concluded by Returning false on Post Track In Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+                return;
+            }
+
+            #endregion
+
+            // Fetching Material Data also validates the material is in state 'Setup'
+            MaterialData materialData = GetMaterialDataFromPersistence(MESScenario.Entity.Name);
+
+            Log(String.Format("{0}: [S] Sending Process Start Event Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ProcessStartEvent(MESScenario);
+            Log(String.Format("{0}: [E] Sending Process Start Event Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+            System.Threading.Thread.Sleep(5000);
+
+            Log(String.Format("{0}: [S] Validate Material is In Progress on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ValidateMaterialStateModelState(MESScenario, "In Progress");
+            Log(String.Format("{0}: [E] Validate Material is In Progress on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+            Log(String.Format("{0}: [S] Validate Material Persistence is In Process on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ValidatePersistenceState(MESScenario.Entity.Name, MaterialStateEnum.InProcess);
+            Log(String.Format("{0}: [E] Validate Material Persistence is In Process on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+
+            CustomProcessWafersInMovementList(materialData, 4, "Merge");
+
+            Log(String.Format("{0}: [S] Sending Process Complete Event Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ProcessCompleteEvent(MESScenario);
+            Log(String.Format("{0}: [E] Sending Process Complete Event Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+            Log(String.Format("{0}: [S] Validate Material is Complete on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ValidateMaterialStateModelState(MESScenario, MaterialStateModelStateEnum.Complete.ToString());
+            Log(String.Format("{0}: [E] Validate Material is Complete on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+
+
+            //Track Out occurs automatically, validate either Processed or Queued
+            TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material {MESScenario.Entity.Name} System State is not Processed or Queued, automatic Track Out Failed"), () =>
+            {
+                MESScenario.Entity.Load();
+                return MESScenario.Entity.SystemState.ToString().Equals(MaterialSystemState.Processed.ToString()) || MESScenario.Entity.SystemState.ToString().Equals(MaterialSystemState.Queued.ToString());
+            });
+
+            Log(String.Format("{0}: [S] Validate Persistence Does Not Exist Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ValidatePersistenceDoesNotExists(MESScenario.Entity.Name);
+            Log(String.Format("{0}: [E] Validate Persistence Does Not Exist Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+
+            CarrierOutValidation(MESScenario, loadPortNumber);
         }
 
 
-        #endregion Tests FullProcessScenario 
 
-        #region Test State and Data Collection
         /// <summary> 
         /// Scenario: Control State to Host Offline
         /// </summary>
@@ -645,14 +810,12 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
                 return ((dataCollectionInstancesBefore + 1) == dataCollectionInstancesAfter);
             });
         }
-        #endregion Tests FullProcessScenario 
 
 
         #region Events
-        public override bool CarrierIn(CustomMaterialScenario scenario, int loadPortToSet)
+        public bool SorterCarrierIn()
         {
-
-            foreach(var lp in loadPortsUsed) 
+            foreach (var lp in loadPortsUsed)
             {
                 base.Equipment.Variables["PortID"] = lp;
                 base.Equipment.Variables["PlacedCarrierPattern1"] = 1;
@@ -665,13 +828,62 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
                 Thread.Sleep(300);
 
-                if (lp != loadPortToSet)
+                var containerScenario = containerScenariosUsed[lp];
+
+                DockContainer(containerScenario, lp, MESScenario);
+
+                Thread.Sleep(1000);
+
+                var slotMap = new int[containerScenario.Entity.ContainerMaterials.Count];
+                // scenario.ContainerScenario.Entity
+                if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
                 {
-                    DockContainer(containerScenariosUsed[lp], lp, MESScenario);
+                    for (int i = 0; i < containerScenario.Entity.ContainerMaterials.Count; i++)
+                    {
+                        slotMap[i] = containerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
+                    }
                 }
+                SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
+
+
+
+
+
+                base.Equipment.Variables["CarrierID"] = containerScenario.Entity.Name;
+                base.Equipment.Variables["SlotMap"] = slotMapDV;
+                base.Equipment.Variables["ContentMap"] = slotMapDV;
+                base.Equipment.Variables["PortID"] = lp;
+
+                // Trigger event
+                base.Equipment.SendMessage(String.Format($"COSM14_SLOTMAPNOTREAD_SLOTMAPWAITINGFORHOST"), null);
+
+
+                Thread.Sleep(200);
 
             }
-            
+            return true;
+        }
+
+        public override bool CarrierIn(CustomMaterialScenario scenario, int loadPortToSet)
+        {
+
+            foreach (var lp in loadPortsUsed)
+            {
+                base.Equipment.Variables["PortID"] = lp;
+                base.Equipment.Variables["PlacedCarrierPattern1"] = 1;
+                base.Equipment.Variables["PlacedCarrierPattern2"] = 2;
+                base.Equipment.Variables["PlacedCarrierPattern3"] = 3;
+                base.Equipment.Variables["PlacedCarrierPattern4"] = 4;
+
+                // Trigger event
+                base.Equipment.SendMessage(String.Format($"MATERIAL_PLACED"), null);
+
+                Thread.Sleep(300);
+
+                DockContainer(containerScenariosUsed[lp], lp, MESScenario);
+
+            }
+
 
             return true;
 
@@ -734,31 +946,24 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
 
 
-            base.Equipment.Variables["CarrierSubType"] = MESScenario.ContainerScenario.Entity.Name;
-            base.Equipment.Variables["SubstrateSubType"] = "Substrate";
-            base.Equipment.Variables["CarrierAccessingStatus"] = 0;
-            base.Equipment.Variables["CarrierCapacity"] = 25;
-            base.Equipment.Variables["CarrierContentMap"] = slotMapDV;
-            base.Equipment.Variables["CarrierID_CarrierReport"] = $"CarrierAtPort{loadPortNumber}";
-            base.Equipment.Variables["CarrierIDStatus"] = 2;
-            base.Equipment.Variables["CarrierLocationID"] = $"FIMS{loadPortNumber}";
-            base.Equipment.Variables["CarrierSlotMap"] = slotMapDV;
-            base.Equipment.Variables["PortID_CarrierReport"] = loadPortNumber;
-
+            base.Equipment.Variables["PortID"] = loadPortNumber;
+            base.Equipment.Variables["PortTransferState"] = 3;
+            base.Equipment.Variables["AccessMode"] = 0;
+            base.Equipment.Variables["LoadPortReservationState"] = 0;
+            base.Equipment.Variables["PortAssociationState"] = 1;
+            base.Equipment.Variables["PortStateInfo"] = slotMapDV;
 
             // Trigger event
-            base.Equipment.SendMessage(String.Format($"CarrierSMTrans21"), null);
+            base.Equipment.SendMessage(String.Format($"LPTSM9_TRANSFERBLOCKED_READYTOUNLOAD"), null);
 
-            // MaterialRemoved
-            base.Equipment.Variables["PortTransferState"] = 1;
-            base.Equipment.Variables["PortReservationState"] = 0;
-            base.Equipment.Variables["CarrierID_CarrierReport"] = "";
-            base.Equipment.Variables["PortAccessMode"] = 0;
-            base.Equipment.Variables["PortAssociationState"] = 0;
-            base.Equipment.Variables["PortID_CarrierReport"] = loadPortNumber;
+            base.Equipment.Variables["PortID"] = loadPortNumber;
+            base.Equipment.Variables["PlacedCarrierPattern1"] = 1;
+            base.Equipment.Variables["PlacedCarrierPattern2"] = 2;
+            base.Equipment.Variables["PlacedCarrierPattern3"] = 3;
+            base.Equipment.Variables["PlacedCarrierPattern4"] = 4;
 
             // Trigger event
-            base.Equipment.SendMessage(String.Format($"MaterialRemoved"), null);
+            base.Equipment.SendMessage(String.Format($"MATERIAL_REMOVED"), null);
 
             Thread.Sleep(200);
 
@@ -769,10 +974,11 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
         public override bool ProcessStartEvent(CustomMaterialScenario scenario)
         {
-            base.Equipment.Variables["ControlJobID"] = $"CtrlJob_{scenario.Entity.Name}";
+            base.Equipment.Variables["CtrlJobID"] = $"CtrlJob_{scenario.Entity.Name}";
+            base.Equipment.Variables["CtrlJobState"] = 1;
 
             //// Trigger event
-            base.Equipment.SendMessage(String.Format($"CtrlJobSMTrans05"), null);
+            base.Equipment.SendMessage(String.Format($"CJSM5_SELECTED_EXECUTING"), null);
 
             Thread.Sleep(2000);
 
@@ -781,10 +987,11 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
         public override bool ProcessCompleteEvent(CustomMaterialScenario scenario)
         {
-            base.Equipment.Variables["ControlJobID"] = $"CtrlJob_{scenario.Entity.Name}";
+            base.Equipment.Variables["CtrlJobID"] = $"CtrlJob_{scenario.Entity.Name}";
+            base.Equipment.Variables["CtrlJobState"] = 3;
 
             //// Trigger event
-            base.Equipment.SendMessage(String.Format($"CtrlJobSMTrans10"), null);
+            base.Equipment.SendMessage(String.Format($"CJSM10_EXECUTING_COMPLETED"), null);
 
             return true;
         }
@@ -810,7 +1017,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             {
                 Assert.Fail("Track In must fail on Online Local");
             }
-            
+
 
             TestUtilities.WaitFor(60, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
             {
@@ -848,6 +1055,8 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             {
                 return (createControlJobReceived && createProcessJobReceived);
             });
+
+
 
 
             return true;
@@ -890,7 +1099,6 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
             return true;
         }
-
 
         public override bool ValidateSubMaterialState(Material submaterial, string subMaterialState)
         {
@@ -1083,7 +1291,6 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
 
 
-        #region Sorter Exclusive
         private ContainerScenario CreateEmptyContainerScenario(int loadPort, string facilityName, string containerType, int totalPositions = 0)
         {
             Facility facility = new Facility();
@@ -1236,7 +1443,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
                     Container theOneOthersWillMergeInto = destinationContainers.FirstOrDefault();
 
                     Queue<int> freePositions = new Queue<int>();
-                    for (int i = 1; i <= 25; i++)
+                    for (int i = 1; i <= 13; i++)
                     {
                         if (theOneOthersWillMergeInto.ContainerMaterials == null || !theOneOthersWillMergeInto.ContainerMaterials.Any(m => m.Position == i))
                         {
@@ -1334,7 +1541,186 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
         }
 
 
-        #endregion
+        /// <summary>
+		/// Process wafers using the material data movement list
+		/// </summary>
+		/// <param name="materialData">The material data</param>
+		/// <param name="expectedNumberOfMovements">The expected number of movements</param>
+		/// <param name="expectedFutureActionType">The expected future action type</param>
+		public void CustomProcessWafersInMovementList(MaterialData materialData, int expectedNumberOfMovements, string expectedFutureActionType)
+        {
+            #region Custom Sorter Job Validation from data on the equipment vs MES
+
+            CustomSorterJobDefinition customSorterJobDefinitionFromEquipment = new CustomSorterJobDefinition() { Name = materialData.SorterJobInformation.Name };
+            customSorterJobDefinitionFromEquipment.Load();
+
+            // Parse Custom Sorter Job Movement List Json Object
+            JObject movementListObject = null;
+
+            if (JObject.Parse(customSorterJobDefinitionFromEquipment.MovementList) is JObject parsedMovementListObj)
+            {
+                movementListObject = parsedMovementListObj;
+            }
+            else
+            {
+                Assert.Fail($"Not possible to parse the movement list JSON Object for custom sorter job definition ({customSorterJobDefinition.Name}).");
+            }
+
+            // Get the future action type defined on the custom sorter job definition
+            string futureActionType = movementListObject["FutureActionType"].Value<string>() ?? string.Empty;
+
+            Assert.IsTrue(futureActionType.Equals(expectedFutureActionType), $"Future action type must be '{expectedFutureActionType}'.");
+
+            #endregion Custom Sorter Job Validation from data on the equipment vs MES
+
+            #region Extract movement list on the IoT persistence and validation against the expected number of moves
+
+            // extract sorter job movement list from the informartion on the material data that was on the equipment
+            JArray movementList = JArray.Parse(materialData.SorterJobInformation.MovementList);
+
+            // Number of moves in this custom sorter job definition
+            int numberOfMoves = movementList.Count;
+
+            Assert.AreEqual(expectedNumberOfMovements, numberOfMoves, $"We where expecting {expectedNumberOfMovements} movements, but there were {numberOfMoves} movements.");
+
+            #endregion Extract movement list on the IoT persistence and validation against the expected number of moves
+
+            #region Process Wafers on the movement list
+
+            foreach (JToken movement in movementList)
+            {
+                DateTime now;
+
+                // Material
+                string materialName = movement.Value<string>("MaterialName");
+                // Source
+                string sourceContainer = movement.Value<string>("SourceContainer");
+                int sourcePosition = movement.Value<int>("SourcePosition");
+                // Destination
+                string destinationContainer = movement.Value<string>("DestinationContainer");
+                int destinationPosition = movement.Value<int>("DestinationPosition");
+
+                Material wafer = new Material() { Name = materialName };
+                wafer.Load();
+                wafer.LoadRelations();
+
+                int waferPositionOnMES = wafer.MaterialContainer.First().Position ?? 0;
+                Assert.AreEqual(sourcePosition, waferPositionOnMES, $"Wafer position on MES ({waferPositionOnMES}) must be the same as the one on material data movement list ({sourcePosition}).");
+
+                #region Retrieves the load port number based on the container name currently on IoT persistence
+
+                int sourceLoadPort = GetLoadPortFromContainerNameOnPersistence(sourceContainer);
+                int destinationLoadPort = GetLoadPortFromContainerNameOnPersistence(destinationContainer);
+
+                #endregion Retrieves the load port number based on the container name currently on IoT persistence
+
+                #region Wafer Start
+
+                SubstHistoryList substHistoryListSource = new SubstHistoryList(base.Equipment)
+                {
+                    SubstHistoryInternalList = new SubstHistoryInternalList
+                    {
+                        SubstHistoryEntryList = new List<SubstHistoryEntry>
+                        {
+                            new SubstHistoryEntry
+                            {
+                                Location = String.Format("{0}.{1:D3}", sourceContainer, waferPositionOnMES),
+                                TimeIn = "11",
+                                TimeOut = "12"
+                            }
+                        }
+                    }
+                };
+
+                base.Equipment.Variables["SubstID"] = wafer.Name;
+                base.Equipment.Variables["SubstLotID"] = materialData.MaterialName;
+                base.Equipment.Variables["SubstSubstLocID"] = String.Format("{0}.{1:D3}", sourceContainer, waferPositionOnMES);
+                base.Equipment.Variables["SubstState"] = 0;
+                base.Equipment.Variables["SubstProcState"] = 0;
+                base.Equipment.Variables["AcquiredID"] = "";
+                base.Equipment.Variables["Clock"] = "Cenas";
+                base.Equipment.Variables["SubstHistory"] = substHistoryListSource;
+
+                //base.Equipment.Variables["SubstID"] = String.Format("{0:D3}_{1:D3}", sourceLoadPort, waferPositionOnMES);
+
+                //// Trigger event
+                base.Equipment.SendMessage("SOSM1_NOSTATE_ATSOURCE", null);
+
+                Thread.Sleep(5000);
+                #endregion Wafer Start
+
+                //now = DateTime.Now;
+                //while (DateTime.Now.Subtract(now).Seconds < 2)
+                //{
+                //    // wait for 2 seconds
+                //    Thread.Sleep(100);
+                //}
+
+                #region Wafer Read
+
+                //base.Equipment.Variables["OCRValue"] = wafer.Name;
+
+                //// Trigger event
+                //base.Equipment.SendMessage("WaferIdRead", null);
+
+                #endregion Wafer Read
+
+                //now = DateTime.Now;
+                //while (DateTime.Now.Subtract(now).Seconds < 2)
+                //{
+                //    // wait for 2 seconds
+                //    Thread.Sleep(100);
+                //}
+
+                #region Wafer complete
+
+                SubstHistoryList substHistoryListDestination = new SubstHistoryList(base.Equipment)
+                {
+                    SubstHistoryInternalList = new SubstHistoryInternalList
+                    {
+                        SubstHistoryEntryList = new List<SubstHistoryEntry>
+                        {
+                            new SubstHistoryEntry
+                            {
+                                Location = String.Format("{0}.{1:D3}", sourceContainer, waferPositionOnMES),
+                                TimeIn = "11",
+                                TimeOut = "12"
+                            },
+                            new SubstHistoryEntry
+                            {
+                                Location = String.Format("{0}.{1:D3}", destinationContainer, destinationPosition),
+                                TimeIn = "11",
+                                TimeOut = "12"
+                            },
+                        }
+                    }
+                };
+
+                base.Equipment.Variables["SubstID"] = wafer.Name;
+                base.Equipment.Variables["SubstLotID"] = materialData.MaterialName;
+                base.Equipment.Variables["SubstSubstLocID"] = String.Format("{0}.{1:D3}", destinationContainer, destinationPosition);
+                base.Equipment.Variables["SubstState"] = 2;
+                base.Equipment.Variables["SubstProcState"] = 2;
+                base.Equipment.Variables["AcquiredID"] = "";
+                base.Equipment.Variables["Clock"] = "Cenas";
+                base.Equipment.Variables["SubstHistory"] = substHistoryListDestination;
+
+                //// Trigger event
+                base.Equipment.SendMessage("SOSM12_INPROCESS_PROCESSINGCOMPLETE", null);
+                #endregion Wafer complete
+
+                //now = DateTime.Now;
+                //while (DateTime.Now.Subtract(now).Seconds < 2)
+                //{
+                //    // wait for 2 seconds
+                //    Thread.Sleep(100);
+                //}
+            }
+
+            #endregion Process Wafers on the movement list
+        }
+
+
 
         private DataCollectionInstanceCollection GetDataCollectionInstanceByResourceId(long resourceId)
         {

@@ -125,30 +125,6 @@
 					{
 						"property": {
 							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "CarrierID",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "CarrierAccessingStatus",
-							"DataType": 5
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "LocationID",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
 							"Name": "PortID",
 							"DataType": 5
 						},
@@ -157,8 +133,24 @@
 					{
 						"property": {
 							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "SlotMapStatus",
-							"DataType": 5
+							"Name": "CarrierID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ContentMap",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SlotMap",
+							"DataType": 9
 						},
 						"outputType": "Value"
 					}
@@ -167,7 +159,7 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "WaitingForHost2SlotMapVerificationOk"
+						"Name": "COSM15_SLOTMAPWAITINGFORHOST_SLOTMAPVERIFICATIONOK"
 					}
 				]
 			},
@@ -301,7 +293,7 @@
 					"task_33385": {
 						"collapsed": false,
 						"position": {
-							"x": 366,
+							"x": 355,
 							"y": 855
 						},
 						"outdated": false
@@ -330,8 +322,8 @@
 				"notes": {},
 				"zoom": 0.83,
 				"pan": {
-					"x": 995.9319235760465,
-					"y": 420.2030317465445
+					"x": 610,
+					"y": 566.6666870117188
 				}
 			}
 		}

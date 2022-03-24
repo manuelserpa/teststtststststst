@@ -211,10 +211,31 @@
 							"referenceTypeId": null,
 							"friendlyName": "RecipeNameOnEquipment"
 						},
-						"expression": "MaterialData[1].Recipe.NameOnEquipment",
+						"expression": "MaterialData.Recipe.NameOnEquipment",
 						"defaultValue": null
 					}
-				]
+				],
+				"_clearInputs": true
+			}
+		},
+		{
+			"id": "task_19705",
+			"reference": {
+				"name": "logMessage",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"message": "",
+				"verbosity": "Error",
+				"clearInputs": true,
+				"mode": "RawText",
+				"isCustomFormat": false,
+				"messageFormat": "",
+				"inputs": [],
+				"___cmf___name": "Log Message"
 			}
 		}
 	],
@@ -301,6 +322,20 @@
 			"targetId": "task_171073",
 			"inputName": "activate",
 			"outputName": "RecipeNameOnEquipment"
+		},
+		{
+			"id": "9301f549-82b0-4d75-9cbb-c438b8a5ce53",
+			"sourceId": "task_171073",
+			"targetId": "task_19705",
+			"inputName": "message",
+			"outputName": "error"
+		},
+		{
+			"id": "9cf4f6ba-2454-4edc-8809-3217777c4129",
+			"sourceId": "task_171073",
+			"targetId": "task_19705",
+			"inputName": "activate",
+			"outputName": "error"
 		}
 	],
 	"layout": {
@@ -319,11 +354,19 @@
 						},
 						"outdated": false
 					},
+					"task_19705": {
+						"collapsed": false,
+						"position": {
+							"x": 2667,
+							"y": 966
+						},
+						"outdated": false
+					},
 					"task_170744": {
 						"collapsed": false,
 						"position": {
-							"x": 953,
-							"y": 775
+							"x": 910,
+							"y": 736
 						},
 						"outdated": false
 					},
@@ -382,13 +425,19 @@
 					},
 					"3a6ec4e8-82ba-4313-8838-da7e59268b77": {
 						"vertices": []
+					},
+					"9301f549-82b0-4d75-9cbb-c438b8a5ce53": {
+						"vertices": []
+					},
+					"9cf4f6ba-2454-4edc-8809-3217777c4129": {
+						"vertices": []
 					}
 				},
 				"notes": {},
 				"zoom": 0.7199999999999999,
 				"pan": {
-					"x": 1140,
-					"y": 323.3333435058594
+					"x": 288.8888854980469,
+					"y": 223.33334350585938
 				}
 			}
 		}
