@@ -317,7 +317,7 @@ namespace AMSOsramEIAutomaticTests
             return MaterialScenario;
         }
 
-        private void EnsureMaterialStartConditions(Resource resource)
+        protected void EnsureMaterialStartConditions(Resource resource)
         {
             if (resource.MaterialsInProcessCount > 0)
             {

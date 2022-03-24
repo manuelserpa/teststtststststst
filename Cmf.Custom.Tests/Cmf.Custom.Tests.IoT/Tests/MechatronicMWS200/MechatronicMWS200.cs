@@ -27,6 +27,7 @@ using Newtonsoft.Json.Linq;
 using System.Text;
 using cmConnect.TestFramework.SystemRest.Entities;
 using AMSOsramEIAutomaticTests.Objects.Persistence;
+using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 
 namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 {
@@ -50,6 +51,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
         private static GenericTableManager genericTableManager = new GenericTableManager();
         private Dictionary<int, ContainerScenario> containerScenariosUsed = new Dictionary<int, ContainerScenario>();
         private List<int> loadPortsUsed = new List<int>();
+        private List<Material> materialsUsed = new List<Material>();
         private readonly Dictionary<int, string> loadPortNames = new Dictionary<int, string>()
         {
             { 1, "ENA01-LP01" },
@@ -129,6 +131,12 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
             //regular teardown
             AfterTest();
+
+            var resourceToAbortMaterial = new Resource { Name = resourceName };
+            resourceToAbortMaterial.Load();
+            EnsureMaterialStartConditions(resourceToAbortMaterial);
+            
+
             base.CleanUp(MESScenario);
 
 
@@ -483,6 +491,11 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
             MESScenario.Entity.Split(splitInputParameters);
             MESScenario.Entity.Load();
+
+            Material materialToMerge1 = new Material { Name = lotName + ".001" };
+            Material materialToMerge2 = new Material { Name = lotName + ".002" };
+            materialsUsed.Add(materialToMerge1);
+            materialsUsed.Add(materialToMerge2);
 
             #endregion SPLIT
 
@@ -955,6 +968,8 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
             // Trigger event
             base.Equipment.SendMessage(String.Format($"LPTSM9_TRANSFERBLOCKED_READYTOUNLOAD"), null);
+
+            Thread.Sleep(2000);
 
             base.Equipment.Variables["PortID"] = loadPortNumber;
             base.Equipment.Variables["PlacedCarrierPattern1"] = 1;
