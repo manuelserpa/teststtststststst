@@ -164,5 +164,27 @@ namespace Cmf.Custom.Tests.Biz.Common
         public const string CustomMaterialNiceLabelPrintContextSmartTable = "CustomMaterialNiceLabelPrintContext";
 
         #endregion
+
+        #region LookupTables
+        /// <summary>
+        /// Lookup table CustomSorterLogisticalProcess Name
+        /// </summary>
+        public static string CustomSorterLogisticalProcessLookupTable = "CustomSorterLogisticalProcess";
+
+        /// <summary>
+        /// Lookup table CustomSorterLogisticalProcess MapCarrier Value
+        /// </summary>
+        public static string CustomSorterLogisticalProcessMapCarrier = "MapCarrier";
+
+        /// <summary>
+        /// Lookup table CustomSorterLogisticalProcess TransferWafers Value
+        /// </summary>
+        public static string CustomSorterLogisticalProcessTransferWafers = "TransferWafers";
+
+        /// <summary>
+        /// Lookup table CustomSorterLogisticalProcess Compose Value
+        /// </summary>
+        public static string CustomSorterLogisticalProcessCompose = "Compose";
+        #endregion
     }
 }

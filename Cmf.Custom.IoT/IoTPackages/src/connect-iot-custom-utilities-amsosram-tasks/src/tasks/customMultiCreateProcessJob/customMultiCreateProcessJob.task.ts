@@ -3,6 +3,10 @@ import i18n from "./i18n/customMultiCreateProcessJob.default";
 import { SecsGem } from "../../common/secsGemItem"
 import { SecsItem } from "../../common/secsItem";
 import { SubMaterialStateEnum } from "../../persistence/model/subMaterialData";
+import { ContainerProcessHandler } from "../../persistence/implementation/containerDataHandler";
+import { MovementData } from "../../persistence/model/movementData";
+import { MaterialData } from "../../persistence";
+
 
 /**
  * @whatItDoes
@@ -59,6 +63,7 @@ export class CustomMultiCreateProcessJobTask implements Task.TaskInstance, Custo
     public MaterialFormat: string = "0x0e";
     public SendCarrierContent: boolean = false;
     public RecipeSpecificationType: RecipeSpecificationType = RecipeSpecificationType.RecipeWithoutVariableTuning;
+    public occupiedSlot = "1"
 
     /** **Outputs** */
     /** To output a success notification */
@@ -74,6 +79,9 @@ export class CustomMultiCreateProcessJobTask implements Task.TaskInstance, Custo
     @DI.Inject(TYPES.System.Driver)
     private _driverProxy: System.DriverProxy;
 
+    @DI.Inject("GlobalContainerProcessHandler")
+    private _containerProcess: ContainerProcessHandler;
+
     public successCodes = "0x00";
     public replyPath = "/[1]";
     /**
@@ -85,7 +93,7 @@ export class CustomMultiCreateProcessJobTask implements Task.TaskInstance, Custo
             // It is advised to reset the activate to allow being reactivated without the value being different
             this.activate = undefined;
 
-            let material;
+            let material: MaterialData;
             if (Array.isArray(this.MaterialData)) {
                 material = this.MaterialData[0];
             } else {
@@ -93,8 +101,7 @@ export class CustomMultiCreateProcessJobTask implements Task.TaskInstance, Custo
             }
             material.ProcessJobId = `PrJob_${material.MaterialName}`;
             try {
-
-                const carrierContent = [];
+                const carrierContentWrapper = [];
                 const recipeContent = [];
 
                 const sendMessage: Object = {
@@ -106,7 +113,7 @@ export class CustomMultiCreateProcessJobTask implements Task.TaskInstance, Custo
                                     type: "L", value: [
                                         { type: "A", value: material.ProcessJobId }, // process job id
                                         { type: "BI", value: Number(this.MaterialFormat) }, // Material format code 0x0e
-                                        { type: "L", value: carrierContent }, // carrier and content (not passed on eqp characterization)
+                                        { type: "L", value: carrierContentWrapper }, // carrier and content (not passed on eqp characterization)
                                         { type: "L", value: recipeContent },   // recipe specification area
                                         { type: "BO", value: this.StartProcess ? 0x01 : 0x00 }, // PRPROCESSSTART
                                         { type: "L", value: this.EventList }, // PRPAUSEEVENT
@@ -122,14 +129,60 @@ export class CustomMultiCreateProcessJobTask implements Task.TaskInstance, Custo
 
 
                 if (this.SendCarrierContent) {
-                    const slotMap = [];
-                    carrierContent.push({ type: "A", value: material.ContainerName }); // Stepper Recipe PPID
-                    carrierContent.push({ type: "L", value: slotMap }); // Empty parameter list
+                    if (!material.SorterJobInformation) {
+                        const slotMap = [];
+                        const carrierContent = {
+                            type: "L", value: [
+                                { type: "A", value: material.ContainerName }, // Carrier Content
+                                { type: "L", value: slotMap } // Empty parameter list
+                            ]
+                        };
+                        carrierContentWrapper.push(carrierContent);
+                        material.SubMaterials.forEach(s => {
+                            if (s.MaterialState === SubMaterialStateEnum.Queued) {
+                                slotMap.push({ type: "U1", value: s.Slot })
+                            }
+                        });
+                    } else {
+                        if (material.SorterJobInformation.LogisticalProcess === "MapCarrier") {
+                            // get container from persistence to get stored slot map
+                            const container = await this._containerProcess.getContainer(material.ContainerName, Number(material.LoadPortPosition))
+                            // sets slot map to known format
+                            const slotMap = this.SlotMapToArray(container.SlotMap);
+                            // slot map parsing
+                            const slotValue = [];
+                            const carrierContent = {
+                                type: "L", value: [
+                                    { type: "A", value: material.ContainerName }, // Carrier Content
+                                    { type: "L", value: slotValue } // Empty parameter list
+                                ]
+                            };
+                            for (let position; position < slotMap.length; position++) {
+                                if (slotMap[position].toString() === this.occupiedSlot.toString()) {
+                                    slotValue.push({ type: "U1", value: position })
+                                }
+                            }
+                        } else {
+                            const sorterMovementList = JSON.parse(material.SorterJobInformation.MovementList);
+                            sorterMovementList.forEach(element => {
+                                const movementData: MovementData = <MovementData>element;
+                                const sourceContainer = movementData.SourceContainer;
+                                const sourceSlot = movementData.SourcePosition;
+                                let carrierContent = carrierContentWrapper.find(c => c.value[0].value === sourceContainer);
 
-                    material.SubMaterials.forEach(s => {
-                        if (s.MaterialState === SubMaterialStateEnum.Queued) {
-                            slotMap.push({ type: "U1", value: s.Slot})
-                    }});
+                                if (!carrierContent) {
+                                    carrierContent = {
+                                        type: "L", value: [
+                                            { type: "A", value: sourceContainer }, // Carrier Content
+                                            { type: "L", value: [] } // Empty parameter list
+                                        ]
+                                    };
+                                    carrierContentWrapper.push(carrierContent);
+                                }
+                                carrierContent.value[1].value.push({ type: "U1", value: sourceSlot })
+                            });
+                        }
+                    }
                 }
 
                 const reply = await this._driverProxy.sendRaw("connect.iot.driver.secsgem.sendMessage", sendMessage);
@@ -158,6 +211,20 @@ export class CustomMultiCreateProcessJobTask implements Task.TaskInstance, Custo
         }
     }
 
+    SlotMapToArray(equipmentSlotMap: any, terminator: string = "", separator: string = ""): string[] {
+        if (typeof equipmentSlotMap === "string") {
+            return equipmentSlotMap.replace(terminator, "").split(separator);
+
+        } else if (Array.isArray(equipmentSlotMap)) {
+            if (terminator !== "") {
+                return equipmentSlotMap.slice(0, equipmentSlotMap.indexOf(terminator) - 1);
+            }
+            return equipmentSlotMap;
+        }
+
+        return null;
+    }
+
     /**
      * Right after settings are loaded, create the needed dynamic outputs.
      */
@@ -179,6 +246,7 @@ export interface CustomMultiCreateProcessJobSettings {
     MaterialFormat: string;
     SendCarrierContent: boolean;
     RecipeSpecificationType: RecipeSpecificationType;
+    occupiedSlot: string;
 }
 
 export enum RecipeSpecificationType {
