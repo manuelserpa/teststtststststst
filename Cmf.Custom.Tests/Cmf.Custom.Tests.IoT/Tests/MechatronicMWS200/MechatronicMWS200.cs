@@ -337,6 +337,129 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             "- Calls Material IN orchestration" +
             "- SorterJobDefinitionContext is resolved" +
             "- ")]
+        public void MechatronicMWS200_SortDesc_WithSorterJobDefinitionContext()
+        {
+            base.LoadPortNumber = sourceLoadPortNumber = 1;
+            destinationLoadPortNumber = 1;
+            loadPortsUsed.Add(1);
+            PrepareSorterScenarioInitializeAndSetup();
+
+            ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(destinationLoadPortNumber, null, AMSOsramConstants.ContainerSMIFPod);
+            MESContainer mesContainer = new MESContainer(containerScenarioForLoadPort2.Entity.Name);
+            m_Scenario.ScenarioContainers.Add(mesContainer.Container);
+
+            customSorterJobDefinition = GetCustomSorterJobDefinition(AMSOsramConstants.CustomSorterLogisticalProcessTransferWafers,
+                sourceContainers: new ContainerCollection() { base.MESScenario.ContainerScenario.Entity },
+                destinationContainers: new ContainerCollection() { base.MESScenario.ContainerScenario.Entity },
+                sortDescending: true);
+
+            containerScenariosUsed.Add(sourceLoadPortNumber, base.MESScenario.ContainerScenario);
+
+            InsertDataIntoCustomSorterJobDefinitionContextTable(stepName, customSorterJobDefinition.Name, materialName: MESScenario.Entity.Name);
+
+
+
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+
+
+            var recipe = new Recipe() { Name = RecipeName };
+            recipe.Load();
+
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            RecipeManagement.FailOnNewBody = true;
+            RecipeManagement.RecipeExistsOnList = true;
+
+            SorterCarrierIn();
+
+            Thread.Sleep(3000);
+
+            #region TrackIn
+
+            Log(String.Format("{0}: [S] Track In of Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            try
+            {
+                TrackInEvaluator(RecipeName);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == "TrackInFailed")
+                    return;
+                else
+                    Assert.Fail(ex.Message);
+            }
+            Log(String.Format("{0}: [E] Track In of Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+            Log(String.Format("{0}: [S] Post Track In Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+            bool postTrackInResult = PostTrackInActions(MESScenario);
+            Log(String.Format("{0}: [E] Post Track In Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+
+            //intentional step out of the test by returning false on post track in result
+            if (!postTrackInResult)
+            {
+                Log(String.Format("{0}: [S] Test Concluded by Returning false on Post Track In Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
+                return;
+            }
+
+            #endregion
+
+            // Fetching Material Data also validates the material is in state 'Setup'
+            MaterialData materialData = GetMaterialDataFromPersistence(MESScenario.Entity.Name);
+
+            Log(String.Format("{0}: [S] Sending Process Start Event Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ProcessStartEvent(MESScenario);
+            Log(String.Format("{0}: [E] Sending Process Start Event Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+            System.Threading.Thread.Sleep(5000);
+
+            Log(String.Format("{0}: [S] Validate Material is In Progress on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ValidateMaterialStateModelState(MESScenario, "In Progress");
+            Log(String.Format("{0}: [E] Validate Material is In Progress on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+            Log(String.Format("{0}: [S] Validate Material Persistence is In Process on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ValidatePersistenceState(MESScenario.Entity.Name, MaterialStateEnum.InProcess);
+            Log(String.Format("{0}: [E] Validate Material Persistence is In Process on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+
+            CustomProcessWafersInMovementList(materialData, 4, "");
+
+            Log(String.Format("{0}: [S] Sending Process Complete Event Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ProcessCompleteEvent(MESScenario);
+            Log(String.Format("{0}: [E] Sending Process Complete Event Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+            Log(String.Format("{0}: [S] Validate Material is Complete on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ValidateMaterialStateModelState(MESScenario, MaterialStateModelStateEnum.Complete.ToString());
+            Log(String.Format("{0}: [E] Validate Material is Complete on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+
+
+
+            //Track Out occurs automatically, validate either Processed or Queued
+            TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material {MESScenario.Entity.Name} System State is not Processed or Queued, automatic Track Out Failed"), () =>
+            {
+                MESScenario.Entity.Load();
+                return MESScenario.Entity.SystemState.ToString().Equals(MaterialSystemState.Processed.ToString()) || MESScenario.Entity.SystemState.ToString().Equals(MaterialSystemState.Queued.ToString());
+            });
+
+            Log(String.Format("{0}: [S] Validate Persistence Does Not Exist Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            ValidatePersistenceDoesNotExists(MESScenario.Entity.Name);
+            Log(String.Format("{0}: [E] Validate Persistence Does Not Exist Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            
+            CustomValidateContainerNumberOfWafers(MESScenario.ContainerScenario.Entity, 4);
+            //CustomValidateContainerNumberOfWafers(containerScenarioForLoadPort2.Entity, 4);
+
+
+            CarrierOutValidation(MESScenario, loadPortNumber);
+        }
+
+        /// <summary>
+        /// Perform Transfer with a CustomSorterJobDefinitionContext in place
+        /// </summary>
+        [TestMethod,
+            Description
+            (
+            "- Dock a container into Load Port 1" +
+            "- Calls Material IN orchestration" +
+            "- SorterJobDefinitionContext is resolved" +
+            "- ")]
         public void MechatronicMWS200_Split_WithSorterJobDefinitionContext()
         {
             #region TestPreparation
@@ -1440,7 +1563,8 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             string sourceContaineType = AMSOsramConstants.ContainerSMIFPod,
             string targetContainerType = AMSOsramConstants.ContainerSMIFPod,
             string futureActionType = "",
-            bool fullTransferWafers = false)
+            bool fullTransferWafers = false,
+            bool sortDescending = false)
         {
             CustomSorterJobDefinition customSorterJobDefinition = new CustomSorterJobDefinition
             {
@@ -1530,7 +1654,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
                 }
                 else // Simple transfer scenario
                 {
-                    if (!fullTransferWafers)
+                    if (!fullTransferWafers && !sortDescending)
                     {
                         Container theOneThatWillBeTranferred = sourceContainers.FirstOrDefault();
                         theOneThatWillBeTranferred.LoadRelation("MaterialContainer");
@@ -1539,7 +1663,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
                         destinationContainer.LoadRelation("MaterialContainer");
 
                         Queue<int> freePositions = new Queue<int>();
-                        for (int i = 1; i <= 25; i++)
+                        for (int i = 1; i <= 13; i++)
                         {
                             if (destinationContainer.ContainerMaterials == null || !destinationContainer.ContainerMaterials.Any(m => m.Position == i))
                             {
@@ -1556,6 +1680,40 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
                                 ["SourcePosition"] = movement.Position,
                                 ["DestinationContainer"] = destinationContainer.Name,
                                 ["DestinationPosition"] = freePositions.Dequeue()
+                            };
+
+                            temporaryMovementList.Add(jObject);
+                        }
+                    }
+                    if(sortDescending)
+                    {
+                        Container theOneThatWillBeTranferred = sourceContainers.FirstOrDefault();
+                        theOneThatWillBeTranferred.LoadRelation("MaterialContainer");
+
+                        Container destinationContainer = destinationContainers.FirstOrDefault();
+                        destinationContainer.LoadRelation("MaterialContainer");
+
+                        Stack<int> freePositions = new Stack<int>();
+                        for (int i = 1; i <= 13; i++)
+                        {
+                            if (destinationContainer.ContainerMaterials == null || !destinationContainer.ContainerMaterials.Any(m => m.Position == i))
+                            {
+                                freePositions.Push(i);
+                            }
+                        }
+
+                        foreach (var movement in theOneThatWillBeTranferred.ContainerMaterials)
+                        {
+                            Material material = movement.SourceEntity;
+                            material.Load();
+
+                            JObject jObject = new JObject
+                            {
+                                ["MaterialName"] = material.Name,
+                                ["SourceContainer"] = theOneThatWillBeTranferred.Name,
+                                ["SourcePosition"] = movement.Position,
+                                ["DestinationContainer"] = destinationContainer.Name,
+                                ["DestinationPosition"] = freePositions.Pop()
                             };
 
                             temporaryMovementList.Add(jObject);
