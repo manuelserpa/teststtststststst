@@ -1,6 +1,9 @@
 ﻿using Cmf.Custom.Tests.Biz.Common.ERP.Material;
+using Cmf.Custom.Tests.Biz.Common.Extensions;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
+using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Cmf.Custom.TestUtilities;
+using Cmf.Foundation.BusinessObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -171,6 +174,13 @@ namespace Cmf.Custom.Tests.Biz.ERP
             customExecutionScenario.GoodsReceiptCertificate.Material = materialData;
 
             customExecutionScenario.Setup();
+
+            IntegrationEntry integrationEntry = CustomUtilities.GetIntegrationEntry(messageMaterialName);
+            Assert.IsTrue(integrationEntry.IsIntegrationEntryProcessed(), $"Integration Entry was processed");
+
+
+
+
         }
     }
 }
