@@ -1,0 +1,20 @@
+{
+   "<SM>DEEAction": {
+    "1": {
+      "Action": "CustomResolveContainerLoadPortPair",
+      "Description": "Resolve Container Load Port",
+      "CodeFileRelativePath": "Automation\\CustomResolveContainerLoadPortPair.cs",
+      "IsEnabled": "Yes",
+      "Classification": "ConnectIoT"
+    }
+  },
+  "DEEActionOrder": { },
+  "<DM>Rule": {
+    "2": {
+      "Name": "CustomResolveContainerLoadPortPair",
+      "Description": "Resolve Container Load Port",
+      "Scope": "ConnectIoT",
+      "DEERule": "CustomResolveContainerLoadPortPair"
+	 }
+  } 
+}
