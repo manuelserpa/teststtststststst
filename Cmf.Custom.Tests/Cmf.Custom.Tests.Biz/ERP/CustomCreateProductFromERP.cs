@@ -67,7 +67,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string messageProductType = "FINISHED_GOODS";
             string messageProductUnits = "CM2";
             string messageProductIsEnabled = "Y";
-            string messageProductYield = "1";
+            string messageProductYield = "0,8";
             string messageProductGroup = "MG_PW_1500";
             string messageProductMaximumMaterialSize = "24";
             string firstProductName = Guid.NewGuid().ToString("N");
