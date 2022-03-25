@@ -157,6 +157,60 @@ namespace Cmf.Custom.AMSOsram.Common
             return !enumerable.Any();
         }
 
+        /// <summary>
+        /// Get Value as dynamic DataType.
+        /// </summary>
+        /// <param name="parameterDataType">Parameter Data Type.</param>
+        /// <param name="value">Value to be converted.</param>
+        /// <returns></returns>
+        public static dynamic GetParameterValueAsDataType(ParameterDataType parameterDataType, string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return default(dynamic);
+            }
+
+            switch (parameterDataType)
+            {
+                case ParameterDataType.Decimal:
+                    return GetValueAsNullableDecimal(value);
+
+                case ParameterDataType.Boolean:
+                    return GetValueAsNullableBoolean(value);
+
+                default:
+                    return value;
+            }
+        }
+
+
+        /// <summary>
+        /// Get Value as dynamic DataType.
+        /// </summary>
+        /// <param name="scalarType">Scalar Type.</param>
+        /// <param name="value">Value to be converted.</param>
+        /// <returns></returns>
+        public static dynamic GetAttributeValueAsDataType(ScalarType scalarType, string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return default(dynamic);
+            }
+
+            switch (scalarType.NativeType)
+            {
+                case "System.Decimal":
+                    return GetValueAsNullableDecimal(value);
+
+                case "System.Boolean":
+                    return GetValueAsNullableBoolean(value);
+
+                default:
+                    return value;
+            }
+        }
+
+
         #endregion
 
         #region Configs

@@ -279,7 +279,7 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
                             productParameter.SourceEntity = product;
                             productParameter.TargetEntity = parameter;
                             productParameter.Type = ProductGroupParameterType.Characteristic;
-                            productParameter.Value = parameterData.Value;
+                            productParameter.Value = AMSOsramUtilities.GetParameterValueAsDataType(parameter.DataType, parameterData.Value).ToString();
 
                             productParameters.Add(productParameter);
                         }
@@ -305,8 +305,8 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
                     entityType.LoadProperties();
                 }
 
-                // List of all attributes associated to Entity Type Product
-                List<string> productAttributes = entityType.Properties.Where(w => w.PropertyType == EntityTypePropertyType.Attribute).Select(s => s.Name).ToList();
+                // Get attribute names and Scalar Type associated to Entity Type Product
+                Dictionary<string, object> productAttributes = entityType.Properties.Where(w => w.PropertyType == EntityTypePropertyType.Attribute).Select(s => new KeyValuePair<string, object>(s.Name, s.ScalarType)).ToDictionary(d => d.Key, d => d.Value);
 
                 product.LoadAttributes();
 
@@ -324,15 +324,17 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
                         product.Save();
                     }
 
-                    if (productAttributes.Contains(attributeData.Name))
+                    if (productAttributes.ContainsKey(attributeData.Name))
                     {
+                        ScalarType scalarType = productAttributes[attributeData.Name] as ScalarType;
+
                         if (attributes.ContainsKey(attributeData.Name))
                         {
-                            relatedAttributes[attributeData.Name] = attributeData.Value;
+                            relatedAttributes[attributeData.Name] = AMSOsramUtilities.GetAttributeValueAsDataType(scalarType, attributeData.Value);
                         }
                         else
                         {
-                            relatedAttributes.Add(attributeData.Name, attributeData.Value);
+                            relatedAttributes.Add(attributeData.Name, AMSOsramUtilities.GetAttributeValueAsDataType(scalarType, attributeData.Value));
                         }
                     }
                 }
