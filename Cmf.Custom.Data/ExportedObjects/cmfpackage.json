@@ -8,10 +8,8 @@
   "contentToPack": [
     {
       "source": "$(version)/*",
-      "target": "ExportedObjects"
+      "target": "ExportedObjects",
+	  "contentType": "ExportedObjects"
     }
-  ],
-  "xmlInjection": [
-    "../../../DeploymentMetadata/ui.xml"
-  ]
+  ]  
 }
