@@ -34,6 +34,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
     [TestClass]
     public class MechatronicMWS200 : CommonTests
     {
+
         private const string resourceName = "ENA01";
 
         private int numberOfWafersPerLot = 4;
