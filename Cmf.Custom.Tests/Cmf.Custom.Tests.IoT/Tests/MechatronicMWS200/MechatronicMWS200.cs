@@ -222,8 +222,8 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             PrepareSorterScenarioInitializeAndSetup();
 
             ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(destinationLoadPortNumber, null, AMSOsramConstants.ContainerSMIFPod);
-            MESContainer mesContainer = new MESContainer(containerScenarioForLoadPort2.Entity.Name);
-            m_Scenario.ScenarioContainers.Add(mesContainer.Container);
+            //MESContainer mesContainer = new MESContainer(containerScenarioForLoadPort2.Entity.Name);
+            // m_Scenario.ScenarioContainers.Add(mesContainer.Container);
 
             customSorterJobDefinition = GetCustomSorterJobDefinition(AMSOsramConstants.CustomSorterLogisticalProcessTransferWafers,
                 sourceContainers: new ContainerCollection() { base.MESScenario.ContainerScenario.Entity },
@@ -346,8 +346,8 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             PrepareSorterScenarioInitializeAndSetup();
 
             ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(destinationLoadPortNumber, null, AMSOsramConstants.ContainerSMIFPod);
-            MESContainer mesContainer = new MESContainer(containerScenarioForLoadPort2.Entity.Name);
-            m_Scenario.ScenarioContainers.Add(mesContainer.Container);
+            // MESContainer mesContainer = new MESContainer(containerScenarioForLoadPort2.Entity.Name);
+            // m_Scenario.ScenarioContainers.Add(mesContainer.Container);
 
             customSorterJobDefinition = GetCustomSorterJobDefinition(AMSOsramConstants.CustomSorterLogisticalProcessTransferWafers,
                 sourceContainers: new ContainerCollection() { base.MESScenario.ContainerScenario.Entity },
