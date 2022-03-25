@@ -65,7 +65,6 @@
       "source": "ExportedObjects/*",
       "target": "ExportedObjects",
       "ignoreFiles": [
-        "../.cmfpackageignore"
       ],
       "contentType": "ExportedObjects"
     },
