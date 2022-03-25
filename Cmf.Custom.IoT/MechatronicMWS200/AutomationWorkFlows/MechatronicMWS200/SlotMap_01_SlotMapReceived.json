@@ -278,26 +278,6 @@
 				"executionExpirationInMilliseconds": 0,
 				"___cmf___name": "Code"
 			}
-		},
-		{
-			"id": "task_29617",
-			"reference": {
-				"name": "logMessage",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"message": "",
-				"verbosity": "Warning",
-				"clearInputs": true,
-				"mode": "RawText",
-				"isCustomFormat": false,
-				"messageFormat": "",
-				"inputs": [],
-				"___cmf___name": "Log Message"
-			}
 		}
 	],
 	"converters": [
@@ -373,20 +353,6 @@
 			"targetId": "task_5796",
 			"inputName": "activate",
 			"outputName": "eventRawData"
-		},
-		{
-			"id": "19af3142-17e7-4d1f-aa06-2e18f867a571",
-			"sourceId": "task_5796",
-			"targetId": "task_29617",
-			"inputName": "activate",
-			"outputName": "SlotMapOut"
-		},
-		{
-			"id": "e0b59aca-f320-47ff-8c6e-26771abc0c9f",
-			"sourceId": "task_5796",
-			"targetId": "task_29617",
-			"inputName": "message",
-			"outputName": "SlotMapOut"
 		}
 	],
 	"layout": {
@@ -404,14 +370,6 @@
 		"drawers": {
 			"DIAGRAM": {
 				"tasks": {
-					"task_29617": {
-						"collapsed": false,
-						"position": {
-							"x": 1301,
-							"y": 655
-						},
-						"outdated": false
-					},
 					"task_93884": {
 						"collapsed": false,
 						"position": {
@@ -451,12 +409,6 @@
 						"vertices": []
 					},
 					"277fe215-5df4-4e42-ae4b-f92e89ff7337": {
-						"vertices": []
-					},
-					"19af3142-17e7-4d1f-aa06-2e18f867a571": {
-						"vertices": []
-					},
-					"e0b59aca-f320-47ff-8c6e-26771abc0c9f": {
 						"vertices": []
 					},
 					"11c17878-819e-4e1b-bbf8-eb6100d3484c": {

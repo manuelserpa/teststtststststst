@@ -482,6 +482,13 @@
 			"targetId": "task_126394",
 			"inputName": "TargetSlotNumberIn",
 			"outputName": "TargetSlotNumberOut"
+		},
+		{
+			"id": "470fdce9-8dd1-443b-be0a-6abcfaf96770",
+			"sourceId": "task_53372",
+			"targetId": "task_126394",
+			"inputName": "activate",
+			"outputName": "TargetSlotNumberOut"
 		}
 	],
 	"layout": {
@@ -502,8 +509,8 @@
 					"task_126394": {
 						"collapsed": false,
 						"position": {
-							"x": 1365,
-							"y": 240
+							"x": 1790,
+							"y": 245
 						},
 						"outdated": false
 					},
@@ -545,6 +552,9 @@
 					},
 					"2f9e0af3-c031-45dc-839e-4b489529477b": {
 						"vertices": []
+					},
+					"470fdce9-8dd1-443b-be0a-6abcfaf96770": {
+						"vertices": []
 					}
 				},
 				"notes": {
@@ -558,8 +568,8 @@
 				},
 				"zoom": 0.6699999999999999,
 				"pan": {
-					"x": 280.3833313553537,
-					"y": 135.69839068133058
+					"x": 475.5555725097656,
+					"y": 0
 				}
 			}
 		}

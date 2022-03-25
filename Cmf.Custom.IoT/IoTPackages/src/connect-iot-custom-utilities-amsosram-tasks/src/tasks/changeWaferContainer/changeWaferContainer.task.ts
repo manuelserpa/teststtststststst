@@ -129,6 +129,7 @@ export class ChangeWaferContainerTask implements Task.TaskInstance, ChangeWaferC
                     throw new Error(
                         `EI: On Container Change: Wafer on Slot ${this.sourceSlotNumber} - Equipment ID ${this.equipmentWaferId}// MES Id ${this.materialWaferId}) does not exist on Source Carrier ${sourceContainer.ContainerName}`);
                 }
+                this._logger.warning("\n\nTargetContainer Gathered Name: " + JSON.stringify(this.targetContainerId));
                 let targetContainer = await this._containerProcess.getContainer(this.targetContainerId, this.targetLoadPort);
                 this._logger.warning("\n\nTargetContainer Gathered: " + JSON.stringify(targetContainer));
                 if (!targetContainer) {

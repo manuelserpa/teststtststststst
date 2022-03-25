@@ -18,11 +18,6 @@ export class ContainerProcessHandler implements ContainerProcess {
 
     public async setWaferToContainer(containerName: string, loadPortPosition: number, slot: number,
         equipmentWaferId: string, materialWaferId: any): Promise<WaferData> {
-        this._logger.error("7 ===========>");
-        this._logger.error("containerName ===========>:" + containerName);
-        this._logger.error("loadPortPosition ===========>:" + loadPortPosition);
-        this._logger.error("slot ===========>:" + slot);
-        this._logger.error("equipmentWaferId ===========>:" + equipmentWaferId);
 
         if (this._Containers === undefined) {
             await this.InitializePersistedData();
@@ -32,7 +27,7 @@ export class ContainerProcessHandler implements ContainerProcess {
             container = await this.setContainer(containerName, loadPortPosition, null)
         }
         let wafer = await this.getWafer(container, slot, equipmentWaferId, null);
-        // this._logger.error("Wafer ===========>:" + JSON.stringify(wafer));
+
 
         if (wafer) {
             this._logger.error("");
@@ -55,7 +50,6 @@ export class ContainerProcessHandler implements ContainerProcess {
             await this.InitializePersistedData();
         }
         const waferExists = await this.getWafer(container, wafer.Slot, wafer.EquipmentWaferId, null);
-        this._logger.error("6 ===========>");
         if (waferExists) {
             this._logger.error("");
             return waferExists;

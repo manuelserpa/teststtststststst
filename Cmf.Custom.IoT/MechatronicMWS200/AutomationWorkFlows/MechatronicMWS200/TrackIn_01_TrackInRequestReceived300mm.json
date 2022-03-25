@@ -433,26 +433,6 @@
 			}
 		},
 		{
-			"id": "task_23475",
-			"reference": {
-				"name": "logMessage",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"message": "",
-				"verbosity": "Error",
-				"clearInputs": true,
-				"mode": "MultipleInputs",
-				"isCustomFormat": true,
-				"messageFormat": "Saiu do RecipeValidation!",
-				"inputs": [],
-				"___cmf___name": "Log Message"
-			}
-		},
-		{
 			"id": "task_31267",
 			"reference": {
 				"name": "createContainer",
@@ -465,26 +445,6 @@
 				"inputs": [],
 				"outputs": [],
 				"message": ""
-			}
-		},
-		{
-			"id": "task_90597",
-			"reference": {
-				"name": "logMessage",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"message": "",
-				"verbosity": "Error",
-				"clearInputs": true,
-				"mode": "RawText",
-				"isCustomFormat": false,
-				"messageFormat": "",
-				"inputs": [],
-				"___cmf___name": "Log Message"
 			}
 		},
 		{
@@ -641,16 +601,50 @@
 					"     */",
 					"    public async main(inputs: any, outputs: any): Promise<any> {",
 					"        // Add code here",
-					"        var containers = JSON.parse(inputs.ContainerResolved);",
-					"        this.framework.logger.error(containers);",
+					"        //var containers = JSON.parse(inputs.ContainerResolved);",
+					"        var persistenceCreated = await this.framework.dataStore.retrieve(\"containersToCreate\", null);",
+					"        var containersToCreateCounter = 0;",
+					"        ",
+					"        if (!persistenceCreated) {",
+					"            var containers = JSON.parse(inputs.ContainerResolved);",
+					"            await this.framework.dataStore.store(\"containersToCreate\", containers, \"Temporary\");",
+					"            await this.framework.dataStore.store(\"containersToCreateCounter\", containersToCreateCounter, \"Temporary\");",
+					"        } else {",
+					"            containers = persistenceCreated;",
+					"            containersToCreateCounter = await this.framework.dataStore.retrieve(\"containersToCreateCounter\", -1);",
+					"        }",
 					"",
-					"        Object.keys(containers).forEach(e => ",
-					"        { outputs.containerId.emit(containers[e]); ",
-					"          outputs.loadPort.emit(e);",
-					"          this.framework.logger.error(e);",
-					"          }",
+					"        if (containers) {",
+					"            var arrayOfProperties = Object.keys(containers);",
+					"            if (containersToCreateCounter >= arrayOfProperties.length){",
+					"                this.framework.logger.warning(\"\\n=>Cleared.\");",
+					"                await this.framework.dataStore.store(\"containersToCreate\", null, \"Temporary\");",
+					"                await this.framework.dataStore.store(\"containersToCreateCounter\", null, \"Temporary\");",
+					"            } else {",
+					"                await this.framework.dataStore.store(\"containersToCreateCounter\", (containersToCreateCounter+1), \"Temporary\");",
+					"                this.framework.logger.warning(\"\\n=>Containers to Create Counter: \" + containersToCreateCounter);",
+					"                this.framework.logger.warning(\"\\n=>LoadPort: \" + arrayOfProperties[containersToCreateCounter]);",
+					"                //this.framework.logger.warning(\"\\n=>Containers: \" + containersToCreateCounter);",
+					"                return { containerId: containers[arrayOfProperties[containersToCreateCounter]], loadPort: arrayOfProperties[containersToCreateCounter], Activate: true };",
+					"            }",
 					"",
-					"        );",
+					"        }",
+					"",
+					"",
+					"",
+					"        // for (let i = containersToCreateCounter; i < Object.keys(containers).length; i++) {",
+					"",
+					"        // }",
+					"",
+					"        ",
+					"        // Object.keys(containers).forEach(e => ",
+					"        // {",
+					"        //   this.framework.utils.sleep(1000);",
+					"        //   outputs.containerId.emit(containers[e]); ",
+					"        //   outputs.loadPort.emit(e);",
+					"        // }",
+					"",
+					"        //);",
 					"",
 					"        // emit output during execution: outputs.output1.emit(\"something\");",
 					"        // return example: return { output1: inputs.input1, output2: \"Hello World\" };",
@@ -658,7 +652,7 @@
 					"}",
 					""
 				],
-				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIHZhciBjb250YWluZXJzID0gSlNPTi5wYXJzZShpbnB1dHMuQ29udGFpbmVyUmVzb2x2ZWQpOw0KICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIuZXJyb3IoY29udGFpbmVycyk7DQogICAgICAgIE9iamVjdC5rZXlzKGNvbnRhaW5lcnMpLmZvckVhY2goZSA9PiB7DQogICAgICAgICAgICBvdXRwdXRzLmNvbnRhaW5lcklkLmVtaXQoY29udGFpbmVyc1tlXSk7DQogICAgICAgICAgICBvdXRwdXRzLmxvYWRQb3J0LmVtaXQoZSk7DQogICAgICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIuZXJyb3IoZSk7DQogICAgICAgIH0pOw0KICAgICAgICAvLyBlbWl0IG91dHB1dCBkdXJpbmcgZXhlY3V0aW9uOiBvdXRwdXRzLm91dHB1dDEuZW1pdCgic29tZXRoaW5nIik7DQogICAgICAgIC8vIHJldHVybiBleGFtcGxlOiByZXR1cm4geyBvdXRwdXQxOiBpbnB1dHMuaW5wdXQxLCBvdXRwdXQyOiAiSGVsbG8gV29ybGQiIH07DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIC8vdmFyIGNvbnRhaW5lcnMgPSBKU09OLnBhcnNlKGlucHV0cy5Db250YWluZXJSZXNvbHZlZCk7DQogICAgICAgIHZhciBwZXJzaXN0ZW5jZUNyZWF0ZWQgPSBhd2FpdCB0aGlzLmZyYW1ld29yay5kYXRhU3RvcmUucmV0cmlldmUoImNvbnRhaW5lcnNUb0NyZWF0ZSIsIG51bGwpOw0KICAgICAgICB2YXIgY29udGFpbmVyc1RvQ3JlYXRlQ291bnRlciA9IDA7DQogICAgICAgIGlmICghcGVyc2lzdGVuY2VDcmVhdGVkKSB7DQogICAgICAgICAgICB2YXIgY29udGFpbmVycyA9IEpTT04ucGFyc2UoaW5wdXRzLkNvbnRhaW5lclJlc29sdmVkKTsNCiAgICAgICAgICAgIGF3YWl0IHRoaXMuZnJhbWV3b3JrLmRhdGFTdG9yZS5zdG9yZSgiY29udGFpbmVyc1RvQ3JlYXRlIiwgY29udGFpbmVycywgIlRlbXBvcmFyeSIpOw0KICAgICAgICAgICAgYXdhaXQgdGhpcy5mcmFtZXdvcmsuZGF0YVN0b3JlLnN0b3JlKCJjb250YWluZXJzVG9DcmVhdGVDb3VudGVyIiwgY29udGFpbmVyc1RvQ3JlYXRlQ291bnRlciwgIlRlbXBvcmFyeSIpOw0KICAgICAgICB9DQogICAgICAgIGVsc2Ugew0KICAgICAgICAgICAgY29udGFpbmVycyA9IHBlcnNpc3RlbmNlQ3JlYXRlZDsNCiAgICAgICAgICAgIGNvbnRhaW5lcnNUb0NyZWF0ZUNvdW50ZXIgPSBhd2FpdCB0aGlzLmZyYW1ld29yay5kYXRhU3RvcmUucmV0cmlldmUoImNvbnRhaW5lcnNUb0NyZWF0ZUNvdW50ZXIiLCAtMSk7DQogICAgICAgIH0NCiAgICAgICAgaWYgKGNvbnRhaW5lcnMpIHsNCiAgICAgICAgICAgIHZhciBhcnJheU9mUHJvcGVydGllcyA9IE9iamVjdC5rZXlzKGNvbnRhaW5lcnMpOw0KICAgICAgICAgICAgaWYgKGNvbnRhaW5lcnNUb0NyZWF0ZUNvdW50ZXIgPj0gYXJyYXlPZlByb3BlcnRpZXMubGVuZ3RoKSB7DQogICAgICAgICAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLndhcm5pbmcoIlxuPT5DbGVhcmVkLiIpOw0KICAgICAgICAgICAgICAgIGF3YWl0IHRoaXMuZnJhbWV3b3JrLmRhdGFTdG9yZS5zdG9yZSgiY29udGFpbmVyc1RvQ3JlYXRlIiwgbnVsbCwgIlRlbXBvcmFyeSIpOw0KICAgICAgICAgICAgICAgIGF3YWl0IHRoaXMuZnJhbWV3b3JrLmRhdGFTdG9yZS5zdG9yZSgiY29udGFpbmVyc1RvQ3JlYXRlQ291bnRlciIsIG51bGwsICJUZW1wb3JhcnkiKTsNCiAgICAgICAgICAgIH0NCiAgICAgICAgICAgIGVsc2Ugew0KICAgICAgICAgICAgICAgIGF3YWl0IHRoaXMuZnJhbWV3b3JrLmRhdGFTdG9yZS5zdG9yZSgiY29udGFpbmVyc1RvQ3JlYXRlQ291bnRlciIsIChjb250YWluZXJzVG9DcmVhdGVDb3VudGVyICsgMSksICJUZW1wb3JhcnkiKTsNCiAgICAgICAgICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIud2FybmluZygiXG49PkNvbnRhaW5lcnMgdG8gQ3JlYXRlIENvdW50ZXI6ICIgKyBjb250YWluZXJzVG9DcmVhdGVDb3VudGVyKTsNCiAgICAgICAgICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIud2FybmluZygiXG49PkxvYWRQb3J0OiAiICsgYXJyYXlPZlByb3BlcnRpZXNbY29udGFpbmVyc1RvQ3JlYXRlQ291bnRlcl0pOw0KICAgICAgICAgICAgICAgIC8vdGhpcy5mcmFtZXdvcmsubG9nZ2VyLndhcm5pbmcoIlxuPT5Db250YWluZXJzOiAiICsgY29udGFpbmVyc1RvQ3JlYXRlQ291bnRlcik7DQogICAgICAgICAgICAgICAgcmV0dXJuIHsgY29udGFpbmVySWQ6IGNvbnRhaW5lcnNbYXJyYXlPZlByb3BlcnRpZXNbY29udGFpbmVyc1RvQ3JlYXRlQ291bnRlcl1dLCBsb2FkUG9ydDogYXJyYXlPZlByb3BlcnRpZXNbY29udGFpbmVyc1RvQ3JlYXRlQ291bnRlcl0sIEFjdGl2YXRlOiB0cnVlIH07DQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICAgICAgLy8gZm9yIChsZXQgaSA9IGNvbnRhaW5lcnNUb0NyZWF0ZUNvdW50ZXI7IGkgPCBPYmplY3Qua2V5cyhjb250YWluZXJzKS5sZW5ndGg7IGkrKykgew0KICAgICAgICAvLyB9DQogICAgICAgIC8vIE9iamVjdC5rZXlzKGNvbnRhaW5lcnMpLmZvckVhY2goZSA9PiANCiAgICAgICAgLy8gew0KICAgICAgICAvLyAgIHRoaXMuZnJhbWV3b3JrLnV0aWxzLnNsZWVwKDEwMDApOw0KICAgICAgICAvLyAgIG91dHB1dHMuY29udGFpbmVySWQuZW1pdChjb250YWluZXJzW2VdKTsgDQogICAgICAgIC8vICAgb3V0cHV0cy5sb2FkUG9ydC5lbWl0KGUpOw0KICAgICAgICAvLyB9DQogICAgICAgIC8vKTsNCiAgICAgICAgLy8gZW1pdCBvdXRwdXQgZHVyaW5nIGV4ZWN1dGlvbjogb3V0cHV0cy5vdXRwdXQxLmVtaXQoInNvbWV0aGluZyIpOw0KICAgICAgICAvLyByZXR1cm4gZXhhbXBsZTogcmV0dXJuIHsgb3V0cHV0MTogaW5wdXRzLmlucHV0MSwgb3V0cHV0MjogIkhlbGxvIFdvcmxkIiB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
 				"inputs": [
 					{
 						"name": "ContainerResolved",
@@ -695,6 +689,18 @@
 							"referenceTypeName": null,
 							"referenceTypeId": null
 						}
+					},
+					{
+						"name": "Activate",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Activate"
+						},
+						"defaultValue": null
 					}
 				],
 				"contextExpirationInMilliseconds": 10000,
@@ -714,7 +720,8 @@
 			"settings": {
 				"inputs": [],
 				"outputs": [],
-				"message": ""
+				"message": "",
+				"___cmf___name": "Create Container"
 			}
 		}
 	],
@@ -855,13 +862,6 @@
 			]
 		},
 		{
-			"id": "553883af-1d2d-4817-a610-095bb541289b",
-			"sourceId": "task_83813",
-			"targetId": "task_23475",
-			"inputName": "activate",
-			"outputName": "MaterialDataOut"
-		},
-		{
 			"id": "97227ed3-ec62-44fa-ac9c-58989fdebc30",
 			"sourceId": "task_73090",
 			"targetId": "task_31267",
@@ -888,20 +888,6 @@
 			"targetId": "task_83813",
 			"inputName": "activate",
 			"outputName": "container"
-		},
-		{
-			"id": "977596c6-c7b4-47c9-bc6e-260a079dff07",
-			"sourceId": "task_1796",
-			"targetId": "task_90597",
-			"inputName": "message",
-			"outputName": "data"
-		},
-		{
-			"id": "d022c8be-7ce5-44c1-b08b-33ea421b3142",
-			"sourceId": "task_1796",
-			"targetId": "task_90597",
-			"inputName": "activate",
-			"outputName": "data"
 		},
 		{
 			"id": "ecb1098b-d98b-4225-889b-90c1ddd039e2",
@@ -989,13 +975,6 @@
 			"outputName": "loadPortOut"
 		},
 		{
-			"id": "31010ea4-7eb8-45f1-97c2-da279592bdfd",
-			"sourceId": "task_70312",
-			"targetId": "task_71634",
-			"inputName": "activate",
-			"outputName": "loadPortOut"
-		},
-		{
 			"id": "e89310e0-9636-4e8c-890b-69d69863d75a",
 			"sourceId": "task_1677",
 			"targetId": "task_1796",
@@ -1007,6 +986,20 @@
 					"params": {}
 				}
 			]
+		},
+		{
+			"id": "503a875e-ab78-40d2-8288-3ba2933bbe5f",
+			"sourceId": "task_70312",
+			"targetId": "task_71634",
+			"inputName": "activate",
+			"outputName": "ActivateOut"
+		},
+		{
+			"id": "edabc51c-0ad7-4866-bf3b-0706a4d2d1c3",
+			"sourceId": "task_71634",
+			"targetId": "task_70312",
+			"inputName": "activate",
+			"outputName": "success"
 		}
 	],
 	"layout": {
@@ -1047,22 +1040,6 @@
 						"position": {
 							"x": 809,
 							"y": 274
-						},
-						"outdated": false
-					},
-					"task_23475": {
-						"collapsed": false,
-						"position": {
-							"x": 3767,
-							"y": 221
-						},
-						"outdated": false
-					},
-					"task_90597": {
-						"collapsed": false,
-						"position": {
-							"x": 1266,
-							"y": 170
 						},
 						"outdated": false
 					},
@@ -1109,8 +1086,8 @@
 					"task_18674": {
 						"collapsed": false,
 						"position": {
-							"x": 1236,
-							"y": 546
+							"x": 1455,
+							"y": 612
 						},
 						"outdated": false
 					},
@@ -1149,8 +1126,8 @@
 					"task_71634": {
 						"collapsed": false,
 						"position": {
-							"x": 6723,
-							"y": 643
+							"x": 7033,
+							"y": 646
 						},
 						"outdated": false
 					}
@@ -1217,9 +1194,6 @@
 					"0391f86a-2c0d-4450-8dcd-d8e59512b122": {
 						"vertices": []
 					},
-					"553883af-1d2d-4817-a610-095bb541289b": {
-						"vertices": []
-					},
 					"97227ed3-ec62-44fa-ac9c-58989fdebc30": {
 						"vertices": []
 					},
@@ -1230,12 +1204,6 @@
 						"vertices": []
 					},
 					"085dd780-bbfe-495a-8568-3df6610d08ae": {
-						"vertices": []
-					},
-					"977596c6-c7b4-47c9-bc6e-260a079dff07": {
-						"vertices": []
-					},
-					"d022c8be-7ce5-44c1-b08b-33ea421b3142": {
 						"vertices": []
 					},
 					"ecb1098b-d98b-4225-889b-90c1ddd039e2": {
@@ -1262,8 +1230,20 @@
 					"b3953cdd-7585-4cd1-b5ac-6e1a407eafd7": {
 						"vertices": []
 					},
-					"31010ea4-7eb8-45f1-97c2-da279592bdfd": {
+					"503a875e-ab78-40d2-8288-3ba2933bbe5f": {
 						"vertices": []
+					},
+					"edabc51c-0ad7-4866-bf3b-0706a4d2d1c3": {
+						"vertices": [
+							{
+								"x": 7051,
+								"y": 1227
+							},
+							{
+								"x": 6417,
+								"y": 1324
+							}
+						]
 					},
 					"195fef9b-8132-4a71-8319-1d56a21c8db0": {
 						"vertices": []
@@ -1313,10 +1293,10 @@
 						}
 					}
 				},
-				"zoom": 0.28,
+				"zoom": 0.7000000000000004,
 				"pan": {
-					"x": 93.33333587646484,
-					"y": 0
+					"x": 3757.77783203125,
+					"y": 291.1111145019531
 				}
 			}
 		}
