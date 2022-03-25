@@ -686,13 +686,12 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
         /// <summary> 
         /// Scenario: Control State to Host Offline
         /// </summary>
-        //[TestMethod]
+        [TestMethod]
         public void MechatronicMWS200_ControlStateUpdateTest()
         {
 
-            base.Equipment.Variables["ControlState"] = 3;
             // Trigger event
-            base.Equipment.SendMessage("EquipmentOFFLINE", null);
+            base.Equipment.SendMessage("ControlStateOFFLINE", null);
 
             //
             TestUtilities.WaitFor(10/*ValidationTimeout*/, "Control State was not updated to Host Offline", () =>
@@ -713,10 +712,9 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
                 return resource.CurrentStates.FirstOrDefault(s => s.StateModel.Name == "CustomSecsGemControlStateModel" && s.CurrentState.Name == "HostOffline") != null;
             });
             Thread.Sleep(1000);
-            base.Equipment.Variables["ControlState"] = 5;
+
             // Trigger event
             base.Equipment.SendMessage("ControlStateREMOTE", null);
-
 
             TestUtilities.WaitFor(ValidationTimeout, "Control State was not updated to Online Remote", () =>
             {
@@ -737,7 +735,6 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             });
 
             Thread.Sleep(1000);
-            base.Equipment.Variables["ControlState"] = 4;
             // Trigger event
             base.Equipment.SendMessage("ControlStateLOCAL", null);
 
@@ -819,13 +816,15 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
                 Thread.Sleep(1000);
 
-                //containerScenario.Entity.Load();
+                containerScenario.Entity.LoadRelation("MaterialContainer");
 
-                var slotMap = new int[containerScenario.Entity.ContainerMaterials.Count];
+                var slotMap = new int[containerScenario.Entity.TotalPositions ?? 0];
+
                 // scenario.ContainerScenario.Entity
                 if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
                 {
-                    for (int i = 0; i < containerScenario.Entity.ContainerMaterials.Count; i++)
+
+                    for (int i = 0; i < containerScenario.Entity.TotalPositions.Value; i++)
                     {
                         slotMap[i] = containerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
                     }
@@ -835,11 +834,11 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
 
 
-
-                base.Equipment.Variables["CarrierID"] = containerScenario.Entity.Name;
-                base.Equipment.Variables["SlotMap"] = slotMapDV;
-                base.Equipment.Variables["ContentMap"] = slotMapDV;
                 base.Equipment.Variables["PortID"] = lp;
+                base.Equipment.Variables["CarrierID"] = containerScenario.Entity.Name;
+                base.Equipment.Variables["ContentMap"] = slotMapDV;
+                base.Equipment.Variables["SlotMap"] = slotMapDV;
+
 
                 // Trigger event
                 base.Equipment.SendMessage(String.Format($"COSM14_SLOTMAPNOTREAD_SLOTMAPWAITINGFORHOST"), null);

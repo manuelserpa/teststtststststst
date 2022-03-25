@@ -63,7 +63,7 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "Equipment OFF-LINE"
+						"Name": "ControlStateOFFLINE"
 					}
 				]
 			},
@@ -84,7 +84,7 @@
 	],
 	"links": [
 		{
-			"id": "caca0489-fe3e-4233-9375-123ab8a24e19",
+			"id": "297c1117-dd8a-4b79-aaf0-6352072b59a6",
 			"sourceId": "task_124716",
 			"targetId": "task_141393",
 			"inputName": "valueIn",
@@ -100,7 +100,7 @@
 			]
 		},
 		{
-			"id": "db87a7b6-f47e-4ad2-b573-e1aeb60a5682",
+			"id": "5f1003ac-f6d0-4dcb-a21e-607f552a0e69",
 			"sourceId": "task_124716",
 			"targetId": "task_141393",
 			"inputName": "activate",
@@ -133,17 +133,17 @@
 					"task_124716": {
 						"collapsed": false,
 						"position": {
-							"x": 639,
-							"y": 450
+							"x": 676,
+							"y": 423
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"db87a7b6-f47e-4ad2-b573-e1aeb60a5682": {
+					"5f1003ac-f6d0-4dcb-a21e-607f552a0e69": {
 						"vertices": []
 					},
-					"caca0489-fe3e-4233-9375-123ab8a24e19": {
+					"297c1117-dd8a-4b79-aaf0-6352072b59a6": {
 						"vertices": []
 					}
 				},
@@ -157,10 +157,10 @@
 					}
 				},
 				"pan": {
-					"x": 553.3333740234375,
-					"y": 177.7777862548828
+					"x": 576.4969613090182,
+					"y": 164.8559284921257
 				},
-				"zoom": 0.8200000000000001
+				"zoom": 0.76
 			}
 		}
 	}

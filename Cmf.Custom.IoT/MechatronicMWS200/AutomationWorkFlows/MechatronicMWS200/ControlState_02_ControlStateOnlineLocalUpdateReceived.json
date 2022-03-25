@@ -63,7 +63,7 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "Control State LOCAL"
+						"Name": "ControlStateLOCAL"
 					}
 				]
 			},
@@ -84,7 +84,7 @@
 	],
 	"links": [
 		{
-			"id": "caca0489-fe3e-4233-9375-123ab8a24e19",
+			"id": "8fbdc937-61e5-4fe9-9a66-01875ba1288e",
 			"sourceId": "task_124716",
 			"targetId": "task_141393",
 			"inputName": "valueIn",
@@ -100,7 +100,7 @@
 			]
 		},
 		{
-			"id": "db87a7b6-f47e-4ad2-b573-e1aeb60a5682",
+			"id": "97aad8a3-9dae-47e5-b207-042910094da7",
 			"sourceId": "task_124716",
 			"targetId": "task_141393",
 			"inputName": "activate",
@@ -133,17 +133,17 @@
 					"task_124716": {
 						"collapsed": false,
 						"position": {
-							"x": 639,
-							"y": 450
+							"x": 676,
+							"y": 423
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"db87a7b6-f47e-4ad2-b573-e1aeb60a5682": {
+					"97aad8a3-9dae-47e5-b207-042910094da7": {
 						"vertices": []
 					},
-					"caca0489-fe3e-4233-9375-123ab8a24e19": {
+					"8fbdc937-61e5-4fe9-9a66-01875ba1288e": {
 						"vertices": []
 					}
 				},
@@ -157,10 +157,10 @@
 					}
 				},
 				"pan": {
-					"x": 535,
-					"y": 222
+					"x": 576.4969613090182,
+					"y": 164.8559284921257
 				},
-				"zoom": 0.8200000000000001
+				"zoom": 0.76
 			}
 		}
 	}

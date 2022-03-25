@@ -63,7 +63,7 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "Control State REMOTE"
+						"Name": "ControlStateREMOTE"
 					}
 				]
 			},
@@ -84,7 +84,7 @@
 	],
 	"links": [
 		{
-			"id": "caca0489-fe3e-4233-9375-123ab8a24e19",
+			"id": "0a386904-8682-4b35-9b14-ce5d801e7e04",
 			"sourceId": "task_124716",
 			"targetId": "task_141393",
 			"inputName": "valueIn",
@@ -100,7 +100,7 @@
 			]
 		},
 		{
-			"id": "db87a7b6-f47e-4ad2-b573-e1aeb60a5682",
+			"id": "eeac4abe-50ee-40ba-a7c7-6e9fc36cb6ac",
 			"sourceId": "task_124716",
 			"targetId": "task_141393",
 			"inputName": "activate",
@@ -133,17 +133,17 @@
 					"task_124716": {
 						"collapsed": false,
 						"position": {
-							"x": 639,
-							"y": 450
+							"x": 676,
+							"y": 423
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"db87a7b6-f47e-4ad2-b573-e1aeb60a5682": {
+					"eeac4abe-50ee-40ba-a7c7-6e9fc36cb6ac": {
 						"vertices": []
 					},
-					"caca0489-fe3e-4233-9375-123ab8a24e19": {
+					"0a386904-8682-4b35-9b14-ce5d801e7e04": {
 						"vertices": []
 					}
 				},
@@ -157,10 +157,10 @@
 					}
 				},
 				"pan": {
-					"x": 535,
-					"y": 222
+					"x": 277.77777099609375,
+					"y": 131.11111450195312
 				},
-				"zoom": 0.8200000000000001
+				"zoom": 0.76
 			}
 		}
 	}

@@ -170,7 +170,18 @@
 			"driver": "SecsGemEquipment"
 		}
 	],
-	"converters": [],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
 	"links": [
 		{
 			"id": "task_169104_ErrorOut-task_169100_error",
@@ -228,6 +239,22 @@
 			"targetId": "task_169100",
 			"inputName": "MaterialData",
 			"outputName": "Material"
+		},
+		{
+			"id": "e5499366-eab0-4b0a-b90c-71ce1b5fea54",
+			"sourceId": "task_169102",
+			"targetId": "task_169525",
+			"inputName": "StartMethod",
+			"outputName": "MaterialDataOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "true"
+					}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -294,6 +321,9 @@
 						"vertices": []
 					},
 					"b51e37b2-47f1-4865-900f-1e69888a246a": {
+						"vertices": []
+					},
+					"e5499366-eab0-4b0a-b90c-71ce1b5fea54": {
 						"vertices": []
 					}
 				},
