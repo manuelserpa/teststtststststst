@@ -132,6 +132,12 @@
    "actionId": ""
 },
 {
+   "id": "customassociatesorterjobdefinitiontocontexttable",
+   "menuGroupId": "deeactions",
+   "title": "CustomAssociateSorterJobDefinitionToContextTable",
+   "actionId": ""
+},
+{
    "id": "customautomationadjustloadportstate",
    "menuGroupId": "deeactions",
    "title": "CustomAutomationAdjustLoadPortState",
@@ -150,6 +156,12 @@
    "actionId": ""
 },
 {
+   "id": "customgeneratesorterjobdefinitionfromfutureaction",
+   "menuGroupId": "deeactions",
+   "title": "CustomGenerateSorterJobDefinitionFromFutureAction",
+   "actionId": ""
+},
+{
    "id": "customgeneratesplitlotnames",
    "menuGroupId": "deeactions",
    "title": "Custom Generate Split Lot Names",
@@ -159,6 +171,18 @@
    "id": "customnicelabelprint",
    "menuGroupId": "deeactions",
    "title": "Custom Nice Label Print",
+   "actionId": ""
+},
+{
+   "id": "customprocessproduct",
+   "menuGroupId": "deeactions",
+   "title": "Custom Process Product",
+   "actionId": ""
+},
+{
+   "id": "customprocessproductsfromerp",
+   "menuGroupId": "deeactions",
+   "title": "Custom Process Products From ERP",
    "actionId": ""
 },
 {
@@ -189,6 +213,12 @@
    "id": "customgetresourceloadportsdata",
    "menuGroupId": "exportedobjects",
    "title": "CustomGetResourceLoadPortsData",
+   "actionId": ""
+},
+{
+   "id": "customreclaimcontainertype",
+   "menuGroupId": "generictables",
+   "title": "CustomReclaimContainerType",
    "actionId": ""
 },
 {
@@ -390,6 +420,12 @@
    "actionId": ""
 },
 {
+   "id": "importproductfromerp",
+   "menuGroupId": "erpfeatures",
+   "title": "Import Product From ERP",
+   "actionId": ""
+},
+{
    "id": "customerpsystemintegration",
    "menuGroupId": "features",
    "title": "ERP (SAP) System Integration",
@@ -405,6 +441,12 @@
    "id": "customstibosystemintegration",
    "menuGroupId": "features",
    "title": "Stibo System Integration",
+   "actionId": ""
+},
+{
+   "id": "generatesorterjobdefinitionfromfutureaction",
+   "menuGroupId": "features",
+   "title": "Generate Sorter Job Definition From Future Action",
    "actionId": ""
 }
 ]
