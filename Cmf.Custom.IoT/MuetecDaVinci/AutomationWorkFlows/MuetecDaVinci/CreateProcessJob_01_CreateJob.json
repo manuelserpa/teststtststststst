@@ -228,6 +228,16 @@
 					"version": "8.3.3-202201212"
 				}
 			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
 		}
 	],
 	"links": [
@@ -301,6 +311,22 @@
 			"targetId": "task_171073",
 			"inputName": "activate",
 			"outputName": "RecipeNameOnEquipment"
+		},
+		{
+			"id": "e9df1bb2-c525-4464-a18c-a471df254a0b",
+			"sourceId": "task_28851",
+			"targetId": "task_171073",
+			"inputName": "StartProcess",
+			"outputName": "RecipeNameOnEquipment",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "true"
+					}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -381,6 +407,9 @@
 						"vertices": []
 					},
 					"3a6ec4e8-82ba-4313-8838-da7e59268b77": {
+						"vertices": []
+					},
+					"e9df1bb2-c525-4464-a18c-a471df254a0b": {
 						"vertices": []
 					}
 				},
