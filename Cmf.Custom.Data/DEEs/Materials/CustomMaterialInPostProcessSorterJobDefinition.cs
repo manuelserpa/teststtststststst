@@ -98,9 +98,14 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                             var dockedContainer = dockedContainers.FirstOrDefault(c => c.ContainerName.Equals(containerName, StringComparison.InvariantCultureIgnoreCase));
 
                             if (dockedContainer != null)
-							{
-                                loadPortsToSetInUse.Add(new Resource() { Name = dockedContainer.LoadPortName });
-                            }                          
+                            {
+                                var resourceToSet = new Resource() { Name = dockedContainer.LoadPortName };
+                                resourceToSet.Load();
+                                if (!loadPortsToSetInUse.Contains(resourceToSet))
+                                {
+                                    loadPortsToSetInUse.Add(resourceToSet);
+                                }
+                            }
                         }
 
                         if (customSorterJobDefinition.LogisticalProcess == AMSOsramConstants.LookupTableCustomSorterLogisticalProcessTransferWafers &&
