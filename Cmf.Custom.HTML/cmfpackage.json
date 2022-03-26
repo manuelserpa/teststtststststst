@@ -2,7 +2,7 @@
   "packageId": "Cmf.Custom.HTML",
   "version": "1.3.0",
   "description": "Cmf Custom AMSOsram Cmf.Custom.HTML Package",
-  "packageType": "HTML",
+  "packageType": "Html",
   "isInstallable": true,
   "isUniqueInstall": false,
   "contentToPack": [
