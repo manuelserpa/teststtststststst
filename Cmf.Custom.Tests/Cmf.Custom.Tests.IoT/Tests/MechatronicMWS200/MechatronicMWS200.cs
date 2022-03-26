@@ -1004,12 +1004,11 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             //clamped
             base.CarrierInValidation(MESScenario, loadPortToSet);
 
-
-            var slotMap = new int[MESScenario.ContainerScenario.Entity.ContainerMaterials.Count];
+            var slotMap = new int[MESScenario.ContainerScenario.Entity.TotalPositions.Value];
             // scenario.ContainerScenario.Entity
             if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
             {
-                for (int i = 0; i < MESScenario.ContainerScenario.Entity.ContainerMaterials.Count; i++)
+                for (int i = 0; i < MESScenario.ContainerScenario.Entity.TotalPositions.Value; i++)
                 {
                     slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
                 }
