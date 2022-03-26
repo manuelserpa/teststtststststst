@@ -10,7 +10,7 @@
       "source": "src/packages/*",
       "target": "node_modules",
       "ignoreFiles": [
-        ".npmignore"
+        
       ]
     },
     {
