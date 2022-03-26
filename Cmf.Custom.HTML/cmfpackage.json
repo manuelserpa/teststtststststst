@@ -4,7 +4,7 @@
   "description": "Cmf Custom AMSOsram Cmf.Custom.HTML Package",
   "packageType": "Html",
   "isInstallable": true,
-  "isUniqueInstall": false, 
+  "isUniqueInstall": false,
   "contentToPack": [
     {
       "source": "src/packages/*",
@@ -17,7 +17,7 @@
       "source": "apps/customization.web/node_modules/@criticalmanufacturing/mes-ui-web/bundles",
       "target": ""
     },
-	  {
+    {
       "source": "../Libs/LBOs/TypeScript/APIReference*",
       "target": "node_modules/cmf.lbos"
     },
@@ -28,6 +28,10 @@
     {
       "source": "../Libs/LBOs/TypeScript/package.json",
       "target": "node_modules/cmf.lbos"
+    },
+    {
+      "source": "config.json",
+      "action": "Transform"
     }
   ]
 }
