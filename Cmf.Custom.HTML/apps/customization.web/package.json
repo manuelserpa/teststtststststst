@@ -6,8 +6,11 @@
     "@criticalmanufacturing/mes-ui-web": "release-833",
     "lodash": "3.10.1"
   },
-  "optionalDependencies": {},
+  "optionalDependencies": {
+    "customization.common": "release-833"
+  },
   "cmfLinkDependencies": {
-    "cmf.lbos": "file:../../../Libs/LBOs/TypeScript"
+    "cmf.lbos": "file:../../../Libs/LBOs/TypeScript",
+    "customization.common": "file:../../src/packages/customization.common"
   }
 }
