@@ -119,9 +119,10 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                         // pickup the wafer, read it, set it back on the same position, use slot map obtained from equipment
                         carrierInputSpec.push({ type: "A", value: material.ContainerName }) // Carrier Name
                         // get container from persistence to get stored slot map
-                        const container = await this._containerProcess.getContainer(material.ContainerName, Number(material.LoadPortPosition))
+                        /* const container = await this._containerProcess.getContainer(material.ContainerName, Number(material.LoadPortPosition))
                         // sets slot map to known format
                         const slotMap = this.SlotMapToArray(container.SlotMap);
+                        this._logger.warning("SlotMap To Be Processed: " + JSON.stringify(slotMap));
                         // slot map parsing
                         const slotValues = []
                         const transferPair = {
@@ -144,7 +145,9 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                                 slotValues.push({ type: "U1", value: position + 1 })
                             }
                         }
-                        materialMovement.push(transferPair);
+                        if (slotValues.length > 0) {
+                            materialMovement.push(transferPair);
+                        } */
                     } else {
                         const sorterMovementList = JSON.parse(material.SorterJobInformation.MovementList);
                         sorterMovementList.forEach(element => {
