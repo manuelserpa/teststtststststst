@@ -86,8 +86,7 @@
         /// CustomReclaimContainerType table ReclaimContainerType Property 
         /// </summary>
         public static string GenericTableCustomReclaimContainerTypeReclaimContainerTypeProperty = "ReclaimContainerType";
-
-
+                
         #endregion
 
         #region LookupTables
@@ -838,7 +837,7 @@
         public const string CustomIntegrationInboundEventName = "Inbound";
 
         #endregion
-        
+
         #region Name Generators
 
         /// <summary>
@@ -850,6 +849,23 @@
         /// Production lot Name Generator
         /// </summary>
         public const string CustomGenerateProductionLotNames = "CustomProductionLotNameGenerator";
+
+        #endregion
+
+        #region EntityTypes
+
+        public class EntityTypes
+        {
+            /// <summary>
+            /// Product
+            /// </summary>
+            public const string Product = "Product";
+
+            /// <summary>
+            /// Integration Entry
+            /// </summary>
+            public const string IntegrationEntry = "IntegrationEntry";
+        }
 
         #endregion
     }
