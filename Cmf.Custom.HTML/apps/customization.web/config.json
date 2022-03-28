@@ -87,13 +87,14 @@
       "cmf.mes.area",
       "cmf.mes.facility",
       "cmf.mes.materiallogistics",
-      "cmf.mes.newproductintroduction"
+      "cmf.mes.newproductintroduction",
+      "customization.common"
     ],
     "baseDir": "node_modules/",
     "bundlePath": "node_modules/@criticalmanufacturing/mes-ui-web/bundles",
     "bundles": {
-      "metadata": true,
-      "i18n": true
+      "metadata":  false,
+	  "i18n":  false
     }
   },
   "general": {

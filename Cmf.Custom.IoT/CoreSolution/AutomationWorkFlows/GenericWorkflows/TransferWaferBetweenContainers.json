@@ -96,7 +96,7 @@
 							"referenceType": null,
 							"referenceTypeName": null,
 							"referenceTypeId": null,
-							"friendlyName": "RargetSlotNumber"
+							"friendlyName": "TargetSlotNumber"
 						}
 					},
 					{
@@ -772,10 +772,10 @@
 				},
 				"notes": {},
 				"pan": {
-					"x": 303,
-					"y": 17
+					"x": 462.22222900390625,
+					"y": 94.44445037841797
 				},
-				"zoom": 0.43000000000000016
+				"zoom": 0.8400000000000005
 			}
 		}
 	}

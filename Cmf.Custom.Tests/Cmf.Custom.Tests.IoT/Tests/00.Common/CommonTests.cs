@@ -25,6 +25,7 @@ using Cmf.Custom.AMSOsram.BusinessObjects;
 using AMSOsramEIAutomaticTests.Objects.Persistence;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
 using AMSOsramEIAutomaticTests.Objects.Extensions;
+using Newtonsoft.Json;
 
 namespace AMSOsramEIAutomaticTests
 {
@@ -316,7 +317,7 @@ namespace AMSOsramEIAutomaticTests
             return MaterialScenario;
         }
 
-        private void EnsureMaterialStartConditions(Resource resource)
+        protected void EnsureMaterialStartConditions(Resource resource)
         {
             if (resource.MaterialsInProcessCount > 0)
             {
@@ -324,7 +325,7 @@ namespace AMSOsramEIAutomaticTests
             }
         }
 
-        private void EnsureLoadPortStartConditions(Resource resource)
+        protected void EnsureLoadPortStartConditions(Resource resource)
         {
             var resourceHierarchy = resource.GetDescendentResources();
 
@@ -338,6 +339,11 @@ namespace AMSOsramEIAutomaticTests
                     if (lp.CurrentMainState.StateModel.Name == "CustomLoadPortStateModel")
                     {
                         lp.AdjustState("ReadyToUnload");
+                        lp.Load();
+                        lp.LoadAttribute("IsLoadPortInUse");
+                        lp.Attributes["IsLoadPortInUse"] = false;
+                        lp.SaveAttributes(lp.Attributes);
+
                     }
 
                 }
@@ -782,8 +788,8 @@ namespace AMSOsramEIAutomaticTests
             });
 
             JObject persistenceObject = JObject.Parse(File.ReadAllText(Path.Combine((this.Equipment.BaseImplementation as IoTEquipment).Persistency.StorePath, orderPersistenceObj.Value.ToString())));
-
-            if(persistenceObject != null)
+            string json = persistenceObject.ToString(Formatting.None);
+            if (persistenceObject != null)
 			{
                 materialData = persistenceObject.ToObject<MaterialData>();
             }           

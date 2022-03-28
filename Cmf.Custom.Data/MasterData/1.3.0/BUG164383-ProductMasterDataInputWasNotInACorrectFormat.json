@@ -1,0 +1,19 @@
+{
+   "<SM>DEEAction": {
+    "1": {
+      "Action": "CustomProcessProductsFromERP",
+      "Description": "Create an Integration Entry by Product in ERP Message",
+      "CodeFileRelativePath": "Integrations\\CustomProcessProductsFromERP.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "2": {
+      "Action": "CustomProcessProduct",
+      "Description": "Import Product information to MES",
+      "CodeFileRelativePath": "MasterData\\CustomProcessProduct.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    }
+  },
+  "DEEActionOrder": { }  
+}

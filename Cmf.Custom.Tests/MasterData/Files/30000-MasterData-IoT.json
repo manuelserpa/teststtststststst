@@ -866,6 +866,15 @@
 			"MonitorPackageVersion": "8.3.3-202201212",
 			"ManagerPackageVersion": "8.3.3-202201212",
 			"Configuration": ""
+		},
+		"4": {
+			"Name": "MechatronicMWS200",
+			"Description": "ENA01",
+			"Type": "General",
+			"LogicalAddress": "ENA01",
+			"MonitorPackageVersion": "8.3.3-202201212",
+			"ManagerPackageVersion": "8.3.3-202201212",
+			"Configuration": ""
 		}
 	},
 	"<LOOKUP>AutomationInstances": {
@@ -904,6 +913,18 @@
 			"AutomationManager": "MuetecDaVinci",
 			"DriverName": "SecsGemEquipment",
 			"EntityName": "MECD0101"
+		},
+		"7": {
+			"AutomationController": "MechatronicMWS200Controller",
+			"AutomationManager": "MechatronicMWS200",
+			"DriverName": "",
+			"EntityName": "ENA01"
+		},
+		"8": {
+			"AutomationController": "MechatronicMWS200Controller",
+			"AutomationManager": "MechatronicMWS200",
+			"DriverName": "SecsGemEquipment",
+			"EntityName": "ENA01"
 		}
 	}
 }
