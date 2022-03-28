@@ -9,7 +9,7 @@ using cmConnect.TestFramework.EquipmentSimulator.Drivers;
 using Cmf.SECS.Driver;
 
 
-namespace AMSOsramEIAutomaticTests.MuetecDaVinci
+namespace Cmf.Custom.Tests.IoT.Tests.Common
 {
 
 	class SubstHistoryList : ICustomVariable

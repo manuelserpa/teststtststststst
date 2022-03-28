@@ -1064,7 +1064,7 @@
       "Workflow": "TemplatePlaceHolder\\Hold_01_HoldEventReceivedFromMES.json",
       "Order": "17"
     },
-	"18": {
+    "18": {
       "AutomationController": "TemplatePlaceHolderController",
       "Name": "AlarmManagement_01_AlarmCollection",
       "DisplayName": "AlarmManagement_01_AlarmCollection",
@@ -1253,7 +1253,7 @@
       "Name": "AbortJob_01_ExecuteControlJobAbort",
       "DisplayName": "AbortJob_01_ExecuteControlJobAbort",
       "IsFile": "Yes",
-      "Workflow": "TemplatePlaceHolder\\CarrierUnclamped_01_ExecuteCommand.json",
+      "Workflow": "TemplatePlaceHolder\\AbortJob_01_ExecuteControlJobAbort.json",
       "Order": "41"
     }
   },

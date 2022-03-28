@@ -1,0 +1,13 @@
+*.ts
+!*.d.ts
+*.less
+*.js.map
+
+gulpfile.js
+
+/*.conf.js
+/*.json
+/*.csproj
+/*.config
+/*.defaults
+!/npm-shrinkwrap.json
