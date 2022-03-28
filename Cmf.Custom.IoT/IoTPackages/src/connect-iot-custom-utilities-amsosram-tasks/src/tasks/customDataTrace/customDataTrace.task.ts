@@ -1,12 +1,11 @@
 import { Task, Dependencies, System, DI, TYPES, Utilities } from "@criticalmanufacturing/connect-iot-controller-engine";
 import i18n from "./i18n/customDataTrace.default";
 import * as moment from "moment";
-import updateFactoryJobStateDefault from "../updateFactoryJobState/i18n/updateFactoryJobState.default";
 
 import { SecsGem } from "./../../common/secsGemItem"
 import { SecsItem } from "../../common/secsItem";
 import { SecsTransaction, Message} from "../../common/secsTransaction"
-import { PostDataColectionToMESDesigner } from "../../../__TEMP__/src/tasks/postDataCollectionToMES/postDataCollectionToMES.designer";
+
 // /**
 //  * @whatItDoes
 //  *
