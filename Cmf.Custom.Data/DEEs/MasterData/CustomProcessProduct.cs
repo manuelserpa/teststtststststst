@@ -96,14 +96,6 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             product.Name = productData.Name;
 
-            product.Description = productData.Description;
-
-            product.Type = productData.Type;
-
-            product.ProductType = AMSOsramUtilities.GetValueAsEnum<ProductType>(productData.ProductType);
-
-            product.DefaultUnits = productData.DefaultUnits;
-
             if (product.ObjectExists())
             {
                 product.Load();
@@ -114,6 +106,14 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
             {
                 product.CreateVersion(true, productsChangeSet, string.Empty);
             }
+
+            product.Description = productData.Description;
+
+            product.Type = productData.Type;
+
+            product.ProductType = AMSOsramUtilities.GetValueAsEnum<ProductType>(productData.ProductType);
+
+            product.DefaultUnits = productData.DefaultUnits;
 
             product.IsEnabled = AMSOsramUtilities.GetValueAsNullableBoolean(productData.IsEnabled);
 
