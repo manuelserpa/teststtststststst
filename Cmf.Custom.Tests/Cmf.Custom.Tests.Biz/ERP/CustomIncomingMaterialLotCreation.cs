@@ -175,12 +175,25 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             customExecutionScenario.Setup();
 
+            // Assert that Integration Entries are created and processed
+            Assert.IsTrue(customExecutionScenario.IntegrationEntries.Count > 0, "Integration Entries should have been created");
+
+            foreach (IntegrationEntry ie in customExecutionScenario.IntegrationEntries)
+            {
+                Assert.IsTrue(ie.IsIntegrationEntryProcessed(), $"Integration Entry was not processed. Error Message: {ie.ResultDescription}");
+            }
+
+            ///<Step> Validate creation of Integration Entries. </Step>
+            ///<ExpectedValue> Integration Entry should have been created. </ExpectedValue>
             IntegrationEntry integrationEntry = CustomUtilities.GetIntegrationEntry(messageMaterialName);
+
             Assert.IsTrue(integrationEntry.IsIntegrationEntryProcessed(), $"Integration Entry was processed");
 
+            string errorMessage = $"New{messageMaterialType}";
+            Assert.IsTrue(integrationEntry.ResultDescription.Contains(messageMaterialType), $"Error message should be: {messageMaterialType}, but instead is: {integrationEntry.ResultDescription}");
 
-
-
+            ///<Step> Material product properties.</Step>
+            ///<ExpectedValue> Material should have the information sent on the ERP message.</ExpectedValue>
         }
     }
 }
