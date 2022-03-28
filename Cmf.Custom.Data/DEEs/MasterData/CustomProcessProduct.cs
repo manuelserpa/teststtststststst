@@ -96,6 +96,8 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             product.Name = productData.Name;
 
+            product.Type = productData.Type;
+
             if (product.ObjectExists())
             {
                 product.Load();
@@ -108,8 +110,6 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
             }
 
             product.Description = productData.Description;
-
-            product.Type = productData.Type;
 
             product.ProductType = AMSOsramUtilities.GetValueAsEnum<ProductType>(productData.ProductType);
 
