@@ -39,13 +39,13 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             string messageMaterialState = string.Empty;
 
-            string messageMaterialForm = "Lot";
+            string messageMaterialForm = "Logistical wafer";
 
-            string messageMaterialFacility = "OSFET";
+            string messageMaterialFacility = "Regensburg Production";
 
-            string messageMaterialFlow = "StorageFlow";
+            string messageMaterialFlow = "FOL-UX3_EPA";
 
-            string messageMaterialStep = "StorageStep";
+            string messageMaterialStep = "M2-SL-Wafer-Start-07301F001_E";
 
             string[] messageMaterialAttribNames = { "PurchaseOrder", "GoodsReceiptNo", "GoodsReceiptDate", "ShipmentReferenceNo", "Box", "Alias" };
 
@@ -183,8 +183,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
                 Assert.IsTrue(ie.IsIntegrationEntryProcessed(), $"Integration Entry was not processed. Error Message: {ie.ResultDescription}");
             }
 
-            ///<Step> Validate creation of Integration Entries. </Step>
-            ///<ExpectedValue> Integration Entry should have been created. </ExpectedValue>
+            ///<Step> Validate creation of Integration Entries.</Step>
+            ///<ExpectedValue> Integration Entry should have been created.</ExpectedValue>
             IntegrationEntry integrationEntry = CustomUtilities.GetIntegrationEntry(messageMaterialName);
 
             Assert.IsTrue(integrationEntry.IsIntegrationEntryProcessed(), $"Integration Entry was processed");
