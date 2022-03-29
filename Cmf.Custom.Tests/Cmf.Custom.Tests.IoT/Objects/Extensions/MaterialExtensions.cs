@@ -304,7 +304,7 @@ namespace AMSOsramEIAutomaticTests.Objects.Extensions
         /// <param name="splitSettings"></param>
         /// <param name="serviceComments"></param>
         /// <returns></returns>
-        public static MaterialCollection Split(this Material instance, SplitInputParametersCollection splitSettings, String serviceComments = null, bool updateInstance = false)
+        public static MaterialCollection SplitMaterial(this Material instance, SplitInputParametersCollection splitSettings, String serviceComments = null, bool updateInstance = false)
         {
             SplitMaterialOutput splitMaterialOutput = new SplitMaterialInput()
             {

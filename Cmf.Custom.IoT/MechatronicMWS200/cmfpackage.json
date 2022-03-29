@@ -1,0 +1,26 @@
+﻿{
+  "version": "1.3.0",
+  "packageId": "Cmf.Custom.IoT.MechatronicMWS200",
+  "description": "Cmf Custom Template And Shared Solution Data Package",
+  "packageType": "IoTData",
+  "isInstallable": true,
+  "isUniqueInstall": true,
+  "contentToPack": [
+    {
+      "source": "MasterData/*",
+      "target": "MasterData/$(version)",
+      "contentType": "MasterData"
+    },
+    {
+      "source": "AutomationWorkFlows/*",
+      "target": "AutomationWorkFlows",
+      "contentType": "AutomationWorkFlows"
+    }
+  ],
+  "steps": [
+    { "order": "1", "type": "Generic", "onExecute": "$(Agent.Root)/agent/scripts/stop_host.ps1" },
+    { "order": "2", "type": "TransformFile", "file": "Cmf.Foundation.Services.HostService.dll.config", "tagFile": true },
+    { "order": "3", "type": "Generic", "onExecute": "$(Agent.Root)/agent/scripts/start_host.ps1" },
+    { "order": "4", "type": "Generic", "onExecute": "$(Package[Cmf.Custom.Package].TargetDirectory)/GenerateLBOs.ps1" }
+  ]
+}

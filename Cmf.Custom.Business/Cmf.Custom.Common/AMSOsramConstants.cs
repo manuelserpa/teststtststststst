@@ -73,6 +73,25 @@
 
         #endregion
 
+        #region GenericTables
+
+        /// <summary>
+        /// Custom Reclaim Container Type table name
+        /// </summary>
+        public static string GenericTableCustomReclaimContainerType = "CustomReclaimContainerType";
+
+        /// <summary>
+        /// Custom Reclaim Container Type table SourceContainerType Property 
+        /// </summary>
+        public static string GenericTableCustomReclaimContainerTypeSourceContainerTypeProperty = "SourceContainerType";
+
+        /// <summary>
+        /// CustomReclaimContainerType table ReclaimContainerType Property 
+        /// </summary>
+        public static string GenericTableCustomReclaimContainerTypeReclaimContainerTypeProperty = "ReclaimContainerType";
+                
+        #endregion
+
         #region LookupTables
 
         /// <summary>
@@ -196,6 +215,159 @@
 
         #endregion
 
+        #region JSON Schemas
+        /// <summary>
+        /// JSON Schema for Custom Sorter Job Definition for Map Carrier Logistical Process
+        /// </summary>
+        public static string CustomSorterJobDefinitionMapCarrierSchema =
+            @"{
+                'description': 'JSON Schema for Custom Sorter Job Definition for Map Carrier Logistical Process.',
+                'properties': {
+                    'FutureActionType': {
+                        'type': 'string',
+                        'required': true
+                    },
+                    'Moves': {
+                        'type': 'array',
+                        'items': {
+				            'type': 'object',
+				            'properties': {
+					            'MaterialName': {
+						            'type': 'string'
+					            },
+					            'SourceContainer': {
+						            'type': 'string'
+					            },
+					            'SourcePosition': {
+						            'type': 'integer'
+					            },
+					            'DestinationContainer': {
+						            'type': 'string'
+					            },
+					            'DestinationPosition': {
+						            'type': 'integer'
+					            }
+				            }              
+                        },
+                        'required': true
+                    },
+                    'DeleteOnCompletion': {
+                        'type': 'boolean'
+                    }
+                }
+            }";
+
+        /// <summary>
+        /// JSON Schema for Custom Sorter Job Definition for Map Carrier Logistical Process
+        /// </summary>
+        public static string CustomSorterJobDefinitionTransferWafersSchema =
+            @"{
+                'description': 'JSON Schema for Custom Sorter Job Definition for Transfer Wafers Logistical Process.',
+                'properties': {
+                    'FutureActionType': {
+                        'type': 'string',
+                        'required': true
+                    },
+                    'Moves': {
+                        'type': 'array',
+                        'items': {
+				            'type': 'object',
+				            'properties': {
+					            'MaterialName': {
+						            'type': 'string',
+                                    'required': true
+					            },
+					            'SourceContainer': {
+						            'type': 'string',
+                                    'required': true
+					            },
+					            'SourcePosition': {
+						            'type': 'integer',
+                                    'required': true
+					            },
+					            'DestinationContainer': {
+						            'type': 'string',
+                                    'required': true
+					            },
+					            'DestinationPosition': {
+						            'type': 'integer',
+                                    'required': true
+					            }
+				            }              
+                        },
+                        'required': true,
+                        'minItems': 0
+                    },
+                    'DeleteOnCompletion': {
+                        'type': 'boolean'
+                    }
+                }
+            }";
+
+        /// <summary>
+        /// JSON Schema for Custom Sorter Job Definition for Map Carrier Logistical Process
+        /// </summary>
+        public static string CustomSorterJobDefinitionComposeSchema =
+            @"{
+                'description': 'JSON Schema for Custom Sorter Job Definition for Compose Logistical Process.',
+                'properties': {
+                    'FutureActionType': {
+                        'type': 'string',
+                        'required': true
+                    },
+                    'Moves': {
+                        'type': 'array',
+                        'items': {
+				            'type': 'object',
+				            'properties': {
+                                'Product': {
+                                    'type': 'string',
+                                    'required': true
+                                },
+                                'Substitutes': {
+                                    'type': 'array',
+                                    'items': {
+				                        'type': 'object',
+				                        'properties': {
+                                            'Substitute': {
+                                                'type': 'string',
+                                                'required': true
+                                            },
+                                            'Priority': {
+                                                'type': 'integer',
+                                                'required': true
+                                            },
+                                        }
+                                    },
+                                    'required': true
+                                },
+					            'MaterialName': {
+						            'type': 'string'
+					            },
+					            'SourceContainer': {
+						            'type': 'string'
+					            },
+					            'SourcePosition': {
+						            'type': 'integer'
+					            },
+					            'DestinationContainer': {
+						            'type': 'string'
+					            },
+					            'DestinationPosition': {
+						            'type': 'integer'
+					            }
+				            }              
+                        },
+                        'required': true,
+                        'minItems': 1,
+                    },
+                    'DeleteOnCompletion': {
+                        'type': 'boolean'
+                    }
+                }
+            }";
+        #endregion
+
         #region Localized Messages
 
         /// <summary>
@@ -207,6 +379,11 @@
         /// Localized Message: ConfigNotFound (config name)
         /// </summary>
         public static string LocalizedMessageConfigNotFound = "CustomLocalizedMessageConfigNotFound";
+
+        /// <summary>
+        /// Localized Message: CustomLocalizedMessageCustomSorterJobDefinitionInvalidMovementList
+        /// </summary>
+        public static string LocalizedMessageCustomSorterJobDefinitionInvalidMovementList = "CustomLocalizedMessageCustomSorterJobDefinitionInvalidMovementList";
 
         /// <summary>
         /// Localized Message: IoT Connection Timeout
@@ -686,7 +863,7 @@
         public const string CustomIntegrationInboundEventName = "Inbound";
 
         #endregion
-        
+
         #region Name Generators
 
         /// <summary>
@@ -698,6 +875,23 @@
         /// Production lot Name Generator
         /// </summary>
         public const string CustomGenerateProductionLotNames = "CustomProductionLotNameGenerator";
+
+        #endregion
+
+        #region EntityTypes
+
+        public class EntityTypes
+        {
+            /// <summary>
+            /// Product
+            /// </summary>
+            public const string Product = "Product";
+
+            /// <summary>
+            /// Integration Entry
+            /// </summary>
+            public const string IntegrationEntry = "IntegrationEntry";
+        }
 
         #endregion
     }

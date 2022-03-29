@@ -58,7 +58,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
