@@ -66,7 +66,10 @@
         /// </summary>
         public const string CustomMaterialNiceLabelPrintContextQuantity = "Quantity";
 
-        
+        /// <summary>
+        /// Default operation for incoming lot creation
+        /// </summary>
+        public const string CustomIncomingLotCreationOperation = "Certification";
 
         #endregion
 
@@ -235,6 +238,20 @@
         /// </summary>
         public static string LocalizedMessageStateModelDoesNotExistException = "StateModelDoesNotExistException";
 
+        /// <summary>
+        /// Localized Message: CustomUpdateMaterialOnDifferentFlowStep
+        /// </summary>
+        public static string LocalizedMessageCustomUpdateMaterialOnDifferentFlowStep = "CustomUpdateMaterialOnDifferentFlowStep";
+
+        /// <summary>
+        /// Localized Message: CustomUpdateMaterialDifferentWaferData
+        /// </summary>
+        public static string LocalizedMessageCustomUpdateMaterialDifferentWaferData = "CustomUpdateMaterialDifferentWaferData";
+
+        /// <summary>
+        /// Localized Message: CustomWrongCertificateConfiguration
+        /// </summary>
+        public static string LocalizedMessageCustomWrongCertificateConfiguration = "CustomWrongCertificateConfiguration";
 
         #endregion
 
@@ -284,6 +301,15 @@
         /// </summary>
         public static string DefaultAbortProcessHoldReasonConfig = "/AMSOsram/AbortProcess/HoldReason/";
         #endregion
+
+        #region Parameters
+
+        /// <summary>
+        /// Product Parameter with wafer quantity
+        /// </summary>
+        public const string CustomParameterWaferQuantity = "Wafer Size";
+
+        #endregion 
 
         #region Queries
         ///// <summary>

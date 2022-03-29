@@ -39,7 +39,7 @@ namespace Cmf.Custom.AMSOsram.Common.ERP
         public string Step { get; set; }
 
         [XmlArray("Attributes")]
-        [XmlArrayItem("Key")]
+        [XmlArrayItem("key")]
         public List<MaterialAttributes> MaterialAttributes { get; set; }
 
         [XmlArray("SubMaterial")]

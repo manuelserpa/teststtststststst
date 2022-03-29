@@ -152,6 +152,112 @@ namespace Cmf.Custom.AMSOsram.Common
             return row;
         }
 
+        /// <summary>
+        /// Method to resolve Material Data Collection Context 
+        /// </summary>
+        /// <param name="step"></param>
+        /// <param name="logicalFlowPath"></param>
+        /// <param name="product"></param>
+        /// <param name="productGroup"></param>
+        /// <param name="flow"></param>
+        /// <param name="material"></param>
+        /// <param name="materialType"></param>
+        /// <param name="resource"></param>
+        /// <param name="resourceType"></param>
+        /// <param name="model"></param>
+        /// <param name="operation"></param>
+        /// <returns></returns>
+        public static NgpDataSet CustomResolveMaterialDataCollectionContext(string step = null,
+                                                                            string logicalFlowPath = null,
+                                                                            string product = null,
+                                                                            string productGroup = null,
+                                                                            string flow = null,
+                                                                            string material = null,
+                                                                            string materialType = null,
+                                                                            string resource = null,
+                                                                            string resourceType = null,
+                                                                            string model = null,
+                                                                            string operation = null)
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            SmartTable materialDatacollectionContext = new SmartTable();
+            materialDatacollectionContext.Load(Cmf.Navigo.Common.Constants.MaterialDataCollectionContext);
+
+            var values = new NgpDataRow();
+
+            // If step name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(step))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Step, step);
+            }
+
+            // If logical flow path is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(logicalFlowPath))
+            {
+                values.Add("LogicalFlowPath", logicalFlowPath);
+            }
+
+            // If product name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(product))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Product, product);
+            }
+
+            // If product group is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(productGroup))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.ProductGroup, productGroup);
+            }
+
+            // If flow name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(flow))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Flow, flow);
+            }
+
+            // If lot name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(material))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Material, material);
+            }
+
+            // If lot type is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(materialType))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.MaterialType, materialType);
+            }
+
+            // If resource name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(resource))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Resource, resource);
+            }
+
+            // If resource type is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(resourceType))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.ResourceType, resourceType);
+            }
+
+            // If model is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(model))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Model, model);
+            }
+
+            // If operation name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(operation))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Operation, operation);
+            }
+
+            NgpDataSet materialDCContextNgpDataSet = materialDatacollectionContext.Resolve(values, true);
+
+            
+
+            return materialDCContextNgpDataSet;
+        }
+
         #endregion
 
         #region Sorter
@@ -1067,7 +1173,60 @@ namespace Cmf.Custom.AMSOsram.Common
             return materialNiceLabelPrintInformation;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lot"></param>
+        /// <returns></returns>
+        public static NgpDataSet GetCertificateInformation(Material lot)
+        {
+            // Get Material information
+            string stepName = lot.Step.Name;
+            string materialName = lot.Name;
+            string productName = lot.Product.Name;
+            string logicalFlowPath = lot.LogicalFlowPath != null ? lot.LogicalFlowPath : string.Empty;
+            string productGroupName = lot.Product.ProductGroup != null ? lot.Product.ProductGroup.Name : string.Empty;
+            string flowName = lot.Flow.Name;
+            Resource resource = lot.LastProcessedResource;
+
+            string resourceName = resource != null ? resource.Name : string.Empty;
+            string resourceType = resource != null ? resource.Type : string.Empty;
+            string resourceModel = resource != null ? resource.Model : string.Empty;
+            string operation = AMSOsramConstants.CustomIncomingLotCreationOperation;
+
+            return AMSOsramUtilities.CustomResolveMaterialDataCollectionContext(stepName, logicalFlowPath, productName, productGroupName, flowName, materialName, lot.Type, resourceName, resourceType, resourceModel, operation);
+        }
+
         #endregion
+
+        #region Localized Messages
+
+        /// <summary>
+        /// Constructs a new Message, using Localized Messages
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public static string GetLocalizedMessage(string key, params string[] parameters)
+        {
+            LocalizedMessage localizedMessageObj = LocalizedMessage.GetLocalizedMessage(Thread.CurrentThread.CurrentCulture.Name, key);
+            return string.Format(localizedMessageObj.MessageText, parameters);
+        }
+
+        /// <summary>
+        /// Constructs a new Exception Message, using Localized Messages
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public static void ThrowLocalizedException(string key, params string[] parameters)
+        {
+            string exceptionMessage = GeneralUtilities.GetLocalizedMessage(key, parameters);
+
+            throw new Exception(exceptionMessage);
+        }
+
+        #endregion Localized Messages
 
         #region XML 
 

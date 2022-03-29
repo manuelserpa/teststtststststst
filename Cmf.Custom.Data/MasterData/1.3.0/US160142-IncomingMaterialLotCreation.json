@@ -241,7 +241,14 @@
       "LookUp Table": "MessageType",
       "Lookup Table Value Parent": "",
       "Lookup Table Value": "PerformIncomingMaterialMasterData",
-      "Lookup Table Value Description": "Product Integration Entry message",
+      "Lookup Table Value Description": "Material Integration Entry message",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "2": {
+      "LookUp Table": "MaterialDataCollectionOperations",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Certificate",
+      "Lookup Table Value Description": "Operation for incoming lot creation",
       "Lookup Table IsEnabled": "Yes"
     }
   },
@@ -255,6 +262,41 @@
       "ActionName": "CustomIncomingMaterialLotCreation",
       "ErrorHandlingActionName": "",
       "IsEnabled": "Yes"
+    }
+  },
+  "<SM>LocalizedMessageKey": {
+    "1": {
+      "Name": "CustomUpdateMaterialOnDifferentFlowStep",
+      "Description": "Error message to inform that the material that is to update is on different Flow ou Step.",
+      "MessageType": "Message",
+      "en-US": "Material {0} is on different flow or step.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    },
+    "2": {
+      "Name": "CustomUpdateMaterialDifferentWaferData",
+      "Description": "Error message to inform that the material that is to update has different wafer information.",
+      "MessageType": "Message",
+      "en-US": "Material {0} wafers are different than the incoming wafer data.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    },
+    "3": {
+      "Name": "CustomWrongCertificateConfiguration",
+      "Description": "Error message to inform that the material that is to update has the wrong certificate configuration.",
+      "MessageType": "Message",
+      "en-US": "The material {0} certification configuration is missing the certificate or the EDC Data.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
     }
   }
 }
