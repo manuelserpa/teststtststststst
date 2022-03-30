@@ -11,7 +11,7 @@ namespace Cmf.Custom.AMSOsram.Common.ERP
     [XmlRoot]
     public class MaterialData
     {
-        [XmlAttribute("Name")]
+        [XmlElement]
         public string Name { get; set; }
 
         [XmlElement]
@@ -56,7 +56,7 @@ namespace Cmf.Custom.AMSOsram.Common.ERP
         [XmlAttribute("name")]
         public string Name { get; set; }
 
-        [XmlText]
+        [XmlAttribute("value")]
         public string value { get; set; }
     }
 
@@ -68,7 +68,7 @@ namespace Cmf.Custom.AMSOsram.Common.ERP
         [XmlAttribute("name")]
         public string Name { get; set; }
 
-        [XmlText]
+        [XmlAttribute("value")]
         public string value { get; set; }
     }
 
@@ -87,7 +87,7 @@ namespace Cmf.Custom.AMSOsram.Common.ERP
         [XmlArrayItem("key")]
         public List<MaterialAttributes> MaterialAttributes { get; set; }
 
-        [XmlArray("EDC-Data")]
+        [XmlArray("EDCData")]
         [XmlArrayItem("key")]
         public List<MaterialEDCData> MaterialEDCData { get; set; }
     }

@@ -69,7 +69,7 @@
         /// <summary>
         /// Default operation for incoming lot creation
         /// </summary>
-        public const string CustomIncomingLotCreationOperation = "Certification";
+        public const string CustomIncomingLotCreationOperation = "Certificate";
 
         #endregion
 

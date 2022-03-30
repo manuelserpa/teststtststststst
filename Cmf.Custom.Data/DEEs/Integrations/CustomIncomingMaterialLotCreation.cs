@@ -94,6 +94,19 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 quantity = Convert.ToDecimal(parameterQuantity);
             }
 
+            List<string> parametersName = new List<string>();
+
+            // Attributes scalar type
+            EntityType entityType = new EntityType();
+            {
+                entityType.Load(Cmf.Navigo.Common.Constants.Material);
+                entityType.LoadProperties();
+            }
+
+            // Get attribute names and Scalar Type associated to Entity Type Product
+            Dictionary<string, object> materialAttributes = entityType.Properties.Where(w => w.PropertyType == EntityTypePropertyType.Attribute).Select(s => new KeyValuePair<string, object>(s.Name, s.ScalarType)).ToDictionary(d => d.Key, d => d.Value);
+
+
             // Validate if material already exists on the system
             if (!incomingLot.ObjectExists())
             {
@@ -140,7 +153,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     AttributeCollection attributes = new AttributeCollection();
                     foreach (MaterialAttributes attribute in waferData.MaterialAttributes)
                     {
-                        attributes.Add(attribute.Name, attribute.value);
+                        ScalarType scalarType = materialAttributes[attribute.Name] as ScalarType;
+                        attributes.Add(attribute.Name, AMSOsramUtilities.GetAttributeValueAsDataType(scalarType, attribute.value));
                     }
                     waferAttributes.Add(wafer.Name, attributes);
 
@@ -148,6 +162,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     foreach (MaterialEDCData edcData in waferData.MaterialEDCData)
                     {
                         edcValues.Add(edcData.Name, edcData.value);
+                        parametersName.Add(edcData.Name);
                     }
                     waferEDCData.Add(waferData.Name, edcValues);
                 }
@@ -187,7 +202,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 incomingLot.Type = materialData.Type;
 
                 incomingLot.Save();
-
                 incomingLot.SubMaterials.LoadAttributes();
 
                 foreach (Material wafer in incomingLot.SubMaterials)
@@ -211,17 +225,17 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     foreach (MaterialEDCData edcData in waferData.MaterialEDCData)
                     {
                         edcValues.Add(edcData.Name, edcData.value);
+                        parametersName.Add(edcData.Name);
                     }
                     waferEDCData.Add(waferData.Name, edcValues);
                 }
                 incomingLot.SubMaterials.Save();
-
             }
 
-            //Dictionary<string, object> parametersData = (Dictionary<string, object>)waferEDCData.Values.Select(d => d.Keys).Distinct();
             incomingLot.Load();
             NgpDataSet dataSet = AMSOsramUtilities.GetCertificateInformation(incomingLot);
-            List<MaterialEDCData> parametersName = (List<MaterialEDCData>)materialData.Wafers.Select(w => w.MaterialEDCData).Distinct();
+            parametersName = parametersName.Distinct().ToList();
+
             if ((dataSet != null && parametersName.Count == 0) || (dataSet == null && parametersName.Count > 0))
             {
                 AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomWrongCertificateConfiguration, incomingLot.Name);
@@ -235,6 +249,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 certificateName = materialDCContextDataSet.Tables[0].Rows[0].Field<string>(Cmf.Navigo.Common.Constants.DataCollection);
                 certificateLimite = materialDCContextDataSet.Tables[0].Rows[0].Field<string>(Cmf.Navigo.Common.Constants.DataCollectionLimitSet);
             }
+
             DataCollection certificate = new DataCollection
             {
                 Name = certificateName
@@ -242,11 +257,11 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             certificate.Load();
 
             ParameterCollection parametersToUse = new ParameterCollection();
-            foreach (MaterialEDCData parameterName in parametersName)
+            foreach (string parameterName in parametersName)
             {
                 Parameter parameter = new Parameter()
                 {
-                    Name = parameterName.Name
+                    Name = parameterName
                 };
                 parametersToUse.Add(parameter);
             }
@@ -263,10 +278,13 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 wafer.SaveAttributes(waferAttributes[wafer.Name]);
 
                 // post edc data
-
                 DataCollectionInstance dcInstance = new DataCollectionInstance()
                 {
                     Material = wafer,
+                    Product = wafer.Product,
+                    Flow = wafer.Flow,
+                    FlowPath = wafer.FlowPath,
+                    Step = wafer.Step,
                     DataCollection = certificate
                 };
 
@@ -282,17 +300,25 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 //insert dc point values 
                 DataCollectionPointCollection dcPoints = new DataCollectionPointCollection();
                 Dictionary<string, object> waferPoints = waferEDCData[wafer.Name];
-                foreach (string parameterName in waferPoints.Keys)
+                foreach (Parameter parameter in parametersToUse)
                 {
-                    Parameter parameter = (Parameter)parametersToUse.Where(p => p.Name.Equals(parameterName));
                     DataCollectionPoint point = new DataCollectionPoint()
                     {
+                        SampleId = "Sample 1",
+                        ReadingNumber = 1,
                         TargetEntity = parameter,
                         SourceEntity = dcInstance,
-                        Value = waferPoints[parameterName]
+                        Value = waferPoints[parameter.Name]
                     };
                     dcPoints.Add(point);
+
+                    if (dcInstance.RelationCollection == null)
+                        dcInstance.RelationCollection = new CmfEntityRelationCollection();
+
+                    dcInstance.RelationCollection.Add(point);
+
                 }
+                dcInstance.Load();
 
                 PostDataCollectionPointsInput postDCPointsInput = new PostDataCollectionPointsInput()
                 {
