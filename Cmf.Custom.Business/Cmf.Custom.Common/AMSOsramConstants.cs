@@ -430,6 +430,11 @@
         /// </summary>
         public static string LocalizedMessageCustomWrongCertificateConfiguration = "CustomWrongCertificateConfiguration";
 
+        /// <summary>
+        /// Localized Message: CustomUpdateMaterialDifferentProduct
+        /// </summary>
+        public static string LocalizedMessageCustomUpdateMaterialDifferentProduct = "CustomUpdateMaterialDifferentProduct";
+
         #endregion
 
         #region State Model
@@ -477,6 +482,11 @@
         /// Hold Step reason when an abort process is performed at the lot
         /// </summary>
         public static string DefaultAbortProcessHoldReasonConfig = "/AMSOsram/AbortProcess/HoldReason/";
+
+        /// <summary>
+        /// Hold Step reason for lot incoming 
+        /// </summary>
+        public static string DefaultLotIncomingHoldReasonConfig = "/Cmf/Guis/Configuration/Material/IncomingLotAutoHoldReason";
         #endregion
 
         #region Parameters

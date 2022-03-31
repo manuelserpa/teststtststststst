@@ -9,6 +9,7 @@ using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.In
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.OutputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
+using Cmf.Navigo.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -107,6 +108,13 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             Dictionary<string, object> materialAttributes = entityType.Properties.Where(w => w.PropertyType == EntityTypePropertyType.Attribute).Select(s => new KeyValuePair<string, object>(s.Name, s.ScalarType)).ToDictionary(d => d.Key, d => d.Value);
 
 
+            // Hold Reasons
+            MaterialHoldReasonCollection materialHoldReasons = new MaterialHoldReasonCollection();
+            string holdReasonName = AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig);
+            Reason holdReason = new Reason() { Name = holdReasonName };
+
+            bool edcDataInvalid = false;
+
             // Validate if material already exists on the system
             if (!incomingLot.ObjectExists())
             {
@@ -175,11 +183,20 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
                 wafers.Load();
                 incomingLot = lot;
+                incomingLot.Load();
             }
             else
             {
                 // lot already exists and needs to be updated
                 incomingLot.Load();
+
+                // validate lot is on hold
+                if (incomingLot.HoldCount > 0)
+                {
+                    incomingLot.LoadRelations(Cmf.Navigo.Common.Constants.MaterialHoldReason);
+                    materialHoldReasons.AddRange(incomingLot.MaterialHoldReasons);
+                    incomingLot.Release(materialHoldReasons,false);
+                }
 
                 // Validate lot wafers are the same 
                 incomingLot.LoadChildren();
@@ -196,21 +213,23 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialOnDifferentFlowStep, incomingLot.Name);
                 }
 
-                incomingLot.Product = product;
-                incomingLot.PrimaryUnits = product.DefaultUnits;
-                incomingLot.Form = materialData.Form;
-                incomingLot.Type = materialData.Type;
+                if (!incomingLot.Form.Equals(materialData.Form))
+                {
+                    incomingLot.Form = materialData.Form; 
+                }
+
+                if (!incomingLot.Product.Name.Equals(materialData.Product))
+                {
+                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialDifferentProduct, incomingLot.Name, materialData.Product);
+                }
 
                 incomingLot.Save();
                 incomingLot.SubMaterials.LoadAttributes();
 
                 foreach (Material wafer in incomingLot.SubMaterials)
                 {
-                    Wafer waferData = (Wafer)materialData.Wafers.Where(w => w.Name.Equals(wafer.Name));
-
-                    wafer.Product = product;
-                    wafer.PrimaryQuantity = 1;
-                    wafer.PrimaryUnits = product.DefaultUnits;
+                    Wafer waferData = materialData.Wafers.FirstOrDefault(w => w.Name.Equals(wafer.Name));
+                    
                     wafer.Form = waferData.Form;
                     wafer.Type = materialData.Type;
                     
@@ -230,9 +249,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     waferEDCData.Add(waferData.Name, edcValues);
                 }
                 incomingLot.SubMaterials.Save();
+                wafers.AddRange(incomingLot.SubMaterials);
             }
 
-            incomingLot.Load();
+            
             NgpDataSet dataSet = AMSOsramUtilities.GetCertificateInformation(incomingLot);
             parametersName = parametersName.Distinct().ToList();
 
@@ -243,11 +263,13 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             string certificateName = string.Empty;
             string certificateLimite = string.Empty;
+            string executionType = string.Empty;
             DataSet materialDCContextDataSet = NgpDataSet.ToDataSet(dataSet);
             if (materialDCContextDataSet.HasData())
             {
                 certificateName = materialDCContextDataSet.Tables[0].Rows[0].Field<string>(Cmf.Navigo.Common.Constants.DataCollection);
                 certificateLimite = materialDCContextDataSet.Tables[0].Rows[0].Field<string>(Cmf.Navigo.Common.Constants.DataCollectionLimitSet);
+                executionType = materialDCContextDataSet.Tables[0].Rows[0].Field<string>("DataCollectionType");
             }
 
             DataCollection certificate = new DataCollection
@@ -271,6 +293,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 parametersToUse.Load();
             }
 
+            DataCollectionLimitSet limitSet = new DataCollectionLimitSet()
+            {
+                Name = certificateLimite
+            };
+            limitSet.Load();
+
             // save attributes and post edc data
             foreach (Material wafer in wafers)
             {
@@ -285,53 +313,125 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     Flow = wafer.Flow,
                     FlowPath = wafer.FlowPath,
                     Step = wafer.Step,
-                    DataCollection = certificate
+                    DataCollection = certificate,
+                    DataCollectionLimitSet = limitSet
                 };
 
-                OpenDataCollectionInstanceInput openDCInstanceInput = new OpenDataCollectionInstanceInput()
+                if (executionType.Equals("LongRunning"))
                 {
-                    DataCollectionInstance = dcInstance,
-                    IsToIgnoreInSPC = true,
-                };
-
-                OpenDataCollectionInstanceOutput openDCInstanceOutput = DataCollectionInstanceManagementOrchestration.OpenDataCollectionInstance(openDCInstanceInput);
-                dcInstance = openDCInstanceOutput.DataCollectionInstance;
-
-                //insert dc point values 
-                DataCollectionPointCollection dcPoints = new DataCollectionPointCollection();
-                Dictionary<string, object> waferPoints = waferEDCData[wafer.Name];
-                foreach (Parameter parameter in parametersToUse)
-                {
-                    DataCollectionPoint point = new DataCollectionPoint()
+                    OpenDataCollectionInstanceInput openDCInstanceInput = new OpenDataCollectionInstanceInput()
                     {
-                        SampleId = "Sample 1",
-                        ReadingNumber = 1,
-                        TargetEntity = parameter,
-                        SourceEntity = dcInstance,
-                        Value = waferPoints[parameter.Name]
+                        DataCollectionInstance = dcInstance,
+                        IsToIgnoreInSPC = true,
                     };
-                    dcPoints.Add(point);
 
-                    if (dcInstance.RelationCollection == null)
-                        dcInstance.RelationCollection = new CmfEntityRelationCollection();
+                    OpenDataCollectionInstanceOutput openDCInstanceOutput = DataCollectionInstanceManagementOrchestration.OpenDataCollectionInstance(openDCInstanceInput);
+                    dcInstance = openDCInstanceOutput.DataCollectionInstance;
 
-                    dcInstance.RelationCollection.Add(point);
+                    //insert dc point values 
+                    DataCollectionPointCollection dcPoints = new DataCollectionPointCollection();
+                    Dictionary<string, object> waferPoints = waferEDCData[wafer.Name];
+                    foreach (Parameter parameter in parametersToUse)
+                    {
+                        DataCollectionPoint point = new DataCollectionPoint()
+                        {
+                            SampleId = "Sample 1",
+                            ReadingNumber = 1,
+                            TargetEntity = parameter,
+                            SourceEntity = dcInstance,
+                            Value = waferPoints[parameter.Name]
+                        };
+                        dcPoints.Add(point);
 
+                        if (dcInstance.RelationCollection == null)
+                            dcInstance.RelationCollection = new CmfEntityRelationCollection();
+
+                        dcInstance.RelationCollection.Add(point);
+
+                    }
+                    dcInstance.Load();
+
+                    PostDataCollectionPointsInput postDCPointsInput = new PostDataCollectionPointsInput()
+                    {
+                        DataCollectionInstance = dcInstance,
+                        DataCollectionPoints = dcPoints,
+                        SkipDCValidation = false
+                    };
+
+                    PostDataCollectionPointsOutput postDataCollectionPointsOutput = DataCollectionInstanceManagementOrchestration.PostDataCollectionPoints(postDCPointsInput);
+
+                    dcInstance = postDataCollectionPointsOutput.DataCollectionInstance;
+
+                    if (!AMSOsramUtilities.ValidateDataCollectionLimitSetValues(dcInstance))
+                    {
+                        edcDataInvalid = true;
+                    }
+                }
+                else if (executionType.Equals("Immediate"))
+                {
+                    //insert dc point values 
+                    DataCollectionPointCollection dcPoints = new DataCollectionPointCollection();
+                    Dictionary<string, object> waferPoints = waferEDCData[wafer.Name];
+                    foreach (Parameter parameter in parametersToUse)
+                    {
+                        DataCollectionPoint point = new DataCollectionPoint()
+                        {
+                            SampleId = "Sample 1",
+                            ReadingNumber = 1,
+                            TargetEntity = parameter,
+                            Value = waferPoints[parameter.Name]
+                        };
+                        dcPoints.Add(point);
+
+                        if (dcInstance.RelationCollection == null)
+                            dcInstance.RelationCollection = new CmfEntityRelationCollection();
+
+                        dcInstance.RelationCollection.Add(point);
+                    }
+
+                    PerformImmediateDataCollectionOutput dataCollectionInstanceResult = DataCollectionInstanceManagementOrchestration.PerformImmediateDataCollection(
+                        new Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects.PerformImmediateDataCollectionInput()
+                        {
+                            DataCollectionInstance = dcInstance,
+                            SkipDCValidation = false,
+                            IsToIgnoreInSPC = true,
+                            IgnoreLastServiceId = false
+                        }
+                    );
+
+                    dcInstance = dataCollectionInstanceResult.DataCollectionInstance;
+
+                    if (!AMSOsramUtilities.ValidateDataCollectionLimitSetValues(dcInstance))
+                    {
+                        edcDataInvalid = true;
+                    }
                 }
                 dcInstance.Load();
 
-                PostDataCollectionPointsInput postDCPointsInput = new PostDataCollectionPointsInput()
-                {
-                    DataCollectionInstance = dcInstance,
-                    DataCollectionPoints = dcPoints,
-                    SkipDCValidation = false
-                };
-
-                PostDataCollectionPointsOutput postDataCollectionPointsOutput = DataCollectionInstanceManagementOrchestration.PostDataCollectionPoints(postDCPointsInput);
-
             }
 
-            // Validate values posted 
+            // Validate values posted
+            
+            if (!materialHoldReasons.Any(materialHoldReason => materialHoldReason.TargetEntity.Name.Equals(holdReason.Name)) && edcDataInvalid)
+            {
+                MaterialHoldReason certificateHoldReason = new MaterialHoldReason()
+                {
+                    SourceEntity = incomingLot,
+                    TargetEntity = holdReason
+                };
+                materialHoldReasons.Add(certificateHoldReason);
+            }
+            else if(!edcDataInvalid && materialHoldReasons.Any(materialHoldReason => materialHoldReason.TargetEntity.Name.Equals(holdReason.Name)))            
+            {
+                MaterialHoldReason certificateHoldReason = materialHoldReasons.FirstOrDefault(materialHoldReason => materialHoldReason.TargetEntity.Name.Equals(holdReason.Name));
+                materialHoldReasons.Remove(certificateHoldReason);
+            }
+
+            if (materialHoldReasons.Count > 0)
+            { 
+                
+                incomingLot.Hold(materialHoldReasons, new OperationAttributeCollection());
+            }
 
             //---End DEE Code---
 

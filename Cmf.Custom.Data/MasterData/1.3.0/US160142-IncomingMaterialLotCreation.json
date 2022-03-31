@@ -297,6 +297,34 @@
       "pt-PT": "",
       "zh-TW": "",
       "UsageType": "Biz"
+    },
+    "3": {
+      "Name": "CustomUpdateMaterialDifferentProduct",
+      "Description": "Error message to inform that the material that is to update has a different product.",
+      "MessageType": "Message",
+      "en-US": "The material {0} product can not be changed to {1}",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    }
+  },
+  "<SM>Config": {
+    "1": {
+      "ParentPath": "/Cmf/Guis/Configuration/Material",
+      "Name": "IncomingLotAutoHoldReason",
+      "Value": "Out Of Spec",
+      "ValueType": "String"
+    }
+  },
+  "<DM>Reason": {
+    "1": {
+      "Name": "Out Of Spec",
+      "Description": "Custom Hold Reason Incoming Lot",
+      "ReasonType": "Hold",
+      "SecurityRole": "",
+      "ParentReason": ""
     }
   }
 }

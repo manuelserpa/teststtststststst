@@ -1225,6 +1225,36 @@ namespace Cmf.Custom.AMSOsram.Common
 
         #endregion Sorter
 
+        #region Data Collection
+
+        /// <summary>
+        /// Method to validate if one of the posted points do not respect the configured limit set 
+        /// </summary>
+        /// <param name="dataCollectionInstance"></param>
+        /// <returns></returns>
+        public static bool ValidateDataCollectionLimitSetValues(DataCollectionInstance dataCollectionInstance)
+        {
+            dataCollectionInstance.LoadRelations("DataCollectionPoint");
+            DataCollectionLimitSet dataCollectionLimitSet = dataCollectionInstance.DataCollectionLimitSet;
+            DataCollectionPointCollection dataCollectionPoints = dataCollectionInstance.DataCollectionPoints;
+
+            foreach (DataCollectionParameterLimit parameterLimit in dataCollectionLimitSet.DataCollectionParameterLimits)
+            {
+                DataCollectionPoint dcPoint = dataCollectionPoints.FirstOrDefault(dcp => dcp.GetNativeValue<long>(Constants.TargetEntity).Equals(parameterLimit.GetNativeValue<long>(Constants.TargetEntity)));
+                decimal value = Convert.ToDecimal(dcPoint.Value);
+
+                if ((parameterLimit.UpperErrorLimit != null && value > parameterLimit.UpperErrorLimit) || (parameterLimit.LowerErrorLimit != null && value < parameterLimit.LowerErrorLimit))
+                {
+                    return false;
+                }
+
+            }
+
+            return true;
+        }
+
+        #endregion
+
         #region DEEActionUtilities
         /// <summary>
         /// Checks if current action group (present in Input dicionary) is valid based on list of given action groups
