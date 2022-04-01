@@ -9,6 +9,7 @@ using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
 using Cmf.Foundation.Common.Base;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cmf.Custom.Tests.Biz.Common.Scenarios
@@ -28,6 +29,10 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// </summary>
         public bool IsToSendIncomingMaterial;
 
+        public bool IsToSetMaterialDCContext;
+
+
+
         /// <summary>
         /// Integration Entries
         /// </summary>
@@ -42,6 +47,10 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// 
         /// </summary>
         public GoodsReceiptCertificate GoodsReceiptCertificate;
+
+        public SmartTableManager SmartTableManager = new SmartTableManager();
+
+        public List<Dictionary<string, string>> MaterialDCContext;
 
         /// <summary>
         /// CustomExecutionScenario Constructor
@@ -62,6 +71,14 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
             string messageType = string.Empty;
 
             string xmlMessage = string.Empty;
+
+            if (MaterialDCContext.Any())
+            {
+                foreach (Dictionary<string, string> row in MaterialDCContext)
+                {
+                    SmartTableManager.SetSmartTableData("MaterialDataCollectionContext", row);
+                }
+            }
 
             if (IsToSendIncomingMaterial)
             {
@@ -98,6 +115,11 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 
         public override void CompleteCleanUp()
         {
+            if (MaterialDCContext.Any())
+            {
+                SmartTableManager.TearDown();
+            }
+
             // Remove created Integration Entries
             TerminateIntegrationEntries();
 
