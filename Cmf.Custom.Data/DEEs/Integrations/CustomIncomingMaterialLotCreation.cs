@@ -112,6 +112,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             MaterialHoldReasonCollection materialHoldReasons = new MaterialHoldReasonCollection();
             string holdReasonName = AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig);
             Reason holdReason = new Reason() { Name = holdReasonName };
+            holdReason.Load();
 
             bool edcDataInvalid = false;
 
@@ -407,6 +408,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     }
                 }
                 dcInstance.Load();
+
+                wafer.CurrentDataCollectionInstance = dcInstance;
+                wafer.Save();
 
             }
 
