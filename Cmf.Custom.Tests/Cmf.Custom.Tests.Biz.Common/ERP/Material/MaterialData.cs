@@ -9,7 +9,7 @@ namespace Cmf.Custom.Tests.Biz.Common.ERP.Material
     [XmlRoot]
     public class MaterialData
     {
-        [XmlAttribute("Name")]
+        [XmlElement]
         public string Name { get; set; }
 
         [XmlElement]
@@ -37,7 +37,7 @@ namespace Cmf.Custom.Tests.Biz.Common.ERP.Material
         public string Step { get; set; }
 
         [XmlArray("Attributes")]
-        [XmlArrayItem("Key")]
+        [XmlArrayItem("key")]
         public List<MaterialAttributes> MaterialAttributes { get; set; }
 
         [XmlArray("SubMaterial")]
@@ -53,7 +53,7 @@ namespace Cmf.Custom.Tests.Biz.Common.ERP.Material
         [XmlAttribute("name")]
         public string Name { get; set; }
 
-        [XmlText]
+        [XmlAttribute("value")]
         public string value { get; set; }
     }
 
@@ -65,7 +65,7 @@ namespace Cmf.Custom.Tests.Biz.Common.ERP.Material
         [XmlAttribute("name")]
         public string Name { get; set; }
 
-        [XmlText]
+        [XmlAttribute("value")]
         public string value { get; set; }
     }
 
@@ -84,7 +84,7 @@ namespace Cmf.Custom.Tests.Biz.Common.ERP.Material
         [XmlArrayItem("key")]
         public List<MaterialAttributes> MaterialAttributes { get; set; }
 
-        [XmlArray("EDC-Data")]
+        [XmlArray("EDCData")]
         [XmlArrayItem("key")]
         public List<MaterialEDCData> MaterialEDCData { get; set; }
     }

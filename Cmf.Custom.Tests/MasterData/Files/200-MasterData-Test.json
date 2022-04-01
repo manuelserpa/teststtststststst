@@ -171,6 +171,14 @@
 			"Token": ""
 		}
 	},
+	"<SM>Config": {
+		"1": {
+			"ParentPath": "/Cmf/Guis/Configuration/Material",
+			"Name": "IncomingLotAutoHoldReason",
+			"Value": "Out Of Spec",
+			"ValueType": "String"
+		}
+	},
 	"<DM>Resource": {
 		"1": {
 			"Name": "ENA01",
@@ -975,7 +983,7 @@
 			"Name": "ProductCertificateDataLimitSetUnitTest",
 			"Description": "Product Certificate Data Limit Set Unit Test",
 			"DataCollection": "ProductCertificateDataUnitTest",
-			"Parameter Limits": "Parameter[Thickness] MinValue[635] MaxValue[665] LimitType[Absolute];Parameter[Bow] MinValue[-6] MaxValue[0] LimitType[Absolute]"
+			"Parameter Limits": "Parameter[Thickness] MinValue[635] MaxValue[665] LimitType[Absolute] LowerErrorLimit[635] UpperErrorLimit[665];Parameter[Bow] MinValue[-6] MaxValue[0] LimitType[Absolute] LowerErrorLimit[-6] UpperErrotLimit[0]"
 		}
 	},
 	"DataCollectionSampleLimits": {},
@@ -993,9 +1001,16 @@
 			"ReasonType": "Hold",
 			"SecurityRole": "",
 			"ParentReason": ""
+		},
+		"3": {
+			"Name": "Out Of Spec",
+			"Description": "Custom Hold Reason Incoming Lot",
+			"ReasonType": "Hold",
+			"SecurityRole": "",
+			"ParentReason": ""
 		}
 	},
-	"StepReason": {
+	"<DM>StepReason": {
 		"1": {
 			"Step": "M2-SL-Wafer-Start-07301F001_E",
 			"Reason": "TestHoldReason1",
@@ -1016,7 +1031,7 @@
 		},
 		"3": {
 			"Step": "M2-SL-Wafer-Start-07301F001_E",
-			"Reason": "CustomHoldReasonIncomingLot",
+			"Reason": "Out Of Spec",
 			"ApplicableToAssemble": "",
 			"ApplicableToRecordLoss": "",
 			"ApplicableToTerminate": "",
