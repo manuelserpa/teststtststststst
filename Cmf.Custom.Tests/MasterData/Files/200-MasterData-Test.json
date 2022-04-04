@@ -1,4 +1,10 @@
 {
+	"WorksheetNameMapping": {
+		"1": {
+			"WorksheetName": "MaterialDCContext",
+			"Value": "<ST>MaterialDataCollectionContext"
+		}
+	},
 	"<SM>EntityTypeProperty": {
 		"1": {
 			"EntityType": "Product",
@@ -1010,10 +1016,11 @@
 			"ParentReason": ""
 		}
 	},
+	"StepReason": {},
 	"<DM>StepReason": {
 		"1": {
-			"Step": "M2-SL-Wafer-Start-07301F001_E",
-			"Reason": "TestHoldReason1",
+			"SourceEntity": "M2-SL-Wafer-Start-07301F001_E",
+			"TargetEntity": "TestHoldReason1",
 			"ApplicableToAssemble": "",
 			"ApplicableToRecordLoss": "",
 			"ApplicableToTerminate": "",
@@ -1021,8 +1028,8 @@
 			"ApplicableToTemporaryOffFlow": ""
 		},
 		"2": {
-			"Step": "M2-SL-Wafer-Start-07301F001_E",
-			"Reason": "TestHoldReason2",
+			"SourceEntity": "M2-SL-Wafer-Start-07301F001_E",
+			"TargetEntity": "TestHoldReason2",
 			"ApplicableToAssemble": "",
 			"ApplicableToRecordLoss": "",
 			"ApplicableToTerminate": "",
@@ -1030,13 +1037,30 @@
 			"ApplicableToTemporaryOffFlow": ""
 		},
 		"3": {
-			"Step": "M2-SL-Wafer-Start-07301F001_E",
-			"Reason": "Out Of Spec",
+			"SourceEntity": "M2-SL-Wafer-Start-07301F001_E",
+			"TargetEntity": "Out Of Spec",
 			"ApplicableToAssemble": "",
 			"ApplicableToRecordLoss": "",
 			"ApplicableToTerminate": "",
 			"ApplicableToRework": "",
 			"ApplicableToTemporaryOffFlow": ""
+		}
+	},
+	"<LOOKUP>MaterialDCContext": {
+		"1": {
+			"Step": "M2-SL-Wafer-Start-07301F001_E",
+			"Product": "",
+			"ProductGroup": "",
+			"Flow": "",
+			"Material": "",
+			"MaterialType": "",
+			"Resource": "",
+			"ResourceType": "",
+			"Model": "",
+			"Operation": "Certificate",
+			"DataCollection": "ProductCertificateDataUnitTest",
+			"DataCollectionLimitSet": "ProductCertificateDataLimitSetUnitTest",
+			"DataCollectionType": "Immediate"
 		}
 	}
 }

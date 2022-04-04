@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -25,6 +26,18 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
                             (string.IsNullOrWhiteSpace(startsWith) || f.Name.StartsWith(startsWith, StringComparison.InvariantCultureIgnoreCase)) &&
                             (string.IsNullOrWhiteSpace(endsWith) || f.Name.EndsWith(endsWith, StringComparison.InvariantCultureIgnoreCase)));
             return result;
+        }
+
+        public static string LoadXmlFile(string filePath)
+        {
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filePath);
+
+            if (!File.Exists(path))
+            {
+                Assert.Fail($"No XML file found at the specified path: {filePath}");
+            }
+
+            return File.ReadAllText(path);
         }
     }
 }

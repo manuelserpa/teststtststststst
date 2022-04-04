@@ -51,4 +51,12 @@
     <PackageReference Include="Cmf.Dev.Mes.TestScenarios" Version="8.2.1" />
     <PackageReference Include="SharpZipLib" Version="1.3.1" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="ERP\Samples\SampleGoodsReceiptCertificate.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ERP\Samples\SampleGoodsReceiptUncertificated.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

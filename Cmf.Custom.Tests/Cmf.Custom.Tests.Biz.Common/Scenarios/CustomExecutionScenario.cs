@@ -1,6 +1,5 @@
 ﻿using Cmf.Custom.AMSOsram.Orchestration.InputObjects;
 using Cmf.Custom.AMSOsram.Orchestration.OutputObjects;
-using Cmf.Custom.Tests.Biz.Common.ERP;
 using Cmf.Custom.Tests.Biz.Common.ERP.Material;
 using Cmf.Custom.Tests.Biz.Common.ERP.Product;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
@@ -9,7 +8,6 @@ using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
 using Cmf.Foundation.Common.Base;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Cmf.Custom.Tests.Biz.Common.Scenarios
@@ -29,10 +27,6 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// </summary>
         public bool IsToSendIncomingMaterial;
 
-        public bool IsToSetMaterialDCContext;
-
-
-
         /// <summary>
         /// Integration Entries
         /// </summary>
@@ -47,10 +41,6 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// 
         /// </summary>
         public GoodsReceiptCertificate GoodsReceiptCertificate;
-
-        public SmartTableManager SmartTableManager = new SmartTableManager();
-
-        public List<Dictionary<string, string>> MaterialDCContext;
 
         /// <summary>
         /// CustomExecutionScenario Constructor
@@ -72,26 +62,18 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 
             string xmlMessage = string.Empty;
 
-            if (MaterialDCContext.Any())
-            {
-                foreach (Dictionary<string, string> row in MaterialDCContext)
-                {
-                    SmartTableManager.SetSmartTableData("MaterialDataCollectionContext", row);
-                }
-            }
-
             if (IsToSendIncomingMaterial)
             {
                 messageType = "PerformIncomingMaterialMasterData";
 
-                xmlMessage = ERPMessageSerializer<GoodsReceiptCertificate>.Serialize(this.GoodsReceiptCertificate);
+                xmlMessage = CustomUtilities.SerializeToXML<GoodsReceiptCertificate>(this.GoodsReceiptCertificate);
             }
 
             if (IsToSendProducts)
             {
                 messageType = "PerformProductsMasterData";
 
-                xmlMessage = ERPMessageSerializer<ProductDataOutput>.Serialize(this.ProductOutput);
+                xmlMessage = CustomUtilities.SerializeToXML<ProductDataOutput>(this.ProductOutput);
             }
 
             if (!string.IsNullOrEmpty(messageType) && !string.IsNullOrEmpty(xmlMessage))
@@ -115,11 +97,6 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 
         public override void CompleteCleanUp()
         {
-            if (MaterialDCContext.Any())
-            {
-                SmartTableManager.TearDown();
-            }
-
             // Remove created Integration Entries
             TerminateIntegrationEntries();
 
