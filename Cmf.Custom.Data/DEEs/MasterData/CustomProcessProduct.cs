@@ -68,6 +68,7 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.ERP");
 
+
             // Load Integration Entry
             IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, AMSOsramConstants.EntityTypes.IntegrationEntry);
 
@@ -77,58 +78,218 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
             // Deserialize XML Message to an object
             ProductData productData = AMSOsramUtilities.DeserializeXmlToObject<ProductData>(message);
 
-            // ChangeSet to create/update Products
-            ChangeSet productsChangeSet = new ChangeSet();
-            {
-                productsChangeSet.Name = Guid.NewGuid().ToString("N");
-
-                productsChangeSet.Description = $"ChangeSet to create/update Product {productData.Name}.";
-
-                productsChangeSet.Type = $"General";
-
-                productsChangeSet.MakeEffectiveOnApproval = true;
-            }
-
-            productsChangeSet.Create();
-
             // Create Product context using data received from Integration Entry
             Product product = new Product();
 
             product.Name = productData.Name;
 
-            product.Type = productData.Type;
+            #region Properties
 
             if (product.ObjectExists())
             {
                 product.Load();
-
-                product.CreateVersion(false, productsChangeSet, string.Empty);
-            }
-            else
-            {
-                product.CreateVersion(true, productsChangeSet, string.Empty);
             }
 
-            product.Description = productData.Description;
 
-            product.ProductType = AMSOsramUtilities.GetValueAsEnum<ProductType>(productData.ProductType);
-
-            product.DefaultUnits = productData.DefaultUnits;
-
-            product.IsEnabled = AMSOsramUtilities.GetValueAsNullableBoolean(productData.IsEnabled);
-
-            product.Yield = AMSOsramUtilities.GetValueAsDecimal(productData.Yield);
-
-            ProductGroup productGroup = new ProductGroup();
+            if (!string.IsNullOrWhiteSpace(productData.Description))
             {
-                productGroup.Load(productData.ProductGroup);
+                product.Description = productData.Description;
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.Type))
+            {
+                product.Type = productData.Type;
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.ProductType))
+            {
+                product.ProductType = AMSOsramUtilities.GetValueAsEnum<ProductType>(productData.ProductType);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.DefaultUnits))
+            {
+                product.DefaultUnits = productData.DefaultUnits;
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.IsEnabled))
+            {
+                product.IsEnabled = AMSOsramUtilities.GetValueAsNullableBoolean(productData.IsEnabled);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.Yield))
+            {
+                product.Yield = AMSOsramUtilities.GetValueAsDecimal(productData.Yield);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.ProductGroup))
+            {
+                ProductGroup productGroup = new ProductGroup();
+                {
+                    productGroup.Load(productData.ProductGroup);
+                };
+
+                product.ProductGroup = productGroup;
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.MaximumMaterialSize))
+            {
+                product.MaximumMaterialSize = AMSOsramUtilities.GetValueAsNullableDecimal(productData.MaximumMaterialSize);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.InitialUnitCost))
+            {
+                product.InitialUnitCost = AMSOsramUtilities.GetValueAsDecimal(productData.InitialUnitCost);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.FinishedUnitCost))
+            {
+                product.FinishedUnitCost = AMSOsramUtilities.GetValueAsDecimal(productData.FinishedUnitCost);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.CycleTime))
+            {
+                product.CycleTime = AMSOsramUtilities.GetValueAsDecimal(productData.CycleTime);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.IncludeInSchedule))
+            {
+                product.IncludeInSchedule = AMSOsramUtilities.GetValueAsNullableBoolean(productData.IncludeInSchedule);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.CapacityClass))
+            {
+                product.CapacityClass = productData.CapacityClass;
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.MaterialTransferMode))
+            {
+                product.MaterialTransferMode = AMSOsramUtilities.GetValueAsEnum<MaterialTransferMode>(productData.MaterialTransferMode);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.MaterialTransferApprovalMode))
+            {
+                product.MaterialTransferApprovalMode = AMSOsramUtilities.GetValueAsEnum<MaterialTransferApprovalMode>(productData.MaterialTransferApprovalMode);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.MaterialTransferAllowedPickup))
+            {
+                product.MaterialTransferAllowedPickup = AMSOsramUtilities.GetValueAsEnum<MaterialTransferAllowedPickup>(productData.MaterialTransferAllowedPickup);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.IsEnableForMaintenanceManagement))
+            {
+                product.IsEnabledForMaintenanceManagement = AMSOsramUtilities.GetValueAsBoolean(productData.IsEnableForMaintenanceManagement);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.MaintenanceManagementConsumerQuantity))
+            {
+                product.MaintenanceManagementConsumeQuantity = AMSOsramUtilities.GetValueAsBoolean(productData.MaintenanceManagementConsumerQuantity);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.IsDiscrete))
+            {
+                product.IsDiscrete = AMSOsramUtilities.GetValueAsNullableBoolean(productData.IsDiscrete);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.MoistureSensitivityLevel))
+            {
+                product.MoistureSensitivityLevel = productData.MoistureSensitivityLevel;
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.FloorLife))
+            {
+                product.FloorLife = Int32.TryParse(productData.FloorLife, out int floorLife) ? floorLife : default(int?);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.FloorLifeUnitOfTime))
+            {
+                product.FloorLifeUnitOfTime = AMSOsramUtilities.GetValueAsEnum<UnitOfTime>(productData.FloorLifeUnitOfTime);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.RequiresApproval))
+            {
+                product.RequiresApproval = AMSOsramUtilities.GetValueAsNullableBoolean(productData.RequiresApproval);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.ApprovalRole))
+            {
+                Role approvalRole = new Role();
+                {
+                    approvalRole.Load(productData.ApprovalRole);
+                }
+
+                product.ApprovalRole = approvalRole;
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.CanSplitForPicking))
+            {
+                product.CanSplitForPicking = AMSOsramUtilities.GetValueAsBoolean(productData.CanSplitForPicking);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.MaterialLogisticsDefaultRequestQuantity))
+            {
+                product.MaterialLogisticsDefaultRequestQuantity = AMSOsramUtilities.GetValueAsNullableDecimal(productData.MaterialLogisticsDefaultRequestQuantity);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.ConsumptionScrap))
+            {
+                product.ConsumptionScrap = AMSOsramUtilities.GetValueAsDecimal(productData.ConsumptionScrap);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.AdditionalConsumptionQuantity))
+            {
+                product.AdditionalConsumptionQuantity = AMSOsramUtilities.GetValueAsDecimal(productData.AdditionalConsumptionQuantity);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.IsEnabledForMaterialLogistics))
+            {
+                product.IsEnabledForMaterialLogistics = AMSOsramUtilities.GetValueAsBoolean(productData.IsEnabledForMaterialLogistics);
+            }
+
+            if (!string.IsNullOrWhiteSpace(productData.DefaultBOM))
+            {
+                BOM defaultBOM = new BOM();
+                {
+                    defaultBOM.Load(productData.DefaultBOM);
+                }
+
+                product.DefaultBOM = defaultBOM;
+            }
+
+            if (productData.ProductManufacturer != null)
+            {
+                product.ProductManufacturers = new ProductManufacturerCollection()
+                {
+                        new ProductManufacturer()
+                        {
+                            Name = productData.ProductManufacturer.Name,
+                            Note = productData.ProductManufacturer.Note
+                        }
+                 };
+            }
+
+            #endregion
+
+            #region Create Version
+
+            ChangeSet changeSet = new ChangeSet()
+            {
+                Name = Guid.NewGuid().ToString(),
+                Type = "General",
+                MakeEffectiveOnApproval = true,
             };
 
-            product.ProductGroup = productGroup;
+            changeSet.Create();
 
-            product.MaximumMaterialSize = AMSOsramUtilities.GetValueAsNullableDecimal(productData.MaximumMaterialSize);
+            product.CreateVersion(false, changeSet, null);
 
-            product.FlowPath = productData.FlowPath;
+            changeSet.RequestApproval();
+
+            changeSet.MakeObjectsEffective();
+
+            #endregion
+
+            #region Unit Conversion Factor
 
             if (!productData.UnitConversionFactors.IsNullOrEmpty())
             {
@@ -177,84 +338,7 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
                 }
             }
 
-            // TO DO: SubProducts
-
-            product.InitialUnitCost = AMSOsramUtilities.GetValueAsDecimal(productData.InitialUnitCost);
-
-            product.FinishedUnitCost = AMSOsramUtilities.GetValueAsDecimal(productData.FinishedUnitCost);
-
-            product.CycleTime = AMSOsramUtilities.GetValueAsDecimal(productData.CycleTime);
-
-            product.IncludeInSchedule = AMSOsramUtilities.GetValueAsNullableBoolean(productData.IncludeInSchedule);
-
-            product.CapacityClass = productData.CapacityClass;
-
-            product.MaterialTransferMode = AMSOsramUtilities.GetValueAsEnum<MaterialTransferMode>(productData.MaterialTransferMode);
-
-            product.MaterialTransferApprovalMode = AMSOsramUtilities.GetValueAsEnum<MaterialTransferApprovalMode>(productData.MaterialTransferApprovalMode);
-
-            product.MaterialTransferAllowedPickup = AMSOsramUtilities.GetValueAsEnum<MaterialTransferAllowedPickup>(productData.MaterialTransferAllowedPickup);
-
-            product.IsEnabledForMaintenanceManagement = AMSOsramUtilities.GetValueAsBoolean(productData.IsEnableForMaintenanceManagement);
-
-            product.MaintenanceManagementConsumeQuantity = AMSOsramUtilities.GetValueAsBoolean(productData.MaintenanceManagementConsumerQuantity);
-
-            product.IsDiscrete = AMSOsramUtilities.GetValueAsNullableBoolean(productData.IsDiscrete);
-
-            product.MoistureSensitivityLevel = productData.MoistureSensitivityLevel;
-
-            if (!string.IsNullOrWhiteSpace(productData.FloorLife))
-            {
-                product.FloorLife = Int32.TryParse(productData.FloorLife, out int floorLife) ? floorLife : default(int?);
-
-                product.FloorLifeUnitOfTime = AMSOsramUtilities.GetValueAsEnum<UnitOfTime>(productData.FloorLifeUnitOfTime);
-            }
-
-            product.RequiresApproval = AMSOsramUtilities.GetValueAsNullableBoolean(productData.RequiresApproval);
-
-            if (!string.IsNullOrWhiteSpace(productData.ApprovalRole))
-            {
-                Role approvalRole = new Role();
-                {
-                    approvalRole.Load(productData.ApprovalRole);
-                }
-
-                product.ApprovalRole = approvalRole;
-            }
-
-            product.CanSplitForPicking = AMSOsramUtilities.GetValueAsBoolean(productData.CanSplitForPicking);
-
-            product.MaterialLogisticsDefaultRequestQuantity = AMSOsramUtilities.GetValueAsNullableDecimal(productData.MaterialLogisticsDefaultRequestQuantity);
-
-            product.ConsumptionScrap = AMSOsramUtilities.GetValueAsDecimal(productData.ConsumptionScrap);
-
-            product.AdditionalConsumptionQuantity = AMSOsramUtilities.GetValueAsDecimal(productData.AdditionalConsumptionQuantity);
-
-            product.IsEnabledForMaterialLogistics = AMSOsramUtilities.GetValueAsBoolean(productData.IsEnabledForMaterialLogistics);
-
-            if (!string.IsNullOrWhiteSpace(productData.DefaultBOM))
-            {
-                BOM defaultBOM = new BOM();
-                {
-                    defaultBOM.Load(productData.DefaultBOM);
-                }
-
-                product.DefaultBOM = defaultBOM;
-            }
-
-            if (productData.ProductManufacturer != null)
-            {
-                product.ProductManufacturers = new ProductManufacturerCollection()
-                {
-                        new ProductManufacturer()
-                        {
-                            Name = productData.ProductManufacturer.Name,
-                            Note = productData.ProductManufacturer.Note
-                        }
-                 };
-            }
-
-            product.Save();
+            #endregion
 
             #region Parameters
 
@@ -317,13 +401,6 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
                 // Associate relation between Product to Attribute
                 foreach (ProductAttributeData attributeData in productData.ProductAttributesData)
                 {
-                    if (attributeData.Name.ToUpper().Equals("STATUS"))
-                    {
-                        product.IsEnabled = !string.IsNullOrWhiteSpace(attributeData.Value) && Convert.ToInt32(attributeData.Value) < 97;
-
-                        product.Save();
-                    }
-
                     if (productAttributes.ContainsKey(attributeData.Name))
                     {
                         ScalarType scalarType = productAttributes[attributeData.Name] as ScalarType;
@@ -347,25 +424,6 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
             }
 
             #endregion
-
-            productsChangeSet.Load();
-
-            productsChangeSet.RequestApproval();
-
-            if (productsChangeSet.SystemState == ChangeSetSystemState.InApproval)
-            {
-                productsChangeSet.Approve();
-            }
-
-            if (productsChangeSet.UniversalState == UniversalState.Active)
-            {
-                productsChangeSet.MakeObjectsEffective();
-            }
-
-            if (productsChangeSet.UniversalState != UniversalState.Terminated)
-            {
-                productsChangeSet.Terminate();
-            }
 
             //---End DEE Code---
 
