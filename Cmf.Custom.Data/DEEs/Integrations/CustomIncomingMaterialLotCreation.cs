@@ -119,6 +119,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             // Validate if material already exists on the system
             if (!incomingLot.ObjectExists())
             {
+
+                
+
                 Material lot = new Material
                 {
                     Name = materialData.Name,
@@ -185,6 +188,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 wafers.Load();
                 incomingLot = lot;
                 incomingLot.Load();
+
+                
             }
             else
             {
@@ -253,7 +258,11 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 wafers.AddRange(incomingLot.SubMaterials);
             }
 
-            
+            if (materialData.StateModel != null && materialData.State != null)
+            {
+                AMSOsramUtilities.SetMaterialStateModel(incomingLot, materialData.StateModel, materialData.State);
+            }
+
             NgpDataSet dataSet = AMSOsramUtilities.GetCertificateInformation(incomingLot);
             parametersName = parametersName.Distinct().ToList();
 
@@ -433,7 +442,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             if (materialHoldReasons.Count > 0)
             { 
-                
                 incomingLot.Hold(materialHoldReasons, new OperationAttributeCollection());
             }
 

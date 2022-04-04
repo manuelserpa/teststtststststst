@@ -1413,6 +1413,25 @@ namespace Cmf.Custom.AMSOsram.Common
             return AMSOsramUtilities.CustomResolveMaterialDataCollectionContext(stepName, logicalFlowPath, productName, productGroupName, flowName, materialName, lot.Type, resourceName, resourceType, resourceModel, operation);
         }
 
+        public static void SetMaterialStateModel(Material material, string stateModelName, string state)
+        {
+            if (material.CurrentMainState == null
+                || !material.CurrentMainState.CurrentState.Name.Equals(state))
+            {
+                StateModel stateModel = new StateModel()
+                {
+                    Name = stateModelName
+                };
+
+                stateModel.Load();
+                StateModelState stateModelState = new StateModelState();
+                stateModelState.Load(state, stateModel);
+
+                CurrentEntityState currentEntityState = new CurrentEntityState(material, stateModel, stateModelState);
+                material.SetMainStateModel(currentEntityState);
+            }
+        }
+
         #endregion
 
         #region Localized Messages
