@@ -4,8 +4,8 @@
         <Name>L-108-84155-ZK21435-C009</Name>
         <Product>11018814</Product>
         <Type>Production</Type>
-        <StateModel />
-        <State />
+        <StateModel>CustomMaterialStateModel</StateModel>
+        <State>Queued</State>
         <Form>Logistical wafer</Form>
         <Facility>Regensburg Production</Facility>
         <Flow>FOL-UX3_EPA</Flow>

@@ -38,11 +38,11 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestCleanup]
         public void TestCleanup()
         {
-            if (materials.Count > 0)
+            if (this.materials.Count > 0)
             {
-                materials.Load();
+                this.materials.Load();
 
-                foreach (Material material in materials)
+                foreach (Material material in this.materials)
                 {
                     if (material.HoldCount > 0)
                     {
@@ -57,7 +57,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
                     }
                 }
 
-                materials.TerminateMaterialCollection();
+                this.materials.TerminateMaterialCollection();
             }
 
             if (customTearDownManager != null)
@@ -139,7 +139,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             customTearDownManager.Push(uncertificatedMaterial);
 
-            materials.Add(uncertificatedMaterial);
+            this.materials.Add(uncertificatedMaterial);
 
             ///<Step> Validate material properties. </Step>
             ///<ExpectedValue> Material should have the information sent on the ERP message. </ExpectedValue>
@@ -148,6 +148,10 @@ namespace Cmf.Custom.Tests.Biz.ERP
             Assert.IsTrue(uncertificatedMaterial.Product.Name.Equals(goodsUncertificated.Material.Product), $"Product Name should be: {uncertificatedMaterial.Product.Name}, instead is: {goodsUncertificated.Material.Product}");
 
             Assert.IsTrue(uncertificatedMaterial.Type.Equals(goodsUncertificated.Material.Type), $"Material Type should be: {uncertificatedMaterial.Type}, instead is: {goodsUncertificated.Material.Type}");
+            
+            Assert.IsTrue(uncertificatedMaterial.CurrentMainState.StateModel.Name.Equals(goodsUncertificated.Material.StateModel), $"State Model should be: {uncertificatedMaterial.CurrentMainState.StateModel.Name}, instead is: {goodsUncertificated.Material.StateModel}");
+            
+            Assert.IsTrue(uncertificatedMaterial.CurrentMainState.CurrentState.Name.Equals(goodsUncertificated.Material.State), $"Material State should be: {uncertificatedMaterial.CurrentMainState.CurrentState.Name}, instead is: {goodsUncertificated.Material.State}");
 
             Assert.IsTrue(uncertificatedMaterial.Form.Equals(goodsUncertificated.Material.Form), $"Material Form should be: {uncertificatedMaterial.Form}, instead is: {goodsUncertificated.Material.Form}");
 
