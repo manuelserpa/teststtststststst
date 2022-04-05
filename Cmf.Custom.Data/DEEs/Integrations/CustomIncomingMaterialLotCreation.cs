@@ -2,14 +2,10 @@
 using Cmf.Custom.AMSOsram.Common;
 using Cmf.Custom.AMSOsram.Common.ERP;
 using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessObjects.SmartTables;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement;
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.OutputObjects;
-using Cmf.Navigo.BusinessOrchestration.MaterialManagement;
-using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
-using Cmf.Navigo.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -45,16 +41,23 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             //---Start DEE Code---     
 
             //System
-            UseReference("", "System.IO");
-            UseReference("", "System.Threading");
+            UseReference("", "System");
+            UseReference("", "System.Collections.Generic");
+            UseReference("", "System.Data");
+            UseReference("", "System.Linq");
             UseReference("", "System.Text");
 
+            //Common
+            UseReference("Cmf.Common.CustomActionUtilities.dll", "Cmf.Common.CustomActionUtilities");
+
             //Foundation
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration");
-            //UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
+            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
 
             //Navigo
             UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
+            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement");
+            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects");
+            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.OutputObjects");
 
             //Custom
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
@@ -62,7 +65,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             // Load Integration Entry
             IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, "IntegrationEntry");
-
 
             // Cast Integation Entry Message to string
             string message = Encoding.UTF8.GetString(integrationEntry.IntegrationMessage.Message);
@@ -120,7 +122,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             if (!incomingLot.ObjectExists())
             {
 
-                
+
 
                 Material lot = new Material
                 {
@@ -189,7 +191,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 incomingLot = lot;
                 incomingLot.Load();
 
-                
+
             }
             else
             {
@@ -201,7 +203,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 {
                     incomingLot.LoadRelations(Cmf.Navigo.Common.Constants.MaterialHoldReason);
                     materialHoldReasons.AddRange(incomingLot.MaterialHoldReasons);
-                    incomingLot.Release(materialHoldReasons,false);
+                    incomingLot.Release(materialHoldReasons, false);
                 }
 
                 // Validate lot wafers are the same 
@@ -221,7 +223,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
                 if (!incomingLot.Form.Equals(materialData.Form))
                 {
-                    incomingLot.Form = materialData.Form; 
+                    incomingLot.Form = materialData.Form;
                 }
 
                 if (!incomingLot.Product.Name.Equals(materialData.Product))
@@ -235,10 +237,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 foreach (Material wafer in incomingLot.SubMaterials)
                 {
                     Wafer waferData = materialData.Wafers.FirstOrDefault(w => w.Name.Equals(wafer.Name));
-                    
+
                     wafer.Form = waferData.Form;
                     wafer.Type = materialData.Type;
-                    
+
                     AttributeCollection attributes = new AttributeCollection();
                     foreach (MaterialAttributes attribute in waferData.MaterialAttributes)
                     {
@@ -298,7 +300,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 parametersToUse.Add(parameter);
             }
 
-            if (parametersToUse.Count > 0 )
+            if (parametersToUse.Count > 0)
             {
                 parametersToUse.Load();
             }
@@ -424,7 +426,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             }
 
             // Validate values posted
-            
+
             if (!materialHoldReasons.Any(materialHoldReason => materialHoldReason.TargetEntity.Name.Equals(holdReason.Name)) && edcDataInvalid)
             {
                 MaterialHoldReason certificateHoldReason = new MaterialHoldReason()
@@ -434,14 +436,14 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 };
                 materialHoldReasons.Add(certificateHoldReason);
             }
-            else if(!edcDataInvalid && materialHoldReasons.Any(materialHoldReason => materialHoldReason.TargetEntity.Name.Equals(holdReason.Name)))            
+            else if (!edcDataInvalid && materialHoldReasons.Any(materialHoldReason => materialHoldReason.TargetEntity.Name.Equals(holdReason.Name)))
             {
                 MaterialHoldReason certificateHoldReason = materialHoldReasons.FirstOrDefault(materialHoldReason => materialHoldReason.TargetEntity.Name.Equals(holdReason.Name));
                 materialHoldReasons.Remove(certificateHoldReason);
             }
 
             if (materialHoldReasons.Count > 0)
-            { 
+            {
                 incomingLot.Hold(materialHoldReasons, new OperationAttributeCollection());
             }
 
