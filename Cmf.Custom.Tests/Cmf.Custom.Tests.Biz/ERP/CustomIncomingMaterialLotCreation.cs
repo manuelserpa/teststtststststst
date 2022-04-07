@@ -221,7 +221,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             certificatedMaterial.LoadRelations(new Collection<string> { "MaterialHoldReason" });
 
-            Assert.IsTrue(certificatedMaterial.HoldCount == 1, $"Material should have one reason instead has {uncertificatedMaterial.HoldCount}");
+            Assert.IsTrue(certificatedMaterial.HoldCount == 1, $"Material should have one reason instead has {certificatedMaterial.HoldCount}");
 
             MaterialHoldReason certificateHoldReason = certificatedMaterial.MaterialHoldReasons.FirstOrDefault();
 

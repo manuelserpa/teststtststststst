@@ -9,6 +9,9 @@ using Cmf.Foundation.BusinessObjects.SmartTables;
 using Cmf.Foundation.Common;
 using Cmf.Foundation.Configuration;
 using Cmf.Navigo.BusinessObjects;
+using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement;
+using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects;
+using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.OutputObjects;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -1251,6 +1254,101 @@ namespace Cmf.Custom.AMSOsram.Common
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Method to post Certificate data for each wafer
+        /// Execution method is Immediate
+        /// </summary>
+        /// <param name="dcInstance"></param>
+        /// <param name="waferPoints"></param>
+        /// <param name="parametersToUse"></param>
+        /// <returns></returns>
+        public static DataCollectionInstance PostImmediateCertificateData(DataCollectionInstance dcInstance, Dictionary<string, object> waferPoints, ParameterCollection parametersToUse)
+        {
+            //insert dc point values 
+            DataCollectionPointCollection dcPoints = new DataCollectionPointCollection();
+            foreach (Parameter parameter in parametersToUse)
+            {
+                DataCollectionPoint point = new DataCollectionPoint()
+                {
+                    SampleId = "Sample 1",
+                    ReadingNumber = 1,
+                    TargetEntity = parameter,
+                    Value = waferPoints[parameter.Name]
+                };
+                dcPoints.Add(point);
+
+                if (dcInstance.RelationCollection == null)
+                    dcInstance.RelationCollection = new CmfEntityRelationCollection();
+
+                dcInstance.RelationCollection.Add(point);
+            }
+
+            PerformImmediateDataCollectionOutput dataCollectionInstanceResult = DataCollectionInstanceManagementOrchestration.PerformImmediateDataCollection(
+                new Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects.PerformImmediateDataCollectionInput()
+                {
+                    DataCollectionInstance = dcInstance,
+                    SkipDCValidation = false,
+                    IsToIgnoreInSPC = true,
+                    IgnoreLastServiceId = false
+                }
+            );
+
+            return dataCollectionInstanceResult.DataCollectionInstance;
+        }
+
+        /// <summary>
+        /// Method to post Certificate data for each wafer
+        /// Execution method is LongRunning
+        /// </summary>
+        /// <param name="dcInstance"></param>
+        /// <param name="waferPoints"></param>
+        /// <param name="parametersToUse"></param>
+        /// <returns></returns>
+        public static DataCollectionInstance PostLongRunningCertificateData(DataCollectionInstance dcInstance, Dictionary<string, object> waferPoints, ParameterCollection parametersToUse)
+        {
+            OpenDataCollectionInstanceInput openDCInstanceInput = new OpenDataCollectionInstanceInput()
+            {
+                DataCollectionInstance = dcInstance,
+                IsToIgnoreInSPC = true,
+            };
+
+            OpenDataCollectionInstanceOutput openDCInstanceOutput = DataCollectionInstanceManagementOrchestration.OpenDataCollectionInstance(openDCInstanceInput);
+            dcInstance = openDCInstanceOutput.DataCollectionInstance;
+
+            //insert dc point values 
+            DataCollectionPointCollection dcPoints = new DataCollectionPointCollection();
+            foreach (Parameter parameter in parametersToUse)
+            {
+                DataCollectionPoint point = new DataCollectionPoint()
+                {
+                    SampleId = "Sample 1",
+                    ReadingNumber = 1,
+                    TargetEntity = parameter,
+                    SourceEntity = dcInstance,
+                    Value = waferPoints[parameter.Name]
+                };
+                dcPoints.Add(point);
+
+                if (dcInstance.RelationCollection == null)
+                    dcInstance.RelationCollection = new CmfEntityRelationCollection();
+
+                dcInstance.RelationCollection.Add(point);
+
+            }
+            dcInstance.Load();
+
+            PostDataCollectionPointsInput postDCPointsInput = new PostDataCollectionPointsInput()
+            {
+                DataCollectionInstance = dcInstance,
+                DataCollectionPoints = dcPoints,
+                SkipDCValidation = false
+            };
+
+            PostDataCollectionPointsOutput postDataCollectionPointsOutput = DataCollectionInstanceManagementOrchestration.PostDataCollectionPoints(postDCPointsInput);
+
+            return postDataCollectionPointsOutput.DataCollectionInstance;
         }
 
         #endregion

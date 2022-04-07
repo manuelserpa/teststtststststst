@@ -31,6 +31,63 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             /// </summary>
             #endregion
 
+            // Create a Dee Context to determine what is the action being executed
+            DeeContext currentContext = DeeContextHelper.SetCurrentServiceContext("CustomIncomingMaterialLotCreationContext");
+            const string CustomIncomingMaterialLotCreation_MaterialData = "CustomIncomingMaterialLotCreation_MaterialData";
+            const string CustomIncomingMaterialLotCreation_IncomingLot = "CustomIncomingMaterialLotCreation_IncomingLot";
+            const string CustomIncomingMaterialLotCreation_IsToCreateLot = "CustomIncomingMaterialLotCreation_IsToCreateLot";
+
+
+            // Load Integration Entry
+            IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, "IntegrationEntry");
+
+            // Cast Integation Entry Message to string
+            string message = Encoding.UTF8.GetString(integrationEntry.IntegrationMessage.Message);
+
+            // Deserialize XML Message to an object
+            GoodsReceiptCertificate goodsReceiptCertificate = AMSOsramUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(message);
+
+            MaterialData materialData = goodsReceiptCertificate.Material;
+            Material incomingLot = new Material() { Name = materialData.Name };
+
+            bool IsToCreateMaterial = true;
+
+            if (incomingLot.ObjectExists())
+            {
+                IsToCreateMaterial = false;
+
+                // lot already exists and needs to be updated
+                incomingLot.Load();
+
+                // Validate lot wafers are the same 
+                incomingLot.LoadChildren();
+                if (incomingLot.SubMaterialCount > 0)
+                {
+                    List<string> lotWafersName = incomingLot.SubMaterials.Select(sm => sm.Name).ToList();
+                    List<string> incomingLotWafersName = materialData.Wafers.Select(w => w.Name).ToList();
+                    if (lotWafersName.Except(incomingLotWafersName).ToList().Any() || incomingLotWafersName.Except(lotWafersName).ToList().Any())
+                    {
+                        AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialDifferentWaferData, incomingLot.Name);
+                    }
+                }
+
+                // Validate incoming lot is on same step and flow
+                if (!incomingLot.Step.Name.Equals(materialData.Step) || !incomingLot.Flow.Name.Equals(materialData.Flow))
+                {
+                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialOnDifferentFlowStep, incomingLot.Name);
+                }
+
+                if (!incomingLot.Product.Name.Equals(materialData.Product))
+                {
+                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialDifferentProduct, incomingLot.Name, materialData.Product);
+                }
+            }
+
+            //Set context
+            DeeContextHelper.SetContextParameter(CustomIncomingMaterialLotCreation_MaterialData, materialData);
+            DeeContextHelper.SetContextParameter(CustomIncomingMaterialLotCreation_IncomingLot, incomingLot);
+            DeeContextHelper.SetContextParameter(CustomIncomingMaterialLotCreation_IsToCreateLot, IsToCreateMaterial);
+
             return true;
 
             //---End DEE Condition Code---
@@ -63,21 +120,17 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.ERP");
 
-            // Load Integration Entry
-            IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, "IntegrationEntry");
-
-            // Cast Integation Entry Message to string
-            string message = Encoding.UTF8.GetString(integrationEntry.IntegrationMessage.Message);
-
-            // Deserialize XML Message to an object
-            GoodsReceiptCertificate goodsReceiptCertificate = AMSOsramUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(message);
+            const string CustomIncomingMaterialLotCreation_MaterialData = "CustomIncomingMaterialLotCreation_MaterialData";
+            const string CustomIncomingMaterialLotCreation_IncomingLot = "CustomIncomingMaterialLotCreation_IncomingLot";
+            const string CustomIncomingMaterialLotCreation_IsToCreateLot = "CustomIncomingMaterialLotCreation_IsToCreateLot";
 
             Dictionary<string, AttributeCollection> waferAttributes = new Dictionary<string, AttributeCollection>();
             Dictionary<string, Dictionary<string, object>> waferEDCData = new Dictionary<string, Dictionary<string, object>>();
 
             // Create lots using data received from Integration Entry
-            MaterialData materialData = goodsReceiptCertificate.Material;
-            Material incomingLot = new Material() { Name = materialData.Name };
+            MaterialData materialData = DeeContextHelper.GetContextParameter(CustomIncomingMaterialLotCreation_MaterialData) as MaterialData;
+            Material incomingLot = DeeContextHelper.GetContextParameter(CustomIncomingMaterialLotCreation_IncomingLot) as Material;
+            bool? isToCreateLot = DeeContextHelper.GetContextParameter(CustomIncomingMaterialLotCreation_IsToCreateLot) as bool?;
 
             Product product = new Product() { Name = materialData.Product };
             product.Load();
@@ -122,7 +175,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             bool edcDataInvalid = false;
 
             // Validate if material already exists on the system
-            if (!incomingLot.ObjectExists())
+            if ((bool)isToCreateLot)
             {
                 Material lot = new Material
                 {
@@ -157,7 +210,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                         Name = waferData.Name,
                         Product = product,
                         Facility = facility,
-                        FlowPath = !string.IsNullOrEmpty(materialData.Flow) && !string.IsNullOrEmpty(materialData.Step) ? FlowSearchHelper.CalculateFlowPath(materialData.Flow, materialData.Step) : product.FlowPath
+                        FlowPath = !string.IsNullOrEmpty(materialData.Flow) && !string.IsNullOrEmpty(materialData.Step) ? FlowSearchHelper.CalculateFlowPath(materialData.Flow, materialData.Step) : product.FlowPath,
                         PrimaryQuantity = quantity,
                         PrimaryUnits = product.DefaultUnits,
                         Form = waferData.Form,
@@ -194,9 +247,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             }
             else
             {
-                // lot already exists and needs to be updated
-                incomingLot.Load();
-
                 // validate lot is on hold
                 if (incomingLot.HoldCount > 0)
                 {
@@ -205,32 +255,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     incomingLot.Release(materialHoldReasons, false);
                 }
 
-                // Validate lot wafers are the same 
-                incomingLot.LoadChildren();
-                if (incomingLot.SubMaterialCount > 0)
-                {
-                    List<string> lotWafersName = incomingLot.SubMaterials.Select(sm => sm.Name).ToList();
-                    List<string> incomingLotWafersName = materialData.Wafers.Select(w => w.Name).ToList();
-                    if (lotWafersName.Except(incomingLotWafersName).ToList().Any() || incomingLotWafersName.Except(lotWafersName).ToList().Any())
-                    {
-                        AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialDifferentWaferData, incomingLot.Name);
-                    } 
-                }
-
-                // Validate incoming lot is on same step and flow
-                if (!incomingLot.Step.Name.Equals(materialData.Step) || !incomingLot.Flow.Name.Equals(materialData.Flow))
-                {
-                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialOnDifferentFlowStep, incomingLot.Name);
-                }
-
                 if (!incomingLot.Form.Equals(materialData.Form))
                 {
                     incomingLot.Form = materialData.Form;
-                }
-
-                if (!incomingLot.Product.Name.Equals(materialData.Product))
-                {
-                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialDifferentProduct, incomingLot.Name, materialData.Product);
                 }
 
                 // set attributes of lot
@@ -345,48 +372,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
                 if (executionType.Equals("LongRunning"))
                 {
-                    OpenDataCollectionInstanceInput openDCInstanceInput = new OpenDataCollectionInstanceInput()
-                    {
-                        DataCollectionInstance = dcInstance,
-                        IsToIgnoreInSPC = true,
-                    };
-
-                    OpenDataCollectionInstanceOutput openDCInstanceOutput = DataCollectionInstanceManagementOrchestration.OpenDataCollectionInstance(openDCInstanceInput);
-                    dcInstance = openDCInstanceOutput.DataCollectionInstance;
-
-                    //insert dc point values 
-                    DataCollectionPointCollection dcPoints = new DataCollectionPointCollection();
-                    Dictionary<string, object> waferPoints = waferEDCData[wafer.Name];
-                    foreach (Parameter parameter in parametersToUse)
-                    {
-                        DataCollectionPoint point = new DataCollectionPoint()
-                        {
-                            SampleId = "Sample 1",
-                            ReadingNumber = 1,
-                            TargetEntity = parameter,
-                            SourceEntity = dcInstance,
-                            Value = waferPoints[parameter.Name]
-                        };
-                        dcPoints.Add(point);
-
-                        if (dcInstance.RelationCollection == null)
-                            dcInstance.RelationCollection = new CmfEntityRelationCollection();
-
-                        dcInstance.RelationCollection.Add(point);
-
-                    }
-                    dcInstance.Load();
-
-                    PostDataCollectionPointsInput postDCPointsInput = new PostDataCollectionPointsInput()
-                    {
-                        DataCollectionInstance = dcInstance,
-                        DataCollectionPoints = dcPoints,
-                        SkipDCValidation = false
-                    };
-
-                    PostDataCollectionPointsOutput postDataCollectionPointsOutput = DataCollectionInstanceManagementOrchestration.PostDataCollectionPoints(postDCPointsInput);
-
-                    dcInstance = postDataCollectionPointsOutput.DataCollectionInstance;
+                    dcInstance = AMSOsramUtilities.PostLongRunningCertificateData(dcInstance, waferEDCData[wafer.Name], parametersToUse);
 
                     if (!AMSOsramUtilities.ValidateDataCollectionLimitSetValues(dcInstance))
                     {
@@ -395,37 +381,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 }
                 else if (executionType.Equals("Immediate"))
                 {
-                    //insert dc point values 
-                    DataCollectionPointCollection dcPoints = new DataCollectionPointCollection();
-                    Dictionary<string, object> waferPoints = waferEDCData[wafer.Name];
-                    foreach (Parameter parameter in parametersToUse)
-                    {
-                        DataCollectionPoint point = new DataCollectionPoint()
-                        {
-                            SampleId = "Sample 1",
-                            ReadingNumber = 1,
-                            TargetEntity = parameter,
-                            Value = waferPoints[parameter.Name]
-                        };
-                        dcPoints.Add(point);
-
-                        if (dcInstance.RelationCollection == null)
-                            dcInstance.RelationCollection = new CmfEntityRelationCollection();
-
-                        dcInstance.RelationCollection.Add(point);
-                    }
-
-                    PerformImmediateDataCollectionOutput dataCollectionInstanceResult = DataCollectionInstanceManagementOrchestration.PerformImmediateDataCollection(
-                        new Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects.PerformImmediateDataCollectionInput()
-                        {
-                            DataCollectionInstance = dcInstance,
-                            SkipDCValidation = false,
-                            IsToIgnoreInSPC = true,
-                            IgnoreLastServiceId = false
-                        }
-                    );
-
-                    dcInstance = dataCollectionInstanceResult.DataCollectionInstance;
+                    dcInstance = AMSOsramUtilities.PostImmediateCertificateData(dcInstance, waferEDCData[wafer.Name], parametersToUse);
 
                     if (!AMSOsramUtilities.ValidateDataCollectionLimitSetValues(dcInstance))
                     {
