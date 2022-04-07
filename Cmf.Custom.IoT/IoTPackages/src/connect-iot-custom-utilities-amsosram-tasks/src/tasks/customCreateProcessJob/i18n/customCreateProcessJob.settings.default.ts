@@ -3,5 +3,6 @@ export default {
     MATERIAL_FORMAT: "Material Format",
     SEND_CARRIER_CONTENT: "Send Carrier Content",
     RECIPE_SPECIFICATION_TYPE: "Recipe Specification Type",
-    OCCUPIED_SLOT: "Occupied Slot For Map Carrier"
+    OCCUPIED_SLOT: "Occupied Slot For Map Carrier",
+    USE_CARRIER_AT_LOAD_PORT: "Use Standard String as 'CarrierAtLoadPort${LoadPort}' for the ContainerName"
 };

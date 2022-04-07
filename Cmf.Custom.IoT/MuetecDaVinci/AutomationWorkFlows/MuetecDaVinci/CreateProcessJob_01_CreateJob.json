@@ -168,7 +168,9 @@
 				"___cmf___name": "Custom Create Process Job",
 				"SendCarrierContent": true,
 				"RecipeSpecificationType": 1,
-				"commandName": 1
+				"commandName": 1,
+				"MaterialFormat": "13",
+				"useCarrierAtLoadPortAsContainer": true
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -236,6 +238,16 @@
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
 					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+			"reference": {
+				"name": "anyToErrorCodeConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
 				}
 			}
 		}
@@ -327,6 +339,23 @@
 					}
 				}
 			]
+		},
+		{
+			"id": "4d3dd553-a96f-42a1-b76b-cfded3e93eea",
+			"sourceId": "task_171073",
+			"targetId": "task_170746",
+			"inputName": "ErrorCodeIn",
+			"outputName": "error",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+					"params": {
+						"ErrorCode": "StartCommandFailed",
+						"SystemOfOrigin": "EI",
+						"ErrorNumber": 0
+					}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -411,13 +440,16 @@
 					},
 					"e9df1bb2-c525-4464-a18c-a471df254a0b": {
 						"vertices": []
+					},
+					"4d3dd553-a96f-42a1-b76b-cfded3e93eea": {
+						"vertices": []
 					}
 				},
 				"notes": {},
-				"zoom": 0.82,
+				"zoom": 0.7799999999999999,
 				"pan": {
-					"x": 615.5555419921875,
-					"y": 502.22222900390625
+					"x": 1178.5391498293654,
+					"y": 536.3850107043662
 				}
 			}
 		}
