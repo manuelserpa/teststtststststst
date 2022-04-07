@@ -202,37 +202,40 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 }
                 lot.SaveAttributes(lotAttributes);
 
-                foreach (Wafer waferData in materialData.Wafers)
+                if (!materialData.Wafers.IsNullOrEmpty())
                 {
-                    // Create Sub Material to expand for main material
-                    Material wafer = new Material()
+                    foreach (Wafer waferData in materialData.Wafers)
                     {
-                        Name = waferData.Name,
-                        Product = product,
-                        Facility = facility,
-                        FlowPath = !string.IsNullOrEmpty(materialData.Flow) && !string.IsNullOrEmpty(materialData.Step) ? FlowSearchHelper.CalculateFlowPath(materialData.Flow, materialData.Step) : product.FlowPath,
-                        PrimaryQuantity = quantity,
-                        PrimaryUnits = product.DefaultUnits,
-                        Form = waferData.Form,
-                        Type = materialData.Type
-                    };
-                    wafers.Add(wafer);
+                        // Create Sub Material to expand for main material
+                        Material wafer = new Material()
+                        {
+                            Name = waferData.Name,
+                            Product = product,
+                            Facility = facility,
+                            FlowPath = !string.IsNullOrEmpty(materialData.Flow) && !string.IsNullOrEmpty(materialData.Step) ? FlowSearchHelper.CalculateFlowPath(materialData.Flow, materialData.Step) : product.FlowPath,
+                            PrimaryQuantity = quantity,
+                            PrimaryUnits = product.DefaultUnits,
+                            Form = waferData.Form,
+                            Type = materialData.Type
+                        };
+                        wafers.Add(wafer);
 
-                    AttributeCollection attributes = new AttributeCollection();
-                    foreach (MaterialAttributes attribute in waferData.MaterialAttributes)
-                    {
-                        ScalarType scalarType = materialAttributes[attribute.Name] as ScalarType;
-                        attributes.Add(attribute.Name, AMSOsramUtilities.GetAttributeValueAsDataType(scalarType, attribute.value));
-                    }
-                    waferAttributes.Add(wafer.Name, attributes);
+                        AttributeCollection attributes = new AttributeCollection();
+                        foreach (MaterialAttributes attribute in waferData.MaterialAttributes)
+                        {
+                            ScalarType scalarType = materialAttributes[attribute.Name] as ScalarType;
+                            attributes.Add(attribute.Name, AMSOsramUtilities.GetAttributeValueAsDataType(scalarType, attribute.value));
+                        }
+                        waferAttributes.Add(wafer.Name, attributes);
 
-                    Dictionary<string, object> edcValues = new Dictionary<string, object>();
-                    foreach (MaterialEDCData edcData in waferData.MaterialEDCData)
-                    {
-                        edcValues.Add(edcData.Name, edcData.value);
-                        parametersName.Add(edcData.Name);
-                    }
-                    waferEDCData.Add(waferData.Name, edcValues);
+                        Dictionary<string, object> edcValues = new Dictionary<string, object>();
+                        foreach (MaterialEDCData edcData in waferData.MaterialEDCData)
+                        {
+                            edcValues.Add(edcData.Name, edcData.value);
+                            parametersName.Add(edcData.Name);
+                        }
+                        waferEDCData.Add(waferData.Name, edcValues);
+                    } 
                 }
 
                 if (wafers.Count > 0)
