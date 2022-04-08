@@ -1,6 +1,6 @@
 ﻿{
   "packageId": "Cmf.Custom.Tests.MasterData",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Cmf AMSOsram Test MasterData Package",
   "packageType": "Data",
   "isInstallable": false,
