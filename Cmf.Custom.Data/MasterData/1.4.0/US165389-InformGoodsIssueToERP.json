@@ -1,0 +1,23 @@
+{
+  "<SM>DEEAction": {
+    "1": {
+      "Action": "CustomCreateGoodsIssueMessage",
+      "Description": "Creates a integration entry that will make a request for each CustomOrderConsumption to be sent to SAP.",
+      "CodeFileRelativePath": "Integrations\\CustomCreateGoodsIssueMessage.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    }
+  },
+  "DEEActionOrder": {
+    "1": {
+      "ActionGroup": "BusinessObjects.MaterialCollection.MoveToNextStep.Pre",
+      "Action": "CustomCreateGoodsIssueMessage",
+      "Order": "1"
+    },
+    "2": {
+      "ActionGroup": "BusinessObjects.MaterialCollection.MoveToNextStep.Post",
+      "Action": "CustomCreateGoodsIssueMessage",
+      "Order": "2"
+    }
+  }
+}
