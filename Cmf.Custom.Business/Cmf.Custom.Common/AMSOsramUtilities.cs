@@ -1496,7 +1496,7 @@ namespace Cmf.Custom.AMSOsram.Common
         public static NgpDataSet GetCertificateInformation(Material lot)
         {
             // Get Material information
-            string stepName = lot.Step.Name;
+            string stepName = lot.Step?.Name;
             string materialName = lot.Name;
             string productName = lot.Product.Name;
             string logicalFlowPath = lot.LogicalFlowPath != null ? lot.LogicalFlowPath : string.Empty;

@@ -37,6 +37,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             const string CustomIncomingMaterialLotCreation_IncomingLot = "CustomIncomingMaterialLotCreation_IncomingLot";
             const string CustomIncomingMaterialLotCreation_IsToCreateLot = "CustomIncomingMaterialLotCreation_IsToCreateLot";
             const string CustomIncomingMaterialLotCreation_Product = "CustomIncomingMaterialLotCreation_Product";
+            const string CustomIncomingMaterialLotCreation_DataSet = "CustomIncomingMaterialLotCreation_DataSet";
 
             // Load Integration Entry
             IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, "IntegrationEntry");
@@ -59,8 +60,19 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             if (!incomingLot.ObjectExists())
             {
-                incomingLot.Product = product;
-                incomingLot.FlowPath = !string.IsNullOrEmpty(materialData.Flow) && !string.IsNullOrEmpty(materialData.Step) ? FlowSearchHelper.CalculateFlowPath(materialData.Flow, materialData.Step) : product.FlowPath;                                                                  
+                incomingLot.Product = product;  
+                incomingLot.Form = materialData.Form;
+                incomingLot.Type = materialData.Type;
+                incomingLot.Step = product.Step;
+                incomingLot.Flow = product.Flow;
+                incomingLot.FlowPath = product.FlowPath;
+
+                if (!string.IsNullOrEmpty(materialData.Flow) && !string.IsNullOrEmpty(materialData.Step))
+                {
+                    incomingLot.Step = new Step() { Name = materialData.Step };
+                    incomingLot.Flow = new Flow() { Name = materialData.Flow };
+                    incomingLot.FlowPath = FlowSearchHelper.CalculateFlowPath(materialData.Flow, materialData.Step);
+                }
             }
             else
             {
@@ -70,9 +82,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 incomingLot.Load();
 
                 // Validate lot wafers are the same 
-                incomingLot.LoadChildren();
+                
                 if (incomingLot.SubMaterialCount > 0)
                 {
+                    incomingLot.LoadChildren();
                     List<string> lotWafersName = incomingLot.SubMaterials.Select(sm => sm.Name).ToList();
                     List<string> incomingLotWafersName = materialData.Wafers.Select(w => w.Name).ToList();
                     if (lotWafersName.Except(incomingLotWafersName).ToList().Any() || incomingLotWafersName.Except(lotWafersName).ToList().Any())
@@ -91,8 +104,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 {
                     AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialDifferentProduct, incomingLot.Name, materialData.Product);
                 }
-
-                
             }
             dataSet = AMSOsramUtilities.GetCertificateInformation(incomingLot);
 
@@ -101,13 +112,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomWrongCertificateConfiguration, incomingLot.Name);
             }
 
-
-
             //Set context
             DeeContextHelper.SetContextParameter(CustomIncomingMaterialLotCreation_MaterialData, materialData);
             DeeContextHelper.SetContextParameter(CustomIncomingMaterialLotCreation_IncomingLot, incomingLot);
             DeeContextHelper.SetContextParameter(CustomIncomingMaterialLotCreation_IsToCreateLot, IsToCreateMaterial);
             DeeContextHelper.SetContextParameter(CustomIncomingMaterialLotCreation_Product, product);
+            DeeContextHelper.SetContextParameter(CustomIncomingMaterialLotCreation_DataSet, dataSet);
 
             return true;
 
@@ -145,6 +155,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             const string CustomIncomingMaterialLotCreation_IncomingLot = "CustomIncomingMaterialLotCreation_IncomingLot";
             const string CustomIncomingMaterialLotCreation_IsToCreateLot = "CustomIncomingMaterialLotCreation_IsToCreateLot";
             const string CustomIncomingMaterialLotCreation_Product = "CustomIncomingMaterialLotCreation_Product";
+            const string CustomIncomingMaterialLotCreation_DataSet = "CustomIncomingMaterialLotCreation_DataSet";
 
             Dictionary<string, AttributeCollection> waferAttributes = new Dictionary<string, AttributeCollection>();
             Dictionary<string, Dictionary<string, object>> waferEDCData = new Dictionary<string, Dictionary<string, object>>();
@@ -153,8 +164,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             MaterialData materialData = DeeContextHelper.GetContextParameter(CustomIncomingMaterialLotCreation_MaterialData) as MaterialData;
             Material incomingLot = DeeContextHelper.GetContextParameter(CustomIncomingMaterialLotCreation_IncomingLot) as Material;
             bool? isToCreateLot = DeeContextHelper.GetContextParameter(CustomIncomingMaterialLotCreation_IsToCreateLot) as bool?;
-
             Product product = DeeContextHelper.GetContextParameter(CustomIncomingMaterialLotCreation_Product) as Product;
+            NgpDataSet dataSet = DeeContextHelper.GetContextParameter(CustomIncomingMaterialLotCreation_DataSet) as NgpDataSet;
 
             Facility facility = new Facility() { Name = materialData.Facility };
             facility.Load();
@@ -198,12 +209,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             // Validate if material already exists on the system
             if ((bool)isToCreateLot)
             {
+                #region Create Lot and Wafers
                 incomingLot.Facility = facility;
                 incomingLot.PrimaryQuantity = quantity * materialData.Wafers.Count;
                 incomingLot.PrimaryUnits = product.DefaultUnits;
-                incomingLot.Form = materialData.Form;
-                incomingLot.Type = materialData.Type;
-                
                 incomingLot.Create();
 
                 // set attributes of lot
@@ -237,7 +246,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                             parametersName.Add(edcData.Name);
                         }
                         waferEDCData.Add(waferData.Name, edcValues);
-                    } 
+                    }
                 }
 
                 if (wafers.Count > 0)
@@ -247,10 +256,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 }
 
                 wafers.Load();
-                incomingLot.Load();
+                incomingLot.Load(); 
+                #endregion
             }
             else
             {
+                #region Update Lot and Wafers 
                 // validate lot is on hold
                 if (incomingLot.HoldCount > 0)
                 {
@@ -259,24 +270,14 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     incomingLot.Release(materialHoldReasons, false);
                 }
 
-                if (!incomingLot.Form.Equals(materialData.Form))
-                {
-                    incomingLot.Form = materialData.Form;
-                }
-
                 // set attributes of lot
                 incomingLot.LoadAttributes();
                 incomingLot.SaveAttributes(AMSOsramUtilities.GetAttributesFromXMLMaterialAttributes(materialAttributes, materialData.MaterialAttributes));
-
-                incomingLot.Save();
                 incomingLot.SubMaterials.LoadAttributes();
 
                 foreach (Material wafer in incomingLot.SubMaterials)
                 {
                     Wafer waferData = materialData.Wafers.FirstOrDefault(w => w.Name.Equals(wafer.Name));
-
-                    wafer.Form = waferData.Form;
-                    wafer.Type = materialData.Type;
 
                     waferAttributes.Add(wafer.Name, AMSOsramUtilities.GetAttributesFromXMLMaterialAttributes(materialAttributes, waferData.MaterialAttributes));
 
@@ -289,7 +290,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     waferEDCData.Add(waferData.Name, edcValues);
                 }
                 incomingLot.SubMaterials.Save();
-                wafers.AddRange(incomingLot.SubMaterials);
+                wafers.AddRange(incomingLot.SubMaterials); 
+                #endregion
             }
 
             if (materialData.StateModel != null && materialData.State != null)
@@ -297,7 +299,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 AMSOsramUtilities.SetMaterialStateModel(incomingLot, materialData.StateModel, materialData.State);
             }
 
-            NgpDataSet dataSet = AMSOsramUtilities.GetCertificateInformation(incomingLot);
             parametersName = parametersName.Distinct().ToList();
 
             string certificateName = string.Empty;
