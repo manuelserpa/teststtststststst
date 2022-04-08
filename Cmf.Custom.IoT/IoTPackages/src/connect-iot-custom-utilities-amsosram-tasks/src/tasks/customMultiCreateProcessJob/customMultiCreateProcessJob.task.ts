@@ -63,7 +63,8 @@ export class CustomMultiCreateProcessJobTask implements Task.TaskInstance, Custo
     public MaterialFormat: string = "0x0e";
     public SendCarrierContent: boolean = false;
     public RecipeSpecificationType: RecipeSpecificationType = RecipeSpecificationType.RecipeWithoutVariableTuning;
-    public occupiedSlot = "1"
+    public occupiedSlot = "1";
+    public useCarrierAtLoadPortAsContainer: boolean;
 
     /** **Outputs** */
     /** To output a success notification */
@@ -133,7 +134,10 @@ export class CustomMultiCreateProcessJobTask implements Task.TaskInstance, Custo
                         const slotMap = [];
                         const carrierContent = {
                             type: "L", value: [
-                                { type: "A", value: material.ContainerName }, // Carrier Content
+                                {
+                                    type: "A", value: (this.useCarrierAtLoadPortAsContainer ?
+                                        `CarrierAtLoadPort${material.LoadPortPosition}` : material.ContainerName)
+                                }, // Carrier Content
                                 { type: "L", value: slotMap } // Empty parameter list
                             ]
                         };
@@ -247,6 +251,8 @@ export interface CustomMultiCreateProcessJobSettings {
     SendCarrierContent: boolean;
     RecipeSpecificationType: RecipeSpecificationType;
     occupiedSlot: string;
+    useCarrierAtLoadPortAsContainer: boolean;
+
 }
 
 export enum RecipeSpecificationType {

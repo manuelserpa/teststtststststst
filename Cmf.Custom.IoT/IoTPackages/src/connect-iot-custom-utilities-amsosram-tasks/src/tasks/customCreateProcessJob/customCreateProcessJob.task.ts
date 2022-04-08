@@ -65,6 +65,7 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
     public SendCarrierContent: boolean = false;
     public RecipeSpecificationType: RecipeSpecificationType = RecipeSpecificationType.RecipeWithoutVariableTuning;
     public occupiedSlot = "1"
+    public useCarrierAtLoadPortAsContainer = false;
 
     /** **Outputs** */
     /** To output a success notification */
@@ -128,7 +129,10 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
                         const slotMap = [];
                         const carrierContent = {
                             type: "L", value: [
-                                { type: "A", value: material.ContainerName }, // Carrier Content
+                                {
+                                    type: "A", value: (this.useCarrierAtLoadPortAsContainer ?
+                                        `CarrierAtLoadPort${material.LoadPortPosition}` : material.ContainerName)
+                                }, // Carrier Content
                                 { type: "L", value: slotMap } // Empty parameter list
                             ]
                         };
@@ -244,6 +248,7 @@ export interface CustomCreateProcessJobSettings {
     SendCarrierContent: boolean;
     RecipeSpecificationType: RecipeSpecificationType;
     occupiedSlot: string;
+    useCarrierAtLoadPortAsContainer: boolean;
 }
 
 export enum RecipeSpecificationType {

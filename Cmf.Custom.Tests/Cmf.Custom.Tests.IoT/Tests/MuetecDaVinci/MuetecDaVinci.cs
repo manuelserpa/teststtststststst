@@ -58,6 +58,8 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
         public bool createProcessJobReceived = false;
         public bool createProcessJobDenied = false;
 
+        public bool isValidProceedWithCarrier = true;
+        public int proceedWithCarriersReceived = 0;
 
 
         private int chamberToProcess = 1;
@@ -114,7 +116,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            var step = new Step { Name = stepName};
+            var step = new Step { Name = stepName };
             step.Load();
             step.UseInStepSampling = true;
             step.Save();
@@ -497,7 +499,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
 
             // Trigger event
 
-            switch(loadPortToSet)
+            switch (loadPortToSet)
             {
                 case 1:
                     base.Equipment.SendMessage(String.Format($"LP1/CarrierArrived"), null);
@@ -517,6 +519,19 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
         public override void CarrierInValidation(CustomMaterialScenario MESScenario, int loadPortToSet)
         {
             base.CarrierInValidation(MESScenario, loadPortToSet);
+
+            //Send the event for UnknownCarrierID
+            base.Equipment.Variables["PortID"] = loadPortToSet;
+
+            // Trigger event
+            base.Equipment.SendMessage(String.Format($"UnknownCarrierID"), null);
+
+            Thread.Sleep(300);
+
+            ValidateProceedWithCarrierReceived(1);
+
+            if (!isValidProceedWithCarrier)
+                Assert.Fail("Wrong ProceedWithCarrier Format!");
 
             var slotMap = new int[13];
             // scenario.ContainerScenario.Entity
@@ -542,6 +557,8 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
 
             ValidatePersistenceContainerExists(loadPortToSet);
         }
+
+
 
         public override bool CarrierOut(CustomMaterialScenario scenario)
         {
@@ -609,12 +626,13 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
         public override bool PostTrackInActions(CustomMaterialScenario scenario)
         {
 
+            ValidateProceedWithCarrierReceived(2);
 
             if (!isOnlineRemote)
             {
                 Assert.Fail("Track In must fail on Online Local");
             }
-            
+
 
             TestUtilities.WaitFor(60, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
             {
@@ -643,9 +661,9 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             {
                 var material = scenario.Entity.SubMaterials.Single(c => c.SystemState.ToString().Equals(MaterialSystemState.Queued.ToString()));
 
-                int halfIndex = (scenario.Entity.SubMaterials.Count())/ 2;
+                int halfIndex = (scenario.Entity.SubMaterials.Count()) / 2;
                 //There is a bug here... Just for the sake of the validation
-                var materialContainer = scenario.ContainerScenario.Entity.ContainerMaterials.Single(p => p.SourceEntity.Name == material.Name && p.Position == (halfIndex+2));
+                var materialContainer = scenario.ContainerScenario.Entity.ContainerMaterials.Single(p => p.SourceEntity.Name == material.Name && p.Position == (halfIndex + 2));
             }
 
             if (samplingPattern == "LAST")
@@ -654,8 +672,8 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
 
                 var materialContainer = scenario.ContainerScenario.Entity.ContainerMaterials.First(p => p.SourceEntity.Name == material.Name && p.Position == scenario.Entity.SubMaterials.Count);
             }
-            
-            
+
+
 
             base.Equipment.Variables["CarrierID"] = scenario.ContainerScenario.Entity.Name;
             base.Equipment.Variables["CarrierAccessingStatus"] = 1;
@@ -679,14 +697,16 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             wafer.Load();
             wafer.LoadRelations();
             wafer.ParentMaterial.Load();
+            wafer.MaterialContainer.First().TargetEntity.Load();
 
             DummyList dummyList = new DummyList(base.Equipment) { LoadPortNumber = new int[] { 0 } };
-
+            SimpleAscList substSourceList = new SimpleAscList(base.Equipment) { Ascs = new string[] { String.Format("{0}{1}.{2:D2}", "CarrierAtLoadPort",loadPortNumber, wafer.MaterialContainer.First().Position) } };
 
             SubstIDList substIDList = new SubstIDList(base.Equipment) { SubstIDInternalList = new SubstIDInternalList { SubstID = wafer.Name } };
 
-            SubstHistoryList substHistoryList = new SubstHistoryList(base.Equipment) 
-            { SubstHistoryInternalList = new SubstHistoryInternalList
+            SubstHistoryList substHistoryList = new SubstHistoryList(base.Equipment)
+            {
+                SubstHistoryInternalList = new SubstHistoryInternalList
                 {
                     SubstHistoryEntryList = new List<SubstHistoryEntry>
                     {
@@ -715,7 +735,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
                             TimeOut = "32"
                         }
                     }
-                } 
+                }
             };
 
 
@@ -724,7 +744,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             base.Equipment.Variables["SubstIDStatusList"] = dummyList;
             base.Equipment.Variables["SubstSubstLocIDList"] = dummyList;
             base.Equipment.Variables["SubstDestinationList"] = dummyList;
-            base.Equipment.Variables["SubstSourceList"] = dummyList;
+            base.Equipment.Variables["SubstSourceList"] = substSourceList;
             base.Equipment.Variables["SubstHistoryList"] = substHistoryList;
             base.Equipment.Variables["SubstMtrlStatusList"] = dummyList;
 
@@ -737,7 +757,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             base.Equipment.Variables["SubstUsageList"] = dummyList;
 
             ////// Trigger event
-           base.Equipment.SendMessage($"NeedsProcessing2InProcess", null);
+            base.Equipment.SendMessage($"NeedsProcessing2InProcess", null);
 
             Thread.Sleep(2000);
 
@@ -899,6 +919,18 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
 
         public virtual bool OnS3F17(SecsMessage request, SecsMessage reply)
         {
+            var requestDataForContainer = request.Item.GetChildList()[2].GetValue().ToString();
+            var requestDataForLoadPort = request.Item.GetChildList()[2].GetValue().ToString();
+            //var requestDataForParameters = request.Item.GetChildList()[4].GetValue().ToString();
+
+            if (!requestDataForContainer.Equals($"CarrierAtLoadPort{loadPortNumber}"))
+            {
+                isValidProceedWithCarrier = false;
+            }
+
+
+
+
             reply.Item.Clear();
             var ack = new SecsItem { U1 = new byte[] { 0x00 } };
 
@@ -921,6 +953,8 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             reply.Item.Add(ack);
 
             reply.Item.Add(errorList);
+
+            proceedWithCarriersReceived++;
 
             return (true);
         }
@@ -1100,6 +1134,23 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             }
 
             return dcic;
+        }
+
+        private void ValidateProceedWithCarrierReceived(int numberExpected = -1)
+        {
+            TestUtilities.WaitFor(30, "Notification mismatch.", () =>
+            {
+                if (numberExpected >= 0)
+                {
+                    return numberExpected == proceedWithCarriersReceived;
+                }
+                else
+                {
+                    return true;
+                }
+
+
+            });
         }
     }
 }
