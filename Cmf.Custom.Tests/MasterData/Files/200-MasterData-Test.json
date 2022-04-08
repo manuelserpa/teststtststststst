@@ -94,6 +94,12 @@
 			"Roles": "Administrators",
 			"IsEnabled": "Yes",
 			"Token": ""
+		},
+		"4": {
+			"UserAccount": "CMF\\ruifrocha",
+			"Roles": "Administrators",
+			"IsEnabled": "Yes",
+			"Token": ""
 		}
 	},
 	"<DM>Resource": {
