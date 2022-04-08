@@ -1,6 +1,6 @@
 {
   "packageId": "Cmf.Custom.IoT.Packages",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Cmf Custom AMSOsram Cmf.Custom.IoT.Packages Package",
   "packageType": "IoT",
   "isInstallable": true,
