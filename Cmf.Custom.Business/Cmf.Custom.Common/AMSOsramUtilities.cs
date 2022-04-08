@@ -1,6 +1,7 @@
 ﻿using Cmf.Common.CustomActionUtilities;
 using Cmf.Custom.AMSOsram.BusinessObjects;
 using Cmf.Custom.AMSOsram.Common.DataStructures;
+using Cmf.Custom.AMSOsram.Common.ERP;
 using Cmf.Custom.AMSOsram.Common.Extensions;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.Cultures;
@@ -1275,7 +1276,7 @@ namespace Cmf.Custom.AMSOsram.Common
                     SampleId = "Sample 1",
                     ReadingNumber = 1,
                     TargetEntity = parameter,
-                    Value = waferPoints[parameter.Name]
+                    Value = AMSOsramUtilities.GetParameterValueAsDataType(parameter.DataType, waferPoints[parameter.Name].ToString())
                 };
                 dcPoints.Add(point);
 
@@ -1327,7 +1328,7 @@ namespace Cmf.Custom.AMSOsram.Common
                     ReadingNumber = 1,
                     TargetEntity = parameter,
                     SourceEntity = dcInstance,
-                    Value = waferPoints[parameter.Name]
+                    Value = AMSOsramUtilities.GetParameterValueAsDataType(parameter.DataType, waferPoints[parameter.Name].ToString())
                 };
                 dcPoints.Add(point);
 
@@ -1529,6 +1530,18 @@ namespace Cmf.Custom.AMSOsram.Common
                 material.SetMainStateModel(currentEntityState);
             }
         }
+
+        public static AttributeCollection GetAttributesFromXMLMaterialAttributes(Dictionary<string, object> materialAttributes, List<MaterialAttributes> xmlAttributes)
+        {
+            AttributeCollection attributes = new AttributeCollection();
+            foreach (MaterialAttributes attribute in xmlAttributes)
+            {
+                ScalarType scalarType = materialAttributes[attribute.Name] as ScalarType;
+                attributes.Add(attribute.Name, AMSOsramUtilities.GetAttributeValueAsDataType(scalarType, attribute.value));
+            }
+            return attributes;
+        }
+
 
         #endregion
 
