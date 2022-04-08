@@ -271,7 +271,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         /// <summary> 
         /// Scenario: Control State to Host Offline
         /// </summary>
-        [TestMethod]
+        // [TestMethod]
         public void EvatecClusterline200II_EPTStateChangeTest()
         {
 
@@ -418,13 +418,15 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         {
 
             //CarrierClamped
-            base.Equipment.Variables["CarrierID_CarrierReport"] = $"CarrierAtPort{loadPortToSet}";
-            base.Equipment.Variables["CarrierLocationID"] = $"LP{loadPortToSet}";
-            base.Equipment.Variables["LocationID"] = $"LP{loadPortToSet}";
+            base.Equipment.Variables["PortTransferState"] = 1;
+            base.Equipment.Variables["PortReservationState"] = 0;
+            base.Equipment.Variables["CarrierID_CarrierReport"] = "";
+            base.Equipment.Variables["PortAccessMode"] = 0;
+            base.Equipment.Variables["PortAssociationState"] = 0;
             base.Equipment.Variables["PortID_CarrierReport"] = loadPortToSet;
 
             // Trigger event
-            base.Equipment.SendMessage(String.Format($"CarrierClamped"), null);
+            base.Equipment.SendMessage(String.Format($"MaterialReceived"), null);
         
             return true;
 
@@ -438,13 +440,13 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             //material received MaterialReceived
             base.Equipment.Variables["PortTransferState"] = 1;
             base.Equipment.Variables["PortReservationState"] = 0;
-            base.Equipment.Variables["CarrierID_CarrierReport"] = "";
+            base.Equipment.Variables["CarrierID_CarrierReport"] = $"CarrierAtPort{loadPortToSet}"; ;
             base.Equipment.Variables["PortAccessMode"] = 0;
             base.Equipment.Variables["PortAssociationState"] = 0;
             base.Equipment.Variables["PortID_CarrierReport"] = loadPortToSet;
 
             // Trigger event
-            base.Equipment.SendMessage(String.Format($"MaterialReceived"), null);
+            base.Equipment.SendMessage(String.Format($"MaterialReadyToLoad"), null);
 
             // wait for load 
             TestUtilities.WaitFor(60, String.Format($"Load Container Command never received"), () =>
@@ -479,7 +481,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             {
                 for (int i = 0; i < 13; i++)
                 {
-                    slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 1 : 0;
+                    slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
                 }
             }
             SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
