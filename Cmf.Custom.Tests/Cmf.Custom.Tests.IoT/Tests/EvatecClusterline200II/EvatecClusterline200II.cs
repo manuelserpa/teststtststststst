@@ -271,7 +271,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         /// <summary> 
         /// Scenario: Control State to Host Offline
         /// </summary>
-        [TestMethod]
+        // [TestMethod]
         public void EvatecClusterline200II_EPTStateChangeTest()
         {
 
