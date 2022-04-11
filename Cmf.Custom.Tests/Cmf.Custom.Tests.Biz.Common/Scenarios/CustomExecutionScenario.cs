@@ -8,6 +8,7 @@ using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
 using Cmf.Foundation.Common.Base;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cmf.Custom.Tests.Biz.Common.Scenarios
@@ -43,6 +44,22 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         public GoodsReceiptCertificate GoodsReceiptCertificate;
 
         /// <summary>
+        /// SmartTableManager
+        /// </summary>
+        public SmartTableManager SmartTableManager { get; set; } = new SmartTableManager();
+
+        /// <summary>
+        /// List of smart tables to be cleared in Setup
+        /// </summary>
+        public List<string> SmartTablesToClearInSetup { get; set; } = new List<string>();
+
+        /// <summary>
+        /// SmartTable MaterialDataCollectionContext 
+        /// </summary>
+        public List<Dictionary<string, string>> MaterialDCContext = new List<Dictionary<string, string>>();
+        #endregion
+
+        /// <summary>
         /// CustomExecutionScenario Constructor
         /// </summary>
         public CustomExecutionScenario()
@@ -54,13 +71,28 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
             this.GoodsReceiptCertificate = new GoodsReceiptCertificate();
         }
 
-        #endregion
-
         public override void Setup()
         {
             string messageType = string.Empty;
 
             string xmlMessage = string.Empty;
+
+            #region Smart Table Configuration
+
+            foreach (string smartTableName in SmartTablesToClearInSetup)
+            {
+                SmartTableManager.ClearSmartTable(smartTableName);
+            }
+
+            if (MaterialDCContext.Any())
+            {
+                foreach (Dictionary<string, string> row in MaterialDCContext)
+                {
+                    SmartTableManager.SetSmartTableData("MaterialDataCollectionContext", row);
+                }
+            }
+
+            #endregion
 
             if (IsToSendIncomingMaterial)
             {
@@ -97,6 +129,11 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 
         public override void CompleteCleanUp()
         {
+            if (MaterialDCContext.Any() || SmartTablesToClearInSetup.Any())
+            {
+                SmartTableManager.TearDown();
+            }
+
             // Remove created Integration Entries
             TerminateIntegrationEntries();
 

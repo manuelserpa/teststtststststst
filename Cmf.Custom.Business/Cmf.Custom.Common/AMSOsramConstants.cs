@@ -435,31 +435,6 @@
         /// </summary>
         public static string LocalizedMessageCustomUpdateMaterialDifferentProduct = "CustomUpdateMaterialDifferentProduct";
 
-        /// <summary>
-        /// Localized Message: CustomUpdateMaterialDifferentFlow
-        /// </summary>
-        public static string LocalizedMessageCustomUpdateMaterialDifferentFlow = "CustomUpdateMaterialDifferentFlow";
-
-        /// <summary>
-        /// Localized Message: CustomUpdateMaterialDifferentStep
-        /// </summary>
-        public static string LocalizedMessageCustomUpdateMaterialDifferentStep = "CustomUpdateMaterialDifferentStep";
-
-        /// <summary>
-        /// Localized Message: CustomUpdateMaterialDifferentType
-        /// </summary>
-        public static string LocalizedMessageCustomUpdateMaterialDifferentType = "CustomUpdateMaterialDifferentType";
-
-        /// <summary>
-        /// Localized Message: CustomUpdateMaterialDifferentWafers
-        /// </summary>
-        public static string LocalizedMessageCustomUpdateMaterialDifferentWafers = "CustomUpdateMaterialDifferentWafers";
-
-        /// <summary>
-        /// Localized Message: CustomUpdateMaterialProductWaferSizeMissing
-        /// </summary>
-        public static string LocalizedMessageCustomUpdateMaterialProductWaferSizeMissing = "CustomUpdateMaterialProductWaferSizeMissing";
-
         #endregion
 
         #region State Model

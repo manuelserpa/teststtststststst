@@ -275,8 +275,19 @@
       "pt-PT": "",
       "zh-TW": "",
       "UsageType": "Biz"
-    },  
+    },
     "2": {
+      "Name": "CustomUpdateMaterialDifferentWaferData",
+      "Description": "Error message to inform that the material that is to update has different wafer information.",
+      "MessageType": "Message",
+      "en-US": "Material {0} wafers are different than the incoming wafer data.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    },
+    "3": {
       "Name": "CustomWrongCertificateConfiguration",
       "Description": "Error message to inform that the material that is to update has the wrong certificate configuration.",
       "MessageType": "Message",
@@ -292,61 +303,6 @@
       "Description": "Error message to inform that the material that is to update has a different product.",
       "MessageType": "Message",
       "en-US": "The material {0} product can not be changed to {1}",
-      "de-DE": "",
-      "zh-CN": "",
-      "pt-PT": "",
-      "zh-TW": "",
-      "UsageType": "Biz"
-    },
-	 "4": {
-      "Name": "CustomUpdateMaterialDifferentFlow",
-      "Description": "Error message to inform that the material that is to update has a different flow.",
-      "MessageType": "Message",
-      "en-US": "The material {0} flow can not be changed to {1}",
-      "de-DE": "",
-      "zh-CN": "",
-      "pt-PT": "",
-      "zh-TW": "",
-      "UsageType": "Biz"
-    },
-	"5": {
-      "Name": "CustomUpdateMaterialDifferentStep",
-      "Description": "Error message to inform that the material that is to update has a different step.",
-      "MessageType": "Message",
-      "en-US": "The material {0} step can not be changed to {1}",
-      "de-DE": "",
-      "zh-CN": "",
-      "pt-PT": "",
-      "zh-TW": "",
-      "UsageType": "Biz"
-    },
-	"6": {
-      "Name": "CustomUpdateMaterialDifferentType",
-      "Description": "Error message to inform that the material that is to update has a different type.",
-      "MessageType": "Message",
-      "en-US": "The material {0} type can not be changed to {1}",
-      "de-DE": "",
-      "zh-CN": "",
-      "pt-PT": "",
-      "zh-TW": "",
-      "UsageType": "Biz"
-    },
-	"7": {
-      "Name": "CustomUpdateMaterialDifferentWafers",
-      "Description": "Error message to inform that the material that is to update has a different wafer content.",
-      "MessageType": "Message",
-      "en-US": "The lot {0} contains {1} wafers instead of {2}",
-      "de-DE": "",
-      "zh-CN": "",
-      "pt-PT": "",
-      "zh-TW": "",
-      "UsageType": "Biz"
-    },
-  "8": {
-      "Name": "CustomUpdateMaterialProductWaferSizeMissing",
-      "Description": "Error message to inform that the material that is to update has a different wafer content.",
-      "MessageType": "Message",
-      "en-US": "The product {0} must have a parameter 'Wafer Size'.",
       "de-DE": "",
       "zh-CN": "",
       "pt-PT": "",

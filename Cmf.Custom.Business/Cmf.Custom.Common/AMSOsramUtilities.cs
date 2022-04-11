@@ -1236,26 +1236,22 @@ namespace Cmf.Custom.AMSOsram.Common
         /// </summary>
         /// <param name="dataCollectionInstance"></param>
         /// <returns></returns>
-        public static bool IsDataCollectionLimiSetViolated(DataCollectionInstance dataCollectionInstance)
+        public static bool ValidateDataCollectionLimitSetValues(DataCollectionInstance dataCollectionInstance)
         {
             dataCollectionInstance.LoadRelations("DataCollectionPoint");
-
             DataCollectionLimitSet dataCollectionLimitSet = dataCollectionInstance.DataCollectionLimitSet;
-            
             DataCollectionPointCollection dataCollectionPoints = dataCollectionInstance.DataCollectionPoints;
-
-
 
             foreach (DataCollectionParameterLimit parameterLimit in dataCollectionLimitSet.DataCollectionParameterLimits)
             {
                 DataCollectionPoint dcPoint = dataCollectionPoints.FirstOrDefault(dcp => dcp.GetNativeValue<long>(Constants.TargetEntity).Equals(parameterLimit.GetNativeValue<long>(Constants.TargetEntity)));
-            
                 decimal value = Convert.ToDecimal(dcPoint.Value);
 
                 if ((parameterLimit.UpperErrorLimit != null && value > parameterLimit.UpperErrorLimit) || (parameterLimit.LowerErrorLimit != null && value < parameterLimit.LowerErrorLimit))
                 {
                     return false;
                 }
+
             }
 
             return true;
@@ -1269,11 +1265,10 @@ namespace Cmf.Custom.AMSOsram.Common
         /// <param name="waferPoints"></param>
         /// <param name="parametersToUse"></param>
         /// <returns></returns>
-        public static DataCollectionInstance PostImmediateCertificateData(DataCollectionInstance dcInstance, Dictionary<string, object> waferPoints, ParameterCollection parametersToUse = null)
+        public static DataCollectionInstance PostImmediateCertificateData(DataCollectionInstance dcInstance, Dictionary<string, object> waferPoints, ParameterCollection parametersToUse)
         {
             //insert dc point values 
             DataCollectionPointCollection dcPoints = new DataCollectionPointCollection();
-
             foreach (Parameter parameter in parametersToUse)
             {
                 DataCollectionPoint point = new DataCollectionPoint()
@@ -1283,7 +1278,6 @@ namespace Cmf.Custom.AMSOsram.Common
                     TargetEntity = parameter,
                     Value = AMSOsramUtilities.GetParameterValueAsDataType(parameter.DataType, waferPoints[parameter.Name].ToString())
                 };
-
                 dcPoints.Add(point);
 
                 if (dcInstance.RelationCollection == null)
@@ -1356,35 +1350,6 @@ namespace Cmf.Custom.AMSOsram.Common
             PostDataCollectionPointsOutput postDataCollectionPointsOutput = DataCollectionInstanceManagementOrchestration.PostDataCollectionPoints(postDCPointsInput);
 
             return postDataCollectionPointsOutput.DataCollectionInstance;
-        }
-
-        public static DataCollectionInstance PerformCertificateDataCollection(Material wafer, DataCollection dataCollection, DataCollectionLimitSet limitSet, string executionType, Dictionary<string, object> waferPoints)
-        {
-            DataCollectionInstance dataCollectionInstance = new DataCollectionInstance();
-
-            dataCollectionInstance.Material = wafer;
-            dataCollectionInstance.DataCollection = dataCollection;
-            dataCollectionInstance.DataCollectionLimitSet = limitSet;
-
-            ParameterCollection parameters = new ParameterCollection();
-
-            foreach (var waferPoint in waferPoints)
-            {
-                parameters.Add(new Parameter() { Name = waferPoint.Key });
-            }
-
-            parameters.Load();
-
-            if (executionType == "LongRunning")
-            {
-                return PostLongRunningCertificateData(dataCollectionInstance, waferPoints, parameters);
-            }
-            if (executionType == "Immediate")
-            {
-                return PostImmediateCertificateData(dataCollectionInstance, waferPoints, parameters);
-            }
-
-            return null;
         }
 
         #endregion
@@ -1528,7 +1493,7 @@ namespace Cmf.Custom.AMSOsram.Common
         /// </summary>
         /// <param name="lot"></param>
         /// <returns></returns>
-        public static NgpDataSet CustomResolveCertificateDataCollectionContext(Material lot)
+        public static NgpDataSet GetCertificateInformation(Material lot)
         {
             // Get Material information
             string stepName = lot.Step?.Name;
@@ -1566,67 +1531,17 @@ namespace Cmf.Custom.AMSOsram.Common
             }
         }
 
-        /// <summary>
-        /// Gets the Entity Attributes Definition (Name; Type)
-        /// </summary>
-        /// <param name="entityName">The Entity Name.</param>
-        /// <returns>A Dictionary of the Attributes Definition.</returns>
-        public static Dictionary<string, object> GetEntityAttributesDefinition(string entityName)
-        {
-            Dictionary<string, object> attributes = new Dictionary<string, object>();
-
-            EntityType entityType = new EntityType();
-
-            entityType.Load(entityName);
-
-            entityType.LoadProperties();
-
-            if (entityType.Properties !=null && entityType.Properties.Any())
-            {
-               IEnumerable<IEntityTypeProperty> attributesDefinition = entityType.Properties.Where(w => w.PropertyType == EntityTypePropertyType.Attribute);
-
-                if (attributesDefinition !=null && attributesDefinition.Any())
-                {
-                    attributes = attributesDefinition.Select(s => new KeyValuePair<string, object>(s.Name, s.ScalarType)).ToDictionary(d => d.Key, d => d.Value);
-                }
-            }
-
-            return attributes;
-        }
-
-        /// <summary>
-        /// Gets the Material Attributes From XML.
-        /// </summary>
-        /// <param name="lotAttributes"></param>
-        /// <param name="xmlAttributes"></param>
-        /// <returns></returns>
-        public static AttributeCollection GetMaterialAttributesFromXML(Dictionary<string, object> lotAttributes, List<MaterialAttributes> xmlAttributes)
+        public static AttributeCollection GetAttributesFromXMLMaterialAttributes(Dictionary<string, object> materialAttributes, List<MaterialAttributes> xmlAttributes)
         {
             AttributeCollection attributes = new AttributeCollection();
-
             foreach (MaterialAttributes attribute in xmlAttributes)
             {
-                if (lotAttributes !=null && lotAttributes.ContainsKey(attribute.Name))
-                {
-                    ScalarType scalarType = lotAttributes[attribute.Name] as ScalarType;
-                    attributes.Add(attribute.Name, AMSOsramUtilities.GetAttributeValueAsDataType(scalarType, attribute.value));
-                }
+                ScalarType scalarType = materialAttributes[attribute.Name] as ScalarType;
+                attributes.Add(attribute.Name, AMSOsramUtilities.GetAttributeValueAsDataType(scalarType, attribute.value));
             }
-
             return attributes;
         }
 
-        public static Dictionary<string, object> GetMaterialEDCDataFromXML(List<MaterialEDCData> xmlEDCCollection)
-        {
-            Dictionary<string, object> edcData = new Dictionary<string, object>();
-
-            foreach (MaterialEDCData xmlEDC in xmlEDCCollection)
-            {
-                edcData.Add(xmlEDC.Name, xmlEDC.Value);
-            }
-
-            return edcData;
-        }
 
         #endregion
 
