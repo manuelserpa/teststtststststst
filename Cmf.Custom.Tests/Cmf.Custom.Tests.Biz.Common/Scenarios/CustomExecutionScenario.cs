@@ -8,6 +8,7 @@ using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
 using Cmf.Foundation.Common.Base;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cmf.Custom.Tests.Biz.Common.Scenarios
@@ -43,8 +44,25 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         public GoodsReceiptCertificate GoodsReceiptCertificate;
 
         /// <summary>
+        /// SmartTableManager
+        /// </summary>
+        public SmartTableManager SmartTableManager { get; set; } = new SmartTableManager();
+
+        /// <summary>
+        /// List of smart tables to be cleared in Setup
+        /// </summary>
+        public List<string> SmartTablesToClearInSetup { get; set; } = new List<string>();
+
+        /// <summary>
+        /// SmartTable MaterialDataCollectionContext 
+        /// </summary>
+        public List<Dictionary<string, string>> MaterialDCContext = new List<Dictionary<string, string>>();
+        /// <summary>
         /// CustomExecutionScenario Constructor
         /// </summary>
+
+        #endregion
+
         public CustomExecutionScenario()
         {
             this.IntegrationEntries = new IntegrationEntryCollection();
@@ -54,7 +72,6 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
             this.GoodsReceiptCertificate = new GoodsReceiptCertificate();
         }
 
-        #endregion
 
         public override void Setup()
         {

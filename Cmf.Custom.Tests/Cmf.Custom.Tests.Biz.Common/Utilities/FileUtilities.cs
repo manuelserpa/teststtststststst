@@ -28,13 +28,13 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             return result;
         }
 
-        public static string LoadXmlFile(string filePath)
+        public static string LoadFile(string filePath)
         {
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filePath);
 
             if (!File.Exists(path))
             {
-                Assert.Fail($"No XML file found at the specified path: {filePath}");
+                Assert.Fail($"No file found at the specified path: {filePath}");
             }
 
             return File.ReadAllText(path);
