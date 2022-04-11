@@ -1077,6 +1077,41 @@
       "Lookup Table Value": "RETICLE",
       "Lookup Table Value Description": "",
       "Lookup Table IsEnabled": "Yes"
+    },
+	 "5": {
+      "LookUp Table": "FlowType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Durable",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "Yes"
+    },
+	"6": {
+      "LookUp Table": "ProductGroupType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Reticles",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "Yes"
+    },
+	 "7": {
+      "LookUp Table": "ResourceType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Storage",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "Yes"
+    },
+	 "8": {
+      "LookUp Table": "MaterialForm",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Durable",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "Yes"
+    },
+	"9": {
+      "LookUp Table": "MaterialType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Part",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "Yes"
     }
   },
   "<DM>Service": {
