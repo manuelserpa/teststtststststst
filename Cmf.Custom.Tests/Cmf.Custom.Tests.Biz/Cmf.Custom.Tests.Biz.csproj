@@ -55,13 +55,7 @@
     <None Update="ERP\Samples\SampleGoodsReceiptCertificate.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="ERP\Samples\SampleGoodsReceiptDifferentWafer.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="ERP\Samples\SampleGoodsReceiptUncertificated.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="ERP\Samples\SampleGoodsReceiptWithoutWafer.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
