@@ -115,18 +115,32 @@
 			]
 		},
 		{
-			"id": "0f2d5a7a-0d29-45d6-8b71-312cbbe8f1d4",
+			"id": "b32b60b5-4a70-4880-8c55-5f33e17be417",
 			"sourceId": "task_3640",
-			"targetId": "task_3786",
-			"inputName": "materials",
+			"targetId": "task_22898",
+			"inputName": "MaterialDataIn",
 			"outputName": "data"
 		},
 		{
-			"id": "14dc06c3-c8b0-42e0-a46c-9eb20ee840ad",
+			"id": "5f405e55-e5ff-4e5d-bcbb-1aa3d2e06efd",
 			"sourceId": "task_3640",
-			"targetId": "task_3786",
+			"targetId": "task_22898",
 			"inputName": "activate",
 			"outputName": "data"
+		},
+		{
+			"id": "d5cfe278-3743-4d62-b6cb-c0a29e943c21",
+			"sourceId": "task_22898",
+			"targetId": "task_3786",
+			"inputName": "materials",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "d1bd1e07-5fe1-4656-bc1d-0a815680463d",
+			"sourceId": "task_22898",
+			"targetId": "task_3786",
+			"inputName": "activate",
+			"outputName": "MaterialDataOut"
 		}
 	],
 	"layout": {
@@ -163,10 +177,16 @@
 					}
 				},
 				"links": {
-					"0f2d5a7a-0d29-45d6-8b71-312cbbe8f1d4": {
+					"b32b60b5-4a70-4880-8c55-5f33e17be417": {
 						"vertices": []
 					},
-					"14dc06c3-c8b0-42e0-a46c-9eb20ee840ad": {
+					"5f405e55-e5ff-4e5d-bcbb-1aa3d2e06efd": {
+						"vertices": []
+					},
+					"d5cfe278-3743-4d62-b6cb-c0a29e943c21": {
+						"vertices": []
+					},
+					"d1bd1e07-5fe1-4656-bc1d-0a815680463d": {
 						"vertices": []
 					},
 					"81ed7089-1805-4419-a4ea-aeb3bca529db": {

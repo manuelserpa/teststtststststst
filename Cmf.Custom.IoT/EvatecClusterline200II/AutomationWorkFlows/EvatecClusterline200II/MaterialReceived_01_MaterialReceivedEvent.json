@@ -118,6 +118,22 @@
 					{
 						"property": {
 							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortTransferState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortReservationState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
 							"Name": "CarrierID_CarrierReport",
 							"DataType": 0
 						},
@@ -126,16 +142,16 @@
 					{
 						"property": {
 							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "CarrierLocationID",
-							"DataType": 0
+							"Name": "PortAccessMode",
+							"DataType": 5
 						},
 						"outputType": "Value"
 					},
 					{
 						"property": {
 							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "LocationID",
-							"DataType": 0
+							"Name": "PortAssociationState",
+							"DataType": 5
 						},
 						"outputType": "Value"
 					},
@@ -152,7 +168,7 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "CarrierClamped"
+						"Name": "MaterialReceived"
 					}
 				]
 			},
@@ -257,8 +273,8 @@
 					}
 				},
 				"pan": {
-					"x": 377.1383140147186,
-					"y": 222.0083772905299
+					"x": 153.33334350585938,
+					"y": 221.11111450195312
 				},
 				"zoom": 0.9500000000000004
 			}

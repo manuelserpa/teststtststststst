@@ -175,6 +175,12 @@
 			"Roles": "Administrators",
 			"IsEnabled": "Yes",
 			"Token": ""
+		},
+		"4": {
+			"UserAccount": "CMF\\rfrocha",
+			"Roles": "Administrators",
+			"IsEnabled": "Yes",
+			"Token": ""
 		}
 	},
 	"<SM>Config": {
