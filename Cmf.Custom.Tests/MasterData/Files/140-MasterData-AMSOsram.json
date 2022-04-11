@@ -1056,22 +1056,15 @@
       "Lookup Table Value": "Durable",
       "Lookup Table Value Description": "",
       "Lookup Table IsEnabled": "Yes"
-    },
-    "2": {
-      "LookUp Table": "ProductType",
-      "Lookup Table Value Parent": "",
-      "Lookup Table Value": "Store",
-      "Lookup Table Value Description": "",
-      "Lookup Table IsEnabled": "Yes"
     },    
-    "3": {
+    "2": {
       "LookUp Table": "Units",
       "Lookup Table Value Parent": "",
       "Lookup Table Value": "µm",
       "Lookup Table Value Description": "",
       "Lookup Table IsEnabled": "Yes"
     },       
-    "4": {
+    "3": {
       "LookUp Table": "BOMType",
       "Lookup Table Value Parent": "",
       "Lookup Table Value": "MG_PW_1500",
