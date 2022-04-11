@@ -116,6 +116,19 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             #region Setup Uncertificated Sample
 
+            customExecutionScenario.SmartTablesToClearInSetup = new List<string> { "MaterialDataCollectionContext" };
+
+            customExecutionScenario.MaterialDCContext = new List<Dictionary<string, string>>()
+            {
+                new Dictionary<string, string> {
+                        { "Step", "M2-SL-Wafer-Start-07301F001_E" },
+                        { "Operation", "Certificate" },
+                        { "DataCollection", "ProductCertificateDataUnitTest" },
+                        { "DataCollectionLimitSet", "ProductCertificateDataLimitSetUnitTest" },
+                        { "DataCollectionType", "Immediate" }
+                    }
+            };
+
             customExecutionScenario.IsToSendIncomingMaterial = true;
 
             customExecutionScenario.GoodsReceiptCertificate = goodsUncertificated;
@@ -255,6 +268,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomIncomingMaterialLotCreation_UpdateLotERPMessage_ErrorDifferentWaferList()
         {
+            
             ///<Step> Prepare another message to create a lot with edc data outside the limits </Step>
             string lotMessageSample = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptUncertificated.xml");
             GoodsReceiptCertificate lotMessage = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(lotMessageSample);
@@ -262,6 +276,17 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string waferlName = lotMessage.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
 
             ///<Step> Send ERP Message </Step>
+            customExecutionScenario.SmartTablesToClearInSetup = new List<string> { "MaterialDataCollectionContext" };
+            customExecutionScenario.MaterialDCContext = new List<Dictionary<string, string>>()
+            {
+                new Dictionary<string, string> {
+                        { "Step", "M2-SL-Wafer-Start-07301F001_E" },
+                        { "Operation", "Certificate" },
+                        { "DataCollection", "ProductCertificateDataUnitTest" },
+                        { "DataCollectionLimitSet", "ProductCertificateDataLimitSetUnitTest" },
+                        { "DataCollectionType", "Immediate" }
+                    }
+            };
             customExecutionScenario.IsToSendIncomingMaterial = true;
             customExecutionScenario.GoodsReceiptCertificate = lotMessage;
             customExecutionScenario.Setup();
@@ -336,6 +361,17 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string waferlName = lotMessage.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
 
             ///<Step> Send ERP Message </Step>
+            customExecutionScenario.SmartTablesToClearInSetup = new List<string> { "MaterialDataCollectionContext" };
+            customExecutionScenario.MaterialDCContext = new List<Dictionary<string, string>>()
+            {
+                new Dictionary<string, string> {
+                        { "Step", "M2-SL-Wafer-Start-07301F001_E" },
+                        { "Operation", "Certificate" },
+                        { "DataCollection", "ProductCertificateDataUnitTest" },
+                        { "DataCollectionLimitSet", "ProductCertificateDataLimitSetUnitTest" },
+                        { "DataCollectionType", "Immediate" }
+                    }
+            };
             customExecutionScenario.IsToSendIncomingMaterial = true;
             customExecutionScenario.GoodsReceiptCertificate = lotMessage;
             customExecutionScenario.Setup();
@@ -364,7 +400,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
-            string expectedErrorMessage = $"Material {lotName} is on different flow or step. The error was reported by action CustomIncomingMaterialLotCreation.";
+            string expectedErrorMessage = $"The material {lotName} step can not be changed to {lotMessage.Material.Step}. The error was reported by action CustomIncomingMaterialLotCreation.";
             Assert.IsTrue(expectedErrorMessage.Equals(ie.ResultDescription), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
         }
 
@@ -454,6 +490,17 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string lotName = lotMessage.Material.Name = Guid.NewGuid().ToString("N");
 
             ///<Step> Send ERP Message </Step>
+            customExecutionScenario.SmartTablesToClearInSetup = new List<string> { "MaterialDataCollectionContext" };
+            customExecutionScenario.MaterialDCContext = new List<Dictionary<string, string>>()
+            {
+                new Dictionary<string, string> {
+                        { "Step", "M2-SL-Wafer-Start-07301F001_E" },
+                        { "Operation", "Certificate" },
+                        { "DataCollection", "ProductCertificateDataUnitTest" },
+                        { "DataCollectionLimitSet", "ProductCertificateDataLimitSetUnitTest" },
+                        { "DataCollectionType", "Immediate" }
+                    }
+            };
             customExecutionScenario.IsToSendIncomingMaterial = true;
             customExecutionScenario.GoodsReceiptCertificate = lotMessage;
             customExecutionScenario.Setup();
@@ -513,6 +560,17 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string waferlName = lotMessage.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
 
             ///<Step> Send ERP Message </Step>
+            customExecutionScenario.SmartTablesToClearInSetup = new List<string> { "MaterialDataCollectionContext" };
+            customExecutionScenario.MaterialDCContext = new List<Dictionary<string, string>>()
+            {
+                new Dictionary<string, string> {
+                        { "Step", "M2-SL-Wafer-Start-07301F001_E" },
+                        { "Operation", "Certificate" },
+                        { "DataCollection", "ProductCertificateDataUnitTest" },
+                        { "DataCollectionLimitSet", "ProductCertificateDataLimitSetUnitTest" },
+                        { "DataCollectionType", "Immediate" }
+                    }
+            };
             customExecutionScenario.IsToSendIncomingMaterial = true;
             customExecutionScenario.GoodsReceiptCertificate = lotMessage;
             customExecutionScenario.Setup();
