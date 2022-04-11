@@ -9,6 +9,7 @@ export class CustomMultiCreateProcessJobDesigner implements Task.Designer.TaskDe
     SendCarrierContent: boolean;
     RecipeSpecificationType: RecipeSpecificationType;
     occupiedSlot: string;
+    useCarrierAtLoadPortAsContainer: boolean;
     /**
      * Resolve the inputs to be displayed in the task during design time
      * @param inputs List of inputs automatically resolved.

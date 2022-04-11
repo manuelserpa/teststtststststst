@@ -66,7 +66,7 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "MaterialReceived"
+						"Name": "MaterialReadyToLoad"
 					}
 				]
 			},
@@ -107,6 +107,52 @@
 				"___cmf___name": "Execute Equipment Command"
 			},
 			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_10199",
+			"reference": {
+				"name": "expressionEvaluator",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_expressionType": 0,
+				"_evaluatorBehavior": "EvaluateAll",
+				"___cmf___name": "Expression Evaluator",
+				"_clearInputs": true,
+				"_inputs": [
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": -1,
+						"required": true
+					}
+				],
+				"_outputs": [
+					{
+						"name": "CarrierId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "CarrierId"
+						},
+						"defaultValue": null,
+						"expression": "concat(\"CarrierAtLoadPort\",string(LoadPort))"
+					}
+				]
+			}
 		}
 	],
 	"converters": [
@@ -146,11 +192,25 @@
 			]
 		},
 		{
-			"id": "fc0310c9-93aa-4a81-8f3d-be964946acbe",
+			"id": "5dae24fa-064d-4937-abd5-2c499c4fc036",
 			"sourceId": "task_194418",
+			"targetId": "task_10199",
+			"inputName": "LoadPort",
+			"outputName": "$PortID_CarrierReport"
+		},
+		{
+			"id": "14de57e9-38aa-40c7-9b02-e1e4783e6a47",
+			"sourceId": "task_10199",
+			"targetId": "task_29429",
+			"inputName": "$CARRIERID",
+			"outputName": "CarrierId"
+		},
+		{
+			"id": "768431da-b029-4b11-b791-14124d9268ba",
+			"sourceId": "task_10199",
 			"targetId": "task_29429",
 			"inputName": "activate",
-			"outputName": "$PortID_CarrierReport"
+			"outputName": "CarrierId"
 		}
 	],
 	"layout": {
@@ -179,14 +239,28 @@
 					"task_29429": {
 						"collapsed": false,
 						"position": {
-							"x": 1946,
-							"y": 724
+							"x": 2292,
+							"y": 486
+						},
+						"outdated": false
+					},
+					"task_10199": {
+						"collapsed": false,
+						"position": {
+							"x": 1714,
+							"y": 963
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"fc0310c9-93aa-4a81-8f3d-be964946acbe": {
+					"5dae24fa-064d-4937-abd5-2c499c4fc036": {
+						"vertices": []
+					},
+					"14de57e9-38aa-40c7-9b02-e1e4783e6a47": {
+						"vertices": []
+					},
+					"768431da-b029-4b11-b791-14124d9268ba": {
 						"vertices": []
 					},
 					"3dc34883-6e92-4ee2-9e67-05b949e3ba66": {
@@ -204,8 +278,8 @@
 				},
 				"zoom": 0.7500000000000004,
 				"pan": {
-					"x": 732.2222290039062,
-					"y": 376.66668701171875
+					"x": 657.7777709960938,
+					"y": 198.88890075683594
 				}
 			}
 		}
