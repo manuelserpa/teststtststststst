@@ -2976,43 +2976,6 @@
       "MaximumMaterialSize": ""
     },
     "5": {
-      "Name": "11018814",
-      "Description": "Supplied Raw Material",
-      "Type": "Store",
-      "ProductType": "SemiFinishedGood",
-      "DefaultUnits": "CM2",
-      "IsEnabled": "Yes",
-      "FlowPath": "FOL-UX3_EPA:1/M2-SL-Wafer-Start-07301F001_E:1",
-      "Unit Conversion Factors": "",
-      "Sub Products": "",
-      "Binning Tree": "",
-      "InitialUnitCost": "",
-      "FinishedUnitCost": "",
-      "Yield": "",
-      "CycleTime": "",
-      "IncludeInSchedule": "No",
-      "CapacityClass": "",
-      "MaterialTransferMode": "",
-      "MaterialTransferApprovalMode": "",
-      "MaterialTransferAllowedPickup": "",
-      "ProductGroup": "Supplied Substrate",
-      "IsEnableForMaintenanceManagement": "No",
-      "MaintenanceManagementConsumeQuantity": "",
-      "IsDiscrete": "No",
-      "MoistureSensitivityLevel": "",
-      "FloorLife": "",
-      "FloorLifeUnitOfTime": "",
-      "RequiresApproval": "",
-      "ApprovalRole": "",
-      "CanSplitForPicking": "",
-      "MaterialLogisticsDefaultRequestQuantity": "",
-      "ConsumptionScrap": "",
-      "AdditionalConsumptionQuantity": "",
-      "IsEnabledForMaterialLogistics": "",
-      "DefaultBOM": "",
-      "MaximumMaterialSize": ""
-    },
-    "6": {
       "Name": "11063210",
       "Description": "6\" Sapphire prime/ Mono",
       "Type": "Store",
@@ -3049,7 +3012,7 @@
       "DefaultBOM": "",
       "MaximumMaterialSize": ""
     },
-    "7": {
+    "6": {
       "Name": "11065179",
       "Description": "6\" Sapphire prime for PSS / Mono",
       "Type": "Store",
@@ -3086,7 +3049,7 @@
       "DefaultBOM": "",
       "MaximumMaterialSize": ""
     },
-    "8": {
+    "7": {
       "Name": "11096533",
       "Description": "6\" Si Carrier 625 µm / Okmetic",
       "Type": "Store",
@@ -3123,7 +3086,7 @@
       "DefaultBOM": "",
       "MaximumMaterialSize": ""
     },
-    "9": {
+    "8": {
       "Name": "11072406",
       "Description": "6\" Si Carrier",
       "Type": "Production",
@@ -3160,7 +3123,7 @@
       "DefaultBOM": "",
       "MaximumMaterialSize": ""
     },
-    "10": {
+    "9": {
       "Name": "Reticle_L1_TBV",
       "Description": "Reticle_L1_TBV",
       "Type": "Durable",
@@ -3197,7 +3160,7 @@
       "DefaultBOM": "",
       "MaximumMaterialSize": ""
     },
-    "11": {
+    "10": {
       "Name": "Reticle_L2_TBV",
       "Description": "Reticle_L2_TBV",
       "Type": "Durable",
@@ -3234,7 +3197,7 @@
       "DefaultBOM": "",
       "MaximumMaterialSize": ""
     },
-    "12": {
+    "11": {
       "Name": "Reticle_L3_TBV",
       "Description": "Reticle_L3_TBV",
       "Type": "Durable",
