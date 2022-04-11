@@ -114,7 +114,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialProductWaferSizeMissing, product.Name);
                 }
 
-                incomingLot.Facility = new Facility() { Name = materialData.Facility };
+                Facility facility = new Facility() { Name = materialData.Facility };
+                facility.Load();
+
+                incomingLot.Facility = facility;
                 incomingLot.Form = materialData.Form;
                 incomingLot.Type = materialData.Type;
                 incomingLot.Product = product;
@@ -225,17 +228,23 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             bool isOutOfSpec = false;
 
-            Facility facility = incomingLot.Facility;
-
-            Product product = incomingLot.Product;
-
-            decimal waferSize = Convert.ToDecimal(WaferSizeParameter.Value);
-
             Dictionary<string, object> incomingLotAttributes = AMSOsramUtilities.GetEntityAttributesDefinition(Cmf.Navigo.Common.Constants.Material);
 
             if (!incomingLot.ObjectExists())
             {
+                Facility facility = incomingLot.Facility;
+
+                Product product = incomingLot.Product;
+
+                decimal waferSize = Convert.ToDecimal(WaferSizeParameter.Value);
+
                 incomingLot.Create();
+
+                if (materialData.StateModel != null && materialData.State != null)
+                {
+                    AMSOsramUtilities.SetMaterialStateModel(incomingLot, materialData.StateModel, materialData.State);
+                    incomingLot.Load();
+                }
 
                 foreach (Wafer waferData in materialData.Wafers)
                 {
@@ -330,7 +339,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
                     if (certificateLimitSet != null && AMSOsramUtilities.IsDataCollectionLimiSetViolated(certificateDataCollectionInstance))
                     {
-                        isOutOfSpec = false;
+                        isOutOfSpec = true;
                     }
                 }
             }

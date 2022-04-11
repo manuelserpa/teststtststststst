@@ -1254,11 +1254,11 @@ namespace Cmf.Custom.AMSOsram.Common
 
                 if ((parameterLimit.UpperErrorLimit != null && value > parameterLimit.UpperErrorLimit) || (parameterLimit.LowerErrorLimit != null && value < parameterLimit.LowerErrorLimit))
                 {
-                    return false;
+                    return true;
                 }
             }
 
-            return true;
+            return false;
         }
 
         /// <summary>
