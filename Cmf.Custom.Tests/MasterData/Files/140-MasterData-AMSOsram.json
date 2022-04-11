@@ -1049,21 +1049,7 @@
       "File"
     ]
   },
-  "<SM>LookupTableValues": {
-    "1": {
-      "LookUp Table": "AreaType",
-      "Lookup Table Value Parent": "",
-      "Lookup Table Value": "Production",
-      "Lookup Table Value Description": "",
-      "Lookup Table IsEnabled": "Yes"
-    },
-    "2": {
-      "LookUp Table": "AreaType",
-      "Lookup Table Value Parent": "",
-      "Lookup Table Value": "Warehouse",
-      "Lookup Table Value Description": "",
-      "Lookup Table IsEnabled": "Yes"
-    },
+  "<SM>LookupTableValues": {   
     "3": {
       "LookUp Table": "ChecklistType",
       "Lookup Table Value Parent": "",
