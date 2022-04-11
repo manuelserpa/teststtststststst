@@ -1070,7 +1070,14 @@
       "Lookup Table Value": "MG_PW_1500",
       "Lookup Table Value Description": "MG_PW_1500",
       "Lookup Table IsEnabled": "Yes"
-    }
+    },
+	"4": {
+      "LookUp Table": "StepType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "RETICLE",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "Yes"
+    },
   },
   "<DM>Service": {
     "1": {
