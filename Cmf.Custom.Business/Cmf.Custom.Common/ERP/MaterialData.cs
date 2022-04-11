@@ -69,7 +69,7 @@ namespace Cmf.Custom.AMSOsram.Common.ERP
         public string Name { get; set; }
 
         [XmlAttribute("value")]
-        public string value { get; set; }
+        public string Value { get; set; }
     }
 
     /// <summary>
