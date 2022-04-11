@@ -7,6 +7,9 @@
 		<AssemblyName>Cmf.Custom.AMSOsram.Actions</AssemblyName>
 		<RootNamespace>Cmf.Custom.AMSOsram.Actions</RootNamespace>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath>..\..\LocalEnvironment\BusinessTier</OutputPath>
+	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Cmf.Foundation.BusinessObjects" Version="8.3.3" />
 		<PackageReference Include="Cmf.Foundation.BusinessOrchestration" Version="8.3.3" />

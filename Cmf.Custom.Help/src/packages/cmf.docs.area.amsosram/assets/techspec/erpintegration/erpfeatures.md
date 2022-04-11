@@ -4,5 +4,6 @@ Everything that is created or updated in the MES system to support customer requ
 
 The ERP Features are grouped in the following sections:
 * [Import Product From ERP](/AMSOsram/techspec>erpintegration>erpfeatures>ImportProductFromERP)
+* [Import Lot Incoming From ERP](/AMSOsram/techspec>erpintegration>erpfeatures>ImportLotIncomingFromERP)
 
 

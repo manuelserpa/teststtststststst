@@ -1,15 +1,13 @@
 ﻿using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 {
     /// <summary>
     /// Base Custom Scenario
     /// </summary>
-    public abstract class BaseCustomScenario
+    public abstract class CustomBaseScenario
     {
         /// <summary>
         /// The tear down manager

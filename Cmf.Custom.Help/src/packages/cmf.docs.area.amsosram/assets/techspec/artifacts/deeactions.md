@@ -18,5 +18,6 @@ The following DEE Actions were created to support customer requirements.
 | [CustomSendAbortInformationToIoT](/AMSOsram/techspec>artifacts>deeactions>CustomSendAbortInformationToIoT) | DEE action to Trigger IoT call to send information about Aborted Materials. |
 | [CustomSendTrackInInformationToIoT](/AMSOsram/techspec>artifacts>deeactions>CustomSendTrackInInformationToIoT) | DEE action to Trigger IoT call to send the Materials TrackIn related information. |
 | [CustomSendTrackOutInformationToIoT](/AMSOsram/techspec>artifacts>deeactions>CustomSendTrackOutInformationToIoT) | DEE action to Trigger IoT call to send the Materials Track Out related information. |
+| [CustomIncomingMaterialLotCreation](/AMSOsram/techspec>artifacts>deeactions>CustomIncomingMaterialLotCreation) | DEE action to create or update lot incoming from ERP |
 
 

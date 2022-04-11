@@ -18,7 +18,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
     public class CustomCreateProductFromERP
     {
 
-        private ExecutionScenario _scenario;
+        private CustomExecutionScenario _scenario;
         private CustomTearDownManager customTeardownManager = null;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestInitialize]
         public void TestInitialization()
         {
-            _scenario = new ExecutionScenario();
+            _scenario = new CustomExecutionScenario();
             customTeardownManager = new CustomTearDownManager();
         }
 
@@ -180,7 +180,9 @@ namespace Cmf.Custom.Tests.Biz.ERP
                 }
             };
 
-            _scenario.ERPProductList = productsLists;
+            _scenario.IsToSendProducts = true;
+
+            _scenario.ProductOutput.ProductsData = productsLists;
 
             _scenario.Setup();
 
