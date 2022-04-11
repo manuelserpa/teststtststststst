@@ -31,6 +31,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
             this.customExecutionScenario = new CustomExecutionScenario();
 
             this.customTearDownManager = new CustomTearDownManager();
+
+            this.materials = new MaterialCollection();
         }
 
         /// <summary>
@@ -319,8 +321,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
-            string expectedErrorMessage = $"Material {lotName} wafers are different than the incoming wafer data. The error was reported by action CustomIncomingMaterialLotCreation.";
-            Assert.IsTrue(expectedErrorMessage.Equals(ie.ResultDescription), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+            string expectedErrorMessage = $"The lot {lotName} contains 1 wafers instead of 2";
+            Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
 
             ///<Step> Prepare another message to update the lot without wafers </Step>
             lotMessageSample = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptWithoutWafer.xml");
@@ -335,8 +337,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
-            expectedErrorMessage = $"Material {lotName} wafers are different than the incoming wafer data. The error was reported by action CustomIncomingMaterialLotCreation.";
-            Assert.IsTrue(expectedErrorMessage.Equals(ie.ResultDescription), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+            expectedErrorMessage = $"The lot {lotName} contains 1 wafers instead of 0";
+            Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
         }
 
         /// <summary>
@@ -400,8 +402,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
-            string expectedErrorMessage = $"The material {lotName} step can not be changed to {lotMessage.Material.Step}. The error was reported by action CustomIncomingMaterialLotCreation.";
-            Assert.IsTrue(expectedErrorMessage.Equals(ie.ResultDescription), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+            string expectedErrorMessage = $"The material {lotName} step can not be changed to {lotMessage.Material.Step}";
+            Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
         }
 
         /// <summary>
@@ -432,8 +434,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
             ///<ExpecteResult> Integration entry should not be processed </ExpecteResult>
             IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
-            string expectedErrorMessage = $"Material {lotName} certification configuration is missing the certificate or the EDC Data.";
-            Assert.IsTrue(expectedErrorMessage.Equals(ie.ResultDescription), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+            string expectedErrorMessage = $"The material {lotName} certification configuration is missing the certificate or the EDC Data.";
+            Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
         }
 
         /// <summary>
@@ -463,79 +465,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
             ///<ExpecteResult> Integration entry should not be processed </ExpecteResult>
             IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
-            string expectedErrorMessage = $"The material {lotName} certification configuration is missing the certificate or the EDC Data. The error was reported by action CustomIncomingMaterialLotCreation.";
-            Assert.IsTrue(expectedErrorMessage.Equals(ie.ResultDescription), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
-        }
-
-        /// <summary>
-        /// Description:
-        ///     - The MaterialDataCollectionContext has the correct configuration
-        ///     - Create lot through a Integration Entry
-        ///         - The lot wafers information have EDC Data outside the limits 
-        ///     - The MaterialDataCollectionContext is cleared
-        ///     - Another message is sent to update lot wafers EDC Data
-        /// Acceptance Citeria:
-        ///     - The lot is put on hold with Out Of Spec Reason after creation
-        ///     - Second message is not processed
-        ///         - Error message should be: Material {lotName} certification configuration is missing the certificate or the EDC Data.
-        /// </summary>
-        /// <TestCaseID>CustomIncomingMaterialLotCreation.CustomIncomingMaterialLotCreation_UpdateLotERPMessage_ErrorCertificateContext</TestCaseID>
-        /// <Author>David Guilherme</Author>
-        [TestMethod]
-        public void CustomIncomingMaterialLotCreation_UpdateLotERPMessage_ErrorCertificateContext()
-        {
-            ///<Step> Prepare another message to create a lot with edc data outside the certificate limits </Step>
-            string lotMessageSample = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptWithoutWafer.xml");
-            GoodsReceiptCertificate lotMessage = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(lotMessageSample);
-            string lotName = lotMessage.Material.Name = Guid.NewGuid().ToString("N");
-
-            ///<Step> Send ERP Message </Step>
-            customExecutionScenario.SmartTablesToClearInSetup = new List<string> { "MaterialDataCollectionContext" };
-            customExecutionScenario.MaterialDCContext = new List<Dictionary<string, string>>()
-            {
-                new Dictionary<string, string> {
-                        { "Step", "M2-SL-Wafer-Start-07301F001_E" },
-                        { "Operation", "Certificate" },
-                        { "DataCollection", "ProductCertificateDataUnitTest" },
-                        { "DataCollectionLimitSet", "ProductCertificateDataLimitSetUnitTest" },
-                        { "DataCollectionType", "Immediate" }
-                    }
-            };
-            customExecutionScenario.IsToSendIncomingMaterial = true;
-            customExecutionScenario.GoodsReceiptCertificate = lotMessage;
-            customExecutionScenario.Setup();
-
-            ///<ExpecteResult> Material on Hold with reason out of spec </ExpecteResult>
-            Material uncertificatedLot = new Material();
-            uncertificatedLot.Load(lotName, 1);
-            customTearDownManager.Push(uncertificatedLot);
-            this.materials.Add(uncertificatedLot);
-
-            Assert.IsTrue(uncertificatedLot.ObjectExists(), $"Lot with name {lotName} should have been created.");
-            Assert.IsTrue(uncertificatedLot.HoldCount == 1, $"Material should have 1 reason instead has {uncertificatedLot.HoldCount}");
-
-            uncertificatedLot.LoadRelations(new Collection<string> { "MaterialHoldReason" });
-            MaterialHoldReason outOfSpec = uncertificatedLot.MaterialHoldReasons.FirstOrDefault();
-            outOfSpec.TargetEntity.Load();
-            Assert.IsTrue(outOfSpec.TargetEntity.Name.Equals("Out Of Spec"), $"Material Hold Reason Name should be: Out of Spec instead is: {outOfSpec.TargetEntity.Name}");
-
-            ///<Step> Prepare another message to update the material with edc respecting the certificate limits </Step>
-            lotMessageSample = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptCertificate.xml");
-            lotMessage = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(lotMessageSample);
-            lotMessage.Material.Name = lotName;
-
-            ///<Step> Remove Material Data Collection Context configuration </Step>
-            ///<Step> Send ERP Message </Step>
-            customExecutionScenario.SmartTablesToClearInSetup = new List<string> { "MaterialDataCollectionContext" };
-            customExecutionScenario.IsToSendIncomingMaterial = true;
-            customExecutionScenario.GoodsReceiptCertificate = lotMessage;
-            customExecutionScenario.Setup();
-
-            ///<ExpecteResult> Integration entry should not be processed </ExpecteResult>
-            IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
-            ie.Load();
-            string expectedErrorMessage = $"The material {lotName} certification configuration is missing the certificate or the EDC Data. The error was reported by action CustomIncomingMaterialLotCreation.";
-            Assert.IsTrue(expectedErrorMessage.Equals(ie.ResultDescription), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+            string expectedErrorMessage = $"The material {lotName} certification configuration is missing the certificate or the EDC Data.";
+            Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
         }
 
         /// <summary>
@@ -599,8 +530,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
-            string expectedErrorMessage = $"The material {lotName} product can not be changed to {lotMessage.Material.Product}. The error was reported by action CustomIncomingMaterialLotCreation.";
-            Assert.IsTrue(expectedErrorMessage.Equals(ie.ResultDescription), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+            string expectedErrorMessage = $"The material {lotName} product can not be changed to {lotMessage.Material.Product}";
+            Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
         }
     }
 }

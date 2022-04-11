@@ -296,7 +296,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             foreach (Wafer wafer in materialData.Wafers)
             {
-                AttributeCollection waferAttributes = AMSOsramUtilities.GetMaterialAttributesFromXML(incomingLotAttributes, materialData.MaterialAttributes);
+                AttributeCollection waferAttributes = AMSOsramUtilities.GetMaterialAttributesFromXML(incomingLotAttributes, wafer.MaterialAttributes);
 
                 Dictionary<string, object> waferEDCData = AMSOsramUtilities.GetMaterialEDCDataFromXML(wafer.MaterialEDCData);
 
