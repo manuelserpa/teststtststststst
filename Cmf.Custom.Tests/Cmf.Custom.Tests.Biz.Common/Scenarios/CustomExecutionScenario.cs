@@ -57,12 +57,12 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// SmartTable MaterialDataCollectionContext 
         /// </summary>
         public List<Dictionary<string, string>> MaterialDCContext = new List<Dictionary<string, string>>();
-        /// <summary>
-        /// CustomExecutionScenario Constructor
-        /// </summary>
 
         #endregion
 
+        /// <summary>
+        /// CustomExecutionScenario Constructor
+        /// </summary>
         public CustomExecutionScenario()
         {
             this.IntegrationEntries = new IntegrationEntryCollection();
@@ -75,6 +75,23 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 
         public override void Setup()
         {
+            #region Smart Table Configuration
+
+            foreach (string smartTableName in SmartTablesToClearInSetup)
+            {
+                SmartTableManager.ClearSmartTable(smartTableName);
+            }
+
+            if (MaterialDCContext.Any())
+            {
+                foreach (Dictionary<string, string> row in MaterialDCContext)
+                {
+                    SmartTableManager.SetSmartTableData("MaterialDataCollectionContext", row);
+                }
+            }
+
+            #endregion
+
             string messageType = string.Empty;
 
             string xmlMessage = string.Empty;
@@ -114,6 +131,11 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 
         public override void CompleteCleanUp()
         {
+            if (MaterialDCContext.Any() || SmartTablesToClearInSetup.Any())
+            {
+                SmartTableManager.TearDown();
+            }
+
             // Remove created Integration Entries
             TerminateIntegrationEntries();
 
