@@ -7,7 +7,8 @@ import {
 @Task.Designer.TaskDesigner()
 export class CustomCreateControlJobDesigner implements Task.Designer.TaskDesignerInstance, CustomCreateControlJobSettings {
     objectSpec: string;
-
+    occupiedSlot: string;
+    useCarrierAtLoadPortAsContainer: boolean;
     /**
      * Resolve the inputs to be displayed in the task during design time
      * @param inputs List of inputs automatically resolved.

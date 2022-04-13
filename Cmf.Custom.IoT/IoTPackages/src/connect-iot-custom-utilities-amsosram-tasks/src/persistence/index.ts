@@ -26,7 +26,9 @@ export * from "./implementation/syncInformationJobHandler";
 // Container and Wafer Persistence
 export * from "./model/containerData";
 export * from "./model/waferData";
+export * from "./model/containerProcess"
 export * from "./implementation/containerDataHandler"
+
 
 // Equipment State Model Persistence
 export * from "./model/equipmentStateModelData"

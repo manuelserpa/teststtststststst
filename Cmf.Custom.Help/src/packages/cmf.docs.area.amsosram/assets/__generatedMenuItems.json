@@ -36,6 +36,18 @@
    "actionId": ""
 },
 {
+   "id": "amsosram-20220328-1.3.0",
+   "menuGroupId": "releasenotes",
+   "title": "AMSOsram-20220328-1.3.0",
+   "actionId": ""
+},
+{
+   "id": "amsosram-20220411-1.4.0",
+   "menuGroupId": "releasenotes",
+   "title": "AMSOsram-20220411-1.4.0",
+   "actionId": ""
+},
+{
    "id": "artifacts",
    "menuGroupId": "techspec",
    "title": "Artifacts",
@@ -132,6 +144,12 @@
    "actionId": ""
 },
 {
+   "id": "customassociatesorterjobdefinitiontocontexttable",
+   "menuGroupId": "deeactions",
+   "title": "CustomAssociateSorterJobDefinitionToContextTable",
+   "actionId": ""
+},
+{
    "id": "customautomationadjustloadportstate",
    "menuGroupId": "deeactions",
    "title": "CustomAutomationAdjustLoadPortState",
@@ -150,15 +168,39 @@
    "actionId": ""
 },
 {
+   "id": "customgeneratesorterjobdefinitionfromfutureaction",
+   "menuGroupId": "deeactions",
+   "title": "CustomGenerateSorterJobDefinitionFromFutureAction",
+   "actionId": ""
+},
+{
    "id": "customgeneratesplitlotnames",
    "menuGroupId": "deeactions",
    "title": "Custom Generate Split Lot Names",
    "actionId": ""
 },
 {
+   "id": "customincomingmateriallotcreation",
+   "menuGroupId": "deeactions",
+   "title": "CustomIncomingMaterialLotCreation",
+   "actionId": ""
+},
+{
    "id": "customnicelabelprint",
    "menuGroupId": "deeactions",
    "title": "Custom Nice Label Print",
+   "actionId": ""
+},
+{
+   "id": "customprocessproduct",
+   "menuGroupId": "deeactions",
+   "title": "Custom Process Product",
+   "actionId": ""
+},
+{
+   "id": "customprocessproductsfromerp",
+   "menuGroupId": "deeactions",
+   "title": "Custom Process Products From ERP",
    "actionId": ""
 },
 {
@@ -189,6 +231,12 @@
    "id": "customgetresourceloadportsdata",
    "menuGroupId": "exportedobjects",
    "title": "CustomGetResourceLoadPortsData",
+   "actionId": ""
+},
+{
+   "id": "customreclaimcontainertype",
+   "menuGroupId": "generictables",
+   "title": "CustomReclaimContainerType",
    "actionId": ""
 },
 {
@@ -354,6 +402,18 @@
    "actionId": ""
 },
 {
+   "id": "nicelabel_template",
+   "menuGroupId": "iotequipmenttypes",
+   "title": "Nice Label",
+   "actionId": ""
+},
+{
+   "id": "nicelabel",
+   "menuGroupId": "iotequipmenttypes",
+   "title": "Nice Label",
+   "actionId": ""
+},
+{
    "id": "equipmenttypea-configuration",
    "menuGroupId": "equipmenttypea",
    "title": "Configuration",
@@ -378,6 +438,30 @@
    "actionId": ""
 },
 {
+   "id": "nicelabel-configuration",
+   "menuGroupId": "nicelabel",
+   "title": "Configuration",
+   "actionId": ""
+},
+{
+   "id": "nicelabel-features",
+   "menuGroupId": "nicelabel",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "nicelabel-setup",
+   "menuGroupId": "nicelabel",
+   "title": "Setup",
+   "actionId": ""
+},
+{
+   "id": "nicelabel-workflows",
+   "menuGroupId": "nicelabel",
+   "title": "Workflows",
+   "actionId": ""
+},
+{
    "id": "erpfeatures",
    "menuGroupId": "erpintegration",
    "title": "ERP Features",
@@ -387,6 +471,18 @@
    "id": "erphandlers",
    "menuGroupId": "erpintegration",
    "title": "ERP Handlers",
+   "actionId": ""
+},
+{
+   "id": "importlotincomingfromerp",
+   "menuGroupId": "erpfeatures",
+   "title": "Import Lot Incoming From ERP",
+   "actionId": ""
+},
+{
+   "id": "importproductfromerp",
+   "menuGroupId": "erpfeatures",
+   "title": "Import Product From ERP",
    "actionId": ""
 },
 {
@@ -405,6 +501,12 @@
    "id": "customstibosystemintegration",
    "menuGroupId": "features",
    "title": "Stibo System Integration",
+   "actionId": ""
+},
+{
+   "id": "generatesorterjobdefinitionfromfutureaction",
+   "menuGroupId": "features",
+   "title": "Generate Sorter Job Definition From Future Action",
    "actionId": ""
 }
 ]

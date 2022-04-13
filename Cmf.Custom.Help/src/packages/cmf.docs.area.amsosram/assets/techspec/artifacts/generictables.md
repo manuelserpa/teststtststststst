@@ -8,6 +8,6 @@ The following generic tables were created to support customer requirements.
 
 | Table                     | Description       |
 | ------                    | ------            |
-| [CustomReclaimContainerType](/AMSOsram/techspec>artifacts>generictables>CustomReclaimContainerType) | Generic table used to map a Container type to its equivalent Reclaim Container type. |
+| [CustomReclaimContainerType](/AMSOsram/techspec>artifacts>generictables>CustomReclaimContainerType) | Generic table used to map a Container type to its equivalent Reclaim Container type. Used in the automatic grading process. |
 
 

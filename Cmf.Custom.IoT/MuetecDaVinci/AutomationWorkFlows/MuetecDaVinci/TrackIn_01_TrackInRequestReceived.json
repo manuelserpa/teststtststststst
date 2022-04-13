@@ -260,135 +260,6 @@
 			}
 		},
 		{
-			"id": "task_28440",
-			"reference": {
-				"name": "codeExecution",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"tsCode": [
-					"import { Framework } from 'framework';",
-					"",
-					"export default class {",
-					"",
-					"    /** Allows accessing external functions */",
-					"    private framework: Framework;",
-					"",
-					"    constructor(framework: Framework) {",
-					"        this.framework = framework;",
-					"    }",
-					"",
-					"    /*",
-					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
-					"     * Should return an object containing the values for each output to emit",
-					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
-					"     */",
-					"    public async main(inputs: any, outputs: any): Promise<any> {",
-					"        // Add code here",
-					"        const materialData = inputs.MaterialData[0];",
-					"        const remoteCommandSuccessCode = \"0x00,0x04\";",
-					"        let commandParameters: any[] = [];",
-					"        const sendMessage: Object = {",
-					"            type: \"S3F17\", ",
-					"            item: {",
-					"                type: \"L\", value: [",
-					"                    { type: \"U4\", value: 8 }, //DataID",
-					"                    { type: \"A\", value: \"ProceedWithCarrier\" }, ",
-					"                    { type: \"A\", value: materialData.ContainerName },",
-					"                    { type: \"U1\", value: materialData.LoadPortNumber }, ",
-					"                    { type: \"L\", value: commandParameters }",
-					"                ]",
-					"            }",
-					"        }",
-					"",
-					"        commandParameters.push({",
-					"            type: \"L\", value: [",
-					"                { type: \"A\", value: \"Capacity\" },",
-					"                { type: \"U1\", value: materialData.SubMaterials.length }",
-					"            ]",
-					"        });",
-					"",
-					"        commandParameters.push({",
-					"            type: \"L\", value: [",
-					"                { type: \"A\", value: \"SubstrateCount\" },",
-					"                { type: \"U1\", value: 0 }",
-					"            ]",
-					"        });",
-					"",
-					"        let waferParameters: any[] = [];",
-					"        commandParameters.push({",
-					"            type: \"L\", value: [",
-					"                { type: \"A\", value: \"ContentMap\" },",
-					"                { type: \"L\", value: waferParameters }",
-					"            ]",
-					"        });",
-					"",
-					"        for (let i = 1; i <= 13; i++) {",
-					"            let subMaterialInSlot = (<any[]>materialData.SubMaterials).find(subMaterial => subMaterial.Slot == i)",
-					"            if(subMaterialInSlot != null) {",
-					"                waferParameters.push({",
-					"                    type: \"L\", value: [",
-					"                        { type: \"A\", value: materialData.MaterialName },",
-					"                        { type: \"A\", value: subMaterialInSlot.MaterialName }",
-					"                    ]",
-					"                });",
-					"            }",
-					"            else {",
-					"                waferParameters.push({",
-					"                    type: \"L\", value: [",
-					"                        { type: \"A\", value: \"\" },",
-					"                        { type: \"A\", value: \"\" }",
-					"                    ]",
-					"                });",
-					"            }",
-					"            ",
-					"        }",
-					"",
-					"        const reply = await this.framework.driver.sendRaw(\"connect.iot.driver.secsgem.sendMessage\", sendMessage);",
-					"        let successFound = false;",
-					"",
-					"        for (const successCode of remoteCommandSuccessCode.split(\",\")) {",
-					"            if (reply && reply.item && parseInt(reply.item.value[0].value) === parseInt(successCode.trim())) {",
-					"                successFound = true;",
-					"                break;",
-					"            }",
-					"        }",
-					"",
-					"        if (!successFound) {",
-					"            throw new Error(`ProceedWithCarrier failed in TrackIn for LP${materialData.LoadPortPosition}: \\nReply:${JSON.stringify(reply)}`);",
-					"        }",
-					"",
-					"        // emit output during execution: outputs.output1.emit(\"something\");",
-					"        // return example: return { output1: inputs.input1, output2: \"Hello World\" };",
-					"    }",
-					"}",
-					""
-				],
-				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IG1hdGVyaWFsRGF0YSA9IGlucHV0cy5NYXRlcmlhbERhdGFbMF07DQogICAgICAgIGNvbnN0IHJlbW90ZUNvbW1hbmRTdWNjZXNzQ29kZSA9ICIweDAwLDB4MDQiOw0KICAgICAgICBsZXQgY29tbWFuZFBhcmFtZXRlcnMgPSBbXTsNCiAgICAgICAgY29uc3Qgc2VuZE1lc3NhZ2UgPSB7DQogICAgICAgICAgICB0eXBlOiAiUzNGMTciLA0KICAgICAgICAgICAgaXRlbTogew0KICAgICAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiVTQiLCB2YWx1ZTogOCB9LA0KICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJQcm9jZWVkV2l0aENhcnJpZXIiIH0sDQogICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogbWF0ZXJpYWxEYXRhLkNvbnRhaW5lck5hbWUgfSwNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiVTEiLCB2YWx1ZTogbWF0ZXJpYWxEYXRhLkxvYWRQb3J0TnVtYmVyIH0sDQogICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkwiLCB2YWx1ZTogY29tbWFuZFBhcmFtZXRlcnMgfQ0KICAgICAgICAgICAgICAgIF0NCiAgICAgICAgICAgIH0NCiAgICAgICAgfTsNCiAgICAgICAgY29tbWFuZFBhcmFtZXRlcnMucHVzaCh7DQogICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiQ2FwYWNpdHkiIH0sDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiVTEiLCB2YWx1ZTogbWF0ZXJpYWxEYXRhLlN1Yk1hdGVyaWFscy5sZW5ndGggfQ0KICAgICAgICAgICAgXQ0KICAgICAgICB9KTsNCiAgICAgICAgY29tbWFuZFBhcmFtZXRlcnMucHVzaCh7DQogICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiU3Vic3RyYXRlQ291bnQiIH0sDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiVTEiLCB2YWx1ZTogMCB9DQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICBsZXQgd2FmZXJQYXJhbWV0ZXJzID0gW107DQogICAgICAgIGNvbW1hbmRQYXJhbWV0ZXJzLnB1c2goew0KICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIkNvbnRlbnRNYXAiIH0sDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiTCIsIHZhbHVlOiB3YWZlclBhcmFtZXRlcnMgfQ0KICAgICAgICAgICAgXQ0KICAgICAgICB9KTsNCiAgICAgICAgZm9yIChsZXQgaSA9IDE7IGkgPD0gMTM7IGkrKykgew0KICAgICAgICAgICAgbGV0IHN1Yk1hdGVyaWFsSW5TbG90ID0gbWF0ZXJpYWxEYXRhLlN1Yk1hdGVyaWFscy5maW5kKHN1Yk1hdGVyaWFsID0+IHN1Yk1hdGVyaWFsLlNsb3QgPT0gaSk7DQogICAgICAgICAgICBpZiAoc3ViTWF0ZXJpYWxJblNsb3QgIT0gbnVsbCkgew0KICAgICAgICAgICAgICAgIHdhZmVyUGFyYW1ldGVycy5wdXNoKHsNCiAgICAgICAgICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiBtYXRlcmlhbERhdGEuTWF0ZXJpYWxOYW1lIH0sDQogICAgICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6IHN1Yk1hdGVyaWFsSW5TbG90Lk1hdGVyaWFsTmFtZSB9DQogICAgICAgICAgICAgICAgICAgIF0NCiAgICAgICAgICAgICAgICB9KTsNCiAgICAgICAgICAgIH0NCiAgICAgICAgICAgIGVsc2Ugew0KICAgICAgICAgICAgICAgIHdhZmVyUGFyYW1ldGVycy5wdXNoKHsNCiAgICAgICAgICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiIiB9LA0KICAgICAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiIiB9DQogICAgICAgICAgICAgICAgICAgIF0NCiAgICAgICAgICAgICAgICB9KTsNCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgICAgICBjb25zdCByZXBseSA9IGF3YWl0IHRoaXMuZnJhbWV3b3JrLmRyaXZlci5zZW5kUmF3KCJjb25uZWN0LmlvdC5kcml2ZXIuc2Vjc2dlbS5zZW5kTWVzc2FnZSIsIHNlbmRNZXNzYWdlKTsNCiAgICAgICAgbGV0IHN1Y2Nlc3NGb3VuZCA9IGZhbHNlOw0KICAgICAgICBmb3IgKGNvbnN0IHN1Y2Nlc3NDb2RlIG9mIHJlbW90ZUNvbW1hbmRTdWNjZXNzQ29kZS5zcGxpdCgiLCIpKSB7DQogICAgICAgICAgICBpZiAocmVwbHkgJiYgcmVwbHkuaXRlbSAmJiBwYXJzZUludChyZXBseS5pdGVtLnZhbHVlWzBdLnZhbHVlKSA9PT0gcGFyc2VJbnQoc3VjY2Vzc0NvZGUudHJpbSgpKSkgew0KICAgICAgICAgICAgICAgIHN1Y2Nlc3NGb3VuZCA9IHRydWU7DQogICAgICAgICAgICAgICAgYnJlYWs7DQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICAgICAgaWYgKCFzdWNjZXNzRm91bmQpIHsNCiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcihgUHJvY2VlZFdpdGhDYXJyaWVyIGZhaWxlZCBpbiBUcmFja0luIGZvciBMUCR7bWF0ZXJpYWxEYXRhLkxvYWRQb3J0UG9zaXRpb259OiBcblJlcGx5OiR7SlNPTi5zdHJpbmdpZnkocmVwbHkpfWApOw0KICAgICAgICB9DQogICAgICAgIC8vIGVtaXQgb3V0cHV0IGR1cmluZyBleGVjdXRpb246IG91dHB1dHMub3V0cHV0MS5lbWl0KCJzb21ldGhpbmciKTsNCiAgICAgICAgLy8gcmV0dXJuIGV4YW1wbGU6IHJldHVybiB7IG91dHB1dDE6IGlucHV0cy5pbnB1dDEsIG91dHB1dDI6ICJIZWxsbyBXb3JsZCIgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
-				"inputs": [
-					{
-						"name": "MaterialData",
-						"valueType": {
-							"friendlyName": "MaterialData",
-							"type": 10,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null
-						}
-					}
-				],
-				"outputs": [],
-				"contextExpirationInMilliseconds": 10000,
-				"executionExpirationInMilliseconds": 0,
-				"___cmf___name": "Code"
-			},
-			"driver": "SecsGemEquipment"
-		},
-		{
 			"id": "task_19303",
 			"reference": {
 				"name": "createContainer",
@@ -401,6 +272,41 @@
 				"inputs": [],
 				"outputs": [],
 				"message": ""
+			}
+		},
+		{
+			"id": "task_37385",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "CassetteLoad_01_ExecuteCommand",
+					"IsShared": false
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialData"
+						}
+					}
+				],
+				"outputs": [],
+				"___cmf___name": "Proceed With Carrier Workflow",
+				"___cmf___color": "#ffff80"
 			}
 		}
 	],
@@ -500,32 +406,11 @@
 			"outputName": "$ControlState"
 		},
 		{
-			"id": "dd6311ef-6828-4be7-ae97-4efcb669c704",
-			"sourceId": "task_83813",
-			"targetId": "task_28440",
-			"inputName": "MaterialDataIn",
-			"outputName": "MaterialDataOut"
-		},
-		{
-			"id": "6e8aafbb-40bf-4cb4-9911-e6e1dec4344f",
-			"sourceId": "task_83813",
-			"targetId": "task_28440",
-			"inputName": "activate",
-			"outputName": "MaterialDataOut"
-		},
-		{
 			"id": "45bd0312-9ae2-451a-9c8c-32f2a47bcf96",
 			"sourceId": "task_83813",
 			"targetId": "task_1677",
 			"inputName": "materialObject",
 			"outputName": "MaterialDataOut"
-		},
-		{
-			"id": "df10c37b-033a-4a92-8835-73eff8e8dd33",
-			"sourceId": "task_28440",
-			"targetId": "task_1677",
-			"inputName": "activate",
-			"outputName": "success"
 		},
 		{
 			"id": "fc340853-857f-4928-973b-9407361ed75b",
@@ -570,6 +455,27 @@
 			"targetId": "task_83813",
 			"inputName": "activate",
 			"outputName": "container"
+		},
+		{
+			"id": "239030ac-a1c8-41e6-9148-2b40c11e34c5",
+			"sourceId": "task_83813",
+			"targetId": "task_37385",
+			"inputName": "MaterialDataIn",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "6b0220c4-b3c7-4aa0-9b17-1b06e7ee3ae3",
+			"sourceId": "task_83813",
+			"targetId": "task_37385",
+			"inputName": "activate",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "ff55baed-41c2-4338-a0ea-499e54f3eaeb",
+			"sourceId": "task_37385",
+			"targetId": "task_1677",
+			"inputName": "activate",
+			"outputName": "success"
 		}
 	],
 	"layout": {
@@ -639,19 +545,19 @@
 						},
 						"outdated": false
 					},
-					"task_28440": {
-						"collapsed": false,
-						"position": {
-							"x": 3895,
-							"y": 497
-						},
-						"outdated": false
-					},
 					"task_19303": {
 						"collapsed": false,
 						"position": {
 							"x": 2781,
 							"y": 414
+						},
+						"outdated": false
+					},
+					"task_37385": {
+						"collapsed": false,
+						"position": {
+							"x": 3978,
+							"y": 517
 						},
 						"outdated": false
 					}
@@ -696,16 +602,7 @@
 					"32cd628f-3399-43bb-9435-353f1fa4b3b0": {
 						"vertices": []
 					},
-					"dd6311ef-6828-4be7-ae97-4efcb669c704": {
-						"vertices": []
-					},
-					"6e8aafbb-40bf-4cb4-9911-e6e1dec4344f": {
-						"vertices": []
-					},
 					"45bd0312-9ae2-451a-9c8c-32f2a47bcf96": {
-						"vertices": []
-					},
-					"df10c37b-033a-4a92-8835-73eff8e8dd33": {
 						"vertices": []
 					},
 					"718405f8-d720-4599-8a42-118c4deced70": {
@@ -718,6 +615,15 @@
 						"vertices": []
 					},
 					"58e761a9-fa14-45f4-a739-018016427995": {
+						"vertices": []
+					},
+					"239030ac-a1c8-41e6-9148-2b40c11e34c5": {
+						"vertices": []
+					},
+					"6b0220c4-b3c7-4aa0-9b17-1b06e7ee3ae3": {
+						"vertices": []
+					},
+					"ff55baed-41c2-4338-a0ea-499e54f3eaeb": {
 						"vertices": []
 					},
 					"cc8ce25c-4960-4556-84a0-86daf88a8e99": {
@@ -761,8 +667,8 @@
 				},
 				"zoom": 0.9100000000000006,
 				"pan": {
-					"x": 1862,
-					"y": 269
+					"x": 3196.666748046875,
+					"y": 223.33334350585938
 				}
 			}
 		}

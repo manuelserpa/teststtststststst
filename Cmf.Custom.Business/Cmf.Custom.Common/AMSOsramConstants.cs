@@ -66,7 +66,10 @@
         /// </summary>
         public const string CustomMaterialNiceLabelPrintContextQuantity = "Quantity";
 
-
+        /// <summary>
+        /// Default operation for incoming lot creation
+        /// </summary>
+        public const string CustomIncomingLotCreationOperation = "Certificate";
 
         #endregion
 
@@ -86,8 +89,7 @@
         /// CustomReclaimContainerType table ReclaimContainerType Property 
         /// </summary>
         public static string GenericTableCustomReclaimContainerTypeReclaimContainerTypeProperty = "ReclaimContainerType";
-
-
+                
         #endregion
 
         #region LookupTables
@@ -413,6 +415,50 @@
         /// </summary>
         public static string LocalizedMessageStateModelDoesNotExistException = "StateModelDoesNotExistException";
 
+        /// <summary>
+        /// Localized Message: CustomUpdateMaterialOnDifferentFlowStep
+        /// </summary>
+        public static string LocalizedMessageCustomUpdateMaterialOnDifferentFlowStep = "CustomUpdateMaterialOnDifferentFlowStep";
+
+        /// <summary>
+        /// Localized Message: CustomUpdateMaterialDifferentWaferData
+        /// </summary>
+        public static string LocalizedMessageCustomUpdateMaterialDifferentWaferData = "CustomUpdateMaterialDifferentWaferData";
+
+        /// <summary>
+        /// Localized Message: CustomWrongCertificateConfiguration
+        /// </summary>
+        public static string LocalizedMessageCustomWrongCertificateConfiguration = "CustomWrongCertificateConfiguration";
+
+        /// <summary>
+        /// Localized Message: CustomUpdateMaterialDifferentProduct
+        /// </summary>
+        public static string LocalizedMessageCustomUpdateMaterialDifferentProduct = "CustomUpdateMaterialDifferentProduct";
+
+        /// <summary>
+        /// Localized Message: CustomUpdateMaterialDifferentFlow
+        /// </summary>
+        public static string LocalizedMessageCustomUpdateMaterialDifferentFlow = "CustomUpdateMaterialDifferentFlow";
+
+        /// <summary>
+        /// Localized Message: CustomUpdateMaterialDifferentStep
+        /// </summary>
+        public static string LocalizedMessageCustomUpdateMaterialDifferentStep = "CustomUpdateMaterialDifferentStep";
+
+        /// <summary>
+        /// Localized Message: CustomUpdateMaterialDifferentType
+        /// </summary>
+        public static string LocalizedMessageCustomUpdateMaterialDifferentType = "CustomUpdateMaterialDifferentType";
+
+        /// <summary>
+        /// Localized Message: CustomUpdateMaterialDifferentWafers
+        /// </summary>
+        public static string LocalizedMessageCustomUpdateMaterialDifferentWafers = "CustomUpdateMaterialDifferentWafers";
+
+        /// <summary>
+        /// Localized Message: CustomUpdateMaterialProductWaferSizeMissing
+        /// </summary>
+        public static string LocalizedMessageCustomUpdateMaterialProductWaferSizeMissing = "CustomUpdateMaterialProductWaferSizeMissing";
 
         #endregion
 
@@ -461,7 +507,21 @@
         /// Hold Step reason when an abort process is performed at the lot
         /// </summary>
         public static string DefaultAbortProcessHoldReasonConfig = "/AMSOsram/AbortProcess/HoldReason/";
+
+        /// <summary>
+        /// Hold Step reason for lot incoming 
+        /// </summary>
+        public static string DefaultLotIncomingHoldReasonConfig = "/Cmf/Guis/Configuration/Material/IncomingLotAutoHoldReason";
         #endregion
+
+        #region Parameters
+
+        /// <summary>
+        /// Product Parameter with wafer quantity
+        /// </summary>
+        public const string CustomParameterWaferQuantity = "Wafer Size";
+
+        #endregion 
 
         #region Queries
         ///// <summary>
@@ -838,7 +898,7 @@
         public const string CustomIntegrationInboundEventName = "Inbound";
 
         #endregion
-        
+
         #region Name Generators
 
         /// <summary>
@@ -850,6 +910,23 @@
         /// Production lot Name Generator
         /// </summary>
         public const string CustomGenerateProductionLotNames = "CustomProductionLotNameGenerator";
+
+        #endregion
+
+        #region EntityTypes
+
+        public class EntityTypes
+        {
+            /// <summary>
+            /// Product
+            /// </summary>
+            public const string Product = "Product";
+
+            /// <summary>
+            /// Integration Entry
+            /// </summary>
+            public const string IntegrationEntry = "IntegrationEntry";
+        }
 
         #endregion
     }

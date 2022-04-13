@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace AMSOsramEIAutomaticTests.Objects.Persistence
 {
@@ -31,6 +32,7 @@ namespace AMSOsramEIAutomaticTests.Objects.Persistence
         /// <summary>
         /// Parameter ID
         /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public long Order { get; set; }
 
         /// <summary>

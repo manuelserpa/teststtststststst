@@ -3,13 +3,16 @@ using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.QueryManagement.InputObjects;
+using Cmf.Navigo.BusinessObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Reflection;
-using System.Text;
+using System.Xml.Serialization;
 using TestScenariosUtilities = Cmf.TestScenarios.Others.Utilities;
 
 namespace Cmf.Custom.Tests.Biz.Common.Utilities
@@ -36,7 +39,6 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             return "Not called from a test method";
         }
 
-
         #region Integration Entries
         /// <summary>
         /// Dispatch Integration Entries
@@ -48,7 +50,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             {
                 IntegrationEntries = integrationEntries
             }.DispatchIntegrationEntriesSync();
-        } 
+        }
 
         /// <summary>
         /// Method to get an integration entry by name
@@ -134,6 +136,189 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
                 PageNumber = pageNumber,
                 QueryParameters = queryParameters
             }.ExecuteQuerySync().NgpDataSet;
+        }
+
+        #endregion
+
+        #region Generic
+
+        /// <summary>
+        /// Get Value as nullable decimal.
+        /// </summary>
+        /// <param name="value">Value to be converted.</param>
+        /// <returns></returns>
+        public static decimal? GetValueAsNullableDecimal(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return null;
+            }
+
+            return decimal.Parse(value.Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), NumberStyles.Number | NumberStyles.AllowExponent);
+        }
+
+        /// <summary>
+        /// Get Value as nullable boolean
+        /// </summary>
+        /// <param name="value">Value to be converted.</param>
+        /// <returns></returns>
+        public static bool? GetValueAsNullableBoolean(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return null;
+            }
+
+            // True: Possible values 
+            string[] positiveValues = { "y", "true", "yes", "1" };
+
+            if (positiveValues.Contains(value.Trim(), StringComparer.InvariantCultureIgnoreCase))
+            {
+                return true;
+            }
+
+            // False: Possible values
+            string[] negativeValues = { "n", "false", "no", "0" };
+
+            if (negativeValues.Contains(value.Trim(), StringComparer.InvariantCultureIgnoreCase))
+            {
+                return false;
+            }
+
+            return default(bool?);
+        }
+
+        /// <summary>
+        /// Get Value as decimal.
+        /// </summary>
+        /// <param name="value">Value to be converted.</param>
+        /// <returns></returns>
+        public static decimal GetValueAsDecimal(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return default(decimal);
+            }
+
+            return decimal.Parse(value.Replace(",", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator).Replace(".", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), NumberStyles.Number | NumberStyles.AllowExponent);
+        }
+
+        /// <summary>
+        /// Get Value as boolean.
+        /// </summary>
+        /// <param name="value">Value to be converted.</param>
+        /// <returns></returns>
+        public static bool GetValueAsBoolean(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return false;
+            }
+
+            string[] booleanValues = { "y", "true", "yes", "1" };
+
+            if (booleanValues.Contains(value.Trim(), StringComparer.InvariantCultureIgnoreCase))
+            {
+                return true;
+            }
+
+            return default(bool);
+        }
+
+        /// <summary>
+        /// Get Value as dynamic DataType.
+        /// </summary>
+        /// <param name="parameterDataType">Parameter Data Type.</param>
+        /// <param name="value">Value to be converted.</param>
+        /// <returns></returns>
+        public static dynamic GetParameterValueAsDataType(ParameterDataType parameterDataType, string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return default(dynamic);
+            }
+
+            switch (parameterDataType)
+            {
+                case ParameterDataType.Decimal:
+                    return GetValueAsNullableDecimal(value);
+
+                case ParameterDataType.Boolean:
+                    return GetValueAsNullableBoolean(value);
+
+                default:
+                    return value;
+            }
+        }
+
+        /// <summary>
+        /// Get Value as dynamic DataType.
+        /// </summary>
+        /// <param name="scalarType">Scalar Type.</param>
+        /// <param name="value">Value to be converted.</param>
+        /// <returns></returns>
+        public static dynamic GetAttributeValueAsDataType(ScalarType scalarType, string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return default(dynamic);
+            }
+
+            switch (scalarType.NativeType)
+            {
+                case "System.Decimal":
+                    return GetValueAsNullableDecimal(value);
+
+                case "System.Boolean":
+                    return GetValueAsNullableBoolean(value);
+
+                default:
+                    return value;
+            }
+        }
+
+        #endregion
+
+        #region XML
+
+        /// <summary>
+        /// Deserialize Xml To Object
+        /// </summary>
+        /// <typeparam name="T">Serializable Class</typeparam>
+        /// <param name="xml">XML</param>
+        /// <returns>Object</returns>
+        public static T DeserializeXmlToObject<T>(string xml)
+        {
+            T output;
+            // Construct an instance of the XmlSerializer with the type
+            // of object that is being deserialized.
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            using (TextReader reader = new StringReader(xml))
+            {
+                // Call the Deserialize method and cast to the object type.
+                output = (T)serializer.Deserialize(reader);
+            }
+
+            return output;
+        }
+
+        /// <summary>
+        /// Serialize Object to XML
+        /// </summary>
+        /// <typeparam name="T">Serializable Type</typeparam>
+        /// <param name="value">Object to be serialized</param>
+        /// <returns></returns>
+        public static string SerializeToXML<T>(this T value)
+        {
+            string output = string.Empty;
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            using (TextWriter writer = new StringWriter())
+            {
+                serializer.Serialize(writer, value);
+                output = writer.ToString();
+            }
+
+            return output;
         }
 
         #endregion

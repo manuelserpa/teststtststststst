@@ -1,0 +1,292 @@
+{
+	"tasks": [
+		{
+			"id": "task_7937",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstLotID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstSubstLocID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstProcState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "AcquiredID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstHistory",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "Clock",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "SOSM4_ATWORK_ATWORK"
+					}
+				]
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_8002",
+			"reference": {
+				"name": "setWaferToContainer",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"inputs": [],
+				"outputs": [],
+				"message": ""
+			}
+		},
+		{
+			"id": "task_57885",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"",
+					"        var substrateId = inputs.SubstSubstLocID.toString();",
+					"        var splitted = substrateId.split(\".\");",
+					"        var carrierId = splitted[0].trim();",
+					"        var slotNumber = splitted[1].trim();",
+					"",
+					"        return { SourceContainerId: carrierId, SourceSlotNumber: Number(slotNumber) }",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIHZhciBzdWJzdHJhdGVJZCA9IGlucHV0cy5TdWJzdFN1YnN0TG9jSUQudG9TdHJpbmcoKTsNCiAgICAgICAgdmFyIHNwbGl0dGVkID0gc3Vic3RyYXRlSWQuc3BsaXQoIi4iKTsNCiAgICAgICAgdmFyIGNhcnJpZXJJZCA9IHNwbGl0dGVkWzBdLnRyaW0oKTsNCiAgICAgICAgdmFyIHNsb3ROdW1iZXIgPSBzcGxpdHRlZFsxXS50cmltKCk7DQogICAgICAgIHJldHVybiB7IFNvdXJjZUNvbnRhaW5lcklkOiBjYXJyaWVySWQsIFNvdXJjZVNsb3ROdW1iZXI6IE51bWJlcihzbG90TnVtYmVyKSB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
+				"inputs": [
+					{
+						"name": "SubstSubstLocID",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SubstSubstLocID"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "SourceContainerId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SourceContainerId"
+						}
+					},
+					{
+						"name": "SourceSlotNumber",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SourceSlotNumber"
+						}
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
+		}
+	],
+	"converters": [],
+	"links": [
+		{
+			"id": "7762e894-5c67-4967-8a62-1df7ce9a2fdb",
+			"sourceId": "task_7937",
+			"targetId": "task_57885",
+			"inputName": "SubstSubstLocIDIn",
+			"outputName": "$SubstSubstLocID"
+		},
+		{
+			"id": "553e7fdc-fe83-41b5-b134-ff5e72759d8e",
+			"sourceId": "task_7937",
+			"targetId": "task_8002",
+			"inputName": "equipmentWaferId",
+			"outputName": "$SubstID"
+		},
+		{
+			"id": "a3922472-8133-4369-adcb-35b9b3bfd55c",
+			"sourceId": "task_57885",
+			"targetId": "task_8002",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "cf5cf08b-af23-4c3d-a7b9-608f2e4a77eb",
+			"sourceId": "task_57885",
+			"targetId": "task_8002",
+			"inputName": "containerId",
+			"outputName": "SourceContainerIdOut"
+		},
+		{
+			"id": "600414b3-06c9-4a93-9903-abb78036c83c",
+			"sourceId": "task_57885",
+			"targetId": "task_8002",
+			"inputName": "slotNumber",
+			"outputName": "SourceSlotNumberOut"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff80",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_7937": {
+						"collapsed": false,
+						"position": {
+							"x": 158,
+							"y": 66
+						},
+						"outdated": false
+					},
+					"task_8002": {
+						"collapsed": false,
+						"position": {
+							"x": 1551,
+							"y": 246
+						},
+						"outdated": false
+					},
+					"task_57885": {
+						"collapsed": false,
+						"position": {
+							"x": 801,
+							"y": 531
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"7762e894-5c67-4967-8a62-1df7ce9a2fdb": {
+						"vertices": []
+					},
+					"553e7fdc-fe83-41b5-b134-ff5e72759d8e": {
+						"vertices": [
+							{
+								"x": 1003,
+								"y": 456
+							}
+						]
+					},
+					"a3922472-8133-4369-adcb-35b9b3bfd55c": {
+						"vertices": []
+					},
+					"cf5cf08b-af23-4c3d-a7b9-608f2e4a77eb": {
+						"vertices": []
+					},
+					"600414b3-06c9-4a93-9903-abb78036c83c": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"zoom": 0.6699999999999999,
+				"pan": {
+					"x": 0,
+					"y": 0
+				}
+			}
+		}
+	}
+}

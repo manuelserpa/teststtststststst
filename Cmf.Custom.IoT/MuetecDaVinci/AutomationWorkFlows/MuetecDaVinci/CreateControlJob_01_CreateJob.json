@@ -165,12 +165,35 @@
 				}
 			},
 			"settings": {
-				"objectSpec": "Equipment"
+				"objectSpec": "Equipment",
+				"___cmf___name": "Custom Create Control Job",
+				"useCarrierAtLoadPortAsContainer": true
 			},
 			"driver": "SecsGemEquipment"
 		}
 	],
-	"converters": [],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+			"reference": {
+				"name": "anyToErrorCodeConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			}
+		}
+	],
 	"links": [
 		{
 			"id": "task_169104_ErrorOut-task_169100_error",
@@ -228,6 +251,39 @@
 			"targetId": "task_169100",
 			"inputName": "MaterialData",
 			"outputName": "Material"
+		},
+		{
+			"id": "a3a4c721-6bd3-46b4-ba8b-e5672180c01a",
+			"sourceId": "task_169102",
+			"targetId": "task_169525",
+			"inputName": "StartMethod",
+			"outputName": "MaterialDataOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "true"
+					}
+				}
+			]
+		},
+		{
+			"id": "d1435d64-d6b6-45d2-9bbc-76ffe71ed445",
+			"sourceId": "task_169525",
+			"targetId": "task_169104",
+			"inputName": "ErrorCodeIn",
+			"outputName": "error",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+					"params": {
+						"ErrorCode": "StartCommandFailed",
+						"SystemOfOrigin": "EI",
+						"ErrorNumber": 0
+					}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -295,13 +351,19 @@
 					},
 					"b51e37b2-47f1-4865-900f-1e69888a246a": {
 						"vertices": []
+					},
+					"a3a4c721-6bd3-46b4-ba8b-e5672180c01a": {
+						"vertices": []
+					},
+					"d1435d64-d6b6-45d2-9bbc-76ffe71ed445": {
+						"vertices": []
 					}
 				},
 				"notes": {},
 				"zoom": 0.5899999999999997,
 				"pan": {
-					"x": 453.3333435058594,
-					"y": 220
+					"x": 592,
+					"y": 335
 				}
 			}
 		}

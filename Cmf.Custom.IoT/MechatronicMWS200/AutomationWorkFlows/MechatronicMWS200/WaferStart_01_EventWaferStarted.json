@@ -1,0 +1,408 @@
+{
+	"tasks": [
+		{
+			"id": "task_106935",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstLotID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstSubstLocID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstProcState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "AcquiredID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstHistory",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "Clock",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "SOSM1_NOSTATE_ATSOURCE"
+					}
+				]
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_22511",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"",
+					"        var substrateId = inputs.SubstSubstLocID.toString();",
+					"        var splitted = substrateId.split(\".\");",
+					"        var carrierId = splitted[0].trim();",
+					"        var slotNumber = splitted[1].trim();",
+					"",
+					"        return { CarrierId: carrierId, SubMaterialSlot: Number(slotNumber) }",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIHZhciBzdWJzdHJhdGVJZCA9IGlucHV0cy5TdWJzdFN1YnN0TG9jSUQudG9TdHJpbmcoKTsNCiAgICAgICAgdmFyIHNwbGl0dGVkID0gc3Vic3RyYXRlSWQuc3BsaXQoIi4iKTsNCiAgICAgICAgdmFyIGNhcnJpZXJJZCA9IHNwbGl0dGVkWzBdLnRyaW0oKTsNCiAgICAgICAgdmFyIHNsb3ROdW1iZXIgPSBzcGxpdHRlZFsxXS50cmltKCk7DQogICAgICAgIHJldHVybiB7IENhcnJpZXJJZDogY2FycmllcklkLCBTdWJNYXRlcmlhbFNsb3Q6IE51bWJlcihzbG90TnVtYmVyKSB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
+				"inputs": [
+					{
+						"name": "SubstSubstLocID",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SubstSubstLocID"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "CarrierId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "CarrierId"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "SubMaterialSlot",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SubMaterialSlot"
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
+		},
+		{
+			"id": "task_101498",
+			"reference": {
+				"name": "setWaferToContainer",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"inputs": [],
+				"outputs": [],
+				"message": "",
+				"___cmf___name": "Set Wafer To Container"
+			}
+		},
+		{
+			"id": "task_104947",
+			"reference": {
+				"name": "retrieveMaterialProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"___cmf___name": "Retrieve Material Property",
+				"materialState": "InProcess",
+				"outputs": []
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "00223140-8dc4-499f-ab6f-3363a767d6d9",
+			"sourceId": "task_106935",
+			"targetId": "task_22511",
+			"inputName": "activate",
+			"outputName": "$SubstSubstLocID"
+		},
+		{
+			"id": "fc8f1a3a-eef9-49e2-88c4-f492a71961e6",
+			"sourceId": "task_106935",
+			"targetId": "task_22511",
+			"inputName": "SubstSubstLocIDIn",
+			"outputName": "$SubstSubstLocID"
+		},
+		{
+			"id": "e6f24273-8cb3-44a1-8f4f-3c895e5e230a",
+			"sourceId": "task_106935",
+			"targetId": "task_101498",
+			"inputName": "materialWaferId",
+			"outputName": "$SubstID"
+		},
+		{
+			"id": "c16c53b1-15df-432f-8649-e182d9eb3c5f",
+			"sourceId": "task_22511",
+			"targetId": "task_101498",
+			"inputName": "slotNumber",
+			"outputName": "SubMaterialSlotOut"
+		},
+		{
+			"id": "7cf93367-f4f0-4ea1-b42d-9f05d1c8afba",
+			"sourceId": "task_22511",
+			"targetId": "task_101498",
+			"inputName": "containerId",
+			"outputName": "CarrierIdOut"
+		},
+		{
+			"id": "70c6f3ca-7d60-4500-977b-7763202c12ea",
+			"sourceId": "task_104947",
+			"targetId": "task_101498",
+			"inputName": "material",
+			"outputName": "material"
+		},
+		{
+			"id": "b0662236-773a-44ee-b096-7659de3405f0",
+			"sourceId": "task_22511",
+			"targetId": "task_104947",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "adc04463-c31e-4c77-b07f-68ca5d0d9c82",
+			"sourceId": "task_104947",
+			"targetId": "task_101498",
+			"inputName": "activate",
+			"outputName": "material"
+		},
+		{
+			"id": "fc86bcfc-d0d2-4260-9c81-2bcc154a261a",
+			"sourceId": "task_106935",
+			"targetId": "task_101498",
+			"inputName": "equipmentWaferId",
+			"outputName": "$SubstID"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff80",
+			"notes": [
+				{
+					"id": "note_107761",
+					"name": "TosWaferStarted",
+					"value": "<p><strong>What it does:</strong></p><p>Updates MaterialData state from Queue to In Process.</p><p>Stores Wafer information on ContainerData persistence;</p><p>Executes Material In for Wafer on MES (Track In of Submaterial).</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to TosWaferStarted for the Tool;</li><li>Use the information received to drive the Wafer Started workflow;</li><li>Pass any event Output to the Activate Input of the Workflow; </li></ol><p><strong>Note:</strong><strong></strong></p><p>The Workflow Wafer Start will try to retrieve the MaterialData using the inputs following the next logic:</p><ol><li>If the materialName is available retrieve the corresponding materialData;</li><li>If the containerName is available retrieve the materialData which references it on containerName;</li><li>If the loadPortId is passed it will use a match using load port id and materialState defined on the settings;</li><li>If no information is available on the inputs, if defined, use the materialState defined on the settings to retrieve the first (oldest) materialData available in the persistence;</li><li>If none of this criteria corresponds to available information, return an error.</li></ol><br />The logic described before will be triggered by order, but only one the first matching selection criteria will be run. If the criteria fails to return a materialData an Error will be returned.<br /><br />The Workflow will then proceed to try to find the subMaterial on the subMaterial collection of the materialData using the following logic:<br /><ol><li>If the subMaterialName is available retrieve the corresponding subMaterial;</li><li>If the subMaterialSlot is available retrieve the subMaterial corresponding to the slot on the container;</li><li>If no information is available on the inputs, if defined, it will use the match between slotOrderPickingDirection and subMaterialState to find the first subMaterial corresponding to its condition. The slotOrderPickingDirection defines the order of slot picking as either Ascending or Descending and should be matched to the know behavior of the load port.</li></ol><p>The logic described before will be triggered by order, but only one the first matching selection criteria will be run. If the criteria fails to return a subMaterialData an Error will be returned.</p><br />If a sub material is found, then it sets its state to the state defined in the setting parameter Sub Material To Set, update the subMaterial on persistence. When successful output the updated subMaterial on the output subMaterial, as well as the corresponding materialData on the output material.<p>&nbsp;</p>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_106935": {
+						"collapsed": false,
+						"position": {
+							"x": 14,
+							"y": 40
+						},
+						"outdated": false
+					},
+					"task_22511": {
+						"collapsed": false,
+						"position": {
+							"x": 553,
+							"y": 474
+						},
+						"outdated": false
+					},
+					"task_101498": {
+						"collapsed": false,
+						"position": {
+							"x": 2601,
+							"y": 119
+						},
+						"outdated": false
+					},
+					"task_104947": {
+						"collapsed": false,
+						"position": {
+							"x": 1112,
+							"y": 0
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"00223140-8dc4-499f-ab6f-3363a767d6d9": {
+						"vertices": []
+					},
+					"fc8f1a3a-eef9-49e2-88c4-f492a71961e6": {
+						"vertices": []
+					},
+					"e6f24273-8cb3-44a1-8f4f-3c895e5e230a": {
+						"vertices": [
+							{
+								"x": 596,
+								"y": 864
+							},
+							{
+								"x": 1614,
+								"y": 737
+							}
+						]
+					},
+					"c16c53b1-15df-432f-8649-e182d9eb3c5f": {
+						"vertices": []
+					},
+					"7cf93367-f4f0-4ea1-b42d-9f05d1c8afba": {
+						"vertices": []
+					},
+					"70c6f3ca-7d60-4500-977b-7763202c12ea": {
+						"vertices": []
+					},
+					"b0662236-773a-44ee-b096-7659de3405f0": {
+						"vertices": []
+					},
+					"adc04463-c31e-4c77-b07f-68ca5d0d9c82": {
+						"vertices": []
+					},
+					"fc86bcfc-d0d2-4260-9c81-2bcc154a261a": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_107761": {
+						"collapsed": false,
+						"position": {
+							"x": 3119,
+							"y": 38
+						}
+					}
+				},
+				"zoom": 0.74,
+				"pan": {
+					"x": 438.8888854980469,
+					"y": 20
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<GoodsReceiptCertificate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Material>
+		<Name>L-108-84155-ZK21435-C009</Name>
+		<Product>11018814</Product>
+		<Type>Production</Type>
+		<StateModel>CustomMaterialStateModel</StateModel>
+		<State>Queued</State>
+		<Form>Logistical wafer</Form>
+		<Facility>Regensburg Production</Facility>
+		<Flow>FOL-UX3_EPA</Flow>
+		<Step>M2-SL-Wafer-Start-07301F001_E</Step>
+		<Attributes>
+			<key name="GoodsReceiptNo" value="5043575531" />
+			<key name="GoodsReceiptDate" value="08.11.2021" />
+		</Attributes>
+	</Material>
+</GoodsReceiptCertificate>

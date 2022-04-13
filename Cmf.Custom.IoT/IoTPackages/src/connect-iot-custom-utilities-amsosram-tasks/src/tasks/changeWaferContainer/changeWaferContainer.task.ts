@@ -115,18 +115,23 @@ export class ChangeWaferContainerTask implements Task.TaskInstance, ChangeWaferC
         if (changes["activate"]) {
             // It is advised to reset the activate to allow being reactivated without the value being different
             this.activate = undefined;
+
             try {
                 let sourceContainer = await this._containerProcess.getContainer(this.sourceContainerId, this.sourceLoadPort);
+                this._logger.warning("\n\nSourceContainer Gathered: " + JSON.stringify(sourceContainer));
                 if (!sourceContainer) {
-                    throw new Error (
+                    throw new Error(
                         `EI: On Container Change: Source Container ${this.sourceContainerId} (Load Port Id ${this.sourceLoadPort}) does not exist`);
                 }
                 let wafer = await this._containerProcess.getWafer(sourceContainer, this.sourceSlotNumber, this.equipmentWaferId, this.materialWaferId);
+                this._logger.warning("\n\nWafer Gathered: " + JSON.stringify(wafer));
                 if (!wafer) {
-                    throw new Error (
+                    throw new Error(
                         `EI: On Container Change: Wafer on Slot ${this.sourceSlotNumber} - Equipment ID ${this.equipmentWaferId}// MES Id ${this.materialWaferId}) does not exist on Source Carrier ${sourceContainer.ContainerName}`);
                 }
+                this._logger.warning("\n\nTargetContainer Gathered Name: " + JSON.stringify(this.targetContainerId));
                 let targetContainer = await this._containerProcess.getContainer(this.targetContainerId, this.targetLoadPort);
+                this._logger.warning("\n\nTargetContainer Gathered: " + JSON.stringify(targetContainer));
                 if (!targetContainer) {
                     targetContainer = await this._containerProcess.setContainer(this.targetContainerId, this.targetLoadPort, null);
                 }
@@ -134,7 +139,10 @@ export class ChangeWaferContainerTask implements Task.TaskInstance, ChangeWaferC
                 if (this.targetSlotNumber) {
                     slotNumber = this.targetSlotNumber;
                 }
+
                 targetContainer = await this._containerProcess.changeWaferFromContainer(sourceContainer, wafer, targetContainer, slotNumber);
+
+
                 sourceContainer = await this._containerProcess.getContainer(this.sourceContainerId, this.sourceLoadPort);
                 wafer = await this._containerProcess.getWafer(targetContainer, slotNumber, this.equipmentWaferId, this.materialWaferId);
 
