@@ -67,6 +67,10 @@ export default <PackageMetadata><unknown>{
         "validateEquipmentStates",
         /** Error Handling */
         "errorMessage",
+     /** Data Collection */
+           // obtaining property value
+          "customPropertyPolling",
+          "customDataTrace"
     ],
     converters: [
         "customArrayPositionValue",
