@@ -316,6 +316,11 @@
 					"        // Add code here",
 					"        const rawSubstIDList = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"SubstIDList\");",
 					"        const rawSubstHistoryList = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"SubstHistoryList\");",
+					"        const rawSubstSourceList = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"SubstSourceList\");",
+					"        const substSource = rawSubstSourceList.originalValue.value[0].value;",
+					"this.framework.logger.warning(\"===============>>>>\");",
+					"this.framework.logger.warning(JSON.stringify(rawSubstSourceList));",
+					"        const container = substSource.split(\".\")[0].trim();",
 					"",
 					"        if (rawSubstHistoryList) {",
 					"            if (rawSubstHistoryList.originalValue.value[0]",
@@ -328,26 +333,10 @@
 					"                    const subResourceOrder = (processModule.split(\"/\")[0]).replace(\"PM\", \"\");",
 					"                    let loadPortNumber = 0;",
 					"                    if (subResourceOrder) {",
+					"                        return { SubMaterialName: substID, SubResourceOrder: Number(subResourceOrder), ContainerName: container };",
 					"",
-					"                        for (let i = (rawSubstHistoryList.originalValue.value[0].value.length - 1); i >= 0; i--) {",
-					"                            const location = rawSubstHistoryList.originalValue.value[0].value[i].value[0].value;",
-					"                            if (location.startsWith(\"AL\") || location.startsWith(\"BL\") || location.startsWith(\"CL\")) {",
-					"                                if (location.startsWith(\"AL\")) ",
-					"                                    loadPortNumber = 1;",
-					"                                if (location.startsWith(\"BL\"))",
-					"                                    loadPortNumber = 2;",
-					"                                if (location.startsWith(\"CL\"))",
-					"                                    loadPortNumber = 3;",
-					"                                break;",
-					"                            }",
-					"                        }",
 					"",
-					"                        if(loadPortNumber > 0) {",
-					"                            return { SubMaterialName: substID, SubResourceOrder: Number(subResourceOrder), LoadPort: Number(loadPortNumber) };",
-					"                        } else",
-					"                        {",
-					"                            this.framework.logger.warning(\"There is no LoadPort item on the History: Skipping.\");",
-					"                        }",
+					"                       ",
 					"",
 					"                    }",
 					"                } else {",
@@ -366,7 +355,7 @@
 					"}",
 					""
 				],
-				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IHJhd1N1YnN0SURMaXN0ID0gaW5wdXRzLmV2ZW50UmF3RGF0YS52YWx1ZXMuZmluZCh2ID0+IHYucHJvcGVydHkuTmFtZSA9PT0gIlN1YnN0SURMaXN0Iik7DQogICAgICAgIGNvbnN0IHJhd1N1YnN0SGlzdG9yeUxpc3QgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiU3Vic3RIaXN0b3J5TGlzdCIpOw0KICAgICAgICBpZiAocmF3U3Vic3RIaXN0b3J5TGlzdCkgew0KICAgICAgICAgICAgaWYgKHJhd1N1YnN0SGlzdG9yeUxpc3Qub3JpZ2luYWxWYWx1ZS52YWx1ZVswXQ0KICAgICAgICAgICAgICAgICYmIHJhd1N1YnN0SGlzdG9yeUxpc3Qub3JpZ2luYWxWYWx1ZS52YWx1ZVswXS52YWx1ZS5sZW5ndGggPiAwKSB7DQogICAgICAgICAgICAgICAgY29uc3QgcHJvY2Vzc01vZHVsZSA9IHJhd1N1YnN0SGlzdG9yeUxpc3Qub3JpZ2luYWxWYWx1ZS52YWx1ZVswXS52YWx1ZVtyYXdTdWJzdEhpc3RvcnlMaXN0Lm9yaWdpbmFsVmFsdWUudmFsdWVbMF0udmFsdWUubGVuZ3RoIC0gMV0udmFsdWVbMF0udmFsdWU7DQogICAgICAgICAgICAgICAgY29uc3Qgc3Vic3RJRCA9IHJhd1N1YnN0SURMaXN0Lm9yaWdpbmFsVmFsdWUudmFsdWVbMF0udmFsdWU7DQogICAgICAgICAgICAgICAgaWYgKHByb2Nlc3NNb2R1bGUuc3RhcnRzV2l0aCgiUE0iKSkgew0KICAgICAgICAgICAgICAgICAgICBjb25zdCBzdWJSZXNvdXJjZU9yZGVyID0gKHByb2Nlc3NNb2R1bGUuc3BsaXQoIi8iKVswXSkucmVwbGFjZSgiUE0iLCAiIik7DQogICAgICAgICAgICAgICAgICAgIGxldCBsb2FkUG9ydE51bWJlciA9IDA7DQogICAgICAgICAgICAgICAgICAgIGlmIChzdWJSZXNvdXJjZU9yZGVyKSB7DQogICAgICAgICAgICAgICAgICAgICAgICBmb3IgKGxldCBpID0gKHJhd1N1YnN0SGlzdG9yeUxpc3Qub3JpZ2luYWxWYWx1ZS52YWx1ZVswXS52YWx1ZS5sZW5ndGggLSAxKTsgaSA+PSAwOyBpLS0pIHsNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb25zdCBsb2NhdGlvbiA9IHJhd1N1YnN0SGlzdG9yeUxpc3Qub3JpZ2luYWxWYWx1ZS52YWx1ZVswXS52YWx1ZVtpXS52YWx1ZVswXS52YWx1ZTsNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAobG9jYXRpb24uc3RhcnRzV2l0aCgiQUwiKSB8fCBsb2NhdGlvbi5zdGFydHNXaXRoKCJCTCIpIHx8IGxvY2F0aW9uLnN0YXJ0c1dpdGgoIkNMIikpIHsNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKGxvY2F0aW9uLnN0YXJ0c1dpdGgoIkFMIikpDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBsb2FkUG9ydE51bWJlciA9IDE7DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChsb2NhdGlvbi5zdGFydHNXaXRoKCJCTCIpKQ0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbG9hZFBvcnROdW1iZXIgPSAyOw0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAobG9jYXRpb24uc3RhcnRzV2l0aCgiQ0wiKSkNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxvYWRQb3J0TnVtYmVyID0gMzsNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgICAgICAgICAgaWYgKGxvYWRQb3J0TnVtYmVyID4gMCkgew0KICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiB7IFN1Yk1hdGVyaWFsTmFtZTogc3Vic3RJRCwgU3ViUmVzb3VyY2VPcmRlcjogTnVtYmVyKHN1YlJlc291cmNlT3JkZXIpLCBMb2FkUG9ydDogTnVtYmVyKGxvYWRQb3J0TnVtYmVyKSB9Ow0KICAgICAgICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgICAgICAgICAgZWxzZSB7DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLndhcm5pbmcoIlRoZXJlIGlzIG5vIExvYWRQb3J0IGl0ZW0gb24gdGhlIEhpc3Rvcnk6IFNraXBwaW5nLiIpOw0KICAgICAgICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgIGVsc2Ugew0KICAgICAgICAgICAgICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIud2FybmluZygiVGhlIGxhc3QgaXRlbSBpbiB0aGUgaGlzdG9yeSBpcyBub3QgdGhlIFN1YlJlc291cmNlOiBTa2lwcGluZy4iKTsNCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICB9DQogICAgICAgICAgICBlbHNlIHsNCiAgICAgICAgICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIud2FybmluZygiVGhlcmUgaXMgbm8gaXRlbSBvbiBIaXN0b3J5TGlzdDogU2tpcHBpbmcuIik7DQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICAgICAgZWxzZSB7DQogICAgICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIud2FybmluZygiVGhlcmUgaXMgbm8gSGlzdG9yeUxpc3Q6IFNraXBwaW5nLiIpOw0KICAgICAgICB9DQogICAgICAgIC8vIGVtaXQgb3V0cHV0IGR1cmluZyBleGVjdXRpb246IG91dHB1dHMub3V0cHV0MS5lbWl0KCJzb21ldGhpbmciKTsNCiAgICAgICAgLy8gcmV0dXJuIGV4YW1wbGU6IHJldHVybiB7IG91dHB1dDE6IGlucHV0cy5pbnB1dDEsIG91dHB1dDI6ICJIZWxsbyBXb3JsZCIgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IHJhd1N1YnN0SURMaXN0ID0gaW5wdXRzLmV2ZW50UmF3RGF0YS52YWx1ZXMuZmluZCh2ID0+IHYucHJvcGVydHkuTmFtZSA9PT0gIlN1YnN0SURMaXN0Iik7DQogICAgICAgIGNvbnN0IHJhd1N1YnN0SGlzdG9yeUxpc3QgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiU3Vic3RIaXN0b3J5TGlzdCIpOw0KICAgICAgICBjb25zdCByYXdTdWJzdFNvdXJjZUxpc3QgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiU3Vic3RTb3VyY2VMaXN0Iik7DQogICAgICAgIGNvbnN0IHN1YnN0U291cmNlID0gcmF3U3Vic3RTb3VyY2VMaXN0Lm9yaWdpbmFsVmFsdWUudmFsdWVbMF0udmFsdWU7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci53YXJuaW5nKCI9PT09PT09PT09PT09PT0+Pj4+Iik7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci53YXJuaW5nKEpTT04uc3RyaW5naWZ5KHJhd1N1YnN0U291cmNlTGlzdCkpOw0KICAgICAgICBjb25zdCBjb250YWluZXIgPSBzdWJzdFNvdXJjZS5zcGxpdCgiLiIpWzBdLnRyaW0oKTsNCiAgICAgICAgaWYgKHJhd1N1YnN0SGlzdG9yeUxpc3QpIHsNCiAgICAgICAgICAgIGlmIChyYXdTdWJzdEhpc3RvcnlMaXN0Lm9yaWdpbmFsVmFsdWUudmFsdWVbMF0NCiAgICAgICAgICAgICAgICAmJiByYXdTdWJzdEhpc3RvcnlMaXN0Lm9yaWdpbmFsVmFsdWUudmFsdWVbMF0udmFsdWUubGVuZ3RoID4gMCkgew0KICAgICAgICAgICAgICAgIGNvbnN0IHByb2Nlc3NNb2R1bGUgPSByYXdTdWJzdEhpc3RvcnlMaXN0Lm9yaWdpbmFsVmFsdWUudmFsdWVbMF0udmFsdWVbcmF3U3Vic3RIaXN0b3J5TGlzdC5vcmlnaW5hbFZhbHVlLnZhbHVlWzBdLnZhbHVlLmxlbmd0aCAtIDFdLnZhbHVlWzBdLnZhbHVlOw0KICAgICAgICAgICAgICAgIGNvbnN0IHN1YnN0SUQgPSByYXdTdWJzdElETGlzdC5vcmlnaW5hbFZhbHVlLnZhbHVlWzBdLnZhbHVlOw0KICAgICAgICAgICAgICAgIGlmIChwcm9jZXNzTW9kdWxlLnN0YXJ0c1dpdGgoIlBNIikpIHsNCiAgICAgICAgICAgICAgICAgICAgY29uc3Qgc3ViUmVzb3VyY2VPcmRlciA9IChwcm9jZXNzTW9kdWxlLnNwbGl0KCIvIilbMF0pLnJlcGxhY2UoIlBNIiwgIiIpOw0KICAgICAgICAgICAgICAgICAgICBsZXQgbG9hZFBvcnROdW1iZXIgPSAwOw0KICAgICAgICAgICAgICAgICAgICBpZiAoc3ViUmVzb3VyY2VPcmRlcikgew0KICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHsgU3ViTWF0ZXJpYWxOYW1lOiBzdWJzdElELCBTdWJSZXNvdXJjZU9yZGVyOiBOdW1iZXIoc3ViUmVzb3VyY2VPcmRlciksIENvbnRhaW5lck5hbWU6IGNvbnRhaW5lciB9Ow0KICAgICAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgIGVsc2Ugew0KICAgICAgICAgICAgICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIud2FybmluZygiVGhlIGxhc3QgaXRlbSBpbiB0aGUgaGlzdG9yeSBpcyBub3QgdGhlIFN1YlJlc291cmNlOiBTa2lwcGluZy4iKTsNCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICB9DQogICAgICAgICAgICBlbHNlIHsNCiAgICAgICAgICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIud2FybmluZygiVGhlcmUgaXMgbm8gaXRlbSBvbiBIaXN0b3J5TGlzdDogU2tpcHBpbmcuIik7DQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICAgICAgZWxzZSB7DQogICAgICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIud2FybmluZygiVGhlcmUgaXMgbm8gSGlzdG9yeUxpc3Q6IFNraXBwaW5nLiIpOw0KICAgICAgICB9DQogICAgICAgIC8vIGVtaXQgb3V0cHV0IGR1cmluZyBleGVjdXRpb246IG91dHB1dHMub3V0cHV0MS5lbWl0KCJzb21ldGhpbmciKTsNCiAgICAgICAgLy8gcmV0dXJuIGV4YW1wbGU6IHJldHVybiB7IG91dHB1dDE6IGlucHV0cy5pbnB1dDEsIG91dHB1dDI6ICJIZWxsbyBXb3JsZCIgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
 				"inputs": [
 					{
 						"name": "eventRawData",
@@ -382,14 +371,14 @@
 				],
 				"outputs": [
 					{
-						"name": "LoadPort",
+						"name": "ContainerName",
 						"valueType": {
-							"type": 5,
+							"type": 4,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
 							"referenceTypeId": null,
-							"friendlyName": "LoadPort"
+							"friendlyName": "ContainerName"
 						},
 						"defaultValue": null
 					},
@@ -493,11 +482,11 @@
 			"outputName": "SubResourceOrderOut"
 		},
 		{
-			"id": "e756e657-3f0b-4109-90de-338b8d0e0226",
+			"id": "16f75b63-7626-4180-b8ee-2e73e3dad475",
 			"sourceId": "task_25576",
 			"targetId": "task_122639",
-			"inputName": "LoadPortIdIn",
-			"outputName": "LoadPortOut"
+			"inputName": "ContainerNameIn",
+			"outputName": "ContainerNameOut"
 		}
 	],
 	"layout": {
@@ -556,7 +545,7 @@
 					"a2c6d84d-0b55-4ca5-beff-9e4c3964af17": {
 						"vertices": []
 					},
-					"e756e657-3f0b-4109-90de-338b8d0e0226": {
+					"16f75b63-7626-4180-b8ee-2e73e3dad475": {
 						"vertices": []
 					}
 				},
@@ -569,10 +558,10 @@
 						}
 					}
 				},
-				"zoom": 0.9300000000000002,
+				"zoom": 0.7,
 				"pan": {
-					"x": 645.5556030273438,
-					"y": 0
+					"x": 104.44445037841797,
+					"y": 44.4444465637207
 				}
 			}
 		}

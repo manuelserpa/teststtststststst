@@ -169,7 +169,8 @@
 				"SendCarrierContent": true,
 				"RecipeSpecificationType": 1,
 				"commandName": 1,
-				"MaterialFormat": "13"
+				"MaterialFormat": "13",
+				"useCarrierAtLoadPortAsContainer": true
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -398,8 +399,8 @@
 				"notes": {},
 				"zoom": 0.84,
 				"pan": {
-					"x": 675.5556030273438,
-					"y": 380
+					"x": 1363.3333740234375,
+					"y": 430
 				}
 			}
 		}

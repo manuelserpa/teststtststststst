@@ -83,6 +83,7 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
     public replyPath = "/[1]";
     public objectSpec = "Equipment"
     public occupiedSlot = "1"
+    public useCarrierAtLoadPortAsContainer = false;
 
     @DI.Inject("GlobalContainerProcessHandler")
     private _containerProcess: ContainerProcessHandler;
@@ -194,7 +195,10 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                 } else {
                     if (material.ContainerName) { // if no container used, spec allows for empty list
                         // if no sorter job exists push Container name to Carrier Input Spec
-                        carrierInputSpec.push({ type: "A", value: material.ContainerName }) // Carrier Name
+                        carrierInputSpec.push({
+                            type: "A", value: (this.useCarrierAtLoadPortAsContainer ?
+                                `CarrierAtLoadPort${material.LoadPortPosition}` : material.ContainerName)
+                        }) // Carrier Name
                     }
                 }
             }
@@ -365,6 +369,7 @@ export interface CustomCreateControlJobSettings {
     [key: string]: any;
     objectSpec: string;
     occupiedSlot: string;
+    useCarrierAtLoadPortAsContainer: boolean;
 }
 
 export enum RecipeSpecificationType {

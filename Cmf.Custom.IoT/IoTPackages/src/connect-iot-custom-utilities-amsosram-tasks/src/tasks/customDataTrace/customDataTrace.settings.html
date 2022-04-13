@@ -1,0 +1,105 @@
+<cmf-core-connect-iot-taskSettings>
+    <cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS">            
+        <!-- allowNonReadable -->
+        <cmf-core-business-controls-propertyEditor
+            [label]="i18n.ALLOW_NON_READABLE"
+            valueType="Boolean"
+            [value]="settings.allowNonReadable"
+            (valueChange)="_onSettingChange($event, 'allowNonReadable')"
+        ></cmf-core-business-controls-propertyEditor>
+
+                 <!-- autoActivate -->
+                 <cmf-core-business-controls-propertyEditor
+                 [label]="i18n.AUTO_ACTIVATE"
+                 [(value)]="settings._autoActivate"
+                 valueType="Boolean"
+                 [required]="false"
+             ></cmf-core-business-controls-propertyEditor>
+        
+                <!-- Interval-->
+                <cmf-core-business-controls-propertyEditor
+                   [label]="i18n.INTERVAL"
+                   [(value)]="settings._sampleInterval"
+                   valueType="String"                  
+                   [required]="false" 
+               ></cmf-core-business-controls-propertyEditor>
+
+                <!-- Number of Occurrences -->
+                <cmf-core-business-controls-propertyEditor
+                    [label]="i18n.TRACE_ID"
+                    [(value)]="settings._traceId"
+                    valueType="Long"
+                    min="0"
+                    [required]="false"                    
+                ></cmf-core-business-controls-propertyEditor> 
+
+                  <!-- Number of Occurrences -->
+                  <cmf-core-business-controls-propertyEditor
+                  [label]="i18n.GROUP_SIZE"
+                  [(value)]="settings._groupSize"
+                  valueType="Long"
+                  min="0"
+                  [required]="false"                    
+              ></cmf-core-business-controls-propertyEditor> 
+
+                 <!-- Number of Occurrences -->
+                  <cmf-core-business-controls-propertyEditor
+                     [label]="i18n.NUMBER_OF_SAMPLES"
+                    [(value)]="settings._numberOfSamples"
+                    valueType="Long"
+                    min="0"
+                    [required]="false"                    
+                ></cmf-core-business-controls-propertyEditor> 
+
+                <!-- Emit in new context -->
+                <cmf-core-business-controls-propertyEditor
+                    [label]="i18n.EMIT_IN_NEW_CONTEXT"
+                    [(value)]="settings.emitInNewContext"
+                    valueType="Boolean"
+                ></cmf-core-business-controls-propertyEditor>
+    </cmf-core-controls-baseWidget>
+        
+    <!-- Outputs tab -->
+    <cmf-core-connect-iot-taskSettingsTab [mainTitle]="i18n.OUTPUTS" [fullHeight]="true">
+        <cmf-core-controls-columnView
+            [model]="_outputsModel"
+            [mainTitle]="i18n.OUTPUTS"
+            [leafTitle]="i18n.OUTPUT"
+            [full-height]="true"
+            [showActionAdd]="true"
+            [showActionRemove]="true"
+            [isOrderable]="true"
+            [max-columns]="1"
+            (add)="_onColumnViewAdd($event)"
+            (remove)="_onColumnViewRemove($event)"
+            (selected)="_onColumnViewSelect($event)"> 
+        
+            <leaf-content>
+                
+                <cmf-core-business-controls-propertyContainer *ngIf="_selectedOutput && _selectedOutput.rootNode" cmf-core-controls-validator>
+
+                    <cmf-core-business-controls-propertyEditor
+                        [label]="i18n.PROPERTIES"
+                        [value]="_selectedOutput.rootNode.tag.property"
+                        [data]="_automationProperties"
+                        valueReferenceType="EntityType"
+                        valueType="ReferenceType"
+                        referenceTypeName="AutomationProperty"
+                        [required]="true"
+                        (valueChange)="_onOutputChange($event, 'property')"
+                    ></cmf-core-business-controls-propertyEditor>
+                    
+                    <cmf-core-business-controls-propertyEditor
+                        [label]="i18n.OUTPUT_TYPE"
+                        nestedEditorType="BasicEnumComboBox"
+                        [enum]="OutputTypeEnum"
+                        [required]="true"
+                        [value]="_selectedOutput.rootNode.tag.outputType"
+                        (valueChange)="_onOutputChange($event, 'outputType')">    
+                    </cmf-core-business-controls-propertyEditor>
+
+                </cmf-core-business-controls-propertyContainer>
+            </leaf-content>
+        </cmf-core-controls-columnView>    
+    </cmf-core-connect-iot-taskSettingsTab>
+</cmf-core-connect-iot-taskSettings>

@@ -12,6 +12,7 @@ The following DEE Actions were created to support customer requirements.
 | [Custom Generate Production Lot Names](/AMSOsram/techspec>artifacts>deeactions>CustomGenerateProductionLotNames) | DEE action used to generate new Lots Name. |
 | [CustomGenerateSorterJobDefinitionFromFutureAction](/AMSOsram/techspec>artifacts>deeactions>CustomGenerateSorterJobDefinitionFromFutureAction) | Dee action to Generate a Custom Sorter Job Definition if exists a Required Future Action for a given material. |
 | [Custom Generate Split Lot Names](/AMSOsram/techspec>artifacts>deeactions>CustomGenerateSplitLotNames) | Dee Action used to generate splited Materials name. |
+| [CustomIncomingMaterialLotCreation](/AMSOsram/techspec>artifacts>deeactions>CustomIncomingMaterialLotCreation) | DEE action to create or update lot incoming from ERP. |
 | [Custom Nice Label Print](/AMSOsram/techspec>artifacts>deeactions>CustomNiceLabelPrint) | DEE Action to be triggered on material track out to send retrive and send information for the nice label printing. |
 | [Custom Process Product](/AMSOsram/techspec>artifacts>deeactions>CustomProcessProduct) | Action used to create or update Product using body message of an Integration Entry. |
 | [Custom Process Products From ERP](/AMSOsram/techspec>artifacts>deeactions>CustomProcessProductsFromERP) | Action used to create an Integration Entry per Product using ERP received message. |
