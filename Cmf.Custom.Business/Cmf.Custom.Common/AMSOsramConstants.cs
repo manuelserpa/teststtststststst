@@ -89,7 +89,7 @@
         /// CustomReclaimContainerType table ReclaimContainerType Property 
         /// </summary>
         public static string GenericTableCustomReclaimContainerTypeReclaimContainerTypeProperty = "ReclaimContainerType";
-                
+
         #endregion
 
         #region LookupTables
@@ -459,6 +459,11 @@
         /// Localized Message: CustomUpdateMaterialProductWaferSizeMissing
         /// </summary>
         public static string LocalizedMessageCustomUpdateMaterialProductWaferSizeMissing = "CustomUpdateMaterialProductWaferSizeMissing";
+
+        /// <summary>
+        /// Localized Message: CustomStorageLocationMissing
+        /// </summary>
+        public const string LocalizedMessageCustomStorageLocationMissing = "CustomStorageLocationMissing";
 
         #endregion
 
@@ -881,7 +886,6 @@
 
         #region Integration Entries
 
-
         /// <summary>
         /// System ERP
         /// </summary>
@@ -896,6 +900,16 @@
         /// Integration Inbound Event Name
         /// </summary>
         public const string CustomIntegrationInboundEventName = "Inbound";
+
+        /// <summary>
+        /// SAP Info received event name
+        /// </summary>
+        public const string ERPInfoReceivedEventName = "ERPInfoReceived";
+
+        /// <summary>
+        /// SAP Info sent event name
+        /// </summary>
+        public const string ERPInfoSentEventName = "ERPInfoSent";
 
         #endregion
 
@@ -926,6 +940,18 @@
             /// Integration Entry
             /// </summary>
             public const string IntegrationEntry = "IntegrationEntry";
+        }
+
+        #endregion
+
+        #region MessageTypes
+        
+        public class MessageTypes
+        {
+            /// <summary>
+            /// Message Type: CustomStorageLocationMissing
+            /// </summary>
+            public const string CustomPerformConsumptionToSAP = "PerformConsumptionToSAP";
         }
 
         #endregion

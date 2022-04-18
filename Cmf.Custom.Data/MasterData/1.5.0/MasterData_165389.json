@@ -1,0 +1,64 @@
+{
+    "WorksheetNameMapping": {
+        "1": {
+            "WorksheetName": "IntegrationHandler",
+            "Value": "<ST>IntegrationHandlerResolution"
+        }
+    },
+    "<SM>LocalizedMessageKey": {
+        "1": {
+            "Name": "CustomStorageLocationMissing",
+            "Description": "Error message to inform that there is no Production Order.",
+            "MessageType": "Message",
+            "en-US": "The consumption couldn't be reported because {0} is missing.",
+            "de-DE": "",
+            "zh-CN": "",
+            "pt-PT": "",
+            "zh-TW": "",
+            "UsageType": "Biz"
+        }
+    },
+    "<SM>LookupTableValues": {
+        "1": {
+            "LookUp Table": "MessageType",
+            "Lookup Table Value Parent": "",
+            "Lookup Table Value": "PerformConsumptionToSAP",
+            "Lookup Table Value Description": "Sent Message to SAP",
+            "Lookup Table IsEnabled": "Yes"
+        }
+    },
+    "<SM>DEEAction": {
+        "1": {
+            "Action": "CustomCreateGoodsIssueMessage",
+            "Description": "DEE Action creates message to inform ERP about Goods Issue.",
+            "CodeFileRelativePath": "ProductionOrders\\CustomCreateGoodsIssueMessage.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        },
+        "2": {
+            "Action": "CustomSendToSAPHandler",
+            "Description": "DEE Action will handle Integration Entry with information to send to SAP.",
+            "CodeFileRelativePath": "Integrations\\CustomSendToSAPHandler.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        }
+    },
+    "DEEActionOrder": {
+        "1": {
+            "ActionGroup": "BusinessObjects.MaterialCollection.TrackOut.Post",
+            "Action": "CustomCreateGoodsIssueMessage",
+            "Order": ""
+        }
+    },
+    "<LOOKUP>IntegrationHandler": {
+        "1": {
+            "FromSystem": "MES",
+            "ToSystem": "ERP",
+            "MessageType": "PerformConsumptionToSAP",
+            "HandlerType": "GenericIntegrationHandler",
+            "ActionName": "CustomSendToSAPHandler",
+            "ErrorHandlingActionName": "",
+            "IsEnabled": "Yes"
+        }
+    }
+}
