@@ -1,5 +1,6 @@
 ﻿using Cmf.Common.CustomActionUtilities;
 using Cmf.Custom.AMSOsram.Common;
+using Cmf.Custom.AMSOsram.Common.ProductionOrders;
 using Cmf.Navigo.BusinessObjects;
 using System.Collections.Generic;
 
@@ -83,8 +84,19 @@ namespace Cmf.Custom.AMSOsram.Actions.ProductionOrders
                     }
                 }
 
+                GoodsIssueOutbound goodsIssueOutbound = new GoodsIssueOutbound();
+                goodsIssueOutbound.ProductionOrderName = productionOrder.Name;
+                //goodsIssueOutbound.MaterialName
+                goodsIssueOutbound.ProductName = productionOrder.Product.Name;
+                goodsIssueOutbound.Quantity = productionOrder.Quantity;
+                goodsIssueOutbound.Units = productionOrder.Units;
+                goodsIssueOutbound.Site = productionOrder.Facility.Site.Name;
+                //goodsIssueOutbound.MovementType
+                //goodsIssueOutbound.Wafers
+                //goodsIssueOutbound.CostCenter
+
                 // Serialize ProductionOrder to XML message 
-                string message = productionOrder.SerializeToXML();
+                string message = goodsIssueOutbound.SerializeToXML();
 
                 // Create an IntegrationEntry to Inform SAP about the Goods Issue
                 AMSOsramUtilities.CreateOutboundIntegrationEntry(message, AMSOsramConstants.MessageTypes.CustomPerformConsumptionToSAP);
