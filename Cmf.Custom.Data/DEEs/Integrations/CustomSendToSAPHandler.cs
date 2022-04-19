@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Cmf.Custom.AMSOsram.Common;
+using Cmf.Foundation.BusinessObjects;
+using Cmf.Foundation.Common;
+using System.Collections.Generic;
 
 namespace Cmf.Custom.AMSOsram.Actions.Integrations
 {
@@ -18,6 +21,13 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             /// Exceptions:
             /// </summary>
             #endregion
+
+            IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, Constants.IntegrationEntry);
+
+            if (integrationEntry is null || integrationEntry.IntegrationMessage is null || integrationEntry.IntegrationMessage.Message is null || integrationEntry.IntegrationMessage.Message.Length <= 0)
+            {
+                return false;
+            }
 
             return true;
 
@@ -43,6 +53,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
 
             //Custom
+
+            IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, Constants.IntegrationEntry);
+
+            // Send ProductionOrder data throught AMSOsram service
 
             //---End DEE Code---
 

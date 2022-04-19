@@ -57,8 +57,10 @@ namespace Cmf.Custom.AMSOsram.Actions.ProductionOrders
             //Custom
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
 
-            // Get MaterialCollection based on the context
+            // Get availableMaterials based on the context
             MaterialCollection materials = DeeContextHelper.GetContextParameter("AvailableMaterials") as MaterialCollection;
+
+            DeeContextHelper.SetContextParameter("AvailableMaterials", null);
 
             foreach (Material material in materials)
             {
@@ -71,8 +73,8 @@ namespace Cmf.Custom.AMSOsram.Actions.ProductionOrders
                 }
                 else
                 {
-                    // Set productionOrder object based on Custom Query result
-                    productionOrder = AMSOsramUtilities.GetMaterialProductionOrder(material);
+                    // Get productionOrder object based on Custom Query result
+                    productionOrder = AMSOsramUtilities.GetMaterialProductionOrder(material.Product.Name, material.TrackOutDate);
 
                     if (productionOrder == null)
                     {
@@ -81,6 +83,7 @@ namespace Cmf.Custom.AMSOsram.Actions.ProductionOrders
                     }
                 }
 
+                // Serialize ProductionOrder to XML message 
                 string message = productionOrder.SerializeToXML();
 
                 // Create an IntegrationEntry to Inform SAP about the Goods Issue

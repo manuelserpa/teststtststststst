@@ -935,17 +935,12 @@
             /// Product
             /// </summary>
             public const string Product = "Product";
-
-            /// <summary>
-            /// Integration Entry
-            /// </summary>
-            public const string IntegrationEntry = "IntegrationEntry";
         }
 
         #endregion
 
         #region MessageTypes
-        
+
         public class MessageTypes
         {
             /// <summary>

@@ -1774,7 +1774,13 @@ namespace Cmf.Custom.AMSOsram.Common
 
         #region Queries
 
-        public static ProductionOrder GetMaterialProductionOrder(Material material)
+        /// <summary>
+        /// Get Production Order
+        /// </summary>
+        /// <param name="productName">Product Name</param>
+        /// <param name="trackOutDate">Trackout Date</param>
+        /// <returns>Return Production Order based on Product and TrackOut Date associated to a Material</returns>
+        public static ProductionOrder GetMaterialProductionOrder(string productName, DateTime? trackOutDate)
         {
             QueryObject query = new QueryObject();
             query.Description = "";
@@ -1790,7 +1796,7 @@ namespace Cmf.Custom.AMSOsram.Common
                     ObjectName = "Product",
                     ObjectAlias = "ProductionOrder_Product_2",
                     Operator = FieldOperator.Contains,
-                    Value = material.Product.Name,
+                    Value = productName,
                     LogicalOperator = LogicalOperator.AND,
                     FilterType = Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal
                 },
@@ -1800,7 +1806,7 @@ namespace Cmf.Custom.AMSOsram.Common
                     ObjectName = "ProductionOrder",
                     ObjectAlias = "ProductionOrder_1",
                     Operator = FieldOperator.GreaterThanOrEqualTo,
-                    Value = material.TrackOutDate,
+                    Value = trackOutDate,
                     LogicalOperator = LogicalOperator.AND,
                     FilterType = Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal
                 },
