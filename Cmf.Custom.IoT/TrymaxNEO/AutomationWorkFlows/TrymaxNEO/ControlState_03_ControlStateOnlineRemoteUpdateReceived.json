@@ -63,7 +63,7 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "Control State REMOTE"
+						"Name": "CONTROL_STATE_REMOTE"
 					}
 				]
 			},

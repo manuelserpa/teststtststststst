@@ -63,7 +63,7 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "Control State LOCAL"
+						"Name": "CONTROL_STATE_LOCAL"
 					}
 				]
 			},
