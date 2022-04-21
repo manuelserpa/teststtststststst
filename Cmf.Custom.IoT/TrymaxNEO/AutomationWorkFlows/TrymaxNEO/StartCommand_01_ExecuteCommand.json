@@ -143,8 +143,120 @@
 				}
 			},
 			"settings": {
-				"_inputs": [],
-				"_command": null
+				"_inputs": [
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "LotID",
+							"DataType": 0
+						},
+						"dataType": "String"
+					}
+				],
+				"_command": {
+					"$type": "Cmf.Foundation.BusinessObjects.AutomationCommand, Cmf.Foundation.BusinessObjects",
+					"Name": "START"
+				},
+				"___cmf___name": "Execute Equipment Command"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_111820",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        const materialData = inputs.MaterialData[0];",
+					"        const podId = materialData.LoadPortPosition;",
+					"        const lotName = materialData.MaterialName;",
+					"        const recipeId = materialData.Recipe.NameOnEquipment;",
+					"        let useInSlot: Array<boolean> = [];",
+					"",
+					"        for (let i = 1; i <= 13; i++) {",
+					"            let subMaterialInSlot = (<any[]>materialData.SubMaterials).find(subMaterial => subMaterial.Slot == i);",
+					"            if (subMaterialInSlot != null) {",
+					"                useInSlot[i-1] = true;",
+					"            } else {",
+					"                useInSlot[i-1] = false;",
+					"            }",
+					"        }",
+					"",
+					"",
+					"        return { PodID: podId, RecipeID: recipeId, LotID: lotName,",
+					"            UseSlot1: useInSlot[0],",
+					"            UseSlot2: useInSlot[1],",
+					"            UseSlot3: useInSlot[2],",
+					"            UseSlot4: useInSlot[3],",
+					"            UseSlot5: useInSlot[4],",
+					"            UseSlot6: useInSlot[5],",
+					"            UseSlot7: useInSlot[6],",
+					"            UseSlot8: useInSlot[7],",
+					"            UseSlot9: useInSlot[8],",
+					"            UseSlot10: useInSlot[9],",
+					"            UseSlot11: useInSlot[10],",
+					"            UseSlot12: useInSlot[11],",
+					"            UseSlot13: useInSlot[12],",
+					"",
+					"        };",
+					"",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IG1hdGVyaWFsRGF0YSA9IGlucHV0cy5NYXRlcmlhbERhdGFbMF07DQogICAgICAgIGNvbnN0IHBvZElkID0gbWF0ZXJpYWxEYXRhLkxvYWRQb3J0UG9zaXRpb247DQogICAgICAgIGNvbnN0IGxvdE5hbWUgPSBtYXRlcmlhbERhdGEuTWF0ZXJpYWxOYW1lOw0KICAgICAgICBjb25zdCByZWNpcGVJZCA9IG1hdGVyaWFsRGF0YS5SZWNpcGUuTmFtZU9uRXF1aXBtZW50Ow0KICAgICAgICBsZXQgdXNlSW5TbG90ID0gW107DQogICAgICAgIGZvciAobGV0IGkgPSAxOyBpIDw9IDEzOyBpKyspIHsNCiAgICAgICAgICAgIGxldCBzdWJNYXRlcmlhbEluU2xvdCA9IG1hdGVyaWFsRGF0YS5TdWJNYXRlcmlhbHMuZmluZChzdWJNYXRlcmlhbCA9PiBzdWJNYXRlcmlhbC5TbG90ID09IGkpOw0KICAgICAgICAgICAgaWYgKHN1Yk1hdGVyaWFsSW5TbG90ICE9IG51bGwpIHsNCiAgICAgICAgICAgICAgICB1c2VJblNsb3RbaSAtIDFdID0gdHJ1ZTsNCiAgICAgICAgICAgIH0NCiAgICAgICAgICAgIGVsc2Ugew0KICAgICAgICAgICAgICAgIHVzZUluU2xvdFtpIC0gMV0gPSBmYWxzZTsNCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgICAgICByZXR1cm4geyBQb2RJRDogcG9kSWQsIFJlY2lwZUlEOiByZWNpcGVJZCwgTG90SUQ6IGxvdE5hbWUsDQogICAgICAgICAgICBVc2VTbG90MTogdXNlSW5TbG90WzBdLA0KICAgICAgICAgICAgVXNlU2xvdDI6IHVzZUluU2xvdFsxXSwNCiAgICAgICAgICAgIFVzZVNsb3QzOiB1c2VJblNsb3RbMl0sDQogICAgICAgICAgICBVc2VTbG90NDogdXNlSW5TbG90WzNdLA0KICAgICAgICAgICAgVXNlU2xvdDU6IHVzZUluU2xvdFs0XSwNCiAgICAgICAgICAgIFVzZVNsb3Q2OiB1c2VJblNsb3RbNV0sDQogICAgICAgICAgICBVc2VTbG90NzogdXNlSW5TbG90WzZdLA0KICAgICAgICAgICAgVXNlU2xvdDg6IHVzZUluU2xvdFs3XSwNCiAgICAgICAgICAgIFVzZVNsb3Q5OiB1c2VJblNsb3RbOF0sDQogICAgICAgICAgICBVc2VTbG90MTA6IHVzZUluU2xvdFs5XSwNCiAgICAgICAgICAgIFVzZVNsb3QxMTogdXNlSW5TbG90WzEwXSwNCiAgICAgICAgICAgIFVzZVNsb3QxMjogdXNlSW5TbG90WzExXSwNCiAgICAgICAgICAgIFVzZVNsb3QxMzogdXNlSW5TbG90WzEyXSwNCiAgICAgICAgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "$LotID",
+						"valueType": {
+							"friendlyName": "$LotID",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -157,14 +269,6 @@
 			"targetId": "task_44586",
 			"inputName": "MaterialData",
 			"outputName": "MaterialDataOut",
-			"converters": []
-		},
-		{
-			"id": "task_44588_activateOut-task_44592_activate",
-			"sourceId": "task_44588",
-			"targetId": "task_44592",
-			"inputName": "activate",
-			"outputName": "activateOut",
 			"converters": []
 		},
 		{
@@ -198,6 +302,34 @@
 			"inputName": "error",
 			"outputName": "ErrorOut",
 			"converters": []
+		},
+		{
+			"id": "e0d93299-572f-484f-b798-1c49556f521c",
+			"sourceId": "task_44588",
+			"targetId": "task_111820",
+			"inputName": "MaterialDataIn",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "3d426ddd-ab7b-4449-a3b8-06c6c6f32037",
+			"sourceId": "task_111820",
+			"targetId": "task_44592",
+			"inputName": "$LotID",
+			"outputName": "$LotIDOut"
+		},
+		{
+			"id": "0dc13a36-2fa5-48f2-a422-4461d1e0a371",
+			"sourceId": "task_111820",
+			"targetId": "task_44592",
+			"inputName": "activate",
+			"outputName": "$LotIDOut"
+		},
+		{
+			"id": "a4a80b0d-08f0-476c-9d47-822edeb61567",
+			"sourceId": "task_44588",
+			"targetId": "task_111820",
+			"inputName": "activate",
+			"outputName": "MaterialDataOut"
 		}
 	],
 	"layout": {
@@ -218,8 +350,8 @@
 					"task_44586": {
 						"collapsed": false,
 						"position": {
-							"x": 3410,
-							"y": 798
+							"x": 3867,
+							"y": 832
 						},
 						"outdated": false
 					},
@@ -234,25 +366,30 @@
 					"task_44590": {
 						"collapsed": false,
 						"position": {
-							"x": 2787,
-							"y": 1164
+							"x": 3071,
+							"y": 1428
 						},
 						"outdated": false
 					},
 					"task_44592": {
 						"collapsed": false,
 						"position": {
-							"x": 2195,
-							"y": 1044
+							"x": 2420,
+							"y": 1195
+						},
+						"outdated": false
+					},
+					"task_111820": {
+						"collapsed": false,
+						"position": {
+							"x": 1859,
+							"y": 885
 						},
 						"outdated": false
 					}
 				},
 				"links": {
 					"task_44588_MaterialDataOut-task_44586_MaterialData": {
-						"vertices": []
-					},
-					"task_44588_activateOut-task_44592_activate": {
 						"vertices": []
 					},
 					"task_44592_success-task_44586_success": {
@@ -266,21 +403,33 @@
 					},
 					"task_44590_ErrorOut-task_44586_error": {
 						"vertices": []
+					},
+					"e0d93299-572f-484f-b798-1c49556f521c": {
+						"vertices": []
+					},
+					"3d426ddd-ab7b-4449-a3b8-06c6c6f32037": {
+						"vertices": []
+					},
+					"0dc13a36-2fa5-48f2-a422-4461d1e0a371": {
+						"vertices": []
+					},
+					"a4a80b0d-08f0-476c-9d47-822edeb61567": {
+						"vertices": []
 					}
 				},
 				"notes": {
 					"note_44905": {
 						"collapsed": false,
 						"position": {
-							"x": 1563,
-							"y": 1135
+							"x": 1120,
+							"y": 1353
 						}
 					}
 				},
-				"zoom": 0.3999999999999996,
+				"zoom": 0.6199999999999998,
 				"pan": {
-					"x": 355,
-					"y": 270
+					"x": 491.1111145019531,
+					"y": 384.4444580078125
 				}
 			}
 		}

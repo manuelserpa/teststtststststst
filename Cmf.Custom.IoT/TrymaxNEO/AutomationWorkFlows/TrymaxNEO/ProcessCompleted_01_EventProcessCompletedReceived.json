@@ -167,7 +167,55 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "LOT_ID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PORT_ID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PPID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SUBSTRATE_COUNT",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SUCCESSFULLY_PROCESSED_SUBSTRATE_COUNT",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "PROCESSING_COMPLETED"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -214,7 +262,29 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "079d79ec-388e-444b-8bd3-92c4be72e1e6",
+			"sourceId": "task_75124",
+			"targetId": "task_127417",
+			"inputName": "MaterialNameIn",
+			"outputName": "$LOT_ID"
+		},
+		{
+			"id": "840afee1-a468-4cba-9cb3-76c19fa3e7b0",
+			"sourceId": "task_75124",
+			"targetId": "task_127417",
+			"inputName": "LoadPortIdIn",
+			"outputName": "$PORT_ID"
+		},
+		{
+			"id": "dff580a2-ef47-4463-afce-5294dfba4db8",
+			"sourceId": "task_75124",
+			"targetId": "task_127417",
+			"inputName": "activate",
+			"outputName": "$PORT_ID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#00ff80",
@@ -249,13 +319,23 @@
 					"task_75124": {
 						"collapsed": false,
 						"position": {
-							"x": 494.3396226415092,
-							"y": 320.75471698113193
+							"x": 399,
+							"y": 293
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"079d79ec-388e-444b-8bd3-92c4be72e1e6": {
+						"vertices": []
+					},
+					"840afee1-a468-4cba-9cb3-76c19fa3e7b0": {
+						"vertices": []
+					},
+					"dff580a2-ef47-4463-afce-5294dfba4db8": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_60654": {
 						"collapsed": false,
@@ -267,8 +347,8 @@
 				},
 				"zoom": 0.6600000000000004,
 				"pan": {
-					"x": 300,
-					"y": 76.25
+					"x": 0,
+					"y": 14.44444465637207
 				}
 			}
 		}

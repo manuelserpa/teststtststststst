@@ -114,9 +114,83 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "POD1_ARRIVED"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_5322",
+			"reference": {
+				"name": "equipmentCommand",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_inputs": [
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "PodID",
+							"DataType": 5
+						},
+						"dataType": "Integer"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "CarrierID",
+							"DataType": 0
+						},
+						"dataType": "String"
+					}
+				],
+				"_command": {
+					"$type": "Cmf.Foundation.BusinessObjects.AutomationCommand, Cmf.Foundation.BusinessObjects",
+					"Name": "SET_CARRIER_ID"
+				},
+				"___cmf___name": "Execute Equipment Command"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_43613",
+			"reference": {
+				"name": "store",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "StoreOnActivate",
+				"___cmf___name": "Store Data",
+				"___cmf___color": "#808080",
+				"_inputs": [
+					{
+						"name": "LastCarrierArrived",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LastCarrierArrived"
+						},
+						"storage": "Persistent",
+						"identifier": "LastCarrierArrived",
+						"defaultValue": null
+					}
+				]
+			}
 		}
 	],
 	"converters": [
@@ -151,7 +225,75 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "8c8c5a61-150c-4a1b-8b1a-9f2300546045",
+			"sourceId": "task_188327",
+			"targetId": "task_93139",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "d17833e2-24f9-4b8c-b69f-3464867cd204",
+			"sourceId": "task_188327",
+			"targetId": "task_93139",
+			"inputName": "LoadPortNumberIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "1"
+					}
+				}
+			]
+		},
+		{
+			"id": "53208f3f-b916-4c77-8c5e-89234e12f237",
+			"sourceId": "task_93139",
+			"targetId": "task_5322",
+			"inputName": "$PodID",
+			"outputName": "LoadPortNumberOut"
+		},
+		{
+			"id": "a377a2e9-1f7f-404f-9c10-3dbc6eb6935c",
+			"sourceId": "task_93139",
+			"targetId": "task_5322",
+			"inputName": "$CarrierID",
+			"outputName": "LoadPortNumberOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 4,
+						"value": "CarrierAtLoadPort1"
+					}
+				}
+			]
+		},
+		{
+			"id": "abf6b41a-002c-4894-8b89-206cf7a997a2",
+			"sourceId": "task_93139",
+			"targetId": "task_43613",
+			"inputName": "LastCarrierArrived",
+			"outputName": "LoadPortNumberOut"
+		},
+		{
+			"id": "ffff18e0-857b-4a27-a587-bc9529994b93",
+			"sourceId": "task_93139",
+			"targetId": "task_43613",
+			"inputName": "activate",
+			"outputName": "LoadPortNumberOut"
+		},
+		{
+			"id": "120e83d9-fcf8-4de5-89dc-bff36716b70b",
+			"sourceId": "task_43613",
+			"targetId": "task_5322",
+			"inputName": "activate",
+			"outputName": "success"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -170,35 +312,73 @@
 					"task_93139": {
 						"collapsed": false,
 						"position": {
-							"x": 911,
-							"y": 355
+							"x": 981,
+							"y": 313
 						},
 						"outdated": false
 					},
 					"task_188327": {
 						"collapsed": false,
 						"position": {
-							"x": 360,
-							"y": 351
+							"x": 227,
+							"y": 355
+						},
+						"outdated": false
+					},
+					"task_5322": {
+						"collapsed": false,
+						"position": {
+							"x": 1951,
+							"y": 286
+						},
+						"outdated": false
+					},
+					"task_43613": {
+						"collapsed": false,
+						"position": {
+							"x": 1472,
+							"y": 569
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"8c8c5a61-150c-4a1b-8b1a-9f2300546045": {
+						"vertices": []
+					},
+					"53208f3f-b916-4c77-8c5e-89234e12f237": {
+						"vertices": []
+					},
+					"abf6b41a-002c-4894-8b89-206cf7a997a2": {
+						"vertices": []
+					},
+					"ffff18e0-857b-4a27-a587-bc9529994b93": {
+						"vertices": []
+					},
+					"120e83d9-fcf8-4de5-89dc-bff36716b70b": {
+						"vertices": []
+					},
+					"d17833e2-24f9-4b8c-b69f-3464867cd204": {
+						"vertices": []
+					},
+					"a377a2e9-1f7f-404f-9c10-3dbc6eb6935c": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_188651": {
 						"collapsed": false,
 						"position": {
-							"x": 1332,
-							"y": 226
+							"x": 2741,
+							"y": 173
 						}
 					}
 				},
 				"pan": {
-					"x": 274.4444580078125,
-					"y": 21.111112594604492
+					"x": 582.2222290039062,
+					"y": 0
 				},
-				"zoom": 0.8600000000000003
+				"zoom": 0.7600000000000002
 			}
 		}
 	}

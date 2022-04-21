@@ -1,7 +1,7 @@
 {
 	"tasks": [
 		{
-			"id": "task_93884",
+			"id": "task_13715",
 			"reference": {
 				"name": "workflow",
 				"package": {
@@ -114,7 +114,103 @@
 			}
 		},
 		{
-			"id": "task_190927",
+			"id": "task_13717",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        const rawSlotMap = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"SLOT_MAP\");",
+					"",
+					"        if (rawSlotMap == null) {",
+					"            throw new Error(\"Empty slot map\");",
+					"        }",
+					"",
+					"        let slotMap: String = \"\";",
+					"",
+					"        (<any[]>rawSlotMap.originalValue.value).forEach(slot => {",
+					"",
+					"            slotMap += slot.value > 1 ? \"1\" : \"0\";",
+					"",
+					"        });",
+					"",
+					"",
+					"        return { SlotMap: slotMap, PortId: 2 };",
+					"",
+					"",
+					"",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IHJhd1Nsb3RNYXAgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiU0xPVF9NQVAiKTsNCiAgICAgICAgaWYgKHJhd1Nsb3RNYXAgPT0gbnVsbCkgew0KICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKCJFbXB0eSBzbG90IG1hcCIpOw0KICAgICAgICB9DQogICAgICAgIGxldCBzbG90TWFwID0gIiI7DQogICAgICAgIHJhd1Nsb3RNYXAub3JpZ2luYWxWYWx1ZS52YWx1ZS5mb3JFYWNoKHNsb3QgPT4gew0KICAgICAgICAgICAgc2xvdE1hcCArPSBzbG90LnZhbHVlID4gMSA/ICIxIiA6ICIwIjsNCiAgICAgICAgfSk7DQogICAgICAgIHJldHVybiB7IFNsb3RNYXA6IHNsb3RNYXAsIFBvcnRJZDogMiB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
+				"inputs": [
+					{
+						"name": "eventRawData",
+						"valueType": {
+							"friendlyName": "eventRawData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "SlotMap",
+						"valueType": {
+							"friendlyName": "SlotMap",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "PortId",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
+		},
+		{
+			"id": "task_13719",
 			"reference": {
 				"name": "equipmentEvent",
 				"package": {
@@ -125,7 +221,55 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "POD1_MATERIAL_MAP_LIST",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "POD2_MATERIAL_MAP_LIST",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "POD3_MATERIAL_MAP_LIST",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "POD4_MATERIAL_MAP_LIST",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SLOT_MAP",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "POD2_MAPPED"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -140,9 +284,76 @@
 					"version": "8.3.3-202201212"
 				}
 			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "task_13717_SlotMapOut-task_13715_SlotMapIn",
+			"sourceId": "task_13717",
+			"targetId": "task_13715",
+			"inputName": "SlotMapIn",
+			"outputName": "SlotMapOut",
+			"converters": []
+		},
+		{
+			"id": "task_13717_PortIdOut-task_13715_LoadPortIn",
+			"sourceId": "task_13717",
+			"targetId": "task_13715",
+			"inputName": "LoadPortIn",
+			"outputName": "PortIdOut",
+			"converters": []
+		},
+		{
+			"id": "task_13717_success-task_13715_activate",
+			"sourceId": "task_13717",
+			"targetId": "task_13715",
+			"inputName": "activate",
+			"outputName": "success",
+			"converters": []
+		},
+		{
+			"id": "task_13717_success-task_13715_DoNotTriggerMaterialInIn",
+			"sourceId": "task_13717",
+			"targetId": "task_13715",
+			"inputName": "DoNotTriggerMaterialInIn",
+			"outputName": "success",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "true"
+					}
+				}
+			]
+		},
+		{
+			"id": "task_13719_eventRawData-task_13717_eventRawDataIn",
+			"sourceId": "task_13719",
+			"targetId": "task_13717",
+			"inputName": "eventRawDataIn",
+			"outputName": "eventRawData",
+			"converters": []
+		},
+		{
+			"id": "task_13719_eventRawData-task_13717_activate",
+			"sourceId": "task_13719",
+			"targetId": "task_13717",
+			"inputName": "activate",
+			"outputName": "eventRawData",
+			"converters": []
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -158,15 +369,23 @@
 		"drawers": {
 			"DIAGRAM": {
 				"tasks": {
-					"task_93884": {
+					"task_13715": {
 						"collapsed": false,
 						"position": {
-							"x": 860,
-							"y": 199
+							"x": 1321,
+							"y": 194
 						},
 						"outdated": false
 					},
-					"task_190927": {
+					"task_13717": {
+						"collapsed": false,
+						"position": {
+							"x": 781,
+							"y": 288
+						},
+						"outdated": false
+					},
+					"task_13719": {
 						"collapsed": false,
 						"position": {
 							"x": 277,
@@ -175,13 +394,32 @@
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"task_13717_SlotMapOut-task_13715_SlotMapIn": {
+						"vertices": []
+					},
+					"task_13717_PortIdOut-task_13715_LoadPortIn": {
+						"vertices": []
+					},
+					"task_13717_success-task_13715_activate": {
+						"vertices": []
+					},
+					"task_13719_eventRawData-task_13717_eventRawDataIn": {
+						"vertices": []
+					},
+					"task_13719_eventRawData-task_13717_activate": {
+						"vertices": []
+					},
+					"task_13717_success-task_13715_DoNotTriggerMaterialInIn": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_191122": {
 						"collapsed": false,
 						"position": {
-							"x": 1412,
-							"y": 118
+							"x": 1855,
+							"y": 104
 						}
 					}
 				},

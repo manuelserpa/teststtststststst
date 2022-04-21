@@ -12,104 +12,170 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "REMOTE_COMMAND_NAME",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "REMOTE_COMMAND_SUCCESS"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		},
 		{
-			"id": "task_194517",
+			"id": "task_49038",
 			"reference": {
-				"name": "workflow",
+				"name": "equipmentCommand",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
 					"version": "8.3.3-202201212"
 				}
 			},
 			"settings": {
-				"automationWorkflow": {
-					"DisplayName": "CarrierIdRead",
-					"IsShared": true,
-					"Name": "CarrierIdRead"
-				},
-				"executeWhenAllInputsDefined": false,
-				"contextsExpirationInMilliseconds": 60000,
-				"executionExpirationInMilliseconds": 1200000,
-				"inputs": [
+				"_inputs": [
 					{
-						"name": "ContainerId",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "PodID",
+							"DataType": 5
+						},
+						"dataType": "Integer"
+					}
+				],
+				"_command": {
+					"$type": "Cmf.Foundation.BusinessObjects.AutomationCommand, Cmf.Foundation.BusinessObjects",
+					"Name": "LOAD_POD"
+				},
+				"___cmf___name": "Execute Equipment Command"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_49402",
+			"reference": {
+				"name": "expressionEvaluator",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_expressionType": 0,
+				"_evaluatorBehavior": "EvaluateUntilTrue",
+				"___cmf___name": "Expression Evaluator",
+				"_clearInputs": true,
+				"_inputs": [
+					{
+						"name": "RemoteCommandName",
 						"valueType": {
 							"type": 4,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
 							"referenceTypeId": null,
-							"friendlyName": ""
-						}
-					},
+							"friendlyName": "RemoteCommandName"
+						},
+						"defaultValue": "\"\"",
+						"required": true
+					}
+				],
+				"_outputs": [
 					{
-						"name": "SlotMap",
-						"valueType": {
-							"type": 10,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						}
-					},
-					{
-						"name": "LoadPort",
-						"valueType": {
-							"type": 5,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						}
-					},
-					{
-						"name": "StateUpdatedOnMainEquipment",
+						"name": "IsLastCommandSetCarrierID",
 						"valueType": {
 							"type": 3,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
 							"referenceTypeId": null,
-							"friendlyName": "StateUpdatedOnMainEquipment"
-						}
+							"friendlyName": ""
+						},
+						"expression": "equal(RemoteCommandName, \"SETCARRIERID\")",
+						"defaultValue": null
 					}
-				],
-				"outputs": [
+				]
+			}
+		},
+		{
+			"id": "task_54455",
+			"reference": {
+				"name": "retrieve",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_retrieveOnValueChange": false,
+				"_emitInNewContext": false,
+				"___cmf___name": "Retrieve Data",
+				"___cmf___color": "#808080",
+				"_outputs": [
 					{
-						"name": "container",
+						"name": "LastCarrierArrived",
 						"valueType": {
-							"friendlyName": "container",
-							"type": 10,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null
-						}
-					},
-					{
-						"name": "LoadPort",
-						"valueType": {
-							"friendlyName": "LoadPort",
 							"type": 5,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
-							"referenceTypeId": null
-						}
+							"referenceTypeId": null,
+							"friendlyName": "LastCarrierArrived"
+						},
+						"identifier": "LastCarrierArrived",
+						"defaultValue": 0
 					}
-				],
-				"___cmf___name": "Workflow"
+				]
 			}
 		}
 	],
 	"converters": [],
-	"links": [],
+	"links": [
+		{
+			"id": "7f1d8dc8-0204-4424-a68f-1aee2efa1495",
+			"sourceId": "task_194418",
+			"targetId": "task_49402",
+			"inputName": "RemoteCommandName",
+			"outputName": "$REMOTE_COMMAND_NAME"
+		},
+		{
+			"id": "4fddf078-27b1-47cc-9c86-d016549954ed",
+			"sourceId": "task_194418",
+			"targetId": "task_49402",
+			"inputName": "activate",
+			"outputName": "$REMOTE_COMMAND_NAME"
+		},
+		{
+			"id": "38b9aef7-731e-4b4f-85c7-cf3d2a3d0898",
+			"sourceId": "task_49402",
+			"targetId": "task_54455",
+			"inputName": "activate",
+			"outputName": "IsLastCommandSetCarrierID"
+		},
+		{
+			"id": "4dedd2b3-d1ae-4897-9f1b-6da58253715b",
+			"sourceId": "task_54455",
+			"targetId": "task_49038",
+			"inputName": "$PodID",
+			"outputName": "LastCarrierArrived"
+		},
+		{
+			"id": "020a1f20-dd3c-4800-9ce6-664c421fb90e",
+			"sourceId": "task_54455",
+			"targetId": "task_49038",
+			"inputName": "activate",
+			"outputName": "LastCarrierArrived"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -128,34 +194,66 @@
 					"task_194418": {
 						"collapsed": false,
 						"position": {
-							"x": 937.9310344827586,
-							"y": 551.7241379310344
+							"x": 499,
+							"y": 483
 						},
 						"outdated": false
 					},
-					"task_194517": {
+					"task_49038": {
 						"collapsed": false,
 						"position": {
-							"x": 1626,
-							"y": 557
+							"x": 2192,
+							"y": 460
+						},
+						"outdated": false
+					},
+					"task_49402": {
+						"collapsed": false,
+						"position": {
+							"x": 1044,
+							"y": 563
+						},
+						"outdated": false
+					},
+					"task_54455": {
+						"collapsed": false,
+						"position": {
+							"x": 1605,
+							"y": 618
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"7f1d8dc8-0204-4424-a68f-1aee2efa1495": {
+						"vertices": []
+					},
+					"4fddf078-27b1-47cc-9c86-d016549954ed": {
+						"vertices": []
+					},
+					"38b9aef7-731e-4b4f-85c7-cf3d2a3d0898": {
+						"vertices": []
+					},
+					"4dedd2b3-d1ae-4897-9f1b-6da58253715b": {
+						"vertices": []
+					},
+					"020a1f20-dd3c-4800-9ce6-664c421fb90e": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_195558": {
 						"collapsed": false,
 						"position": {
-							"x": 2161,
-							"y": 523
+							"x": 3187,
+							"y": 487
 						}
 					}
 				},
 				"zoom": 0.7300000000000004,
 				"pan": {
-					"x": 415.5555725097656,
-					"y": 185.55555725097656
+					"x": 517.7777709960938,
+					"y": 43.333335876464844
 				}
 			}
 		}

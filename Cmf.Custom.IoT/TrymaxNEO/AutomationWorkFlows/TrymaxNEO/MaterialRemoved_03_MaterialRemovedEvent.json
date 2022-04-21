@@ -1,7 +1,7 @@
 {
 	"tasks": [
 		{
-			"id": "task_95323",
+			"id": "task_18683",
 			"reference": {
 				"name": "workflow",
 				"package": {
@@ -114,7 +114,7 @@
 			}
 		},
 		{
-			"id": "task_189672",
+			"id": "task_18685",
 			"reference": {
 				"name": "equipmentEvent",
 				"package": {
@@ -125,7 +125,14 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "POD3_UNLOAD_COMPLETE"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -162,7 +169,32 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "task_18685_eventRawData-task_18683_LoadPortNumberIn",
+			"sourceId": "task_18685",
+			"targetId": "task_18683",
+			"inputName": "LoadPortNumberIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "3"
+					}
+				}
+			]
+		},
+		{
+			"id": "task_18685_eventRawData-task_18683_activate",
+			"sourceId": "task_18685",
+			"targetId": "task_18683",
+			"inputName": "activate",
+			"outputName": "eventRawData",
+			"converters": []
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -178,36 +210,43 @@
 		"drawers": {
 			"DIAGRAM": {
 				"tasks": {
-					"task_95323": {
+					"task_18683": {
 						"collapsed": false,
 						"position": {
-							"x": 1065,
-							"y": 328
+							"x": 1238,
+							"y": 333
 						},
 						"outdated": false
 					},
-					"task_189672": {
+					"task_18685": {
 						"collapsed": false,
 						"position": {
-							"x": 502,
-							"y": 250
+							"x": 452,
+							"y": 388
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"task_18685_eventRawData-task_18683_activate": {
+						"vertices": []
+					},
+					"task_18685_eventRawData-task_18683_LoadPortNumberIn": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_189487": {
 						"collapsed": false,
 						"position": {
-							"x": 1529,
-							"y": 110
+							"x": 1844,
+							"y": 107
 						}
 					}
 				},
 				"pan": {
-					"x": 210.38029919356995,
-					"y": 45.47889645162047
+					"x": 327.7778015136719,
+					"y": 0
 				},
 				"zoom": 0.7200000000000002
 			}

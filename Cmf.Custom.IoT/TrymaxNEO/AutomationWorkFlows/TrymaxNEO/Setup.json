@@ -460,7 +460,16 @@
 				}
 			},
 			"settings": {
-				"_outputs": [],
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CONTROL_STATE",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
 				"___cmf___name": "Get Equipment Properties Values",
 				"___cmf___color": "#ffff80"
 			},
@@ -785,13 +794,6 @@
 			"outputName": "onInitialize"
 		},
 		{
-			"id": "eae0fe53-a43d-4696-96c6-0583007d83ac",
-			"sourceId": "task_21307",
-			"targetId": "task_165548",
-			"inputName": "activate",
-			"outputName": "success"
-		},
-		{
 			"id": "a30132b3-436d-4dc8-af23-71ab4c4ee120",
 			"sourceId": "task_6759",
 			"targetId": "task_168771",
@@ -817,6 +819,20 @@
 					"params": {}
 				}
 			]
+		},
+		{
+			"id": "29b82750-ee42-4f2d-b434-0534f19a3cbe",
+			"sourceId": "task_21307",
+			"targetId": "task_165548",
+			"inputName": "valueIn",
+			"outputName": "$CONTROL_STATE"
+		},
+		{
+			"id": "da3e8c63-e0b7-4bc9-8399-b39c69c5a0d3",
+			"sourceId": "task_21307",
+			"targetId": "task_165548",
+			"inputName": "activate",
+			"outputName": "$CONTROL_STATE"
 		}
 	],
 	"layout": {
@@ -971,13 +987,16 @@
 							}
 						]
 					},
-					"eae0fe53-a43d-4696-96c6-0583007d83ac": {
-						"vertices": []
-					},
 					"a30132b3-436d-4dc8-af23-71ab4c4ee120": {
 						"vertices": []
 					},
 					"14249132-70cd-4b5b-8537-deafebc5a8cf": {
+						"vertices": []
+					},
+					"29b82750-ee42-4f2d-b434-0534f19a3cbe": {
+						"vertices": []
+					},
+					"da3e8c63-e0b7-4bc9-8399-b39c69c5a0d3": {
 						"vertices": []
 					},
 					"475cc0b4-ab2c-48ab-941d-b4c1b0ae9807": {
@@ -1003,10 +1022,10 @@
 						}
 					}
 				},
-				"zoom": 0.33999999999999964,
+				"zoom": 0.5599999999999998,
 				"pan": {
-					"x": 223,
-					"y": 23
+					"x": 1253.3333740234375,
+					"y": 331.1111145019531
 				}
 			}
 		}

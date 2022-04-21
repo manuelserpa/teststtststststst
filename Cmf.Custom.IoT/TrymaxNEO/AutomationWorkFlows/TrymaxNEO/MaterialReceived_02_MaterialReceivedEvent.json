@@ -1,7 +1,7 @@
 {
 	"tasks": [
 		{
-			"id": "task_93139",
+			"id": "task_6537",
 			"reference": {
 				"name": "workflow",
 				"package": {
@@ -103,7 +103,7 @@
 			}
 		},
 		{
-			"id": "task_188327",
+			"id": "task_6539",
 			"reference": {
 				"name": "equipmentEvent",
 				"package": {
@@ -114,9 +114,83 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "POD2_ARRIVED"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_6541",
+			"reference": {
+				"name": "equipmentCommand",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_inputs": [
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "PodID",
+							"DataType": 5
+						},
+						"dataType": "Integer"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "CarrierID",
+							"DataType": 0
+						},
+						"dataType": "String"
+					}
+				],
+				"_command": {
+					"$type": "Cmf.Foundation.BusinessObjects.AutomationCommand, Cmf.Foundation.BusinessObjects",
+					"Name": "SET_CARRIER_ID"
+				},
+				"___cmf___name": "Execute Equipment Command"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_45369",
+			"reference": {
+				"name": "store",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "StoreOnActivate",
+				"___cmf___name": "Store Data",
+				"___cmf___color": "#808080",
+				"_inputs": [
+					{
+						"name": "LastCarrierArrived",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LastCarrierArrived"
+						},
+						"storage": "Persistent",
+						"identifier": "LastCarrierArrived",
+						"defaultValue": null
+					}
+				]
+			}
 		}
 	],
 	"converters": [
@@ -151,7 +225,77 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "task_6539_eventRawData-task_6537_activate",
+			"sourceId": "task_6539",
+			"targetId": "task_6537",
+			"inputName": "activate",
+			"outputName": "eventRawData",
+			"converters": []
+		},
+		{
+			"id": "task_6539_eventRawData-task_6537_LoadPortNumberIn",
+			"sourceId": "task_6539",
+			"targetId": "task_6537",
+			"inputName": "LoadPortNumberIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "2"
+					}
+				}
+			]
+		},
+		{
+			"id": "task_6537_LoadPortNumberOut-task_6541_$PodID",
+			"sourceId": "task_6537",
+			"targetId": "task_6541",
+			"inputName": "$PodID",
+			"outputName": "LoadPortNumberOut",
+			"converters": []
+		},
+		{
+			"id": "task_6537_LoadPortNumberOut-task_6541_$CarrierID",
+			"sourceId": "task_6537",
+			"targetId": "task_6541",
+			"inputName": "$CarrierID",
+			"outputName": "LoadPortNumberOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 4,
+						"value": "CarrierAtLoadPort2"
+					}
+				}
+			]
+		},
+		{
+			"id": "70ec7656-9c4c-436c-ab53-aa3145432ee3",
+			"sourceId": "task_6537",
+			"targetId": "task_45369",
+			"inputName": "LastCarrierArrived",
+			"outputName": "LoadPortNumberOut"
+		},
+		{
+			"id": "c15b02de-fc62-4181-a04c-8fff6718e678",
+			"sourceId": "task_6537",
+			"targetId": "task_45369",
+			"inputName": "activate",
+			"outputName": "LoadPortNumberOut"
+		},
+		{
+			"id": "c69d6b92-b8a9-4264-b2f3-a702cb6c4e6d",
+			"sourceId": "task_45369",
+			"targetId": "task_6541",
+			"inputName": "activate",
+			"outputName": "success"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -167,36 +311,74 @@
 		"drawers": {
 			"DIAGRAM": {
 				"tasks": {
-					"task_93139": {
+					"task_6537": {
 						"collapsed": false,
 						"position": {
-							"x": 911,
+							"x": 902,
+							"y": 333
+						},
+						"outdated": false
+					},
+					"task_6539": {
+						"collapsed": false,
+						"position": {
+							"x": 227,
 							"y": 355
 						},
 						"outdated": false
 					},
-					"task_188327": {
+					"task_6541": {
 						"collapsed": false,
 						"position": {
-							"x": 360,
-							"y": 351
+							"x": 2021,
+							"y": 243
+						},
+						"outdated": false
+					},
+					"task_45369": {
+						"collapsed": false,
+						"position": {
+							"x": 1472,
+							"y": 569
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"task_6539_eventRawData-task_6537_activate": {
+						"vertices": []
+					},
+					"task_6537_LoadPortNumberOut-task_6541_$PodID": {
+						"vertices": []
+					},
+					"70ec7656-9c4c-436c-ab53-aa3145432ee3": {
+						"vertices": []
+					},
+					"c15b02de-fc62-4181-a04c-8fff6718e678": {
+						"vertices": []
+					},
+					"c69d6b92-b8a9-4264-b2f3-a702cb6c4e6d": {
+						"vertices": []
+					},
+					"task_6539_eventRawData-task_6537_LoadPortNumberIn": {
+						"vertices": []
+					},
+					"task_6537_LoadPortNumberOut-task_6541_$CarrierID": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_188651": {
 						"collapsed": false,
 						"position": {
-							"x": 1332,
-							"y": 226
+							"x": 2542,
+							"y": 252
 						}
 					}
 				},
 				"pan": {
-					"x": 274.4444580078125,
-					"y": 21.111112594604492
+					"x": 797.7777709960938,
+					"y": 105.55555725097656
 				},
 				"zoom": 0.8600000000000003
 			}

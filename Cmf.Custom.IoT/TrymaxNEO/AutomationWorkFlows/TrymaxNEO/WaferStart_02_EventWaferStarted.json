@@ -1,7 +1,7 @@
 {
 	"tasks": [
 		{
-			"id": "task_126394",
+			"id": "task_61518",
 			"reference": {
 				"name": "workflow",
 				"package": {
@@ -11,9 +11,9 @@
 			},
 			"settings": {
 				"automationWorkflow": {
-					"DisplayName": "WaferComplete",
+					"DisplayName": "WaferStarted",
 					"IsShared": true,
-					"Name": "WaferComplete"
+					"Name": "WaferStarted"
 				},
 				"executeWhenAllInputsDefined": false,
 				"contextsExpirationInMilliseconds": 60000,
@@ -53,6 +53,28 @@
 						}
 					},
 					{
+						"name": "ControlJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ControlJobId"
+						}
+					},
+					{
+						"name": "ProcessJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ProcessJobId"
+						}
+					},
+					{
 						"name": "SubMaterialName",
 						"valueType": {
 							"type": 4,
@@ -72,6 +94,17 @@
 							"referenceTypeName": null,
 							"referenceTypeId": null,
 							"friendlyName": "SubMaterialSlot"
+						}
+					},
+					{
+						"name": "SubResourceOrder",
+						"valueType": {
+							"friendlyName": "SubResourceOrder",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
 						}
 					}
 				],
@@ -97,13 +130,35 @@
 							"referenceTypeId": null,
 							"friendlyName": "SubMaterial"
 						}
+					},
+					{
+						"name": "Container",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Container"
+						}
+					},
+					{
+						"name": "Wafer",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Wafer"
+						}
 					}
 				],
-				"___cmf___name": "Wafer Complete Workflow"
+				"___cmf___name": "Wafer Started Workflow"
 			}
 		},
 		{
-			"id": "task_119709",
+			"id": "task_61520",
 			"reference": {
 				"name": "equipmentEvent",
 				"package": {
@@ -136,14 +191,14 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "POD1_RECEIVED_MATERIAL"
+						"Name": "POD2_SENT_MATERIAL"
 					}
 				]
 			},
 			"driver": "SecsGemEquipment"
 		},
 		{
-			"id": "task_83707",
+			"id": "task_79935",
 			"reference": {
 				"name": "codeExecution",
 				"package": {
@@ -228,63 +283,42 @@
 			}
 		}
 	],
-	"converters": [
-		{
-			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
-			"reference": {
-				"name": "objectProperty",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			}
-		},
-		{
-			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
-			"reference": {
-				"name": "anyToConstant",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			}
-		}
-	],
+	"converters": [],
 	"links": [
 		{
-			"id": "96f7c4f6-b035-415a-a542-aefa01984c49",
-			"sourceId": "task_119709",
-			"targetId": "task_83707",
+			"id": "54ccd1a4-978a-44ed-8085-5a79e1605f79",
+			"sourceId": "task_61520",
+			"targetId": "task_79935",
 			"inputName": "SubIdIn",
 			"outputName": "$SUBSTRATE_ID"
 		},
 		{
-			"id": "1f9135ab-7530-4bdb-969c-66dbe342df00",
-			"sourceId": "task_119709",
-			"targetId": "task_83707",
-			"inputName": "activate",
-			"outputName": "$SUBSTRATE_ID"
-		},
-		{
-			"id": "6750d540-9483-4647-be75-ffc3319a5e9c",
-			"sourceId": "task_83707",
-			"targetId": "task_126394",
+			"id": "5dfb9915-4b0e-4304-bbc0-c769eb6885c9",
+			"sourceId": "task_79935",
+			"targetId": "task_61518",
 			"inputName": "LoadPortIdIn",
 			"outputName": "LoadPortIdOut"
 		},
 		{
-			"id": "93356931-43f5-44d7-9f85-0b8ea606db2b",
-			"sourceId": "task_83707",
-			"targetId": "task_126394",
+			"id": "41c615ca-3fbb-4733-b5a9-d9e14510add0",
+			"sourceId": "task_79935",
+			"targetId": "task_61518",
 			"inputName": "SubMaterialSlotIn",
 			"outputName": "SubMaterialSlotOut"
 		},
 		{
-			"id": "905ac8f4-a003-4009-bca6-43320df4b92b",
-			"sourceId": "task_83707",
-			"targetId": "task_126394",
+			"id": "798c4d45-8b86-4c80-a7bb-f1cc632b04dd",
+			"sourceId": "task_79935",
+			"targetId": "task_61518",
 			"inputName": "activate",
 			"outputName": "SubMaterialSlotOut"
+		},
+		{
+			"id": "eeffef75-4db3-4bde-82c2-b61748ea28bc",
+			"sourceId": "task_61520",
+			"targetId": "task_79935",
+			"inputName": "activate",
+			"outputName": "$SUBSTRATE_ID"
 		}
 	],
 	"layout": {
@@ -292,9 +326,9 @@
 			"color": "#00ff80",
 			"notes": [
 				{
-					"id": "note_119482",
-					"name": "TosWaferComplete",
-					"value": "<p><strong>What it does:</strong></p><p>Updates MaterialData state from Queue to Processed.</p><p>Executes Material Out for Wafer on MES (Track Out of Submaterial).</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to TosWaferCompletefor the Tool;</li><li>Use the information received to drive the Wafer Complete workflow;</li><li>Pass any event Output to the Activate Input of the Workflow; </li></ol><p><strong>Note:</strong><strong></strong></p><p>The Workflow Wafer Start will try to retrieve the MaterialData using the inputs following the next logic:</p><ol><li>If the materialName is available retrieve the corresponding materialData;</li><li>If the containerName is available retrieve the materialData which references it on containerName;</li><li>If the loadPortId is passed it will use a match using load port id and materialState defined on the settings;</li><li>If no information is available on the inputs, if defined, use the materialState defined on the settings to retrieve the first (oldest) materialData available in the persistence;</li><li>If none of this criteria corresponds to available information, return an error.</li></ol><br />The logic described before will be triggered by order, but only one the first matching selection criteria will be run. If the criteria fails to return a materialData an Error will be returned.<br /><br />The Workflow will then proceed to try to find the subMaterial on the subMaterial collection of the materialData using the following logic:<br /><ol><li>If the subMaterialName is available retrieve the corresponding subMaterial;</li><li>If the subMaterialSlot is available retrieve the subMaterial corresponding to the slot on the container;</li><li>If no information is available on the inputs, if defined, it will use the match between slotOrderPickingDirection and subMaterialState to find the first subMaterial corresponding to its condition. The slotOrderPickingDirection defines the order of slot picking as either Ascending or Descending and should be matched to the know behavior of the load port.</li></ol><p>The logic described before will be triggered by order, but only one the first matching selection criteria will be run. If the criteria fails to return a subMaterialData an Error will be returned.</p><br />If a sub material is found, then it sets its state to the state defined in the setting parameter Sub Material To Set, update the subMaterial on persistence. When successful output the updated subMaterial on the output subMaterial, as well as the corresponding materialData on the output material.<p>&nbsp;</p>",
+					"id": "note_61522",
+					"name": "TosWaferStarted",
+					"value": "<p><strong>What it does:</strong></p><p>Updates MaterialData state from Queue to In Process.</p><p>Stores Wafer information on ContainerData persistence;</p><p>Executes Material In for Wafer on MES (Track In of Submaterial).</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to TosWaferStarted for the Tool;</li><li>Use the information received to drive the Wafer Started workflow;</li><li>Pass any event Output to the Activate Input of the Workflow; </li></ol><p><strong>Note:</strong><strong></strong></p><p>The Workflow Wafer Start will try to retrieve the MaterialData using the inputs following the next logic:</p><ol><li>If the materialName is available retrieve the corresponding materialData;</li><li>If the containerName is available retrieve the materialData which references it on containerName;</li><li>If the loadPortId is passed it will use a match using load port id and materialState defined on the settings;</li><li>If no information is available on the inputs, if defined, use the materialState defined on the settings to retrieve the first (oldest) materialData available in the persistence;</li><li>If none of this criteria corresponds to available information, return an error.</li></ol><br />The logic described before will be triggered by order, but only one the first matching selection criteria will be run. If the criteria fails to return a materialData an Error will be returned.<br /><br />The Workflow will then proceed to try to find the subMaterial on the subMaterial collection of the materialData using the following logic:<br /><ol><li>If the subMaterialName is available retrieve the corresponding subMaterial;</li><li>If the subMaterialSlot is available retrieve the subMaterial corresponding to the slot on the container;</li><li>If no information is available on the inputs, if defined, it will use the match between slotOrderPickingDirection and subMaterialState to find the first subMaterial corresponding to its condition. The slotOrderPickingDirection defines the order of slot picking as either Ascending or Descending and should be matched to the know behavior of the load port.</li></ol><p>The logic described before will be triggered by order, but only one the first matching selection criteria will be run. If the criteria fails to return a subMaterialData an Error will be returned.</p><br />If a sub material is found, then it sets its state to the state defined in the setting parameter Sub Material To Set, update the subMaterial on persistence. When successful output the updated subMaterial on the output subMaterial, as well as the corresponding materialData on the output material.<p>&nbsp;</p>",
 					"color": "#ffffa5"
 				}
 			]
@@ -302,61 +336,56 @@
 		"drawers": {
 			"DIAGRAM": {
 				"tasks": {
-					"task_126394": {
+					"task_61518": {
 						"collapsed": false,
 						"position": {
-							"x": 1137,
-							"y": 298
+							"x": 1036,
+							"y": 159
 						},
 						"outdated": false
 					},
-					"task_119709": {
+					"task_61520": {
 						"collapsed": false,
 						"position": {
-							"x": 127,
-							"y": 396
+							"x": 113,
+							"y": 206
 						},
 						"outdated": false
 					},
-					"task_83707": {
+					"task_79935": {
 						"collapsed": false,
 						"position": {
-							"x": 606,
-							"y": 403
+							"x": 575,
+							"y": 288
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"96f7c4f6-b035-415a-a542-aefa01984c49": {
+					"54ccd1a4-978a-44ed-8085-5a79e1605f79": {
 						"vertices": []
 					},
-					"1f9135ab-7530-4bdb-969c-66dbe342df00": {
+					"5dfb9915-4b0e-4304-bbc0-c769eb6885c9": {
 						"vertices": []
 					},
-					"6750d540-9483-4647-be75-ffc3319a5e9c": {
+					"41c615ca-3fbb-4733-b5a9-d9e14510add0": {
 						"vertices": []
 					},
-					"93356931-43f5-44d7-9f85-0b8ea606db2b": {
+					"798c4d45-8b86-4c80-a7bb-f1cc632b04dd": {
 						"vertices": []
 					},
-					"905ac8f4-a003-4009-bca6-43320df4b92b": {
+					"eeffef75-4db3-4bde-82c2-b61748ea28bc": {
 						"vertices": []
 					}
 				},
 				"notes": {
-					"note_119482": {
+					"note_61522": {
 						"collapsed": false,
 						"position": {
-							"x": 1688.1355932203394,
-							"y": 94.91525423728815
+							"x": 1544,
+							"y": 61
 						}
 					}
-				},
-				"zoom": 0.5899999999999999,
-				"pan": {
-					"x": 2.222222328186035,
-					"y": 0
 				}
 			}
 		}
