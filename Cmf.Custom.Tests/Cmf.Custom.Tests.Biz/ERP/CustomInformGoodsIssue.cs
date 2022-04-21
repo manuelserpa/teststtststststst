@@ -13,7 +13,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
     [TestClass]
     public class CustomInformGoodsIssue
     {
-        private ExecutionScenario _scenario;
+        private CustomExecutionScenario _scenario;
         private CustomTearDownManager customTeardownManager = null;
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestInitialize]
         public void TestInitialization()
         {
-            _scenario = new ExecutionScenario();
+            _scenario = new CustomExecutionScenario();
             customTeardownManager = new CustomTearDownManager();
         }
 

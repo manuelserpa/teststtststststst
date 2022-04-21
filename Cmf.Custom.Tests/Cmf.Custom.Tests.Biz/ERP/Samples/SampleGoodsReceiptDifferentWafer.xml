@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<GoodsReceiptCertificate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Material>
+		<Name>L-108-84155-ZK21435-C009</Name>
+		<Product>11018814</Product>
+		<Type>Production</Type>
+		<StateModel>CustomMaterialStateModel</StateModel>
+		<State>Queued</State>
+		<Form>Logistical wafer</Form>
+		<Facility>Regensburg Production</Facility>
+		<Flow>FOL-UX3_EPA</Flow>
+		<Step>M2-SL-Wafer-Start-07301F001_E</Step>
+		<Attributes>
+			<key name="GoodsReceiptNo" value="5043575531" />
+			<key name="GoodsReceiptDate" value="08.11.2021" />
+		</Attributes>
+		<SubMaterial>
+			<Wafer Name="NK17040736E2">
+				<Form>Wafer</Form>
+				<Attributes>
+					<key name="Gravure" value="NK17040736E2" />
+				</Attributes>
+				<EDCData>
+					<key name="Thickness" value="650" />
+					<key name="OrientationSpec" value="Off" />
+					<key name="Orientation" value="0,3" />
+					<key name="Resistivity" value="0,085" />
+					<key name="Bow" value="-5" />
+				</EDCData>
+			</Wafer>
+			<Wafer Name="NK18040736E2">
+				<Form>Wafer</Form>
+				<Attributes>
+					<key name="Gravure" value="NK18040736E2" />
+				</Attributes>
+				<EDCData>
+					<key name="Thickness" value="950" />
+					<key name="OrientationSpec" value="Off" />
+					<key name="Orientation" value="0,3" />
+					<key name="Resistivity" value="0,085" />
+					<key name="Bow" value="-5" />
+				</EDCData>
+			</Wafer>
+		</SubMaterial>
+	</Material>
+</GoodsReceiptCertificate> 

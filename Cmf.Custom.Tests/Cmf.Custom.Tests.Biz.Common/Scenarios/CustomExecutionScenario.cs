@@ -1,6 +1,6 @@
 ﻿using Cmf.Custom.AMSOsram.Orchestration.InputObjects;
 using Cmf.Custom.AMSOsram.Orchestration.OutputObjects;
-using Cmf.Custom.Tests.Biz.Common.ERP;
+using Cmf.Custom.Tests.Biz.Common.ERP.Material;
 using Cmf.Custom.Tests.Biz.Common.ERP.Product;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Cmf.Custom.TestUtilities;
@@ -13,28 +13,23 @@ using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 {
-    public class ExecutionScenario : BaseCustomScenario
+    public class CustomExecutionScenario : CustomBaseScenario
     {
 
         #region Properties
 
         /// <summary>
-        /// Integration Entries
+        /// Should the scenario send an Product message
         /// </summary>
-        public IntegrationEntryCollection IntegrationEntries
-        {
-            get;
-            private set;
-        } = new IntegrationEntryCollection();
+        public bool IsToSendProducts;
 
         /// <summary>
-        /// Should the scenario send an Production Order message
+        /// Should the scenario send an Incoming Material message
         /// </summary>
-        public bool IsToSendProducts { get; set; } = true;
+        public bool IsToSendIncomingMaterial;
 
         /// <summary>
         /// Should the scenario associate each material to a Production Order
@@ -42,13 +37,34 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         public bool IsToAssingPOsToMaterials { get; set; } = false;
 
         /// <summary>
-        /// ERP Product Maping data
+        /// Integration Entries
         /// </summary>
-        public ERPProduct ERPProduct
-        {
-            get;
-            set;
-        } = null;
+        public IntegrationEntryCollection IntegrationEntries;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ProductDataOutput ProductOutput;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public GoodsReceiptCertificate GoodsReceiptCertificate;
+
+        /// <summary>
+        /// SmartTableManager
+        /// </summary>
+        public SmartTableManager SmartTableManager { get; set; } = new SmartTableManager();
+
+        /// <summary>
+        /// List of smart tables to be cleared in Setup
+        /// </summary>
+        public List<string> SmartTablesToClearInSetup { get; set; } = new List<string>();
+
+        /// <summary>
+        /// SmartTable MaterialDataCollectionContext 
+        /// </summary>
+        public List<Dictionary<string, string>> MaterialDCContext = new List<Dictionary<string, string>>();
 
         public int ProductsToGenerate { get; set; } = 1;
 
@@ -124,28 +140,72 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 
         #endregion
 
+        /// <summary>
+        /// CustomExecutionScenario Constructor
+        /// </summary>
+        public CustomExecutionScenario()
+        {
+            this.IntegrationEntries = new IntegrationEntryCollection();
+
+            this.ProductOutput = new ProductDataOutput();
+
+            this.GoodsReceiptCertificate = new GoodsReceiptCertificate();
+        }
+
+
         public override void Setup()
         {
+            #region Smart Table Configuration
+
+            foreach (string smartTableName in SmartTablesToClearInSetup)
+            {
+                SmartTableManager.ClearSmartTable(smartTableName);
+            }
+
+            if (MaterialDCContext.Any())
+            {
+                foreach (Dictionary<string, string> row in MaterialDCContext)
+                {
+                    SmartTableManager.SetSmartTableData("MaterialDataCollectionContext", row);
+                }
+            }
+
+            #endregion
+
+            string messageType = string.Empty;
+
+            string xmlMessage = string.Empty;
+
+            if (IsToSendIncomingMaterial)
+            {
+                messageType = "PerformIncomingMaterialMasterData";
+
+                xmlMessage = CustomUtilities.SerializeToXML<GoodsReceiptCertificate>(this.GoodsReceiptCertificate);
+            }
+
             if (IsToSendProducts)
             {
-                products.ProductsData = ERPProductList;
+                messageType = "PerformProductsMasterData";
 
-                string xmlMessage = ERPMessageSerializer<ProductDataOutput>.Serialize(products);
+                xmlMessage = CustomUtilities.SerializeToXML<ProductDataOutput>(this.ProductOutput);
+            }
 
+            if (!string.IsNullOrEmpty(messageType) && !string.IsNullOrEmpty(xmlMessage))
+            {
                 CustomReceiveERPMessageInput input = new CustomReceiveERPMessageInput()
                 {
-                    MessageType = ProductsMessageType,
+                    MessageType = messageType,
                     Message = xmlMessage
                 };
 
-                CustomReceiveERPMessageOutput outputProducts = input.CustomReceiveERPMessageSync();
+                CustomReceiveERPMessageOutput output = input.CustomReceiveERPMessageSync();
 
-                if (outputProducts != null)
+                if (output?.Result != null)
                 {
-                    IntegrationEntries.Add(outputProducts.Result);
+                    IntegrationEntries.Add(output.Result);
                 }
 
-                CustomUtilities.DispatchIntegrationEntries(new IntegrationEntryCollection() { outputProducts.Result });
+                CustomUtilities.DispatchIntegrationEntries(new IntegrationEntryCollection() { output.Result });
             }
 
             // Create Production orders to be used
@@ -217,6 +277,11 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 
         public override void CompleteCleanUp()
         {
+            if (MaterialDCContext.Any() || SmartTablesToClearInSetup.Any())
+            {
+                SmartTableManager.TearDown();
+            }
+
             // Remove created Integration Entries
             TerminateIntegrationEntries();
 
@@ -224,6 +289,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         }
 
         #region Private Methods
+
         /// <summary>
         /// Terminate created Integration Entries
         /// </summary>
@@ -258,7 +324,8 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                     }
                 }
             }
-        } 
+        }
+
         #endregion
     }
 }

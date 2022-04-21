@@ -945,6 +945,8 @@ namespace AMSOsramEIAutomaticTests
 
         }
 
+        
+
         public void ValidatePersistenceExists(string materialName)
         {
             var materialPersistenceObj = new StoredItem();

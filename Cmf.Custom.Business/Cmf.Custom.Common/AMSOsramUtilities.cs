@@ -1,14 +1,20 @@
 ﻿using Cmf.Common.CustomActionUtilities;
 using Cmf.Custom.AMSOsram.BusinessObjects;
 using Cmf.Custom.AMSOsram.Common.DataStructures;
+using Cmf.Custom.AMSOsram.Common.ERP;
 using Cmf.Custom.AMSOsram.Common.Extensions;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.Cultures;
 using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.BusinessObjects.SmartTables;
+using Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects;
 using Cmf.Foundation.Common;
+using Cmf.Foundation.Common.Integration;
 using Cmf.Foundation.Configuration;
 using Cmf.Navigo.BusinessObjects;
+using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement;
+using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects;
+using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.OutputObjects;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -17,6 +23,7 @@ using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
 
@@ -183,7 +190,6 @@ namespace Cmf.Custom.AMSOsram.Common
             }
         }
 
-
         /// <summary>
         /// Get Value as dynamic DataType.
         /// </summary>
@@ -336,6 +342,112 @@ namespace Cmf.Custom.AMSOsram.Common
             }
 
             return row;
+        }
+
+        /// <summary>
+        /// Method to resolve Material Data Collection Context 
+        /// </summary>
+        /// <param name="step"></param>
+        /// <param name="logicalFlowPath"></param>
+        /// <param name="product"></param>
+        /// <param name="productGroup"></param>
+        /// <param name="flow"></param>
+        /// <param name="material"></param>
+        /// <param name="materialType"></param>
+        /// <param name="resource"></param>
+        /// <param name="resourceType"></param>
+        /// <param name="model"></param>
+        /// <param name="operation"></param>
+        /// <returns></returns>
+        public static NgpDataSet CustomResolveMaterialDataCollectionContext(string step = null,
+                                                                            string logicalFlowPath = null,
+                                                                            string product = null,
+                                                                            string productGroup = null,
+                                                                            string flow = null,
+                                                                            string material = null,
+                                                                            string materialType = null,
+                                                                            string resource = null,
+                                                                            string resourceType = null,
+                                                                            string model = null,
+                                                                            string operation = null)
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            SmartTable materialDatacollectionContext = new SmartTable();
+            materialDatacollectionContext.Load(Cmf.Navigo.Common.Constants.MaterialDataCollectionContext);
+
+            var values = new NgpDataRow();
+
+            // If step name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(step))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Step, step);
+            }
+
+            // If logical flow path is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(logicalFlowPath))
+            {
+                values.Add("LogicalFlowPath", logicalFlowPath);
+            }
+
+            // If product name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(product))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Product, product);
+            }
+
+            // If product group is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(productGroup))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.ProductGroup, productGroup);
+            }
+
+            // If flow name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(flow))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Flow, flow);
+            }
+
+            // If lot name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(material))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Material, material);
+            }
+
+            // If lot type is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(materialType))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.MaterialType, materialType);
+            }
+
+            // If resource name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(resource))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Resource, resource);
+            }
+
+            // If resource type is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(resourceType))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.ResourceType, resourceType);
+            }
+
+            // If model is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(model))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Model, model);
+            }
+
+            // If operation name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(operation))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Operation, operation);
+            }
+
+            NgpDataSet materialDCContextNgpDataSet = materialDatacollectionContext.Resolve(values, true);
+
+
+
+            return materialDCContextNgpDataSet;
         }
 
         #endregion
@@ -1119,7 +1231,168 @@ namespace Cmf.Custom.AMSOsram.Common
 
         #endregion Sorter
 
+        #region Data Collection
+
+        /// <summary>
+        /// Method to validate if one of the posted points do not respect the configured limit set 
+        /// </summary>
+        /// <param name="dataCollectionInstance"></param>
+        /// <returns></returns>
+        public static bool IsDataCollectionLimiSetViolated(DataCollectionInstance dataCollectionInstance)
+        {
+            dataCollectionInstance.LoadRelations("DataCollectionPoint");
+
+            DataCollectionLimitSet dataCollectionLimitSet = dataCollectionInstance.DataCollectionLimitSet;
+
+            DataCollectionPointCollection dataCollectionPoints = dataCollectionInstance.DataCollectionPoints;
+
+
+
+            foreach (DataCollectionParameterLimit parameterLimit in dataCollectionLimitSet.DataCollectionParameterLimits)
+            {
+                DataCollectionPoint dcPoint = dataCollectionPoints.FirstOrDefault(dcp => dcp.GetNativeValue<long>(Constants.TargetEntity).Equals(parameterLimit.GetNativeValue<long>(Constants.TargetEntity)));
+
+                decimal value = Convert.ToDecimal(dcPoint.Value);
+
+                if ((parameterLimit.UpperErrorLimit != null && value > parameterLimit.UpperErrorLimit) || (parameterLimit.LowerErrorLimit != null && value < parameterLimit.LowerErrorLimit))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Method to post Certificate data for each wafer
+        /// Execution method is Immediate
+        /// </summary>
+        /// <param name="dcInstance"></param>
+        /// <param name="waferPoints"></param>
+        /// <param name="parametersToUse"></param>
+        /// <returns></returns>
+        public static DataCollectionInstance PostImmediateCertificateData(DataCollectionInstance dcInstance, Dictionary<string, object> waferPoints, ParameterCollection parametersToUse = null)
+        {
+            //insert dc point values 
+            DataCollectionPointCollection dcPoints = new DataCollectionPointCollection();
+
+            foreach (Parameter parameter in parametersToUse)
+            {
+                DataCollectionPoint point = new DataCollectionPoint()
+                {
+                    SampleId = "Sample 1",
+                    ReadingNumber = 1,
+                    TargetEntity = parameter,
+                    Value = AMSOsramUtilities.GetParameterValueAsDataType(parameter.DataType, waferPoints[parameter.Name].ToString())
+                };
+
+                dcPoints.Add(point);
+
+                if (dcInstance.RelationCollection == null)
+                    dcInstance.RelationCollection = new CmfEntityRelationCollection();
+
+                dcInstance.RelationCollection.Add(point);
+            }
+
+            PerformImmediateDataCollectionOutput dataCollectionInstanceResult = DataCollectionInstanceManagementOrchestration.PerformImmediateDataCollection(
+                new Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects.PerformImmediateDataCollectionInput()
+                {
+                    DataCollectionInstance = dcInstance,
+                    SkipDCValidation = false,
+                    IsToIgnoreInSPC = true,
+                    IgnoreLastServiceId = false
+                }
+            );
+
+            return dataCollectionInstanceResult.DataCollectionInstance;
+        }
+
+        /// <summary>
+        /// Method to post Certificate data for each wafer
+        /// Execution method is LongRunning
+        /// </summary>
+        /// <param name="dcInstance"></param>
+        /// <param name="waferPoints"></param>
+        /// <param name="parametersToUse"></param>
+        /// <returns></returns>
+        public static DataCollectionInstance PostLongRunningCertificateData(DataCollectionInstance dcInstance, Dictionary<string, object> waferPoints, ParameterCollection parametersToUse)
+        {
+            OpenDataCollectionInstanceInput openDCInstanceInput = new OpenDataCollectionInstanceInput()
+            {
+                DataCollectionInstance = dcInstance,
+                IsToIgnoreInSPC = true,
+            };
+
+            OpenDataCollectionInstanceOutput openDCInstanceOutput = DataCollectionInstanceManagementOrchestration.OpenDataCollectionInstance(openDCInstanceInput);
+            dcInstance = openDCInstanceOutput.DataCollectionInstance;
+
+            //insert dc point values 
+            DataCollectionPointCollection dcPoints = new DataCollectionPointCollection();
+            foreach (Parameter parameter in parametersToUse)
+            {
+                DataCollectionPoint point = new DataCollectionPoint()
+                {
+                    SampleId = "Sample 1",
+                    ReadingNumber = 1,
+                    TargetEntity = parameter,
+                    SourceEntity = dcInstance,
+                    Value = AMSOsramUtilities.GetParameterValueAsDataType(parameter.DataType, waferPoints[parameter.Name].ToString())
+                };
+                dcPoints.Add(point);
+
+                if (dcInstance.RelationCollection == null)
+                    dcInstance.RelationCollection = new CmfEntityRelationCollection();
+
+                dcInstance.RelationCollection.Add(point);
+
+            }
+            dcInstance.Load();
+
+            PostDataCollectionPointsInput postDCPointsInput = new PostDataCollectionPointsInput()
+            {
+                DataCollectionInstance = dcInstance,
+                DataCollectionPoints = dcPoints,
+                SkipDCValidation = false
+            };
+
+            PostDataCollectionPointsOutput postDataCollectionPointsOutput = DataCollectionInstanceManagementOrchestration.PostDataCollectionPoints(postDCPointsInput);
+
+            return postDataCollectionPointsOutput.DataCollectionInstance;
+        }
+
+        public static DataCollectionInstance PerformCertificateDataCollection(Material wafer, DataCollection dataCollection, DataCollectionLimitSet limitSet, string executionType, Dictionary<string, object> waferPoints)
+        {
+            DataCollectionInstance dataCollectionInstance = new DataCollectionInstance();
+
+            dataCollectionInstance.Material = wafer;
+            dataCollectionInstance.DataCollection = dataCollection;
+            dataCollectionInstance.DataCollectionLimitSet = limitSet;
+
+            ParameterCollection parameters = new ParameterCollection();
+
+            foreach (var waferPoint in waferPoints)
+            {
+                parameters.Add(new Parameter() { Name = waferPoint.Key });
+            }
+
+            parameters.Load();
+
+            if (executionType == "LongRunning")
+            {
+                return PostLongRunningCertificateData(dataCollectionInstance, waferPoints, parameters);
+            }
+            if (executionType == "Immediate")
+            {
+                return PostImmediateCertificateData(dataCollectionInstance, waferPoints, parameters);
+            }
+
+            return null;
+        }
+
+        #endregion
+
         #region DEEActionUtilities
+
         /// <summary>
         /// Checks if current action group (present in Input dicionary) is valid based on list of given action groups
         /// </summary>
@@ -1253,7 +1526,209 @@ namespace Cmf.Custom.AMSOsram.Common
             return materialNiceLabelPrintInformation;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lot"></param>
+        /// <returns></returns>
+        public static NgpDataSet CustomResolveCertificateDataCollectionContext(Material lot)
+        {
+            // Get Material information
+            string stepName = lot.Step?.Name;
+            string materialName = lot.Name;
+            string productName = lot.Product.Name;
+            string logicalFlowPath = lot.LogicalFlowPath != null ? lot.LogicalFlowPath : string.Empty;
+            string productGroupName = lot.Product.ProductGroup != null ? lot.Product.ProductGroup.Name : string.Empty;
+            string flowName = lot.Flow.Name;
+            Resource resource = lot.LastProcessedResource;
+
+            string resourceName = resource != null ? resource.Name : string.Empty;
+            string resourceType = resource != null ? resource.Type : string.Empty;
+            string resourceModel = resource != null ? resource.Model : string.Empty;
+            string operation = AMSOsramConstants.CustomIncomingLotCreationOperation;
+
+            return AMSOsramUtilities.CustomResolveMaterialDataCollectionContext(stepName, logicalFlowPath, productName, productGroupName, flowName, materialName, lot.Type, resourceName, resourceType, resourceModel, operation);
+        }
+
+        public static void SetMaterialStateModel(Material material, string stateModelName, string state)
+        {
+            if (material.CurrentMainState == null
+                || !material.CurrentMainState.CurrentState.Name.Equals(state))
+            {
+                StateModel stateModel = new StateModel()
+                {
+                    Name = stateModelName
+                };
+
+                stateModel.Load();
+                StateModelState stateModelState = new StateModelState();
+                stateModelState.Load(state, stateModel);
+
+                CurrentEntityState currentEntityState = new CurrentEntityState(material, stateModel, stateModelState);
+                material.SetMainStateModel(currentEntityState);
+            }
+        }
+
+        /// <summary>
+        /// Gets the Entity Attributes Definition (Name; Type)
+        /// </summary>
+        /// <param name="entityName">The Entity Name.</param>
+        /// <returns>A Dictionary of the Attributes Definition.</returns>
+        public static Dictionary<string, object> GetEntityAttributesDefinition(string entityName)
+        {
+            Dictionary<string, object> attributes = new Dictionary<string, object>();
+
+            EntityType entityType = new EntityType();
+
+            entityType.Load(entityName);
+
+            entityType.LoadProperties();
+
+            if (entityType.Properties != null && entityType.Properties.Any())
+            {
+                IEnumerable<IEntityTypeProperty> attributesDefinition = entityType.Properties.Where(w => w.PropertyType == EntityTypePropertyType.Attribute);
+
+                if (attributesDefinition != null && attributesDefinition.Any())
+                {
+                    attributes = attributesDefinition.Select(s => new KeyValuePair<string, object>(s.Name, s.ScalarType)).ToDictionary(d => d.Key, d => d.Value);
+                }
+            }
+
+            return attributes;
+        }
+
+        /// <summary>
+        /// Gets the Material Attributes From XML.
+        /// </summary>
+        /// <param name="lotAttributes"></param>
+        /// <param name="xmlAttributes"></param>
+        /// <returns></returns>
+        public static AttributeCollection GetMaterialAttributesFromXML(Dictionary<string, object> lotAttributes, List<MaterialAttributes> xmlAttributes)
+        {
+            AttributeCollection attributes = new AttributeCollection();
+
+            foreach (MaterialAttributes attribute in xmlAttributes)
+            {
+                if (lotAttributes != null && lotAttributes.ContainsKey(attribute.Name))
+                {
+                    ScalarType scalarType = lotAttributes[attribute.Name] as ScalarType;
+                    attributes.Add(attribute.Name, AMSOsramUtilities.GetAttributeValueAsDataType(scalarType, attribute.value));
+                }
+            }
+
+            return attributes;
+        }
+
+        public static Dictionary<string, object> GetMaterialEDCDataFromXML(List<MaterialEDCData> xmlEDCCollection)
+        {
+            Dictionary<string, object> edcData = new Dictionary<string, object>();
+
+            foreach (MaterialEDCData xmlEDC in xmlEDCCollection)
+            {
+                edcData.Add(xmlEDC.Name, xmlEDC.Value);
+            }
+
+            return edcData;
+        }
+
+        /// <summary>
+        /// Creates an outbound integration 
+        /// </summary>
+        /// <param name="message">Message</param>
+        /// <param name="messageType">Type of message</param>
+        /// <param name="headerAttributes">Message header attributes to be added as attributes of Integration Entry if existent</param>
+        /// <returns>Created Integration Entry</returns>
+        public static IntegrationEntry CreateOutboundIntegrationEntry(string message, string messageType, AttributeCollection headerAttributes = null)
+        {
+            return CreateIntegrationEntry(message, messageType, BrokerMessageDirection.Outbound, headerAttributes);
+        }
+
+        /// <summary>
+        /// Creates an inbound integration entry
+        /// </summary>
+        /// <param name="message">Message</param>
+        /// <param name="messageType">Type of message</param>
+        /// <param name="headerAttributes">Message header attributes to be added as attributes of Integration Entry if existent</param>
+        /// <returns></returns>
+        public static IntegrationEntry CreateInboundIntegrationEntry(string message, string messageType, AttributeCollection headerAttributes = null)
+        {
+            return CreateIntegrationEntry(message, messageType, BrokerMessageDirection.Inbound, headerAttributes);
+        }
+
+        /// <summary>
+        /// Creates an integration entry 
+        /// </summary>
+        /// <param name="message">Message</param>
+        /// <param name="messageType">Type of message</param>
+        /// <param name="messageDirection">Direction of message</param>
+        /// <param name="headerAttributes">Message header attributes to be added as attributes of Integration Entry if existent</param>
+        /// <returns>Created Integration Entry</returns>
+        private static IntegrationEntry CreateIntegrationEntry(string message, string messageType, BrokerMessageDirection messageDirection, AttributeCollection headerAttributes = null)
+        {
+            IntegrationEntry ie = new IntegrationEntry();
+
+            ie.Name = Guid.NewGuid().ToString();
+            ie.MessageType = messageType;
+            ie.MessageDate = DateTime.Now;
+            ie.IntegrationMessage.Message = Encoding.UTF8.GetBytes(message);
+
+            ie.EventName = (messageDirection == BrokerMessageDirection.Inbound ? AMSOsramConstants.ERPInfoReceivedEventName : AMSOsramConstants.ERPInfoSentEventName);
+            ie.SourceSystem = (messageDirection == BrokerMessageDirection.Inbound ? AMSOsramConstants.CustomERPSystem : Constants.MesSystemDesignation);
+            ie.TargetSystem = (messageDirection == BrokerMessageDirection.Inbound ? Constants.MesSystemDesignation : AMSOsramConstants.CustomERPSystem);
+
+            ie.NumberOfRetries = 0;
+            ie.IsRetriable = true;
+            ie.SystemState = IntegrationEntrySystemState.Received;
+
+
+            if (headerAttributes != null)
+            {
+                foreach (KeyValuePair<string, object> attr in headerAttributes)
+                {
+                    ie.Attributes[attr.Key] = attr.Value;
+                }
+            }
+
+            var createInput = new CreateObjectInput
+            {
+                Object = ie
+            };
+
+            ie.Create();
+
+            return ie;
+        }
+
         #endregion
+
+        #region Localized Messages
+
+        /// <summary>
+        /// Constructs a new Message, using Localized Messages
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public static string GetLocalizedMessage(string key, params string[] parameters)
+        {
+            LocalizedMessage localizedMessageObj = LocalizedMessage.GetLocalizedMessage(Thread.CurrentThread.CurrentCulture.Name, key);
+            return string.Format(localizedMessageObj.MessageText, parameters);
+        }
+
+        /// <summary>
+        /// Constructs a new Exception Message, using Localized Messages
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public static void ThrowLocalizedException(string key, params string[] parameters)
+        {
+            string exceptionMessage = GeneralUtilities.GetLocalizedMessage(key, parameters);
+
+            throw new Exception(exceptionMessage);
+        }
+
+        #endregion Localized Messages
 
         #region XML 
 
@@ -1276,6 +1751,7 @@ namespace Cmf.Custom.AMSOsram.Common
             }
             return newObject;
         }
+
         /// <summary>
         /// Serialize Object to XML
         /// </summary>
@@ -1292,6 +1768,137 @@ namespace Cmf.Custom.AMSOsram.Common
                 output = writer.ToString();
             }
             return output;
+        }
+
+        #endregion
+
+        #region Queries
+
+        /// <summary>
+        /// Get Production Order
+        /// </summary>
+        /// <param name="productName">Product Name</param>
+        /// <param name="trackOutDate">Trackout Date</param>
+        /// <returns>Return Production Order based on Product and TrackOut Date associated to a Material</returns>
+        public static ProductionOrder GetMaterialProductionOrder(string productName, DateTime? trackOutDate)
+        {
+            QueryObject query = new QueryObject();
+            query.Description = "";
+            query.EntityTypeName = "ProductionOrder";
+            query.Name = "CustomMaterialProductionOrder";
+            query.Query = new Query();
+            query.Query.Distinct = false;
+            query.Query.Filters = new FilterCollection()
+            {
+                new Filter()
+                {
+                    Name = "Name",
+                    ObjectName = "Product",
+                    ObjectAlias = "ProductionOrder_Product_2",
+                    Operator = FieldOperator.Contains,
+                    Value = productName,
+                    LogicalOperator = LogicalOperator.AND,
+                    FilterType = Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal
+                },
+                new Filter()
+                {
+                    Name = "PlannedStartDate",
+                    ObjectName = "ProductionOrder",
+                    ObjectAlias = "ProductionOrder_1",
+                    Operator = FieldOperator.GreaterThanOrEqualTo,
+                    Value = trackOutDate,
+                    LogicalOperator = LogicalOperator.AND,
+                    FilterType = Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal
+                },
+                new Filter()
+                {
+                    Name = "UniversalState",
+                    ObjectName = "ProductionOrder",
+                    ObjectAlias = "ProductionOrder_1",
+                    Operator = FieldOperator.IsEqualTo,
+                    Value = 2,
+                    LogicalOperator = LogicalOperator.Nothing,
+                    FilterType = Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal
+                }
+            };
+            query.Query.Fields = new FieldCollection()
+            {
+                new Field()
+                {
+                    Alias = "Id",
+                    ObjectName = "ProductionOrder",
+                    ObjectAlias = "ProductionOrder_1",
+                    IsUserAttribute = false,
+                    Name = "Id",
+                    Position = 0,
+                    Sort = FieldSort.NoSort
+                },
+                new Field()
+                {
+                    Alias = "Name",
+                    ObjectName = "ProductionOrder",
+                    ObjectAlias = "ProductionOrder_1",
+                    IsUserAttribute = false,
+                    Name = "Name",
+                    Position = 1,
+                    Sort = FieldSort.NoSort
+                },
+                new Field()
+                {
+                    Alias = "CreatedOn",
+                    ObjectName = "ProductionOrder",
+                    ObjectAlias = "ProductionOrder_1",
+                    IsUserAttribute = false,
+                    Name = "CreatedOn",
+                    Position = 2,
+                    Sort = FieldSort.Descending
+                }
+            };
+            query.Query.Relations = new RelationCollection()
+            {
+                new Relation()
+                {
+                    Alias = "",
+                    IsRelation = false,
+                    Name = "",
+                    SourceEntity = "ProductionOrder",
+                    SourceEntityAlias = "ProductionOrder_1",
+                    SourceJoinType = Foundation.BusinessObjects.QueryObject.Enums.JoinType.InnerJoin,
+                    SourceProperty = "ProductId",
+                    TargetEntity = "Product",
+                    TargetEntityAlias = "ProductionOrder_Product_2",
+                    TargetJoinType = Foundation.BusinessObjects.QueryObject.Enums.JoinType.InnerJoin,
+                    TargetProperty = "Id"
+                }
+            };
+            query.Query.Top = 1;
+
+            DataSet dataSet = query.Execute(false, null);
+
+            ProductionOrder productionOrder = null;
+
+            if (dataSet.HasData())
+            {
+                productionOrder = new ProductionOrder();
+
+                foreach (DataRow row in dataSet.Tables[0].Rows)
+                {
+                    productionOrder.Name = row["Name"].ToString();
+
+                    productionOrder.Load();
+                }
+            }
+
+            return productionOrder;
+        }
+
+        #endregion
+
+        #region SAP
+
+        public static void CreateProductionOrderToSAP()
+        {
+
         }
 
         #endregion

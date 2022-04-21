@@ -16,5 +16,7 @@ List of delivered packages:
 * [AMSOsram-20220215-1.0.0](/AMSOsram/releasenotes>AMSOsram-20220215-1_0_0)
 * [AMSOsram-20220228-1.1.0](/AMSOsram/releasenotes>AMSOsram-20220228-1_1_0)
 * [AMSOsram-20220314-1.2.0](/AMSOsram/releasenotes>AMSOsram-20220314-1.2.0)
+* [AMSOsram-20220328-1.3.0](/AMSOsram/releasenotes>AMSOsram-20220328-1.3.0)
+* [AMSOsram-20220411-1.4.0](/AMSOsram/releasenotes>AMSOsram-20220411-1.4.0)
 
 

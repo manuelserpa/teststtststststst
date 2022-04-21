@@ -12,7 +12,23 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "UnknownCarrierID"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -27,14 +43,24 @@
 			},
 			"settings": {
 				"automationWorkflow": {
-					"DisplayName": "CarrierIdRead",
-					"IsShared": true,
-					"Name": "CarrierIdRead"
+					"DisplayName": "CarrierClamped_01_ExecuteCommand",
+					"IsShared": false
 				},
 				"executeWhenAllInputsDefined": false,
 				"contextsExpirationInMilliseconds": 60000,
 				"executionExpirationInMilliseconds": 1200000,
 				"inputs": [
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
 					{
 						"name": "ContainerId",
 						"valueType": {
@@ -45,53 +71,9 @@
 							"referenceTypeId": null,
 							"friendlyName": ""
 						}
-					},
-					{
-						"name": "SlotMap",
-						"valueType": {
-							"type": 10,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						}
-					},
-					{
-						"name": "LoadPort",
-						"valueType": {
-							"type": 5,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						}
-					},
-					{
-						"name": "StateUpdatedOnMainEquipment",
-						"valueType": {
-							"type": 3,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "StateUpdatedOnMainEquipment"
-						}
 					}
 				],
 				"outputs": [
-					{
-						"name": "container",
-						"valueType": {
-							"friendlyName": "container",
-							"type": 10,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null
-						}
-					},
 					{
 						"name": "LoadPort",
 						"valueType": {
@@ -102,14 +84,41 @@
 							"referenceTypeName": null,
 							"referenceTypeId": null
 						}
+					},
+					{
+						"name": "ContainerId",
+						"valueType": {
+							"friendlyName": "ContainerId",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
 					}
 				],
-				"___cmf___name": "Workflow"
+				"___cmf___name": "Carrier Clamped Workflow",
+				"___cmf___color": "#ffff80"
 			}
 		}
 	],
 	"converters": [],
-	"links": [],
+	"links": [
+		{
+			"id": "e001d7b9-f4f2-4cdd-aa72-1ee18fa045e3",
+			"sourceId": "task_194418",
+			"targetId": "task_194517",
+			"inputName": "LoadPortIn",
+			"outputName": "$PortID"
+		},
+		{
+			"id": "8382ee1f-4406-44e4-88d2-e971b0ef27c1",
+			"sourceId": "task_194418",
+			"targetId": "task_194517",
+			"inputName": "activate",
+			"outputName": "$PortID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -136,26 +145,33 @@
 					"task_194517": {
 						"collapsed": false,
 						"position": {
-							"x": 1626,
-							"y": 557
+							"x": 1546,
+							"y": 644
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"e001d7b9-f4f2-4cdd-aa72-1ee18fa045e3": {
+						"vertices": []
+					},
+					"8382ee1f-4406-44e4-88d2-e971b0ef27c1": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_195558": {
 						"collapsed": false,
 						"position": {
-							"x": 2161,
-							"y": 523
+							"x": 2714,
+							"y": 345
 						}
 					}
 				},
 				"zoom": 0.5600000000000003,
 				"pan": {
-					"x": 485,
-					"y": 158
+					"x": 314.4444580078125,
+					"y": 93.33333587646484
 				}
 			}
 		}
