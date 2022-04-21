@@ -7,6 +7,9 @@ using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
 using Cmf.Foundation.Common.Base;
+using Cmf.Navigo.BusinessObjects;
+using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
+using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +37,11 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         public bool IsToSendProducts { get; set; } = true;
 
         /// <summary>
+        /// Should the scenario associate each material to a Production Order
+        /// </summary>
+        public bool IsToAssingPOsToMaterials { get; set; } = false;
+
+        /// <summary>
         /// ERP Product Maping data
         /// </summary>
         public ERPProduct ERPProduct
@@ -59,6 +67,61 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// </summary>
         public ProductDataOutput products { get; set; } = new ProductDataOutput();
 
+        /// <summary>
+        /// Scenario Quantity to be used by ProductionOrders and Materials creation
+        /// </summary>
+        public virtual decimal ScenarioQuantity { get; set; } = 1;
+
+        /// <summary>
+        /// Product Name to be used by the scenario
+        /// </summary>
+        public virtual string ProductName { get; set; } = AMSOsramConstants.DefaultTestProductName;
+
+        /// <summary>
+        /// Facility Name to be used by the scenario
+        /// </summary>
+        public string FacilityName { get; set; } = AMSOsramConstants.DefaultFacilityName;
+
+        /// <summary>
+        /// Lot Name to be used by the scenario
+        /// </summary>
+        public string LotName { get; set; } = null;
+
+        /// <summary>
+        /// FlowPath to be used by the scenario
+        /// </summary>
+        public virtual string FlowPath { get; set; } = AMSOsramConstants.DefaultTestFlowPath;
+
+        /// <summary>
+        /// Collection of ProductionOrders generated
+        /// </summary>
+        public ProductionOrderCollection GeneratedProductionOrders { get; set; } = new ProductionOrderCollection();
+
+        /// <summary>
+        /// Collection of Lots generated
+        /// </summary>
+        public MaterialCollection GeneratedLots { get; set; } = new MaterialCollection();
+
+        /// <summary>
+        /// Number of ProductionOrders to Generate by the Scenario
+        /// </summary>
+        public int NumberOfProductionOrdersToGenerate { get; set; } = 0;
+
+        /// <summary>
+        /// Number of Lots to Generate by the Scenario
+        /// </summary>
+        public int NumberOfMaterialsToGenerate { get; set; } = 0;
+
+        /// <summary>
+        /// Number of Wafers to Generate by the Scenario
+        /// </summary>
+        public int NumberOfChildMaterialsToGenerate { get; set; } = 0;
+
+        /// <summary>
+        /// Material to be generated form
+        /// </summary>
+        public string MaterialToGenerateForm = AMSOsramConstants.DefaultMaterialFormName;
+
         #endregion
 
         public override void Setup()
@@ -83,6 +146,72 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                 }
 
                 CustomUtilities.DispatchIntegrationEntries(new IntegrationEntryCollection() { outputProducts.Result });
+            }
+
+            // Create Production orders to be used
+            for (int i = 0; i < NumberOfProductionOrdersToGenerate; i++)
+            {
+                ProductionOrder generatedProductionOrder =
+                    CustomUtilities.CreateProductionOrder(
+                        name: LotName,
+                        tearDownManager: TearDownManager,
+                        productName: ProductName,
+                        quantity: ScenarioQuantity);
+
+                GeneratedProductionOrders.Add(generatedProductionOrder);
+            }
+
+            // Create Lots to be used
+            for (int i = 0; i < NumberOfMaterialsToGenerate; i++)
+            {
+                ProductionOrder productionOrder = null;
+                string materialName = LotName;
+
+                // In case the lots need to be associated to a Production Order 
+                if (IsToAssingPOsToMaterials)
+                {
+                    productionOrder = GeneratedProductionOrders[i];
+                    materialName = productionOrder.Name;
+                }
+
+                Material generatedMaterial =
+                    CustomUtilities.CreateMaterial(
+                        tearDownManager: TearDownManager,
+                        name: materialName,
+                        prodOrder: productionOrder,
+                        productName: ProductName,
+                        flowPath: FlowPath,
+                        primaryQuantity: ScenarioQuantity * NumberOfChildMaterialsToGenerate,
+                        facilityName: FacilityName,
+                        form: MaterialToGenerateForm);
+
+                // Create Wafers to be used
+                if (NumberOfChildMaterialsToGenerate > 0)
+                {
+                    MaterialCollection subMaterialsCollection = new MaterialCollection();
+
+                    for (int count = 0; count < NumberOfChildMaterialsToGenerate; count++)
+                    {
+                        Material subMaterial = new Material()
+                        {
+                            PrimaryQuantity = ScenarioQuantity
+                        };
+
+                        subMaterialsCollection.Add(subMaterial);
+                    }
+
+                    ExpandMaterialOutput expandMaterialOutput = new ExpandMaterialInput()
+                    {
+                        Material = generatedMaterial,
+                        SubMaterials = subMaterialsCollection,
+                        Form = AMSOsramConstants.DefaultMaterialLogisticalWaferForm
+                    }.ExpandMaterialSync();
+
+                    generatedMaterial = expandMaterialOutput.Material;
+                    generatedMaterial.SubMaterials = expandMaterialOutput.ExpandedSubMaterials;
+                }
+
+                GeneratedLots.Add(generatedMaterial);
             }
         }
 
