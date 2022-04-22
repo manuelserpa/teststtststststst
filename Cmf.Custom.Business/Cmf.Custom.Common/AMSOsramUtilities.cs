@@ -1856,11 +1856,11 @@ namespace Cmf.Custom.AMSOsram.Common
                 },
                 new Field()
                 {
-                    Alias = "CreatedOn",
+                    Alias = "PlannedStartDate",
                     ObjectName = "ProductionOrder",
                     ObjectAlias = "ProductionOrder_1",
                     IsUserAttribute = false,
-                    Name = "CreatedOn",
+                    Name = "PlannedStartDate",
                     Position = 2,
                     Sort = FieldSort.Descending
                 }
