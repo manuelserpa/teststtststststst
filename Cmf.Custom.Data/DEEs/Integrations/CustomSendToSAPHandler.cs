@@ -39,24 +39,18 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             //---Start DEE Code---     
 
             //System
-            UseReference("", "System.Linq");
             UseReference("", "System.Collections.Generic");
-            UseReference("", "System.IO");
-            UseReference("", "System.Threading");
-            UseReference("", "System");
 
             //Foundation
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration");
+            UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common");
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
 
-            //Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-
             //Custom
+            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
 
             IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, Constants.IntegrationEntry);
 
-            // Send ProductionOrder data throught AMSOsram service
+            // Send Goods Issue data throught AMSOsram service
 
             //---End DEE Code---
 

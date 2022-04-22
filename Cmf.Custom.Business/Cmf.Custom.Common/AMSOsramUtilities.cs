@@ -26,6 +26,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
+using static Cmf.Custom.AMSOsram.Common.AMSOsramConstants;
 
 namespace Cmf.Custom.AMSOsram.Common
 {
@@ -215,7 +216,6 @@ namespace Cmf.Custom.AMSOsram.Common
                     return value;
             }
         }
-
 
         #endregion
 
@@ -1728,6 +1728,17 @@ namespace Cmf.Custom.AMSOsram.Common
             throw new Exception(exceptionMessage);
         }
 
+        /// <summary>
+        /// Constructs a new Message, using Localized Messages
+        /// </summary>
+        /// <param name="key">Name of Localized Message</param>
+        public static void ThrowLocalizedException(string key)
+        {
+            string exceptionMessage = LocalizedMessage.GetLocalizedMessage(key).MessageText;
+
+            throw new Exception(exceptionMessage);
+        }
+
         #endregion Localized Messages
 
         #region XML 
@@ -1775,11 +1786,11 @@ namespace Cmf.Custom.AMSOsram.Common
         #region Queries
 
         /// <summary>
-        /// Get Production Order
+        /// Get Production Order by Product associated with a Material
         /// </summary>
         /// <param name="productName">Product Name</param>
         /// <param name="trackOutDate">Trackout Date</param>
-        /// <returns>Return Production Order based on Product and TrackOut Date associated to a Material</returns>
+        /// <returns>Return Production Order based on Product and TrackOut Date associated with a Material</returns>
         public static ProductionOrder GetMaterialProductionOrder(string productName, DateTime? trackOutDate)
         {
             QueryObject query = new QueryObject();
@@ -1795,7 +1806,7 @@ namespace Cmf.Custom.AMSOsram.Common
                     Name = "Name",
                     ObjectName = "Product",
                     ObjectAlias = "ProductionOrder_Product_2",
-                    Operator = FieldOperator.Contains,
+                    Operator = FieldOperator.IsEqualTo,
                     Value = productName,
                     LogicalOperator = LogicalOperator.AND,
                     FilterType = Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal
@@ -1805,7 +1816,7 @@ namespace Cmf.Custom.AMSOsram.Common
                     Name = "PlannedStartDate",
                     ObjectName = "ProductionOrder",
                     ObjectAlias = "ProductionOrder_1",
-                    Operator = FieldOperator.GreaterThanOrEqualTo,
+                    Operator = FieldOperator.LessThanOrEqualTo,
                     Value = trackOutDate,
                     LogicalOperator = LogicalOperator.AND,
                     FilterType = Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal
@@ -1894,11 +1905,56 @@ namespace Cmf.Custom.AMSOsram.Common
 
         #endregion
 
-        #region SAP
+        #region ERP
 
-        public static void CreateProductionOrderToSAP()
+        /// <summary>
+        /// Create information to send for ERP
+        /// </summary>
+        /// <param name="movementType">ERP Movement Type</param>
+        /// <param name="productionOrder">Production Order</param>
+        /// <param name="material">Material</param>
+        /// <returns>Returns an object associated with Movement Type</returns>
+        public static CustomReportToERPItem CreateInfoForERP(string movementType, ProductionOrder productionOrder = null, Material material = null)
         {
+            CustomReportToERPItem customReportToERPItem = null;
 
+            if (string.IsNullOrEmpty(movementType))
+            {
+                ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomMovementTypeEmpty);
+            }
+
+            switch (movementType)
+            {
+                case ERPMovements.Type261:
+
+                    if (productionOrder is null)
+                    {
+                        ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomProductionOrderObjectNull);
+                    }
+
+                    if (material is null)
+                    {
+                        ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomMaterialObjectNull);
+                    }
+
+                    customReportToERPItem = new CustomReportToERPItem()
+                    {
+                        CreatedOn = DateTime.Now,
+                        ProductionOrderNumber = productionOrder.OrderNumber,
+                        MaterialName = material.Name,
+                        ProductName = material.Product.Name,
+                        Quantity = material.PrimaryQuantity + material.SubMaterialsPrimaryQuantity,
+                        Units = material.PrimaryUnits,
+                        MovementType = ERPMovements.Type261,
+                        SubMaterialCount = material.SubMaterialCount
+                        //TODO: SAPStore
+                        //TODO: Site
+                    };
+
+                    break;
+            }
+
+            return customReportToERPItem;
         }
 
         #endregion

@@ -1,8 +1,9 @@
 ﻿using Cmf.Common.CustomActionUtilities;
 using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.ProductionOrders;
+using Cmf.Custom.AMSOsram.Common.ERP;
 using Cmf.Navigo.BusinessObjects;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cmf.Custom.AMSOsram.Actions.ProductionOrders
 {
@@ -35,9 +36,12 @@ namespace Cmf.Custom.AMSOsram.Actions.ProductionOrders
                 }
             }
 
-            DeeContextHelper.SetContextParameter("AvailableMaterials", availableMaterials);
+            if (availableMaterials.Any())
+            {
+                DeeContextHelper.SetContextParameter("AvailableMaterials", availableMaterials);
+            }
 
-            return availableMaterials.Count > 0;
+            return availableMaterials.Any();
 
             //---End DEE Condition Code---
         }
@@ -47,6 +51,7 @@ namespace Cmf.Custom.AMSOsram.Actions.ProductionOrders
             //---Start DEE Code---     
 
             //System
+            UseReference("", "System.Linq");
             UseReference("", "System.Collections.Generic");
 
             //Common
@@ -57,6 +62,7 @@ namespace Cmf.Custom.AMSOsram.Actions.ProductionOrders
 
             //Custom
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
+            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.ERP");
 
             // Get availableMaterials based on the context
             MaterialCollection materials = DeeContextHelper.GetContextParameter("AvailableMaterials") as MaterialCollection;
@@ -69,37 +75,32 @@ namespace Cmf.Custom.AMSOsram.Actions.ProductionOrders
 
                 if (material.ProductionOrder != null)
                 {
-                    // Set productionOrder object based on ProductionOrder associated to the Material
+                    // Set productionOrder object based on ProductionOrder associated with the Material
                     productionOrder = material.ProductionOrder;
                 }
                 else
                 {
                     // Get productionOrder object based on Custom Query result
                     productionOrder = AMSOsramUtilities.GetMaterialProductionOrder(material.Product.Name, material.TrackOutDate);
-
-                    if (productionOrder == null)
-                    {
-                        // Throw exception if Custom Query doesn't returns ProductionOrder data
-                        AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomStorageLocationMissing, material.Product.Name);
-                    }
                 }
 
-                GoodsIssueOutbound goodsIssueOutbound = new GoodsIssueOutbound();
-                goodsIssueOutbound.ProductionOrderName = productionOrder.Name;
-                //goodsIssueOutbound.MaterialName
-                goodsIssueOutbound.ProductName = productionOrder.Product.Name;
-                goodsIssueOutbound.Quantity = productionOrder.Quantity;
-                goodsIssueOutbound.Units = productionOrder.Units;
-                goodsIssueOutbound.Site = productionOrder.Facility.Site.Name;
-                //goodsIssueOutbound.MovementType
-                //goodsIssueOutbound.Wafers
-                //goodsIssueOutbound.CostCenter
+                if (productionOrder == null)
+                {
+                    // Throw exception if ProductionOrder has no data
+                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomStorageLocationMissing, material.Product.Name);
+                }
 
-                // Serialize ProductionOrder to XML message 
-                string message = goodsIssueOutbound.SerializeToXML();
+                // Create an object with information to send to SAP by ERP Movement Type
+                CustomReportToERPItem customReportToERPItem = AMSOsramUtilities.CreateInfoForERP(AMSOsramConstants.ERPMovements.Type261, productionOrder, material);
 
-                // Create an IntegrationEntry to Inform SAP about the Goods Issue
-                AMSOsramUtilities.CreateOutboundIntegrationEntry(message, AMSOsramConstants.MessageTypes.CustomPerformConsumptionToSAP);
+                if (customReportToERPItem != null)
+                {
+                    // Serialize object to XML 
+                    string message = customReportToERPItem.SerializeToXML();
+
+                    // Create an IntegrationEntry to Inform SAP about the Goods Issue
+                    AMSOsramUtilities.CreateOutboundIntegrationEntry(message, AMSOsramConstants.MessageTypes.CustomPostGoodsIssueToSAP);
+                }
             }
 
             //---End DEE Code---

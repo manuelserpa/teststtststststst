@@ -371,7 +371,7 @@
         #region Localized Messages
 
         /// <summary>
-        /// Received message is empty
+        /// Localized Message: Received message is empty
         /// </summary>
         public const string CustomReceiveEmptyMessage = "CustomReceiveEmptyMessage";
 
@@ -464,6 +464,21 @@
         /// Localized Message: CustomStorageLocationMissing
         /// </summary>
         public const string LocalizedMessageCustomStorageLocationMissing = "CustomStorageLocationMissing";
+
+        /// <summary>
+        /// Localized Message: CustomMovementTypeEmpty
+        /// </summary>
+        public const string LocalizedMessageCustomMovementTypeEmpty = "CustomMovementTypeEmpty";
+
+        /// <summary>
+        /// Localized Message: CustomProductionOrderObjectNull
+        /// </summary>
+        public const string LocalizedMessageCustomProductionOrderObjectNull = "CustomProductionOrderObjectNull";
+
+        /// <summary>
+        /// Localized Message: CustomMaterialObjectNull
+        /// </summary>
+        public const string LocalizedMessageCustomMaterialObjectNull = "CustomMaterialObjectNull";
 
         #endregion
 
@@ -944,9 +959,21 @@
         public class MessageTypes
         {
             /// <summary>
-            /// Message Type: CustomStorageLocationMissing
+            /// Message Type: CustomPostGoodsIssueToSAP
             /// </summary>
-            public const string CustomPerformConsumptionToSAP = "PerformConsumptionToSAP";
+            public const string CustomPostGoodsIssueToSAP = "CustomPostGoodsIssueToSAP";
+        }
+
+        #endregion
+
+        #region ERP
+
+        public static class ERPMovements
+        {
+            /// <summary>
+            /// Goods Issue
+            /// </summary>
+            public const string Type261 = "261";
         }
 
         #endregion

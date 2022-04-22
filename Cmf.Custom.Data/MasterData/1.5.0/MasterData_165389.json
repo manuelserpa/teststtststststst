@@ -16,14 +16,47 @@
             "pt-PT": "",
             "zh-TW": "",
             "UsageType": "Biz"
+        },
+		"2": {
+            "Name": "CustomMovementTypeEmpty",
+            "Description": "Error message to inform about Movement Type is empty.",
+            "MessageType": "Message",
+            "en-US": "Movement Type is null or empty.",
+            "de-DE": "",
+            "zh-CN": "",
+            "pt-PT": "",
+            "zh-TW": "",
+            "UsageType": "Biz"
+        },
+		"3": {
+            "Name": "CustomProductionOrderObjectNull",
+            "Description": "Error message to inform about Production Order is null.",
+            "MessageType": "Message",
+            "en-US": "Production Order is null.",
+            "de-DE": "",
+            "zh-CN": "",
+            "pt-PT": "",
+            "zh-TW": "",
+            "UsageType": "Biz"
+        },
+		"4": {
+            "Name": "CustomMaterialObjectNull",
+            "Description": "Error message to inform about Material is null.",
+            "MessageType": "Message",
+            "en-US": "Material is null.",
+            "de-DE": "",
+            "zh-CN": "",
+            "pt-PT": "",
+            "zh-TW": "",
+            "UsageType": "Biz"
         }
     },
     "<SM>LookupTableValues": {
         "1": {
             "LookUp Table": "MessageType",
             "Lookup Table Value Parent": "",
-            "Lookup Table Value": "PerformConsumptionToSAP",
-            "Lookup Table Value Description": "Sent Message to SAP",
+            "Lookup Table Value": "CustomPostGoodsIssueToSAP",
+            "Lookup Table Value Description": "Sent Message about Goods Issue to SAP",
             "Lookup Table IsEnabled": "Yes"
         }
     },
@@ -54,7 +87,7 @@
         "1": {
             "FromSystem": "MES",
             "ToSystem": "ERP",
-            "MessageType": "PerformConsumptionToSAP",
+            "MessageType": "CustomPostGoodsIssueToSAP",
             "HandlerType": "GenericIntegrationHandler",
             "ActionName": "CustomSendToSAPHandler",
             "ErrorHandlingActionName": "",
