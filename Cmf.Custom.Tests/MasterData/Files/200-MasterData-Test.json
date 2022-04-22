@@ -5,7 +5,6 @@
 			"Value": "<ST>MaterialDataCollectionContext"
 		}
 	},
-{	
 	"<SM>LookupTableValues": {
 		"1": {
 			"LookUp Table": "StepType",
@@ -1395,7 +1394,6 @@
 			"ParentReason": ""
 		}
 	},
-	"StepReason": {},
 	"<DM>StepReason": {
 		"1": {
 			"SourceEntity": "M2-SL-Wafer-Start-07301F001_E",
@@ -1450,6 +1448,28 @@
 			"Flow": "",
 			"Material": "",
 			"Service": "CMFTestService"
+		}
+	},
+	"<DM>ProductionOrder":{
+		"1": {
+			"Name": "",
+			"Description": "",
+			"IsTemplate": "",
+			"DataGroup": "",
+			"Type": "CMFTestPOType",
+			"SystemState": "1",
+			"Facility": "",
+			"Product": "CMFTestProduct",
+			"OrderNumber": "",
+			"Quantity": "",
+			"UnderDeliveryTolerance": "",
+			"OverDeliveryTolerance": "",
+			"ValidateMaterialProducts": "No",
+			"RestrictOnComplete": "No",
+			"Units": "CM2",
+			"DueDate": "",
+			"PlannedStartDate": "",
+			"PlannedEndDate": ""
 		}
 	}
 }
