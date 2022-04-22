@@ -68,9 +68,4 @@ namespace Cmf.Custom.AMSOsram.Common.ERP
         [XmlElement(ElementName = "WAFERS")]
         public int SubMaterialCount { get; set; }
     }
-
-    public class CustomReportToERPMovement261 : CustomReportToERPItem
-    {
-
-    }
 }
