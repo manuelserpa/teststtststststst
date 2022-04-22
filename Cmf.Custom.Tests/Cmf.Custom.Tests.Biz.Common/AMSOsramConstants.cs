@@ -34,6 +34,11 @@ namespace Cmf.Custom.Tests.Biz.Common
         public const string DefaultProductName = "11111335";
 
         /// <summary>
+        /// Default Test Product Name
+        /// </summary>
+        public const string DefaultTestProductName = "CMFTestProduct";
+
+        /// <summary>
         /// DefaultMaterialType
         /// </summary>
         public const string DefaultMaterialType = "Production";
@@ -44,9 +49,19 @@ namespace Cmf.Custom.Tests.Biz.Common
         public const string DefaultFlowName = "FOL-UX3_EPA";
 
         /// <summary>
+        /// Default Test Flow 
+        /// </summary>
+        public const string DefaultTestFlowName = "CMFTestFlow";
+
+        /// <summary>
         /// DefaultMVPStepName
         /// </summary>
         public const string DefaultMVPStepName = "M3-LO-Wafer Sorter-Split-01518F010_E";
+
+        /// <summary>
+        /// Default Test Step
+        /// </summary>
+        public const string DefaultTestStepName = "CMFTestStep01";
 
         /// <summary>
         /// DefaultMaterialFormName
@@ -67,6 +82,21 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// Default Test Container
         /// </summary>
         public const string DefaultContainerName = "3132323039303031";
+
+        /// <summary>
+        /// Default Test Flow Path
+        /// </summary>
+        public const string DefaultTestFlowPath = "CMFTestFlow:1/CMFTestStep01:1";
+
+        /// <summary>
+        /// Default Test Production Order Type
+        /// </summary>
+        public const string DefaultTestPOType = "CMFTestPOType";
+
+        /// <summary>
+        /// Default Test Resource Name
+        /// </summary>
+        public const string DefaultTestResourceName = "CMFTestResource01";
 
         #endregion
 
