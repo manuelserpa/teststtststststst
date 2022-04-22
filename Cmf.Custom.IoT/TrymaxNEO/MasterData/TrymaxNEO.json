@@ -1372,8 +1372,8 @@
       "DevicePropertyId": "1324",
       "IsReadable": "Yes",
       "IsWritable": "No",
-      "DataType": "String",
-      "AutomationProtocolDataType": "A",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "I8",
       "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"1\"}"
     },
     "44": {
@@ -1427,8 +1427,8 @@
       "DevicePropertyId": "8007",
       "IsReadable": "Yes",
       "IsWritable": "No",
-      "DataType": "Object",
-      "AutomationProtocolDataType": "L",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
       "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
     },
     "49": {
@@ -1438,8 +1438,8 @@
       "DevicePropertyId": "9007",
       "IsReadable": "Yes",
       "IsWritable": "No",
-      "DataType": "Object",
-      "AutomationProtocolDataType": "L",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
       "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
     },
     "50": {
@@ -1449,8 +1449,8 @@
       "DevicePropertyId": "10007",
       "IsReadable": "Yes",
       "IsWritable": "No",
-      "DataType": "Object",
-      "AutomationProtocolDataType": "L",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
       "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
     },
     "51": {
@@ -1460,8 +1460,8 @@
       "DevicePropertyId": "11007",
       "IsReadable": "Yes",
       "IsWritable": "No",
-      "DataType": "Object",
-      "AutomationProtocolDataType": "L",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
       "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
     }
   },
@@ -2777,251 +2777,211 @@
     },
     "17": {
       "AutomationController": "TrymaxNEOController",
-      "Name": "PostTrackIn_01_ExecuteStart",
-      "DisplayName": "PostTrackIn_01_ExecuteStart",
-      "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\PostTrackIn_01_ExecuteStart.json",
-      "Order": "17"
-    },
-    "18": {
-      "AutomationController": "TrymaxNEOController",
       "Name": "ProcessStarted_01_EventTosProcessStartedReceived",
       "DisplayName": "ProcessStarted_01_EventTosProcessStartedReceived",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\ProcessStarted_01_EventTosProcessStartedReceived.json",
-      "Order": "18"
+      "Order": "17"
     },
-    "19": {
+    "18": {
       "AutomationController": "TrymaxNEOController",
       "Name": "WaferStart_01_EventWaferStarted",
       "DisplayName": "WaferStart_01_EventWaferStarted",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\WaferStart_01_EventWaferStarted.json",
-      "Order": "19"
+      "Order": "18"
     },
-    "20": {
+    "19": {
       "AutomationController": "TrymaxNEOController",
       "Name": "WaferStart_02_EventWaferStarted",
       "DisplayName": "WaferStart_02_EventWaferStarted",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\WaferStart_02_EventWaferStarted.json",
-      "Order": "20"
+      "Order": "19"
     },
-    "21": {
+    "20": {
       "AutomationController": "TrymaxNEOController",
       "Name": "WaferStart_03_EventWaferStarted",
       "DisplayName": "WaferStart_03_EventWaferStarted",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\WaferStart_03_EventWaferStarted.json",
-      "Order": "21"
+      "Order": "20"
     },
-    "22": {
+    "21": {
       "AutomationController": "TrymaxNEOController",
       "Name": "WaferStart_04_EventWaferStarted",
       "DisplayName": "WaferStart_04_EventWaferStarted",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\WaferStart_04_EventWaferStarted.json",
-      "Order": "22"
+      "Order": "21"
     },
-    "23": {
+    "22": {
       "AutomationController": "TrymaxNEOController",
       "Name": "WaferComplete_01_EventWaferCompleted",
       "DisplayName": "WaferComplete_01_EventWaferCompleted",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\WaferComplete_01_EventWaferCompleted.json",
-      "Order": "23"
+      "Order": "22"
     },
-    "24": {
+    "23": {
       "AutomationController": "TrymaxNEOController",
       "Name": "WaferComplete_02_EventWaferCompleted",
       "DisplayName": "WaferComplete_02_EventWaferCompleted",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\WaferComplete_02_EventWaferCompleted.json",
-      "Order": "24"
+      "Order": "23"
     },
-    "25": {
+    "24": {
       "AutomationController": "TrymaxNEOController",
       "Name": "WaferComplete_03_EventWaferCompleted",
       "DisplayName": "WaferComplete_03_EventWaferCompleted",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\WaferComplete_03_EventWaferCompleted.json",
-      "Order": "25"
+      "Order": "24"
     },
-    "26": {
+    "25": {
       "AutomationController": "TrymaxNEOController",
       "Name": "WaferComplete_04_EventWaferCompleted",
       "DisplayName": "WaferComplete_04_EventWaferCompleted",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\WaferComplete_04_EventWaferCompleted.json",
-      "Order": "26"
+      "Order": "25"
     },
-    "27": {
+    "26": {
       "AutomationController": "TrymaxNEOController",
       "Name": "ProcessCompleted_01_EventProcessCompletedReceived",
       "DisplayName": "ProcessCompleted_01_EventProcessCompletedReceived",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\ProcessCompleted_01_EventProcessCompletedReceived.json",
-      "Order": "27"
+      "Order": "26"
     },
-    "28": {
+    "27": {
       "AutomationController": "TrymaxNEOController",
       "Name": "TrackOut_01_TrackOutEventReceivedFromMES",
       "DisplayName": "TrackOut_01_TrackOutEventReceivedFromMES",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\TrackOut_01_TrackOutEventReceivedFromMES.json",
-      "Order": "28"
+      "Order": "27"
     },
-    "29": {
+    "28": {
       "AutomationController": "TrymaxNEOController",
       "Name": "Abort_01_AbortEventReceivedFromMES",
       "DisplayName": "Abort_01_AbortEventReceivedFromMES",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\Abort_01_AbortEventReceivedFromMES.json",
-      "Order": "29"
+      "Order": "28"
     },
-    "30": {
+    "29": {
       "AutomationController": "TrymaxNEOController",
       "Name": "Hold_01_HoldEventReceivedFromMES",
       "DisplayName": "Hold_01_HoldEventReceivedFromMES",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\Hold_01_HoldEventReceivedFromMES.json",
-      "Order": "30"
+      "Order": "29"
     },
-    "31": {
+    "30": {
       "AutomationController": "TrymaxNEOController",
       "Name": "AlarmManagement_01_AlarmCollection",
       "DisplayName": "AlarmManagement_01_AlarmCollection",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\AlarmManagement_01_AlarmCollection.json",
-      "Order": "31"
+      "Order": "30"
     },
-    "32": {
+    "31": {
       "AutomationController": "TrymaxNEOController",
       "Name": "RecipeManagement_01_GetRecipeList",
       "DisplayName": "RecipeManagement_01_GetRecipeList",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\RecipeManagement_01_GetRecipeList.json",
-      "Order": "32"
+      "Order": "31"
     },
-    "33": {
+    "32": {
       "AutomationController": "TrymaxNEOController",
       "Name": "RecipeManagement_02_GetRecipeBody",
       "DisplayName": "RecipeManagement_02_GetRecipeBody",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\RecipeManagement_02_GetRecipeBody.json",
-      "Order": "33"
+      "Order": "32"
     },
-    "34": {
+    "33": {
       "AutomationController": "TrymaxNEOController",
       "Name": "RecipeManagement_03_SetRecipeBody",
       "DisplayName": "RecipeManagement_03_SetRecipeBody",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\RecipeManagement_03_SetRecipeBody.json",
-      "Order": "34"
+      "Order": "33"
     },
-    "35": {
+    "34": {
       "AutomationController": "TrymaxNEOController",
       "Name": "RecipeManagement_04_GetRecipeChecksum",
       "DisplayName": "RecipeManagement_04_GetRecipeChecksum",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\RecipeManagement_04_GetRecipeChecksum.json",
-      "Order": "35"
+      "Order": "34"
     },
-    "36": {
+    "35": {
       "AutomationController": "TrymaxNEOController",
       "Name": "ResourceState_01_ProcessStateChanged",
       "DisplayName": "ResourceState_01_ProcessStateChanged",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\ResourceState_01_ProcessStateChanged.json",
-      "Order": "36"
+      "Order": "35"
     },
-    "37": {
+    "36": {
       "AutomationController": "TrymaxNEOController",
       "Name": "ControlState_01_ControlStateEquipmentOfflineUpdateReceived",
       "DisplayName": "ControlState_01_ControlStateEquipmentOfflineUpdateReceived",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\ControlState_01_ControlStateEquipmentOfflineUpdateReceived.json",
-      "Order": "37"
+      "Order": "36"
     },
-    "38": {
+    "37": {
       "AutomationController": "TrymaxNEOController",
       "Name": "ControlState_02_ControlStateOnlineLocalUpdateReceived",
       "DisplayName": "ControlState_02_ControlStateOnlineLocalUpdateReceived",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\ControlState_02_ControlStateOnlineLocalUpdateReceived.json",
-      "Order": "38"
+      "Order": "37"
     },
-    "39": {
+    "38": {
       "AutomationController": "TrymaxNEOController",
       "Name": "ControlState_03_ControlStateOnlineRemoteUpdateReceived",
       "DisplayName": "ControlState_03_ControlStateOnlineRemoteUpdateReceived",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\ControlState_03_ControlStateOnlineRemoteUpdateReceived.json",
-      "Order": "39"
+      "Order": "38"
     },
-    "40": {
+    "39": {
       "AutomationController": "TrymaxNEOController",
       "Name": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "DisplayName": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
-      "Order": "40"
+      "Order": "39"
     },
-    "41": {
+    "40": {
       "AutomationController": "TrymaxNEOController",
       "Name": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "DisplayName": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\RecipeValidation_01_UnformattedRecipeMainFlow.json",
-      "Order": "41"
+      "Order": "40"
     },
-    "42": {
+    "41": {
       "AutomationController": "TrymaxNEOController",
       "Name": "PPSelect_01_ExecuteCommand",
       "DisplayName": "PPSelect_01_ExecuteCommand",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\PPSelect_01_ExecuteCommand.json",
-      "Order": "42"
+      "Order": "41"
     },
-    "43": {
+    "42": {
       "AutomationController": "TrymaxNEOController",
       "Name": "StartCommand_01_ExecuteCommand",
       "DisplayName": "StartCommand_01_ExecuteCommand",
       "IsFile": "Yes",
       "Workflow": "TrymaxNEO\\StartCommand_01_ExecuteCommand.json",
-      "Order": "43"
-    },
-    "44": {
-      "AutomationController": "TrymaxNEOController",
-      "Name": "CassetteLoad_01_ExecuteCommand",
-      "DisplayName": "CassetteLoad_01_ExecuteCommand",
-      "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\CassetteLoad_01_ExecuteCommand.json",
-      "Order": "44"
-    },
-    "45": {
-      "AutomationController": "TrymaxNEOController",
-      "Name": "CassetteUnload_01_ExecuteCommand",
-      "DisplayName": "CassetteUnload_01_ExecuteCommand",
-      "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\CassetteUnload_01_ExecuteCommand.json",
-      "Order": "45"
-    },
-    "46": {
-      "AutomationController": "TrymaxNEOController",
-      "Name": "CarrierClamped_01_ExecuteCommand",
-      "DisplayName": "CarrierClamped_01_ExecuteCommand",
-      "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\CarrierClamped_01_ExecuteCommand.json",
-      "Order": "46"
-    },
-    "47": {
-      "AutomationController": "TrymaxNEOController",
-      "Name": "CarrierUnclamped_01_ExecuteCommand",
-      "DisplayName": "CarrierUnclamped_01_ExecuteCommand",
-      "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\CarrierUnclamped_01_ExecuteCommand.json",
-      "Order": "47"
+      "Order": "42"
     }
   },
   "<LOOKUP>AutomationInstances": {}

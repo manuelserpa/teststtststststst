@@ -243,7 +243,7 @@
 				],
 				"outputs": [
 					{
-						"name": "$LotID",
+						"name": "LotID",
 						"valueType": {
 							"friendlyName": "$LotID",
 							"type": 4,
@@ -311,25 +311,25 @@
 			"outputName": "MaterialDataOut"
 		},
 		{
-			"id": "3d426ddd-ab7b-4449-a3b8-06c6c6f32037",
-			"sourceId": "task_111820",
-			"targetId": "task_44592",
-			"inputName": "$LotID",
-			"outputName": "$LotIDOut"
-		},
-		{
-			"id": "0dc13a36-2fa5-48f2-a422-4461d1e0a371",
-			"sourceId": "task_111820",
-			"targetId": "task_44592",
-			"inputName": "activate",
-			"outputName": "$LotIDOut"
-		},
-		{
 			"id": "a4a80b0d-08f0-476c-9d47-822edeb61567",
 			"sourceId": "task_44588",
 			"targetId": "task_111820",
 			"inputName": "activate",
 			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "c6039076-c3f5-4164-91d6-0b1338c38b52",
+			"sourceId": "task_111820",
+			"targetId": "task_44592",
+			"inputName": "$LotID",
+			"outputName": "LotIDOut"
+		},
+		{
+			"id": "57f804ab-5ddd-4a49-a69a-c3e5b4499dea",
+			"sourceId": "task_111820",
+			"targetId": "task_44592",
+			"inputName": "activate",
+			"outputName": "LotIDOut"
 		}
 	],
 	"layout": {
@@ -407,13 +407,13 @@
 					"e0d93299-572f-484f-b798-1c49556f521c": {
 						"vertices": []
 					},
-					"3d426ddd-ab7b-4449-a3b8-06c6c6f32037": {
-						"vertices": []
-					},
-					"0dc13a36-2fa5-48f2-a422-4461d1e0a371": {
-						"vertices": []
-					},
 					"a4a80b0d-08f0-476c-9d47-822edeb61567": {
+						"vertices": []
+					},
+					"c6039076-c3f5-4164-91d6-0b1338c38b52": {
+						"vertices": []
+					},
+					"57f804ab-5ddd-4a49-a69a-c3e5b4499dea": {
 						"vertices": []
 					}
 				},
@@ -428,8 +428,8 @@
 				},
 				"zoom": 0.6199999999999998,
 				"pan": {
-					"x": 491.1111145019531,
-					"y": 384.4444580078125
+					"x": 838.888916015625,
+					"y": 288.8888854980469
 				}
 			}
 		}

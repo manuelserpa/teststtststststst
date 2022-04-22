@@ -292,37 +292,6 @@
 			}
 		},
 		{
-			"id": "task_137349",
-			"reference": {
-				"name": "store",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"_workingMode": "StoreOnActivate",
-				"___cmf___name": "Store Data",
-				"_inputs": [
-					{
-						"name": "TrackIn01_ActivatePostTrackIn",
-						"valueType": {
-							"type": 3,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "TrackIn01_ActivatePostTrackIn"
-						},
-						"storage": "Persistent",
-						"identifier": "TrackIn01_ActivatePostTrackIn",
-						"defaultValue": null
-					}
-				],
-				"___cmf___color": "#808078"
-			}
-		},
-		{
 			"id": "task_34616",
 			"reference": {
 				"name": "workflow",
@@ -366,104 +335,6 @@
 					}
 				],
 				"___cmf___name": "Execute PP-Select Workflow"
-			}
-		},
-		{
-			"id": "task_24159",
-			"reference": {
-				"name": "expressionEvaluator",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"_expressionType": 0,
-				"_evaluatorBehavior": "EvaluateAll",
-				"___cmf___name": "Expression Evaluator",
-				"_inputs": [
-					{
-						"name": "LoadPortPosition",
-						"valueType": {
-							"type": 5,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "LoadPortPosition"
-						},
-						"defaultValue": 0,
-						"required": true
-					},
-					{
-						"name": "POD1_CARRIERPRESENT",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"defaultValue": "absent",
-						"required": true
-					},
-					{
-						"name": "POD2_CARRIERPRESENT",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"defaultValue": "absent",
-						"required": true
-					},
-					{
-						"name": "POD3_CARRIERPRESENT",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"defaultValue": "absent",
-						"required": true
-					},
-					{
-						"name": "POD4_CARRIERPRESENT",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						},
-						"defaultValue": "absent",
-						"required": true
-					}
-				],
-				"_outputs": [
-					{
-						"name": "CarrierPresent",
-						"valueType": {
-							"type": 5,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "CarrierPresent"
-						},
-						"defaultValue": null,
-						"expression": "equal(LoadPortPosition, 1) and equal(POD1_CARRIERPRESENT, \"present\") ? 1 : (equal(LoadPortPosition, 2) and equal(POD2_CARRIERPRESENT, \"present\") ? 1 : (equal(LoadPortPosition, 3) and equal(POD3_CARRIERPRESENT, \"present\") ? 1 : (equal(LoadPortPosition, 4) and equal(POD4_CARRIERPRESENT, \"present\") ? 1 : 0))) "
-					}
-				],
-				"_clearInputs": true
 			}
 		},
 		{
@@ -511,6 +382,144 @@
 				],
 				"___cmf___name": "Execute Start Workflow"
 			}
+		},
+		{
+			"id": "task_16915",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        const loadPortPosition = inputs.MaterialData[0].LoadPortPosition;",
+					"        let carrierPresent = 0;",
+					"        carrierPresent = Number((<string>inputs[`POD${loadPortPosition}_CARRIERPRESENT`]).toLowerCase() === \"present\")",
+					"",
+					"",
+					"        this.framework.logger.info(\"TrackInCarrierPresent: \" + carrierPresent);",
+					"        return { CassettePresent: carrierPresent };",
+					"        // emit output during execution: outputs.output1.emit(\"something\");",
+					"        // return example: return { output1: inputs.input1, output2: \"Hello World\" };",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IGxvYWRQb3J0UG9zaXRpb24gPSBpbnB1dHMuTWF0ZXJpYWxEYXRhWzBdLkxvYWRQb3J0UG9zaXRpb247DQogICAgICAgIGxldCBjYXJyaWVyUHJlc2VudCA9IDA7DQogICAgICAgIGNhcnJpZXJQcmVzZW50ID0gTnVtYmVyKGlucHV0c1tgUE9EJHtsb2FkUG9ydFBvc2l0aW9ufV9DQVJSSUVSUFJFU0VOVGBdLnRvTG93ZXJDYXNlKCkgPT09ICJwcmVzZW50Iik7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5pbmZvKCJUcmFja0luQ2FycmllclByZXNlbnQ6ICIgKyBjYXJyaWVyUHJlc2VudCk7DQogICAgICAgIHJldHVybiB7IENhc3NldHRlUHJlc2VudDogY2FycmllclByZXNlbnQgfTsNCiAgICAgICAgLy8gZW1pdCBvdXRwdXQgZHVyaW5nIGV4ZWN1dGlvbjogb3V0cHV0cy5vdXRwdXQxLmVtaXQoInNvbWV0aGluZyIpOw0KICAgICAgICAvLyByZXR1cm4gZXhhbXBsZTogcmV0dXJuIHsgb3V0cHV0MTogaW5wdXRzLmlucHV0MSwgb3V0cHV0MjogIkhlbGxvIFdvcmxkIiB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialData"
+						},
+						"defaultValue": {}
+					},
+					{
+						"name": "POD1_CARRIERPRESENT",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "POD1_CARRIERPRESENT"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "POD2_CARRIERPRESENT",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "POD2_CARRIERPRESENT"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "POD3_CARRIERPRESENT",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "POD3_CARRIERPRESENT"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "POD4_CARRIERPRESENT",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "POD4_CARRIERPRESENT"
+						},
+						"defaultValue": null
+					}
+				],
+				"outputs": [
+					{
+						"name": "CassettePresent",
+						"valueType": {
+							"friendlyName": "CassettePresent",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
+		},
+		{
+			"id": "task_7715",
+			"reference": {
+				"name": "createContainer",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"inputs": [],
+				"outputs": [],
+				"message": ""
+			}
 		}
 	],
 	"converters": [
@@ -528,6 +537,16 @@
 			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
 			"reference": {
 				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
 					"version": "8.3.3-202201212"
@@ -585,13 +604,6 @@
 			"outputName": "data"
 		},
 		{
-			"id": "5d35aa28-ad8d-41ea-a554-28a9cf33aff1",
-			"sourceId": "task_73090",
-			"targetId": "task_83813",
-			"inputName": "activate",
-			"outputName": "success"
-		},
-		{
 			"id": "e8a40c38-b471-4696-bf0f-e02f30268d2c",
 			"sourceId": "task_83813",
 			"targetId": "task_34616",
@@ -618,71 +630,6 @@
 			"targetId": "task_73090",
 			"inputName": "GemControlStateIn",
 			"outputName": "$CONTROL_STATE"
-		},
-		{
-			"id": "ad2fc37e-d1ef-489d-84ba-f5540099c3c6",
-			"sourceId": "task_70871",
-			"targetId": "task_24159",
-			"inputName": "POD1_CARRIERPRESENT",
-			"outputName": "$POD1_CARRIER_PRESENT"
-		},
-		{
-			"id": "cb9c8fa7-67df-40a6-afd8-a904f7b63122",
-			"sourceId": "task_70871",
-			"targetId": "task_24159",
-			"inputName": "POD2_CARRIERPRESENT",
-			"outputName": "$POD2_CARRIER_PRESENT"
-		},
-		{
-			"id": "a9a354fe-fabe-4956-835d-657529d9cb3b",
-			"sourceId": "task_70871",
-			"targetId": "task_24159",
-			"inputName": "POD3_CARRIERPRESENT",
-			"outputName": "$POD3_CARRIER_PRESENT"
-		},
-		{
-			"id": "0dc10cf8-7fea-4439-87eb-455136d9becf",
-			"sourceId": "task_70871",
-			"targetId": "task_24159",
-			"inputName": "POD4_CARRIERPRESENT",
-			"outputName": "$POD4_CARRIER_PRESENT"
-		},
-		{
-			"id": "2e9d8dce-e69c-4386-bfdc-040aea464a4c",
-			"sourceId": "task_24159",
-			"targetId": "task_73090",
-			"inputName": "CassettePresentIn",
-			"outputName": "CarrierPresent"
-		},
-		{
-			"id": "90a53e51-a858-4b54-8c4a-141b066c6fe2",
-			"sourceId": "task_1796",
-			"targetId": "task_24159",
-			"inputName": "LoadPortPosition",
-			"outputName": "data",
-			"converters": [
-				{
-					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
-					"params": {
-						"path": "[0].LoadPortPosition",
-						"type": 5
-					}
-				}
-			]
-		},
-		{
-			"id": "f4de1961-73a2-4501-8c53-ff812ab7af17",
-			"sourceId": "task_38813",
-			"targetId": "task_137349",
-			"inputName": "TrackIn01_ActivatePostTrackIn",
-			"outputName": "success"
-		},
-		{
-			"id": "a8a2004f-8897-45a4-a9f2-17cb607cb1b3",
-			"sourceId": "task_38813",
-			"targetId": "task_137349",
-			"inputName": "activate",
-			"outputName": "success"
 		},
 		{
 			"id": "5ca084c2-c20d-4af6-b04d-f883035bd69c",
@@ -718,6 +665,90 @@
 			"targetId": "task_1796",
 			"inputName": "reply",
 			"outputName": "error"
+		},
+		{
+			"id": "11c0b3f1-72ee-4ef9-be49-b54842e7d9b5",
+			"sourceId": "task_1796",
+			"targetId": "task_16915",
+			"inputName": "MaterialDataIn",
+			"outputName": "data"
+		},
+		{
+			"id": "0a6c0bd9-39d7-4e6e-b328-4a8d16c67cf0",
+			"sourceId": "task_16915",
+			"targetId": "task_73090",
+			"inputName": "CassettePresentIn",
+			"outputName": "CassettePresentOut"
+		},
+		{
+			"id": "9793bc05-1fab-4fd0-a48a-6f2c54e95455",
+			"sourceId": "task_16915",
+			"targetId": "task_73090",
+			"inputName": "activate",
+			"outputName": "CassettePresentOut"
+		},
+		{
+			"id": "ea7b182e-affa-4bfa-9db2-281a873b05bd",
+			"sourceId": "task_70871",
+			"targetId": "task_16915",
+			"inputName": "POD1_CARRIERPRESENTIn",
+			"outputName": "$POD1_CARRIER_PRESENT"
+		},
+		{
+			"id": "781bdc47-d55b-4eed-b84e-91ba0143d4a4",
+			"sourceId": "task_70871",
+			"targetId": "task_16915",
+			"inputName": "POD2_CARRIERPRESENTIn",
+			"outputName": "$POD2_CARRIER_PRESENT"
+		},
+		{
+			"id": "30fe58b0-c383-487f-8325-90fb478313ce",
+			"sourceId": "task_70871",
+			"targetId": "task_16915",
+			"inputName": "POD3_CARRIERPRESENTIn",
+			"outputName": "$POD3_CARRIER_PRESENT"
+		},
+		{
+			"id": "6dd493c6-a090-4ca4-99c5-8cf78c1657ef",
+			"sourceId": "task_70871",
+			"targetId": "task_16915",
+			"inputName": "POD4_CARRIERPRESENTIn",
+			"outputName": "$POD4_CARRIER_PRESENT"
+		},
+		{
+			"id": "ac7c45b6-9cc4-45f4-85b9-c7b4a9beb8b1",
+			"sourceId": "task_70871",
+			"targetId": "task_16915",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "69523842-bd42-4db7-8e86-ce82465d4595",
+			"sourceId": "task_73090",
+			"targetId": "task_7715",
+			"inputName": "containerId",
+			"outputName": "ContainerNameOut"
+		},
+		{
+			"id": "d4f8a419-1020-4a23-84d9-0302421787da",
+			"sourceId": "task_73090",
+			"targetId": "task_7715",
+			"inputName": "loadPort",
+			"outputName": "LoadPortPositionOut"
+		},
+		{
+			"id": "e382f4ea-013a-454b-8ce2-06e370f01327",
+			"sourceId": "task_73090",
+			"targetId": "task_7715",
+			"inputName": "activate",
+			"outputName": "LoadPortPositionOut"
+		},
+		{
+			"id": "9d95add0-ed31-4ba8-a775-62d6b2f98362",
+			"sourceId": "task_7715",
+			"targetId": "task_83813",
+			"inputName": "activate",
+			"outputName": "container"
 		}
 	],
 	"layout": {
@@ -764,64 +795,64 @@
 					"task_1677": {
 						"collapsed": false,
 						"position": {
-							"x": 4613,
-							"y": 310
+							"x": 5231,
+							"y": 110
 						},
 						"outdated": false
 					},
 					"task_70871": {
 						"collapsed": false,
 						"position": {
-							"x": 1261,
-							"y": 437
+							"x": 1271,
+							"y": 403
 						},
 						"outdated": false
 					},
 					"task_73090": {
 						"collapsed": false,
 						"position": {
-							"x": 2397,
-							"y": 233
+							"x": 2410,
+							"y": 260
 						},
 						"outdated": false
 					},
 					"task_83813": {
 						"collapsed": false,
 						"position": {
-							"x": 3082,
-							"y": 413
-						},
-						"outdated": false
-					},
-					"task_137349": {
-						"collapsed": false,
-						"position": {
-							"x": 4867,
-							"y": 557
+							"x": 3490,
+							"y": 261
 						},
 						"outdated": false
 					},
 					"task_34616": {
 						"collapsed": false,
 						"position": {
-							"x": 3557,
-							"y": 388
-						},
-						"outdated": false
-					},
-					"task_24159": {
-						"collapsed": false,
-						"position": {
-							"x": 1801,
-							"y": 258
+							"x": 4058,
+							"y": 339
 						},
 						"outdated": false
 					},
 					"task_38813": {
 						"collapsed": false,
 						"position": {
-							"x": 4031,
-							"y": 362
+							"x": 4639,
+							"y": 329
+						},
+						"outdated": false
+					},
+					"task_16915": {
+						"collapsed": false,
+						"position": {
+							"x": 1781,
+							"y": 222
+						},
+						"outdated": false
+					},
+					"task_7715": {
+						"collapsed": false,
+						"position": {
+							"x": 2945,
+							"y": 356
 						},
 						"outdated": false
 					}
@@ -865,9 +896,6 @@
 					"66f9b9ef-32eb-4d03-959f-7582351d1b53": {
 						"vertices": []
 					},
-					"5d35aa28-ad8d-41ea-a554-28a9cf33aff1": {
-						"vertices": []
-					},
 					"e8a40c38-b471-4696-bf0f-e02f30268d2c": {
 						"vertices": []
 					},
@@ -894,27 +922,6 @@
 							}
 						]
 					},
-					"ad2fc37e-d1ef-489d-84ba-f5540099c3c6": {
-						"vertices": []
-					},
-					"cb9c8fa7-67df-40a6-afd8-a904f7b63122": {
-						"vertices": []
-					},
-					"a9a354fe-fabe-4956-835d-657529d9cb3b": {
-						"vertices": []
-					},
-					"0dc10cf8-7fea-4439-87eb-455136d9becf": {
-						"vertices": []
-					},
-					"2e9d8dce-e69c-4386-bfdc-040aea464a4c": {
-						"vertices": []
-					},
-					"f4de1961-73a2-4501-8c53-ff812ab7af17": {
-						"vertices": []
-					},
-					"a8a2004f-8897-45a4-a9f2-17cb607cb1b3": {
-						"vertices": []
-					},
 					"5ca084c2-c20d-4af6-b04d-f883035bd69c": {
 						"vertices": []
 					},
@@ -939,16 +946,44 @@
 							}
 						]
 					},
+					"11c0b3f1-72ee-4ef9-be49-b54842e7d9b5": {
+						"vertices": []
+					},
+					"0a6c0bd9-39d7-4e6e-b328-4a8d16c67cf0": {
+						"vertices": []
+					},
+					"9793bc05-1fab-4fd0-a48a-6f2c54e95455": {
+						"vertices": []
+					},
+					"ea7b182e-affa-4bfa-9db2-281a873b05bd": {
+						"vertices": []
+					},
+					"781bdc47-d55b-4eed-b84e-91ba0143d4a4": {
+						"vertices": []
+					},
+					"30fe58b0-c383-487f-8325-90fb478313ce": {
+						"vertices": []
+					},
+					"6dd493c6-a090-4ca4-99c5-8cf78c1657ef": {
+						"vertices": []
+					},
+					"ac7c45b6-9cc4-45f4-85b9-c7b4a9beb8b1": {
+						"vertices": []
+					},
+					"69523842-bd42-4db7-8e86-ce82465d4595": {
+						"vertices": []
+					},
+					"d4f8a419-1020-4a23-84d9-0302421787da": {
+						"vertices": []
+					},
+					"e382f4ea-013a-454b-8ce2-06e370f01327": {
+						"vertices": []
+					},
+					"9d95add0-ed31-4ba8-a775-62d6b2f98362": {
+						"vertices": []
+					},
 					"cc8ce25c-4960-4556-84a0-86daf88a8e99": {
 						"vertices": [
-							{
-								"x": 5058,
-								"y": 342
-							},
-							{
-								"x": 4784,
-								"y": 254
-							},
 							{
 								"x": 3202,
 								"y": 188
@@ -958,9 +993,6 @@
 								"y": 6
 							}
 						]
-					},
-					"90a53e51-a858-4b54-8c4a-141b066c6fe2": {
-						"vertices": []
 					}
 				},
 				"notes": {
@@ -993,10 +1025,10 @@
 						}
 					}
 				},
-				"zoom": 0.5200000000000002,
+				"zoom": 0.8000000000000005,
 				"pan": {
-					"x": 1443.3333740234375,
-					"y": 0
+					"x": 1934.4444580078125,
+					"y": 30
 				}
 			}
 		}

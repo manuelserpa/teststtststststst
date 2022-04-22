@@ -32,13 +32,13 @@ namespace AMSOsramEIAutomaticTests.TrymaxNEO
 
         public const int numberOfWafersPerLot = 3;
 
-        public const string stepName = "M2-LT-MueTec-CD-Measurement-00820F053_E";
-        public const string flowName = "FOL-UX3_EPA";
+        public const string stepName = "M2-Resist-Ashing-UX3-L7&8-00222F019_E";
+        public const string flowName = "FOL-UX3_EPA_TBV_RW";
 
         public const bool subMaterialTrackin = true;
 
         public string recipeName = "TestRecipeForTrymaxNEO";
-        public const string serviceName = "CD-Measurement";
+        public const string serviceName = "Ashing-UX3-L";
 
         private int loadPortNumber = 1;
         private string samplingPattern = "";
@@ -124,7 +124,7 @@ namespace AMSOsramEIAutomaticTests.TrymaxNEO
             step.UseInStepSampling = true;
             step.Save();
 
-            ConfigureConnection(resourceName, 5012);
+            ConfigureConnection(resourceName, 5014);
 
         }
 
@@ -144,7 +144,7 @@ namespace AMSOsramEIAutomaticTests.TrymaxNEO
         /// Scenario: Recipe Exists on Equipment
         /// </summary>
         [TestMethod]
-        public void TrymaxNEO_FullProcessRecipeExists()
+        public void TrymaxNEO_FullProcessRecipeExistsLoadPort1()
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
 
@@ -159,7 +159,72 @@ namespace AMSOsramEIAutomaticTests.TrymaxNEO
             base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
         }
 
-        
+
+        /// <summary> 
+        /// Scenario: Recipe Exists on Equipment
+        /// </summary>
+        [TestMethod]
+        public void TrymaxNEO_FullProcessRecipeExistsLoadPort2()
+        {
+            loadPortNumber = 2;
+            base.LoadPortNumber = loadPortNumber;
+            base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
+
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+
+            var recipe = new Recipe() { Name = RecipeName };
+            recipe.Load();
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            RecipeManagement.FailOnNewBody = true;
+            RecipeManagement.RecipeExistsOnList = true;
+
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+        }
+
+
+        /// <summary> 
+        /// Scenario: Recipe Exists on Equipment
+        /// </summary>
+        [TestMethod]
+        public void TrymaxNEO_FullProcessRecipeExistsLoadPort3()
+        {
+            loadPortNumber = 3;
+            base.LoadPortNumber = loadPortNumber;
+            base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
+
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+
+            var recipe = new Recipe() { Name = RecipeName };
+            recipe.Load();
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            RecipeManagement.FailOnNewBody = true;
+            RecipeManagement.RecipeExistsOnList = true;
+
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+        }
+
+
+        /// <summary> 
+        /// Scenario: Recipe Exists on Equipment
+        /// </summary>
+        [TestMethod]
+        public void TrymaxNEO_FullProcessRecipeExistsLoadPort4()
+        {
+            loadPortNumber = 4;
+            base.LoadPortNumber = loadPortNumber;
+            base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
+
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+
+            var recipe = new Recipe() { Name = RecipeName };
+            recipe.Load();
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            RecipeManagement.FailOnNewBody = true;
+            RecipeManagement.RecipeExistsOnList = true;
+
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+        }
+
 
         /// <summary> 
         /// Scenario: Recipe Exists on Equipment
@@ -475,6 +540,8 @@ namespace AMSOsramEIAutomaticTests.TrymaxNEO
             base.Equipment.SendMessage(String.Format($"POD{loadPortToSet}_MAPPED"), null);
 
             ValidatePersistenceContainerExists(loadPortToSet);
+
+            Thread.Sleep(1000);
         }
 
 
@@ -508,6 +575,9 @@ namespace AMSOsramEIAutomaticTests.TrymaxNEO
         {
             base.Equipment.Variables["LOT_ID"] = scenario.Entity.Name;
             base.Equipment.Variables["PORT_ID"] = loadPortNumber;
+            base.Equipment.Variables["PPID"] = RecipeName;
+            base.Equipment.Variables["SUBSTRATE_COUNT"] = scenario.SubMaterials.Count;
+            base.Equipment.Variables["SUCCESSFULLY_PROCESSED_SUBSTRATE_COUNT"] = scenario.SubMaterials.Count;
 
             //// Trigger event
             base.Equipment.SendMessage(String.Format($"PROCESSING_COMPLETED"), null);
@@ -532,8 +602,6 @@ namespace AMSOsramEIAutomaticTests.TrymaxNEO
 
         public override bool PostTrackInActions(CustomMaterialScenario scenario)
         {
-
-            ValidateProceedWithCarrierReceived(2);
 
             if (!isOnlineRemote)
             {

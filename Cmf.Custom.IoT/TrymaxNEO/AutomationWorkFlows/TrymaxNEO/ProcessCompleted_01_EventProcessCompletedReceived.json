@@ -204,7 +204,7 @@
 						"property": {
 							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
 							"Name": "SUCCESSFULLY_PROCESSED_SUBSTRATE_COUNT",
-							"DataType": 0
+							"DataType": 5
 						},
 						"outputType": "Value"
 					}
