@@ -80,6 +80,11 @@
 		   library ="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"
 					   >
 		</Equipment>
+		<Equipment name="5FASH1" automationManager="TrymaxNEO" driverAlias="SecsGemEquipment"
+				 description="SecsGemEquipment" driver="SecsGem" port="5014" serviceMachine="vm-ams-osram"
+				 serviceName="ConnectIoT (5FASH1)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FASH1\remoteTestingConfig.json"
+		   library ="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc">
+		</Equipment>
       </Equipments>
   </connectIotAutomaticTests> -->
 </RunSettings>

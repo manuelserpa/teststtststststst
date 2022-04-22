@@ -1,0 +1,882 @@
+{
+	"tasks": [
+		{
+			"id": "task_28709",
+			"reference": {
+				"name": "subWorkflowStart",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"outputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					}
+				],
+				"___cmf___name": "Start"
+			}
+		},
+		{
+			"id": "task_28781",
+			"reference": {
+				"name": "subWorkflowEnd",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				]
+			}
+		},
+		{
+			"id": "task_29125",
+			"reference": {
+				"name": "equipmentCommand",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_inputs": [
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "RecipeID",
+							"DataType": 0
+						},
+						"dataType": "String"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "LotID",
+							"DataType": 0
+						},
+						"dataType": "String"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "PodID",
+							"DataType": 0
+						},
+						"dataType": "String"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "UseSlot1",
+							"DataType": 8
+						},
+						"dataType": "Boolean"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "UseSlot2",
+							"DataType": 8
+						},
+						"dataType": "Boolean"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "UseSlot3",
+							"DataType": 8
+						},
+						"dataType": "Boolean"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "UseSlot4",
+							"DataType": 8
+						},
+						"dataType": "Boolean"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "UseSlot5",
+							"DataType": 8
+						},
+						"dataType": "Boolean"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "UseSlot6",
+							"DataType": 8
+						},
+						"dataType": "Boolean"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "UseSlot7",
+							"DataType": 8
+						},
+						"dataType": "Boolean"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "UseSlot8",
+							"DataType": 8
+						},
+						"dataType": "Boolean"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "UseSlot9",
+							"DataType": 8
+						},
+						"dataType": "Boolean"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "UseSlot10",
+							"DataType": 8
+						},
+						"dataType": "Boolean"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "UseSlot11",
+							"DataType": 8
+						},
+						"dataType": "Boolean"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "UseSlot12",
+							"DataType": 8
+						},
+						"dataType": "Boolean"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "UseSlot13",
+							"DataType": 8
+						},
+						"dataType": "Boolean"
+					}
+				],
+				"_command": {
+					"$type": "Cmf.Foundation.BusinessObjects.AutomationCommand, Cmf.Foundation.BusinessObjects",
+					"Name": "PP_SELECT"
+				},
+				"___cmf___name": "Execute Equipment Command"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_29612",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ErrorHandling",
+					"IsShared": true,
+					"Name": "ErrorHandling"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorCode",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorText",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"friendlyName": "Error",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Workflow",
+				"___cmf___color": "#ff0000"
+			}
+		},
+		{
+			"id": "task_106051",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        const materialData = inputs.MaterialData[0];",
+					"        const podId = materialData.LoadPortPosition;",
+					"        const lotName = materialData.MaterialName;",
+					"        const recipeId = materialData.Recipe.NameOnEquipment;",
+					"",
+					"        this.framework.logger.warning(\"PodID: \"+podId);",
+					"",
+					"        this.framework.logger.warning(\"LotName: \" + lotName);",
+					"        ",
+					"        this.framework.logger.warning(\"RecipeId: \" + recipeId);",
+					"",
+					"        let useInSlot: Array<boolean> = [];",
+					"",
+					"        for (let i = 1; i <= 13; i++) {",
+					"            let subMaterialInSlot = (<any[]>materialData.SubMaterials).find(subMaterial => subMaterial.Slot == i);",
+					"            if (subMaterialInSlot != null) {",
+					"                useInSlot[i-1] = true;",
+					"            } else {",
+					"                useInSlot[i-1] = false;",
+					"            }",
+					"        }",
+					"        this.framework.logger.warning(\"SubMaterials: \" + JSON.stringify(materialData.SubMaterials));",
+					"        this.framework.logger.warning(\"UseInSlot: \" + JSON.stringify(useInSlot));",
+					"",
+					"        return { PodID: podId, RecipeID: recipeId, LotID: lotName,",
+					"            UseSlot1: useInSlot[0],",
+					"            UseSlot2: useInSlot[1],",
+					"            UseSlot3: useInSlot[2],",
+					"            UseSlot4: useInSlot[3],",
+					"            UseSlot5: useInSlot[4],",
+					"            UseSlot6: useInSlot[5],",
+					"            UseSlot7: useInSlot[6],",
+					"            UseSlot8: useInSlot[7],",
+					"            UseSlot9: useInSlot[8],",
+					"            UseSlot10: useInSlot[9],",
+					"            UseSlot11: useInSlot[10],",
+					"            UseSlot12: useInSlot[11],",
+					"            UseSlot13: useInSlot[12],",
+					"",
+					"        };",
+					"",
+					"",
+					"",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IG1hdGVyaWFsRGF0YSA9IGlucHV0cy5NYXRlcmlhbERhdGFbMF07DQogICAgICAgIGNvbnN0IHBvZElkID0gbWF0ZXJpYWxEYXRhLkxvYWRQb3J0UG9zaXRpb247DQogICAgICAgIGNvbnN0IGxvdE5hbWUgPSBtYXRlcmlhbERhdGEuTWF0ZXJpYWxOYW1lOw0KICAgICAgICBjb25zdCByZWNpcGVJZCA9IG1hdGVyaWFsRGF0YS5SZWNpcGUuTmFtZU9uRXF1aXBtZW50Ow0KICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIud2FybmluZygiUG9kSUQ6ICIgKyBwb2RJZCk7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci53YXJuaW5nKCJMb3ROYW1lOiAiICsgbG90TmFtZSk7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci53YXJuaW5nKCJSZWNpcGVJZDogIiArIHJlY2lwZUlkKTsNCiAgICAgICAgbGV0IHVzZUluU2xvdCA9IFtdOw0KICAgICAgICBmb3IgKGxldCBpID0gMTsgaSA8PSAxMzsgaSsrKSB7DQogICAgICAgICAgICBsZXQgc3ViTWF0ZXJpYWxJblNsb3QgPSBtYXRlcmlhbERhdGEuU3ViTWF0ZXJpYWxzLmZpbmQoc3ViTWF0ZXJpYWwgPT4gc3ViTWF0ZXJpYWwuU2xvdCA9PSBpKTsNCiAgICAgICAgICAgIGlmIChzdWJNYXRlcmlhbEluU2xvdCAhPSBudWxsKSB7DQogICAgICAgICAgICAgICAgdXNlSW5TbG90W2kgLSAxXSA9IHRydWU7DQogICAgICAgICAgICB9DQogICAgICAgICAgICBlbHNlIHsNCiAgICAgICAgICAgICAgICB1c2VJblNsb3RbaSAtIDFdID0gZmFsc2U7DQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLndhcm5pbmcoIlN1Yk1hdGVyaWFsczogIiArIEpTT04uc3RyaW5naWZ5KG1hdGVyaWFsRGF0YS5TdWJNYXRlcmlhbHMpKTsNCiAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLndhcm5pbmcoIlVzZUluU2xvdDogIiArIEpTT04uc3RyaW5naWZ5KHVzZUluU2xvdCkpOw0KICAgICAgICByZXR1cm4geyBQb2RJRDogcG9kSWQsIFJlY2lwZUlEOiByZWNpcGVJZCwgTG90SUQ6IGxvdE5hbWUsDQogICAgICAgICAgICBVc2VTbG90MTogdXNlSW5TbG90WzBdLA0KICAgICAgICAgICAgVXNlU2xvdDI6IHVzZUluU2xvdFsxXSwNCiAgICAgICAgICAgIFVzZVNsb3QzOiB1c2VJblNsb3RbMl0sDQogICAgICAgICAgICBVc2VTbG90NDogdXNlSW5TbG90WzNdLA0KICAgICAgICAgICAgVXNlU2xvdDU6IHVzZUluU2xvdFs0XSwNCiAgICAgICAgICAgIFVzZVNsb3Q2OiB1c2VJblNsb3RbNV0sDQogICAgICAgICAgICBVc2VTbG90NzogdXNlSW5TbG90WzZdLA0KICAgICAgICAgICAgVXNlU2xvdDg6IHVzZUluU2xvdFs3XSwNCiAgICAgICAgICAgIFVzZVNsb3Q5OiB1c2VJblNsb3RbOF0sDQogICAgICAgICAgICBVc2VTbG90MTA6IHVzZUluU2xvdFs5XSwNCiAgICAgICAgICAgIFVzZVNsb3QxMTogdXNlSW5TbG90WzEwXSwNCiAgICAgICAgICAgIFVzZVNsb3QxMjogdXNlSW5TbG90WzExXSwNCiAgICAgICAgICAgIFVzZVNsb3QxMzogdXNlSW5TbG90WzEyXSwNCiAgICAgICAgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "RecipeID",
+						"valueType": {
+							"friendlyName": "$RecipeID",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "LotID",
+						"valueType": {
+							"friendlyName": "$LotID",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "PodID",
+						"valueType": {
+							"friendlyName": "$PodID",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "UseSlot1",
+						"valueType": {
+							"friendlyName": "$UseSlot1",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "UseSlot2",
+						"valueType": {
+							"friendlyName": "$UseSlot2",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "UseSlot3",
+						"valueType": {
+							"friendlyName": "$UseSlot3",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "UseSlot4",
+						"valueType": {
+							"friendlyName": "$UseSlot4",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "UseSlot5",
+						"valueType": {
+							"friendlyName": "$UseSlot5",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "UseSlot6",
+						"valueType": {
+							"friendlyName": "$UseSlot6",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "UseSlot7",
+						"valueType": {
+							"friendlyName": "$UseSlot7",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "UseSlot8",
+						"valueType": {
+							"friendlyName": "$UseSlot8",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "UseSlot9",
+						"valueType": {
+							"friendlyName": "$UseSlot9",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "UseSlot10",
+						"valueType": {
+							"friendlyName": "$UseSlot10",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "UseSlot11",
+						"valueType": {
+							"friendlyName": "$UseSlot11",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "UseSlot12",
+						"valueType": {
+							"friendlyName": "$UseSlot12",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "UseSlot13",
+						"valueType": {
+							"friendlyName": "$UseSlot13",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [],
+	"links": [
+		{
+			"id": "ccb69b57-6ab4-4c00-a904-d6df674c72da",
+			"sourceId": "task_28709",
+			"targetId": "task_28781",
+			"inputName": "MaterialData",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "b260a3fc-f985-4c28-858e-adf58fafa104",
+			"sourceId": "task_29125",
+			"targetId": "task_28781",
+			"inputName": "success",
+			"outputName": "success"
+		},
+		{
+			"id": "2defb049-ec4c-4731-b04f-57a331a9ee0f",
+			"sourceId": "task_29125",
+			"targetId": "task_29612",
+			"inputName": "ErrorIn",
+			"outputName": "error"
+		},
+		{
+			"id": "430557b5-0ee3-4d86-b7a3-8caf28ce7cbe",
+			"sourceId": "task_29125",
+			"targetId": "task_29612",
+			"inputName": "activate",
+			"outputName": "error"
+		},
+		{
+			"id": "a2e0d65f-1dac-4282-919b-d2f36d569e00",
+			"sourceId": "task_29612",
+			"targetId": "task_28781",
+			"inputName": "error",
+			"outputName": "ErrorOut"
+		},
+		{
+			"id": "6413890c-f4c3-4607-932a-8b1d7bf8a899",
+			"sourceId": "task_28709",
+			"targetId": "task_106051",
+			"inputName": "MaterialDataIn",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "a5c8c8d2-b697-456d-995d-be5d4d5a537f",
+			"sourceId": "task_28709",
+			"targetId": "task_106051",
+			"inputName": "activate",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "d45c5fa9-d1ad-4604-a813-97aa221bf338",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "$RecipeID",
+			"outputName": "RecipeIDOut"
+		},
+		{
+			"id": "d72b9221-b3d5-45c0-a35c-15105bb37526",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "$LotID",
+			"outputName": "LotIDOut"
+		},
+		{
+			"id": "b26db2d0-224d-494c-be40-9bec3af0c0d2",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "$PodID",
+			"outputName": "PodIDOut"
+		},
+		{
+			"id": "e894904c-4594-4837-a913-18355ec8e827",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "$UseSlot1",
+			"outputName": "UseSlot1Out"
+		},
+		{
+			"id": "87afe205-b66a-4020-997d-04703940a3ed",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "$UseSlot2",
+			"outputName": "UseSlot2Out"
+		},
+		{
+			"id": "cb0b012c-2c20-4397-b6a0-f2aee76b45f1",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "$UseSlot3",
+			"outputName": "UseSlot3Out"
+		},
+		{
+			"id": "6eb8a18d-12b3-4893-b5a5-8a0bd1f7a404",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "$UseSlot4",
+			"outputName": "UseSlot4Out"
+		},
+		{
+			"id": "f313b434-627f-44bb-80ba-42c9cad9f080",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "$UseSlot13",
+			"outputName": "UseSlot13Out"
+		},
+		{
+			"id": "e7ff35f6-8ba9-490e-b13d-0dfb67627279",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "8e77348c-e107-48ca-8e2e-ddb094c2379b",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "$UseSlot12",
+			"outputName": "UseSlot12Out"
+		},
+		{
+			"id": "41c23c3e-790a-44fe-a168-4795ed4c3576",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "$UseSlot11",
+			"outputName": "UseSlot11Out"
+		},
+		{
+			"id": "d516ca32-8aa6-4cbd-8da2-b2a99c4de0ad",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "$UseSlot10",
+			"outputName": "UseSlot10Out"
+		},
+		{
+			"id": "8439fa9d-bdb2-4c04-bdad-4eec21f38310",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "$UseSlot9",
+			"outputName": "UseSlot9Out"
+		},
+		{
+			"id": "dd072632-e83a-43fa-a424-67ce39305c4d",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "$UseSlot8",
+			"outputName": "UseSlot8Out"
+		},
+		{
+			"id": "717dc29b-c5ff-4a96-a26b-32c165eb8137",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "$UseSlot7",
+			"outputName": "UseSlot7Out"
+		},
+		{
+			"id": "520f89ff-5ec8-4f9b-bfd1-5f9a7ca7ed2a",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "$UseSlot6",
+			"outputName": "UseSlot6Out"
+		},
+		{
+			"id": "3acecf93-b5c9-4303-91af-47c52b9d721e",
+			"sourceId": "task_106051",
+			"targetId": "task_29125",
+			"inputName": "$UseSlot5",
+			"outputName": "UseSlot5Out"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#ffff80",
+			"notes": [
+				{
+					"id": "note_31411",
+					"name": "How to use it",
+					"value": "<p><strong>What it does:</strong></p><p>This Workflow should execute the PP-Select remote command.</p><p><strong>How to use it:</strong></p><ol><li>On the Execute Command Task select the PP-Select command to your tool;</li><li>Parse the needed information from the MaterialData object using a Expression evaluator;</li></ol><p><strong>Note:</strong></p><p>If the inputs for the command are complex enough replace parsing and command execution task with a Code task</p><p>To execute a Command via code you can use the following code snippet (contains command call and validation.</p><div style=\"background-color:#fffffe;font-family:Consolas, 'Courier New', monospace;font-size:14px;line-height:19px;white-space:pre;\"><div style=\"background-color:#fffffe;font-family:Consolas, 'Courier New', monospace;font-size:14px;line-height:19px;white-space:pre;\"><span style=\"color:#0000ff;\">const</span> remoteCommandSuccessCode = <span style=\"color:#a31515;\">\"0x00,0x04\"</span>;</div><p><span style=\"color:#0000ff;\">let</span> commandParameters: <span style=\"color:#0000ff;\">any</span>[] = [];</p><p><span style=\"color:#0000ff;\">const</span> sendMessage: Object = {</p><p><span style=\"color:#0000ff;\">type</span>: <span style=\"color:#a31515;\">\"S2F41\" </span>, item: { <span style=\"color:#008000;\">//replace with Stream and function intended</span></p></div><div style=\"background-color:#fffffe;font-family:Consolas, 'Courier New', monospace;font-size:14px;line-height:19px;white-space:pre;\"><div style=\"margin-left:60px;\"><span style=\"color:#0000ff;\">type</span>: <span style=\"color:#a31515;\">\"L\"</span>, value: [</div><div style=\"margin-left:90px;\">{ <span style=\"color:#0000ff;\">type</span>: <span style=\"color:#a31515;\">\"A\"</span>, value: <span style=\"color:#a31515;\">\"PP_SELECT\"</span> }, <span style=\"color:#008000;\">//data id</span></div><div style=\"margin-left:90px;\">{ <span style=\"color:#0000ff;\">type</span>: <span style=\"color:#a31515;\">\"L\"</span>, value: commandParameters}</div><div style=\"margin-left:60px;\">]}</div><div style=\"margin-left:30px;\">} </div><div></div><div><span style=\"color:#0000ff;\">const</span> reply = <span style=\"color:#0000ff;\">await</span> <span style=\"color:#0000ff;\">this</span>.framework.driver.sendRaw(<span style=\"color:#a31515;\">\"connect.iot.driver.secsgem.sendMessage\"</span>, sendMessage);</div><div><span style=\"color:#0000ff;\">let</span> successFound = <span style=\"color:#0000ff;\">false</span>;</div><div><span style=\"color:#0000ff;\">for</span> (<span style=\"color:#0000ff;\">const</span> successCode <span style=\"color:#0000ff;\">of</span> remoteCommandSuccessCode.split(<span style=\"color:#a31515;\">\",\"</span>)) {</div><div style=\"margin-left:30px;\"><span style=\"color:#0000ff;\">if</span> (reply &amp;&amp; reply.item &amp;&amp; parseInt(reply.item.value[<span style=\"color:#09885a;\">0</span>].value.data) === parseInt(successCode.trim())) {</div><div style=\"margin-left:30px;\">successFound = <span style=\"color:#0000ff;\">true</span>;</div><div style=\"margin-left:30px;\"><span style=\"color:#0000ff;\">break</span>;</div><div>}</div></div>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_28781": {
+						"collapsed": false,
+						"position": {
+							"x": 3824,
+							"y": 1234
+						},
+						"outdated": false
+					},
+					"task_28709": {
+						"collapsed": false,
+						"position": {
+							"x": 953,
+							"y": 775
+						},
+						"outdated": false
+					},
+					"task_29125": {
+						"collapsed": false,
+						"position": {
+							"x": 2353,
+							"y": 1169
+						},
+						"outdated": false
+					},
+					"task_29612": {
+						"collapsed": false,
+						"position": {
+							"x": 3226,
+							"y": 2097
+						},
+						"outdated": false
+					},
+					"task_106051": {
+						"collapsed": false,
+						"position": {
+							"x": 1656,
+							"y": 1074
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"ccb69b57-6ab4-4c00-a904-d6df674c72da": {
+						"vertices": []
+					},
+					"b260a3fc-f985-4c28-858e-adf58fafa104": {
+						"vertices": [
+							{
+								"x": 3613,
+								"y": 1873
+							}
+						]
+					},
+					"2defb049-ec4c-4731-b04f-57a331a9ee0f": {
+						"vertices": []
+					},
+					"430557b5-0ee3-4d86-b7a3-8caf28ce7cbe": {
+						"vertices": []
+					},
+					"a2e0d65f-1dac-4282-919b-d2f36d569e00": {
+						"vertices": []
+					},
+					"6413890c-f4c3-4607-932a-8b1d7bf8a899": {
+						"vertices": []
+					},
+					"a5c8c8d2-b697-456d-995d-be5d4d5a537f": {
+						"vertices": []
+					},
+					"d45c5fa9-d1ad-4604-a813-97aa221bf338": {
+						"vertices": []
+					},
+					"d72b9221-b3d5-45c0-a35c-15105bb37526": {
+						"vertices": []
+					},
+					"b26db2d0-224d-494c-be40-9bec3af0c0d2": {
+						"vertices": []
+					},
+					"e894904c-4594-4837-a913-18355ec8e827": {
+						"vertices": []
+					},
+					"87afe205-b66a-4020-997d-04703940a3ed": {
+						"vertices": []
+					},
+					"cb0b012c-2c20-4397-b6a0-f2aee76b45f1": {
+						"vertices": []
+					},
+					"6eb8a18d-12b3-4893-b5a5-8a0bd1f7a404": {
+						"vertices": []
+					},
+					"f313b434-627f-44bb-80ba-42c9cad9f080": {
+						"vertices": []
+					},
+					"e7ff35f6-8ba9-490e-b13d-0dfb67627279": {
+						"vertices": []
+					},
+					"8e77348c-e107-48ca-8e2e-ddb094c2379b": {
+						"vertices": []
+					},
+					"41c23c3e-790a-44fe-a168-4795ed4c3576": {
+						"vertices": []
+					},
+					"d516ca32-8aa6-4cbd-8da2-b2a99c4de0ad": {
+						"vertices": []
+					},
+					"8439fa9d-bdb2-4c04-bdad-4eec21f38310": {
+						"vertices": []
+					},
+					"dd072632-e83a-43fa-a424-67ce39305c4d": {
+						"vertices": []
+					},
+					"717dc29b-c5ff-4a96-a26b-32c165eb8137": {
+						"vertices": []
+					},
+					"520f89ff-5ec8-4f9b-bfd1-5f9a7ca7ed2a": {
+						"vertices": []
+					},
+					"3acecf93-b5c9-4303-91af-47c52b9d721e": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_31411": {
+						"collapsed": false,
+						"position": {
+							"x": 707,
+							"y": 1177
+						}
+					}
+				},
+				"zoom": 0.6399999999999998,
+				"pan": {
+					"x": 1193.3333740234375,
+					"y": 594.4444580078125
+				}
+			}
+		}
+	}
+}
