@@ -46,6 +46,8 @@ namespace AMSOsramEIAutomaticTests.TrymaxNEO
         private bool setCarrierIDReceived = false;
         private bool setCarrierIDDenied = false;
 
+        private bool failedCassettePresent = false;
+
         private bool startMappingReceived = false;
         private bool startMappingDenied = false;
 
@@ -105,6 +107,8 @@ namespace AMSOsramEIAutomaticTests.TrymaxNEO
             startDenied = false;
             isOnlineRemote = true;
 
+            failedCassettePresent = false;
+
 
             if (containerScenarioForLoadPort2 != null)
             {
@@ -156,6 +160,28 @@ namespace AMSOsramEIAutomaticTests.TrymaxNEO
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
             
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+        }
+
+
+        /// <summary> 
+        /// Scenario: Recipe Exists on Equipment
+        /// </summary>
+        [TestMethod]
+        public void TrymaxNEO_FullProcessRecipeExistsLoadPort1CassettePresentFailed()
+        {
+            TrackInMustFail = true;
+            failedCassettePresent = true;
+            base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
+
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+
+            var recipe = new Recipe() { Name = RecipeName };
+            recipe.Load();
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            RecipeManagement.FailOnNewBody = true;
+            RecipeManagement.RecipeExistsOnList = true;
+
             base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
         }
 
@@ -708,19 +734,19 @@ namespace AMSOsramEIAutomaticTests.TrymaxNEO
                 }
                 if (base.Equipment.EquipmentVariables["POD1_CARRIER_PRESENT"].DataItemId == ecid.ToString())
                 {
-                    reply.Item.Add(new SecsItem { ASCII = ((loadPortNumber == 1) ? "present": "absent") } );
+                    reply.Item.Add(new SecsItem { ASCII = ((loadPortNumber == 1 && !failedCassettePresent) ? "present": "absent") } );
                 }
                 if (base.Equipment.EquipmentVariables["POD2_CARRIER_PRESENT"].DataItemId == ecid.ToString())
                 {
-                    reply.Item.Add(new SecsItem { ASCII = ((loadPortNumber == 2) ? "present" : "absent") });
+                    reply.Item.Add(new SecsItem { ASCII = ((loadPortNumber == 2 && !failedCassettePresent) ? "present" : "absent") });
                 }
                 if (base.Equipment.EquipmentVariables["POD3_CARRIER_PRESENT"].DataItemId == ecid.ToString())
                 {
-                    reply.Item.Add(new SecsItem { ASCII = ((loadPortNumber == 3) ? "present" : "absent") });
+                    reply.Item.Add(new SecsItem { ASCII = ((loadPortNumber == 3 && !failedCassettePresent) ? "present" : "absent") });
                 }
                 if (base.Equipment.EquipmentVariables["POD4_CARRIER_PRESENT"].DataItemId == ecid.ToString())
                 {
-                    reply.Item.Add(new SecsItem { ASCII = ((loadPortNumber == 4) ? "present" : "absent") });
+                    reply.Item.Add(new SecsItem { ASCII = ((loadPortNumber == 4 && !failedCassettePresent) ? "present" : "absent") });
                 }
 
             }
