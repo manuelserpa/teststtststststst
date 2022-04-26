@@ -875,6 +875,15 @@
 			"MonitorPackageVersion": "8.3.3-202201212",
 			"ManagerPackageVersion": "8.3.3-202201212",
 			"Configuration": ""
+		},
+		"5": {
+			"Name": "TrymaxNEO",
+			"Description": "5FASH1",
+			"Type": "General",
+			"LogicalAddress": "5FASH1",
+			"MonitorPackageVersion": "8.3.3-202201212",
+			"ManagerPackageVersion": "8.3.3-202201212",
+			"Configuration": ""
 		}
 	},
 	"<LOOKUP>AutomationInstances": {
@@ -925,6 +934,18 @@
 			"AutomationManager": "MechatronicMWS200",
 			"DriverName": "SecsGemEquipment",
 			"EntityName": "ENA01"
+		},
+		"9": {
+			"AutomationController": "TrymaxNEOController",
+			"AutomationManager": "TrymaxNEO",
+			"DriverName": "",
+			"EntityName": "5FASH1"
+		},
+		"10": {
+			"AutomationController": "TrymaxNEOController",
+			"AutomationManager": "TrymaxNEO",
+			"DriverName": "SecsGemEquipment",
+			"EntityName": "5FASH1"
 		}
 	}
 }

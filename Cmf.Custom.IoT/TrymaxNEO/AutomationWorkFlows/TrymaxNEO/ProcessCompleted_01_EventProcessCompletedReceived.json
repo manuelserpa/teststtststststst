@@ -1,0 +1,356 @@
+{
+	"tasks": [
+		{
+			"id": "task_6988",
+			"reference": {
+				"name": "retrieve",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_retrieveOnValueChange": false,
+				"_emitInNewContext": false,
+				"_outputs": [
+					{
+						"name": "Resource",
+						"identifier": "Generic_ResourceName",
+						"defaultValue": "-",
+						"valueType": {
+							"name": "",
+							"friendlyName": "",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null
+						}
+					}
+				],
+				"___cmf___name": "Retrieve Data",
+				"___cmf___color": "#c0c0c0"
+			}
+		},
+		{
+			"id": "task_127417",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ProcessComplete",
+					"IsShared": true,
+					"Name": "ProcessComplete"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialName"
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerName"
+						}
+					},
+					{
+						"name": "LoadPortId",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LoadPortId"
+						}
+					},
+					{
+						"name": "ControlJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ControlJobId"
+						}
+					},
+					{
+						"name": "ProcessJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ProcessJobId"
+						}
+					},
+					{
+						"name": "IsBatchAction",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "IsBatchAction"
+						}
+					},
+					{
+						"name": "DoNotTriggerMaterialOut",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "MaterialDataObjects",
+						"valueType": {
+							"friendlyName": "MaterialDataObjects",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Process Complete Workflow"
+			}
+		},
+		{
+			"id": "task_75124",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "LOT_ID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PORT_ID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PPID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SUBSTRATE_COUNT",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SUCCESSFULLY_PROCESSED_SUBSTRATE_COUNT",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "PROCESSING_COMPLETED"
+					}
+				]
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringToEntityInstance",
+			"reference": {
+				"name": "stringToEntityInstance",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "079d79ec-388e-444b-8bd3-92c4be72e1e6",
+			"sourceId": "task_75124",
+			"targetId": "task_127417",
+			"inputName": "MaterialNameIn",
+			"outputName": "$LOT_ID"
+		},
+		{
+			"id": "840afee1-a468-4cba-9cb3-76c19fa3e7b0",
+			"sourceId": "task_75124",
+			"targetId": "task_127417",
+			"inputName": "LoadPortIdIn",
+			"outputName": "$PORT_ID"
+		},
+		{
+			"id": "dff580a2-ef47-4463-afce-5294dfba4db8",
+			"sourceId": "task_75124",
+			"targetId": "task_127417",
+			"inputName": "activate",
+			"outputName": "$PORT_ID"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff80",
+			"notes": [
+				{
+					"id": "note_60654",
+					"name": "TosProcessComplete",
+					"value": "<p><strong>What it does:</strong></p><p>Updates MaterialData state from Setup to Complete.</p><p>Updates MES Material CustomMaterialStateModel state (Main State Model State) to Complete.</p><p>Executes Material Out.</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to TosProcessComplete for the Tool;</li><li>Use the information received to drive the Process Complete workflow;</li><li>Pass any event Output to the Activate Input of the Workflow;</li></ol><p><strong>Note:</strong><strong></strong></p><p>The Workflow Process Complete will try to retrieve the MaterialData using the inputs following the next logic:</p><ol><li>If the materialName is available retrieve the corresponding materialData;</li><li>If the containerName is available retrieve the materialData which references it on containerName;</li><li>If the loadPortId is passed it will use a match using load port id and materialState defined on the settings;</li><li>If no information is available on the inputs, if defined, use the materialState defined on the settings to retrieve the first (oldest) materialData available in the persistence;</li><li>If none of this criteria corresponds to available information, return an error.</li></ol><p>The logic described before will be triggered by order, but only one the first matching selection criteria will be run. If the criteria fails to return a materialData an Error will be returned.<br /><br />If a material is found, then it sets its state to the state defined in the setting parameter Material To Set, update the materialData on persistence. When successful output the updated materialData on the output material.</p><p>If IsBatch input is passed as True all the MaterialData that match the inputs, and corresponding Material on MES, will be set to the new state and Material Out executed, if not passed or passed as False only the first one will be actuated.&nbsp;</p>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_6988": {
+						"collapsed": false,
+						"position": {
+							"x": 1608,
+							"y": 1909
+						},
+						"outdated": false
+					},
+					"task_127417": {
+						"collapsed": false,
+						"position": {
+							"x": 1134,
+							"y": 301
+						},
+						"outdated": false
+					},
+					"task_75124": {
+						"collapsed": false,
+						"position": {
+							"x": 399,
+							"y": 293
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"079d79ec-388e-444b-8bd3-92c4be72e1e6": {
+						"vertices": []
+					},
+					"840afee1-a468-4cba-9cb3-76c19fa3e7b0": {
+						"vertices": []
+					},
+					"dff580a2-ef47-4463-afce-5294dfba4db8": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_60654": {
+						"collapsed": false,
+						"position": {
+							"x": 1631,
+							"y": 74
+						}
+					}
+				},
+				"zoom": 0.6600000000000004,
+				"pan": {
+					"x": 0,
+					"y": 14.44444465637207
+				}
+			}
+		}
+	}
+}
