@@ -216,5 +216,14 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// </summary>
         public static string CustomSorterLogisticalProcessCompose = "Compose";
         #endregion
+
+        #region Integration Entries
+
+        /// <summary>
+        /// Message Type CustomPostGoodsIssueToSAP
+        /// </summary> 
+        public static string CustomPostGoodsIssueToSAPMessageType = "CustomPostGoodsIssueToSAP";
+
+        #endregion
     }
 }

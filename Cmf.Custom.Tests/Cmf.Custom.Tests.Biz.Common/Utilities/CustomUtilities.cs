@@ -261,6 +261,79 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             return integrationEntry;
         }
 
+        /// <summary>
+        /// Query to retrieve the last created Integration Entry filtering by message type 
+        /// </summary>
+        /// <param name="messageType"></param>
+        /// <returns></returns>
+        public static IntegrationEntry GetLastIntegrationEntry(string messageType)
+        {
+            QueryObject query = new QueryObject();
+            query.Description = "";
+            query.EntityTypeName = "IntegrationEntry";
+            query.Name = "CustomGetLastIE";
+            query.Query = new Query();
+            query.Query.Distinct = true;
+            query.Query.Filters = new FilterCollection() {
+                new Filter()
+                {
+                    Name = "MessageType",
+                    ObjectName = "IntegrationEntry",
+                    ObjectAlias = "IntegrationEntry_1",
+                    Operator = Cmf.Foundation.Common.FieldOperator.Contains,
+                    Value = messageType,
+                    LogicalOperator = Cmf.Foundation.Common.LogicalOperator.AND,
+                    FilterType = Cmf.Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal,
+                }
+            };
+            query.Query.Fields = new FieldCollection() {
+                new Field()
+                {
+                    Alias = "Id",
+                    ObjectName = "IntegrationEntry",
+                    ObjectAlias = "IntegrationEntry_1",
+                    IsUserAttribute = false,
+                    Name = "Id",
+                    Position = 0,
+                    Sort = Cmf.Foundation.Common.FieldSort.NoSort
+                },
+                new Field()
+                {
+                    Alias = "Name",
+                    ObjectName = "IntegrationEntry",
+                    ObjectAlias = "IntegrationEntry_1",
+                    IsUserAttribute = false,
+                    Name = "Name",
+                    Position = 1,
+                    Sort = Cmf.Foundation.Common.FieldSort.NoSort
+                },
+                new Field()
+                {
+                    Alias = "CreatedOn",
+                    ObjectName = "IntegrationEntry",
+                    ObjectAlias = "IntegrationEntry_1",
+                    IsUserAttribute = false,
+                    Name = "CreatedOn",
+                    Position = 2,
+                    Sort = Cmf.Foundation.Common.FieldSort.Descending
+                }
+            };
+            query.Query.Relations = new RelationCollection();
+
+            // Execute Query 
+            DataSet dataSet = TestScenariosUtilities.ToDataSet(CustomUtilities.ExecuteQueryObject(query));
+
+            IntegrationEntry integrationEntry = new IntegrationEntry();
+
+            if (dataSet.HasData())
+            {
+                DataRow row = dataSet.Tables[0].Rows[0];
+                integrationEntry.Name = row.Field<string>("Name");
+            }
+            integrationEntry.Load();
+            return integrationEntry;
+        }
+
         #endregion
 
         #region Query Object
