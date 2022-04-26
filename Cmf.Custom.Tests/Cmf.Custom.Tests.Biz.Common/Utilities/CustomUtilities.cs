@@ -334,6 +334,26 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             return integrationEntry;
         }
 
+        /// <summary>
+        /// Wait for integration entry to be either failed or processed
+        /// </summary>
+        /// <param name="integrationEntry"></param>
+        /// <param name="numberOfTries"></param>
+        /// <param name="secondsBetweenAttempts"></param>
+        public static void WaitForIntegrationEntryProcessFinish(
+            IntegrationEntry integrationEntry, int numberOfTries = 15, int secondsBetweenAttempts = 1)
+        {
+            Int32 loops = 0;
+
+            integrationEntry.Load();
+            while ((int)integrationEntry.SystemState <= 1 && loops <= numberOfTries)
+            {
+                loops++;
+                System.Threading.Thread.Sleep(secondsBetweenAttempts * 1000);
+                integrationEntry.Load();
+            }
+        }
+
         #endregion
 
         #region Query Object

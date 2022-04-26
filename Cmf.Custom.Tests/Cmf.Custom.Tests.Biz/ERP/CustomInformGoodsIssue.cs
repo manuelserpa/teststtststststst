@@ -97,19 +97,19 @@ namespace Cmf.Custom.Tests.Biz.ERP
                 $"The property Product Name should be equals to: {_scenario.ProductName}, instead is: {goodsIssueItem.ProductName}.");
 
             Assert.IsTrue(goodsIssueItem.MaterialName.Equals(_scenario.GeneratedLots[0].Name),
-                $"The property Product Name should be equals to: {_scenario.GeneratedLots[0].Name}, instead is: {goodsIssueItem.MaterialName}.");
+                $"The property Material Name should be equals to: {_scenario.GeneratedLots[0].Name}, instead is: {goodsIssueItem.MaterialName}.");
 
             Assert.IsTrue(goodsIssueItem.Quantity.Equals(_scenario.NumberOfChildMaterialsToGenerate * _scenario.ScenarioQuantity),
-                $"The property Product Name should be equals to: {_scenario.NumberOfChildMaterialsToGenerate * _scenario.ScenarioQuantity}, instead is: {goodsIssueItem.Quantity}.");
+                $"The property Quantity should be equals to: {_scenario.NumberOfChildMaterialsToGenerate * _scenario.ScenarioQuantity}, instead is: {goodsIssueItem.Quantity}.");
 
             Assert.IsTrue(goodsIssueItem.Units.Equals(_scenario.GeneratedProductionOrders[0].Units),
-                $"The property Product Name should be equals to: {_scenario.GeneratedProductionOrders[0].Units}, instead is: {goodsIssueItem.Units}.");
+                $"The property Units should be equals to: {_scenario.GeneratedProductionOrders[0].Units}, instead is: {goodsIssueItem.Units}.");
 
             Assert.IsTrue(goodsIssueItem.MovementType.Equals("261"),
-                $"The property Product Name should be equals to: {"261"}, instead is: {goodsIssueItem.MovementType}.");
+                $"The property Movement Type should be equals to: {"261"}, instead is: {goodsIssueItem.MovementType}.");
 
             Assert.IsTrue(goodsIssueItem.SubMaterialCount.Equals(_scenario.GeneratedLots[0].SubMaterialCount),
-                $"The property Product Name should be equals to: {_scenario.GeneratedLots[0].SubMaterialCount}, instead is: {goodsIssueItem.SubMaterialCount}.");
+                $"The property Sub Material Count should be equals to: {_scenario.GeneratedLots[0].SubMaterialCount}, instead is: {goodsIssueItem.SubMaterialCount}.");
         }
 
         /// <summary>
@@ -162,19 +162,19 @@ namespace Cmf.Custom.Tests.Biz.ERP
                 $"The property Product Name should be equals to: {_scenario.ProductName}, instead is: {goodsIssueItem.ProductName}.");
 
             Assert.IsTrue(goodsIssueItem.MaterialName.Equals(_scenario.GeneratedLots[0].Name),
-                $"The property Product Name should be equals to: {_scenario.GeneratedLots[0].Name}, instead is: {goodsIssueItem.MaterialName}.");
+                $"The property Material Name should be equals to: {_scenario.GeneratedLots[0].Name}, instead is: {goodsIssueItem.MaterialName}.");
 
             Assert.IsTrue(goodsIssueItem.Quantity.Equals(_scenario.NumberOfChildMaterialsToGenerate * _scenario.ScenarioQuantity),
-                $"The property Product Name should be equals to: {_scenario.NumberOfChildMaterialsToGenerate * _scenario.ScenarioQuantity}, instead is: {goodsIssueItem.Quantity}.");
+                $"The property Quantity should be equals to: {_scenario.NumberOfChildMaterialsToGenerate * _scenario.ScenarioQuantity}, instead is: {goodsIssueItem.Quantity}.");
 
             Assert.IsTrue(goodsIssueItem.Units.Equals(_scenario.GeneratedProductionOrders[0].Units),
-                $"The property Product Name should be equals to: {_scenario.GeneratedProductionOrders[0].Units}, instead is: {goodsIssueItem.Units}.");
+                $"The property Units should be equals to: {_scenario.GeneratedProductionOrders[0].Units}, instead is: {goodsIssueItem.Units}.");
 
             Assert.IsTrue(goodsIssueItem.MovementType.Equals("261"),
-                $"The property Product Name should be equals to: {"261"}, instead is: {goodsIssueItem.MovementType}.");
+                $"The property Movement Type should be equals to: {"261"}, instead is: {goodsIssueItem.MovementType}.");
 
             Assert.IsTrue(goodsIssueItem.SubMaterialCount.Equals(_scenario.GeneratedLots[0].SubMaterialCount),
-                $"The property Product Name should be equals to: {_scenario.GeneratedLots[0].SubMaterialCount}, instead is: {goodsIssueItem.SubMaterialCount}.");
+                $"The property Sub Material Count should be equals to: {_scenario.GeneratedLots[0].SubMaterialCount}, instead is: {goodsIssueItem.SubMaterialCount}.");
         }
     }
 }
