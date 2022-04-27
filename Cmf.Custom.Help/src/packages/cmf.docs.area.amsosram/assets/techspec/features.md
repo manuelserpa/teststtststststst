@@ -1,4 +1,4 @@
-# Features
+﻿# Features
 
 Everything that is created or updated in the MES system to support customer requirements are considered features.
 
