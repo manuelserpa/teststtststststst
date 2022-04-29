@@ -1057,6 +1057,13 @@
       "Lookup Table Value Description": "",
       "Lookup Table IsEnabled": "Yes"
     },  
+	"2": {
+      "LookUp Table": "ServiceType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Production",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "Yes"
+    },  
     "3": {
       "LookUp Table": "BOMType",
       "Lookup Table Value Parent": "",
