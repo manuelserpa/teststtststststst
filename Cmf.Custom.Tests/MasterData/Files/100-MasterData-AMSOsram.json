@@ -1960,6 +1960,104 @@
       "Type": "Production",
       "ProcessingType": "Process",
       "IsEnabled": "Yes"
+    },
+	 "10": {
+      "Name": "Substrate Storage",
+      "Description": "Substrate Storage",
+      "Type": "Production",
+      "ProcessingType": "Storage",
+      "IsEnabled": "Yes"
+    },
+    "12": {
+      "Name": "EPI Storage",
+      "Description": "EPI Storage",
+      "Type": "Production",
+      "ProcessingType": "Storage",
+      "IsEnabled": "Yes"
+    },
+    "13": {
+      "Name": "FOL Storage",
+      "Description": "FOL Storage",
+      "Type": "Production",
+      "ProcessingType": "Storage",
+      "IsEnabled": "Yes"
+    },
+    "14": {
+      "Name": "Carrier Storage",
+      "Description": "Carrier Storage",
+      "Type": "Production",
+      "ProcessingType": "Storage",
+      "IsEnabled": "Yes"
+    },
+    "15": {
+      "Name": "Coat-nLOF",
+      "Description": "Coat-nLOF",
+      "Type": "Production",
+      "ProcessingType": "Process",
+      "IsEnabled": "Yes"
+    },
+    "16": {
+      "Name": "Stepper-L5",
+      "Description": "Stepper-L5",
+      "Type": "Production",
+      "ProcessingType": "Process",
+      "IsEnabled": "Yes"
+    },
+    "17": {
+      "Name": "Develop-MIF826-6X10s",
+      "Description": "Develop-MIF826-6X10s",
+      "Type": "Production",
+      "ProcessingType": "Process",
+      "IsEnabled": "Yes"
+    },
+    "18": {
+      "Name": "MueTec-CD",
+      "Description": "MueTec-CD",
+      "Type": "Production",
+      "ProcessingType": "Process",
+      "IsEnabled": "Yes"
+    },
+    "19": {
+      "Name": "Structure",
+      "Description": "Structure",
+      "Type": "Production",
+      "ProcessingType": "Process",
+      "IsEnabled": "Yes"
+    },
+    "20": {
+      "Name": "Etch",
+      "Description": "Etch",
+      "Type": "Production",
+      "ProcessingType": "Process",
+      "IsEnabled": "Yes"
+    },
+    "21": {
+      "Name": "Ashing-UX3-L",
+      "Description": "Ashing-UX3-L",
+      "Type": "Production",
+      "ProcessingType": "Process",
+      "IsEnabled": "Yes"
+    },
+    "22": {
+      "Name": "Inspection",
+      "Description": "Inspection",
+      "Type": "Production",
+      "ProcessingType": "Process",
+      "IsEnabled": "Yes"
+    },
+    "23": {
+      "Name": "Stepper-L6",
+      "Description": "Stepper-L6",
+      "Type": "Production",
+      "ProcessingType": "Process",
+      "IsEnabled": "Yes"
+    },
+    "24": {
+      "Name": "Stepper-L7",
+      "Description": "Stepper-L7",
+      "Type": "Production",
+      "ProcessingType": "Process",
+      "IsEnabled": "Yes"
     }
   },
   "<DM>Step": {
