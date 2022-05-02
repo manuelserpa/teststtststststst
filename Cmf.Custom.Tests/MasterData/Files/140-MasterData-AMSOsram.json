@@ -1105,7 +1105,14 @@
       "Lookup Table Value": "Part",
       "Lookup Table Value Description": "",
       "Lookup Table IsEnabled": "Yes"
-    }
+    },
+	"10": {
+      "LookUp Table": "Units",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "CM2",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "Yes"
+    },
   }, 
   "<DM>Step": {
     "1": {
