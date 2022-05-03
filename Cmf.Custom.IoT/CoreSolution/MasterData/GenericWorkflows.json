@@ -671,7 +671,7 @@
     "5": {
       "Name": "ErrorHandling",
       "DisplayName": "ErrorHandling",
-      "Description": "Error Triggered, Logs error with Wolfspeed Logic, Creates Notification",
+      "Description": "Error Triggered, Logs error, Creates Notification",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
       "Workflow": ".\\GenericWorkflows\\ErrorHandling.json",
       "IsFile": "Yes"

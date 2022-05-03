@@ -14,6 +14,9 @@ import { CustomSystemOfOriginEnum } from "../../utilities/customSystemOfOriginEn
     output: Task.TaskValueType.String,
     parameters: {
         ErrorCode: [{
+                friendlyName: "CarrierIdFailedToRead",
+                value: CustomErrorCodeEnum.CarrierIdFailedToRead
+        }, {
             friendlyName: "CarrierFailedToClamp",
             value: CustomErrorCodeEnum.CarrierFailedToClamp
         }, {

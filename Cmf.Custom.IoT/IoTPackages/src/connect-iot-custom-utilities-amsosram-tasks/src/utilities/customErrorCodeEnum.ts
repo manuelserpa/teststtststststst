@@ -1,5 +1,6 @@
 export enum CustomErrorCodeEnum {
     MaterialArrivedError = "MaterialArrivedError", //
+    CarrierIdFailedToRead = "CarrierIdFailedToRead", //
     CarrierFailedToClamp = "CarrierFailedToClamp", //
     InvalidCarrierDocked = "InvalidCarrierDocked", //
     CarrierFailedToOpen = "CarrierFailedToOpen", //

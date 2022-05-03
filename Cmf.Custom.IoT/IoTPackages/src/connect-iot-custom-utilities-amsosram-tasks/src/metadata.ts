@@ -70,7 +70,9 @@ export default <PackageMetadata><unknown>{
      /** Data Collection */
            // obtaining property value
           "customPropertyPolling",
-          "customDataTrace"
+          "customDataTrace",
+        // Data Read and Writing Tasks
+         "customReadId"
     ],
     converters: [
         "customArrayPositionValue",
