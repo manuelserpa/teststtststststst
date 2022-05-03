@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.4.0",
+  "version": "1.6.0",
   "packageId": "Cmf.Custom.IoT.HermosLFM4xReader",
   "description": "Cmf Custom Hermos LFM 4x Reader Data Package",
   "packageType": "IoTData",
