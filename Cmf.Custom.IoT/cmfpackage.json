@@ -1,6 +1,6 @@
 {
   "packageId": "Cmf.Custom.IoT",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Cmf Custom AMSOsram Cmf.Custom.IoT Package",
   "packageType": "Root",
   "isInstallable": true,
@@ -12,11 +12,11 @@
     },
     {
       "id": "Cmf.Custom.IoT.Packages",
-      "version": "1.5.0"
+      "version": "1.6.0"
     },
     {
       "id": "Cmf.Custom.IoT.CoreSolution",
-      "version": "1.3.0"
+      "version": "1.6.0"
     },
 	{
       "id": "Cmf.Custom.IoT.EvatecClusterline200II",
@@ -37,6 +37,10 @@
     {
       "id": "Cmf.Custom.IoT.TrymaxNEO",
       "version": "1.5.0"
+    },
+    {
+      "id": "Cmf.Custom.IoT.HermosLFM4xReader",
+      "version": "1.6.0"
     }
   ],
   "handlerVersion": 0

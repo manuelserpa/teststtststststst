@@ -1,7 +1,7 @@
 ﻿{
   "version": "1.6.0",
-  "packageId": "Cmf.Custom.IoT.CoreSolution",
-  "description": "Cmf Custom Template And Shared Solution Data Package",
+  "packageId": "Cmf.Custom.IoT.HermosLFM4xReader",
+  "description": "Cmf Custom Hermos LFM 4x Reader Data Package",
   "packageType": "IoTData",
   "isInstallable": true,
   "isUniqueInstall": true,
