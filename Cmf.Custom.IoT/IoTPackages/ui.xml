@@ -3,8 +3,8 @@
         <groups>
             <group id="Deployment.Steps.ConnectIoT.Directory" order="0" title="DIRECTORY REPOSITORY" type="generic" requiresValidation="false">
                 <variables>
-                    <variable name="Local.Repository.Directory.Enabled" readOnly="false" isRequired="false" valueType="Boolean" label="Is Enabled" default="false"/>
-                    <variable name="Local.Repository.Directory.Location" readOnly="false" isRequired="false" valueType="Text" label="Location" placeholder="Example: C:\repositoryLocation" default="C:\repositoryLocation" />
+                    <variable name="Local.Repository.Directory.Enabled" readOnly="false" isRequired="false" valueType="Boolean" label="Is Enabled" default="true" value="true"/>
+                    <variable name="Local.Repository.Directory.Location" readOnly="false" isRequired="false" valueType="Text" label="Location" placeholder="Example: C:\repositoryLocation" default="\\vm-ams-osram\Shares\AMSOsram\IoT\Repository" value="\\vm-ams-osram\Shares\AMSOsram\IoT\Repository" />
                 </variables>
             </group>
             <group id="Deployment.Steps.ConnectIoT.Server" order="1" title="NPM SERVER REPOSITORY" type="generic" requiresValidation="false">
