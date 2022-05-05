@@ -353,22 +353,6 @@
 			"targetId": "task_16037",
 			"inputName": "activate",
 			"outputName": "eventRawData"
-		},
-		{
-			"id": "f051532c-18c1-44f8-8898-8ef30ef3ccb5",
-			"sourceId": "task_16037",
-			"targetId": "task_93884",
-			"inputName": "DoNotTriggerMaterialInIn",
-			"outputName": "PortIdOut",
-			"converters": [
-				{
-					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
-					"params": {
-						"type": 3,
-						"value": "true"
-					}
-				}
-			]
 		}
 	],
 	"layout": {
@@ -425,9 +409,6 @@
 						"vertices": []
 					},
 					"4ca9c4c1-12f5-4ec8-b575-799db10df194": {
-						"vertices": []
-					},
-					"f051532c-18c1-44f8-8898-8ef30ef3ccb5": {
 						"vertices": []
 					}
 				},

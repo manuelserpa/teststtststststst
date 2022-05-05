@@ -22,6 +22,7 @@ using Cmf.Custom.Tests.IoT.Tests.Common;
 using System.Collections.Generic;
 using Cmf.Foundation.BusinessObjects.SmartTables;
 using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
+using Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader;
 
 namespace AMSOsramEIAutomaticTests.MuetecDaVinci
 {
@@ -59,12 +60,14 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
         public bool createProcessJobDenied = false;
 
         public bool isValidProceedWithCarrier = true;
-        public int proceedWithCarriersReceived = 0;
+        public bool proceedWithCarriersReceived = false;
 
 
         private int chamberToProcess = 1;
 
-        ContainerScenario containerScenarioForLoadPort2;
+
+        public HermosLFM4xReader RFIDReader = new HermosLFM4xReader();
+        public const string readerResourceName = "MECD0101.RFID";
 
         #region Test Basics
         [TestInitialize]
@@ -83,6 +86,8 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             base.Equipment.RegisterOnMessage("S16F11", OnS16F11);
 
             base.LoadPortNumber = loadPortNumber;
+
+            RFIDReader.TestInit(readerResourceName, m_Scenario);
         }
 
         [TestCleanup]
@@ -103,10 +108,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             createProcessJobReceived = false;
             createProcessJobDenied = false;
 
-            if (containerScenarioForLoadPort2 != null)
-            {
-                containerScenarioForLoadPort2.TearDown();
-            }
+            proceedWithCarriersReceived = false;
 
             //regular teardown
             AfterTest();
@@ -122,7 +124,26 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             step.Save();
 
             ConfigureConnection(resourceName, 5012);
+            ConfigureConnection(readerResourceName, 5013, prepareTestScenario: false);
 
+
+            Resource lp1 = new Resource() { Name = $"{resourceName}.1" };
+            lp1.Load();
+            lp1.AutomationMode = ResourceAutomationMode.Online;
+            lp1.AutomationAddress = ".";
+            lp1.Save();
+
+            Resource lp2 = new Resource() { Name = $"{resourceName}.2" };
+            lp2.Load();
+            lp2.AutomationMode = ResourceAutomationMode.Online;
+            lp2.AutomationAddress = ".";
+            lp2.Save();
+
+            Resource lp3 = new Resource() { Name = $"{resourceName}.3" };
+            lp3.Load();
+            lp3.AutomationMode = ResourceAutomationMode.Online;
+            lp3.AutomationAddress = ".";
+            lp3.Save();
         }
 
 
@@ -154,7 +175,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             RecipeManagement.RecipeExistsOnList = true;
             samplingPattern = "ALL";
             this.SetSamplingPatternContext(samplingPattern);
-            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
         }
 
         /// <summary> 
@@ -176,7 +197,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             MESScenario.Entity.Load();
             samplingPattern = "FIRST";
             this.SetSamplingPatternContext(samplingPattern);
-            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
         }
 
         /// <summary> 
@@ -198,7 +219,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             MESScenario.Entity.Load();
             samplingPattern = "MIDDLE";
             this.SetSamplingPatternContext(samplingPattern);
-            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
         }
 
 
@@ -221,7 +242,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             MESScenario.Entity.Load();
             samplingPattern = "LAST";
             this.SetSamplingPatternContext(samplingPattern);
-            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
         }
 
         /// <summary> 
@@ -244,7 +265,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             RecipeManagement.RecipeExistsOnList = true;
 
 
-            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
         }
 
 
@@ -264,7 +285,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             recipe.Load();
 
             TrackInMustFail = true;
-            base.RunBasicTest(base.MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+            base.RunBasicTest(base.MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
         }
         #endregion Tests FullProcessScenario 
 
@@ -518,6 +539,9 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
 
         public override void CarrierInValidation(CustomMaterialScenario MESScenario, int loadPortToSet)
         {
+            //add carrier id to load port on rfid reader
+            RFIDReader.targetIdRFID.Add(loadPortToSet.ToString(), MESScenario.ContainerScenario.Entity.Name);
+
             base.CarrierInValidation(MESScenario, loadPortToSet);
 
             //Send the event for UnknownCarrierID
@@ -526,10 +550,20 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             // Trigger event
             base.Equipment.SendMessage(String.Format($"UnknownCarrierID"), null);
 
-            Thread.Sleep(300);
+         //   Thread.Sleep(300);
 
-            ValidateProceedWithCarrierReceived(1);
+            //if carried id read succesfull container must now be docked
+            ValidatePersistenceContainerExists(LoadPortNumber, MESScenario.ContainerScenario.Entity.Name);
+            ValidateContainerIsDocked(MESScenario, loadPortToSet);
 
+            //         // ValidateProceedWithCarrierReceived(1);
+
+            TestUtilities.WaitFor(30, "Proceed With Carrier (Accept Container) not Received", () =>
+            {
+                return proceedWithCarriersReceived;
+            });
+            //setting to false to next proceed with carrier
+            proceedWithCarriersReceived = false;
             if (!isValidProceedWithCarrier)
                 Assert.Fail("Wrong ProceedWithCarrier Format!");
 
@@ -626,17 +660,42 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
         public override bool PostTrackInActions(CustomMaterialScenario scenario)
         {
 
-            ValidateProceedWithCarrierReceived(2);
+            if (TrackInMustFail)
+            {
+                TestUtilities.WaitForNotChanged(30, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
+                {
+                    scenario.Entity.Load();
+                    if (scenario.Entity.CurrentMainState == null || scenario.Entity.CurrentMainState.CurrentState == null)
+                    {
+                        return false;
+                    }
+
+                    return scenario.Entity.CurrentMainState.CurrentState.Name.Equals(MaterialStateModelStateEnum.Setup.ToString());
+                });
+
+                return false;
+            }
+
 
             if (!isOnlineRemote)
             {
                 Assert.Fail("Track In must fail on Online Local");
             }
 
+            TestUtilities.WaitFor(30, "Proceed With Carrier (Accept Slot Map) not Received", () =>
+            {
+                return proceedWithCarriersReceived;
+            });
 
             TestUtilities.WaitFor(60, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
             {
                 scenario.Entity.Load();
+
+                if (scenario.Entity.CurrentMainState == null || scenario.Entity.CurrentMainState.CurrentState == null)
+                {
+                    return false;
+                }
+
                 return scenario.Entity.CurrentMainState.CurrentState.Name.Equals(MaterialStateModelStateEnum.Setup.ToString());
             });
 
@@ -683,12 +742,17 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
 
             base.Equipment.SendMessage("WaitingForHost2SlotMapVerificationOk", null);
 
-            TestUtilities.WaitFor(60, String.Format($"Control or Process Job creation requests were never received"), () =>
+            TestUtilities.WaitFor(60, String.Format($"Process Job creation requests were never received"), () =>
             {
-                return (createControlJobReceived && createProcessJobReceived);
+                return createProcessJobReceived;
             });
 
+            TestUtilities.WaitFor(60, String.Format($"Control creation requests were never received"), () =>
+            {
+                return createControlJobReceived;
+            });
 
+            Thread.Sleep(100);
             return true;
         }
 
@@ -700,7 +764,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             wafer.MaterialContainer.First().TargetEntity.Load();
 
             DummyList dummyList = new DummyList(base.Equipment) { LoadPortNumber = new int[] { 0 } };
-            SimpleAscList substSourceList = new SimpleAscList(base.Equipment) { Ascs = new string[] { String.Format("{0}{1}.{2:D2}", "CarrierAtLoadPort",loadPortNumber, wafer.MaterialContainer.First().Position) } };
+            SimpleAscList substSourceList = new SimpleAscList(base.Equipment) { Ascs = new string[] { $"{wafer.MaterialContainer.First().TargetEntity.Name}.{wafer.MaterialContainer.First().Position:D2}" } };
 
             SubstIDList substIDList = new SubstIDList(base.Equipment) { SubstIDInternalList = new SubstIDInternalList { SubstID = wafer.Name } };
 
@@ -923,12 +987,10 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             var requestDataForLoadPort = request.Item.GetChildList()[2].GetValue().ToString();
             //var requestDataForParameters = request.Item.GetChildList()[4].GetValue().ToString();
 
-            if (!requestDataForContainer.Equals($"CarrierAtLoadPort{loadPortNumber}"))
+            if (!requestDataForContainer.Equals(base.MESScenario.ContainerScenario.Entity.Name))
             {
                 isValidProceedWithCarrier = false;
             }
-
-
 
 
             reply.Item.Clear();
@@ -954,7 +1016,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
 
             reply.Item.Add(errorList);
 
-            proceedWithCarriersReceived++;
+            proceedWithCarriersReceived = true;
 
             return (true);
         }
@@ -1136,7 +1198,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             return dcic;
         }
 
-        private void ValidateProceedWithCarrierReceived(int numberExpected = -1)
+        /*private void ValidateProceedWithCarrierReceived(int numberExpected = -1)
         {
             TestUtilities.WaitFor(30, "Notification mismatch.", () =>
             {
@@ -1151,6 +1213,6 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
 
 
             });
-        }
+        }*/
     }
 }
