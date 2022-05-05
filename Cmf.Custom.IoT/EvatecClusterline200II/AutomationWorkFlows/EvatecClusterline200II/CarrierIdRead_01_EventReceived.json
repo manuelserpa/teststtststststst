@@ -73,56 +73,46 @@
 			"driver": "SecsGemEquipment"
 		},
 		{
-			"id": "task_29429",
+			"id": "task_16858",
 			"reference": {
-				"name": "equipmentCommand",
+				"name": "workflow",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
 					"version": "8.3.3-202201212"
 				}
 			},
 			"settings": {
-				"_inputs": [
+				"automationWorkflow": {
+					"DisplayName": "CarrierIdRead",
+					"IsShared": true,
+					"Name": "CarrierIdRead"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
 					{
-						"parameter": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
-							"Name": "PORTID",
-							"DataType": 0
-						},
-						"dataType": "String"
+						"name": "ContainerId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
 					},
 					{
-						"parameter": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
-							"Name": "CARRIERID",
-							"DataType": 0
-						},
-						"dataType": "String"
-					}
-				],
-				"_command": {
-					"$type": "Cmf.Foundation.BusinessObjects.AutomationCommand, Cmf.Foundation.BusinessObjects",
-					"Name": "LOADCARRIER"
-				},
-				"___cmf___name": "Execute Equipment Command"
-			},
-			"driver": "SecsGemEquipment"
-		},
-		{
-			"id": "task_10199",
-			"reference": {
-				"name": "expressionEvaluator",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"_expressionType": 0,
-				"_evaluatorBehavior": "EvaluateAll",
-				"___cmf___name": "Expression Evaluator",
-				"_clearInputs": true,
-				"_inputs": [
+						"name": "SlotMap",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
 					{
 						"name": "LoadPort",
 						"valueType": {
@@ -132,12 +122,224 @@
 							"referenceTypeName": null,
 							"referenceTypeId": null,
 							"friendlyName": ""
-						},
-						"defaultValue": -1,
-						"required": true
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "StateUpdatedOnMainEquipment"
+						}
 					}
 				],
-				"_outputs": [
+				"outputs": [
+					{
+						"name": "container",
+						"valueType": {
+							"friendlyName": "container",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"friendlyName": "LoadPort",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Carrier Id Read Workflow"
+			}
+		},
+		{
+			"id": "task_16860",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ErrorHandling",
+					"IsShared": true,
+					"Name": "ErrorHandling"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorCode",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorText",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"friendlyName": "MaterialName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerData",
+						"valueType": {
+							"friendlyName": "ContainerData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"friendlyName": "ContainerName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"friendlyName": "Error",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Error Workflow",
+				"___cmf___color": "#ff0000"
+			}
+		},
+		{
+			"id": "task_16862",
+			"reference": {
+				"name": "customReadId",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {},
+			"driver": "RFIDReader"
+		},
+		{
+			"id": "task_24885",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "CassetteLoad_01_ExecuteCommand",
+					"IsShared": false
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
 					{
 						"name": "CarrierId",
 						"valueType": {
@@ -146,12 +348,35 @@
 							"referenceType": null,
 							"referenceTypeName": null,
 							"referenceTypeId": null,
-							"friendlyName": "CarrierId"
-						},
-						"defaultValue": null,
-						"expression": "concat(\"CarrierAtLoadPort\",string(LoadPort))"
+							"friendlyName": ""
+						}
 					}
-				]
+				],
+				"outputs": [
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"friendlyName": "LoadPort",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "CarrierId",
+						"valueType": {
+							"friendlyName": "CarrierId",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Workflow"
 			}
 		}
 	],
@@ -175,14 +400,95 @@
 					"version": "8.3.3-202201212"
 				}
 			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+			"reference": {
+				"name": "anyToErrorCodeConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			}
 		}
 	],
 	"links": [
 		{
-			"id": "3dc34883-6e92-4ee2-9e67-05b949e3ba66",
+			"id": "task_16862_MaterialId-task_16858_ContainerIdIn",
+			"sourceId": "task_16862",
+			"targetId": "task_16858",
+			"inputName": "ContainerIdIn",
+			"outputName": "MaterialId",
+			"converters": []
+		},
+		{
+			"id": "task_16862_TargetIdResult-task_16858_LoadPortIn",
+			"sourceId": "task_16862",
+			"targetId": "task_16858",
+			"inputName": "LoadPortIn",
+			"outputName": "TargetIdResult",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		},
+		{
+			"id": "task_16862_success-task_16858_activate",
+			"sourceId": "task_16862",
+			"targetId": "task_16858",
+			"inputName": "activate",
+			"outputName": "success",
+			"converters": []
+		},
+		{
+			"id": "task_16862_error-task_16860_ErrorIn",
+			"sourceId": "task_16862",
+			"targetId": "task_16860",
+			"inputName": "ErrorIn",
+			"outputName": "error",
+			"converters": []
+		},
+		{
+			"id": "task_16862_error-task_16860_activate",
+			"sourceId": "task_16862",
+			"targetId": "task_16860",
+			"inputName": "activate",
+			"outputName": "error",
+			"converters": []
+		},
+		{
+			"id": "task_16862_error-task_16860_ErrorCodeIn",
+			"sourceId": "task_16862",
+			"targetId": "task_16860",
+			"inputName": "ErrorCodeIn",
+			"outputName": "error",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+					"params": {
+						"SystemOfOrigin": "EI",
+						"ErrorNumber": 0
+					}
+				}
+			]
+		},
+		{
+			"id": "0c11d836-159a-45d5-bbbe-ec8e921d6884",
 			"sourceId": "task_194418",
-			"targetId": "task_29429",
-			"inputName": "$PORTID",
+			"targetId": "task_16862",
+			"inputName": "TargetId",
 			"outputName": "$PortID_CarrierReport",
 			"converters": [
 				{
@@ -192,25 +498,32 @@
 			]
 		},
 		{
-			"id": "5dae24fa-064d-4937-abd5-2c499c4fc036",
+			"id": "73922379-59b4-46ca-8694-91b4aa1eb42a",
 			"sourceId": "task_194418",
-			"targetId": "task_10199",
-			"inputName": "LoadPort",
+			"targetId": "task_16862",
+			"inputName": "activate",
 			"outputName": "$PortID_CarrierReport"
 		},
 		{
-			"id": "14de57e9-38aa-40c7-9b02-e1e4783e6a47",
-			"sourceId": "task_10199",
-			"targetId": "task_29429",
-			"inputName": "$CARRIERID",
-			"outputName": "CarrierId"
+			"id": "8e723325-46ae-4eb5-824c-9629a17a58f6",
+			"sourceId": "task_16858",
+			"targetId": "task_24885",
+			"inputName": "LoadPortIn",
+			"outputName": "LoadPortOut"
 		},
 		{
-			"id": "768431da-b029-4b11-b791-14124d9268ba",
-			"sourceId": "task_10199",
-			"targetId": "task_29429",
+			"id": "7d528cfc-f98d-4038-bdac-caacccaecaeb",
+			"sourceId": "task_16858",
+			"targetId": "task_24885",
+			"inputName": "CarrierIdIn",
+			"outputName": "ContainerNameOut"
+		},
+		{
+			"id": "7c393e6f-ba35-4b2f-9542-b718548b40a4",
+			"sourceId": "task_16858",
+			"targetId": "task_24885",
 			"inputName": "activate",
-			"outputName": "CarrierId"
+			"outputName": "success"
 		}
 	],
 	"layout": {
@@ -236,34 +549,71 @@
 						},
 						"outdated": false
 					},
-					"task_29429": {
+					"task_16858": {
 						"collapsed": false,
 						"position": {
-							"x": 2292,
-							"y": 486
+							"x": 2066,
+							"y": 663
 						},
 						"outdated": false
 					},
-					"task_10199": {
+					"task_16860": {
 						"collapsed": false,
 						"position": {
-							"x": 1714,
-							"y": 963
+							"x": 2069,
+							"y": 1101
+						},
+						"outdated": false
+					},
+					"task_16862": {
+						"collapsed": false,
+						"position": {
+							"x": 1455,
+							"y": 647
+						},
+						"outdated": false
+					},
+					"task_24885": {
+						"collapsed": false,
+						"position": {
+							"x": 2779,
+							"y": 785
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"5dae24fa-064d-4937-abd5-2c499c4fc036": {
+					"task_16862_MaterialId-task_16858_ContainerIdIn": {
 						"vertices": []
 					},
-					"14de57e9-38aa-40c7-9b02-e1e4783e6a47": {
+					"task_16862_success-task_16858_activate": {
 						"vertices": []
 					},
-					"768431da-b029-4b11-b791-14124d9268ba": {
+					"task_16862_error-task_16860_ErrorIn": {
 						"vertices": []
 					},
-					"3dc34883-6e92-4ee2-9e67-05b949e3ba66": {
+					"task_16862_error-task_16860_activate": {
+						"vertices": []
+					},
+					"73922379-59b4-46ca-8694-91b4aa1eb42a": {
+						"vertices": []
+					},
+					"8e723325-46ae-4eb5-824c-9629a17a58f6": {
+						"vertices": []
+					},
+					"7d528cfc-f98d-4038-bdac-caacccaecaeb": {
+						"vertices": []
+					},
+					"7c393e6f-ba35-4b2f-9542-b718548b40a4": {
+						"vertices": []
+					},
+					"task_16862_TargetIdResult-task_16858_LoadPortIn": {
+						"vertices": []
+					},
+					"task_16862_error-task_16860_ErrorCodeIn": {
+						"vertices": []
+					},
+					"0c11d836-159a-45d5-bbbe-ec8e921d6884": {
 						"vertices": []
 					}
 				},
@@ -271,15 +621,15 @@
 					"note_195558": {
 						"collapsed": false,
 						"position": {
-							"x": 2877,
-							"y": 478
+							"x": 2867,
+							"y": 281
 						}
 					}
 				},
-				"zoom": 0.7500000000000004,
+				"zoom": 0.5100000000000002,
 				"pan": {
-					"x": 657.7777709960938,
-					"y": 198.88890075683594
+					"x": 498.86543405938255,
+					"y": 143.3502038457251
 				}
 			}
 		}

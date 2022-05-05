@@ -18,9 +18,13 @@
       "id": "Cmf.Custom.IoT.CoreSolution",
       "version": "1.6.0"
     },
+    {
+      "id": "Cmf.Custom.IoT.HermosLFM4xReader",
+      "version": "1.6.0"
+    },
 	{
       "id": "Cmf.Custom.IoT.EvatecClusterline200II",
-      "version": "1.4.0"
+      "version": "1.6.0"
     },
 	{
       "id": "Cmf.Custom.IoT.NiceLabel",
@@ -37,10 +41,6 @@
     {
       "id": "Cmf.Custom.IoT.TrymaxNEO",
       "version": "1.5.0"
-    },
-    {
-      "id": "Cmf.Custom.IoT.HermosLFM4xReader",
-      "version": "1.6.0"
     }
   ],
   "handlerVersion": 0

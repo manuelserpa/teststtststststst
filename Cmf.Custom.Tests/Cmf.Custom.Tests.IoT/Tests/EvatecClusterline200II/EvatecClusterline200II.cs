@@ -19,6 +19,7 @@ using Cmf.Foundation.BusinessOrchestration.QueryManagement.OutputObjects;
 using System.Data;
 using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Custom.Tests.IoT.Tests.Common;
+using Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader;
 
 namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 {
@@ -54,6 +55,8 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         public bool createProcessJobReceived = false;
         public bool createProcessJobDenied = false;
 
+        public HermosLFM4xReader RFIDReader = new HermosLFM4xReader();
+        public const string readerResourceName = "PDSP0101.RFID";
 
 
         private int chamberToProcess = 1;
@@ -76,6 +79,8 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             base.Equipment.RegisterOnMessage("S16F11", OnS16F11);
 
             base.LoadPortNumber = loadPortNumber;
+
+            RFIDReader.TestInit(readerResourceName, m_Scenario);
         }
 
         [TestCleanup]
@@ -110,7 +115,19 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         public static void ClassInitialize(TestContext context)
         {
             ConfigureConnection(resourceName, 5011);
+            ConfigureConnection(readerResourceName, 5012, prepareTestScenario: false);
 
+            Resource lp1 = new Resource() { Name = "PDSP0101.AL" };
+            lp1.Load();
+            lp1.AutomationMode = ResourceAutomationMode.Online;
+            lp1.AutomationAddress = ".";
+            lp1.Save();
+
+            Resource lp2 = new Resource() { Name = "PDSP0101.BL" };
+            lp2.Load();
+            lp2.AutomationMode = ResourceAutomationMode.Online;
+            lp2.AutomationAddress = ".";
+            lp2.Save();
         }
 
 
@@ -141,7 +158,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
 
-            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true) ;
         }
 
         /// <summary> 
@@ -164,7 +181,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             RecipeManagement.RecipeExistsOnList = true;
 
 
-            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
         }
 
 
@@ -184,7 +201,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             recipe.Load();
 
             TrackInMustFail = true;
-            base.RunBasicTest(base.MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
+            base.RunBasicTest(base.MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
         }
         #endregion Tests FullProcessScenario 
 
@@ -415,7 +432,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
         #region Events
         public override bool CarrierIn(CustomMaterialScenario scenario, int loadPortToSet)
-        {
+        {         
 
             //CarrierClamped
             base.Equipment.Variables["PortTransferState"] = 1;
@@ -426,8 +443,8 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             base.Equipment.Variables["PortID_CarrierReport"] = loadPortToSet;
 
             // Trigger event
-            base.Equipment.SendMessage(String.Format($"MaterialReceived"), null);
-        
+            base.Equipment.SendMessage(String.Format($"MaterialReceived"), null);            
+
             return true;
 
         }
@@ -436,6 +453,9 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
         {
             //clamped
             base.CarrierInValidation(MESScenario, loadPortToSet);
+
+            //add carrier id to load port on rfid reader
+            RFIDReader.targetIdRFID.Add(loadPortToSet.ToString(), MESScenario.ContainerScenario.Entity.Name);
 
             //material received MaterialReceived
             base.Equipment.Variables["PortTransferState"] = 1;
@@ -448,32 +468,15 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             // Trigger event
             base.Equipment.SendMessage(String.Format($"MaterialReadyToLoad"), null);
 
+            //if carried id read succesfull container must now be docked
+            ValidatePersistenceContainerExists(LoadPortNumber, MESScenario.ContainerScenario.Entity.Name);
+            ValidateContainerIsDocked(MESScenario, loadPortToSet);
+
             // wait for load 
-            TestUtilities.WaitFor(60, String.Format($"Load Container Command never received"), () =>
+            TestUtilities.WaitFor(30, String.Format($"Load Container Command never received"), () =>
             {
                 return loadCommandReceived;
             });
-
-            ////prepare slot maps 
-            //var slotMapForMaterialContainer = new int[25];
-
-            //// scenario.ContainerScenario.Entity
-            //if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
-            //{
-            //    for (int i = 0; i < 25; i++)
-            //    {
-            //        if (MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1))
-            //        {
-            //            slotMapForMaterialContainer[i] = 3;
-            //        }
-            //        else
-            //        {
-            //            slotMapForMaterialContainer[i] = 1;
-            //        }
-
-            //    }
-            //}
-
 
             var slotMap = new int[13];
             // scenario.ContainerScenario.Entity
@@ -486,16 +489,12 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             }
             SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
 
-
-
-
-
             base.Equipment.Variables["CarrierSubType"] = MESScenario.ContainerScenario.Entity.Name;
             base.Equipment.Variables["SubstrateSubType"] = "Substrate";
             base.Equipment.Variables["CarrierAccessingStatus"] = 0;
             base.Equipment.Variables["CarrierCapacity"] = 12;
             base.Equipment.Variables["CarrierContentMap"] = slotMapDV;
-            base.Equipment.Variables["CarrierID_CarrierReport"] = $"CarrierAtPort{loadPortToSet}";
+            base.Equipment.Variables["CarrierID_CarrierReport"] = MESScenario.ContainerScenario.Entity.Name; //$"CarrierAtPort{loadPortToSet}";
             base.Equipment.Variables["CarrierIDStatus"] = 2;
             base.Equipment.Variables["CarrierLocationID"] = $"FIMS{loadPortToSet}";
             base.Equipment.Variables["CarrierSlotMap"] = slotMapDV;
@@ -537,7 +536,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             base.Equipment.Variables["CarrierAccessingStatus"] = 0;
             base.Equipment.Variables["CarrierCapacity"] = 25;
             base.Equipment.Variables["CarrierContentMap"] = slotMapDV;
-            base.Equipment.Variables["CarrierID_CarrierReport"] = $"CarrierAtPort{loadPortNumber}";
+            base.Equipment.Variables["CarrierID_CarrierReport"] = MESScenario.ContainerScenario.Entity.Name;// $"CarrierAtPort{loadPortNumber}";
             base.Equipment.Variables["CarrierIDStatus"] = 2;
             base.Equipment.Variables["CarrierLocationID"] = $"FIMS{loadPortNumber}";
             base.Equipment.Variables["CarrierSlotMap"] = slotMapDV;
@@ -587,57 +586,13 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             return true;
         }
 
-        public override bool ProcessStateChange(CustomMaterialScenario scenario)
-        {
-            /*
-            //TODO:Update for correct values
-            base.Equipment.Variables["ProcessState"] = 4;// Executing
-            base.Equipment.Variables["PreviousProcessState"] = 3;
-
-            base.Equipment.SendMessage("ProcessStateChange", null);
-            */
-            return true;
-        }
-        #endregion Events
-
-
-
-        public override bool PostTrackInActions(CustomMaterialScenario scenario)
-        {
-            if (!isOnlineRemote)
-            {
-                Assert.Fail("Track In must fail on Online Local");
-            }
-            else
-            {
-                if (!createControlJobReceived || !createProcessJobReceived)
-                {
-                    Assert.Fail("Control or Process Job creation requests were never received");
-                }
-            }
-
-            TestUtilities.WaitFor(60, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
-            {
-                scenario.Entity.Load();
-                return scenario.Entity.CurrentMainState.CurrentState.Name.Equals(MaterialStateModelStateEnum.Setup.ToString());
-            });
-
-            TestUtilities.WaitFor(60, String.Format($"Material {scenario.Entity.Name} System State is not {MaterialSystemState.InProcess.ToString()}"), () =>
-            {
-                scenario.Entity.Load();
-                return scenario.Entity.SystemState.ToString().Equals(MaterialSystemState.InProcess.ToString());
-            });
-
-            return true;
-        }
-
         public override bool WaferStart(Material wafer)
         {
             wafer.Load();
             wafer.LoadRelations();
             wafer.ParentMaterial.Load();
 
-            var subId = String.Format("CarrierAtPort{0}.{1:D2}", loadPortNumber, wafer.MaterialContainer.First().Position);
+            var subId = $"{MESScenario.ContainerScenario.Entity.Name}.{wafer.MaterialContainer.First().Position:D2}"; /*"CarrierAtPort{0}.{1:D2}"*/
 
             base.Equipment.Variables["AcquiredId"] = "x";
             base.Equipment.Variables["LotId"] = "y";
@@ -659,7 +614,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
             base.Equipment.Variables["AcquiredId"] = "";
             base.Equipment.Variables["LotId"] = "";
-            base.Equipment.Variables["SubId"] = String.Format("CarrierAtPort{0}.{1:D2}", loadPortNumber, wafer.MaterialContainer.First().Position); ;
+            base.Equipment.Variables["SubId"] = $"{MESScenario.ContainerScenario.Entity.Name}.{wafer.MaterialContainer.First().Position:D2}"; /*"CarrierAtPort{0}.{1:D2}"*/
 
             //// Trigger event
             base.Equipment.SendMessage($"ProcessChamber{chamberToProcess}_ProcessFinished", null);
@@ -669,33 +624,67 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             return true;
         }
 
+        #endregion Events
 
-        public override bool ValidateSubMaterialState(Material submaterial, string subMaterialState)
+        #region Test actions
+        public override bool PostTrackInActions(CustomMaterialScenario scenario)
         {
-            if (MaterialSystemState.Processed.ToString().Equals(subMaterialState))
+
+            if (TrackInMustFail) 
             {
-                submaterial.Load();
-                submaterial.LoadRelations();
-                submaterial.ParentMaterial.Load();
-                submaterial.ParentMaterial.LoadChildren();
-                if (submaterial.ParentMaterial.SubMaterials
-                    .Where(s => s.SystemState == MaterialSystemState.Queued).Count() == 0
-                    && submaterial.ParentMaterial.SubMaterials
-                    .Where(s => s.SystemState == MaterialSystemState.InProcess).Count() == 1)
+                TestUtilities.WaitForNotChanged(60, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
                 {
-                    return true;
-                }
+                    scenario.Entity.Load();
+                    if (scenario.Entity.CurrentMainState == null || scenario.Entity.CurrentMainState.CurrentState == null)
+                    {
+                        return false;
+                    }
+
+                    return scenario.Entity.CurrentMainState.CurrentState.Name.Equals(MaterialStateModelStateEnum.Setup.ToString());
+                });
+
+                return false;
             }
 
-            TestUtilities.WaitFor(90, String.Format($"Material {submaterial.Name} State is not {subMaterialState}"), () =>
+            if (!isOnlineRemote)
             {
-                submaterial.Load();
-                return submaterial.SystemState.ToString().Equals(subMaterialState);
+                Assert.Fail("Track In must fail on Online Local");
+            }
+
+            TestUtilities.WaitFor(60, String.Format($"Process Job Creation failed for Material {scenario.Entity.Name}"), () =>
+            {                
+                return createProcessJobReceived;
+            });
+
+
+            TestUtilities.WaitFor(60, String.Format($"Control Job Creation failed for Material {scenario.Entity.Name}"), () =>
+            {
+                return createControlJobReceived;
+            });
+
+            TestUtilities.WaitFor(60, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
+            {
+                scenario.Entity.Load();
+                if (scenario.Entity.CurrentMainState == null || scenario.Entity.CurrentMainState.CurrentState == null)
+                {
+                    return false;
+                }
+
+                return scenario.Entity.CurrentMainState.CurrentState.Name.Equals(MaterialStateModelStateEnum.Setup.ToString());
+            });
+
+            TestUtilities.WaitFor(60, String.Format($"Material {scenario.Entity.Name} System State is not {MaterialSystemState.InProcess.ToString()}"), () =>
+            {
+                scenario.Entity.Load();
+                return scenario.Entity.SystemState.ToString().Equals(MaterialSystemState.InProcess.ToString());
             });
 
             return true;
         }
+        #endregion
 
+
+        #region Stream and Function actions
         //Control Job 
         protected bool OnS14F9(SecsMessage request, SecsMessage reply)
         {
@@ -855,7 +844,9 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
             return true;
         }
+        #endregion
 
+        #region Validations
         public override void WaferCompleteValidation(Material material)
         {
             Log(String.Format("{0}: [S] Send Wafer Start Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, material.Name));
@@ -869,8 +860,30 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
             Log(String.Format("{0}: [E] Validate MES Material {2} is Processed Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, material.Name));
 
         }
-        public override bool PostSetupActions(CustomMaterialScenario MESScenario)
+
+        public override bool ValidateSubMaterialState(Material submaterial, string subMaterialState)
         {
+            if (MaterialSystemState.Processed.ToString().Equals(subMaterialState))
+            {
+                submaterial.Load();
+                submaterial.LoadRelations();
+                submaterial.ParentMaterial.Load();
+                submaterial.ParentMaterial.LoadChildren();
+                if (submaterial.ParentMaterial.SubMaterials
+                    .Where(s => s.SystemState == MaterialSystemState.Queued).Count() == 0
+                    && submaterial.ParentMaterial.SubMaterials
+                    .Where(s => s.SystemState == MaterialSystemState.InProcess).Count() == 1)
+                {
+                    return true;
+                }
+            }
+
+            TestUtilities.WaitFor(90, String.Format($"Material {submaterial.Name} State is not {subMaterialState}"), () =>
+            {
+                submaterial.Load();
+                return submaterial.SystemState.ToString().Equals(subMaterialState);
+            });
+
             return true;
         }
 
@@ -962,5 +975,6 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
             return dcic;
         }
+        #endregion
     }
 }

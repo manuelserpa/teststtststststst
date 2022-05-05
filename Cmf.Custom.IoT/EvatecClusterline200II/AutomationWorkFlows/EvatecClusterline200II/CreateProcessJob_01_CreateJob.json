@@ -170,7 +170,7 @@
 				"RecipeSpecificationType": 1,
 				"commandName": 1,
 				"MaterialFormat": "13",
-				"useCarrierAtLoadPortAsContainer": true
+				"useCarrierAtLoadPortAsContainer": false
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -397,10 +397,10 @@
 					}
 				},
 				"notes": {},
-				"zoom": 0.84,
+				"zoom": 0.4299999999999996,
 				"pan": {
-					"x": 1363.3333740234375,
-					"y": 430
+					"x": 350.02277806684356,
+					"y": 38.00478759854218
 				}
 			}
 		}
