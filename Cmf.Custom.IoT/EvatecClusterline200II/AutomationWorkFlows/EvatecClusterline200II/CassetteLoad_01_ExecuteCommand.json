@@ -180,7 +180,7 @@
 			}
 		},
 		{
-			"id": "task_179900",
+			"id": "task_21802",
 			"reference": {
 				"name": "equipmentCommand",
 				"package": {
@@ -189,46 +189,71 @@
 				}
 			},
 			"settings": {
-				"_inputs": [],
-				"_command": null
+				"_inputs": [
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "PORTID",
+							"DataType": 0
+						},
+						"dataType": "String"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "CARRIERID",
+							"DataType": 0
+						},
+						"dataType": "String"
+					}
+				],
+				"_command": {
+					"$type": "Cmf.Foundation.BusinessObjects.AutomationCommand, Cmf.Foundation.BusinessObjects",
+					"Name": "LOADCARRIER"
+				},
+				"___cmf___name": "Execute Equipment Command"
 			},
 			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_23064",
+			"reference": {
+				"name": "getContainer",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"inputs": [],
+				"outputs": [],
+				"message": ""
+			}
 		}
 	],
-	"converters": [],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToString",
+			"reference": {
+				"name": "anyToString",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+			"reference": {
+				"name": "anyToErrorCodeConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			}
+		}
+	],
 	"links": [
-		{
-			"id": "task_179896_activateOut-task_179900_activate",
-			"sourceId": "task_179896",
-			"targetId": "task_179900",
-			"inputName": "activate",
-			"outputName": "activateOut",
-			"converters": []
-		},
-		{
-			"id": "task_179900_success-task_179894_success",
-			"sourceId": "task_179900",
-			"targetId": "task_179894",
-			"inputName": "success",
-			"outputName": "success",
-			"converters": []
-		},
-		{
-			"id": "task_179900_error-task_179898_ErrorIn",
-			"sourceId": "task_179900",
-			"targetId": "task_179898",
-			"inputName": "ErrorIn",
-			"outputName": "error",
-			"converters": []
-		},
-		{
-			"id": "task_179900_error-task_179898_activate",
-			"sourceId": "task_179900",
-			"targetId": "task_179898",
-			"inputName": "activate",
-			"outputName": "error",
-			"converters": []
-		},
 		{
 			"id": "task_179898_ErrorOut-task_179894_error",
 			"sourceId": "task_179898",
@@ -250,6 +275,106 @@
 			"targetId": "task_179894",
 			"inputName": "CarrierId",
 			"outputName": "CarrierIdOut"
+		},
+		{
+			"id": "a038cb15-f10d-4a88-b624-8ce2a02de0e0",
+			"sourceId": "task_179896",
+			"targetId": "task_21802",
+			"inputName": "$PORTID",
+			"outputName": "LoadPortOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToString",
+					"params": {}
+				}
+			]
+		},
+		{
+			"id": "2ce9f39a-d4a9-4b87-a55d-ba6248b21d3d",
+			"sourceId": "task_179896",
+			"targetId": "task_21802",
+			"inputName": "$CARRIERID",
+			"outputName": "CarrierIdOut"
+		},
+		{
+			"id": "c3cd2746-10b4-45fe-bd5f-a98c6748a4c4",
+			"sourceId": "task_179896",
+			"targetId": "task_21802",
+			"inputName": "activate",
+			"outputName": "activateOut"
+		},
+		{
+			"id": "86e057f8-f9af-4888-87e3-daa9153e03ae",
+			"sourceId": "task_21802",
+			"targetId": "task_179894",
+			"inputName": "success",
+			"outputName": "success"
+		},
+		{
+			"id": "a826bfbf-3200-4509-8981-836bade35512",
+			"sourceId": "task_21802",
+			"targetId": "task_179898",
+			"inputName": "ErrorIn",
+			"outputName": "error"
+		},
+		{
+			"id": "5839993d-1fcd-4eab-a917-33082625cffe",
+			"sourceId": "task_21802",
+			"targetId": "task_179898",
+			"inputName": "ErrorCodeIn",
+			"outputName": "error",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+					"params": {
+						"ErrorCode": "CassetteFailedToLoad",
+						"SystemOfOrigin": "EI",
+						"ErrorNumber": 0
+					}
+				}
+			]
+		},
+		{
+			"id": "cc3f845f-73a4-461b-ae0b-7dcde334533c",
+			"sourceId": "task_179896",
+			"targetId": "task_23064",
+			"inputName": "loadPort",
+			"outputName": "LoadPortOut"
+		},
+		{
+			"id": "b70b0ed9-1770-4754-9e16-dc3f8825c9d2",
+			"sourceId": "task_179896",
+			"targetId": "task_23064",
+			"inputName": "containerId",
+			"outputName": "CarrierIdOut"
+		},
+		{
+			"id": "58ab16ef-53d1-48c6-bc79-763d71f5233e",
+			"sourceId": "task_21802",
+			"targetId": "task_23064",
+			"inputName": "activate",
+			"outputName": "error"
+		},
+		{
+			"id": "c610a581-cf55-4153-ad49-8ce50fb3b113",
+			"sourceId": "task_23064",
+			"targetId": "task_179898",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "6a6fa101-3152-4ca6-a6cf-c6f7abd16669",
+			"sourceId": "task_23064",
+			"targetId": "task_179898",
+			"inputName": "activate",
+			"outputName": "error"
+		},
+		{
+			"id": "784c0702-1cbb-4d7b-870f-d75279372f7e",
+			"sourceId": "task_23064",
+			"targetId": "task_179898",
+			"inputName": "ContainerDataIn",
+			"outputName": "container"
 		}
 	],
 	"layout": {
@@ -270,7 +395,7 @@
 					"task_179894": {
 						"collapsed": false,
 						"position": {
-							"x": 3410,
+							"x": 3520,
 							"y": 798
 						},
 						"outdated": false
@@ -286,33 +411,29 @@
 					"task_179898": {
 						"collapsed": false,
 						"position": {
-							"x": 2786,
-							"y": 1164
+							"x": 3017,
+							"y": 1162
 						},
 						"outdated": false
 					},
-					"task_179900": {
+					"task_21802": {
 						"collapsed": false,
 						"position": {
-							"x": 2195,
-							"y": 1044
+							"x": 1984.4444444444462,
+							"y": 921.284722222223
+						},
+						"outdated": false
+					},
+					"task_23064": {
+						"collapsed": false,
+						"position": {
+							"x": 2502,
+							"y": 1326
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"task_179896_activateOut-task_179900_activate": {
-						"vertices": []
-					},
-					"task_179900_success-task_179894_success": {
-						"vertices": []
-					},
-					"task_179900_error-task_179898_ErrorIn": {
-						"vertices": []
-					},
-					"task_179900_error-task_179898_activate": {
-						"vertices": []
-					},
 					"task_179898_ErrorOut-task_179894_error": {
 						"vertices": []
 					},
@@ -321,21 +442,57 @@
 					},
 					"317fce26-5378-4bb2-a125-4333772d41e9": {
 						"vertices": []
+					},
+					"2ce9f39a-d4a9-4b87-a55d-ba6248b21d3d": {
+						"vertices": []
+					},
+					"c3cd2746-10b4-45fe-bd5f-a98c6748a4c4": {
+						"vertices": []
+					},
+					"86e057f8-f9af-4888-87e3-daa9153e03ae": {
+						"vertices": []
+					},
+					"a826bfbf-3200-4509-8981-836bade35512": {
+						"vertices": []
+					},
+					"cc3f845f-73a4-461b-ae0b-7dcde334533c": {
+						"vertices": []
+					},
+					"b70b0ed9-1770-4754-9e16-dc3f8825c9d2": {
+						"vertices": []
+					},
+					"58ab16ef-53d1-48c6-bc79-763d71f5233e": {
+						"vertices": []
+					},
+					"c610a581-cf55-4153-ad49-8ce50fb3b113": {
+						"vertices": []
+					},
+					"6a6fa101-3152-4ca6-a6cf-c6f7abd16669": {
+						"vertices": []
+					},
+					"784c0702-1cbb-4d7b-870f-d75279372f7e": {
+						"vertices": []
+					},
+					"a038cb15-f10d-4a88-b624-8ce2a02de0e0": {
+						"vertices": []
+					},
+					"5839993d-1fcd-4eab-a917-33082625cffe": {
+						"vertices": []
 					}
 				},
 				"notes": {
 					"note_179902": {
 						"collapsed": false,
 						"position": {
-							"x": 1600,
-							"y": 1127
+							"x": 1605,
+							"y": 1283
 						}
 					}
 				},
-				"zoom": 0.6799999999999998,
+				"zoom": 0.4099999999999996,
 				"pan": {
-					"x": 691.25,
-					"y": 430
+					"x": 280.5476690937612,
+					"y": 193.7669182670403
 				}
 			}
 		}

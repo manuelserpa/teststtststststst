@@ -167,7 +167,7 @@
 			"settings": {
 				"objectSpec": "Equipment",
 				"___cmf___name": "Custom Create Control Job",
-				"useCarrierAtLoadPortAsContainer": true
+				"useCarrierAtLoadPortAsContainer": false
 			},
 			"driver": "SecsGemEquipment"
 		}

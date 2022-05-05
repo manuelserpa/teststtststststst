@@ -10,22 +10,43 @@ using System.Collections.Generic;
 
 namespace Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader
 {
-    class HermosLFM4xReader : CommonTests
+    public class HermosLFM4xReader : CommonTests
 	{
-         public Dictionary<String, String> PortId = new Dictionary<string, string>();
+        public Dictionary<String, String> targetIdRFID = new Dictionary<string, string>();
+        public string ResourceName = "";
 
-	     public void TestInit()
+        public void TestInit(string resourceName, AutomationScenario scenario)
          {
+            ResourceName = resourceName;
+            Equipment = scenario.GetEquipment(resourceName) as SecsGemEquipment;
             base.Equipment.RegisterOnMessage("S18F9", OnS18F9);
-
          }
 
         protected bool OnS18F9(SecsMessage request, SecsMessage reply)
         {
-            var readerId = request.Item.GetChildList()[0];
+            var targetId = request.Item.ASCII;
 
+            string mid = targetIdRFID.GetValueOrDefault(targetId, "");
             reply.Item.Clear();
-            
+
+            reply.Item.SetTypeToList();
+            var replyList = reply.Item;
+            replyList.Add(new SecsItem() { ASCII = targetId }); //adds target id
+
+            if(String.IsNullOrEmpty(mid) || mid.Length == 2) 
+            {
+                replyList.Add(new SecsItem() { ASCII = (mid.Length == 2 ? mid : "EE") }); //SSACK code
+            }
+            else
+            {
+                replyList.Add(new SecsItem() { ASCII = "NO" }); // SSACK code
+            }
+
+            replyList.Add(new SecsItem() { ASCII = mid }); // Material Id read (actual container id on MES)
+
+            var statusList = new SecsItem();
+            statusList.SetTypeToList();
+            replyList.Add(statusList);
             return true;
         }
     }

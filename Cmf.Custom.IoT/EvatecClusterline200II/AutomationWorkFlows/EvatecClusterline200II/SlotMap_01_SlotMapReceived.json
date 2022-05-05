@@ -372,22 +372,6 @@
 			"targetId": "task_93884",
 			"inputName": "activate",
 			"outputName": "success"
-		},
-		{
-			"id": "89fcb2f0-361e-4b15-895c-989f9e17ffbe",
-			"sourceId": "task_1697",
-			"targetId": "task_93884",
-			"inputName": "DoNotTriggerMaterialInIn",
-			"outputName": "success",
-			"converters": [
-				{
-					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
-					"params": {
-						"type": 3,
-						"value": "true"
-					}
-				}
-			]
 		}
 	],
 	"layout": {
@@ -445,9 +429,6 @@
 					},
 					"cabf4944-61c4-49a5-917c-38370a4a776b": {
 						"vertices": []
-					},
-					"89fcb2f0-361e-4b15-895c-989f9e17ffbe": {
-						"vertices": []
 					}
 				},
 				"notes": {
@@ -461,8 +442,8 @@
 				},
 				"zoom": 0.7200000000000002,
 				"pan": {
-					"x": 0,
-					"y": 30
+					"x": 183,
+					"y": 96
 				}
 			}
 		}
