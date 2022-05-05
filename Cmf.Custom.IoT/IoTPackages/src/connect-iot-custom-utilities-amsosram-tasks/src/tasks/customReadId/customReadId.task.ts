@@ -154,7 +154,7 @@ export interface CustomReadIdSettings {
 
 enum SSACK {
     NO = "Normal Operation. Indicates the success of the requested operation.",
-    EE = "Execution error. Transponder data cannot be read. MID sequence cannot be read, as valid ASCII characters were not found exclusively in the defined MID area.";
+    EE = "Execution error. Transponder data cannot be read. MID sequence cannot be read, as valid ASCII characters were not found exclusively in the defined MID area.",
     CE = "Communication error. Syntax error in message, message format, or value.",
     HE = "Hardware error. Error in the head of the ID reader / writer, head of the ID reader / writer is deactivated.",
     TE = "Transponder error, reading / writing unsuccessful (Tag Error)",
