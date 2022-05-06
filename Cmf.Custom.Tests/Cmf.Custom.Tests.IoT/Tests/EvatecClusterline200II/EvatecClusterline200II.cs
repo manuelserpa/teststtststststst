@@ -632,7 +632,7 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
             if (TrackInMustFail) 
             {
-                TestUtilities.WaitForNotChanged(60, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
+                TestUtilities.WaitForNotChanged(30, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
                 {
                     scenario.Entity.Load();
                     if (scenario.Entity.CurrentMainState == null || scenario.Entity.CurrentMainState.CurrentState == null)
