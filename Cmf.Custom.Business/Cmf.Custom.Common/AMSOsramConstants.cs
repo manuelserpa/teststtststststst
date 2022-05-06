@@ -929,5 +929,90 @@
         }
 
         #endregion
+
+        #region
+        /// <summary>
+        /// smartTable NotificationTitleMessage Property
+        /// </summary>
+        public static string smartTablePropertyNotificationTitleMessage = "NotificationTitleMessage";
+
+        /// <summary>
+        /// smartTable NotificationTitleMessageWarning Property
+        /// </summary>
+        public static string smartTablePropertyNotificationTitleMessageWarning = "NotificationTitleMessageWarning";
+
+        /// <summary>
+        /// smartTable NotificationTitleMessageCritical Property
+        /// </summary>
+        public static string smartTablePropertyNotificationTitleMessageCritical = "NotificationTitleMessageCritical";
+        /// <summary>
+        /// smartTable NotificationBodyMessage Property
+        /// </summary>
+        public static string smartTablePropertyNotificationBodyMessage = "NotificationBodyMessage";
+
+        /// <summary>
+        /// SmartTable CustomConfigResourceNotification Action Value Notification
+        /// </summary>
+        public static string smartTableResultActionNotification = "Notification";
+
+        /// <summary>
+        /// SmartTable CustomConfigResourceNotification Action Value Email
+        /// </summary>
+        public static string smartTableResultActionEmail = "Email";
+        /// <summary>
+        /// smartTable ToState Property
+        /// </summary>
+        public static string smartTablePropertyToState = "ToState";
+
+        /// <summary>
+        /// smartTable NotificationAction Property
+        /// </summary>
+        public static string smartTablePropertyNotificationAction = "NotificationAction";
+
+        /// <summary>
+        /// smartTable TargetRole Property
+        /// </summary>
+        public static string smartTablePropertyTargetRole = "TargetRole";
+
+        /// <summary>
+        /// smartTable TargetDistributionList Property
+        /// </summary>
+        public static string smartTablePropertyTargetDistributionList = "TargetDistributionList";
+
+        /// <summary>
+        /// smartTable StateName Property
+        /// </summary>
+        public static string smartTablePropertyStateName = "StateName";
+
+        /// <summary>
+        /// smartTable NotificationTrigger Property
+        /// </summary>
+        public static string smartTablePropertyNotificationTrigger = "NotificationTrigger";
+
+        /// <summary>
+        /// SmartTable CustomConfigResourceNotification Name
+        /// </summary>
+        public static string CustomResourceNotificationSTName = "CustomResourceActionNotifications";
+
+        /// <summary>
+        /// smartTable FromState Property
+        /// </summary>
+        public static string smartTablePropertyFromState = "FromState";
+
+        /// <summary>
+        /// smartTable IsEnable Property
+        /// </summary>
+        public static string smartTablePropertyIsEnable = "IsEnable";
+
+        /// <summary>
+        /// SmartTable Severity Property
+        /// </summary>
+        public static string smartTablePropertySeverity = "Severity";
+
+        /// <summary>
+        /// smartTable NotificationType Property
+        /// </summary>
+        public static string smartTablePropertyNotificationType = "NotificationType";
+        #endregion
     }
 }
