@@ -112,6 +112,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
 
             //regular teardown
             AfterTest();
+            RFIDReader.CleanUp(MESScenario);
             base.CleanUp(MESScenario);
         }
 
@@ -123,8 +124,9 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             step.UseInStepSampling = true;
             step.Save();
 
-            ConfigureConnection(resourceName, 5012);
-            ConfigureConnection(readerResourceName, 5013, prepareTestScenario: false);
+            ConfigureConnection(readerResourceName, 5014, prepareTestScenario: false);
+            ConfigureConnection(resourceName, 5013);
+
 
 
             Resource lp1 = new Resource() { Name = $"{resourceName}.1" };
@@ -166,15 +168,18 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
 
-            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName, ".\\RecipeBinaryFiles\\testRecipe");
 
             var recipe = new Recipe() { Name = RecipeName };
             recipe.Load();
-            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            var recipeBody = recipe.Body;
+            recipeBody.Load();
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, recipeBody.Body);
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
             samplingPattern = "ALL";
             this.SetSamplingPatternContext(samplingPattern);
+
             base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
         }
 
@@ -186,11 +191,13 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
 
-            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName, ".\\RecipeBinaryFiles\\testRecipe");
 
             var recipe = new Recipe() { Name = RecipeName };
             recipe.Load();
-            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            var recipeBody = recipe.Body;
+            recipeBody.Load();
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, recipeBody.Body);
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
 
@@ -208,11 +215,13 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, 13, false);
 
-            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName, ".\\RecipeBinaryFiles\\testRecipe");
 
             var recipe = new Recipe() { Name = RecipeName };
             recipe.Load();
-            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            var recipeBody = recipe.Body;
+            recipeBody.Load();
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, recipeBody.Body);
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
 
@@ -231,11 +240,13 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
 
-            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName, ".\\RecipeBinaryFiles\\testRecipe");
 
             var recipe = new Recipe() { Name = RecipeName };
             recipe.Load();
-            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            var recipeBody = recipe.Body;
+            recipeBody.Load();
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, recipeBody.Body);
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
 
@@ -256,11 +267,13 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             isOnlineRemote = false;
             TrackInMustFail = true;
 
-            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName, ".\\RecipeBinaryFiles\\testRecipe");
 
             var recipe = new Recipe() { Name = RecipeName };
             recipe.Load();
-            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            var recipeBody = recipe.Body;
+            recipeBody.Load();
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, recipeBody.Body);
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
 

@@ -53,6 +53,28 @@
 						}
 					},
 					{
+						"name": "ControlJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ControlJobId"
+						}
+					},
+					{
+						"name": "ProcessJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ProcessJobId"
+						}
+					},
+					{
 						"name": "IsBatchAction",
 						"valueType": {
 							"type": 3,
@@ -122,75 +144,6 @@
 				]
 			},
 			"driver": "SecsGemEquipment"
-		},
-		{
-			"id": "task_80878",
-			"reference": {
-				"name": "codeExecution",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"tsCode": [
-					"import { Framework } from 'framework';",
-					"",
-					"export default class {",
-					"",
-					"    /** Allows accessing external functions */",
-					"    private framework: Framework;",
-					"",
-					"    constructor(framework: Framework) {",
-					"        this.framework = framework;",
-					"    }",
-					"",
-					"    /*",
-					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
-					"     * Should return an object containing the values for each output to emit",
-					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
-					"     */",
-					"    public async main(inputs: any, outputs: any): Promise<any> {",
-					"        // Add code here",
-					"        const ctrlJobID = inputs.CtrlJobID;",
-					"        let materialName = ctrlJobID.replace(\"CtrlJob_\", \"\");",
-					"        // emit output during execution: outputs.output1.emit(\"something\");",
-					"        return { MaterialName: materialName};",
-					"    }",
-					"}",
-					""
-				],
-				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IGN0cmxKb2JJRCA9IGlucHV0cy5DdHJsSm9iSUQ7DQogICAgICAgIGxldCBtYXRlcmlhbE5hbWUgPSBjdHJsSm9iSUQucmVwbGFjZSgiQ3RybEpvYl8iLCAiIik7DQogICAgICAgIC8vIGVtaXQgb3V0cHV0IGR1cmluZyBleGVjdXRpb246IG91dHB1dHMub3V0cHV0MS5lbWl0KCJzb21ldGhpbmciKTsNCiAgICAgICAgcmV0dXJuIHsgTWF0ZXJpYWxOYW1lOiBtYXRlcmlhbE5hbWUgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
-				"inputs": [
-					{
-						"name": "CtrlJobID",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "CtrlJobID"
-						}
-					}
-				],
-				"outputs": [
-					{
-						"name": "MaterialName",
-						"valueType": {
-							"friendlyName": "MaterialName",
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null
-						}
-					}
-				],
-				"contextExpirationInMilliseconds": 10000,
-				"executionExpirationInMilliseconds": 0,
-				"___cmf___name": "Code"
-			}
 		}
 	],
 	"converters": [
@@ -237,31 +190,17 @@
 	],
 	"links": [
 		{
-			"id": "7501f823-7549-401e-b145-82a49a19c929",
+			"id": "8e88b7de-10b8-4d1d-97b3-a64c96ade9ac",
 			"sourceId": "task_51951",
-			"targetId": "task_80878",
-			"inputName": "activate",
+			"targetId": "task_135964",
+			"inputName": "ControlJobIdIn",
 			"outputName": "$CtrlJobID"
 		},
 		{
-			"id": "068c0462-d0be-4a04-a5cc-4e1261bb0574",
-			"sourceId": "task_80878",
-			"targetId": "task_135964",
-			"inputName": "MaterialNameIn",
-			"outputName": "MaterialNameOut"
-		},
-		{
-			"id": "b16dbfe8-3bb5-4e16-b0ce-bace1593ad11",
-			"sourceId": "task_80878",
+			"id": "1293ca38-aa3a-4f08-af13-fbdc149d4304",
+			"sourceId": "task_51951",
 			"targetId": "task_135964",
 			"inputName": "activate",
-			"outputName": "MaterialNameOut"
-		},
-		{
-			"id": "481c7ead-7539-4957-9bb3-0969f6fea668",
-			"sourceId": "task_51951",
-			"targetId": "task_80878",
-			"inputName": "CtrlJobIDIn",
 			"outputName": "$CtrlJobID"
 		}
 	],
@@ -295,27 +234,13 @@
 							"y": 228
 						},
 						"outdated": false
-					},
-					"task_80878": {
-						"collapsed": false,
-						"position": {
-							"x": 898,
-							"y": 308
-						},
-						"outdated": false
 					}
 				},
 				"links": {
-					"7501f823-7549-401e-b145-82a49a19c929": {
+					"8e88b7de-10b8-4d1d-97b3-a64c96ade9ac": {
 						"vertices": []
 					},
-					"068c0462-d0be-4a04-a5cc-4e1261bb0574": {
-						"vertices": []
-					},
-					"b16dbfe8-3bb5-4e16-b0ce-bace1593ad11": {
-						"vertices": []
-					},
-					"481c7ead-7539-4957-9bb3-0969f6fea668": {
+					"1293ca38-aa3a-4f08-af13-fbdc149d4304": {
 						"vertices": []
 					}
 				},
@@ -328,10 +253,10 @@
 						}
 					}
 				},
-				"zoom": 0.74,
+				"zoom": 0.6599999999999999,
 				"pan": {
-					"x": 173.33334350585938,
-					"y": 53.333335876464844
+					"x": -10.164193244945409,
+					"y": 3.2344916044775687
 				}
 			}
 		}
