@@ -1,4 +1,4 @@
-﻿# Release Notes
+# Release Notes
 
 Release information of CM MES implementation for AMSOsram
 
@@ -19,5 +19,6 @@ List of delivered packages:
 * [AMSOsram-20220328-1.3.0](/AMSOsram/releasenotes>AMSOsram-20220328-1.3.0)
 * [AMSOsram-20220411-1.4.0](/AMSOsram/releasenotes>AMSOsram-20220411-1.4.0)
 * [AMSOsram-20220426-1.5.0](/AMSOsram/releasenotes>AMSOsram-20220426-1.5.0)
+* [AMSOsram-20220509-1.6.0](/AMSOsram/releasenotes>AMSOsram-20220509-1.6.0)
 
 

@@ -1,4 +1,4 @@
-﻿# Converters
+# Converters
 
 ## Converters List
 

@@ -1,4 +1,4 @@
-﻿# Mechatronic MWS200
+# Mechatronic MWS200
 
 The details of the Mechatronic MWS200 Integration are the following:
 * [Configuration](/AMSOsram/techspec>connectiot>iotequipmenttypes>MechatronicMWS200>MechatronicMWS200-Configuration)

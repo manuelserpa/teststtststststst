@@ -1,4 +1,4 @@
-﻿# ERP Handlers
+# ERP Handlers
 
 Everything that is created or updated in the MES system to support customer requirements are considered ERP Handlers.
 

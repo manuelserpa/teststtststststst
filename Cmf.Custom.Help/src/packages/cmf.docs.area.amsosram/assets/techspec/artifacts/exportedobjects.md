@@ -1,4 +1,4 @@
-﻿# Exported Objects
+# Exported Objects
 
 Exported Objects are general objects that can be deliver using the export/import feature from MES.
 
