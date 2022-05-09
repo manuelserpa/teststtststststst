@@ -57,8 +57,8 @@
     <None Update="HelperFiles\KillProcessesRules">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="RecipeBinaryFiles\" />
+    <None Update="RecipeBinaryFiles\testRecipe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

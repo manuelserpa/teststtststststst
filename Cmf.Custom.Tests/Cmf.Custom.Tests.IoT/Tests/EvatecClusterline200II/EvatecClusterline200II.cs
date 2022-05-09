@@ -108,14 +108,15 @@ namespace AMSOsramEIAutomaticTests.EvatecClusterline200II
 
             //regular teardown
             AfterTest();
+            RFIDReader.CleanUp(MESScenario);
             base.CleanUp(MESScenario);
         }
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            ConfigureConnection(resourceName, 5011);
             ConfigureConnection(readerResourceName, 5012, prepareTestScenario: false);
+            ConfigureConnection(resourceName, 5011);
 
             Resource lp1 = new Resource() { Name = "PDSP0101.AL" };
             lp1.Load();
