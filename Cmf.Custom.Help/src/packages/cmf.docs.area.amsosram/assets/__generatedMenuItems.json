@@ -54,6 +54,12 @@
    "actionId": ""
 },
 {
+   "id": "amsosram-20220509-1.6.0",
+   "menuGroupId": "releasenotes",
+   "title": "AMSOsram-20220509-1.6.0",
+   "actionId": ""
+},
+{
    "id": "artifacts",
    "menuGroupId": "techspec",
    "title": "Artifacts",
@@ -78,15 +84,15 @@
    "actionId": ""
 },
 {
-   "id": "configurations",
-   "menuGroupId": "artifacts",
-   "title": "Configuration Entries",
-   "actionId": ""
-},
-{
    "id": "c_analytics",
    "menuGroupId": "artifacts",
    "title": "Analytics",
+   "actionId": ""
+},
+{
+   "id": "configurations",
+   "menuGroupId": "artifacts",
+   "title": "Configuration Entries",
    "actionId": ""
 },
 {
@@ -408,6 +414,12 @@
    "actionId": ""
 },
 {
+   "id": "hermoslfm4xreader",
+   "menuGroupId": "iotequipmenttypes",
+   "title": "Hermos LFM 4x Reader",
+   "actionId": ""
+},
+{
    "id": "mechatronicmws200",
    "menuGroupId": "iotequipmenttypes",
    "title": "Mechatronic MWS200",
@@ -452,6 +464,30 @@
 {
    "id": "evatecclusterline200ii-workflows",
    "menuGroupId": "evatecclusterline200ii",
+   "title": "Workflows",
+   "actionId": ""
+},
+{
+   "id": "hermoslfm4xreader-configuration",
+   "menuGroupId": "hermoslfm4xreader",
+   "title": "Configuration",
+   "actionId": ""
+},
+{
+   "id": "hermoslfm4xreader-features",
+   "menuGroupId": "hermoslfm4xreader",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "hermoslfm4xreader-setup",
+   "menuGroupId": "hermoslfm4xreader",
+   "title": "Setup",
+   "actionId": ""
+},
+{
+   "id": "hermoslfm4xreader-workflows",
+   "menuGroupId": "hermoslfm4xreader",
    "title": "Workflows",
    "actionId": ""
 },
