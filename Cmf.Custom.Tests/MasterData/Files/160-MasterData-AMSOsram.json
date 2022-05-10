@@ -4382,45 +4382,7 @@
       "isOptional": "No",
       "QuantityCalculationRule": ""
     }
-  },
-  "<ST>BOMContext": {
-    "1": {
-      "Step": "M3-MT-Ti_ Pt_ Ni_ Au-SputterCluster-6in-00126F020_E",
-      "Product": "11111335",
-      "ProductGroup": "",
-      "Flow": "",
-      "Material": "",
-      "BOM": "11111335_SAP",
-      "AssemblyType": "AutomaticAtTrackIn",
-      "TrackInCheckMode": "Quantities",
-      "TrackOutLossesMode": "AfterAssembly",
-      "LogicalFlowPath": ""
-    },
-    "2": {
-      "Step": "M3-MT-Ti_ TiW-SputterCluster-6in-00126F024_E",
-      "Product": "11111335",
-      "ProductGroup": "",
-      "Flow": "",
-      "Material": "",
-      "BOM": "11111335_SAP",
-      "AssemblyType": "AutomaticAtTrackIn",
-      "TrackInCheckMode": "Quantities",
-      "TrackOutLossesMode": "AfterAssembly",
-      "LogicalFlowPath": ""
-    },
-    "3": {
-      "Step": "M3-MT-ZnO-SputterCluster-6in-00126F008_E",
-      "Product": "11111335",
-      "ProductGroup": "",
-      "Flow": "",
-      "Material": "",
-      "BOM": "11111335_SAP",
-      "AssemblyType": "AutomaticAtTrackIn",
-      "TrackInCheckMode": "Quantities",
-      "TrackOutLossesMode": "AfterAssembly",
-      "LogicalFlowPath": ""
-    }
-  },
+  }, 
   "<ST>RecipeContext": {},
   "<GT>MaterialFormRelation": {},
   "<ST>ServiceContext": {
