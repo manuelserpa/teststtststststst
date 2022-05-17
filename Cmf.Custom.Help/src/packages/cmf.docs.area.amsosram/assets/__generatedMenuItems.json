@@ -48,6 +48,18 @@
    "actionId": ""
 },
 {
+   "id": "amsosram-20220426-1.5.0",
+   "menuGroupId": "releasenotes",
+   "title": "AMSOsram-20220426-1.5.0",
+   "actionId": ""
+},
+{
+   "id": "amsosram-20220509-1.6.0",
+   "menuGroupId": "releasenotes",
+   "title": "AMSOsram-20220509-1.6.0",
+   "actionId": ""
+},
+{
    "id": "artifacts",
    "menuGroupId": "techspec",
    "title": "Artifacts",
@@ -396,15 +408,27 @@
    "actionId": ""
 },
 {
-   "id": "equipmenttypea",
+   "id": "evatecclusterline200ii",
    "menuGroupId": "iotequipmenttypes",
-   "title": "Equipment Type A",
+   "title": "Evatec Cluster line 200II",
    "actionId": ""
 },
 {
-   "id": "nicelabel_template",
+   "id": "hermoslfm4xreader",
    "menuGroupId": "iotequipmenttypes",
-   "title": "Nice Label",
+   "title": "Hermos LFM 4x Reader",
+   "actionId": ""
+},
+{
+   "id": "mechatronicmws200",
+   "menuGroupId": "iotequipmenttypes",
+   "title": "Mechatronic MWS200",
+   "actionId": ""
+},
+{
+   "id": "muetecdavinci",
+   "menuGroupId": "iotequipmenttypes",
+   "title": "Muetec DaVinci",
    "actionId": ""
 },
 {
@@ -414,26 +438,104 @@
    "actionId": ""
 },
 {
-   "id": "equipmenttypea-configuration",
-   "menuGroupId": "equipmenttypea",
+   "id": "trymaxneo",
+   "menuGroupId": "iotequipmenttypes",
+   "title": "Trymax NEO",
+   "actionId": ""
+},
+{
+   "id": "evatecclusterline200ii-configuration",
+   "menuGroupId": "evatecclusterline200ii",
    "title": "Configuration",
    "actionId": ""
 },
 {
-   "id": "equipmenttypea-features",
-   "menuGroupId": "equipmenttypea",
+   "id": "evatecclusterline200ii-features",
+   "menuGroupId": "evatecclusterline200ii",
    "title": "Features",
    "actionId": ""
 },
 {
-   "id": "equipmenttypea-setup",
-   "menuGroupId": "equipmenttypea",
+   "id": "evatecclusterline200ii-setup",
+   "menuGroupId": "evatecclusterline200ii",
    "title": "Setup",
    "actionId": ""
 },
 {
-   "id": "equipmenttypea-workflows",
-   "menuGroupId": "equipmenttypea",
+   "id": "evatecclusterline200ii-workflows",
+   "menuGroupId": "evatecclusterline200ii",
+   "title": "Workflows",
+   "actionId": ""
+},
+{
+   "id": "hermoslfm4xreader-configuration",
+   "menuGroupId": "hermoslfm4xreader",
+   "title": "Configuration",
+   "actionId": ""
+},
+{
+   "id": "hermoslfm4xreader-features",
+   "menuGroupId": "hermoslfm4xreader",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "hermoslfm4xreader-setup",
+   "menuGroupId": "hermoslfm4xreader",
+   "title": "Setup",
+   "actionId": ""
+},
+{
+   "id": "hermoslfm4xreader-workflows",
+   "menuGroupId": "hermoslfm4xreader",
+   "title": "Workflows",
+   "actionId": ""
+},
+{
+   "id": "mechatronicmws200-configuration",
+   "menuGroupId": "mechatronicmws200",
+   "title": "Configuration",
+   "actionId": ""
+},
+{
+   "id": "mechatronicmws200-features",
+   "menuGroupId": "mechatronicmws200",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "mechatronicmws200-setup",
+   "menuGroupId": "mechatronicmws200",
+   "title": "Setup",
+   "actionId": ""
+},
+{
+   "id": "mechatronicmws200-workflows",
+   "menuGroupId": "mechatronicmws200",
+   "title": "Workflows",
+   "actionId": ""
+},
+{
+   "id": "muetecdavinci-configuration",
+   "menuGroupId": "muetecdavinci",
+   "title": "Configuration",
+   "actionId": ""
+},
+{
+   "id": "muetecdavinci-features",
+   "menuGroupId": "muetecdavinci",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "muetecdavinci-setup",
+   "menuGroupId": "muetecdavinci",
+   "title": "Setup",
+   "actionId": ""
+},
+{
+   "id": "muetecdavinci-workflows",
+   "menuGroupId": "muetecdavinci",
    "title": "Workflows",
    "actionId": ""
 },
@@ -458,6 +560,30 @@
 {
    "id": "nicelabel-workflows",
    "menuGroupId": "nicelabel",
+   "title": "Workflows",
+   "actionId": ""
+},
+{
+   "id": "trymaxneo-configuration",
+   "menuGroupId": "trymaxneo",
+   "title": "Configuration",
+   "actionId": ""
+},
+{
+   "id": "trymaxneo-features",
+   "menuGroupId": "trymaxneo",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "trymaxneo-setup",
+   "menuGroupId": "trymaxneo",
+   "title": "Setup",
+   "actionId": ""
+},
+{
+   "id": "trymaxneo-workflows",
+   "menuGroupId": "trymaxneo",
    "title": "Workflows",
    "actionId": ""
 },

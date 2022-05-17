@@ -1056,14 +1056,7 @@
       "Lookup Table Value": "Durable",
       "Lookup Table Value Description": "",
       "Lookup Table IsEnabled": "Yes"
-    },    
-    "2": {
-      "LookUp Table": "Units",
-      "Lookup Table Value Parent": "",
-      "Lookup Table Value": "µm",
-      "Lookup Table Value Description": "",
-      "Lookup Table IsEnabled": "Yes"
-    },       
+    },	
     "3": {
       "LookUp Table": "BOMType",
       "Lookup Table Value Parent": "",
@@ -1112,108 +1105,15 @@
       "Lookup Table Value": "Part",
       "Lookup Table Value Description": "",
       "Lookup Table IsEnabled": "Yes"
+    },
+	"10": {
+      "LookUp Table": "Units",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "CM2",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "Yes"
     }
-  },
-  "<DM>Service": {
-    "1": {
-      "Name": "Substrate Storage",
-      "Description": "Substrate Storage",
-      "Type": "Production",
-      "ProcessingType": "Storage",
-      "IsEnabled": "Yes"
-    },
-    "2": {
-      "Name": "EPI Storage",
-      "Description": "EPI Storage",
-      "Type": "Production",
-      "ProcessingType": "Storage",
-      "IsEnabled": "Yes"
-    },
-    "3": {
-      "Name": "FOL Storage",
-      "Description": "FOL Storage",
-      "Type": "Production",
-      "ProcessingType": "Storage",
-      "IsEnabled": "Yes"
-    },
-    "4": {
-      "Name": "Carrier Storage",
-      "Description": "Carrier Storage",
-      "Type": "Production",
-      "ProcessingType": "Storage",
-      "IsEnabled": "Yes"
-    },
-    "5": {
-      "Name": "Coat-nLOF",
-      "Description": "Coat-nLOF",
-      "Type": "Production",
-      "ProcessingType": "Process",
-      "IsEnabled": "Yes"
-    },
-    "6": {
-      "Name": "Stepper-L5",
-      "Description": "Stepper-L5",
-      "Type": "Production",
-      "ProcessingType": "Process",
-      "IsEnabled": "Yes"
-    },
-    "7": {
-      "Name": "Develop-MIF826-6X10s",
-      "Description": "Develop-MIF826-6X10s",
-      "Type": "Production",
-      "ProcessingType": "Process",
-      "IsEnabled": "Yes"
-    },
-    "8": {
-      "Name": "MueTec-CD",
-      "Description": "MueTec-CD",
-      "Type": "Production",
-      "ProcessingType": "Process",
-      "IsEnabled": "Yes"
-    },
-    "9": {
-      "Name": "Structure",
-      "Description": "Structure",
-      "Type": "Production",
-      "ProcessingType": "Process",
-      "IsEnabled": "Yes"
-    },
-    "10": {
-      "Name": "Etch",
-      "Description": "Etch",
-      "Type": "Production",
-      "ProcessingType": "Process",
-      "IsEnabled": "Yes"
-    },
-    "11": {
-      "Name": "Ashing-UX3-L",
-      "Description": "Ashing-UX3-L",
-      "Type": "Production",
-      "ProcessingType": "Process",
-      "IsEnabled": "Yes"
-    },
-    "12": {
-      "Name": "Inspection",
-      "Description": "Inspection",
-      "Type": "Production",
-      "ProcessingType": "Process",
-      "IsEnabled": "Yes"
-    },
-    "13": {
-      "Name": "Stepper-L6",
-      "Description": "Stepper-L6",
-      "Type": "Production",
-      "ProcessingType": "Process",
-      "IsEnabled": "Yes"
-    },
-    "14": {
-      "Name": "Stepper-L7",
-      "Description": "Stepper-L7",
-      "Type": "Production",
-      "ProcessingType": "Process",
-      "IsEnabled": "Yes"
-    }
-  },
+  }, 
   "<DM>Step": {
     "1": {
       "Name": "Incoming Wafer",

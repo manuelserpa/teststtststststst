@@ -209,6 +209,7 @@
 					"    public async main(inputs: any, outputs: any): Promise<any> {",
 					"        // Add code here",
 					"        const loadPortNumber = inputs.LoadPortNumber;",
+					"        const containerId = inputs.ContainerId;",
 					"        const remoteCommandSuccessCode = \"0x00,0x04\";",
 					"        let commandParameters: any[] = [];",
 					"        const sendMessage: Object = {",
@@ -217,7 +218,7 @@
 					"                type: \"L\", value: [",
 					"                    { type: \"U4\", value: 8 }, //DataID",
 					"                    { type: \"A\", value: \"ProceedWithCarrier\" }, ",
-					"                    { type: \"A\", value: `CarrierAtLoadPort${loadPortNumber}` },",
+					"                    { type: \"A\", value: containerId },",
 					"                    { type: \"U1\", value: loadPortNumber }, ",
 					"                    { type: \"L\", value: commandParameters }",
 					"                ]",
@@ -258,13 +259,24 @@
 					"}",
 					""
 				],
-				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IGxvYWRQb3J0TnVtYmVyID0gaW5wdXRzLkxvYWRQb3J0TnVtYmVyOw0KICAgICAgICBjb25zdCByZW1vdGVDb21tYW5kU3VjY2Vzc0NvZGUgPSAiMHgwMCwweDA0IjsNCiAgICAgICAgbGV0IGNvbW1hbmRQYXJhbWV0ZXJzID0gW107DQogICAgICAgIGNvbnN0IHNlbmRNZXNzYWdlID0gew0KICAgICAgICAgICAgdHlwZTogIlMzRjE3IiwNCiAgICAgICAgICAgIGl0ZW06IHsNCiAgICAgICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIlU0IiwgdmFsdWU6IDggfSwNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiUHJvY2VlZFdpdGhDYXJyaWVyIiB9LA0KICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6IGBDYXJyaWVyQXRMb2FkUG9ydCR7bG9hZFBvcnROdW1iZXJ9YCB9LA0KICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJVMSIsIHZhbHVlOiBsb2FkUG9ydE51bWJlciB9LA0KICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJMIiwgdmFsdWU6IGNvbW1hbmRQYXJhbWV0ZXJzIH0NCiAgICAgICAgICAgICAgICBdDQogICAgICAgICAgICB9DQogICAgICAgIH07DQogICAgICAgIGNvbW1hbmRQYXJhbWV0ZXJzLnB1c2goew0KICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIkNhcGFjaXR5IiB9LA0KICAgICAgICAgICAgICAgIHsgdHlwZTogIlUxIiwgdmFsdWU6IDEzIH0NCiAgICAgICAgICAgIF0NCiAgICAgICAgfSk7DQogICAgICAgIGNvbW1hbmRQYXJhbWV0ZXJzLnB1c2goew0KICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIlN1YnN0cmF0ZUNvdW50IiB9LA0KICAgICAgICAgICAgICAgIHsgdHlwZTogIlUxIiwgdmFsdWU6IDAgfQ0KICAgICAgICAgICAgXQ0KICAgICAgICB9KTsNCiAgICAgICAgY29uc3QgcmVwbHkgPSBhd2FpdCB0aGlzLmZyYW1ld29yay5kcml2ZXIuc2VuZFJhdygiY29ubmVjdC5pb3QuZHJpdmVyLnNlY3NnZW0uc2VuZE1lc3NhZ2UiLCBzZW5kTWVzc2FnZSk7DQogICAgICAgIGxldCBzdWNjZXNzRm91bmQgPSBmYWxzZTsNCiAgICAgICAgZm9yIChjb25zdCBzdWNjZXNzQ29kZSBvZiByZW1vdGVDb21tYW5kU3VjY2Vzc0NvZGUuc3BsaXQoIiwiKSkgew0KICAgICAgICAgICAgaWYgKHJlcGx5ICYmIHJlcGx5Lml0ZW0gJiYgcGFyc2VJbnQocmVwbHkuaXRlbS52YWx1ZVswXS52YWx1ZSkgPT09IHBhcnNlSW50KHN1Y2Nlc3NDb2RlLnRyaW0oKSkpIHsNCiAgICAgICAgICAgICAgICBzdWNjZXNzRm91bmQgPSB0cnVlOw0KICAgICAgICAgICAgICAgIGJyZWFrOw0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgICAgIGlmICghc3VjY2Vzc0ZvdW5kKSB7DQogICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYFByb2NlZWRXaXRoQ2FycmllciBmYWlsZWQgaW4gQ2FycmllckFycml2ZWQgZm9yIExQJHtsb2FkUG9ydE51bWJlcn06IFxuUmVwbHk6JHtKU09OLnN0cmluZ2lmeShyZXBseSl9YCk7DQogICAgICAgIH0NCiAgICAgICAgLy8gZW1pdCBvdXRwdXQgZHVyaW5nIGV4ZWN1dGlvbjogb3V0cHV0cy5vdXRwdXQxLmVtaXQoInNvbWV0aGluZyIpOw0KICAgICAgICAvLyByZXR1cm4gZXhhbXBsZTogcmV0dXJuIHsgb3V0cHV0MTogaW5wdXRzLmlucHV0MSwgb3V0cHV0MjogIkhlbGxvIFdvcmxkIiB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IGxvYWRQb3J0TnVtYmVyID0gaW5wdXRzLkxvYWRQb3J0TnVtYmVyOw0KICAgICAgICBjb25zdCBjb250YWluZXJJZCA9IGlucHV0cy5Db250YWluZXJJZDsNCiAgICAgICAgY29uc3QgcmVtb3RlQ29tbWFuZFN1Y2Nlc3NDb2RlID0gIjB4MDAsMHgwNCI7DQogICAgICAgIGxldCBjb21tYW5kUGFyYW1ldGVycyA9IFtdOw0KICAgICAgICBjb25zdCBzZW5kTWVzc2FnZSA9IHsNCiAgICAgICAgICAgIHR5cGU6ICJTM0YxNyIsDQogICAgICAgICAgICBpdGVtOiB7DQogICAgICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJVNCIsIHZhbHVlOiA4IH0sDQogICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIlByb2NlZWRXaXRoQ2FycmllciIgfSwNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiBjb250YWluZXJJZCB9LA0KICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJVMSIsIHZhbHVlOiBsb2FkUG9ydE51bWJlciB9LA0KICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJMIiwgdmFsdWU6IGNvbW1hbmRQYXJhbWV0ZXJzIH0NCiAgICAgICAgICAgICAgICBdDQogICAgICAgICAgICB9DQogICAgICAgIH07DQogICAgICAgIGNvbW1hbmRQYXJhbWV0ZXJzLnB1c2goew0KICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIkNhcGFjaXR5IiB9LA0KICAgICAgICAgICAgICAgIHsgdHlwZTogIlUxIiwgdmFsdWU6IDEzIH0NCiAgICAgICAgICAgIF0NCiAgICAgICAgfSk7DQogICAgICAgIGNvbW1hbmRQYXJhbWV0ZXJzLnB1c2goew0KICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIlN1YnN0cmF0ZUNvdW50IiB9LA0KICAgICAgICAgICAgICAgIHsgdHlwZTogIlUxIiwgdmFsdWU6IDAgfQ0KICAgICAgICAgICAgXQ0KICAgICAgICB9KTsNCiAgICAgICAgY29uc3QgcmVwbHkgPSBhd2FpdCB0aGlzLmZyYW1ld29yay5kcml2ZXIuc2VuZFJhdygiY29ubmVjdC5pb3QuZHJpdmVyLnNlY3NnZW0uc2VuZE1lc3NhZ2UiLCBzZW5kTWVzc2FnZSk7DQogICAgICAgIGxldCBzdWNjZXNzRm91bmQgPSBmYWxzZTsNCiAgICAgICAgZm9yIChjb25zdCBzdWNjZXNzQ29kZSBvZiByZW1vdGVDb21tYW5kU3VjY2Vzc0NvZGUuc3BsaXQoIiwiKSkgew0KICAgICAgICAgICAgaWYgKHJlcGx5ICYmIHJlcGx5Lml0ZW0gJiYgcGFyc2VJbnQocmVwbHkuaXRlbS52YWx1ZVswXS52YWx1ZSkgPT09IHBhcnNlSW50KHN1Y2Nlc3NDb2RlLnRyaW0oKSkpIHsNCiAgICAgICAgICAgICAgICBzdWNjZXNzRm91bmQgPSB0cnVlOw0KICAgICAgICAgICAgICAgIGJyZWFrOw0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgICAgIGlmICghc3VjY2Vzc0ZvdW5kKSB7DQogICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYFByb2NlZWRXaXRoQ2FycmllciBmYWlsZWQgaW4gQ2FycmllckFycml2ZWQgZm9yIExQJHtsb2FkUG9ydE51bWJlcn06IFxuUmVwbHk6JHtKU09OLnN0cmluZ2lmeShyZXBseSl9YCk7DQogICAgICAgIH0NCiAgICAgICAgLy8gZW1pdCBvdXRwdXQgZHVyaW5nIGV4ZWN1dGlvbjogb3V0cHV0cy5vdXRwdXQxLmVtaXQoInNvbWV0aGluZyIpOw0KICAgICAgICAvLyByZXR1cm4gZXhhbXBsZTogcmV0dXJuIHsgb3V0cHV0MTogaW5wdXRzLmlucHV0MSwgb3V0cHV0MjogIkhlbGxvIFdvcmxkIiB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
 				"inputs": [
 					{
 						"name": "LoadPortNumber",
 						"valueType": {
 							"friendlyName": "LoadPortNumber",
 							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerId",
+						"valueType": {
+							"friendlyName": "ContainerId",
+							"type": 4,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
@@ -366,6 +378,13 @@
 					}
 				}
 			]
+		},
+		{
+			"id": "d9a102cd-ca80-45a3-ab08-41d574ec8ada",
+			"sourceId": "task_179238",
+			"targetId": "task_31772",
+			"inputName": "ContainerIdIn",
+			"outputName": "ContainerIdOut"
 		}
 	],
 	"layout": {
@@ -402,8 +421,8 @@
 					"task_179240": {
 						"collapsed": false,
 						"position": {
-							"x": 2786,
-							"y": 1164
+							"x": 2830,
+							"y": 1189
 						},
 						"outdated": false
 					},
@@ -441,6 +460,9 @@
 					"013b1e0f-dde9-410e-949b-adc5682cb058": {
 						"vertices": []
 					},
+					"d9a102cd-ca80-45a3-ab08-41d574ec8ada": {
+						"vertices": []
+					},
 					"ad432650-05f8-48db-88d9-4123e3f69da7": {
 						"vertices": []
 					}
@@ -456,8 +478,8 @@
 				},
 				"zoom": 0.6899999999999998,
 				"pan": {
-					"x": 1854.4444580078125,
-					"y": 330
+					"x": 1172,
+					"y": 510
 				}
 			}
 		}

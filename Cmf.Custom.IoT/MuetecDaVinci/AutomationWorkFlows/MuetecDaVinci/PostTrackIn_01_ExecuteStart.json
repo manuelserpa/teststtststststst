@@ -172,6 +172,88 @@
 				"___cmf___color": "#808080",
 				"materialState": "Setup"
 			}
+		},
+		{
+			"id": "task_3137",
+			"reference": {
+				"name": "storeMaterialObject",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"___cmf___name": "Store Material Object",
+				"___cmf___color": "#808080"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_5177",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        ",
+					"        return { materialObject: [inputs.MaterialData]}",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIHJldHVybiB7IG1hdGVyaWFsT2JqZWN0OiBbaW5wdXRzLk1hdGVyaWFsRGF0YV0gfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "materialObject",
+						"valueType": {
+							"friendlyName": "materialObject",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
 		}
 	],
 	"converters": [
@@ -260,6 +342,34 @@
 			"targetId": "task_9850",
 			"inputName": "activate",
 			"outputName": "$PortID"
+		},
+		{
+			"id": "98e11637-4868-40e6-9997-0586242de5db",
+			"sourceId": "task_5177",
+			"targetId": "task_3137",
+			"inputName": "materialObject",
+			"outputName": "materialObjectOut"
+		},
+		{
+			"id": "00f245c7-d4fb-40b3-953e-6f4595a9383b",
+			"sourceId": "task_5177",
+			"targetId": "task_3137",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "6b36154f-324e-4b21-9711-7f6b59b414fe",
+			"sourceId": "task_26213",
+			"targetId": "task_5177",
+			"inputName": "MaterialDataIn",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "21de317b-9a80-45eb-8673-f7917d11dd5b",
+			"sourceId": "task_26213",
+			"targetId": "task_5177",
+			"inputName": "activate",
+			"outputName": "success"
 		}
 	],
 	"layout": {
@@ -289,8 +399,8 @@
 					"task_26213": {
 						"collapsed": false,
 						"position": {
-							"x": 2019,
-							"y": 1040
+							"x": 2007,
+							"y": 981
 						},
 						"outdated": false
 					},
@@ -299,6 +409,22 @@
 						"position": {
 							"x": 973,
 							"y": 979
+						},
+						"outdated": false
+					},
+					"task_3137": {
+						"collapsed": false,
+						"position": {
+							"x": 2991,
+							"y": 886
+						},
+						"outdated": false
+					},
+					"task_5177": {
+						"collapsed": false,
+						"position": {
+							"x": 2545.0704225352097,
+							"y": 851.5184859154925
 						},
 						"outdated": false
 					}
@@ -321,13 +447,25 @@
 					},
 					"7fa85667-ec4b-4d5f-a787-7f10832e6abe": {
 						"vertices": []
+					},
+					"98e11637-4868-40e6-9997-0586242de5db": {
+						"vertices": []
+					},
+					"00f245c7-d4fb-40b3-953e-6f4595a9383b": {
+						"vertices": []
+					},
+					"6b36154f-324e-4b21-9711-7f6b59b414fe": {
+						"vertices": []
+					},
+					"21de317b-9a80-45eb-8673-f7917d11dd5b": {
+						"vertices": []
 					}
 				},
 				"notes": {},
-				"zoom": 0.8300000000000005,
+				"zoom": 0.7100000000000004,
 				"pan": {
-					"x": 370,
-					"y": 596.6666870117188
+					"x": 692,
+					"y": 302
 				}
 			}
 		}

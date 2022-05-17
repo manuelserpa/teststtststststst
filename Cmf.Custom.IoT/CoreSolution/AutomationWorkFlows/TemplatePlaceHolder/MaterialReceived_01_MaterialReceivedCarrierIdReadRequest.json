@@ -1,0 +1,586 @@
+{
+	"tasks": [
+		{
+			"id": "task_29463",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "CarrierArrived",
+					"IsShared": true,
+					"Name": "CarrierArrived"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "LoadPortNumber",
+						"valueType": {
+							"friendlyName": "LoadPortNumber",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "DoNotDeleteExistingContainerForLoadPort",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "LoadPortName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "LoadPortNumber",
+						"valueType": {
+							"friendlyName": "LoadPortNumber",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"friendlyName": "LoadPort",
+							"type": null,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "DeletedContainer",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"___cmf___name": "Carrier Arrived Workflow"
+			}
+		},
+		{
+			"id": "task_29465",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": []
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_29636",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "CarrierIdRead",
+					"IsShared": true,
+					"Name": "CarrierIdRead"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "ContainerId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "SlotMap",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "StateUpdatedOnMainEquipment"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "container",
+						"valueType": {
+							"friendlyName": "container",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"friendlyName": "LoadPort",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Carrier Id Read Workflow"
+			}
+		},
+		{
+			"id": "task_1598",
+			"reference": {
+				"name": "customReadId",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {},
+			"driver": "RFIDReader"
+		},
+		{
+			"id": "task_2654",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ErrorHandling",
+					"IsShared": true,
+					"Name": "ErrorHandling"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorCode",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorText",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"friendlyName": "MaterialName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerData",
+						"valueType": {
+							"friendlyName": "ContainerData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"friendlyName": "ContainerName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"friendlyName": "Error",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Error Workflow",
+				"___cmf___color": "#ff0000"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToString",
+			"reference": {
+				"name": "anyToString",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+			"reference": {
+				"name": "anyToErrorCodeConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "b5bf631f-79d2-43e6-abe5-b4aead9f6255",
+			"sourceId": "task_29463",
+			"targetId": "task_1598",
+			"inputName": "TargetId",
+			"outputName": "LoadPortNumberOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToString",
+					"params": {}
+				}
+			]
+		},
+		{
+			"id": "95a85db4-26a8-4241-a1e3-609e62c11acd",
+			"sourceId": "task_29463",
+			"targetId": "task_1598",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "58274bad-6e69-48b6-82ce-df81222a2869",
+			"sourceId": "task_1598",
+			"targetId": "task_29636",
+			"inputName": "ContainerIdIn",
+			"outputName": "MaterialId"
+		},
+		{
+			"id": "83b93132-08e2-4ec2-96ea-18ea0950a7e1",
+			"sourceId": "task_1598",
+			"targetId": "task_29636",
+			"inputName": "LoadPortIn",
+			"outputName": "TargetIdResult",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		},
+		{
+			"id": "18e24f76-373d-432c-a305-134dccf33d1b",
+			"sourceId": "task_1598",
+			"targetId": "task_29636",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "b18e54ca-5faa-4335-b388-65f3f5a76d46",
+			"sourceId": "task_1598",
+			"targetId": "task_2654",
+			"inputName": "ErrorIn",
+			"outputName": "error"
+		},
+		{
+			"id": "c9eb2b40-bcc2-4be6-bf91-83012e2506ef",
+			"sourceId": "task_1598",
+			"targetId": "task_2654",
+			"inputName": "activate",
+			"outputName": "error"
+		},
+		{
+			"id": "f090667f-06e6-4a81-bf77-ef12b28c85c2",
+			"sourceId": "task_1598",
+			"targetId": "task_2654",
+			"inputName": "ErrorCodeIn",
+			"outputName": "error",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+					"params": {
+						"SystemOfOrigin": "EI",
+						"ErrorNumber": 0
+					}
+				}
+			]
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#80ffff",
+			"notes": [
+				{
+					"id": "note_29467",
+					"name": "TosMaterialReceived",
+					"value": "<p><strong>What it does:</strong></p><p>Sets corresponding Load Port to Occupied</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to TosMaterialReceived for the Tool;</li><li>Connect the value corresponding to the Load Port Id to the Load Port Id of the Workflow task;<ol><li>If the Equipment does not deliver that information and has only 1 port:<ol><li>Connect any event output to Load Port Id;</li><li>Use the Converter \"Any to Constant\" to send a value of Type Integer and Value 1;</li></ol></li><li>If the Equipment does not deliver that information and has multiple Load Port with multiple Event:<ol><li>Connect any event output to Load Port Id;</li><li>Use the Converter \"Any to Constant\" to send a value of Type Integer and Value corresponding to the Load Port;</li></ol></li></ol></li><li>Pass any event Output to the Activate Input of the Workflow;</li></ol><ol><p></p></ol><p>&nbsp;</p>",
+					"color": "#ffffa5"
+				},
+				{
+					"id": "note_29854",
+					"name": "TosCarrierIDRead",
+					"value": "<p><strong>What it does:</strong></p><p>Stores Container In on Container Data for Load Port;</p><p>Default behavior executes Dock of Container On MES.</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to TosCarrierIDRead for the Tool;</li><li>Pass Load Port and Container Id to the Workflow;&nbsp;</li><li>Pass any event Output to the Activate Input of the Workflow;</li></ol><ol><p>&nbsp;</p><p>&nbsp;</p></ol><p>&nbsp;</p>",
+					"color": "#ffffa5"
+				},
+				{
+					"id": "note_5203",
+					"name": "S18F9 Read Id",
+					"value": "Requests the Id from the RFID Reader",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_29463": {
+						"collapsed": false,
+						"position": {
+							"x": 911,
+							"y": 355
+						},
+						"outdated": false
+					},
+					"task_29465": {
+						"collapsed": false,
+						"position": {
+							"x": 360,
+							"y": 351
+						},
+						"outdated": false
+					},
+					"task_29636": {
+						"collapsed": false,
+						"position": {
+							"x": 2051,
+							"y": 365
+						},
+						"outdated": false
+					},
+					"task_1598": {
+						"collapsed": false,
+						"position": {
+							"x": 1432,
+							"y": 364
+						},
+						"outdated": false
+					},
+					"task_2654": {
+						"collapsed": false,
+						"position": {
+							"x": 2046,
+							"y": 799
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"95a85db4-26a8-4241-a1e3-609e62c11acd": {
+						"vertices": []
+					},
+					"58274bad-6e69-48b6-82ce-df81222a2869": {
+						"vertices": []
+					},
+					"18e24f76-373d-432c-a305-134dccf33d1b": {
+						"vertices": []
+					},
+					"b18e54ca-5faa-4335-b388-65f3f5a76d46": {
+						"vertices": []
+					},
+					"c9eb2b40-bcc2-4be6-bf91-83012e2506ef": {
+						"vertices": []
+					},
+					"b5bf631f-79d2-43e6-abe5-b4aead9f6255": {
+						"vertices": []
+					},
+					"83b93132-08e2-4ec2-96ea-18ea0950a7e1": {
+						"vertices": []
+					},
+					"f090667f-06e6-4a81-bf77-ef12b28c85c2": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_29467": {
+						"collapsed": false,
+						"position": {
+							"x": 936,
+							"y": 790
+						}
+					},
+					"note_29854": {
+						"collapsed": false,
+						"position": {
+							"x": 2465,
+							"y": 69
+						}
+					},
+					"note_5203": {
+						"collapsed": false,
+						"position": {
+							"x": 1427,
+							"y": 218
+						}
+					}
+				},
+				"zoom": 0.5900000000000003,
+				"pan": {
+					"x": 362.68961690295214,
+					"y": 35.51363202227702
+				}
+			}
+		}
+	}
+}

@@ -4471,6 +4471,13 @@
       "DisplayName": "SecsGemEquipment",
       "AutomationDriverDefinition": "EvatecClusterline200IIDriver",
       "Color": "#ffff80"
+    },
+    "2": {
+      "AutomationController": "EvatecClusterline200IIController",
+      "Name": "RFIDReader",
+      "DisplayName": "RFIDReader",
+      "AutomationDriverDefinition": "HermosLFM4xReaderDriver",
+      "Color": "#ffdd80"
     }
   },
   "AutomationControllerWorkflow": {
@@ -4484,323 +4491,331 @@
     },
     "2": {
       "AutomationController": "EvatecClusterline200IIController",
+      "Name": "Setup_RFIDReader",
+      "DisplayName": "Setup_RFIDReader",
+      "IsFile": "Yes",
+      "Workflow": "EvatecClusterline200II\\Setup_RFIDReader.json",
+      "Order": "2"
+    },
+    "3": {
+      "AutomationController": "EvatecClusterline200IIController",
       "Name": "MaterialReceived_01_MaterialReceivedEvent",
       "DisplayName": "MaterialReceived_01_MaterialReceivedEvent",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\MaterialReceived_01_MaterialReceivedEvent.json",
-      "Order": "2"
+      "Order": "3"
     },
-    "3": {
+    "4": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "CarrierIdRead_01_EventReceived",
       "DisplayName": "CarrierIdRead_01_EventReceived",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\CarrierIdRead_01_EventReceived.json",
-      "Order": "3"
+      "Order": "4"
     },
-    "4": {
+    "5": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "SlotMap_01_SlotMapReceived",
       "DisplayName": "SlotMap_01_SlotMapReceived",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\SlotMap_01_SlotMapReceived.json",
-      "Order": "4"
+      "Order": "5"
     },
-    "5": {
+    "6": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "ReadyToUnload_01_EventReceived",
       "DisplayName": "ReadyToUnload_01_EventReceived",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\ReadyToUnload_01_EventReceived.json",
-      "Order": "5"
+      "Order": "6"
     },
-    "6": {
+    "7": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "MaterialRemoved_01_MaterialRemovedEvent",
       "DisplayName": "MaterialRemoved_01_MaterialRemovedEvent",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\MaterialRemoved_01_MaterialRemovedEvent.json",
-      "Order": "6"
+      "Order": "7"
     },
-    "7": {
+    "8": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "TrackIn_01_TrackInRequestReceived",
       "DisplayName": "TrackIn_01_TrackInRequestReceived",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\TrackIn_01_TrackInRequestReceived300mm.json",
-      "Order": "7"
+      "Order": "8"
     },
-    "8": {
+    "9": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "ProcessStarted_01_EventTosProcessStartedReceived",
       "DisplayName": "ProcessStarted_01_EventTosProcessStartedReceived",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\ProcessStarted_01_EventTosProcessStartedReceived.json",
-      "Order": "8"
+      "Order": "9"
     },
-    "9": {
+    "10": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "ProcessStarted_02_EventTosProcessStartedReceived",
       "DisplayName": "ProcessStarted_02_EventTosProcessStartedReceived",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\ProcessStarted_02_EventTosProcessStartedReceived.json",
-      "Order": "9"
+      "Order": "10"
     },
-    "10": {
+    "11": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "WaferStart_01_Chamber1EventWaferStarted",
       "DisplayName": "WaferStart_01_Chamber1EventWaferStarted",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\WaferStart_01_Chamber1EventWaferStarted.json",
-      "Order": "10"
+      "Order": "11"
     },
-    "11": {
+    "12": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "WaferStart_02_Chamber2EventWaferStarted",
       "DisplayName": "WaferStart_02_Chamber2EventWaferStarted",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\WaferStart_02_Chamber2EventWaferStarted.json",
-      "Order": "11"
+      "Order": "12"
     },
-    "12": {
+    "13": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "WaferStart_03_Chamber3EventWaferStarted",
       "DisplayName": "WaferStart_03_Chamber3EventWaferStarted",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\WaferStart_03_Chamber3EventWaferStarted.json",
-      "Order": "12"
+      "Order": "13"
     },
-    "13": {
+    "14": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "WaferStart_04_Chamber4EventWaferStarted",
       "DisplayName": "WaferStart_04_Chamber4EventWaferStarted",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\WaferStart_04_Chamber4EventWaferStarted.json",
-      "Order": "13"
+      "Order": "14"
     },
-    "14": {
+    "15": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "WaferStart_05_Chamber5EventWaferStarted",
       "DisplayName": "WaferStart_05_Chamber5EventWaferStarted",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\WaferStart_05_Chamber5EventWaferStarted.json",
-      "Order": "14"
+      "Order": "15"
     },
-    "15": {
+    "16": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "WaferStart_06_Chamber6EventWaferStarted",
       "DisplayName": "WaferStart_06_Chamber6EventWaferStarted",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\WaferStart_06_Chamber6EventWaferStarted.json",
-      "Order": "15"
+      "Order": "16"
     },
-    "16": {
+    "17": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "WaferComplete_01_Chamber1EventWaferCompleted",
       "DisplayName": "WaferComplete_01_Chamber1EventWaferCompleted",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\WaferComplete_01_Chamber1EventWaferCompleted.json",
-      "Order": "16"
+      "Order": "17"
     },
-    "17": {
+    "18": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "WaferComplete_02_Chamber2EventWaferCompleted",
       "DisplayName": "WaferComplete_02_Chamber2EventWaferCompleted",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\WaferComplete_02_Chamber2EventWaferCompleted.json",
-      "Order": "17"
+      "Order": "18"
     },
-    "18": {
+    "19": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "WaferComplete_03_Chamber3EventWaferCompleted",
       "DisplayName": "WaferComplete_03_Chamber3EventWaferCompleted",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\WaferComplete_03_Chamber3EventWaferCompleted.json",
-      "Order": "18"
+      "Order": "19"
     },
-    "19": {
+    "20": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "WaferComplete_04_Chamber4EventWaferCompleted",
       "DisplayName": "WaferComplete_04_Chamber4EventWaferCompleted",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\WaferComplete_04_Chamber4EventWaferCompleted.json",
-      "Order": "19"
+      "Order": "20"
     },
-    "20": {
+    "21": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "WaferComplete_05_Chamber5EventWaferCompleted",
       "DisplayName": "WaferComplete_05_Chamber5EventWaferCompleted",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\WaferComplete_05_Chamber5EventWaferCompleted.json",
-      "Order": "20"
+      "Order": "21"
     },
-    "21": {
+    "22": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "WaferComplete_06_Chamber6EventWaferCompleted",
       "DisplayName": "WaferComplete_06_Chamber6EventWaferCompleted",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\WaferComplete_06_Chamber6EventWaferCompleted.json",
-      "Order": "21"
+      "Order": "22"
     },
-    "22": {
+    "23": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "ProcessCompleted_01_EventProcessCompletedReceived",
       "DisplayName": "ProcessCompleted_01_EventProcessCompletedReceived",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\ProcessCompleted_01_EventProcessCompletedReceived.json",
-      "Order": "22"
+      "Order": "23"
     },
-    "23": {
+    "24": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "TrackOut_01_TrackOutEventReceivedFromMES",
       "DisplayName": "TrackOut_01_TrackOutEventReceivedFromMES",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\TrackOut_01_TrackOutEventReceivedFromMES.json",
-      "Order": "23"
+      "Order": "24"
     },
-    "24": {
+    "25": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "Abort_01_AbortEventReceivedFromMES",
       "DisplayName": "Abort_01_AbortEventReceivedFromMES",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\Abort_01_AbortEventReceivedFromMES300mm.json",
-      "Order": "24"
+      "Order": "25"
     },
-    "25": {
+    "26": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "Hold_01_HoldEventReceivedFromMES",
       "DisplayName": "Hold_01_HoldEventReceivedFromMES",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\Hold_01_HoldEventReceivedFromMES.json",
-      "Order": "25"
+      "Order": "26"
     },
-    "26": {
+    "27": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "AlarmManagement_01_AlarmCollection",
       "DisplayName": "AlarmManagement_01_AlarmCollection",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\AlarmManagement_01_AlarmCollection.json",
-      "Order": "26"
+      "Order": "27"
     },
-    "27": {
+    "28": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "RecipeManagement_01_GetRecipeList",
       "DisplayName": "RecipeManagement_01_GetRecipeList",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\RecipeManagement_01_GetRecipeList.json",
-      "Order": "27"
+      "Order": "28"
     },
-    "28": {
+    "29": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "RecipeManagement_02_GetRecipeBody",
       "DisplayName": "RecipeManagement_02_GetRecipeBody",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\RecipeManagement_02_GetRecipeBody.json",
-      "Order": "28"
+      "Order": "29"
     },
-    "29": {
+    "30": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "ResourceState_01_ProcessStateChanged",
       "DisplayName": "ResourceState_01_ProcessStateChanged",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\ResourceState_01_ProcessStateChanged.json",
-      "Order": "29"
+      "Order": "30"
     },
-    "30": {
+    "31": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "ResourceEPTState_01_EptStateChangeEquipmentReceived",
       "DisplayName": "ResourceEPTState_01_EptStateChangeEquipmentReceived",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\ResourceEPTState_01_EptStateChangeEquipmentReceived.json",
-      "Order": "30"
+      "Order": "31"
     },
-    "31": {
+    "32": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "ResourceEPTState_02_EptStateLoadPort1ChangeEquipmentReceived",
       "DisplayName": "ResourceEPTState_02_EptStateLoadPort1ChangeEquipmentReceived",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\ResourceEPTState_02_EptStateLoadPort1ChangeEquipmentReceived.json",
-      "Order": "31"
+      "Order": "32"
     },
-    "32": {
+    "33": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "ResourceEPTState_03_EptStateLoadPort2ChangeEquipmentReceived",
       "DisplayName": "ResourceEPTState_03_EptStateLoadPort2ChangeEquipmentReceived",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\ResourceEPTState_03_EptStateLoadPort2ChangeEquipmentReceived.json",
-      "Order": "32"
+      "Order": "33"
     },
-    "33": {
+    "34": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "ControlState_01_ControlStateEquipmentOfflineUpdateReceived",
       "DisplayName": "ControlState_01_ControlStateEquipmentOfflineUpdateReceived",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\ControlState_01_ControlStateEquipmentOfflineUpdateReceived.json",
-      "Order": "33"
+      "Order": "34"
     },
-    "34": {
+    "35": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "ControlState_02_ControlStateOnlineLocalUpdateReceived",
       "DisplayName": "ControlState_02_ControlStateOnlineLocalUpdateReceived",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\ControlState_02_ControlStateOnlineLocalUpdateReceived.json",
-      "Order": "34"
+      "Order": "35"
     },
-    "35": {
+    "36": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "ControlState_03_ControlStateOnlineRemoteUpdateReceived",
       "DisplayName": "ControlState_03_ControlStateOnlineRemoteUpdateReceived",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\ControlState_03_ControlStateOnlineRemoteUpdateReceived.json",
-      "Order": "35"
+      "Order": "36"
     },
-    "36": {
+    "37": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "DisplayName": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\RecipeValidation_01_UnformattedRecipeMainFlow.json",
-      "Order": "36"
+      "Order": "37"
     },
-    "37": {
+    "38": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "CassetteLoad_01_ExecuteCommand",
       "DisplayName": "CassetteLoad_01_ExecuteCommand",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\CassetteLoad_01_ExecuteCommand.json",
-      "Order": "37"
+      "Order": "38"
     },
-    "38": {
+    "39": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "CassetteUnload_01_ExecuteCommand",
       "DisplayName": "CassetteUnload_01_ExecuteCommand",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\CassetteUnload_01_ExecuteCommand.json",
-      "Order": "38"
+      "Order": "39"
     },
-    "39": {
+    "40": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "AbortJob_01_ExecuteControlJobAbort",
       "DisplayName": "AbortJob_01_ExecuteControlJobAbort",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\AbortJob_01_ExecuteControlJobAbort.json",
-      "Order": "39"
+      "Order": "40"
     },
-    "40": {
+    "41": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "CreateProcessJob_01_CreateJob",
       "DisplayName": "CreateProcessJob_01_CreateJob",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\CreateProcessJob_01_CreateJob.json",
-      "Order": "40"
+      "Order": "41"
     },
-    "41": {
+    "42": {
       "AutomationController": "EvatecClusterline200IIController",
       "Name": "CreateControlJob_01_CreateJob",
       "DisplayName": "CreateControlJob_01_CreateJob",
       "IsFile": "Yes",
       "Workflow": "EvatecClusterline200II\\CreateControlJob_01_CreateJob.json",
-      "Order": "41"
+      "Order": "42"
     }
   },
   "<LOOKUP>AutomationInstances": {}

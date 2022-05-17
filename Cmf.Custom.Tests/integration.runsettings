@@ -63,17 +63,34 @@
     <!--   configLocation="C:\Users\raazevedo\Downloads\MCSInterface\config.json"/>-->
 
     <Equipments>
-      <Equipment name="PDSP0101" automationManager="EvatecClusterline200II" driverAlias="SecsGemEquipment"
+      <!--Equipment name="PDSP0101" automationManager="EvatecClusterline200II" driverAlias="SecsGemEquipment"
 					   description="SecsGemEquipment" driver="SecsGem" port="5011" serviceMachine="vm-ams-osram"
 					   serviceName="ConnectIoT (PDSP0101)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json"
 				       library ="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc">
-      </Equipment>
-	   <Equipment name="MECD0101" automationManager="MuetecDaVinci" driverAlias="SecsGemEquipment"
-							 description="SecsGemEquipment" driver="SecsGem" port="5012" serviceMachine="vm-ams-osram"
+      </Equipment-->
+      <Cluster name="PDSP0101" automationManager="EvatecClusterline200II" serviceMachine="vm-ams-osram"
+               serviceName="ConnectIoT (PDSP0101)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json">
+        <Equipment name="PDSP0101" driverAlias="SecsGemEquipment"
+                   description="SecsGemEquipment" driver="SecsGem" port="5011" serviceMachine="vm-ams-osram"
+                   serviceName="ConnectIoT (PDSP0101)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json"
+                   library ="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>
+        <Equipment name="PDSP0101.RFID" driverAlias="RFIDReader" serviceMachine="vm-ams-osram"
+                   serviceName="ConnectIoT (PDSP0101)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json"
+                   description="RFIDReader" driver="SecsGem" port="5012"/>
+      </Cluster>
+      <Cluster name="MECD0101" automationManager="MuetecDaVinci" serviceMachine="vm-ams-osram"
+               serviceName="ConnectIoT (MECD0101)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\MECD0101\remoteTestingConfig.json">
+
+        <Equipment name="MECD0101" driverAlias="SecsGemEquipment"
+							 description="SecsGemEquipment" driver="SecsGem" port="5013" serviceMachine="vm-ams-osram"
 							 serviceName="ConnectIoT (MECD0101)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\MECD0101\remoteTestingConfig.json"
 					   library ="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"
 					   >
-		</Equipment>
+        </Equipment>
+        <Equipment name="MECD0101.RFID" driverAlias="RFIDReader" serviceMachine="vm-ams-osram"
+                   serviceName="ConnectIoT (MECD0101)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\MECD0101\remoteTestingConfig.json"
+                   description="RFIDReader" driver="SecsGem" port="5014"/>
+      </Cluster>
 		<Equipment name="ENA01" automationManager="MechatronicMWS200" driverAlias="SecsGemEquipment"
 				 description="SecsGemEquipment" driver="SecsGem" port="5013" serviceMachine="vm-ams-osram"
 				 serviceName="ConnectIoT (ENA01)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\ENA01\remoteTestingConfig.json"

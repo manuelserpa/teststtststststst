@@ -218,6 +218,16 @@
 					"version": "8.3.3-202201212"
 				}
 			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+			"reference": {
+				"name": "anyToErrorCodeConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			}
 		}
 	],
 	"links": [
@@ -285,6 +295,23 @@
 				{
 					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToString",
 					"params": {}
+				}
+			]
+		},
+		{
+			"id": "dc8b7303-fdbe-43ee-b44e-98507c83298d",
+			"sourceId": "task_179900",
+			"targetId": "task_179898",
+			"inputName": "ErrorCodeIn",
+			"outputName": "error",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+					"params": {
+						"ErrorCode": "CassetteFailedToUnload",
+						"SystemOfOrigin": "EI",
+						"ErrorNumber": 0
+					}
 				}
 			]
 		}
@@ -360,6 +387,9 @@
 						"vertices": []
 					},
 					"75bbad61-5924-48ba-9a00-a9d39109a3e7": {
+						"vertices": []
+					},
+					"dc8b7303-fdbe-43ee-b44e-98507c83298d": {
 						"vertices": []
 					}
 				},

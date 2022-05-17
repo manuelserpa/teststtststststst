@@ -208,47 +208,8 @@ namespace AMSOsramEIAutomaticTests
             return true;
         }
 
-        public static void ConfigureConnection(string resourceName, int? port = null, string library = null, Dictionary<string, object> connectionAttributes = null, bool? isEnableAllAlarms = null, bool? isEnableAllEvents = null)
+        public static void ConfigureConnection(string resourceName, int? port = null, string library = null, Dictionary<string, object> connectionAttributes = null, bool isEnableAllAlarms = false, bool isEnableAllEvents = false, bool prepareTestScenario = true)
         {
-            //var action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action();
-            //try
-            //{
-            //    //Call DEE action called by Operator when clicking on GUI to Download Recipe to Equipment
-            //    action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.GetActionByNameInput()
-            //    {
-            //        Name = "CustomKillProcesses"
-            //    }.GetActionByNameSync().Action;
-            //}
-            //catch
-            //{
-            //    string ruleCode = "";
-            //    ruleCode = File.ReadAllText(".\\HelperFiles\\KillProcessesRules");
-
-            //    action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action()
-            //    {
-            //        Name = "CustomKillProcesses",
-            //        ActionCode = ruleCode,
-            //        IsEnabled = true
-            //    };
-
-            //    action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.CreateActionInput()
-            //    {
-            //        Action = action
-            //    }.CreateActionSync().Action;
-            //}
-
-
-            //var deeOutput = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.ExecuteActionInput()
-            //{
-            //    Action = action,
-            //    Input = new Dictionary<string, object>()
-            //    {
-            //        //{ "ProcessName", "the name of the process" },
-            //        //{ "ExecutionPath", "the execution path of the process" }
-            //    }
-            //}.ExecuteActionSync();
-
-            //Console.WriteLine(deeOutput.Output["Result"]);
 
             if (!port.HasValue)
             {
@@ -278,19 +239,22 @@ namespace AMSOsramEIAutomaticTests
                 }
             }
 
-            if (isEnableAllAlarms.HasValue)
+            if (isEnableAllAlarms)
             {
                 resource.Attributes["AutomationEquipmentEnableDisableAlarmsMode"] = "EnableAll";
             }
 
-            if (isEnableAllEvents.HasValue)
+            if (isEnableAllEvents)
             {
                 resource.Attributes["AutomationEquipmentEnableDisableEventsMode"] = "EnableAll";
             }
 
             resource.SaveAttributes(resource.Attributes);
 
-            PrepareTestScenario(resourceName);
+            if (prepareTestScenario)
+            {
+                PrepareTestScenario(resourceName);
+            }
         }
 
         public virtual CustomMaterialScenario InitializeMaterialScenario(string resourceName, string flowName, string stepName, int numberOfWafersPerLot = 25, bool? allowDownloadRecipeAtTrackIn = null)
@@ -918,34 +882,7 @@ namespace AMSOsramEIAutomaticTests
                 }
                 return materialPersistenceObj == null;
             });
-
-
         }
-
-        public void ValidatePersistenceContainerExists(int loadPortNumber, string containerName = "")
-        {
-            if(string.IsNullOrEmpty(containerName))
-            {
-                var containerPersistenceObj = new StoredItem();
-                TestUtilities.WaitFor(ValidationTimeout, String.Format($"Container for LP {loadPortNumber} should exist on persistence"), () =>
-                {
-                    try
-                    {
-                        containerPersistenceObj = (this.Equipment.BaseImplementation as IoTEquipment).Persistency.StoredItems.FirstOrDefault(p => p.Identifier.EndsWith($"LoadPort_{loadPortNumber}"));
-                    }
-                    catch
-                    {
-                        return false;
-                    }
-                    return (containerPersistenceObj != null);
-                });
-            }
-            
-
-
-        }
-
-        
 
         public void ValidatePersistenceExists(string materialName)
         {
@@ -966,6 +903,30 @@ namespace AMSOsramEIAutomaticTests
 
         }
 
+        #endregion
+
+        #region Container Peristency Validation
+        public void ValidatePersistenceContainerExists(int loadPortNumber, string containerName = "")
+        {
+            if(string.IsNullOrEmpty(containerName))
+            {
+                var containerPersistenceObj = new StoredItem();
+                TestUtilities.WaitFor(ValidationTimeout, String.Format($"Container for LP {loadPortNumber} should exist on persistence"), () =>
+                {
+                    try
+                    {
+                        containerPersistenceObj = (this.Equipment.BaseImplementation as IoTEquipment).Persistency.StoredItems.FirstOrDefault(p => p.Identifier.EndsWith($"LoadPort_{loadPortNumber}"));
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                    return (containerPersistenceObj != null);
+                });
+            }  
+
+        }
+        #endregion
 
         public void ValidateNotification(
             string expectedEvent,
@@ -988,7 +949,34 @@ namespace AMSOsramEIAutomaticTests
 
         }
 
-        #endregion
+        public void ValidateContainerIsDocked(CustomMaterialScenario MESScenario, int loadPortNumber)
+        {
+            ValidateContainerIsDocked(MESScenario.ContainerScenario.Entity, loadPortNumber);
+        }
+
+        public void ValidateContainerIsDocked(Container container, int loadPortNumber)
+        {
+            TestUtilities.WaitFor(45, String.Format($"Container {container.Name} was not correctly docked"), () =>
+            {
+                container.Load();
+                container.LoadRelations();
+
+                if (container.ResourceAssociationType == ContainerResourceAssociationType.DockedContainer
+                && container.ContainerResourceRelations != null && container.ContainerResourceRelations.Count() > 0)
+                {
+                    var loadPort = container.ContainerResourceRelations.First().TargetEntity;
+                    loadPort.Load();
+                    if(loadPort.DisplayOrder == loadPortNumber)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+                return false;
+            });
+        }
+
+        
 
         #region Connection Validation
         public virtual SecsMessage EstablishCommunicationActions(SecsMessage request, SecsMessage reply)

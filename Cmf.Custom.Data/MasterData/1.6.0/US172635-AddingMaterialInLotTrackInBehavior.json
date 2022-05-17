@@ -1,0 +1,774 @@
+{
+  "Index": {
+    "1": {
+      "Tab Name": "Index",
+      "Object Type": "",
+      "Description": "Have the description for each tab in the excel",
+      "Execution Order": "0"
+    },
+    "2": {
+      "Tab Name": "Formats",
+      "Object Type": "",
+      "Description": "Have the specific cell content format for specific tabs and columns",
+      "Execution Order": "0"
+    },
+    "3": {
+      "Tab Name": "Assumptions",
+      "Object Type": "",
+      "Description": "Have assumptions for each tab",
+      "Execution Order": "0"
+    },
+    "4": {
+      "Tab Name": "WorksheetNameMapping",
+      "Object Type": "",
+      "Description": "Used to workaround the 31-character limit of the excel worksheet name. \nDefine your tab name using the tag <LOOKUP> and append a shortname for the object (e.g, <LOOKUP>MySmartTable). Then, in this tab,  map it to the tab name you would define otherwise (e.g, MySmartTable/<ST>TheRealNameForMySmartTable).",
+      "Execution Order": "0"
+    }
+  },
+  "Enums": {
+    "ScheduleCriteria": [
+      "MaximimizePriorityFulfilment",
+      "MaximizeResourceUtilization",
+      "MinimizeDeviationFromDeliveryDates",
+      "MinimizeLateMaterials",
+      "MinimizeMaximumLateness",
+      "MinimizeNumberOfLateMaterials",
+      "MinimizePriorityQuantityWeigthedCycleTime",
+      "MinimizePriorityWeightedLateness",
+      "MinimizeQuantityWeightedCycleTime",
+      "MinimizeSetupTimes",
+      "MinimizeTotalWaitingTime"
+    ],
+    "SchedulingType": [
+      "Machine",
+      "Batch",
+      "Tunnel"
+    ],
+    "ContentStorageType": [
+      "Internal",
+      "External"
+    ],
+    "StepSetupCharacteristic": [
+      "Service",
+      "Product",
+      "ProductGroup",
+      "Recipe"
+    ],
+    "AreaType": [
+      "Area",
+      "StorageArea",
+      "ProductionLine"
+    ],
+    "ProcessingType": [
+      "Process",
+      "Storage",
+      "LoadPort",
+      "ConsumableFeed",
+      "Durable",
+      "Instrument",
+      "Transport",
+      "Line"
+    ],
+    "KPIDimensionSource": [
+      "BusinessRule",
+      "OperationalDataStore",
+      "DataWarehouse",
+      "Cubes"
+    ],
+    "KPISourceType": [
+      "Static",
+      "Dynamic"
+    ],
+    "ScheduleSortingRule": [
+      "PossibleStartDate",
+      "Priority",
+      "ExecutionTime",
+      "MaterialName",
+      "Quantity",
+      "CharacteristicOfItemAtResource",
+      "DueDate",
+      "ItemCode"
+    ],
+    "DispatchScheduleType": [
+      "Dispatching",
+      "Scheduling"
+    ],
+    "DefaultSamplingType": [
+      "CounterBased",
+      "TimeBased",
+      "CounterAndTimeBased"
+    ],
+    "Frequency": [
+      "Daily",
+      "Weekly",
+      "Monthly",
+      "Yearly"
+    ],
+    "ReorderMode": [
+      "Automatic",
+      "None"
+    ],
+    "MaterialLogisticsMode": [
+      "None",
+      "Material",
+      "Product"
+    ],
+    "MaintenanceActivityScheduleMode": [
+      "Earliest",
+      "Latest"
+    ],
+    "KPIDimensionValueType": [
+      "DataValue",
+      "DataSeries"
+    ],
+    "RuleSortingDirection": [
+      "Ascending",
+      "Descending"
+    ],
+    "TimeScale": [
+      "Days",
+      "Hours",
+      "Minutes",
+      "Seconds"
+    ],
+    "SamplingContext": [
+      "MaterialType",
+      "MaterialProduct",
+      "MaterialProductMaturity",
+      "MaterialResource",
+      "MaterialStep",
+      "MaterialStepMaturity"
+    ],
+    "BOMScope": [
+      "MaterialTracking",
+      "MaintenanceManagement"
+    ],
+    "TimeDueScale": [
+      "Hours",
+      "Days",
+      "Weeks",
+      "Months",
+      "Years"
+    ],
+    "MoistureSensitivityLevel": [
+      "1",
+      "2",
+      "2a",
+      "3",
+      "4",
+      "5",
+      "5a",
+      "6"
+    ],
+    "StepInspectionSeveritySwitchingRuleFilterType": [
+      "Time",
+      "LastOccurrences"
+    ],
+    "StepInspectionSeveritySwitchingRuleDirection": [
+      "Tightening",
+      "Reducing"
+    ],
+    "FutureLogisticActionExecutionMode": [
+      "Manual",
+      "Automatic"
+    ],
+    "DefaultScheduleView": [
+      "Day",
+      "Week",
+      "Month"
+    ],
+    "MaintenanceInstanceType": [
+      "Resource",
+      "Container"
+    ],
+    "KPIType": [
+      "Maximum",
+      "Minimum",
+      "Deviation"
+    ],
+    "InstancesToSchedulePattern": [
+      "NumberOfInstances",
+      "Duration"
+    ],
+    "ProductType": [
+      "FinishedGood",
+      "SemiFinishedGood",
+      "RawMaterial",
+      "Part",
+      "Durable"
+    ],
+    "StepInspectionSeverityContextInformationContext": [
+      "MaterialType",
+      "Product",
+      "ProductGroup",
+      "Resource",
+      "Model",
+      "ResourceType",
+      "Flow"
+    ],
+    "IoTSchemaPropertyDataType": [
+      "Long",
+      "Decimal",
+      "DateTime",
+      "Boolean",
+      "String",
+      "Integer",
+      "Url",
+      "Date",
+      "Time",
+      "IoTSchema",
+      "EntityType",
+      "File"
+    ]
+  },
+  "WorksheetNameMapping": {
+    "1": {
+      "WorksheetName": "IntegrationHandler",
+      "Value": "<ST>IntegrationHandlerResolution"
+    }
+  },
+  "<SM>LookupTableValues": {
+    "1": {
+      "LookUp Table": "NotificationType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Equipment",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "2": {
+      "LookUp Table": "NotificationSeverity",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Warning",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "3": {
+      "LookUp Table": "NotificationSeverity",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Critical",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "4": {
+      "LookUp Table": "NotificationAction",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Email",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "5": {
+      "LookUp Table": "NotificationAction",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Notification",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "6": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "MaterialArrivedError",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "7": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "CarrierIdFailedToRead",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "8": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "CarrierFailedToClamp",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "9": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "InvalidCarrierDocked",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "10": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "CarrierFailedToOpen",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "11": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "CassetteSlotMapFailed",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "12": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "CassetteFailedToLoad",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "13": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "TrackInValidationFailed",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "14": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "RecipeValidationFailed",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "15": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "FailingTrackIn",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "16": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "TrackInFailed",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "17": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "PPSelectFailed",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "18": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "StartCommandFailed",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "19": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "ProcessError",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "20": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "FatalProcessError",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "21": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "WaferProcessError",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "22": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "FatalWaferProcessError",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "23": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "CarrierFailedToClose",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "24": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "CassetteFailedToUnload",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "25": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "CarrierFailedToUnclamp",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "26": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "FailedOnReadyToUnload",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "27": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "MaterialRemovedError",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "28": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "OtherError",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "29": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "NotifyErrorOnly",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    },
+    "30": {
+      "LookUp Table": "EquipmentTypeNotification",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "EquipmentCommunication",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "True"
+    }
+  },
+  "<SM>DEEAction": {
+    "1": {
+      "Action": "CustomMaterialInGetLotsFromDockedContainers",
+      "Description": "DEE Action to retrive lots on containers docked on the resource load ports.",
+      "CodeFileRelativePath": "Materials\\CustomMaterialInGetLotsFromDockedContainers.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "2": {
+      "Action": "CustomSendResourceNotification",
+      "Description": "",
+      "CodeFileRelativePath": "Resources\\CustomSendResourceNotification.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "3": {
+      "Action": "CustomTriggerNotifications",
+      "Description": "",
+      "CodeFileRelativePath": "Notification\\CustomTriggerNotifications.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "4": {
+      "Action": "CustomResourceNotificationControlCenter",
+      "Description": "",
+      "CodeFileRelativePath": "Notification\\CustomResourceNotificationControlCenter.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    }
+  },
+  "<DM>Rule": {
+    "1": {
+      "Name": "CustomSendResourceNotification",
+      "Description": "",
+      "Scope": "ConnectIoT",
+      "DEERule": "CustomSendResourceNotification"
+    }
+  },
+  "DEEActionOrder": {},
+  "<ST>SmartTable": {
+    "1": {
+      "Name": "CustomResourceActionNotifications",
+      "Description": "Used to configure resource notifications",
+      "HistoryRetentionTime": "30",
+      "IsHistoryEnabled": "No",
+      "IsRepeatedValuesAllowed": "No",
+      "DataGroup": "",
+      "PreValidationRule": ""
+    }
+  },
+  "SmartTableProperties": {
+    "1": {
+      "SmartTable": "CustomResourceActionNotifications",
+      "Name": "Step",
+      "Position": "1",
+      "Description": "",
+      "IsKey": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "ScalarType": "String",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "EntityType",
+      "ReferenceName": "Step.Name",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": ""
+    },
+    "2": {
+      "SmartTable": "CustomResourceActionNotifications",
+      "Name": "Resource",
+      "Position": "2",
+      "Description": "",
+      "IsKey": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "ScalarType": "String",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "EntityType",
+      "ReferenceName": "Resource.Name",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": ""
+    },
+    "3": {
+      "SmartTable": "CustomResourceActionNotifications",
+      "Name": "ResourceType",
+      "Position": "3",
+      "Description": "",
+      "IsKey": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "ScalarType": "String",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "LookupValue",
+      "ReferenceName": "ResourceType",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": ""
+    },
+    "4": {
+      "SmartTable": "CustomResourceActionNotifications",
+      "Name": "Area",
+      "Position": "4",
+      "Description": "",
+      "IsKey": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "ScalarType": "String",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "EntityType",
+      "ReferenceName": "Area.Name",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": ""
+    },
+    "5": {
+      "SmartTable": "CustomResourceActionNotifications",
+      "Name": "StateModel",
+      "Position": "5",
+      "Description": "",
+      "IsKey": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "ScalarType": "String",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "State Model",
+      "ReferenceName": "Resource",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": ""
+    },
+    "6": {
+      "SmartTable": "CustomResourceActionNotifications",
+      "Name": "FromState",
+      "Position": "6",
+      "Description": "",
+      "IsKey": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "ScalarType": "String",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": ""
+    },
+    "7": {
+      "SmartTable": "CustomResourceActionNotifications",
+      "Name": "ToState",
+      "Position": "7",
+      "Description": "",
+      "IsKey": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "ScalarType": "String",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": ""
+    },
+    "8": {
+      "SmartTable": "CustomResourceActionNotifications",
+      "Name": "NotificationTrigger",
+      "Position": "8",
+      "Description": "",
+      "IsKey": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "Yes",
+      "ScalarType": "String",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "LookupValue",
+      "ReferenceName": "EquipmentTypeNotification",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": ""
+    },
+    "9": {
+      "SmartTable": "CustomResourceActionNotifications",
+      "Name": "NotificationAction",
+      "Position": "9",
+      "Description": "",
+      "IsKey": "No",
+      "IsIndexed": "No",
+      "IsMandatory": "Yes",
+      "ScalarType": "String",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "LookupValue",
+      "ReferenceName": "NotificationAction",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": ""
+    },
+    "10": {
+      "SmartTable": "CustomResourceActionNotifications",
+      "Name": "Severity",
+      "Position": "10",
+      "Description": "",
+      "IsKey": "No",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "ScalarType": "String",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "LookupValue",
+      "ReferenceName": "NotificationSeverity",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": ""
+    },
+    "11": {
+      "SmartTable": "CustomResourceActionNotifications",
+      "Name": "TargetRole",
+      "Position": "11",
+      "Description": "",
+      "IsKey": "No",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "ScalarType": "String",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "Role",
+      "ReferenceName": "",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": ""
+    },
+    "12": {
+      "SmartTable": "CustomResourceActionNotifications",
+      "Name": "TargetDistributionList",
+      "Position": "12",
+      "Description": "",
+      "IsKey": "No",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "ScalarType": "String",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": ""
+    },
+    "13": {
+      "SmartTable": "CustomResourceActionNotifications",
+      "Name": "NotificationTitleMessage",
+      "Position": "13",
+      "Description": "",
+      "IsKey": "No",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "ScalarType": "String",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": ""
+    },
+    "14": {
+      "SmartTable": "CustomResourceActionNotifications",
+      "Name": "NotificationBodyMessage",
+      "Position": "14",
+      "Description": "",
+      "IsKey": "No",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "ScalarType": "String",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": ""
+    },
+    "15": {
+      "SmartTable": "CustomResourceActionNotifications",
+      "Name": "IsEnable",
+      "Position": "15",
+      "Description": "",
+      "IsKey": "No",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "ScalarType": "Boolean",
+      "Size": "0",
+      "Precision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": ""
+    }
+  },
+  "SmartTablePrecedenceKeys": {
+    "1": {
+      "SmartTable": "CustomResourceActionNotifications",
+      "PrecedenceKey1": "Step+Resource+Area+StateModel+FromState+ToState+NotificationTrigger",
+      "PrecedenceKey2": "Step+ResourceType+Area+StateModel+FromState+ToState+NotificationTrigger",
+      "PrecedenceKey3": "Step+Resource+StateModel+FromState+ToState+NotificationTrigger",
+      "PrecedenceKey4": "Step+ResourceType+StateModel+FromState+ToState+NotificationTrigger",
+      "PrecedenceKey5": "Step+StateModel+FromState+ToState+NotificationTrigger",
+      "PrecedenceKey6": "Resource+StateModel+FromState+ToState+NotificationTrigger",
+      "PrecedenceKey7": "ResourceType+StateModel+FromState+ToState+NotificationTrigger",
+      "PrecedenceKey8": "Step+Resource+Area+NotificationTrigger",
+      "PrecedenceKey9": "Step+ResourceType+Area+NotificationTrigger",
+      "PrecedenceKey10": "Step+Resource+NotificationTrigger",
+      "PrecedenceKey11": "Step+ResourceType+NotificationTrigger",
+      "PrecedenceKey12": "Step+Area+NotificationTrigger",
+      "PrecedenceKey13": "Resource+Area+NotificationTrigger",
+      "PrecedenceKey14": "ResourceType+Area+NotificationTrigger",
+      "PrecedenceKey15": "Step+NotificationTrigger",
+      "PrecedenceKey16": "Resource+NotificationTrigger",
+      "PrecedenceKey17": "ResourceType+NotificationTrigger",
+      "PrecedenceKey18": "Area+NotificationTrigger",
+      "PrecedenceKey19": "NotificationTrigger"
+    }
+  },
+  "<SM>LocalizedMessageKey": {}
+}

@@ -151,7 +151,7 @@
 			"driver": "SecsGemEquipment"
 		},
 		{
-			"id": "task_18715",
+			"id": "task_55210",
 			"reference": {
 				"name": "codeExecution",
 				"package": {
@@ -180,18 +180,21 @@
 					"    public async main(inputs: any, outputs: any): Promise<any> {",
 					"        // Add code here",
 					"",
-					"        // emit output during execution: outputs.output1.emit(\"something\");",
-					"        // return example: return { output1: inputs.input1, output2: \"Hello World\" };",
 					"        var substrateId = inputs.SubId;",
-					"        var splitted = substrateId.split(\".\", 2);",
-					"        var loadPortId = splitted[0].replace(\"CarrierAtPort\", \"\")",
-					"        return { LoadPortId: loadPortId, SubMaterialSlot: splitted[1]}",
+					"        var splitted = substrateId.split(\".\");",
+					"        ",
+					"        if(splitted.length != 2)",
+					"        {",
+					"            throw new Error(`Substrate Id does not contain the expected format, value: ${substrateId} `);",
+					"        }",
+					"        ",
+					"        return { ContainerName: splitted[0], SubMaterialSlot: splitted[1] }",
 					"",
 					"    }",
 					"}",
 					""
 				],
-				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIC8vIGVtaXQgb3V0cHV0IGR1cmluZyBleGVjdXRpb246IG91dHB1dHMub3V0cHV0MS5lbWl0KCJzb21ldGhpbmciKTsNCiAgICAgICAgLy8gcmV0dXJuIGV4YW1wbGU6IHJldHVybiB7IG91dHB1dDE6IGlucHV0cy5pbnB1dDEsIG91dHB1dDI6ICJIZWxsbyBXb3JsZCIgfTsNCiAgICAgICAgdmFyIHN1YnN0cmF0ZUlkID0gaW5wdXRzLlN1YklkOw0KICAgICAgICB2YXIgc3BsaXR0ZWQgPSBzdWJzdHJhdGVJZC5zcGxpdCgiLiIsIDIpOw0KICAgICAgICB2YXIgbG9hZFBvcnRJZCA9IHNwbGl0dGVkWzBdLnJlcGxhY2UoIkNhcnJpZXJBdFBvcnQiLCAiIik7DQogICAgICAgIHJldHVybiB7IExvYWRQb3J0SWQ6IGxvYWRQb3J0SWQsIFN1Yk1hdGVyaWFsU2xvdDogc3BsaXR0ZWRbMV0gfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIHZhciBzdWJzdHJhdGVJZCA9IGlucHV0cy5TdWJJZDsNCiAgICAgICAgdmFyIHNwbGl0dGVkID0gc3Vic3RyYXRlSWQuc3BsaXQoIi4iKTsNCiAgICAgICAgaWYgKHNwbGl0dGVkLmxlbmd0aCAhPSAyKSB7DQogICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYFN1YnN0cmF0ZSBJZCBkb2VzIG5vdCBjb250YWluIHRoZSBleHBlY3RlZCBmb3JtYXQsIHZhbHVlOiAke3N1YnN0cmF0ZUlkfSBgKTsNCiAgICAgICAgfQ0KICAgICAgICByZXR1cm4geyBDb250YWluZXJOYW1lOiBzcGxpdHRlZFswXSwgU3ViTWF0ZXJpYWxTbG90OiBzcGxpdHRlZFsxXSB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
 				"inputs": [
 					{
 						"name": "SubId",
@@ -207,15 +210,16 @@
 				],
 				"outputs": [
 					{
-						"name": "LoadPortId",
+						"name": "ContainerName",
 						"valueType": {
-							"friendlyName": "LoadPortId",
-							"type": 5,
+							"type": 4,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
-							"referenceTypeId": null
-						}
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
 					},
 					{
 						"name": "SubMaterialSlot",
@@ -259,39 +263,39 @@
 	],
 	"links": [
 		{
-			"id": "3a4be371-532d-44d0-bbaa-36957276bd81",
-			"sourceId": "task_119709",
-			"targetId": "task_18715",
-			"inputName": "SubIdIn",
-			"outputName": "$SubId"
-		},
-		{
-			"id": "3a4feda4-c698-4c83-9ca9-df958977a411",
-			"sourceId": "task_119709",
-			"targetId": "task_18715",
-			"inputName": "activate",
-			"outputName": "$SubId"
-		},
-		{
-			"id": "94d9b072-6018-4a46-a4fa-b4fcccf562d7",
-			"sourceId": "task_18715",
+			"id": "98e6d248-e8cb-464e-8dc9-39139c7cd4ef",
+			"sourceId": "task_55210",
 			"targetId": "task_126394",
-			"inputName": "LoadPortIdIn",
-			"outputName": "LoadPortIdOut"
+			"inputName": "ContainerNameIn",
+			"outputName": "ContainerNameOut"
 		},
 		{
-			"id": "cf462655-89d5-4c2f-8912-5347a654be77",
-			"sourceId": "task_18715",
+			"id": "50b5c930-070c-4cbc-88ab-0f6782bfff2d",
+			"sourceId": "task_55210",
 			"targetId": "task_126394",
 			"inputName": "SubMaterialSlotIn",
 			"outputName": "SubMaterialSlotOut"
 		},
 		{
-			"id": "d476fda6-5db1-4c20-a12f-b071749971ec",
-			"sourceId": "task_18715",
+			"id": "493bcbee-62ca-4aee-8720-d1a66b902166",
+			"sourceId": "task_55210",
 			"targetId": "task_126394",
 			"inputName": "activate",
 			"outputName": "success"
+		},
+		{
+			"id": "1054b7c8-1acf-4a8c-a5b6-f208949b3a8f",
+			"sourceId": "task_119709",
+			"targetId": "task_55210",
+			"inputName": "SubIdIn",
+			"outputName": "$SubId"
+		},
+		{
+			"id": "b7796701-2cb6-471b-aa15-3f1ea11c6e47",
+			"sourceId": "task_119709",
+			"targetId": "task_55210",
+			"inputName": "activate",
+			"outputName": "$SubId"
 		}
 	],
 	"layout": {
@@ -325,29 +329,29 @@
 						},
 						"outdated": false
 					},
-					"task_18715": {
+					"task_55210": {
 						"collapsed": false,
 						"position": {
-							"x": 609,
-							"y": 430
+							"x": 614,
+							"y": 410
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"3a4be371-532d-44d0-bbaa-36957276bd81": {
+					"98e6d248-e8cb-464e-8dc9-39139c7cd4ef": {
 						"vertices": []
 					},
-					"3a4feda4-c698-4c83-9ca9-df958977a411": {
+					"50b5c930-070c-4cbc-88ab-0f6782bfff2d": {
 						"vertices": []
 					},
-					"94d9b072-6018-4a46-a4fa-b4fcccf562d7": {
+					"493bcbee-62ca-4aee-8720-d1a66b902166": {
 						"vertices": []
 					},
-					"cf462655-89d5-4c2f-8912-5347a654be77": {
+					"1054b7c8-1acf-4a8c-a5b6-f208949b3a8f": {
 						"vertices": []
 					},
-					"d476fda6-5db1-4c20-a12f-b071749971ec": {
+					"b7796701-2cb6-471b-aa15-3f1ea11c6e47": {
 						"vertices": []
 					}
 				},

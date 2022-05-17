@@ -72,6 +72,17 @@
 			"settings": {
 				"inputs": [
 					{
+						"name": "LoadPort",
+						"valueType": {
+							"friendlyName": "LoadPort",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
 						"name": "container",
 						"valueType": {
 							"friendlyName": "container",
@@ -83,17 +94,19 @@
 						}
 					},
 					{
-						"name": "LoadPort",
+						"name": "ContainerName",
 						"valueType": {
-							"friendlyName": "LoadPort",
-							"type": 5,
+							"type": 4,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
-							"referenceTypeId": null
-						}
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
 					}
-				]
+				],
+				"___cmf___name": "End"
 			}
 		},
 		{
@@ -739,6 +752,22 @@
 					}
 				}
 			]
+		},
+		{
+			"id": "9adf35c7-6f44-4229-9ee0-892b63769435",
+			"sourceId": "task_79353",
+			"targetId": "task_76502",
+			"inputName": "ContainerName",
+			"outputName": "container",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "ContainerName",
+						"type": 4
+					}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -752,8 +781,8 @@
 					"task_76502": {
 						"collapsed": false,
 						"position": {
-							"x": 4359,
-							"y": 294
+							"x": 4425,
+							"y": 301
 						},
 						"outdated": false
 					},
@@ -768,16 +797,16 @@
 					"task_78442": {
 						"collapsed": false,
 						"position": {
-							"x": 3297,
-							"y": 517
+							"x": 3579,
+							"y": 529
 						},
 						"outdated": false
 					},
 					"task_78876": {
 						"collapsed": false,
 						"position": {
-							"x": 2819,
-							"y": 773
+							"x": 2853,
+							"y": 769
 						},
 						"outdated": false
 					},
@@ -792,8 +821,8 @@
 					"task_83324": {
 						"collapsed": false,
 						"position": {
-							"x": 3824,
-							"y": 1081
+							"x": 4005,
+							"y": 1104
 						},
 						"outdated": false
 					},
@@ -909,14 +938,17 @@
 					},
 					"73c12bf6-11ec-49f4-9a16-8ec7cde08368": {
 						"vertices": []
+					},
+					"9adf35c7-6f44-4229-9ee0-892b63769435": {
+						"vertices": []
 					}
 				},
 				"notes": {},
 				"pan": {
-					"x": 292.5,
-					"y": 0
+					"x": 1055,
+					"y": 9
 				},
-				"zoom": 0.6300000000000003
+				"zoom": 0.4700000000000002
 			}
 		}
 	}
