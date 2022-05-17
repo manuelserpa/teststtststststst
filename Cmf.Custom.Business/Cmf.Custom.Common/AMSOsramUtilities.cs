@@ -450,6 +450,55 @@ namespace Cmf.Custom.AMSOsram.Common
             return materialDCContextNgpDataSet;
         }
 
+        /// <summary>
+        /// Result custom ST CustomReportConsumptionToSAP
+        /// </summary>
+        /// <param name="material"></param>
+        /// <returns></returns>
+        public static string CustomResolveSTCustomReportConsumptionToSAP(Material material)
+        {
+            string storageLocation = string.Empty;
+            SmartTable smartTable = new SmartTable();
+            smartTable.Load(AMSOsramConstants.CustomReportConsumptionToSAPSmartTable);
+
+            NgpDataRow values = new NgpDataRow();
+            if (material.Product != null)
+            {
+                values.Add(Navigo.Common.Constants.Product, material.Product.Name);
+            }
+
+            if (material.Product.ProductGroup?.Name != null)
+            {
+                values.Add(Navigo.Common.Constants.ProductGroup, material.Product.ProductGroup?.Name);
+            }
+
+            if (material.Flow.Name != null)
+            {
+                values.Add(Navigo.Common.Constants.Flow, material.Flow.Name);
+            }
+
+            if (material.Step.Name != null)
+            {
+                values.Add(Navigo.Common.Constants.Step, material.Step.Name);
+            }
+
+            if (material.Type != null)
+            {
+                values.Add(Navigo.Common.Constants.MaterialType, material.Type);
+            }
+            
+            NgpDataSet ngpDataSet = smartTable.Resolve(values, true);
+            if (ngpDataSet != null && ngpDataSet.Tables != null && ngpDataSet.Tables.Count > 0)
+            {
+                DataSet dataSet = NgpDataSet.ToDataSet(ngpDataSet);
+                if (dataSet.HasData())
+                {
+                    storageLocation = dataSet.Tables[0].Rows[0][AMSOsramConstants.CustomStorageLocation].ToString();
+                }
+            }
+            return storageLocation;
+        }
+
         #endregion
 
         #region Sorter
@@ -1638,9 +1687,9 @@ namespace Cmf.Custom.AMSOsram.Common
         /// <param name="messageType">Type of message</param>
         /// <param name="headerAttributes">Message header attributes to be added as attributes of Integration Entry if existent</param>
         /// <returns>Created Integration Entry</returns>
-        public static IntegrationEntry CreateOutboundIntegrationEntry(string message, string messageType, AttributeCollection headerAttributes = null)
+        public static IntegrationEntry CreateOutboundIntegrationEntry(string message, string messageType, string name = null, AttributeCollection headerAttributes = null)
         {
-            return CreateIntegrationEntry(message, messageType, BrokerMessageDirection.Outbound, headerAttributes);
+            return CreateIntegrationEntry(message, messageType, BrokerMessageDirection.Outbound, name, headerAttributes);
         }
 
         /// <summary>
@@ -1650,9 +1699,9 @@ namespace Cmf.Custom.AMSOsram.Common
         /// <param name="messageType">Type of message</param>
         /// <param name="headerAttributes">Message header attributes to be added as attributes of Integration Entry if existent</param>
         /// <returns></returns>
-        public static IntegrationEntry CreateInboundIntegrationEntry(string message, string messageType, AttributeCollection headerAttributes = null)
+        public static IntegrationEntry CreateInboundIntegrationEntry(string message, string messageType, string name = null, AttributeCollection headerAttributes = null)
         {
-            return CreateIntegrationEntry(message, messageType, BrokerMessageDirection.Inbound, headerAttributes);
+            return CreateIntegrationEntry(message, messageType, BrokerMessageDirection.Inbound, name, headerAttributes);
         }
 
         /// <summary>
@@ -1663,11 +1712,11 @@ namespace Cmf.Custom.AMSOsram.Common
         /// <param name="messageDirection">Direction of message</param>
         /// <param name="headerAttributes">Message header attributes to be added as attributes of Integration Entry if existent</param>
         /// <returns>Created Integration Entry</returns>
-        private static IntegrationEntry CreateIntegrationEntry(string message, string messageType, BrokerMessageDirection messageDirection, AttributeCollection headerAttributes = null)
+        private static IntegrationEntry CreateIntegrationEntry(string message, string messageType, BrokerMessageDirection messageDirection, string name = null, AttributeCollection headerAttributes = null)
         {
             IntegrationEntry ie = new IntegrationEntry();
 
-            ie.Name = Guid.NewGuid().ToString();
+            ie.Name = name != null ? name : Guid.NewGuid().ToString();
             ie.MessageType = messageType;
             ie.MessageDate = DateTime.Now;
             ie.IntegrationMessage.Message = Encoding.UTF8.GetBytes(message);
@@ -1914,7 +1963,7 @@ namespace Cmf.Custom.AMSOsram.Common
         /// <param name="productionOrder">Production Order</param>
         /// <param name="material">Material</param>
         /// <returns>Returns an object associated with Movement Type</returns>
-        public static CustomReportToERPItem CreateInfoForERP(string movementType, ProductionOrder productionOrder = null, Material material = null)
+        public static CustomReportToERPItem CreateInfoForERP(string movementType,string storageLocation, string siteCode, ProductionOrder productionOrder = null, Material material = null)
         {
             CustomReportToERPItem customReportToERPItem = null;
 
@@ -1925,7 +1974,7 @@ namespace Cmf.Custom.AMSOsram.Common
 
             switch (movementType)
             {
-                case ERPMovements.Type261:
+                case AMSOsramConstants.Type261:
 
                     if (productionOrder is null)
                     {
@@ -1945,10 +1994,10 @@ namespace Cmf.Custom.AMSOsram.Common
                         ProductName = material.Product.Name,
                         Quantity = material.PrimaryQuantity + material.SubMaterialsPrimaryQuantity,
                         Units = material.PrimaryUnits,
-                        MovementType = ERPMovements.Type261,
-                        SubMaterialCount = material.SubMaterialCount
-                        //TODO: SAPStore
-                        //TODO: Site
+                        MovementType = AMSOsramConstants.Type261,
+                        SubMaterialCount = material.SubMaterialCount,
+                        SAPStore = storageLocation,
+                        Site = siteCode
                     };
 
                     break;

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Cmf.Custom.AMSOsram.Actions.Integrations
 {
-    public class CustomSendToSAPHandler : DeeDevBase
+    public class CustomSendProcessMessage : DeeDevBase
     {
         public override bool DeeTestCondition(Dictionary<string, object> Input)
         {

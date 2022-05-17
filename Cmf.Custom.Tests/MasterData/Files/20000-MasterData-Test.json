@@ -199,6 +199,17 @@
 			"Token": ""
 		}
 	},
+	"<DM>Site": {
+		"1": {
+			"Name": "Regensburg",
+			"Description": "Regensburg site",
+			"RemoteExportAddress": "",
+			"RemoteExportPlugin": "",
+			"Enterprise": "",
+			"IsRemote": "No",
+			"SiteCode": "TestSiteCode"
+		}
+	},
 	"<DM>Area": {
 		"1": {
 			"Name": "CMFTestArea",
@@ -1443,6 +1454,14 @@
 	"<ST>ServiceContext": {
 		"1": {
 			"Step": "CMFTestStep01",
+			"Product": "",
+			"ProductGroup": "",
+			"Flow": "",
+			"Material": "",
+			"Service": "CMFTestService"
+		},
+		"2": {
+			"Step": "CMFTestStep02",
 			"Product": "",
 			"ProductGroup": "",
 			"Flow": "",

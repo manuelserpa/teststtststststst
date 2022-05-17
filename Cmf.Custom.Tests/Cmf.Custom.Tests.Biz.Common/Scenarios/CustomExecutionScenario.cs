@@ -2,6 +2,7 @@
 using Cmf.Custom.AMSOsram.Orchestration.OutputObjects;
 using Cmf.Custom.Tests.Biz.Common.ERP.Material;
 using Cmf.Custom.Tests.Biz.Common.ERP.Product;
+using Cmf.Custom.Tests.Biz.Common.Extensions;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
@@ -65,6 +66,11 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// SmartTable MaterialDataCollectionContext 
         /// </summary>
         public List<Dictionary<string, string>> MaterialDCContext = new List<Dictionary<string, string>>();
+
+        /// <summary>
+        /// SmartTable CustomReportConsumptionToSAP 
+        /// </summary>
+        public List<Dictionary<string, string>> CustomReportConsumptionToSAP = new List<Dictionary<string, string>>();
 
         public int ProductsToGenerate { get; set; } = 1;
 
@@ -167,6 +173,14 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                 foreach (Dictionary<string, string> row in MaterialDCContext)
                 {
                     SmartTableManager.SetSmartTableData("MaterialDataCollectionContext", row);
+                }
+            }
+
+            if (CustomReportConsumptionToSAP.Any())
+            {
+                foreach (Dictionary<string, string> row in CustomReportConsumptionToSAP)
+                {
+                    SmartTableManager.SetSmartTableData(AMSOsramConstants.CustomReportConsumptionToSAPSmartTable, row);
                 }
             }
 

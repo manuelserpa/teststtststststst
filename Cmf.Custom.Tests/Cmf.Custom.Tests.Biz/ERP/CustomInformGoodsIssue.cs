@@ -21,6 +21,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
     {
         private CustomExecutionScenario _scenario;
         private CustomTearDownManager customTeardownManager = null;
+        private const string StorageLocation = "TestStorageLocation";
+        private const string Site = "TestSiteCode";
 
         /// <summary>
         /// Test Initialization
@@ -29,6 +31,21 @@ namespace Cmf.Custom.Tests.Biz.ERP
         public void TestInitialization()
         {
             _scenario = new CustomExecutionScenario();
+            _scenario.IsToAssingPOsToMaterials = true;
+            _scenario.NumberOfProductionOrdersToGenerate = 1;
+            _scenario.NumberOfMaterialsToGenerate = 1;
+            _scenario.NumberOfChildMaterialsToGenerate = 5;
+            _scenario.CustomReportConsumptionToSAP = new List<Dictionary<string, string>> {
+                new Dictionary<string, string>
+                {
+                    { "Step", AMSOsramConstants.DefaultTestStepName },
+                    { "Product", AMSOsramConstants.DefaultTestProductName },
+                    { "Flow", AMSOsramConstants.DefaultTestFlowName },
+                    { "MaterialType", AMSOsramConstants.DefaultMaterialType},
+                    { "StorageLocation", StorageLocation}
+                }
+            };
+
             customTeardownManager = new CustomTearDownManager();
         }
 
@@ -48,7 +65,14 @@ namespace Cmf.Custom.Tests.Biz.ERP
         }
 
         /// <summary>
-        /// 
+        /// Description:
+        ///     - Create a material associated with a production order
+        ///     - Configure the Smart Table CustomReportConsumptionToSAP
+        ///     - Perform Dispatch, TrackIn and Trackout
+        ///
+        /// Acceptance Citeria:
+        ///     - On Trackout an Integration Entry must be generated
+        ///     
         /// </summary>
         /// <TestCaseID>CustomInformGoodsIssue.CustomInformGoodsIssue_TrackOutOnFirstStepOfPO_CreateIntegrationEntry</TestCaseID>
         /// <Author>David Guilherme</Author>
@@ -56,40 +80,38 @@ namespace Cmf.Custom.Tests.Biz.ERP
         public void CustomInformGoodsIssue_TrackOutOnFirstStepOfPO_CreateIntegrationEntry()
         {
             ///<Step> Create a Production Order, a Lot and its wafers </Step>
-            _scenario.IsToAssingPOsToMaterials = true;
-            _scenario.NumberOfProductionOrdersToGenerate = 1;
-            _scenario.NumberOfMaterialsToGenerate = 1;
-            _scenario.NumberOfChildMaterialsToGenerate = 5;
             _scenario.Setup();
 
             Material material = _scenario.GeneratedLots.FirstOrDefault();
 
-            // dispatch and Trackin
+            ///<Step> Dispatch and Tracin the lot </Step>
             Resource resource = new Resource
             {
                 Name = AMSOsramConstants.DefaultTestResourceName
             };
-
             resource.Load();
 
             material.ComplexDispatchAndTrackIn(resource);
 
+            ///<Step> Trackout the lot </Step>
             material.TrackOut();
-
             Thread.Sleep(4000);
 
-            IntegrationEntry ie = CustomUtilities.GetLastIntegrationEntry(AMSOsramConstants.CustomPostGoodsIssueToSAPMessageType);
+            ///<Step> Get the last Integration Entry generated after the trackout </Step>
+            IntegrationEntry ie = CustomUtilities.GetIntegrationEntry(material.Name);
+            ie.Load();
 
             //Necessary to load inner message
             IntegrationEntry integrationEntryInfo = new GetIntegrationEntryInput
             {
                 Id = ie.Id
             }.GetIntegrationEntrySync().IntegrationEntry;
-
             string integrationMessage = Encoding.UTF8.GetString(integrationEntryInfo.IntegrationMessage.Message);
 
+            ///<Step> Validate the content of the Integration Entry </Step>
             CustomReportToERPItem goodsIssueItem = CustomUtilities.DeserializeXmlToObject<CustomReportToERPItem>(integrationMessage);
 
+            ///<ExpectedResult> The Integration Entry body contains the information regarding the material that was tracked out </ExpectedResult>
             Assert.IsTrue(goodsIssueItem.ProductionOrderNumber.Equals(_scenario.GeneratedProductionOrders[0].OrderNumber),
                 $"The property ProductionOrderNumber should be equals to: {_scenario.GeneratedProductionOrders[0].OrderNumber}, instead is: {goodsIssueItem.ProductionOrderNumber}.");
 
@@ -110,71 +132,138 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             Assert.IsTrue(goodsIssueItem.SubMaterialCount.Equals(_scenario.GeneratedLots[0].SubMaterialCount),
                 $"The property Sub Material Count should be equals to: {_scenario.GeneratedLots[0].SubMaterialCount}, instead is: {goodsIssueItem.SubMaterialCount}.");
+
+            Assert.IsTrue(goodsIssueItem.SAPStore.Equals(StorageLocation),
+                $"The property Storage Location should be equals to: {StorageLocation}, instead is: {goodsIssueItem.SAPStore}.");
+
+            Assert.IsTrue(goodsIssueItem.Site.Equals(Site),
+                $"The property Site should be equals to: {Site}, instead is: {goodsIssueItem.Site}.");
         }
 
         /// <summary>
-        /// 
+        /// Description:
+        ///     - Create a material associated without a production order
+        ///     - Configure the Smart Table CustomReportConsumptionToSAP
+        ///     - Perform Dispatch, TrackIn and Trackout
+        ///
+        /// Acceptance Citeria:
+        ///     - On Trackout an Integration Entry should not be generated
+        ///     
         /// </summary>
-        /// <TestCaseID>CustomInformGoodsIssue.CustomInformGoodsIssue_TrackOutLotWithoutPO_CreateIntegrationEntry</TestCaseID>
+        /// <TestCaseID>CustomInformGoodsIssue.CustomInformGoodsIssue_TrackOutLotWithoutPO_SkipIntegrationEntryCreation</TestCaseID>
         /// <Author>David Guilherme</Author>
         [TestMethod]
-        public void CustomInformGoodsIssue_TrackOutLotWithoutPO_CreateIntegrationEntry()
+        public void CustomInformGoodsIssue_TrackOutLotWithoutPO_SkipIntegrationEntryCreation()
         {
+
             ///<Step> Create a Production Order, a Lot and its wafers </Step>
             _scenario.IsToAssingPOsToMaterials = false;
-            _scenario.NumberOfProductionOrdersToGenerate = 1;
-            _scenario.NumberOfMaterialsToGenerate = 1;
-            _scenario.NumberOfChildMaterialsToGenerate = 5;
             _scenario.Setup();
 
             Material material = _scenario.GeneratedLots.FirstOrDefault();
 
-            // dispatch and Trackin
+            ///<Step> Dispatch and Tracin the lot </Step>
             Resource resource = new Resource
             {
                 Name = AMSOsramConstants.DefaultTestResourceName
             };
-
             resource.Load();
 
             material.ComplexDispatchAndTrackIn(resource);
 
+            ///<Step> Trackout the lot </Step>
             material.TrackOut();
-
             Thread.Sleep(4000);
 
-            IntegrationEntry ie = CustomUtilities.GetLastIntegrationEntry(AMSOsramConstants.CustomPostGoodsIssueToSAPMessageType);
+            ///<Step> Get the last Integration Entry generated after the trackout </Step>
+            IntegrationEntry ie = CustomUtilities.GetIntegrationEntry(material.Name);
+            Assert.IsNull(ie.Name, $"The Trackout operation should not have created the Integration Entry {ie.Name} for the Material {material.Name}.");
+        }
 
-            //Necessary to load inner message
-            IntegrationEntry integrationEntryInfo = new GetIntegrationEntryInput
+        /// <summary>
+        /// Description:
+        ///     - Create a material associated with a production order
+        ///     - Clear the Smart Table CustomReportConsumptionToSAP
+        ///     - Perform Dispatch, TrackIn and Trackout
+        ///
+        /// Acceptance Citeria:
+        ///     - On Trackout an Integration Entry should not be generated
+        ///     
+        /// </summary>
+        /// <TestCaseID>CustomInformGoodsIssue.CustomInformGoodsIssue_TrackOutLotWithouST_SkipIntegrationEntryCreation</TestCaseID>
+        /// <Author>David Guilherme</Author>
+        [TestMethod]
+        public void CustomInformGoodsIssue_TrackOutLotWithouST_SkipIntegrationEntryCreation()
+        {
+
+            ///<Step> Create a Production Order, a Lot and its wafers </Step>
+            _scenario.CustomReportConsumptionToSAP = new List<Dictionary<string, string>>();
+            _scenario.SmartTablesToClearInSetup = new List<string> { AMSOsramConstants.CustomReportConsumptionToSAPSmartTable };
+            _scenario.Setup();
+
+            Material material = _scenario.GeneratedLots.FirstOrDefault();
+
+            ///<Step> Dispatch and Tracin the lot </Step>
+            Resource resource = new Resource
             {
-                Id = ie.Id
-            }.GetIntegrationEntrySync().IntegrationEntry;
+                Name = AMSOsramConstants.DefaultTestResourceName
+            };
+            resource.Load();
 
-            string integrationMessage = Encoding.UTF8.GetString(integrationEntryInfo.IntegrationMessage.Message);
+            material.ComplexDispatchAndTrackIn(resource);
 
-            CustomReportToERPItem goodsIssueItem = CustomUtilities.DeserializeXmlToObject<CustomReportToERPItem>(integrationMessage);
+            ///<Step> Trackout the lot </Step>
+            material.TrackOut();
+            Thread.Sleep(4000);
 
-            Assert.IsTrue(goodsIssueItem.ProductionOrderNumber.Equals(_scenario.GeneratedProductionOrders[0].OrderNumber),
-                $"The property ProductionOrderNumber should be equals to: {_scenario.GeneratedProductionOrders[0].OrderNumber}, instead is: {goodsIssueItem.ProductionOrderNumber}.");
+            ///<Step> Get the last Integration Entry generated after the trackout </Step>
+            IntegrationEntry ie = CustomUtilities.GetIntegrationEntry(material.Name);
+            Assert.IsNull(ie.Name, $"The Trackout operation should not have created the Integration Entry {ie.Name} for the Material {material.Name}.");
+        }
 
-            Assert.IsTrue(goodsIssueItem.ProductName.Equals(_scenario.ProductName),
-                $"The property Product Name should be equals to: {_scenario.ProductName}, instead is: {goodsIssueItem.ProductName}.");
+        /// <summary>
+        /// Description:
+        ///     - Create a material associated with a production order
+        ///     - Configure the Smart Table CustomReportConsumptionToSAP
+        ///     - Change Material to other step of the flow
+        ///     - Perform Dispatch, TrackIn and Trackout
+        ///
+        /// Acceptance Citeria:
+        ///     - On Trackout an Integration Entry should not be generated
+        ///     
+        /// </summary>
+        /// <TestCaseID>CustomInformGoodsIssue.CustomInformGoodsIssue_TrackOutLot_SkipIntegrationEntryCreation</TestCaseID>
+        /// <Author>David Guilherme</Author>
+        [TestMethod]
+        public void CustomInformGoodsIssue_TrackOutLot_SkipIntegrationEntryCreation()
+        {
 
-            Assert.IsTrue(goodsIssueItem.MaterialName.Equals(_scenario.GeneratedLots[0].Name),
-                $"The property Material Name should be equals to: {_scenario.GeneratedLots[0].Name}, instead is: {goodsIssueItem.MaterialName}.");
+            ///<Step> Create a Production Order, a Lot and its wafers </Step>
+            _scenario.Setup();
 
-            Assert.IsTrue(goodsIssueItem.Quantity.Equals(_scenario.NumberOfChildMaterialsToGenerate * _scenario.ScenarioQuantity),
-                $"The property Quantity should be equals to: {_scenario.NumberOfChildMaterialsToGenerate * _scenario.ScenarioQuantity}, instead is: {goodsIssueItem.Quantity}.");
+            Material material = _scenario.GeneratedLots.FirstOrDefault();
 
-            Assert.IsTrue(goodsIssueItem.Units.Equals(_scenario.GeneratedProductionOrders[0].Units),
-                $"The property Units should be equals to: {_scenario.GeneratedProductionOrders[0].Units}, instead is: {goodsIssueItem.Units}.");
+            Step secondStep = new Step() { Name = AMSOsramConstants.DefaultTestSecondStepName };
+            secondStep.Load();
+            material.Flow.Load();
+            material.ChangeFlowAndStep(material.Flow,secondStep);
 
-            Assert.IsTrue(goodsIssueItem.MovementType.Equals("261"),
-                $"The property Movement Type should be equals to: {"261"}, instead is: {goodsIssueItem.MovementType}.");
+            ///<Step> Dispatch and Tracin the lot </Step>
+            Resource resource = new Resource
+            {
+                Name = AMSOsramConstants.DefaultTestResourceName
+            };
+            resource.Load();
 
-            Assert.IsTrue(goodsIssueItem.SubMaterialCount.Equals(_scenario.GeneratedLots[0].SubMaterialCount),
-                $"The property Sub Material Count should be equals to: {_scenario.GeneratedLots[0].SubMaterialCount}, instead is: {goodsIssueItem.SubMaterialCount}.");
+            material.ComplexDispatchAndTrackIn(resource);
+
+            ///<Step> Trackout the lot </Step>
+            material.TrackOut();
+            Thread.Sleep(4000);
+
+            ///<Step> Get the last Integration Entry generated after the trackout </Step>
+            IntegrationEntry ie = CustomUtilities.GetIntegrationEntry(material.Name);
+            Assert.IsNull(ie.Name, $"The Trackout operation should not have created the Integration Entry {ie.Name} for the Material {material.Name}.");
         }
     }
 }

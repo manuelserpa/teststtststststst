@@ -64,6 +64,11 @@ namespace Cmf.Custom.Tests.Biz.Common
         public const string DefaultTestStepName = "CMFTestStep01";
 
         /// <summary>
+        /// Default Test Step
+        /// </summary>
+        public const string DefaultTestSecondStepName = "CMFTestStep02";
+
+        /// <summary>
         /// DefaultMaterialFormName
         /// </summary>
         public const string DefaultMaterialFormName = "Lot";
@@ -193,6 +198,11 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// </summary>
         public const string CustomMaterialNiceLabelPrintContextSmartTable = "CustomMaterialNiceLabelPrintContext";
 
+        /// <summary>
+        /// Smart Table Name CustomReportConsumptionToSAP
+        /// </summary>
+        public const string CustomReportConsumptionToSAPSmartTable = "CustomReportConsumptionToSAP";
+
         #endregion
 
         #region LookupTables
@@ -222,7 +232,7 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// <summary>
         /// Message Type CustomPostGoodsIssueToSAP
         /// </summary> 
-        public static string CustomPostGoodsIssueToSAPMessageType = "CustomPostGoodsIssueToSAP";
+        public static string CustomPostGoodsIssueToSAPMessageType = "CustomPerformConsumption";
 
         #endregion
     }

@@ -71,6 +71,11 @@
         /// </summary>
         public const string CustomIncomingLotCreationOperation = "Certificate";
 
+        /// <summary>
+        /// Default Material Lot Form
+        /// </summary>
+        public const string CustomDefaultMaterialLotForm = "Lot";
+
         #endregion
 
         #region GenericTables
@@ -159,6 +164,11 @@
         /// </summary>
         public static string ProductAttributeCanCreateInventory = "CanCreateInventory";
 
+        /// <summary>
+        /// Site Code Attribute
+        /// </summary>
+        public static string CustomSiteCodeAttribute = "SiteCode";
+
 
         #endregion
 
@@ -168,6 +178,11 @@
         /// Smart Table Name CustomMaterialNiceLabelPrintContext
         /// </summary>
         public const string CustomMaterialNiceLabelPrintContextSmartTable = "CustomMaterialNiceLabelPrintContext";
+
+        /// <summary>
+        /// Smart Table Name CustomReportConsumptionToSAP
+        /// </summary>
+        public const string CustomReportConsumptionToSAPSmartTable = "CustomReportConsumptionToSAP";
 
         #region CustomSorterJobDefinitionContext
 
@@ -210,6 +225,12 @@
         /// SmartTable MaterialType Property
         /// </summary>
         public static string CustomSorterJobDefinitionContextColumnCustomSorterJobDefinition = "CustomSorterJobDefinition";
+
+        #endregion
+
+        #region Smart Table Columns
+
+        public const string CustomStorageLocation = "StorageLocation";
 
         #endregion
 
@@ -532,6 +553,11 @@
         /// Hold Step reason for lot incoming 
         /// </summary>
         public static string DefaultLotIncomingHoldReasonConfig = "/Cmf/Guis/Configuration/Material/IncomingLotAutoHoldReason";
+
+        /// <summary>
+        /// Movement type to send goods issue
+        /// </summary>
+        public static string DefaultGoodsIssueMovementTypeConfig = "/Cmf/Custom/ERP/MovementType/GoodsIssue";
         #endregion
 
         #region Parameters
@@ -926,6 +952,11 @@
         /// </summary>
         public const string ERPInfoSentEventName = "ERPInfoSent";
 
+        /// <summary>
+        /// Message Type: CustomPerformConsumption
+        /// </summary>
+        public const string CustomPerformConsumption = "CustomPerformConsumption";
+
         #endregion
 
         #region Name Generators
@@ -954,27 +985,12 @@
 
         #endregion
 
-        #region MessageTypes
-
-        public class MessageTypes
-        {
-            /// <summary>
-            /// Message Type: CustomPostGoodsIssueToSAP
-            /// </summary>
-            public const string CustomPostGoodsIssueToSAP = "CustomPostGoodsIssueToSAP";
-        }
-
-        #endregion
-
         #region ERP
 
-        public static class ERPMovements
-        {
-            /// <summary>
-            /// Goods Issue
-            /// </summary>
-            public const string Type261 = "261";
-        }
+        /// <summary>
+        /// Goods Issue
+        /// </summary>
+        public const string Type261 = "261";
 
         #endregion
     }
