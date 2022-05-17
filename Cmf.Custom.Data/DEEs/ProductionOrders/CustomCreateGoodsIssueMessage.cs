@@ -23,7 +23,7 @@ namespace Cmf.Custom.AMSOsram.Actions.ProductionOrders
             #region Info
             /// <summary>
             /// Summary text
-            ///     
+            ///     - DEE Action to create an Integration Entry with Goods Issue information.
             /// Action Groups:
             /// Depends On:
             /// Is Dependency For:
@@ -121,7 +121,6 @@ namespace Cmf.Custom.AMSOsram.Actions.ProductionOrders
                     AMSOsramUtilities.CreateOutboundIntegrationEntry(message, AMSOsramConstants.CustomPerformConsumption, name);
                 }
             }
-            Protocol 
             //---End DEE Code---
 
             return Input;
