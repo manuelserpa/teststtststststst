@@ -132,7 +132,7 @@
     "<ST>SmartTable": {
       "1": {
         "Name": "CustomReportConsumptionToSAP",
-        "Description": "Used to generate and print labels on Nice Label Printer",
+        "Description": "Used to identify the Storage Location",
         "HistoryRetentionTime": "",
         "IsHistoryEnabled": "Yes",
         "IsRepeatedValuesAllowed": "No",
