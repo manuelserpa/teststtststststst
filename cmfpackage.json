@@ -12,11 +12,11 @@
     },
     {
       "id": "Cmf.Custom.Business",
-      "version": "1.6.0"
+      "version": "1.7.0"
     },
     {
       "id": "Cmf.Custom.Data",
-      "version": "1.6.0"
+      "version": "1.7.0"
     },
     {
       "id": "Cmf.Custom.Data.ExportedObjects",
@@ -24,7 +24,7 @@
     },
     {
       "id": "Cmf.Custom.Help",
-      "version": "1.6.0"
+      "version": "1.7.0"
     },
     {
       "id": "Cmf.Custom.Html",
@@ -38,7 +38,7 @@
   "testPackages": [
     {
       "id": "Cmf.Custom.Tests",
-      "version": "1.6.0"
+      "version": "1.7.0"
     },
     {
       "id": "Cmf.Custom.Tests.MasterData",
