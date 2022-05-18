@@ -1,0 +1,115 @@
+{
+    "<SM>Config": {
+		"1": {
+			"ParentPath": "/AMSOsram",
+			"Name": "TibcoEMSGateway",
+			"Value": "",
+			"ValueType": "String"
+		},
+        "2": {
+			"ParentPath": "/AMSOsram/TibcoEMSGateway",
+			"Name": "IsEnabled",
+			"Value": "",
+			"ValueType": "bool"
+		}
+	},
+    "<GT>GenericTable": {
+        "1": {
+            "Name": "CustomTibcoEMSGatewayResolver",
+            "Description": "Contains the configurations of messages from MES that need to be sent to Tibco.",
+            "HistoryRetentionTime": "180",
+            "IsHistoryEnabled": "Yes",
+            "DataGroup": ""
+        }
+    },
+    "GenericTableProperties": {
+        "1": {
+            "GenericTable": "CustomTibcoEMSGatewayResolver",
+            "Name": "Subject",
+            "Position": "1",
+            "Description": "MES Subject to Subscribe",
+            "DefaultValue": "",
+            "IsKey": "Yes",
+            "IsMandatory": "Yes",
+            "ScalarType": "NVarChar",
+            "Size": "256",
+            "Precision": "",
+            "ReferenceType": "None",
+            "ReferenceName": "",
+            "ValidationRange": "",
+            "ValidationRegex": "",
+            "DataGroup": "",
+            "IsIndexed": ""
+        },
+        "2": {
+            "GenericTable": "CustomTibcoEMSGatewayResolver",
+            "Name": "Topic",
+            "Position": "2",
+            "Description": "Target Tibco Topic",
+            "DefaultValue": "",
+            "IsKey": "Yes",
+            "IsMandatory": "Yes",
+            "ScalarType": "NVarChar",
+            "Size": "256",
+            "Precision": "",
+            "ReferenceType": "None",
+            "ReferenceName": "",
+            "ValidationRange": "",
+            "ValidationRegex": "",
+            "DataGroup": "",
+            "IsIndexed": ""
+        },
+        "3": {
+            "GenericTable": "CustomTibcoEMSGatewayResolver",
+            "Name": "Rule",
+            "Position": "3",
+            "Description": "Dee Rule Message Parser that aims to parse the message to TIBCO format",
+            "DefaultValue": "",
+            "IsKey": "No",
+            "IsMandatory": "Yes",
+            "ScalarType": "NVarChar",
+            "Size": "256",
+            "Precision": "",
+            "ReferenceType": "None",
+            "ReferenceName": "",
+            "ValidationRange": "",
+            "ValidationRegex": "",
+            "DataGroup": "",
+            "IsIndexed": ""
+        },
+        "4": {
+            "GenericTable": "CustomTibcoEMSGatewayResolver",
+            "Name": "IsEnabled",
+            "Position": "4",
+            "Description": "Informs if the record is enabled or not.",
+            "DefaultValue": "",
+            "IsKey": "No",
+            "IsMandatory": "Yes",
+            "ScalarType": "Boolean",
+            "Size": "",
+            "Precision": "",
+            "ReferenceType": "None",
+            "ReferenceName": "",
+            "ValidationRange": "",
+            "ValidationRegex": "",
+            "DataGroup": "",
+            "IsIndexed": ""
+        }
+    },
+    "<SM>DEEAction": {
+        "1": {
+            "Action": "",
+            "Description": "",
+            "CodeFileRelativePath": "",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        }
+    },
+    "DEEActionOrder": {
+        "1": {
+            "ActionGroup": "",
+            "Action": "",
+            "Order": "1"
+        }
+    }
+}
