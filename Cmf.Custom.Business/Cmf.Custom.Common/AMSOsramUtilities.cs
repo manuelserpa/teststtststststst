@@ -117,6 +117,24 @@ namespace Cmf.Custom.AMSOsram.Common
         }
 
         /// <summary>
+        /// Get the Value as DateTime.
+        /// </summary>
+        /// <param name="val">Value to be converted.</param>
+        /// <returns>Return the value as datetime.</returns>
+        public static DateTime? GetValueAsDateTime(string val)
+        {
+            DateTime? result = null;
+            DateTime exactDateTime;
+            if (DateTime.TryParse(val, out exactDateTime))
+            {
+                result = DateTime.SpecifyKind(exactDateTime, DateTimeKind.Local);
+            }
+
+            return result;
+        }
+
+
+        /// <summary>
         /// Gets the value as enum.
         /// </summary>
         /// <typeparam name="T">Type of the enum.</typeparam>
