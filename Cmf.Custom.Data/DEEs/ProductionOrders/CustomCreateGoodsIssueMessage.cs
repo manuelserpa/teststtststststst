@@ -5,6 +5,7 @@ using Cmf.Custom.AMSOsram.Common.Extensions;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.BusinessObjects.SmartTables;
+using Cmf.Foundation.Common;
 using Cmf.Navigo.BusinessObjects;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 
-namespace Cmf.Custom.AMSOsram.Actions.ProductionOrders
+namespace Cmf.Custom.AMSOsram.Actions
 {
     public class CustomCreateGoodsIssueMessage : DeeDevBase
     {
@@ -25,44 +26,64 @@ namespace Cmf.Custom.AMSOsram.Actions.ProductionOrders
             /// Summary text
             ///     - DEE Action to create an Integration Entry with Goods Issue information.
             /// Action Groups:
+            /// BusinessObjects.MaterialCollection.TrackOut.Post
             /// Depends On:
             /// Is Dependency For:
             /// Exceptions:
             /// </summary>
             #endregion
 
+            MaterialCollection lots = new MaterialCollection();
+
+            string siteCode = null;
+
             MaterialCollection materials = Input["MaterialCollection"] as MaterialCollection;
 
-            MaterialCollection availableMaterials = new MaterialCollection();
 
             // Contains the material and the storage Location
-            Dictionary<Material, string> materialsToProcess = new Dictionary<Material, string>();
+            Dictionary<Material, string> lotsStorageLocation = new Dictionary<Material, string>();
 
             foreach (Material material in materials)
             {
+                string materialFlowPath = material.FlowPath;
+
+                string productFlowPath = material.Product.FlowPath;
+
                 // Material must have the same flow path as the product and must be of form equal to Lot
-                if (material.FlowPath.Equals(material.Product.FlowPath) && material.Form.Equals(AMSOsramConstants.CustomDefaultMaterialLotForm) && material.ProductionOrder != null)
+                if (!string.IsNullOrEmpty(materialFlowPath) && !string.IsNullOrEmpty(productFlowPath) && materialFlowPath.Equals(productFlowPath) && material.Form.Equals(AMSOsramConstants.MaterialLotForm) && material.ProductionOrder != null)
                 {
-                    availableMaterials.Add(material);
+                    lots.Add(material);
                 }
             }
 
-            if (availableMaterials.Any())
+            if (lots.Any())
             {
-                availableMaterials.Load();
-                foreach (Material material in availableMaterials)
+                foreach (Material lot in lots)
                 {
-                    // Validate smart table
-                    string storageLocation = AMSOsramUtilities.CustomResolveSTCustomReportConsumptionToSAP(material);
+                    string storageLocation = AMSOsramUtilities.CustomResolveSTCustomReportConsumptionToSAP(lot);
+
                     if (!string.IsNullOrEmpty(storageLocation))
                     {
-                        materialsToProcess.Add(material, storageLocation); 
+                        lotsStorageLocation.Add(lot, storageLocation); 
                     }
                 }
-                DeeContextHelper.SetContextParameter("MaterialsToProcess", materialsToProcess);
+
+                Site site = lots.First().Facility.Site;
+
+                if (site != null)
+                {
+                    site.LoadAttributes(new Collection<string>() { AMSOsramConstants.CustomSiteCodeAttribute });
+                }
+
+                if (site.Attributes !=null && site.Attributes.ContainsKey(AMSOsramConstants.CustomSiteCodeAttribute))
+                {
+                    DeeContextHelper.SetContextParameter("SiteCode", site.Attributes[AMSOsramConstants.CustomSiteCodeAttribute].ToString());
+                }
+
+                DeeContextHelper.SetContextParameter("LotsStorageLocation", lotsStorageLocation);
             }
 
-            return !materialsToProcess.IsNullOrEmpty();
+            return !lotsStorageLocation.Any() && !string.IsNullOrEmpty(siteCode);
 
             //---End DEE Condition Code---
         }
@@ -86,41 +107,28 @@ namespace Cmf.Custom.AMSOsram.Actions.ProductionOrders
             UseReference("", "Cmf.Custom.AMSOsram.Common.Extensions");
 
             // Get availableMaterials based on the context
-            Dictionary<Material, string> materials = DeeContextHelper.GetContextParameter("MaterialsToProcess") as Dictionary<Material, string>;
+            Dictionary<Material, string> lotsStorageLocation = DeeContextHelper.GetContextParameter("LotsStorageLocation") as Dictionary<Material, string>;
 
-            foreach (Material material in materials.Keys)
+            string siteCode = DeeContextHelper.GetContextParameter("SiteCode") as string;
+
+            string movementType = AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultGoodsIssueMovementTypeConfig);
+
+            foreach (Material lot in lotsStorageLocation.Keys)
             {
-                ProductionOrder productionOrder = material.ProductionOrder;
-
-                productionOrder.Load();
-
-                // Load material site Attributes
-                material.Facility.Load();
-                Site site = material.Facility.Site;
-                site.LoadAttributes(new Collection<string>() { AMSOsramConstants.CustomSiteCodeAttribute });
-                string siteCode = string.Empty ;
-                if (site.Attributes != null)
-                {
-                    if (site.Attributes.ContainsKey(AMSOsramConstants.CustomSiteCodeAttribute))
-                    {
-                        site.Attributes.TryGetValueAs(AMSOsramConstants.CustomSiteCodeAttribute, out siteCode);
-                    }
-                }
+                ProductionOrder productionOrder = lot.ProductionOrder;
 
                 // Create an object with information to send to SAP by ERP Movement Type
-                string movementType = AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultGoodsIssueMovementTypeConfig);
-                CustomReportToERPItem customReportToERPItem = AMSOsramUtilities.CreateInfoForERP(movementType, materials[material], siteCode, productionOrder, material);
+                CustomReportToERPItem customReportToERPItem = AMSOsramUtilities.CreateInfoForERP(movementType, lotsStorageLocation[lot], siteCode, productionOrder, lot);
+                
+                // Serialize object to XML 
+                string message = customReportToERPItem.SerializeToXML();
 
-                if (customReportToERPItem != null)
-                {
-                    // Serialize object to XML 
-                    string message = customReportToERPItem.SerializeToXML();
-                    string name = $"GoodsIssue_{material.Name}_{Guid.NewGuid().ToString("N")}";
+                string name = $"GoodsIssue_{lot.Name}_{Guid.NewGuid().ToString("N")}";
 
-                    // Create an IntegrationEntry to Inform SAP about the Goods Issue
-                    AMSOsramUtilities.CreateOutboundIntegrationEntry(message, AMSOsramConstants.CustomPerformConsumption, name);
-                }
+                // Create an IntegrationEntry to Inform SAP about the Goods Issue
+                AMSOsramUtilities.CreateOutboundIntegrationEntry(message, AMSOsramConstants.CustomPerformConsumption, name);
             }
+
             //---End DEE Code---
 
             return Input;

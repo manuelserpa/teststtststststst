@@ -74,7 +74,7 @@
         /// <summary>
         /// Default Material Lot Form
         /// </summary>
-        public const string CustomDefaultMaterialLotForm = "Lot";
+        public const string MaterialLotForm = "Lot";
 
         #endregion
 
