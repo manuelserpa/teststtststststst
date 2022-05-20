@@ -77,13 +77,15 @@ namespace Cmf.Custom.AMSOsram.Actions
 
                 if (site.Attributes !=null && site.Attributes.ContainsKey(AMSOsramConstants.CustomSiteCodeAttribute))
                 {
-                    DeeContextHelper.SetContextParameter("SiteCode", site.Attributes[AMSOsramConstants.CustomSiteCodeAttribute].ToString());
+                    siteCode = site.Attributes[AMSOsramConstants.CustomSiteCodeAttribute].ToString();
+
+                    DeeContextHelper.SetContextParameter("SiteCode", siteCode);
                 }
 
                 DeeContextHelper.SetContextParameter("LotsStorageLocation", lotsStorageLocation);
             }
 
-            return !lotsStorageLocation.Any() && !string.IsNullOrEmpty(siteCode);
+            return lotsStorageLocation.Any() && !string.IsNullOrEmpty(siteCode);
 
             //---End DEE Condition Code---
         }
