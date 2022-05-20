@@ -7,7 +7,9 @@ using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.Cultures;
 using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.BusinessObjects.SmartTables;
+using Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects;
 using Cmf.Foundation.Common;
+using Cmf.Foundation.Common.Integration;
 using Cmf.Foundation.Configuration;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement;
@@ -21,8 +23,10 @@ using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
+using static Cmf.Custom.AMSOsram.Common.AMSOsramConstants;
 
 namespace Cmf.Custom.AMSOsram.Common
 {
@@ -187,7 +191,6 @@ namespace Cmf.Custom.AMSOsram.Common
             }
         }
 
-
         /// <summary>
         /// Get Value as dynamic DataType.
         /// </summary>
@@ -213,7 +216,6 @@ namespace Cmf.Custom.AMSOsram.Common
                     return value;
             }
         }
-
 
         #endregion
 
@@ -443,9 +445,58 @@ namespace Cmf.Custom.AMSOsram.Common
 
             NgpDataSet materialDCContextNgpDataSet = materialDatacollectionContext.Resolve(values, true);
 
-            
+
 
             return materialDCContextNgpDataSet;
+        }
+
+        /// <summary>
+        /// Result custom ST CustomReportConsumptionToSAP
+        /// </summary>
+        /// <param name="material"></param>
+        /// <returns></returns>
+        public static string CustomResolveSTCustomReportConsumptionToSAP(Material material)
+        {
+            string storageLocation = string.Empty;
+            SmartTable smartTable = new SmartTable();
+            smartTable.Load(AMSOsramConstants.CustomReportConsumptionToSAPSmartTable);
+
+            NgpDataRow values = new NgpDataRow();
+            if (material.Product != null)
+            {
+                values.Add(Navigo.Common.Constants.Product, material.Product.Name);
+            }
+
+            if (material.Product.ProductGroup?.Name != null)
+            {
+                values.Add(Navigo.Common.Constants.ProductGroup, material.Product.ProductGroup?.Name);
+            }
+
+            if (material.Flow.Name != null)
+            {
+                values.Add(Navigo.Common.Constants.Flow, material.Flow.Name);
+            }
+
+            if (material.Step.Name != null)
+            {
+                values.Add(Navigo.Common.Constants.Step, material.Step.Name);
+            }
+
+            if (material.Type != null)
+            {
+                values.Add(Navigo.Common.Constants.MaterialType, material.Type);
+            }
+            
+            NgpDataSet ngpDataSet = smartTable.Resolve(values, true);
+            if (ngpDataSet != null && ngpDataSet.Tables != null && ngpDataSet.Tables.Count > 0)
+            {
+                DataSet dataSet = NgpDataSet.ToDataSet(ngpDataSet);
+                if (dataSet.HasData())
+                {
+                    storageLocation = dataSet.Tables[0].Rows[0][AMSOsramConstants.CustomStorageLocation].ToString();
+                }
+            }
+            return storageLocation;
         }
 
         #endregion
@@ -1241,7 +1292,7 @@ namespace Cmf.Custom.AMSOsram.Common
             dataCollectionInstance.LoadRelations("DataCollectionPoint");
 
             DataCollectionLimitSet dataCollectionLimitSet = dataCollectionInstance.DataCollectionLimitSet;
-            
+
             DataCollectionPointCollection dataCollectionPoints = dataCollectionInstance.DataCollectionPoints;
 
 
@@ -1249,7 +1300,7 @@ namespace Cmf.Custom.AMSOsram.Common
             foreach (DataCollectionParameterLimit parameterLimit in dataCollectionLimitSet.DataCollectionParameterLimits)
             {
                 DataCollectionPoint dcPoint = dataCollectionPoints.FirstOrDefault(dcp => dcp.GetNativeValue<long>(Constants.TargetEntity).Equals(parameterLimit.GetNativeValue<long>(Constants.TargetEntity)));
-            
+
                 decimal value = Convert.ToDecimal(dcPoint.Value);
 
                 if ((parameterLimit.UpperErrorLimit != null && value > parameterLimit.UpperErrorLimit) || (parameterLimit.LowerErrorLimit != null && value < parameterLimit.LowerErrorLimit))
@@ -1390,6 +1441,7 @@ namespace Cmf.Custom.AMSOsram.Common
         #endregion
 
         #region DEEActionUtilities
+
         /// <summary>
         /// Checks if current action group (present in Input dicionary) is valid based on list of given action groups
         /// </summary>
@@ -1581,11 +1633,11 @@ namespace Cmf.Custom.AMSOsram.Common
 
             entityType.LoadProperties();
 
-            if (entityType.Properties !=null && entityType.Properties.Any())
+            if (entityType.Properties != null && entityType.Properties.Any())
             {
-               IEnumerable<IEntityTypeProperty> attributesDefinition = entityType.Properties.Where(w => w.PropertyType == EntityTypePropertyType.Attribute);
+                IEnumerable<IEntityTypeProperty> attributesDefinition = entityType.Properties.Where(w => w.PropertyType == EntityTypePropertyType.Attribute);
 
-                if (attributesDefinition !=null && attributesDefinition.Any())
+                if (attributesDefinition != null && attributesDefinition.Any())
                 {
                     attributes = attributesDefinition.Select(s => new KeyValuePair<string, object>(s.Name, s.ScalarType)).ToDictionary(d => d.Key, d => d.Value);
                 }
@@ -1606,7 +1658,7 @@ namespace Cmf.Custom.AMSOsram.Common
 
             foreach (MaterialAttributes attribute in xmlAttributes)
             {
-                if (lotAttributes !=null && lotAttributes.ContainsKey(attribute.Name))
+                if (lotAttributes != null && lotAttributes.ContainsKey(attribute.Name))
                 {
                     ScalarType scalarType = lotAttributes[attribute.Name] as ScalarType;
                     attributes.Add(attribute.Name, AMSOsramUtilities.GetAttributeValueAsDataType(scalarType, attribute.value));
@@ -1626,6 +1678,74 @@ namespace Cmf.Custom.AMSOsram.Common
             }
 
             return edcData;
+        }
+
+        /// <summary>
+        /// Creates an outbound integration 
+        /// </summary>
+        /// <param name="message">Message</param>
+        /// <param name="messageType">Type of message</param>
+        /// <param name="headerAttributes">Message header attributes to be added as attributes of Integration Entry if existent</param>
+        /// <returns>Created Integration Entry</returns>
+        public static IntegrationEntry CreateOutboundIntegrationEntry(string message, string messageType, string name = null, AttributeCollection headerAttributes = null)
+        {
+            return CreateIntegrationEntry(message, messageType, BrokerMessageDirection.Outbound, name, headerAttributes);
+        }
+
+        /// <summary>
+        /// Creates an inbound integration entry
+        /// </summary>
+        /// <param name="message">Message</param>
+        /// <param name="messageType">Type of message</param>
+        /// <param name="headerAttributes">Message header attributes to be added as attributes of Integration Entry if existent</param>
+        /// <returns></returns>
+        public static IntegrationEntry CreateInboundIntegrationEntry(string message, string messageType, string name = null, AttributeCollection headerAttributes = null)
+        {
+            return CreateIntegrationEntry(message, messageType, BrokerMessageDirection.Inbound, name, headerAttributes);
+        }
+
+        /// <summary>
+        /// Creates an integration entry 
+        /// </summary>
+        /// <param name="message">Message</param>
+        /// <param name="messageType">Type of message</param>
+        /// <param name="messageDirection">Direction of message</param>
+        /// <param name="headerAttributes">Message header attributes to be added as attributes of Integration Entry if existent</param>
+        /// <returns>Created Integration Entry</returns>
+        private static IntegrationEntry CreateIntegrationEntry(string message, string messageType, BrokerMessageDirection messageDirection, string name = null, AttributeCollection headerAttributes = null)
+        {
+            IntegrationEntry ie = new IntegrationEntry();
+
+            ie.Name = name != null ? name : Guid.NewGuid().ToString();
+            ie.MessageType = messageType;
+            ie.MessageDate = DateTime.Now;
+            ie.IntegrationMessage.Message = Encoding.UTF8.GetBytes(message);
+
+            ie.EventName = (messageDirection == BrokerMessageDirection.Inbound ? AMSOsramConstants.ERPInfoReceivedEventName : AMSOsramConstants.ERPInfoSentEventName);
+            ie.SourceSystem = (messageDirection == BrokerMessageDirection.Inbound ? AMSOsramConstants.CustomERPSystem : Constants.MesSystemDesignation);
+            ie.TargetSystem = (messageDirection == BrokerMessageDirection.Inbound ? Constants.MesSystemDesignation : AMSOsramConstants.CustomERPSystem);
+
+            ie.NumberOfRetries = 0;
+            ie.IsRetriable = true;
+            ie.SystemState = IntegrationEntrySystemState.Received;
+
+
+            if (headerAttributes != null)
+            {
+                foreach (KeyValuePair<string, object> attr in headerAttributes)
+                {
+                    ie.Attributes[attr.Key] = attr.Value;
+                }
+            }
+
+            var createInput = new CreateObjectInput
+            {
+                Object = ie
+            };
+
+            ie.Create();
+
+            return ie;
         }
 
         #endregion
@@ -1657,6 +1777,17 @@ namespace Cmf.Custom.AMSOsram.Common
             throw new Exception(exceptionMessage);
         }
 
+        /// <summary>
+        /// Constructs a new Message, using Localized Messages
+        /// </summary>
+        /// <param name="key">Name of Localized Message</param>
+        public static void ThrowLocalizedException(string key)
+        {
+            string exceptionMessage = LocalizedMessage.GetLocalizedMessage(key).MessageText;
+
+            throw new Exception(exceptionMessage);
+        }
+
         #endregion Localized Messages
 
         #region XML 
@@ -1680,6 +1811,7 @@ namespace Cmf.Custom.AMSOsram.Common
             }
             return newObject;
         }
+
         /// <summary>
         /// Serialize Object to XML
         /// </summary>
@@ -1696,6 +1828,182 @@ namespace Cmf.Custom.AMSOsram.Common
                 output = writer.ToString();
             }
             return output;
+        }
+
+        #endregion
+
+        #region Queries
+
+        /// <summary>
+        /// Get Production Order by Product associated with a Material
+        /// </summary>
+        /// <param name="productName">Product Name</param>
+        /// <param name="trackOutDate">Trackout Date</param>
+        /// <returns>Return Production Order based on Product and TrackOut Date associated with a Material</returns>
+        public static ProductionOrder GetMaterialProductionOrder(string productName, DateTime? trackOutDate)
+        {
+            QueryObject query = new QueryObject();
+            query.Description = "";
+            query.EntityTypeName = "ProductionOrder";
+            query.Name = "CustomMaterialProductionOrder";
+            query.Query = new Query();
+            query.Query.Distinct = false;
+            query.Query.Filters = new FilterCollection()
+            {
+                new Filter()
+                {
+                    Name = "Name",
+                    ObjectName = "Product",
+                    ObjectAlias = "ProductionOrder_Product_2",
+                    Operator = FieldOperator.IsEqualTo,
+                    Value = productName,
+                    LogicalOperator = LogicalOperator.AND,
+                    FilterType = Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal
+                },
+                new Filter()
+                {
+                    Name = "PlannedStartDate",
+                    ObjectName = "ProductionOrder",
+                    ObjectAlias = "ProductionOrder_1",
+                    Operator = FieldOperator.LessThanOrEqualTo,
+                    Value = trackOutDate,
+                    LogicalOperator = LogicalOperator.AND,
+                    FilterType = Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal
+                },
+                new Filter()
+                {
+                    Name = "UniversalState",
+                    ObjectName = "ProductionOrder",
+                    ObjectAlias = "ProductionOrder_1",
+                    Operator = FieldOperator.IsEqualTo,
+                    Value = 2,
+                    LogicalOperator = LogicalOperator.Nothing,
+                    FilterType = Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal
+                }
+            };
+            query.Query.Fields = new FieldCollection()
+            {
+                new Field()
+                {
+                    Alias = "Id",
+                    ObjectName = "ProductionOrder",
+                    ObjectAlias = "ProductionOrder_1",
+                    IsUserAttribute = false,
+                    Name = "Id",
+                    Position = 0,
+                    Sort = FieldSort.NoSort
+                },
+                new Field()
+                {
+                    Alias = "Name",
+                    ObjectName = "ProductionOrder",
+                    ObjectAlias = "ProductionOrder_1",
+                    IsUserAttribute = false,
+                    Name = "Name",
+                    Position = 1,
+                    Sort = FieldSort.NoSort
+                },
+                new Field()
+                {
+                    Alias = "PlannedStartDate",
+                    ObjectName = "ProductionOrder",
+                    ObjectAlias = "ProductionOrder_1",
+                    IsUserAttribute = false,
+                    Name = "PlannedStartDate",
+                    Position = 2,
+                    Sort = FieldSort.Descending
+                }
+            };
+            query.Query.Relations = new RelationCollection()
+            {
+                new Relation()
+                {
+                    Alias = "",
+                    IsRelation = false,
+                    Name = "",
+                    SourceEntity = "ProductionOrder",
+                    SourceEntityAlias = "ProductionOrder_1",
+                    SourceJoinType = Foundation.BusinessObjects.QueryObject.Enums.JoinType.InnerJoin,
+                    SourceProperty = "ProductId",
+                    TargetEntity = "Product",
+                    TargetEntityAlias = "ProductionOrder_Product_2",
+                    TargetJoinType = Foundation.BusinessObjects.QueryObject.Enums.JoinType.InnerJoin,
+                    TargetProperty = "Id"
+                }
+            };
+            query.Query.Top = 1;
+
+            DataSet dataSet = query.Execute(false, null);
+
+            ProductionOrder productionOrder = null;
+
+            if (dataSet.HasData())
+            {
+                productionOrder = new ProductionOrder();
+
+                foreach (DataRow row in dataSet.Tables[0].Rows)
+                {
+                    productionOrder.Name = row["Name"].ToString();
+
+                    productionOrder.Load();
+                }
+            }
+
+            return productionOrder;
+        }
+
+        #endregion
+
+        #region ERP
+
+        /// <summary>
+        /// Create information to send for ERP
+        /// </summary>
+        /// <param name="movementType">ERP Movement Type</param>
+        /// <param name="productionOrder">Production Order</param>
+        /// <param name="material">Material</param>
+        /// <returns>Returns an object associated with Movement Type</returns>
+        public static CustomReportToERPItem CreateInfoForERP(string movementType,string storageLocation, string siteCode, ProductionOrder productionOrder = null, Material material = null)
+        {
+            CustomReportToERPItem customReportToERPItem = null;
+
+            if (string.IsNullOrEmpty(movementType))
+            {
+                ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomMovementTypeEmpty);
+            }
+
+            switch (movementType)
+            {
+                case AMSOsramConstants.Type261:
+
+                    if (productionOrder is null)
+                    {
+                        ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomProductionOrderObjectNull);
+                    }
+
+                    if (material is null)
+                    {
+                        ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomMaterialObjectNull);
+                    }
+
+                    customReportToERPItem = new CustomReportToERPItem()
+                    {
+                        CreatedOn = DateTime.Now,
+                        ProductionOrderNumber = productionOrder.OrderNumber,
+                        MaterialName = material.Name,
+                        ProductName = material.Product.Name,
+                        Quantity = material.PrimaryQuantity + material.SubMaterialsPrimaryQuantity,
+                        Units = material.PrimaryUnits,
+                        MovementType = AMSOsramConstants.Type261,
+                        SubMaterialCount = material.SubMaterialCount,
+                        SAPStore = storageLocation,
+                        Site = siteCode
+                    };
+
+                    break;
+            }
+
+            return customReportToERPItem;
         }
 
         #endregion
