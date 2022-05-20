@@ -13,7 +13,7 @@
 			"Lookup Table Value Description": "",
 			"Lookup Table IsEnabled": "Yes"
 		},
-		"2":{
+		"2": {
 			"LookUp Table": "ProductionOrderType",
 			"Lookup Table Value Parent": "",
 			"Lookup Table Value": "CMFTestPOType",
@@ -1469,7 +1469,7 @@
 			"Service": "CMFTestService"
 		}
 	},
-	"<DM>ProductionOrder":{
+	"<DM>ProductionOrder": {
 		"1": {
 			"Name": "CMFTestProductionOrder",
 			"Description": "",
@@ -1479,16 +1479,16 @@
 			"SystemState": "1",
 			"Facility": "Regensburg Production",
 			"Product": "CMFTestProduct",
-			"OrderNumber": "",
+			"OrderNumber": "PO 1234",
 			"Quantity": "1",
 			"UnderDeliveryTolerance": "",
 			"OverDeliveryTolerance": "",
 			"ValidateMaterialProducts": "No",
 			"RestrictOnComplete": "No",
 			"Units": "CM2",
-			"DueDate": "",
-			"PlannedStartDate": "",
-			"PlannedEndDate": ""
+			"DueDate": "05-20-2022",
+			"PlannedStartDate": "05-20-2022",
+			"PlannedEndDate": "05-20-2023"
 		}
 	}
 }
