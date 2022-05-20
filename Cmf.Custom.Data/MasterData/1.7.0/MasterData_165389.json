@@ -61,31 +61,28 @@
       }
     },
     "<SM>EntityTypeProperty": {
-      "1": {
-        "EntityType": "Site",
-        "Name": "SiteCode",
-        "Description": "Attribute contains the site code.",
-        "PropertyType": "Attribute",
-        "CopyOnClone": "No",
-        "BelongsTo": "Definition",
-        "ScalarType": "String",
-        "ScalarSize": "256",
-        "ScalarPrecision": "",
-        "ReferenceType": "None",
-        "ReferenceName": "",
-        "DefaultValue": "",
-        "IsArray": "No",
-        "IsEnabled": "Yes",
-        "IsHistoryEnable": "Yes",
-        "IsIndexed": "No",
-        "IsMandatory": "No",
-        "AccessLevel": "",
-        "ValidationRange": "",
-        "ValidationRegex": "",
-        "DataGroup": "",
-        "LoadToDWH": "",
-        "LocalizedMessageKey": ""
-      }
+       "1": {
+      "EntityType": "Site",
+      "Name": "OrderNumber",
+      "Description": "Attribute contains the site code.",
+      "PropertyType": "Attribute",
+      "CopyOnClone": "No",
+      "BelongsTo": "Definition",
+      "ScalarType": "String",
+      "ScalarSize": "",
+      "ScalarPrecision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "No",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "AccessLevel": "0",
+      "ValidationRange": "",
+      "ValidationRegex": ""
+	}
     },
     "<SM>DEEAction": {
       "1": {
