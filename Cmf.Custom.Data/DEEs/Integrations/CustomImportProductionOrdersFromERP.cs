@@ -27,7 +27,7 @@ namespace Cmf.Custom.AMSOsram.Actions
             /// </summary>
             #endregion
 
-            IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, AMSOsramConstants.EntityTypes.IntegrationEntry);
+            IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, AMSOsramConstants.IntegrationEntry);
 
             if (integrationEntry is null || integrationEntry.IntegrationMessage is null || integrationEntry.IntegrationMessage.Message is null || integrationEntry.IntegrationMessage.Message.Length <= 0)
             {
@@ -55,7 +55,7 @@ namespace Cmf.Custom.AMSOsram.Actions
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.DataStructures");
 
             // Load Integration Entry
-            IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, AMSOsramConstants.EntityTypes.IntegrationEntry);
+            IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, AMSOsramConstants.IntegrationEntry);
 
             // Cast Integation Entry Message to string
             string message = Encoding.UTF8.GetString(integrationEntry.IntegrationMessage.Message);

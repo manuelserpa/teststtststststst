@@ -988,6 +988,11 @@
         #region ERP
 
         /// <summary>
+        /// Integration Entry
+        /// </summary>
+        public const string IntegrationEntry = "IntegrationEntry";
+
+        /// <summary>
         /// Goods Issue
         /// </summary>
         public const string Type261 = "261";
