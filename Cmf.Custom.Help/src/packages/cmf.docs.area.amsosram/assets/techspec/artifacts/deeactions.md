@@ -13,9 +13,11 @@ The following DEE Actions were created to support customer requirements.
 | [Custom Generate Production Lot Names](/AMSOsram/techspec>artifacts>deeactions>CustomGenerateProductionLotNames) | DEE action used to generate new Lots Name. |
 | [Custom Generate Sorter Job Definition From Future Action](/AMSOsram/techspec>artifacts>deeactions>CustomGenerateSorterJobDefinitionFromFutureAction) | Dee action to Generate a Custom Sorter Job Definition if exists a Required Future Action for a given material. |
 | [Custom Generate Split Lot Names](/AMSOsram/techspec>artifacts>deeactions>CustomGenerateSplitLotNames) | Dee Action used to generate splited Materials name. |
+| [Custom Import Production Orders From ERP](/AMSOsram/techspec>artifacts>deeactions>CustomImportProductionOrdersFromERP) | Action used to Imports Production Order From ERP. |
 | [Custom Incoming Material Lot Creation](/AMSOsram/techspec>artifacts>deeactions>CustomIncomingMaterialLotCreation) | DEE action to create or update lot incoming from ERP. |
 | [Custom Nice Label Print](/AMSOsram/techspec>artifacts>deeactions>CustomNiceLabelPrint) | DEE Action to be triggered on material track out to send retrive and send information for the nice label printing. |
 | [Custom Process Product](/AMSOsram/techspec>artifacts>deeactions>CustomProcessProduct) | Action used to create or update Product using body message of an Integration Entry. |
+| [Custom Process Production Order](/AMSOsram/techspec>artifacts>deeactions>CustomProcessProductionOrder) | Action used to Create or Update a Production Order From ERP. |
 | [Custom Process Products From ERP](/AMSOsram/techspec>artifacts>deeactions>CustomProcessProductsFromERP) | Action used to create an Integration Entry per Product using ERP received message. |
 | [Custom Send Abort Information To IoT](/AMSOsram/techspec>artifacts>deeactions>CustomSendAbortInformationToIoT) | DEE action to Trigger IoT call to send information about Aborted Materials. |
 | [Custom Send Process Message](/AMSOsram/techspec>artifacts>deeactions>CustomSendProcessMessage) | DEE Action to send the information about the Goods Issue to SAP. |

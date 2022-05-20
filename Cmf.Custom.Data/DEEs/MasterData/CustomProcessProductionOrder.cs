@@ -147,6 +147,17 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
         {
             //---Start DEE Condition Code---   
 
+            #region Info
+            /// <summary>
+            /// Creates or Updates a Production Order From ERP.
+            ///     
+            /// Action Groups:
+            /// Depends On:
+            /// Is Dependency For:
+            /// Exceptions:
+            /// </summary>
+            #endregion
+
             return true;
 
             //---End DEE Condition Code---
