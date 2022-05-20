@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Cmf.Custom.AMSOsram.Actions.ProductionOrders
+namespace Cmf.Custom.AMSOsram.Actions
 {
     public class CustomImportProductionOrdersFromERP : DeeDevBase
     {

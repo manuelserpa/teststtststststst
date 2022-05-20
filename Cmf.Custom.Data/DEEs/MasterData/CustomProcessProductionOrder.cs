@@ -97,9 +97,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 productionOrder.DueDate = AMSOsramUtilities.GetValueAsDateTime(customImportProductionOrder.DueDate);
             }
 
-            if (customImportProductionOrder.RestrictOnComplete.HasValue)
+            if (!string.IsNullOrEmpty(customImportProductionOrder.RestrictOnComplete))
             {
-                productionOrder.RestrictOnComplete = customImportProductionOrder.RestrictOnComplete;
+                productionOrder.RestrictOnComplete = AMSOsramUtilities.GetValueAsNullableBoolean(customImportProductionOrder.RestrictOnComplete);
             }
 
             if (customImportProductionOrder.UnderDeliveryTolerance.HasValue)

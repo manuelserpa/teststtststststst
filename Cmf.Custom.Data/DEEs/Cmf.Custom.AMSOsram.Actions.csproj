@@ -6,6 +6,7 @@
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AssemblyName>Cmf.Custom.AMSOsram.Actions</AssemblyName>
 		<RootNamespace>Cmf.Custom.AMSOsram.Actions</RootNamespace>
+		<OutputPath>..\..\LocalEnvironment\BusinessTier</OutputPath>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Cmf.Foundation.BusinessObjects" Version="8.3.3" />

@@ -65,6 +65,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             query.Name = "CustomGetIntegrationEntries";
             query.Query = new Query();
             query.Query.Distinct = true;
+            query.Query.Top = 1;
             query.Query.Filters = new FilterCollection() {
                 new Filter()
                 {
@@ -97,6 +98,16 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
                     Name = "Name",
                     Position = 1,
                     Sort = Cmf.Foundation.Common.FieldSort.NoSort
+                },
+                new Field()
+                {
+                    Alias = "ModifiedOn",
+                    ObjectName = "IntegrationEntry",
+                    ObjectAlias = "IntegrationEntry_1",
+                    IsUserAttribute = false,
+                    Name = "ModifiedOn",
+                    Position = 2,
+                    Sort = Cmf.Foundation.Common.FieldSort.Descending
                 }
             };
             query.Query.Relations = new RelationCollection();

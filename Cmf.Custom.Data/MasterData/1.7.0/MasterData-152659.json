@@ -863,16 +863,16 @@
       "HandlerType": "GenericIntegrationHandler",
       "ActionName": "CustomImportProductionOrdersFromERP",
       "ErrorHandlingActionName": "",
-      "IsEnabled": ""
+      "IsEnabled": "Yes"
     },
     "2": {
       "FromSystem": "MES",
       "ToSystem": "MES",
       "MessageType": "PerformProductionOrderMasterData",
       "HandlerType": "GenericIntegrationHandler",
-      "ActionName": "CustomImportProductionOrderMasterData",
+      "ActionName": "CustomProcessProductionOrder",
       "ErrorHandlingActionName": "",
-      "IsEnabled": ""
+      "IsEnabled": "Yes"
     }
   },
   "<SM>DEEAction": {
@@ -880,14 +880,14 @@
       "Action": "CustomProcessProductionOrder",
       "Description": "[AmsOsram] Process a Production Order from ERP",
       "CodeFileRelativePath": ".\\MasterData\\CustomProcessProductionOrder.cs",
-      "IsEnabled": "",
+      "IsEnabled": "Yes",
       "Classification": ""
     },
     "2": {
       "Action": "CustomImportProductionOrdersFromERP",
       "Description": "[AmsOsram] Creates an Integration Entry per Production Order from ERP",
       "CodeFileRelativePath": ".\\Integrations\\CustomImportProductionOrdersFromERP.cs",
-      "IsEnabled": "",
+      "IsEnabled": "Yes",
       "Classification": ""
     }
   },

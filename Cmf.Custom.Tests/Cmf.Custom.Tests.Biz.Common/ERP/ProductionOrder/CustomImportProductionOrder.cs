@@ -3,12 +3,11 @@ using System.Runtime.Serialization;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace Cmf.Custom.AMSOsram.Common.DataStructures
+namespace Cmf.Custom.Tests.Biz.Common.ERP.ProductionOrder
 {
     /// <summary>
     /// Defines the Custom Import Production Order Entity.
     /// </summary>
-    [XmlRoot]
     public class CustomImportProductionOrder
     {
         /// <summary>

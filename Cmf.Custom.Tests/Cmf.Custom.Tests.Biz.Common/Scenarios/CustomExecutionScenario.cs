@@ -2,6 +2,7 @@
 using Cmf.Custom.AMSOsram.Orchestration.OutputObjects;
 using Cmf.Custom.Tests.Biz.Common.ERP.Material;
 using Cmf.Custom.Tests.Biz.Common.ERP.Product;
+using Cmf.Custom.Tests.Biz.Common.ERP.ProductionOrder;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
@@ -42,6 +43,11 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// 
         /// </summary>
         public GoodsReceiptCertificate GoodsReceiptCertificate;
+
+        /// <summary>
+        /// ERP Message to create Production Orders by Integration Entries
+        /// </summary>
+        public CustomImportProductionOrderCollection CustomImportProductionOrderCollection = null;
 
         /// <summary>
         /// SmartTableManager
@@ -108,6 +114,13 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                 messageType = "PerformProductsMasterData";
 
                 xmlMessage = CustomUtilities.SerializeToXML<ProductDataOutput>(this.ProductOutput);
+            }
+
+            if (CustomImportProductionOrderCollection != null)
+            {
+                messageType = "PerformProductionOrdersMasterData";
+
+                xmlMessage = CustomUtilities.SerializeToXML<CustomImportProductionOrderCollection>(this.CustomImportProductionOrderCollection);
             }
 
             if (!string.IsNullOrEmpty(messageType) && !string.IsNullOrEmpty(xmlMessage))
