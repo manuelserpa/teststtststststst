@@ -4,6 +4,8 @@ using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.QueryManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects;
+using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
+using Cmf.TestScenarios.Others;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Data;
@@ -19,6 +21,149 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
 {
     public static class CustomUtilities
     {
+        #region Create
+        /// <summary>
+        /// Creates a Production Order with given details.
+        /// </summary>
+        public static ProductionOrder CreateProductionOrder(
+            string name = null,
+            decimal? quantity = 1,
+            int priority = 1,
+            string facilityName = null,
+            string productName = null,
+            DateTime? startTime = null,
+            DateTime? endTime = null,
+            bool releasePO = true,
+            string flowPath = null,
+            string units = null,
+            CustomTearDownManager tearDownManager = null,
+            string flowName = null,
+            string stepName = null)
+        {
+
+            string productionOrderName = string.IsNullOrEmpty(name) ? GenerateName() : name;
+            string productionOrderProduct = string.IsNullOrEmpty(productName) ? AMSOsramConstants.DefaultTestProductName : productName;
+            Product product = GenericGetsScenario.GetObjectByName<Product>(productionOrderProduct);
+
+            string productionOrderFacility = string.IsNullOrEmpty(facilityName) ? AMSOsramConstants.DefaultFacilityName : facilityName;
+            Facility facility = GenericGetsScenario.GetObjectByName<Facility>(productionOrderFacility);
+            flowPath = string.IsNullOrEmpty(flowPath) ? AMSOsramConstants.DefaultTestFlowPath : flowPath;
+            flowName = string.IsNullOrEmpty(flowName) ? AMSOsramConstants.DefaultTestFlowName : flowName;
+            stepName = string.IsNullOrEmpty(stepName) ? AMSOsramConstants.DefaultTestStepName : stepName;
+            
+            Flow flow = GenericGetsScenario.GetObjectByName<Flow>(flowName);
+            Step step = GenericGetsScenario.GetObjectByName<Step>(stepName);
+
+            ProductionOrder productionOrder = new ProductionOrder
+            {
+                Name = productionOrderName,
+                Type = AMSOsramConstants.DefaultTestPOType,
+                OrderNumber = productionOrderName,
+                Quantity = (decimal)quantity,
+                Units = string.IsNullOrEmpty(units) ? AMSOsramConstants.DefaultMaterialUnit : units,
+                Product = product,
+                OverDeliveryTolerance = 0,
+                PlannedStartDate = startTime ?? DateTime.Now,
+                PlannedEndDate = endTime ?? DateTime.Now.AddDays(1),
+                DueDate = endTime ?? DateTime.Now.AddDays(1),
+                Priority = priority,
+                Facility = facility,
+                SystemState = !releasePO ? ProductionOrderSystemState.Created : ProductionOrderSystemState.Released,
+                ValidateMaterialProducts = false,
+                RestrictOnComplete = false,
+                FlowPath = flowPath,
+                IncludeInPlanning = false,
+                Flow = flow,
+                Step = step
+            };
+
+            productionOrder.Create();
+
+            if (tearDownManager != null)
+            {
+                tearDownManager.Push(productionOrder);
+            }
+
+            return productionOrder;
+        }
+
+        /// <summary>
+        /// Creates a material with given details.
+        /// </summary>
+        public static Material CreateMaterial(
+            string name = null,
+            string type = null,
+            string form = null,
+            string facilityName = null,
+            string productName = null,
+            string flowPath = null,
+            decimal? primaryQuantity = null,
+            decimal? secondaryQuantity = null,
+            ProductionOrder prodOrder = null,
+            CustomTearDownManager tearDownManager = null,
+            DateTime? expirationDate = null,
+            string units = null,
+            bool isTemplate = false)
+        {
+            const decimal defaultPrimaryQuantity = 1;
+
+            string materialProduct = string.IsNullOrEmpty(productName) ? AMSOsramConstants.DefaultTestProductName : productName;
+            Product product = GenericGetsScenario.GetObjectByName<Product>(materialProduct);
+
+            string materialFacility = string.IsNullOrEmpty(facilityName) ? AMSOsramConstants.DefaultFacilityName : facilityName;
+
+            string materialFlowPath = string.IsNullOrEmpty(flowPath) ? AMSOsramConstants.DefaultTestFlowPath : flowPath;
+            Facility facility = GenericGetsScenario.GetObjectByName<Facility>(materialFacility);
+
+            Material material = new Material
+            {
+                Name = string.IsNullOrEmpty(name) ? GenerateName() : name,
+                Type = string.IsNullOrEmpty(type) ? AMSOsramConstants.DefaultMaterialType : type,
+                Form = string.IsNullOrEmpty(form) ? AMSOsramConstants.DefaultMaterialFormName : form,
+                Facility = facility,
+                Product = product,
+                FlowPath = materialFlowPath,
+                PrimaryQuantity = primaryQuantity == null ? (materialFlowPath == AMSOsramConstants.DefaultTestFlowPath ? 0 : defaultPrimaryQuantity) : (decimal)primaryQuantity,
+                SecondaryQuantity = secondaryQuantity,
+                ProductionOrder = prodOrder,
+                ExpirationDate = expirationDate,
+                PossibleStartDate = prodOrder?.PlannedStartDate ?? DateTime.Now,
+                PrimaryUnits = string.IsNullOrEmpty(units) ? AMSOsramConstants.DefaultMaterialUnit : units,
+                IsTemplate = isTemplate
+            };
+
+            material.Create();
+
+            if (tearDownManager != null)
+            {
+                tearDownManager.Push(material);
+            }
+
+            return material;
+        }
+        #endregion
+
+
+        #region Generators
+        /// <summary>
+        /// Generates a name based on the test method.
+        /// Format : [Prefix]_[RandomGuid]_[TestName]
+        /// or
+        /// [TestName]_[RandomGuid]
+        /// </summary>
+        /// <returns></returns>
+        public static string GenerateName(string prefix = "", int guidLengthTrim = 5)
+        {
+            string newGuid = TestScenarios.Others.Utilities.NewGuid();
+
+            if (guidLengthTrim > 0)
+            {
+                newGuid = newGuid.Substring(0, guidLengthTrim);
+            }
+
+            return string.Empty.Equals(prefix) ? string.Format("{0}_{1}", GetTestMethodName(), newGuid) : string.Format("{0}_{1}_{2}", prefix, newGuid, GetTestMethodName());
+        }
+
         /// <summary>
         /// Gets the Test Method Name
         /// </summary>
@@ -26,11 +171,11 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
         public static string GetTestMethodName()
         {
             // for when it runs via Visual Studio locally
-            var stackTrace = new StackTrace();
-            foreach (var stackFrame in stackTrace.GetFrames())
+            StackTrace stackTrace = new StackTrace();
+            foreach (StackFrame stackFrame in stackTrace.GetFrames())
             {
                 MethodBase methodBase = stackFrame.GetMethod();
-                Object[] attributes = methodBase.GetCustomAttributes(typeof(TestMethodAttribute), false);
+                object[] attributes = methodBase.GetCustomAttributes(typeof(TestMethodAttribute), false);
                 if (attributes.Length >= 1)
                 {
                     return methodBase.Name;
@@ -38,6 +183,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             }
             return "Not called from a test method";
         }
+        #endregion
 
         #region Integration Entries
         /// <summary>
@@ -124,6 +270,99 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             }
 
             return integrationEntry;
+        }
+
+        /// <summary>
+        /// Query to retrieve the last created Integration Entry filtering by message type 
+        /// </summary>
+        /// <param name="messageType"></param>
+        /// <returns></returns>
+        public static IntegrationEntry GetLastIntegrationEntry(string messageType)
+        {
+            QueryObject query = new QueryObject();
+            query.Description = "";
+            query.EntityTypeName = "IntegrationEntry";
+            query.Name = "CustomGetLastIE";
+            query.Query = new Query();
+            query.Query.Distinct = true;
+            query.Query.Filters = new FilterCollection() {
+                new Filter()
+                {
+                    Name = "MessageType",
+                    ObjectName = "IntegrationEntry",
+                    ObjectAlias = "IntegrationEntry_1",
+                    Operator = Cmf.Foundation.Common.FieldOperator.Contains,
+                    Value = messageType,
+                    LogicalOperator = Cmf.Foundation.Common.LogicalOperator.AND,
+                    FilterType = Cmf.Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal,
+                }
+            };
+            query.Query.Fields = new FieldCollection() {
+                new Field()
+                {
+                    Alias = "Id",
+                    ObjectName = "IntegrationEntry",
+                    ObjectAlias = "IntegrationEntry_1",
+                    IsUserAttribute = false,
+                    Name = "Id",
+                    Position = 0,
+                    Sort = Cmf.Foundation.Common.FieldSort.NoSort
+                },
+                new Field()
+                {
+                    Alias = "Name",
+                    ObjectName = "IntegrationEntry",
+                    ObjectAlias = "IntegrationEntry_1",
+                    IsUserAttribute = false,
+                    Name = "Name",
+                    Position = 1,
+                    Sort = Cmf.Foundation.Common.FieldSort.NoSort
+                },
+                new Field()
+                {
+                    Alias = "CreatedOn",
+                    ObjectName = "IntegrationEntry",
+                    ObjectAlias = "IntegrationEntry_1",
+                    IsUserAttribute = false,
+                    Name = "CreatedOn",
+                    Position = 2,
+                    Sort = Cmf.Foundation.Common.FieldSort.Descending
+                }
+            };
+            query.Query.Relations = new RelationCollection();
+
+            // Execute Query 
+            DataSet dataSet = TestScenariosUtilities.ToDataSet(CustomUtilities.ExecuteQueryObject(query));
+
+            IntegrationEntry integrationEntry = new IntegrationEntry();
+
+            if (dataSet.HasData())
+            {
+                DataRow row = dataSet.Tables[0].Rows[0];
+                integrationEntry.Name = row.Field<string>("Name");
+            }
+            integrationEntry.Load();
+            return integrationEntry;
+        }
+
+        /// <summary>
+        /// Wait for integration entry to be either failed or processed
+        /// </summary>
+        /// <param name="integrationEntry"></param>
+        /// <param name="numberOfTries"></param>
+        /// <param name="secondsBetweenAttempts"></param>
+        public static void WaitForIntegrationEntryProcessFinish(
+            IntegrationEntry integrationEntry, int numberOfTries = 15, int secondsBetweenAttempts = 1)
+        {
+            Int32 loops = 0;
+
+            integrationEntry.Load();
+            while ((int)integrationEntry.SystemState <= 1 && loops <= numberOfTries)
+            {
+                loops++;
+                System.Threading.Thread.Sleep(secondsBetweenAttempts * 1000);
+                integrationEntry.Load();
+            }
         }
 
         #endregion

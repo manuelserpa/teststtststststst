@@ -1,6 +1,6 @@
 {
   "name": "cmf.docs.area",
-  "version": "1.4.0",
+  "version": "1.7.0",
   "description": "Help customization package for AMSOsram",
   "private": true,
   "scripts": {
