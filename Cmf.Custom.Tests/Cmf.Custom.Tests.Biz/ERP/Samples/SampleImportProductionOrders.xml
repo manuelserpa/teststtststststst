@@ -8,12 +8,12 @@
 		<Product>11111335</Product>
 		<Quantity>10</Quantity>
 		<Units>CM2</Units>
-		<DueDate></DueDate>
+		<DueDate>2022-05-20</DueDate>
 		<RestrictOnComplete>True</RestrictOnComplete>
 		<UnderDeliveryTolerance>0.05</UnderDeliveryTolerance>
 		<OverDeliveryTolerance>0.1</OverDeliveryTolerance>
-		<PlannedStartDate></PlannedStartDate>
-		<PlannedEndDate></PlannedEndDate>
+		<PlannedStartDate>2022-05-20</PlannedStartDate>
+		<PlannedEndDate>2023-05-20</PlannedEndDate>
 		<SystemState></SystemState>
 	</CustomImportProductionOrder>
 	<CustomImportProductionOrder >
@@ -24,12 +24,12 @@
 		<Product>11018814</Product>
 		<Quantity>20</Quantity>
 		<Units>CM2</Units>
-		<DueDate></DueDate>
+		<DueDate>2022-05-10</DueDate>
 		<RestrictOnComplete>True</RestrictOnComplete>
 		<UnderDeliveryTolerance>0.65</UnderDeliveryTolerance>
 		<OverDeliveryTolerance>0.3</OverDeliveryTolerance>
-		<PlannedStartDate></PlannedStartDate>
-		<PlannedEndDate></PlannedEndDate>
+		<PlannedStartDate>2022-05-10</PlannedStartDate>
+		<PlannedEndDate>2023-05-10</PlannedEndDate>
 		<SystemState></SystemState>
 	</CustomImportProductionOrder>
 </CustomImportProductionOrders>
