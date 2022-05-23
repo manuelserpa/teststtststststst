@@ -19,7 +19,14 @@
 			"Lookup Table Value": "CMFTestPOType",
 			"Lookup Table Value Description": "",
 			"Lookup Table IsEnabled": "Yes"
-		}
+		},
+		"3": {
+			"LookUp Table": "ProductionOrderType",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "Production",
+			"Lookup Table Value Description": "",
+			"Lookup Table IsEnabled": "Yes"
+			}
 	},
 	"<SM>EntityTypeProperty": {
 		"1": {
@@ -197,6 +204,14 @@
 			"Roles": "Administrators",
 			"IsEnabled": "Yes",
 			"Token": ""
+		}
+	},
+	"<SM>Config": {
+		"1": {
+			"ParentPath": "/Cmf/Guis/Configuration/Material",
+			"Name": "IncomingLotAutoHoldReason",
+			"Value": "Out Of Spec",
+			"ValueType": "String"
 		}
 	},
 	"<DM>Site": {
@@ -1492,3 +1507,4 @@
 		}
 	}
 }
+

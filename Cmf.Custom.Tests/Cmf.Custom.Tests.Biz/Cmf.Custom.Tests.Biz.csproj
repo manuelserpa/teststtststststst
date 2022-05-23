@@ -64,5 +64,11 @@
     <None Update="ERP\Samples\SampleGoodsReceiptWithoutWafer.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="ERP\Samples\SampleImportProductionOrder.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ERP\Samples\SampleImportProductionOrders.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
