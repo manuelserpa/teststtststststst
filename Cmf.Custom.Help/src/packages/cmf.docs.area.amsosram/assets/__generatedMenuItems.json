@@ -60,6 +60,12 @@
    "actionId": ""
 },
 {
+   "id": "amsosram-20220523-1.7.0",
+   "menuGroupId": "releasenotes",
+   "title": "AMSOsram-20220523-1.7.0",
+   "actionId": ""
+},
+{
    "id": "artifacts",
    "menuGroupId": "techspec",
    "title": "Artifacts",
@@ -174,6 +180,12 @@
    "actionId": ""
 },
 {
+   "id": "customcreategoodsissuemessage",
+   "menuGroupId": "deeactions",
+   "title": "Custom Create Goods Issue Message",
+   "actionId": ""
+},
+{
    "id": "customgenerateproductionlotnames",
    "menuGroupId": "deeactions",
    "title": "Custom Generate Production Lot Names",
@@ -189,6 +201,12 @@
    "id": "customgeneratesplitlotnames",
    "menuGroupId": "deeactions",
    "title": "Custom Generate Split Lot Names",
+   "actionId": ""
+},
+{
+   "id": "customimportproductionordersfromerp",
+   "menuGroupId": "deeactions",
+   "title": "Custom Import Production Orders From ERP",
    "actionId": ""
 },
 {
@@ -210,6 +228,12 @@
    "actionId": ""
 },
 {
+   "id": "customprocessproductionorder",
+   "menuGroupId": "deeactions",
+   "title": "CustomProcessProductionOrder",
+   "actionId": ""
+},
+{
    "id": "customprocessproductsfromerp",
    "menuGroupId": "deeactions",
    "title": "Custom Process Products From ERP",
@@ -219,6 +243,12 @@
    "id": "customsendabortinformationtoiot",
    "menuGroupId": "deeactions",
    "title": "CustomSendAbortInformationToIoT",
+   "actionId": ""
+},
+{
+   "id": "customsendprocessmessage",
+   "menuGroupId": "deeactions",
+   "title": "Custom Send Process Message",
    "actionId": ""
 },
 {
@@ -357,6 +387,12 @@
    "id": "custommaterialnicelabelprintcontext",
    "menuGroupId": "smarttables",
    "title": "Custom Material Nice Label Print Context",
+   "actionId": ""
+},
+{
+   "id": "customreportconsumptiontosap",
+   "menuGroupId": "smarttables",
+   "title": "CustomReportConsumptionToSAP",
    "actionId": ""
 },
 {
@@ -615,6 +651,18 @@
    "id": "customerpsystemintegration",
    "menuGroupId": "features",
    "title": "ERP (SAP) System Integration",
+   "actionId": ""
+},
+{
+   "id": "customimportproductionorders",
+   "menuGroupId": "features",
+   "title": "Custom Import Production Orders",
+   "actionId": ""
+},
+{
+   "id": "custominformgoodsissuetoerp",
+   "menuGroupId": "features",
+   "title": "Inform Goods Issue to ERP",
    "actionId": ""
 },
 {
