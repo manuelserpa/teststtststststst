@@ -1501,9 +1501,9 @@
 			"ValidateMaterialProducts": "No",
 			"RestrictOnComplete": "No",
 			"Units": "CM2",
-			"DueDate": "05-20-2022",
-			"PlannedStartDate": "05-20-2022",
-			"PlannedEndDate": "05-20-2023"
+			"DueDate": "2022-05-20",
+			"PlannedStartDate": "2022-05-20",
+			"PlannedEndDate": "2023-05-20"
 		}
 	}
 }
