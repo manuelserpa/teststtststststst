@@ -304,7 +304,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             Assert.IsTrue(po.PlannedEndDate.ToString().Equals(productionOrdersMessage[0].PlannedEndDate), $"Production Order OverDeliveryTolerance should be {productionOrdersMessage[0].PlannedEndDate}, but instead is: {po.PlannedEndDate.ToString()}");
             Assert.IsTrue(po.SystemState.Equals(ProductionOrderSystemState.Released), $"Production Order SystemState should be {ProductionOrderSystemState.Released}, but instead is: {po.SystemState}");
 
-            Thread.Sleep(2000);
+            Thread.Sleep(8000);
             #region UpdatePO
 
             ///<Step> Create Message to send to MES System </Step>
