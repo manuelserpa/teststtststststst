@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CustomImportProductionOrders xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<CustomImportProductionOrder >
+		<Name>TestProductionOrder</Name>
+		<Type>Production</Type>
+		<OrderNumber>1</OrderNumber>
+		<Facility>Regensburg Production</Facility>
+		<Product>11111335</Product>
+		<Quantity>10</Quantity>
+		<Units>CM2</Units>
+		<DueDate>2022-05-20</DueDate>
+		<RestrictOnComplete>True</RestrictOnComplete>
+		<UnderDeliveryTolerance>0.05</UnderDeliveryTolerance>
+		<OverDeliveryTolerance>0.1</OverDeliveryTolerance>
+		<PlannedStartDate>2022-05-20</PlannedStartDate>
+		<PlannedEndDate>2023-05-20</PlannedEndDate>
+		<SystemState></SystemState>
+	</CustomImportProductionOrder>
+	<CustomImportProductionOrder >
+		<Name>TestProductionOrder</Name>
+		<Type>Production</Type>
+		<OrderNumber>1</OrderNumber>
+		<Facility>Regensburg Production</Facility>
+		<Product>11018814</Product>
+		<Quantity>20</Quantity>
+		<Units>CM2</Units>
+		<DueDate>2022-05-10</DueDate>
+		<RestrictOnComplete>True</RestrictOnComplete>
+		<UnderDeliveryTolerance>0.65</UnderDeliveryTolerance>
+		<OverDeliveryTolerance>0.3</OverDeliveryTolerance>
+		<PlannedStartDate>2022-05-10</PlannedStartDate>
+		<PlannedEndDate>2023-05-10</PlannedEndDate>
+		<SystemState></SystemState>
+	</CustomImportProductionOrder>
+</CustomImportProductionOrders>

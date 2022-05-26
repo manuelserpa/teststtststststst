@@ -9,6 +9,7 @@ The following smart tables were created to support customer requirements.
 | Table                     | Description       |
 | ------                    | ------            |
 | [Custom Material Nice Label Print Context](/AMSOsram/techspec>artifacts>smarttables>CustomMaterialNiceLabelPrintContext) | Used to generate and print labels on Nice Label Printer. |
+| [CustomReportConsumptionToSAP](/AMSOsram/techspec>artifacts>smarttables>CustomReportConsumptionToSAP) | Used to identify the Storage Location |
 | [CustomSorterJobDefinitionContext](/AMSOsram/techspec>artifacts>smarttables>CustomSorterJobDefinitionContext) | Used to resolve the CustomSorterJobDefinition for the specific Sorter context |
 
 

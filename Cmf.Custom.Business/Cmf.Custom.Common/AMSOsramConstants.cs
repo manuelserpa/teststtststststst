@@ -71,6 +71,11 @@
         /// </summary>
         public const string CustomIncomingLotCreationOperation = "Certificate";
 
+        /// <summary>
+        /// Default Material Lot Form
+        /// </summary>
+        public const string MaterialLotForm = "Lot";
+
         #endregion
 
         #region GenericTables
@@ -89,7 +94,7 @@
         /// CustomReclaimContainerType table ReclaimContainerType Property 
         /// </summary>
         public static string GenericTableCustomReclaimContainerTypeReclaimContainerTypeProperty = "ReclaimContainerType";
-                
+
         #endregion
 
         #region LookupTables
@@ -159,6 +164,11 @@
         /// </summary>
         public static string ProductAttributeCanCreateInventory = "CanCreateInventory";
 
+        /// <summary>
+        /// Site Code Attribute
+        /// </summary>
+        public static string CustomSiteCodeAttribute = "SiteCode";
+
 
         #endregion
 
@@ -168,6 +178,11 @@
         /// Smart Table Name CustomMaterialNiceLabelPrintContext
         /// </summary>
         public const string CustomMaterialNiceLabelPrintContextSmartTable = "CustomMaterialNiceLabelPrintContext";
+
+        /// <summary>
+        /// Smart Table Name CustomReportConsumptionToSAP
+        /// </summary>
+        public const string CustomReportConsumptionToSAPSmartTable = "CustomReportConsumptionToSAP";
 
         #region CustomSorterJobDefinitionContext
 
@@ -210,6 +225,12 @@
         /// SmartTable MaterialType Property
         /// </summary>
         public static string CustomSorterJobDefinitionContextColumnCustomSorterJobDefinition = "CustomSorterJobDefinition";
+
+        #endregion
+
+        #region Smart Table Columns
+
+        public const string CustomStorageLocation = "StorageLocation";
 
         #endregion
 
@@ -371,7 +392,7 @@
         #region Localized Messages
 
         /// <summary>
-        /// Received message is empty
+        /// Localized Message: Received message is empty
         /// </summary>
         public const string CustomReceiveEmptyMessage = "CustomReceiveEmptyMessage";
 
@@ -460,6 +481,26 @@
         /// </summary>
         public static string LocalizedMessageCustomUpdateMaterialProductWaferSizeMissing = "CustomUpdateMaterialProductWaferSizeMissing";
 
+        /// <summary>
+        /// Localized Message: CustomStorageLocationMissing
+        /// </summary>
+        public const string LocalizedMessageCustomStorageLocationMissing = "CustomStorageLocationMissing";
+
+        /// <summary>
+        /// Localized Message: CustomMovementTypeEmpty
+        /// </summary>
+        public const string LocalizedMessageCustomMovementTypeEmpty = "CustomMovementTypeEmpty";
+
+        /// <summary>
+        /// Localized Message: CustomProductionOrderObjectNull
+        /// </summary>
+        public const string LocalizedMessageCustomProductionOrderObjectNull = "CustomProductionOrderObjectNull";
+
+        /// <summary>
+        /// Localized Message: CustomMaterialObjectNull
+        /// </summary>
+        public const string LocalizedMessageCustomMaterialObjectNull = "CustomMaterialObjectNull";
+
         #endregion
 
         #region State Model
@@ -512,6 +553,11 @@
         /// Hold Step reason for lot incoming 
         /// </summary>
         public static string DefaultLotIncomingHoldReasonConfig = "/Cmf/Guis/Configuration/Material/IncomingLotAutoHoldReason";
+
+        /// <summary>
+        /// Movement type to send goods issue
+        /// </summary>
+        public static string DefaultGoodsIssueMovementTypeConfig = "/Cmf/Custom/ERP/MovementType/GoodsIssue";
         #endregion
 
         #region Parameters
@@ -881,7 +927,6 @@
 
         #region Integration Entries
 
-
         /// <summary>
         /// System ERP
         /// </summary>
@@ -896,6 +941,21 @@
         /// Integration Inbound Event Name
         /// </summary>
         public const string CustomIntegrationInboundEventName = "Inbound";
+
+        /// <summary>
+        /// SAP Info received event name
+        /// </summary>
+        public const string ERPInfoReceivedEventName = "ERPInfoReceived";
+
+        /// <summary>
+        /// SAP Info sent event name
+        /// </summary>
+        public const string ERPInfoSentEventName = "ERPInfoSent";
+
+        /// <summary>
+        /// Message Type: CustomPerformConsumption
+        /// </summary>
+        public const string CustomPerformConsumption = "CustomPerformConsumption";
 
         #endregion
 
@@ -927,6 +987,20 @@
             /// </summary>
             public const string IntegrationEntry = "IntegrationEntry";
         }
+
+        #endregion
+
+        #region ERP
+
+        /// <summary>
+        /// Integration Entry
+        /// </summary>
+        public const string IntegrationEntry = "IntegrationEntry";
+
+        /// <summary>
+        /// Goods Issue
+        /// </summary>
+        public const string Type261 = "261";
 
         #endregion
 
