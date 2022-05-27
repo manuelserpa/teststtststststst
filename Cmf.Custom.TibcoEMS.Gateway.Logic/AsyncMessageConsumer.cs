@@ -6,7 +6,7 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
     {
         public void OnMessage(Message message)
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

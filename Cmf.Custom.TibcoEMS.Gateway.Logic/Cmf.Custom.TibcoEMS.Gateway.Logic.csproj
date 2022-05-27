@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="TIBCO.EMS">
       <HintPath>..\Libs\External\TIBCO.EMS.dll</HintPath>
     </Reference>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using TIBCO.EMS;
 
 namespace Cmf.Custom.TibcoEMS.Gateway.Logic
@@ -14,8 +15,6 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         private Connection Connection = null;
 
         private Session Session = null;
-
-        //private Topic Topic = null;
 
         #endregion
 
@@ -50,9 +49,18 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
             {
                 try
                 {
-                    this.ConnectionFactory = new ConnectionFactory();
+                    if (this.IsStarted)
+                    {
+                        this.Stop();
+                    }
 
-                    this.Connection = this.ConnectionFactory.CreateConnection();
+                    string server = ConfigurationManager.AppSettings["TibcoServer"];
+                    string username = ConfigurationManager.AppSettings["TibcoUsername"];
+                    string password = ConfigurationManager.AppSettings["TibcoPassword"];
+
+                    this.ConnectionFactory = new ConnectionFactory(server);
+
+                    this.Connection = this.ConnectionFactory.CreateConnection(username, password);
 
                     this.Session = this.Connection.CreateSession(false, SessionMode.AutoAcknowledge);
 
