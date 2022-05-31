@@ -169,6 +169,15 @@
         /// </summary>
         public static string CustomSiteCodeAttribute = "SiteCode";
 
+        /// <summary>
+        /// Step Attribute RequiresSpaceConfirmation
+        /// </summary>
+        public static string StepAttributeRequiresSpaceConfirmation = "RequiresSpaceConfirmation";
+
+        /// <summary>
+        /// Product Attribute BasicType
+        /// </summary>
+        public static string ProductAttributeBasicType = "BasicType";
 
         #endregion
 
@@ -558,6 +567,12 @@
         /// Movement type to send goods issue
         /// </summary>
         public static string DefaultGoodsIssueMovementTypeConfig = "/Cmf/Custom/ERP/MovementType/GoodsIssue";
+
+        /// <summary>
+        /// configuration with defaul protocol to open when sending information to Space
+        /// </summary>
+        public static string DefaultSpaceProtocol = "/Cmf/Custom/Protocol/Space";
+
         #endregion
 
         #region Parameters

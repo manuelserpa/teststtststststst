@@ -1298,6 +1298,124 @@ namespace Cmf.Custom.AMSOsram.Common
 
         #endregion Sorter
 
+        #region Space
+
+        /// <summary>
+        /// Method to create xml message with Lot and Data Collection Info to be sent to Space system
+        /// </summary>
+        /// <param name="lot"></param>
+        /// <param name="dataCollectionInstance"></param>
+        /// <returns></returns>
+        public static CustomReportEDCToSpace CreateSpaceInfoDefaulsValues(Material material, string hostServerName, List<string> siteCodes)
+        {
+            List<SiteCode> messageSiteCodes = new List<SiteCode>();
+            siteCodes.ForEach(code => messageSiteCodes.Add(new SiteCode() { Value = code}));
+
+            material.Load(1);
+
+            Product product = material.Product;
+            product.LoadAttributes(new Collection<string> { AMSOsramConstants.ProductAttributeBasicType });
+
+            string productBasicType = string.Empty;
+            if (product.Attributes.ContainsKey(AMSOsramConstants.ProductAttributeBasicType))
+            {
+                product.Attributes.TryGetValueAs(AMSOsramConstants.ProductAttributeBasicType, out productBasicType);
+            }
+
+            Area area = null;
+            Resource subResource = null;
+            Resource resource = material.LastProcessedResource;
+            if (resource != null)
+            {
+                resource.LoadRelations(Cmf.Navigo.Common.Constants.SubResource);
+                if (resource.RelationCollection.ContainsKey(Cmf.Navigo.Common.Constants.SubResource))
+                {
+                    subResource = resource.RelationCollection[Navigo.Common.Constants.SubResource].FirstOrDefault().TargetEntity as Resource;
+                }
+                area = resource.Area;
+            }
+
+           
+
+            CustomReportEDCToSpace customReportEDCToSpace = new CustomReportEDCToSpace()
+            {
+                Sender = new Sender()
+                {
+                    Value = hostServerName
+                },
+                Ids = messageSiteCodes,
+                Keys = new List<Key>()
+                {
+                    new Key(){ Name = "PROCESS", Value = product != null ? product.Name : string.Empty},
+                    new Key(){ Name = "BASIC_TYPE", Value = productBasicType},
+                    new Key(){ Name = "AREA", Value = area != null ? area.Name : string.Empty},
+                    new Key(){ Name = "OWNER", Value = material.ProductionOrder != null ? material.ProductionOrder.Type : string.Empty},
+                    new Key(){ Name = "ROUTE", Value = material.Flow != null ? $"{material.Flow.Name}_{material.Flow.Version}" : string.Empty},
+                    new Key(){ Name = "OPERATION", Value = material.Step != null ? material.Step.Name : string.Empty },
+                    new Key(){ Name = "PROCESS_SPS", Value = material.RequiredService != null ? material.RequiredService.Name : string.Empty},
+                    new Key(){ Name = "EQUIPMENT", Value = resource != null ? resource.Name: string.Empty},
+                    new Key(){ Name = "CHAMBER", Value = subResource != null ? subResource.Name : string.Empty},
+                    new Key(){ Name = "RECIPE", Value = material.CurrentRecipeInstance != null ? material.CurrentRecipeInstance.Name : string.Empty},
+                    new Key(){ Name = "MEAS_EQUIPMENT", Value = resource != null && resource.Type.Equals("Measure") ? resource.Type : string.Empty},
+                    new Key(){ Name = "BATCH_NAME", Value = ""},
+                    new Key(){ Name = "LOT", Value = material.Name},
+                    new Key(){ Name = "QTY", Value = $"{material.PrimaryQuantity + material.SecondaryQuantity}"},
+                    new Key(){ Name = "WAFER", Value = ""},
+                    new Key(){ Name = "PUNKT", Value = ""},
+                    new Key(){ Name = "X", Value = ""},
+                    new Key(){ Name = "Y", Value = ""}
+                }
+            };
+
+            return customReportEDCToSpace;
+        }
+
+        /// <summary>
+        /// Method to create xml message with Lot and Data Collection Info to be sent to Space system
+        /// </summary>
+        /// <param name="lot"></param>
+        /// <param name="dataCollectionInstance"></param>
+        /// <returns></returns>
+        public static CustomReportEDCToSpace CreateSpaceInfoLotValues(Material lot, DataCollectionInstance dataCollectionInstance, DataCollectionLimitSet limitSet, string hostServerName, List<string> siteCodes)
+        {
+
+            CustomReportEDCToSpace customReportEDCToSpace = CreateSpaceInfoDefaulsValues(lot, hostServerName, siteCodes);
+
+            // Get Data collection
+            dataCollectionInstance.LoadRelations("DataCollectionPoint");
+            foreach (DataCollectionPoint dcPoint in dataCollectionInstance.DataCollectionPoints)
+            {
+                DataCollectionParameterLimit parameterLimit = limitSet.DataCollectionParameterLimits.FirstOrDefault(ls => ls.TargetEntity.GetNativeValue<long>("TargetEntity").Equals(dcPoint.TargetEntity.GetNativeValue<long>("TargetEntity")));
+
+                if (parameterLimit.LowerErrorLimit != null && parameterLimit.UpperErrorLimit != null && ((decimal)dcPoint.Value < parameterLimit.LowerErrorLimit || (decimal)dcPoint.Value > parameterLimit.UpperErrorLimit))
+                {
+                    
+                }
+                else if (parameterLimit.LowerWarningLimit != null && parameterLimit.UpperWarningLimit != null && ((decimal)dcPoint.Value < parameterLimit.LowerWarningLimit || (decimal)dcPoint.Value > parameterLimit.UpperWarningLimit))
+                {
+
+                }
+            }
+
+            return customReportEDCToSpace;
+        }
+
+        /// <summary>
+        /// Method to create xml message with Wafer and Data Collection Info to be sent to Space system
+        /// </summary>
+        /// <param name="wafer"></param>
+        /// <param name="dataCollectionInstance"></param>
+        /// <returns></returns>
+        public static CustomReportEDCToSpace CreateSpaceInfoWaferValues(Material wafer, DataCollectionInstance dataCollectionInstance, string hostServerName, List<string> siteCodes)
+        {
+            CustomReportEDCToSpace customReportEDCToSpace = CreateSpaceInfoDefaulsValues(wafer, hostServerName, siteCodes);
+
+
+            return customReportEDCToSpace;
+        }
+
+        #endregion
+
         #region Data Collection
 
         /// <summary>
@@ -1807,6 +1925,44 @@ namespace Cmf.Custom.AMSOsram.Common
         }
 
         #endregion Localized Messages
+
+        #region Lot
+
+        public static void PutLotOnHold(Material material, ReasonCollection reasons)
+        {
+            // Validate material is lot
+            Material lot = material;
+            if (material.ParentMaterial != null)
+            {
+                material.ParentMaterial.Load();
+                lot = material.ParentMaterial;
+            }
+
+            // Validate lot is not on hold by the given reasons
+            MaterialHoldReasonCollection existingLotHoldReasons = new MaterialHoldReasonCollection();
+            lot.LoadRelations(Cmf.Navigo.Common.Constants.MaterialHoldReason);
+            existingLotHoldReasons.AddRange(lot.MaterialHoldReasons);
+
+            // create material hold reasons
+            MaterialHoldReasonCollection lotHoldReasons = new MaterialHoldReasonCollection();
+            foreach (Reason reason in reasons)
+            {
+                if (!existingLotHoldReasons.Any(r=>r.TargetEntity.Name.Equals(reason.Name)))
+                {
+                    lotHoldReasons.Add(new MaterialHoldReason()
+                    {
+                        SourceEntity = lot,
+                        TargetEntity = reason
+                    }); 
+                }
+            }
+
+            // put lot on hold
+            lot.Hold(lotHoldReasons, new OperationAttributeCollection()); 
+
+        } 
+
+        #endregion
 
         #region XML 
 
