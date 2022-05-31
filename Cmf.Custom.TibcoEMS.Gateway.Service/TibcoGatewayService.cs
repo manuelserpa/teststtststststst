@@ -1,0 +1,30 @@
+﻿using Cmf.Custom.TibcoEMS.Gateway.Logic;
+using System.ServiceProcess;
+
+namespace Cmf.Custom.TibcoEMS.Gateway.Service
+{
+    public partial class TibcoGatewayService : ServiceBase
+    {
+        private TibcoGateway TibcoGateway;
+
+        public TibcoGatewayService()
+        {
+            System.Diagnostics.Debugger.Launch();
+            InitializeComponent();
+
+            this.TibcoGateway = new TibcoGateway();
+        }
+
+        protected override void OnStart(string[] args)
+        {
+            System.Diagnostics.Debugger.Launch();
+            this.TibcoGateway.SubscribeMessageBus();
+        }
+
+        protected override void OnStop()
+        {
+            System.Diagnostics.Debugger.Launch();
+            this.TibcoGateway.UnsubscribeMessageBus();
+        }
+    }
+}
