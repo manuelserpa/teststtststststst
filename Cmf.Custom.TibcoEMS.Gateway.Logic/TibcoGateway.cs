@@ -3,6 +3,7 @@ using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 using Cmf.Foundation.Common;
 using Cmf.MessageBus.Client;
+using Cmf.MessageBus.Messages;
 using System;
 using System.Configuration;
 using System.Threading;
@@ -81,8 +82,14 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
                 // Failed to connect in the set interval window
                 throw new Exception("Failed to connect to MessageBus");
             }
+            
+            OnMbMessageCallback callback = new OnMbMessageCallback(OnMonitoringMessage);
 
-            this.MessageBus.Publish("MessageBusSubject", "SampleMessage");
+            this.MessageBus.Subscribe("CustomReportEDCToSpace", callback);
+
+            this.MessageBus.Subscribe("CMF.SYSTEM.ADMINISTRATION.INVALIDATECACHE", callback);
+
+            //this.MessageBus.Subscribe(subject, onEvent);
 
             //// Filter Generic Table by "IsEnabled" field
             //FilterCollection filters = new FilterCollection()
@@ -121,6 +128,14 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
             //    //    this.MessageBus.Subscribe(subject, onEvent);
             //    //}
             //}
+        }
+
+        internal void OnMonitoringMessage(String subject, MbMessage message)
+        {
+            if (!string.IsNullOrEmpty(message.Data))
+            {
+
+            }
         }
 
         /// <summary>
