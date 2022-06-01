@@ -23,8 +23,8 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
 
             bool useLoadBalancing = bool.TryParse(ConfigurationManager.AppSettings["MessageBus.UseLoadBalancing"], out useLoadBalancing) ? useLoadBalancing : false;
 
-            int connectTimeout = int.TryParse(ConfigurationManager.AppSettings["MessageBus.ConnectTimeout"], out connectTimeout) ? connectTimeout : 10000;
-            int requestTimeout = int.TryParse(ConfigurationManager.AppSettings["MessageBus.RequestTimeout"], out requestTimeout) ? requestTimeout : 10000;
+            //int connectTimeout = int.TryParse(ConfigurationManager.AppSettings["MessageBus.ConnectTimeout"], out connectTimeout) ? connectTimeout : 10000;
+            //int requestTimeout = int.TryParse(ConfigurationManager.AppSettings["MessageBus.RequestTimeout"], out requestTimeout) ? requestTimeout : 10000;
 
             TransportConfig messageBusConfiguration = new TransportConfig()
             {

@@ -4,6 +4,7 @@ using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 using Cmf.Foundation.Common;
 using Cmf.MessageBus.Client;
 using System;
+using System.Configuration;
 using System.Threading;
 
 namespace Cmf.Custom.TibcoEMS.Gateway.Logic
@@ -27,15 +28,26 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         /// </summary>
         private ManualResetEvent ConnectedSignalEvent = new ManualResetEvent(false);
 
+
+        private int _connectTimeout;
+
         /// <summary>
-        /// ConnectTimeout
+        /// Connect Timeout
         /// </summary>
-        private int ConnectTimeout = 10000;
-        
+        private int ConnectTimeout
+        {
+            get => int.TryParse(ConfigurationManager.AppSettings["MessageBus.ConnectTimeout"], out _connectTimeout) ? _connectTimeout : 10000;
+        }
+
+        private int _requestTimeout;
+
         /// <summary>
         /// Request Timeout
         /// </summary>
-        private int RequestTimeout = 10000;
+        private int RequestTimeout
+        {
+            get => int.TryParse(ConfigurationManager.AppSettings["MessageBus.RequestTimeout"], out _requestTimeout) ? _requestTimeout : 10000;
+        }
 
         #endregion
 
@@ -60,43 +72,55 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         /// </summary>
         public void SubscribeMessageBus()
         {
-            // Filter Generic Table by "IsEnabled" field
-            FilterCollection filters = new FilterCollection()
+            // Connect to Message Bus
+            this.MessageBus.Start();
+
+            // Block until the client has connected to the Message Bus
+            if (!this.ConnectedSignalEvent.WaitOne(this.ConnectTimeout))
             {
-                new Filter()
-                {
-                    Name ="IsEnabled",
-                    Operator = FieldOperator.IsEqualTo,
-                    Value = true,
-                    LogicalOperator = LogicalOperator.Nothing
-                }
-            };
-
-            // Execute service to get Generic Table results
-            GenericTable genericTable = new GetGenericTableByNameWithFilterInput()
-            {
-                Name = TibcoGatewayConstants.GTCustomTibcoEMSGatewayResolver,
-                Filters = filters
-            }.GetGenericTableByNameWithFilterSync().GenericTable;
-
-            if (genericTable != null && genericTable.HasData)
-            {
-                // Connect to Message Bus
-                this.MessageBus.Start();
-
-                // Block until the client has connected to the Message Bus
-                if (!this.ConnectedSignalEvent.WaitOne(this.ConnectTimeout))
-                {
-                    // Failed to connect in the set interval window
-                    throw new Exception("Failed to connect to MessageBus");
-                }
-
-                //foreach (var item in genericTable.Data)
-                //{
-                //    // Subscribe to event
-                //    this.MessageBus.Subscribe(subject, onEvent);
-                //}
+                // Failed to connect in the set interval window
+                throw new Exception("Failed to connect to MessageBus");
             }
+
+            this.MessageBus.Publish("MessageBusSubject", "SampleMessage");
+
+            //// Filter Generic Table by "IsEnabled" field
+            //FilterCollection filters = new FilterCollection()
+            //{
+            //    new Filter()
+            //    {
+            //        Name = "IsEnabled",
+            //        Operator = FieldOperator.IsEqualTo,
+            //        Value = true,
+            //        LogicalOperator = LogicalOperator.Nothing
+            //    }
+            //};
+
+            //// Execute service to get Generic Table results
+            //GenericTable genericTable = new GetGenericTableByNameWithFilterInput()
+            //{
+            //    Name = TibcoGatewayConstants.GTCustomTibcoEMSGatewayResolver,
+            //    Filters = filters
+            //}.GetGenericTableByNameWithFilterSync().GenericTable;
+
+            //if (genericTable != null && genericTable.HasData)
+            //{
+            //    // Connect to Message Bus
+            //    this.MessageBus.Start();
+
+            //    // Block until the client has connected to the Message Bus
+            //    if (!this.ConnectedSignalEvent.WaitOne(this.ConnectTimeout))
+            //    {
+            //        // Failed to connect in the set interval window
+            //        throw new Exception("Failed to connect to MessageBus");
+            //    }
+
+            //    //foreach (var item in genericTable.Data)
+            //    //{
+            //    //    // Subscribe to event
+            //    //    this.MessageBus.Subscribe(subject, onEvent);
+            //    //}
+            //}
         }
 
         /// <summary>

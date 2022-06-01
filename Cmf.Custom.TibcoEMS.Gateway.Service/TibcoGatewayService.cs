@@ -9,7 +9,6 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Service
 
         public TibcoGatewayService()
         {
-            System.Diagnostics.Debugger.Launch();
             InitializeComponent();
 
             this.TibcoGateway = new TibcoGateway();
