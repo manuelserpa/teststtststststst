@@ -5,14 +5,17 @@ using Cmf.Foundation.Common;
 using Cmf.MessageBus.Client;
 using Cmf.MessageBus.Messages;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Threading;
+using TIBCO.EMS;
 
 namespace Cmf.Custom.TibcoEMS.Gateway.Logic
 {
     public class TibcoGateway
     {
-        #region Private Properties
+        #region Private Variables
 
         /// <summary>
         /// Message Bus
@@ -29,6 +32,10 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         /// </summary>
         private ManualResetEvent ConnectedSignalEvent = new ManualResetEvent(false);
 
+        /// <summary>
+        /// Tibco Configuration
+        /// </summary>
+        private Connection TibcoConnnector;
 
         private int _connectTimeout;
 
@@ -50,6 +57,11 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
             get => int.TryParse(ConfigurationManager.AppSettings["MessageBus.RequestTimeout"], out _requestTimeout) ? _requestTimeout : 10000;
         }
 
+        /// <summary>
+        /// GenericTable Tibco Resolver
+        /// </summary>
+        private Dictionary<string, KeyValuePair<string, string>> GTTibcoResolver;
+
         #endregion
 
         #region Constructor
@@ -62,6 +74,8 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
             this.MessageBus.Exception += OnException;
             this.MessageBus.Connected += OnConnected;
             this.MessageBus.Disconnected += OnDisconnected;
+
+            this.GTTibcoResolver = TibcoGatewayUtilities.GetTibcoGTResolverResults();
         }
 
         #endregion
@@ -73,68 +87,26 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         /// </summary>
         public void SubscribeMessageBus()
         {
-            // Connect to Message Bus
-            this.MessageBus.Start();
-
-            // Block until the client has connected to the Message Bus
-            if (!this.ConnectedSignalEvent.WaitOne(this.ConnectTimeout))
+            try
             {
-                // Failed to connect in the set interval window
-                throw new Exception("Failed to connect to MessageBus");
+                // Connect to Message Bus
+                this.MessageBus.Start();
+
+                // Block until the client has connected to the Message Bus
+                if (!this.ConnectedSignalEvent.WaitOne(this.ConnectTimeout))
+                {
+                    // Failed to connect in the set interval window
+                    throw new Exception("Failed to connect to MessageBus");
+                }
+
+                // Connect to Tibco
+                this.TibcoConnnector.Start();
+
+                this.MessageBus.Subscribe("CustomReportEDCToSpace", CreateMessage);
             }
-            
-            OnMbMessageCallback callback = new OnMbMessageCallback(OnMonitoringMessage);
-
-            this.MessageBus.Subscribe("CustomReportEDCToSpace", callback);
-
-            this.MessageBus.Subscribe("CMF.SYSTEM.ADMINISTRATION.INVALIDATECACHE", callback);
-
-            //this.MessageBus.Subscribe(subject, onEvent);
-
-            //// Filter Generic Table by "IsEnabled" field
-            //FilterCollection filters = new FilterCollection()
-            //{
-            //    new Filter()
-            //    {
-            //        Name = "IsEnabled",
-            //        Operator = FieldOperator.IsEqualTo,
-            //        Value = true,
-            //        LogicalOperator = LogicalOperator.Nothing
-            //    }
-            //};
-
-            //// Execute service to get Generic Table results
-            //GenericTable genericTable = new GetGenericTableByNameWithFilterInput()
-            //{
-            //    Name = TibcoGatewayConstants.GTCustomTibcoEMSGatewayResolver,
-            //    Filters = filters
-            //}.GetGenericTableByNameWithFilterSync().GenericTable;
-
-            //if (genericTable != null && genericTable.HasData)
-            //{
-            //    // Connect to Message Bus
-            //    this.MessageBus.Start();
-
-            //    // Block until the client has connected to the Message Bus
-            //    if (!this.ConnectedSignalEvent.WaitOne(this.ConnectTimeout))
-            //    {
-            //        // Failed to connect in the set interval window
-            //        throw new Exception("Failed to connect to MessageBus");
-            //    }
-
-            //    //foreach (var item in genericTable.Data)
-            //    //{
-            //    //    // Subscribe to event
-            //    //    this.MessageBus.Subscribe(subject, onEvent);
-            //    //}
-            //}
-        }
-
-        internal void OnMonitoringMessage(String subject, MbMessage message)
-        {
-            if (!string.IsNullOrEmpty(message.Data))
+            catch (Exception)
             {
-
+                throw;
             }
         }
 
@@ -143,6 +115,8 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         /// </summary>
         public void UnsubscribeMessageBus()
         {
+            this.TibcoConnnector.Close();
+
             this.MessageBus.Stop();
         }
 
@@ -170,6 +144,37 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
             if (Environment.UserInteractive)
             {
                 Console.WriteLine("Disconnected from MessageBus");
+            }
+        }
+
+        private void CreateMessage(string subject, MbMessage message)
+        {
+            if (message != null && !String.IsNullOrEmpty(message.Data))
+            {
+                if (this.GTTibcoResolver != null && this.GTTibcoResolver.Any())
+                {
+                    if (this.GTTibcoResolver.Keys.Equals(message.Subject))
+                    {
+
+                    }
+                }
+            }
+        }
+
+        private void SendMessage(string subject, string message)
+        {
+            if (!string.IsNullOrEmpty(subject) && !string.IsNullOrEmpty(message))
+            {
+                Session tibcoSession = this.TibcoConnnector.CreateSession(false, SessionMode.AutoAcknowledge);
+
+                Topic tibcoTopic = tibcoSession.CreateTopic(subject);
+
+                MessageProducer tibcoMessageProducer = tibcoSession.CreateProducer(tibcoTopic);
+
+                MapMessage tibcoMessage = tibcoSession.CreateMapMessage();
+                tibcoMessage.SetStringProperty("field", message);
+
+                tibcoMessageProducer.Send(tibcoMessage);
             }
         }
 

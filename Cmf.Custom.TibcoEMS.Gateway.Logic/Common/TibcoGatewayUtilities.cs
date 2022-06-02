@@ -1,7 +1,14 @@
-﻿using Cmf.MessageBus.Client;
+﻿using Cmf.Foundation.BusinessObjects;
+using Cmf.Foundation.BusinessObjects.GenericTables;
+using Cmf.Foundation.BusinessObjects.QueryObject;
+using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
+using Cmf.Foundation.Common;
+using Cmf.MessageBus.Client;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
+using TIBCO.EMS;
 
 namespace Cmf.Custom.TibcoEMS.Gateway.Logic
 {
@@ -22,9 +29,6 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
             string externalAddress = ConfigurationManager.AppSettings["MessageBus.ExternalAddress"];
 
             bool useLoadBalancing = bool.TryParse(ConfigurationManager.AppSettings["MessageBus.UseLoadBalancing"], out useLoadBalancing) ? useLoadBalancing : false;
-
-            //int connectTimeout = int.TryParse(ConfigurationManager.AppSettings["MessageBus.ConnectTimeout"], out connectTimeout) ? connectTimeout : 10000;
-            //int requestTimeout = int.TryParse(ConfigurationManager.AppSettings["MessageBus.RequestTimeout"], out requestTimeout) ? requestTimeout : 10000;
 
             TransportConfig messageBusConfiguration = new TransportConfig()
             {
@@ -63,6 +67,60 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
             }
 
             return messageBusConfiguration;
+        }
+
+        /// <summary>
+        /// Create Tibco configuration
+        /// </summary>
+        public static Connection CreateTibcoConfiguration()
+        {
+            string host = ConfigurationManager.AppSettings["Tibco.Host"];
+            string username = ConfigurationManager.AppSettings["Tibco.Username"];
+            string password = ConfigurationManager.AppSettings["Tibco.Password"];
+
+            ConnectionFactory factory = new ConnectionFactory(host);
+
+            Connection connection = factory.CreateConnection(username, password);
+
+            return connection;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Dictionary<string, KeyValuePair<string, string>> GetTibcoGTResolverResults()
+        {
+            Dictionary<string, KeyValuePair<string, string>> output = null;
+
+            // Filter Generic Table by "IsEnabled" field
+            FilterCollection filters = new FilterCollection()
+            {
+                new Filter()
+                {
+                    Name = "IsEnabled",
+                    Operator = FieldOperator.IsEqualTo,
+                    Value = true,
+                    LogicalOperator = LogicalOperator.Nothing
+                }
+            };
+
+            // Execute service to get Generic Table results
+            GenericTable genericTable = new GetGenericTableByNameWithFilterInput()
+            {
+                Name = TibcoGatewayConstants.GTCustomTibcoEMSGatewayResolver,
+                Filters = filters
+            }.GetGenericTableByNameWithFilterSync().GenericTable;
+
+            if (genericTable.HasData)
+            {
+                DataSet filteredResults = NgpDataSet.
+                if (genericTable.Data.)
+                {
+
+                }
+            }
+
+            return output;
         }
     }
 }
