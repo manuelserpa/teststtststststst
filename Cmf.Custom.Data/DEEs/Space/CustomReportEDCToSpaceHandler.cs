@@ -34,7 +34,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             #endregion
 
             // Validate that the step has the attribute "Needs Space confirmation" other wise do not execute this DEE Action
-            // Input != null && ((Input.ContainsKey("FinalDataCollectionPoints") && (Input["FinalDataCollectionPoints"] as DataCollectionPointCollection).Any())) && Input.ContainsKey("Material")
             if (Input != null)
             {
                 ComplexPerformDataCollectionOutput performImmediateDataCollectionInput = Input["ComplexPerformDataCollectionOutput"] as ComplexPerformDataCollectionOutput;
@@ -54,8 +53,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                     DeeContextHelper.SetContextParameter("CustomReportEDCToSpaceHandler_Material", material);
                     DeeContextHelper.SetContextParameter("CustomReportEDCToSpaceHandler_DataCollectionInstance", dataCollectionInstance);
                     return true;
-                    
-                    //DeeContextHelper.SetContextParameter("SiteCode", siteCode);
                 }
             }
 
@@ -83,15 +80,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             //Custom
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
 
-            // Sync method 
-            // Utilities.PublishTransactionalMessage("CustomReportEDCToSpace", new Dictionary<string, object> () { {"EDC", dci }});
-
-            //Validate response 
 
             bool isOutOfSpec = false;
             ReasonCollection reasons = new ReasonCollection();
-
-            //Material material = DeeContextHelper.GetContextParameter("CustomReportEDCToSpaceHandler_Material") as Material;
 
             DataCollectionInstance dataCollectionInstance = DeeContextHelper.GetContextParameter("CustomReportEDCToSpaceHandler_DataCollectionInstance") as DataCollectionInstance;
             dataCollectionInstance.Load();
@@ -159,8 +150,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             }
 
             // Utilities.PublishTransactionalMessage("CustomReportEDCToSpace", new Dictionary<string, object> () { {"DataCollectionInstance", dataCollectionInstance.Name }, {"LimitSet", limitSet.Name}, {"Material", material.Name}});
-
-            // AMSOsramUtilities.CreateSpaceInfoWaferValues(material, dataCollectionInstance, limitSet, "hostServerName", new List<string>() { "SiteCodeItem"});
 
             //---End DEE Code---
 

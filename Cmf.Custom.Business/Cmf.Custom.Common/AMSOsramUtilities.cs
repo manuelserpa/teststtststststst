@@ -1409,27 +1409,30 @@ namespace Cmf.Custom.AMSOsram.Common
                         points.AddRange(dataCollectionInstance.DataCollectionPoints.Where(p => p.TargetEntity.Name.Equals(parameter.Name)));
                     }
 
-                    DataCollectionParameterLimit parameterLimit = limitSet.DataCollectionParameterLimits.FirstOrDefault(ls => ls.TargetEntity.Name.Equals(parameter.Name));
-
-                    sample.ParameterName = parameter.Name;
-                    sample.ParameterUnit = parameter.DataUnit;
-
-                    List<Key> sampleKeys = new List<Key>();
-                    sampleKeys.Add(new Key() { Name = "Recipe", Value = string.IsNullOrEmpty(recipe) ? string.Empty : recipe });
-
-                    if (parameterLimit != null)
+                    if (limitSet.DataCollectionParameterLimits.Any(ls => ls.TargetEntity.Name.Equals(parameter.Name)))
                     {
-                        if (parameterLimit.LowerErrorLimit != null && parameterLimit.UpperErrorLimit != null)
-                        {
-                            sample.Upper = parameterLimit.UpperErrorLimit.ToString();
-                            sample.Lower = parameterLimit.LowerErrorLimit.ToString();
-                        }
+                        DataCollectionParameterLimit parameterLimit = limitSet.DataCollectionParameterLimits.FirstOrDefault(ls => ls.TargetEntity.Name.Equals(parameter.Name));
 
-                        if (parameterLimit.LowerWarningLimit != null && parameterLimit.UpperWarningLimit != null)
+                        sample.ParameterName = parameter.Name;
+                        sample.ParameterUnit = parameter.DataUnit;
+
+                        List<Key> sampleKeys = new List<Key>();
+                        sampleKeys.Add(new Key() { Name = "Recipe", Value = string.IsNullOrEmpty(recipe) ? string.Empty : recipe });
+
+                        if (parameterLimit != null)
                         {
-                            sample.Upper = parameterLimit.UpperWarningLimit.ToString();
-                            sample.Lower = parameterLimit.LowerWarningLimit.ToString();
-                        }
+                            if (parameterLimit.LowerErrorLimit != null && parameterLimit.UpperErrorLimit != null)
+                            {
+                                sample.Upper = parameterLimit.UpperErrorLimit.ToString();
+                                sample.Lower = parameterLimit.LowerErrorLimit.ToString();
+                            }
+
+                            if (parameterLimit.LowerWarningLimit != null && parameterLimit.UpperWarningLimit != null)
+                            {
+                                sample.Upper = parameterLimit.UpperWarningLimit.ToString();
+                                sample.Lower = parameterLimit.LowerWarningLimit.ToString();
+                            }
+                        } 
                     }
 
                     Raws raws = new Raws();

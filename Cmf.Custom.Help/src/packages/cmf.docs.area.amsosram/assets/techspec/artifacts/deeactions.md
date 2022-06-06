@@ -19,6 +19,8 @@ The following DEE Actions were created to support customer requirements.
 | [Custom Process Product](/AMSOsram/techspec>artifacts>deeactions>CustomProcessProduct) | Action used to create or update Product using body message of an Integration Entry. |
 | [CustomProcessProductionOrder](/AMSOsram/techspec>artifacts>deeactions>CustomProcessProductionOrder) | DEE action to receive a xml message with the needed information to create or update a **Production Order**. |
 | [Custom Process Products From ERP](/AMSOsram/techspec>artifacts>deeactions>CustomProcessProductsFromERP) | Action used to create an Integration Entry per Product using ERP received message. |
+| [Custom Report EDC To Space Handler](/AMSOsram/techspec>artifacts>deeactions>CustomReportEDCToSpaceHandler) | DEE action to validate DataCollection Post data |
+| [Custom Report EDC To Space Parser]((/AMSOsram/techspec>artifacts>deeactions>CustomReportEDCToSpaceParser)) |DEE Action to create a xml message to be sent to Space system.|
 | [CustomSendAbortInformationToIoT](/AMSOsram/techspec>artifacts>deeactions>CustomSendAbortInformationToIoT) | DEE action to Trigger IoT call to send information about Aborted Materials. |
 | [Custom Send Process Message](/AMSOsram/techspec>artifacts>deeactions>CustomSendProcessMessage) | Brief DEE Action description |
 | [CustomSendTrackInInformationToIoT](/AMSOsram/techspec>artifacts>deeactions>CustomSendTrackInInformationToIoT) | DEE action to Trigger IoT call to send the Materials TrackIn related information. |
