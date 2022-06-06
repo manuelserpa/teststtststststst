@@ -1306,7 +1306,7 @@ namespace Cmf.Custom.AMSOsram.Common
         /// <param name="lot"></param>
         /// <param name="dataCollectionInstance"></param>
         /// <returns></returns>
-        public static CustomReportEDCToSpace CreateSpaceInfoDefaulsValues(Material material, string hostServerName, List<string> siteCodes)
+        public static CustomReportEDCToSpace CreateSpaceInfoDefaulsValues(Material material, string hostServerName, List<string> siteCodes, string recipe)
         {
             List<SiteCode> messageSiteCodes = new List<SiteCode>();
             siteCodes.ForEach(code => messageSiteCodes.Add(new SiteCode() { Value = code}));
@@ -1335,8 +1335,6 @@ namespace Cmf.Custom.AMSOsram.Common
                 area = resource.Area;
             }
 
-           
-
             CustomReportEDCToSpace customReportEDCToSpace = new CustomReportEDCToSpace()
             {
                 Sender = new Sender()
@@ -1355,50 +1353,21 @@ namespace Cmf.Custom.AMSOsram.Common
                     new Key(){ Name = "PROCESS_SPS", Value = material.RequiredService != null ? material.RequiredService.Name : string.Empty},
                     new Key(){ Name = "EQUIPMENT", Value = resource != null ? resource.Name: string.Empty},
                     new Key(){ Name = "CHAMBER", Value = subResource != null ? subResource.Name : string.Empty},
-                    new Key(){ Name = "RECIPE", Value = material.CurrentRecipeInstance != null ? material.CurrentRecipeInstance.Name : string.Empty},
+                    new Key(){ Name = "RECIPE", Value = string.IsNullOrEmpty(recipe) ? string.Empty : recipe},
                     new Key(){ Name = "MEAS_EQUIPMENT", Value = resource != null && resource.Type.Equals("Measure") ? resource.Type : string.Empty},
                     new Key(){ Name = "BATCH_NAME", Value = ""},
                     new Key(){ Name = "LOT", Value = material.Name},
-                    new Key(){ Name = "QTY", Value = $"{material.PrimaryQuantity + material.SecondaryQuantity}"},
-                    new Key(){ Name = "WAFER", Value = ""},
-                    new Key(){ Name = "PUNKT", Value = ""},
-                    new Key(){ Name = "X", Value = ""},
-                    new Key(){ Name = "Y", Value = ""}
+                    new Key(){ Name = "QTY", Value = $"{material.PrimaryQuantity + material.SubMaterialsPrimaryQuantity}"},
+                    new Key(){ Name = "WAFER", Value = "."},
+                    new Key(){ Name = "PUNKT", Value = "."},
+                    new Key(){ Name = "X", Value = "."},
+                    new Key(){ Name = "Y", Value = "."}
                 }
             };
 
             return customReportEDCToSpace;
         }
 
-        /// <summary>
-        /// Method to create xml message with Lot and Data Collection Info to be sent to Space system
-        /// </summary>
-        /// <param name="lot"></param>
-        /// <param name="dataCollectionInstance"></param>
-        /// <returns></returns>
-        public static CustomReportEDCToSpace CreateSpaceInfoLotValues(Material lot, DataCollectionInstance dataCollectionInstance, DataCollectionLimitSet limitSet, string hostServerName, List<string> siteCodes)
-        {
-
-            CustomReportEDCToSpace customReportEDCToSpace = CreateSpaceInfoDefaulsValues(lot, hostServerName, siteCodes);
-
-            // Get Data collection
-            dataCollectionInstance.LoadRelations("DataCollectionPoint");
-            foreach (DataCollectionPoint dcPoint in dataCollectionInstance.DataCollectionPoints)
-            {
-                DataCollectionParameterLimit parameterLimit = limitSet.DataCollectionParameterLimits.FirstOrDefault(ls => ls.TargetEntity.GetNativeValue<long>("TargetEntity").Equals(dcPoint.TargetEntity.GetNativeValue<long>("TargetEntity")));
-
-                if (parameterLimit.LowerErrorLimit != null && parameterLimit.UpperErrorLimit != null && ((decimal)dcPoint.Value < parameterLimit.LowerErrorLimit || (decimal)dcPoint.Value > parameterLimit.UpperErrorLimit))
-                {
-                    
-                }
-                else if (parameterLimit.LowerWarningLimit != null && parameterLimit.UpperWarningLimit != null && ((decimal)dcPoint.Value < parameterLimit.LowerWarningLimit || (decimal)dcPoint.Value > parameterLimit.UpperWarningLimit))
-                {
-
-                }
-            }
-
-            return customReportEDCToSpace;
-        }
 
         /// <summary>
         /// Method to create xml message with Wafer and Data Collection Info to be sent to Space system
@@ -1406,10 +1375,88 @@ namespace Cmf.Custom.AMSOsram.Common
         /// <param name="wafer"></param>
         /// <param name="dataCollectionInstance"></param>
         /// <returns></returns>
-        public static CustomReportEDCToSpace CreateSpaceInfoWaferValues(Material wafer, DataCollectionInstance dataCollectionInstance, string hostServerName, List<string> siteCodes)
+        public static CustomReportEDCToSpace CreateSpaceInfoWaferValues(Material wafer, DataCollectionInstance dataCollectionInstance, DataCollectionLimitSet limitSet, string hostServerName, List<string> siteCodes, string recipe = null )
         {
-            CustomReportEDCToSpace customReportEDCToSpace = CreateSpaceInfoDefaulsValues(wafer, hostServerName, siteCodes);
+            CustomReportEDCToSpace customReportEDCToSpace = CreateSpaceInfoDefaulsValues(wafer, hostServerName, siteCodes, recipe);
 
+            List<Sample> samples = new List<Sample>();
+
+            // Only decimal or long values can be send to Space
+            List<string> possibleDataTypes = new List<string>() { ParameterDataType.Decimal.ToString(), ParameterDataType.Long.ToString() };
+
+            // get distinct parameters
+            ParameterCollection parameters = new ParameterCollection();
+            //parameters.AddRange(limitSet.DataCollectionParameterLimits.Select(ls => ls.TargetEntity).Where(p => possibleDataTypes.Contains(p.DataType.ToString())).Distinct());
+
+            dataCollectionInstance.LoadRelations();
+
+            DataCollection dc = dataCollectionInstance.DataCollection;
+            dc.LoadRelations(Navigo.Common.Constants.DataCollectionParameter);
+
+            parameters.AddRange(dc.DataCollectionParameters.Select(p => p.TargetEntity));
+            parameters.Load();
+
+            foreach (Parameter parameter in parameters)
+            {
+                if (parameter.DataType == ParameterDataType.Decimal || parameter.DataType == ParameterDataType.Long)
+                {
+                    Sample sample = new Sample();
+
+                    // Get the DC Points for the specific parameter
+                    DataCollectionPointCollection points = new DataCollectionPointCollection();
+                    if (true)
+                    {
+                        points.AddRange(dataCollectionInstance.DataCollectionPoints.Where(p => p.TargetEntity.Name.Equals(parameter.Name)));
+                    }
+
+                    DataCollectionParameterLimit parameterLimit = limitSet.DataCollectionParameterLimits.FirstOrDefault(ls => ls.TargetEntity.Name.Equals(parameter.Name));
+
+                    sample.ParameterName = parameter.Name;
+                    sample.ParameterUnit = parameter.DataUnit;
+
+                    List<Key> sampleKeys = new List<Key>();
+                    sampleKeys.Add(new Key() { Name = "Recipe", Value = string.IsNullOrEmpty(recipe) ? string.Empty : recipe });
+
+                    if (parameterLimit != null)
+                    {
+                        if (parameterLimit.LowerErrorLimit != null && parameterLimit.UpperErrorLimit != null)
+                        {
+                            sample.Upper = parameterLimit.UpperErrorLimit.ToString();
+                            sample.Lower = parameterLimit.LowerErrorLimit.ToString();
+                        }
+
+                        if (parameterLimit.LowerWarningLimit != null && parameterLimit.UpperWarningLimit != null)
+                        {
+                            sample.Upper = parameterLimit.UpperWarningLimit.ToString();
+                            sample.Lower = parameterLimit.LowerWarningLimit.ToString();
+                        }
+                    }
+
+                    Raws raws = new Raws();
+                    raws.raws = new List<Raw>();
+                    raws.StoreRaws = "True";
+
+                    // Add the readings values
+                    foreach (DataCollectionPoint dcPoint in points)
+                    {
+                        Raw raw = new Raw();
+                        raw.RawValue = Convert.ToDecimal(dcPoint.Value);
+
+                        List<Key> rawKeys = new List<Key>();
+                        rawKeys.Add(new Key() { Name = "WAFER", Value = dcPoint.SampleId });
+
+                        raw.Keys = rawKeys;
+
+                        raws.raws.Add(raw);
+                    }
+
+                    sample.Raws = raws;
+
+                    samples.Add(sample); 
+                }
+            }
+
+            customReportEDCToSpace.Samples = samples;
 
             return customReportEDCToSpace;
         }
@@ -1941,13 +1988,16 @@ namespace Cmf.Custom.AMSOsram.Common
             // Validate lot is not on hold by the given reasons
             MaterialHoldReasonCollection existingLotHoldReasons = new MaterialHoldReasonCollection();
             lot.LoadRelations(Cmf.Navigo.Common.Constants.MaterialHoldReason);
-            existingLotHoldReasons.AddRange(lot.MaterialHoldReasons);
+            if (lot.MaterialHoldReasons != null)
+            {
+                existingLotHoldReasons.AddRange(lot.MaterialHoldReasons); 
+            }
 
             // create material hold reasons
             MaterialHoldReasonCollection lotHoldReasons = new MaterialHoldReasonCollection();
             foreach (Reason reason in reasons)
             {
-                if (!existingLotHoldReasons.Any(r=>r.TargetEntity.Name.Equals(reason.Name)))
+                if (existingLotHoldReasons.Count == 0 || !existingLotHoldReasons.Any(r=>r.TargetEntity.Name.Equals(reason.Name)))
                 {
                     lotHoldReasons.Add(new MaterialHoldReason()
                     {

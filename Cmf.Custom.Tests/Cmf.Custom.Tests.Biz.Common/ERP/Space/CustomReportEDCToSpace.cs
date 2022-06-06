@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Cmf.Custom.AMSOsram.Common.DataStructures
+namespace Cmf.Custom.Tests.Biz.Common.ERP.Space
 {
-
     [XmlRoot]
     public class CustomReportEDCToSpace
     {
         [XmlAttribute("sampleDate")]
-        public string SampleDate { get; set; }  
+        public string SampleDate { get; set; }
 
         [XmlElement]
         public Sender Sender { get; set; }
@@ -29,8 +28,8 @@ namespace Cmf.Custom.AMSOsram.Common.DataStructures
     }
 
 
-    public class Sender 
-    { 
+    public class Sender
+    {
         [XmlElement("value")]
         public string Value { get; set; }
     }
@@ -82,7 +81,7 @@ namespace Cmf.Custom.AMSOsram.Common.DataStructures
         public List<Raw> raws { get; set; }
     }
 
-    public class Raw 
+    public class Raw
     {
         [XmlArray("Keys")]
         [XmlArrayItem("Key")]

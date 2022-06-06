@@ -86,12 +86,18 @@
             "ActionGroup": "DataCollectionManagement.DataCollectionInstanceManagementOrchestration.CloseDataCollectionInstance.Post",
             "Action": "CustomReportEDCToSpaceHandler",
             "Order": "1"
+        },
+        "3": {
+            "ActionGroup": "EdcManagement.DataCollectionManagement.ComplexPerformDataCollection.Post",
+            "Action": "CustomReportEDCToSpaceHandler",
+            "Order": "1"
         }
+        
     },
     "<SM>Config": {
         "1": {
             "ParentPath": "/Cmf/Custom/Protocol",
-            "Name": "Sapce",
+            "Name": "Space",
             "Value": "",
             "ValueType": "String"
         }

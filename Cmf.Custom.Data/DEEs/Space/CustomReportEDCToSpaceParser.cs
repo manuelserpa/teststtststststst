@@ -2,6 +2,7 @@
 using Cmf.Custom.AMSOsram.Common.DataStructures;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Navigo.BusinessObjects;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -49,10 +50,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
 
             //Custom
+            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
+            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.DataStructures");
 
             if (Input != null)
             {
-                Material material = Input["Material"] as Material;
+                Material material = new Material() { Name = Input["Material"].ToString() };
                 material.Load();
 
                 string message = string.Empty;
@@ -64,24 +67,24 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                 site.LoadAttributes(new Collection<string>() { AMSOsramConstants.CustomSiteCodeAttribute });
                 string siteCode = site.Attributes[AMSOsramConstants.CustomSiteCodeAttribute].ToString();
 
-                if (material.ParentMaterial == null)
-                {
-                    // Create Lot Values Message
-                    //CustomReportEDCToSpace customSendLotDCInformation = AMSOsramUtilities.CreateSpaceInfoLotValues(material, dataCollectionInstance, "", new List<string>() { siteCode });
+                string recipeName = material.CurrentRecipeInstance != null ? material.CurrentRecipeInstance.ParentEntity.Name : string.Empty;
 
-                    // Serialize object to XML 
-                    //message = customSendLotDCInformation.SerializeToXML();
-                }
-                else
-                {
-                    // Create Wafer Values Message
-                    //CustomReportEDCToSpace customSendWaferDCInformation = AMSOsramUtilities.CreateSpaceInfoWaferValues(material, dataCollectionInstance, "", new List<string>() { siteCode });
+                DataCollectionInstance dataCollectionInstance = new DataCollectionInstance() { Name = Input["DataCollectionInstance"].ToString() };
+                dataCollectionInstance.Load();
 
-                    // Serialize object to XML 
-                    //message = customSendWaferDCInformation.SerializeToXML();
-                }
+                DataCollectionLimitSet limitSet = new DataCollectionLimitSet() { Name = Input["LimitSet"].ToString() };
+                limitSet.Load();
+                limitSet.LoadRelations(Cmf.Navigo.Common.Constants.DataCollectionParameterLimit);
+
+                // Create Lot Values Message
+                CustomReportEDCToSpace customSendLotDCInformation = AMSOsramUtilities.CreateSpaceInfoWaferValues(material, dataCollectionInstance, limitSet, "hostServerName", new List<string>() { siteCode }, recipeName);
+
+                // Serialize object to XML 
+                message = customSendLotDCInformation.SerializeToXML();
 
                 // create integration entry for demo 
+                string name = $"SpaceEDC_{material.Name}_{Guid.NewGuid().ToString("N").Substring(0, 5)}";
+                AMSOsramUtilities.CreateOutboundIntegrationEntry(message, string.Empty, name);
 
                 Input.Add("Message", message);
             }
