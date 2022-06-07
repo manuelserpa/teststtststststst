@@ -15,8 +15,8 @@ The table below describes the properties for this entity type:
 
 ### How it works
 
-When a ComplexPerformDataCollection is performed the DEE Action [Custom Report EDC To Space Handler](/AMSOsram/techspec>artifacts>deeactions>CustomReportEDCToSpaceHandler) will be executed validating the posted values using the limit set provided. If the values respect the limit set defined a protocol defined in the configuration */Cmf/Custom/Protocol/Space* is opened, otherwise the main lot is put on hold with hold reason **Out Of Spec**.
-After this operation is completed the information is sent to the Tibco gateway to process the information and execute the [Custom Report EDC To Space Parser](/AMSOsram/techspec>artifacts>deeactions>CustomReportEDCToSpaceParser) DEE Action that will create and return a xml message.
+When a ComplexPerformDataCollection is performed the DEE Action [Custom Report EDC To Space Handler](/AMSOsram/techspec>artifacts>deeactions>CustomReportEDCToSpaceHandler) will be executed validating the posted values using the limit set provided. If the values respect the limit set defined a protocol defined in the configuration */Cmf/Custom/Protocol/Space* is opened, otherwise the main lot is put on hold with hold reason **Out Of Spec**.  
+After this operation is completed, the information is sent to the Tibco gateway to process the information and execute the [Custom Report EDC To Space Parser](/AMSOsram/techspec>artifacts>deeactions>CustomReportEDCToSpaceParser) DEE Action that will create and return an Xml message.
 
 ### Assumptions
 
