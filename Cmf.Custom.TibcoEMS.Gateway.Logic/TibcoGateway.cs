@@ -102,8 +102,10 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
                 /* TODO: 
                  * - Subscribe all subjects that are on the Generic Table
                  */
-
-                this.MessageBus.Subscribe("CustomReportEDCToSpace", CreateMessage);
+                foreach (KeyValuePair<string, KeyValuePair<string, string>> item in this.GTTibcoResolver)
+                {
+                    this.MessageBus.Subscribe(item.Key, OnMessage);
+                }
             }
             catch (Exception ex)
             {
@@ -172,7 +174,7 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
             }
         }
 
-        private void CreateMessage(string subject, MbMessage message)
+        private void OnMessage(string subject, MbMessage message)
         {
             if (message != null && !String.IsNullOrEmpty(message.Data))
             {

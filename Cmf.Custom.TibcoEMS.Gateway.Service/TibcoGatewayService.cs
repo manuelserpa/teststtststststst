@@ -16,7 +16,6 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Service
 
         protected override void OnStart(string[] args)
         {
-            System.Diagnostics.Debugger.Launch();
             this.TibcoGateway.Start();
         }
 
