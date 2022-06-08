@@ -1,13 +1,8 @@
-﻿using Cmf.Foundation.BusinessObjects.GenericTables;
-using Cmf.Foundation.BusinessObjects.QueryObject;
-using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
-using Cmf.Foundation.Common;
-using Cmf.MessageBus.Client;
+﻿using Cmf.MessageBus.Client;
 using Cmf.MessageBus.Messages;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Threading;
 using TIBCO.EMS;
 
@@ -71,6 +66,8 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
             this.MessageBusConfiguration = TibcoGatewayUtilities.CreateMessageBusConfiguration();
             this.MessageBus = new Transport(this.MessageBusConfiguration);
 
+            this.TibcoConnnector = TibcoGatewayUtilities.CreateTibcoConfiguration();
+
             this.MessageBus.Exception += OnException;
             this.MessageBus.Connected += OnConnected;
             this.MessageBus.Disconnected += OnDisconnected;
@@ -85,7 +82,7 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         /// <summary>
         /// Subscribe Cmf Message Bus
         /// </summary>
-        public void SubscribeMessageBus()
+        public void Start()
         {
             try
             {
@@ -102,33 +99,58 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
                 // Connect to Tibco
                 this.TibcoConnnector.Start();
 
+                /* TODO: 
+                 * - Subscribe all subjects that are on the Generic Table
+                 */
+
                 this.MessageBus.Subscribe("CustomReportEDCToSpace", CreateMessage);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
         /// <summary>
         /// Unsubscribe Cmf Message Bus
         /// </summary>
-        public void UnsubscribeMessageBus()
+        public void Stop()
         {
-            this.TibcoConnnector.Close();
+            try
+            {
+                // Close Tibco connection
+                if (this.TibcoConnnector != null)
+                {
+                    this.TibcoConnnector.Close();
+                }
 
-            this.MessageBus.Stop();
+                // Close Message Bus client connection
+                if (this.MessageBus != null)
+                {
+                    this.MessageBus.Stop();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         #endregion
 
         #region Private Methods
 
+        /// <summary>
+        /// Exception occurs
+        /// </summary>
         private void OnException(string ex)
         {
             throw new Exception(ex);
         }
 
+        /// <summary>
+        /// Connect to Message Bus
+        /// </summary>
         private void OnConnected()
         {
             ConnectedSignalEvent.Set();
@@ -139,6 +161,9 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
             }
         }
 
+        /// <summary>
+        /// Disconnect from Message Bus
+        /// </summary>
         private void OnDisconnected()
         {
             if (Environment.UserInteractive)
@@ -151,31 +176,27 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         {
             if (message != null && !String.IsNullOrEmpty(message.Data))
             {
-                if (this.GTTibcoResolver != null && this.GTTibcoResolver.Any())
-                {
-                    if (this.GTTibcoResolver.Keys.Equals(message.Subject))
-                    {
+                /* TODO: 
+                 * - Trigger DEE Action to parse Message for Tibco format 
+                 */
 
-                    }
-                }
+                // Send message to Tibco
+                this.SendMessageToTibco(subject, message.Data);
             }
         }
 
-        private void SendMessage(string subject, string message)
+        private void SendMessageToTibco(string subject, string message)
         {
-            if (!string.IsNullOrEmpty(subject) && !string.IsNullOrEmpty(message))
-            {
-                Session tibcoSession = this.TibcoConnnector.CreateSession(false, SessionMode.AutoAcknowledge);
+            Session tibcoSession = this.TibcoConnnector.CreateSession(false, SessionMode.AutoAcknowledge);
 
-                Topic tibcoTopic = tibcoSession.CreateTopic(subject);
+            Topic tibcoTopic = tibcoSession.CreateTopic(subject);
 
-                MessageProducer tibcoMessageProducer = tibcoSession.CreateProducer(tibcoTopic);
+            MessageProducer tibcoMessageProducer = tibcoSession.CreateProducer(tibcoTopic);
 
-                MapMessage tibcoMessage = tibcoSession.CreateMapMessage();
-                tibcoMessage.SetStringProperty("field", message);
+            MapMessage tibcoMessage = tibcoSession.CreateMapMessage();
+            tibcoMessage.SetStringProperty("field", message);
 
-                tibcoMessageProducer.Send(tibcoMessage);
-            }
+            tibcoMessageProducer.Send(tibcoMessage);
         }
 
         #endregion

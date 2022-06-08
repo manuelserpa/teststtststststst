@@ -17,13 +17,12 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Service
         protected override void OnStart(string[] args)
         {
             System.Diagnostics.Debugger.Launch();
-            this.TibcoGateway.SubscribeMessageBus();
+            this.TibcoGateway.Start();
         }
 
         protected override void OnStop()
         {
-            System.Diagnostics.Debugger.Launch();
-            this.TibcoGateway.UnsubscribeMessageBus();
+            this.TibcoGateway.Stop();
         }
     }
 }

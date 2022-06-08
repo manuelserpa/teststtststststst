@@ -1,5 +1,4 @@
-﻿using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessObjects.GenericTables;
+﻿using Cmf.Foundation.BusinessObjects.GenericTables;
 using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 using Cmf.Foundation.Common;
@@ -7,7 +6,6 @@ using Cmf.MessageBus.Client;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
 using TIBCO.EMS;
 
 namespace Cmf.Custom.TibcoEMS.Gateway.Logic
@@ -86,7 +84,7 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         }
 
         /// <summary>
-        /// 
+        /// Get Generic Table Data related to topics to be subscribed by Tibco 
         /// </summary>
         public static Dictionary<string, KeyValuePair<string, string>> GetTibcoGTResolverResults()
         {
@@ -111,14 +109,10 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
                 Filters = filters
             }.GetGenericTableByNameWithFilterSync().GenericTable;
 
-            if (genericTable.HasData)
-            {
-                DataSet filteredResults = NgpDataSet.
-                if (genericTable.Data.)
-                {
-
-                }
-            }
+            /* TODO:
+             * - Transform NgpDataSet service output to DataSet type;
+             * - Transform DataSet to Dictionary
+             */
 
             return output;
         }
