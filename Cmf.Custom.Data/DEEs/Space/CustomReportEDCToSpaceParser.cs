@@ -76,8 +76,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                 limitSet.Load();
                 limitSet.LoadRelations(Cmf.Navigo.Common.Constants.DataCollectionParameterLimit);
 
+                string host = System.Configuration.ConfigurationManager.AppSettings["ServerName"];
+
                 // Create Lot Values Message
-                CustomReportEDCToSpace customSendLotDCInformation = AMSOsramUtilities.CreateSpaceInfoWaferValues(material, dataCollectionInstance, limitSet, "hostServerName", new List<string>() { siteCode }, recipeName);
+                CustomReportEDCToSpace customSendLotDCInformation = AMSOsramUtilities.CreateSpaceInfoWaferValues(material, dataCollectionInstance, limitSet, host, new List<string>() { siteCode }, recipeName);
 
                 // Serialize object to XML 
                 message = customSendLotDCInformation.SerializeToXML();

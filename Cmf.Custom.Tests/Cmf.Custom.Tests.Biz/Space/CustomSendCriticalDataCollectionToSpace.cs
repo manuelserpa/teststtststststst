@@ -102,7 +102,7 @@ namespace Cmf.Custom.Tests.Biz.Space
             material.LoadChildren();
 
             Dictionary<string, string> expectedKeys = new Dictionary<string, string>() {
-                { "PROCESS",  AMSOsramConstants.DefaultTestProductName},
+                {"PROCESS",  AMSOsramConstants.DefaultTestProductName},
                 {"BASIC_TYPE",string.Empty },
                 {"AREA",string.Empty },
                 {"OWNER", string.Empty},
@@ -250,7 +250,7 @@ namespace Cmf.Custom.Tests.Biz.Space
             material.LoadChildren();
 
             Dictionary<string, string> expectedKeys = new Dictionary<string, string>() {
-                { "PROCESS",  AMSOsramConstants.DefaultTestProductName},
+                {"PROCESS",  AMSOsramConstants.DefaultTestProductName},
                 {"BASIC_TYPE",string.Empty },
                 {"AREA",string.Empty },
                 {"OWNER", string.Empty},

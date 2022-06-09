@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace Cmf.Custom.AMSOsram.Common.DataStructures
 {
 
-    [XmlRoot]
+    [XmlRoot("Request")]
     public class CustomReportEDCToSpace
     {
         [XmlAttribute("sampleDate")]

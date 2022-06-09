@@ -1337,6 +1337,7 @@ namespace Cmf.Custom.AMSOsram.Common
 
             CustomReportEDCToSpace customReportEDCToSpace = new CustomReportEDCToSpace()
             {
+                SampleDate = DateTime.Now,
                 Sender = new Sender()
                 {
                     Value = hostServerName
@@ -1355,7 +1356,7 @@ namespace Cmf.Custom.AMSOsram.Common
                     new Key(){ Name = "CHAMBER", Value = subResource != null ? subResource.Name : string.Empty},
                     new Key(){ Name = "RECIPE", Value = string.IsNullOrEmpty(recipe) ? string.Empty : recipe},
                     new Key(){ Name = "MEAS_EQUIPMENT", Value = resource != null && resource.Type.Equals("Measure") ? resource.Type : string.Empty},
-                    new Key(){ Name = "BATCH_NAME", Value = ""},
+                    new Key(){ Name = "BATCH_NAME", Value = Guid.NewGuid().ToString("N")},
                     new Key(){ Name = "LOT", Value = material.Name},
                     new Key(){ Name = "QTY", Value = $"{material.PrimaryQuantity + material.SubMaterialsPrimaryQuantity}"},
                     new Key(){ Name = "WAFER", Value = "."},

@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace Cmf.Custom.Tests.Biz.Common.ERP.Space
 {
-    [XmlRoot]
+    [XmlRoot("Request")]
     public class CustomReportEDCToSpace
     {
         [XmlAttribute("sampleDate")]
