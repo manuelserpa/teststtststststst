@@ -1,9 +1,12 @@
-﻿using Cmf.MessageBus.Client;
+﻿using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects;
+using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.OutputObjects;
+using Cmf.MessageBus.Client;
 using Cmf.MessageBus.Messages;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Threading;
+using System.Threading.Tasks;
 using TIBCO.EMS;
 
 namespace Cmf.Custom.TibcoEMS.Gateway.Logic
@@ -66,11 +69,7 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
             this.MessageBusConfiguration = TibcoGatewayUtilities.CreateMessageBusConfiguration();
             this.MessageBus = new Transport(this.MessageBusConfiguration);
 
-            this.TibcoConnnector = TibcoGatewayUtilities.CreateTibcoConfiguration();
-
-            this.MessageBus.Exception += OnException;
-            this.MessageBus.Connected += OnConnected;
-            this.MessageBus.Disconnected += OnDisconnected;
+            //this.TibcoConnnector = TibcoGatewayUtilities.CreateTibcoConfiguration();
 
             this.GTTibcoResolver = TibcoGatewayUtilities.GetTibcoGTResolverResults();
         }
@@ -90,21 +89,18 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
                 this.MessageBus.Start();
 
                 // Block until the client has connected to the Message Bus
-                if (!this.ConnectedSignalEvent.WaitOne(this.ConnectTimeout))
-                {
-                    // Failed to connect in the set interval window
-                    throw new Exception("Failed to connect to MessageBus");
-                }
+                //if (!this.ConnectedSignalEvent.WaitOne(this.ConnectTimeout))
+                //{
+                //    // Failed to connect in the set interval window
+                //    throw new Exception("Failed to connect to MessageBus");
+                //}
 
                 // Connect to Tibco
-                this.TibcoConnnector.Start();
+                //this.TibcoConnnector.Start();
 
-                /* TODO: 
-                 * - Subscribe all subjects that are on the Generic Table
-                 */
                 foreach (KeyValuePair<string, KeyValuePair<string, string>> item in this.GTTibcoResolver)
                 {
-                    this.MessageBus.Subscribe(item.Key, OnMessage);
+                    this.MessageBus.Subscribe(item.Key, OnRequestReceived);
                 }
             }
             catch (Exception ex)
@@ -142,48 +138,34 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
 
         #region Private Methods
 
-        /// <summary>
-        /// Exception occurs
-        /// </summary>
-        private void OnException(string ex)
-        {
-            throw new Exception(ex);
-        }
-
-        /// <summary>
-        /// Connect to Message Bus
-        /// </summary>
-        private void OnConnected()
-        {
-            ConnectedSignalEvent.Set();
-
-            if (Environment.UserInteractive)
-            {
-                Console.WriteLine("Connected to MessageBus");
-            }
-        }
-
-        /// <summary>
-        /// Disconnect from Message Bus
-        /// </summary>
-        private void OnDisconnected()
-        {
-            if (Environment.UserInteractive)
-            {
-                Console.WriteLine("Disconnected from MessageBus");
-            }
-        }
-
-        private void OnMessage(string subject, MbMessage message)
+        private void OnRequestReceived(string subject, MbMessage message)
         {
             if (message != null && !String.IsNullOrEmpty(message.Data))
             {
-                /* TODO: 
-                 * - Trigger DEE Action to parse Message for Tibco format 
-                 */
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        // Tibco Topic
+                        string topic = this.GTTibcoResolver[subject].Key;
 
-                // Send message to Tibco
-                this.SendMessageToTibco(subject, message.Data);
+                        // Action name
+                        string actionName = this.GTTibcoResolver[subject].Value;
+
+                        // Execute DEE
+                        ExecuteActionOutput actionOutput = TibcoGatewayUtilities.ExecuteDEE(actionName, new Dictionary<string, object>());
+
+                        if (!string.IsNullOrEmpty(topic) && actionOutput.Output.Count > 0 && actionOutput.Output != null)
+                        {
+                            // Send message to Tibco
+                            this.SendMessageToTibco(topic, message.Data);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                });
             }
         }
 

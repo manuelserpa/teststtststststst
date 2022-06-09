@@ -95,6 +95,11 @@
         /// </summary>
         public static string GenericTableCustomReclaimContainerTypeReclaimContainerTypeProperty = "ReclaimContainerType";
 
+        /// <summary>
+        /// Custom TibcoEMS Gateway Resolver table name 
+        /// </summary>
+        public static string GenericTableCustomTibcoEMSGatewayResolver = "CustomTibcoEMSGatewayResolver";
+
         #endregion
 
         #region LookupTables

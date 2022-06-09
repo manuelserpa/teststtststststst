@@ -1,7 +1,11 @@
 ﻿using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.GenericTables;
 using Cmf.Foundation.BusinessObjects.QueryObject;
+using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects;
+using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.OutputObjects;
 using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
+using Cmf.Foundation.BusinessOrchestration.Utilities.InputObjects;
+using Cmf.Foundation.BusinessOrchestration.Utilities.OutputObjects;
 using Cmf.Foundation.Common;
 using Cmf.MessageBus.Client;
 using System;
@@ -123,12 +127,32 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
                 Filters = filters
             }.GetGenericTableByNameWithFilterSync().GenericTable;
 
-            DataSet ds = ToDataSet(genericTable.Data);
+            //DataSet ds = ToDataSet(genericTable.Data);
+            DataSet ds = new ToDataSetInput()
+            {
+                NgpDataSet = genericTable.Data
+            }.ToDataSetSync().DataSet;
 
             if (ds != null && ds.Tables != null && ds.Tables.Count > 0)
             {
-                output = ds.Tables[0].AsEnumerable().ToDictionary(row => row.Field<string>("Subject"), row => new KeyValuePair<string, string>(row.Field<string>("Topic"), row.Field<string>("Rule")));
+                DataTable dt = ds.Tables[0];
+
+                output = dt.AsEnumerable().ToDictionary(row => row.Field<string>("Subject"), row => new KeyValuePair<string, string>(row.Field<string>("Topic"), row.Field<string>("Rule")));
             }
+
+            return output;
+        }
+
+        /// <summary>
+        /// Execute DEE Action
+        /// </summary>
+        public static ExecuteActionOutput ExecuteDEE(string actionName, Dictionary<string, object> input)
+        {
+            ExecuteActionOutput output = new ExecuteActionInput
+            {
+                Action = new Foundation.Common.DynamicExecutionEngine.Action { Name = actionName },
+                Input = input
+            }.ExecuteActionSync();
 
             return output;
         }
@@ -138,7 +162,7 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         /// </summary>
         /// <param name="dsd">NgpDataSet to convert</param>
         /// <returns>Returns a DataSet with all information of the NgpDataSet</returns>
-        public static DataSet ToDataSet(NgpDataSet dsd)
+        private static DataSet ToDataSet(NgpDataSet dsd)
         {
             DataSet ds = new DataSet();
 
@@ -204,7 +228,7 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         /// </summary>
         /// <param name="ds">The DataSet</param>
         /// <returns>Returns the DataSet converted in a NgpDataSet</returns>
-        public static NgpDataSet FromDataSet(DataSet ds)
+        private static NgpDataSet FromDataSet(DataSet ds)
         {
             List<string> columnsToIgnore = new List<string>();
 

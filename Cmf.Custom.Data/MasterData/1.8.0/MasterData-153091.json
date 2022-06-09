@@ -98,8 +98,8 @@
     },
     "<SM>DEEAction": {
         "1": {
-            "Action": "",
-            "Description": "",
+            "Action": "InvalidateCache\\CustomInvalidateCache",
+            "Description": "Action to invalidade cache for Generic Table Tibco Resolver",
             "CodeFileRelativePath": "",
             "IsEnabled": "Yes",
             "Classification": ""
@@ -107,9 +107,14 @@
     },
     "DEEActionOrder": {
         "1": {
-            "ActionGroup": "",
-            "Action": "",
+            "ActionGroup": "GenericTables.GenericTable.InsertOrUpdateRows.Post",
+            "Action": "CustomInvalidateCache",
             "Order": "1"
+        },
+        "2": {
+            "ActionGroup": "GenericTables.GenericTable.RemoveRows.Post",
+            "Action": "CustomInvalidateCache",
+            "Order": "2"
         }
     }
 }
