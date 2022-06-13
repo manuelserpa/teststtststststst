@@ -66,7 +66,7 @@
             "Description": "Dee Rule Message Parser that aims to parse the message to TIBCO format",
             "DefaultValue": "",
             "IsKey": "No",
-            "IsMandatory": "Yes",
+            "IsMandatory": "No",
             "ScalarType": "NVarChar",
             "Size": "256",
             "Precision": "",
@@ -98,9 +98,9 @@
     },
     "<SM>DEEAction": {
         "1": {
-            "Action": "InvalidateCache\\CustomInvalidateCache",
+            "Action": "CustomInvalidateCache",
             "Description": "Action to invalidade cache for Generic Table Tibco Resolver",
-            "CodeFileRelativePath": "",
+            "CodeFileRelativePath": "InvalidateCache\\CustomInvalidateCache.cs",
             "IsEnabled": "Yes",
             "Classification": ""
         }

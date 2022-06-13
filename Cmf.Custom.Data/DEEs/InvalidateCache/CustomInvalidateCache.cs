@@ -60,10 +60,7 @@ namespace Cmf.Custom.AMSOsram.Actions.InvalidateCache
                 {
                     GenericTable genericTable = AMSOsramUtilities.GetInputItem<GenericTable>(Input, "GenericTable");
 
-                    string prefix = "Custom.UpdateGenericTable.";
-                    string subject = $"{prefix}{genericTable.Name}";
-
-                    Utilities.PublishMessage(subject);
+                    Utilities.PublishMessage($"Custom.UpdateGenericTable.{genericTable.Name}");
                 }
             }
 

@@ -2,9 +2,11 @@
 using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.OutputObjects;
 using Cmf.MessageBus.Client;
 using Cmf.MessageBus.Messages;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using TIBCO.EMS;
@@ -58,7 +60,7 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         /// <summary>
         /// GenericTable Tibco Resolver
         /// </summary>
-        private Dictionary<string, KeyValuePair<string, string>> GTTibcoResolver;
+        private Dictionary<string, GenericTableTibcoResolver> GTTibcoResolver;
 
         #endregion
 
@@ -71,7 +73,6 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
 
             //this.TibcoConnnector = TibcoGatewayUtilities.CreateTibcoConfiguration();
 
-            this.GTTibcoResolver = TibcoGatewayUtilities.GetTibcoGTResolverResults();
         }
 
         #endregion
@@ -79,7 +80,7 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         #region Public Methods
 
         /// <summary>
-        /// Subscribe Cmf Message Bus
+        /// On Start Windows Service
         /// </summary>
         public void Start()
         {
@@ -88,20 +89,10 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
                 // Connect to Message Bus
                 this.MessageBus.Start();
 
-                // Block until the client has connected to the Message Bus
-                //if (!this.ConnectedSignalEvent.WaitOne(this.ConnectTimeout))
-                //{
-                //    // Failed to connect in the set interval window
-                //    throw new Exception("Failed to connect to MessageBus");
-                //}
-
                 // Connect to Tibco
                 //this.TibcoConnnector.Start();
 
-                foreach (KeyValuePair<string, KeyValuePair<string, string>> item in this.GTTibcoResolver)
-                {
-                    this.MessageBus.Subscribe(item.Key, OnRequestReceived);
-                }
+                this.SubscribeSubjects();
             }
             catch (Exception ex)
             {
@@ -110,7 +101,7 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         }
 
         /// <summary>
-        /// Unsubscribe Cmf Message Bus
+        /// On Stop Windows Service
         /// </summary>
         public void Stop()
         {
@@ -125,6 +116,8 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
                 // Close Message Bus client connection
                 if (this.MessageBus != null)
                 {
+                    this.UnsubscribeSubjects();
+
                     this.MessageBus.Stop();
                 }
             }
@@ -140,25 +133,49 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
 
         private void OnRequestReceived(string subject, MbMessage message)
         {
-            if (message != null && !String.IsNullOrEmpty(message.Data))
+            if (message != null && !string.IsNullOrEmpty(message.Data))
             {
                 Task.Run(() =>
                 {
                     try
                     {
-                        // Tibco Topic
-                        string topic = this.GTTibcoResolver[subject].Key;
-
-                        // Action name
-                        string actionName = this.GTTibcoResolver[subject].Value;
-
-                        // Execute DEE
-                        ExecuteActionOutput actionOutput = TibcoGatewayUtilities.ExecuteDEE(actionName, new Dictionary<string, object>());
-
-                        if (!string.IsNullOrEmpty(topic) && actionOutput.Output.Count > 0 && actionOutput.Output != null)
+                        switch (subject)
                         {
-                            // Send message to Tibco
-                            this.SendMessageToTibco(topic, message.Data);
+                            case TibcoGatewayConstants.SubjectCustomTibcoEMSGatewayResolver:
+                                {
+                                    this.UnsubscribeSubjects();
+
+                                    this.SubscribeSubjects();
+
+                                    break;
+                                }
+                            default:
+                                {
+                                    string topicName = this.GTTibcoResolver[subject].Topic;
+
+                                    string actionName = this.GTTibcoResolver[subject].Rule;
+
+                                    string messageData = message.Data;
+
+                                    if (!string.IsNullOrWhiteSpace(actionName))
+                                    {
+                                        // Execute DEE
+                                        ExecuteActionOutput actionOutput = TibcoGatewayUtilities.ExecuteDEE(actionName, JsonConvert.DeserializeObject<Dictionary<string, object>>(message.Data));
+
+                                        if (actionOutput.Output != null &&
+                                            actionOutput.Output.Any() &&
+                                            actionOutput.Output.ContainsKey("Message") &&
+                                            !string.IsNullOrWhiteSpace(actionOutput.Output["Message"].ToString()))
+                                        {
+                                            messageData = actionOutput.Output["Message"].ToString();
+                                        }
+                                    }
+
+                                    // Send message to Tibco
+                                    this.SendMessageToTibco(topicName, messageData);
+
+                                    break;
+                                }
                         }
                     }
                     catch (Exception ex)
@@ -169,18 +186,40 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
             }
         }
 
-        private void SendMessageToTibco(string subject, string message)
+        private void SendMessageToTibco(string topicName, string messageData)
         {
             Session tibcoSession = this.TibcoConnnector.CreateSession(false, SessionMode.AutoAcknowledge);
 
-            Topic tibcoTopic = tibcoSession.CreateTopic(subject);
+            Topic tibcoTopic = tibcoSession.CreateTopic(topicName);
 
             MessageProducer tibcoMessageProducer = tibcoSession.CreateProducer(tibcoTopic);
 
             MapMessage tibcoMessage = tibcoSession.CreateMapMessage();
-            tibcoMessage.SetStringProperty("field", message);
+            tibcoMessage.SetStringProperty("field", messageData);
 
             tibcoMessageProducer.Send(tibcoMessage);
+        }
+
+        private void SubscribeSubjects()
+        {
+            this.GTTibcoResolver = TibcoGatewayUtilities.GetTibcoGTResolverResults();
+
+            foreach (KeyValuePair<string, GenericTableTibcoResolver> item in this.GTTibcoResolver)
+            {
+                this.MessageBus.Subscribe(item.Key, OnRequestReceived);
+            }
+
+            this.MessageBus.Subscribe(TibcoGatewayConstants.SubjectCustomTibcoEMSGatewayResolver, OnRequestReceived);
+        }
+
+        private void UnsubscribeSubjects()
+        {
+            foreach (KeyValuePair<string, GenericTableTibcoResolver> item in this.GTTibcoResolver)
+            {
+                this.MessageBus.Unsubscribe(item.Key);
+            }
+
+            this.MessageBus.Unsubscribe(TibcoGatewayConstants.SubjectCustomTibcoEMSGatewayResolver);
         }
 
         #endregion

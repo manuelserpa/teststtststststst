@@ -10,5 +10,14 @@
         public const string GTCustomTibcoEMSGatewayResolver = "CustomTibcoEMSGatewayResolver";
 
         #endregion
+
+        #region Message Bus Subjects
+
+        /// <summary>
+        /// Custom.UpdateGenericTable.CustomTibcoEMSGatewayResolver
+        /// </summary>
+        public const string SubjectCustomTibcoEMSGatewayResolver = "Custom.UpdateGenericTable.CustomTibcoEMSGatewayResolver";
+
+        #endregion
     }
 }
