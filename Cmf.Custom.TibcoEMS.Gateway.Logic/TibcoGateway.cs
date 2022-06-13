@@ -45,6 +45,7 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
             // Associate configuration to Message Bus
             this.MessageBus = new Transport(this.MessageBusConfiguration);
 
+            // Create Tibco Configuration
             //this.TibcoConnnector = TibcoGatewayUtilities.CreateTibcoConfiguration();
 
         }
