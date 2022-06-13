@@ -152,7 +152,7 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         /// <summary>
         /// This method is triggered when Generic Table CustomTibcoEMSGatewayResolver is changed
         /// </summary>
-        private void OnGenericTableChangeRequest(string subject, MbMessage message)
+        private void OnRequestGenericTableChange(string subject, MbMessage message)
         {
             Task.Run(() =>
             {
@@ -199,7 +199,7 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
             }
 
             // Subscribe subject associated to Generic Table CustomTibcoEMSGatewayResolver triggered on invalidate cache
-            this.MessageBus.Subscribe(TibcoGatewayConstants.SubjectCustomTibcoEMSGatewayResolver, OnGenericTableChangeRequest);
+            this.MessageBus.Subscribe(TibcoGatewayConstants.SubjectCustomTibcoEMSGatewayResolver, OnRequestGenericTableChange);
         }
 
         /// <summary>
