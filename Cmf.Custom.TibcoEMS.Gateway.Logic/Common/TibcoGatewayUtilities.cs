@@ -1,23 +1,16 @@
-﻿using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessObjects.GenericTables;
+﻿using Cmf.Foundation.BusinessObjects.GenericTables;
 using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.OutputObjects;
 using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.Utilities.InputObjects;
-using Cmf.Foundation.BusinessOrchestration.Utilities.OutputObjects;
 using Cmf.Foundation.Common;
 using Cmf.MessageBus.Client;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Xml;
-using System.Xml.Linq;
 using TIBCO.EMS;
 
 namespace Cmf.Custom.TibcoEMS.Gateway.Logic
@@ -96,7 +89,7 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         }
 
         /// <summary>
-        /// Get Generic Table Data related to topics to be subscribed by Tibco 
+        /// Get data "IsEnabled" from Generic Table related to topics to be subscribed by Tibco 
         /// </summary>
         public static Dictionary<string, GenericTableTibcoResolver> GetTibcoGTResolverResults()
         {
@@ -110,12 +103,6 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
                     Name = "IsEnabled",
                     Operator = FieldOperator.IsEqualTo,
                     Value = true,
-                    LogicalOperator = LogicalOperator.AND
-                },
-                new Filter()
-                {
-                    Name = "Subject",
-                    Operator = FieldOperator.IsNotNull,
                     LogicalOperator = LogicalOperator.Nothing
                 }
             };
