@@ -23,14 +23,24 @@ namespace Cmf.Custom.AMSOsram.Actions.InvalidateCache
             /// </summary>
             #endregion
 
-            string genericTableName = AMSOsramUtilities.GetInputItem<GenericTable>(Input, "GenericTable").Name;
+            string actionGroupName = AMSOsramUtilities.GetInputItem<string>(Input, "ActionGroupName");
 
-            if (!string.Equals(genericTableName, AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolver))
+            if (!string.IsNullOrWhiteSpace(actionGroupName))
             {
-                return false;
+                if (string.Equals(actionGroupName, "GenericTables.GenericTable.InsertOrUpdateRows.Post", StringComparison.InvariantCultureIgnoreCase) ||
+                    string.Equals(actionGroupName, "GenericTables.GenericTable.RemoveRows.Post", StringComparison.InvariantCultureIgnoreCase) &&
+                    Input.ContainsKey(Constants.GenericTable))
+                {
+                    GenericTable genericTable = AMSOsramUtilities.GetInputItem<GenericTable>(Input, Constants.GenericTable);
+
+                    if (genericTable != null)
+                    {
+                        return string.Equals(genericTable.Name, AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolver);
+                    }
+                }
             }
 
-            return true;
+            return false;
 
             //---End DEE Condition Code---
         }
@@ -50,19 +60,7 @@ namespace Cmf.Custom.AMSOsram.Actions.InvalidateCache
             //Common
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
 
-            string actionGroupName = AMSOsramUtilities.GetInputItem<string>(Input, "ActionGroupName");
-
-            if (!string.IsNullOrWhiteSpace(actionGroupName))
-            {
-                if (string.Equals(actionGroupName, "GenericTables.GenericTable.InsertOrUpdateRows.Post", StringComparison.InvariantCultureIgnoreCase) ||
-                    string.Equals(actionGroupName, "GenericTables.GenericTable.RemoveRows.Post", StringComparison.InvariantCultureIgnoreCase) &&
-                    Input.ContainsKey("GenericTable"))
-                {
-                    GenericTable genericTable = AMSOsramUtilities.GetInputItem<GenericTable>(Input, "GenericTable");
-
-                    Utilities.PublishMessage($"Custom.UpdateGenericTable.{genericTable.Name}");
-                }
-            }
+            Utilities.PublishMessage(AMSOsramConstants.CustomTibcoEMSGatewayInvalidateCache);
 
             //---End DEE Code---
 

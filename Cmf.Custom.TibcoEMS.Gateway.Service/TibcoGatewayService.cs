@@ -1,4 +1,5 @@
 ﻿using Cmf.Custom.TibcoEMS.Gateway.Logic;
+using System.Diagnostics;
 using System.ServiceProcess;
 
 namespace Cmf.Custom.TibcoEMS.Gateway.Service
@@ -16,12 +17,12 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Service
 
         protected override void OnStart(string[] args)
         {
-            this.TibcoGateway.Start();
+            this.TibcoGateway.OnStart();
         }
 
         protected override void OnStop()
         {
-            this.TibcoGateway.Stop();
+            this.TibcoGateway.OnStop();
         }
     }
 }

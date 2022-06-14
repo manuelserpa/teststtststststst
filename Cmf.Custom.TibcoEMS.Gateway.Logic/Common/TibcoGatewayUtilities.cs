@@ -1,4 +1,5 @@
-﻿using Cmf.Foundation.BusinessObjects.GenericTables;
+﻿using Cmf.Custom.TibcoEMS.Gateway.Logic.DataStructures;
+using Cmf.Foundation.BusinessObjects.GenericTables;
 using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.OutputObjects;
@@ -13,14 +14,14 @@ using System.Data;
 using System.Linq;
 using TIBCO.EMS;
 
-namespace Cmf.Custom.TibcoEMS.Gateway.Logic
+namespace Cmf.Custom.TibcoEMS.Gateway.Logic.Common
 {
     public static class TibcoGatewayUtilities
     {
         /// <summary>
         /// Create Message Bus configuration
         /// </summary>
-        public static TransportConfig CreateMessageBusConfiguration()
+        public static TransportConfig CreateMessageBusTransportConfig()
         {
             string host = ConfigurationManager.AppSettings["MessageBus.Host"];
             int port = Convert.ToInt32(ConfigurationManager.AppSettings["MessageBus.Port"]);
@@ -73,9 +74,9 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         }
 
         /// <summary>
-        /// Create Tibco configuration
+        /// Create Tibco connection
         /// </summary>
-        public static Connection CreateTibcoConfiguration()
+        public static Connection CreateTibcoConnection()
         {
             string host = ConfigurationManager.AppSettings["Tibco.Host"];
             string username = ConfigurationManager.AppSettings["Tibco.Username"];
@@ -89,11 +90,25 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         }
 
         /// <summary>
+        /// Execute DEE Action
+        /// </summary>
+        public static ExecuteActionOutput ExecuteDEE(string actionName, Dictionary<string, object> input)
+        {
+            ExecuteActionOutput output = new ExecuteActionInput
+            {
+                Action = new Foundation.Common.DynamicExecutionEngine.Action { Name = actionName },
+                Input = input
+            }.ExecuteActionSync();
+
+            return output;
+        }
+
+        /// <summary>
         /// Get data "IsEnabled" from Generic Table related to topics to be subscribed by Tibco 
         /// </summary>
-        public static Dictionary<string, GenericTableTibcoResolver> GetTibcoGTResolverResults()
+        public static Dictionary<string, TibcoResolverDto> GetTibcoConfigurations()
         {
-            Dictionary<string, GenericTableTibcoResolver> output = null;
+            Dictionary<string, TibcoResolverDto> output = null;
 
             // Filter Generic Table by "IsEnabled" field
             FilterCollection filters = new FilterCollection()
@@ -123,22 +138,8 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
             {
                 DataTable dt = ds.Tables[0];
 
-                output = dt.AsEnumerable().ToDictionary(row => row.Field<string>("Subject"), row => new GenericTableTibcoResolver { Subject = row.Field<string>("Subject"), Topic = row.Field<string>("Topic"), Rule = row.Field<string>("Rule") });
+                output = dt.AsEnumerable().ToDictionary(row => row.Field<string>("Subject"), row => new TibcoResolverDto { Subject = row.Field<string>("Subject"), Topic = row.Field<string>("Topic"), Rule = row.Field<string>("Rule") });
             }
-
-            return output;
-        }
-
-        /// <summary>
-        /// Execute DEE Action
-        /// </summary>
-        public static ExecuteActionOutput ExecuteDEE(string actionName, Dictionary<string, object> input)
-        {
-            ExecuteActionOutput output = new ExecuteActionInput
-            {
-                Action = new Foundation.Common.DynamicExecutionEngine.Action { Name = actionName },
-                Input = input
-            }.ExecuteActionSync();
 
             return output;
         }

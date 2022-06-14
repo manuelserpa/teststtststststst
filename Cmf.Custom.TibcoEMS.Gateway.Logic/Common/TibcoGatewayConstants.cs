@@ -1,4 +1,4 @@
-﻿namespace Cmf.Custom.TibcoEMS.Gateway.Logic
+﻿namespace Cmf.Custom.TibcoEMS.Gateway.Logic.Common
 {
     public static class TibcoGatewayConstants
     {
@@ -14,9 +14,9 @@
         #region Message Bus Subjects
 
         /// <summary>
-        /// Custom.UpdateGenericTable.CustomTibcoEMSGatewayResolver
+        /// CustomTibcoEMSGatewayInvalidateCache
         /// </summary>
-        public const string SubjectCustomTibcoEMSGatewayResolver = "Custom.UpdateGenericTable.CustomTibcoEMSGatewayResolver";
+        public const string SubjectCustomTibcoEMSGatewayInvalidateCache = "CustomTibcoEMSGatewayInvalidateCache";
 
         #endregion
     }

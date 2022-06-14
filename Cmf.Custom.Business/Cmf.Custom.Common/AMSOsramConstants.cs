@@ -1010,6 +1010,7 @@
         #endregion
 
         #region
+
         /// <summary>
         /// smartTable NotificationTitleMessage Property
         /// </summary>
@@ -1092,6 +1093,16 @@
         /// smartTable NotificationType Property
         /// </summary>
         public static string smartTablePropertyNotificationType = "NotificationType";
+
+        #endregion
+
+        #region Tibco
+
+        /// <summary>
+        /// Tibco subject for invalidate cache
+        /// </summary>
+        public const string CustomTibcoEMSGatewayInvalidateCache = "CustomTibcoEMSGatewayInvalidateCache";
+
         #endregion
     }
 }
