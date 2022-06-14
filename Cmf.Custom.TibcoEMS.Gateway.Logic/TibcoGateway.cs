@@ -32,7 +32,7 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic
         private Connection TibcoConnection;
 
         /// <summary>
-        /// Generic Table CustomTibcoEMSGatewayResolver data
+        /// TibcoResolveConfigurations
         /// </summary>
         private Dictionary<string, TibcoResolverDto> TibcoResolveConfigurations;
 
