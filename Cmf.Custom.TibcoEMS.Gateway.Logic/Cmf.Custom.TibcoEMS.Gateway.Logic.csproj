@@ -5,8 +5,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-        <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
         <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
         <PackageReference Include="System.Linq" Version="4.3.0" />
     </ItemGroup>
@@ -17,6 +15,12 @@
         </Reference>
         <Reference Include="Cmf.MessageBus.Client">
             <HintPath>..\Libs\LBOs\NetStandard\Cmf.MessageBus.Client.dll</HintPath>
+        </Reference>
+        <Reference Include="Newtonsoft.Json">
+          <HintPath>..\Libs\LBOs\NetStandard\Newtonsoft.Json.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Configuration.ConfigurationManager">
+          <HintPath>..\Libs\LBOs\NetStandard\System.Configuration.ConfigurationManager.dll</HintPath>
         </Reference>
         <Reference Include="TIBCO.EMS">
             <HintPath>..\Libs\External\TIBCO.EMS.dll</HintPath>
