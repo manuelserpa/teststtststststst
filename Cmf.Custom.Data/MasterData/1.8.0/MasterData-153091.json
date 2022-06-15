@@ -1,18 +1,24 @@
 {
+    "WorksheetNameMapping": {
+        "1": {
+            "WorksheetName": "TibcoGatewayResolver",
+            "Value": "<GT>CustomTibcoEMSGatewayResolver"
+        }
+    },
     "<SM>Config": {
-		"1": {
-			"ParentPath": "/AMSOsram",
-			"Name": "TibcoEMSGateway",
-			"Value": "",
-			"ValueType": "String"
-		},
+        "1": {
+            "ParentPath": "/AMSOsram",
+            "Name": "TibcoEMSGateway",
+            "Value": "",
+            "ValueType": "String"
+        },
         "2": {
-			"ParentPath": "/AMSOsram/TibcoEMSGateway",
-			"Name": "IsEnabled",
-			"Value": "",
-			"ValueType": "bool"
-		}
-	},
+            "ParentPath": "/AMSOsram/TibcoEMSGateway",
+            "Name": "IsEnabled",
+            "Value": "",
+            "ValueType": "bool"
+        }
+    },
     "<GT>GenericTable": {
         "1": {
             "Name": "CustomTibcoEMSGatewayResolver",
@@ -115,6 +121,14 @@
             "ActionGroup": "GenericTables.GenericTable.RemoveRows.Post",
             "Action": "CustomInvalidateCache",
             "Order": "2"
+        }
+    },
+    "<LOOKUP>TibcoGatewayResolver": {
+        "1": {
+            "Subject": "CustomReportEDCToSpace",
+            "Topic": "QUEUE.P.RBG.SPACE_INPUT",
+            "Rule": "",
+            "IsEnabled": "Yes"
         }
     }
 }
