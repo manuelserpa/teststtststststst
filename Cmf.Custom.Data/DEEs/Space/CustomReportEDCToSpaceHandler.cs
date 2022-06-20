@@ -1,11 +1,13 @@
 ﻿using Cmf.Common.CustomActionUtilities;
 using Cmf.Custom.AMSOsram.Common;
+using Cmf.Custom.AMSOsram.Common.DataStructures;
 using Cmf.Foundation.BusinessObjects;
+using Cmf.Foundation.Common;
 using Cmf.Navigo.BusinessObjects;
-using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.OutputObjects;
 using Cmf.Navigo.BusinessOrchestration.ExceptionManagement;
 using Cmf.Navigo.BusinessOrchestration.ExceptionManagement.InputObjects;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -36,10 +38,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             // Validate that the step has the attribute "Needs Space confirmation" other wise do not execute this DEE Action
             if (Input != null)
             {
-                ComplexPerformDataCollectionOutput performImmediateDataCollectionInput = Input["ComplexPerformDataCollectionOutput"] as ComplexPerformDataCollectionOutput;
+                ComplexPerformDataCollectionOutput performImmediateDataCollectionInput = AMSOsramUtilities.GetInputItem<ComplexPerformDataCollectionOutput>(Input, "ComplexPerformDataCollectionOutput");
 
                 DataCollectionInstance dataCollectionInstance = performImmediateDataCollectionInput.DataCollectionInstances.FirstOrDefault();
-                
+
                 Material material = dataCollectionInstance.Material;
                 material.Load();
 
@@ -50,8 +52,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
 
                 if (requiresSpaceConfirmation)
                 {
-                    DeeContextHelper.SetContextParameter("CustomReportEDCToSpaceHandler_Material", material);
+                    //DeeContextHelper.SetContextParameter("CustomReportEDCToSpaceHandler_Material", material);
                     DeeContextHelper.SetContextParameter("CustomReportEDCToSpaceHandler_DataCollectionInstance", dataCollectionInstance);
+
                     return true;
                 }
             }
@@ -63,23 +66,26 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
 
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
-            //---Start DEE Code--- 
+            //---Start DEE Code---
 
             //Foundation
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration");
-            UseReference("", "Cmf.Navigo.BusinessOrchestration.ExceptionManagement.InputObjects");
+            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
+            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
+            UseReference("", "Cmf.Foundation.Common.Exceptions");
+            UseReference("", "Cmf.Foundation.Common");
 
             //Navigo
             UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.ExceptionManagement");
             UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.OutputObjects");
+            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.ExceptionManagement");
+            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.ExceptionManagement.InputObjects");
 
             //Common
             UseReference("Cmf.Common.CustomActionUtilities.dll", "Cmf.Common.CustomActionUtilities");
 
             //Custom
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-
+            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.DataStructures");
 
             bool isOutOfSpec = false;
             ReasonCollection reasons = new ReasonCollection();
@@ -88,29 +94,35 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             dataCollectionInstance.Load();
 
             DataCollectionLimitSet limitSet = dataCollectionInstance.DataCollectionLimitSet;
-            limitSet.LoadRelations("DataCollectionParameterLimit");
+            limitSet.LoadRelations(Navigo.Common.Constants.DataCollectionParameterLimit);
             limitSet.DataCollectionParameterLimits.Load();
 
             // Get Data collection
             dataCollectionInstance.LoadRelations("DataCollectionPoint");
             foreach (DataCollectionPoint dcPoint in dataCollectionInstance.DataCollectionPoints)
             {
-                DataCollectionParameterLimit parameterLimit = limitSet.DataCollectionParameterLimits.FirstOrDefault(ls => ls.TargetEntity.GetNativeValue<long>("TargetEntity").Equals(dcPoint.TargetEntity.GetNativeValue<long>("TargetEntity")));
+                DataCollectionParameterLimit parameterLimit = limitSet.DataCollectionParameterLimits.FirstOrDefault(limit => limit.TargetEntity.GetNativeValue<long>("TargetEntity").Equals(dcPoint.TargetEntity.GetNativeValue<long>("TargetEntity")));
 
-                if (parameterLimit.LowerErrorLimit != null && parameterLimit.UpperErrorLimit != null && (System.Convert.ToDecimal(dcPoint.Value) < parameterLimit.LowerErrorLimit || System.Convert.ToDecimal(dcPoint.Value) > parameterLimit.UpperErrorLimit))
+                if (parameterLimit.LowerErrorLimit != null &&
+                    parameterLimit.UpperErrorLimit != null &&
+                    (Convert.ToDecimal(dcPoint.Value) < parameterLimit.LowerErrorLimit ||
+                    Convert.ToDecimal(dcPoint.Value) > parameterLimit.UpperErrorLimit))
                 {
                     isOutOfSpec = true;
                     break;
                 }
-                
-                if (parameterLimit.LowerWarningLimit != null && parameterLimit.UpperWarningLimit != null && (System.Convert.ToDecimal(dcPoint.Value) < parameterLimit.LowerWarningLimit || System.Convert.ToDecimal(dcPoint.Value) > parameterLimit.UpperWarningLimit))
+
+                if (parameterLimit.LowerWarningLimit != null &&
+                    parameterLimit.UpperWarningLimit != null &&
+                    (Convert.ToDecimal(dcPoint.Value) < parameterLimit.LowerWarningLimit ||
+                    Convert.ToDecimal(dcPoint.Value) > parameterLimit.UpperWarningLimit))
                 {
                     isOutOfSpec = true;
-                    break ;
+                    break;
                 }
             }
 
-            Material submaterial = new Material() { Name = dataCollectionInstance.DataCollectionPoints.FirstOrDefault().SampleId};
+            Material submaterial = new Material() { Name = dataCollectionInstance.DataCollectionPoints.FirstOrDefault().SampleId };
             submaterial.Load();
 
             Material material = submaterial.ParentMaterial as Material;
@@ -120,7 +132,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             {
                 // hold material with out of spec reason
                 string outOfSpecName = AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig);
-                Reason reason = new Reason() { Name = outOfSpecName};
+                Reason reason = new Reason() { Name = outOfSpecName };
                 reason.Load();
                 reasons.Add(reason);
             }
@@ -141,7 +153,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                     OpenProtocolInstanceInput openProtocolInstanceInput = new OpenProtocolInstanceInput()
                     {
                         Protocol = protocol,
-                        MaterialsToAssociate = new MaterialCollection(){material}
+                        MaterialsToAssociate = new MaterialCollection() { material }
                     };
 
                     ExceptionManagementOrchestration.OpenProtocolInstance(openProtocolInstanceInput);
@@ -149,7 +161,31 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                 }
             }
 
-            // Utilities.PublishTransactionalMessage("CustomReportEDCToSpace", new Dictionary<string, object> () { {"DataCollectionInstance", dataCollectionInstance.Name }, {"LimitSet", limitSet.Name}, {"Material", material.Name}});
+            //Material material = new Material() { Name = Input["Material"].ToString() };
+            //material.Load();
+
+            Facility facility = material.Facility;
+            facility.Load();
+            Site site = facility.Site;
+            site.Load();
+            site.LoadAttributes(new Collection<string>() { AMSOsramConstants.CustomSiteCodeAttribute });
+            string siteCode = site.Attributes[AMSOsramConstants.CustomSiteCodeAttribute].ToString();
+
+            string recipeName = material.CurrentRecipeInstance != null ? material.CurrentRecipeInstance.ParentEntity.Name : string.Empty;
+
+            //DataCollectionInstance dataCollectionInstance = new DataCollectionInstance() { Name = Input["DataCollectionInstance"].ToString() };
+            //dataCollectionInstance.Load();
+
+            //DataCollectionLimitSet limitSet = new DataCollectionLimitSet() { Name = Input["LimitSet"].ToString() };
+            //limitSet.Load();
+            //limitSet.LoadRelations(Cmf.Navigo.Common.Constants.DataCollectionParameterLimit);
+
+            string host = Cmf.Foundation.Common.Configuration.AppSettings.Current["ServerName"];
+
+            // Create Lot Values Message
+            CustomReportEDCToSpace customSendLotDCInformation = AMSOsramUtilities.CreateSpaceInfoWaferValues(material, dataCollectionInstance, limitSet, host, new List<string>() { siteCode }, recipeName);
+
+            Utilities.PublishTransactionalMessage("CustomReportEDCToSpace", customSendLotDCInformation.SerializeToXML());
 
             //---End DEE Code---
 

@@ -1,6 +1,6 @@
 {
-    "<DM>Reason":{
-        "1":{
+    "<DM>Reason": {
+        "1": {
             "Name": "Stopped By Space",
             "Description": "Custom Hold Reason Stopped By Space",
             "ReasonType": "Hold",
@@ -64,14 +64,7 @@
         "1": {
             "Action": "CustomReportEDCToSpaceHandler",
             "Description": "",
-            "CodeFileRelativePath": ".\\Space\\CustomReportEDCToSpaceHandler.cs",
-            "IsEnabled": "Yes",
-            "Classification": ""
-        },
-        "2": {
-            "Action": "CustomReportEDCToSpaceParser",
-            "Description": "",
-            "CodeFileRelativePath": ".\\Space\\CustomReportEDCToSpaceParser.cs",
+            "CodeFileRelativePath": "Space\\CustomReportEDCToSpaceHandler.cs",
             "IsEnabled": "Yes",
             "Classification": ""
         }
@@ -92,7 +85,6 @@
             "Action": "CustomReportEDCToSpaceHandler",
             "Order": "1"
         }
-        
     },
     "<SM>Config": {
         "1": {

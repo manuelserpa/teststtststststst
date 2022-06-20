@@ -19,6 +19,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Data;
 using System.Globalization;
 using System.IO;
@@ -1306,7 +1307,7 @@ namespace Cmf.Custom.AMSOsram.Common
         /// <param name="lot"></param>
         /// <param name="dataCollectionInstance"></param>
         /// <returns></returns>
-        public static CustomReportEDCToSpace CreateSpaceInfoDefaulsValues(Material material, string hostServerName, List<string> siteCodes, string recipe)
+        public static CustomReportEDCToSpace CreateSpaceInfoDefaultValues(Material material, string hostServerName, List<string> siteCodes, string recipe)
         {
             List<SiteCode> messageSiteCodes = new List<SiteCode>();
             siteCodes.ForEach(code => messageSiteCodes.Add(new SiteCode() { Value = code}));
@@ -1337,7 +1338,7 @@ namespace Cmf.Custom.AMSOsram.Common
 
             CustomReportEDCToSpace customReportEDCToSpace = new CustomReportEDCToSpace()
             {
-                SampleDate = DateTime.Now,
+                SampleDate = DateTime.Now.ToString(),
                 Sender = new Sender()
                 {
                     Value = hostServerName
@@ -1378,7 +1379,7 @@ namespace Cmf.Custom.AMSOsram.Common
         /// <returns></returns>
         public static CustomReportEDCToSpace CreateSpaceInfoWaferValues(Material wafer, DataCollectionInstance dataCollectionInstance, DataCollectionLimitSet limitSet, string hostServerName, List<string> siteCodes, string recipe = null )
         {
-            CustomReportEDCToSpace customReportEDCToSpace = CreateSpaceInfoDefaulsValues(wafer, hostServerName, siteCodes, recipe);
+            CustomReportEDCToSpace customReportEDCToSpace = CreateSpaceInfoDefaultValues(wafer, hostServerName, siteCodes, recipe);
 
             List<Sample> samples = new List<Sample>();
 

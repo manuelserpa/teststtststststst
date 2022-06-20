@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace Cmf.Custom.AMSOsram.Common.DataStructures
 {
-
     [XmlRoot("Request")]
     public class CustomReportEDCToSpace
     {
@@ -27,7 +24,6 @@ namespace Cmf.Custom.AMSOsram.Common.DataStructures
         [XmlElement("sample")]
         public List<Sample> Samples { get; set; }
     }
-
 
     public class Sender 
     { 
@@ -70,7 +66,6 @@ namespace Cmf.Custom.AMSOsram.Common.DataStructures
 
         [XmlElement("raws")]
         public Raws Raws { get; set; }
-
     }
 
     public class Raws
