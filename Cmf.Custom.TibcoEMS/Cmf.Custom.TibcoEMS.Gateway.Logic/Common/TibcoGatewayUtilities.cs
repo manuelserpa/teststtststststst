@@ -139,11 +139,11 @@ namespace Cmf.Custom.TibcoEMS.Gateway.Logic.Common
                 DataTable dt = ds.Tables[0];
 
                 output = dt.AsEnumerable().ToDictionary(row => row.Field<string>("Subject"),
-                                                        row => new TibcoResolverDto 
-                                                        { 
-                                                            Subject = row.Field<string>("Subject"), 
-                                                            Topic = row.Field<string>("Topic"), 
-                                                            Rule = row.Table.Columns.Contains("Rule") ? row.Field<string>("Rule") : String.Empty 
+                                                        row => new TibcoResolverDto
+                                                        {
+                                                            Subject = row.Field<string>("Subject"),
+                                                            Topic = row.Field<string>("Topic"),
+                                                            Rule = row.Table.Columns.Contains("Rule") ? row.Field<string>("Rule") : String.Empty
                                                         });
             }
 
