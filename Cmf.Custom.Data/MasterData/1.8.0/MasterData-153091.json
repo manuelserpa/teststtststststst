@@ -8,15 +8,33 @@
     "<SM>Config": {
         "1": {
             "ParentPath": "/AMSOsram",
-            "Name": "TibcoEMSGateway",
+            "Name": "TibcoEMS",
             "Value": "",
             "ValueType": "String"
         },
         "2": {
-            "ParentPath": "/AMSOsram/TibcoEMSGateway",
+            "ParentPath": "/AMSOsram/TibcoEMS",
             "Name": "IsEnabled",
             "Value": "",
             "ValueType": "bool"
+        },
+        "3":{
+            "ParentPath": "/AMSOsram/TibcoEMS",
+            "Name": "Host",
+            "Value": "",
+            "ValueType": "string"
+        },
+        "4":{
+            "ParentPath": "/AMSOsram/TibcoEMS",
+            "Name": "Username",
+            "Value": "",
+            "ValueType": "string"
+        },
+        "5":{
+            "ParentPath": "/AMSOsram/TibcoEMS",
+            "Name": "Password",
+            "Value": "",
+            "ValueType": "string"
         }
     },
     "<GT>GenericTable": {

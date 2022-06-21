@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cmf.Custom.TibcoEMS.Gateway
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmf.Custom.TibcoEMS.Gateway.Logic", "..\Cmf.Custom.TibcoEMS\Cmf.Custom.TibcoEMS.Gateway.Logic\Cmf.Custom.TibcoEMS.Gateway.Logic.csproj", "{ACAB8FAD-9DB9-4961-9C88-8B754B0C463C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cmf.Custom.TibcoEMS.Service", "..\Cmf.Custom.TibcoEMS\Cmf.Custom.TibcoEMS.Service\Cmf.Custom.TibcoEMS.Service.csproj", "{80A70BAC-C874-4689-8C9A-AE923C59FDFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{ACAB8FAD-9DB9-4961-9C88-8B754B0C463C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACAB8FAD-9DB9-4961-9C88-8B754B0C463C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACAB8FAD-9DB9-4961-9C88-8B754B0C463C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80A70BAC-C874-4689-8C9A-AE923C59FDFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80A70BAC-C874-4689-8C9A-AE923C59FDFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80A70BAC-C874-4689-8C9A-AE923C59FDFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80A70BAC-C874-4689-8C9A-AE923C59FDFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
