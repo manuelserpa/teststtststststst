@@ -1,8 +1,7 @@
-﻿using Cmf.Custom.TibcoEMS.Service.DataStructures;
+﻿using Cmf.Custom.TibcoEMS.ServiceManager.DataStructures;
 using Cmf.Foundation.BusinessObjects.GenericTables;
 using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.BusinessOrchestration.ConfigurationManagement.InputObjects;
-using Cmf.Foundation.BusinessOrchestration.ConfigurationManagement.OutputObjects;
 using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.OutputObjects;
 using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
@@ -17,7 +16,7 @@ using System.Data;
 using System.Linq;
 using TIBCO.EMS;
 
-namespace Cmf.Custom.TibcoEMS.Service.Common
+namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
 {
     public static class TibcoEMSUtilities
     {
@@ -154,11 +153,14 @@ namespace Cmf.Custom.TibcoEMS.Service.Common
             return output;
         }
 
+        /// <summary>
+        /// Get Tibco Configs from MES
+        /// </summary>
         public static ConfigCollection GetTibcoConfigs()
         {
             ConfigCollection result = new GetConfigsForPathInput()
             {
-                Path = "/AMSOsram/TibcoEMS/"
+                Path = "/AMSOsram/TibcoEMS/",
             }.GetConfigsForPathSync().Configs;
 
             return result;

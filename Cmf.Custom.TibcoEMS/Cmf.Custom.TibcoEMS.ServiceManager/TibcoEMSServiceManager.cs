@@ -1,22 +1,26 @@
-using Cmf.Custom.TibcoEMS.Service.Common;
-using Cmf.Custom.TibcoEMS.Service.DataStructures;
+﻿using Cmf.Custom.TibcoEMS.ServiceManager.Common;
+using Cmf.Custom.TibcoEMS.ServiceManager.DataStructures;
 using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.OutputObjects;
 using Cmf.MessageBus.Client;
 using Cmf.MessageBus.Messages;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using TIBCO.EMS;
 
-namespace Cmf.Custom.TibcoEMS.Service
+namespace Cmf.Custom.TibcoEMS.ServiceManager
 {
-    public class TibcoEMSService : BackgroundService
+    public class TibcoEMSServiceManager
     {
         #region Private Variables
+
+        /// <summary>
+        /// The Logger
+        /// </summary>
+        private readonly ILogger Logger;
 
         /// <summary>
         /// Message Bus Transport
@@ -40,10 +44,16 @@ namespace Cmf.Custom.TibcoEMS.Service
 
         #endregion
 
-        #region Constructor
+        #region Public Methods
 
-        public TibcoEMSService()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TibcoEMSServiceManager"/> class.
+        /// </summary>
+        public TibcoEMSServiceManager(ILogger logger)
         {
+            // Set Logger
+            this.Logger = logger;
+
             // Create Message Bus Transport Configuration
             this.MessageBusTransportConfiguration = TibcoEMSUtilities.CreateMessageBusTransportConfig();
 
@@ -54,14 +64,10 @@ namespace Cmf.Custom.TibcoEMS.Service
             //this.TibcoConnection = TibcoEMSUtilities.CreateTibcoConnection();
         }
 
-        #endregion
-
-        #region Public Methods
-
         /// <summary>
         /// On Start Windows Service
         /// </summary>
-        public override Task StartAsync(CancellationToken cancellationToken)
+        public void OnStart()
         {
             // Connect to Tibco
             //this.TibcoConnection.Start();
@@ -69,13 +75,14 @@ namespace Cmf.Custom.TibcoEMS.Service
             // Connect to Message Bus
             this.MessageBusTransport.Start();
 
-            return base.StartAsync(cancellationToken);
+            // Subscribe subjects on Message Bus
+            this.SubscribeSubjects();
         }
 
         /// <summary>
         /// On Stop Windows Service
         /// </summary>
-        public override Task StopAsync(CancellationToken cancellationToken)
+        public void OnStop()
         {
             // Close Message Bus client connection
             if (this.MessageBusTransport != null)
@@ -90,8 +97,6 @@ namespace Cmf.Custom.TibcoEMS.Service
             {
                 this.TibcoConnection.Close();
             }
-
-            return base.StopAsync(cancellationToken);
         }
 
         #endregion
@@ -103,48 +108,44 @@ namespace Cmf.Custom.TibcoEMS.Service
         /// </summary>
         private void OnMessageReceived(string subject, MbMessage message)
         {
-            if (message != null && !string.IsNullOrWhiteSpace(message.Data) && this.TibcoResolveConfigurations.ContainsKey(subject))
+            if (message != null && !String.IsNullOrWhiteSpace(message.Data) && this.TibcoResolveConfigurations.ContainsKey(subject))
             {
                 Task.Run(() =>
                 {
+                    // Topic name
+                    string topicName = this.TibcoResolveConfigurations[subject].Topic;
+
+                    // Action name
+                    string actionName = this.TibcoResolveConfigurations[subject].Rule;
+
+                    // Message to send
+                    string messageData = message.Data;
+
                     try
                     {
-                        // Topic name
-                        string topicName = this.TibcoResolveConfigurations[subject].Topic;
-
-                        // Action name
-                        string actionName = this.TibcoResolveConfigurations[subject].Rule;
-
-                        // Message to send
-                        string messageData = message.Data;
-
-                        if (!string.IsNullOrWhiteSpace(actionName))
+                        if (!String.IsNullOrWhiteSpace(actionName))
                         {
                             // Execute DEE
-                            ExecuteActionOutput actionOutput = TibcoEMSUtilities.ExecuteDEE(actionName,
-                                                                                            new Dictionary<string, object>()
-                                                                                            {
-                                                                                                {
-                                                                                                    "Data", message.Data
-                                                                                                }
-                                                                                            });
+                            ExecuteActionOutput actionOutput = TibcoEMSUtilities.ExecuteDEE(actionName, new Dictionary<string, object>() { { "Data", message.Data } });
 
                             if (actionOutput.Output != null &&
                                 actionOutput.Output.Any() &&
                                 actionOutput.Output.ContainsKey("Result") &&
-                                !string.IsNullOrWhiteSpace(actionOutput.Output["Result"].ToString()))
+                                !String.IsNullOrWhiteSpace(actionOutput.Output["Result"].ToString()))
                             {
                                 messageData = actionOutput.Output["Result"].ToString();
                             }
                         }
 
                         // Send message to Tibco
-                        //this.SendMessageToTibco(topicName, messageData);
+                        this.SendMessageToTibco(topicName, messageData);
 
                         this.MessageBusTransport.Reply(message, "Ok");
                     }
                     catch (Exception ex)
                     {
+                        this.Logger.LogError(ex, String.Format(TibcoEMSConstants.LogErrorOnMessageReceived, subject, topicName, String.IsNullOrWhiteSpace(actionName) ? "(null)" : actionName), null);
+
                         // Send error details to MessageBus
                         string errorResponseJSON = JsonConvert.SerializeObject(new
                         {
@@ -195,6 +196,8 @@ namespace Cmf.Custom.TibcoEMS.Service
             }
             catch (Exception ex)
             {
+                this.Logger.LogError(ex, String.Format(TibcoEMSConstants.LogErrorOnInvalidateCache, subject), null);
+
                 // Send error details to MessageBus
                 string errorResponseJSON = JsonConvert.SerializeObject(new
                 {
@@ -264,18 +267,6 @@ namespace Cmf.Custom.TibcoEMS.Service
             {
                 this.MessageBusTransport.Unsubscribe(subject.Key);
             }
-        }
-
-        #endregion
-
-        #region Protected Methods
-
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            // Subscribe subjects on Message Bus
-            this.SubscribeSubjects();
-
-            await Task.CompletedTask;
         }
 
         #endregion

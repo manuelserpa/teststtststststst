@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Cmf.LightBusinessObjects">
+      <HintPath>..\..\Libs\LBOs\NetStandard\Cmf.LightBusinessObjects.dll</HintPath>
+    </Reference>
+    <Reference Include="Cmf.MessageBus.Client">
+      <HintPath>..\..\Libs\LBOs\NetStandard\Cmf.MessageBus.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Libs\LBOs\NetStandard\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="TIBCO.EMS">
+      <HintPath>..\..\Libs\External\TIBCO.EMS.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

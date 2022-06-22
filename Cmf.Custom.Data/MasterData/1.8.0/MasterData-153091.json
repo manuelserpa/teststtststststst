@@ -15,25 +15,25 @@
         "2": {
             "ParentPath": "/AMSOsram/TibcoEMS",
             "Name": "IsEnabled",
-            "Value": "",
+            "Value": "true",
             "ValueType": "bool"
         },
         "3":{
             "ParentPath": "/AMSOsram/TibcoEMS",
             "Name": "Host",
-            "Value": "",
+            "Value": "tcp://EMSQ-RBG01.germany.osram-os.com:7222,tcp://EMSD-RBG01.germany.osram-os.com:722",
             "ValueType": "string"
         },
         "4":{
             "ParentPath": "/AMSOsram/TibcoEMS",
             "Name": "Username",
-            "Value": "",
+            "Value": "EMS_CRITICAL",
             "ValueType": "string"
         },
         "5":{
             "ParentPath": "/AMSOsram/TibcoEMS",
             "Name": "Password",
-            "Value": "",
+            "Value": "Yy3JzeglfUzqgHOIA5kx",
             "ValueType": "string"
         }
     },

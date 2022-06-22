@@ -17,11 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmf.Custom.AMSOsram.Orchest
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmf.Custom.AMSOsram.Actions", "..\Cmf.Custom.Data\DEEs\Cmf.Custom.AMSOsram.Actions.csproj", "{5CFF1C0D-E852-4F73-8EF0-71BA35B0E8F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cmf.Custom.TibcoEMS.Gateway.Service", "..\Cmf.Custom.TibcoEMS\Cmf.Custom.TibcoEMS.Gateway.Service\Cmf.Custom.TibcoEMS.Gateway.Service.csproj", "{04C9E5D6-26F1-48D1-B383-8C7CF09ED977}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmf.Custom.TibcoEMS.Service", "..\Cmf.Custom.TibcoEMS\Cmf.Custom.TibcoEMS.Service\Cmf.Custom.TibcoEMS.Service.csproj", "{80A70BAC-C874-4689-8C9A-AE923C59FDFD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmf.Custom.TibcoEMS.Gateway.Logic", "..\Cmf.Custom.TibcoEMS\Cmf.Custom.TibcoEMS.Gateway.Logic\Cmf.Custom.TibcoEMS.Gateway.Logic.csproj", "{ACAB8FAD-9DB9-4961-9C88-8B754B0C463C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cmf.Custom.TibcoEMS.Service", "..\Cmf.Custom.TibcoEMS\Cmf.Custom.TibcoEMS.Service\Cmf.Custom.TibcoEMS.Service.csproj", "{80A70BAC-C874-4689-8C9A-AE923C59FDFD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cmf.Custom.TibcoEMS.ServiceManager", "..\Cmf.Custom.TibcoEMS\Cmf.Custom.TibcoEMS.ServiceManager\Cmf.Custom.TibcoEMS.ServiceManager.csproj", "{517CFD26-2BD5-4F8E-A6ED-72ECB334B4DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,18 +43,14 @@ Global
 		{5CFF1C0D-E852-4F73-8EF0-71BA35B0E8F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CFF1C0D-E852-4F73-8EF0-71BA35B0E8F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CFF1C0D-E852-4F73-8EF0-71BA35B0E8F4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{04C9E5D6-26F1-48D1-B383-8C7CF09ED977}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{04C9E5D6-26F1-48D1-B383-8C7CF09ED977}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{04C9E5D6-26F1-48D1-B383-8C7CF09ED977}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{04C9E5D6-26F1-48D1-B383-8C7CF09ED977}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ACAB8FAD-9DB9-4961-9C88-8B754B0C463C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ACAB8FAD-9DB9-4961-9C88-8B754B0C463C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ACAB8FAD-9DB9-4961-9C88-8B754B0C463C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ACAB8FAD-9DB9-4961-9C88-8B754B0C463C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{80A70BAC-C874-4689-8C9A-AE923C59FDFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{80A70BAC-C874-4689-8C9A-AE923C59FDFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80A70BAC-C874-4689-8C9A-AE923C59FDFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80A70BAC-C874-4689-8C9A-AE923C59FDFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{517CFD26-2BD5-4F8E-A6ED-72ECB334B4DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{517CFD26-2BD5-4F8E-A6ED-72ECB334B4DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{517CFD26-2BD5-4F8E-A6ED-72ECB334B4DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{517CFD26-2BD5-4F8E-A6ED-72ECB334B4DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

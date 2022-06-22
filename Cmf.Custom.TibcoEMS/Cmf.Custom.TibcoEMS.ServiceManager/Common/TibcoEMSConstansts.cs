@@ -1,4 +1,4 @@
-﻿namespace Cmf.Custom.TibcoEMS.Service.Common
+﻿namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
 {
     public static class TibcoEMSConstants
     {
@@ -17,6 +17,20 @@
         /// CustomTibcoEMSGatewayInvalidateCache
         /// </summary>
         public const string SubjectCustomTibcoEMSGatewayInvalidateCache = "CustomTibcoEMSGatewayInvalidateCache";
+
+        #endregion
+
+        #region Log Messages
+
+        /// <summary>
+        /// LogErrorOnMessageReceived
+        /// </summary>
+        public static string LogErrorOnMessageReceived = "[SUBJECT]: {0} [TOPIC]: {1} [ACTION]: {2}";
+
+        /// <summary>
+        /// LogErrorOnMessageReceived
+        /// </summary>
+        public static string LogErrorOnInvalidateCache = "[SUBJECT]: {0}";
 
         #endregion
     }
