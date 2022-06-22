@@ -16,6 +16,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Reference Include="Cmf.LightBusinessObjects">
+        <HintPath>..\..\Libs\LBOs\NetStandard\Cmf.LightBusinessObjects.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
       <Content Update="App.config">
         <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       </Content>

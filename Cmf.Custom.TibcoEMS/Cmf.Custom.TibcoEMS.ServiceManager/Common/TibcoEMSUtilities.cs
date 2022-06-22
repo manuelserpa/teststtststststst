@@ -11,6 +11,8 @@ using Cmf.Foundation.Configuration;
 using Cmf.MessageBus.Client;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Data;
 using System.Linq;
@@ -31,7 +33,6 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
 
             string tenantName = ConfigurationManager.AppSettings["ClientTenantName"];
             string applicationName = ConfigurationManager.AppSettings["ApplicationName"];
-            string userName = ConfigurationManager.AppSettings["UserName"];
             string externalAddress = ConfigurationManager.AppSettings["MessageBus.ExternalAddress"];
 
             bool useLoadBalancing = bool.TryParse(ConfigurationManager.AppSettings["MessageBus.UseLoadBalancing"], out useLoadBalancing) ? useLoadBalancing : false;
@@ -78,11 +79,11 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
         /// <summary>
         /// Create Tibco connection
         /// </summary>
-        public static Connection CreateTibcoConnection()
+        public static Connection CreateTibcoConnection(NameValueCollection configurations)
         {
-            string host = ConfigurationManager.AppSettings["Tibco.Host"];
-            string username = ConfigurationManager.AppSettings["Tibco.Username"];
-            string password = ConfigurationManager.AppSettings["Tibco.Password"];
+            string host = configurations["Host"];
+            string username = configurations["Username"];
+            string password = configurations["Password"];
 
             ConnectionFactory factory = new ConnectionFactory(host);
 
@@ -154,16 +155,28 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
         }
 
         /// <summary>
-        /// Get Tibco Configs from MES
+        /// Get Custom Configs from MES
         /// </summary>
-        public static ConfigCollection GetTibcoConfigs()
+        public static NameValueCollection GetCustomConfigs(string path)
         {
-            ConfigCollection result = new GetConfigsForPathInput()
-            {
-                Path = "/AMSOsram/TibcoEMS/",
-            }.GetConfigsForPathSync().Configs;
+            NameValueCollection output = new NameValueCollection();
 
-            return result;
+            ConfigCollection configs = new GetChildConfigsByPathInput()
+            {
+                Path = path
+            }.GetChildConfigsByPathSync().Configs;
+
+            if (configs != null && configs.Any())
+            {
+                foreach (Config config in configs)
+                {
+                    string value = config.Value != null ? config.Value.ToString() : string.Empty;
+
+                    output.Add(config.Name, value);
+                }
+            }
+
+            return output;
         }
     }
 }

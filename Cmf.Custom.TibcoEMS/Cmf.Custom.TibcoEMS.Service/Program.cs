@@ -1,6 +1,9 @@
+using Cmf.Custom.TibcoEMS.ServiceManager.Common;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Specialized;
 
 namespace Cmf.Custom.TibcoEMS.Service
 {
@@ -9,25 +12,58 @@ namespace Cmf.Custom.TibcoEMS.Service
     /// </summary>
     public class Program
     {
-        private static ILogger Log4NetAdapter;
+        private static ILogger Logger;
+
+        private static NameValueCollection TibcoConfigs;
 
         public static void Main(string[] args)
         {
             Log4NetProvider log4NetProvider = new Log4NetProvider();
-            Log4NetAdapter = log4NetProvider.CreateLogger();
+            Logger = log4NetProvider.CreateLogger();
 
-            CreateHostBuilder(args, log4NetProvider, Log4NetAdapter).Build().Run();
+            try
+            {
+                Logger.LogInformation("Getting Tibco configurations...");
+
+                TibcoConfigs = TibcoEMSUtilities.GetCustomConfigs(TibcoEMSConstants.TibcoEMSPathConfigurations);
+
+                if (TibcoConfigs != null && TibcoConfigs.Keys.Count > 0)
+                {
+                    bool tibcoIsEnabled = bool.TryParse(TibcoConfigs["IsEnabled"], out tibcoIsEnabled) ? tibcoIsEnabled : false;
+
+                    if (tibcoIsEnabled)
+                    {
+                        Logger.LogInformation("Starting Service...");
+
+                        CreateHostBuilder(args).Build().Run();
+                    }
+                    else
+                    {
+                        Logger.LogWarning("Unable to run the service because Tibco configuration is disabled.");
+                    }
+                }
+                else
+                {
+                    Logger.LogWarning("Unable to run the service because it was not possible to load the Tibco settings.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, ex.Message, null);
+
+                Logger.LogWarning("It was not possible to start the Service.");
+            }
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args, ILoggerProvider log4NetProvider, ILogger log4NetAdapter)
+        public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host
                    .CreateDefaultBuilder(args)
                    .UseWindowsService()
                    .ConfigureServices((hostContext, services) =>
                    {
-                       services.AddSingleton(log4NetAdapter);
-                       services.AddSingleton(log4NetProvider);
+                       services.AddSingleton(TibcoConfigs);
+                       services.AddSingleton(Logger);
                        services.AddHostedService<Worker>();
                    });
         }

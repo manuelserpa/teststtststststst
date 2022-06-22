@@ -2,6 +2,7 @@ using Cmf.Custom.TibcoEMS.ServiceManager;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Specialized;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,9 +20,9 @@ namespace Cmf.Custom.TibcoEMS.Service
         /// <summary>
         /// Initializes a new instance of the <see cref="Worker"/> class.
         /// </summary>
-        public Worker(ILogger logger)
+        public Worker(ILogger logger, NameValueCollection tibcoConfigs)
         {
-            this.TibcoServiceManager = new TibcoEMSServiceManager(logger);
+            this.TibcoServiceManager = new TibcoEMSServiceManager(logger, tibcoConfigs);
 
             this.Logger = logger;
         }
@@ -31,16 +32,9 @@ namespace Cmf.Custom.TibcoEMS.Service
         /// </summary>
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            try
-            {
-                this.Logger.LogWarning("Starting...");
+            this.TibcoServiceManager.OnStart();
 
-                this.TibcoServiceManager.OnStart();
-            }
-            catch (Exception ex)
-            {
-                this.Logger.LogError(ex, ex.Message, null);
-            }
+            this.Logger.LogInformation("Service Started.");
 
             return Task.CompletedTask;
         }
@@ -52,9 +46,11 @@ namespace Cmf.Custom.TibcoEMS.Service
         {
             try
             {
-                this.Logger.LogWarning("Stoping...");
+                this.Logger.LogWarning("Stoping Service...");
 
                 this.TibcoServiceManager.OnStop();
+
+                this.Logger.LogInformation("Service Stopped.");
             }
             catch (Exception ex)
             {

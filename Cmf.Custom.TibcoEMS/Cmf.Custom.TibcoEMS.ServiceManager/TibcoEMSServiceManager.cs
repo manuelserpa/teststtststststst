@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using TIBCO.EMS;
@@ -49,19 +50,25 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         /// <summary>
         /// Initializes a new instance of the <see cref="TibcoEMSServiceManager"/> class.
         /// </summary>
-        public TibcoEMSServiceManager(ILogger logger)
+        public TibcoEMSServiceManager(ILogger logger, NameValueCollection tibcoConfigs)
         {
             // Set Logger
             this.Logger = logger;
 
+            this.Logger.LogInformation("Getting Message Bus Transport Configuration...");
+
             // Create Message Bus Transport Configuration
             this.MessageBusTransportConfiguration = TibcoEMSUtilities.CreateMessageBusTransportConfig();
+
+            this.Logger.LogInformation("Creating Message Bus Transport...");
 
             // Associate configuration to Message Bus
             this.MessageBusTransport = new Transport(this.MessageBusTransportConfiguration);
 
+            //this.Logger.LogInformation("Creating Tibco Connection...");
+
             // Create Tibco connection configuration
-            //this.TibcoConnection = TibcoEMSUtilities.CreateTibcoConnection();
+            //this.TibcoConnection = TibcoEMSUtilities.CreateTibcoConnection(tibcoConfigs);
         }
 
         /// <summary>
@@ -123,6 +130,8 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
 
                     try
                     {
+                        this.Logger.LogInformation(String.Format(TibcoEMSConstants.DefaultLogDataFormat, subject, topicName, String.IsNullOrWhiteSpace(actionName) ? "(null)" : actionName));
+
                         if (!String.IsNullOrWhiteSpace(actionName))
                         {
                             // Execute DEE
@@ -137,14 +146,17 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                             }
                         }
 
-                        // Send message to Tibco
+                        this.Logger.LogInformation("Sending message to Tibco...");
+
                         this.SendMessageToTibco(topicName, messageData);
 
                         this.MessageBusTransport.Reply(message, "Ok");
+
+                        this.Logger.LogInformation("Message sent.");
                     }
                     catch (Exception ex)
                     {
-                        this.Logger.LogError(ex, String.Format(TibcoEMSConstants.LogErrorOnMessageReceived, subject, topicName, String.IsNullOrWhiteSpace(actionName) ? "(null)" : actionName), null);
+                        this.Logger.LogError(ex, String.Format(TibcoEMSConstants.DefaultLogDataFormat, subject, topicName, String.IsNullOrWhiteSpace(actionName) ? "(null)" : actionName), null);
 
                         // Send error details to MessageBus
                         string errorResponseJSON = JsonConvert.SerializeObject(new
@@ -164,50 +176,58 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         /// </summary>
         private void OnInvalidateCache(string subject, MbMessage message)
         {
-            //Task.Run(() =>
-            //{
-            try
+            Task.Run(() =>
             {
-                // Dictionary with updated configurations from Generic Table
-                Dictionary<string, TibcoResolverDto> newTibcoConfigurations = TibcoEMSUtilities.GetTibcoConfigurations();
-
-                // Dictionary with subjects to unsubscribe
-                var configurationsToUnsubscribe = this.TibcoResolveConfigurations.Where(row => !newTibcoConfigurations.ContainsKey(row.Key));
-
-                // Dictionary with subjects to subscribe
-                var configurationsToSubscribe = newTibcoConfigurations.Where(row => !this.TibcoResolveConfigurations.ContainsKey(row.Key));
-
-                if (configurationsToUnsubscribe != null && configurationsToUnsubscribe.Any())
+                try
                 {
-                    // Unsubscribe Subjects
-                    this.UnsubscribeSubjects(configurationsToUnsubscribe);
+                    this.Logger.LogInformation($"Invalidate Cache Message Received >> SUBJECT: {subject}");
+
+                    // Dictionary with updated configurations from Generic Table
+                    Dictionary<string, TibcoResolverDto> newTibcoConfigurations = TibcoEMSUtilities.GetTibcoConfigurations();
+
+                    // Dictionary with subjects to unsubscribe
+                    var configurationsToUnsubscribe = this.TibcoResolveConfigurations.Where(row => !newTibcoConfigurations.ContainsKey(row.Key));
+
+                    // Dictionary with subjects to subscribe
+                    var configurationsToSubscribe = newTibcoConfigurations.Where(row => !this.TibcoResolveConfigurations.ContainsKey(row.Key));
+
+                    if (configurationsToUnsubscribe != null && configurationsToUnsubscribe.Any())
+                    {
+                        this.Logger.LogInformation("Unsubscribing deprecated subjects...");
+
+                        // Unsubscribe Subjects
+                        this.UnsubscribeSubjects(configurationsToUnsubscribe);
+                    }
+
+                    if (configurationsToSubscribe != null && configurationsToSubscribe.Any())
+                    {
+                        this.Logger.LogInformation("Subscribing new subjects...");
+
+                        // Subscribe Subjects
+                        this.SubscribeSubjects(configurationsToSubscribe);
+                    }
+
+                    // Set global variable with the updated configurations on Generic Table
+                    this.TibcoResolveConfigurations = newTibcoConfigurations;
+
+                    this.MessageBusTransport.Reply(message, "Ok");
+
+                    this.Logger.LogInformation("Invalidate Cache Completed.");
                 }
-
-                if (configurationsToSubscribe != null && configurationsToSubscribe.Any())
+                catch (Exception ex)
                 {
-                    // Subscribe Subjects
-                    this.SubscribeSubjects(configurationsToSubscribe);
+                    this.Logger.LogError(ex, null, null);
+
+                    // Send error details to MessageBus
+                    string errorResponseJSON = JsonConvert.SerializeObject(new
+                    {
+                        ErrorCode = string.Empty,
+                        ErrorText = ex.Message
+                    });
+
+                    this.MessageBusTransport.Reply(message, errorResponseJSON);
                 }
-
-                // Set global variable with the updated configurations on Generic Table
-                this.TibcoResolveConfigurations = newTibcoConfigurations;
-
-                this.MessageBusTransport.Reply(message, "Ok");
-            }
-            catch (Exception ex)
-            {
-                this.Logger.LogError(ex, String.Format(TibcoEMSConstants.LogErrorOnInvalidateCache, subject), null);
-
-                // Send error details to MessageBus
-                string errorResponseJSON = JsonConvert.SerializeObject(new
-                {
-                    ErrorCode = string.Empty,
-                    ErrorText = ex.Message
-                });
-
-                this.MessageBusTransport.Reply(message, errorResponseJSON);
-            }
-            //});
+            });
         }
 
         /// <summary>

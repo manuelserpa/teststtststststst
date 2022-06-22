@@ -23,14 +23,18 @@
         #region Log Messages
 
         /// <summary>
-        /// LogErrorOnMessageReceived
+        /// DefaultLogDataFormat: Message Received >> SUBJECT: {0}; TOPIC: {1}; ACTION: {2}
         /// </summary>
-        public static string LogErrorOnMessageReceived = "[SUBJECT]: {0} [TOPIC]: {1} [ACTION]: {2}";
+        public static string DefaultLogDataFormat = "Message Received >> SUBJECT: {0}; TOPIC: {1}; ACTION: {2}";
+
+        #endregion
+
+        #region Configs
 
         /// <summary>
-        /// LogErrorOnMessageReceived
+        /// Tibco EMS Configurations Path
         /// </summary>
-        public static string LogErrorOnInvalidateCache = "[SUBJECT]: {0}";
+        public const string TibcoEMSPathConfigurations = "/AMSOsram/TibcoEMS/";
 
         #endregion
     }
