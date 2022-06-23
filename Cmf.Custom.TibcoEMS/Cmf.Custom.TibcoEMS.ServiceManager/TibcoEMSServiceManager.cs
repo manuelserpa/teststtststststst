@@ -55,20 +55,20 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
             // Set Logger
             this.Logger = logger;
 
-            this.Logger.LogInformation("Getting Message Bus Transport Configuration...");
-
-            // Create Message Bus Transport Configuration
+            // Get Message Bus Transport Configurations
+            this.Logger.LogInformation("Getting Message Bus Transport Configurations...");
+            
             this.MessageBusTransportConfiguration = TibcoEMSUtilities.CreateMessageBusTransportConfig();
 
+            // Create Message Bus Transport
             this.Logger.LogInformation("Creating Message Bus Transport...");
-
-            // Associate configuration to Message Bus
+            
             this.MessageBusTransport = new Transport(this.MessageBusTransportConfiguration);
 
-            //this.Logger.LogInformation("Creating Tibco Connection...");
-
-            // Create Tibco connection configuration
-            //this.TibcoConnection = TibcoEMSUtilities.CreateTibcoConnection(tibcoConfigs);
+            //Create Tibco connection configuration
+            this.Logger.LogInformation("Creating Tibco Connection...");
+            
+            this.TibcoConnection = TibcoEMSUtilities.CreateTibcoConnection(tibcoConfigs);
         }
 
         /// <summary>
