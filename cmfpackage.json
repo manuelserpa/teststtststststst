@@ -38,7 +38,7 @@
   "testPackages": [
     {
       "id": "Cmf.Custom.Tests",
-      "version": "1.7.0"
+      "version": "1.8.0"
     },
     {
       "id": "Cmf.Custom.Tests.MasterData",
