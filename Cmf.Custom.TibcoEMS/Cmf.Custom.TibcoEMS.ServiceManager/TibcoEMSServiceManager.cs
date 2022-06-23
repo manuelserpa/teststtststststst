@@ -67,7 +67,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
 
             //Create Tibco connection configuration
             this.Logger.LogInformation("Creating Tibco Connection...");
-            
+
             this.TibcoConnection = TibcoEMSUtilities.CreateTibcoConnection(tibcoConfigs);
         }
 
@@ -77,7 +77,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         public void OnStart()
         {
             // Connect to Tibco
-            //this.TibcoConnection.Start();
+            this.TibcoConnection.Start();
 
             // Connect to Message Bus
             this.MessageBusTransport.Start();
