@@ -65,9 +65,6 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             productionOrdersMessage[0].Name = Guid.NewGuid().ToString("N");
             productionOrdersMessage[0].OrderNumber = Guid.NewGuid().ToString("N").Substring(0, 3);
-            //productionOrdersMessage[0].DueDate = DateTime.Today.AddDays(1).ToString();
-            //productionOrdersMessage[0].PlannedStartDate = DateTime.Now.ToString();
-            //productionOrdersMessage[0].PlannedEndDate = productionOrdersMessage[0].DueDate;
 
             _scenario.CustomImportProductionOrderCollection = productionOrdersMessage;
             _scenario.Setup();
@@ -99,19 +96,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             ///<Step> Validate Production Order created </Step>
             ///<ExpectedResult> Production Order should have the correct information </ExpectedResult>
-            Assert.IsTrue(po.Type.Equals(productionOrdersMessage[0].Type), $"Production Order Type should be {productionOrdersMessage[0].Type}, but instead is: {po.Type}");
-            Assert.IsTrue(po.OrderNumber.Equals(productionOrdersMessage[0].OrderNumber), $"Production Order Order Number should be {productionOrdersMessage[0].OrderNumber}, but instead is: {po.Product.Name}");
-            Assert.IsTrue(po.Facility.Name.Equals(productionOrdersMessage[0].Facility), $"Production Order Facility should be {productionOrdersMessage[0].Facility}, but instead is: {po.Facility.Name}");
-            Assert.IsTrue(po.Product.Name.Equals(productionOrdersMessage[0].Product), $"Production Order Product should be {productionOrdersMessage[0].Product}, but instead is: {po.Product.Name}");
-            Assert.IsTrue(string.Format("{0:0}", po.Quantity).Equals(productionOrdersMessage[0].Quantity.ToString()), $"Production Order Quantity should be {productionOrdersMessage[0].Quantity}, but instead is: {string.Format("{0:0}", po.Quantity.ToString())}");
-            Assert.IsTrue(po.Units.Equals(productionOrdersMessage[0].Units), $"Production Order Units should be {productionOrdersMessage[0].Units}, but instead is: {po.Units}");
-            Assert.IsTrue(po.DueDate?.ToString("yyyy-MM-dd HH:mm").Equals(string.Format(productionOrdersMessage[0].DueDate, "yyyy-MM-dd HH:mm")), $"Production Order DueDate should be {string.Format(productionOrdersMessage[0].DueDate, "yyyy-MM-dd HH:mm")}, but instead is: {po.DueDate?.ToString("yyyy-MM-dd HH:mm")}");
-            Assert.IsTrue(po.RestrictOnComplete.ToString().Equals(productionOrdersMessage[0].RestrictOnComplete), $"Production Order RestrictOnComplete should be {productionOrdersMessage[0].RestrictOnComplete}, but instead is: {po.RestrictOnComplete}");
-            Assert.IsTrue(string.Format("{0:0.##}", po.UnderDeliveryTolerance).Equals(productionOrdersMessage[0].UnderDeliveryTolerance.ToString()), $"Production Order UnderDeliveryTolerance should be {productionOrdersMessage[0].UnderDeliveryTolerance}, but instead is: {string.Format("{0:0.##}", po.UnderDeliveryTolerance.ToString())}");
-            Assert.IsTrue(string.Format("{0:0.##}", po.OverDeliveryTolerance).Equals(productionOrdersMessage[0].OverDeliveryTolerance.ToString()), $"Production Order OverDeliveryTolerance should be {productionOrdersMessage[0].OverDeliveryTolerance}, but instead is: {string.Format("{0:0.##}", po.OverDeliveryTolerance.ToString())}");
-            Assert.IsTrue(po.PlannedStartDate?.ToString("yyyy-MM-dd HH:mm").Equals(string.Format(productionOrdersMessage[0].PlannedStartDate, "yyyy-MM-dd HH:mm")), $"Production Order PlannedStartDate should be {string.Format(productionOrdersMessage[0].PlannedStartDate, "yyyy-MM-dd HH:mm")}, but instead is: {po.PlannedStartDate?.ToString("yyyy-MM-dd HH:mm")}");
-            Assert.IsTrue(po.PlannedEndDate?.ToString("yyyy-MM-dd HH:mm").Equals(string.Format(productionOrdersMessage[0].PlannedEndDate, "yyy-MM-dd HH:mm")), $"Production Order OverDeliveryTolerance should be {string.Format(productionOrdersMessage[0].PlannedEndDate, "yyy-MM-dd HH:mm")}, but instead is: {po.PlannedEndDate?.ToString("yyyy-MM-dd HH:mm")}");
-            Assert.IsTrue(po.SystemState.Equals(ProductionOrderSystemState.Released), $"Production Order SystemState should be {ProductionOrderSystemState.Released}, but instead is: {po.SystemState}");
+            ValidateProductionOrder(productionOrdersMessage[0], po);
         }
 
         /// <summary>
@@ -171,19 +156,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             ///<Step> Validate Production Order created </Step>
             ///<ExpectedResult> Production Order should have the correct information </ExpectedResult>
-            Assert.IsTrue(po.Type.Equals(productionOrdersMessage[0].Type), $"Production Order Type should be {productionOrdersMessage[0].Type}, but instead is: {po.Type}");
-            Assert.IsTrue(po.OrderNumber.Equals(productionOrdersMessage[0].OrderNumber), $"Production Order Order Number should be {productionOrdersMessage[0].OrderNumber}, but instead is: {po.Product.Name}");
-            Assert.IsTrue(po.Facility.Name.Equals(productionOrdersMessage[0].Facility), $"Production Order Facility should be {productionOrdersMessage[0].Facility}, but instead is: {po.Facility.Name}");
-            Assert.IsTrue(po.Product.Name.Equals(productionOrdersMessage[0].Product), $"Production Order Product should be {productionOrdersMessage[0].Product}, but instead is: {po.Product.Name}");
-            Assert.IsTrue(string.Format("{0:0}", po.Quantity).Equals(productionOrdersMessage[0].Quantity.ToString()), $"Production Order Quantity should be {productionOrdersMessage[0].Quantity}, but instead is: {string.Format("{0:0}", po.Quantity.ToString())}");
-            Assert.IsTrue(po.Units.Equals(productionOrdersMessage[0].Units), $"Production Order Units should be {productionOrdersMessage[0].Units}, but instead is: {po.Units}");
-            Assert.IsTrue(po.DueDate?.ToString("yyyy-MM-dd HH:mm").Equals(string.Format(productionOrdersMessage[0].DueDate, "yyyy-MM-dd HH:mm")), $"Production Order DueDate should be {string.Format(productionOrdersMessage[0].DueDate, "yyyy-MM-dd HH:mm")}, but instead is: {po.DueDate?.ToString("yyyy-MM-dd HH:mm")}");
-            Assert.IsTrue(po.RestrictOnComplete.ToString().Equals(productionOrdersMessage[0].RestrictOnComplete), $"Production Order RestrictOnComplete should be {productionOrdersMessage[0].RestrictOnComplete}, but instead is: {po.RestrictOnComplete}");
-            Assert.IsTrue(string.Format("{0:0.##}", po.UnderDeliveryTolerance).Equals(productionOrdersMessage[0].UnderDeliveryTolerance.ToString()), $"Production Order UnderDeliveryTolerance should be {productionOrdersMessage[0].UnderDeliveryTolerance}, but instead is: {string.Format("{0:0.##}", po.UnderDeliveryTolerance.ToString())}");
-            Assert.IsTrue(string.Format("{0:0.##}", po.OverDeliveryTolerance).Equals(productionOrdersMessage[0].OverDeliveryTolerance.ToString()), $"Production Order OverDeliveryTolerance should be {productionOrdersMessage[0].OverDeliveryTolerance}, but instead is: {string.Format("{0:0.##}", po.OverDeliveryTolerance.ToString())}");
-            Assert.IsTrue(po.PlannedStartDate?.ToString("yyyy-MM-dd HH:mm").Equals(string.Format(productionOrdersMessage[0].PlannedStartDate, "yyyy-MM-dd HH:mm")), $"Production Order PlannedStartDate should be {string.Format(productionOrdersMessage[0].PlannedStartDate, "yyyy-MM-dd HH:mm")}, but instead is: {po.PlannedStartDate?.ToString("yyyy-MM-dd HH:mm")}");
-            Assert.IsTrue(po.PlannedEndDate?.ToString("yyyy-MM-dd HH:mm").Equals(string.Format(productionOrdersMessage[0].PlannedEndDate, "yyyy-MM-dd HH:mm")), $"Production Order OverDeliveryTolerance should be {string.Format(productionOrdersMessage[0].PlannedEndDate, "yyyy-MM-dd HH:mm")}, but instead is: {po.PlannedEndDate?.ToString("yyyy-MM-dd HH:mm")}");
-            Assert.IsTrue(po.SystemState.Equals(ProductionOrderSystemState.Released), $"Production Order SystemState should be {ProductionOrderSystemState.Released}, but instead is: {po.SystemState}");
+            ValidateProductionOrder(productionOrdersMessage[0], po);
 
             ///<Step> Validate integration entry with the Production Order </Step>
             ///<ExpectedResult> Integration entry should be processed </ExpectedResult>
@@ -204,20 +177,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             ///<Step> Validate Production Order created </Step>
             ///<ExpectedResult> Production Order should have the correct information </ExpectedResult>
-            Assert.IsTrue(po.Type.Equals(productionOrdersMessage[1].Type), $"Production Order Type should be {productionOrdersMessage[1].Type}, but instead is: {po.Type}");
-            Assert.IsTrue(po.OrderNumber.Equals(productionOrdersMessage[1].OrderNumber), $"Production Order Order Number should be {productionOrdersMessage[1].OrderNumber}, but instead is: {po.Product.Name}");
-            Assert.IsTrue(po.Facility.Name.Equals(productionOrdersMessage[1].Facility), $"Production Order Facility should be {productionOrdersMessage[1].Facility}, but instead is: {po.Facility.Name}");
-            Assert.IsTrue(po.Product.Name.Equals(productionOrdersMessage[1].Product), $"Production Order Product should be {productionOrdersMessage[1].Product}, but instead is: {po.Product.Name}");
-            Assert.IsTrue(string.Format("{0:0}", po.Quantity).Equals(productionOrdersMessage[1].Quantity.ToString()), $"Production Order Quantity should be {productionOrdersMessage[1].Quantity}, but instead is: {string.Format("{0:0}", po.Quantity.ToString())}");
-            Assert.IsTrue(po.Units.Equals(productionOrdersMessage[1].Units), $"Production Order Units should be {productionOrdersMessage[0].Units}, but instead is: {po.Units}");
-            Assert.IsTrue(po.DueDate?.ToString("yyyy-MM-dd HH:mm").Equals(string.Format(productionOrdersMessage[1].DueDate, "yyyy-MM-dd HH:mm")), $"Production Order DueDate should be {string.Format(productionOrdersMessage[1].DueDate, "yyyy-MM-dd HH:mm")}, but instead is: {po.DueDate?.ToString("yyyy-MM-dd HH:mm")}");
-            Assert.IsTrue(po.RestrictOnComplete.ToString().Equals(productionOrdersMessage[1].RestrictOnComplete), $"Production Order RestrictOnComplete should be {productionOrdersMessage[1].RestrictOnComplete}, but instead is: {po.RestrictOnComplete}");
-            Assert.IsTrue(string.Format("{0:0.##}", po.UnderDeliveryTolerance).Equals(productionOrdersMessage[1].UnderDeliveryTolerance.ToString()), $"Production Order UnderDeliveryTolerance should be {productionOrdersMessage[1].UnderDeliveryTolerance}, but instead is: {string.Format("{0:0.##}", po.UnderDeliveryTolerance.ToString())}");
-            Assert.IsTrue(string.Format("{0:0.##}", po.OverDeliveryTolerance).Equals(productionOrdersMessage[1].OverDeliveryTolerance.ToString()), $"Production Order OverDeliveryTolerance should be {productionOrdersMessage[1].OverDeliveryTolerance}, but instead is: {string.Format("{0:0.##}", po.OverDeliveryTolerance.ToString())}");
-            Assert.IsTrue(po.PlannedStartDate?.ToString("yyyy-MM-dd HH:mm").Equals(string.Format(productionOrdersMessage[1].PlannedStartDate, "yyyy-MM-dd HH:mm")), $"Production Order PlannedStartDate should be {string.Format(productionOrdersMessage[1].PlannedStartDate, "yyyy-MM-dd HH:mm")}, but instead is: {po.PlannedStartDate?.ToString("yyyy-MM-dd HH:mm")}");
-            Assert.IsTrue(po.PlannedEndDate?.ToString("yyyy-MM-dd HH:mm").Equals(string.Format(productionOrdersMessage[1].PlannedEndDate, "yyyy-MM-dd HH:mm")), $"Production Order OverDeliveryTolerance should be {string.Format(productionOrdersMessage[1].PlannedEndDate, "yyyy-MM-dd HH:mm")}, but instead is: {po.PlannedEndDate?.ToString("yyyy-MM-dd HH:mm")}");
-            Assert.IsTrue(po.SystemState.Equals(ProductionOrderSystemState.Released), $"Production Order SystemState should be {ProductionOrderSystemState.Released}, but instead is: {po.SystemState}");
-
+            ValidateProductionOrder(productionOrdersMessage[1], po);
         }
 
         /// <summary>
@@ -277,19 +237,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             ///<Step> Validate Production Order created </Step>
             ///<ExpectedResult> Production Order should have the correct information </ExpectedResult>
-            Assert.IsTrue(po.Type.Equals(productionOrdersMessage[0].Type), $"Production Order Type should be {productionOrdersMessage[0].Type}, but instead is: {po.Type}");
-            Assert.IsTrue(po.OrderNumber.Equals(productionOrdersMessage[0].OrderNumber), $"Production Order Order Number should be {productionOrdersMessage[0].OrderNumber}, but instead is: {po.Product.Name}");
-            Assert.IsTrue(po.Facility.Name.Equals(productionOrdersMessage[0].Facility), $"Production Order Facility should be {productionOrdersMessage[0].Facility}, but instead is: {po.Facility.Name}");
-            Assert.IsTrue(po.Product.Name.Equals(productionOrdersMessage[0].Product), $"Production Order Product should be {productionOrdersMessage[0].Product}, but instead is: {po.Product.Name}");
-            Assert.IsTrue(string.Format("{0:0}", po.Quantity).Equals(productionOrdersMessage[0].Quantity.ToString()), $"Production Order Quantity should be {productionOrdersMessage[0].Quantity}, but instead is: {string.Format("{0:0}", po.Quantity.ToString())}");
-            Assert.IsTrue(po.Units.Equals(productionOrdersMessage[0].Units), $"Production Order Units should be {productionOrdersMessage[0].Units}, but instead is: {po.Units}");
-            Assert.IsTrue(po.DueDate?.ToString("yyyy-MM-dd HH:mm").Equals(string.Format(productionOrdersMessage[0].DueDate, "yyyy-MM-dd HH:mm")), $"Production Order DueDate should be {string.Format(productionOrdersMessage[0].DueDate, "yyyy-MM-dd HH:mm")}, but instead is: {po.DueDate?.ToString("yyyy-MM-dd HH:mm")}");
-            Assert.IsTrue(po.RestrictOnComplete.ToString().Equals(productionOrdersMessage[0].RestrictOnComplete), $"Production Order RestrictOnComplete should be {productionOrdersMessage[0].RestrictOnComplete}, but instead is: {po.RestrictOnComplete}");
-            Assert.IsTrue(string.Format("{0:0.##}", po.UnderDeliveryTolerance).Equals(productionOrdersMessage[0].UnderDeliveryTolerance.ToString()), $"Production Order UnderDeliveryTolerance should be {productionOrdersMessage[0].UnderDeliveryTolerance}, but instead is: {string.Format("{0:0.##}", po.UnderDeliveryTolerance.ToString())}");
-            Assert.IsTrue(string.Format("{0:0.##}", po.OverDeliveryTolerance).Equals(productionOrdersMessage[0].OverDeliveryTolerance.ToString()), $"Production Order OverDeliveryTolerance should be {productionOrdersMessage[0].OverDeliveryTolerance}, but instead is: {string.Format("{0:0.##}", po.OverDeliveryTolerance.ToString())}");
-            Assert.IsTrue(po.PlannedStartDate?.ToString("yyyy-MM-dd HH:mm").Equals(string.Format(productionOrdersMessage[0].PlannedStartDate, "yyyy-MM-dd HH:mm")), $"Production Order PlannedStartDate should be {string.Format(productionOrdersMessage[0].PlannedStartDate, "yyyy-MM-dd HH:mm")}, but instead is: {po.PlannedStartDate?.ToString("yyyy-MM-dd HH:mm")}");
-            Assert.IsTrue(po.PlannedEndDate?.ToString("yyyy-MM-dd HH:mm").Equals(string.Format(productionOrdersMessage[0].PlannedEndDate, "yyyy-MM-dd HH:mm")), $"Production Order OverDeliveryTolerance should be {string.Format(productionOrdersMessage[0].PlannedEndDate, "yyyy-MM-dd HH:mm")}, but instead is: {po.PlannedEndDate?.ToString("yyyy-MM-dd HH:mm")}");
-            Assert.IsTrue(po.SystemState.Equals(ProductionOrderSystemState.Released), $"Production Order SystemState should be {ProductionOrderSystemState.Released}, but instead is: {po.SystemState}");
+            ValidateProductionOrder(productionOrdersMessage[0], po);
 
             Thread.Sleep(18000);
 
@@ -337,22 +285,31 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             ///<Step> Validate Production Order was updated </Step>
             ///<ExpectedResult> Production Order should have the correct updated information </ExpectedResult>
-            Assert.IsTrue(po.Type.Equals(updateProductionOrdersMessage[0].Type), $"Production Order Type should be {updateProductionOrdersMessage[0].Type}, but instead is: {po.Type}");
-            Assert.IsTrue(po.OrderNumber.Equals(updateProductionOrdersMessage[0].OrderNumber), $"Production Order Order Number should be {updateProductionOrdersMessage[0].OrderNumber}, but instead is: {po.Product.Name}");
-            Assert.IsTrue(po.Facility.Name.Equals(updateProductionOrdersMessage[0].Facility), $"Production Order Facility should be {updateProductionOrdersMessage[0].Facility}, but instead is: {po.Facility.Name}");
-            Assert.IsTrue(po.Product.Name.Equals(updateProductionOrdersMessage[0].Product), $"Production Order Product should be {updateProductionOrdersMessage[0].Product}, but instead is: {po.Product.Name}");
-            Assert.IsTrue(string.Format("{0:0}", po.Quantity).Equals(updateProductionOrdersMessage[0].Quantity.ToString()), $"Production Order Quantity should be {updateProductionOrdersMessage[0].Quantity}, but instead is: {string.Format("{0:0}", po.Quantity.ToString())}");
-            Assert.IsTrue(po.Units.Equals(updateProductionOrdersMessage[0].Units), $"Production Order Units should be {updateProductionOrdersMessage[0].Units}, but instead is: {po.Units}");
-            Assert.IsTrue(po.DueDate?.ToString("yyyy-MM-dd HH:mm").Equals(string.Format(updateProductionOrdersMessage[0].DueDate, "yyyy-MM-dd HH:mm")), $"Production Order DueDate should be {string.Format(updateProductionOrdersMessage[0].DueDate, "yyyy-MM-dd HH:mm")}, but instead is: {po.DueDate?.ToString("yyyy-MM-dd HH:mm")}");
-            Assert.IsTrue(po.RestrictOnComplete.ToString().Equals(updateProductionOrdersMessage[0].RestrictOnComplete), $"Production Order RestrictOnComplete should be {updateProductionOrdersMessage[0].RestrictOnComplete}, but instead is: {po.RestrictOnComplete}");
-            Assert.IsTrue(string.Format("{0:0.##}", po.UnderDeliveryTolerance).Equals(updateProductionOrdersMessage[0].UnderDeliveryTolerance.ToString()), $"Production Order UnderDeliveryTolerance should be {updateProductionOrdersMessage[0].UnderDeliveryTolerance}, but instead is: {string.Format("{0:0.##}", po.UnderDeliveryTolerance.ToString())}");
-            Assert.IsTrue(string.Format("{0:0.##}", po.OverDeliveryTolerance).Equals(updateProductionOrdersMessage[0].OverDeliveryTolerance.ToString()), $"Production Order OverDeliveryTolerance should be {updateProductionOrdersMessage[0].OverDeliveryTolerance}, but instead is: {string.Format("{0:0.##}", po.OverDeliveryTolerance.ToString())}");
-            Assert.IsTrue(po.PlannedStartDate?.ToString("yyyy-MM-dd HH:mm").Equals(string.Format(updateProductionOrdersMessage[0].PlannedStartDate, "yyyy-MM-dd HH:mm")), $"Production Order PlannedStartDate should be {string.Format(updateProductionOrdersMessage[0].PlannedStartDate, "yyyy-MM-dd HH:mm")}, but instead is: {po.PlannedStartDate?.ToString("yyyy-MM-dd HH:mm")}");
-            Assert.IsTrue(po.PlannedEndDate?.ToString("yyyy-MM-dd HH:mm").Equals(string.Format(updateProductionOrdersMessage[0].PlannedEndDate, "yyyy-MM-dd HH:mm")), $"Production Order OverDeliveryTolerance should be {string.Format(updateProductionOrdersMessage[0].PlannedEndDate, "yyyy-MM-dd HH:mm")}, but instead is: {po.PlannedEndDate?.ToString("yyyy-MM-dd HH:mm")}");
-            Assert.IsTrue(po.SystemState.Equals(ProductionOrderSystemState.Released), $"Production Order SystemState should be {ProductionOrderSystemState.Released}, but instead is: {po.SystemState}");
+            ValidateProductionOrder(productionOrdersMessage[0], po);
 
             #endregion
         }
 
+        /// <summary>
+        /// Validate the created Production Order against the imported XML
+        /// </summary>
+        /// <param name="productionOrdersMessage">XML Data Production Order</param>
+        /// <param name="createdPO">Created Production Order</param>
+        private static void ValidateProductionOrder(CustomImportProductionOrder productionOrdersMessage, ProductionOrder createdPO)
+        {
+            Assert.IsTrue(createdPO.Type.Equals(productionOrdersMessage.Type), $"Production Order Type should be {productionOrdersMessage.Type}, but instead is: {createdPO.Type}");
+            Assert.IsTrue(createdPO.OrderNumber.Equals(productionOrdersMessage.OrderNumber), $"Production Order Order Number should be {productionOrdersMessage.OrderNumber}, but instead is: {createdPO.Product.Name}");
+            Assert.IsTrue(createdPO.Facility.Name.Equals(productionOrdersMessage.Facility), $"Production Order Facility should be {productionOrdersMessage.Facility}, but instead is: {createdPO.Facility.Name}");
+            Assert.IsTrue(createdPO.Product.Name.Equals(productionOrdersMessage.Product), $"Production Order Product should be {productionOrdersMessage.Product}, but instead is: {createdPO.Product.Name}");
+            Assert.IsTrue(string.Format("{0:0}", createdPO.Quantity).Equals(productionOrdersMessage.Quantity.ToString()), $"Production Order Quantity should be {productionOrdersMessage.Quantity}, but instead is: {string.Format("{0:0}", createdPO.Quantity.ToString())}");
+            Assert.IsTrue(createdPO.Units.Equals(productionOrdersMessage.Units), $"Production Order Units should be {productionOrdersMessage.Units}, but instead is: {createdPO.Units}");
+            Assert.IsTrue((createdPO.DueDate?.ToString("yyyy-MM-dd HH:mm") ?? string.Empty).Equals(string.Format(productionOrdersMessage.DueDate, "yyyy-MM-dd HH:mm")), $"Production Order DueDate should be {string.Format(productionOrdersMessage.DueDate, "yyyy-MM-dd HH:mm")}, but instead is: {createdPO.DueDate?.ToString("yyyy-MM-dd HH:mm") ?? string.Empty}");
+            Assert.IsTrue(createdPO.RestrictOnComplete.ToString().Equals(productionOrdersMessage.RestrictOnComplete), $"Production Order RestrictOnComplete should be {productionOrdersMessage.RestrictOnComplete}, but instead is: {createdPO.RestrictOnComplete}");
+            Assert.IsTrue(string.Format("{0:0.##}", createdPO.UnderDeliveryTolerance).Equals(productionOrdersMessage.UnderDeliveryTolerance.ToString()), $"Production Order UnderDeliveryTolerance should be {productionOrdersMessage.UnderDeliveryTolerance}, but instead is: {string.Format("{0:0.##}", createdPO.UnderDeliveryTolerance.ToString())}");
+            Assert.IsTrue(string.Format("{0:0.##}", createdPO.OverDeliveryTolerance).Equals(productionOrdersMessage.OverDeliveryTolerance.ToString()), $"Production Order OverDeliveryTolerance should be {productionOrdersMessage.OverDeliveryTolerance}, but instead is: {string.Format("{0:0.##}", createdPO.OverDeliveryTolerance.ToString())}");
+            Assert.IsTrue((createdPO.PlannedStartDate?.ToString("yyyy-MM-dd HH:mm") ?? string.Empty).Equals(string.Format(productionOrdersMessage.PlannedStartDate, "yyyy-MM-dd HH:mm")), $"Production Order PlannedStartDate should be {string.Format(productionOrdersMessage.PlannedStartDate, "yyyy-MM-dd HH:mm")}, but instead is: {createdPO.PlannedStartDate?.ToString("yyyy-MM-dd HH:mm") ?? string.Empty}");
+            Assert.IsTrue((createdPO.PlannedEndDate?.ToString("yyyy-MM-dd HH:mm") ?? string.Empty).Equals(string.Format(productionOrdersMessage.PlannedEndDate, "yyyy-MM-dd HH:mm")), $"Production Order OverDeliveryTolerance should be {string.Format(productionOrdersMessage.PlannedEndDate, "yyyy-MM-dd HH:mm")}, but instead is: {createdPO.PlannedEndDate?.ToString("yyyy-MM-dd HH:mm") ?? string.Empty}");
+            Assert.IsTrue(createdPO.SystemState.Equals(ProductionOrderSystemState.Released), $"Production Order SystemState should be {ProductionOrderSystemState.Released}, but instead is: {createdPO.SystemState}");
+        }
     }
 }
