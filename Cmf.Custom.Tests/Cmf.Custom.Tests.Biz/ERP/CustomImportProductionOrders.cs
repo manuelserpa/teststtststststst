@@ -285,7 +285,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             ///<Step> Validate Production Order was updated </Step>
             ///<ExpectedResult> Production Order should have the correct updated information </ExpectedResult>
-            ValidateProductionOrder(productionOrdersMessage[0], po);
+            ValidateProductionOrder(updateProductionOrdersMessage[0], po);
 
             #endregion
         }
