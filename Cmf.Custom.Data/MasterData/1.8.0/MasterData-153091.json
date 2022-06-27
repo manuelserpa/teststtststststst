@@ -27,7 +27,7 @@
         "4": {
             "ParentPath": "/AMSOsram/TibcoEMS/",
             "Name": "Password",
-            "Value": "Yy3JzeglfUzqgHOIA5kx",
+            "Value": "",
             "ValueType": "SecureString"
         }
     },
