@@ -24,25 +24,6 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
 {
     public static class TibcoEMSUtilities
     {
-        #region Private Variables
-
-        /// <summary>
-        /// The string a
-        /// </summary>
-        private static readonly string stringA = "EV3x0mnju+ceu2Lt528h3Tk{Wl@3@F";
-
-        /// <summary>
-        /// The string b
-        /// </summary>
-        private static readonly string stringB = "153A926C2CFCF4BAFD39F21256789";
-
-        /// <summary>
-        /// The string c
-        /// </summary>
-        private static readonly string stringC = "ZJ9984nM19O3A22K";
-
-        #endregion
-
         #region Public Methods
 
         /// <summary>
@@ -106,7 +87,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
         {
             string host = configurations["Host"];
             string username = configurations["Username"];
-            string password = Decrypt(configurations["Password"], stringA, stringB, 3, stringC, 256);
+            string password = configurations["Password"];
 
             ConnectionFactory factory = new ConnectionFactory(host);
 
@@ -200,106 +181,6 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
             }
 
             return output;
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        /// <summary>
-        /// Decrypts specified ciphertext using Rijndael symmetric key algorithm.
-        /// </summary>
-        /// <param name="cipherText">
-        /// Base64-formatted ciphertext value.
-        /// </param>
-        /// <param name="passPhrase">
-        /// Passphrase from which a pseudo-random password will be derived. The
-        /// derived password will be used to generate the encryption key.
-        /// Passphrase can be any string.
-        /// </param>
-        /// <param name="saltValue">
-        /// Salt value used along with passphrase to generate password. Salt can
-        /// be any string.
-        /// </param>
-        /// <param name="passwordIterations">
-        /// Number of iterations used to generate password.
-        /// </param>
-        /// <param name="initVector">
-        /// Initialization vector (or IV). This value is required to encrypt the
-        /// first block of plaintext data. For RijndaelManaged class IV must be
-        /// exactly 16 ASCII characters long.
-        /// </param>
-        /// <param name="keySize">
-        /// Size of encryption key in bits. Allowed values are: 128, 192, and 256.
-        /// Longer keys are more secure than shorter keys.
-        /// </param>
-        /// <returns>
-        /// Decrypted string value.
-        /// </returns>
-        /// <remarks>
-        /// Most of the logic in this function is similar to the Encrypt
-        /// logic. In order for decryption to work, all parameters of this function
-        /// - except cipherText value - must match the corresponding parameters of
-        /// the Encrypt function which was called to generate the
-        /// ciphertext.
-        /// </remarks>
-        private static string Decrypt(string cipherText, string passPhrase, string saltValue, int passwordIterations, string initVector, int keySize)
-        {
-            // Convert strings defining encryption key characteristics into byte
-            // arrays. Let us assume that strings only contain ASCII codes.
-            // If strings include Unicode characters, use Unicode, UTF7, or UTF8
-            // encoding.
-            Byte[] initVectorBytes = Encoding.UTF8.GetBytes(initVector);
-            Byte[] saltValueBytes = Encoding.UTF8.GetBytes(saltValue);
-
-            // Convert our ciphertext into a byte array.
-            Byte[] cipherTextBytes = Convert.FromBase64String(cipherText);
-
-            // First, we must create a password, from which the key will be
-            // derived. This password will be generated from the specified
-            // passphrase and salt value. Password creation can be done in
-            // several iterations.
-            Rfc2898DeriveBytes password = new Rfc2898DeriveBytes(passPhrase, saltValueBytes, passwordIterations);
-
-            // Use the password to generate pseudo-random bytes for the encryption
-            // key. Specify the size of the key in bytes (instead of bits).
-            Byte[] keyBytes = password.GetBytes(keySize / 8);
-
-            // Create uninitialized AES encryption object.
-            Aes symmetricKey = Aes.Create();
-
-            // Generate decryptor from the existing key bytes and initialization
-            // vector. Key size will be defined based on the number of the key
-            // bytes.
-            ICryptoTransform decryptor = symmetricKey.CreateDecryptor(keyBytes, initVectorBytes);
-
-            // Define memory stream which will be used to hold encrypted data.
-            MemoryStream memoryStream = new MemoryStream(cipherTextBytes);
-
-            // Define cryptographic stream (always use Read mode for encryption).
-            CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
-
-            // Since at this point we don't know what the size of decrypted data
-            // plaintext is never longer than ciphertext.
-            Byte[] plainTextBytes = new Byte[cipherTextBytes.Length];
-
-            // Start decrypting.
-            int decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
-            byte[] finalBytes = decryptor.TransformFinalBlock(plainTextBytes, 0, 0);
-
-            // Close both streams.
-            memoryStream.Close();
-            cryptoStream.Close();
-
-            // Convert decrypted data into a string.
-            // Let us assume that the original plaintext string was UTF8-encoded.
-            string plainText = Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
-            string final = Encoding.UTF8.GetString(finalBytes, 0, finalBytes.Length);
-
-            var result = plainText + final;
-
-            // Return decrypted string.
-            return result;
         }
 
         #endregion
