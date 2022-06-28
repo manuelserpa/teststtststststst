@@ -2,8 +2,10 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <UserSecretsId>dotnet-Cmf.Custom.TibcoEMS.Service-9C7907F2-468C-423A-8E86-34E381664C35</UserSecretsId>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <OutputPath>..\Release</OutputPath>
     </PropertyGroup>
 
     <ItemGroup>
@@ -18,7 +20,7 @@
 
     <ItemGroup>
         <Reference Include="Cmf.LightBusinessObjects">
-            <HintPath>..\..\Libs\LBOs\NetStandard\Cmf.LightBusinessObjects.dll</HintPath>
+            <HintPath>..\..\..\Libs\LBOs\NetStandard\Cmf.LightBusinessObjects.dll</HintPath>
         </Reference>
     </ItemGroup>
 
