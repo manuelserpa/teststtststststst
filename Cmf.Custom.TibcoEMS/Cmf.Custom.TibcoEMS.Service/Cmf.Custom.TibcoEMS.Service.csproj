@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <UserSecretsId>dotnet-Cmf.Custom.TibcoEMS.Service-9C7907F2-468C-423A-8E86-34E381664C35</UserSecretsId>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,14 +17,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="Cmf.LightBusinessObjects">
-        <HintPath>..\..\Libs\LBOs\NetStandard\Cmf.LightBusinessObjects.dll</HintPath>
-      </Reference>
+        <Reference Include="Cmf.LightBusinessObjects">
+            <HintPath>..\..\Libs\LBOs\NetStandard\Cmf.LightBusinessObjects.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
     <ItemGroup>
-      <Content Update="App.config">
-        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      </Content>
+        <Content Update="App.config">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 </Project>
