@@ -25,7 +25,7 @@ namespace Cmf.Custom.TibcoEMS.Service
             {
                 Logger.LogInformation("Getting Tibco configurations...");
 
-                TibcoConfigs = TibcoEMSUtilities.GetChildConfigsByPath(TibcoEMSConstants.TibcoEMSPathConfigurations);
+                TibcoConfigs = TibcoEMSUtilities.GetTibcoConfigs();
 
                 if (TibcoConfigs != null && TibcoConfigs.Keys.Count > 0)
                 {

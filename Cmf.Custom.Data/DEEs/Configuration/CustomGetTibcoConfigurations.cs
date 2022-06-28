@@ -1,6 +1,6 @@
-﻿using Cmf.Foundation.Common;
+﻿using Cmf.Custom.AMSOsram.Common;
+using Cmf.Foundation.Common;
 using Cmf.Foundation.Configuration;
-using System;
 using System.Collections.Generic;
 
 namespace Cmf.Custom.AMSOsram.Actions.Configurations
@@ -31,25 +31,15 @@ namespace Cmf.Custom.AMSOsram.Actions.Configurations
         {
             //---Start DEE Code---     
 
-            //System
-            UseReference("", "System.Linq");
-            UseReference("", "System.Collections.Generic");
-            UseReference("", "System.IO");
-            UseReference("", "System.Threading");
-            UseReference("", "System");
-
             //Foundation
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration");
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
+            UseReference("", "Cmf.Foundation.Common");
+            UseReference("", "Cmf.Foundation.Configuration");
 
-            //Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-
-            //Custom
+            //Common
+            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
 
             // Get IsEnabled config value
-            string configIsEnabledPath = "/AMSOsram/TibcoEMS/IsEnabled";
-            Config.TryGetConfig(configIsEnabledPath, out Config isEnabledConfig);
+            Config.TryGetConfig(AMSOsramConstants.TibcoConfigIsEnabledPath, out Config isEnabledConfig);
 
             if (isEnabledConfig == null || isEnabledConfig.Value == null || string.IsNullOrWhiteSpace(isEnabledConfig.Value.ToString()))
             {
@@ -57,8 +47,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Configurations
             }
 
             // Get Host config value
-            string configHostPath = "/AMSOsram/TibcoEMS/Host";
-            Config.TryGetConfig(configHostPath, out Config hostConfig);
+            Config.TryGetConfig(AMSOsramConstants.TibcoConfigHostPath, out Config hostConfig);
 
             if (hostConfig == null || hostConfig.Value == null || string.IsNullOrWhiteSpace(hostConfig.Value.ToString()))
             {
@@ -66,8 +55,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Configurations
             }
 
             // Get Username config value
-            string configUsernamePath = "/AMSOsram/TibcoEMS/Username";
-            Config.TryGetConfig(configUsernamePath, out Config usernameConfig);
+            Config.TryGetConfig(AMSOsramConstants.TibcoConfigUsernamePath, out Config usernameConfig);
 
             if (usernameConfig == null || usernameConfig.Value == null || string.IsNullOrWhiteSpace(usernameConfig.Value.ToString()))
             {
@@ -75,23 +63,22 @@ namespace Cmf.Custom.AMSOsram.Actions.Configurations
             }
 
             // Get Password config value
-            string configPasswordPath = "/AMSOsram/TibcoEMS/Password";
-            Config.TryGetConfig(configPasswordPath, out Config passwordConfig);
+            Config.TryGetConfig(AMSOsramConstants.TibcoConfigPasswordPath, out Config passwordConfig);
 
             if (passwordConfig == null || passwordConfig.Value == null || string.IsNullOrWhiteSpace(passwordConfig.Value.ToString()))
             {
                 throw new CmfBaseException("Missing Password configuration");
             }
 
-            //---End DEE Code---
-
             return new Dictionary<string, object>()
             {
                 { "IsEnabled", isEnabledConfig.Value.ToString() },
                 { "Host", hostConfig.Value.ToString() },
                 { "Username", usernameConfig.Value.ToString() },
-                { "Password", Utilities.Decrypt(passwordConfig.Value.ToString(),"","", 3, "", 256) }
+                { "Password",  passwordConfig.GetDecryptedConfigValue() }
             };
+
+            //---End DEE Code---
         }
     }
 }

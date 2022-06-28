@@ -159,24 +159,19 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
         }
 
         /// <summary>
-        /// Get Custom Configs from MES
+        /// Get Tibco Configs from MES
         /// </summary>
-        public static NameValueCollection GetChildConfigsByPath(string path)
+        public static NameValueCollection GetTibcoConfigs()
         {
             NameValueCollection output = new NameValueCollection();
 
-            ConfigCollection configs = new GetChildConfigsByPathInput()
-            {
-                Path = path
-            }.GetChildConfigsByPathSync().Configs;
+            ExecuteActionOutput actionResult = ExecuteDEE(TibcoEMSConstants.CustomGetTibcoConfigurations, new Dictionary<string, object>());
 
-            if (configs != null && configs.Any())
+            if (actionResult != null && actionResult.Output.Any())
             {
-                foreach (Config config in configs)
+                foreach (var config in actionResult.Output)
                 {
-                    string value = config.Value != null ? config.Value.ToString() : string.Empty;
-
-                    output.Add(config.Name, value);
+                    output.Add(config.Key, config.Value.ToString());
                 }
             }
 

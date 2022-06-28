@@ -29,12 +29,12 @@
 
         #endregion
 
-        #region Configs
+        #region DEE Actions
 
         /// <summary>
-        /// Tibco EMS Configurations Path
+        /// DEE Action: CustomGetTibcoConfigurations
         /// </summary>
-        public const string TibcoEMSPathConfigurations = "/AMSOsram/TibcoEMS/";
+        public const string CustomGetTibcoConfigurations = "CustomGetTibcoConfigurations";
 
         #endregion
     }

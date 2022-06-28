@@ -563,6 +563,7 @@
         /// Movement type to send goods issue
         /// </summary>
         public static string DefaultGoodsIssueMovementTypeConfig = "/Cmf/Custom/ERP/MovementType/GoodsIssue";
+
         #endregion
 
         #region Parameters
@@ -1102,6 +1103,26 @@
         /// Tibco subject for invalidate cache
         /// </summary>
         public const string CustomTibcoEMSGatewayInvalidateCache = "CustomTibcoEMSGatewayInvalidateCache";
+
+        /// <summary>
+        /// Tibco IsEnabled config path
+        /// </summary>
+        public const string TibcoConfigIsEnabledPath = "/AMSOsram/TibcoEMS/IsEnabled";
+
+        /// <summary>
+        /// Tibco Host config path
+        /// </summary>
+        public const string TibcoConfigHostPath = "/AMSOsram/TibcoEMS/Host";
+
+        /// <summary>
+        /// Tibco Username config path
+        /// </summary>
+        public const string TibcoConfigUsernamePath = "/AMSOsram/TibcoEMS/Username";
+
+        /// <summary>
+        /// Tibco Password config path
+        /// </summary>
+        public const string TibcoConfigPasswordPath = "/AMSOsram/TibcoEMS/Password";
 
         #endregion
     }
