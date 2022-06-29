@@ -204,6 +204,12 @@
    "actionId": ""
 },
 {
+   "id": "customgettibcoconfigurations",
+   "menuGroupId": "deeactions",
+   "title": "CustomGetTibcoConfigurations",
+   "actionId": ""
+},
+{
    "id": "customimportproductionordersfromerp",
    "menuGroupId": "deeactions",
    "title": "Custom Import Production Orders From ERP",
@@ -213,6 +219,12 @@
    "id": "customincomingmateriallotcreation",
    "menuGroupId": "deeactions",
    "title": "CustomIncomingMaterialLotCreation",
+   "actionId": ""
+},
+{
+   "id": "custominvalidatecache",
+   "menuGroupId": "deeactions",
+   "title": "CustomInvalidateCache",
    "actionId": ""
 },
 {
@@ -279,6 +291,12 @@
    "id": "customreclaimcontainertype",
    "menuGroupId": "generictables",
    "title": "CustomReclaimContainerType",
+   "actionId": ""
+},
+{
+   "id": "customtibcoemsgatewayresolver",
+   "menuGroupId": "generictables",
+   "title": "CustomTibcoEMSGatewayResolver",
    "actionId": ""
 },
 {
@@ -675,6 +693,12 @@
    "id": "customstibosystemintegration",
    "menuGroupId": "features",
    "title": "Stibo System Integration",
+   "actionId": ""
+},
+{
+   "id": "customtibcoemsgateway",
+   "menuGroupId": "features",
+   "title": "Tibco EMS Gateway",
    "actionId": ""
 },
 {
