@@ -1,15 +1,16 @@
 {
     "packageId": "Cmf.Custom.TibcoEMS",
     "version": "1.0.0",
-    "description": "This package deploys Cmf.Custom.TibcoEMS Customization",
-    "packageType": "Root",
+    "description": "Cmf Custom TibcoEMS Cmf.Custom.TibcoEMS Package",
+    "packageType": "Business",
     "isInstallable": true,
     "isUniqueInstall": false,
-    "dependencies": [
+    "dependencies": [],
+    "contentToPack": [
         {
-            "id": "Cmf.Custom.TibcoEMS.Business",
-            "version": "1.0.0"
+          "source": "Release/*.*",
+          "target": ""
         }
-    ],
+      ],
     "handlerVersion": 0
 }

@@ -19,9 +19,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Reference Include="Cmf.LightBusinessObjects">
-            <HintPath>..\..\..\Libs\LBOs\NetStandard\Cmf.LightBusinessObjects.dll</HintPath>
-        </Reference>
+      <Reference Include="Cmf.LightBusinessObjects">
+        <HintPath>..\..\Libs\LBOs\NetStandard\Cmf.LightBusinessObjects.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
     <ItemGroup>
