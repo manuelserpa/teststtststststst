@@ -37,7 +37,7 @@ The subject CustomTibcoEMSGatewayInvalidateCache has a defined default action.
 There are three types of possible behaviour:
 
 * When a **record is inserted** in Generic Table **the service will subscribe** the corresponding subject on the Message Bus.
-* When any **record is updated** in Generic Table **the service will update the corresponding subject subscription** on the Message Bus.
+* When any **record is updated** in Generic Table **the service will reload the corresponding configuration** on the Message Bus.
 * When any **record is deleted** from Generic Table **the service will unsubscribe** the corresponding subject on the Message Bus.
 
 ## Work items
