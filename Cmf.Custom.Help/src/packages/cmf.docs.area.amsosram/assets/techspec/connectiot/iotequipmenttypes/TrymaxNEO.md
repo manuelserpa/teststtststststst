@@ -1,4 +1,4 @@
-# Trymax NEO
+﻿# Trymax NEO
 
 The details of the Trymax NEO are the following:
 * [Configuration](/AMSOsram/techspec>connectiot>iotequipmenttypes>TrymaxNEO>TrymaxNEO-Configuration)
