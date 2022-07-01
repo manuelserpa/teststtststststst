@@ -2,7 +2,7 @@
 
 ## Overview
 
-DEE action to send a message for Message Bus when Generic Table CustomTibcoEMSGatewayResolver is updated.
+DEE action to publish an **Invalidate Cache** message to Message Bus when Generic Table CustomTibcoEMSGatewayResolver data is changed..
 
 ## Action Groups
 

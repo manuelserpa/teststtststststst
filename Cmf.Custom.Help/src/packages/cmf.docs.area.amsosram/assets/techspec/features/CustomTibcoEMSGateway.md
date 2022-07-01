@@ -8,13 +8,17 @@ Windows Service used to send messages to Tibco EMS.
 
 ### Relevant Artifacts
 
-The table below describes the properties for this entity type:
+The table below describes the relevant artifacts for this feature:
 
-| Name  | Type | Is Mandatory | Data Type | Description |
-| :---- | :--: | :----------: | :-------: | :---------- |
-| [CustomTibcoEMSGatewayResolver](/AMSOsram/techspec>artifacts>generictables>CustomTibcoEMSGatewayResolver) | Generic Table | Yes | - | Contains the configurations of messages from MES that need to be sent to Tibco. |
-| [CustomInvalidateCache](/AMSOsram/techspec>artifacts>deeactions>CustomInvalidateCache) | DEE Action | Yes | - | Action to invalidade cache for Generic Table Tibco Resolver. |
-| [CustomGetTibcoConfigurations](/AMSOsram/techspec>artifacts>deeactions>CustomGetTibcoConfigurations) | DEE Action | Yes | - | Action to get Tibco configurations. |
+| Name  | Type | Description |
+| :---- | :--: | :---------- |
+| [CustomTibcoEMSGatewayResolver](/AMSOsram/techspec>artifacts>generictables>CustomTibcoEMSGatewayResolver) | Generic Table | Contains the configurations of messages from MES that need to be sent to Tibco. |
+| [CustomInvalidateCache](/AMSOsram/techspec>artifacts>deeactions>CustomInvalidateCache) | DEE Action | Action to invalidade cache for Generic Table Tibco Resolver. |
+| [CustomGetTibcoConfigurations](/AMSOsram/techspec>artifacts>deeactions>CustomGetTibcoConfigurations) | DEE Action | Action to get Tibco configurations. |
+| /AMSOsram/TibcoEMS/IsEnabled/ | Config | Configuration to set TibcoEMS availability |
+| /AMSOsram/TibcoEMS/Host/ | Config | Configuration to set TibcoEMS Host value |
+| /AMSOsram/TibcoEMS/Username/ | Config | Configuration to set TibcoEMS Username value |
+| /AMSOsram/TibcoEMS/Password/ | Config | Configuration to set TibcoEMS Password value |
 
 ### How it works
 
@@ -39,6 +43,15 @@ There are three types of possible behaviour:
 * When a **record is inserted** in Generic Table **the service will subscribe** the corresponding subject on the Message Bus.
 * When any **record is updated** in Generic Table **the service will reload the corresponding configuration** on the Message Bus.
 * When any **record is deleted** from Generic Table **the service will unsubscribe** the corresponding subject on the Message Bus.
+
+## Technical configurations
+
+### Installation
+
+When installing Windows Service the following procedures are mandatory:
+
+* The *Cmf.Custom.TibcoEMS.Service.dll.config* file needs to be configured with the environment settings.
+* The Windows Service must point to the folder where the *Cmf.Custom.TibcoEMS.Service* package was unpacked.
 
 ## Work items
 

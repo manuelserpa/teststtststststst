@@ -2,7 +2,7 @@
 
 ## Overview
 
-DEE action to get configs associated to TibcoEMS path.
+DEE action that retrieves the required configurations from MES to allow connecting to TibcoEMS.
 
 ## Action Groups
 
@@ -14,7 +14,7 @@ DEE action to get configs associated to TibcoEMS path.
 
 ## Action
 
-This DEE action get some necessary configurations to create connection with TibcoEMS.
+This DEE action will retrieve the following configurations to create connection to TibcoEMS.
 
 It will return values of the following configurations:
 * AMSOsram/TibcoEMS/IsEnabled

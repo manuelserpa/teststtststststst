@@ -2,7 +2,7 @@
 
 ## Overview
 
-Generic Table used to map the configurations of messages from MES that need to be sent to Tibco.
+Generic Table used to map MES subjects to Tibco topics.
 
 ## Table Columns
 
