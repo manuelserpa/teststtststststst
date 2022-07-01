@@ -34,14 +34,6 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
             string applicationName = ConfigurationManager.AppSettings["ApplicationName"];
             string externalAddress = ConfigurationManager.AppSettings["MessageBus.ExternalAddress"];
 
-            bool useLoadBalancing = false;
-
-            /* FUTURE USE IF NEEDED
-
-            bool useLoadBalancing = bool.TryParse(ConfigurationManager.AppSettings["MessageBus.UseLoadBalancing"], out useLoadBalancing) ? useLoadBalancing : false;
-
-            */
-
             TransportConfig messageBusConfiguration = new TransportConfig()
             {
                 GatewaysConfig = new List<GatewayConfig>
@@ -53,34 +45,12 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
                         ExternalAddress = externalAddress,
                     }
                 },
-                UseLoadBalancing = useLoadBalancing,
+                UseLoadBalancing = false,
                 ApplicationName = applicationName,
                 TenantName = tenantName,
                 SecurityToken = securityToken,
                 UseGatewayExternalAddress = externalAddress.Length > 0
             };
-
-            /* FUTURE USE IF NEEDED
-
-            if (useLoadBalancing)
-            {
-                string lbHost = ConfigurationManager.AppSettings["MessageBus.LoadBalancing.Host"];
-                int lbPort = Convert.ToInt32(ConfigurationManager.AppSettings["MessageBus.LoadBalancing.Port"]);
-                string lbSecurityToken = ConfigurationManager.AppSettings["MessageBus.LoadBalancing.SecurityToken"];
-
-                bool lbEnableSsl = bool.TryParse(ConfigurationManager.AppSettings["MessageBus.LoadBalancing.UseSSL"], out lbEnableSsl) ? lbEnableSsl : false;
-
-                messageBusConfiguration.UseLoadBalancing = true;
-                messageBusConfiguration.LoadBalancerConfig = new LoadBalancerConfig
-                {
-                    Address = lbHost,
-                    Port = lbPort,
-                    EnableSsl = lbEnableSsl,
-                    SecurityToken = lbSecurityToken
-                };
-            }
-
-            */
 
             return messageBusConfiguration;
         }
