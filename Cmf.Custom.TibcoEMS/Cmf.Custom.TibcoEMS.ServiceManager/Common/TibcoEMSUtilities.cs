@@ -1,23 +1,18 @@
 ﻿using Cmf.Custom.TibcoEMS.ServiceManager.DataStructures;
 using Cmf.Foundation.BusinessObjects.GenericTables;
 using Cmf.Foundation.BusinessObjects.QueryObject;
-using Cmf.Foundation.BusinessOrchestration.ConfigurationManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.OutputObjects;
 using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.Utilities.InputObjects;
 using Cmf.Foundation.Common;
-using Cmf.Foundation.Configuration;
 using Cmf.MessageBus.Client;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Data;
-using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using TIBCO.EMS;
 
 namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
@@ -39,7 +34,13 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
             string applicationName = ConfigurationManager.AppSettings["ApplicationName"];
             string externalAddress = ConfigurationManager.AppSettings["MessageBus.ExternalAddress"];
 
+            bool useLoadBalancing = false;
+
+            /* FUTURE USE IF NEEDED
+
             bool useLoadBalancing = bool.TryParse(ConfigurationManager.AppSettings["MessageBus.UseLoadBalancing"], out useLoadBalancing) ? useLoadBalancing : false;
+
+            */
 
             TransportConfig messageBusConfiguration = new TransportConfig()
             {
@@ -52,12 +53,14 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
                         ExternalAddress = externalAddress,
                     }
                 },
-                UseLoadBalancing = false,
+                UseLoadBalancing = useLoadBalancing,
                 ApplicationName = applicationName,
                 TenantName = tenantName,
                 SecurityToken = securityToken,
                 UseGatewayExternalAddress = externalAddress.Length > 0
             };
+
+            /* FUTURE USE IF NEEDED
 
             if (useLoadBalancing)
             {
@@ -76,6 +79,8 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
                     SecurityToken = lbSecurityToken
                 };
             }
+
+            */
 
             return messageBusConfiguration;
         }
