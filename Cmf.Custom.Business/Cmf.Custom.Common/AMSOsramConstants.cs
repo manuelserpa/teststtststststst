@@ -95,6 +95,11 @@
         /// </summary>
         public static string GenericTableCustomReclaimContainerTypeReclaimContainerTypeProperty = "ReclaimContainerType";
 
+        /// <summary>
+        /// Custom TibcoEMS Gateway Resolver table name 
+        /// </summary>
+        public static string GenericTableCustomTibcoEMSGatewayResolver = "CustomTibcoEMSGatewayResolver";
+
         #endregion
 
         #region LookupTables
@@ -1020,6 +1025,7 @@
         #endregion
 
         #region
+
         /// <summary>
         /// smartTable NotificationTitleMessage Property
         /// </summary>
@@ -1102,6 +1108,36 @@
         /// smartTable NotificationType Property
         /// </summary>
         public static string smartTablePropertyNotificationType = "NotificationType";
+
+        #endregion
+
+        #region Tibco
+
+        /// <summary>
+        /// Tibco subject for invalidate cache
+        /// </summary>
+        public const string CustomTibcoEMSGatewayInvalidateCache = "CustomTibcoEMSGatewayInvalidateCache";
+
+        /// <summary>
+        /// Tibco IsEnabled config path
+        /// </summary>
+        public const string TibcoConfigIsEnabledPath = "/AMSOsram/TibcoEMS/IsEnabled";
+
+        /// <summary>
+        /// Tibco Host config path
+        /// </summary>
+        public const string TibcoConfigHostPath = "/AMSOsram/TibcoEMS/Host";
+
+        /// <summary>
+        /// Tibco Username config path
+        /// </summary>
+        public const string TibcoConfigUsernamePath = "/AMSOsram/TibcoEMS/Username";
+
+        /// <summary>
+        /// Tibco Password config path
+        /// </summary>
+        public const string TibcoConfigPasswordPath = "/AMSOsram/TibcoEMS/Password";
+
         #endregion
     }
 }

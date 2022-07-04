@@ -1,4 +1,4 @@
-# Features
+﻿# Features
 
 Everything that is created or updated in the MES system to support customer requirements are considered features.
 
@@ -9,6 +9,7 @@ The features are grouped in the following sections:
 * [Custom Nice Label Print](/AMSOsram/techspec>features>CustomNiceLabelPrint)
 * [Custom Send MES Critical Data Collection To Space](/AMSOsram/techspec>features>CustomSendMESCriticalDataCollectionToSpace)
 * [Stibo System Integration](/AMSOsram/techspec>features>CustomStiboSystemIntegration)
+* [Tibco EMS Gateway](/AMSOsram/techspec>features>CustomTibcoEMSGateway)
 * [Generate Sorter Job Definition From Future Action](/AMSOsram/techspec>features>GenerateSorterJobDefinitionFromFutureAction)
 
 

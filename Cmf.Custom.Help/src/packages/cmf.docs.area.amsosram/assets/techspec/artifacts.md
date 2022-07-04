@@ -1,10 +1,10 @@
-# Artifacts
+﻿# Artifacts
 
 Everything that is created or updated in the MES system to support customer requirements are considered artifacts.
 
 The artifacts are grouped in the following sections:
-* [Analytics](/AMSOsram/techspec>artifacts>c_analytics)
 * [Configuration Entries](/AMSOsram/techspec>artifacts>configurations)
+* [Analytics](/AMSOsram/techspec>artifacts>c_analytics)
 * [DEE Actions](/AMSOsram/techspec>artifacts>deeactions)
 * [Entity Types](/AMSOsram/techspec>artifacts>entitytypes)
 * [Exported Objects](/AMSOsram/techspec>artifacts>exportedobjects)
