@@ -4,7 +4,7 @@
     "description": "Cmf TibcoEMS Gateway Package",
     "packageType": "Generic",
 	"targetDirectory": "TibcoEMSGateway",
-    "isInstallable": true,
+    "isInstallable": false,
     "isUniqueInstall": false,
     "dependencies": [],
 	"buildSteps": [
