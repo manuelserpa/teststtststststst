@@ -1,32 +1,24 @@
 {
-    "packageId": "Cmf.Custom.TibcoEMS",
-    "version": "1.0.0",
-    "description": "Cmf TibcoEMS Gateway Package",
-    "packageType": "Generic",
-	"targetDirectory": "TibcoEMSGateway",
-    "isInstallable": false,
-    "isUniqueInstall": false,
-    "dependencies": [],
-	"buildSteps": [
-		{
-			"command": "dotnet",
-			"args": [
-				"build -c Release"
-			],
-			"workingDirectory": "."
-		}
-	],	
-    "contentToPack": [
-        {
-          "source": "Release/netcoreapp3.1/*.*",
-          "target": ""
-        }
+  "packageId": "Cmf.Custom.TibcoEMS",
+  "version": "1.0.0",
+  "description": "Cmf TibcoEMS Gateway Package",
+  "packageType": "Generic",
+  "isInstallable": false,
+  "isUniqueInstall": false,
+  "dependencies": [],
+  "buildSteps": [
+    {
+      "command": "dotnet",
+      "args": [
+        "build -c Release"
       ],
-	"steps": [
-		{
-			"order": "2",
-			"type": "DeployFiles",
-			"ContentPath": "**/**"
-		}
-	]
+      "workingDirectory": "."
+    }
+  ],
+  "contentToPack": [
+    {
+      "source": "Release/netcoreapp3.1/*.*",
+      "target": ""
+    }
+  ]
 }
