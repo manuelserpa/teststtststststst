@@ -6,9 +6,7 @@ using Cmf.Foundation.Common;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ExceptionManagement;
 using Cmf.Navigo.BusinessOrchestration.ExceptionManagement.InputObjects;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Cmf.Custom.AMSOsram.Actions.Space
@@ -38,7 +36,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             {
                 DataCollectionInstance dataCollectionInstance = AMSOsramUtilities.GetInputItem<DataCollectionInstance>(Input, Navigo.Common.Constants.DataCollectionInstance);
 
-                if (dataCollectionInstance != null)
+                if (dataCollectionInstance != null && dataCollectionInstance.DataCollectionLimitSet != null)
                 {
                     dataCollectionInstance.Step.Load();
 
@@ -78,84 +76,77 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.DataStructures");
 
-            // Load DataCollectionInstance data from Input
+            // Get DataCollectionInstance from Input
             DataCollectionInstance dataCollectionInstance = AMSOsramUtilities.GetInputItem<DataCollectionInstance>(Input, Navigo.Common.Constants.DataCollectionInstance);
-            dataCollectionInstance.Load();
 
             if (dataCollectionInstance is null)
             {
                 throw new CmfBaseException("Cannot be possible to get DataCollectionInstance data from DEE Action Input.");
             }
 
-            // Load DataCollection Parameter Limit
+            // Load DataCollection Instance
+            dataCollectionInstance.Load();
+
+            // DataCollection Limit Set
             DataCollectionLimitSet dataCollectionLimitSet = dataCollectionInstance.DataCollectionLimitSet;
+
+            // Load DataCollection Parameter Limit
             dataCollectionLimitSet.LoadRelations(Navigo.Common.Constants.DataCollectionParameterLimit);
-            dataCollectionLimitSet.DataCollectionParameterLimits.Load();
 
             // Load DataCollection Points
             dataCollectionInstance.LoadRelations(Navigo.Common.Constants.DataCollectionPoint);
 
-            bool isOutOfSpec = false;
+            // Material associated to DataCollection
+            Material material = dataCollectionInstance.Material;
 
+            // Check if Material associated to DataCollection have a Parent Material
+            if (dataCollectionInstance.Material.ParentMaterial != null)
+            {
+                // Set Parent Material to Material instance
+                material = dataCollectionInstance.Material.ParentMaterial;
+            }
+
+            // Load Material
+            material.Load();
+
+            // Check limits of Data Collection Points
             foreach (DataCollectionPoint dataCollectionPoint in dataCollectionInstance.DataCollectionPoints)
             {
                 DataCollectionParameterLimit parameterLimit = dataCollectionLimitSet.DataCollectionParameterLimits.FirstOrDefault(limit => limit.TargetEntity.GetNativeValue<long>("TargetEntity").Equals(dataCollectionPoint.TargetEntity.GetNativeValue<long>("TargetEntity")));
 
+                // Parse DataCollection Point Value to Decimal
                 decimal dcPointValue = AMSOsramUtilities.GetValueAsDecimal(dataCollectionPoint.Value.ToString());
 
-                if (parameterLimit.LowerErrorLimit != null &&
-                    parameterLimit.UpperErrorLimit != null &&
-                    (dcPointValue < parameterLimit.LowerErrorLimit ||
-                    dcPointValue > parameterLimit.UpperErrorLimit))
+                // Check Parameter Warning Limits
+                if (parameterLimit.LowerErrorLimit != null && parameterLimit.UpperErrorLimit != null &&
+                   (dcPointValue < parameterLimit.LowerErrorLimit || dcPointValue > parameterLimit.UpperErrorLimit))
                 {
-                    isOutOfSpec = true;
+                    // Load Hold Reason using config value
+                    Reason holdReason = new Reason();
+                    holdReason.Load(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig));
+
+                    // Hold Material
+                    material.HoldMaterial(holdReason);
 
                     break;
                 }
 
-                if (parameterLimit.LowerWarningLimit != null &&
-                    parameterLimit.UpperWarningLimit != null &&
-                    (dcPointValue < parameterLimit.LowerWarningLimit ||
-                    dcPointValue > parameterLimit.UpperWarningLimit))
+                // Check Parameter Warning Limits
+                if (parameterLimit.LowerWarningLimit != null && parameterLimit.UpperWarningLimit != null &&
+                   (dcPointValue < parameterLimit.LowerWarningLimit || dcPointValue > parameterLimit.UpperWarningLimit))
                 {
-                    isOutOfSpec = true;
+                    // Load Hold Reason using config value
+                    Reason holdReason = new Reason();
+                    holdReason.Load(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig));
+
+                    // Hold Material
+                    material.HoldMaterial(holdReason);
 
                     break;
                 }
             }
 
-            // Load SubMaterial
-            Material subMaterial = new Material()
-            {
-                Name = dataCollectionInstance.DataCollectionPoints.FirstOrDefault().SampleId
-            };
-            subMaterial.Load();
-
-            Material material = subMaterial.ParentMaterial as Material;
-            material.Load();
-
-            ReasonCollection reasons = new ReasonCollection();
-
-            // Put Material on hold when a Parameter Limit
-            if (isOutOfSpec)
-            {
-                Reason reason = new Reason()
-                {
-                    Name = AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig)
-                };
-
-                //reason.Load();
-                reasons.Add(reason);
-            }
-
-            if (reasons.IsNullOrEmpty())
-            {
-                reasons.Load();
-
-                // Put lot on hold 
-                AMSOsramUtilities.PutLotOnHold(material, reasons);
-            }
-            else
+            if (material.HoldCount == 0)
             {
                 // Open protocol
                 Protocol protocol = new Protocol()
@@ -167,7 +158,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                 {
                     protocol.Load();
 
-                    OpenProtocolInstanceInput openProtocolInstanceInput = new OpenProtocolInstanceInput()
+                    OpenProtocolInstanceInput openProtocol = new OpenProtocolInstanceInput()
                     {
                         Protocol = protocol,
                         MaterialsToAssociate = new MaterialCollection()
@@ -176,19 +167,22 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                         }
                     };
 
-                    ExceptionManagementOrchestration.OpenProtocolInstance(openProtocolInstanceInput);
+                    ExceptionManagementOrchestration.OpenProtocolInstance(openProtocol);
                 }
             }
 
+            // Load Site
             Site site = material.Facility?.Site;
             site.Load();
 
+            // Get SiteCode attribute value
             string siteCode = site.GetAttributeValue(AMSOsramConstants.CustomSiteCodeAttribute, true).ToString();
 
-            // Create Lot Values Message
-            CustomReportEDCToSpace customSendLotDCInformation = AMSOsramUtilities.CreateSpaceInfoWaferValues(material, dataCollectionInstance, dataCollectionLimitSet, siteCode);
+            // Create Message to send for Space
+            CustomReportEDCToSpace dataCollectionInfoMessage = AMSOsramUtilities.CreateSpaceInfoWaferValues(material, dataCollectionInstance, dataCollectionLimitSet, siteCode);
 
-            Utilities.PublishTransactionalMessage("CustomReportEDCToSpace", customSendLotDCInformation.SerializeToXML());
+            // Publish message on Message Bus
+            Utilities.PublishTransactionalMessage("CustomReportEDCToSpace", dataCollectionInfoMessage.SerializeToXML());
 
             //---End DEE Code---
 
