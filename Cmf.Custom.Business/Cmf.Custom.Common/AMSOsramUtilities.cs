@@ -2079,7 +2079,7 @@ namespace Cmf.Custom.AMSOsram.Common
             // Check if Material has that Hold Reason
             if (material.MaterialHoldReasons != null && !material.MaterialHoldReasons.Any(holdReason => holdReason.TargetEntity.Name.Equals(reasonName)))
             {
-                // Load Hold Reason using config value
+                // Load hold Reason
                 Reason reason = new Reason();
                 reason.Load(reasonName);
 
