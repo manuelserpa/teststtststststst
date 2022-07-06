@@ -62,25 +62,18 @@
     },
     "<SM>DEEAction": {
         "1": {
-            "Action": "CustomReportEDCToSpaceHandler",
-            "Description": "",
-            "CodeFileRelativePath": "Space\\CustomReportEDCToSpaceHandler.cs",
-            "IsEnabled": "Yes",
-            "Classification": ""
-        }
-    },
-    "DEEActionOrder": {
-        "1": {
-            "ActionGroup": "DataCollectionManagement.DataCollectionInstanceManagementOrchestration.PostDataCollectionPoints.Post",
+            "ActionGroup": "BusinessObjects.DataCollectionInstance.PerformImmediate.Post",
             "Action": "CustomReportEDCToSpaceHandler",
             "Order": "1"
         },
         "2": {
-            "ActionGroup": "DataCollectionManagement.DataCollectionInstanceManagementOrchestration.CloseDataCollectionInstance.Post",
+            "ActionGroup": "BusinessObjects.DataCollectionInstance.Close.Post",
             "Action": "CustomReportEDCToSpaceHandler",
             "Order": "1"
-        },
-        "3": {
+        }
+    },
+    "DEEActionOrder": {
+        "1": {
             "ActionGroup": "EdcManagement.DataCollectionManagement.ComplexPerformDataCollection.Post",
             "Action": "CustomReportEDCToSpaceHandler",
             "Order": "1"

@@ -19,7 +19,6 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Configuration;
 using System.Data;
 using System.Globalization;
 using System.IO;
@@ -27,7 +26,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
-using static Cmf.Custom.AMSOsram.Common.AMSOsramConstants;
 
 namespace Cmf.Custom.AMSOsram.Common
 {
@@ -505,7 +503,7 @@ namespace Cmf.Custom.AMSOsram.Common
             {
                 values.Add(Navigo.Common.Constants.MaterialType, material.Type);
             }
-            
+
             NgpDataSet ngpDataSet = smartTable.Resolve(values, true);
             if (ngpDataSet != null && ngpDataSet.Tables != null && ngpDataSet.Tables.Count > 0)
             {
@@ -1302,37 +1300,46 @@ namespace Cmf.Custom.AMSOsram.Common
         #region Space
 
         /// <summary>
-        /// Method to create xml message with Lot and Data Collection Info to be sent to Space system
+        /// Method to create XML message with Lot and Data Collection Info to be sent to Space system
         /// </summary>
-        /// <param name="lot"></param>
-        /// <param name="dataCollectionInstance"></param>
-        /// <returns></returns>
-        public static CustomReportEDCToSpace CreateSpaceInfoDefaultValues(Material material, string hostServerName, List<string> siteCodes, string recipe)
+        public static CustomReportEDCToSpace CreateSpaceInfoDefaultValues(Material material, string siteCode)
         {
-            List<SiteCode> messageSiteCodes = new List<SiteCode>();
-            siteCodes.ForEach(code => messageSiteCodes.Add(new SiteCode() { Value = code}));
+            //List<SiteCode> messageSiteCodes = new List<SiteCode>();
+            //siteCodes.ForEach(code => messageSiteCodes.Add(new SiteCode()
+            //{
+            //    Value = code
+            //}));
 
             material.Load(1);
 
             Product product = material.Product;
-            product.LoadAttributes(new Collection<string> { AMSOsramConstants.ProductAttributeBasicType });
+            product.LoadAttributes(new Collection<string>
+            {
+                AMSOsramConstants.ProductAttributeBasicType
+            });
 
             string productBasicType = string.Empty;
+
             if (product.Attributes.ContainsKey(AMSOsramConstants.ProductAttributeBasicType))
             {
                 product.Attributes.TryGetValueAs(AMSOsramConstants.ProductAttributeBasicType, out productBasicType);
             }
 
             Area area = null;
+
             Resource subResource = null;
+
             Resource resource = material.LastProcessedResource;
+
             if (resource != null)
             {
                 resource.LoadRelations(Cmf.Navigo.Common.Constants.SubResource);
+
                 if (resource.RelationCollection.ContainsKey(Cmf.Navigo.Common.Constants.SubResource))
                 {
                     subResource = resource.RelationCollection[Navigo.Common.Constants.SubResource].FirstOrDefault().TargetEntity as Resource;
                 }
+
                 area = resource.Area;
             }
 
@@ -1341,29 +1348,107 @@ namespace Cmf.Custom.AMSOsram.Common
                 SampleDate = DateTime.Now.ToString(),
                 Sender = new Sender()
                 {
-                    Value = hostServerName
+                    Value = Environment.MachineName
                 },
-                Ids = messageSiteCodes,
+                Ids = new List<SiteCode>()
+                {
+                    new SiteCode()
+                    {
+                        Value = !string.IsNullOrWhiteSpace(siteCode) ? siteCode : string.Empty
+                    }
+                },
                 Keys = new List<Key>()
                 {
-                    new Key(){ Name = "PROCESS", Value = product != null ? product.Name : string.Empty},
-                    new Key(){ Name = "BASIC_TYPE", Value = productBasicType},
-                    new Key(){ Name = "AREA", Value = area != null ? area.Name : string.Empty},
-                    new Key(){ Name = "OWNER", Value = material.ProductionOrder != null ? material.ProductionOrder.Type : string.Empty},
-                    new Key(){ Name = "ROUTE", Value = material.Flow != null ? $"{material.Flow.Name}_{material.Flow.Version}" : string.Empty},
-                    new Key(){ Name = "OPERATION", Value = material.Step != null ? material.Step.Name : string.Empty },
-                    new Key(){ Name = "PROCESS_SPS", Value = material.RequiredService != null ? material.RequiredService.Name : string.Empty},
-                    new Key(){ Name = "EQUIPMENT", Value = resource != null ? resource.Name: string.Empty},
-                    new Key(){ Name = "CHAMBER", Value = subResource != null ? subResource.Name : string.Empty},
-                    new Key(){ Name = "RECIPE", Value = string.IsNullOrEmpty(recipe) ? string.Empty : recipe},
-                    new Key(){ Name = "MEAS_EQUIPMENT", Value = resource != null && resource.Type.Equals("Measure") ? resource.Type : string.Empty},
-                    new Key(){ Name = "BATCH_NAME", Value = Guid.NewGuid().ToString("N")},
-                    new Key(){ Name = "LOT", Value = material.Name},
-                    new Key(){ Name = "QTY", Value = $"{material.PrimaryQuantity + material.SubMaterialsPrimaryQuantity}"},
-                    new Key(){ Name = "WAFER", Value = "."},
-                    new Key(){ Name = "PUNKT", Value = "."},
-                    new Key(){ Name = "X", Value = "."},
-                    new Key(){ Name = "Y", Value = "."}
+                    new Key()
+                    {
+                        Name = "PROCESS",
+                        Value = product != null ? product.Name : string.Empty
+                    },
+                    new Key()
+                    {
+                        Name = "BASIC_TYPE",
+                        Value = productBasicType
+                    },
+                    new Key()
+                    {
+                        Name = "AREA",
+                        Value = area != null ? area.Name : string.Empty
+                    },
+                    new Key()
+                    {
+                        Name = "OWNER",
+                        Value = material.ProductionOrder != null ? material.ProductionOrder.Type : string.Empty
+                    },
+                    new Key()
+                    {
+                        Name = "ROUTE",
+                        Value = material.Flow != null ? $"{material.Flow.Name}_{material.Flow.Version}" : string.Empty
+                    },
+                    new Key()
+                    {
+                        Name = "OPERATION",
+                        Value = material.Step != null ? material.Step.Name : string.Empty
+                    },
+                    new Key()
+                    {
+                        Name = "PROCESS_SPS",
+                        Value = material.RequiredService != null ? material.RequiredService.Name : string.Empty
+                    },
+                    new Key()
+                    {
+                        Name = "EQUIPMENT",
+                        Value = resource != null ? resource.Name: string.Empty
+                    },
+                    new Key()
+                    {
+                        Name = "CHAMBER",
+                        Value = subResource != null ? subResource.Name : string.Empty
+                    },
+                    new Key()
+                    {
+                        Name = "RECIPE",
+                        Value = !string.IsNullOrWhiteSpace(material.CurrentRecipeInstance?.ParentEntity?.Name) ? material.CurrentRecipeInstance?.ParentEntity?.Name :string.Empty
+                    },
+                    new Key()
+                    {
+                        Name = "MEAS_EQUIPMENT",
+                        Value = resource != null && resource.Type.Equals("Measure") ? resource.Type : string.Empty
+                    },
+                    new Key()
+                    {
+                        Name = "BATCH_NAME",
+                        Value = Guid.NewGuid().ToString("N")
+                    },
+                    new Key()
+                    {
+                        Name = "LOT",
+                        Value = material.Name
+                    },
+                    new Key()
+                    {
+                        Name = "QTY",
+                        Value = $"{material.PrimaryQuantity + material.SubMaterialsPrimaryQuantity}"
+                    },
+                    new Key()
+                    {
+                        Name = "WAFER",
+                        Value = "."
+                    },
+                    new Key()
+                    {
+                        Name = "PUNKT",
+                        Value = "."
+                    },
+                    new Key()
+                    {
+                        Name = "X",
+                        Value = "."
+                    },
+                    new Key()
+                    {
+                        Name = "Y",
+                        Value = "."
+                    }
                 }
             };
 
@@ -1377,14 +1462,15 @@ namespace Cmf.Custom.AMSOsram.Common
         /// <param name="wafer"></param>
         /// <param name="dataCollectionInstance"></param>
         /// <returns></returns>
-        public static CustomReportEDCToSpace CreateSpaceInfoWaferValues(Material wafer, DataCollectionInstance dataCollectionInstance, DataCollectionLimitSet limitSet, string hostServerName, List<string> siteCodes, string recipe = null )
+        public static CustomReportEDCToSpace CreateSpaceInfoWaferValues(Material wafer, DataCollectionInstance dataCollectionInstance,
+                                                                        DataCollectionLimitSet limitSet, string siteCode)
         {
-            CustomReportEDCToSpace customReportEDCToSpace = CreateSpaceInfoDefaultValues(wafer, hostServerName, siteCodes, recipe);
+            CustomReportEDCToSpace customReportEDCToSpace = CreateSpaceInfoDefaultValues(wafer, siteCode);
 
             List<Sample> samples = new List<Sample>();
 
             // Only decimal or long values can be send to Space
-            List<string> possibleDataTypes = new List<string>() { ParameterDataType.Decimal.ToString(), ParameterDataType.Long.ToString() };
+            //List<string> possibleDataTypes = new List<string>() { ParameterDataType.Decimal.ToString(), ParameterDataType.Long.ToString() };
 
             // get distinct parameters
             ParameterCollection parameters = new ParameterCollection();
@@ -1406,10 +1492,7 @@ namespace Cmf.Custom.AMSOsram.Common
 
                     // Get the DC Points for the specific parameter
                     DataCollectionPointCollection points = new DataCollectionPointCollection();
-                    if (true)
-                    {
-                        points.AddRange(dataCollectionInstance.DataCollectionPoints.Where(p => p.TargetEntity.Name.Equals(parameter.Name)));
-                    }
+                    points.AddRange(dataCollectionInstance.DataCollectionPoints.Where(p => p.TargetEntity.Name.Equals(parameter.Name)));
 
                     if (limitSet.DataCollectionParameterLimits.Any(ls => ls.TargetEntity.Name.Equals(parameter.Name)))
                     {
@@ -1419,7 +1502,11 @@ namespace Cmf.Custom.AMSOsram.Common
                         sample.ParameterUnit = parameter.DataUnit;
 
                         List<Key> sampleKeys = new List<Key>();
-                        sampleKeys.Add(new Key() { Name = "Recipe", Value = string.IsNullOrEmpty(recipe) ? string.Empty : recipe });
+                        sampleKeys.Add(new Key()
+                        {
+                            Name = "Recipe",
+                            Value = !string.IsNullOrWhiteSpace(wafer.CurrentRecipeInstance?.ParentEntity?.Name) ? wafer.CurrentRecipeInstance?.ParentEntity?.Name : string.Empty
+                        });
 
                         if (parameterLimit != null)
                         {
@@ -1434,7 +1521,7 @@ namespace Cmf.Custom.AMSOsram.Common
                                 sample.Upper = parameterLimit.UpperWarningLimit.ToString();
                                 sample.Lower = parameterLimit.LowerWarningLimit.ToString();
                             }
-                        } 
+                        }
                     }
 
                     Raws raws = new Raws();
@@ -1448,7 +1535,11 @@ namespace Cmf.Custom.AMSOsram.Common
                         raw.RawValue = Convert.ToDecimal(dcPoint.Value);
 
                         List<Key> rawKeys = new List<Key>();
-                        rawKeys.Add(new Key() { Name = "WAFER", Value = dcPoint.SampleId });
+                        rawKeys.Add(new Key()
+                        {
+                            Name = "WAFER",
+                            Value = dcPoint.SampleId
+                        });
 
                         raw.Keys = rawKeys;
 
@@ -1457,7 +1548,7 @@ namespace Cmf.Custom.AMSOsram.Common
 
                     sample.Raws = raws;
 
-                    samples.Add(sample); 
+                    samples.Add(sample);
                 }
             }
 
@@ -1995,27 +2086,26 @@ namespace Cmf.Custom.AMSOsram.Common
             lot.LoadRelations(Cmf.Navigo.Common.Constants.MaterialHoldReason);
             if (lot.MaterialHoldReasons != null)
             {
-                existingLotHoldReasons.AddRange(lot.MaterialHoldReasons); 
+                existingLotHoldReasons.AddRange(lot.MaterialHoldReasons);
             }
 
-            // create material hold reasons
+            // Create material hold reasons
             MaterialHoldReasonCollection lotHoldReasons = new MaterialHoldReasonCollection();
             foreach (Reason reason in reasons)
             {
-                if (existingLotHoldReasons.Count == 0 || !existingLotHoldReasons.Any(r=>r.TargetEntity.Name.Equals(reason.Name)))
+                if (existingLotHoldReasons.Count == 0 || !existingLotHoldReasons.Any(r => r.TargetEntity.Name.Equals(reason.Name)))
                 {
                     lotHoldReasons.Add(new MaterialHoldReason()
                     {
                         SourceEntity = lot,
                         TargetEntity = reason
-                    }); 
+                    });
                 }
             }
 
-            // put lot on hold
-            lot.Hold(lotHoldReasons, new OperationAttributeCollection()); 
-
-        } 
+            // Put lot on hold
+            lot.Hold(lotHoldReasons, new OperationAttributeCollection());
+        }
 
         #endregion
 
@@ -2192,7 +2282,7 @@ namespace Cmf.Custom.AMSOsram.Common
         /// <param name="productionOrder">Production Order</param>
         /// <param name="material">Material</param>
         /// <returns>Returns an object associated with Movement Type</returns>
-        public static CustomReportToERPItem CreateInfoForERP(string movementType,string storageLocation, string siteCode, ProductionOrder productionOrder = null, Material material = null)
+        public static CustomReportToERPItem CreateInfoForERP(string movementType, string storageLocation, string siteCode, ProductionOrder productionOrder = null, Material material = null)
         {
             CustomReportToERPItem customReportToERPItem = null;
 
