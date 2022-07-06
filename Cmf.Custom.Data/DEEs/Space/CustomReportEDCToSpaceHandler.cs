@@ -121,12 +121,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                 if (parameterLimit.LowerErrorLimit != null && parameterLimit.UpperErrorLimit != null &&
                    (dcPointValue < parameterLimit.LowerErrorLimit || dcPointValue > parameterLimit.UpperErrorLimit))
                 {
-                    // Load Hold Reason using config value
-                    Reason holdReason = new Reason();
-                    holdReason.Load(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig));
-
                     // Hold Material
-                    material.HoldMaterial(holdReason);
+                    material.HoldMaterial(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig);
 
                     break;
                 }
@@ -135,12 +131,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                 if (parameterLimit.LowerWarningLimit != null && parameterLimit.UpperWarningLimit != null &&
                    (dcPointValue < parameterLimit.LowerWarningLimit || dcPointValue > parameterLimit.UpperWarningLimit))
                 {
-                    // Load Hold Reason using config value
-                    Reason holdReason = new Reason();
-                    holdReason.Load(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig));
-
                     // Hold Material
-                    material.HoldMaterial(holdReason);
+                    material.HoldMaterial(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig);
 
                     break;
                 }

@@ -2071,14 +2071,18 @@ namespace Cmf.Custom.AMSOsram.Common
 
         #region Material
 
-        public static void HoldMaterial(this Material material, Reason reason)
+        public static void HoldMaterial(this Material material, string reasonName)
         {
             // Load Material Hold Reasons
             material.LoadRelations(Navigo.Common.Constants.MaterialHoldReason);
 
             // Check if Material has that Hold Reason
-            if (material.MaterialHoldReasons != null && !material.MaterialHoldReasons.Any(holdReason => holdReason.TargetEntity.Name.Equals(reason.Name)))
+            if (material.MaterialHoldReasons != null && !material.MaterialHoldReasons.Any(holdReason => holdReason.TargetEntity.Name.Equals(reasonName)))
             {
+                // Load Hold Reason using config value
+                Reason reason = new Reason();
+                reason.Load(reasonName);
+
                 // Put Material on Hold
                 material.Hold(new MaterialHoldReasonCollection()
                 {
