@@ -2069,42 +2069,30 @@ namespace Cmf.Custom.AMSOsram.Common
 
         #endregion Localized Messages
 
-        #region Lot
+        #region Material
 
-        public static void PutLotOnHold(Material material, ReasonCollection reasons)
+        public static void HoldMaterial(this Material material, string reasonName)
         {
-            // Validate material is lot
-            Material lot = material;
-            if (material.ParentMaterial != null)
-            {
-                material.ParentMaterial.Load();
-                lot = material.ParentMaterial;
-            }
+            // Load Material Hold Reasons
+            material.LoadRelations(Navigo.Common.Constants.MaterialHoldReason);
 
-            // Validate lot is not on hold by the given reasons
-            MaterialHoldReasonCollection existingLotHoldReasons = new MaterialHoldReasonCollection();
-            lot.LoadRelations(Cmf.Navigo.Common.Constants.MaterialHoldReason);
-            if (lot.MaterialHoldReasons != null)
+            // Check if Material has that Hold Reason
+            if (material.MaterialHoldReasons != null && !material.MaterialHoldReasons.Any(holdReason => holdReason.TargetEntity.Name.Equals(reasonName)))
             {
-                existingLotHoldReasons.AddRange(lot.MaterialHoldReasons);
-            }
+                // Load hold Reason
+                Reason reason = new Reason();
+                reason.Load(reasonName);
 
-            // Create material hold reasons
-            MaterialHoldReasonCollection lotHoldReasons = new MaterialHoldReasonCollection();
-            foreach (Reason reason in reasons)
-            {
-                if (existingLotHoldReasons.Count == 0 || !existingLotHoldReasons.Any(r => r.TargetEntity.Name.Equals(reason.Name)))
+                // Put Material on Hold
+                material.Hold(new MaterialHoldReasonCollection()
                 {
-                    lotHoldReasons.Add(new MaterialHoldReason()
+                    new MaterialHoldReason()
                     {
-                        SourceEntity = lot,
+                        SourceEntity = material,
                         TargetEntity = reason
-                    });
-                }
+                    }
+                });
             }
-
-            // Put lot on hold
-            lot.Hold(lotHoldReasons, new OperationAttributeCollection());
         }
 
         #endregion
