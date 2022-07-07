@@ -78,6 +78,18 @@ namespace Settings
             private set;
         }
 
+        public static string ClientTenantName
+        {
+            get;
+            private set;
+        }
+
+        public static string ApplicationName
+        {
+            get;
+            private set;
+        }
+
         #endregion
 
         #region Constructors
@@ -101,6 +113,9 @@ namespace Settings
         {
             BaseContext.UserName = GetString(context, "userName");
             BaseContext.Password = GetString(context, "password");
+            BaseContext.ClientTenantName = GetString(context, "clientTenantName");
+            BaseContext.ApplicationName = GetString(context, "applicationName");
+            
 
             ClientConfigurationProvider.ConfigurationFactory = () =>
             {

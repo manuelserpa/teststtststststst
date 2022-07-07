@@ -16,6 +16,11 @@ using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
 using Cmf.Custom.Tests.Biz.Common.ERP.Space;
 using System.Collections.ObjectModel;
+using Cmf.MessageBus.Client;
+using Cmf.Foundation.BusinessOrchestration.ApplicationSettingManagement.InputObjects;
+using Newtonsoft.Json;
+using Cmf.MessageBus.Messages;
+using Settings;
 
 namespace Cmf.Custom.Tests.Biz.Space
 {
@@ -27,12 +32,23 @@ namespace Cmf.Custom.Tests.Biz.Space
         private MaterialCollection materials;
         private DataCollectionInstance dataCollectionInstance = null;
 
+        private Material material = null;
+
         private const string StorageLocation = "TestStorageLocation";
         private const string Site = "TestSiteCode";
         private const string DataCollectionName = "SpaceDCTest";
         private const string DataCollectionLimitSetName = "SpaceDCTestLimitSet";
         private List<string> parametersName = new List<string>() { "SScOTest", "QScOTest" };
-        
+
+        /// <summary>
+        /// Message Bus.
+        /// </summary>
+        public Transport MessageBus { get; internal set; }
+
+        /// <summary>
+        /// Message Bus Configuration.
+        /// </summary>
+        public TransportConfig MessageBusConfiguration { get; internal set; }
 
         /// <summary>
         /// Test Initialization
@@ -97,33 +113,14 @@ namespace Cmf.Custom.Tests.Biz.Space
 
             decimal defaultValue = 634;
 
-            Material material = _scenario.GeneratedLots.FirstOrDefault();
+            material = _scenario.GeneratedLots.FirstOrDefault();
             materials.Add(material);
             material.LoadChildren();
 
-            Dictionary<string, string> expectedKeys = new Dictionary<string, string>() {
-                {"PROCESS",  AMSOsramConstants.DefaultTestProductName},
-                {"BASIC_TYPE",string.Empty },
-                {"AREA",string.Empty },
-                {"OWNER", string.Empty},
-                {"ROUTE",$"{AMSOsramConstants.DefaultTestFlowName}_1"},
-                {"OPERATION",AMSOsramConstants.DefaultTestStepName},
-                {"PROCESS_SPS","CMFTestService"},
-                {"EQUIPMENT", string.Empty},
-                {"CHAMBER",  string.Empty},
-                {"RECIPE", string.Empty},
-                {"MEAS_EQUIPMENT", string.Empty },
-                {"BATCH_NAME", string.Empty },
-                {"LOT",$"{material.Name}"},
-                {"QTY","3.00000000"},
-                {"WAFER","."},
-                {"PUNKT","."},
-                {"X","."},
-                {"Y","."}
-            };
+
 
             ///<Step> Open Data Collection Instance </Step>
-            DataCollection dataCollection = new DataCollection(){ Name = DataCollectionName };
+            DataCollection dataCollection = new DataCollection() { Name = DataCollectionName };
             dataCollection.Load();
 
             DataCollectionLimitSet datacollectionLimitSet = new DataCollectionLimitSet
@@ -173,55 +170,9 @@ namespace Cmf.Custom.Tests.Biz.Space
 
             Assert.IsTrue(material.OpenExceptionProtocolsCount == 0, $"Material shouldn't have protocol instance opened, instead has {material.OpenExceptionProtocolsCount}.");
 
-            Dictionary<string, object> deeActionInput = new Dictionary<string, object>()
-            {
-                {"DataCollectionInstance", complexPostDCDataOutput.DataCollectionInstances.FirstOrDefault().Name }, 
-                {"LimitSet", datacollectionLimitSet.Name}, 
-                {"Material", material.Name}
-            };
+            SubscribeToMessageBusEvent("CustomReportEDCToSpace", OnMessageReceived);
 
-            ExecuteAction("CustomReportEDCToSpaceParser", deeActionInput);
 
-            IntegrationEntry ie = CustomUtilities.GetIntegrationEntry($"SpaceEDC_{ material.Name}");
-            ie.Load();
-
-            //Necessary to load inner message
-            IntegrationEntry integrationEntryInfo = new GetIntegrationEntryInput
-            {
-                Id = ie.Id
-            }.GetIntegrationEntrySync().IntegrationEntry;
-            string integrationMessage = Encoding.UTF8.GetString(integrationEntryInfo.IntegrationMessage.Message);
-
-            ///<Step> Validate the content of the Integration Entry </Step>
-            CustomReportEDCToSpace spaceInformation = CustomUtilities.DeserializeXmlToObject<CustomReportEDCToSpace>(integrationMessage);
-
-            foreach (Key key in spaceInformation.Keys)
-            {
-                if (!string.IsNullOrEmpty(expectedKeys[key.Name]))
-                {
-                    Assert.IsTrue(key.Value.Equals(expectedKeys[key.Name]), $"The value for key with name {key.Name} is {key.Value}, but should be {expectedKeys[key.Name]}.");
-                }
-            }
-
-            Assert.IsTrue(spaceInformation.Samples.Count == 1,$"The number of samples present on the message is {spaceInformation.Samples.Count}, but should be 1.");
-            Assert.IsTrue(spaceInformation.Samples[0].Raws.raws.Count == material.SubMaterialCount, $"Each wafer should be present on the sample data." );
-
-            int sampleCount = 0;
-            foreach (Sample sample in spaceInformation.Samples)
-            {
-                if(sample.ParameterName.Equals("SScOTest"))
-                {
-                    Assert.IsTrue(sample.Lower.Equals("635.0000000000"), $"Sample field for parameter {sample.ParameterName} should have the lower limit error equal to 635.0000000000 instead is {sample.Lower}.");
-                    Assert.IsTrue( sample.Upper.Equals("665.0000000000"), $"Sample field for parameter {sample.ParameterName} should have the upper limit error equal to 665.0000000000 instead is { sample.Upper}.");
-                }
-
-                foreach (Raw sampleRaw in sample.Raws.raws)
-                {
-                    decimal value = defaultValue + sampleCount;
-                    Assert.IsTrue(sampleRaw.RawValue.Equals(value), $"Value for parameter {sample.ParameterName} should be {value} instead is {sampleRaw.RawValue}.");
-                    sampleCount++;
-                }
-            }
         }
 
         /// <summary>
@@ -332,7 +283,7 @@ namespace Cmf.Custom.Tests.Biz.Space
 
             ExecuteAction("CustomReportEDCToSpaceParser", deeActionInput);
 
-            IntegrationEntry ie = CustomUtilities.GetIntegrationEntry($"SpaceEDC_{ material.Name}");
+            IntegrationEntry ie = CustomUtilities.GetIntegrationEntry($"SpaceEDC_{material.Name}");
             ie.Load();
 
             //Necessary to load inner message
@@ -347,9 +298,9 @@ namespace Cmf.Custom.Tests.Biz.Space
 
             foreach (Key key in spaceInformation.Keys)
             {
-                if ( !string.IsNullOrEmpty(expectedKeys[key.Name]))
+                if (!string.IsNullOrEmpty(expectedKeys[key.Name]))
                 {
-                    Assert.IsTrue(key.Value.Equals(expectedKeys[key.Name]), $"The value for key with name {key.Name} is {key.Value}, but should be {expectedKeys[key.Name]}."); 
+                    Assert.IsTrue(key.Value.Equals(expectedKeys[key.Name]), $"The value for key with name {key.Name} is {key.Value}, but should be {expectedKeys[key.Name]}.");
                 }
             }
 
@@ -362,7 +313,7 @@ namespace Cmf.Custom.Tests.Biz.Space
                 if (sample.ParameterName.Equals("SScOTest"))
                 {
                     Assert.IsTrue(sample.Lower.Equals("635.0000000000"), $"Sample field for parameter {sample.ParameterName} should have the lower limit error equal to 635.0000000000 instead is {sample.Lower}.");
-                    Assert.IsTrue(sample.Upper.Equals("665.0000000000"), $"Sample field for parameter {sample.ParameterName} should have the upper limit error equal to 665.0000000000 instead is { sample.Upper}.");
+                    Assert.IsTrue(sample.Upper.Equals("665.0000000000"), $"Sample field for parameter {sample.ParameterName} should have the upper limit error equal to 665.0000000000 instead is {sample.Upper}.");
                 }
 
                 foreach (Raw sampleRaw in sample.Raws.raws)
@@ -387,6 +338,118 @@ namespace Cmf.Custom.Tests.Biz.Space
                 Action = deeAction,
                 Input = deeActionInput
             }.ExecuteActionSync().Output;
+        }
+        /// <summary>
+        /// Create message bus configuration
+        /// </summary>
+        /// <param name="tenantName"></param>
+        /// <param name="userName"></param>
+        /// <param name="applicationName"></param>
+        /// <returns></returns>
+        public TransportConfig CreateMessageBusConfiguration(string tenantName, string userName, string applicationName)
+        {
+            // Get part of configuration from the host.
+            string transportConfigString = new GetApplicationBootInformationInput().GetApplicationBootInformationSync().TransportConfig;
+            MessageBusConfiguration = JsonConvert.DeserializeObject<TransportConfig>(transportConfigString);
+
+            // Set the remaining values.
+            MessageBusConfiguration.TenantName = tenantName;
+            MessageBusConfiguration.UserName = userName;
+            MessageBusConfiguration.ApplicationName = applicationName;
+
+            return MessageBusConfiguration;
+        }
+        /// <summary>
+        /// Subscribe to message bus event.
+        /// </summary>
+        /// <param name="subject">Subject to subscribe.</param>
+        /// <param name="onEvent">On event callback.</param>
+        public void SubscribeToMessageBusEvent(string subject, OnMbMessageCallback onEvent)
+        {
+            /// If message bus is not initialized.
+            if (MessageBus == null)
+            {
+                // Only initialize the configuration if not defined yet.
+                if (MessageBusConfiguration == null)
+                {
+                    string tenantName = (string)BaseContext.ClientTenantName;
+                    string applicationName = (string)BaseContext.ApplicationName;
+                    string userName = (string)BaseContext.UserName;
+
+                    // Get message bus configuration.
+                    CreateMessageBusConfiguration(tenantName, userName, applicationName);
+                }
+
+                // Initialize message bus.
+                MessageBus = new Transport(MessageBusConfiguration);
+
+                
+                // Connect to message bus.
+                MessageBus.Start();
+            }
+
+            // Subscribe to event.
+            MessageBus.Subscribe(subject, onEvent);
+        }
+
+        private void OnMessageReceived(string subject, MbMessage message)
+        {
+            if (message != null && !String.IsNullOrWhiteSpace(message.Data))
+            {
+                decimal defaultValue = 634;
+                Dictionary<string, string> expectedKeys = new Dictionary<string, string>() {
+                    {"PROCESS",  AMSOsramConstants.DefaultTestProductName},
+                    {"BASIC_TYPE",string.Empty },
+                    {"AREA",string.Empty },
+                    {"OWNER", string.Empty},
+                    {"ROUTE",$"{AMSOsramConstants.DefaultTestFlowName}_1"},
+                    {"OPERATION",AMSOsramConstants.DefaultTestStepName},
+                    {"PROCESS_SPS","CMFTestService"},
+                    {"EQUIPMENT", string.Empty},
+                    {"CHAMBER",  string.Empty},
+                    {"RECIPE", string.Empty},
+                    {"MEAS_EQUIPMENT", string.Empty },
+                    {"BATCH_NAME", string.Empty },
+                    {"LOT",$"{material.Name}"},
+                    {"QTY","3.00000000"},
+                    {"WAFER","."},
+                    {"PUNKT","."},
+                    {"X","."},
+                    {"Y","."}
+                };
+
+
+                ///<Step> Validate the content of the Integration Entry </Step>
+                CustomReportEDCToSpace spaceInformation = CustomUtilities.DeserializeXmlToObject<CustomReportEDCToSpace>(message.Data);
+
+                foreach (Key key in spaceInformation.Keys)
+                {
+                    if (!string.IsNullOrEmpty(expectedKeys[key.Name]))
+                    {
+                        Assert.IsTrue(key.Value.Equals(expectedKeys[key.Name]), $"The value for key with name {key.Name} is {key.Value}, but should be {expectedKeys[key.Name]}.");
+                    }
+                }
+
+                Assert.IsTrue(spaceInformation.Samples.Count == 1, $"The number of samples present on the message is {spaceInformation.Samples.Count}, but should be 1.");
+                Assert.IsTrue(spaceInformation.Samples[0].Raws.raws.Count == material.SubMaterialCount, $"Each wafer should be present on the sample data.");
+
+                int sampleCount = 0;
+                foreach (Sample sample in spaceInformation.Samples)
+                {
+                    if (sample.ParameterName.Equals("SScOTest"))
+                    {
+                        Assert.IsTrue(sample.Lower.Equals("635.0000000000"), $"Sample field for parameter {sample.ParameterName} should have the lower limit error equal to 635.0000000000 instead is {sample.Lower}.");
+                        Assert.IsTrue(sample.Upper.Equals("665.0000000000"), $"Sample field for parameter {sample.ParameterName} should have the upper limit error equal to 665.0000000000 instead is {sample.Upper}.");
+                    }
+
+                    foreach (Raw sampleRaw in sample.Raws.raws)
+                    {
+                        decimal value = defaultValue + sampleCount;
+                        Assert.IsTrue(sampleRaw.RawValue.Equals(value), $"Value for parameter {sample.ParameterName} should be {value} instead is {sampleRaw.RawValue}.");
+                        sampleCount++;
+                    }
+                }
+            }
         }
     }
 }
