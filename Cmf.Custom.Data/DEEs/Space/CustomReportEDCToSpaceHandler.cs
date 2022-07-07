@@ -122,7 +122,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                    (dcPointValue < parameterLimit.LowerErrorLimit || dcPointValue > parameterLimit.UpperErrorLimit))
                 {
                     // Hold Material
-                    material.HoldMaterial(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig);
+                    material.HoldMaterial(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig));
 
                     break;
                 }
@@ -132,7 +132,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                    (dcPointValue < parameterLimit.LowerWarningLimit || dcPointValue > parameterLimit.UpperWarningLimit))
                 {
                     // Hold Material
-                    material.HoldMaterial(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig);
+                    material.HoldMaterial(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig));
 
                     break;
                 }
