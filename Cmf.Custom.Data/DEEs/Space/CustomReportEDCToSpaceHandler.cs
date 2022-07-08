@@ -1,7 +1,6 @@
 ﻿using Cmf.Common.CustomActionUtilities;
 using Cmf.Custom.AMSOsram.Common;
 using Cmf.Custom.AMSOsram.Common.DataStructures;
-using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.Common;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ExceptionManagement;
@@ -34,12 +33,16 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
 
             if (Input != null)
             {
+                // Get DataCollectionInstance from Input
                 DataCollectionInstance dataCollectionInstance = AMSOsramUtilities.GetInputItem<DataCollectionInstance>(Input, Navigo.Common.Constants.DataCollectionInstance);
 
+                // Check if Input data returns DataCollection and associated DataCollection Limit Sets
                 if (dataCollectionInstance != null && dataCollectionInstance.DataCollectionLimitSet != null)
                 {
+                    // Load DataCollection Step
                     dataCollectionInstance.Step.Load();
 
+                    // Check if step needs Space Confirmation
                     if (dataCollectionInstance.Step.HasAttribute(AMSOsramConstants.StepAttributeRequiresSpaceConfirmation, true))
                     {
                         // The Action only executed if Step needs Space confirmation
@@ -65,7 +68,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
 
             //Navigo
             UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.OutputObjects");
             UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.ExceptionManagement");
             UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.ExceptionManagement.InputObjects");
 
@@ -81,7 +83,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
 
             if (dataCollectionInstance is null)
             {
-                throw new CmfBaseException("Cannot be possible to get DataCollectionInstance data from DEE Action Input.");
+                throw new CmfBaseException("Cannot be possible to get DataCollectionInstance data from Input.");
             }
 
             // Load DataCollection Instance
@@ -112,14 +114,14 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             // Check limits of Data Collection Points
             foreach (DataCollectionPoint dataCollectionPoint in dataCollectionInstance.DataCollectionPoints)
             {
-                DataCollectionParameterLimit parameterLimit = dataCollectionLimitSet.DataCollectionParameterLimits.FirstOrDefault(limit => limit.TargetEntity.GetNativeValue<long>("TargetEntity").Equals(dataCollectionPoint.TargetEntity.GetNativeValue<long>("TargetEntity")));
+                DataCollectionParameterLimit parameterLimit = dataCollectionLimitSet.DataCollectionParameterLimits?.FirstOrDefault(limit => limit.TargetEntity.GetNativeValue<long>("TargetEntity").Equals(dataCollectionPoint.TargetEntity.GetNativeValue<long>("TargetEntity")));
 
                 // Parse DataCollection Point Value to Decimal
                 decimal dcPointValue = AMSOsramUtilities.GetValueAsDecimal(dataCollectionPoint.Value.ToString());
 
-                // Check Parameter Warning Limits
+                // Check Parameter Error Limits
                 if (parameterLimit.LowerErrorLimit != null && parameterLimit.UpperErrorLimit != null &&
-                   (dcPointValue < parameterLimit.LowerErrorLimit || dcPointValue > parameterLimit.UpperErrorLimit))
+                    (dcPointValue < parameterLimit.LowerErrorLimit || dcPointValue > parameterLimit.UpperErrorLimit))
                 {
                     // Hold Material
                     material.HoldMaterial(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig));
@@ -129,7 +131,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
 
                 // Check Parameter Warning Limits
                 if (parameterLimit.LowerWarningLimit != null && parameterLimit.UpperWarningLimit != null &&
-                   (dcPointValue < parameterLimit.LowerWarningLimit || dcPointValue > parameterLimit.UpperWarningLimit))
+                    (dcPointValue < parameterLimit.LowerWarningLimit || dcPointValue > parameterLimit.UpperWarningLimit))
                 {
                     // Hold Material
                     material.HoldMaterial(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig));
@@ -138,18 +140,22 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                 }
             }
 
+            // Check if Material doens't have any Hold Reasons associated
             if (material.HoldCount == 0)
             {
-                // Open protocol
+                // Protocol
                 Protocol protocol = new Protocol()
                 {
                     Name = AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultSpaceProtocol)
                 };
 
+                // Check if protocol exists
                 if (protocol.ObjectExists())
                 {
+                    // Load Protocol
                     protocol.Load();
 
+                    // Create relation between Protocol and Material
                     OpenProtocolInstanceInput openProtocol = new OpenProtocolInstanceInput()
                     {
                         Protocol = protocol,
@@ -159,22 +165,16 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                         }
                     };
 
+                    // Open Protocol associated to a Material
                     ExceptionManagementOrchestration.OpenProtocolInstance(openProtocol);
                 }
             }
 
-            // Load Site
-            Site site = material.Facility?.Site;
-            site.Load();
-
-            // Get SiteCode attribute value
-            string siteCode = site.GetAttributeValue(AMSOsramConstants.CustomSiteCodeAttribute, true).ToString();
-
             // Create Message to send for Space
-            CustomReportEDCToSpace dataCollectionInfoMessage = AMSOsramUtilities.CreateSpaceInfoWaferValues(material, dataCollectionInstance, dataCollectionLimitSet, siteCode);
+            CustomReportEDCToSpace dataCollectionInfoMessage = AMSOsramUtilities.CreateSpaceInfoWaferValues(material, dataCollectionInstance, dataCollectionLimitSet);
 
             // Publish message on Message Bus
-            Utilities.PublishTransactionalMessage("CustomReportEDCToSpace", dataCollectionInfoMessage.SerializeToXML());
+            Utilities.PublishTransactionalMessage(AMSOsramConstants.CustomReportEDCToSpace, dataCollectionInfoMessage.SerializeToXML());
 
             //---End DEE Code---
 

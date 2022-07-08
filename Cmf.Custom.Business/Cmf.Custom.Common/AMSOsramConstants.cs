@@ -1119,6 +1119,11 @@
         public const string CustomTibcoEMSGatewayInvalidateCache = "CustomTibcoEMSGatewayInvalidateCache";
 
         /// <summary>
+        /// Tibco subject for report DataCollection to Space
+        /// </summary>
+        public const string CustomReportEDCToSpace = "CustomReportEDCToSpace";
+
+        /// <summary>
         /// Tibco IsEnabled config path
         /// </summary>
         public const string TibcoConfigIsEnabledPath = "/AMSOsram/TibcoEMS/IsEnabled";

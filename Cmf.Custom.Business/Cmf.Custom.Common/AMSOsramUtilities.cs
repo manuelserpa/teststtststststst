@@ -1302,14 +1302,8 @@ namespace Cmf.Custom.AMSOsram.Common
         /// <summary>
         /// Method to create XML message with Lot and Data Collection Info to be sent to Space system
         /// </summary>
-        public static CustomReportEDCToSpace CreateSpaceInfoDefaultValues(Material material, string siteCode)
+        public static CustomReportEDCToSpace CreateSpaceInfoDefaultValues(Material material)
         {
-            //List<SiteCode> messageSiteCodes = new List<SiteCode>();
-            //siteCodes.ForEach(code => messageSiteCodes.Add(new SiteCode()
-            //{
-            //    Value = code
-            //}));
-
             material.Load(1);
 
             Product product = material.Product;
@@ -1342,6 +1336,13 @@ namespace Cmf.Custom.AMSOsram.Common
 
                 area = resource.Area;
             }
+
+            // Load Site
+            Site site = material.Facility?.Site;
+            site.Load();
+
+            // Get SiteCode attribute value
+            string siteCode = site.GetAttributeValue(AMSOsramConstants.CustomSiteCodeAttribute, true).ToString();
 
             CustomReportEDCToSpace customReportEDCToSpace = new CustomReportEDCToSpace()
             {
@@ -1462,19 +1463,14 @@ namespace Cmf.Custom.AMSOsram.Common
         /// <param name="wafer"></param>
         /// <param name="dataCollectionInstance"></param>
         /// <returns></returns>
-        public static CustomReportEDCToSpace CreateSpaceInfoWaferValues(Material wafer, DataCollectionInstance dataCollectionInstance,
-                                                                        DataCollectionLimitSet limitSet, string siteCode)
+        public static CustomReportEDCToSpace CreateSpaceInfoWaferValues(Material wafer, DataCollectionInstance dataCollectionInstance, DataCollectionLimitSet limitSet)
         {
-            CustomReportEDCToSpace customReportEDCToSpace = CreateSpaceInfoDefaultValues(wafer, siteCode);
+            CustomReportEDCToSpace customReportEDCToSpace = CreateSpaceInfoDefaultValues(wafer);
 
             List<Sample> samples = new List<Sample>();
 
-            // Only decimal or long values can be send to Space
-            //List<string> possibleDataTypes = new List<string>() { ParameterDataType.Decimal.ToString(), ParameterDataType.Long.ToString() };
-
             // get distinct parameters
             ParameterCollection parameters = new ParameterCollection();
-            //parameters.AddRange(limitSet.DataCollectionParameterLimits.Select(ls => ls.TargetEntity).Where(p => possibleDataTypes.Contains(p.DataType.ToString())).Distinct());
 
             dataCollectionInstance.LoadRelations();
 
@@ -2071,13 +2067,24 @@ namespace Cmf.Custom.AMSOsram.Common
 
         #region Material
 
+        /// <summary>
+        /// Hold Material with associated Hold Reason
+        /// </summary>
+        /// <param name="material">The Material</param>
+        /// <param name="reasonName">Hold Reason Name</param>
         public static void HoldMaterial(this Material material, string reasonName)
         {
+            // Check if reason exists
+            if (string.IsNullOrWhiteSpace(reasonName))
+            {
+                throw new ArgumentNullCmfException("ReasonName");
+            }
+
             // Load Material Hold Reasons
             material.LoadRelations(Navigo.Common.Constants.MaterialHoldReason);
 
-            // Check if Material has that Hold Reason
-            if (material.MaterialHoldReasons != null && !material.MaterialHoldReasons.Any(holdReason => holdReason.TargetEntity.Name.Equals(reasonName)))
+            // Check if Material has that Hold Reason and if Step has "Out of Spec" Hold Reason associated
+            if (material.MaterialHoldReasons is null || !material.MaterialHoldReasons.Any(holdReason => holdReason.TargetEntity.Name.Equals(reasonName)))
             {
                 // Load hold Reason
                 Reason reason = new Reason();
