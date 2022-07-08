@@ -9,14 +9,12 @@
 
 #region Using Directives
 
-using Cmf.Foundation.BusinessOrchestration.SecurityManagement.InputObjects;
-using Cmf.Foundation.Security;
 using Cmf.LightBusinessObjects.Infrastructure;
-using Cmf.TestScenarios.EmployeeHelper;
+using Cmf.MessageBus.Client;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Threading;
 
 #endregion Using Directives
@@ -34,6 +32,10 @@ namespace Settings
         /// The configuration
         /// </summary>
         private static ClientConfiguration config = null;
+
+        private static TransportConfig messageBusTransportConfig = null;
+
+        private static TestContext testContext = null;
 
         #endregion
 
@@ -78,18 +80,6 @@ namespace Settings
             private set;
         }
 
-        public static string ClientTenantName
-        {
-            get;
-            private set;
-        }
-
-        public static string ApplicationName
-        {
-            get;
-            private set;
-        }
-
         #endregion
 
         #region Constructors
@@ -111,11 +101,10 @@ namespace Settings
         /// <param name="context">The context.</param>
         public static void BaseInit(TestContext context)
         {
+            BaseContext.testContext = context;
+
             BaseContext.UserName = GetString(context, "userName");
             BaseContext.Password = GetString(context, "password");
-            BaseContext.ClientTenantName = GetString(context, "clientTenantName");
-            BaseContext.ApplicationName = GetString(context, "applicationName");
-            
 
             ClientConfigurationProvider.ConfigurationFactory = () =>
             {
@@ -188,6 +177,36 @@ namespace Settings
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Get Message Bus Transport Configuration
+        /// </summary>
+        /// <returns></returns>
+        public static TransportConfig GetMessageBusTransportConfiguration()
+        {
+            if (messageBusTransportConfig == null)
+            {
+                messageBusTransportConfig = new TransportConfig()
+                {
+                    GatewaysConfig = new List<GatewayConfig>
+                    {
+                        new GatewayConfig()
+                        {
+                            Address =  GetString(testContext, "MessageBus.Gateway.Address"),
+                            Port = Convert.ToInt32(GetString(testContext, "MessageBus.Gateway.Port")),
+                            ExternalAddress = GetString(testContext, "MessageBus.Gateway.ExternalAddress"),
+                        }
+                    },
+                    UseLoadBalancing = Convert.ToBoolean(GetString(testContext, "MessageBus.UseLoadBalancing")),
+                    ApplicationName = GetString(testContext, "applicationName"),
+                    TenantName = GetString(testContext, "clientTenantName"),
+                    SecurityToken = GetString(testContext, "MessageBus.SecurityToken"),
+                    UseGatewayExternalAddress = Convert.ToBoolean(GetString(testContext, "MessageBus.UseGatewayExternalAddress"))
+                };
+            }
+
+            return messageBusTransportConfig;
         }
         #endregion
 

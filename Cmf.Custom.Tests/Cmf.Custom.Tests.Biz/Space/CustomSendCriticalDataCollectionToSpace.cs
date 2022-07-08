@@ -1,54 +1,36 @@
 ﻿using Cmf.Custom.Tests.Biz.Common;
+using Cmf.Custom.Tests.Biz.Common.ERP.Space;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
+using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Cmf.Custom.TestUtilities;
+using Cmf.Foundation.BusinessObjects;
+using Cmf.MessageBus.Client;
+using Cmf.MessageBus.Messages;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.OutputObjects;
-using DeeAction = Cmf.Foundation.Common.DynamicExecutionEngine.Action;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Settings;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects;
-using Cmf.Custom.Tests.Biz.Common.Utilities;
-using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
-using Cmf.Custom.Tests.Biz.Common.ERP.Space;
 using System.Collections.ObjectModel;
-using Cmf.MessageBus.Client;
-using Cmf.Foundation.BusinessOrchestration.ApplicationSettingManagement.InputObjects;
-using Newtonsoft.Json;
-using Cmf.MessageBus.Messages;
-using Settings;
+using System.Linq;
 
 namespace Cmf.Custom.Tests.Biz.Space
 {
     [TestClass]
     public class CustomSendCriticalDataCollectionToSpace
     {
-        private CustomExecutionScenario _scenario;
-        private CustomTearDownManager customTeardownManager = null;
-        private MaterialCollection materials;
-        private DataCollectionInstance dataCollectionInstance = null;
-
-        private Material material = null;
-
-        private const string StorageLocation = "TestStorageLocation";
-        private const string Site = "TestSiteCode";
         private const string DataCollectionName = "SpaceDCTest";
         private const string DataCollectionLimitSetName = "SpaceDCTestLimitSet";
         private List<string> parametersName = new List<string>() { "SScOTest", "QScOTest" };
 
-        /// <summary>
-        /// Message Bus.
-        /// </summary>
-        public Transport MessageBus { get; internal set; }
-
-        /// <summary>
-        /// Message Bus Configuration.
-        /// </summary>
-        public TransportConfig MessageBusConfiguration { get; internal set; }
+        private CustomExecutionScenario _scenario;
+        private CustomTearDownManager customTeardownManager = null;
+        private MaterialCollection materials;
+        private DataCollectionInstance dataCollectionInstance = null;
+        private Material material = null;
+        private decimal defaultValue = 0;
 
         /// <summary>
         /// Test Initialization
@@ -86,11 +68,20 @@ namespace Cmf.Custom.Tests.Biz.Space
                 }
             }
 
-            if (dataCollectionInstance != null) dataCollectionInstance.Terminate();
+            if (dataCollectionInstance != null && dataCollectionInstance.UniversalState != Foundation.Common.Base.UniversalState.Terminated)
+            {
+                dataCollectionInstance.Terminate();
+            }
 
-            if (customTeardownManager != null) customTeardownManager.TearDownSequentially();
+            if (customTeardownManager != null)
+            {
+                customTeardownManager.TearDownSequentially();
+            }
 
-            if (_scenario != null) _scenario.CompleteCleanUp();
+            if (_scenario != null)
+            {
+                _scenario.CompleteCleanUp();
+            }
         }
 
         /// <summary>
@@ -111,13 +102,11 @@ namespace Cmf.Custom.Tests.Biz.Space
             ///<Step> Create a Lot and its wafers </Step>
             _scenario.Setup();
 
-            decimal defaultValue = 634;
+            defaultValue = 634;
 
             material = _scenario.GeneratedLots.FirstOrDefault();
             materials.Add(material);
             material.LoadChildren();
-
-
 
             ///<Step> Open Data Collection Instance </Step>
             DataCollection dataCollection = new DataCollection() { Name = DataCollectionName };
@@ -149,30 +138,22 @@ namespace Cmf.Custom.Tests.Biz.Space
                 }
             }
 
-            ComplexPerformDataCollectionInput complexPostDCDataInput = new ComplexPerformDataCollectionInput()
-            {
-                Material = material,
-                DataCollection = dataCollection,
-                DataCollectionLimitSet = datacollectionLimitSet,
-                DataCollectionPointCollection = pointsToPost
-            };
-
-            ComplexPerformDataCollectionOutput complexPostDCDataOutput = complexPostDCDataInput.ComplexPerformDataCollectionSync();
+            PostDataCollectionAndValidateSpaceMessage(dataCollection, datacollectionLimitSet, pointsToPost);
 
             ///<Step> Validate Material Hold Reasons.</Step>
             ///<ExpectedValue> The Material has one Hold Reasons (Out of Spec).</ExpectedValue>
             material.Load();
-            material.LoadRelations(new Collection<string> { "MaterialHoldReason" });
+            material.LoadRelations(new Collection<string>
+            {
+                "MaterialHoldReason"
+            });
+
             Assert.IsTrue(material.HoldCount == 1, $"Material should have 1 reason instead has {material.HoldCount}");
             MaterialHoldReason outOfSpecHoldReason = material.MaterialHoldReasons.FirstOrDefault();
             outOfSpecHoldReason.TargetEntity.Load();
             Assert.IsTrue(outOfSpecHoldReason.TargetEntity.Name.Equals("Out Of Spec"), $"Material Hold Reason Name should be: Out of Spec instead is: {outOfSpecHoldReason.TargetEntity.Name}");
 
             Assert.IsTrue(material.OpenExceptionProtocolsCount == 0, $"Material shouldn't have protocol instance opened, instead has {material.OpenExceptionProtocolsCount}.");
-
-            SubscribeToMessageBusEvent("CustomReportEDCToSpace", OnMessageReceived);
-
-
         }
 
         /// <summary>
@@ -194,32 +175,11 @@ namespace Cmf.Custom.Tests.Biz.Space
             ///<Step> Create a Lot and its wafers </Step>
             _scenario.Setup();
 
-            decimal defaultValue = 640;
+            defaultValue = 640;
 
-            Material material = _scenario.GeneratedLots.FirstOrDefault();
+            material = _scenario.GeneratedLots.FirstOrDefault();
             materials.Add(material);
             material.LoadChildren();
-
-            Dictionary<string, string> expectedKeys = new Dictionary<string, string>() {
-                {"PROCESS",  AMSOsramConstants.DefaultTestProductName},
-                {"BASIC_TYPE",string.Empty },
-                {"AREA",string.Empty },
-                {"OWNER", string.Empty},
-                {"ROUTE",$"{AMSOsramConstants.DefaultTestFlowName}_1"},
-                {"OPERATION",AMSOsramConstants.DefaultTestStepName},
-                {"PROCESS_SPS","CMFTestService"},
-                {"EQUIPMENT", string.Empty},
-                {"CHAMBER",  string.Empty},
-                {"RECIPE", string.Empty},
-                {"MEAS_EQUIPMENT", string.Empty },
-                {"BATCH_NAME", string.Empty },
-                {"LOT",$"{material.Name}"},
-                {"QTY","3.00000000"},
-                {"WAFER","."},
-                {"PUNKT","."},
-                {"X","."},
-                {"Y","."}
-            };
 
             ///<Step> Open Data Collection Instance </Step>
             DataCollection dataCollection = new DataCollection() { Name = DataCollectionName };
@@ -251,15 +211,7 @@ namespace Cmf.Custom.Tests.Biz.Space
                 }
             }
 
-            ComplexPerformDataCollectionInput complexPostDCDataInput = new ComplexPerformDataCollectionInput()
-            {
-                Material = material,
-                DataCollection = dataCollection,
-                DataCollectionLimitSet = datacollectionLimitSet,
-                DataCollectionPointCollection = pointsToPost
-            };
-
-            ComplexPerformDataCollectionOutput complexPostDCDataOutput = complexPostDCDataInput.ComplexPerformDataCollectionSync();
+            PostDataCollectionAndValidateSpaceMessage(dataCollection, datacollectionLimitSet, pointsToPost);
 
             ///<Step> Validate Protocol Opened.</Step>
             ///<ExpectedValue> The lot should have a protocol opened.</ExpectedValue>
@@ -273,131 +225,67 @@ namespace Cmf.Custom.Tests.Biz.Space
             Assert.IsTrue(protocolInstance.ParentEntity.Name.Equals("8D"), $"Protocol should be 8D instead is {protocolInstance.ParentEntity.Name}");
 
             Assert.IsTrue(material.HoldCount == 0, $"Material should have 1 reason instead has {material.HoldCount}");
-
-            Dictionary<string, object> deeActionInput = new Dictionary<string, object>()
-            {
-                {"DataCollectionInstance", complexPostDCDataOutput.DataCollectionInstances.FirstOrDefault().Name },
-                {"LimitSet", datacollectionLimitSet.Name},
-                {"Material", material.Name}
-            };
-
-            ExecuteAction("CustomReportEDCToSpaceParser", deeActionInput);
-
-            IntegrationEntry ie = CustomUtilities.GetIntegrationEntry($"SpaceEDC_{material.Name}");
-            ie.Load();
-
-            //Necessary to load inner message
-            IntegrationEntry integrationEntryInfo = new GetIntegrationEntryInput
-            {
-                Id = ie.Id
-            }.GetIntegrationEntrySync().IntegrationEntry;
-            string integrationMessage = Encoding.UTF8.GetString(integrationEntryInfo.IntegrationMessage.Message);
-
-            ///<Step> Validate the content of the Integration Entry </Step>
-            CustomReportEDCToSpace spaceInformation = CustomUtilities.DeserializeXmlToObject<CustomReportEDCToSpace>(integrationMessage);
-
-            foreach (Key key in spaceInformation.Keys)
-            {
-                if (!string.IsNullOrEmpty(expectedKeys[key.Name]))
-                {
-                    Assert.IsTrue(key.Value.Equals(expectedKeys[key.Name]), $"The value for key with name {key.Name} is {key.Value}, but should be {expectedKeys[key.Name]}.");
-                }
-            }
-
-            Assert.IsTrue(spaceInformation.Samples.Count == 1, $"The number of samples present on the message is {spaceInformation.Samples.Count}, but should be 1.");
-            Assert.IsTrue(spaceInformation.Samples[0].Raws.raws.Count == material.SubMaterialCount, $"Each wafer should be present on the sample data.");
-
-            int sampleCount = 0;
-            foreach (Sample sample in spaceInformation.Samples)
-            {
-                if (sample.ParameterName.Equals("SScOTest"))
-                {
-                    Assert.IsTrue(sample.Lower.Equals("635.0000000000"), $"Sample field for parameter {sample.ParameterName} should have the lower limit error equal to 635.0000000000 instead is {sample.Lower}.");
-                    Assert.IsTrue(sample.Upper.Equals("665.0000000000"), $"Sample field for parameter {sample.ParameterName} should have the upper limit error equal to 665.0000000000 instead is {sample.Upper}.");
-                }
-
-                foreach (Raw sampleRaw in sample.Raws.raws)
-                {
-                    decimal value = defaultValue + sampleCount;
-                    Assert.IsTrue(sampleRaw.RawValue.Equals(value), $"Value for parameter {sample.ParameterName} should be {value} instead is {sampleRaw.RawValue}.");
-                    sampleCount++;
-                }
-            }
         }
 
-        private void ExecuteAction(string actionName, Dictionary<string, object> deeActionInput)
-        {
-            // Call CustomTriggerTransportJob DEE
-            Foundation.Common.DynamicExecutionEngine.Action deeAction = new GetActionByNameInput()
-            {
-                Name = actionName
-            }.GetActionByNameSync().Action;
-
-            Dictionary<string, object> outputDee = new ExecuteActionInput()
-            {
-                Action = deeAction,
-                Input = deeActionInput
-            }.ExecuteActionSync().Output;
-        }
         /// <summary>
-        /// Create message bus configuration
+        /// Post DataCollection and validate Space Message
         /// </summary>
-        /// <param name="tenantName"></param>
-        /// <param name="userName"></param>
-        /// <param name="applicationName"></param>
-        /// <returns></returns>
-        public TransportConfig CreateMessageBusConfiguration(string tenantName, string userName, string applicationName)
+        /// <param name="dataCollection">DataCollection</param>
+        /// <param name="datacollectionLimitSet">DataCollection Limit Set</param>
+        /// <param name="pointsToPost">Points to Post</param>
+        private void PostDataCollectionAndValidateSpaceMessage(DataCollection dataCollection, DataCollectionLimitSet datacollectionLimitSet, DataCollectionPointCollection pointsToPost)
         {
-            // Get part of configuration from the host.
-            string transportConfigString = new GetApplicationBootInformationInput().GetApplicationBootInformationSync().TransportConfig;
-            MessageBusConfiguration = JsonConvert.DeserializeObject<TransportConfig>(transportConfigString);
+            bool messageBusMessageWasReceived = false;
 
-            // Set the remaining values.
-            MessageBusConfiguration.TenantName = tenantName;
-            MessageBusConfiguration.UserName = userName;
-            MessageBusConfiguration.ApplicationName = applicationName;
+            // Initialize message bus.
+            Transport messageBusTransport = new Transport(BaseContext.GetMessageBusTransportConfiguration());
 
-            return MessageBusConfiguration;
-        }
-        /// <summary>
-        /// Subscribe to message bus event.
-        /// </summary>
-        /// <param name="subject">Subject to subscribe.</param>
-        /// <param name="onEvent">On event callback.</param>
-        public void SubscribeToMessageBusEvent(string subject, OnMbMessageCallback onEvent)
-        {
-            /// If message bus is not initialized.
-            if (MessageBus == null)
-            {
-                // Only initialize the configuration if not defined yet.
-                if (MessageBusConfiguration == null)
-                {
-                    string tenantName = (string)BaseContext.ClientTenantName;
-                    string applicationName = (string)BaseContext.ApplicationName;
-                    string userName = (string)BaseContext.UserName;
-
-                    // Get message bus configuration.
-                    CreateMessageBusConfiguration(tenantName, userName, applicationName);
-                }
-
-                // Initialize message bus.
-                MessageBus = new Transport(MessageBusConfiguration);
-
-                
-                // Connect to message bus.
-                MessageBus.Start();
-            }
+            // Connect to message bus.
+            messageBusTransport.Start();
 
             // Subscribe to event.
-            MessageBus.Subscribe(subject, onEvent);
+            messageBusTransport.Subscribe(AMSOsramConstants.CustomReportEDCToSpace, (string subject, MbMessage message) =>
+            {
+                if (message != null && !string.IsNullOrWhiteSpace(message.Data))
+                {
+                    ValidateMessage(message.Data);
+
+                    messageBusTransport.Unsubscribe(AMSOsramConstants.CustomReportEDCToSpace);
+
+                    messageBusMessageWasReceived = true;
+                }
+            });
+
+            ComplexPerformDataCollectionInput complexPostDCDataInput = new ComplexPerformDataCollectionInput()
+            {
+                Material = material,
+                DataCollection = dataCollection,
+                DataCollectionLimitSet = datacollectionLimitSet,
+                DataCollectionPointCollection = pointsToPost
+            };
+
+            ComplexPerformDataCollectionOutput complexPostDCDataOutput = complexPostDCDataInput.ComplexPerformDataCollectionSync();
+
+            Func<bool> waitForMessageBus = () =>
+            {
+                return messageBusMessageWasReceived;
+            };
+
+            waitForMessageBus.WaitFor();
+
+            Assert.IsTrue(messageBusMessageWasReceived, "Message was not received from message bus.");
         }
 
-        private void OnMessageReceived(string subject, MbMessage message)
+        /// <summary>
+        /// Validate message received from Message Bus
+        /// </summary>
+        /// <param name="message">Message to validate</param>
+        private void ValidateMessage(string message)
         {
-            if (message != null && !String.IsNullOrWhiteSpace(message.Data))
+            if (!string.IsNullOrWhiteSpace(message))
             {
-                decimal defaultValue = 634;
-                Dictionary<string, string> expectedKeys = new Dictionary<string, string>() {
+                Dictionary<string, string> expectedKeys = new Dictionary<string, string>()
+                {
                     {"PROCESS",  AMSOsramConstants.DefaultTestProductName},
                     {"BASIC_TYPE",string.Empty },
                     {"AREA",string.Empty },
@@ -418,9 +306,8 @@ namespace Cmf.Custom.Tests.Biz.Space
                     {"Y","."}
                 };
 
-
                 ///<Step> Validate the content of the Integration Entry </Step>
-                CustomReportEDCToSpace spaceInformation = CustomUtilities.DeserializeXmlToObject<CustomReportEDCToSpace>(message.Data);
+                CustomReportEDCToSpace spaceInformation = CustomUtilities.DeserializeXmlToObject<CustomReportEDCToSpace>(message);
 
                 foreach (Key key in spaceInformation.Keys)
                 {
