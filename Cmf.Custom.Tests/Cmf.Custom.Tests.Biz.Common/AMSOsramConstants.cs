@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cmf.Custom.Tests.Biz.Common
+﻿namespace Cmf.Custom.Tests.Biz.Common
 {
     public class AMSOsramConstants
     {
@@ -233,6 +229,12 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// Message Type CustomPostGoodsIssueToSAP
         /// </summary> 
         public static string CustomPostGoodsIssueToSAPMessageType = "CustomPerformConsumption";
+
+        #endregion
+
+        #region MessageBus Subjects
+
+        public const string CustomReportEDCToSpace = "CustomReportEDCToSpace";
 
         #endregion
     }
