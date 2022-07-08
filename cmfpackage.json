@@ -42,11 +42,11 @@
     "testPackages": [
         {
             "id": "Cmf.Custom.Tests",
-            "version": "1.7.0"
+            "version": "1.9.0"
         },
         {
             "id": "Cmf.Custom.Tests.MasterData",
-            "version": "1.7.0"
+            "version": "1.9.0"
         }
     ],
     "handlerVersion": 0
