@@ -234,6 +234,9 @@
 
         #region MessageBus Subjects
 
+        /// <summary>
+        /// Tibco subject for report DataCollection to Space
+        /// </summary>
         public const string CustomReportEDCToSpace = "CustomReportEDCToSpace";
 
         #endregion
