@@ -45,7 +45,6 @@ namespace Cmf.Custom.AMSOsram.Common.ERP
         [XmlArray("SubMaterial")]
         [XmlArrayItem("Wafer")]
         public List<Wafer> Wafers { get; set; }
-
     }
 
     /// <summary>
