@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace Cmf.Custom.AMSOsram.Common.ERP
 {
     /// <summary>
-    /// Class representing the structure of the DM_Material element.
+    /// Class representing the structure of the Material element.
     /// </summary>
     [XmlRoot]
     public class MaterialData
@@ -43,7 +41,7 @@ namespace Cmf.Custom.AMSOsram.Common.ERP
         public List<MaterialAttributes> MaterialAttributes { get; set; }
 
         [XmlArray("SubMaterial")]
-        [XmlArrayItem("Wafer")]
+        [XmlArrayItem("Material")]
         public List<Wafer> Wafers { get; set; }
     }
 
@@ -74,18 +72,8 @@ namespace Cmf.Custom.AMSOsram.Common.ERP
     /// <summary>
     /// Class representing the structure of the Sub Material element.
     /// </summary>
-    public class Wafer
+    public class Wafer : MaterialData
     {
-        [XmlAttribute("Name")]
-        public string Name { get; set; }
-
-        [XmlElement]
-        public string Form { get; set; }
-
-        [XmlArray("Attributes")]
-        [XmlArrayItem("key")]
-        public List<MaterialAttributes> MaterialAttributes { get; set; }
-
         [XmlArray("EDCData")]
         [XmlArrayItem("key")]
         public List<MaterialEDCData> MaterialEDCData { get; set; }
@@ -94,7 +82,7 @@ namespace Cmf.Custom.AMSOsram.Common.ERP
     /// <summary>
     /// Class returns list of Materials
     /// </summary>
-    [XmlRoot("GoodsReceiptCertificate")]
+    [XmlRoot("Certificate")]
     public class GoodsReceiptCertificate
     {
         public MaterialData Material { get; set; }
