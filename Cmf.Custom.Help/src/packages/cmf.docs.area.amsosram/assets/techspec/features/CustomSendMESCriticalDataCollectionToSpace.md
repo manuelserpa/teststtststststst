@@ -1,4 +1,4 @@
-# CustomSendMESCriticalDataCollectionToSpace
+# Send Critical Data Collection to Space
 
 ## Requirement Specification
 
@@ -10,13 +10,13 @@ When performing a Data Collection post a mechanism to validate the posted data a
 
 The table below describes the properties for this entity type:
 
-| Name          | Type      | Description 
-| :------------ | :-------- | :-----------
-| [Custom Report EDC To Space Handler](/AMSOsram/techspec>artifacts>deeactions>CustomReportEDCToSpaceHandler) | DEE Action | DEE action to validate DataCollection and create a XML message to be sent to Space system. |
+| Name          | Type      | Description |
+| :------------ | :-------- | :---------- |
+| [CustomReportEDCToSpaceHandler](/AMSOsram/techspec>artifacts>deeactions>CustomReportEDCToSpaceHandler) | DEE Action | DEE action to validate DataCollection and create a XML message to be sent to Space system. |
 
 ### How it works
 
-When a ComplexPerformDataCollection is performed the DEE Action [Custom Report EDC To Space Handler](/AMSOsram/techspec>artifacts>deeactions>CustomReportEDCToSpaceHandler) will be executed validating the posted values using the limit set provided.
+When a ComplexPerformDataCollection is performed the DEE Action [CustomReportEDCToSpaceHandler](/AMSOsram/techspec>artifacts>deeactions>CustomReportEDCToSpaceHandler) will be executed validating the posted values using the limit set provided.
 
 - If the values respect the limit set defined a protocol defined in the configuration */Cmf/Custom/Protocol/Space* is opened
 - Otherwise, the main lot is put on hold with hold reason **Out Of Spec**.  
