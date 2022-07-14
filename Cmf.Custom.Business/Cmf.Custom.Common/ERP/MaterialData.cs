@@ -82,7 +82,7 @@ namespace Cmf.Custom.AMSOsram.Common.ERP
     /// <summary>
     /// Class returns list of Materials
     /// </summary>
-    [XmlRoot("Certificate")]
+    [XmlRoot("GoodsReceiptCertificate")]
     public class GoodsReceiptCertificate
     {
         public MaterialData Material { get; set; }

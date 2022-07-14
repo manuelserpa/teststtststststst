@@ -1,0 +1,28 @@
+{
+	"<SM>LookupTableValues": {
+		"1": {
+			"LookUp Table": "MaterialForm",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "Crystal",
+			"Lookup Table Value Description": "Crystal",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"2": {
+			"LookUp Table": "MaterialForm",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "Logical Wafer",
+			"Lookup Table Value Description": "Logical Wafer",
+			"Lookup Table IsEnabled": "Yes"
+		}
+	},
+	"<GT>MaterialFormRelation": {
+		"1": {
+			"MainForm": "Lot",
+			"SubForm": "Logical Wafer"
+		},
+		"2": {
+			"MainForm": "Logical Wafer",
+			"SubForm": "Wafer"
+		}
+	}
+}

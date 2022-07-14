@@ -206,7 +206,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                         }
                         else
                         {
-                            WafersHasCertificateData(wafer.Wafers);
+                            return WafersHasCertificateData(wafer.Wafers);
                         }
                     }
                 }
@@ -319,22 +319,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     AMSOsramUtilities.SetMaterialStateModel(incomingLot, materialData.StateModel, materialData.State);
                     incomingLot.Load();
                 }
-
-                //foreach (Wafer wafer in materialData.Wafers)
-                //{
-                //    Material parentMaterial = new Material()
-                //    {
-                //        Name = wafer.Name,
-                //        Product = product,
-                //        Facility = facility,
-                //        PrimaryQuantity = waferSize,
-                //        PrimaryUnits = product.DefaultUnits,
-                //        Form = wafer.Form,
-                //        Type = materialData.Type
-                //    };
-
-                //    this.CreateSubMaterials(parentMaterial, wafer);
-                //}
 
                 CreateSubMaterialsObject(incomingLot, materialData.Wafers);
 
@@ -537,14 +521,5 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             return Input;
         }
-
-
-
-
-
-
-
-
-
     }
 }
