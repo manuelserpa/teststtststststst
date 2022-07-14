@@ -138,10 +138,10 @@ namespace Cmf.Custom.Tests.Biz.ERP
             customExecutionScenario.Setup();
 
             Collection<string> attributes = new Collection<string>()
-                {
+            {
                     goodsUncertificated.Material.MaterialAttributes[0].Name,
                     goodsUncertificated.Material.MaterialAttributes[1].Name
-                };
+            };
 
             ///<Step> Material product properties.</Step>
             ///<ExpectedValue> Material should have the information sent on the ERP message.</ExpectedValue>
@@ -164,9 +164,9 @@ namespace Cmf.Custom.Tests.Biz.ERP
             Assert.IsTrue(uncertificatedMaterial.Product.Name.Equals(goodsUncertificated.Material.Product), $"Product Name should be: {uncertificatedMaterial.Product.Name}, instead is: {goodsUncertificated.Material.Product}");
 
             Assert.IsTrue(uncertificatedMaterial.Type.Equals(goodsUncertificated.Material.Type), $"Material Type should be: {uncertificatedMaterial.Type}, instead is: {goodsUncertificated.Material.Type}");
-            
+
             Assert.IsTrue(uncertificatedMaterial.CurrentMainState.StateModel.Name.Equals(goodsUncertificated.Material.StateModel), $"State Model should be: {uncertificatedMaterial.CurrentMainState.StateModel.Name}, instead is: {goodsUncertificated.Material.StateModel}");
-            
+
             Assert.IsTrue(uncertificatedMaterial.CurrentMainState.CurrentState.Name.Equals(goodsUncertificated.Material.State), $"Material State should be: {uncertificatedMaterial.CurrentMainState.CurrentState.Name}, instead is: {goodsUncertificated.Material.State}");
 
             Assert.IsTrue(uncertificatedMaterial.Form.Equals(goodsUncertificated.Material.Form), $"Material Form should be: {uncertificatedMaterial.Form}, instead is: {goodsUncertificated.Material.Form}");
@@ -270,7 +270,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomIncomingMaterialLotCreation_UpdateLotERPMessage_ErrorDifferentWaferList()
         {
-            
+
             ///<Step> Prepare another message to create a lot with edc data outside the limits </Step>
             string lotMessageSample = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptUncertificated.xml");
             GoodsReceiptCertificate lotMessage = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(lotMessageSample);
@@ -532,6 +532,85 @@ namespace Cmf.Custom.Tests.Biz.ERP
             ie.Load();
             string expectedErrorMessage = $"The material {lotName} product can not be changed to {lotMessage.Material.Product}";
             Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+        }
+
+        [TestMethod]
+        public void CustomIncomingMaterialLotCreation_CreateLotFromMessage_CreateMultipleWafers()
+        {
+            // Load Incoming Lot message
+            string incomingLotMessage = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptMultipleWafers.xml");
+
+            // Deserialize message in a MaterialData object
+            GoodsReceiptCertificate incomingLot = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(incomingLotMessage);
+
+            // Set scenario IsToSendIncomingMaterial property
+            customExecutionScenario.IsToSendIncomingMaterial = true;
+
+            // Set scenario GoodsReceiptCertificate property
+            customExecutionScenario.GoodsReceiptCertificate = incomingLot;
+
+            // Setup scenario
+            customExecutionScenario.Setup();
+
+            // Load created Lot
+            Material createdLot = new Material();
+            createdLot.Load(incomingLot.Material.Name);
+
+            // Push created Lot to TearDownManager
+            customTearDownManager.Push(createdLot);
+
+            // Validate created Lot
+            ValidateMaterialProperties(incomingLot.Material, createdLot);
+
+            // Validate created Wafers
+            ValidateCreatedWafers(incomingLot.Material.Wafers, createdLot);
+        }
+
+        private void ValidateCreatedWafers(List<Wafer> wafers, Material createdMaterial)
+        {
+            for (int i = 0; i < createdMaterial.SubMaterialCount; i++)
+            {
+                Wafer wafer = wafers[i];
+
+                Material subMaterial = new Material()
+                {
+                    Name = createdMaterial.SubMaterials[i].Name
+                };
+
+                subMaterial.Load();
+
+                subMaterial.LoadAttribute(wafer.MaterialAttributes[0].Name);
+
+                ValidateMaterialProperties(wafer, subMaterial);
+
+                // Validate Sub Materials
+            }
+        }
+
+        private void ValidateMaterialProperties(MaterialData materialData, Material createdMaterial)
+        {
+            Assert.IsTrue(createdMaterial.Name.Equals(materialData.Name), $"Material Name should be: {createdMaterial.Name}, instead is: {materialData.Name}");
+
+            Assert.IsTrue(createdMaterial.Product.Name.Equals(materialData.Product), $"Product Name should be: {createdMaterial.Product.Name}, instead is: {materialData.Product}");
+
+            Assert.IsTrue(createdMaterial.Type.Equals(materialData.Type), $"Material Type should be: {createdMaterial.Type}, instead is: {materialData.Type}");
+
+            Assert.IsTrue(createdMaterial.CurrentMainState.StateModel.Name.Equals(materialData.StateModel), $"State Model should be: {createdMaterial.CurrentMainState.StateModel.Name}, instead is: {materialData.StateModel}");
+
+            Assert.IsTrue(createdMaterial.CurrentMainState.CurrentState.Name.Equals(materialData.State), $"Material State should be: {createdMaterial.CurrentMainState.CurrentState.Name}, instead is: {materialData.State}");
+
+            Assert.IsTrue(createdMaterial.Form.Equals(materialData.Form), $"Material Form should be: {createdMaterial.Form}, instead is: {materialData.Form}");
+
+            Assert.IsTrue(createdMaterial.Facility.Name.Equals(materialData.Facility), $"Facility should be: {createdMaterial.Facility.Name}, instead is: {materialData.Facility}");
+
+            Assert.IsTrue(createdMaterial.Flow.Name.Equals(materialData.Flow), $"Flow should be: {createdMaterial.Flow.Name}, instead is: {materialData.Flow}");
+
+            Assert.IsTrue(createdMaterial.Step.Name.Equals(materialData.Step), $"Step should be: {createdMaterial.Step.Name}, instead is: {materialData.Step}");
+
+            if (createdMaterial.Attributes.Count > 0 && materialData.MaterialAttributes.Count > 0)
+            {
+                Assert.IsTrue(createdMaterial.AttributeEquals(materialData.MaterialAttributes[0].Name, materialData.MaterialAttributes[0].value), $"Sub-Material attribute {materialData.MaterialAttributes[0].Name} should have the value {materialData.MaterialAttributes[0].value}, but was {createdMaterial.GetAttributeValue(materialData.MaterialAttributes[0].Name, string.Empty)}");
+            }
         }
     }
 }

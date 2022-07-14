@@ -41,7 +41,7 @@ namespace Cmf.Custom.Tests.Biz.Common.ERP.Material
         public List<MaterialAttributes> MaterialAttributes { get; set; }
 
         [XmlArray("SubMaterial")]
-        [XmlArrayItem("Wafer")]
+        [XmlArrayItem("Material")]
         public List<Wafer> Wafers { get; set; }
     }
 
@@ -72,18 +72,8 @@ namespace Cmf.Custom.Tests.Biz.Common.ERP.Material
     /// <summary>
     /// Class representing the structure of the Sub Material element.
     /// </summary>
-    public class Wafer
+    public class Wafer : MaterialData
     {
-        [XmlAttribute("Name")]
-        public string Name { get; set; }
-
-        [XmlElement]
-        public string Form { get; set; }
-
-        [XmlArray("Attributes")]
-        [XmlArrayItem("key")]
-        public List<MaterialAttributes> MaterialAttributes { get; set; }
-
         [XmlArray("EDCData")]
         [XmlArrayItem("key")]
         public List<MaterialEDCData> MaterialEDCData { get; set; }
