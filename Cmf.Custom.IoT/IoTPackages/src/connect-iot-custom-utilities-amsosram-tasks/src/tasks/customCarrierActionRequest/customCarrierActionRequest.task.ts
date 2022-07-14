@@ -91,11 +91,13 @@ export class CustomCarrierActionRequestTask implements Task.TaskInstance, Custom
             this._logger.info("\nPortNumber S3F17: " + this.PortNumber);
             this._logger.info("\nCarrierAction S3F17: " + this.CarrierActionRequest);
 
+            const dataIdType = (<any>this._driverProxy)._driver._currentIntegrationConfiguration.DeviceConfiguration.communication.dataIdType;
+
             try {
                 const sendMessage: Object = {
                     type: "S3F17", item: {
                         type: "L", value: [
-                            { type: "U4", value: Number(Date.now().toString()) }, // dataId
+                            { type: dataIdType, value: Number(Date.now().toString()) }, // dataId
                             { type: "A", value: CarrierActionRequest[this.CarrierActionRequest] }, // carrierAction
                             { type: "A", value: this.CarrierId }, // carrier id
                             { type: "A", value: portNumberConverted }, // portNumber

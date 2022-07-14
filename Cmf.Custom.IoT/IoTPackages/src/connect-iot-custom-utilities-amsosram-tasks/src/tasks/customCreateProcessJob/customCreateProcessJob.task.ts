@@ -103,13 +103,16 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
                 material = this.MaterialData;
             }
             material.ProcessJobId = `PrJob_${material.MaterialName}`;
+
+            const dataIdType = (<any>this._driverProxy)._driver._currentIntegrationConfiguration.DeviceConfiguration.communication.dataIdType;
+
             try {
                 const carrierContentWrapper = [];
                 const recipeContent = [];
                 const sendMessage: Object = {
                     type: "S16F11", item: {
                         type: "L", value: [
-                            { type: "U4", value: Number(Date.now().toString()) }, // dataid
+                            { type: dataIdType, value: Number(Date.now().toString()) }, // dataid
                             { type: "A", value: material.ProcessJobId },
                             { type: "BI", value: Number(this.MaterialFormat) }, // Material format code 0x0e
                             { type: "L", value: carrierContentWrapper }, // carrier and content (not passed on eqp characterization)
