@@ -6,7 +6,7 @@
         <Type>Production</Type>
         <StateModel>CustomMaterialStateModel</StateModel>
         <State>Queued</State>
-        <Form>Lot</Form>
+        <Form>Logical Wafer</Form>
         <Facility>Regensburg Production</Facility>
         <Flow>FOL-UX3_EPA</Flow>
         <Step>M2-SL-Wafer-Start-07301F001_E</Step>
@@ -17,14 +17,7 @@
         <SubMaterial>
             <Material>
                 <Name>NK17040736E2</Name>
-                <Product>11018814</Product>
-                <Type>Production</Type>
-                <StateModel>CustomMaterialStateModel</StateModel>
-                <State>Queued</State>
-                <Form>Logical Wafer</Form>
-                <Facility>Regensburg Production</Facility>
-                <Flow>FOL-UX3_EPA</Flow>
-                <Step>M2-SL-Wafer-Start-07301F001_E</Step>
+                <Form>Wafer</Form>
                 <Attributes>
                     <key name="Gravure" value="NK17040736E2" />
                 </Attributes>

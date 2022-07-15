@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace Cmf.Custom.Tests.Biz.Common.ERP.Material
 {
     /// <summary>
-    /// Class representing the structure of the DM_Material element.
+    /// Class representing the structure of the Material element.
     /// </summary>
     [XmlRoot]
     public class MaterialData
@@ -42,7 +42,11 @@ namespace Cmf.Custom.Tests.Biz.Common.ERP.Material
 
         [XmlArray("SubMaterial")]
         [XmlArrayItem("Material")]
-        public List<Wafer> Wafers { get; set; }
+        public List<MaterialData> Wafers { get; set; }
+
+        [XmlArray("EDCData")]
+        [XmlArrayItem("key")]
+        public List<MaterialEDCData> MaterialEDCData { get; set; }
     }
 
     /// <summary>
@@ -66,17 +70,7 @@ namespace Cmf.Custom.Tests.Biz.Common.ERP.Material
         public string Name { get; set; }
 
         [XmlAttribute("value")]
-        public string value { get; set; }
-    }
-
-    /// <summary>
-    /// Class representing the structure of the Sub Material element.
-    /// </summary>
-    public class Wafer : MaterialData
-    {
-        [XmlArray("EDCData")]
-        [XmlArrayItem("key")]
-        public List<MaterialEDCData> MaterialEDCData { get; set; }
+        public string Value { get; set; }
     }
 
     /// <summary>

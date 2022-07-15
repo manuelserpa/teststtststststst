@@ -603,11 +603,11 @@ namespace Cmf.Custom.Tests.Biz.ERP
         /// <summary>
         /// Validate Created Wafers
         /// </summary>
-        private void ValidateCreatedWafers(List<Wafer> wafers)
+        private void ValidateCreatedWafers(List<MaterialData> wafers)
         {
             for (int i = 0; i < wafers.Count; i++)
             {
-                Wafer wafer = wafers[i];
+                MaterialData wafer = wafers[i];
 
                 Material subMaterial = new Material()
                 {
