@@ -42,7 +42,11 @@ namespace Cmf.Custom.AMSOsram.Common.ERP
 
         [XmlArray("SubMaterial")]
         [XmlArrayItem("Material")]
-        public List<Wafer> Wafers { get; set; }
+        public List<MaterialData> Wafers { get; set; }
+
+        [XmlArray("EDCData")]
+        [XmlArrayItem("key")]
+        public List<MaterialEDCData> MaterialEDCData { get; set; }
     }
 
     /// <summary>
@@ -67,16 +71,6 @@ namespace Cmf.Custom.AMSOsram.Common.ERP
 
         [XmlAttribute("value")]
         public string Value { get; set; }
-    }
-
-    /// <summary>
-    /// Class representing the structure of the Sub Material element.
-    /// </summary>
-    public class Wafer : MaterialData
-    {
-        [XmlArray("EDCData")]
-        [XmlArrayItem("key")]
-        public List<MaterialEDCData> MaterialEDCData { get; set; }
     }
 
     /// <summary>

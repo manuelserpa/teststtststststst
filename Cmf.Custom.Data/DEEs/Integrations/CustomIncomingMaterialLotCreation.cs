@@ -194,11 +194,11 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             DeeContextHelper.SetContextParameter("WaferSizeParameter", waferSizeParameter);
 
             // Validate if Wafers has Certificate Data
-            bool WafersHasCertificateData(List<Wafer> wafers)
+            bool WafersHasCertificateData(List<MaterialData> wafers)
             {
                 if (!wafers.IsNullOrEmpty())
                 {
-                    foreach (Wafer wafer in wafers)
+                    foreach (MaterialData wafer in wafers)
                     {
                         if (!wafer.MaterialEDCData.IsNullOrEmpty())
                         {
@@ -215,7 +215,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             }
 
             // Validate if Lot Wafers and IncomingLotWafer has the same order
-            bool WafersHasSameOrder(MaterialCollection subMaterials, List<Wafer> incomingWafers)
+            bool WafersHasSameOrder(MaterialCollection subMaterials, List<MaterialData> incomingWafers)
             {
                 List<string> subMaterialNames = subMaterials.Select(sm => sm.Name).ToList();
 
@@ -231,7 +231,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 // Get all the Names of Lot Wafers
                 foreach (Material material in subMaterials)
                 {
-                    Wafer wafer = incomingWafers.FirstOrDefault(w => w.Name.Equals(material.Name, StringComparison.InvariantCultureIgnoreCase));
+                    MaterialData wafer = incomingWafers.FirstOrDefault(w => w.Name.Equals(material.Name, StringComparison.InvariantCultureIgnoreCase));
 
                     if ((material.SubMaterialCount > 0 && (wafer.Wafers.IsNullOrEmpty() || wafer.Wafers.Count != material.SubMaterialCount)) ||
                         (material.SubMaterialCount <= 0 && !wafer.Wafers.IsNullOrEmpty()))
@@ -368,7 +368,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             Dictionary<string, Dictionary<string, object>> wafersEDCData = new Dictionary<string, Dictionary<string, object>>();
 
-            foreach (Wafer wafer in materialData.Wafers)
+            foreach (MaterialData wafer in materialData.Wafers)
             {
                 AttributeCollection waferAttributes = AMSOsramUtilities.GetMaterialAttributesFromXML(incomingLotAttributes, wafer.MaterialAttributes);
 
@@ -446,7 +446,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             }
 
             // Create Sub Materials
-            void CreateSubMaterialsObject(Material parentMaterial, List<Wafer> incomingWafers, List<Product> currentProducts = null)
+            void CreateSubMaterialsObject(Material parentMaterial, List<MaterialData> incomingWafers, List<Product> currentProducts = null)
             {
                 List<Product> productList = currentProducts;
 
@@ -464,7 +464,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
                     MaterialCollection subMaterials = new MaterialCollection();
 
-                    foreach (Wafer wafer in incomingWafers)
+                    foreach (MaterialData wafer in incomingWafers)
                     {
                         Product product = productList.FirstOrDefault(p => p.Name.Equals(wafer.Product, StringComparison.InvariantCultureIgnoreCase));
 
@@ -474,6 +474,11 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                             {
                                 Name = wafer.Product
                             };
+
+                            if (!product.ObjectExists())
+                            {
+                                product = parentMaterial.Product;
+                            }
 
                             product.Load();
 
@@ -494,15 +499,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                             AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialProductWaferSizeMissing, product.Name);
                         }
 
-                        StateModel stateModel = new StateModel()
-                        {
-                            Name = wafer.StateModel
-                        };
-
-                        stateModel.Load();
-                        StateModelState stateModelState = new StateModelState();
-                        stateModelState.Load(wafer.State, stateModel);
-
                         Material material = new Material()
                         {
                             Name = wafer.Name,
@@ -511,10 +507,25 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                             PrimaryQuantity = (wafer.Wafers.IsNullOrEmpty() ? 1 : wafer.Wafers.Count) * Convert.ToInt32(localWaferSizeParameter.Value),
                             PrimaryUnits = product.DefaultUnits,
                             Form = wafer.Form,
-                            Type = wafer.Type
+                            Type = string.IsNullOrWhiteSpace(wafer.Type) ? parentMaterial.Type : wafer.Type
                         };
 
-                        material.CurrentMainState = new CurrentEntityState(material, stateModel, stateModelState);
+                        if (!string.IsNullOrWhiteSpace(wafer.StateModel))
+                        {
+                            StateModel stateModel = new StateModel()
+                            {
+                                Name = wafer.StateModel
+                            };
+
+                            if (stateModel.ObjectExists())
+                            {
+                                stateModel.Load();
+                                StateModelState stateModelState = new StateModelState();
+                                stateModelState.Load(wafer.State, stateModel);
+
+                                material.CurrentMainState = new CurrentEntityState(material, stateModel, stateModelState);
+                            }
+                        }
 
                         subMaterials.Add(material);
 
