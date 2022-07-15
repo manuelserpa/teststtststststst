@@ -19,12 +19,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             #region Info
             /// <summary>
             /// Summary text
-            ///     DEE Action to     
-            /// 
+            ///     DEE Action to validate DataCollection and create a XML message to be sent to Space system.
+            ///
             /// Action Groups:
-            ///     - DataCollectionManagement.DataCollectionInstanceManagementOrchestration.PostDataCollectionPoints.Post
-            ///     - DataCollectionManagement.DataCollectionInstanceManagementOrchestration.CloseDataCollectionInstance.Post
-            ///     - EdcManagement.DataCollectionManagement.ComplexPerformDataCollection.Post
+            ///     - BusinessObjects.DataCollectionInstance.PerformImmediate.Post
+            ///     - BusinessObjects.DataCollectionInstance.Close.Post
+            ///
             /// Depends On:
             /// Is Dependency For:
             /// Exceptions:

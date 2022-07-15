@@ -576,7 +576,7 @@
         /// <summary>
         /// configuration with defaul protocol to open when sending information to Space
         /// </summary>
-        public static string DefaultSpaceProtocol = "/Cmf/Custom/Protocol/Space";
+        public static string DefaultSpaceProtocol = "/Cmf/Custom/AMSOsram/Protocol/Space";
 
         #endregion
 
