@@ -337,9 +337,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
                     parent.Load();
 
-                    // Verificar se necessário
-                    //item.Value.Load();
-
                     parent.AddSubMaterials(keyValue.Value);
                 }
             }
@@ -497,6 +494,15 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                             AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialProductWaferSizeMissing, product.Name);
                         }
 
+                        StateModel stateModel = new StateModel()
+                        {
+                            Name = wafer.StateModel
+                        };
+
+                        stateModel.Load();
+                        StateModelState stateModelState = new StateModelState();
+                        stateModelState.Load(wafer.State, stateModel);
+
                         Material material = new Material()
                         {
                             Name = wafer.Name,
@@ -507,6 +513,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                             Form = wafer.Form,
                             Type = wafer.Type
                         };
+
+                        material.CurrentMainState = new CurrentEntityState(material, stateModel, stateModelState);
 
                         subMaterials.Add(material);
 
