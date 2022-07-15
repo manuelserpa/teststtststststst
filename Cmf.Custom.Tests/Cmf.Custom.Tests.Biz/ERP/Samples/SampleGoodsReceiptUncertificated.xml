@@ -6,7 +6,7 @@
         <Type>Production</Type>
         <StateModel>CustomMaterialStateModel</StateModel>
         <State>Queued</State>
-        <Form>Logistical wafer</Form>
+        <Form>Lot</Form>
         <Facility>Regensburg Production</Facility>
         <Flow>FOL-UX3_EPA</Flow>
         <Step>M2-SL-Wafer-Start-07301F001_E</Step>
@@ -15,8 +15,16 @@
             <key name="GoodsReceiptDate" value="08.11.2021" />
         </Attributes>
         <SubMaterial>
-            <Wafer Name="NK17040736E2">
-                <Form>Wafer</Form>
+            <Material>
+                <Name>NK17040736E2</Name>
+                <Product>11018814</Product>
+                <Type>Production</Type>
+                <StateModel>CustomMaterialStateModel</StateModel>
+                <State>Queued</State>
+                <Form>Logical Wafer</Form>
+                <Facility>Regensburg Production</Facility>
+                <Flow>FOL-UX3_EPA</Flow>
+                <Step>M2-SL-Wafer-Start-07301F001_E</Step>
                 <Attributes>
                     <key name="Gravure" value="NK17040736E2" />
                 </Attributes>
@@ -27,7 +35,7 @@
                     <key name="Resistivity" value="0,085" />
                     <key name="Bow" value="-7.56000000000000" />
                 </EDCData>
-            </Wafer>
+            </Material>
         </SubMaterial>
     </Material>
 </GoodsReceiptCertificate>
