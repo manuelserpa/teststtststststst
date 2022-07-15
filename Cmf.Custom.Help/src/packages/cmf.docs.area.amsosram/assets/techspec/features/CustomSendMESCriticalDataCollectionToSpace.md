@@ -2,26 +2,27 @@
 
 ## Requirement Specification
 
-When performing a Data Collection post a mechanism to validate the posted data and to create an XML message should be implemented.
+When performing a Data Collection create a mechanism to validate the posted data and send a XML message to Space System.
 
 ## Design Specification
 
 ### Relevant Artifacts
 
-The table below describes the properties for this entity type:
+The table below describes the relevat artifacts for this feature:
 
 | Name          | Type      | Description |
 | :------------ | :-------- | :---------- |
 | [CustomReportEDCToSpaceHandler](/AMSOsram/techspec>artifacts>deeactions>CustomReportEDCToSpaceHandler) | DEE Action | DEE action to validate DataCollection and create a XML message to be sent to Space system. |
+| /Cmf/Custom/AMSOsram/Protocol/Space | Config | Default Protocol when sending information to Space. |
 
 ### How it works
 
 When a ComplexPerformDataCollection is performed the DEE Action [CustomReportEDCToSpaceHandler](/AMSOsram/techspec>artifacts>deeactions>CustomReportEDCToSpaceHandler) will be executed validating the posted values using the limit set provided.
 
-- If the values respect the limit set defined a protocol defined in the configuration */Cmf/Custom/Protocol/Space* is opened
+- If the values respect the limit set defined a protocol defined in the configuration */Cmf/Custom/AMSOsram/Protocol/Space* is opened
 - Otherwise, the main lot is put on hold with hold reason **Out Of Spec**.  
 
-In the end, a message in XML format will be published on the Message Bus.
+In the end, a message in XML format will be published on the Message Bus to be sent to Space System.
 
 ### Assumptions
 

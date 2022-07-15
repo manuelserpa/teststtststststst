@@ -704,7 +704,7 @@
 {
    "id": "customsendmescriticaldatacollectiontospace",
    "menuGroupId": "features",
-   "title": "CustomSendMESCriticalDataCollectionToSpace",
+   "title": "Send Critical Data Collection to Space",
    "actionId": ""
 },
 {
