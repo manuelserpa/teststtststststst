@@ -574,9 +574,9 @@
         public static string DefaultGoodsIssueMovementTypeConfig = "/Cmf/Custom/ERP/MovementType/GoodsIssue";
 
         /// <summary>
-        /// configuration with defaul protocol to open when sending information to Space
+        /// Default Protocol to open when sending information to Space
         /// </summary>
-        public static string DefaultSpaceProtocol = "/Cmf/Custom/AMSOsram/Protocol/Space";
+        public static string DefaultSpaceProtocol = "/AMSOsram/Protocol/Space";
 
         #endregion
 
