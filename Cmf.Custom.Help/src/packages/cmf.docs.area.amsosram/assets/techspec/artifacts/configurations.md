@@ -4,9 +4,9 @@
 
 The following table describes the configuration entries created.
 
-|           Name                 |                      Path                        | Type         | Initial Value  | Description                                        |
-| ------------------------------ | ------------------------------------------------ | :----------: | -------------- | -------------------------------------------------- |
-| GenericRequestTimeout          | /Cmf/Custom/Automation/GenericRequestTimeout/    | Int32        | 30000          | Generic IoT Request Timeout in milliseconds        |
-| TrackInTimeout                 | /Cmf/Custom/Automation/TrackInTimeout/           | Int32        | 60000          | TrackIn IoT Request Timeout in milliseconds        |
-| GoodsIssue                     | /Cmf/Custom/ERP/MovementType/GoodsIssue          | String       | 261            |                                                    |
-| Space                          | /Cmf/Custom/AMSOsram/Protocol/Space              | String       | Empty          | Default Protocol when sending information to Space |
+|           Name                 |                      Path                        | Type         | Initial Value | Description                                        |
+| ------------------------------ | ------------------------------------------------ | :----------: | :-----------: | -------------------------------------------------- |
+| GenericRequestTimeout          | /Cmf/Custom/Automation/GenericRequestTimeout/    | Int32        | 30000         | Generic IoT Request Timeout in milliseconds        |
+| TrackInTimeout                 | /Cmf/Custom/Automation/TrackInTimeout/           | Int32        | 60000         | TrackIn IoT Request Timeout in milliseconds        |
+| GoodsIssue                     | /Cmf/Custom/ERP/MovementType/GoodsIssue          | String       | 261           |                                                    |
+| Space                          | /AMSOsram/Protocol/Space                         | String       | Empty         | Default Protocol when sending information to Space |
