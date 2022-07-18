@@ -31,5 +31,15 @@
 			"MainForm": "Logical Wafer",
 			"SubForm": "Wafer"
 		}
-	}
+	},
+	"<SM>DEEAction": {
+        "1": {
+            "Action": "CustomIncomingMaterialLotCreation",
+            "Description": "Create Lots using information from ERP",
+            "CodeFileRelativePath": "Integrations\\CustomIncomingMaterialLotCreation.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        }
+    },
+    "DEEActionOrder": {},
 }
