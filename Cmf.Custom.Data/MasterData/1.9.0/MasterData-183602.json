@@ -13,6 +13,13 @@
 			"Lookup Table Value": "Logical Wafer",
 			"Lookup Table Value Description": "Logical Wafer",
 			"Lookup Table IsEnabled": "Yes"
+		},
+		"3": {
+			"LookUp Table": "MaterialForm",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "Wafer",
+			"Lookup Table Value Description": "Wafer",
+			"Lookup Table IsEnabled": "Yes"
 		}
 	},
 	"<GT>MaterialFormRelation": {
