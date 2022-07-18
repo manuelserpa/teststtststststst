@@ -1,0 +1,92 @@
+{
+    "<DM>Reason": {
+        "1": {
+            "Name": "Stopped By Space",
+            "Description": "Custom Hold Reason Stopped By Space",
+            "ReasonType": "Hold",
+            "SecurityRole": "",
+            "ParentReason": ""
+        }
+    },
+    "<SM>EntityTypeProperty": {
+        "1": {
+            "EntityType": "Step",
+            "Name": "RequiresSpaceConfirmation",
+            "Description": "The Attribute to inform if the space requires space confirmation",
+            "PropertyType": "Attribute",
+            "CopyOnClone": "",
+            "BelongsTo": "Definition",
+            "ScalarType": "Bit",
+            "ScalarSize": "",
+            "ScalarPrecision": "",
+            "ReferenceType": "",
+            "ReferenceName": "",
+            "DefaultValue": "0",
+            "IsArray": "",
+            "IsEnabled": "",
+            "IsHistoryEnable": "Yes",
+            "IsIndexed": "",
+            "IsMandatory": "",
+            "AccessLevel": "",
+            "ValidationRange": "",
+            "ValidationRegex": "",
+            "DataGroup": "",
+            "LoadToDWH": "",
+            "LocalizedMessageKey": ""
+        },
+        "2": {
+            "EntityType": "Product",
+            "Name": "BasicType",
+            "Description": "The Attribute to inform the basic type",
+            "PropertyType": "Attribute",
+            "CopyOnClone": "",
+            "BelongsTo": "Definition",
+            "ScalarType": "String",
+            "ScalarSize": "",
+            "ScalarPrecision": "",
+            "ReferenceType": "",
+            "ReferenceName": "",
+            "DefaultValue": "",
+            "IsArray": "",
+            "IsEnabled": "",
+            "IsHistoryEnable": "Yes",
+            "IsIndexed": "",
+            "IsMandatory": "",
+            "AccessLevel": "",
+            "ValidationRange": "",
+            "ValidationRegex": "",
+            "DataGroup": "",
+            "LoadToDWH": "",
+            "LocalizedMessageKey": ""
+        }
+    },
+    "<SM>DEEAction": {
+        "1": {
+            "Action": "CustomReportEDCToSpaceHandler",
+            "Description": "Action to validate DataCollection and create a XML message to be sent to Space system.",
+            "CodeFileRelativePath": "Space\\CustomReportEDCToSpaceHandler.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        }
+    },
+    "DEEActionOrder": {
+        "1": {
+            "ActionGroup": "BusinessObjects.DataCollectionInstance.PerformImmediate.Post",
+            "Action": "CustomReportEDCToSpaceHandler",
+            "Order": "1"
+        },
+        "2": {
+            "ActionGroup": "BusinessObjects.DataCollectionInstance.Close.Post",
+            "Action": "CustomReportEDCToSpaceHandler",
+            "Order": "1"
+        }
+    },
+    "<SM>Config": {
+        "1": {
+            "ParentPath": "/AMSOsram/Protocol",
+            "Name": "Space",
+            "Value": "",
+            "ValueType": "String"
+        }
+    }
+}

@@ -572,5 +572,18 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
         }
 
         #endregion
+
+        public static void WaitFor(this Func<bool> condition, int maxNumberOfRetries = 10, int msSleepTime = 500)
+        {
+            int retryCount = 0;
+            do
+            {
+                if (condition?.Invoke() ?? true)
+                {
+                    break;
+                }
+                System.Threading.Thread.Sleep(msSleepTime);
+            } while (retryCount++ < maxNumberOfRetries);
+        }
     }
 }

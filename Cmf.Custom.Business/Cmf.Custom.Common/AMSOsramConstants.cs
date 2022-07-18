@@ -174,6 +174,15 @@
         /// </summary>
         public static string CustomSiteCodeAttribute = "SiteCode";
 
+        /// <summary>
+        /// Step Attribute RequiresSpaceConfirmation
+        /// </summary>
+        public static string StepAttributeRequiresSpaceConfirmation = "RequiresSpaceConfirmation";
+
+        /// <summary>
+        /// Product Attribute BasicType
+        /// </summary>
+        public static string ProductAttributeBasicType = "BasicType";
 
         #endregion
 
@@ -563,6 +572,11 @@
         /// Movement type to send goods issue
         /// </summary>
         public static string DefaultGoodsIssueMovementTypeConfig = "/Cmf/Custom/ERP/MovementType/GoodsIssue";
+
+        /// <summary>
+        /// Default Protocol to open when sending information to Space
+        /// </summary>
+        public static string DefaultSpaceProtocol = "/AMSOsram/Protocol/Space";
 
         #endregion
 
@@ -1103,6 +1117,11 @@
         /// Tibco subject for invalidate cache
         /// </summary>
         public const string CustomTibcoEMSGatewayInvalidateCache = "CustomTibcoEMSGatewayInvalidateCache";
+
+        /// <summary>
+        /// Tibco subject for report DataCollection to Space
+        /// </summary>
+        public const string CustomReportEDCToSpace = "CustomReportEDCToSpace";
 
         /// <summary>
         /// Tibco IsEnabled config path

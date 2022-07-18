@@ -96,15 +96,15 @@
    "actionId": ""
 },
 {
-   "id": "configurations",
-   "menuGroupId": "artifacts",
-   "title": "Configuration Entries",
-   "actionId": ""
-},
-{
    "id": "c_analytics",
    "menuGroupId": "artifacts",
    "title": "Analytics",
+   "actionId": ""
+},
+{
+   "id": "configurations",
+   "menuGroupId": "artifacts",
+   "title": "Configuration Entries",
    "actionId": ""
 },
 {
@@ -255,6 +255,12 @@
    "id": "customprocessproductsfromerp",
    "menuGroupId": "deeactions",
    "title": "Custom Process Products From ERP",
+   "actionId": ""
+},
+{
+   "id": "customreportedctospacehandler",
+   "menuGroupId": "deeactions",
+   "title": "CustomReportEDCToSpaceHandler",
    "actionId": ""
 },
 {
@@ -693,6 +699,12 @@
    "id": "customnicelabelprint",
    "menuGroupId": "features",
    "title": "Custom Nice Label Print",
+   "actionId": ""
+},
+{
+   "id": "customsendmescriticaldatacollectiontospace",
+   "menuGroupId": "features",
+   "title": "Send Critical Data Collection to Space",
    "actionId": ""
 },
 {
