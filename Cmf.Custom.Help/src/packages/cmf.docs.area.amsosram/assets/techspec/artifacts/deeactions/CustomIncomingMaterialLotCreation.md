@@ -2,7 +2,7 @@
 
 ## Overview
 
-DEE action to create or update lot incoming from ERP.
+DEE action to create or update (on hold) lot incoming from ERP.
 
 ## Action Groups
 
@@ -12,12 +12,10 @@ DEE action to create or update lot incoming from ERP.
 
 These are the preconditions for the DEE to be executed:
 
-* The message will send the information of single lot.
-* If a lot or wafer field is invalid the transaction will be aborted.
-* The system will throw an exception if the incoming lot exists on the system and it´s on a different Step and Flow.
-* The system will throw an exception if the next iteration has different wafers compared to the first iteration.
-* The system will throw an exception if no certificate Data Collection or at least one wafer has no EDC Data.
-* The system will not throw an exception if no certificate Data Collection and all wafers have no EDC Data.
+* The mandatory fields for the Lot or Wafers are valid.
+* The incoming Lot exists in the system and it's on the same Step or Flow.
+* The incoming Lot exists in the system and Incoming Wafers matches the existing.
+* There a Data Collection in the system for the Context and incoming Wafers have EDC Data.
 
 ## Action
 
