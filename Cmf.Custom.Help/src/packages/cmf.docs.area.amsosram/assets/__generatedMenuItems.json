@@ -72,6 +72,12 @@
    "actionId": ""
 },
 {
+   "id": "amsosram-20220719-1.9.0",
+   "menuGroupId": "releasenotes",
+   "title": "AMSOsram-20220719-1.9.0",
+   "actionId": ""
+},
+{
    "id": "artifacts",
    "menuGroupId": "techspec",
    "title": "Artifacts",
@@ -96,15 +102,15 @@
    "actionId": ""
 },
 {
-   "id": "c_analytics",
-   "menuGroupId": "artifacts",
-   "title": "Analytics",
-   "actionId": ""
-},
-{
    "id": "configurations",
    "menuGroupId": "artifacts",
    "title": "Configuration Entries",
+   "actionId": ""
+},
+{
+   "id": "c_analytics",
+   "menuGroupId": "artifacts",
+   "title": "Analytics",
    "actionId": ""
 },
 {
