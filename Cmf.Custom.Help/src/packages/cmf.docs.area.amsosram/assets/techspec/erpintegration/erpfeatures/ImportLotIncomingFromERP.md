@@ -8,7 +8,7 @@ Materials can be imported to MES from the ERP. To do this, MES should parse a me
 
 ### Relevant Artifacts
 
-The table below describes the properties for this entity type:
+The table below describes the relevat artifacts for this feature:
 
 | Name                         | Type        | Is Mandatory | Data Type | Description                             |
 | ---------------------------- | ----------- | :----------: | --------- | --------------------------------------- |
@@ -17,24 +17,39 @@ The table below describes the properties for this entity type:
 
 ### How it works
 
-The MES will receive a message format in XML through the **CustomReceiveERPMessage** API. Then, based on the MessageType, a specific **Action** will be called and the XML message will be interpreted and the necessary objects will be created. For the lot creation the MessageType is *PerformIncomingMaterialMasterData*. 
+The MES will receive a message format in XML through the **CustomReceiveERPMessage** API. Then, based on the MessageType, a specific **Action** will be called and the XML message will be interpreted and the necessary objects will be created. For the lot creation the MessageType is *PerformIncomingMaterialMasterData*.
 
-These are the mandatory fields validated by the system:
+These are the mandatory fields validated on **Lot** creation by the system:
 
-| Name          | Description                       | Mandatory | MES Entity   |  Attribute | Property/Attribute    |
-| :-----------: | :-------------------------------: | :-------: | :----------: | :--------: | :-------------------: |
-| Name          | Material Name                     |    Yes    |   Material   |    Yes     | Name                  |
-| Product       | Material Product Name             |    Yes    |   Product    |    No      | Description           |
-| Type          | Material Type                     |    Yes    |   Material   |    No      | Type                  |
-| StateModel    | The state model                   |    No     |   Material   |    No      | ProductType           |
-| State         | The default State                 |    No     |   Material   |    No      | DefaultUnits          |
-| Form          | Default Form                      |    Yes    |   Material   |    No      | IsEnabled             |
-| Facility      | Facility                          |    Yes    |   Facility   |    No      | Yield                 |
-| Flow          | Flow                              |    No     |   Flow       |    No      | ProductGroup          |
-| Step          | Step                              |    No     |   Step       |    No      | MaximumMaterialSize   |
+| Name          | Description   | Mandatory | MES Entity   |
+| :-----------: | :-----------: | :-------: | :----------: |
+| Name          | Material Name | Yes       |  Material    |
+| Product       | Product Name  | Yes       |  Product     |
+| Type          | Material Type | Yes       |  Material    |
+| StateModel    | State Model   | No        |  Material    |
+| State         | Default State | No        |  Material    |
+| Form          | Default Form  | Yes       |  Material    |
+| Facility      | Facility      | Yes       |  Facility    |
+| Flow          | Flow          | No        |  Flow        |
+| Step          | Step          | No        |  Step        |
 
-The Attribute field can be present on the Material and on the wafer information. 
-The EDCData fild is available on the wafer, this property contains the data to be posted and validated against the certificate.
+These are the mandatory fields validated on **Wafer** creation by the system:
+
+| Name          | Description   | Mandatory | MES Entity   |
+| :-----------: | :-----------: | :-------: | :----------: |
+| Name          | Material Name | Yes       |  Material    |
+| Product       | Product Name  | No        |  Product     |
+| Type          | Material Type | No        |  Material    |
+| StateModel    | State Model   | No        |  Material    |
+| State         | Default State | No        |  Material    |
+| Form          | Default Form  | Yes       |  Material    |
+| Facility      | Facility      | No        |  Facility    |
+| Flow          | Flow          | No        |  Flow        |
+| Step          | Step          | No        |  Step        |
+
+The Attribute field can be present on the Lot and on the Wafer information.
+
+The EDCData field is available on the Wafer, this property contains the data to be posted and validated against the certificate.
 
 ### Assumptions
 
@@ -44,6 +59,7 @@ N/A
 
 The table below describes de user stories that affect the current functionality
 
-| User Story | Type       | Title                                   | Description |
-| :--------: | :--------: | --------------------------------------- | ----------- |
-|   160142   | User Story | Incoming material lot creation          |             |
+| User Story | Type       | Title                          | Description |
+| :--------: | :--------: | ------------------------------ | ----------- |
+| 160142     | User Story | Incoming material lot creation |             |
+| 183602     | User Story | Certificate Lot - Improvement  |             |

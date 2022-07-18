@@ -13,6 +13,13 @@
 			"Lookup Table Value": "Logical Wafer",
 			"Lookup Table Value Description": "Logical Wafer",
 			"Lookup Table IsEnabled": "Yes"
+		},
+		"3": {
+			"LookUp Table": "MaterialForm",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "Wafer",
+			"Lookup Table Value Description": "Wafer",
+			"Lookup Table IsEnabled": "Yes"
 		}
 	},
 	"<GT>MaterialFormRelation": {
@@ -24,5 +31,15 @@
 			"MainForm": "Logical Wafer",
 			"SubForm": "Wafer"
 		}
-	}
+	},
+	"<SM>DEEAction": {
+        "1": {
+            "Action": "CustomIncomingMaterialLotCreation",
+            "Description": "Create Lots using information from ERP",
+            "CodeFileRelativePath": "Integrations\\CustomIncomingMaterialLotCreation.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        }
+    },
+    "DEEActionOrder": {}
 }
