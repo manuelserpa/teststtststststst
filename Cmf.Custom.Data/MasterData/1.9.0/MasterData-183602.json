@@ -20,6 +20,34 @@
 			"Lookup Table Value": "Wafer",
 			"Lookup Table Value Description": "Wafer",
 			"Lookup Table IsEnabled": "Yes"
+		},
+		"4": {
+			"LookUp Table": "MaterialForm",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "Lot",
+			"Lookup Table Value Description": "Lot",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"5": {
+			"LookUp Table": "MaterialForm",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "Consumable",
+			"Lookup Table Value Description": "Consumable",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"6": {
+			"LookUp Table": "MaterialForm",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "Cristal",
+			"Lookup Table Value Description": "Cristal",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"7": {
+			"LookUp Table": "MaterialForm",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "Durable",
+			"Lookup Table Value Description": "Durable",
+			"Lookup Table IsEnabled": "Yes"
 		}
 	},
 	"<GT>MaterialFormRelation": {
