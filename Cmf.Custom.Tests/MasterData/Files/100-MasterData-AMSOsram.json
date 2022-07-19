@@ -630,14 +630,14 @@
     "88": {
       "LookUp Table": "MaterialForm",
       "Lookup Table Value Parent": "",
-      "Lookup Table Value": "Logistical wafer",
+      "Lookup Table Value": "Logical Wafer",
       "Lookup Table Value Description": "",
       "Lookup Table IsEnabled": "Yes"
     },
     "89": {
       "LookUp Table": "MaterialForm",
       "Lookup Table Value Parent": "",
-      "Lookup Table Value": "Cristal",
+      "Lookup Table Value": "Crystal",
       "Lookup Table Value Description": "",
       "Lookup Table IsEnabled": "Yes"
     },
