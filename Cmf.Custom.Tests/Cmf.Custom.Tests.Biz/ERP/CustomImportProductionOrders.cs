@@ -215,13 +215,13 @@ namespace Cmf.Custom.Tests.Biz.ERP
             Assert.IsTrue(_scenario.IntegrationEntries.Count > 0, "Integration Entries should have been created");
             foreach (IntegrationEntry ie in _scenario.IntegrationEntries)
             {
-                Assert.IsTrue(ie.IsIntegrationEntryProcessed(), "Integration Entry was not processed. Error Message: {0}", ie.ResultDescription);
+                Assert.IsTrue(ie.IsIntegrationEntryProcessed(secondsBetweenAttempts: 10), "Integration Entry was not processed. Error Message: {0}", ie.ResultDescription);
             }
 
             ///<Step> Validate integration entry with the Production Order </Step>
             ///<ExpectedResult> Integration entry should be processed </ExpectedResult>
             IntegrationEntry productionOrderIntegrationEntry = CustomUtilities.GetIntegrationEntry(productionOrdersMessage[0].Name);
-            Assert.IsTrue(productionOrderIntegrationEntry.IsIntegrationEntryProcessed(), "Integration Entry was not processed. Error Message: {0}", productionOrderIntegrationEntry.ResultDescription);
+            Assert.IsTrue(productionOrderIntegrationEntry.IsIntegrationEntryProcessed(secondsBetweenAttempts: 10), "Integration Entry was not processed. Error Message: {0}", productionOrderIntegrationEntry.ResultDescription);
 
             ProductionOrder po = new ProductionOrder()
             {
@@ -238,8 +238,6 @@ namespace Cmf.Custom.Tests.Biz.ERP
             ///<Step> Validate Production Order created </Step>
             ///<ExpectedResult> Production Order should have the correct information </ExpectedResult>
             ValidateProductionOrder(productionOrdersMessage[0], po);
-
-            Thread.Sleep(18000);
 
             #region UpdatePO
 
@@ -263,13 +261,13 @@ namespace Cmf.Custom.Tests.Biz.ERP
             Assert.IsTrue(updateScenario.IntegrationEntries.Count > 0, "Integration Entries should have been created");
             foreach (IntegrationEntry ie in updateScenario.IntegrationEntries)
             {
-                Assert.IsTrue(ie.IsIntegrationEntryProcessed(), "Integration Entry was not processed. Error Message: {0}", ie.ResultDescription);
+                Assert.IsTrue(ie.IsIntegrationEntryProcessed(secondsBetweenAttempts: 10), "Integration Entry was not processed. Error Message: {0}", ie.ResultDescription);
             }
 
             ///<Step> Validate integration entry with the Production Order to be updated </Step>
             ///<ExpectedResult> Integration entry should be processed </ExpectedResult>
             productionOrderIntegrationEntry = CustomUtilities.GetIntegrationEntry(updateProductionOrdersMessage[0].Name);
-            Assert.IsTrue(productionOrderIntegrationEntry.IsIntegrationEntryProcessed(), "Integration Entry was not processed. Error Message: {0}", productionOrderIntegrationEntry.ResultDescription);
+            Assert.IsTrue(productionOrderIntegrationEntry.IsIntegrationEntryProcessed(secondsBetweenAttempts: 10), "Integration Entry was not processed. Error Message: {0}", productionOrderIntegrationEntry.ResultDescription);
 
             po = new ProductionOrder()
             {
@@ -279,6 +277,9 @@ namespace Cmf.Custom.Tests.Biz.ERP
             Assert.IsTrue(po.ObjectExists(), $"Production Order named {updateProductionOrdersMessage[0].Name} should have been created.");
 
             customTeardownManager.Push(po);
+
+            Thread.Sleep(18000);
+
             po.Load();
             po.Product.Load();
             po.Facility.Load();
