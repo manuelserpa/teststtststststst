@@ -37,11 +37,11 @@ namespace Cmf.Custom.Tests.Biz.Employees
             if (resource.ObjectExists())
             {
                 // Set secondary state to busy
-                AdjustSecondaryState(resourceName, "Busy");
+                AdjustAutomationState(resourceName, "Busy", "CustomEquipmentPerformanceTrackingStateModel");
                 beforeState = GetSecondaryResourceState(resourceChamberName);
 
                 // Set secondary state to idle
-                AdjustSecondaryState(resourceName, "Idle");
+                AdjustAutomationState(resourceName, "Idle", "CustomEquipmentPerformanceTrackingStateModel");
                 afterState = GetSecondaryResourceState(resourceChamberName);
 
                 Assert.AreNotEqual(beforeState, afterState, "The secondary state of the chamber was not adjusted correctly.");
@@ -78,14 +78,14 @@ namespace Cmf.Custom.Tests.Biz.Employees
         /// <summary>
         /// Adjusts the secondary resource state by executing CustomAutomationSetCustomResourceState
         /// </summary>
-        private void AdjustSecondaryState(string resourceName, string stateName)
+        private void AdjustAutomationState(string resourceName, string stateName, string stateModelName)
         {
             // Create Input for DEE call
             Dictionary<string, object> inputDee = new Dictionary<string, object>
                 {
                     { constResourceName, resourceName },
                     { constStateName, stateName },
-                    { constStateModelName, "CustomEquipmentPerformanceTrackingStateModel" },
+                    { constStateModelName, stateModelName},
                     { constChamberResourceNumber, "1" }
                 };
             // Get CustomAutomationSetCustomResourceState DEE

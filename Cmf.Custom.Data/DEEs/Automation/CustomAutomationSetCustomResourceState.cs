@@ -157,7 +157,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
             }
 
-            if (String.IsNullOrEmpty(reason))
+            if (String.IsNullOrWhiteSpace(reason))
             {
                 resource.AdjustState(state, current.StateModel);
             }
