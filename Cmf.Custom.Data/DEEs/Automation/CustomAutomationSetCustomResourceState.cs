@@ -75,19 +75,19 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
             String stateModelName = Input["StateModelName"] as String;
 
             int? loadPortNumber = null;
-            if (Input.ContainsKey("LoadPortNumber") && Input["LoadPortNumber"] != null && String.IsNullOrEmpty(Input["LoadPortNumber"].ToString()))
+            if (Input.ContainsKey("LoadPortNumber") && Input["LoadPortNumber"] != null && !String.IsNullOrWhiteSpace(Input["LoadPortNumber"].ToString()))
             {
                 loadPortNumber = int.Parse(Input["LoadPortNumber"].ToString());
             }
 
             int? chamberResourceNumber = null;
-            if (Input.ContainsKey("ChamberResourceNumber") && Input["ChamberResourceNumber"] != null && String.IsNullOrEmpty(Input["ChamberResourceNumber"].ToString()))
+            if (Input.ContainsKey("ChamberResourceNumber") && Input["ChamberResourceNumber"] != null && !String.IsNullOrWhiteSpace(Input["ChamberResourceNumber"].ToString()))
             {
                 chamberResourceNumber = int.Parse(Input["ChamberResourceNumber"].ToString());
             }
 
             int? componentResourceNumber = null;
-            if (Input.ContainsKey("ComponentResourceNumber") && Input["ComponentResourceNumber"] != null && String.IsNullOrEmpty(Input["ComponentResourceNumber"].ToString()))
+            if (Input.ContainsKey("ComponentResourceNumber") && Input["ComponentResourceNumber"] != null && !String.IsNullOrWhiteSpace(Input["ComponentResourceNumber"].ToString()))
             {
                 componentResourceNumber = int.Parse(Input["ComponentResourceNumber"].ToString());
             }
