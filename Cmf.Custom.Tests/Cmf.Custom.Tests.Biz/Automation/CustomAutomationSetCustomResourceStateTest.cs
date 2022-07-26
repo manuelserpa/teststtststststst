@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
-namespace Cmf.Custom.Tests.Biz.Employees
+namespace Cmf.Custom.Tests.Biz.Automation
 {
     [TestClass]
     public class CustomAutomationSetCustomResourceState
@@ -18,6 +18,9 @@ namespace Cmf.Custom.Tests.Biz.Employees
         private const string constChamberResourceNumber = "ChamberResourceNumber";
         private const string resourceName = "5FASH1";
         private const string resourceChamberName = "5FASH1-PM01";
+        private const string stateNameIdle = "Idle";
+        private const string stateNameBusy = "Busy";
+        private const string stateModelName = "CustomEquipmentPerformanceTrackingStateModel";
 
         /// <summary>
         /// Description: This test validates the adjustment of the secondary resource state after a successful call of CustomAutomationSetCustomResourceState
@@ -37,11 +40,11 @@ namespace Cmf.Custom.Tests.Biz.Employees
             if (resource.ObjectExists())
             {
                 // Set secondary state to busy
-                AdjustAutomationState(resourceName, "Busy", "CustomEquipmentPerformanceTrackingStateModel");
+                AdjustAutomationState(resourceName, stateNameBusy, stateModelName);
                 beforeState = GetSecondaryResourceState(resourceChamberName);
 
                 // Set secondary state to idle
-                AdjustAutomationState(resourceName, "Idle", "CustomEquipmentPerformanceTrackingStateModel");
+                AdjustAutomationState(resourceName, stateNameIdle, stateModelName);
                 afterState = GetSecondaryResourceState(resourceChamberName);
 
                 Assert.AreNotEqual(beforeState, afterState, "The secondary state of the chamber was not adjusted correctly.");
@@ -55,8 +58,9 @@ namespace Cmf.Custom.Tests.Biz.Employees
         #region Help Methods
 
         /// <summary>
-        /// Returns the resource states
+        /// Returns the resources states
         /// </summary>
+        /// <returns>string states</returns>
         private string GetSecondaryResourceState(string resourceName)
         {
 
@@ -76,7 +80,7 @@ namespace Cmf.Custom.Tests.Biz.Employees
         }
 
         /// <summary>
-        /// Adjusts the secondary resource state by executing CustomAutomationSetCustomResourceState
+        /// Adjusts the resource state by executing CustomAutomationSetCustomResourceState
         /// </summary>
         private void AdjustAutomationState(string resourceName, string stateName, string stateModelName)
         {
