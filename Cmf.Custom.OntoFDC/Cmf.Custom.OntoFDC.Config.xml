@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <appSettings>
+    <add key="FDCActive" value="True"/>
+    <add key="FDCMandatory" value="False"/>
+    <add key="FDCServerAndPort" value="lnx-rbg09.int.osram-light.com:1500"/>
+  </appSettings>
+</configuration>

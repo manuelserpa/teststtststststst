@@ -18,6 +18,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\Cmf.Custom.Business\Cmf.Custom.Common\Cmf.Custom.AMSOsram.Common.csproj" />
 		<ProjectReference Include="..\..\Cmf.Custom.Business\Cmf.Custom.Orchestration\Cmf.Custom.AMSOsram.Orchestration.csproj" />
+		<ProjectReference Include="..\..\Cmf.Custom.OntoFDC\Cmf.Custom.OntoFDC.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition">
