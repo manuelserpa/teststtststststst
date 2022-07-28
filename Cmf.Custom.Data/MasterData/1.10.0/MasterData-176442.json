@@ -105,9 +105,9 @@
   },
     "<SM>DEEAction": {
 		"1": {
-            "Action": "CustomPrepareMaterialDataToFDC",
+            "Action": "CustomReportDataToFDC",
             "Description": "Dee action is triggered to create an integration entry with the material data to send to FDC.",
-            "CodeFileRelativePath": "Materials\\CustomPrepareMaterialDataToFDC.cs",
+            "CodeFileRelativePath": "Materials\\CustomReportDataToFDC.cs",
             "IsEnabled": "Yes",
             "Classification": ""
         }
@@ -115,17 +115,17 @@
 	"DEEActionOrder": {
 		"1": {
 		  "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.AbortMaterialsProcess.Post",
-		  "Action": "CustomPrepareMaterialDataToFDC",
+		  "Action": "CustomReportDataToFDC",
 		  "Order": "100"
 		},
 		"2": {
 		  "ActionGroup": "BusinessObjects.MaterialCollection.TrackIn.Post",
-		  "Action": "CustomPrepareMaterialDataToFDC",
+		  "Action": "CustomReportDataToFDC",
 		  "Order": "100"
 		},
 		"3": {
 		  "ActionGroup": "BusinessObjects.MaterialCollection.TrackOut.Post",
-		  "Action": "CustomPrepareMaterialDataToFDC",
+		  "Action": "CustomReportDataToFDC",
 		  "Order": "100"
 		}
     },
