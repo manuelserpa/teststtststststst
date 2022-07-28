@@ -236,5 +236,29 @@
         public const string CustomReportEDCToSpace = "CustomReportEDCToSpace";
 
         #endregion
+
+        #region ONTO FDC
+
+        //// <summary>
+        /// LOTIN Integration Entry Message Type
+        /// </summary>
+        public static string MessageType_LOTIN = "LOTIN";
+
+        /// <summary>
+        /// LOTOUT Integration Entry Message Type
+        /// </summary>
+        public static string MessageType_LOTOUT = "LOTOUT";
+
+        /// <summary>
+        /// WAFERIN Integration Entry Message Type
+        /// </summary>
+        public static string MessageType_WAFERIN = "WAFERIN";
+
+        /// <summary>
+        /// WAFEROUT Integration Entry Message Type
+        /// </summary>
+        public static string MessageType_WAFEROUT = "WAFEROUT";
+
+        #endregion
     }
 }
