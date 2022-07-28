@@ -13,7 +13,7 @@ using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
 
 namespace Cmf.Custom.AMSOsram.Actions.Materials
 {
-    public class CustomReportDataToFDC : DeeDevBase
+    public class CustomReportMaterialDataToFDC : DeeDevBase
     {
         /// <summary>
         /// Dee test condition.
