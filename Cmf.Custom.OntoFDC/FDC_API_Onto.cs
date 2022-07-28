@@ -18,28 +18,29 @@ namespace Cmf.Custom.OntoFDC
         /// <summary>
         /// The FDC Server
         /// </summary>
-        private readonly AshlServerLite myServer;
+        private readonly AshlServerLite server;
+
+        /// <summary>
+        /// FDC Active configuration
+        /// </summary>
+        public bool FDCActive { get; private set; } = false;
 
         private readonly string toolname;
-
-        public bool FDCActive { get; private set; } = false;
-        public bool FDCMandatory { get; private set; } = false;
-
-        // private bool RegisterHandler = false;
-
-        public FDC_API_Onto(bool fdcActive, bool fdcMandatory, string fdcServer, string fdcPort, string toolCode = "TEST")
+        public FDC_API_Onto(bool fdcActive, bool fdcMandatory, string fdcServer, int fdcPort, string toolCode = "TEST")
         {
-            Log.Debug($"FDC_API_Onto Constructor.");
-            Log.Debug($"FDC_API_Onto FDCActive={fdcActive}");
-            Log.Debug($"FDC_API_Onto FDCMandatory={fdcMandatory}");
-            Log.Debug($"FDC_API_Onto FDCServer={fdcServer}:{fdcPort}");
+            //Log.Debug($"FDC_API_Onto Constructor.");
+            //Log.Debug($"FDC_API_Onto FDCActive={fdcActive}");
+            //Log.Debug($"FDC_API_Onto FDCMandatory={fdcMandatory}");
+            //Log.Debug($"FDC_API_Onto FDCServer={fdcServer}:{fdcPort}");
 
-            if (FDCActive)
+            if (fdcActive)
             {
+                FDCActive = true;
+
                 if (string.IsNullOrEmpty(toolCode))
                 {
                     toolname = "TEST";
-                    Log.Error($"Toolcode is empty! Toolname { toolname } is used instead.");
+                    //Log.Error($"Toolcode is empty! Toolname { toolname } is used instead.");
                 }
                 else
                 {
@@ -64,8 +65,8 @@ namespace Cmf.Custom.OntoFDC
                 // This is an expensive operation (can take several seconds!)  The server instance is automatically reused by the AshlMessage class.    
                 try
                 {
-                    myServer = AshlServerLite.getInstanceUsingParameters(messagingSettings);
-                    if (!myServer.isActive())
+                    server = AshlServerLite.getInstanceUsingParameters(messagingSettings);
+                    if (!server.isActive())
                     {
                         Log.Error($"Error establishing connection to FDC server: ServerConnecion is not active.");
                     }
@@ -123,11 +124,11 @@ namespace Cmf.Custom.OntoFDC
         {
             Log.Debug($"Deregister FDC_API_Onto.");
             // De-Register FDC:
-            if (myServer.isActive())
+            if (server.isActive())
             {
                 try
                 {
-                    myServer.requestStopAndJoin();
+                    server.requestStopAndJoin();
                     Log.Debug($"De-registration successful.");
                 }
                 catch (Exception ex)
@@ -171,19 +172,11 @@ namespace Cmf.Custom.OntoFDC
         /// /// <param name="chamber">The chamber of the tool, the wafer is going to be processed (default="")</param>
         /// <param name="eqChamberConnectString">The character which links the toolname with the chamber name (2FICP7_PM1 -> "_") (default = "-")</param>
         /// <param name="additionalLogisticTerms">Additional logistic terms can be defined as key-values pairs (Key = Logistic Term, Value = the value) (default = null)</param>
-        public void SendFdcLotStart(string batchName, 
-            string lotName, 
-            string recipe, 
-            string operation = "DummyOperation", 
-            string sps = "", 
-            string ProductName = "", 
-            string ProductRoute = "", 
-            int NumberOfWafersInBatch = 0, 
+        public void SendFdcLotStart(FdcLotInfo fdcLotInfo,
             long eventId = 0, 
             string remark = "",
             string chamber = "",
             string eqChamberConnectString = "-",
-            Dictionary<string, string> additionalLogisticTerms = null,
             string owner = "")
         {
             // A startLot message must be sent before lot processing begins.
@@ -197,94 +190,104 @@ namespace Cmf.Custom.OntoFDC
             string lRecipe;
 
             // Mandatory input parameter checks:
-            // lotName:
-            if (string.IsNullOrEmpty(lotName))
+            // LotName
+            if (string.IsNullOrEmpty(fdcLotInfo.LotName))
             {
-                Log.Error($"FDC logistic parameter lotName is empty. Function will not be called!");
-                return;
+                throw new Exception($"FDC logistic parameter LotName is empty. Function will not be called!");
+                //Log.Error($"FDC logistic parameter lotName is empty. Function will not be called!");
+                //return;
             }
 
-            // BatchName:
-            if (string.IsNullOrEmpty(batchName))
-            {
-                lBatchName = lotName;
-                Log.Debug($"batchName is empty -> lotName is sent for batchName instead.");
-            }
-            else
-            {
-                lBatchName = batchName;
-            }
+            // BatchName
+            lBatchName = string.IsNullOrEmpty(fdcLotInfo.BatchName) ? fdcLotInfo.LotName : fdcLotInfo.BatchName;
 
             // Operation:
-            if (string.IsNullOrEmpty(operation))
-            {
-                lOperation = "DummyOperation";
-            }
-            else
-            {
-                lOperation = operation;
-            }
+            lOperation = string.IsNullOrEmpty(fdcLotInfo.Operation) ? "DummyOperation" : fdcLotInfo.Operation; // ?? passar dummy??
+            //if (string.IsNullOrEmpty(fdcLotInfo.Operation))
+            //{
+            //    lOperation = "DummyOperation";
+            //}
+            //else
+            //{
+            //    lOperation = operation;
+            //}
 
-            // Recipe:
-            if (string.IsNullOrEmpty(recipe))
-            {
-                lRecipe = "UnknownRecipe";
-            }
-            else
-            {
-                lRecipe = recipe;
-            }
+            // Recipe
+            lRecipe = string.IsNullOrEmpty(fdcLotInfo.RecipeName) ? "UnknownRecipe" : fdcLotInfo.RecipeName; // ?? passar "UnknownRecipe"?
+            //if (string.IsNullOrEmpty(recipe))
+            //{
+            //    lRecipe = "UnknownRecipe";
+            //}
+            //else
+            //{
+            //    lRecipe = recipe;
+            //}
 
             var toolnameWithChamber = GenerateToolnameWithChamber(chamber, eqChamberConnectString);
 
-            Log.Info($"Send LotIn for tool={toolnameWithChamber}, CEID={eventId}");
-            Log.Info($"                     LOT={lotName}");
-            Log.Info($"                     LOGPT={lBatchName}");
-            Log.Info($"                     OPN={lOperation}");
-            Log.Info($"                     RECIPE={lRecipe}");
-            if (!string.IsNullOrEmpty(sps))
-                Log.Info($"                     SUBOPN={sps}");
-            if (!string.IsNullOrEmpty(ProductName))
-                Log.Info($"                     TYPE={ProductName}");
-            if (!string.IsNullOrEmpty(ProductRoute))
-                Log.Info($"                     ROUTE={ProductRoute}");
-            if (NumberOfWafersInBatch != 0)
-                Log.Info($"                     NUMSLICE={NumberOfWafersInBatch}");
-            if (!string.IsNullOrEmpty(owner))
-                Log.Info($"                     OWNER={owner}");
+            //Log.Info($"Send LotIn for tool={toolnameWithChamber}, CEID={eventId}");
+            //Log.Info($"                     LOT={lotName}");
+            //Log.Info($"                     LOGPT={lBatchName}");
+            //Log.Info($"                     OPN={lOperation}");
+            //Log.Info($"                     RECIPE={lRecipe}");
+            //if (!string.IsNullOrEmpty(sps))
+            //    Log.Info($"                     SUBOPN={sps}");
+            //if (!string.IsNullOrEmpty(ProductName))
+            //    Log.Info($"                     TYPE={ProductName}");
+            //if (!string.IsNullOrEmpty(ProductRoute))
+            //    Log.Info($"                     ROUTE={ProductRoute}");
+            //if (NumberOfWafersInBatch != 0)
+            //    Log.Info($"                     NUMSLICE={NumberOfWafersInBatch}");
+            //if (!string.IsNullOrEmpty(owner))
+            //    Log.Info($"                     OWNER={owner}");
 
-            if (additionalLogisticTerms != null)
-            {
-                foreach (KeyValuePair<string, string> additionalLogisticTerm in additionalLogisticTerms)
-                {
-                    if (!String.IsNullOrEmpty(additionalLogisticTerm.Value))
-                    {
-                        Log.Info($"                     additionalLogisticTerm:  Key = {additionalLogisticTerm.Key.ToUpper()}, Value = {additionalLogisticTerm.Value}");
-                    } else {
-                        Log.Warn($"                     additionalLogisticTerm: Value is null for Key = {additionalLogisticTerm.Key.ToUpper()}");
-                    }
-                }
-            }
+            //if (fdcLotInfo.AdditionalLogisticTerms != null)
+            //{
+            //    foreach (KeyValuePair<string, string> additionalLogisticTerm in fdcLotInfo.AdditionalLogisticTerms)
+            //    {
+            //        if (!string.IsNullOrEmpty(additionalLogisticTerm.Value))
+            //        {
+            //            Log.Info($"                     additionalLogisticTerm:  Key = {additionalLogisticTerm.Key.ToUpper()}, Value = {additionalLogisticTerm.Value}");
+            //        } else {
+            //            Log.Warn($"                     additionalLogisticTerm: Value is null for Key = {additionalLogisticTerm.Key.ToUpper()}");
+            //        }
+            //    }
+            //}
 
             DoAction doAction = new DoAction(toolnameWithChamber, CurrentTimeEpoch(), "LotIn");
-            doAction.addTaggedParameter("LOT", lotName);                            // mandatory
+            doAction.addTaggedParameter("LOT", fdcLotInfo.LotName);                            // mandatory
             doAction.addTaggedParameter("LOGPT", lBatchName);                       // mandatory
             doAction.addTaggedParameter("OPN", lOperation);                         // mandatory
-            if (!string.IsNullOrEmpty(sps))
-                doAction.addTaggedParameter("SUBOPN", sps);                         // optional
             doAction.addTaggedParameter("RECIPE", lRecipe);                         // optional
-            if (!string.IsNullOrEmpty(ProductName))
-                doAction.addTaggedParameter("TYPE", ProductName);                   // optional
-            if (!string.IsNullOrEmpty(ProductRoute))
-                doAction.addTaggedParameter("ROUTE", ProductRoute);                 // optional
-            if (NumberOfWafersInBatch != 0)
-                doAction.addTaggedParameter("NUMSLICE", NumberOfWafersInBatch);     // optional
-            if (!string.IsNullOrEmpty(owner))
-                doAction.addTaggedParameter("OWNER", owner);                        // optional
 
-            if (additionalLogisticTerms != null)
+            if (!string.IsNullOrEmpty(fdcLotInfo.SPS))
             {
-                foreach (KeyValuePair<string, string> additionalLogisticTerm in additionalLogisticTerms)
+                doAction.addTaggedParameter("SUBOPN", fdcLotInfo.SPS);              // optional
+            }
+
+            if (!string.IsNullOrEmpty(fdcLotInfo.ProductName))
+            {
+                doAction.addTaggedParameter("TYPE", fdcLotInfo.ProductName);        // optional
+            }
+
+            if (!string.IsNullOrEmpty(fdcLotInfo.ProductRoute))
+            {
+                doAction.addTaggedParameter("ROUTE", fdcLotInfo.ProductRoute);      // optional
+            }
+
+            if (fdcLotInfo.NumberOfWafersInBatch != 0)
+            {
+                doAction.addTaggedParameter("NUMSLICE", fdcLotInfo.NumberOfWafersInBatch); // optional
+            }
+
+            if (!string.IsNullOrEmpty(owner))
+            {
+                doAction.addTaggedParameter("OWNER", owner);                        // optional
+            }               
+
+            if (fdcLotInfo.AdditionalLogisticTerms != null)
+            {
+                foreach (KeyValuePair<string, string> additionalLogisticTerm in fdcLotInfo.AdditionalLogisticTerms)
                 {
                     if (!String.IsNullOrEmpty(additionalLogisticTerm.Value))
                     {
@@ -293,7 +296,8 @@ namespace Cmf.Custom.OntoFDC
                 }
             }
 
-            doAction.setActionComment("LotIn event (CEID " + eventId + ") for " + lotName + " [" + remark + "]");
+            doAction.setActionComment("LotIn event (CEID " + eventId + ") for " + fdcLotInfo.LotName + " [" + remark + "]");
+
             try
             {
                 doAction.send("rtSrv" + toolnameWithChamber);
@@ -309,7 +313,7 @@ namespace Cmf.Custom.OntoFDC
                 return;
             }
 
-            Log.Info($"LotIn was sent successful for lot: {lotName}");
+            Log.Info($"LotIn was sent successful for lot: { fdcLotInfo.LotName }");
         }
 
 

@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.Extensions;
 using Cmf.Custom.OntoFDC;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.Common;
@@ -131,10 +130,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     fdcLotInfo.LotName = material.Name;
                                     fdcLotInfo.BatchName = "";
                                     fdcLotInfo.Operation = material.Step.Name;
-                                    //fdcLotInfo.Chamber = material.LastProcessedResource.Name; // ???
+                                    fdcLotInfo.Chamber = material.LastProcessedResource.Name; // ???
 
                                     //Serialize Integration Entry Message into xml
-                                    integrationEntryMessageXml = fdcLotInfo.ToXml();
+                                    integrationEntryMessageXml = fdcLotInfo.SerializeToXML();
                                 }
                                 break;
                             case MaterialSystemState.InProcess:
@@ -144,17 +143,16 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 
                                     // SendFDCLotStart
                                     material.Step.Load();
-                                    material.LastProcessedResource.LastService.Load();
                                     material.Product.Load();
                                     material.Flow.Load();
                                     material.Facility.Load();
-                                    material.LoadChildren();
 
                                     fdcLotInfo.LotName = material.Name;
                                     fdcLotInfo.BatchName = "";
                                     fdcLotInfo.Operation = material.Step.Name;
                                     fdcLotInfo.SPS = material.LastProcessedResource.LastService.Name; //???
-                                    fdcLotInfo.RecipeName = material.CurrentRecipeInstance != null ? material.CurrentRecipeInstance.Name : string.Empty;
+                                    fdcLotInfo.RecipeName = material.CurrentRecipeInstance != null && material.CurrentRecipeInstance.ParentEntity != null
+                                        ? material.CurrentRecipeInstance.ParentEntity.Name : string.Empty;
                                     fdcLotInfo.ProductName = material.Product.Name;
                                     fdcLotInfo.ProductRoute = material.Flow.Name;
                                     fdcLotInfo.NumberOfWafersInBatch = (int)material.PrimaryQuantity; //???
@@ -164,7 +162,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     //fdcWaferInfo.ProductionLevel = ""; // ???
 
                                     //Serialize Integration Entry Message into xml
-                                    integrationEntryMessageXml = fdcLotInfo.ToXml();
+                                    integrationEntryMessageXml = fdcLotInfo.SerializeToXML();
                                 }
                                 else if (material.ParentMaterial != null) // Validate if Logical wafer?
                                 {
@@ -184,9 +182,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     fdcWaferInfo.LotName = material.ParentMaterial.Name;
                                     fdcWaferInfo.WaferName = material.Name;
                                     fdcWaferInfo.SlotPos = containerPosition;
-                                    fdcWaferInfo.Chamber = material.LastProcessedResource.Name; //??
                                     fdcWaferInfo.LotPos = containerPosition; //??
                                     fdcWaferInfo.QtyIn = (int)material.PrimaryQuantity; //??
+                                    //fdcWaferInfo.Chamber = material.LastProcessedResource.Name; //??
                                     //fdcWaferInfo.IsDummy = true; //?? ProductionType?
                                     //fdcWaferInfo.CarrierGravure = ""; //???
                                     //fdcWaferInfo.Gravure = ""; // ???
@@ -199,7 +197,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     // EPI_POSITION ??? 
 
                                     //Serialize Integration Entry Message into xml
-                                    integrationEntryMessageXml = fdcWaferInfo.ToXml();
+                                    integrationEntryMessageXml = fdcWaferInfo.SerializeToXML();
                                 }
                                 break;
                             case MaterialSystemState.Processed:
@@ -207,7 +205,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                 {
                                     // SendFDCLotEnd
                                     messageType = AMSOsramConstants.MessageType_LOTOUT;
-
                                     material.Step.Load();
 
                                     fdcLotInfo.LotName = material.Name;
@@ -216,7 +213,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     fdcLotInfo.Chamber = material.LastProcessedResource.Name; // ???  sub-resource??
 
                                     //Serialize Integration Entry Message into xml
-                                    integrationEntryMessageXml = fdcLotInfo.ToXml();
+                                    integrationEntryMessageXml = fdcLotInfo.SerializeToXML();
                                 }
                                 else if (material.ParentMaterial != null) // Validate if Logical wafer?
                                 {
@@ -226,14 +223,14 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     fdcWaferInfo.BatchName = "";
                                     fdcWaferInfo.LotName = material.ParentMaterial.Name;
                                     fdcWaferInfo.WaferName = material.Name;
-                                    fdcWaferInfo.Chamber = material.LastProcessedResource.Name; //??
+                                    //fdcWaferInfo.Chamber = material.LastProcessedResource.Name; //??
                                     fdcWaferInfo.Processed = true; //???
                                     fdcWaferInfo.WaferState = "Processed"; //??
                                     //fdcWaferInfo.ReadQuality = ""; //??
                                     // MASKID ???
 
                                     //Serialize Integration Entry Message into xml
-                                    integrationEntryMessageXml = fdcWaferInfo.ToXml();
+                                    integrationEntryMessageXml = fdcWaferInfo.SerializeToXML();
                                 }
                                 break;
                         }
