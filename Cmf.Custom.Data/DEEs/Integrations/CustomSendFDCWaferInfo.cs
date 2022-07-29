@@ -9,7 +9,7 @@ using Cmf.Foundation.Configuration;
 
 namespace Cmf.Custom.AMSOsram.Actions.Integrations
 {
-    class CustomSendFDCLotInfo : DeeDevBase
+    class CustomSendFDCWaferInfo : DeeDevBase
     {
         public override bool DeeTestCondition(Dictionary<string, object> Input)
         {
@@ -18,7 +18,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             #region Info
 
             /* Description:
-             *    DEE action is triggered by Integration Entry Handler in order to process Integration Entries and send Lot Info to Onto FDC.
+             *    DEE action is triggered by Integration Entry Handler in order to process Integration Entries and send Wafer Info to Onto FDC.
              *    Transaction Types need to be defined in Smart Table: IntegrationHandlerResolution
              *  
              * Action Groups:
@@ -35,7 +35,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
             //---Start DEE Code--- 
-            
+
             UseReference("", "System.Globalization");
             UseReference("", "System.Text");
             UseReference("%MicrosoftNetPath%System.Private.Xml.dll", "System.Xml");
@@ -67,7 +67,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             string integrationMessage = System.Text.Encoding.UTF8.GetString(ie.IntegrationMessage.Message);
 
             // Load records from xml
-            FDCLotInfo fdcLotInfo = AMSOsramUtilities.DeserializeXmlToObject<FDCLotInfo>(integrationMessage);
+            FDCWaferInfo fdcWaferInfo = AMSOsramUtilities.DeserializeXmlToObject<FDCWaferInfo>(integrationMessage);
 
             // Fetch FDC Active config
             if (Config.TryGetConfig(AMSOsramConstants.FDCConfigActivePath, out Config fdcActiveConfig) &&
@@ -103,13 +103,13 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 {
                     //FDC_API_Onto fdcApi = new FDC_API_Onto(fdcActive, fdcMandatory, fdcServer, (int)fdcPort);
 
-                    if (ie.MessageType.Equals(AMSOsramConstants.MessageType_LOTIN))
+                    if (ie.MessageType.Equals(AMSOsramConstants.MessageType_WAFERIN))
                     {
-                        //fdcApi.SendFdcLotStart();
+                        //fdcApi.SendFdcWaferIn();
                     }
-                    else if (ie.MessageType.Equals(AMSOsramConstants.MessageType_LOTOUT))
+                    else if (ie.MessageType.Equals(AMSOsramConstants.MessageType_WAFEROUT))
                     {
-                        //fdcApi.SendFdcLotEnd();
+                        //fdcApi.SendFdcWaferOut();
                     }
                 }
                 catch (Exception e)

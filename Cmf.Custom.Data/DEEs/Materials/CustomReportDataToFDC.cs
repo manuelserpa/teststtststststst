@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.OntoFDC;
+using Cmf.Custom.AMSOsram.Common.FDC;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.Common;
 using Cmf.Foundation.Configuration;
@@ -97,6 +97,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                     canExecute = true;
                 }
             }
+
             return canExecute;
 
             //---End DEE Condition Code---
@@ -110,16 +111,16 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
             //---Start DEE Code--- 
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
+            UseReference("", "System.Text");
             UseReference("", "Cmf.Foundation.Common.Exceptions");
             UseReference("", "Cmf.Foundation.Common");
             UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-            UseReference("", "System.Text");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.Extensions");
-            UseReference("Cmf.Custom.OntoFDC.dll", "Cmf.Custom.OntoFDC");
             UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects");
+            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
+            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.FDC");
+            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.Extensions");
+            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
+            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
 
             List<Material> materials = ApplicationContext.CallContext.GetInformationContext("Materials") as List<Material>;
 
@@ -127,7 +128,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
             {
                 if (material.LastProcessedResource != null)
                 {
-                    // Validate FDCCommunication attribute from Resource - what about the wafers??
+                    // Validate FDCCommunication attribute from Resource
                     material.LastProcessedResource.LoadAttributes(new Collection<string> { AMSOsramConstants.ResourceAttributeFDCCommunication });
 
                     if (material.LastProcessedResource.Attributes.ContainsKey(AMSOsramConstants.ResourceAttributeFDCCommunication) &&
@@ -135,8 +136,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                     {
                         string messageType = string.Empty;
                         string integrationEntryMessageXml = string.Empty;
-                        FdcWaferInfo fdcWaferInfo = new FdcWaferInfo();
-                        FdcLotInfo fdcLotInfo = new FdcLotInfo();
+                        FDCWaferInfo fdcWaferInfo = new FDCWaferInfo();
+                        FDCLotInfo fdcLotInfo = new FDCLotInfo();
 
                         switch (material.SystemState)
                         {
@@ -146,12 +147,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     messageType = AMSOsramConstants.MessageType_LOTOUT;
 
                                     // SendFDCLotEnd
-
                                     fdcLotInfo.LotName = material.Name;
                                     fdcLotInfo.BatchName = "";
                                     fdcLotInfo.Operation = material.Step != null ? material.Step.Name : string.Empty;
-                                    fdcLotInfo.Chamber = !string.IsNullOrEmpty(material.LastProcessedResource?.Name) ? material.LastProcessedResource.Name : string.Empty; // ???
-
+                                    
                                     //Serialize Integration Entry Message into xml
                                     integrationEntryMessageXml = fdcLotInfo.SerializeToXML();
                                 }
@@ -162,7 +161,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     messageType = AMSOsramConstants.MessageType_LOTIN;
 
                                     // SendFDCLotStart
-
                                     fdcLotInfo.LotName = material.Name;
                                     fdcLotInfo.BatchName = "";
                                     fdcLotInfo.Operation = !string.IsNullOrEmpty(material.Step?.Name) ? material.Step.Name : string.Empty;
@@ -171,16 +169,13 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                         material.CurrentRecipeInstance.ParentEntity.Name : string.Empty;
                                     fdcLotInfo.ProductName = !string.IsNullOrEmpty(material.Product?.Name)? material.Product.Name : string.Empty;
                                     fdcLotInfo.ProductRoute = !string.IsNullOrEmpty(material.Flow?.Name)? material.Flow.Name : string.Empty;
-                                    fdcLotInfo.NumberOfWafersInBatch = Convert.ToInt16(material.PrimaryQuantity); //???
-                                    fdcLotInfo.Chamber = !string.IsNullOrEmpty(material.LastProcessedResource?.Name) ? material.LastProcessedResource.Name : string.Empty; //?? sub-resource??
+                                    fdcLotInfo.NumberOfWafersInBatch = Convert.ToInt16(material.PrimaryQuantity);
                                     fdcLotInfo.FacilityName = !string.IsNullOrEmpty(material.Facility?.Name) ? material.Facility.Name : string.Empty;
-                                    //fdcWaferInfo.Owner = ""; //??
-                                    //fdcWaferInfo.ProductionLevel = ""; // ???
 
                                     //Serialize Integration Entry Message into xml
                                     integrationEntryMessageXml = fdcLotInfo.SerializeToXML();
                                 }
-                                else if (material.ParentMaterial != null) // Validate if Logical wafer?
+                                else if (material.ParentMaterial != null)
                                 {
                                     // SendFDCWaferIn
                                     messageType = AMSOsramConstants.MessageType_WAFERIN;
@@ -200,18 +195,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     fdcWaferInfo.WaferName = material.Name;
                                     fdcWaferInfo.SlotPos = containerPosition;
                                     fdcWaferInfo.LotPos = containerPosition; //??
-                                    fdcWaferInfo.QtyIn = Convert.ToInt16(material.PrimaryQuantity); //??
-                                    //fdcWaferInfo.Chamber = material.LastProcessedResource.Name; //??
-                                    //fdcWaferInfo.IsDummy = true; //?? ProductionType?
-                                    //fdcWaferInfo.CarrierGravure = ""; //???
-                                    //fdcWaferInfo.Gravure = ""; // ???
-                                    //fdcWaferInfo.VendorName = ""; //??
-                                    //fdcWaferInfo.Frame = ""; //???
-                                    //fdcWaferInfo.WaferSize = ""; //??
-                                    //fdcWaferInfo.BondingBoat = ""; //??
-                                    // MF ID ???
-                                    // MASKID ???
-                                    // EPI_POSITION ??? 
+                                    fdcWaferInfo.QtyIn = Convert.ToInt16(material.PrimaryQuantity);
+                                    fdcWaferInfo.Chamber = !string.IsNullOrEmpty(material.LastProcessedResource?.Name) ?
+                                        material.LastProcessedResource.Name : string.Empty;
 
                                     //Serialize Integration Entry Message into xml
                                     integrationEntryMessageXml = fdcWaferInfo.SerializeToXML();
@@ -226,8 +212,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     fdcLotInfo.LotName = material.Name;
                                     fdcLotInfo.BatchName = "";
                                     fdcLotInfo.Operation = !string.IsNullOrEmpty(material.Step?.Name) ? material.Step.Name : string.Empty;
-                                    fdcLotInfo.Chamber = !string.IsNullOrEmpty(material.LastProcessedResource?.Name) ? material.LastProcessedResource.Name : string.Empty; // ???  sub-resource??
-
+                                    
                                     //Serialize Integration Entry Message into xml
                                     integrationEntryMessageXml = fdcLotInfo.SerializeToXML();
                                 }
@@ -241,9 +226,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     fdcWaferInfo.WaferName = material.Name;
                                     fdcWaferInfo.Processed = true; //???
                                     fdcWaferInfo.WaferState = "Processed"; //??
-                                    //fdcWaferInfo.Chamber = material.LastProcessedResource.Name; //??
-                                    //fdcWaferInfo.ReadQuality = ""; //??
-                                    // MASKID ???
+                                    fdcWaferInfo.Chamber = !string.IsNullOrEmpty(material.LastProcessedResource?.Name) ? 
+                                        material.LastProcessedResource.Name : string.Empty;
 
                                     //Serialize Integration Entry Message into xml
                                     integrationEntryMessageXml = fdcWaferInfo.SerializeToXML();

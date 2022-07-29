@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Cmf.Custom.OntoFDC
+namespace Cmf.Custom.AMSOsram.Common.FDC
 {
-    public class FdcWaferInfo
+    public class FDCWaferInfo
     {
         /// <summary>
         /// WaferName (<Lotname>___<LotPos>_) - mandatory
@@ -103,7 +103,5 @@ namespace Cmf.Custom.OntoFDC
         /// Dynamic Key-/Value List for additional logistic terms
         /// </summary>
         public List<KeyValuePair<string, string>> AdditionalLogisticTerms { get; set; } = new List<KeyValuePair<string, string>>();
-
-
     }
 }

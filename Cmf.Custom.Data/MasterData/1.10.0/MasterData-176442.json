@@ -110,6 +110,20 @@
             "CodeFileRelativePath": "Materials\\CustomReportDataToFDC.cs",
             "IsEnabled": "Yes",
             "Classification": ""
+        },
+		"2": {
+            "Action": "CustomSendFDCWaferInfo",
+            "Description": "DEE action is triggered by Integration Entry Handler in order to process Integration Entries and send Wafer Info to Onto FDC.",
+            "CodeFileRelativePath": "Integrations\\CustomSendFDCWaferInfo.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        },
+		"3": {
+            "Action": "CustomSendFDCLotInfo",
+            "Description": "DEE action is triggered by Integration Entry Handler in order to process Integration Entries and send Lot Info to Onto FDC.",
+            "CodeFileRelativePath": "Integrations\\CustomSendFDCLotInfo.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
         }
     },
 	"DEEActionOrder": {
