@@ -101,15 +101,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             }
 
             if (fdcActive && !string.IsNullOrWhiteSpace(fdcServer) && fdcPort != null)
-            {                
-                // Create the binding.
-                //System.ServiceModel.BasicHttpBinding binding = new System.ServiceModel.BasicHttpBinding();
-                //binding.Security.Mode = System.ServiceModel.BasicHttpSecurityMode.Transport;
-                //binding.Security.Transport.ClientCredentialType = System.ServiceModel.HttpClientCredentialType.Basic;
-                //binding.MaxReceivedMessageSize = 2147483647;
-                //binding.MaxBufferPoolSize = 524288;
-                //binding.MaxBufferSize = 2147483647;
-
+            {
                 try
                 {
                     FDC_API_Onto fdcApi = new FDC_API_Onto(fdcActive, fdcMandatory, fdcServer, (int)fdcPort);
@@ -122,13 +114,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     {
                         //fdcApi.SendFdcLotEnd();
                     }
-                    //System.ServiceModel.EndpointAddress endpoint = new System.ServiceModel.EndpointAddress(fdcActive);
-                    //CreeERPWebService.MES_INBOUND_NEWClient client = new CreeERPWebService.MES_INBOUND_NEWClient(binding, endpoint);
-                    //client.ClientCredentials.UserName.UserName = fdcMandatory;
-                    //client.ClientCredentials.UserName.Password = fdcServer;
-
-                    //var responseTask = client.MESAsync(requestTransactions);
-                    //responseTask.Wait();
                 }
                 catch (Exception e)
                 {

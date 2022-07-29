@@ -31,8 +31,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
              *  
              * Action Groups:
              *      MaterialManagement.MaterialManagementOrchestration.AbortMaterialsProcess.Post
-             *      BusinessObjects.MaterialCollection.TrackIn.Post
-             *      BusinessObjects.MaterialCollection.TrackOut.Post
+             *      MaterialManagement.MaterialManagementOrchestration.ComplexTrackInMaterials.Post
+             *      MaterialManagement.MaterialManagementOrchestration.ComplexTrackOutMaterials.Post
             */
 
             bool canExecute = false;
@@ -41,6 +41,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
             #endregion
 
             string actionGroup = Input["ActionGroupName"].ToString();
+            List<Material> materials = new List<Material>();
 
             // Validate if FDC is active
             if (Config.TryGetConfig(AMSOsramConstants.FDCConfigActivePath, out Config isActive) &&
@@ -52,8 +53,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                     if (Input["AbortMaterialsProcessOutput"] is AbortMaterialsProcessOutput abortMaterials &&
                         abortMaterials.Materials != null && abortMaterials.Materials.Count > 0)
                     {
-                        ApplicationContext.CallContext.SetInformationContext("Materials", abortMaterials.Materials);
-                        canExecute = true;
+                        materials = abortMaterials.Materials.ToList();
                     }
                     else
                     {
@@ -61,18 +61,40 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                     }
                 }
 
-                // TrackIn / TrackOut operations
-                if (actionGroup.Contains("TrackIn") || actionGroup.Contains("TrackOut"))
+                // TrackIn operation
+                if (actionGroup.Contains("ComplexTrackInMaterials"))
                 {
-                    if (Input.ContainsKey(Navigo.Common.Constants.MaterialCollection))
+                    ComplexTrackInMaterialsOutput trackInMaterialsInput = Input["ComplexTrackInMaterialsOutput"] as ComplexTrackInMaterialsOutput;
+
+                    if (trackInMaterialsInput != null && trackInMaterialsInput.Materials != null)
                     {
-                        ApplicationContext.CallContext.SetInformationContext("Materials", Input[Navigo.Common.Constants.MaterialCollection]);
-                        canExecute = true;
+                        materials = trackInMaterialsInput.Materials.ToList();
                     }
                     else
                     {
                         throw new ArgumentNullCmfException(Navigo.Common.Constants.MaterialCollection);
                     }
+                }
+
+                // TrackOut operation
+                if (actionGroup.Contains("ComplexTrackOutMaterials"))
+                {
+                    ComplexTrackOutMaterialsOutput trackOutMaterialsInput = Input["ComplexTrackOutMaterialsOutput"] as ComplexTrackOutMaterialsOutput;
+
+                    if (trackOutMaterialsInput != null && trackOutMaterialsInput.Materials != null)
+                    {
+                        materials = trackOutMaterialsInput.Materials.Keys.ToList();
+                    }
+                    else
+                    {
+                        throw new ArgumentNullCmfException(Navigo.Common.Constants.MaterialCollection);
+                    }
+                }
+
+                if (materials != null && materials.Count > 0)
+                {
+                    ApplicationContext.CallContext.SetInformationContext("Materials", materials);
+                    canExecute = true;
                 }
             }
             return canExecute;
@@ -99,8 +121,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
             UseReference("Cmf.Custom.OntoFDC.dll", "Cmf.Custom.OntoFDC");
             UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects");
 
-            MaterialCollection materials = ApplicationContext.CallContext.GetInformationContext("Materials") as MaterialCollection;
-            //materials.Load();
+            List<Material> materials = ApplicationContext.CallContext.GetInformationContext("Materials") as List<Material>;
 
             foreach (Material material in materials)
             {
@@ -141,8 +162,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     messageType = AMSOsramConstants.MessageType_LOTIN;
 
                                     // SendFDCLotStart
-                                    material.Load();
-                                   
+
                                     fdcLotInfo.LotName = material.Name;
                                     fdcLotInfo.BatchName = "";
                                     fdcLotInfo.Operation = !string.IsNullOrEmpty(material.Step?.Name) ? material.Step.Name : string.Empty;
@@ -219,9 +239,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     fdcWaferInfo.BatchName = "";
                                     fdcWaferInfo.LotName = !string.IsNullOrEmpty(material.ParentMaterial?.Name) ? material.ParentMaterial.Name : string.Empty;
                                     fdcWaferInfo.WaferName = material.Name;
-                                    //fdcWaferInfo.Chamber = material.LastProcessedResource.Name; //??
                                     fdcWaferInfo.Processed = true; //???
                                     fdcWaferInfo.WaferState = "Processed"; //??
+                                    //fdcWaferInfo.Chamber = material.LastProcessedResource.Name; //??
                                     //fdcWaferInfo.ReadQuality = ""; //??
                                     // MASKID ???
 

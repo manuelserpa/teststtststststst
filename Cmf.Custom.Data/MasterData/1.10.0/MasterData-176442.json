@@ -110,13 +110,6 @@
             "CodeFileRelativePath": "Materials\\CustomReportDataToFDC.cs",
             "IsEnabled": "Yes",
             "Classification": ""
-        },
-		"2": {
-            "Action": "CustomSendFDCLotInfo",
-            "Description": "DEE action is triggered by Integration Entry Handler in order to process Integration Entries and send Lot Info to Onto FDC.",
-            "CodeFileRelativePath": "Integrations\\CustomSendFDCLotInfo.cs",
-            "IsEnabled": "Yes",
-            "Classification": ""
         }
     },
 	"DEEActionOrder": {
@@ -126,12 +119,12 @@
 		  "Order": "100"
 		},
 		"2": {
-		  "ActionGroup": "BusinessObjects.MaterialCollection.TrackIn.Post",
+		  "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.ComplexTrackInMaterials.Post",
 		  "Action": "CustomReportDataToFDC",
 		  "Order": "100"
 		},
 		"3": {
-		  "ActionGroup": "BusinessObjects.MaterialCollection.TrackOut.Post",
+		  "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.ComplexTrackOutMaterials.Post",
 		  "Action": "CustomReportDataToFDC",
 		  "Order": "100"
 		}
