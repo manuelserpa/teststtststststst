@@ -94,13 +94,29 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
             // Trigger material track in for wafer material
             materialScenario.Setup(true);
+            Assert.IsTrue(materialScenario.Entity.SubMaterialCount > 0, $"The material {materialScenario.Entity.Name} should have submaterials.");
             IntegrationEntry integrationEntry = new IntegrationEntry();
 
-            materialScenario.TrackIn();
-            materialScenario.SubMaterials.Load();
-            materialScenario.SubMaterials[0].TrackIn();
+            Resource resource = new Resource
+            {
+                Name = "PDSP0101"
+            };
+            resource.Load();
+
+            Resource subResource = new Resource
+            {
+                Name = "PDSP0101.PM01"
+            };
+            subResource.Load();
+
+            materialScenario.Entity.TrackIn(resource);
+            materialScenario.SubMaterials[0].Load();
+            materialScenario.SubMaterials[0].TrackIn(subResource);
 
             // Verify if Integration Entry for wafer material was created and contains the right messageType
+
+            integrationEntry = CustomUtilities.GetIntegrationEntry(materialScenario.SubMaterials[0].Name);
+            integrationEntry.Load();
             Assert.IsTrue(integrationEntry.Name.Contains(materialScenario.SubMaterials[0].Name), "Integration entry was not created.");
             Assert.AreEqual(integrationEntry.MessageType, AMSOsramConstants.MessageType_LOTIN, "Integration entry contains the wrong message type.");
 
