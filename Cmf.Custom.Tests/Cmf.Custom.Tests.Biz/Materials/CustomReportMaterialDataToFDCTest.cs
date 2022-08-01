@@ -6,7 +6,6 @@ using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
-using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -58,7 +57,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [TestMethod]
         public void CustomReportDataToFDCTests_LotMaterialTrackIn()
         {
-            
+
             Material mat = materialScenario.Entity;
             mat.ComplexTrackIn();
 
@@ -109,9 +108,9 @@ namespace Cmf.Custom.Tests.Biz.Materials
             };
             subResource.Load();
 
-            materialScenario.Entity.TrackIn(resource);
-            materialScenario.SubMaterials[0].Load();
-            materialScenario.SubMaterials[0].TrackIn(subResource);
+            materialScenario.Entity.ComplexTrackIn();
+            materialScenario.Entity.LoadChildren();
+            materialScenario.Entity.SubMaterials.ComplexTrackInMaterials(subResource);
 
             // Verify if Integration Entry for wafer material was created and contains the right messageType
 
