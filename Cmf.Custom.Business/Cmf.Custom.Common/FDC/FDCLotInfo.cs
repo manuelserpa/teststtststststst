@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Cmf.Custom.OntoFDC
+namespace Cmf.Custom.AMSOsram.Common.FDC
 {
-    public class FdcLotInfo
+    public class FDCLotInfo
     {
         /// <summary>
         /// BatchName
@@ -67,6 +67,6 @@ namespace Cmf.Custom.OntoFDC
         /// <summary>
         /// Dynamic Key-/Value List for additional logistic terms
         /// </summary>
-        public Dictionary<string, string> AdditionalLogisticTerms { get; set; } = new Dictionary<string, string>();
+        public List<KeyValuePair<string, string>> AdditionalLogisticTerms { get; set; } = new List<KeyValuePair<string, string>>();
     }
 }

@@ -75,7 +75,7 @@
 		  "ToSystem": "OntoFDC",
 		  "MessageType": "LOTIN",
 		  "HandlerType": "GenericIntegrationHandler",
-		  "ActionName": "SendFdcLotStart",
+		  "ActionName": "CustomSendFDCLotInfo",
 		  "IsEnabled": "True"
 		},
 		"2": {
@@ -83,7 +83,7 @@
 		  "ToSystem": "OntoFDC",
 		  "MessageType": "LOTOUT",
 		  "HandlerType": "GenericIntegrationHandler",
-		  "ActionName": "SendFdcLotEnd",
+		  "ActionName": "CustomSendFDCLotInfo",
 		  "IsEnabled": "True"
 		},
 		"3": {
@@ -91,7 +91,7 @@
 		  "ToSystem": "OntoFDC",
 		  "MessageType": "WAFERIN",
 		  "HandlerType": "GenericIntegrationHandler",
-		  "ActionName": "SendFdcWaferIn",
+		  "ActionName": "CustomSendFDCWaferInfo",
 		  "IsEnabled": "True"
 		},
 		"4": {
@@ -99,7 +99,7 @@
 		  "ToSystem": "OntoFDC",
 		  "MessageType": "WAFEROUT",
 		  "HandlerType": "GenericIntegrationHandler",
-		  "ActionName": "SendFdcWaferOut",
+		  "ActionName": "CustomSendFDCWaferInfo",
 		  "IsEnabled": "True"
 		}
   },
@@ -108,6 +108,20 @@
             "Action": "CustomReportDataToFDC",
             "Description": "Dee action is triggered to create an integration entry with the material data to send to FDC.",
             "CodeFileRelativePath": "Materials\\CustomReportDataToFDC.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        },
+		"2": {
+            "Action": "CustomSendFDCWaferInfo",
+            "Description": "DEE action is triggered by Integration Entry Handler in order to process Integration Entries and send Wafer Info to Onto FDC.",
+            "CodeFileRelativePath": "Integrations\\CustomSendFDCWaferInfo.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        },
+		"3": {
+            "Action": "CustomSendFDCLotInfo",
+            "Description": "DEE action is triggered by Integration Entry Handler in order to process Integration Entries and send Lot Info to Onto FDC.",
+            "CodeFileRelativePath": "Integrations\\CustomSendFDCLotInfo.cs",
             "IsEnabled": "Yes",
             "Classification": ""
         }
@@ -119,12 +133,12 @@
 		  "Order": "100"
 		},
 		"2": {
-		  "ActionGroup": "BusinessObjects.MaterialCollection.TrackIn.Post",
+		  "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.ComplexTrackInMaterials.Post",
 		  "Action": "CustomReportDataToFDC",
 		  "Order": "100"
 		},
 		"3": {
-		  "ActionGroup": "BusinessObjects.MaterialCollection.TrackOut.Post",
+		  "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.ComplexTrackOutMaterials.Post",
 		  "Action": "CustomReportDataToFDC",
 		  "Order": "100"
 		}

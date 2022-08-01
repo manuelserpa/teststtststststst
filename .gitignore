@@ -262,8 +262,8 @@ src/**/typings/**/*.d.ts
 LocalEnvironment/
 
 #NuGet Packages
-Business/packages/
-Tests/packages/
+Cmf.Custom.Business/packages/
+Cmf.Custom.Tests/packages/
 
 /Libs/HTML5/*
 
