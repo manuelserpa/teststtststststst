@@ -110,6 +110,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
             subResource.Load();
 
             materialScenario.Entity.TrackIn(resource);
+            // Why is materialScenario.LoadChildren(); not working/whats the difference?
             materialScenario.SubMaterials[0].Load();
             materialScenario.SubMaterials[0].TrackIn(subResource);
 
