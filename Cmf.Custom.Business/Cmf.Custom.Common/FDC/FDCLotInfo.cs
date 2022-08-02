@@ -50,16 +50,6 @@ namespace Cmf.Custom.AMSOsram.Common.FDC
         public int NumberOfWafersInBatch { get; set; }
 
         /// <summary>
-        /// Owner
-        /// </summary>
-        public string Owner { get; set; }
-
-        /// <summary>
-        /// ProductionLevel
-        /// </summary>
-        public string ProductionLevel { get; set; }
-
-        /// <summary>
         /// FacilityName
         /// </summary>
         public string FacilityName { get; set; }

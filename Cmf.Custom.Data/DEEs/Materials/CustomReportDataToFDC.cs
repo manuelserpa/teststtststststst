@@ -148,7 +148,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 
                                     // SendFDCLotEnd
                                     fdcLotInfo.LotName = material.Name;
-                                    fdcLotInfo.BatchName = "";
+                                    fdcLotInfo.BatchName = material.Name;
                                     fdcLotInfo.Operation = material.Step != null ? material.Step.Name : string.Empty;
                                     
                                     //Serialize Integration Entry Message into xml
@@ -162,7 +162,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 
                                     // SendFDCLotStart
                                     fdcLotInfo.LotName = material.Name;
-                                    fdcLotInfo.BatchName = "";
+                                    fdcLotInfo.BatchName = material.Name;
                                     fdcLotInfo.Operation = !string.IsNullOrEmpty(material.Step?.Name) ? material.Step.Name : string.Empty;
                                     fdcLotInfo.SPS = !string.IsNullOrEmpty(material.LastProcessedResource?.LastService?.Name) ? material.LastProcessedResource.LastService.Name : string.Empty; //???
                                     fdcLotInfo.RecipeName = !string.IsNullOrEmpty(material.CurrentRecipeInstance?.ParentEntity?.Name) ? 
@@ -190,11 +190,11 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                         containerPosition = material.MaterialContainer.First().Position;
                                     }
 
-                                    fdcWaferInfo.BatchName = "";
+                                    fdcWaferInfo.BatchName = !string.IsNullOrEmpty(material.ParentMaterial?.Name) ? material.ParentMaterial.Name : string.Empty;
                                     fdcWaferInfo.LotName = !string.IsNullOrEmpty(material.ParentMaterial?.Name) ? material.ParentMaterial.Name : string.Empty;
                                     fdcWaferInfo.WaferName = material.Name;
                                     fdcWaferInfo.SlotPos = containerPosition;
-                                    fdcWaferInfo.LotPos = containerPosition; //??
+                                    fdcWaferInfo.LotPos = containerPosition;
                                     fdcWaferInfo.QtyIn = Convert.ToInt16(material.PrimaryQuantity);
                                     fdcWaferInfo.Chamber = !string.IsNullOrEmpty(material.LastProcessedResource?.Name) ?
                                         material.LastProcessedResource.Name : string.Empty;
@@ -210,7 +210,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     messageType = AMSOsramConstants.MessageType_LOTOUT;
 
                                     fdcLotInfo.LotName = material.Name;
-                                    fdcLotInfo.BatchName = "";
+                                    fdcLotInfo.BatchName = material.Name;
                                     fdcLotInfo.Operation = !string.IsNullOrEmpty(material.Step?.Name) ? material.Step.Name : string.Empty;
                                     
                                     //Serialize Integration Entry Message into xml
@@ -221,11 +221,11 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     // SendFDCWaferOut
                                     messageType = AMSOsramConstants.MessageType_WAFEROUT;
 
-                                    fdcWaferInfo.BatchName = "";
+                                    fdcWaferInfo.BatchName = !string.IsNullOrEmpty(material.ParentMaterial?.Name) ? material.ParentMaterial.Name : string.Empty;
                                     fdcWaferInfo.LotName = !string.IsNullOrEmpty(material.ParentMaterial?.Name) ? material.ParentMaterial.Name : string.Empty;
                                     fdcWaferInfo.WaferName = material.Name;
-                                    fdcWaferInfo.Processed = true; //???
-                                    fdcWaferInfo.WaferState = "Processed"; //??
+                                    fdcWaferInfo.Processed = true;
+                                    fdcWaferInfo.WaferState = "Processed";
                                     fdcWaferInfo.Chamber = !string.IsNullOrEmpty(material.LastProcessedResource?.Name) ? 
                                         material.LastProcessedResource.Name : string.Empty;
 
