@@ -264,6 +264,12 @@
    "actionId": ""
 },
 {
+   "id": "customreportdatatofdc",
+   "menuGroupId": "deeactions",
+   "title": "CustomReportDataToFDC",
+   "actionId": ""
+},
+{
    "id": "customreportedctospacehandler",
    "menuGroupId": "deeactions",
    "title": "CustomReportEDCToSpaceHandler",
@@ -273,6 +279,18 @@
    "id": "customsendabortinformationtoiot",
    "menuGroupId": "deeactions",
    "title": "CustomSendAbortInformationToIoT",
+   "actionId": ""
+},
+{
+   "id": "customsendfdclotinfo",
+   "menuGroupId": "deeactions",
+   "title": "CustomSendFDCLotInfo",
+   "actionId": ""
+},
+{
+   "id": "customsendfdcwaferinfo",
+   "menuGroupId": "deeactions",
+   "title": "CustomSendFDCWaferInfo",
    "actionId": ""
 },
 {
@@ -297,6 +315,12 @@
    "id": "customsorterjobdefinition",
    "menuGroupId": "entitytypes",
    "title": "CustomSorterJobDefinition",
+   "actionId": ""
+},
+{
+   "id": "etresource",
+   "menuGroupId": "entitytypes",
+   "title": "Resource",
    "actionId": ""
 },
 {
@@ -687,6 +711,12 @@
    "id": "customerpsystemintegration",
    "menuGroupId": "features",
    "title": "ERP (SAP) System Integration",
+   "actionId": ""
+},
+{
+   "id": "customfdcsystemintegration",
+   "menuGroupId": "features",
+   "title": "FDC System Integration",
    "actionId": ""
 },
 {
