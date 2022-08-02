@@ -239,6 +239,21 @@
 
         #region ONTO FDC
 
+        /// <summary>
+        /// Integration Entry: SourceSystem column
+        /// </summary>
+        public static string SourceSystem = "SourceSystem";
+
+        /// <summary>
+        /// Integration Entry: TargetSystem column
+        /// </summary>
+        public static string TargetSystem = "TargetSystem";
+
+        /// <summary>
+        /// Integration Entry: MessageType column
+        /// </summary>
+        public static string MessageType = "MessageType";
+
         //// <summary>
         /// LOTIN Integration Entry Message Type
         /// </summary>
@@ -259,6 +274,38 @@
         /// </summary>
         public static string MessageType_WAFEROUT = "WAFEROUT";
 
+        /// <summary>
+        /// OntoFDC TargetSystem
+        /// </summary>
+        public static string TargetSystem_OntoFDC = "OntoFDC";
+
+        /// <summary>
+        /// OntoFDC SourceSystem
+        /// </summary>
+        public static string SourceSystem_OntoFDC = "MES";
+
+        /// <summary>
+        /// OsramEventName
+        /// </summary>
+        public static string OsramEventName = "OsramEventName";
+
         #endregion
+
+        #region Configurations
+
+        /// <summary>
+        /// PollingInterval config value
+        /// </summary>
+        public static string PollingIntervalConfigValue = "/Cmf/System/Configuration/Integration/PollingInterval/";
+
+        /// <summary>
+        /// PollingInterval config value
+        /// </summary>
+        public static string FDCActiveConfigPath = "/AMSOsram/FDC/Active/";
+
+        
+
+
+        #endregion Configurations
     }
 }

@@ -4,10 +4,13 @@ using Cmf.Custom.Tests.Biz.Common.Scenarios;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
+using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Text;
+using System.Xml;
 
 namespace Cmf.Custom.Tests.Biz.Materials
 {
@@ -15,6 +18,12 @@ namespace Cmf.Custom.Tests.Biz.Materials
     public class CustomReportMaterialDataToFDCTest
     {
         private CustomMaterialScenario materialScenario = null;
+        private IntegrationEntry integrationEntry = null;
+        private IntegrationEntryCollection integrationEntriesToTerminate = new IntegrationEntryCollection();
+        private int pollingIntervalConfig = Convert.ToInt32(ConfigUtilities.GetConfigValue(AMSOsramConstants.PollingIntervalConfigValue));
+        private int MaxNumberOfRetries = 30;
+        private const string resourceName = "PDSP0101";
+        private const string subResourceName = "PDSP0101.PM01";
 
         /// <summary>
         /// Test Initialization
@@ -26,8 +35,10 @@ namespace Cmf.Custom.Tests.Biz.Materials
             materialScenario = new CustomMaterialScenario(false)
             {
                 NumberOfSubMaterials = 1,
-                AssociateSubMaterialsToContainer = false
+                AssociateSubMaterialsToContainer = true
             };
+
+            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, true);
         }
 
         /// <summary>
@@ -82,62 +93,38 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [TestMethod]
         public void CustomReportDataToFDCTests_WaferMaterialTrackIn()
         {
-            /*
-             * Problems with wafers: materialScenario wafers are created as logical wafers which are not dispatchible
-             * Need to create a wafer and associate it to a logical wafer which is associated to a parent lot?
-             * How to make sure that the wafer (not the logical one) and the parent (parent) lot are at the same step (and both are dispatchible)
-             * Automated way to track in parent lot so all wafers get tracked in too?
-             * 
-             */
-            // Create a wafer material with a parent lot that is dispatchible and can be tracked in
+            DateTime fromDate = DateTime.Now;
 
-            // Trigger material track in for wafer material
             materialScenario.Setup(true);
             Assert.IsTrue(materialScenario.Entity.SubMaterialCount > 0, $"The material {materialScenario.Entity.Name} should have submaterials.");
             IntegrationEntry integrationEntry = new IntegrationEntry();
 
-            Resource resource = new Resource
+            SetResourceFDCCommunication(subResourceName, true);
+            Resource subResource = new Resource()
             {
-                Name = "PDSP0101"
-            };
-            resource.Load();
-
-            Resource subResource = new Resource
-            {
-                Name = "PDSP0101.PM01"
+                Name = subResourceName
             };
             subResource.Load();
 
             materialScenario.Entity.ComplexTrackIn();
             materialScenario.Entity.LoadChildren();
             materialScenario.Entity.SubMaterials.ComplexTrackInMaterials(subResource);
+            fromDate = DateTime.Now;
 
             // Verify if Integration Entry for wafer material was created and contains the right messageType
 
-            integrationEntry = CustomUtilities.GetIntegrationEntry(materialScenario.SubMaterials[0].Name);
+            integrationEntry = IntegrationEntryUtilities.GetIntegrationEntry(AMSOsramConstants.MessageType_WAFERIN, fromDate, true,
+                            AMSOsramConstants.SourceSystem_OntoFDC, AMSOsramConstants.TargetSystem_OntoFDC);
             integrationEntry.Load();
-            Assert.IsTrue(integrationEntry.Name.Contains(materialScenario.SubMaterials[0].Name), "Integration entry was not created.");
-            Assert.AreEqual(integrationEntry.MessageType, AMSOsramConstants.MessageType_LOTIN, "Integration entry contains the wrong message type.");
 
-            /*
-            materialScenario.Setup(true);
-            MaterialCollection materials = new MaterialCollection();
-            materials.Add(materialScenario.Entity);
-            UndispatchMaterialsOutput undispatchRes = new UndispatchMaterialsInput()
-            {
-                Materials = materials,
-                ServiceComments = null
-            }.UndispatchMaterialsSync();
+            Assert.IsTrue(integrationEntry.Name.Contains(materialScenario.SubMaterials[0].Name.Replace(" ", "_")), "Integration entry for wafer was not created.");
+            Assert.AreEqual(integrationEntry.MessageType, AMSOsramConstants.MessageType_WAFERIN, "Integration entry contains the wrong message type.");
+            
+            // Validate Integration Entry message body with material data
+            ValidateIntegrationEntry(fromDate, true, materialScenario.Entity.Name, materialScenario.SubMaterials[0].Name, subResourceName);
 
-            AttachWafersToLot(materialScenario.Entity.Name);
-            materialScenario.Entity.ComplexDispatchAndTrackIn();
-            materialScenario.Entity.LoadChildren();
-            materialScenario.Entity.SubMaterials[0].ComplexDispatchAndTrackIn();
-            */
-
-
-
-
+            // Add Integration Entry to removal list for clean up
+            AddIntegrationEntryToRemoveLater(integrationEntry.MessageType, fromDate);
 
         }
 
@@ -266,75 +253,271 @@ namespace Cmf.Custom.Tests.Biz.Materials
             Assert.AreEqual(integrationEntry.MessageType, AMSOsramConstants.MessageType_LOTOUT, "Integration entry contains the wrong message type.");
         }
 
+        #region Help methods
+
         /// <summary>
-        /// Attach wafers to Lot
+        /// Validate Integration Entry
         /// </summary>
-        private void AttachWafersToLot(string materialName)
+        /// <param name="fromDate"></param>
+        /// <param name="transactionSuccess"></param>
+        /// <param name="expectedMaterialName"></param>
+        private void ValidateIntegrationEntry(DateTime fromDate, bool transactionSuccess, string expectedLotName = "", string expectedWaferName = "", string expectedChamberName = "",
+            string expectedOperationName = "", string expectedSPSName = "", string expectedRecipeName = "", string expectedProductName = "", string expectedProductRoute = "", string expectedNumberOfWafersInBatch = "",
+            string expectedFacilityName = "")
         {
-            Material mat = new Material()
-            {
-                Name = materialName
-            };
-            mat.Load();
-            MaterialCollection wafersScenario = new MaterialCollection();
-            int numberOfWafers = 1;
-            Facility facility = new Facility()
-            {
-                Name = "Regensburg Production"
-            };
-            facility.Load();
-            Flow flow = new Flow()
-            {
-                Name = "FOL-UX3_EPA"
-            };
-            flow.Load();
-            Step step = new Step()
-            {
-                Name = "M3-MT-ZnO-SputterCluster-6in-00126F008_E"
-            };
-            step.Load();
+            if (transactionSuccess){
+                // Validate that Integration Entry was created and processed
+                GenericUtilities.WaitFor(() =>
+                {
+                    // Get the IntegrationEntry
+                    integrationEntry = IntegrationEntryUtilities.GetIntegrationEntry(AMSOsramConstants.MessageType_WAFERIN, fromDate, true,
+                                AMSOsramConstants.SourceSystem_OntoFDC, AMSOsramConstants.TargetSystem_OntoFDC);
+                    return integrationEntry != null;
+                }, MaxNumberOfRetries, pollingIntervalConfig / MaxNumberOfRetries);
 
-            #region Sub-Materials Setup
+                // Load Integration Entry
+                Assert.IsNotNull(integrationEntry, $"It should have been created an Integration Entry.");
 
-            for (int i = 0; i < numberOfWafers; i++)
-            {
-                Material material = new Material();
+                // Load integration entry
+                integrationEntry.Load();
 
-                material.Name = "MESTest_Material_" + DateTime.Now.ToString("yyyyMMdd_HHmmssffffff");
-                material.Facility = facility;
-                material.Flow = flow;
-                material.Step = step;
-                material.FlowPath = FlowExtensionMethods.CustomGetFlowPath(flow, step.Name);
-                material.Product = materialScenario.Entity.Product;
-                material.Form = "Wafer";
-                material.Type = materialScenario.Entity.Type;
-                material.PrimaryUnits = "Wafers";
-                material.PrimaryQuantity = 1;
+                //Necessary to load inner message
+                IntegrationEntry integrationEntry_innerMessage = new GetIntegrationEntryInput
+                {
+                    Id = integrationEntry.Id
+                }.GetIntegrationEntrySync().IntegrationEntry;
 
-                material.Create();
-                wafersScenario.Add(material);
+                // To remove later
+                integrationEntriesToTerminate.Add(integrationEntry_innerMessage);
+
+                //Fetch  Integration Entry Message
+                string integrationEntry_innerMessage_Message = Encoding.UTF8.GetString(integrationEntry_innerMessage.IntegrationMessage.Message);
+
+                // Load XML
+                XmlDocument xml = new XmlDocument();
+                xml.LoadXml(integrationEntry_innerMessage_Message);
+
+                switch (integrationEntry.MessageType)
+                {
+
+                    case "WAFERIN:":
+                        foreach (XmlNode item in xml.DocumentElement.ChildNodes)
+                        {
+                            switch (item.Name)
+                            {
+                                case "WaferName":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property WaferName should not be empty!");
+
+                                    Assert.AreEqual(expectedWaferName, item.InnerText.Trim(),
+                                        $"The property WaferName should be {expectedWaferName}!");
+                                    break;
+                                case "LotName":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property LotName should not be empty!");
+
+                                    Assert.AreEqual(expectedLotName, item.InnerText.Trim(),
+                                        $"The property LotName should be {expectedLotName}!");
+                                    break;
+                                case "Chamber":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property Chamber should not be empty!");
+
+                                    Assert.AreEqual(expectedChamberName, item.InnerText.Trim(),
+                                        $"The property Chamber should be {expectedChamberName}!");
+                                    break;
+                                case "SlotPos":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property SlotPos should not be empty!");
+
+                                    Assert.AreEqual("1", item.InnerText.Trim(),
+                                        $"The property SlotPos should be 1!");
+                                    break;
+                                case "LotPos":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property LotPos should not be empty!");
+
+                                    Assert.AreEqual("1", item.InnerText.Trim(),
+                                        $"The property LotPos should be 1!");
+                                    break;
+                                case "QtyIn":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property QtyIn should not be empty!");
+
+                                    Assert.AreEqual("1", item.InnerText.Trim(),
+                                        $"The property QtyIn should be 1!");
+                                    break;
+                            }
+                        }
+                        break;
+                    case "WAFEROUT":
+                        foreach (XmlNode item in xml.DocumentElement.ChildNodes)
+                        {
+                            switch (item.Name)
+                            {
+                                case "WaferName":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property WaferName should not be empty!");
+
+                                    Assert.AreEqual(expectedWaferName, item.InnerText.Trim(),
+                                        $"The property WaferName should be {expectedWaferName}!");
+                                    break;
+                                case "LotName":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property LotName should not be empty!");
+
+                                    Assert.AreEqual(expectedLotName, item.InnerText.Trim(),
+                                        $"The property LotName should be {expectedLotName}!");
+                                    break;
+                                case "Chamber":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property Chamber should not be empty!");
+
+                                    Assert.AreEqual(expectedChamberName, item.InnerText.Trim(),
+                                        $"The property Chamber should be {expectedChamberName}!");
+                                    break;
+                                case "Processed":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property Processed should not be empty!");
+
+                                    Assert.AreEqual("true", item.InnerText.Trim(),
+                                        $"The property Processed should be true!");
+                                    break;
+                                case "WaferState":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property WaferState should not be empty!");
+
+                                    Assert.AreEqual("Processed", item.InnerText.Trim(),
+                                        $"The property WaferState should be true!");
+                                    break;
+                            }
+                        }
+                        break;
+                    case "LOTIN":
+                        foreach (XmlNode item in xml.DocumentElement.ChildNodes)
+                        {
+                            switch (item.Name)
+                            {
+                                case "LotName":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property LotName should not be empty!");
+
+                                    Assert.AreEqual(expectedLotName, item.InnerText.Trim(),
+                                        $"The property LotName should be {expectedLotName}!");
+                                    break;
+                                case "Operation":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property Operation should not be empty!");
+
+                                    Assert.AreEqual(expectedOperationName, item.InnerText.Trim(),
+                                        $"The property Operation should be {expectedOperationName}!");
+                                    break;
+                                case "SPS":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property SPS should not be empty!");
+
+                                    Assert.AreEqual(expectedOperationName, item.InnerText.Trim(),
+                                        $"The property SPS should be {expectedOperationName}!");
+                                    break;
+                                case "Chamber":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property Chamber should not be empty!");
+
+                                    Assert.AreEqual(expectedChamberName, item.InnerText.Trim(),
+                                        $"The property Chamber should be {expectedChamberName}!");
+                                    break;
+                                case "SlotPos":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property SlotPos should not be empty!");
+
+                                    Assert.AreEqual("1", item.InnerText.Trim(),
+                                        $"The property SlotPos should be 1!");
+                                    break;
+                                case "LotPos":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property LotPos should not be empty!");
+
+                                    Assert.AreEqual("1", item.InnerText.Trim(),
+                                        $"The property LotPos should be 1!");
+                                    break;
+                                case "QtyIn":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property QtyIn should not be empty!");
+
+                                    Assert.AreEqual("1", item.InnerText.Trim(),
+                                        $"The property QtyIn should be 1!");
+                                    break;
+                            }
+                        }
+                        break;
+                    case "LOTOUT":
+                        foreach (XmlNode item in xml.DocumentElement.ChildNodes)
+                        {
+                            switch (item.Name)
+                            {
+                                case "Operation":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property Operation should not be empty!");
+
+                                    Assert.AreEqual(expectedOperationName, item.InnerText.Trim(),
+                                        $"The property Operation should be {expectedOperationName}!");
+                                    break;
+                                case "LotName":
+                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property LotName should not be empty!");
+
+                                    Assert.AreEqual(expectedLotName, item.InnerText.Trim(),
+                                        $"The property LotName should be {expectedLotName}!");
+                                    break;
+                            }
+                        }
+                        break;
+                }
             }
-
-            #endregion Sub-Materials Setup
-
-            #region Attach sub-materials to the Lot
-
-            materialScenario.Entity.Load();
-            //Attach the wafers to the material (Lot)
-            new AttachMaterialsInput()
-            {
-                Material = materialScenario.Entity,
-                SubMaterials = wafersScenario
-            }.AttachMaterialsSync();
-
-            // Validate if the wafers were attached
-            materialScenario.Entity.Load();
-            materialScenario.Entity.LoadChildren();
-
-            Assert.AreEqual(materialScenario.Entity.SubMaterialCount, wafersScenario.Count, "The wafers should have been attached to the Material!");
-
-            #endregion Attach sub-materials to the Lot
-
         }
-    }
+
+        /// <summary>
+        /// Add Integration Entry to integrationEntriesToTerminate list in order to remove it later on cleanup
+        /// </summary>
+        /// <param name="messageType"></param>
+        /// <param name="fromDate"></param>
+        private void AddIntegrationEntryToRemoveLater(string messageType, DateTime fromDate)
+        {
+            // Validate that Integration Entry was created
+            GenericUtilities.WaitFor(() =>
+            {
+                // Get the IntegrationEntry
+                integrationEntry = IntegrationEntryUtilities.GetIntegrationEntry(messageType, fromDate, true,
+                    AMSOsramConstants.SourceSystem_OntoFDC, AMSOsramConstants.TargetSystem_OntoFDC);
+
+                return integrationEntry != null;
+            }, MaxNumberOfRetries, pollingIntervalConfig / MaxNumberOfRetries);
+
+            // Load Integration Entry
+            Assert.IsNotNull(integrationEntry, $"It should have been created an Integration Entry.");
+
+            // Load integration entry
+            integrationEntry.Load();
+
+            // To remove later
+            integrationEntriesToTerminate.Add(integrationEntry);
+        }
+
+        /// <summary>
+        /// Sets the FDCCommunication value of the given resource
+        /// </summary>
+        /// <param name="resourceName"></param>
+        /// <param name="fdcCommunicationValue"></param>
+        private void SetResourceFDCCommunication(string resourceName, bool fdcCommunicationValue)
+        {
+            Resource resource = new Resource
+            {
+                Name = resourceName
+            };
+            resource.Load();
+            resource.SaveAttribute("FDCCommunication", fdcCommunicationValue);
+        }
+
+            #endregion Help methods
+        }
 }
