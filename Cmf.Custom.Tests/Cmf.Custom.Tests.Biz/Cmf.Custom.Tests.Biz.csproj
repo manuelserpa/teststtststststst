@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cmf.Custom.Tests.Biz.Common\Cmf.Custom.Tests.Biz.Common.csproj" />
-    <ProjectReference Include="..\Cmf.Custom.Tests.IoT\Cmf.Custom.Tests.IoT.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />

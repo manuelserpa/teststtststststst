@@ -254,16 +254,6 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
                     Name = "ModifiedOn",
                     Position = 2,
                     Sort = Cmf.Foundation.Common.FieldSort.Descending
-                },
-                new Field()
-                {
-                    Alias = "MessageType",
-                    ObjectName = "IntegrationEntry",
-                    ObjectAlias = "IntegrationEntry_1",
-                    IsUserAttribute = false,
-                    Name = "MessageType",
-                    Position = 3,
-                    Sort = Cmf.Foundation.Common.FieldSort.NoSort
                 }
             };
             query.Query.Relations = new RelationCollection();
@@ -277,7 +267,6 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             {
                 DataRow row = dataSet.Tables[0].Rows[0];
                 integrationEntry.Name = row.Field<string>("Name");
-                integrationEntry.MessageType = row.Field<string>("MessageType");
             }
 
             return integrationEntry;
