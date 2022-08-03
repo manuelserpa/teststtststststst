@@ -164,7 +164,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     fdcLotInfo.LotName = material.Name;
                                     fdcLotInfo.BatchName = material.Name;
                                     fdcLotInfo.Operation = !string.IsNullOrEmpty(material.Step?.Name) ? material.Step.Name : string.Empty;
-                                    fdcLotInfo.SPS = !string.IsNullOrEmpty(material.LastProcessedResource?.LastService?.Name) ? material.LastProcessedResource.LastService.Name : string.Empty; //???
+                                    fdcLotInfo.SPS = !string.IsNullOrEmpty(material.LastProcessedResource?.LastService?.Name) ? material.LastProcessedResource.LastService.Name : string.Empty;
                                     fdcLotInfo.RecipeName = !string.IsNullOrEmpty(material.CurrentRecipeInstance?.ParentEntity?.Name) ? 
                                         material.CurrentRecipeInstance.ParentEntity.Name : string.Empty;
                                     fdcLotInfo.ProductName = !string.IsNullOrEmpty(material.Product?.Name)? material.Product.Name : string.Empty;
@@ -216,7 +216,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     //Serialize Integration Entry Message into xml
                                     integrationEntryMessageXml = fdcLotInfo.SerializeToXML();
                                 }
-                                else if (material.ParentMaterial != null) // Validate if Logical wafer?
+                                else if (material.ParentMaterial != null)
                                 {
                                     // SendFDCWaferOut
                                     messageType = AMSOsramConstants.MessageType_WAFEROUT;
