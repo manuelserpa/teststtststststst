@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmf.Custom.AMSOsram.Orchest
 		{6C3D698D-7F9E-4E39-A571-DEB63582CA52} = {6C3D698D-7F9E-4E39-A571-DEB63582CA52}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmf.Custom.AMSOsram.Actions", "..\Cmf.Custom.Data\DEEs\Cmf.Custom.AMSOsram.Actions.csproj", "{5CFF1C0D-E852-4F73-8EF0-71BA35B0E8F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cmf.Custom.AMSOsram.Actions", "..\Cmf.Custom.Data\DEEs\Cmf.Custom.AMSOsram.Actions.csproj", "{5CFF1C0D-E852-4F73-8EF0-71BA35B0E8F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
