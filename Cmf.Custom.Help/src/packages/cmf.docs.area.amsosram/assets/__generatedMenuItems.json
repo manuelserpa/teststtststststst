@@ -78,6 +78,12 @@
    "actionId": ""
 },
 {
+   "id": "amsosram-20220803-1.10.0",
+   "menuGroupId": "releasenotes",
+   "title": "AMSOsram-20220803-1.10.0",
+   "actionId": ""
+},
+{
    "id": "artifacts",
    "menuGroupId": "techspec",
    "title": "Artifacts",
