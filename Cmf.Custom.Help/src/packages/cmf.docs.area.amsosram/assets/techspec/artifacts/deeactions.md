@@ -21,8 +21,11 @@ The following DEE Actions were created to support customer requirements.
 | [Custom Process Product](/AMSOsram/techspec>artifacts>deeactions>CustomProcessProduct) | Action used to create or update Product using body message of an Integration Entry. | 
 | [CustomProcessProductionOrder](/AMSOsram/techspec>artifacts>deeactions>CustomProcessProductionOrder) | DEE action to receive a xml message with the needed information to create or update a **Production Order**. | 
 | [Custom Process Products From ERP](/AMSOsram/techspec>artifacts>deeactions>CustomProcessProductsFromERP) | Action used to create an Integration Entry per Product using ERP received message. | 
+| [CustomReportDataToFDC](/AMSOsram/techspec>artifacts>deeactions>CustomReportDataToFDC) | Dee action is triggered to create an integration entry with the material data to send to FDC. | 
 | [CustomReportEDCToSpaceHandler](/AMSOsram/techspec>artifacts>deeactions>CustomReportEDCToSpaceHandler) | DEE action to validate DataCollection and create a XML message to be sent to Space system. | 
 | [CustomSendAbortInformationToIoT](/AMSOsram/techspec>artifacts>deeactions>CustomSendAbortInformationToIoT) | DEE action to Trigger IoT call to send information about Aborted Materials. | 
+| [CustomSendFDCLotInfo](/AMSOsram/techspec>artifacts>deeactions>CustomSendFDCLotInfo) | DEE action to be triggered by the Integration Entry Handler to process Integration Entries and send Lot data to Onto FDC. | 
+| [CustomSendFDCWaferInfo](/AMSOsram/techspec>artifacts>deeactions>CustomSendFDCWaferInfo) | DEE action to be triggered by the Integration Entry Handler to process Integration Entries and send Lot data to Onto FDC. | 
 | [Custom Send Process Message](/AMSOsram/techspec>artifacts>deeactions>CustomSendProcessMessage) | Brief DEE Action description | 
 | [CustomSendTrackInInformationToIoT](/AMSOsram/techspec>artifacts>deeactions>CustomSendTrackInInformationToIoT) | DEE action to Trigger IoT call to send the Materials TrackIn related information. | 
 | [CustomSendTrackOutInformationToIoT](/AMSOsram/techspec>artifacts>deeactions>CustomSendTrackOutInformationToIoT) | DEE action to Trigger IoT call to send the Materials Track Out related information. | 

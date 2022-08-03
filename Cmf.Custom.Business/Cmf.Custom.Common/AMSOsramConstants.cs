@@ -184,6 +184,11 @@
         /// </summary>
         public static string ProductAttributeBasicType = "BasicType";
 
+        /// <summary>
+        /// Resource Attribute FDCCommunication
+        /// </summary>
+        public static string ResourceAttributeFDCCommunication = "FDCCommunication";
+
         #endregion
 
         #region SmartTables
@@ -1144,5 +1149,59 @@
         public const string TibcoConfigPasswordPath = "/AMSOsram/TibcoEMS/Password";
 
         #endregion
+
+        #region ONTO FDC
+
+        /// <summary>
+        /// Onto FDC Active config path
+        /// </summary>
+        public const string FDCConfigActivePath = "/AMSOsram/FDC/Active/";
+
+        /// <summary>
+        /// Onto FDC Mandatory config path
+        /// </summary>
+        public const string FDCConfigMandatoryPath = "/AMSOsram/FDC/Mandatory/";
+
+        /// <summary>
+        /// Onto FDC Port config path
+        /// </summary>
+        public const string FDCConfigPortPath = "/AMSOsram/FDC/Port/";
+
+        /// <summary>
+        /// Onto FDC Server config path
+        /// </summary>
+        public const string FDCConfigServerPath = "/AMSOsram/FDC/Server/";
+
+        /// <summary>
+        /// LOTIN Integration Entry Message Type
+        /// </summary>
+        public static string MessageType_LOTIN = "LOTIN";
+
+        /// <summary>
+        /// LOTOUT Integration Entry Message Type
+        /// </summary>
+        public static string MessageType_LOTOUT = "LOTOUT";
+
+        /// <summary>
+        /// WAFERIN Integration Entry Message Type
+        /// </summary>
+        public static string MessageType_WAFERIN = "WAFERIN";
+
+        /// <summary>
+        /// WAFEROUT Integration Entry Message Type
+        /// </summary>
+        public static string MessageType_WAFEROUT = "WAFEROUT";
+
+        /// <summary>
+        /// OntoFDC TargetSystem
+        /// </summary>
+        public static string TargetSystem_OntoFDC = "OntoFDC";
+
+        /// <summary>
+        /// OsramEventName
+        /// </summary>
+        public static string OsramEventName = "OsramEventName";
+
+        #endregion ONTO FDC
     }
 }
