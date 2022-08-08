@@ -19,7 +19,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         #region Private Variables
 
         /// <summary>
-        /// The Logger
+        /// Logger
         /// </summary>
         private readonly ILogger Logger;
 
@@ -272,13 +272,10 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                 // Connect to Tibco
                 this.TibcoConnection.Start();
 
-                if (this.TibcoSession != null && this.TibcoSession.IsClosed)
-                {
-                    // Create Tibco session and associate to the connection 
-                    this.Logger.LogInformation("Creating Tibco Session...");
+                // Create Tibco session and associate to the connection 
+                this.Logger.LogInformation("Creating Tibco Session...");
 
-                    this.TibcoSession = this.TibcoConnection.CreateSession(false, SessionMode.AutoAcknowledge);
-                }
+                this.TibcoSession = this.TibcoConnection.CreateSession(false, SessionMode.AutoAcknowledge);
             }
 
             this.Logger.LogInformation("Tibco is connected...");
