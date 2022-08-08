@@ -1038,6 +1038,15 @@
       "MonitorPackageVersion": "8.3.3-202201212",
       "ManagerPackageVersion": "8.3.3-202201212",
       "Configuration": ""
+    },
+    "6": {
+      "Name": "OmegaPlasma",
+      "Description": "5FICP1",
+      "Type": "General",
+      "LogicalAddress": "5FICP1",
+      "MonitorPackageVersion": "8.3.3-202201212",
+      "ManagerPackageVersion": "8.3.3-202201212",
+      "Configuration": ""
     }
   },
   "<LOOKUP>AutomationInstances": {
