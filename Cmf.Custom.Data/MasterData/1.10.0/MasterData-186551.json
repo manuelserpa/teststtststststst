@@ -1,0 +1,12 @@
+{
+    "<SM>DEEAction": {
+		"1": {
+            "Action": "CustomAutomationSetCustomResourceState",
+            "Description": "Dee action is triggered by IoT Automation to adjust the state of a Resource",
+            "CodeFileRelativePath": "Automation\\CustomAutomationSetCustomResourceState.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        }
+    },
+	"DEEActionOrder": {}
+}

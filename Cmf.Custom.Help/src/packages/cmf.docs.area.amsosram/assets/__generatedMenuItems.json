@@ -72,6 +72,18 @@
    "actionId": ""
 },
 {
+   "id": "amsosram-20220721-1.9.0",
+   "menuGroupId": "releasenotes",
+   "title": "AMSOsram-20220721-1.9.0",
+   "actionId": ""
+},
+{
+   "id": "amsosram-20220803-1.10.0",
+   "menuGroupId": "releasenotes",
+   "title": "AMSOsram-20220803-1.10.0",
+   "actionId": ""
+},
+{
    "id": "artifacts",
    "menuGroupId": "techspec",
    "title": "Artifacts",
@@ -258,9 +270,33 @@
    "actionId": ""
 },
 {
+   "id": "customreportdatatofdc",
+   "menuGroupId": "deeactions",
+   "title": "CustomReportDataToFDC",
+   "actionId": ""
+},
+{
+   "id": "customreportedctospacehandler",
+   "menuGroupId": "deeactions",
+   "title": "CustomReportEDCToSpaceHandler",
+   "actionId": ""
+},
+{
    "id": "customsendabortinformationtoiot",
    "menuGroupId": "deeactions",
    "title": "CustomSendAbortInformationToIoT",
+   "actionId": ""
+},
+{
+   "id": "customsendfdclotinfo",
+   "menuGroupId": "deeactions",
+   "title": "CustomSendFDCLotInfo",
+   "actionId": ""
+},
+{
+   "id": "customsendfdcwaferinfo",
+   "menuGroupId": "deeactions",
+   "title": "CustomSendFDCWaferInfo",
    "actionId": ""
 },
 {
@@ -285,6 +321,12 @@
    "id": "customsorterjobdefinition",
    "menuGroupId": "entitytypes",
    "title": "CustomSorterJobDefinition",
+   "actionId": ""
+},
+{
+   "id": "etresource",
+   "menuGroupId": "entitytypes",
+   "title": "Resource",
    "actionId": ""
 },
 {
@@ -678,6 +720,12 @@
    "actionId": ""
 },
 {
+   "id": "customfdcsystemintegration",
+   "menuGroupId": "features",
+   "title": "FDC System Integration",
+   "actionId": ""
+},
+{
    "id": "customimportproductionorders",
    "menuGroupId": "features",
    "title": "Custom Import Production Orders",
@@ -693,6 +741,12 @@
    "id": "customnicelabelprint",
    "menuGroupId": "features",
    "title": "Custom Nice Label Print",
+   "actionId": ""
+},
+{
+   "id": "customsendmescriticaldatacollectiontospace",
+   "menuGroupId": "features",
+   "title": "Send Critical Data Collection to Space",
    "actionId": ""
 },
 {

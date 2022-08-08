@@ -26,7 +26,7 @@
 			"Lookup Table Value": "Production",
 			"Lookup Table Value Description": "",
 			"Lookup Table IsEnabled": "Yes"
-			}
+		}
 	},
 	"<SM>EntityTypeProperty": {
 		"1": {
@@ -182,28 +182,124 @@
 	},
 	"<SM>User": {
 		"1": {
-			"UserAccount": "CMF\\jnovo",
-			"Roles": "Administrators",
+			"UserAccount": "CMF\\FBAZEVEDO",
+			"PrimaryRole": "Administrators",
+			"Token": "",
+			"Pin": "",
+			"AutenticationStrategy": "",
+			"AutoLockTimeOut": "0",
 			"IsEnabled": "Yes",
-			"Token": ""
+			"IsIntegrationUser": "No",
+			"RequirePasswordChange": "",
+			"Roles": ""
 		},
 		"2": {
-			"UserAccount": "CMF\\c-letendart",
-			"Roles": "Administrators",
+			"UserAccount": "CMF\\T-GALLER",
+			"PrimaryRole": "Administrators",
+			"Token": "",
+			"Pin": "",
+			"AutenticationStrategy": "",
+			"AutoLockTimeOut": "0",
 			"IsEnabled": "Yes",
-			"Token": ""
+			"IsIntegrationUser": "No",
+			"RequirePasswordChange": "",
+			"Roles": ""
 		},
 		"3": {
-			"UserAccount": "CMF\\cwuerz",
-			"Roles": "Administrators",
+			"UserAccount": "CMF\\CWUERZ",
+			"PrimaryRole": "Administrators",
+			"Token": "",
+			"Pin": "",
+			"AutenticationStrategy": "",
+			"AutoLockTimeOut": "0",
 			"IsEnabled": "Yes",
-			"Token": ""
+			"IsIntegrationUser": "No",
+			"RequirePasswordChange": "",
+			"Roles": ""
 		},
 		"4": {
-			"UserAccount": "CMF\\rfrocha",
-			"Roles": "Administrators",
+			"UserAccount": "CMF\\G-PAJOR",
+			"PrimaryRole": "Administrators",
+			"Token": "",
+			"Pin": "",
+			"AutenticationStrategy": "",
+			"AutoLockTimeOut": "0",
 			"IsEnabled": "Yes",
-			"Token": ""
+			"IsIntegrationUser": "No",
+			"RequirePasswordChange": "",
+			"Roles": ""
+		},
+		"5": {
+			"UserAccount": "CMF\\G-BALOGH",
+			"PrimaryRole": "Administrators",
+			"Token": "",
+			"Pin": "",
+			"AutenticationStrategy": "",
+			"AutoLockTimeOut": "0",
+			"IsEnabled": "Yes",
+			"IsIntegrationUser": "No",
+			"RequirePasswordChange": "",
+			"Roles": ""
+		},
+		"6": {
+			"UserAccount": "CMF\\NAPEIXOTO",
+			"PrimaryRole": "Administrators",
+			"Token": "",
+			"Pin": "",
+			"AutenticationStrategy": "",
+			"AutoLockTimeOut": "0",
+			"IsEnabled": "Yes",
+			"IsIntegrationUser": "No",
+			"RequirePasswordChange": "",
+			"Roles": ""
+		},
+		"7": {
+			"UserAccount": "CMF\\ARCRUZ",
+			"PrimaryRole": "",
+			"Token": "",
+			"Pin": "",
+			"AutenticationStrategy": "",
+			"AutoLockTimeOut": "0",
+			"IsEnabled": "Yes",
+			"IsIntegrationUser": "No",
+			"RequirePasswordChange": "",
+			"Roles": "Administrators"
+		},
+		"8": {
+			"UserAccount": "CMF\\RCALDAS",
+			"PrimaryRole": "Administrators",
+			"Token": "",
+			"Pin": "",
+			"AutenticationStrategy": "",
+			"AutoLockTimeOut": "0",
+			"IsEnabled": "Yes",
+			"IsIntegrationUser": "No",
+			"RequirePasswordChange": "",
+			"Roles": ""
+		},
+		"9": {
+			"UserAccount": "CMF\\DCFIGUEIREDO",
+			"PrimaryRole": "Administrators",
+			"Token": "",
+			"Pin": "",
+			"AutenticationStrategy": "",
+			"AutoLockTimeOut": "0",
+			"IsEnabled": "Yes",
+			"IsIntegrationUser": "No",
+			"RequirePasswordChange": "",
+			"Roles": ""
+		},
+		"10": {
+			"UserAccount": "CMF\\ARMONTEIRO",
+			"PrimaryRole": "Administrators",
+			"Token": "",
+			"Pin": "",
+			"AutenticationStrategy": "",
+			"AutoLockTimeOut": "0",
+			"IsEnabled": "Yes",
+			"IsIntegrationUser": "No",
+			"RequirePasswordChange": "",
+			"Roles": ""
 		}
 	},
 	"<SM>Config": {
@@ -211,6 +307,12 @@
 			"ParentPath": "/Cmf/Guis/Configuration/Material",
 			"Name": "IncomingLotAutoHoldReason",
 			"Value": "Out Of Spec",
+			"ValueType": "String"
+		},
+		"2": {
+			"ParentPath": "/AMSOsram/Protocol",
+			"Name": "Space",
+			"Value": "8D",
 			"ValueType": "String"
 		}
 	},
@@ -302,7 +404,8 @@
 			"DefaultInspectionAQLSeverity": "",
 			"DefaultInspectionAQLInspectionLevel": "",
 			"DefaultInspectionAQLAcceptanceLimit": "",
-			"CalculatePassYield": ""
+			"CalculatePassYield": "",
+			"RequiresSpaceConfirmation": "Yes"
 		},
 		"2": {
 			"Name": "CMFTestStep02",
@@ -1145,12 +1248,47 @@
 			"DataNumValidationMin": "",
 			"DataNumValidationMax": "",
 			"DataTextValidation": ""
+		},
+		"6": {
+			"Name": "SScOTest",
+			"Description": "",
+			"Type": "Metrology",
+			"DisplayName": "",
+			"ParameterScope": "EDC_SPC",
+			"DataType": "Decimal",
+			"DataFormat": "",
+			"DataUnit": "",
+			"DataScale": "",
+			"DataNumValidationMin": "",
+			"DataNumValidationMax": "",
+			"DataTextValidation": ""
+		},
+		"7": {
+			"Name": "QScOTest",
+			"Description": "",
+			"Type": "Metrology",
+			"DisplayName": "",
+			"ParameterScope": "EDC_SPC",
+			"DataType": "String",
+			"DataFormat": "",
+			"DataUnit": "",
+			"DataScale": "",
+			"DataNumValidationMin": "",
+			"DataNumValidationMax": "",
+			"DataTextValidation": ""
 		}
 	},
 	"<DM>DataCollection": {
 		"1": {
 			"Name": "ProductCertificateDataUnitTest",
 			"Description": "Product Certificate Data Unit Test",
+			"Type": "Production",
+			"Scope": "General",
+			"SPCPostMode": "OnPostPerSample"
+		},
+		"2": {
+			"Name": "SpaceDCTest",
+			"Description": "Data Collection to Test send information to Space",
 			"Type": "Production",
 			"Scope": "General",
 			"SPCPostMode": "OnPostPerSample"
@@ -1386,6 +1524,98 @@
 			"SampleKeySource": "",
 			"MaterialSampleProperty": "",
 			"Instruction": ""
+		},
+		"6": {
+			"DataCollection": "SpaceDCTest",
+			"Parameter": "SScOTest",
+			"Description": "",
+			"Order": "1",
+			"Calculation": "",
+			"CalculationGroupingMode": "",
+			"DataCollectionParameterGroup": "",
+			"DefaultValue": "",
+			"ErrorLimitViolationProtocol": "",
+			"IsOptional": "No",
+			"LimitCheckingMode": "",
+			"MaximumSampleReadings": "1",
+			"MaximumSamples": "13",
+			"MinimumSampleReadings": "1",
+			"MinimumSamples": "1",
+			"Rule": "",
+			"SampleCountPercentage": "",
+			"SampleCountPercentageSource": "",
+			"SampleKey": "MaterialId",
+			"SampleNamesList": "",
+			"ReadingNamesList": "",
+			"WarningLimitViolationProtocol": "",
+			"IsReference": "",
+			"CaptureInstrumentBehavior": "",
+			"InstrumentType": "",
+			"InspectionFrequency": "",
+			"InspectionFrequencyConfigurationMode": "",
+			"AQLInspectionLevel": "",
+			"AQLSeverity": "",
+			"AQLAcceptanceLimit": "",
+			"CounterFrequency": "",
+			"MaximumAcceptableDefectsMode": "",
+			"MaximumAcceptableDefectsFixed": "",
+			"MaximumAcceptableDefectsPercentage": "",
+			"SampleValueType": "",
+			"SampleCountSource": "",
+			"FixedSampleSize": "",
+			"UseFirstPieceMeasurementStrategy": "",
+			"MeasureLastPiece": "",
+			"TestAllSinceLastPass": "",
+			"TestAllOnFail": "",
+			"SampleKeySource": "",
+			"MaterialIdSampleProperty": "Name",
+			"Instruction": ""
+		},
+		"7": {
+			"DataCollection": "SpaceDCTest",
+			"Parameter": "QScOTest",
+			"Description": "",
+			"Order": "2",
+			"Calculation": "",
+			"CalculationGroupingMode": "",
+			"DataCollectionParameterGroup": "",
+			"DefaultValue": "",
+			"ErrorLimitViolationProtocol": "",
+			"IsOptional": "No",
+			"LimitCheckingMode": "",
+			"MaximumSampleReadings": "1",
+			"MaximumSamples": "13",
+			"MinimumSampleReadings": "1",
+			"MinimumSamples": "1",
+			"Rule": "",
+			"SampleCountPercentage": "",
+			"SampleCountPercentageSource": "",
+			"SampleKey": "MaterialId",
+			"SampleNamesList": "",
+			"ReadingNamesList": "",
+			"WarningLimitViolationProtocol": "",
+			"IsReference": "",
+			"CaptureInstrumentBehavior": "",
+			"InstrumentType": "",
+			"InspectionFrequency": "",
+			"InspectionFrequencyConfigurationMode": "",
+			"AQLInspectionLevel": "",
+			"AQLSeverity": "",
+			"AQLAcceptanceLimit": "",
+			"CounterFrequency": "",
+			"MaximumAcceptableDefectsMode": "",
+			"MaximumAcceptableDefectsFixed": "",
+			"MaximumAcceptableDefectsPercentage": "",
+			"SampleValueType": "",
+			"SampleCountSource": "",
+			"FixedSampleSize": "",
+			"UseFirstPieceMeasurementStrategy": "",
+			"MeasureLastPiece": "",
+			"TestAllSinceLastPass": "",
+			"TestAllOnFail": "",
+			"SampleKeySource": "",
+			"MaterialIdSampleProperty": "Name",
+			"Instruction": ""
 		}
 	},
 	"<DM>DataCollectionLimitSet": {
@@ -1394,6 +1624,12 @@
 			"Description": "Product Certificate Data Limit Set Unit Test",
 			"DataCollection": "ProductCertificateDataUnitTest",
 			"Parameter Limits": "Parameter[Thickness] MinValue[635] MaxValue[665] LimitType[Absolute] LowerErrorLimit[635] UpperErrorLimit[665];Parameter[Bow] MinValue[-6] MaxValue[0] LimitType[Absolute] LowerErrorLimit[-6] UpperErrotLimit[0]"
+		},
+		"2": {
+			"Name": "SpaceDCTestLimitSet",
+			"Description": "Data Collection to Test send information to Space Limit Set Unit Test",
+			"DataCollection": "SpaceDCTest",
+			"Parameter Limits": "Parameter[SScOTest] MinValue[635] MaxValue[665] LimitType[Absolute] LowerErrorLimit[635] UpperErrorLimit[665]"
 		}
 	},
 	"DataCollectionSampleLimits": {},
@@ -1441,6 +1677,15 @@
 		},
 		"3": {
 			"SourceEntity": "M2-SL-Wafer-Start-07301F001_E",
+			"TargetEntity": "Out Of Spec",
+			"ApplicableToAssemble": "",
+			"ApplicableToRecordLoss": "",
+			"ApplicableToTerminate": "",
+			"ApplicableToRework": "",
+			"ApplicableToTemporaryOffFlow": ""
+		},
+		"4": {
+			"SourceEntity": "CMFTestStep01",
 			"TargetEntity": "Out Of Spec",
 			"ApplicableToAssemble": "",
 			"ApplicableToRecordLoss": "",
@@ -1507,4 +1752,3 @@
 		}
 	}
 }
-

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<GoodsReceiptCertificate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <Material>
+        <Name>L-108-84155-ZK21435-C112</Name>
+        <Product>11018814</Product>
+        <Type>Production</Type>
+        <StateModel>CustomMaterialStateModel</StateModel>
+        <State>Queued</State>
+        <Form>Lot</Form>
+        <Facility>Regensburg Production</Facility>
+        <Flow>FOL-UX3_EPA</Flow>
+        <Step>M2-SL-Wafer-Start-07301F001_E</Step>
+        <Attributes>
+            <key name="GoodsReceiptNo" value="5043575531"/>
+        </Attributes>
+        <SubMaterial>
+            <Material>
+                <Name>L-108-84155-ZK21435-C112.1</Name>
+                <Product>11018814</Product>
+                <Type>Production</Type>
+                <StateModel>CustomMaterialStateModel</StateModel>
+                <State>Queued</State>
+                <Form>Logical Wafer</Form>
+                <Facility>Regensburg Production</Facility>
+                <Flow>FOL-UX3_EPA</Flow>
+                <Step>M2-SL-Wafer-Start-07301F001_E</Step>
+                <Attributes>
+                    <key name="GoodsReceiptNo" value="5043575531"/>
+                    <key name="GoodsReceiptDate" value="08.11.2021"/>
+                </Attributes>
+                <SubMaterial>
+                    <Material>
+                        <Name>L-108-84155-ZK21435-C112.1.A</Name>
+                        <Product>11018814</Product>
+                        <Type>Production</Type>
+                        <StateModel>CustomMaterialStateModel</StateModel>
+                        <State>Queued</State>
+                        <Form>Wafer</Form>
+                        <Facility>Regensburg Production</Facility>
+                        <Flow>FOL-UX3_EPA</Flow>
+                        <Step>M2-SL-Wafer-Start-07301F001_E</Step>
+                        <Attributes>
+                            <key name="GoodsReceiptNo" value="55"/>
+                            <key name="GoodsReceiptDate" value="12.07.2022"/>
+                        </Attributes>
+                        <EDCData>
+                            <key name="Thickness" value="650" />
+                            <key name="OrientationSpec" value="Off" />
+                            <key name="Orientation" value="0,3" />
+                            <key name="Resistivity" value="0,085" />
+                            <key name="Bow" value="-5" />
+                        </EDCData>
+                    </Material>
+                </SubMaterial>
+            </Material>
+        </SubMaterial>
+    </Material>
+</GoodsReceiptCertificate>

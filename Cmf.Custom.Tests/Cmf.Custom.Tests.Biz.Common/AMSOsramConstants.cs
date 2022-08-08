@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cmf.Custom.Tests.Biz.Common
+﻿namespace Cmf.Custom.Tests.Biz.Common
 {
     public class AMSOsramConstants
     {
@@ -174,10 +170,6 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// </summary>
         public static int ContainerTotalPosition = 13;
 
-
-
-
-
         #endregion
 
         #endregion
@@ -235,5 +227,85 @@ namespace Cmf.Custom.Tests.Biz.Common
         public static string CustomPostGoodsIssueToSAPMessageType = "CustomPerformConsumption";
 
         #endregion
+
+        #region MessageBus Subjects
+
+        /// <summary>
+        /// Tibco subject for report DataCollection to Space
+        /// </summary>
+        public const string CustomReportEDCToSpace = "CustomReportEDCToSpace";
+
+        #endregion
+
+        #region ONTO FDC
+
+        /// <summary>
+        /// Integration Entry: SourceSystem column
+        /// </summary>
+        public static string SourceSystem = "SourceSystem";
+
+        /// <summary>
+        /// Integration Entry: TargetSystem column
+        /// </summary>
+        public static string TargetSystem = "TargetSystem";
+
+        /// <summary>
+        /// Integration Entry: MessageType column
+        /// </summary>
+        public static string MessageType = "MessageType";
+
+        //// <summary>
+        /// LOTIN Integration Entry Message Type
+        /// </summary>
+        public static string MessageType_LOTIN = "LOTIN";
+
+        /// <summary>
+        /// LOTOUT Integration Entry Message Type
+        /// </summary>
+        public static string MessageType_LOTOUT = "LOTOUT";
+
+        /// <summary>
+        /// WAFERIN Integration Entry Message Type
+        /// </summary>
+        public static string MessageType_WAFERIN = "WAFERIN";
+
+        /// <summary>
+        /// WAFEROUT Integration Entry Message Type
+        /// </summary>
+        public static string MessageType_WAFEROUT = "WAFEROUT";
+
+        /// <summary>
+        /// OntoFDC TargetSystem
+        /// </summary>
+        public static string TargetSystem_OntoFDC = "OntoFDC";
+
+        /// <summary>
+        /// OntoFDC SourceSystem
+        /// </summary>
+        public static string SourceSystem_OntoFDC = "MES";
+
+        /// <summary>
+        /// OsramEventName
+        /// </summary>
+        public static string OsramEventName = "OsramEventName";
+
+        #endregion
+
+        #region Configurations
+
+        /// <summary>
+        /// PollingInterval config value
+        /// </summary>
+        public static string PollingIntervalConfigValue = "/Cmf/System/Configuration/Integration/PollingInterval/";
+
+        /// <summary>
+        /// PollingInterval config value
+        /// </summary>
+        public static string FDCActiveConfigPath = "/AMSOsram/FDC/Active/";
+
+        
+
+
+        #endregion Configurations
     }
 }
