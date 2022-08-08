@@ -100,6 +100,21 @@
         /// </summary>
         public static string GenericTableCustomTibcoEMSGatewayResolver = "CustomTibcoEMSGatewayResolver";
 
+        /// <summary>
+        /// Custom TibcoEMS Gateway Resolver table queue flag property 
+        /// </summary>
+        public static string GenericTableCustomTibcoEMSGatewayResolverQueueFlagProperty = "QueueFlag";
+
+        /// <summary>
+        /// Custom TibcoEMS Gateway Resolver table MapText flag property 
+        /// </summary>
+        public static string GenericTableCustomTibcoEMSGatewayResolverMapTextFlagProperty = "MapTextFlag";
+
+        /// <summary>
+        /// Custom TibcoEMS Gateway Resolver table compress flag property 
+        /// </summary>
+        public static string GenericTableCustomTibcoEMSGatewayResolverCompressFlagProperty = "CompressFlag";
+
         #endregion
 
         #region LookupTables

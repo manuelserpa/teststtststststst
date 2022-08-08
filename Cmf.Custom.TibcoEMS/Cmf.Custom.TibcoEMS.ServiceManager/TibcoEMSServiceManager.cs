@@ -125,6 +125,15 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                     // Action name
                     string actionName = this.TibcoResolveConfigurations[subject].Rule;
 
+                    // Queue Flag
+                    bool queueFlag = this.TibcoResolveConfigurations[subject].QueueFlag;
+
+                    // Compress Flag
+                    bool compressFlag = this.TibcoResolveConfigurations[subject].CompressFlag;
+
+                    // MapText Flag
+                    bool mapTextFlag = this.TibcoResolveConfigurations[subject].MapTextFlag;
+
                     // Message to send
                     string messageData = message.Data;
 
@@ -146,9 +155,13 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                             }
                         }
 
+                        
+
                         this.Logger.LogInformation("Sending message to Tibco...");
 
-                        this.SendMessageToTibco(topicName, messageData);
+                        this.Logger.LogInformation("ID:" + message.Id);
+
+                        this.SendMessageToTibco(messageData, topicName, queueFlag, compressFlag, mapTextFlag);
 
                         this.MessageBusTransport.Reply(message, "Ok");
 
@@ -231,20 +244,72 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         }
 
         /// <summary>
-        /// Subscribe topic and send message to Tibco
+        /// Subscribe topic or queue and send message to Tibco
         /// </summary>
-        private void SendMessageToTibco(string topicName, string messageData)
+        private void SendMessageToTibco(string messageData, string topicName, bool queueFlag, bool compressFlag, bool mapTextFlag)
         {
             Session tibcoSession = this.TibcoConnection.CreateSession(false, SessionMode.AutoAcknowledge);
 
-            Topic tibcoTopic = tibcoSession.CreateTopic(topicName);
+            if (queueFlag)
+            {
+                Queue tibcoQueue = tibcoSession.CreateQueue(topicName);
+                MessageProducer tibcoMessageProducer = tibcoSession.CreateProducer(tibcoQueue);
+                if (mapTextFlag)
+                {
+                    MapMessage tibcoMessage = tibcoSession.CreateMapMessage();
 
-            MessageProducer tibcoMessageProducer = tibcoSession.CreateProducer(tibcoTopic);
+                    tibcoMessage.SetStringProperty("field", messageData);
 
-            MapMessage tibcoMessage = tibcoSession.CreateMapMessage();
-            tibcoMessage.SetStringProperty("field", messageData);
+                    tibcoMessageProducer.Send(tibcoMessage);
 
-            tibcoMessageProducer.Send(tibcoMessage);
+                    this.Logger.LogInformation("Tibco Map Message ID:" + tibcoMessage.MessageID);
+                }
+                else
+                {
+                    TextMessage tibcoMessage = tibcoSession.CreateTextMessage();
+
+                    tibcoMessage.SetStringProperty("field", messageData);
+
+                    if (compressFlag)
+                    {
+                        tibcoMessage.SetBooleanProperty("JMS_TIBCO_COMPRESS", true);
+                    }
+
+                    tibcoMessageProducer.Send(tibcoMessage);
+
+                    this.Logger.LogInformation("Tibco Text Message ID:" + tibcoMessage.MessageID);
+                }
+            }
+            else
+            {
+                Topic tibcoTopic = tibcoSession.CreateTopic(topicName);
+                MessageProducer tibcoMessageProducer = tibcoSession.CreateProducer(tibcoTopic);
+                if (mapTextFlag)
+                {
+                    MapMessage tibcoMessage = tibcoSession.CreateMapMessage();
+
+                    tibcoMessage.SetStringProperty("field", messageData);
+
+                    tibcoMessageProducer.Send(tibcoMessage);
+
+                    this.Logger.LogInformation("Tibco Map Message ID:" + tibcoMessage.MessageID);
+                }
+                else
+                {
+                    TextMessage tibcoMessage = tibcoSession.CreateTextMessage();
+
+                    tibcoMessage.SetStringProperty("field", messageData);
+
+                    if (compressFlag)
+                    {
+                        tibcoMessage.SetBooleanProperty("JMS_TIBCO_COMPRESS", true);
+                    }
+
+                    tibcoMessageProducer.Send(tibcoMessage);
+
+                    this.Logger.LogInformation("Tibco Text Message ID:" + tibcoMessage.MessageID);
+                }
+            }      
         }
 
         /// <summary>
