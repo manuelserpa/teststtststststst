@@ -6,9 +6,11 @@ using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects;
-using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Xml;
 
@@ -20,20 +22,34 @@ namespace Cmf.Custom.Tests.Biz.Materials
         private CustomMaterialScenario materialScenario = null;
         private IntegrationEntry integrationEntry = null;
         private IntegrationEntryCollection integrationEntriesToTerminate = new IntegrationEntryCollection();
+        private static Resource resource;
+        private static Resource subResource;
         private int pollingIntervalConfig = Convert.ToInt32(ConfigUtilities.GetConfigValue(AMSOsramConstants.PollingIntervalConfigValue));
         private int MaxNumberOfRetries = 30;
         private const string resourceName = "PDSP0101";
         private const string subResourceName = "PDSP0101.PM01";
-
+        private bool fdcActiveConfig;
+        private Dictionary<Resource, bool> oldResourceFDCCommunicationValue = new Dictionary<Resource, bool>();
+        
         /// <summary>
         /// Test Initialization
         /// </summary>
         [TestInitialize]
         public void TestInitialization()
         {
-            // Set resources FDC Communication attribute to true
-            SetResourceFDCCommunication(resourceName, true);
-            SetResourceFDCCommunication(subResourceName, true);
+            #region Material setup
+
+            resource = new Resource()
+            {
+                Name = resourceName
+            };
+            resource.Load();
+
+            subResource = new Resource()
+            {
+                Name = subResourceName
+            };
+            subResource.Load();
 
             //Creation Custom Material Scenario
             materialScenario = new CustomMaterialScenario(false)
@@ -42,7 +58,20 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 AssociateSubMaterialsToContainer = true
             };
 
+            #endregion Material setup
+
+            #region Configurations
+
+            // Set resources FDC Communication attribute to true
+            SetResourceFDCCommunication(resource, true);
+            SetResourceFDCCommunication(subResource, true);
+
+
+            // Get original config value for FDCActiveConfigPath to restore later
+            fdcActiveConfig = (bool)ConfigUtilities.GetConfigValue(AMSOsramConstants.FDCActiveConfigPath);
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, true);
+            #endregion Configurations
+            
         }
 
         /// <summary>
@@ -72,10 +101,23 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
             #endregion Terminate Integration Entries
 
-            if (materialScenario != null)
+            if (materialScenario != null) 
             {
                 materialScenario.TearDown();
             }
+
+            if (oldResourceFDCCommunicationValue.Count > 0) 
+            {
+                foreach (var keyValue in oldResourceFDCCommunicationValue)
+                {
+                    keyValue.Key.Load();
+                    keyValue.Key.SaveAttribute(AMSOsramConstants.CustomFDCCommunicationAttribute, keyValue.Value);
+                }
+            }
+
+            // Reset FDC Active Configuration to original value
+            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, fdcActiveConfig);
+
         }
 
         /// <summary>
@@ -92,10 +134,12 @@ namespace Cmf.Custom.Tests.Biz.Materials
         public void CustomReportDataToFDCTests_FDCActiveConfigurationTest()
         {
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
-            DateTime fromDate = DateTime.Now;
+
             materialScenario.Setup(true);
-            materialScenario.Entity.ComplexTrackIn();
-            fromDate = DateTime.Now;
+            
+            DateTime fromDate = DateTime.Now;
+            resource.Load();
+            materialScenario.Entity.ComplexTrackIn(resource);
 
             IntegrationEntry integrationEntry = new IntegrationEntry();
 
@@ -106,8 +150,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
                             AMSOsramConstants.SourceSystem_OntoFDC, AMSOsramConstants.TargetSystem_OntoFDC);
                 return integrationEntry != null;
             }, 2, pollingIntervalConfig / 10);
-
-            integrationEntry.Load();
 
             Assert.IsNull(integrationEntry, "Integration entry should not have been created.");
 
@@ -126,11 +168,13 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [TestMethod]
         public void CustomReportDataToFDCTests_ResourceFDCCommunicationAttributeTest()
         {
-            SetResourceFDCCommunication(resourceName, false);
-            DateTime fromDate = DateTime.Now;
+            resource.SaveAttribute(AMSOsramConstants.CustomFDCCommunicationAttribute, false);
+
             materialScenario.Setup(true);
-            materialScenario.Entity.ComplexTrackIn();
-            fromDate = DateTime.Now;
+            resource.Load();
+            DateTime fromDate = DateTime.Now;
+            materialScenario.Entity.ComplexTrackIn(resource);
+            
 
             IntegrationEntry integrationEntry = new IntegrationEntry();
 
@@ -142,10 +186,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 return integrationEntry != null;
             }, 2, pollingIntervalConfig / 10);
 
-            integrationEntry.Load();
-
             Assert.IsNull(integrationEntry, "Integration entry should not have been created.");
-
         }
 
         /// <summary>
@@ -160,32 +201,12 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [TestMethod]
         public void CustomReportDataToFDCTests_LotMaterialTrackIn()
         {
-            DateTime fromDate = DateTime.Now;
             materialScenario.Setup(true);
-            materialScenario.Entity.ComplexTrackIn();
-            fromDate = DateTime.Now;
+            resource.Load();
+            DateTime fromDate = DateTime.Now;
+            materialScenario.Entity.ComplexTrackIn(resource);
 
-            IntegrationEntry integrationEntry = new IntegrationEntry();
-
-            GenericUtilities.WaitFor(() =>
-            {
-                // Get the IntegrationEntry
-                integrationEntry = IntegrationEntryUtilities.GetIntegrationEntry(AMSOsramConstants.MessageType_LOTIN, fromDate, true,
-                            AMSOsramConstants.SourceSystem_OntoFDC, AMSOsramConstants.TargetSystem_OntoFDC);
-                return integrationEntry != null;
-            }, MaxNumberOfRetries, pollingIntervalConfig / MaxNumberOfRetries);
-
-            integrationEntry.Load();
-
-            Assert.IsTrue(integrationEntry.Name.Contains(materialScenario.Entity.Name), "Integration entry was not created.");
-            Assert.AreEqual(integrationEntry.MessageType, AMSOsramConstants.MessageType_LOTIN, "Integration entry contains the wrong message type.");
-
-            // Validate Integration Entry message body with material data
-            ValidateIntegrationEntry(integrationEntry.MessageType, fromDate, true, materialScenario.Entity.Name, "", resourceName, materialScenario.Entity.Step.Name, materialScenario.Entity.LastProcessedResource.LastService.Name, "" /*materialScenario.Entity.LastRecipe.Name*/, materialScenario.Entity.Product.Name, materialScenario.Entity.Flow.Name, materialScenario.Entity.PrimaryQuantity.ToString(), materialScenario.Entity.Facility.Name);
-
-            // Add Integration Entry to removal list for clean up
-            AddIntegrationEntryToRemoveLater(integrationEntry.MessageType, fromDate);
-
+            ValidateIntegrationEntry(AMSOsramConstants.MessageType_LOTIN, fromDate, true, materialScenario.Entity.Name, "", resourceName, "", "", "", materialScenario.Entity.Step.Name, materialScenario.Entity.LastProcessedResource.LastService.Name, "", materialScenario.Entity.Product.Name, materialScenario.Entity.Flow.Name, materialScenario.Entity.PrimaryQuantity.ToString(), materialScenario.Entity.Facility.Name);
         }
 
         /// <summary>
@@ -200,48 +221,21 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [TestMethod]
         public void CustomReportDataToFDCTests_WaferMaterialTrackIn()
         {
-            DateTime fromDate = DateTime.Now;
-
             materialScenario.Setup(true);
+
             Assert.IsTrue(materialScenario.Entity.SubMaterialCount > 0, $"The material {materialScenario.Entity.Name} should have submaterials.");
-            IntegrationEntry integrationEntry = new IntegrationEntry();
-
-            Resource resource = new Resource()
-            {
-                Name = resourceName
-            };
+            
+            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
             resource.Load();
-            Resource subResource = new Resource()
-            {
-                Name = subResourceName
-            };
-            subResource.Load();
-
-            materialScenario.Entity.ComplexTrackIn();
+            materialScenario.Entity.ComplexTrackIn(resource);
             materialScenario.Entity.LoadChildren();
+            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, true);
+            subResource.Load();
+            DateTime fromDate = DateTime.Now;
             materialScenario.Entity.SubMaterials.ComplexTrackInMaterials(subResource);
-            fromDate = DateTime.Now;
+            materialScenario.SubMaterials[0].LoadRelation("MaterialContainer");
 
-            // Verify if Integration Entry for wafer material was created and contains the right messageType
-
-            GenericUtilities.WaitFor(() =>
-            {
-                // Get the IntegrationEntry
-                integrationEntry = IntegrationEntryUtilities.GetIntegrationEntry(AMSOsramConstants.MessageType_WAFERIN, fromDate, true,
-                            AMSOsramConstants.SourceSystem_OntoFDC, AMSOsramConstants.TargetSystem_OntoFDC);
-                return integrationEntry != null;
-            }, MaxNumberOfRetries, pollingIntervalConfig / MaxNumberOfRetries);
-            integrationEntry.Load();
-
-            Assert.IsTrue(integrationEntry.Name.Contains(materialScenario.SubMaterials[0].Name.Replace(" ", "_")), "Integration entry for wafer was not created.");
-            Assert.AreEqual(integrationEntry.MessageType, AMSOsramConstants.MessageType_WAFERIN, "Integration entry contains the wrong message type.");
-
-            // Validate Integration Entry message body with material data
-            ValidateIntegrationEntry(integrationEntry.MessageType, fromDate, true, materialScenario.Entity.Name, materialScenario.SubMaterials[0].Name, subResourceName);
-
-            // Add Integration Entry to removal list for clean up
-            AddIntegrationEntryToRemoveLater(integrationEntry.MessageType, fromDate);
-
+            ValidateIntegrationEntry(AMSOsramConstants.MessageType_WAFERIN, fromDate, true, materialScenario.Entity.Name, materialScenario.SubMaterials[0].Name, subResourceName, materialScenario.SubMaterials[0].MaterialContainer.First().Position.ToString(), materialScenario.SubMaterials[0].MaterialContainer.First().Position.ToString(), materialScenario.SubMaterials[0].PrimaryQuantity.Value.ToString());
         }
 
         /// <summary>
@@ -256,36 +250,18 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [TestMethod]
         public void CustomReportDataToFDCTests_LotMaterialTrackOut()
         {
-
-            DateTime fromDate = DateTime.Now;
             materialScenario.NumberOfSubMaterials = 0;
             materialScenario.Setup(true);
-            materialScenario.Entity.ComplexTrackIn();
+            resource.Load();
+            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
+            materialScenario.Entity.ComplexTrackIn(resource);
             materialScenario.Entity.Load();
+            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, true);
+            DateTime fromDate = DateTime.Now;
             materialScenario.Entity.ComplexTrackOutMaterial();
-            fromDate = DateTime.Now;
-
-            IntegrationEntry integrationEntry = new IntegrationEntry();
-
-            GenericUtilities.WaitFor(() =>
-            {
-                // Get the IntegrationEntry
-                integrationEntry = IntegrationEntryUtilities.GetIntegrationEntry(AMSOsramConstants.MessageType_LOTOUT, fromDate, true,
-                            AMSOsramConstants.SourceSystem_OntoFDC, AMSOsramConstants.TargetSystem_OntoFDC);
-                return integrationEntry != null;
-            }, MaxNumberOfRetries, pollingIntervalConfig / MaxNumberOfRetries);
-
-            integrationEntry.Load();
-
-            Assert.IsTrue(integrationEntry.Name.Contains(materialScenario.Entity.Name), "Integration entry was not created.");
-            Assert.AreEqual(integrationEntry.MessageType, AMSOsramConstants.MessageType_LOTOUT, "Integration entry contains the wrong message type.");
             materialScenario.Entity.Step.Load();
-            // Validate Integration Entry message body with material data
-            ValidateIntegrationEntry(integrationEntry.MessageType, fromDate, true, materialScenario.Entity.Name, "", "", materialScenario.Entity.Step.Name);
 
-            // Add Integration Entry to removal list for clean up
-            AddIntegrationEntryToRemoveLater(integrationEntry.MessageType, fromDate);
-
+            ValidateIntegrationEntry(AMSOsramConstants.MessageType_LOTOUT, fromDate, true, materialScenario.Entity.Name, "", "", "", "", "", materialScenario.Entity.Step.Name);
         }
 
         /// <summary>
@@ -300,43 +276,22 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [TestMethod]
         public void CustomReportDataToFDCTests_WaferMaterialTrackOut()
         {
-            DateTime fromDate = DateTime.Now;
             materialScenario.Setup(true);
-
-            Resource subResource = new Resource()
-            {
-                Name = subResourceName
-            };
-            subResource.Load();
-
-            materialScenario.Entity.ComplexTrackIn();
+            
+            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
+            resource.Load();
+            materialScenario.Entity.ComplexTrackIn(resource);
             materialScenario.Entity.Load();
             materialScenario.Entity.LoadChildren();
+            subResource.Load();
             materialScenario.Entity.SubMaterials.ComplexTrackInMaterials(subResource);
+            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, true);
+            DateTime fromDate = DateTime.Now;
             materialScenario.Entity.SubMaterials[0].ComplexTrackOutMaterial();
-            fromDate = DateTime.Now;
-
-            IntegrationEntry integrationEntry = new IntegrationEntry();
-
-            GenericUtilities.WaitFor(() =>
-            {
-                // Get the IntegrationEntry
-                integrationEntry = IntegrationEntryUtilities.GetIntegrationEntry(AMSOsramConstants.MessageType_WAFEROUT, fromDate, true,
-                            AMSOsramConstants.SourceSystem_OntoFDC, AMSOsramConstants.TargetSystem_OntoFDC);
-                return integrationEntry != null;
-            }, MaxNumberOfRetries, pollingIntervalConfig / MaxNumberOfRetries);
-
-            integrationEntry.Load();
-
-            Assert.IsTrue(integrationEntry.Name.Contains(materialScenario.SubMaterials[0].Name.Replace(" ", "_")), "Integration entry was not created.");
-            Assert.AreEqual(integrationEntry.MessageType, AMSOsramConstants.MessageType_WAFEROUT, "Integration entry contains the wrong message type.");
-
+            materialScenario.Entity.SubMaterials[0].Load();
             materialScenario.Entity.Step.Load();
-            // Validate Integration Entry message body with material data
-            ValidateIntegrationEntry(integrationEntry.MessageType, fromDate, true, materialScenario.Entity.Name, materialScenario.SubMaterials[0].Name, subResourceName, "", "", "", "", "", "", "", "Processed", "true");
 
-            // Add Integration Entry to removal list for clean up
-            AddIntegrationEntryToRemoveLater(integrationEntry.MessageType, fromDate);
+            ValidateIntegrationEntry(AMSOsramConstants.MessageType_WAFEROUT, fromDate, true, materialScenario.Entity.Name, materialScenario.SubMaterials[0].Name, subResourceName, "", "", "", "", "", "", "", "", "", "", materialScenario.Entity.SubMaterials[0].SystemState.ToString());
         }
 
 
@@ -352,34 +307,17 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [TestMethod]
         public void CustomReportDataToFDCTests_LotMaterialAbort()
         {
-            DateTime fromDate = DateTime.Now;
             materialScenario.NumberOfSubMaterials = 0;
             materialScenario.Setup(true);
-            materialScenario.Entity.ComplexTrackIn();
+
+            resource.Load();
+            DateTime fromDate = DateTime.Now;
+            materialScenario.Entity.ComplexTrackIn(resource);
             materialScenario.Entity.Load();
             materialScenario.Entity.Abort();
-            fromDate = DateTime.Now;
-
-            IntegrationEntry integrationEntry = new IntegrationEntry();
-
-            GenericUtilities.WaitFor(() =>
-            {
-                // Get the IntegrationEntry
-                integrationEntry = IntegrationEntryUtilities.GetIntegrationEntry(AMSOsramConstants.MessageType_LOTOUT, fromDate, true,
-                            AMSOsramConstants.SourceSystem_OntoFDC, AMSOsramConstants.TargetSystem_OntoFDC);
-                return integrationEntry != null;
-            }, MaxNumberOfRetries, pollingIntervalConfig / MaxNumberOfRetries);
-
-            integrationEntry.Load();
-
-            Assert.IsTrue(integrationEntry.Name.Contains(materialScenario.Entity.Name), "Integration entry was not created.");
-            Assert.AreEqual(integrationEntry.MessageType, AMSOsramConstants.MessageType_LOTOUT, "Integration entry contains the wrong message type.");
             materialScenario.Entity.Step.Load();
-            // Validate Integration Entry message body with material data
-            ValidateIntegrationEntry(integrationEntry.MessageType, fromDate, true, materialScenario.Entity.Name, "", "", materialScenario.Entity.Step.Name);
 
-            // Add Integration Entry to removal list for clean up
-            AddIntegrationEntryToRemoveLater(integrationEntry.MessageType, fromDate);
+            ValidateIntegrationEntry(AMSOsramConstants.MessageType_LOTOUT, fromDate, true, materialScenario.Entity.Name, "", "", "", "", "", materialScenario.Entity.Step.Name);
         }
 
         #region Help methods
@@ -390,9 +328,9 @@ namespace Cmf.Custom.Tests.Biz.Materials
         /// <param name="fromDate"></param>
         /// <param name="transactionSuccess"></param>
         /// <param name="expectedMaterialName"></param>
-        private void ValidateIntegrationEntry(string messageType, DateTime fromDate, bool transactionSuccess, string expectedLotName = "", string expectedWaferName = "", string expectedChamberName = "",
-            string expectedOperationName = "", string expectedSPSName = "", string expectedRecipeName = "", string expectedProductName = "", string expectedProductRouteName = "", string expectedNumberOfWafersInBatch = "",
-            string expectedFacilityName = "", string expectedWaferState = "", string expectedProcessedStatus = "")
+        private void ValidateIntegrationEntry(string messageType, DateTime fromDate, bool transactionSuccess, string expectedLotName = "", string expectedWaferName = "", string expectedChamberName = "", string expectedSlotPos = "",
+            string expectedLotPos = "", string expectedQty = "", string expectedOperationName = "", string expectedSPSName = "", string expectedRecipeName = "", string expectedProductName = "", string expectedProductRouteName = "", string expectedNumberOfWafersInBatch = "",
+            string expectedFacilityName = "", string expectedWaferState = "")
         {
             if (transactionSuccess)
             {
@@ -430,52 +368,52 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 switch (integrationEntry.MessageType)
                 {
 
-                    case "WAFERIN:":
+                    case "WAFERIN":
                         foreach (XmlNode item in xml.DocumentElement.ChildNodes)
                         {
                             switch (item.Name)
                             {
                                 case "WaferName":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property WaferName should not be empty!");
 
                                     Assert.AreEqual(expectedWaferName, item.InnerText.Trim(),
                                         $"The property WaferName should be {expectedWaferName}!");
                                     break;
                                 case "LotName":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property LotName should not be empty!");
 
                                     Assert.AreEqual(expectedLotName, item.InnerText.Trim(),
                                         $"The property LotName should be {expectedLotName}!");
                                     break;
                                 case "Chamber":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property Chamber should not be empty!");
 
                                     Assert.AreEqual(expectedChamberName, item.InnerText.Trim(),
                                         $"The property Chamber should be {expectedChamberName}!");
                                     break;
                                 case "SlotPos":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property SlotPos should not be empty!");
 
-                                    Assert.AreEqual("1", item.InnerText.Trim(),
-                                        $"The property SlotPos should be 1!");
+                                    Assert.AreEqual(expectedSlotPos, item.InnerText.Trim(),
+                                        $"The property SlotPos should be {expectedSlotPos}!");
                                     break;
                                 case "LotPos":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property LotPos should not be empty!");
 
-                                    Assert.AreEqual("1", item.InnerText.Trim(),
-                                        $"The property LotPos should be 1!");
+                                    Assert.AreEqual(expectedLotPos, item.InnerText.Trim(),
+                                        $"The property LotPos should be {expectedLotPos}!");
                                     break;
                                 case "QtyIn":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property QtyIn should not be empty!");
 
-                                    Assert.AreEqual("1", item.InnerText.Trim(),
-                                        $"The property QtyIn should be 1!");
+                                    Assert.AreEqual(Math.Round(Convert.ToDouble(expectedQty)).ToString(), item.InnerText.Trim(),
+                                        $"The property QtyIn should be {expectedQty}!");
                                     break;
                             }
                         }
@@ -486,39 +424,39 @@ namespace Cmf.Custom.Tests.Biz.Materials
                             switch (item.Name)
                             {
                                 case "WaferName":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property WaferName should not be empty!");
 
                                     Assert.AreEqual(expectedWaferName, item.InnerText.Trim(),
                                         $"The property WaferName should be {expectedWaferName}!");
                                     break;
                                 case "LotName":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property LotName should not be empty!");
 
                                     Assert.AreEqual(expectedLotName, item.InnerText.Trim(),
                                         $"The property LotName should be {expectedLotName}!");
                                     break;
                                 case "Chamber":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property Chamber should not be empty!");
 
                                     Assert.AreEqual(expectedChamberName, item.InnerText.Trim(),
                                         $"The property Chamber should be {expectedChamberName}!");
                                     break;
                                 case "Processed":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property Processed should not be empty!");
 
                                     Assert.AreEqual("true", item.InnerText.Trim(),
                                         $"The property Processed should be true!");
                                     break;
                                 case "WaferState":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property WaferState should not be empty!");
 
-                                    Assert.AreEqual("Processed", item.InnerText.Trim(),
-                                        $"The property WaferState should be Processed!");
+                                    Assert.AreEqual(expectedWaferState, item.InnerText.Trim(),
+                                        $"The property WaferState should be {expectedWaferState}!");
                                     break;
                             }
                         }
@@ -529,58 +467,49 @@ namespace Cmf.Custom.Tests.Biz.Materials
                             switch (item.Name)
                             {
                                 case "LotName":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property LotName should not be empty!");
 
                                     Assert.AreEqual(expectedLotName, item.InnerText.Trim(),
                                         $"The property LotName should be {expectedLotName}!");
                                     break;
                                 case "Operation":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property Operation should not be empty!");
 
                                     Assert.AreEqual(expectedOperationName, item.InnerText.Trim(),
                                         $"The property Operation should be {expectedOperationName}!");
                                     break;
                                 case "SPS":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property SPS should not be empty!");
 
                                     Assert.AreEqual(expectedSPSName, item.InnerText.Trim(),
                                         $"The property SPS should be {expectedSPSName}!");
                                     break;
-                                /*
-                                case "RecipeName":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
-                                        $"The property RecipeName should not be empty!");
-
-                                    Assert.AreEqual("1", item.InnerText.Trim(),
-                                        $"The property RecipeName should be ?!");
-                                    break;
-                                */
                                 case "ProductName":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property ProductName should not be empty!");
 
                                     Assert.AreEqual(expectedProductName, item.InnerText.Trim(),
                                         $"The property ProductName should be {expectedProductName}!");
                                     break;
                                 case "ProductRoute":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property ProductRoute should not be empty!");
 
                                     Assert.AreEqual(expectedProductRouteName, item.InnerText.Trim(),
                                         $"The property ProductRoute should be {expectedProductRouteName}!");
                                     break;
                                 case "NumbersOfWafersInBatch":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property NumbersOfWafersInBatch should not be empty!");
 
                                     Assert.AreEqual(expectedNumberOfWafersInBatch, item.InnerText.Trim(),
                                         $"The property NumbersOfWafersInBatch should be {expectedNumberOfWafersInBatch}!");
                                     break;
                                 case "FacilityName":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property FacilityName should not be empty!");
 
                                     Assert.AreEqual(expectedFacilityName, item.InnerText.Trim(),
@@ -595,14 +524,14 @@ namespace Cmf.Custom.Tests.Biz.Materials
                             switch (item.Name)
                             {
                                 case "Operation":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property Operation should not be empty!");
 
                                     Assert.AreEqual(expectedOperationName, item.InnerText.Trim(),
                                         $"The property Operation should be {expectedOperationName}!");
                                     break;
                                 case "LotName":
-                                    Assert.IsTrue(item.InnerText != null && !string.IsNullOrWhiteSpace(item.InnerText),
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
                                         $"The property LotName should not be empty!");
 
                                     Assert.AreEqual(expectedLotName, item.InnerText.Trim(),
@@ -616,45 +545,23 @@ namespace Cmf.Custom.Tests.Biz.Materials
         }
 
         /// <summary>
-        /// Add Integration Entry to integrationEntriesToTerminate list in order to remove it later on cleanup
-        /// </summary>
-        /// <param name="messageType"></param>
-        /// <param name="fromDate"></param>
-        private void AddIntegrationEntryToRemoveLater(string messageType, DateTime fromDate)
-        {
-            // Validate that Integration Entry was created
-            GenericUtilities.WaitFor(() =>
-            {
-                // Get the IntegrationEntry
-                integrationEntry = IntegrationEntryUtilities.GetIntegrationEntry(messageType, fromDate, true,
-                    AMSOsramConstants.SourceSystem_OntoFDC, AMSOsramConstants.TargetSystem_OntoFDC);
-
-                return integrationEntry != null;
-            }, MaxNumberOfRetries, pollingIntervalConfig / MaxNumberOfRetries);
-
-            // Load Integration Entry
-            Assert.IsNotNull(integrationEntry, $"It should have been created an Integration Entry.");
-
-            // Load integration entry
-            integrationEntry.Load();
-
-            // To remove later
-            integrationEntriesToTerminate.Add(integrationEntry);
-        }
-
-        /// <summary>
         /// Sets the FDCCommunication value of the given resource
         /// </summary>
-        /// <param name="resourceName"></param>
+        /// <param name="resource"></param>
         /// <param name="fdcCommunicationValue"></param>
-        private void SetResourceFDCCommunication(string resourceName, bool fdcCommunicationValue)
+        private void SetResourceFDCCommunication(Resource resource, bool fdcCommunicationValue)
         {
-            Resource resource = new Resource
+            resource.LoadAttributes(new Collection<string> { AMSOsramConstants.CustomFDCCommunicationAttribute });
+
+            if (resource.Attributes != null &&
+                resource.Attributes.ContainsKey(AMSOsramConstants.CustomFDCCommunicationAttribute) &&
+                resource.Attributes[AMSOsramConstants.CustomFDCCommunicationAttribute] != null)
             {
-                Name = resourceName
-            };
+                oldResourceFDCCommunicationValue.Add(resource, (bool)resource.Attributes[AMSOsramConstants.CustomFDCCommunicationAttribute]);
+            }
+
+            resource.SaveAttribute(AMSOsramConstants.CustomFDCCommunicationAttribute, fdcCommunicationValue);
             resource.Load();
-            resource.SaveAttribute("FDCCommunication", fdcCommunicationValue);
         }
 
         #endregion Help methods
