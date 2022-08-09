@@ -58,13 +58,150 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "ControlStateRemote"
+					}
+				],
+				"___cmf___description": "ControlStateRemote (10)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_27271",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "ControlStateLocal"
+					}
+				],
+				"___cmf___description": "ControlStateLocal (9)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_32217",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "EquipmentOffline"
+					}
+				],
+				"___cmf___description": "EquipmentOffline(8)"
 			},
 			"driver": "SecsGemEquipment"
 		}
 	],
-	"converters": [],
-	"links": [],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "b709a93d-2380-4888-855e-7abb817dfb6d",
+			"sourceId": "task_124716",
+			"targetId": "task_141393",
+			"inputName": "valueIn",
+			"outputName": "event",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "5"
+					}
+				}
+			]
+		},
+		{
+			"id": "16dc7626-9e63-45bc-9e7e-027e8ce7e167",
+			"sourceId": "task_27271",
+			"targetId": "task_141393",
+			"inputName": "valueIn",
+			"outputName": "event",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "4"
+					}
+				}
+			]
+		},
+		{
+			"id": "28699282-ad41-42b2-bc6b-140fb08e9465",
+			"sourceId": "task_32217",
+			"targetId": "task_141393",
+			"inputName": "valueIn",
+			"outputName": "event",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "1"
+					}
+				}
+			]
+		},
+		{
+			"id": "b73989d0-7682-4e28-9af0-65abc74e7544",
+			"sourceId": "task_32217",
+			"targetId": "task_141393",
+			"inputName": "activate",
+			"outputName": "event"
+		},
+		{
+			"id": "dc2d66de-311f-4a1c-9377-43ef2046499d",
+			"sourceId": "task_27271",
+			"targetId": "task_141393",
+			"inputName": "activate",
+			"outputName": "event"
+		},
+		{
+			"id": "3e39990d-3f74-42fe-9ae2-49e0fbc093af",
+			"sourceId": "task_124716",
+			"targetId": "task_141393",
+			"inputName": "activate",
+			"outputName": "event"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#0080ff",
@@ -83,21 +220,56 @@
 					"task_141393": {
 						"collapsed": false,
 						"position": {
-							"x": 1248,
-							"y": 445
+							"x": 1294,
+							"y": 464
 						},
 						"outdated": false
 					},
 					"task_124716": {
 						"collapsed": false,
 						"position": {
+							"x": 678,
+							"y": 212
+						},
+						"outdated": false
+					},
+					"task_27271": {
+						"collapsed": false,
+						"position": {
+							"x": 680,
+							"y": 516
+						},
+						"outdated": false
+					},
+					"task_32217": {
+						"collapsed": false,
+						"position": {
 							"x": 676,
-							"y": 423
+							"y": 810
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"b73989d0-7682-4e28-9af0-65abc74e7544": {
+						"vertices": []
+					},
+					"dc2d66de-311f-4a1c-9377-43ef2046499d": {
+						"vertices": []
+					},
+					"3e39990d-3f74-42fe-9ae2-49e0fbc093af": {
+						"vertices": []
+					},
+					"b709a93d-2380-4888-855e-7abb817dfb6d": {
+						"vertices": []
+					},
+					"16dc7626-9e63-45bc-9e7e-027e8ce7e167": {
+						"vertices": []
+					},
+					"28699282-ad41-42b2-bc6b-140fb08e9465": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_124525": {
 						"collapsed": false,
@@ -108,10 +280,10 @@
 					}
 				},
 				"pan": {
-					"x": 643.8606761376541,
-					"y": 268.56672950224447
+					"x": 357,
+					"y": 131
 				},
-				"zoom": 0.8900000000000001
+				"zoom": 0.7
 			}
 		}
 	}

@@ -125,7 +125,24 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PORT_ID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"___cmf___description": "MaterialRemoved (4)",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "MaterialRemoved"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -162,7 +179,22 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "83646275-d7cc-4cc8-9699-4bc0f53086ad",
+			"sourceId": "task_189672",
+			"targetId": "task_95323",
+			"inputName": "LoadPortNumberIn",
+			"outputName": "$PORT_ID"
+		},
+		{
+			"id": "52e03fba-e617-47e3-95b5-6d2e85a4d317",
+			"sourceId": "task_189672",
+			"targetId": "task_95323",
+			"inputName": "activate",
+			"outputName": "$PORT_ID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -195,7 +227,14 @@
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"83646275-d7cc-4cc8-9699-4bc0f53086ad": {
+						"vertices": []
+					},
+					"52e03fba-e617-47e3-95b5-6d2e85a4d317": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_189487": {
 						"collapsed": false,
@@ -206,10 +245,10 @@
 					}
 				},
 				"pan": {
-					"x": 210.38029919356995,
-					"y": 45.47889645162047
+					"x": 197.62498274703808,
+					"y": 39.39179579901719
 				},
-				"zoom": 0.7200000000000002
+				"zoom": 0.7100000000000002
 			}
 		}
 	}

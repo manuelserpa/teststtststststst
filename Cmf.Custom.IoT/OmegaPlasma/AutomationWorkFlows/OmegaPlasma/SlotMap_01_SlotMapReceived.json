@@ -125,7 +125,32 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SLOT_MAP",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PORT_ID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"___cmf___description": "SlotMapRead (850)",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "SlotMapRead"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -142,7 +167,35 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "a816c14f-07f7-42a7-bff9-705473d05cd0",
+			"sourceId": "task_190927",
+			"targetId": "task_93884",
+			"inputName": "SlotMapIn",
+			"outputName": "$SLOT_MAP",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		},
+		{
+			"id": "ea7432e1-1d91-46cd-aa78-8e37392990ae",
+			"sourceId": "task_190927",
+			"targetId": "task_93884",
+			"inputName": "LoadPortIn",
+			"outputName": "$PORT_ID"
+		},
+		{
+			"id": "ecac3b6b-440b-4002-a5f8-74badd83549d",
+			"sourceId": "task_190927",
+			"targetId": "task_93884",
+			"inputName": "activate",
+			"outputName": "$PORT_ID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -161,34 +214,44 @@
 					"task_93884": {
 						"collapsed": false,
 						"position": {
-							"x": 860,
-							"y": 199
+							"x": 1077,
+							"y": 188
 						},
 						"outdated": false
 					},
 					"task_190927": {
 						"collapsed": false,
 						"position": {
-							"x": 277,
-							"y": 187
+							"x": 158,
+							"y": 184
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"ea7432e1-1d91-46cd-aa78-8e37392990ae": {
+						"vertices": []
+					},
+					"ecac3b6b-440b-4002-a5f8-74badd83549d": {
+						"vertices": []
+					},
+					"a816c14f-07f7-42a7-bff9-705473d05cd0": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_191122": {
 						"collapsed": false,
 						"position": {
-							"x": 1412,
-							"y": 118
+							"x": 1527,
+							"y": 89
 						}
 					}
 				},
-				"zoom": 0.7600000000000002,
+				"zoom": 0.5799999999999996,
 				"pan": {
-					"x": 183.37334964283525,
-					"y": 25.9333195290115
+					"x": -11.542389713803914,
+					"y": -6.081195083742443
 				}
 			}
 		}

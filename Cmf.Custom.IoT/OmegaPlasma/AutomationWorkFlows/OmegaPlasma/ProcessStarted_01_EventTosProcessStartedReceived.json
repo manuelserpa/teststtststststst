@@ -125,7 +125,40 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CARRIER_ID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "LOT_ID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PORT_ID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"___cmf___description": "CassetteStarted (851)",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "CassetteStarted"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -172,7 +205,36 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "509f2c24-4624-44f0-86e9-f551c1d3efed",
+			"sourceId": "task_51951",
+			"targetId": "task_135964",
+			"inputName": "LoadPortIdIn",
+			"outputName": "$PORT_ID"
+		},
+		{
+			"id": "cf018874-a026-4231-a89c-5ef37b1cf4fc",
+			"sourceId": "task_51951",
+			"targetId": "task_135964",
+			"inputName": "ContainerNameIn",
+			"outputName": "$CARRIER_ID"
+		},
+		{
+			"id": "3229481c-797d-49b9-a834-3be0c7c449f0",
+			"sourceId": "task_51951",
+			"targetId": "task_135964",
+			"inputName": "MaterialNameIn",
+			"outputName": "$LOT_ID"
+		},
+		{
+			"id": "fbf8277a-a846-4032-8c58-5db1c21a4089",
+			"sourceId": "task_51951",
+			"targetId": "task_135964",
+			"inputName": "activate",
+			"outputName": "$PORT_ID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#00ff80",
@@ -205,7 +267,20 @@
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"509f2c24-4624-44f0-86e9-f551c1d3efed": {
+						"vertices": []
+					},
+					"cf018874-a026-4231-a89c-5ef37b1cf4fc": {
+						"vertices": []
+					},
+					"3229481c-797d-49b9-a834-3be0c7c449f0": {
+						"vertices": []
+					},
+					"fbf8277a-a846-4032-8c58-5db1c21a4089": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_53240": {
 						"collapsed": false,
@@ -215,10 +290,10 @@
 						}
 					}
 				},
-				"zoom": 0.6799999999999999,
+				"zoom": 0.9199999999999999,
 				"pan": {
-					"x": 61.372528999363,
-					"y": 27.32143047733888
+					"x": 147,
+					"y": 284
 				}
 			}
 		}

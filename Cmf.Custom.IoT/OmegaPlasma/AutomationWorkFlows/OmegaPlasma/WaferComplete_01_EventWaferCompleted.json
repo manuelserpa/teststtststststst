@@ -114,7 +114,40 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "WAFER_ID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "LOT_ID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "WaferNo",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "WaferComplete"
+					}
+				],
+				"___cmf___description": "WaferComplete (860)"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -141,7 +174,22 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "aa53a1d4-24ea-45ac-9916-560f95bda099",
+			"sourceId": "task_119709",
+			"targetId": "task_126394",
+			"inputName": "MaterialNameIn",
+			"outputName": "$LOT_ID"
+		},
+		{
+			"id": "3239a5bf-b282-4cab-b269-151d04a75ee5",
+			"sourceId": "task_119709",
+			"targetId": "task_126394",
+			"inputName": "activate",
+			"outputName": "$LOT_ID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#00ff80",
@@ -174,7 +222,14 @@
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"aa53a1d4-24ea-45ac-9916-560f95bda099": {
+						"vertices": []
+					},
+					"3239a5bf-b282-4cab-b269-151d04a75ee5": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_119482": {
 						"collapsed": false,
@@ -184,10 +239,10 @@
 						}
 					}
 				},
-				"zoom": 0.5899999999999999,
+				"zoom": 0.78,
 				"pan": {
-					"x": 50,
-					"y": 10
+					"x": 278.29863029464855,
+					"y": 124.19204879353612
 				}
 			}
 		}

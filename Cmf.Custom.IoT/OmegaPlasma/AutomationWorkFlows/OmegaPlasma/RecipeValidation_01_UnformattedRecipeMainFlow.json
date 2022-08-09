@@ -1131,27 +1131,11 @@
 						},
 						"outdated": false
 					},
-					"task_106859": {
-						"collapsed": false,
-						"position": {
-							"x": 1327,
-							"y": 809
-						},
-						"outdated": false
-					},
 					"task_159928": {
 						"collapsed": true,
 						"position": {
 							"x": 5428,
 							"y": 1648
-						},
-						"outdated": false
-					},
-					"task_209999": {
-						"collapsed": false,
-						"position": {
-							"x": 2282,
-							"y": 759
 						},
 						"outdated": false
 					},
@@ -1179,14 +1163,6 @@
 						},
 						"outdated": false
 					},
-					"task_18386": {
-						"collapsed": false,
-						"position": {
-							"x": 4406,
-							"y": 450
-						},
-						"outdated": false
-					},
 					"task_76160": {
 						"collapsed": false,
 						"position": {
@@ -1202,6 +1178,30 @@
 							"y": 1095
 						},
 						"outdated": false
+					},
+					"task_106859": {
+						"collapsed": false,
+						"position": {
+							"x": 1327,
+							"y": 809
+						},
+						"outdated": null
+					},
+					"task_209999": {
+						"collapsed": false,
+						"position": {
+							"x": 2282,
+							"y": 759
+						},
+						"outdated": null
+					},
+					"task_18386": {
+						"collapsed": false,
+						"position": {
+							"x": 4406,
+							"y": 450
+						},
+						"outdated": null
 					}
 				},
 				"links": {
@@ -1406,9 +1406,9 @@
 				"notes": {},
 				"pan": {
 					"x": 0,
-					"y": 0
+					"y": 34
 				},
-				"zoom": 0.3800000000000001
+				"zoom": 0.5600000000000003
 			}
 		}
 	}

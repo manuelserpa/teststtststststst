@@ -103,7 +103,7 @@
 			}
 		},
 		{
-			"id": "task_158180",
+			"id": "task_5596",
 			"reference": {
 				"name": "equipmentEvent",
 				"package": {
@@ -114,13 +114,103 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "DoorOpen1"
+					}
+				],
+				"___cmf___description": "DoorOpen1"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_5674",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "DoorOpen2"
+					}
+				],
+				"___cmf___description": "DoorOpen2"
 			},
 			"driver": "SecsGemEquipment"
 		}
 	],
-	"converters": [],
-	"links": [],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "200a1cc9-34b0-45c2-8877-4b630f022e31",
+			"sourceId": "task_5596",
+			"targetId": "task_158178",
+			"inputName": "LoadPortNumberIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "1"
+					}
+				}
+			]
+		},
+		{
+			"id": "ac382a11-1eb5-43ca-b5be-66cfca84b084",
+			"sourceId": "task_5596",
+			"targetId": "task_158178",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "524d55ff-364d-45c1-bad6-6a73319f0a05",
+			"sourceId": "task_5674",
+			"targetId": "task_158178",
+			"inputName": "LoadPortNumberIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "1"
+					}
+				}
+			]
+		},
+		{
+			"id": "824d1e84-56d1-4829-8e96-489e671e9bc7",
+			"sourceId": "task_5674",
+			"targetId": "task_158178",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -139,29 +229,55 @@
 					"task_158178": {
 						"collapsed": false,
 						"position": {
-							"x": 1053,
-							"y": 253
+							"x": 1374,
+							"y": 195
 						},
 						"outdated": false
 					},
-					"task_158180": {
+					"task_5596": {
 						"collapsed": false,
 						"position": {
-							"x": 502,
-							"y": 250
+							"x": 818,
+							"y": 65
+						},
+						"outdated": false
+					},
+					"task_5674": {
+						"collapsed": false,
+						"position": {
+							"x": 820,
+							"y": 382
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"ac382a11-1eb5-43ca-b5be-66cfca84b084": {
+						"vertices": []
+					},
+					"824d1e84-56d1-4829-8e96-489e671e9bc7": {
+						"vertices": []
+					},
+					"200a1cc9-34b0-45c2-8877-4b630f022e31": {
+						"vertices": []
+					},
+					"524d55ff-364d-45c1-bad6-6a73319f0a05": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_158182": {
 						"collapsed": false,
 						"position": {
-							"x": 1529,
-							"y": 110
+							"x": 1837,
+							"y": 137
 						}
 					}
+				},
+				"zoom": 0.7499999999999998,
+				"pan": {
+					"x": 412,
+					"y": 0
 				}
 			}
 		}

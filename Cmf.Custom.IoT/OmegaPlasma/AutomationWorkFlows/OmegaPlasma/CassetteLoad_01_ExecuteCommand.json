@@ -189,22 +189,86 @@
 				}
 			},
 			"settings": {
-				"_inputs": [],
-				"_command": null
+				"_inputs": [
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "PORT_ID",
+							"DataType": 0
+						},
+						"dataType": "String"
+					}
+				],
+				"_command": {
+					"$type": "Cmf.Foundation.BusinessObjects.AutomationCommand, Cmf.Foundation.BusinessObjects",
+					"Name": "LOAD_POD"
+				},
+				"___cmf___name": "Execute Equipment Command",
+				"___cmf___description": "LOAD_POD"
 			},
 			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_36657",
+			"reference": {
+				"name": "expressionEvaluator",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_expressionType": 0,
+				"_evaluatorBehavior": "EvaluateAll",
+				"___cmf___name": "Expression Evaluator",
+				"_inputs": [
+					{
+						"name": "PortID",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": -1,
+						"required": true
+					}
+				],
+				"_outputs": [
+					{
+						"name": "PortIdOut",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "PortId"
+						},
+						"defaultValue": null,
+						"expression": "PortID == 1 ? \"A\" : PortID == 2 ? \"B\": null"
+					}
+				],
+				"_clearInputs": true,
+				"___cmf___description": ""
+			}
 		}
 	],
-	"converters": [],
-	"links": [
+	"converters": [
 		{
-			"id": "task_179896_activateOut-task_179900_activate",
-			"sourceId": "task_179896",
-			"targetId": "task_179900",
-			"inputName": "activate",
-			"outputName": "activateOut",
-			"converters": []
-		},
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToString",
+			"reference": {
+				"name": "anyToString",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
 		{
 			"id": "task_179900_success-task_179894_success",
 			"sourceId": "task_179900",
@@ -250,6 +314,27 @@
 			"targetId": "task_179894",
 			"inputName": "CarrierId",
 			"outputName": "CarrierIdOut"
+		},
+		{
+			"id": "a9fcf8e5-efc1-45c3-9d70-2edb2fe1c210",
+			"sourceId": "task_179896",
+			"targetId": "task_36657",
+			"inputName": "PortID",
+			"outputName": "LoadPortOut"
+		},
+		{
+			"id": "112e2c07-c5bf-49ec-b44a-856a17a0e6b3",
+			"sourceId": "task_36657",
+			"targetId": "task_179900",
+			"inputName": "$PORT_ID",
+			"outputName": "PortIdOut"
+		},
+		{
+			"id": "0d8004c6-5ef0-471b-a241-6685c8009068",
+			"sourceId": "task_36657",
+			"targetId": "task_179900",
+			"inputName": "activate",
+			"outputName": "PortIdOut"
 		}
 	],
 	"layout": {
@@ -278,8 +363,8 @@
 					"task_179896": {
 						"collapsed": false,
 						"position": {
-							"x": 952,
-							"y": 775
+							"x": 1146,
+							"y": 832
 						},
 						"outdated": false
 					},
@@ -294,16 +379,21 @@
 					"task_179900": {
 						"collapsed": false,
 						"position": {
-							"x": 2195,
-							"y": 1044
+							"x": 2170,
+							"y": 1049
+						},
+						"outdated": false
+					},
+					"task_36657": {
+						"collapsed": false,
+						"position": {
+							"x": 1650,
+							"y": 1061
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"task_179896_activateOut-task_179900_activate": {
-						"vertices": []
-					},
 					"task_179900_success-task_179894_success": {
 						"vertices": []
 					},
@@ -321,21 +411,30 @@
 					},
 					"317fce26-5378-4bb2-a125-4333772d41e9": {
 						"vertices": []
+					},
+					"a9fcf8e5-efc1-45c3-9d70-2edb2fe1c210": {
+						"vertices": []
+					},
+					"112e2c07-c5bf-49ec-b44a-856a17a0e6b3": {
+						"vertices": []
+					},
+					"0d8004c6-5ef0-471b-a241-6685c8009068": {
+						"vertices": []
 					}
 				},
 				"notes": {
 					"note_179902": {
 						"collapsed": false,
 						"position": {
-							"x": 1600,
-							"y": 1127
+							"x": 1003,
+							"y": 1210
 						}
 					}
 				},
-				"zoom": 0.6799999999999998,
+				"zoom": 0.5799999999999997,
 				"pan": {
-					"x": 691.25,
-					"y": 430
+					"x": 487,
+					"y": 334
 				}
 			}
 		}

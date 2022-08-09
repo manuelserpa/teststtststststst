@@ -140,14 +140,6 @@
 		"drawers": {
 			"DIAGRAM": {
 				"tasks": {
-					"task_1930": {
-						"collapsed": false,
-						"position": {
-							"x": 2629,
-							"y": 1071
-						},
-						"outdated": false
-					},
 					"task_1513": {
 						"collapsed": false,
 						"position": {
@@ -155,6 +147,14 @@
 							"y": 1109
 						},
 						"outdated": false
+					},
+					"task_1930": {
+						"collapsed": false,
+						"position": {
+							"x": 2629,
+							"y": 1071
+						},
+						"outdated": null
 					}
 				},
 				"links": {
@@ -176,10 +176,10 @@
 				},
 				"notes": {},
 				"pan": {
-					"x": 1891.1112060546875,
-					"y": 827.7777709960938
+					"x": 775.653125613205,
+					"y": 313.0042951348195
 				},
-				"zoom": 0.8399999999999999
+				"zoom": 0.47999999999999954
 			}
 		}
 	}

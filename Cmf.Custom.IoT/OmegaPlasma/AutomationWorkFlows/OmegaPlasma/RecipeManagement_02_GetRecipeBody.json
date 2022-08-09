@@ -77,21 +77,21 @@
 		"drawers": {
 			"DIAGRAM": {
 				"tasks": {
-					"task_4909": {
-						"collapsed": false,
-						"position": {
-							"x": 826,
-							"y": 631
-						},
-						"outdated": false
-					},
 					"task_4959": {
 						"collapsed": false,
 						"position": {
 							"x": 1489,
 							"y": 674
 						},
-						"outdated": false
+						"outdated": null
+					},
+					"task_4909": {
+						"collapsed": false,
+						"position": {
+							"x": 826,
+							"y": 631
+						},
+						"outdated": null
 					}
 				},
 				"links": {

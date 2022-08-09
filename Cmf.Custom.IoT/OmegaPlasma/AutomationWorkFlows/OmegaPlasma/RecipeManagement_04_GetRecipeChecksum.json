@@ -396,27 +396,11 @@
 						},
 						"outdated": false
 					},
-					"task_22427": {
-						"collapsed": false,
-						"position": {
-							"x": 2663,
-							"y": 212
-						},
-						"outdated": false
-					},
 					"task_22859": {
 						"collapsed": false,
 						"position": {
 							"x": 3262,
 							"y": 396
-						},
-						"outdated": false
-					},
-					"task_52500": {
-						"collapsed": false,
-						"position": {
-							"x": 1496,
-							"y": 711
 						},
 						"outdated": false
 					},
@@ -435,6 +419,22 @@
 							"y": 681
 						},
 						"outdated": false
+					},
+					"task_22427": {
+						"collapsed": false,
+						"position": {
+							"x": 2663,
+							"y": 212
+						},
+						"outdated": null
+					},
+					"task_52500": {
+						"collapsed": false,
+						"position": {
+							"x": 1496,
+							"y": 711
+						},
+						"outdated": null
 					}
 				},
 				"links": {

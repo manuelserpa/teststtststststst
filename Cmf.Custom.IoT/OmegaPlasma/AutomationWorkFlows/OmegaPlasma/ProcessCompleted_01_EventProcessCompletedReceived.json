@@ -167,7 +167,40 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CARRIER_ID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "LOT_ID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PORT_ID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "CassetteComplete"
+					}
+				],
+				"___cmf___description": "CassetteComplete (852)"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -214,7 +247,22 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "160f8372-df11-4942-a5ce-8d25234c8d95",
+			"sourceId": "task_75124",
+			"targetId": "task_127417",
+			"inputName": "MaterialNameIn",
+			"outputName": "$LOT_ID"
+		},
+		{
+			"id": "8932592f-21a6-41fb-9fb3-d134e409137f",
+			"sourceId": "task_75124",
+			"targetId": "task_127417",
+			"inputName": "activate",
+			"outputName": "$LOT_ID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#00ff80",
@@ -255,7 +303,14 @@
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"160f8372-df11-4942-a5ce-8d25234c8d95": {
+						"vertices": []
+					},
+					"8932592f-21a6-41fb-9fb3-d134e409137f": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_60654": {
 						"collapsed": false,

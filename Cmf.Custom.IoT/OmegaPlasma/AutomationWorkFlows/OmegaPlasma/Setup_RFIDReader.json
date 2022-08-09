@@ -634,14 +634,6 @@
 						},
 						"outdated": false
 					},
-					"task_8668": {
-						"collapsed": false,
-						"position": {
-							"x": 2190,
-							"y": 702
-						},
-						"outdated": false
-					},
 					"task_9027": {
 						"collapsed": false,
 						"position": {
@@ -649,6 +641,14 @@
 							"y": 612
 						},
 						"outdated": false
+					},
+					"task_8668": {
+						"collapsed": false,
+						"position": {
+							"x": 2190,
+							"y": 702
+						},
+						"outdated": null
 					}
 				},
 				"links": {

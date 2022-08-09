@@ -189,22 +189,75 @@
 				}
 			},
 			"settings": {
-				"_inputs": [],
-				"_command": null
+				"_inputs": [
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "PORT_ID",
+							"DataType": 0
+						},
+						"dataType": "String"
+					}
+				],
+				"_command": {
+					"$type": "Cmf.Foundation.BusinessObjects.AutomationCommand, Cmf.Foundation.BusinessObjects",
+					"Name": "UNLOAD_POD"
+				},
+				"___cmf___name": "Execute Equipment Command",
+				"___cmf___description": "UNLOAD_POD"
 			},
 			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_25557",
+			"reference": {
+				"name": "expressionEvaluator",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_expressionType": 0,
+				"_evaluatorBehavior": "EvaluateAll",
+				"___cmf___name": "Expression Evaluator",
+				"_inputs": [
+					{
+						"name": "PortID",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": -1,
+						"required": true
+					}
+				],
+				"_outputs": [
+					{
+						"name": "PortIdOut",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "PortId"
+						},
+						"defaultValue": null,
+						"expression": "PortID == 1 ? \"A\" : PortID == 2 ? \"B\" : null"
+					}
+				],
+				"_clearInputs": true,
+				"___cmf___description": "UNLOAD_POD"
+			}
 		}
 	],
 	"converters": [],
 	"links": [
-		{
-			"id": "task_179238_activateOut-task_179242_activate",
-			"sourceId": "task_179238",
-			"targetId": "task_179242",
-			"inputName": "activate",
-			"outputName": "activateOut",
-			"converters": []
-		},
 		{
 			"id": "task_179242_success-task_179236_success",
 			"sourceId": "task_179242",
@@ -250,6 +303,27 @@
 			"targetId": "task_179236",
 			"inputName": "ContainerId",
 			"outputName": "ContainerIdOut"
+		},
+		{
+			"id": "83c4e016-6906-476c-9516-5f57a57a8a3b",
+			"sourceId": "task_179238",
+			"targetId": "task_25557",
+			"inputName": "PortID",
+			"outputName": "LoadPortOut"
+		},
+		{
+			"id": "5c4f5ee1-624b-43bc-87f5-870efb493a11",
+			"sourceId": "task_25557",
+			"targetId": "task_179242",
+			"inputName": "$PORT_ID",
+			"outputName": "PortIdOut"
+		},
+		{
+			"id": "2ddf9d82-f395-4997-b7eb-03acb2a80fdd",
+			"sourceId": "task_25557",
+			"targetId": "task_179242",
+			"inputName": "activate",
+			"outputName": "PortIdOut"
 		}
 	],
 	"layout": {
@@ -298,12 +372,17 @@
 							"y": 1038
 						},
 						"outdated": false
+					},
+					"task_25557": {
+						"collapsed": false,
+						"position": {
+							"x": 1545,
+							"y": 961
+						},
+						"outdated": false
 					}
 				},
 				"links": {
-					"task_179238_activateOut-task_179242_activate": {
-						"vertices": []
-					},
 					"task_179242_success-task_179236_success": {
 						"vertices": []
 					},
@@ -321,6 +400,15 @@
 					},
 					"8dfced7f-b826-4978-b295-2cd75167dea9": {
 						"vertices": []
+					},
+					"83c4e016-6906-476c-9516-5f57a57a8a3b": {
+						"vertices": []
+					},
+					"5c4f5ee1-624b-43bc-87f5-870efb493a11": {
+						"vertices": []
+					},
+					"2ddf9d82-f395-4997-b7eb-03acb2a80fdd": {
+						"vertices": []
 					}
 				},
 				"notes": {
@@ -332,10 +420,10 @@
 						}
 					}
 				},
-				"zoom": 0.5499999999999997,
+				"zoom": 0.6199999999999998,
 				"pan": {
-					"x": 511,
-					"y": 299
+					"x": 648.5556775857237,
+					"y": 366.3049670766504
 				}
 			}
 		}

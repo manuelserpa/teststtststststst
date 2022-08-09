@@ -366,14 +366,6 @@
 						},
 						"outdated": false
 					},
-					"task_22427": {
-						"collapsed": false,
-						"position": {
-							"x": 2254,
-							"y": 571
-						},
-						"outdated": false
-					},
 					"task_22859": {
 						"collapsed": false,
 						"position": {
@@ -389,6 +381,14 @@
 							"y": 342
 						},
 						"outdated": false
+					},
+					"task_22427": {
+						"collapsed": false,
+						"position": {
+							"x": 2254,
+							"y": 571
+						},
+						"outdated": null
 					}
 				},
 				"links": {

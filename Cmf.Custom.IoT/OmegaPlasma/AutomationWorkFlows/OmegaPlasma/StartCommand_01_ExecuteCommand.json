@@ -143,13 +143,138 @@
 				}
 			},
 			"settings": {
-				"_inputs": [],
-				"_command": null
+				"_inputs": [
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "PORT_ID",
+							"DataType": 0
+						},
+						"dataType": "String"
+					},
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "LOT_ID",
+							"DataType": 0
+						},
+						"dataType": "String"
+					}
+				],
+				"_command": {
+					"$type": "Cmf.Foundation.BusinessObjects.AutomationCommand, Cmf.Foundation.BusinessObjects",
+					"Name": "START"
+				},
+				"___cmf___name": "Execute Equipment Command",
+				"___cmf___description": "START"
 			},
 			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_35889",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        const materialData = inputs.MaterialData[0];",
+					"        const PortID = materialData.LoadPortPosition;",
+					"        const lotName = materialData.MaterialName;",
+					"        const recipeId = materialData.Recipe.NameOnEquipment;",
+					"",
+					"        return {",
+					"            PORT_ID: PortID === 1 ? \"A\" : PortID === 2 ? \"B\" : null,",
+					"            PPID: recipeId,",
+					"            LOT_ID: lotName",
+					"        };",
+					"",
+					"",
+					"",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IG1hdGVyaWFsRGF0YSA9IGlucHV0cy5NYXRlcmlhbERhdGFbMF07DQogICAgICAgIGNvbnN0IFBvcnRJRCA9IG1hdGVyaWFsRGF0YS5Mb2FkUG9ydFBvc2l0aW9uOw0KICAgICAgICBjb25zdCBsb3ROYW1lID0gbWF0ZXJpYWxEYXRhLk1hdGVyaWFsTmFtZTsNCiAgICAgICAgY29uc3QgcmVjaXBlSWQgPSBtYXRlcmlhbERhdGEuUmVjaXBlLk5hbWVPbkVxdWlwbWVudDsNCiAgICAgICAgcmV0dXJuIHsNCiAgICAgICAgICAgIFBPUlRfSUQ6IFBvcnRJRCA9PT0gMSA/ICJBIiA6IFBvcnRJRCA9PT0gMiA/ICJCIiA6IG51bGwsDQogICAgICAgICAgICBQUElEOiByZWNpcGVJZCwNCiAgICAgICAgICAgIExPVF9JRDogbG90TmFtZQ0KICAgICAgICB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialData"
+						},
+						"defaultValue": null
+					}
+				],
+				"outputs": [
+					{
+						"name": "PORT_ID",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "PORT_ID"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "LOT_ID",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LOT_ID"
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
 		}
 	],
-	"converters": [],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
 	"links": [
 		{
 			"id": "task_44588_MaterialDataOut-task_44586_MaterialData",
@@ -157,14 +282,6 @@
 			"targetId": "task_44586",
 			"inputName": "MaterialData",
 			"outputName": "MaterialDataOut",
-			"converters": []
-		},
-		{
-			"id": "task_44588_activateOut-task_44592_activate",
-			"sourceId": "task_44588",
-			"targetId": "task_44592",
-			"inputName": "activate",
-			"outputName": "activateOut",
 			"converters": []
 		},
 		{
@@ -198,6 +315,34 @@
 			"inputName": "error",
 			"outputName": "ErrorOut",
 			"converters": []
+		},
+		{
+			"id": "5f216534-e4e8-499f-9383-ebcb8110f526",
+			"sourceId": "task_44588",
+			"targetId": "task_35889",
+			"inputName": "MaterialDataIn",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "ab6f36ea-3946-469a-8497-40e053ed8fec",
+			"sourceId": "task_44588",
+			"targetId": "task_35889",
+			"inputName": "activate",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "f7eb0135-22ec-4d23-9fef-b2fc8fb18aea",
+			"sourceId": "task_35889",
+			"targetId": "task_44592",
+			"inputName": "$PORT_ID",
+			"outputName": "PORT_IDOut"
+		},
+		{
+			"id": "dd45c3e2-fcf1-4469-8a6a-52fe8e021f12",
+			"sourceId": "task_35889",
+			"targetId": "task_44592",
+			"inputName": "$LOT_ID",
+			"outputName": "LOT_IDOut"
 		}
 	],
 	"layout": {
@@ -246,13 +391,18 @@
 							"y": 1044
 						},
 						"outdated": false
+					},
+					"task_35889": {
+						"collapsed": false,
+						"position": {
+							"x": 1552,
+							"y": 942
+						},
+						"outdated": false
 					}
 				},
 				"links": {
 					"task_44588_MaterialDataOut-task_44586_MaterialData": {
-						"vertices": []
-					},
-					"task_44588_activateOut-task_44592_activate": {
 						"vertices": []
 					},
 					"task_44592_success-task_44586_success": {
@@ -266,21 +416,33 @@
 					},
 					"task_44590_ErrorOut-task_44586_error": {
 						"vertices": []
+					},
+					"5f216534-e4e8-499f-9383-ebcb8110f526": {
+						"vertices": []
+					},
+					"ab6f36ea-3946-469a-8497-40e053ed8fec": {
+						"vertices": []
+					},
+					"f7eb0135-22ec-4d23-9fef-b2fc8fb18aea": {
+						"vertices": []
+					},
+					"dd45c3e2-fcf1-4469-8a6a-52fe8e021f12": {
+						"vertices": []
 					}
 				},
 				"notes": {
 					"note_44905": {
 						"collapsed": false,
 						"position": {
-							"x": 1563,
-							"y": 1135
+							"x": 1144,
+							"y": 1241
 						}
 					}
 				},
-				"zoom": 0.3999999999999996,
+				"zoom": 0.5799999999999997,
 				"pan": {
-					"x": 355,
-					"y": 270
+					"x": 509,
+					"y": 326
 				}
 			}
 		}
