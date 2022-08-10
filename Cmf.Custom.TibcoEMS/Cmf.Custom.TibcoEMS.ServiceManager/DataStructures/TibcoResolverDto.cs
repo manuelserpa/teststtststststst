@@ -31,8 +31,8 @@
         public bool CompressFlag { get; set; }
 
         /// <summary>
-        /// MapTextFlag
+        /// TextFlag
         /// </summary>
-        public bool MapTextFlag { get; set; }
+        public bool TextFlag { get; set; }
     }
 }

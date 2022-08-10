@@ -108,7 +108,7 @@
         /// <summary>
         /// Custom TibcoEMS Gateway Resolver table MapText flag property 
         /// </summary>
-        public static string GenericTableCustomTibcoEMSGatewayResolverMapTextFlagProperty = "MapTextFlag";
+        public static string GenericTableCustomTibcoEMSGatewayResolverTextFlagProperty = "TextFlag";
 
         /// <summary>
         /// Custom TibcoEMS Gateway Resolver table compress flag property 

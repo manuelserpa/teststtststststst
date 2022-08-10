@@ -44,26 +44,24 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.After
                 propsToAddOrUpdate.Add(new GenericTableProperty
                 {
                     Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverQueueFlagProperty,
-                    Description = "Queue flag for tibco target determination",
+                    Description = "QueueFlag that can be used to send tibco message to queue",
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
-                    Position = lastPropertyPosition,
-                    Size = 256
+                    Position = lastPropertyPosition
                 });
             }
 
             // Check maptext flag
-            if (customTibcoEMSGatewayResolver.GenericTableProperties.FirstOrDefault(E => E.Name == "MapTextFlag") == null)
+            if (customTibcoEMSGatewayResolver.GenericTableProperties.FirstOrDefault(E => E.Name == "TextFlag") == null)
             {
                 lastPropertyPosition++;
                 propsToAddOrUpdate.Add(new GenericTableProperty
                 {
-                    Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverMapTextFlagProperty,
-                    Description = "MapText flag for tibco message type determination",
+                    Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverTextFlagProperty,
+                    Description = "TextFlag that can be used to set tibco message type",
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
-                    Position = lastPropertyPosition,
-                    Size = 256
+                    Position = lastPropertyPosition
 
                 });
             }
@@ -75,11 +73,10 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.After
                 propsToAddOrUpdate.Add(new GenericTableProperty
                 {
                     Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverCompressFlagProperty,
-                    Description = "Compress flag for tibco message compression determination",
+                    Description = "CompressFlag that can be used to compress tibco message",
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
-                    Position = lastPropertyPosition,
-                    Size = 256
+                    Position = lastPropertyPosition
                 });
             }
 
