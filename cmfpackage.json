@@ -1,6 +1,6 @@
 {
     "packageId": "Cmf.Custom.Package",
-    "version": "1.10.0",
+    "version": "1.11.0",
     "description": "This package deploys Critical Manufacturing MES AMSOsram Customization",
     "packageType": "Root",
     "isInstallable": true,
@@ -12,7 +12,7 @@
         },
         {
             "id": "Cmf.Custom.Business",
-            "version": "1.10.0"
+            "version": "1.11.0"
         },
         {
             "id": "Cmf.Custom.Data",
@@ -42,7 +42,7 @@
     "testPackages": [
         {
             "id": "Cmf.Custom.Tests",
-            "version": "1.10.0"
+            "version": "1.11.0"
         },
         {
             "id": "Cmf.Custom.Tests.MasterData",

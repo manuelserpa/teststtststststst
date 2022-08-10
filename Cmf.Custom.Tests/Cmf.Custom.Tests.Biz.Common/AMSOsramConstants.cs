@@ -3,8 +3,10 @@
     public class AMSOsramConstants
     {
         #region Attributes 
-
-        
+        /// <summary>
+        /// Custom Resource Attribute FDCCommunication
+        /// </summary>
+        public const string CustomFDCCommunicationAttribute = "FDCCommunication";
 
         #endregion
 
