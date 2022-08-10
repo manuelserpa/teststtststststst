@@ -90,7 +90,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [TestCleanup]
         public void TestCleanup()
         {
-
             #region Terminate Integration Entries
 
             // Terminate integration entries created
@@ -163,7 +162,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
             }, 2, pollingIntervalConfig / 10);
 
             Assert.IsNull(integrationEntry, "Integration entry should not have been created.");
-
         }
 
         /// <summary>
@@ -189,7 +187,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
             DateTime fromDate = DateTime.Now;
             materialScenario.Entity.ComplexTrackIn();
             
-
             IntegrationEntry integrationEntry = new IntegrationEntry();
 
             GenericUtilities.WaitFor(() =>
@@ -248,8 +245,8 @@ namespace Cmf.Custom.Tests.Biz.Materials
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
             materialScenario.Entity.ComplexTrackIn();
             materialScenario.Entity.LoadChildren();
+
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, true);
-            subResource.Load();
             DateTime fromDate = DateTime.Now;
             materialScenario.Entity.SubMaterials.ComplexTrackInMaterials(subResource);
             materialScenario.SubMaterials[0].LoadRelation("MaterialContainer");
@@ -279,6 +276,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
             materialScenario.Entity.ComplexTrackIn();
             materialScenario.Entity.Load();
+
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, true);
             DateTime fromDate = DateTime.Now;
             materialScenario.Entity.ComplexTrackOutMaterial();
@@ -308,7 +306,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
             materialScenario.Entity.ComplexTrackIn();
             materialScenario.Entity.LoadChildren();
-            subResource.Load();
+
             materialScenario.Entity.SubMaterials.ComplexTrackInMaterials(subResource);
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, true);
             DateTime fromDate = DateTime.Now;
@@ -620,14 +618,8 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
             ds.Tables[0].Rows.Add(dr);
 
-            try
-            {
-                var input = new InsertOrUpdateSmartTableRowsInput { SmartTable = smartTable, Table = Cmf.TestScenarios.Others.Utilities.FromDataSet(ds) };
-                var insert = input.InsertOrUpdateSmartTableRowsSync();
-            }
-            catch (Exception)
-            {
-            }
+            NgpDataSet ngpDataSetLimit = Cmf.TestScenarios.Others.Utilities.FromDataSet(ds);
+            smartTable.InsertOrUpdateData(ngpDataSetLimit);
         }
 
         #endregion Help methods
