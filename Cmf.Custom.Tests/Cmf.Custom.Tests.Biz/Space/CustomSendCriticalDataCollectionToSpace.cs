@@ -10,11 +10,15 @@ using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.OutputObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using Settings;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace Cmf.Custom.Tests.Biz.Space
 {
@@ -248,7 +252,9 @@ namespace Cmf.Custom.Tests.Biz.Space
             {
                 if (message != null && !string.IsNullOrWhiteSpace(message.Data))
                 {
-                    ValidateMessage(message.Data);
+                    Dictionary<string, string> outputMessage = JsonConvert.DeserializeObject<Dictionary<string, string>>(message.Data);
+
+                    ValidateMessage(outputMessage["Message"]);
 
                     messageBusTransport.Unsubscribe(AMSOsramConstants.CustomReportEDCToSpace);
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace Cmf.Custom.Tests.Biz.Common.ERP.Space
@@ -26,7 +24,6 @@ namespace Cmf.Custom.Tests.Biz.Common.ERP.Space
         [XmlElement("sample")]
         public List<Sample> Samples { get; set; }
     }
-
 
     public class Sender
     {
@@ -69,7 +66,6 @@ namespace Cmf.Custom.Tests.Biz.Common.ERP.Space
 
         [XmlElement("raws")]
         public Raws Raws { get; set; }
-
     }
 
     public class Raws
