@@ -1088,6 +1088,11 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
                 recievedClampPodCommand = true;
                 CommandSuccess = true;
             }
+            if (command == "LOAD")
+            {
+                recievedLoadPodCommand = true;
+                CommandSuccess = true;
+            }
             reply.Item.GetChildList()[0].Binary = new byte[] { (byte)(CommandSuccess ? 0x00 : 0x02) };
             return true;
         }
