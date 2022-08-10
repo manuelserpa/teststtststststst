@@ -284,7 +284,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
             DateTime fromDate = DateTime.Now;
             materialScenario.Entity.SubMaterials[0].ComplexTrackOutMaterial();
             materialScenario.Entity.SubMaterials[0].Load();
-            //materialScenario.Entity.Step.Load();
 
             ValidateIntegrationEntry(AMSOsramConstants.MessageType_WAFEROUT, fromDate, true, materialScenario.Entity.Name, materialScenario.SubMaterials[0].Name, subResource.Name, "", "", "", "", "", "", "", "", "", "", materialScenario.Entity.SubMaterials[0].SystemState.ToString());
         }
