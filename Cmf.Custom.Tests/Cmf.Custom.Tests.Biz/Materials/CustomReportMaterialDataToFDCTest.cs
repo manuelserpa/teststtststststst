@@ -26,8 +26,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
         private static Resource subResource;
         private int pollingIntervalConfig = Convert.ToInt32(ConfigUtilities.GetConfigValue(AMSOsramConstants.PollingIntervalConfigValue));
         private int MaxNumberOfRetries = 30;
-        private const string resourceName = "PDSP0101";
-        private const string subResourceName = "PDSP0101.PM01";
         private bool fdcActiveConfig;
         private Dictionary<Resource, bool> oldResourceFDCCommunicationValue = new Dictionary<Resource, bool>();
         
@@ -38,6 +36,9 @@ namespace Cmf.Custom.Tests.Biz.Materials
         public void TestInitialization()
         {
             #region Material setup
+
+            string resourceName = "PDSP0101";
+            string subResourceName = "PDSP0101.PM01";
 
             resource = new Resource()
             {
@@ -55,7 +56,8 @@ namespace Cmf.Custom.Tests.Biz.Materials
             materialScenario = new CustomMaterialScenario(false)
             {
                 NumberOfSubMaterials = 1,
-                AssociateSubMaterialsToContainer = true
+                AssociateSubMaterialsToContainer = true,
+                Resource = resource
             };
 
             #endregion Material setup
@@ -101,11 +103,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
             #endregion Terminate Integration Entries
 
-            if (materialScenario != null) 
-            {
-                materialScenario.TearDown();
-            }
-
             if (oldResourceFDCCommunicationValue.Count > 0) 
             {
                 foreach (var keyValue in oldResourceFDCCommunicationValue)
@@ -118,6 +115,10 @@ namespace Cmf.Custom.Tests.Biz.Materials
             // Reset FDC Active Configuration to original value
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, fdcActiveConfig);
 
+            if (materialScenario != null)
+            {
+                materialScenario.TearDown();
+            }
         }
 
         /// <summary>
@@ -138,8 +139,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
             materialScenario.Setup(true);
             
             DateTime fromDate = DateTime.Now;
-            resource.Load();
-            materialScenario.Entity.ComplexTrackIn(resource);
+            materialScenario.Entity.ComplexTrackIn();
 
             IntegrationEntry integrationEntry = new IntegrationEntry();
 
@@ -171,9 +171,8 @@ namespace Cmf.Custom.Tests.Biz.Materials
             resource.SaveAttribute(AMSOsramConstants.CustomFDCCommunicationAttribute, false);
 
             materialScenario.Setup(true);
-            resource.Load();
             DateTime fromDate = DateTime.Now;
-            materialScenario.Entity.ComplexTrackIn(resource);
+            materialScenario.Entity.ComplexTrackIn();
             
 
             IntegrationEntry integrationEntry = new IntegrationEntry();
@@ -202,11 +201,10 @@ namespace Cmf.Custom.Tests.Biz.Materials
         public void CustomReportDataToFDCTests_LotMaterialTrackIn()
         {
             materialScenario.Setup(true);
-            resource.Load();
             DateTime fromDate = DateTime.Now;
-            materialScenario.Entity.ComplexTrackIn(resource);
+            materialScenario.Entity.ComplexTrackIn();
 
-            ValidateIntegrationEntry(AMSOsramConstants.MessageType_LOTIN, fromDate, true, materialScenario.Entity.Name, "", resourceName, "", "", "", materialScenario.Entity.Step.Name, materialScenario.Entity.LastProcessedResource.LastService.Name, "", materialScenario.Entity.Product.Name, materialScenario.Entity.Flow.Name, materialScenario.Entity.PrimaryQuantity.ToString(), materialScenario.Entity.Facility.Name);
+            ValidateIntegrationEntry(AMSOsramConstants.MessageType_LOTIN, fromDate, true, materialScenario.Entity.Name, "", resource.Name, "", "", "", materialScenario.Entity.Step.Name, materialScenario.Entity.LastProcessedResource.LastService.Name, "", materialScenario.Entity.Product.Name, materialScenario.Entity.Flow.Name, materialScenario.Entity.PrimaryQuantity.ToString(), materialScenario.Entity.Facility.Name);
         }
 
         /// <summary>
@@ -224,10 +222,9 @@ namespace Cmf.Custom.Tests.Biz.Materials
             materialScenario.Setup(true);
 
             Assert.IsTrue(materialScenario.Entity.SubMaterialCount > 0, $"The material {materialScenario.Entity.Name} should have submaterials.");
-            
+            // Set config with false to avoid create a new integration entry
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
-            resource.Load();
-            materialScenario.Entity.ComplexTrackIn(resource);
+            materialScenario.Entity.ComplexTrackIn();
             materialScenario.Entity.LoadChildren();
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, true);
             subResource.Load();
@@ -235,7 +232,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
             materialScenario.Entity.SubMaterials.ComplexTrackInMaterials(subResource);
             materialScenario.SubMaterials[0].LoadRelation("MaterialContainer");
 
-            ValidateIntegrationEntry(AMSOsramConstants.MessageType_WAFERIN, fromDate, true, materialScenario.Entity.Name, materialScenario.SubMaterials[0].Name, subResourceName, materialScenario.SubMaterials[0].MaterialContainer.First().Position.ToString(), materialScenario.SubMaterials[0].MaterialContainer.First().Position.ToString(), materialScenario.SubMaterials[0].PrimaryQuantity.Value.ToString());
+            ValidateIntegrationEntry(AMSOsramConstants.MessageType_WAFERIN, fromDate, true, materialScenario.Entity.Name, materialScenario.SubMaterials[0].Name, subResource.Name, materialScenario.SubMaterials[0].MaterialContainer.First().Position.ToString(), materialScenario.SubMaterials[0].MaterialContainer.First().Position.ToString(), materialScenario.SubMaterials[0].PrimaryQuantity.Value.ToString());
         }
 
         /// <summary>
@@ -252,9 +249,9 @@ namespace Cmf.Custom.Tests.Biz.Materials
         {
             materialScenario.NumberOfSubMaterials = 0;
             materialScenario.Setup(true);
-            resource.Load();
+            // Set config with false to avoid create a new integration entry
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
-            materialScenario.Entity.ComplexTrackIn(resource);
+            materialScenario.Entity.ComplexTrackIn();
             materialScenario.Entity.Load();
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, true);
             DateTime fromDate = DateTime.Now;
@@ -277,11 +274,9 @@ namespace Cmf.Custom.Tests.Biz.Materials
         public void CustomReportDataToFDCTests_WaferMaterialTrackOut()
         {
             materialScenario.Setup(true);
-            
+            // Set config with false to avoid create a new integration entry
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
-            resource.Load();
-            materialScenario.Entity.ComplexTrackIn(resource);
-            materialScenario.Entity.Load();
+            materialScenario.Entity.ComplexTrackIn();
             materialScenario.Entity.LoadChildren();
             subResource.Load();
             materialScenario.Entity.SubMaterials.ComplexTrackInMaterials(subResource);
@@ -289,9 +284,9 @@ namespace Cmf.Custom.Tests.Biz.Materials
             DateTime fromDate = DateTime.Now;
             materialScenario.Entity.SubMaterials[0].ComplexTrackOutMaterial();
             materialScenario.Entity.SubMaterials[0].Load();
-            materialScenario.Entity.Step.Load();
+            //materialScenario.Entity.Step.Load();
 
-            ValidateIntegrationEntry(AMSOsramConstants.MessageType_WAFEROUT, fromDate, true, materialScenario.Entity.Name, materialScenario.SubMaterials[0].Name, subResourceName, "", "", "", "", "", "", "", "", "", "", materialScenario.Entity.SubMaterials[0].SystemState.ToString());
+            ValidateIntegrationEntry(AMSOsramConstants.MessageType_WAFEROUT, fromDate, true, materialScenario.Entity.Name, materialScenario.SubMaterials[0].Name, subResource.Name, "", "", "", "", "", "", "", "", "", "", materialScenario.Entity.SubMaterials[0].SystemState.ToString());
         }
 
 
@@ -309,11 +304,8 @@ namespace Cmf.Custom.Tests.Biz.Materials
         {
             materialScenario.NumberOfSubMaterials = 0;
             materialScenario.Setup(true);
-
-            resource.Load();
             DateTime fromDate = DateTime.Now;
-            materialScenario.Entity.ComplexTrackIn(resource);
-            materialScenario.Entity.Load();
+            materialScenario.Entity.ComplexTrackIn();
             materialScenario.Entity.Abort();
             materialScenario.Entity.Step.Load();
 
