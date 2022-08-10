@@ -5,8 +5,10 @@ using Cmf.Foundation.Common;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ExceptionManagement;
 using Cmf.Navigo.BusinessOrchestration.ExceptionManagement.InputObjects;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 
 namespace Cmf.Custom.AMSOsram.Actions.Space
 {
@@ -60,6 +62,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
         {
             //---Start DEE Code---
 
+            //System
+            UseReference("%MicrosoftNetPath%System.Private.Xml.dll", "System.Xml");
+
             //Foundation
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
             UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
@@ -77,6 +82,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             //Custom
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.DataStructures");
+
+            //System
+            UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
 
             // Get DataCollectionInstance from Input
             DataCollectionInstance dataCollectionInstance = AMSOsramUtilities.GetInputItem<DataCollectionInstance>(Input, Navigo.Common.Constants.DataCollectionInstance);
@@ -173,8 +181,16 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             // Create Message to send for Space
             CustomReportEDCToSpace dataCollectionInfoMessage = AMSOsramUtilities.CreateSpaceInfoWaferValues(material, dataCollectionInstance, dataCollectionLimitSet);
 
+            // Load Xml into XmlDocument to get InnerXml without formatting
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(dataCollectionInfoMessage.SerializeToXML());
+
             // Publish message on Message Bus
-            Utilities.PublishTransactionalMessage(AMSOsramConstants.CustomReportEDCToSpace, dataCollectionInfoMessage.SerializeToXML());
+            Utilities.PublishTransactionalMessage(AMSOsramConstants.CustomReportEDCToSpace,
+                                                  JsonConvert.SerializeObject(new
+                                                  {
+                                                      Message = xmlDocument.InnerXml
+                                                  }));
 
             //---End DEE Code---
 
