@@ -4,12 +4,15 @@ using Cmf.Custom.Tests.Biz.Common.Scenarios;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
+using Cmf.Foundation.BusinessObjects.SmartTables;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
+using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -28,7 +31,9 @@ namespace Cmf.Custom.Tests.Biz.Materials
         private int MaxNumberOfRetries = 30;
         private bool fdcActiveConfig;
         private Dictionary<Resource, bool> oldResourceFDCCommunicationValue = new Dictionary<Resource, bool>();
-        
+        private const string recipeName = "P-CLN024-TITIW";
+        private const string serviceName = "Sputtering ZnO with Etching";
+
         /// <summary>
         /// Test Initialization
         /// </summary>
@@ -45,6 +50,9 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 Name = resourceName
             };
             resource.Load();
+
+            resource.IsRecipeManagementEnabled = true;
+            resource.Save();
 
             subResource = new Resource()
             {
@@ -137,7 +145,10 @@ namespace Cmf.Custom.Tests.Biz.Materials
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
 
             materialScenario.Setup(true);
-            
+
+            // Set the recipe context
+            SetupRecipeContext(serviceName, materialScenario.Entity.Name, recipeName);
+
             DateTime fromDate = DateTime.Now;
             materialScenario.Entity.ComplexTrackIn();
 
@@ -171,6 +182,10 @@ namespace Cmf.Custom.Tests.Biz.Materials
             resource.SaveAttribute(AMSOsramConstants.CustomFDCCommunicationAttribute, false);
 
             materialScenario.Setup(true);
+
+            // Set the recipe context
+            SetupRecipeContext(serviceName, materialScenario.Entity.Name, recipeName);
+
             DateTime fromDate = DateTime.Now;
             materialScenario.Entity.ComplexTrackIn();
             
@@ -201,10 +216,14 @@ namespace Cmf.Custom.Tests.Biz.Materials
         public void CustomReportDataToFDCTests_LotMaterialTrackIn()
         {
             materialScenario.Setup(true);
+
+            // Set the recipe context
+            SetupRecipeContext(serviceName, materialScenario.Entity.Name, recipeName);
+
             DateTime fromDate = DateTime.Now;
             materialScenario.Entity.ComplexTrackIn();
 
-            ValidateIntegrationEntry(AMSOsramConstants.MessageType_LOTIN, fromDate, true, materialScenario.Entity.Name, "", resource.Name, "", "", "", materialScenario.Entity.Step.Name, materialScenario.Entity.LastProcessedResource.LastService.Name, "", materialScenario.Entity.Product.Name, materialScenario.Entity.Flow.Name, materialScenario.Entity.PrimaryQuantity.ToString(), materialScenario.Entity.Facility.Name);
+            ValidateIntegrationEntry(AMSOsramConstants.MessageType_LOTIN, fromDate, true, materialScenario.Entity.Name, "", resource.Name, "", "", "", materialScenario.Entity.Step.Name, materialScenario.Entity.LastProcessedResource.LastService.Name, materialScenario.Entity.CurrentRecipeInstance?.ParentEntity?.Name, materialScenario.Entity.Product.Name, materialScenario.Entity.Flow.Name, materialScenario.Entity.PrimaryQuantity.ToString(), materialScenario.Entity.Facility.Name);
         }
 
         /// <summary>
@@ -220,6 +239,9 @@ namespace Cmf.Custom.Tests.Biz.Materials
         public void CustomReportDataToFDCTests_WaferMaterialTrackIn()
         {
             materialScenario.Setup(true);
+
+            // Set the recipe context
+            SetupRecipeContext(serviceName, materialScenario.Entity.Name, recipeName);
 
             Assert.IsTrue(materialScenario.Entity.SubMaterialCount > 0, $"The material {materialScenario.Entity.Name} should have submaterials.");
             // Set config with false to avoid create a new integration entry
@@ -249,6 +271,10 @@ namespace Cmf.Custom.Tests.Biz.Materials
         {
             materialScenario.NumberOfSubMaterials = 0;
             materialScenario.Setup(true);
+
+            // Set the recipe context
+            SetupRecipeContext(serviceName, materialScenario.Entity.Name, recipeName);
+
             // Set config with false to avoid create a new integration entry
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
             materialScenario.Entity.ComplexTrackIn();
@@ -274,6 +300,10 @@ namespace Cmf.Custom.Tests.Biz.Materials
         public void CustomReportDataToFDCTests_WaferMaterialTrackOut()
         {
             materialScenario.Setup(true);
+
+            // Set the recipe context
+            SetupRecipeContext(serviceName, materialScenario.Entity.Name, recipeName);
+
             // Set config with false to avoid create a new integration entry
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
             materialScenario.Entity.ComplexTrackIn();
@@ -303,6 +333,10 @@ namespace Cmf.Custom.Tests.Biz.Materials
         {
             materialScenario.NumberOfSubMaterials = 0;
             materialScenario.Setup(true);
+
+            // Set the recipe context
+            SetupRecipeContext(serviceName, materialScenario.Entity.Name, recipeName);
+
             DateTime fromDate = DateTime.Now;
             materialScenario.Entity.ComplexTrackIn();
             materialScenario.Entity.Abort();
@@ -506,6 +540,13 @@ namespace Cmf.Custom.Tests.Biz.Materials
                                     Assert.AreEqual(expectedFacilityName, item.InnerText.Trim(),
                                         $"The property FacilityName should be {expectedFacilityName}!");
                                     break;
+                                case "RecipeName":
+                                    Assert.IsTrue(!string.IsNullOrWhiteSpace(item.InnerText),
+                                        $"The property RecipeName should not be empty!");
+
+                                    Assert.AreEqual(expectedRecipeName, item.InnerText.Trim(),
+                                        $"The property RecipeName should be {expectedRecipeName}!");
+                                    break;
                             }
                         }
                         break;
@@ -553,6 +594,40 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
             resource.SaveAttribute(AMSOsramConstants.CustomFDCCommunicationAttribute, fdcCommunicationValue);
             resource.Load();
+        }
+
+        /// <summary>
+        /// Setup the recipe context smart table
+        /// </summary>
+        /// <param name="serviceName"></param>
+        /// <param name="materialName"></param>
+        /// <param name="recipeName"></param>
+        private void SetupRecipeContext(string serviceName, string materialName, string recipeName)
+        {
+            //add new constant
+            SmartTable smartTable = TestScenarios.Others.TableUtilities.GetSmartTable("RecipeContext");
+            smartTable.LoadData();
+
+            DataSet ds = TestScenarios.Others.Utilities.ToDataSet(smartTable.Data);
+            
+            DataRow dr = ds.Tables[0].NewRow();
+            dr["RecipeContextId"] = 0; // Stored Proc that manages the ST data filters by Id = 0 , not -1
+            dr["LastServiceHistoryId"] = -1;
+            dr["LastOperationHistorySeq"] = -1;
+            dr["Service"] = serviceName;
+            dr["Material"] = materialName;
+            dr["Recipe"] = recipeName;
+
+            ds.Tables[0].Rows.Add(dr);
+
+            try
+            {
+                var input = new InsertOrUpdateSmartTableRowsInput { SmartTable = smartTable, Table = Cmf.TestScenarios.Others.Utilities.FromDataSet(ds) };
+                var insert = input.InsertOrUpdateSmartTableRowsSync();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         #endregion Help methods
