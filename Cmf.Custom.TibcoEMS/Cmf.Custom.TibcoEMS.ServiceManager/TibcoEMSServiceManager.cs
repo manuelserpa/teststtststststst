@@ -155,8 +155,6 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                             }
                         }
 
-                        
-
                         this.Logger.LogInformation("Sending message to Tibco...");
 
                         this.Logger.LogInformation("ID:" + message.Id);
@@ -252,6 +250,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
 
             if (textFlag)
             {
+                
                 Queue tibcoQueue = tibcoSession.CreateQueue(topicName);
                 MessageProducer tibcoMessageProducer = tibcoSession.CreateProducer(tibcoQueue);
 
@@ -268,36 +267,33 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
 
                 this.Logger.LogInformation("Tibco Text Message ID:" + tibcoMessage.MessageID);
             }
+            else if (queueFlag)
+            {
+                
+                Queue tibcoQueue = tibcoSession.CreateQueue(topicName);
+                MessageProducer tibcoMessageProducer = tibcoSession.CreateProducer(tibcoQueue);
+
+                MapMessage tibcoMessage = tibcoSession.CreateMapMessage();
+
+                tibcoMessage.SetStringProperty("field", messageData);
+
+                tibcoMessageProducer.Send(tibcoMessage);
+
+                this.Logger.LogInformation("Tibco Map Message ID:" + tibcoMessage.MessageID);
+            }
             else
             {
+                
+                Topic tibcoTopic = tibcoSession.CreateTopic(topicName);
+                MessageProducer tibcoMessageProducer = tibcoSession.CreateProducer(tibcoTopic);
 
-                if (queueFlag)
-                {
-                    Queue tibcoQueue = tibcoSession.CreateQueue(topicName);
-                    MessageProducer tibcoMessageProducer = tibcoSession.CreateProducer(tibcoQueue);
+                MapMessage tibcoMessage = tibcoSession.CreateMapMessage();
 
-                    MapMessage tibcoMessage = tibcoSession.CreateMapMessage();
+                tibcoMessage.SetStringProperty("field", messageData);
 
-                    tibcoMessage.SetStringProperty("field", messageData);
-
-                    tibcoMessageProducer.Send(tibcoMessage);
-
-                    this.Logger.LogInformation("Tibco Map Message ID:" + tibcoMessage.MessageID);
-                }
-                else
-                {
-
-                    Topic tibcoTopic = tibcoSession.CreateTopic(topicName);
-                    MessageProducer tibcoMessageProducer = tibcoSession.CreateProducer(tibcoTopic);
-
-                    MapMessage tibcoMessage = tibcoSession.CreateMapMessage();
-
-                    tibcoMessage.SetStringProperty("field", messageData);
-
-                    tibcoMessageProducer.Send(tibcoMessage);
-
-                    this.Logger.LogInformation("Tibco Map Message ID:" + tibcoMessage.MessageID);
-                }
+                tibcoMessageProducer.Send(tibcoMessage);
+                
+                this.Logger.LogInformation("Tibco Map Message ID:" + tibcoMessage.MessageID);
             }     
         }
 

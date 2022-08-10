@@ -126,7 +126,10 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
                                                         {
                                                             Subject = row.Field<string>("Subject"),
                                                             Topic = row.Field<string>("Topic"),
-                                                            Rule = row.Table.Columns.Contains("Rule") ? row.Field<string>("Rule") : String.Empty
+                                                            Rule = row.Table.Columns.Contains("Rule") ? row.Field<string>("Rule") : String.Empty,
+                                                            QueueFlag = row.Table.Columns.Contains("QueueFlag") ? row.Field<bool>("QueueFlag") : false,
+                                                            TextFlag = row.Table.Columns.Contains("TextFlag") ? row.Field<bool>("TextFlag") : false,
+                                                            CompressFlag = row.Table.Columns.Contains("CompressFlag") ? row.Field<bool>("CompressFlag") : false
                                                         });
             }
 

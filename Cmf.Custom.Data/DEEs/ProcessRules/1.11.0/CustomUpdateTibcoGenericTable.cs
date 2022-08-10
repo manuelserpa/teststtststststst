@@ -18,8 +18,6 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.After
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
             UseReference("Cmf.Foundation.CommunicationLayer.Sap.dll", "Cmf.Foundation.CommunicationLayer.Converters");
             UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration");
-
-
             UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration.EntityTypeManagement");
             UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration.EntityTypeManagement.InputObjects");
 
@@ -47,7 +45,8 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.After
                     Description = "QueueFlag that can be used to send tibco message to queue",
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
-                    Position = lastPropertyPosition
+                    Position = lastPropertyPosition,
+                    IsMandatory = true
                 });
             }
 
@@ -61,7 +60,8 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.After
                     Description = "TextFlag that can be used to set tibco message type",
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
-                    Position = lastPropertyPosition
+                    Position = lastPropertyPosition,
+                    IsMandatory = true
 
                 });
             }
@@ -76,7 +76,8 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.After
                     Description = "CompressFlag that can be used to compress tibco message",
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
-                    Position = lastPropertyPosition
+                    Position = lastPropertyPosition,
+                    IsMandatory = true
                 });
             }
 
