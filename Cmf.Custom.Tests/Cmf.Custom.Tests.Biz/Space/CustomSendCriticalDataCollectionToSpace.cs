@@ -252,9 +252,12 @@ namespace Cmf.Custom.Tests.Biz.Space
             {
                 if (message != null && !string.IsNullOrWhiteSpace(message.Data))
                 {
-                    Dictionary<string, string> outputMessage = JsonConvert.DeserializeObject<Dictionary<string, string>>(message.Data);
+                    // Deserialize MessageBus message received to a Dictionary
+                    // - Key: PropertieName
+                    // - Value: PropertieValue (MessageToSend)
+                    Dictionary<string, string> receivedMessage = JsonConvert.DeserializeObject<Dictionary<string, string>>(message.Data);
 
-                    ValidateMessage(outputMessage["Message"]);
+                    ValidateMessage(receivedMessage["Message"]);
 
                     messageBusTransport.Unsubscribe(AMSOsramConstants.CustomReportEDCToSpace);
 
