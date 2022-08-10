@@ -41,7 +41,16 @@
 				}
 			},
 			"settings": {
-				"_outputs": [],
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CONTROL_STATE",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
 				"___cmf___name": "Get Equipment Properties Values",
 				"___cmf___color": "#ffff80"
 			},
@@ -348,6 +357,16 @@
 					"version": "8.3.3-202201212"
 				}
 			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
 		}
 	],
 	"links": [
@@ -461,6 +480,29 @@
 			"targetId": "task_1796",
 			"inputName": "reply",
 			"outputName": "error"
+		},
+		{
+			"id": "c2eecaa1-16e4-454b-aaa2-7b8d9739efb1",
+			"sourceId": "task_70871",
+			"targetId": "task_73090",
+			"inputName": "GemControlStateIn",
+			"outputName": "$CONTROL_STATE"
+		},
+		{
+			"id": "09c80c71-481a-44d6-98b2-566287eb562a",
+			"sourceId": "task_70871",
+			"targetId": "task_73090",
+			"inputName": "DoNotValidateCassettePresentIn",
+			"outputName": "$CONTROL_STATE",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "True"
+					}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -623,6 +665,9 @@
 							}
 						]
 					},
+					"c2eecaa1-16e4-454b-aaa2-7b8d9739efb1": {
+						"vertices": []
+					},
 					"cc8ce25c-4960-4556-84a0-86daf88a8e99": {
 						"vertices": [
 							{
@@ -642,6 +687,9 @@
 								"y": 165
 							}
 						]
+					},
+					"09c80c71-481a-44d6-98b2-566287eb562a": {
+						"vertices": []
 					}
 				},
 				"notes": {
@@ -674,10 +722,10 @@
 						}
 					}
 				},
-				"zoom": 0.6600000000000004,
+				"zoom": 0.6500000000000004,
 				"pan": {
-					"x": 1946.666748046875,
-					"y": 61.111114501953125
+					"x": 813.015119053995,
+					"y": 338.27595202540954
 				}
 			}
 		}

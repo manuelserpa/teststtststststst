@@ -97,7 +97,15 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "ReadyForProcessA"
+					}
+				],
+				"___cmf___description": "ReadyForProcessA (520)"
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -328,6 +336,30 @@
 				],
 				"___cmf___name": "Create Error Message"
 			}
+		},
+		{
+			"id": "task_74573",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "ReadyForProcessB"
+					}
+				],
+				"___cmf___description": "ReadyForProcessB (521)"
+			},
+			"driver": "SecsGemEquipment"
 		}
 	],
 	"converters": [
@@ -532,6 +564,29 @@
 			"targetId": "task_42157",
 			"inputName": "MaterialDataIn",
 			"outputName": "material"
+		},
+		{
+			"id": "41fe473c-a293-40bc-a9db-16d153801a7e",
+			"sourceId": "task_74573",
+			"targetId": "task_129232",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "ff81165b-2a45-424e-8dcb-34c20da5f607",
+			"sourceId": "task_74573",
+			"targetId": "task_50034",
+			"inputName": "activate",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "False"
+					}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -626,6 +681,14 @@
 							"y": 984
 						},
 						"outdated": false
+					},
+					"task_74573": {
+						"collapsed": false,
+						"position": {
+							"x": 387,
+							"y": 1080
+						},
+						"outdated": false
 					}
 				},
 				"links": {
@@ -677,6 +740,9 @@
 					"d16a4aab-ca34-4ff4-bf14-18f071e02b25": {
 						"vertices": []
 					},
+					"41fe473c-a293-40bc-a9db-16d153801a7e": {
+						"vertices": []
+					},
 					"0744934e-8081-43bd-87c3-1be9665912a9": {
 						"vertices": []
 					},
@@ -684,6 +750,9 @@
 						"vertices": []
 					},
 					"fff921b1-3a83-4463-9b76-be3763e66452": {
+						"vertices": []
+					},
+					"ff81165b-2a45-424e-8dcb-34c20da5f607": {
 						"vertices": []
 					}
 				},
@@ -703,10 +772,10 @@
 						}
 					}
 				},
-				"zoom": 0.5099999999999997,
+				"zoom": 0.82,
 				"pan": {
-					"x": 120,
-					"y": 163.75
+					"x": 225.93982209605986,
+					"y": 629.9423330539328
 				}
 			}
 		}

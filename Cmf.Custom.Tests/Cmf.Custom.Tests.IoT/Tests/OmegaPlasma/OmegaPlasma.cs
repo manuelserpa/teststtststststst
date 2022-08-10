@@ -63,6 +63,9 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
         public bool proceedWithCarriersReceived = false;
 
         public bool recievedStartCommand = false;
+        public bool recievedClampPodCommand = false;
+        public bool recievedLoadPodCommand = false;
+
 
         private int chamberToProcess = 1;
 
@@ -292,13 +295,12 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
         [TestMethod]
         public void OmegaPlasma_ControlStateUpdateTest()
         {
-
-            base.Equipment.Variables["ControlState"] = 3;
+            base.Equipment.Variables["CONTROL_STATE"] = 1;
             // Trigger event
-            base.Equipment.SendMessage("Equipment OFF-LINE", null);
+            base.Equipment.SendMessage("EquipmentOffline", null);
 
             //
-            TestUtilities.WaitFor(10/*ValidationTimeout*/, "Control State was not updated to Host Offline", () =>
+            TestUtilities.WaitFor(ValidationTimeout, "Control State was not updated to Host Offline", () =>
             {
                 Resource resource = new Resource { Name = resourceName };
                 resource.Load();
@@ -316,10 +318,10 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
                 return resource.CurrentStates.FirstOrDefault(s => s.StateModel.Name == "CustomSecsGemControlStateModel" && s.CurrentState.Name == "HostOffline") != null;
             });
             Thread.Sleep(1000);
-            base.Equipment.Variables["ControlState"] = 5;
-            // Trigger event
-            base.Equipment.SendMessage("Control State REMOTE", null);
 
+            base.Equipment.Variables["CONTROL_STATE"] = 5;
+            // Trigger event
+            base.Equipment.SendMessage("ControlStateRemote", null);
 
             TestUtilities.WaitFor(ValidationTimeout, "Control State was not updated to Online Remote", () =>
             {
@@ -340,9 +342,10 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
             });
 
             Thread.Sleep(1000);
-            base.Equipment.Variables["ControlState"] = 4;
+
+            base.Equipment.Variables["CONTROL_STATE"] = 4;
             // Trigger event
-            base.Equipment.SendMessage("Control State LOCAL", null);
+            base.Equipment.SendMessage("ControlStateLocal", null);
 
             TestUtilities.WaitFor(ValidationTimeout, "Control State was not updated to Online Local", () =>
             {
@@ -360,8 +363,7 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
                     return false;
 
                 return resource.CurrentStates.FirstOrDefault(s => s.StateModel.Name == "CustomSecsGemControlStateModel" && s.CurrentState.Name == "OnlineLocal") != null;
-            });
-
+            });           
         }
 
 
@@ -369,7 +371,7 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
         /// Scenario: Control State to Host Offline
         /// </summary>
         //[TestMethod]
-        public void MuetecDaVinci_EPTStateChangeTest()
+        public void OmegaPlasma_EPTStateChangeTest()
         {
 
             base.Equipment.Variables["BlockedReason"] = 0;
@@ -513,24 +515,44 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
         #region Events
         public override bool CarrierIn(CustomMaterialScenario scenario, int loadPortToSet)
         {
-
+            base.Equipment.Variables.Clear();
+            base.Equipment.Variables["PORT_ID"] = LoadPortNumber;
             // Trigger event
 
             switch (loadPortToSet)
             {
                 case 1:
-                    base.Equipment.SendMessage(String.Format($"LP1/CarrierArrived"), null);
+                    base.Equipment.SendMessage(String.Format($"SMIFPodPresent1"), null);
                     break;
                 case 2:
-                    base.Equipment.SendMessage(String.Format($"LP2/CarrierArrived"), null);
+                    base.Equipment.SendMessage(String.Format($"SMIFPodPresent2"), null);
                     break;
 
                 default:
                     break;
             }
 
-            return true;
+            TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve Clamp command", () => { 
+                return recievedClampPodCommand; 
+            });
 
+            recievedClampPodCommand = false;
+
+            base.Equipment.Variables.Clear(); 
+
+            base.Equipment.Variables["PORT_ID"] = loadPortNumber;
+
+            switch (loadPortToSet)
+            {
+                case 1: base.Equipment.SendMessage("SMIFPodClamped1", null); 
+                    break;
+                case 2: base.Equipment.SendMessage("SMIFPodClamped2", null); 
+                    break;
+
+                default: 
+                    break;
+            }
+            return true;
         }
 
         public override void CarrierInValidation(CustomMaterialScenario MESScenario, int loadPortToSet)
@@ -540,28 +562,11 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
 
             base.CarrierInValidation(MESScenario, loadPortToSet);
 
-            //Send the event for UnknownCarrierID
-            base.Equipment.Variables["PortID"] = loadPortToSet;
-
-            // Trigger event
-            base.Equipment.SendMessage(String.Format($"UnknownCarrierID"), null);
-
          //   Thread.Sleep(300);
 
             //if carried id read succesfull container must now be docked
             ValidatePersistenceContainerExists(LoadPortNumber, MESScenario.ContainerScenario.Entity.Name);
             ValidateContainerIsDocked(MESScenario, loadPortToSet);
-
-            //         // ValidateProceedWithCarrierReceived(1);
-
-            TestUtilities.WaitFor(30, "Proceed With Carrier (Accept Container) not Received", () =>
-            {
-                return proceedWithCarriersReceived;
-            });
-            //setting to false to next proceed with carrier
-            proceedWithCarriersReceived = false;
-            if (!isValidProceedWithCarrier)
-                Assert.Fail("Wrong ProceedWithCarrier Format!");
 
             var slotMap = new int[13];
             // scenario.ContainerScenario.Entity
@@ -573,17 +578,18 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
                 }
             }
             SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
+            
+            TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve LOAD_POD command", () => {
+                return recievedLoadPodCommand;
+            });
 
+            recievedLoadPodCommand = false;
 
-            base.Equipment.Variables["LocationID"] = "";
-            base.Equipment.Variables["Reason"] = 1;
-            base.Equipment.Variables["SlotMapStatus"] = 1;
-            base.Equipment.Variables["CarrierID"] = MESScenario.ContainerScenario.Entity.Name;
-            base.Equipment.Variables["SlotMap"] = slotMapDV;
-            base.Equipment.Variables["PortID"] = loadPortToSet;
+            base.Equipment.Variables["SLOT_MAP"] = slotMapDV;
+            base.Equipment.Variables["PORT_ID"] = loadPortToSet;
 
             // Trigger event
-            base.Equipment.SendMessage(String.Format($"SlotMapNotRead2WaitingForHost"), null);
+            base.Equipment.SendMessage(String.Format($"SlotMapRead"), null);
 
             ValidatePersistenceContainerExists(loadPortToSet);
         }
@@ -593,18 +599,28 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
         public override bool CarrierOut(CustomMaterialScenario scenario)
         {
 
-            base.Equipment.Variables["PortID"] = loadPortNumber;
-            base.Equipment.Variables["PortTransferState"] = 0;
-            base.Equipment.Variables["PortStateInfo"] = 0;
+            base.Equipment.Variables["PORT_ID"] = loadPortNumber;
 
             // Trigger event
-            base.Equipment.SendMessage(String.Format($"TransferBlocked2ReadyToUnload"), null);
+            switch (loadPortNumber)
+            {
+                case 1:
+                    base.Equipment.SendMessage("DoorOpen1", null);
+                    break;
+                case 2:
+                    base.Equipment.SendMessage("DoorOpen2", null);
+                    break;
+
+                default:
+                    break;
+            }
+
 
             ValidateLoadPortState(scenario, LoadPortStateModelStateEnum.ReadyToUnload.ToString());
             // MaterialRemoved
 
             Thread.Sleep(2000);
-            base.Equipment.Variables["PortID"] = loadPortNumber;
+            base.Equipment.Variables["PORT_ID"] = loadPortNumber;
 
             // Trigger event
             base.Equipment.SendMessage(String.Format($"MaterialRemoved"), null);
@@ -618,7 +634,19 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
 
         public override bool ProcessStartEvent(CustomMaterialScenario scenario)
         {
-            base.Equipment.SendMessage("ReadyForProcessA", null);
+            base.Equipment.Variables["PORT_ID"] = loadPortNumber;
+            switch (loadPortNumber)
+            {
+                case 1:
+                    base.Equipment.SendMessage("ReadyForProcessA", null);
+                    break;
+                case 2:
+                    base.Equipment.SendMessage("ReadyForProcessB", null);
+                    break;
+
+                default:
+                    break;
+            }
 
             TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve START command", () =>
             {
@@ -1053,6 +1081,11 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
             if (command == "START")
             {
                 recievedStartCommand = true;
+                CommandSuccess = true;
+            }
+            if (command == "CLAMP")
+            {
+                recievedClampPodCommand = true;
                 CommandSuccess = true;
             }
             reply.Item.GetChildList()[0].Binary = new byte[] { (byte)(CommandSuccess ? 0x00 : 0x02) };

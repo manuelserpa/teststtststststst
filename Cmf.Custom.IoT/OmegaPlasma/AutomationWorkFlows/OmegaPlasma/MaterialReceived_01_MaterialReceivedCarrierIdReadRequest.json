@@ -226,7 +226,9 @@
 					"version": "1.0.0"
 				}
 			},
-			"settings": {},
+			"settings": {
+				"___cmf___name": "Custom Read Id (S18F9)"
+			},
 			"driver": "RFIDReader"
 		},
 		{
@@ -659,8 +661,8 @@
 					"task_29463": {
 						"collapsed": false,
 						"position": {
-							"x": 886,
-							"y": 417
+							"x": 859,
+							"y": 403
 						},
 						"outdated": false
 					},
@@ -675,16 +677,16 @@
 					"task_29636": {
 						"collapsed": false,
 						"position": {
-							"x": 2233,
-							"y": 175
+							"x": 2259,
+							"y": 192
 						},
 						"outdated": false
 					},
 					"task_1598": {
 						"collapsed": false,
 						"position": {
-							"x": 1791,
-							"y": 303
+							"x": 1786,
+							"y": 325
 						},
 						"outdated": false
 					},
@@ -699,16 +701,16 @@
 					"task_8781": {
 						"collapsed": false,
 						"position": {
-							"x": 261,
-							"y": 242
+							"x": 259,
+							"y": 249
 						},
 						"outdated": false
 					},
 					"task_24956": {
 						"collapsed": false,
 						"position": {
-							"x": 1332,
-							"y": 409
+							"x": 1316,
+							"y": 434
 						},
 						"outdated": false
 					}
@@ -780,10 +782,10 @@
 						}
 					}
 				},
-				"zoom": 0.5900000000000003,
+				"zoom": 0.6199999999999997,
 				"pan": {
-					"x": 57.48331538427715,
-					"y": 27.453533432941924
+					"x": 30,
+					"y": 58
 				}
 			}
 		}
