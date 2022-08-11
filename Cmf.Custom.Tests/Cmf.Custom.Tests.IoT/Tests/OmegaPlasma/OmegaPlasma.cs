@@ -41,7 +41,6 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
         public string recipeName = "TestRecipeForOmegaPlasma";
         public const string serviceName = "CD-Measurement";
 
-        private int loadPortNumber = 1;
         private string samplingPattern = "";
 
         private bool loadCommandReceived = false;
@@ -90,7 +89,7 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
             base.Equipment.RegisterOnMessage("S14F9", OnS14F9);
             base.Equipment.RegisterOnMessage("S16F11", OnS16F11);
 
-            base.LoadPortNumber = loadPortNumber;
+            base.LoadPortNumber = 1;
 
             RFIDReader.TestInit(readerResourceName, m_Scenario);
         }
@@ -131,7 +130,19 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
 
             ConfigureConnection(resourceName, 5011,isEnableAllAlarms: true); 
             ConfigureConnection(readerResourceName, 5012, prepareTestScenario: false);
-            
+
+            Resource lp1 = new Resource() { Name = "5FICP1-LP1" };
+            lp1.Load();
+            lp1.AutomationMode = ResourceAutomationMode.Online;
+            lp1.AutomationAddress = ".";
+            lp1.Save();
+
+            Resource lp2 = new Resource() { Name = "5FICP1-LP2" };
+            lp2.Load();
+            lp2.AutomationMode = ResourceAutomationMode.Online;
+            lp2.AutomationAddress = ".";
+            lp2.Save();
+
         }
 
 
@@ -532,26 +543,7 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
                     break;
             }
 
-            TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve Clamp command", () => { 
-                return recievedClampPodCommand; 
-            });
 
-            recievedClampPodCommand = false;
-
-            base.Equipment.Variables.Clear(); 
-
-            base.Equipment.Variables["PORT_ID"] = loadPortNumber;
-
-            switch (loadPortToSet)
-            {
-                case 1: base.Equipment.SendMessage("SMIFPodClamped1", null); 
-                    break;
-                case 2: base.Equipment.SendMessage("SMIFPodClamped2", null); 
-                    break;
-
-                default: 
-                    break;
-            }
             return true;
         }
 
@@ -568,15 +560,39 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
             ValidatePersistenceContainerExists(LoadPortNumber, MESScenario.ContainerScenario.Entity.Name);
             ValidateContainerIsDocked(MESScenario, loadPortToSet);
 
+            TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve Clamp command", () => {
+                return recievedClampPodCommand;
+            });
+
+            recievedClampPodCommand = false;
+
+            base.Equipment.Variables.Clear();
+
+            base.Equipment.Variables["PORT_ID"] = LoadPortNumber;
+
+            switch (loadPortToSet)
+            {
+                case 1:
+                    base.Equipment.SendMessage("SMIFPodClamped1", null);
+                    break;
+                case 2:
+                    base.Equipment.SendMessage("SMIFPodClamped2", null);
+                    break;
+
+                default:
+                    break;
+            }
+
             var slotMap = new int[13];
             // scenario.ContainerScenario.Entity
             if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
             {
                 for (int i = 0; i < 13; i++)
                 {
-                    slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
+                    slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 1 : 0;
                 }
             }
+
             SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
             
             TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve LOAD_POD command", () => {
@@ -585,7 +601,7 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
 
             recievedLoadPodCommand = false;
 
-            base.Equipment.Variables["SLOT_MAP"] = slotMapDV;
+            base.Equipment.Variables["SLOT_MAP"] =  slotMapDV;
             base.Equipment.Variables["PORT_ID"] = loadPortToSet;
 
             // Trigger event
@@ -599,10 +615,10 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
         public override bool CarrierOut(CustomMaterialScenario scenario)
         {
 
-            base.Equipment.Variables["PORT_ID"] = loadPortNumber;
+            base.Equipment.Variables["PORT_ID"] = LoadPortNumber;
 
             // Trigger event
-            switch (loadPortNumber)
+            switch (LoadPortNumber)
             {
                 case 1:
                     base.Equipment.SendMessage("DoorOpen1", null);
@@ -620,7 +636,7 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
             // MaterialRemoved
 
             Thread.Sleep(2000);
-            base.Equipment.Variables["PORT_ID"] = loadPortNumber;
+            base.Equipment.Variables["PORT_ID"] = LoadPortNumber;
 
             // Trigger event
             base.Equipment.SendMessage(String.Format($"MaterialRemoved"), null);
@@ -631,11 +647,10 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
             return true;
         }
 
-
-        public override bool ProcessStartEvent(CustomMaterialScenario scenario)
+        public override bool PostTrackInActions(CustomMaterialScenario scenario)
         {
-            base.Equipment.Variables["PORT_ID"] = loadPortNumber;
-            switch (loadPortNumber)
+            base.Equipment.Variables["PORT_ID"] = LoadPortNumber;
+            switch (LoadPortNumber)
             {
                 case 1:
                     base.Equipment.SendMessage("ReadyForProcessA", null);
@@ -648,6 +663,23 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
                     break;
             }
 
+            TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
+            {
+                scenario.Entity.Load();
+                return scenario.Entity.CurrentMainState.CurrentState.Name.Equals(MaterialStateModelStateEnum.Setup.ToString());
+            });
+
+            TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material {scenario.Entity.Name} System State is not {MaterialSystemState.InProcess.ToString()}"), () =>
+            {
+                scenario.Entity.Load();
+                return scenario.Entity.SystemState.ToString().Equals(MaterialSystemState.InProcess.ToString());
+            });
+
+            return true;
+        }
+
+        public override bool ProcessStartEvent(CustomMaterialScenario scenario)
+        {
             TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve START command", () =>
             {
                 return recievedStartCommand;
@@ -659,7 +691,7 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
 
             base.Equipment.Variables["CARRIER_ID"] = MESScenario.ContainerScenario.Entity.Name;
             base.Equipment.Variables["LOT_ID"] = MESScenario.Entity.Name;
-            base.Equipment.Variables["PORT_ID"] = loadPortNumber;
+            base.Equipment.Variables["PORT_ID"] = LoadPortNumber;
 
             base.Equipment.SendMessage("CassetteStarted", null);
 
@@ -689,106 +721,6 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
         }
         #endregion Events
 
-
-
-        public override bool PostTrackInActions(CustomMaterialScenario scenario)
-        {
-
-            if (TrackInMustFail)
-            {
-                TestUtilities.WaitForNotChanged(30, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
-                {
-                    scenario.Entity.Load();
-                    if (scenario.Entity.CurrentMainState == null || scenario.Entity.CurrentMainState.CurrentState == null)
-                    {
-                        return false;
-                    }
-
-                    return scenario.Entity.CurrentMainState.CurrentState.Name.Equals(MaterialStateModelStateEnum.Setup.ToString());
-                });
-
-                return false;
-            }
-
-
-            if (!isOnlineRemote)
-            {
-                Assert.Fail("Track In must fail on Online Local");
-            }
-
-            TestUtilities.WaitFor(30, "Proceed With Carrier (Accept Slot Map) not Received", () =>
-            {
-                return proceedWithCarriersReceived;
-            });
-
-            TestUtilities.WaitFor(60, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
-            {
-                scenario.Entity.Load();
-
-                if (scenario.Entity.CurrentMainState == null || scenario.Entity.CurrentMainState.CurrentState == null)
-                {
-                    return false;
-                }
-
-                return scenario.Entity.CurrentMainState.CurrentState.Name.Equals(MaterialStateModelStateEnum.Setup.ToString());
-            });
-
-            TestUtilities.WaitFor(60, String.Format($"Material {scenario.Entity.Name} System State is not {MaterialSystemState.InProcess.ToString()}"), () =>
-            {
-                scenario.Entity.Load();
-                return scenario.Entity.SystemState.ToString().Equals(MaterialSystemState.InProcess.ToString());
-            });
-
-            scenario.Entity.LoadChildren();
-            scenario.ContainerScenario.Entity.LoadRelations(levelsToLoad: 2);
-
-            if (samplingPattern == "FIRST")
-            {
-                var material = scenario.Entity.SubMaterials.Single(c => c.SystemState.ToString().Equals(MaterialSystemState.Queued.ToString()));
-
-                var materialContainer = scenario.ContainerScenario.Entity.ContainerMaterials.Single(p => p.SourceEntity.Name == material.Name && p.Position == 1);
-
-            }
-
-            if (samplingPattern == "MIDDLE")
-            {
-                var material = scenario.Entity.SubMaterials.Single(c => c.SystemState.ToString().Equals(MaterialSystemState.Queued.ToString()));
-
-                int halfIndex = (scenario.Entity.SubMaterials.Count()) / 2;
-                //There is a bug here... Just for the sake of the validation
-                var materialContainer = scenario.ContainerScenario.Entity.ContainerMaterials.Single(p => p.SourceEntity.Name == material.Name && p.Position == (halfIndex + 2));
-            }
-
-            if (samplingPattern == "LAST")
-            {
-                var material = scenario.Entity.SubMaterials.Single(c => c.SystemState.ToString().Equals(MaterialSystemState.Queued.ToString()));
-
-                var materialContainer = scenario.ContainerScenario.Entity.ContainerMaterials.First(p => p.SourceEntity.Name == material.Name && p.Position == scenario.Entity.SubMaterials.Count);
-            }
-
-
-
-            base.Equipment.Variables["CarrierID"] = scenario.ContainerScenario.Entity.Name;
-            base.Equipment.Variables["CarrierAccessingStatus"] = 1;
-            base.Equipment.Variables["LocationID"] = 1;
-            base.Equipment.Variables["PortID"] = loadPortNumber;
-            base.Equipment.Variables["SlotMapStatus"] = 1;
-
-            base.Equipment.SendMessage("WaitingForHost2SlotMapVerificationOk", null);
-
-            TestUtilities.WaitFor(60, String.Format($"Process Job creation requests were never received"), () =>
-            {
-                return createProcessJobReceived;
-            });
-
-            TestUtilities.WaitFor(60, String.Format($"Control creation requests were never received"), () =>
-            {
-                return createControlJobReceived;
-            });
-
-            Thread.Sleep(100);
-            return true;
-        }
 
         public override bool WaferStart(Material wafer)
         {
@@ -837,7 +769,7 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
             };
 
 
-            //var subId = String.Format("CarrierAtPort{0}.{1:D2}", loadPortNumber, wafer.MaterialContainer.First().Position);
+            //var subId = String.Format("CarrierAtPort{0}.{1:D2}", LoadPortNumber, wafer.MaterialContainer.First().Position);
 
             base.Equipment.Variables["SubstIDStatusList"] = dummyList;
             base.Equipment.Variables["SubstSubstLocIDList"] = dummyList;
