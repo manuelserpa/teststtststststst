@@ -12,8 +12,14 @@ namespace Cmf.Custom.TibcoEMS.Service
     /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Logger
+        /// </summary>
         private static ILogger Logger;
 
+        /// <summary>
+        /// Tibco Configs
+        /// </summary>
         private static NameValueCollection TibcoConfigs;
 
         public static void Main(string[] args)

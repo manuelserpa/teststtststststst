@@ -1,6 +1,6 @@
 {
     "packageId": "Cmf.Custom.Business",
-    "version": "1.10.0",
+    "version": "1.11.0",
     "description": "Cmf Custom AMSOsram Cmf.Custom.Business Package",
     "packageType": "Business",
     "isInstallable": true,

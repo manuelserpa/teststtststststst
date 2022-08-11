@@ -47,7 +47,7 @@ namespace Cmf.Custom.AMSOsram.Common.FDC
         /// <summary>
         /// NumberOfWafersInBatch
         /// </summary>
-        public int NumberOfWafersInBatch { get; set; }
+        public int? NumberOfWafersInBatch { get; set; }
 
         /// <summary>
         /// FacilityName

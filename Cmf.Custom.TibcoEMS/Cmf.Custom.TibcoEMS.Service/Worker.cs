@@ -13,8 +13,14 @@ namespace Cmf.Custom.TibcoEMS.Service
     /// </summary>
     public class Worker : IHostedService
     {
+        /// <summary>
+        /// Logger
+        /// </summary>
         private readonly ILogger Logger;
 
+        /// <summary>
+        /// TibcoServiceManager
+        /// </summary>
         private TibcoEMSServiceManager TibcoServiceManager;
 
         /// <summary>
@@ -32,9 +38,16 @@ namespace Cmf.Custom.TibcoEMS.Service
         /// </summary>
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            this.TibcoServiceManager.OnStart();
+            try
+            {
+                this.TibcoServiceManager.OnStart();
 
-            this.Logger.LogInformation("Service Started.");
+                this.Logger.LogInformation("Service Started.");
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogError(ex, ex.Message, null);
+            }
 
             return Task.CompletedTask;
         }
