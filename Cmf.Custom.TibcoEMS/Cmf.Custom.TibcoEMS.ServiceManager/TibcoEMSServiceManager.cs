@@ -152,6 +152,17 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                     // Message to send
                     string messageData = message.Data;
 
+                    if (message.Data.IsJson())
+                    {
+                        // Deserialize MessageBus message received to a Dictionary
+                        // - Key: PropertyName
+                        // - Value: PropertyValue (MessageToSend)
+                        Dictionary<string, string> receivedMessage = JsonConvert.DeserializeObject<Dictionary<string, string>>(message.Data);
+
+                        // Get Message to Send to Tibco from Json message
+                        messageData = receivedMessage["Message"];
+                    }
+
                     try
                     {
                         this.Logger.LogInformation(String.Format(TibcoEMSConstants.DefaultLogDataFormat, subject, topicName, String.IsNullOrWhiteSpace(actionName) ? "(null)" : actionName));

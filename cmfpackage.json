@@ -12,11 +12,11 @@
         },
         {
             "id": "Cmf.Custom.Business",
-            "version": "1.10.0"
+            "version": "1.11.0"
         },
         {
             "id": "Cmf.Custom.Data",
-            "version": "1.10.0"
+            "version": "1.11.0"
         },
         {
             "id": "Cmf.Custom.Data.ExportedObjects",
@@ -42,7 +42,7 @@
     "testPackages": [
         {
             "id": "Cmf.Custom.Tests",
-            "version": "1.10.0"
+            "version": "1.11.0"
         },
         {
             "id": "Cmf.Custom.Tests.MasterData",
