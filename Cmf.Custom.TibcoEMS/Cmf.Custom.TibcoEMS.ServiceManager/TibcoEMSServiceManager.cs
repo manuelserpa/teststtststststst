@@ -57,12 +57,12 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
 
             // Get Message Bus Transport Configurations
             this.Logger.LogInformation("Getting Message Bus Transport Configurations...");
-            
+
             this.MessageBusTransportConfiguration = TibcoEMSUtilities.CreateMessageBusTransportConfig();
 
             // Create Message Bus Transport
             this.Logger.LogInformation("Creating Message Bus Transport...");
-            
+
             this.MessageBusTransport = new Transport(this.MessageBusTransportConfiguration);
 
             //Create Tibco connection configuration
@@ -127,6 +127,17 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
 
                     // Message to send
                     string messageData = message.Data;
+
+                    if (message.Data.IsJson())
+                    {
+                        // Deserialize MessageBus message received to a Dictionary
+                        // - Key: PropertyName
+                        // - Value: PropertyValue (MessageToSend)
+                        Dictionary<string, string> receivedMessage = JsonConvert.DeserializeObject<Dictionary<string, string>>(message.Data);
+
+                        // Get Message to Send to Tibco from Json message
+                        messageData = receivedMessage["Message"];
+                    }
 
                     try
                     {
