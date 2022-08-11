@@ -19,9 +19,14 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         #region Private Variables
 
         /// <summary>
-        /// The Logger
+        /// Logger
         /// </summary>
         private readonly ILogger Logger;
+
+        /// <summary>
+        /// Tibco Configs
+        /// </summary>
+        private readonly NameValueCollection TibcoConfigs;
 
         /// <summary>
         /// Message Bus Transport
@@ -37,6 +42,11 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         /// Tibco Connection
         /// </summary>
         private Connection TibcoConnection;
+
+        /// <summary>
+        /// Tibco Session
+        /// </summary>
+        private Session TibcoSession;
 
         /// <summary>
         /// TibcoResolveConfigurations
@@ -55,6 +65,28 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
             // Set Logger
             this.Logger = logger;
 
+            // Set TibcoConfigs
+            this.TibcoConfigs = tibcoConfigs;
+        }
+
+        /// <summary>
+        /// On Start Windows Service
+        /// </summary>
+        public void OnStart()
+        {
+            // Create Tibco connection
+            this.Logger.LogInformation("Creating Tibco Connection...");
+
+            this.TibcoConnection = TibcoEMSUtilities.CreateTibcoConnection(this.TibcoConfigs);
+
+            // Connect to Tibco
+            this.TibcoConnection.Start();
+
+            // Create Tibco session and associate to the connection 
+            this.Logger.LogInformation("Creating Tibco Session...");
+
+            this.TibcoSession = this.TibcoConnection.CreateSession(false, SessionMode.AutoAcknowledge);
+
             // Get Message Bus Transport Configurations
             this.Logger.LogInformation("Getting Message Bus Transport Configurations...");
 
@@ -64,20 +96,6 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
             this.Logger.LogInformation("Creating Message Bus Transport...");
 
             this.MessageBusTransport = new Transport(this.MessageBusTransportConfiguration);
-
-            //Create Tibco connection configuration
-            this.Logger.LogInformation("Creating Tibco Connection...");
-
-            this.TibcoConnection = TibcoEMSUtilities.CreateTibcoConnection(tibcoConfigs);
-        }
-
-        /// <summary>
-        /// On Start Windows Service
-        /// </summary>
-        public void OnStart()
-        {
-            // Connect to Tibco
-            this.TibcoConnection.Start();
 
             // Connect to Message Bus
             this.MessageBusTransport.Start();
@@ -97,6 +115,12 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                 this.UnsubscribeSubjects();
 
                 this.MessageBusTransport.Stop();
+            }
+
+            // Close Tibco session
+            if (this.TibcoSession != null)
+            {
+                this.TibcoSession.Close();
             }
 
             // Close Tibco connection
@@ -156,8 +180,6 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                                 messageData = actionOutput.Output["Result"].ToString();
                             }
                         }
-
-                        this.Logger.LogInformation("Sending message to Tibco...");
 
                         this.SendMessageToTibco(topicName, messageData);
 
@@ -246,16 +268,46 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         /// </summary>
         private void SendMessageToTibco(string topicName, string messageData)
         {
-            Session tibcoSession = this.TibcoConnection.CreateSession(false, SessionMode.AutoAcknowledge);
+            this.Logger.LogInformation("Checking connection to Tibco...");
 
-            Topic tibcoTopic = tibcoSession.CreateTopic(topicName);
+            // Check if Tibco is disconnected
+            if (this.TibcoConnection != null && this.TibcoConnection.IsDisconnected())
+            {
+                this.Logger.LogInformation("Tibco is disconnected!");
 
-            MessageProducer tibcoMessageProducer = tibcoSession.CreateProducer(tibcoTopic);
+                // Create Tibco connection
+                this.Logger.LogInformation("Creating Tibco Connection...");
 
-            MapMessage tibcoMessage = tibcoSession.CreateMapMessage();
+                this.TibcoConnection = TibcoEMSUtilities.CreateTibcoConnection(this.TibcoConfigs);
+
+                // Connect to Tibco
+                this.TibcoConnection.Start();
+
+                // Create Tibco session and associate to the connection 
+                this.Logger.LogInformation("Creating Tibco Session...");
+
+                this.TibcoSession = this.TibcoConnection.CreateSession(false, SessionMode.AutoAcknowledge);
+            }
+
+            this.Logger.LogInformation("Tibco is connected...");
+
+            // Create topic on Tibco session
+            Topic tibcoTopic = this.TibcoSession.CreateTopic(topicName);
+
+            // Create message produce on Tibco session
+            MessageProducer tibcoMessageProducer = this.TibcoSession.CreateProducer(tibcoTopic);
+
+            // Create Tibco Map Message
+            MapMessage tibcoMessage = this.TibcoSession.CreateMapMessage();
             tibcoMessage.SetStringProperty("field", messageData);
 
+            // Send Message to Tibco
+            this.Logger.LogInformation("Sending message to Tibco...");
+
             tibcoMessageProducer.Send(tibcoMessage);
+
+            // Close Message Producer after send Message to Tibco
+            tibcoMessageProducer.Close();
         }
 
         /// <summary>
