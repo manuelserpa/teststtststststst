@@ -30,9 +30,15 @@ The Generic Table CustomTibcoEMSGatewayResolver contains all the subjects that a
 * When one of the subscribed subjects publish a message on the Message Bus:
   * If the configuration in Generic Table CustomTibcoEMSGatewayResolver **has** an Action associated:
     * The Action is executed, and a message is returned.
-      * The message returned will be sent to Tibco along the corresponding Topic.
+      * The message returned will be sent to Tibco along the corresponding Topic or Queue.
   * If the configuration in Generic Table CustomTibcoEMSGatewayResolver **does not have** an Action associated:
-    * The message received from the Message Bus is directly sent to Tibco along the corresponding Topic.
+    * The message received from the Message Bus is directly sent to Tibco along the corresponding Topic or Queue.
+
+The logic associated with the Topic and Queue is defined on the Generic Table CustomTibcoEMSGateway:
+
+* The messages in TextMessage format always will be sent along the Queue.
+  * It's possible to compress text messages.
+* The default behavior is sent messages along the corresponding Topic.
 
 When the subject CustomTibcoEMSGatewayInvalidateCache is received the cache with the subscribed subjects will be reloaded from MES.
 

@@ -15,7 +15,7 @@ declare var SystemJS: { import: any }
 function applyConfig(packageName: string) {
 
     const config: PackageMetadata = {
-        version: "1.8.0",
+        version: "1.11.0",
         name: `${packageName}`,
         components: [
             // Below this line all components are attached automatically during build
