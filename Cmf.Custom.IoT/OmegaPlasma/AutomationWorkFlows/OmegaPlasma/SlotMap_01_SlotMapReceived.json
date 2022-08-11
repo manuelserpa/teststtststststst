@@ -153,6 +153,103 @@
 				]
 			},
 			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_153344",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        const rawSlotMap = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"SLOT_MAP\");",
+					"        const portId = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"PORT_ID\");",
+					"",
+					"        if (rawSlotMap == null) {",
+					"            throw new Error(\"Empty slot map\");",
+					"        }",
+					"",
+					"        let slotMap: String = \"\";",
+					"",
+					"        (<any[]>rawSlotMap.originalValue.value).forEach(slot => {",
+					"",
+					"            slotMap += slot.value >= 1 ? \"1\" : \"0\";",
+					"",
+					"        });",
+					"",
+					"",
+					"        return { SlotMap: slotMap, PortId: portId.originalValue.value };",
+					"",
+					"",
+					"",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IHJhd1Nsb3RNYXAgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiU0xPVF9NQVAiKTsNCiAgICAgICAgY29uc3QgcG9ydElkID0gaW5wdXRzLmV2ZW50UmF3RGF0YS52YWx1ZXMuZmluZCh2ID0+IHYucHJvcGVydHkuTmFtZSA9PT0gIlBPUlRfSUQiKTsNCiAgICAgICAgaWYgKHJhd1Nsb3RNYXAgPT0gbnVsbCkgew0KICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKCJFbXB0eSBzbG90IG1hcCIpOw0KICAgICAgICB9DQogICAgICAgIGxldCBzbG90TWFwID0gIiI7DQogICAgICAgIHJhd1Nsb3RNYXAub3JpZ2luYWxWYWx1ZS52YWx1ZS5mb3JFYWNoKHNsb3QgPT4gew0KICAgICAgICAgICAgc2xvdE1hcCArPSBzbG90LnZhbHVlID49IDEgPyAiMSIgOiAiMCI7DQogICAgICAgIH0pOw0KICAgICAgICByZXR1cm4geyBTbG90TWFwOiBzbG90TWFwLCBQb3J0SWQ6IHBvcnRJZC5vcmlnaW5hbFZhbHVlLnZhbHVlIH07DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
+				"inputs": [
+					{
+						"name": "eventRawData",
+						"valueType": {
+							"friendlyName": "eventRawData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "SlotMap",
+						"valueType": {
+							"friendlyName": "SlotMap",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "PortId",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
 		}
 	],
 	"converters": [
@@ -165,35 +262,53 @@
 					"version": "8.3.3-202201212"
 				}
 			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToString",
+			"reference": {
+				"name": "anyToString",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
 		}
 	],
 	"links": [
 		{
-			"id": "a816c14f-07f7-42a7-bff9-705473d05cd0",
+			"id": "3d2b6910-4cc4-4f4c-a34e-04b633b6e5d5",
 			"sourceId": "task_190927",
-			"targetId": "task_93884",
-			"inputName": "SlotMapIn",
-			"outputName": "$SLOT_MAP",
-			"converters": [
-				{
-					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
-					"params": {}
-				}
-			]
+			"targetId": "task_153344",
+			"inputName": "eventRawDataIn",
+			"outputName": "eventRawData"
 		},
 		{
-			"id": "ea7432e1-1d91-46cd-aa78-8e37392990ae",
+			"id": "081cf598-35e7-405e-8fbc-0264ae90c36f",
 			"sourceId": "task_190927",
-			"targetId": "task_93884",
-			"inputName": "LoadPortIn",
-			"outputName": "$PORT_ID"
+			"targetId": "task_153344",
+			"inputName": "activate",
+			"outputName": "eventRawData"
 		},
 		{
-			"id": "ecac3b6b-440b-4002-a5f8-74badd83549d",
-			"sourceId": "task_190927",
+			"id": "502d90b3-b4b8-45fb-b20d-051b16920411",
+			"sourceId": "task_153344",
 			"targetId": "task_93884",
 			"inputName": "activate",
-			"outputName": "$PORT_ID"
+			"outputName": "success"
+		},
+		{
+			"id": "7fb80bb8-5d61-48ba-bf73-d410682cc69d",
+			"sourceId": "task_153344",
+			"targetId": "task_93884",
+			"inputName": "SlotMapIn",
+			"outputName": "SlotMapOut"
+		},
+		{
+			"id": "c0c8009a-8676-457d-8aac-57bc53dff22e",
+			"sourceId": "task_153344",
+			"targetId": "task_93884",
+			"inputName": "LoadPortIn",
+			"outputName": "PortIdOut"
 		}
 	],
 	"layout": {
@@ -214,28 +329,42 @@
 					"task_93884": {
 						"collapsed": false,
 						"position": {
-							"x": 1005,
-							"y": 185
+							"x": 1021,
+							"y": 147
 						},
 						"outdated": false
 					},
 					"task_190927": {
 						"collapsed": false,
 						"position": {
-							"x": 305,
-							"y": 189
+							"x": -6,
+							"y": 139
+						},
+						"outdated": false
+					},
+					"task_153344": {
+						"collapsed": false,
+						"position": {
+							"x": 504,
+							"y": 212
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"ea7432e1-1d91-46cd-aa78-8e37392990ae": {
+					"3d2b6910-4cc4-4f4c-a34e-04b633b6e5d5": {
 						"vertices": []
 					},
-					"ecac3b6b-440b-4002-a5f8-74badd83549d": {
+					"081cf598-35e7-405e-8fbc-0264ae90c36f": {
 						"vertices": []
 					},
-					"a816c14f-07f7-42a7-bff9-705473d05cd0": {
+					"502d90b3-b4b8-45fb-b20d-051b16920411": {
+						"vertices": []
+					},
+					"7fb80bb8-5d61-48ba-bf73-d410682cc69d": {
+						"vertices": []
+					},
+					"c0c8009a-8676-457d-8aac-57bc53dff22e": {
 						"vertices": []
 					}
 				},
@@ -248,10 +377,10 @@
 						}
 					}
 				},
-				"zoom": 0.6399999999999997,
+				"zoom": 0.7599999999999998,
 				"pan": {
 					"x": 0,
-					"y": 51
+					"y": 17
 				}
 			}
 		}

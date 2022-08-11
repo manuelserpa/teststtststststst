@@ -65,7 +65,8 @@
 						}
 					}
 				],
-				"___cmf___name": "Ready to Unload Workflow"
+				"___cmf___name": "Internal Workflow",
+				"___cmf___description": "CassetteLoad_01_ExecuteCommand"
 			}
 		},
 		{
@@ -85,10 +86,10 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "DoorOpen1"
+						"Name": "SMIFPodClamped1"
 					}
 				],
-				"___cmf___description": "DoorOpen1"
+				"___cmf___description": "SMIFPodClamped1"
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -109,10 +110,10 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "DoorOpen2"
+						"Name": "SMIFPodClamped2"
 					}
 				],
-				"___cmf___description": "DoorOpen2"
+				"___cmf___description": "SMIFPodClamped1"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -143,6 +144,38 @@
 			"targetId": "task_158178",
 			"inputName": "activate",
 			"outputName": "eventRawData"
+		},
+		{
+			"id": "a1381904-5b9d-4baf-9b7c-76e063a4ce82",
+			"sourceId": "task_5596",
+			"targetId": "task_158178",
+			"inputName": "LoadPortIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "1"
+					}
+				}
+			]
+		},
+		{
+			"id": "d782ea83-821b-4aba-957a-22f348b4b81c",
+			"sourceId": "task_5674",
+			"targetId": "task_158178",
+			"inputName": "LoadPortIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "2"
+					}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -163,8 +196,8 @@
 					"task_158178": {
 						"collapsed": false,
 						"position": {
-							"x": 1374,
-							"y": 195
+							"x": 1391,
+							"y": 273
 						},
 						"outdated": false
 					},
@@ -179,8 +212,8 @@
 					"task_5674": {
 						"collapsed": false,
 						"position": {
-							"x": 820,
-							"y": 382
+							"x": 819,
+							"y": 417
 						},
 						"outdated": false
 					}
@@ -191,20 +224,26 @@
 					},
 					"824d1e84-56d1-4829-8e96-489e671e9bc7": {
 						"vertices": []
+					},
+					"a1381904-5b9d-4baf-9b7c-76e063a4ce82": {
+						"vertices": []
+					},
+					"d782ea83-821b-4aba-957a-22f348b4b81c": {
+						"vertices": []
 					}
 				},
 				"notes": {
 					"note_158182": {
 						"collapsed": false,
 						"position": {
-							"x": 1837,
-							"y": 137
+							"x": 1831,
+							"y": 55
 						}
 					}
 				},
-				"zoom": 0.5699999999999997,
+				"zoom": 0.84,
 				"pan": {
-					"x": 186,
+					"x": 546,
 					"y": 0
 				}
 			}
