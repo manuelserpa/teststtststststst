@@ -103,17 +103,17 @@
         /// <summary>
         /// Custom TibcoEMS Gateway Resolver table queue flag property 
         /// </summary>
-        public static string GenericTableCustomTibcoEMSGatewayResolverQueueFlagProperty = "QueueFlag";
+        public static string GenericTableCustomTibcoEMSGatewayResolverQueueMessageProperty = "QueueMessage";
 
         /// <summary>
         /// Custom TibcoEMS Gateway Resolver table MapText flag property 
         /// </summary>
-        public static string GenericTableCustomTibcoEMSGatewayResolverTextFlagProperty = "TextFlag";
+        public static string GenericTableCustomTibcoEMSGatewayResolverTextMessageProperty = "TextMessage";
 
         /// <summary>
         /// Custom TibcoEMS Gateway Resolver table compress flag property 
         /// </summary>
-        public static string GenericTableCustomTibcoEMSGatewayResolverCompressFlagProperty = "CompressFlag";
+        public static string GenericTableCustomTibcoEMSGatewayResolverCompressMessageProperty = "CompressMessage";
 
         #endregion
 

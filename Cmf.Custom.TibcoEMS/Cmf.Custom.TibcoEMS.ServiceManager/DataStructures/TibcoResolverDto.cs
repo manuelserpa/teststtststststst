@@ -23,16 +23,16 @@
         /// <summary>
         /// QueueFlag
         /// </summary>
-        public bool QueueFlag { get; set; }
+        public bool QueueMessage { get; set; }
 
         /// <summary>
         /// CompressFlag
         /// </summary>
-        public bool CompressFlag { get; set; }
+        public bool CompressMessage { get; set; }
 
         /// <summary>
         /// TextFlag
         /// </summary>
-        public bool TextFlag { get; set; }
+        public bool TextMessage { get; set; }
     }
 }
