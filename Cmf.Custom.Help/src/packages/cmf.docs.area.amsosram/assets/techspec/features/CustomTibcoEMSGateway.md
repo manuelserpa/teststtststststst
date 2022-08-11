@@ -6,6 +6,12 @@ Windows Service used to send messages to Tibco EMS.
 
 ## Design Specification
 
+On the Generic Table **CustomTibcoEMSGatewayResolver** it is possible to configure if:
+
+* The message will be sent to Queues (set _QueueMessage_ with true) or to Tibco Topics (set _QueueMessage_ with false).
+* The message will be sent as a Text message (set _TextMessage_ with true) or as a Map message (set _MapMessage_ with false).
+* The message content should be compressed (set _CompressMessage_ with true) or not (set _CompressMessage_ with false). This option is not considered in Map message.
+
 ### Relevant Artifacts
 
 The table below describes the relevant artifacts for this feature:
@@ -34,12 +40,6 @@ The Generic Table CustomTibcoEMSGatewayResolver contains all the subjects that a
   * If the configuration in Generic Table CustomTibcoEMSGatewayResolver **does not have** an Action associated:
     * The message received from the Message Bus is directly sent to Tibco along the corresponding Topic or Queue.
 
-The logic associated with the Topic and Queue is defined on the Generic Table CustomTibcoEMSGateway:
-
-* The messages in TextMessage format always will be sent along the Queue.
-  * It's possible to compress text messages.
-* The default behavior is sent messages along the corresponding Topic.
-
 When the subject CustomTibcoEMSGatewayInvalidateCache is received the cache with the subscribed subjects will be reloaded from MES.
 
 The following behavior will be applied:
@@ -63,4 +63,5 @@ The table below describes de user stories that affect the current functionality
 
 | User Story | Type       | Title                        | Description |
 | :--------- | :--------- | :--------------------------- | :---------- |
-| 153091     | User Story | Create CMF Tibco EMS gateway |             |
+| 153091     | User Story | Create CMF Tibco EMS gateway | |
+| 186907     | User Story | 1st Additions to EPIC 406: SPACE - Lot/Wafer SPC Data Interface via TIBCO EMS | |
