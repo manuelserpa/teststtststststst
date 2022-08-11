@@ -64,6 +64,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
 
             //System
             UseReference("%MicrosoftNetPath%System.Private.Xml.dll", "System.Xml");
+            UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
 
             //Foundation
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
@@ -82,9 +83,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             //Custom
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.DataStructures");
-
-            //System
-            UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
 
             // Get DataCollectionInstance from Input
             DataCollectionInstance dataCollectionInstance = AMSOsramUtilities.GetInputItem<DataCollectionInstance>(Input, Navigo.Common.Constants.DataCollectionInstance);
