@@ -23,6 +23,8 @@ using System.Collections.Generic;
 using Cmf.Foundation.BusinessObjects.SmartTables;
 using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 using Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader;
+using Cmf.Foundation.BusinessObjects;
+using Cmf.TestScenarios.Others;
 
 namespace AMSOsramEIAutomaticTests.OmegaPlasma
 {
@@ -64,6 +66,7 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
         public bool recievedStartCommand = false;
         public bool recievedClampPodCommand = false;
         public bool recievedLoadPodCommand = false;
+        public bool receivedPPSelectCommand = false;
 
 
         private int chamberToProcess = 1;
@@ -106,11 +109,10 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
 
             isOnlineRemote = true;
 
-            createControlJobReceived = false;
-            createControlJobDenied = false;
-
-            createProcessJobReceived = false;
-            createProcessJobDenied = false;
+            recievedStartCommand = false;
+            recievedClampPodCommand = false;
+            recievedLoadPodCommand = false;
+            receivedPPSelectCommand = false;
 
             proceedWithCarriersReceived = false;
 
@@ -123,11 +125,6 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            var step = new Step { Name = stepName };
-            step.Load();
-            step.UseInStepSampling = true;
-            step.Save();
-
             ConfigureConnection(resourceName, 5011,isEnableAllAlarms: true); 
             ConfigureConnection(readerResourceName, 5012, prepareTestScenario: false);
 
@@ -177,79 +174,6 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
             samplingPattern = "ALL";
             this.SetSamplingPatternContext(samplingPattern);
 
-            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
-        }
-
-        /// <summary> 
-        /// Scenario: Recipe Exists on Equipment / Sampling Pattern First
-        /// </summary>
-        [TestMethod]
-        public void OmegaPlasma_FullProcessRecipeExistsSamplingPatternFirst()
-        {
-            base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
-
-            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName, ".\\RecipeBinaryFiles\\testRecipe");
-
-            var recipe = new Recipe() { Name = RecipeName };
-            recipe.Load();
-            var recipeBody = recipe.Body;
-            recipeBody.Load();
-            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, recipeBody.Body);
-            RecipeManagement.FailOnNewBody = true;
-            RecipeManagement.RecipeExistsOnList = true;
-
-            MESScenario.Entity.Load();
-            samplingPattern = "FIRST";
-            this.SetSamplingPatternContext(samplingPattern);
-            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
-        }
-
-        /// <summary> 
-        /// Scenario: Recipe Exists on Equipment / Sampling Pattern Last
-        /// </summary>
-        [TestMethod]
-        public void OmegaPlasma_FullProcessRecipeExistsSamplingPatternMiddle()
-        {
-            base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, 13, false);
-
-            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName, ".\\RecipeBinaryFiles\\testRecipe");
-
-            var recipe = new Recipe() { Name = RecipeName };
-            recipe.Load();
-            var recipeBody = recipe.Body;
-            recipeBody.Load();
-            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, recipeBody.Body);
-            RecipeManagement.FailOnNewBody = true;
-            RecipeManagement.RecipeExistsOnList = true;
-
-            MESScenario.Entity.Load();
-            samplingPattern = "MIDDLE";
-            this.SetSamplingPatternContext(samplingPattern);
-            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
-        }
-
-
-        /// <summary> 
-        /// Scenario: Recipe Exists on Equipment / Sampling Pattern Last
-        /// </summary>
-        [TestMethod]
-        public void OmegaPlasma_FullProcessRecipeExistsSamplingPatternLast()
-        {
-            base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
-
-            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName, ".\\RecipeBinaryFiles\\testRecipe");
-
-            var recipe = new Recipe() { Name = RecipeName };
-            recipe.Load();
-            var recipeBody = recipe.Body;
-            recipeBody.Load();
-            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, recipeBody.Body);
-            RecipeManagement.FailOnNewBody = true;
-            RecipeManagement.RecipeExistsOnList = true;
-
-            MESScenario.Entity.Load();
-            samplingPattern = "LAST";
-            this.SetSamplingPatternContext(samplingPattern);
             base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
         }
 
@@ -649,7 +573,12 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
 
         public override bool PostTrackInActions(CustomMaterialScenario scenario)
         {
-            base.Equipment.Variables["PORT_ID"] = LoadPortNumber;
+            TestUtilities.WaitFor(ValidationTimeout, String.Format($"Failed to recieve PP-Select"), () =>
+            {
+                return receivedPPSelectCommand;
+            });
+            receivedPPSelectCommand = false;
+
             switch (LoadPortNumber)
             {
                 case 1:
@@ -675,8 +604,12 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
                 return scenario.Entity.SystemState.ToString().Equals(MaterialSystemState.InProcess.ToString());
             });
 
+
+
             return true;
         }
+
+       
 
         public override bool ProcessStartEvent(CustomMaterialScenario scenario)
         {
@@ -949,8 +882,9 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
         {
             string command = request.Item.GetChildList()[0].GetValue().ToString();
             var CommandSuccess = false;
-            if (command == "PP-SELECT")
+            if (command == "PP_SELECT")
             {
+                receivedPPSelectCommand = true;
                 CommandSuccess = true;
             }
             if (command == "START")
@@ -985,9 +919,20 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
             Log(String.Format("{0}: [E] Validate MES Material {2} is Processed Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, material.Name));
 
         }
+
         public override bool PostSetupActions(CustomMaterialScenario MESScenario)
         {
-            return true;
+            StateModel stateModel = GenericGetsScenario.GetObjectByName<StateModel>("CustomMaterialStateModel");
+
+            base.MESScenario.Entity.CurrentMainState = new CurrentEntityState()
+            {
+                StateModel = stateModel,
+                CurrentState = stateModel.States.FirstOrDefault(s => s.Name == "Queued")
+            };
+
+            base.MESScenario.Entity.Save();
+
+            return base.PostSetupActions(MESScenario);
         }
 
         private void SetSamplingPatternContext(string patternName, bool clearTable = true)
