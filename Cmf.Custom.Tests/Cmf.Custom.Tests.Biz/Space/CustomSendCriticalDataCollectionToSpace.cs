@@ -253,8 +253,8 @@ namespace Cmf.Custom.Tests.Biz.Space
                 if (message != null && !string.IsNullOrWhiteSpace(message.Data))
                 {
                     // Deserialize MessageBus message received to a Dictionary
-                    // - Key: PropertieName
-                    // - Value: PropertieValue (MessageToSend)
+                    // - Key: PropertyName
+                    // - Value: PropertyValue (MessageToSend)
                     Dictionary<string, string> receivedMessage = JsonConvert.DeserializeObject<Dictionary<string, string>>(message.Data);
 
                     ValidateMessage(receivedMessage["Message"]);
