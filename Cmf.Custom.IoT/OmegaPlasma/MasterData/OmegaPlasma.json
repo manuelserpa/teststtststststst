@@ -2391,7 +2391,7 @@
       "Name": "ReadyToLoad_01_EventReceived",
       "DisplayName": "ReadyToLoad_01_EventReceived",
       "IsFile": "Yes",
-      "Workflow": "OmegaPlasma\\ReadyToLoad_01_EventReceived",
+      "Workflow": "OmegaPlasma\\ReadyToLoad_01_EventReceived.json",
       "Order": "4"
     },
     "5": {
