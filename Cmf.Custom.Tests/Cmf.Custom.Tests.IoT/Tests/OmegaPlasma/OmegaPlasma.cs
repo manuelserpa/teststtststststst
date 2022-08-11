@@ -700,10 +700,13 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
 
         public override bool ProcessCompleteEvent(CustomMaterialScenario scenario)
         {
-            base.Equipment.Variables["CtrlJobID"] = $"CtrlJob_{scenario.Entity.Name}";
+            
+            base.Equipment.Variables["CARRIER_ID"] = MESScenario.ContainerScenario.Entity.Name;
+            base.Equipment.Variables["LOT_ID"] = MESScenario.Entity.Name;
+            base.Equipment.Variables["PORT_ID"] = LoadPortNumber;
 
             //// Trigger event
-            base.Equipment.SendMessage(String.Format($"ControlJob:10:Executing-Completed"), null);
+            base.Equipment.SendMessage("CassetteComplete", null);
 
             return true;
         }
@@ -729,67 +732,12 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
             wafer.ParentMaterial.Load();
             wafer.MaterialContainer.First().TargetEntity.Load();
 
-            DummyList dummyList = new DummyList(base.Equipment) { LoadPortNumber = new int[] { 0 } };
-            SimpleAscList substSourceList = new SimpleAscList(base.Equipment) { Ascs = new string[] { $"{wafer.MaterialContainer.First().TargetEntity.Name}.{wafer.MaterialContainer.First().Position:D2}" } };
-
-            SubstIDList substIDList = new SubstIDList(base.Equipment) { SubstIDInternalList = new SubstIDInternalList { SubstID = wafer.Name } };
-
-            SubstHistoryList substHistoryList = new SubstHistoryList(base.Equipment)
-            {
-                SubstHistoryInternalList = new SubstHistoryInternalList
-                {
-                    SubstHistoryEntryList = new List<SubstHistoryEntry>
-                    {
-                        new SubstHistoryEntry
-                        {
-                            Location = "BL/Station1",
-                            TimeIn = "11",
-                            TimeOut = "12"
-                        },
-                        new SubstHistoryEntry
-                        {
-                            Location = "AL/Station1",
-                            TimeIn = "11",
-                            TimeOut = "12"
-                        },
-                        new SubstHistoryEntry
-                        {
-                            Location = "TM/Arm2",
-                            TimeIn = "21",
-                            TimeOut = "22"
-                        },
-                        new SubstHistoryEntry
-                        {
-                            Location = "PM1/Station1",
-                            TimeIn = "31",
-                            TimeOut = "32"
-                        }
-                    }
-                }
-            };
-
-
-            //var subId = String.Format("CarrierAtPort{0}.{1:D2}", LoadPortNumber, wafer.MaterialContainer.First().Position);
-
-            base.Equipment.Variables["SubstIDStatusList"] = dummyList;
-            base.Equipment.Variables["SubstSubstLocIDList"] = dummyList;
-            base.Equipment.Variables["SubstDestinationList"] = dummyList;
-            base.Equipment.Variables["SubstSourceList"] = substSourceList;
-            base.Equipment.Variables["SubstHistoryList"] = substHistoryList;
-            base.Equipment.Variables["SubstMtrlStatusList"] = dummyList;
-
-            base.Equipment.Variables["AcquiredIDList"] = dummyList;
-            base.Equipment.Variables["SubstIDList"] = substIDList;
-            base.Equipment.Variables["SubstProcStateList"] = dummyList;
-            base.Equipment.Variables["SubstStateList"] = dummyList;
-            base.Equipment.Variables["SubstLotIDList"] = dummyList;
-            base.Equipment.Variables["SubstTypeList"] = dummyList;
-            base.Equipment.Variables["SubstUsageList"] = dummyList;
+            base.Equipment.Variables["WAFER_ID"] = wafer.Name;
+            base.Equipment.Variables["LOT_ID"] = wafer.ParentMaterial.Name;
+            base.Equipment.Variables["WaferNo"] = "";
 
             ////// Trigger event
-            base.Equipment.SendMessage($"NeedsProcessing2InProcess", null);
-
-            Thread.Sleep(2000);
+            base.Equipment.SendMessage("WaferStarted", null);
 
             return true;
         }
@@ -799,19 +747,14 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
             wafer.Load();
             wafer.LoadRelations();
             wafer.ParentMaterial.Load();
+            wafer.MaterialContainer.First().TargetEntity.Load();
 
-            DummyList dummyList = new DummyList(base.Equipment) { LoadPortNumber = new int[] { 0 } };
-
-            base.Equipment.Variables["WaferID"] = wafer.Name;
-            base.Equipment.Variables["LotID"] = wafer.ParentMaterial.Name;
-            base.Equipment.Variables["RecipeName"] = RecipeName;
-            base.Equipment.Variables["ResultFile"] = "";
-            base.Equipment.Variables["ResultPath"] = "";
-            base.Equipment.Variables["PathOfImages"] = "";
-            base.Equipment.Variables["TestResults"] = dummyList;
+            base.Equipment.Variables["WAFER_ID"] = wafer.Name;
+            base.Equipment.Variables["LOT_ID"] = wafer.ParentMaterial.Name;
+            base.Equipment.Variables["WaferNo"] = "";
 
             ////// Trigger event
-            base.Equipment.SendMessage($"PM{chamberToProcess}/ProcessingFinished", null);
+            base.Equipment.SendMessage("WaferComplete", null);
 
             Thread.Sleep(2000);
 
