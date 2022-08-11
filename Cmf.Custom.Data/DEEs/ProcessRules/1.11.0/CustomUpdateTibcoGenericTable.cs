@@ -36,13 +36,13 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.After
             int lastPropertyPosition = customTibcoEMSGatewayResolver.GenericTableProperties.Count;
 
             // Check queue flag
-            if(customTibcoEMSGatewayResolver.GenericTableProperties.FirstOrDefault(E => E.Name == "QueueFlag") == null)
+            if(customTibcoEMSGatewayResolver.GenericTableProperties.FirstOrDefault(e => e.Name == AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverQueueMessageProperty) == null)
             {
                 lastPropertyPosition++;
                 propsToAddOrUpdate.Add(new GenericTableProperty
                 {
-                    Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverQueueFlagProperty,
-                    Description = "QueueFlag that can be used to send tibco message to queue",
+                    Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverQueueMessageProperty,
+                    Description = "Put the message to be sent to Tibco in a Queue.",
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
                     Position = lastPropertyPosition,
@@ -51,13 +51,13 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.After
             }
 
             // Check maptext flag
-            if (customTibcoEMSGatewayResolver.GenericTableProperties.FirstOrDefault(E => E.Name == "TextFlag") == null)
+            if (customTibcoEMSGatewayResolver.GenericTableProperties.FirstOrDefault(e => e.Name == AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverTextMessageProperty) == null)
             {
                 lastPropertyPosition++;
                 propsToAddOrUpdate.Add(new GenericTableProperty
                 {
-                    Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverTextFlagProperty,
-                    Description = "TextFlag that can be used to set tibco message type",
+                    Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverTextMessageProperty,
+                    Description = "Send message as TextMessage instead of using MapMessage format.",
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
                     Position = lastPropertyPosition,
@@ -67,13 +67,13 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.After
             }
 
             // Check compress flag
-            if (customTibcoEMSGatewayResolver.GenericTableProperties.FirstOrDefault(E => E.Name == "CompressFlag") == null)
+            if (customTibcoEMSGatewayResolver.GenericTableProperties.FirstOrDefault(e => e.Name == AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverCompressMessageProperty) == null)
             {
                 lastPropertyPosition++;
                 propsToAddOrUpdate.Add(new GenericTableProperty
                 {
-                    Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverCompressFlagProperty,
-                    Description = "CompressFlag that can be used to compress tibco message",
+                    Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverCompressMessageProperty,
+                    Description = "Compress TextMessage.",
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
                     Position = lastPropertyPosition,
