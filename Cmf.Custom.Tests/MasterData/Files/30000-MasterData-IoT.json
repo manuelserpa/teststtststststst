@@ -1121,6 +1121,24 @@
       "AutomationManager": "TrymaxNEO",
       "DriverName": "SecsGemEquipment",
       "EntityName": "5FASH1"
+    },
+    "13": {
+      "AutomationController": "OmegaPlasmaController",
+      "AutomationManager": "OmegaPlasma",
+      "DriverName": "",
+      "EntityName": "5FICP1"
+    },
+    "14": {
+      "AutomationController": "OmegaPlasmaController",
+      "AutomationManager": "OmegaPlasma",
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FICP1"
+    },
+    "15": {
+      "AutomationController": "OmegaPlasmaController",
+      "AutomationManager": "OmegaPlasma",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FICP1.RFID"
     }
   }
 }

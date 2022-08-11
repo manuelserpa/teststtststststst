@@ -2272,8 +2272,8 @@
       "IsProductMixAllowed": "Yes",
       "IsRecipeManagementEnabled": "",
       "IsUploadRecipeCapable": "",
-      "LoadPortType": "",
-      "PositionUnitType": "Material",
+      "LoadPortType": "InputOutput",
+      "PositionUnitType": "Container",
       "RestrictedToMaterialForm": "",
       "RunningMode": "",
       "FixedCost": "",
@@ -2340,8 +2340,8 @@
       "IsProductMixAllowed": "Yes",
       "IsRecipeManagementEnabled": "",
       "IsUploadRecipeCapable": "",
-      "LoadPortType": "",
-      "PositionUnitType": "Material",
+      "LoadPortType": "InputOutput",
+      "PositionUnitType": "Container",
       "RestrictedToMaterialForm": "",
       "RunningMode": "",
       "FixedCost": "",
@@ -2446,6 +2446,11 @@
     "1": {
       "SourceEntity": "5FASH1",
       "TargetEntity": "Ashing-UX3-L",
+      "IsEnabled": "Yes"
+    },
+    "2": {
+      "SourceEntity": "5FICP1",
+      "TargetEntity": "CD-Measurement",
       "IsEnabled": "Yes"
     }
   },
