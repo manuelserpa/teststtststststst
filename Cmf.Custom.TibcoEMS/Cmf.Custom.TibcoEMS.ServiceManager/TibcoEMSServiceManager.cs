@@ -149,13 +149,13 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                     // Action name
                     string actionName = this.TibcoResolveConfigurations[subject].Rule;
 
-                    // Queue Flag
+                    // QueueMessage
                     bool queueMessage = this.TibcoResolveConfigurations[subject].QueueMessage;
 
-                    // Compress Flag
+                    // CompressMessage
                     bool compressMessage = this.TibcoResolveConfigurations[subject].CompressMessage;
 
-                    // MapText Flag
+                    // TextMessage
                     bool textMessage = this.TibcoResolveConfigurations[subject].TextMessage;
 
                     // Message to send
@@ -194,6 +194,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
 
                         this.Logger.LogInformation($"MessageBus MessageID: {message.Id}");
 
+                        // Send Message to Tibco
                         this.SendMessageToTibco(messageData, topicName, queueMessage, compressMessage, textMessage);
 
                         this.MessageBusTransport.Reply(message, "Ok");
@@ -282,6 +283,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         private void SendMessageToTibco(string messageData, string topicName, bool queueMessage, bool compressMessage, bool textMessage)
         {
             this.Logger.LogInformation("Checking connection to Tibco...");
+
             // Check if Tibco is disconnected
             if (this.TibcoConnection != null && this.TibcoConnection.IsDisconnected())
             {
@@ -299,6 +301,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                 this.Logger.LogInformation("Creating Tibco Session...");
                 this.TibcoSession = this.TibcoConnection.CreateSession(false, SessionMode.AutoAcknowledge);
             }
+
             this.Logger.LogInformation("Tibco is connected...");
 
             // Tibco Message Producer
@@ -312,7 +315,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
 
             if (queueMessage || textMessage)
             {
-                this.Logger.LogInformation("Create Queue on Tibco Session...");
+                this.Logger.LogInformation($"Create Queue with name {topicName} on Tibco Session...");
 
                 // Create queue on Tibco session
                 tibcoQueue = this.TibcoSession.CreateQueue(topicName);
@@ -322,7 +325,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
             }
             else
             {
-                this.Logger.LogInformation("Create Topic on Tibco Session...");
+                this.Logger.LogInformation($"Create Topic with name {topicName} on Tibco Session...");
 
                 // Create topic on Tibco session
                 tibcoTopic = this.TibcoSession.CreateTopic(topicName);
@@ -330,11 +333,11 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                 // Create message produce on Tibco session
                 tibcoMessageProducer = this.TibcoSession.CreateProducer(tibcoTopic);
             }
+
             if (textMessage)
             {
                 // Create Tibco Text Message
                 TextMessage tibcoTextMessage = this.TibcoSession.CreateTextMessage();
-
                 tibcoTextMessage.SetBooleanProperty("JMS_TIBCO_COMPRESS", compressMessage);
                 tibcoTextMessage.SetStringProperty("field", messageData);
 
@@ -350,7 +353,6 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
             {
                 // Create Tibco Map Message
                 MapMessage tibcoMapMessage = this.TibcoSession.CreateMapMessage();
-
                 tibcoMapMessage.SetStringProperty("field", messageData);
 
                 this.Logger.LogInformation("Sending Map Message to Tibco...");
@@ -361,6 +363,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                 // Log MessageID
                 this.Logger.LogInformation($"MapMessageID: {tibcoMapMessage.MessageID}");
             }
+
             // Close Message Producer after send Message to Tibco
             tibcoMessageProducer.Close();
         }
