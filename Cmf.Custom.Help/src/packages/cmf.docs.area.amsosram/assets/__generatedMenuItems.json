@@ -540,6 +540,12 @@
    "actionId": ""
 },
 {
+   "id": "omegaplasma",
+   "menuGroupId": "iotequipmenttypes",
+   "title": "Omega Plasma",
+   "actionId": ""
+},
+{
    "id": "trymaxneo",
    "menuGroupId": "iotequipmenttypes",
    "title": "Trymax NEO",
@@ -662,6 +668,30 @@
 {
    "id": "nicelabel-workflows",
    "menuGroupId": "nicelabel",
+   "title": "Workflows",
+   "actionId": ""
+},
+{
+   "id": "omegaplasma-configuration",
+   "menuGroupId": "omegaplasma",
+   "title": "Configuration",
+   "actionId": ""
+},
+{
+   "id": "omegaplasma-features",
+   "menuGroupId": "omegaplasma",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "omegaplasma-setup",
+   "menuGroupId": "omegaplasma",
+   "title": "Setup",
+   "actionId": ""
+},
+{
+   "id": "omegaplasma-workflows",
+   "menuGroupId": "omegaplasma",
    "title": "Workflows",
    "actionId": ""
 },
