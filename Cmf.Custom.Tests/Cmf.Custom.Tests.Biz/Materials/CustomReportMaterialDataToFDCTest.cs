@@ -6,7 +6,6 @@ using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.SmartTables;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
-using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -30,6 +29,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
         private int pollingIntervalConfig = Convert.ToInt32(ConfigUtilities.GetConfigValue(AMSOsramConstants.PollingIntervalConfigValue));
         private int MaxNumberOfRetries = 30;
         private bool fdcActiveConfig;
+        private bool? isRecipeManagementEnabled = null;
         private Dictionary<Resource, bool> oldResourceFDCCommunicationValue = new Dictionary<Resource, bool>();
         private const string recipeName = "P-CLN024-TITIW";
         private const string serviceName = "Sputtering ZnO with Etching";
@@ -51,6 +51,8 @@ namespace Cmf.Custom.Tests.Biz.Materials
             };
             resource.Load();
 
+            // Set IsRecipeManagementEnabled with true - and save old value to restore later
+            isRecipeManagementEnabled = resource.IsRecipeManagementEnabled.GetValueOrDefault();
             resource.IsRecipeManagementEnabled = true;
             resource.Save();
 
@@ -110,6 +112,9 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
             #endregion Terminate Integration Entries
 
+            #region Restore Resource
+
+            // Restore FDCCommunication attribute
             if (oldResourceFDCCommunicationValue.Count > 0) 
             {
                 foreach (var keyValue in oldResourceFDCCommunicationValue)
@@ -119,11 +124,22 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 }
             }
 
+            // Restore IsRecipeManagementEnabled
+            if (isRecipeManagementEnabled.HasValue)
+            {
+                resource.Load();
+                resource.IsRecipeManagementEnabled = isRecipeManagementEnabled;
+                resource.Save();
+            }
+
+            #endregion Restore Resource
+
             // Reset FDC Active Configuration to original value
             ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, fdcActiveConfig);
 
             if (materialScenario != null)
             {
+                materialScenario.Entity.Load();
                 materialScenario.TearDown();
             }
         }
