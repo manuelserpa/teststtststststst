@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using Cmf.Custom.AMSOsram.Orchestration.InputObjects;
+﻿using Cmf.Custom.AMSOsram.Orchestration.InputObjects;
 using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Custom.Tests.Biz.Common.Extensions;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
@@ -17,6 +14,39 @@ namespace Cmf.Custom.Tests.Biz.Materials
     [TestClass]
     public class MaterialOutTest
     {
+        private Resource resource = null;
+        private CustomMaterialScenario materialScenario = null;
+        private bool? isRecipeManagementEnabled = null;
+
+        /// <summary>
+        /// Test Cleanup
+        /// </summary>
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            #region CustomMaterialScenario teardown
+
+            if (materialScenario != null)
+            {
+                materialScenario.Entity.Load();
+                materialScenario.TearDown();
+            }
+
+            #endregion CustomMaterialScenario teardown
+
+            #region Restore Resource
+
+            // Restore IsRecipeManagementEnabled
+            if (isRecipeManagementEnabled.HasValue)
+            {
+                resource.Load();
+                resource.IsRecipeManagementEnabled = isRecipeManagementEnabled;
+                resource.Save();
+            }
+
+            #endregion Restore Resource
+        }
+
         /// <summary>
         /// Description: This test validates that SubMaterial is TrackedOut in the following scenarios:
         ///     1) SubMaterial is not in the state InProcess
@@ -28,68 +58,68 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [TestMethod]
         public void MaterialOutTest_HappyPath()
         {
-            CustomMaterialScenario materialScenario = new CustomMaterialScenario(false);
+            #region Setup
 
-            try
+            materialScenario = new CustomMaterialScenario(false);
+            // Create the Material and TrackIn
+            materialScenario.Setup(true);
+
+            // To ensure that when updating IsRecipeManagementEnabled, the Resource does not have any material in process
+            resource = materialScenario.ResourceMaterialInOut;
+
+            // Set IsRecipeManagementEnabled with false - and save old value to restore later
+            if (resource.IsRecipeManagementEnabled.GetValueOrDefault())
             {
-                #region Setup
-
-                // Create the Material and TrackIn
-                materialScenario.Setup(true);
-
-                materialScenario.TrackIn();
-
-                #endregion
-
-                #region SubMaterial is not Tracked In before calling MaterialOut
-
-                Material materialWafer = materialScenario.SubMaterials[0];
-
-                Cmf.Custom.AMSOsram.Orchestration.OutputObjects.MaterialOutOutput materialOutOutput = new Custom.AMSOsram.Orchestration.InputObjects.MaterialOutInput()
-                {
-                    MaterialName = materialWafer.Name,
-                    ResourceName = materialScenario.ResourceMaterialInOut.Name
-                }.MaterialOutSync();
-
-                materialWafer.Load();
-
-                Assert.AreEqual(MaterialSystemState.Processed, materialWafer.SystemState, "Material state does not match!");
-
-                #endregion
-
-                #region SubMaterial is Tracked In before calling MaterialOut
-
-                Material materialWafer2 = materialScenario.SubMaterials[1];
-                materialWafer2.Load();
-
-                Cmf.Custom.AMSOsram.Orchestration.OutputObjects.MaterialInOutput materialInOutput = new MaterialInInput()
-                {
-                    MaterialName = materialWafer2.Name,
-                    ResourceName = materialScenario.ResourceMaterialInOut.Name,
-                }.MaterialInSync();
-
-
-                materialWafer2.Load();
-
-                materialOutOutput = new Custom.AMSOsram.Orchestration.InputObjects.MaterialOutInput()
-                {
-                    MaterialName = materialWafer2.Name,
-                    ResourceName = materialScenario.ResourceMaterialInOut.Name
-                }.MaterialOutSync();
-
-                materialWafer2.Load();
-
-                Assert.AreEqual(MaterialSystemState.Processed, materialWafer2.SystemState, "Material state does not match!");
-
-                #endregion
-            }
-            finally
-            {
-
-                materialScenario.TearDown();
-
+                isRecipeManagementEnabled = resource.IsRecipeManagementEnabled;
+                resource.IsRecipeManagementEnabled = false;
+                resource.Save();
             }
 
+            materialScenario.TrackIn();
+
+            #endregion
+
+            #region SubMaterial is not Tracked In before calling MaterialOut
+
+            Material materialWafer = materialScenario.SubMaterials[0];
+
+            new MaterialOutInput()
+            {
+                MaterialName = materialWafer.Name,
+                ResourceName = resource.Name
+            }.MaterialOutSync();
+
+            materialWafer.Load();
+
+            Assert.AreEqual(MaterialSystemState.Processed, materialWafer.SystemState, "Material state does not match!");
+
+            #endregion
+
+            #region SubMaterial is Tracked In before calling MaterialOut
+
+            Material materialWafer2 = materialScenario.SubMaterials[1];
+            materialWafer2.Load();
+
+            new MaterialInInput()
+            {
+                MaterialName = materialWafer2.Name,
+                ResourceName = resource.Name,
+            }.MaterialInSync();
+
+
+            materialWafer2.Load();
+
+            new MaterialOutInput()
+            {
+                MaterialName = materialWafer2.Name,
+                ResourceName = resource.Name
+            }.MaterialOutSync();
+
+            materialWafer2.Load();
+
+            Assert.AreEqual(MaterialSystemState.Processed, materialWafer2.SystemState, "Material state does not match!");
+
+            #endregion
         }
 
         /// <summary>
@@ -102,58 +132,57 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [TestMethod]
         public void MaterialOutTest_WithTrackedInContainer()
         {
-            CustomMaterialScenario materialScenario = new CustomMaterialScenario(false);
-            Cmf.Custom.AMSOsram.Orchestration.OutputObjects.MaterialOutOutput materialOutOutput;
+            #region Setup
 
-            try
+            materialScenario = new CustomMaterialScenario(false);
+
+            //Change material to a step where the resource has subResource of type Process
+            materialScenario.FlowName = AMSOsramConstants.TestFlow;
+            materialScenario.StepName = AMSOsramConstants.TestM3MTZnOSputterCluster6in00126F008_E;
+            materialScenario.NumberOfSubMaterials = 1;
+
+            // Create the Material and TrackIn
+            materialScenario.Setup(true);
+
+            resource = materialScenario.ResourceMaterialInOut;
+
+            // Set IsRecipeManagementEnabled with false - and save old value to restore later
+            if (resource.IsRecipeManagementEnabled.GetValueOrDefault())
             {
-                #region Setup
+                isRecipeManagementEnabled = resource.IsRecipeManagementEnabled;
+                resource.IsRecipeManagementEnabled = false;
+                resource.Save();
+            }
 
-                //Change material to a step where the resource has subResource of type Process
-                materialScenario.FlowName = AMSOsramConstants.TestFlow;
-                materialScenario.StepName = AMSOsramConstants.TestM3MTZnOSputterCluster6in00126F008_E;
-                materialScenario.NumberOfSubMaterials = 1;
+            materialScenario.TrackIn();
 
-                // Create the Material and TrackIn
-                materialScenario.Setup(true);
+            #endregion
 
-                materialScenario.TrackIn();
+            #region Track In and TrackOut SubMaterials
 
-                #endregion
-
-                #region Track In and TrackOut SubMaterials
-
-                foreach (Material item in materialScenario.SubMaterials)
+            foreach (Material item in materialScenario.SubMaterials)
+            {
+                new MaterialOutInput()
                 {
-                    materialOutOutput = new Custom.AMSOsram.Orchestration.InputObjects.MaterialOutInput()
-                    {
-                        MaterialName = item.Name,
-                        ResourceName = materialScenario.ResourceMaterialInOut.Name
-                    }.MaterialOutSync();
-                }
-                #endregion
-
-                #region TrackOut And MoveNext Parent Material
-
-                materialOutOutput = new Custom.AMSOsram.Orchestration.InputObjects.MaterialOutInput()
-                {
-                   CarrierId= materialScenario.ContainerScenario.Entity.Name,
-                    ResourceName = materialScenario.ResourceMaterialInOut.Name
+                    MaterialName = item.Name,
+                    ResourceName = resource.Name
                 }.MaterialOutSync();
-
-                materialScenario.Entity.Load();
-
-                Assert.AreEqual(MaterialSystemState.Queued, materialScenario.Entity.SystemState, "Material state does not match!");
-
-                #endregion
-
             }
-            finally
+            #endregion
+
+            #region TrackOut And MoveNext Parent Material
+
+            new MaterialOutInput()
             {
+                CarrierId = materialScenario.ContainerScenario.Entity.Name,
+                ResourceName = resource.Name
+            }.MaterialOutSync();
 
-                materialScenario.TearDown();
+            materialScenario.Entity.Load();
 
-            }
+            Assert.AreEqual(MaterialSystemState.Queued, materialScenario.Entity.SystemState, "Material state does not match!");
+
+            #endregion
         }
 
         /// <summary>
@@ -166,45 +195,45 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [TestMethod]
         public void MaterialOutTest_WithOutTrackedInContainer()
         {
-            CustomMaterialScenario materialScenario = new CustomMaterialScenario(false);
-            Cmf.Custom.AMSOsram.Orchestration.OutputObjects.MaterialOutOutput materialOutOutput;
+            #region Setup
 
-            try
+            materialScenario = new CustomMaterialScenario(false);
+            materialScenario.NumberOfSubMaterials = 1;
+            materialScenario.Setup();
+
+            resource = new Resource() { Name = "PDSP0101" };
+            resource.Load();
+
+            // Set IsRecipeManagementEnabled with false - and save old value to restore later
+            if (resource.IsRecipeManagementEnabled.GetValueOrDefault())
             {
-                #region Setup
-                materialScenario.NumberOfSubMaterials = 1;
-                materialScenario.Setup();
-
-                //Change material to a step where the resource has subResource of type Process
-                Flow flow = new Flow() { Name = AMSOsramConstants.TestFlow };
-                flow.Load();
-
-                Step step = new Step() { Name = AMSOsramConstants.TestM3MTZnOSputterCluster6in00126F008_E };
-                step.Load();
-
-                string flowPath = FlowExtensionMethods.CustomGetFlowPath(flow, step.Name);
-
-                materialScenario.ChangeFlowAndStep(flow, step, flowPath);
-
-                materialOutOutput = new Custom.AMSOsram.Orchestration.InputObjects.MaterialOutInput()
-                {
-                    CarrierId = materialScenario.ContainerScenario.Entity.Name,
-                    ResourceName = "PDSP0101"
-                }.MaterialOutSync();
-
-                materialScenario.Entity.Load();
-
-                Assert.AreEqual(MaterialSystemState.Queued, materialScenario.Entity.SystemState, "Material state does not match!");
-
-                #endregion
-
+                isRecipeManagementEnabled = resource.IsRecipeManagementEnabled;
+                resource.IsRecipeManagementEnabled = false;
+                resource.Save();
             }
-            finally
+
+            //Change material to a step where the resource has subResource of type Process
+            Flow flow = new Flow() { Name = AMSOsramConstants.TestFlow };
+            flow.Load();
+
+            Step step = new Step() { Name = AMSOsramConstants.TestM3MTZnOSputterCluster6in00126F008_E };
+            step.Load();
+
+            string flowPath = FlowExtensionMethods.CustomGetFlowPath(flow, step.Name);
+
+            materialScenario.ChangeFlowAndStep(flow, step, flowPath);
+
+            new MaterialOutInput()
             {
+                CarrierId = materialScenario.ContainerScenario.Entity.Name,
+                ResourceName = resource.Name
+            }.MaterialOutSync();
 
-                materialScenario.TearDown();
+            materialScenario.Entity.Load();
 
-            }
+            Assert.AreEqual(MaterialSystemState.Queued, materialScenario.Entity.SystemState, "Material state does not match!");
+
+            #endregion
         }
 
         /// <summary>
@@ -213,56 +242,60 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [TestMethod]
         public void MaterialInTest_Scenario_04_MaterialInAndOutMainToolE10StateChange()
         {
-            CustomMaterialScenario materialScenario = new CustomMaterialScenario(false);
+            #region Setup
 
-            try
+            materialScenario = new CustomMaterialScenario(false);
+            //Change material to a step where the resource has subResource of type Process
+            materialScenario.FlowName = AMSOsramConstants.TestFlow;
+            materialScenario.StepName = AMSOsramConstants.TestM3MTZnOSputterCluster6in00126F008_E;
+            materialScenario.NumberOfSubMaterials = 0;
+
+            // Create the Material and TrackIn
+            materialScenario.Setup(true);
+
+            // Set IsRecipeManagementEnabled with false - and save old value to restore later
+            resource = materialScenario.ResourceMaterialInOut;
+
+            // Set IsRecipeManagementEnabled with false - and save old value to restore later
+            if (materialScenario.ResourceMaterialInOut.IsRecipeManagementEnabled.GetValueOrDefault())
             {
-                #region Setup
-
-                //Change material to a step where the resource has subResource of type Process
-                materialScenario.FlowName = AMSOsramConstants.TestFlow;
-                materialScenario.StepName = AMSOsramConstants.TestM3MTZnOSputterCluster6in00126F008_E;
-                materialScenario.NumberOfSubMaterials = 0;
-
-                // Create the Material and TrackIn
-                materialScenario.Setup(true);
-                materialScenario.ResourceMaterialInOut.ChangeResourceState("Standby");
-
-                #endregion
-
-                #region Execution and validation of MaterialIn
-
-                Cmf.Custom.AMSOsram.Orchestration.OutputObjects.MaterialInOutput materialInOutput = new Custom.AMSOsram.Orchestration.InputObjects.MaterialInInput()
-                {
-                    MaterialName = materialScenario.Entity.Name,
-                    ResourceName = materialScenario.ResourceMaterialInOut.Name,
-                    SubResourceOrder = 0
-                }.MaterialInSync();
-
-                materialScenario.Refresh();
-                materialScenario.ResourceMaterialInOut.Load();
-
-                Assert.AreEqual(materialScenario.Entity.SystemState, MaterialSystemState.InProcess);
-                Assert.AreEqual(materialScenario.ResourceMaterialInOut.CurrentMainState.CurrentState.Name, "Productive");
-
-                Cmf.Custom.AMSOsram.Orchestration.OutputObjects.MaterialOutOutput materialOutOutput = new Custom.AMSOsram.Orchestration.InputObjects.MaterialOutInput()
-                {
-                    MaterialName = materialScenario.Entity.Name,
-                    ResourceName = materialScenario.ResourceMaterialInOut.Name
-                }.MaterialOutSync();
-
-                materialScenario.Refresh();
-                materialScenario.ResourceMaterialInOut.Load();
-
-                Assert.AreEqual(materialScenario.Entity.SystemState, MaterialSystemState.Queued);
-                Assert.AreEqual(materialScenario.ResourceMaterialInOut.CurrentMainState.CurrentState.Name, "Standby");
-
-                #endregion
+                isRecipeManagementEnabled = resource.IsRecipeManagementEnabled;
+                resource.IsRecipeManagementEnabled = false;
+                resource.Save();
             }
-            finally
+
+            resource.ChangeResourceState("Standby");
+
+            #endregion
+
+            #region Execution and validation of MaterialIn
+
+            new MaterialInInput()
             {
-                materialScenario.TearDown();
-            }
+                MaterialName = materialScenario.Entity.Name,
+                ResourceName = resource.Name,
+                SubResourceOrder = 0
+            }.MaterialInSync();
+
+            materialScenario.Refresh();
+            materialScenario.ResourceMaterialInOut.Load();
+
+            Assert.AreEqual(materialScenario.Entity.SystemState, MaterialSystemState.InProcess);
+            Assert.AreEqual(materialScenario.ResourceMaterialInOut.CurrentMainState.CurrentState.Name, "Productive");
+
+            new MaterialOutInput()
+            {
+                MaterialName = materialScenario.Entity.Name,
+                ResourceName = resource.Name
+            }.MaterialOutSync();
+
+            materialScenario.Refresh();
+            materialScenario.ResourceMaterialInOut.Load();
+
+            Assert.AreEqual(materialScenario.Entity.SystemState, MaterialSystemState.Queued);
+            Assert.AreEqual(resource.CurrentMainState.CurrentState.Name, "Standby");
+
+            #endregion
         }
     }
 }
