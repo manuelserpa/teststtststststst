@@ -4,22 +4,23 @@ using Cmf.Custom.AMSOsram.Common;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.GenericTables;
 
-namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.After
+namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.Before
 {
     public class CustomUpdateTibcoGenericTable : DeeDevBase
     {
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
             //---Start DEE Code---
+            //System
+            UseReference("", "System.Linq");
+            UseReference("", "System.Collections.Generic");
 
-
-            // Foundation
-            UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common.Base");
+            //Foundation
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.CommunicationLayer.Sap.dll", "Cmf.Foundation.CommunicationLayer.Converters");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration.EntityTypeManagement");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration.EntityTypeManagement.InputObjects");
+            UseReference("", "Cmf.Foundation.BusinessObjects.GenericTables");
+
+            //Custom
+            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
 
             GenericTable customTibcoEMSGatewayResolver = new GenericTable()
             {
@@ -46,7 +47,7 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.After
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
                     Position = lastPropertyPosition,
-                    IsMandatory = true
+                    IsMandatory = false
                 });
             }
 
@@ -61,7 +62,7 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.After
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
                     Position = lastPropertyPosition,
-                    IsMandatory = true
+                    IsMandatory = false
 
                 });
             }
@@ -77,7 +78,7 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.After
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
                     Position = lastPropertyPosition,
-                    IsMandatory = true
+                    IsMandatory = false
                 });
             }
 
