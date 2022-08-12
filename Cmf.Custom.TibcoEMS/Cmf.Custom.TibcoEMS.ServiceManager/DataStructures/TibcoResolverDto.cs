@@ -21,17 +21,17 @@
         public string Rule { get; set; }
 
         /// <summary>
-        /// QueueFlag
+        /// QueueMessage
         /// </summary>
         public bool QueueMessage { get; set; }
 
         /// <summary>
-        /// CompressFlag
+        /// CompressMessage
         /// </summary>
         public bool CompressMessage { get; set; }
 
         /// <summary>
-        /// TextFlag
+        /// TextMessage
         /// </summary>
         public bool TextMessage { get; set; }
     }
