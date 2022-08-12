@@ -1,7 +1,7 @@
 ﻿{
-  "version": "1.6.0",
-  "packageId": "Cmf.Custom.IoT.EvatecClusterline200II",
-  "description": "Cmf Custom Template And Shared Solution Data Package",
+  "version": "1.0.0",
+  "packageId": "Cmf.Custom.IoT.OmegaPlasma",
+  "description": "Cmf Omega Plasma Data Package",
   "packageType": "IoTData",
   "isInstallable": true,
   "isUniqueInstall": true,
