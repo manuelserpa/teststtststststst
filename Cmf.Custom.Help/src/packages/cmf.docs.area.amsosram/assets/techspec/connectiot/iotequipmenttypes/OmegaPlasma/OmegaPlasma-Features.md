@@ -30,7 +30,7 @@ The table below describes the user stories that affect the current functionality
 
 User Story | Type | Title | Description
 :--------- | :--- | :---- | :----------
-166784|User Story|Vendor Trymax NEO  Ash + flash| Equipment Integration for Trymax NEO
+179335|User Story|Vendor SPTS Omega Plasma etch Cl (5FICP1)| Omega Plasma Implementation
 
 Material Removed
 ============
@@ -62,7 +62,7 @@ The table below describes the user stories that affect the current functionality
 
 User Story | Type | Title | Description
 :--------- | :--- | :---- | :----------
-166784|User Story|Vendor Trymax NEO  Ash + flash| Equipment Integration for Trymax NEO
+179335|User Story|Vendor SPTS Omega Plasma etch Cl (5FICP1)| Omega Plasma Implementation
 
 Ready To Unload
 ============
@@ -92,7 +92,7 @@ The table below describes the user stories that affect the current functionality
 
 User Story | Type | Title | Description
 :--------- | :--- | :---- | :----------
-166784|User Story|Vendor Trymax NEO  Ash + flash| Equipment Integration for Trymax NEO
+179335|User Story|Vendor SPTS Omega Plasma etch Cl (5FICP1)| Omega Plasma Implementation
 
 Slot Map Received
 ============
@@ -121,7 +121,7 @@ The table below describes the user stories that affect the current functionality
 
 User Story | Type | Title | Description
 :--------- | :--- | :---- | :----------
-166784|User Story|Vendor Trymax NEO  Ash + flash| Equipment Integration for Trymax NEO
+179335|User Story|Vendor SPTS Omega Plasma etch Cl (5FICP1)| Omega Plasma Implementation
 
 Track In
 ============
@@ -178,7 +178,7 @@ The table below describes the user stories that affect the current functionality
 
 User Story | Type | Title | Description
 :--------- | :--- | :---- | :----------
-166784|User Story|Vendor Trymax NEO  Ash + flash| Equipment Integration for Trymax NEO
+179335|User Story|Vendor SPTS Omega Plasma etch Cl (5FICP1)| Omega Plasma Implementation
 
 Track Out
 ============
@@ -211,7 +211,7 @@ The table below describes the user stories that affect the current functionality
 
 User Story | Type | Title | Description
 :--------- | :--- | :---- | :----------
-166784|User Story|Vendor Trymax NEO  Ash + flash| Equipment Integration for Trymax NEO
+179335|User Story|Vendor SPTS Omega Plasma etch Cl (5FICP1)| Omega Plasma Implementation
 
 Process Stated
 ============
@@ -246,7 +246,7 @@ The table below describes the user stories that affect the current functionality
 
 User Story | Type | Title | Description
 :--------- | :--- | :---- | :----------
-166784|User Story|Vendor Trymax NEO  Ash + flash| Equipment Integration for Trymax NEO
+179335|User Story|Vendor SPTS Omega Plasma etch Cl (5FICP1)| Omega Plasma Implementation
 
 Process Complete
 ============
@@ -284,7 +284,7 @@ The table below describes the user stories that affect the current functionality
 
 User Story | Type | Title | Description
 :--------- | :--- | :---- | :----------
-166784|User Story|Vendor Trymax NEO  Ash + flash| Equipment Integration for Trymax NEO
+179335|User Story|Vendor SPTS Omega Plasma etch Cl (5FICP1)| Omega Plasma Implementation
 
 Wafer Started
 ============
@@ -325,7 +325,7 @@ The table below describes the user stories that affect the current functionality
 
 User Story | Type | Title | Description
 :--------- | :--- | :---- | :----------
-166784|User Story|Vendor Trymax NEO  Ash + flash| Equipment Integration for Trymax NEO
+179335|User Story|Vendor SPTS Omega Plasma etch Cl (5FICP1)| Omega Plasma Implementation
 
 Wafer Complete
 ============
@@ -365,4 +365,4 @@ The table below describes the user stories that affect the current functionality
 
 User Story | Type | Title | Description
 :--------- | :--- | :---- | :----------
-166784|User Story|Vendor Trymax NEO  Ash + flash| Equipment Integration for Trymax NEO
+179335|User Story|Vendor SPTS Omega Plasma etch Cl (5FICP1)| Omega Plasma Implementation
