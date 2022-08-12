@@ -1,14 +1,18 @@
 ﻿Configuration
 ============
-This section describe the setup for Trymax NEO Equipment Type
+This section describe the setup for Documentation Generator Equipment Integration Test Equipment Type
 
-Driver Definition
+Driver Definitions
 =================
-The following Automation Driver is referenced on the Automation Controller as **SecsGemEquipment** is the Automation Driver **TrymaxNEODriver**, this driver contains the information regarding all the items needed for the automation of the equipment.
+The following Automation Drivers are referenced on the Automation Controller as:
+- **SecsGemEquipment** for the Automation Driver **OmegaPlasmaDriver**;
 
-## Automation Driver Definition - TrymaxNEODriver
+- **RFIDReader** for the Automation Driver **HermosLFM4xReaderDriver**;
+
+Drivers contain the information regarding all the items needed for the automation of the equipment.
+## Automation Driver Definition - OmegaPlasmaDriver
 ### Protocol
-The protocol used by the Automation Driver referenced on the Automation Controller is named **SecsGem** and used the package **criticalmanufacturing/connect-iot-driver-secsgem**, using version **8.3.3-202201212** at the time of writing.
+The protocol used by the Automation Driver referenced on the Automation Controller is named **ProtocolNamePlaceHolder** and used the package **ProtocolPackagePlaceHolder**, using version **ProtocolVersionPlaceHolder** at the time of writing.
 
 ### Properties
 
@@ -16,582 +20,718 @@ The table below describes the workflow properties
 
 |Name | ID | Type | Equipment Type | Description 
 :------------ | -------: | :-------- | :---------- | :-------- 
- ALARM_ID | 1312 | Integer | U4 | 
- ALARM_TEXT | 1320 | String | A | 
- CLOCK | 1006 | String | A | 
- CONTROL_STATE | 1000 | Integer | U2 | 
- CS_LOT_ID_LIST | 6001 | Object | L | 
- CS_OPERATION_MODE | 6000 | String | A | 
- CS_WAFER_ID_LIST | 6003 | Object | L | 
- LOT_ID | 1308 | String | A | 
- PM1_CURRENT_RECIPE | 4000 | String | A | 
- PM1_CURRENT_SEQUENCE | 4001 | String | A | 
- PM1_LOT_ID | 4003 | String | A | 
- PM1_OPERATION_MODE | 4002 | String | A | 
- PM1_WAFER_ID | 4005 | String | A | 
- PM2_CURRENT_RECIPE | 5000 | String | A | 
- PM2_CURRENT_SEQUENCE | 5001 | String | A | 
- PM2_LOT_ID | 5003 | String | A | 
- PM2_OPERATION_MODE | 5002 | String | A | 
- PM2_WAFER_ID | 5005 | String | A | 
- PM3_CURRENT_RECIPE | 12000 | String | A | 
- PM3_CURRENT_SEQUENCE | 12001 | String | A | 
- PM3_LOT_ID | 12003 | String | A | 
- PM3_OPERATION_MODE | 12002 | String | A | 
- PM3_WAFER_ID | 12005 | String | A | 
- PM4_CURRENT_RECIPE | 13000 | String | A | 
- PM4_CURRENT_SEQUENCE | 13001 | String | A | 
- PM4_LOT_ID | 13003 | String | A | 
- PM4_OPERATION_MODE | 13002 | String | A | 
- PM4_WAFER_ID | 13005 | String | A | 
- POD1_MATERIAL_MAP_LIST | 8002 | Object | L | 
- POD2_MATERIAL_MAP_LIST | 9002 | Object | L | 
- POD3_MATERIAL_MAP_LIST | 10002 | Object | L | 
- POD4_MATERIAL_MAP_LIST | 11002 | Object | L | 
- PORT_ID | 1309 | Integer | I1 | 
- PP_CHANGE_NAME | 1322 | String | A | 
- PP_CHANGE_STATE | 1323 | Integer | U1 | 
- PPID | 1301 | String | A | 
- PROCESS_STATE | 1317 | String | A | 
- REMOTE_COMMAND_NAME | 1310 | String | A | 
- SLOT_MAP | 1306 | Object | L | 
- SUBST_LOC_ID | 1307 | String | A | 
- SUBSTRATE_COUNT | 1311 | Integer | I8 | 
- SUBSTRATE_ID | 1300 | String | A | 
- SUCCESSFULLY_PROCESSED_SUBSTRATE_COUNT | 1324 | Integer | I8 | 
- TM_E10STATE | 7004 | String | A | 
- TM_LOT_ID_LIST | 7001 | Object | L | 
- TM_OPERATION_MODE | 7000 | String | A | 
- TM_WAFER_ID_LIST | 7003 | Object | L | 
- POD1_CARRIER_PRESENT | 8007 | String | A | 
- POD2_CARRIER_PRESENT | 9007 | String | A | 
- POD3_CARRIER_PRESENT | 10007 | String | A | 
- POD4_CARRIER_PRESENT | 11007 | String | A | 
+ ECIDChangeByOperator | 7 | Integer | U4 | ECID changed by the machine operator
+ ECChangeName | 2052 | String | A | The name of the EC that changed
+ ECChangeValue | 2053 | String | A | The value of EC that changed
+ WAFER_ID | 5111 | String | A | Wafer ID
+ StationID | 5113 | Integer | U1 | Station Number
+ WaferNo | 5118 | String | A | Wafer Number
+ PPChangeName | 3 | String | A | Name of the process program (recipe) changed by the local operator. This may be linked to CE PPChange
+ PPChangeStatus | 4 | Integer | U1 | Type of change made to a process program (recipe) by the local operator. Possible values include 1 (created), 2 (edited), and 3 (deleted). This may be linked to CE PPChange
+ OperatorCommand | 16 | String | A | Command issued by the machine operator.
+ CARRIER_ID | 5110 | String | A | Cassette ID
+ LOT_ID | 5114 | String | A | Lot ID
+ PORT_ID | 6102 | Integer | U1 | Cassette Port ID
+ SLOT_MAP | 5112 | Object | L | Cassette Slot Map
+ WaferRecipeDV | 5101 | String | A | Wafer recipe for last wafer process. This may be linked to CE WaferStatisticalDataAvailable
+ ModuleRecipeDV | 5102 | String | A | Module recipe for last wafer process. This may be linked to CE WaferStatisticalDataAvailable
+ WaferStatisticalDataDV | 5100 | Object | L | Min, Max, Avg values for last wafer process. This may be linked to CE WaferStatisticalDataAvailable
+ StepName | 5117 | String | A | Recipe Step Name
+ RECIPE_ID | 5115 | String | A | Recipe Name
+ StepID | 5116 | Integer | U1 | Recipe Step Number
+ CONTROL_STATE | 28 | Integer | U1 | holds the current Control State
 
 ### Events
 
-#### CONTROL_STATE_OFFLINE
+#### AlignerWaferStatusChange
 
-Event for * Control State change to Offline. ID: **1000**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### CONTROL_STATE_REMOTE
-
-Event for * Control State change to OnlineRemote. ID: **1002**
+Event for Aligner wafer status has changed. ID: **510**
 
 There are no Automation Events Properties defined for this Automation Event
 
-#### CONTROL_STATE_LOCAL
+#### CassetteComplete
 
-Event for * Control State change to OnlineLocal. ID: **1001**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### ALARM_SET
-
-Event for * AlarmNDetected  An alarm was set. ID: **1003**
-Linked Report Id: **14**
+Event for Processing has completed successfully for a cassette. ID: **852**
+Linked Report Id: **851**
 ##### *Event Properties*
 
 Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
 :------------ | :- | :-------- | :----------: | :-------- | :-----------
- ALARM_ID | 1312 | Integer | Yes | U4 | 
- ALARM_TEXT | 1320 | String | Yes | A | 
+ CARRIER_ID | 5110 | String | Yes | A | Cassette ID
+ LOT_ID | 5114 | String | Yes | A | Lot ID
+ PORT_ID | 6102 | Integer | Yes | U1 | Cassette Port ID
 
-#### ALARM_CLEARED
+#### CassetteStarted
 
-Event for * AlarmNCleared  An alarm wascleared. ID: **1004**
-Linked Report Id: **14**
+Event for Processing has started for a cassette. ID: **851**
+Linked Report Id: **851**
 ##### *Event Properties*
 
 Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
 :------------ | :- | :-------- | :----------: | :-------- | :-----------
- ALARM_ID | 1312 | Integer | Yes | U4 | 
- ALARM_TEXT | 1320 | String | Yes | A | 
+ CARRIER_ID | 5110 | String | Yes | A | Cassette ID
+ LOT_ID | 5114 | String | Yes | A | Lot ID
+ PORT_ID | 6102 | Integer | Yes | U1 | Cassette Port ID
 
-#### CONSTANT_CHANGED
+#### CentraliserAWaferStatusChange
 
-Event for * An equipment constant was changed by the operator. ID: **1008**
+Event for Mosaic300 Centraliser A wafer status has changed. ID: **511**
 
 There are no Automation Events Properties defined for this Automation Event
 
-#### REMOTE_COMMAND_SUCCESS
+#### ControlStateRemote
 
-Event for . ID: **1100**
-Linked Report Id: **11**
-##### *Event Properties*
-
-Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------: | :-------- | :-----------
- REMOTE_COMMAND_NAME | 1310 | String | Yes | A | 
-
-#### REMOTE_COMMAND_FAILURE
-
-Event for . ID: **1101**
-Linked Report Id: **11**
-##### *Event Properties*
-
-Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------: | :-------- | :-----------
- REMOTE_COMMAND_NAME | 1310 | String | Yes | A | 
-
-#### PP_CHANGED
-
-Event for * PPChangeEvent. ID: **1200**
-Linked Report Id: **13**
-##### *Event Properties*
-
-Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------: | :-------- | :-----------
- PP_CHANGE_NAME | 1322 | String | Yes | A | 
- PP_CHANGE_STATE | 1323 | Integer | Yes | U1 | 
-
-#### PROCESSING_STARTED_OLD
-
-Event for * Process is started. Occurs when the first wafer of a job is taken out of a carrier.. ID: **2000**
+Event for Control state has changed to Remote (from Local or Off-line). ID: **10**
 
 There are no Automation Events Properties defined for this Automation Event
 
-#### PROCESSING_COMPLETED
+#### DoorClosed1
 
-Event for . ID: **2001**
-Linked Report Id: **2**
+Event for Door for VCE A is Closed. ID: **711**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### DoorClosed2
+
+Event for Door for VCE B is Closed. ID: **712**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### DoorOpen1
+
+Event for Door for VCE A is Open. ID: **701**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### DoorOpen2
+
+Event for Door for VCE B is Open. ID: **702**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### ECChange
+
+Event for An equipment constant value was changed locally by the operator. ID: **24**
+Linked Report Id: **24**
 ##### *Event Properties*
 
 Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
 :------------ | :- | :-------- | :----------: | :-------- | :-----------
- LOT_ID | 1308 | String | Yes | A | 
- PORT_ID | 1309 | Integer | Yes | I1 | 
- PPID | 1301 | String | Yes | A | 
- SUBSTRATE_COUNT | 1311 | Integer | Yes | I8 | 
- SUCCESSFULLY_PROCESSED_SUBSTRATE_COUNT | 1324 | Integer | Yes | I8 | 
+ ECIDChangeByOperator | 7 | Integer | Yes | U4 | ECID changed by the machine operator
+ ECChangeName | 2052 | String | Yes | A | The name of the EC that changed
+ ECChangeValue | 2053 | String | Yes | A | The value of EC that changed
 
-#### PROCESS_STATE_CHANGED
+#### EtchStepSummaryData
 
-Event for . ID: **2002**
+Event for Min Max and Avg and StdDev data for last wafer process (one event per step at end of process). ID: **811**
 
 There are no Automation Events Properties defined for this Automation Event
 
-#### PROCESSING_STARTED
+#### IdleSelectingStateChange1
 
-Event for * A process job has been started (switched to state Processing). ID: **2904**
-Linked Report Id: **1**
-##### *Event Properties*
-
-Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------: | :-------- | :-----------
- LOT_ID | 1308 | String | Yes | A | 
- PORT_ID | 1309 | Integer | Yes | I1 | 
-
-#### TM_RECEIVED_MATERIAL
-
-Event for . ID: **3000**
-Linked Report Id: **4**
-##### *Event Properties*
-
-Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------: | :-------- | :-----------
- SUBSTRATE_ID | 1300 | String | Yes | A | 
- SUBST_LOC_ID | 1307 | String | Yes | A | 
-
-#### TM_SENT_MATERIAL
-
-Event for . ID: **3001**
-Linked Report Id: **4**
-##### *Event Properties*
-
-Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------: | :-------- | :-----------
- SUBSTRATE_ID | 1300 | String | Yes | A | 
- SUBST_LOC_ID | 1307 | String | Yes | A | 
-
-#### POD1_RECEIVED_MATERIAL
-
-Event for . ID: **3008**
-Linked Report Id: **4**
-##### *Event Properties*
-
-Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------: | :-------- | :-----------
- SUBSTRATE_ID | 1300 | String | Yes | A | 
- SUBST_LOC_ID | 1307 | String | Yes | A | 
-
-#### POD1_SENT_MATERIAL
-
-Event for . ID: **3009**
-Linked Report Id: **4**
-##### *Event Properties*
-
-Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------: | :-------- | :-----------
- SUBSTRATE_ID | 1300 | String | Yes | A | 
- SUBST_LOC_ID | 1307 | String | Yes | A | 
-
-#### POD2_RECEIVED_MATERIAL
-
-Event for . ID: **3010**
-Linked Report Id: **4**
-##### *Event Properties*
-
-Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------: | :-------- | :-----------
- SUBSTRATE_ID | 1300 | String | Yes | A | 
- SUBST_LOC_ID | 1307 | String | Yes | A | 
-
-#### POD2_SENT_MATERIAL
-
-Event for . ID: **3011**
-Linked Report Id: **4**
-##### *Event Properties*
-
-Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------: | :-------- | :-----------
- SUBSTRATE_ID | 1300 | String | Yes | A | 
- SUBST_LOC_ID | 1307 | String | Yes | A | 
-
-#### POD3_RECEIVED_MATERIAL
-
-Event for . ID: **3012**
-Linked Report Id: **4**
-##### *Event Properties*
-
-Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------: | :-------- | :-----------
- SUBSTRATE_ID | 1300 | String | Yes | A | 
- SUBST_LOC_ID | 1307 | String | Yes | A | 
-
-#### POD3_SENT_MATERIAL
-
-Event for . ID: **3013**
-Linked Report Id: **4**
-##### *Event Properties*
-
-Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------: | :-------- | :-----------
- SUBSTRATE_ID | 1300 | String | Yes | A | 
- SUBST_LOC_ID | 1307 | String | Yes | A | 
-
-#### POD4_RECEIVED_MATERIAL
-
-Event for . ID: **3014**
-Linked Report Id: **4**
-##### *Event Properties*
-
-Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------: | :-------- | :-----------
- SUBSTRATE_ID | 1300 | String | Yes | A | 
- SUBST_LOC_ID | 1307 | String | Yes | A | 
-
-#### POD4_SENT_MATERIAL
-
-Event for . ID: **3015**
-Linked Report Id: **4**
-##### *Event Properties*
-
-Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------: | :-------- | :-----------
- SUBSTRATE_ID | 1300 | String | Yes | A | 
- SUBST_LOC_ID | 1307 | String | Yes | A | 
-
-#### PM1_PROCESSING_STARTED
-
-Event for . ID: **4000**
+Event for VCE A Process State changes from Idle to Selecting. ID: **151**
 
 There are no Automation Events Properties defined for this Automation Event
 
-#### PM1_PROCESSING_COMPLETED
+#### Lamp1StatusChanged
 
-Event for . ID: **4001**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### PM2_PROCESSING_STARTED
-
-Event for . ID: **5000**
+Event for Lamp 1 status has changed. ID: **861**
 
 There are no Automation Events Properties defined for this Automation Event
 
-#### PM2_PROCESSING_COMPLETED
+#### Lamp2StatusChanged
 
-Event for . ID: **5001**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### PM3_PROCESSING_STARTED
-
-Event for . ID: **13000**
+Event for Lamp 2 status has changed. ID: **862**
 
 There are no Automation Events Properties defined for this Automation Event
 
-#### PM3_PROCESSING_COMPLETED
+#### MaterialReceived
 
-Event for . ID: **13001**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### PM4_PROCESSING_STARTED
-
-Event for . ID: **14000**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### PM4_PROCESSING_COMPLETED
-
-Event for . ID: **14001**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### CS_PROCESSING_STARTED
-
-Event for . ID: **6000**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### CS_PROCESSING_COMPLETED
-
-Event for . ID: **6001**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### POD1_ARRIVED
-
-Event for . ID: **8000**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### POD1_DEPARTED
-
-Event for . ID: **8001**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### POD1_MAPPED
-
-Event for . ID: **8004**
+Event for Material arrived from a port on the equipment.. ID: **3**
 Linked Report Id: **3**
 ##### *Event Properties*
 
 Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
 :------------ | :- | :-------- | :----------: | :-------- | :-----------
- POD1_MATERIAL_MAP_LIST | 8002 | Object | Yes | L | 
- POD2_MATERIAL_MAP_LIST | 9002 | Object | Yes | L | 
- POD3_MATERIAL_MAP_LIST | 10002 | Object | Yes | L | 
- POD4_MATERIAL_MAP_LIST | 11002 | Object | Yes | L | 
- SLOT_MAP | 1306 | Object | Yes | L | 
+ PORT_ID | 6102 | Integer | Yes | U1 | Cassette Port ID
 
-#### POD1_MAP_STARTED
+#### MaterialRemoved
 
-Event for . ID: **8006**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### POD1_UNLOAD_COMPLETE
-
-Event for . ID: **8010**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### POD2_ARRIVED
-
-Event for . ID: **9000**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### POD2_DEPARTED
-
-Event for . ID: **9001**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### POD2_MAPPED
-
-Event for . ID: **9004**
+Event for Material was sent from a port on the equipment.. ID: **4**
 Linked Report Id: **3**
 ##### *Event Properties*
 
 Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
 :------------ | :- | :-------- | :----------: | :-------- | :-----------
- POD1_MATERIAL_MAP_LIST | 8002 | Object | Yes | L | 
- POD2_MATERIAL_MAP_LIST | 9002 | Object | Yes | L | 
- POD3_MATERIAL_MAP_LIST | 10002 | Object | Yes | L | 
- POD4_MATERIAL_MAP_LIST | 11002 | Object | Yes | L | 
- SLOT_MAP | 1306 | Object | Yes | L | 
+ PORT_ID | 6102 | Integer | Yes | U1 | Cassette Port ID
 
-#### POD2_MAP_STARTED
+#### MBCComplete1
 
-Event for . ID: **9006**
+Event for A lot has completed processing from VCE A. ID: **336**
 
 There are no Automation Events Properties defined for this Automation Event
 
-#### POD2_UNLOAD_COMPLETE
+#### MBComplete1
 
-Event for . ID: **9010**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### POD3_ARRIVED
-
-Event for . ID: **10000**
+Event for A wafer has completed processing from VCE A. ID: **348**
 
 There are no Automation Events Properties defined for this Automation Event
 
-#### POD3_DEPARTED
+#### MBCStart1
 
-Event for . ID: **10001**
+Event for A Lot has started processing from VCE A. ID: **330**
 
 There are no Automation Events Properties defined for this Automation Event
 
-#### POD3_MAPPED
+#### MBStart1
 
-Event for . ID: **10004**
-Linked Report Id: **3**
+Event for A wafer has started processing from VCE A. ID: **342**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### OperatorCommandIssued
+
+Event for Machine operator issued a control command.. ID: **6**
+Linked Report Id: **6**
 ##### *Event Properties*
 
 Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
 :------------ | :- | :-------- | :----------: | :-------- | :-----------
- POD1_MATERIAL_MAP_LIST | 8002 | Object | Yes | L | 
- POD2_MATERIAL_MAP_LIST | 9002 | Object | Yes | L | 
- POD3_MATERIAL_MAP_LIST | 10002 | Object | Yes | L | 
- POD4_MATERIAL_MAP_LIST | 11002 | Object | Yes | L | 
- SLOT_MAP | 1306 | Object | Yes | L | 
+ PORT_ID | 6102 | Integer | Yes | U1 | Cassette Port ID
+ OperatorCommand | 16 | String | Yes | A | Command issued by the machine operator.
 
-#### POD3_MAP_STARTED
+#### PM1RecipeStart
 
-Event for . ID: **10006**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### POD3_UNLOAD_COMPLETE
-
-Event for . ID: **10010**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### POD4_ARRIVED
-
-Event for . ID: **11000**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### POD4_DEPARTED
-
-Event for . ID: **11001**
-
-There are no Automation Events Properties defined for this Automation Event
-
-#### POD4_MAPPED
-
-Event for . ID: **11004**
-Linked Report Id: **3**
+Event for PM1 Recipe started. ID: **422**
+Linked Report Id: **422**
 ##### *Event Properties*
 
 Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
 :------------ | :- | :-------- | :----------: | :-------- | :-----------
- POD1_MATERIAL_MAP_LIST | 8002 | Object | Yes | L | 
- POD2_MATERIAL_MAP_LIST | 9002 | Object | Yes | L | 
- POD3_MATERIAL_MAP_LIST | 10002 | Object | Yes | L | 
- POD4_MATERIAL_MAP_LIST | 11002 | Object | Yes | L | 
- SLOT_MAP | 1306 | Object | Yes | L | 
+ WAFER_ID | 5111 | String | Yes | A | Wafer ID
+ StationID | 5113 | Integer | Yes | U1 | Station Number
+ LOT_ID | 5114 | String | Yes | A | Lot ID
+ RECIPE_ID | 5115 | String | Yes | A | Recipe Name
+ StepID | 5116 | Integer | Yes | U1 | Recipe Step Number
+ StepName | 5117 | String | Yes | A | Recipe Step Name
+ WaferNo | 5118 | String | Yes | A | Wafer Number
 
-#### POD4_MAP_STARTED
+#### PM3RecipeEnd
 
-Event for . ID: **11006**
+Event for PM3 Recipe ended. ID: **444**
 
 There are no Automation Events Properties defined for this Automation Event
 
-#### POD4_UNLOAD_COMPLETE
+#### PM3RecipeStart
 
-Event for . ID: **11010**
+Event for PM3 Recipe started. ID: **424**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### PM3RecipeStepEnd
+
+Event for PM3 Recipe step ended. ID: **484**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### PM3RecipeStepStart
+
+Event for PM3 Recipe step started. ID: **464**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### PM3StateChange
+
+Event for PM3 state has changed. ID: **404**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### PM3WaferIn
+
+Event for A wafer has arrived in PM3. ID: **882**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### PM3WaferOut
+
+Event for A wafer has been removed from PM3. ID: **888**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### PM3WaferStatusChange
+
+Event for PM3 wafer status has changed. ID: **505**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### PM4RecipeEnd
+
+Event for PM4 Recipe ended. ID: **445**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### PM4RecipeStart
+
+Event for PM4 Recipe started. ID: **425**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### PM4RecipeStepEnd
+
+Event for PM4 Recipe step ended. ID: **485**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### PM4RecipeStepStart
+
+Event for PM4 Recipe step started. ID: **465**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### PM4StateChange
+
+Event for PM4 state has changed. ID: **405**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### PM4WaferIn
+
+Event for A wafer has arrived in PM4. ID: **883**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### PM4WaferOut
+
+Event for A wafer has been removed from PM4. ID: **889**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### PM4WaferStatusChange
+
+Event for PM4 wafer status has changed. ID: **506**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### PMWaferIn
+
+Event for A wafer has arrived in a process module. ID: **853**
+Linked Report Id: **853**
+##### *Event Properties*
+
+Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
+:------------ | :- | :-------- | :----------: | :-------- | :-----------
+ WAFER_ID | 5111 | String | Yes | A | Wafer ID
+ StationID | 5113 | Integer | Yes | U1 | Station Number
+ WaferNo | 5118 | String | Yes | A | Wafer Number
+
+#### PMWaferOut
+
+Event for A wafer has been removed from a process module. ID: **854**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### PPChange
+
+Event for A process program (recipe) has been created changed or deleted. ID: **7**
+Linked Report Id: **7**
+##### *Event Properties*
+
+Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
+:------------ | :- | :-------- | :----------: | :-------- | :-----------
+ PPChangeName | 3 | String | Yes | A | Name of the process program (recipe) changed by the local operator. This may be linked to CE PPChange
+ PPChangeStatus | 4 | Integer | Yes | U1 | Type of change made to a process program (recipe) by the local operator. Possible values include 1 (created), 2 (edited), and 3 (deleted). This may be linked to CE PPChange
+
+#### ProcessingFinished
+
+Event for Processing has finished in a process module. ID: **856**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### ProcessingStarted
+
+Event for Processing has started in a process module. ID: **855**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### ProcessingStateChange1
+
+Event for VCE A has changed Process State. ID: **100**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### ReadyForProcessA
+
+Event for The Lot in VCE A is ready to start processing. ID: **520**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### ReadyForProcessB
+
+Event for The Lot in VCE B is ready to start processing. ID: **521**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### RecipeStepEnd
+
+Event for A new recipe step has finished in a process module. ID: **858**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### RecipeStepStart
+
+Event for A new recipe step has started in a process module. ID: **857**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### RunningSelectedStateChange1
+
+Event for VCE A Process State changes from Running to Selected. ID: **158**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### RunningStoppingStateChange1
+
+Event for VCE A Process State changes from Running to Stopping. ID: **159**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### SelectedIdleStateChange1
+
+Event for VCE A Process State changes from Selected to Idle. ID: **169**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### SelectedStartingStateChange1
+
+Event for VCE A Process State changes from Selected to Starting. ID: **155**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### SelectingSelectedStateChange1
+
+Event for VCE A Process State changes from Selecting to Selected. ID: **153**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### SlotMapRead
+
+Event for Slot Map Read. ID: **850**
+Linked Report Id: **850**
+##### *Event Properties*
+
+Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
+:------------ | :- | :-------- | :----------: | :-------- | :-----------
+ SLOT_MAP | 5112 | Object | Yes | L | Cassette Slot Map
+ PORT_ID | 6102 | Integer | Yes | U1 | Cassette Port ID
+
+#### SMIFPodAbsent1
+
+Event for SMIF Pod for VCE A is absent. ID: **731**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### SMIFPodAbsent2
+
+Event for SMIF Pod for VCE B is absent. ID: **732**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### SMIFPodClamped1
+
+Event for SMIF Pod for VCE A is clamped. ID: **741**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### SMIFPodClamped2
+
+Event for SMIF Pod for VCE B is clamped. ID: **742**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### SMIFPodPresent1
+
+Event for SMIF Pod for VCE A is present. ID: **721**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### SMIFPodPresent2
+
+Event for SMIF Pod for VCE B is present. ID: **722**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### SMIFPodUnClamped1
+
+Event for SMIF Pod for VCE A is unclamped. ID: **751**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### SMIFPodUnClamped2
+
+Event for SMIF Pod for VCE B is unclamped. ID: **752**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### StartingRunningStateChange1
+
+Event for VCE A Process State changes from Starting to Running. ID: **157**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### StoppedIdleStateChange1
+
+Event for VCE A Process State changes from Stopped to Idle. ID: **174**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### StoppingStoppedStateChange1
+
+Event for VCE A Process State changes from Stopping to Stopped. ID: **163**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### ToolAGVOff
+
+Event for E23 Access mode changed to Manual. ID: **843**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### TransportStateChange
+
+Event for Transport state has changed. ID: **400**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### VacAlignDataAvailable
+
+Event for Alignment data available from optical vac aligner. ID: **821**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### VacArmAWaferStatusChange
+
+Event for Vacuum Arm A wafer status has changed. ID: **500**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### VacArmBWaferStatusChange
+
+Event for Vacuum Arm B wafer status has changed. ID: **501**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### VCEALoadComplete
+
+Event for Load Completed on VCE A. ID: **791**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### VCEAMaterialAbsent
+
+Event for Material has left at VCE A. ID: **781**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### VCEAMaterialPresent
+
+Event for Material has arrived VCE A. ID: **771**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### VCEAStateChange
+
+Event for VCE A state has changed. ID: **401**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### VCEAUnloadComplete
+
+Event for Unload Completed on VCE A. ID: **801**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### VCEAWaferStatusChange
+
+Event for VCE A wafer status has changed. ID: **502**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### VCEBLoadComplete
+
+Event for Load Completed on VCE B. ID: **792**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### VCEBMaterialAbsent
+
+Event for Material has left at VCE B. ID: **782**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### VCEBMaterialPresent
+
+Event for Material has arrived VCE B. ID: **772**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### VCEBStateChange
+
+Event for VCE B state has changed. ID: **408**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### VCEBUnloadComplete
+
+Event for Unload Completed on VCE B. ID: **802**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### VCEBWaferStatusChange
+
+Event for VCE B wafer status has changed. ID: **509**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### WaferComplete
+
+Event for A wafer has completed processing. ID: **860**
+Linked Report Id: **859**
+##### *Event Properties*
+
+Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
+:------------ | :- | :-------- | :----------: | :-------- | :-----------
+ WAFER_ID | 5111 | String | Yes | A | Wafer ID
+ LOT_ID | 5114 | String | Yes | A | Lot ID
+ WaferNo | 5118 | String | Yes | A | Wafer Number
+
+#### WaferStarted
+
+Event for A wafer has started processing. ID: **859**
+Linked Report Id: **859**
+##### *Event Properties*
+
+Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
+:------------ | :- | :-------- | :----------: | :-------- | :-----------
+ WAFER_ID | 5111 | String | Yes | A | Wafer ID
+ LOT_ID | 5114 | String | Yes | A | Lot ID
+ WaferNo | 5118 | String | Yes | A | Wafer Number
+
+#### WaferStatisticalDataAvailable
+
+Event for Min Max and Avg data for last wafer process step. ID: **810**
+Linked Report Id: **810**
+##### *Event Properties*
+
+Name          | ID | Type      | Is Mandatory | Equipment Data Type | Description
+:------------ | :- | :-------- | :----------: | :-------- | :-----------
+ PORT_ID | 6102 | Integer | Yes | U1 | Cassette Port ID
+ WaferRecipeDV | 5101 | String | Yes | A | Wafer recipe for last wafer process. This may be linked to CE WaferStatisticalDataAvailable
+ ModuleRecipeDV | 5102 | String | Yes | A | Module recipe for last wafer process. This may be linked to CE WaferStatisticalDataAvailable
+ WaferStatisticalDataDV | 5100 | Object | Yes | L | Min, Max, Avg values for last wafer process. This may be linked to CE WaferStatisticalDataAvailable
+ StepName | 5117 | String | Yes | A | Recipe Step Name
+ LOT_ID | 5114 | String | Yes | A | Lot ID
+
+#### ControlStateLocal
+
+Event for Control state has changed to Local (from Remote or Off-line). ID: **9**
+
+There are no Automation Events Properties defined for this Automation Event
+
+#### EquipmentOffline
+
+Event for Control state is about to change to Off-line. ID: **8**
 
 There are no Automation Events Properties defined for this Automation Event
 
 ### Commands
 
-#### SET_CARRIER_ID
+#### GO_REMOTE
 
-Command for . ID: **SETCARRIERID**
+Command for Set Equipment to Online Remote. ID: **REMOTE**
+
+There are no Automation Command Parameters defined for this Automation Command
+
+#### LOCK_POD
+
+Command for Lock Pod. ID: **CLAMP**
 
 There are no Automation Command Parameters defined for this Automation Command
 
 #### LOAD_POD
 
-Command for . ID: **STARTMAPPING**
+Command for Load Pod. ID: **LOAD**
 
 There are no Automation Command Parameters defined for this Automation Command
 
-#### PP_SELECT
+#### UNLOAD_POD
 
-Command for . ID: **PP_SELECT**
+Command for Unload Pod. ID: **UNLOAD**
 
-##### *Command Parameters*
+There are no Automation Command Parameters defined for this Automation Command
 
-Name          | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------
- RecipeID | Yes | A | 
- LotID | Yes | A | 
- PodID | Yes | I1 | 
- UseSlot1 | Yes | BO | 
- UseSlot2 | Yes | BO | 
- UseSlot3 | Yes | BO | 
- UseSlot4 | Yes | BO | 
- UseSlot5 | Yes | BO | 
- UseSlot6 | Yes | BO | 
- UseSlot7 | Yes | BO | 
- UseSlot8 | Yes | BO | 
- UseSlot9 | Yes | BO | 
- UseSlot10 | Yes | BO | 
- UseSlot11 | Yes | BO | 
- UseSlot12 | Yes | BO | 
- UseSlot13 | Yes | BO | 
+#### PP-SELECT
+
+Command for PP Select. ID: **PP_SELECT**
+
+There are no Automation Command Parameters defined for this Automation Command
 
 #### START
 
-Command for . ID: **START**
+Command for Start Command. ID: **START**
 
 ##### *Command Parameters*
 
 Name          | Is Mandatory | Equipment Data Type | Description
 :------------ | :- | :-------- | :----------
- LotID | Yes | A | 
+ PORT_ID | Yes | A | 
+ LOT_ID | Yes | A | 
 
-#### PAUSE
+#### UNLOCK_POD
 
-Command for . ID: **PAUSE**
+Command for Unlock Command. ID: **UNCLAMP**
 
-##### *Command Parameters*
-
-Name          | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------
- LotID | Yes | A | 
-
-#### RESUME
-
-Command for . ID: **RESUME**
-
-##### *Command Parameters*
-
-Name          | Is Mandatory | Equipment Data Type | Description
-:------------ | :- | :-------- | :----------
- LotID | Yes | A | 
+There are no Automation Command Parameters defined for this Automation Command
 
 #### STOP
 
-Command for . ID: **STOP**
+Command for Stop Command. ID: **STOP**
 
 ##### *Command Parameters*
 
 Name          | Is Mandatory | Equipment Data Type | Description
 :------------ | :- | :-------- | :----------
- LotID | Yes | A | 
+ PORT_ID | Yes | A | 
 
 #### ABORT
 
-Command for . ID: **ABORT**
+Command for Abort Command. ID: **ABORT**
 
 ##### *Command Parameters*
 
 Name          | Is Mandatory | Equipment Data Type | Description
 :------------ | :- | :-------- | :----------
- LotID | Yes | A | 
+ PORT_ID | Yes | A | 
+
+#### RESUME
+
+Command for Resume Command. ID: **RESUME**
+
+##### *Command Parameters*
+
+Name          | Is Mandatory | Equipment Data Type | Description
+:------------ | :- | :-------- | :----------
+ PORT_ID | Yes | A | 
+
+#### CANCEL
+
+Command for Cancel Command. ID: **CANCEL**
+
+##### *Command Parameters*
+
+Name          | Is Mandatory | Equipment Data Type | Description
+:------------ | :- | :-------- | :----------
+ PORT_ID | Yes | A | 
+
+## Automation Driver Definition - HermosLFM4xReaderDriver
+Information on this driver is contained on an additional driver related document.
 
