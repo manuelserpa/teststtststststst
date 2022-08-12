@@ -24,7 +24,7 @@
         },
         {
             "id": "Cmf.Custom.Help",
-            "version": "1.10.0"
+            "version": "1.11.0"
         },
         {
             "id": "Cmf.Custom.Html",
@@ -32,7 +32,7 @@
         },
         {
             "id": "Cmf.Custom.IoT",
-            "version": "1.7.0"
+            "version": "1.8.0"
         },
         {
             "id": "Cmf.Custom.TibcoEMS",
@@ -46,7 +46,7 @@
         },
         {
             "id": "Cmf.Custom.Tests.MasterData",
-            "version": "1.9.0"
+            "version": "1.10.0"
         }
     ],
     "handlerVersion": 0

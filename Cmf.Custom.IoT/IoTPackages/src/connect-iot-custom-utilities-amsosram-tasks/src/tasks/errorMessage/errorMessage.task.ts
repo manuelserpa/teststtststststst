@@ -127,6 +127,8 @@ export class ErrorMessageTask implements Task.TaskInstance, ErrorMessageSettings
      * @param changes Task changes
      */
     async onChanges(changes: Task.Changes): Promise<void> {
+
+
         this.activate = undefined;
         let text;
         switch (this.mode || LogMode.RawText) {
@@ -171,9 +173,12 @@ export class ErrorMessageTask implements Task.TaskInstance, ErrorMessageSettings
                 }
                 break;
         }
-        // emit error code with structure [ErrorCode]_[System]_[ErrorNumber]
-        this.errorCode.emit(`${this.errorCodeToEmit}_${this.systemOfOrigin}_${this.errorNumber}`);
-        this.errorText.emit(text);
+
+        if (this.mode === LogMode.RawText || changes["activate"] != null) {
+            // emit error code with structure [ErrorCode]_[System]_[ErrorNumber]
+            this.errorCode.emit(`${this.errorCodeToEmit}_${this.systemOfOrigin}_${this.errorNumber}`);
+            this.errorText.emit(text);
+        }
     }
 
     public async onInit(): Promise<void> {
