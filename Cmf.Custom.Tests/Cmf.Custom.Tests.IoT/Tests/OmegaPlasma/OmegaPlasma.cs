@@ -235,7 +235,7 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
             base.Equipment.SendMessage("EquipmentOffline", null);
 
             //
-            TestUtilities.WaitFor(ValidationTimeout, "Control State was not updated to Host Offline", () =>
+            TestUtilities.WaitFor(ValidationTimeout, "Control State was not updated to Equipment Offline", () =>
             {
                 Resource resource = new Resource { Name = resourceName };
                 resource.Load();
@@ -250,7 +250,7 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
                 if (resource.CurrentStates == null)
                     return false;
 
-                return resource.CurrentStates.FirstOrDefault(s => s.StateModel.Name == "CustomSecsGemControlStateModel" && s.CurrentState.Name == "HostOffline") != null;
+                return resource.CurrentStates.FirstOrDefault(s => s.StateModel.Name == "CustomSecsGemControlStateModel" && s.CurrentState.Name == "EquipmentOffline ") != null;
             });
             Thread.Sleep(1000);
 
