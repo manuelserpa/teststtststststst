@@ -7,6 +7,7 @@ using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.Utilities.InputObjects;
 using Cmf.Foundation.Common;
 using Cmf.MessageBus.Client;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -126,7 +127,10 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
                                                         {
                                                             Subject = row.Field<string>("Subject"),
                                                             Topic = row.Field<string>("Topic"),
-                                                            Rule = row.Table.Columns.Contains("Rule") ? row.Field<string>("Rule") : String.Empty
+                                                            Rule = row.Table.Columns.Contains("Rule") ? row.Field<string>("Rule") : String.Empty,
+                                                            QueueMessage = row.Table.Columns.Contains("QueueMessage") ? row.Field<bool>("QueueMessage") : false,
+                                                            TextMessage = row.Table.Columns.Contains("TextMessage") ? row.Field<bool>("TextMessage") : false,
+                                                            CompressMessage = row.Table.Columns.Contains("CompressMessage") ? row.Field<bool>("CompressMessage") : false
                                                         });
             }
 
@@ -151,6 +155,37 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
             }
 
             return output;
+        }
+
+        /// <summary>
+        /// Check if a string is a valid JSON document.
+        ///
+        /// This method accepts strings that specify either an JSON
+        /// object or an JSON array.
+        /// </summary>
+        /// <param name="value">
+        /// The string to check.
+        /// </param>
+        /// <returns>
+        /// Returns "true" if the string is a JSON document, "false"
+        /// otherwise.
+        /// </returns>
+        public static bool IsJson(this string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return false;
+            }
+
+            try
+            {
+                JsonConvert.DeserializeObject(value);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         #endregion

@@ -5,8 +5,10 @@ using Cmf.Foundation.Common;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ExceptionManagement;
 using Cmf.Navigo.BusinessOrchestration.ExceptionManagement.InputObjects;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 
 namespace Cmf.Custom.AMSOsram.Actions.Space
 {
@@ -59,6 +61,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
             //---Start DEE Code---
+
+            //System
+            UseReference("%MicrosoftNetPath%System.Private.Xml.dll", "System.Xml");
+            UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
 
             //Foundation
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
@@ -173,8 +179,16 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             // Create Message to send for Space
             CustomReportEDCToSpace dataCollectionInfoMessage = AMSOsramUtilities.CreateSpaceInfoWaferValues(material, dataCollectionInstance, dataCollectionLimitSet);
 
+            // Load Xml into XmlDocument to get InnerXml without formatting
+            XmlDocument xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(dataCollectionInfoMessage.SerializeToXML());
+
             // Publish message on Message Bus
-            Utilities.PublishTransactionalMessage(AMSOsramConstants.CustomReportEDCToSpace, dataCollectionInfoMessage.SerializeToXML());
+            Utilities.PublishTransactionalMessage(AMSOsramConstants.CustomReportEDCToSpace,
+                                                  JsonConvert.SerializeObject(new
+                                                  {
+                                                      Message = xmlDocument.InnerXml
+                                                  }));
 
             //---End DEE Code---
 

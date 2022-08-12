@@ -6,6 +6,12 @@ Windows Service used to send messages to Tibco EMS.
 
 ## Design Specification
 
+On the Generic Table **CustomTibcoEMSGatewayResolver** it is possible to configure if:
+
+* The message will be sent to Queues (set _QueueMessage_ with true) or to Tibco Topics (set _QueueMessage_ with false).
+* The message will be sent as a Text message (set _TextMessage_ with true) or as a Map message (set _MapMessage_ with false).
+* The message content should be compressed (set _CompressMessage_ with true) or not (set _CompressMessage_ with false). This option is not considered in Map message.
+
 ### Relevant Artifacts
 
 The table below describes the relevant artifacts for this feature:
@@ -30,9 +36,9 @@ The Generic Table CustomTibcoEMSGatewayResolver contains all the subjects that a
 * When one of the subscribed subjects publish a message on the Message Bus:
   * If the configuration in Generic Table CustomTibcoEMSGatewayResolver **has** an Action associated:
     * The Action is executed, and a message is returned.
-      * The message returned will be sent to Tibco along the corresponding Topic.
+      * The message returned will be sent to Tibco along the corresponding Topic or Queue.
   * If the configuration in Generic Table CustomTibcoEMSGatewayResolver **does not have** an Action associated:
-    * The message received from the Message Bus is directly sent to Tibco along the corresponding Topic.
+    * The message received from the Message Bus is directly sent to Tibco along the corresponding Topic or Queue.
 
 When the subject CustomTibcoEMSGatewayInvalidateCache is received the cache with the subscribed subjects will be reloaded from MES.
 
@@ -57,4 +63,5 @@ The table below describes de user stories that affect the current functionality
 
 | User Story | Type       | Title                        | Description |
 | :--------- | :--------- | :--------------------------- | :---------- |
-| 153091     | User Story | Create CMF Tibco EMS gateway |             |
+| 153091     | User Story | Create CMF Tibco EMS gateway | |
+| 186907     | User Story | 1st Additions to EPIC 406: SPACE - Lot/Wafer SPC Data Interface via TIBCO EMS | |
