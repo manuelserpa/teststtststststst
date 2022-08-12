@@ -47,7 +47,8 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.Before
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
                     Position = lastPropertyPosition,
-                    IsMandatory = false
+                    IsMandatory = true,
+                    DefaultValue = false
                 });
             }
 
@@ -62,7 +63,8 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.Before
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
                     Position = lastPropertyPosition,
-                    IsMandatory = false
+                    IsMandatory = true,
+                    DefaultValue = false
 
                 });
             }
@@ -78,7 +80,8 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.Before
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
                     Position = lastPropertyPosition,
-                    IsMandatory = false
+                    IsMandatory = true,
+                    DefaultValue = false
                 });
             }
 
