@@ -250,7 +250,7 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
                 if (resource.CurrentStates == null)
                     return false;
 
-                return resource.CurrentStates.FirstOrDefault(s => s.StateModel.Name == "CustomSecsGemControlStateModel" && s.CurrentState.Name == "EquipmentOffline ") != null;
+                return resource.CurrentStates.FirstOrDefault(s => s.StateModel.Name == "CustomSecsGemControlStateModel" && s.CurrentState.Name == "EquipmentOffline") != null;
             });
             Thread.Sleep(1000);
 
