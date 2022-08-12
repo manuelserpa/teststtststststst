@@ -573,6 +573,22 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
 
         public override bool PostTrackInActions(CustomMaterialScenario scenario)
         {
+            if (TrackInMustFail)
+            {
+                TestUtilities.WaitForNotChanged(30, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
+                {
+                    scenario.Entity.Load();
+                    if (scenario.Entity.CurrentMainState == null || scenario.Entity.CurrentMainState.CurrentState == null)
+                    {
+                        return false;
+                    }
+
+                    return scenario.Entity.CurrentMainState.CurrentState.Name.Equals(MaterialStateModelStateEnum.Setup.ToString());
+                });
+
+                return false;
+            }
+
             TestUtilities.WaitFor(ValidationTimeout, String.Format($"Failed to recieve PP-Select"), () =>
             {
                 return receivedPPSelectCommand;
