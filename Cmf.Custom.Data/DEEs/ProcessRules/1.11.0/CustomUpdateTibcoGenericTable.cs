@@ -42,7 +42,7 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.After
                 propsToAddOrUpdate.Add(new GenericTableProperty
                 {
                     Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverQueueMessageProperty,
-                    Description = "Put the message to be sent to Tibco in a Queue.",
+                    Description = "If true, then send the message to a queue. Otherwise, send the message to Tibco topics.",
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
                     Position = lastPropertyPosition,
@@ -57,7 +57,7 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.After
                 propsToAddOrUpdate.Add(new GenericTableProperty
                 {
                     Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverTextMessageProperty,
-                    Description = "Send message as TextMessage instead of using MapMessage format.",
+                    Description = "If true, then send the message as a Text message. Otherwise, send the message as MapMessage.",
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
                     Position = lastPropertyPosition,
@@ -73,7 +73,7 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.After
                 propsToAddOrUpdate.Add(new GenericTableProperty
                 {
                     Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverCompressMessageProperty,
-                    Description = "Compress TextMessage.",
+                    Description = "If true, then compresses the content of the message.",
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
                     Position = lastPropertyPosition,
