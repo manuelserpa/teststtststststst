@@ -12,12 +12,12 @@ This is the workflow implemented for **Setup**
 
 ![Setup](../../../../documents/equipmentTypes/OmegaPlasma\Setup.png)
 
-SetupRFIDReader
+Setup_RFIDReader
 ============
 
-This is the workflow implemented for **SetupRFIDReader**
+This is the workflow implemented for **Setup_RFIDReader**
 
-![SetupRFIDReader](../../../../documents/equipmentTypes/OmegaPlasma\SetupRFIDReader.png)
+![Setup_RFIDReader](../../../../documents/equipmentTypes/OmegaPlasma\Setup_RFIDReader.png)
 
 MaterialReceived_01_MaterialReceivedCarrierIdReadRequest
 ============
