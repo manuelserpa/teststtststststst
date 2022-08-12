@@ -920,21 +920,6 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
 
         }
 
-        public override bool PostSetupActions(CustomMaterialScenario MESScenario)
-        {
-            StateModel stateModel = GenericGetsScenario.GetObjectByName<StateModel>("CustomMaterialStateModel");
-
-            base.MESScenario.Entity.CurrentMainState = new CurrentEntityState()
-            {
-                StateModel = stateModel,
-                CurrentState = stateModel.States.FirstOrDefault(s => s.Name == "Queued")
-            };
-
-            base.MESScenario.Entity.Save();
-
-            return base.PostSetupActions(MESScenario);
-        }
-
         private void SetSamplingPatternContext(string patternName, bool clearTable = true)
         {
             SmartTable table = new GetSmartTableByNameInput { SmartTableName = "StepSamplingPatternContext", LoadData = true }.GetSmartTableByNameSync().SmartTable;
