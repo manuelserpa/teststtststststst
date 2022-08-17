@@ -1,4 +1,5 @@
-﻿using Cmf.Custom.Tests.Biz.Common.ERP.Material;
+﻿using Cmf.Custom.Tests.Biz.Common;
+using Cmf.Custom.Tests.Biz.Common.ERP.Material;
 using Cmf.Custom.Tests.Biz.Common.Extensions;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
@@ -725,7 +726,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             integrationEntry.Load();
 
             // Validate throw Message associated to Integration Entry
-            string localizedMessage = string.Format(CustomUtilities.GetLocalizedMessageByName("CustomProductionOrderDoesNotExists"));
+            string localizedMessage = string.Format(CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageCustomProductionOrderDoesNotExists));
             StringAssert.Contains(integrationEntry.ResultDescription, localizedMessage, "The returned message is not as expected.");
         }
 
