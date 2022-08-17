@@ -128,8 +128,20 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 incomingLot.Form = materialData.Form;
                 incomingLot.Type = materialData.Type;
                 incomingLot.Product = product;
-                incomingLot.PrimaryQuantity = materialData.Wafers.Count * Convert.ToInt32(waferSizeParameter.Value);
-                incomingLot.PrimaryUnits = product.DefaultUnits;
+                incomingLot.PrimaryQuantity = decimal.Parse(materialData.PrimaryQuantity);
+                incomingLot.PrimaryUnits = materialData.PrimaryUnit;
+                //prod order exists checking
+                ProductionOrder prodOrder = new ProductionOrder();
+                prodOrder.Name = materialData.ProductionOrder;
+                if (prodOrder.ObjectExists())
+                {
+                    prodOrder.Load();
+                }
+                else
+                {
+                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomProductionOrderDoesNotExists, prodOrder.Name);
+                }
+                incomingLot.ProductionOrder = prodOrder;
 
                 Flow flow = product.Flow;
 
