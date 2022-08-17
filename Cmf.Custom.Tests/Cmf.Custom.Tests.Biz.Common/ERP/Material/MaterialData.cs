@@ -36,6 +36,15 @@ namespace Cmf.Custom.Tests.Biz.Common.ERP.Material
         [XmlElement]
         public string Step { get; set; }
 
+        [XmlElement]
+        public string PrimaryQuantity { get; set; }
+
+        [XmlElement]
+        public string PrimaryUnits { get; set; }
+
+        [XmlElement]
+        public string ProductionOrderName { get; set; }
+
         [XmlArray("Attributes")]
         [XmlArrayItem("key")]
         public List<MaterialAttributes> MaterialAttributes { get; set; }

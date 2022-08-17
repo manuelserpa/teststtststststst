@@ -538,7 +538,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
         /// Description:
         ///     - Create a Material received from XML message
         /// 
-        /// Acceptance Citeria:
+        /// Acceptance Criteria:
         ///     - The Material has the structure defined in the XML message
         ///  
         /// </summary>
@@ -553,13 +553,13 @@ namespace Cmf.Custom.Tests.Biz.ERP
             // Deserialize message in a MaterialData object
             GoodsReceiptCertificate incomingLot = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(incomingLotMessage);
 
-            //// Set random name to Lot
+            // Set random name to Lot
             incomingLot.Material.Name = Guid.NewGuid().ToString("N");
 
-            //// Set random name to Logical Wafer
+            // Set random name to Logical Wafer
             incomingLot.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
 
-            //// Set random name to Wafer
+            // Set random name to Wafer
             incomingLot.Material.Wafers[0].Wafers[0].Name = Guid.NewGuid().ToString("N");
 
             // Set scenario IsToSendIncomingMaterial property
@@ -598,6 +598,135 @@ namespace Cmf.Custom.Tests.Biz.ERP
             ValidateCreatedWafers(incomingLot.Material.Wafers);
 
             this.materials.Add(createdLot);
+        }
+
+        /// <summary>
+        /// Descritpion:
+        ///     - Create a Material with additional fields (PrimaryQuantity, PrimaryUnit and ProductionOrder) from received XML message
+        ///
+        /// Acceptance Criteria:
+        ///     - The fields PrimaryQuantity, PrimaryUnit and ProductionOrder are filled when the Material is created
+        ///
+        /// </summary>
+        /// <TestCaseID>CustomIncomingMaterialLotCreation_CreateLotFromMessage_CreateLotWithAdditionalFields</TestCaseID>
+        /// <Author>André Cruz</Author>
+        [TestMethod]
+        public void CustomIncomingMaterialLotCreation_CreateLotFromMessage_CreateLotWithAdditionalFields()
+        {
+            // Load Incoming Lot message
+            string incomingLotMessage = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptWithAdditionalFields.xml");
+
+            // Deserialize message in a MaterialData object
+            GoodsReceiptCertificate incomingLot = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(incomingLotMessage);
+
+            // Set random name to Lot
+            incomingLot.Material.Name = Guid.NewGuid().ToString("N");
+
+            // Set random name to Logical Wafer
+            incomingLot.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
+
+            // Set random name to Wafer
+            incomingLot.Material.Wafers[0].Wafers[0].Name = Guid.NewGuid().ToString("N");
+
+            // Set scenario IsToSendIncomingMaterial property
+            customExecutionScenario.IsToSendIncomingMaterial = true;
+
+            // Set scenario GoodsReceiptCertificate property
+            customExecutionScenario.GoodsReceiptCertificate = incomingLot;
+
+            // Setup scenario
+            customExecutionScenario.Setup();
+
+            // Load created Lot
+            Material createdLot = new Material()
+            {
+                Name = incomingLot.Material.Name
+            };
+            createdLot.Load(2);
+
+            // Push created Lot to TearDownManager
+            customTearDownManager.Push(createdLot);
+
+            // Validate additional fields is not null
+            Assert.IsNotNull(createdLot.PrimaryQuantity, "On Lot created, PrimaryQuantity property should be a value.");
+
+            Assert.IsNotNull(createdLot.PrimaryUnits, "On Lot created, PrimaryUnits property should be a value.");
+
+            Assert.IsNotNull(createdLot.ProductionOrder, "The Material should have an associated Production Order.");
+
+            // Validate additional fields values
+            Assert.IsNotNull(incomingLot.Material.ProductionOrderName,
+                            createdLot.ProductionOrder.Name,
+                            $"The Material ProductionOrder Name value should be {incomingLot.Material.ProductionOrderName}.");
+
+            Assert.AreEqual(incomingLot.Material.PrimaryQuantity,
+                            createdLot.PrimaryQuantity,
+                            $"The Material {createdLot.Form} PrimaryQuantity value should be {incomingLot.Material.PrimaryQuantity}.");
+
+            Assert.AreEqual(incomingLot.Material.Wafers[0].PrimaryQuantity,
+                            createdLot.SubMaterials[0].PrimaryQuantity,
+                            $"The Material {createdLot.SubMaterials[0].Form} PrimaryQuantity value should be {incomingLot.Material.Wafers[0].PrimaryQuantity}.");
+
+            Assert.AreEqual(incomingLot.Material.Wafers[0].Wafers[0].PrimaryQuantity,
+                            createdLot.SubMaterials[0].SubMaterials[0].PrimaryQuantity,
+                            $"The Material {createdLot.SubMaterials[0].SubMaterials[0].PrimaryQuantity} PrimaryQuantity value should be {incomingLot.Material.Wafers[0].Wafers[0].PrimaryQuantity}.");
+
+            Assert.AreEqual(incomingLot.Material.PrimaryUnits,
+                            createdLot.PrimaryUnits,
+                            $"The Material {createdLot.Form} PrimaryUnits value should be {incomingLot.Material.PrimaryUnits}.");
+
+            Assert.AreEqual(incomingLot.Material.Wafers[0].PrimaryUnits,
+                            createdLot.SubMaterials[0].PrimaryUnits,
+                            $"The Material {createdLot.SubMaterials[0].Form} PrimaryUnits value should be {incomingLot.Material.Wafers[0].PrimaryUnits}.");
+
+            Assert.AreEqual(incomingLot.Material.Wafers[0].Wafers[0].PrimaryUnits,
+                            createdLot.SubMaterials[0].SubMaterials[0].PrimaryUnits,
+                            $"The Material {createdLot.SubMaterials[0].SubMaterials[0].Form} PrimaryUnits value should be {incomingLot.Material.Wafers[0].Wafers[0].PrimaryUnits}.");
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Create a Lot through an Integration Entry
+        ///         - The Production Order does not exists on MES
+        /// Acceptance Criteria:
+        ///     - Integration Entry will return a message about the Production Order does not exist in the MES.
+        /// </summary>
+        /// <TestCaseID>CustomIncomingMaterialLotCreation_CreateLotFromMessage_ErrorNonExistentProductionOrder</TestCaseID>
+        /// <Author>André Cruz</Author>
+        [TestMethod]
+        public void CustomIncomingMaterialLotCreation_CreateLotFromMessage_ErrorNonExistentProductionOrder()
+        {
+            // Load Incoming Lot message
+            string incomingLotMessage = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptWithNonExistentProductionOrder.xml");
+
+            // Deserialize message in a MaterialData object
+            GoodsReceiptCertificate incomingLot = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(incomingLotMessage);
+
+            // Set random name to Lot
+            incomingLot.Material.Name = Guid.NewGuid().ToString("N");
+
+            // Set random name to Logical Wafer
+            incomingLot.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
+
+            // Set random name to Wafer
+            incomingLot.Material.Wafers[0].Wafers[0].Name = Guid.NewGuid().ToString("N");
+
+            // Set scenario IsToSendIncomingMaterial property
+            customExecutionScenario.IsToSendIncomingMaterial = true;
+
+            // Set scenario GoodsReceiptCertificate property
+            customExecutionScenario.GoodsReceiptCertificate = incomingLot;
+
+            // Setup scenario
+            customExecutionScenario.Setup();
+
+            // Get created Integration Entry context
+            IntegrationEntry integrationEntry = customExecutionScenario.IntegrationEntries.Last();
+            integrationEntry.Load();
+
+            // Validate throw Message associated to Integration Entry
+            string localizedMessage = string.Format(CustomUtilities.GetLocalizedMessageByName("CustomProductionOrderDoesNotExists"));
+            StringAssert.Contains(integrationEntry.ResultDescription, localizedMessage, "The returned message is not as expected.");
         }
 
         /// <summary>
