@@ -1,0 +1,111 @@
+{
+    "WorksheetNameMapping": {},
+    "<SM>EntityTypeProperty": {
+        "1": {
+            "EntityType": "Product",
+            "Name": "ProductionLine",
+            "Description": "Identifies the Production Line of Product",
+            "PropertyType": "Attribute",
+            "CopyOnClone": "",
+            "BelongsTo": "Definition",
+            "ScalarType": "String",
+            "ScalarSize": "256",
+            "ScalarPrecision": "",
+            "ReferenceType": "LookupValue",
+            "ReferenceName": "CustomProductionLines",
+            "DefaultValue": "",
+            "IsArray": "",
+            "IsEnabled": "",
+            "IsHistoryEnable": "Yes",
+            "IsIndexed": "",
+            "IsMandatory": "",
+            "AccessLevel": "",
+            "ValidationRange": "",
+            "ValidationRegex": "",
+            "DataGroup": "",
+            "LoadToDWH": "",
+            "LocalizedMessageKey": ""
+        }
+    },
+    "<SM>LookupTableValues": {
+        "1": {
+            "LookUp Table": "CustomProductionLines",
+            "Lookup Table Value Parent": "",
+            "Lookup Table Value": "",
+            "Lookup Table Value Description": "",
+            "Lookup Table IsEnabled": ""
+        }
+    },
+    "<GT>GenericTable": {
+        "1": {
+            "Name": "CustomProductionLineConversion",
+            "Description": "",
+            "HistoryRetentionTime": "180",
+            "IsHistoryEnabled": "Yes",
+            "DataGroup": ""
+        }
+    },
+    "GenericTableProperties": {
+        "1": {
+            "GenericTable": "CustomProductionLineConversion",
+            "Name": "ProductionLine",
+            "Position": "",
+            "Description": "Production Line of Product",
+            "DefaultValue": "",
+            "IsKey": "Yes",
+            "IsMandatory": "Yes",
+            "ScalarType": "String",
+            "Size": "256",
+            "Precision": "",
+            "ReferenceType": "LookupValue",
+            "ReferenceName": "CustomProductionLines",
+            "ValidationRange": "",
+            "ValidationRegex": "",
+            "DataGroup": ""
+        },
+        "2": {
+            "GenericTable": "CustomProductionLineConversion",
+            "Name": "Site",
+            "Position": "",
+            "Description": "Site Name",
+            "DefaultValue": "",
+            "IsKey": "No",
+            "IsMandatory": "Yes",
+            "ScalarType": "String",
+            "Size": "256",
+            "Precision": "",
+            "ReferenceType": "",
+            "ReferenceName": "",
+            "ValidationRange": "",
+            "ValidationRegex": "",
+            "DataGroup": ""
+        },
+        "3": {
+            "GenericTable": "CustomProductionLineConversion",
+            "Name": "Facility",
+            "Position": "",
+            "Description": "Facility Name",
+            "DefaultValue": "",
+            "IsKey": "No",
+            "IsMandatory": "Yes",
+            "ScalarType": "String",
+            "Size": "256",
+            "Precision": "",
+            "ReferenceType": "",
+            "ReferenceName": "",
+            "ValidationRange": "",
+            "ValidationRegex": "",
+            "DataGroup": ""
+        }
+    },
+    "<SM>DEEAction": {
+        "1": {
+            "Action": "CustomGenerateProductionLotNames",
+            "Description": "Generate Production Lot Names - Called by Name Generator.",
+            "CodeFileRelativePath": "NameGenerators\\CustomGenerateProductionLotNames.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        }
+    },
+    "DEEActionOrder": {}
+}
