@@ -64,9 +64,6 @@
     <None Update="ERP\Samples\SampleGoodsReceiptUncertificated.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="ERP\Samples\SampleGoodsReceiptWithAdditionalFields.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="ERP\Samples\SampleGoodsReceiptWithNonExistentProductionOrder.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
