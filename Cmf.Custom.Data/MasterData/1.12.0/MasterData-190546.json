@@ -1,10 +1,18 @@
 {
     "WorksheetNameMapping": {},
+    "<SM>Config": {
+        "1": {
+            "ParentPath": "/AMSOsram/NameGenerators/ProductionLotName",
+            "Name": "AlphanumericAllowedDigits",
+            "Value": "0123456789ACFHLMNRTUX",
+            "ValueType": "String"
+        }
+    },
     "<SM>EntityTypeProperty": {
         "1": {
             "EntityType": "Product",
             "Name": "ProductionLine",
-            "Description": "Identifies the Production Line of Product",
+            "Description": "Identifies the Production Line",
             "PropertyType": "Attribute",
             "CopyOnClone": "",
             "BelongsTo": "Definition",
@@ -39,7 +47,7 @@
     "<GT>GenericTable": {
         "1": {
             "Name": "CustomProductionLineConversion",
-            "Description": "",
+            "Description": "Generic Table used to relate the Production Line to the Site and Facility",
             "HistoryRetentionTime": "180",
             "IsHistoryEnabled": "Yes",
             "DataGroup": ""
@@ -69,7 +77,7 @@
             "Position": "",
             "Description": "Site Name",
             "DefaultValue": "",
-            "IsKey": "No",
+            "IsKey": "Yes",
             "IsMandatory": "Yes",
             "ScalarType": "String",
             "Size": "256",
@@ -86,7 +94,7 @@
             "Position": "",
             "Description": "Facility Name",
             "DefaultValue": "",
-            "IsKey": "No",
+            "IsKey": "Yes",
             "IsMandatory": "Yes",
             "ScalarType": "String",
             "Size": "256",
