@@ -115,6 +115,26 @@
         /// </summary>
         public static string GenericTableCustomTibcoEMSGatewayResolverCompressMessageProperty = "CompressMessage";
 
+        /// <summary>
+        /// Custom Production Line Conversion table name 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversion = "CustomProductionLineConversion";
+
+        /// <summary>
+        /// Custom Production Line Conversion table ProductionLine property 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversionProductionLineProperty = "ProductionLine";
+
+        /// <summary>
+        /// Custom Production Line Conversion table Site property 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversionSiteProperty = "Site";
+
+        /// <summary>
+        /// Custom Production Line Conversion table Facility property 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversionFacilityProperty = "Facility";
+
         #endregion
 
         #region LookupTables
@@ -203,6 +223,11 @@
         /// Resource Attribute FDCCommunication
         /// </summary>
         public static string ResourceAttributeFDCCommunication = "FDCCommunication";
+
+        /// <summary>
+        /// Product Attribute ProductionLine
+        /// </summary>
+        public static string ProductAttributeProductionLine = "ProductionLine";
 
         #endregion
 
@@ -597,6 +622,11 @@
         /// Default Protocol to open when sending information to Space
         /// </summary>
         public static string DefaultSpaceProtocol = "/AMSOsram/Protocol/Space";
+
+        /// <summary>
+        /// Default alphanumeric digits allowed on ProductionLotName Name Generator
+        /// </summary>
+        public static string DefaultProductionLotNameAllowedDigits = "/AMSOsram/NameGenerators/ProductionLotNameAllowedDigits";
 
         #endregion
 
