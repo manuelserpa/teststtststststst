@@ -10,6 +10,9 @@
         <Facility>Regensburg Production</Facility>
         <Flow>FOL-UX3_EPA</Flow>
         <Step>M2-SL-Wafer-Start-07301F001_E</Step>
+        <PrimaryQuantity>312</PrimaryQuantity>
+        <PrimaryUnit>CM2</PrimaryUnit>
+        <ProductionOrder>CMFTestProductionOrder</ProductionOrder>
         <Attributes>
             <key name="GoodsReceiptNo" value="5043575531"/>
         </Attributes>
@@ -24,6 +27,8 @@
                 <Facility>Regensburg Production</Facility>
                 <Flow>FOL-UX3_EPA</Flow>
                 <Step>M2-SL-Wafer-Start-07301F001_E</Step>
+                <PrimaryQuantity>21</PrimaryQuantity>
+                <PrimaryUnit>CM2</PrimaryUnit>
                 <Attributes>
                     <key name="GoodsReceiptNo" value="5043575531"/>
                     <key name="GoodsReceiptDate" value="08.11.2021"/>
@@ -39,6 +44,8 @@
                         <Facility>Regensburg Production</Facility>
                         <Flow>FOL-UX3_EPA</Flow>
                         <Step>M2-SL-Wafer-Start-07301F001_E</Step>
+                        <PrimaryQuantity>88</PrimaryQuantity>
+                        <PrimaryUnit>CM2</PrimaryUnit>
                         <Attributes>
                             <key name="GoodsReceiptNo" value="55"/>
                             <key name="GoodsReceiptDate" value="12.07.2022"/>

@@ -40,10 +40,10 @@ namespace Cmf.Custom.Tests.Biz.Common.ERP.Material
         public string PrimaryQuantity { get; set; }
 
         [XmlElement]
-        public string PrimaryUnits { get; set; }
+        public string PrimaryUnit { get; set; }
 
         [XmlElement]
-        public string ProductionOrderName { get; set; }
+        public string ProductionOrder { get; set; }
 
         [XmlArray("Attributes")]
         [XmlArrayItem("key")]

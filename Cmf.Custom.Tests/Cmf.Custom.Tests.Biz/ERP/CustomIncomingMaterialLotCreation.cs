@@ -602,90 +602,6 @@ namespace Cmf.Custom.Tests.Biz.ERP
         }
 
         /// <summary>
-        /// Descritpion:
-        ///     - Create a Material with additional fields (PrimaryQuantity, PrimaryUnit and ProductionOrder) from received XML message
-        ///
-        /// Acceptance Criteria:
-        ///     - The fields PrimaryQuantity, PrimaryUnit and ProductionOrder are filled when the Material is created
-        ///
-        /// </summary>
-        /// <TestCaseID>CustomIncomingMaterialLotCreation_CreateLotFromMessage_CreateLotWithAdditionalFields</TestCaseID>
-        /// <Author>André Cruz</Author>
-        [TestMethod]
-        public void CustomIncomingMaterialLotCreation_CreateLotFromMessage_CreateLotWithAdditionalFields()
-        {
-            // Load Incoming Lot message
-            string incomingLotMessage = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptWithAdditionalFields.xml");
-
-            // Deserialize message in a MaterialData object
-            GoodsReceiptCertificate incomingLot = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(incomingLotMessage);
-
-            // Set random name to Lot
-            incomingLot.Material.Name = Guid.NewGuid().ToString("N");
-
-            // Set random name to Logical Wafer
-            incomingLot.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
-
-            // Set random name to Wafer
-            incomingLot.Material.Wafers[0].Wafers[0].Name = Guid.NewGuid().ToString("N");
-
-            // Set scenario IsToSendIncomingMaterial property
-            customExecutionScenario.IsToSendIncomingMaterial = true;
-
-            // Set scenario GoodsReceiptCertificate property
-            customExecutionScenario.GoodsReceiptCertificate = incomingLot;
-
-            // Setup scenario
-            customExecutionScenario.Setup();
-
-            // Load created Lot
-            Material createdLot = new Material()
-            {
-                Name = incomingLot.Material.Name
-            };
-            createdLot.Load(2);
-
-            // Push created Lot to TearDownManager
-            customTearDownManager.Push(createdLot);
-
-            // Validate additional fields is not null
-            Assert.IsNotNull(createdLot.PrimaryQuantity, "On Lot created, PrimaryQuantity property should be a value.");
-
-            Assert.IsNotNull(createdLot.PrimaryUnits, "On Lot created, PrimaryUnits property should be a value.");
-
-            Assert.IsNotNull(createdLot.ProductionOrder, "The Material should have an associated Production Order.");
-
-            // Validate additional fields values
-            Assert.IsNotNull(incomingLot.Material.ProductionOrderName,
-                            createdLot.ProductionOrder.Name,
-                            $"The Material ProductionOrder Name value should be {incomingLot.Material.ProductionOrderName}.");
-
-            Assert.AreEqual(incomingLot.Material.PrimaryQuantity,
-                            createdLot.PrimaryQuantity,
-                            $"The Material {createdLot.Form} PrimaryQuantity value should be {incomingLot.Material.PrimaryQuantity}.");
-
-            Assert.AreEqual(incomingLot.Material.Wafers[0].PrimaryQuantity,
-                            createdLot.SubMaterials[0].PrimaryQuantity,
-                            $"The Material {createdLot.SubMaterials[0].Form} PrimaryQuantity value should be {incomingLot.Material.Wafers[0].PrimaryQuantity}.");
-
-            Assert.AreEqual(incomingLot.Material.Wafers[0].Wafers[0].PrimaryQuantity,
-                            createdLot.SubMaterials[0].SubMaterials[0].PrimaryQuantity,
-                            $"The Material {createdLot.SubMaterials[0].SubMaterials[0].PrimaryQuantity} PrimaryQuantity value should be {incomingLot.Material.Wafers[0].Wafers[0].PrimaryQuantity}.");
-
-            Assert.AreEqual(incomingLot.Material.PrimaryUnits,
-                            createdLot.PrimaryUnits,
-                            $"The Material {createdLot.Form} PrimaryUnits value should be {incomingLot.Material.PrimaryUnits}.");
-
-            Assert.AreEqual(incomingLot.Material.Wafers[0].PrimaryUnits,
-                            createdLot.SubMaterials[0].PrimaryUnits,
-                            $"The Material {createdLot.SubMaterials[0].Form} PrimaryUnits value should be {incomingLot.Material.Wafers[0].PrimaryUnits}.");
-
-            Assert.AreEqual(incomingLot.Material.Wafers[0].Wafers[0].PrimaryUnits,
-                            createdLot.SubMaterials[0].SubMaterials[0].PrimaryUnits,
-                            $"The Material {createdLot.SubMaterials[0].SubMaterials[0].Form} PrimaryUnits value should be {incomingLot.Material.Wafers[0].Wafers[0].PrimaryUnits}.");
-        }
-
-        /// <summary>
         /// Description:
         ///     - Create a Lot through an Integration Entry
         ///         - The Production Order does not exists on MES
@@ -786,6 +702,12 @@ namespace Cmf.Custom.Tests.Biz.ERP
             Assert.IsTrue(material.Flow.Name.Equals(materialData.Flow), $"Flow should be: {material.Flow.Name}, instead is: {materialData.Flow}");
 
             Assert.IsTrue(material.Step.Name.Equals(materialData.Step), $"Step should be: {material.Step.Name}, instead is: {materialData.Step}");
+
+            Assert.IsTrue(material.PrimaryQuantity.Equals(materialData.PrimaryQuantity), $"Primary Quantity should be: {material.PrimaryQuantity}, instead is: {materialData.PrimaryQuantity}");
+
+            Assert.IsTrue(material.PrimaryUnits.Equals(materialData.PrimaryUnit), $"Primary Units should be: {material.PrimaryUnits}, instead is: {materialData.PrimaryUnit}");
+
+            Assert.IsTrue(material.ProductionOrder.Name.Equals(materialData.ProductionOrder), $"Production Order should be: {material.ProductionOrder.Name}, instead is: {materialData.ProductionOrder}");
 
             if (material.Attributes.Count > 0 && materialData.MaterialAttributes.Count > 0)
             {
