@@ -1,4 +1,6 @@
-﻿namespace Cmf.Custom.AMSOsram.Common
+﻿using Stimulsoft.Base.Localization;
+
+namespace Cmf.Custom.AMSOsram.Common
 {
     /// <summary>
     /// Support class that represents the constants to be used on the business layer
@@ -75,6 +77,11 @@
         /// Default Material Lot Form
         /// </summary>
         public const string MaterialLotForm = "Lot";
+
+        /// <summary>
+        /// Default Split Lot Counter on Name Generator
+        /// </summary>
+        public static string CustomNameGeneratorSplitLotCounter = "00";
 
         #endregion
 

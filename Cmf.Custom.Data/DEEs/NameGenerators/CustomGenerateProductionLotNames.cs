@@ -195,7 +195,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             generatedLotName.Append(newCounterValue);
 
             // Split Lot counter identifier
-            generatedLotName.Append("00");
+            generatedLotName.Append(AMSOsramConstants.CustomNameGeneratorSplitLotCounter);
 
             // Convert the counter value to Integer
             string lastCounterValue = string.Empty;
