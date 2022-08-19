@@ -19,5 +19,20 @@
         /// Rule
         /// </summary>
         public string Rule { get; set; }
+
+        /// <summary>
+        /// QueueMessage
+        /// </summary>
+        public bool QueueMessage { get; set; }
+
+        /// <summary>
+        /// CompressMessage
+        /// </summary>
+        public bool CompressMessage { get; set; }
+
+        /// <summary>
+        /// TextMessage
+        /// </summary>
+        public bool TextMessage { get; set; }
     }
 }

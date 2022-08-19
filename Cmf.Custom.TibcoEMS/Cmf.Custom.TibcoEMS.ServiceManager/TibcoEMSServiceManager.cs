@@ -149,6 +149,15 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                     // Action name
                     string actionName = this.TibcoResolveConfigurations[subject].Rule;
 
+                    // QueueMessage
+                    bool queueMessage = this.TibcoResolveConfigurations[subject].QueueMessage;
+
+                    // CompressMessage
+                    bool compressMessage = this.TibcoResolveConfigurations[subject].CompressMessage;
+
+                    // TextMessage
+                    bool textMessage = this.TibcoResolveConfigurations[subject].TextMessage;
+
                     // Message to send
                     string messageData = message.Data;
 
@@ -181,7 +190,12 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                             }
                         }
 
-                        this.SendMessageToTibco(topicName, messageData);
+                        this.Logger.LogInformation("Sending message to Tibco...");
+
+                        this.Logger.LogInformation($"MessageBus MessageID: {message.Id}");
+
+                        // Send Message to Tibco
+                        this.SendMessageToTibco(messageData, topicName, queueMessage, compressMessage, textMessage);
 
                         this.MessageBusTransport.Reply(message, "Ok");
 
@@ -264,9 +278,9 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         }
 
         /// <summary>
-        /// Subscribe topic and send message to Tibco
+        /// Subscribe topic or queue and send message to Tibco
         /// </summary>
-        private void SendMessageToTibco(string topicName, string messageData)
+        private void SendMessageToTibco(string messageData, string topicName, bool queueMessage, bool compressMessage, bool textMessage)
         {
             this.Logger.LogInformation("Checking connection to Tibco...");
 
@@ -285,26 +299,70 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
 
                 // Create Tibco session and associate to the connection 
                 this.Logger.LogInformation("Creating Tibco Session...");
-
                 this.TibcoSession = this.TibcoConnection.CreateSession(false, SessionMode.AutoAcknowledge);
             }
 
             this.Logger.LogInformation("Tibco is connected...");
 
-            // Create topic on Tibco session
-            Topic tibcoTopic = this.TibcoSession.CreateTopic(topicName);
+            // Tibco Message Producer
+            MessageProducer tibcoMessageProducer;
 
-            // Create message produce on Tibco session
-            MessageProducer tibcoMessageProducer = this.TibcoSession.CreateProducer(tibcoTopic);
+            // Tibco Queue
+            Queue tibcoQueue;
 
-            // Create Tibco Map Message
-            MapMessage tibcoMessage = this.TibcoSession.CreateMapMessage();
-            tibcoMessage.SetStringProperty("field", messageData);
+            // Tibco Topic
+            Topic tibcoTopic;
 
-            // Send Message to Tibco
-            this.Logger.LogInformation("Sending message to Tibco...");
+            if (queueMessage || textMessage)
+            {
+                this.Logger.LogInformation($"Create Queue with name {topicName} on Tibco Session...");
 
-            tibcoMessageProducer.Send(tibcoMessage);
+                // Create queue on Tibco session
+                tibcoQueue = this.TibcoSession.CreateQueue(topicName);
+
+                // Create message produce on Tibco session
+                tibcoMessageProducer = this.TibcoSession.CreateProducer(tibcoQueue);
+            }
+            else
+            {
+                this.Logger.LogInformation($"Create Topic with name {topicName} on Tibco Session...");
+
+                // Create topic on Tibco session
+                tibcoTopic = this.TibcoSession.CreateTopic(topicName);
+
+                // Create message produce on Tibco session
+                tibcoMessageProducer = this.TibcoSession.CreateProducer(tibcoTopic);
+            }
+
+            if (textMessage)
+            {
+                // Create Tibco Text Message
+                TextMessage tibcoTextMessage = this.TibcoSession.CreateTextMessage();
+                tibcoTextMessage.SetBooleanProperty("JMS_TIBCO_COMPRESS", compressMessage);
+                tibcoTextMessage.SetStringProperty("field", messageData);
+
+                this.Logger.LogInformation("Sending Text Message to Tibco...");
+
+                // Send Message to Tibco
+                tibcoMessageProducer.Send(tibcoTextMessage);
+
+                // Log MessageID
+                this.Logger.LogInformation($"TextMessageID: {tibcoTextMessage.MessageID}");
+            }
+            else
+            {
+                // Create Tibco Map Message
+                MapMessage tibcoMapMessage = this.TibcoSession.CreateMapMessage();
+                tibcoMapMessage.SetStringProperty("field", messageData);
+
+                this.Logger.LogInformation("Sending Map Message to Tibco...");
+
+                // Send Message to Tibco
+                tibcoMessageProducer.Send(tibcoMapMessage);
+
+                // Log MessageID
+                this.Logger.LogInformation($"MapMessageID: {tibcoMapMessage.MessageID}");
+            }
 
             // Close Message Producer after send Message to Tibco
             tibcoMessageProducer.Close();

@@ -6,6 +6,7 @@ The details for each Equipment Type is available in the sections:
 * [Mechatronic MWS200](/AMSOsram/techspec>connectiot>iotequipmenttypes>MechatronicMWS200)
 * [Muetec DaVinci](/AMSOsram/techspec>connectiot>iotequipmenttypes>MuetecDaVinci)
 * [Nice Label](/AMSOsram/techspec>connectiot>iotequipmenttypes>niceLabel)
+* [Omega Plasma](/AMSOsram/techspec>connectiot>iotequipmenttypes>OmegaPlasma)
 * [Trymax NEO](/AMSOsram/techspec>connectiot>iotequipmenttypes>TrymaxNEO)
 
 
