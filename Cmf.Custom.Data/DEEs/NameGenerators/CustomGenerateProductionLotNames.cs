@@ -2,7 +2,6 @@ using Cmf.Common.CustomActionUtilities;
 using Cmf.Custom.AMSOsram.Common;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.GenericTables;
-using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.Common;
 using Cmf.Foundation.Configuration;
 using Cmf.Navigo.BusinessObjects;
@@ -23,11 +22,13 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             #region Info
 
             /* Description:
-             *      DEE action used to generate new Lot Names.
+             *    DEE Action used to generate new Lot names.
+             *      - The lot names will be generated based on ProductionLine Product attribute.
+             *      - The 6-digits counter will only use the alphanumeric digits defined in the Config.
              *
              * Action Groups:
              *      N/A.
-            */
+             */
 
             #endregion
 
@@ -41,6 +42,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
 
                 if (material != null && material.Product != null)
                 {
+                    // Set ProductLine Product attribute
                     if (material.Product.HasRelatedAttribute(AMSOsramConstants.ProductAttributeProductionLine, true))
                     {
                         productionLine = material.Product.GetRelatedAttributeValue(AMSOsramConstants.ProductAttributeProductionLine) as string;
@@ -53,12 +55,14 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
 
                 if (!string.IsNullOrWhiteSpace(productionLine))
                 {
+                    // Load Generic Table CustomProductionLineConversion
                     GenericTable customProdLineConversionGT = new GenericTable() { Name = AMSOsramConstants.GenericTableCustomProductionLineConversion };
                     customProdLineConversionGT.Load();
 
-                    customProdLineConversionGT.LoadData(new FilterCollection()
+                    // Based on ProductLine Product attribute get Site and Facility name from Generic Table
+                    customProdLineConversionGT.LoadData(new Foundation.BusinessObjects.QueryObject.FilterCollection()
                     {
-                        new Filter()
+                        new Foundation.BusinessObjects.QueryObject.Filter()
                         {
                             Name = AMSOsramConstants.GenericTableCustomProductionLineConversionProductionLineProperty,
                             Operator = FieldOperator.IsEqualTo,
@@ -71,13 +75,18 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                     {
                         DataSet prodLineConversionDataSet = NgpDataSet.ToDataSet(customProdLineConversionGT.Data);
 
+                        // Set Site associated to ProductionLine attribute to Context 
                         ApplicationContext.CallContext.SetInformationContext("SiteName", prodLineConversionDataSet.Tables[0].Rows[0][AMSOsramConstants.GenericTableCustomProductionLineConversionSiteProperty]);
+
+                        // Set Facility associated to ProductionLine attribute to Context 
                         ApplicationContext.CallContext.SetInformationContext("FacilityName", prodLineConversionDataSet.Tables[0].Rows[0][AMSOsramConstants.GenericTableCustomProductionLineConversionFacilityProperty]);
 
-                        if (Config.TryGetConfig(AMSOsramConstants.DefaultProductionLotNameAllowedDigits, out Config prodLotNameAllowedDigitsConfig) &&
-                            !string.IsNullOrWhiteSpace(prodLotNameAllowedDigitsConfig.GetConfigValue<string>()))
+                        // Get alphanumeric allowed digits from Config
+                        if (Config.TryGetConfig(AMSOsramConstants.DefaultProductionLotNameAlphanumericAllowedDigits, out Config prodLotNameAplhanumericAllowedDigitsConfig) &&
+                            !string.IsNullOrWhiteSpace(prodLotNameAplhanumericAllowedDigitsConfig.GetConfigValue<string>()))
                         {
-                            ApplicationContext.CallContext.SetInformationContext("AlphanumericAllowedDigits", prodLotNameAllowedDigitsConfig.GetConfigValue<string>());
+                            // Set alphanumeric allowed digits Config value to Context 
+                            ApplicationContext.CallContext.SetInformationContext("AlphanumericAllowedDigits", prodLotNameAplhanumericAllowedDigitsConfig.GetConfigValue<string>());
 
                             canExecute = true;
                         }
@@ -94,92 +103,99 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
         {
             //---Start DEE Code---
 
+            UseReference("", "System.Data");
+            UseReference("", "System.Text");
+
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
+            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration");
+            UseReference("", "Cmf.Foundation.BusinessObjects.GenericTables");
             UseReference("", "Cmf.Foundation.Common");
+            UseReference("", "Cmf.Foundation.Common.Exceptions");
+
             UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
+
+            UseReference("Cmf.Common.CustomActionUtilities.dll", "Cmf.Common.CustomActionUtilities");
+
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
 
             // Load Name Generator
             NameGenerator customGenProdLotNamesNG = new NameGenerator() { Name = AMSOsramConstants.CustomGenerateProductionLotNames };
             customGenProdLotNamesNG.Load();
 
-            // Get Site Name from Context
+            // Get Site name from Context
             string siteName = ApplicationContext.CallContext.GetInformationContext("SiteName") as string;
 
-            // Get Facility Name from Context
+            // Get Facility name from Context
             string facilityName = ApplicationContext.CallContext.GetInformationContext("FacilityName") as string;
 
-            // Get Allowed Digits from Context
-            string allowedDigits = ApplicationContext.CallContext.GetInformationContext("AlphanumericAllowedDigits") as string;
+            // Get alphanumeric allowed digits from Context
+            string alphanumericAllowedDigits = ApplicationContext.CallContext.GetInformationContext("AlphanumericAllowedDigits") as string;
 
             // Lot Name Generator builder
-            StringBuilder nameLotGenerated = new StringBuilder();
+            StringBuilder generatedLotName = new StringBuilder();
 
             // Site name identifier
-            nameLotGenerated.Append(siteName.Substring(0, 1));
+            generatedLotName.Append(siteName.Substring(0, 1));
 
             // Facility name identifier
-            nameLotGenerated.Append(facilityName.Substring(0, 1));
+            generatedLotName.Append(facilityName.Substring(0, 1));
 
             // Context key
-            string contextKey = nameLotGenerated.ToString();
+            string contextKey = generatedLotName.ToString();
 
             // Load Current Context associated to Name Generator
             GeneratorContext contextNG = null;
             customGenProdLotNamesNG.LoadGeneratorContexts(out int totalRows);
             contextNG = customGenProdLotNamesNG.Contexts.FirstOrDefault(ng => ng.Context == contextKey);
 
-            string counterValue = string.Empty;
+            // Counter based on ASCII Table
+            string currentCounterValue = string.Empty;
 
             if (contextNG != null)
             {
-                // Counter based on ASCII Table
-                counterValue = string.Format("{0:000000000000}", contextNG.LastCounterValue);
+                // Get last counter value from NG Context
+                currentCounterValue = string.Format("{0:000000000000}", contextNG.LastCounterValue);
             }
             else
             {
-                /* Based on ASCII Table:
-                 *  - Dec: 48 is equals to Char: 0
-                 *  - Default: "48 48 48 48 48 48" => "0 0 0 0 0 0"
-                 */
-                counterValue = "484848484848";
+                // - Int: 48 is equals to Char: 0
+                // - Default: "48 48 48 48 48 48" => "0 0 0 0 0 0"
+                currentCounterValue = "484848484848";
             }
 
             // Get Char value from the Substring Decimal value
-            char firstDigit = Convert.ToChar(Convert.ToInt32(counterValue.Substring(0, 2)));
-            char secondDigit = Convert.ToChar(Convert.ToInt32(counterValue.Substring(2, 2)));
-            char thirdDigit = Convert.ToChar(Convert.ToInt32(counterValue.Substring(4, 2)));
-            char fourthDigit = Convert.ToChar(Convert.ToInt32(counterValue.Substring(6, 2)));
-            char fifthDigit = Convert.ToChar(Convert.ToInt32(counterValue.Substring(8, 2)));
-            char sixthDigit = Convert.ToChar(Convert.ToInt32(counterValue.Substring(10, 2)));
+            char firstDigit = Convert.ToChar(Convert.ToInt32(currentCounterValue.Substring(0, 2)));
+            char secondDigit = Convert.ToChar(Convert.ToInt32(currentCounterValue.Substring(2, 2)));
+            char thirdDigit = Convert.ToChar(Convert.ToInt32(currentCounterValue.Substring(4, 2)));
+            char fourthDigit = Convert.ToChar(Convert.ToInt32(currentCounterValue.Substring(6, 2)));
+            char fifthDigit = Convert.ToChar(Convert.ToInt32(currentCounterValue.Substring(8, 2)));
+            char sixthDigit = Convert.ToChar(Convert.ToInt32(currentCounterValue.Substring(10, 2)));
 
             string newCounterValue = $"{firstDigit}{secondDigit}{thirdDigit}{fourthDigit}{fifthDigit}{sixthDigit}";
 
             bool addValue = true;
 
-            // Calculate new counter Value
+            // Calculate new Counter Value using alphanumeric allowed digits
             for (int i = newCounterValue.Length - 1; i >= 0 && addValue; i--)
             {
-                int position = allowedDigits.IndexOf(newCounterValue[i]);
+                int position = alphanumericAllowedDigits.IndexOf(newCounterValue[i]);
 
-                if (position != (allowedDigits.Length - 1))
+                if (position != (alphanumericAllowedDigits.Length - 1))
                 {
-                    newCounterValue = newCounterValue.Remove(i, 1).Insert(i, allowedDigits[position + 1].ToString());
+                    newCounterValue = newCounterValue.Remove(i, 1).Insert(i, alphanumericAllowedDigits[position + 1].ToString());
                     addValue = false;
                 }
                 else
                 {
-                    newCounterValue = newCounterValue.Remove(i, 1).Insert(i, allowedDigits[0].ToString());
+                    newCounterValue = newCounterValue.Remove(i, 1).Insert(i, alphanumericAllowedDigits[0].ToString());
                 }
             }
 
             // 6-digits Counter Value identifier
-            nameLotGenerated.Append(newCounterValue);
+            generatedLotName.Append(newCounterValue);
 
             // Split Lot counter identifier
-            nameLotGenerated.Append("00");
+            generatedLotName.Append("00");
 
             // Convert the counter value to Integer
             string lastCounterValue = string.Empty;
@@ -207,13 +223,12 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                 });
             }
 
-            Input.Add("Result", nameLotGenerated.ToString());
+            // Set generated Lot name to returned Collection
+            Input.Add("Result", generatedLotName.ToString());
 
             //---End DEE Code---
 
             return Input;
-
         }
-
     }
 }

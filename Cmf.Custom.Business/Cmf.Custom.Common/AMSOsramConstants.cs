@@ -624,9 +624,9 @@
         public static string DefaultSpaceProtocol = "/AMSOsram/Protocol/Space";
 
         /// <summary>
-        /// Default alphanumeric digits allowed on ProductionLotName Name Generator
+        /// Alphanumeric allowed digits on ProductionLotName Name Generator
         /// </summary>
-        public static string DefaultProductionLotNameAllowedDigits = "/AMSOsram/NameGenerators/ProductionLotNameAllowedDigits";
+        public static string DefaultProductionLotNameAlphanumericAllowedDigits = "/AMSOsram/NameGenerators/ProductionLotName/AlphanumericAllowedDigits";
 
         #endregion
 
