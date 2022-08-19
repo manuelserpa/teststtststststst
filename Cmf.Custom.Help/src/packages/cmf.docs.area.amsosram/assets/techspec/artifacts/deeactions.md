@@ -1,11 +1,11 @@
-﻿# DEE Actions
+# DEE Actions
 
 ## Custom DEE Actions
 
 The following DEE Actions were created to support customer requirements.
 
-| DEE Action | Description |
-| ---------- | ----------- |
+| DEE Action                     | Description       |
+| ------                    | ------            |
 | [CustomAssociateSorterJobDefinitionToContextTable](/AMSOsram/techspec>artifacts>deeactions>CustomAssociateSorterJobDefinitionToContextTable) | DEE action to create CustomSorterJobDefinition and associate to the context on CustomSorterJobDefinitionContext smart table. |
 | [CustomAutomationAdjustLoadPortState](/AMSOsram/techspec>artifacts>deeactions>CustomAutomationAdjustLoadPortState) | This DEE Action is triggered by IoT Automation in order to adjust the state of a Load Port. |
 | [CustomAutomationGetRecipeBody](/AMSOsram/techspec>artifacts>deeactions>CustomAutomationGetRecipeBody) | This DEE is responsible for validating the Recipe and return the RecipeBody, the RecipeNameOnEquipment and RecipeName of a given Recipe. |
@@ -29,3 +29,5 @@ The following DEE Actions were created to support customer requirements.
 | [Custom Send Process Message](/AMSOsram/techspec>artifacts>deeactions>CustomSendProcessMessage) | Brief DEE Action description |
 | [CustomSendTrackInInformationToIoT](/AMSOsram/techspec>artifacts>deeactions>CustomSendTrackInInformationToIoT) | DEE action to Trigger IoT call to send the Materials TrackIn related information. |
 | [CustomSendTrackOutInformationToIoT](/AMSOsram/techspec>artifacts>deeactions>CustomSendTrackOutInformationToIoT) | DEE action to Trigger IoT call to send the Materials Track Out related information. |
+
+
