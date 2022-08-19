@@ -597,8 +597,6 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             // Validate created Wafers
             ValidateCreatedWafers(incomingLot.Material.Wafers);
-
-            this.materials.Add(createdLot);
         }
 
         /// <summary>
@@ -643,7 +641,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             // Validate throw Message associated to Integration Entry
             string localizedMessage = string.Format(CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageCustomProductionOrderDoesNotExists));
-            StringAssert.Contains(integrationEntry.ResultDescription, localizedMessage, "The returned message is not as expected.");
+            StringAssert.Contains(integrationEntry.ResultDescription, string.Format(localizedMessage, incomingLot.Material.ProductionOrder), "The returned message is not as expected.");
         }
 
         /// <summary>
@@ -685,35 +683,38 @@ namespace Cmf.Custom.Tests.Biz.ERP
         /// </summary>
         private void ValidateCreatedMaterial(MaterialData materialData, Material material)
         {
-            Assert.IsTrue(material.Name.Equals(materialData.Name), $"Material Name should be: {material.Name}, instead is: {materialData.Name}");
+            Assert.AreEqual(materialData.Name, material.Name, $"Material Name should be {materialData.Name}");
 
-            Assert.IsTrue(material.Product.Name.Equals(materialData.Product), $"Product Name should be: {material.Product.Name}, instead is: {materialData.Product}");
+            Assert.AreEqual(materialData.Product, material.Product.Name, $"Product Name should be {materialData.Product}");
 
-            Assert.IsTrue(material.Type.Equals(materialData.Type), $"Material Type should be: {material.Type}, instead is: {materialData.Type}");
+            Assert.AreEqual(materialData.Type, material.Type, $"Material Type should be {materialData.Type}");
 
-            Assert.IsTrue(material.CurrentMainState.StateModel.Name.Equals(materialData.StateModel), $"State Model should be: {material.CurrentMainState.StateModel.Name}, instead is: {materialData.StateModel}");
+            Assert.AreEqual(materialData.StateModel, material.CurrentMainState.StateModel.Name, $"State Model should be {materialData.StateModel}");
 
-            Assert.IsTrue(material.CurrentMainState.CurrentState.Name.Equals(materialData.State), $"Material State should be: {material.CurrentMainState.CurrentState.Name}, instead is: {materialData.State}");
+            Assert.AreEqual(materialData.State, material.CurrentMainState.CurrentState.Name, $"Material State should be {materialData.State}");
 
-            Assert.IsTrue(material.Form.Equals(materialData.Form), $"Material Form should be: {material.Form}, instead is: {materialData.Form}");
+            Assert.AreEqual(materialData.Form, material.Form, $"Material Form should be {materialData.Form}");
 
-            Assert.IsTrue(material.Facility.Name.Equals(materialData.Facility), $"Facility should be: {material.Facility.Name}, instead is: {materialData.Facility}");
+            Assert.AreEqual(materialData.Facility, material.Facility.Name, $"Facility should be {materialData.Facility}");
 
-            Assert.IsTrue(material.Flow.Name.Equals(materialData.Flow), $"Flow should be: {material.Flow.Name}, instead is: {materialData.Flow}");
+            Assert.AreEqual(materialData.Flow, material.Flow.Name, $"Flow should be {materialData.Flow}");
 
-            Assert.IsTrue(material.Step.Name.Equals(materialData.Step), $"Step should be: {material.Step.Name}, instead is: {materialData.Step}");
+            Assert.AreEqual(materialData.Step, material.Step.Name, $"Step should be {materialData.Step}");
 
-            Assert.IsTrue(material.PrimaryQuantity.Equals(materialData.PrimaryQuantity), $"Primary Quantity should be: {material.PrimaryQuantity}, instead is: {materialData.PrimaryQuantity}");
+            Assert.AreEqual(string.Format("{0:0.00}", materialData.PrimaryQuantity), string.Format("{0:0.00}", material.PrimaryQuantity), $"Primary Quantity should be {string.Format("{0:0.00}", materialData.PrimaryQuantity)}");
 
-            Assert.IsTrue(material.PrimaryUnits.Equals(materialData.PrimaryUnit), $"Primary Units should be: {material.PrimaryUnits}, instead is: {materialData.PrimaryUnit}");
+            Assert.AreEqual(materialData.PrimaryUnit, material.PrimaryUnits, $"Primary Units should be {materialData.PrimaryUnit}");
 
-            Assert.IsTrue(material.ProductionOrder.Name.Equals(materialData.ProductionOrder), $"Production Order should be: {material.ProductionOrder.Name}, instead is: {materialData.ProductionOrder}");
+            if (!string.IsNullOrWhiteSpace(materialData.ProductionOrder))
+            {
+                Assert.AreEqual(materialData.ProductionOrder, material.ProductionOrder.Name, $"Production Order should be {materialData.ProductionOrder}");
+            }
 
             if (material.Attributes.Count > 0 && materialData.MaterialAttributes.Count > 0)
             {
                 for (int i = 0; i < materialData.MaterialAttributes.Count; i++)
                 {
-                    Assert.IsTrue(material.AttributeEquals(materialData.MaterialAttributes[i].Name, materialData.MaterialAttributes[i].value), $"Sub-Material attribute {materialData.MaterialAttributes[i].Name} should have the value {materialData.MaterialAttributes[i].value}, but was {material.GetAttributeValue(materialData.MaterialAttributes[i].Name, string.Empty)}");
+                    Assert.IsTrue(material.AttributeEquals(materialData.MaterialAttributes[i].Name, materialData.MaterialAttributes[i].value), $"Sub-Material attribute {materialData.MaterialAttributes[i].Name} should have the value {materialData.MaterialAttributes[i].value}.");
                 }
             }
         }
