@@ -8,6 +8,15 @@
             "ValueType": "String"
         }
     },
+    "<SM>LookupTableValues": {
+        "1": {
+            "LookUp Table": "CustomProductionLines",
+            "Lookup Table Value Parent": "",
+            "Lookup Table Value": "",
+            "Lookup Table Value Description": "",
+            "Lookup Table IsEnabled": ""
+        }
+    },
     "<SM>EntityTypeProperty": {
         "1": {
             "EntityType": "Product",
@@ -33,15 +42,6 @@
             "DataGroup": "",
             "LoadToDWH": "",
             "LocalizedMessageKey": ""
-        }
-    },
-    "<SM>LookupTableValues": {
-        "1": {
-            "LookUp Table": "CustomProductionLines",
-            "Lookup Table Value Parent": "",
-            "Lookup Table Value": "",
-            "Lookup Table Value Description": "",
-            "Lookup Table IsEnabled": ""
         }
     },
     "<GT>GenericTable": {
@@ -77,7 +77,7 @@
             "Position": "",
             "Description": "Site Name",
             "DefaultValue": "",
-            "IsKey": "Yes",
+            "IsKey": "No",
             "IsMandatory": "Yes",
             "ScalarType": "String",
             "Size": "256",
@@ -94,7 +94,7 @@
             "Position": "",
             "Description": "Facility Name",
             "DefaultValue": "",
-            "IsKey": "Yes",
+            "IsKey": "No",
             "IsMandatory": "Yes",
             "ScalarType": "String",
             "Size": "256",
