@@ -43,6 +43,12 @@ namespace Cmf.Custom.Tests.Biz.Common.ERP.Material
         public string PrimaryUnit { get; set; }
 
         [XmlElement]
+        public string SecondaryQuantity { get; set; }
+
+        [XmlElement]
+        public string SecondaryUnit { get; set; }
+
+        [XmlElement]
         public string ProductionOrder { get; set; }
 
         [XmlArray("Attributes")]
