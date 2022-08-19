@@ -14,3 +14,4 @@ The following table describes the configuration entries created.
 | Mandatory                      | /AMSOsram/FDC/Mandatory/                         | Boolean      | False                          | FDC mandatory                                      |
 | Server                         | /AMSOsram/FDC/Server/                            | String       | lnx-klm37.int.osram-light.com  | FDC server                                         |
 | Port                           | /AMSOsram/FDC/Port/                              | Int          | 1600                           | FDC port                                           |
+| AlphanumericAllowedDigits | /AMSOsram/NameGenerators/ProductionLotName/AlphanumericAllowedDigits/ | String | 0123456789ACFHLMNRTUX | Alphanumeric allowed digits used on Production Lot Name Generator |
