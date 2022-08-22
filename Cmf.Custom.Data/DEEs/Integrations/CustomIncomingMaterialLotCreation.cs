@@ -42,7 +42,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             string certificateDataCollectionName = string.Empty;
             string certificateDataCollectionType = string.Empty;
-            string certificateLimitSetName = string.Empty;
+            string certificateLimitSetName = string.Empty; 
             bool hasCerticateDataCollection = false;
             bool hasWafersCertificateData = false;
 
@@ -173,10 +173,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 hasCerticateDataCollection = true;
             }
 
-            //hasWafersCertificateData = materialData.Wafers != null && materialData.Wafers.Any(wafer => wafer.MaterialEDCData != null && wafer.MaterialEDCData.Any());
             hasWafersCertificateData = WafersHasCertificateData(materialData.Wafers);
 
-            if ((hasCerticateDataCollection && !hasWafersCertificateData) || (!hasCerticateDataCollection && hasWafersCertificateData))
+            if (!hasCerticateDataCollection || !hasWafersCertificateData)
             {
                 AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomWrongCertificateConfiguration, incomingLot.Name);
             }
