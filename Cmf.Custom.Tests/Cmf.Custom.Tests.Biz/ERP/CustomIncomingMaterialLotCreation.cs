@@ -701,10 +701,10 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             Assert.AreEqual(materialData.Step, material.Step.Name, $"Step should be {materialData.Step}");
 
-            Assert.AreEqual(string.Format("{0:0.00}", materialData.PrimaryQuantity), string.Format("{0:0.00}", material.PrimaryQuantity), $"Primary Quantity should be {string.Format("{0:0.00}", materialData.PrimaryQuantity)}");
+            Assert.AreEqual(decimal.Parse(materialData.PrimaryQuantity), material.PrimaryQuantity, $"Primary Quantity should be {string.Format("{0:0.00}", materialData.PrimaryQuantity)}");
 
             Assert.AreEqual(materialData.PrimaryUnit, material.PrimaryUnits, $"Primary Units should be {materialData.PrimaryUnit}");
-
+            
             // Validate SecondaryQuantity and SecondaryUnits
             if (!string.IsNullOrWhiteSpace(materialData.SecondaryQuantity) && !string.IsNullOrWhiteSpace(materialData.SecondaryUnit))
             {
@@ -718,7 +718,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             {
                 Assert.AreEqual(materialData.ProductionOrder, material.ProductionOrder.Name, $"Production Order should be {materialData.ProductionOrder}");
             }
-
+            
             // Validate the Material Attributes
             if (material.Attributes.Count > 0 && materialData.MaterialAttributes.Count > 0)
             {

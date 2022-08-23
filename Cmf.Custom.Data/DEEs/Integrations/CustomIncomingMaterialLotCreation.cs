@@ -516,8 +516,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                             Name = wafer.Name,
                             Product = product,
                             Facility = parentMaterial.Facility,
-                            PrimaryQuantity = (wafer.Wafers.IsNullOrEmpty() ? 1 : wafer.Wafers.Count) * Convert.ToInt32(localWaferSizeParameter.Value),
-                            PrimaryUnits = product.DefaultUnits,
+                            PrimaryQuantity = decimal.Parse(wafer.PrimaryQuantity),
+                            PrimaryUnits = wafer.PrimaryUnit,
                             Form = wafer.Form,
                             Type = string.IsNullOrWhiteSpace(wafer.Type) ? parentMaterial.Type : wafer.Type
                         };

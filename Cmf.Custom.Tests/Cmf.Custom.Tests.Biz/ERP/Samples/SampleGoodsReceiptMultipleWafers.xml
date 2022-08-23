@@ -46,8 +46,6 @@
                         <Step>M2-SL-Wafer-Start-07301F001_E</Step>
                         <PrimaryQuantity>88</PrimaryQuantity>
                         <PrimaryUnit>CM2</PrimaryUnit>
-                        <SecondaryQuantity>3768</SecondaryQuantity>
-                        <SecondaryUnit>CM2</SecondaryUnit>
                         <Attributes>
                             <key name="GoodsReceiptNo" value="55"/>
                             <key name="GoodsReceiptDate" value="12.07.2022"/>
