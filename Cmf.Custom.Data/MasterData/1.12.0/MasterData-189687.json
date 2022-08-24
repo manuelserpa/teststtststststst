@@ -7,6 +7,13 @@
             "CodeFileRelativePath": "Integrations\\CustomIncomingMaterialLotCreation.cs",
             "IsEnabled": "Yes",
             "Classification": ""
+        },
+		"2": {
+            "Action": "CustomReportEDCToSpaceHandler",
+            "Description": "Action to validate DataCollection and create a XML message to be sent to Space system.",
+            "CodeFileRelativePath": "Space\\CustomReportEDCToSpaceHandler.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
         }
     },
     "DEEActionOrder": {}
