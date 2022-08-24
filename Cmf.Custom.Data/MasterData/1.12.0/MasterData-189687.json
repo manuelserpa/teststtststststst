@@ -16,5 +16,16 @@
             "Classification": ""
         }
     },
-    "DEEActionOrder": {}
+    "DEEActionOrder": {
+		"1": {
+		  "ActionGroup": "BusinessObjects.DataCollectionInstance.PerformImmediate.Post",
+		  "Action": "CustomReportEDCToSpaceHandler",
+		  "Order": "100"
+		},
+		"2": {
+		  "ActionGroup": "BusinessObjects.DataCollectionInstance.Close.Post",
+		  "Action": "CustomReportEDCToSpaceHandler",
+		  "Order": "100"
+		}
+	}
 }
