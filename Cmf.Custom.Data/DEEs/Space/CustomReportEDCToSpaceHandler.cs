@@ -32,28 +32,37 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             /// Exceptions:
             /// </summary>
             #endregion
+            bool canExecute = false;
+            bool reportEDCToSpace = true;
 
             if (Input != null)
             {
+                // If this DEE Action was called from CustomIncomingMaterialLotCreation, we don't want to report the EDC data to Space
+                if ((bool?)ApplicationContext.CallContext.GetInformationContext("ReportEDCToSpace") == false)
+                {
+                    reportEDCToSpace = false;
+                }
+
                 // Get DataCollectionInstance from Input
                 DataCollectionInstance dataCollectionInstance = AMSOsramUtilities.GetInputItem<DataCollectionInstance>(Input, Navigo.Common.Constants.DataCollectionInstance);
 
                 // Check if Input data returns DataCollection and associated DataCollection Limit Sets
-                if (dataCollectionInstance != null && dataCollectionInstance.DataCollectionLimitSet != null)
+                if (reportEDCToSpace && dataCollectionInstance != null && dataCollectionInstance.DataCollectionLimitSet != null)
                 {
                     // Load DataCollection Step
                     dataCollectionInstance.Step.Load();
 
                     // Check if step needs Space Confirmation
-                    if (dataCollectionInstance.Step.HasAttribute(AMSOsramConstants.StepAttributeRequiresSpaceConfirmation, true))
+                    if (dataCollectionInstance.Step.HasAttribute(AMSOsramConstants.StepAttributeRequiresSpaceConfirmation, true) &&
+                        (bool)dataCollectionInstance.Step.GetAttributeValue(AMSOsramConstants.StepAttributeRequiresSpaceConfirmation))
                     {
                         // The Action only executed if Step needs Space confirmation
-                        return (bool)dataCollectionInstance.Step.GetAttributeValue(AMSOsramConstants.StepAttributeRequiresSpaceConfirmation);
+                        canExecute = true;
                     }
                 }
             }
 
-            return false;
+            return canExecute;
 
             //---End DEE Condition Code---
         }
