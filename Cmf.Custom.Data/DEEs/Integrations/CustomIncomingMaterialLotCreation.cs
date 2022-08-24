@@ -2,6 +2,7 @@
 using Cmf.Custom.AMSOsram.Common;
 using Cmf.Custom.AMSOsram.Common.ERP;
 using Cmf.Foundation.BusinessObjects;
+using Cmf.Foundation.Common;
 using Cmf.Navigo.BusinessObjects;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             // Load Integration Entry
             IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, Foundation.Common.Constants.IntegrationEntry);
-
+            
             // Cast Integation Entry Message to string
             string message = Encoding.UTF8.GetString(integrationEntry.IntegrationMessage.Message);
 
@@ -42,7 +43,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             string certificateDataCollectionName = string.Empty;
             string certificateDataCollectionType = string.Empty;
-            string certificateLimitSetName = string.Empty;
+            string certificateLimitSetName = string.Empty; 
             bool hasCerticateDataCollection = false;
             bool hasWafersCertificateData = false;
 
@@ -185,10 +186,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 hasCerticateDataCollection = true;
             }
 
-            //hasWafersCertificateData = materialData.Wafers != null && materialData.Wafers.Any(wafer => wafer.MaterialEDCData != null && wafer.MaterialEDCData.Any());
             hasWafersCertificateData = WafersHasCertificateData(materialData.Wafers);
 
-            if ((hasCerticateDataCollection && !hasWafersCertificateData) || (!hasCerticateDataCollection && hasWafersCertificateData))
+            if (!hasCerticateDataCollection || !hasWafersCertificateData)
             {
                 AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomWrongCertificateConfiguration, incomingLot.Name);
             }
@@ -428,6 +428,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
                 if (certificateDataCollection != null && waferEDCData != null && waferEDCData.Any())
                 {
+                    // In this case we do not want to report the EDC data to SPACE
+                    ApplicationContext.CallContext.SetInformationContext("ReportEDCToSpace", false);
+
                     DataCollectionInstance certificateDataCollectionInstance = AMSOsramUtilities.PerformCertificateDataCollection(wafer, certificateDataCollection, certificateLimitSet, certificateDataCollectionType, waferEDCData);
 
                     if (certificateLimitSet != null && AMSOsramUtilities.IsDataCollectionLimiSetViolated(certificateDataCollectionInstance))

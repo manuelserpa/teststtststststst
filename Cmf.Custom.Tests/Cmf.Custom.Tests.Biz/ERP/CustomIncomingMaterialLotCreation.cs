@@ -339,7 +339,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
             ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
             expectedErrorMessage = $"The lot {lotName} contains 1 wafers instead of 0";
-            Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+            Assert.IsTrue(ie.ResultDescription != null && ie.ResultDescription.Contains(expectedErrorMessage), 
+                $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
         }
 
         /// <summary>
@@ -361,7 +362,6 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string lotMessageSample = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptUncertificated.xml");
             GoodsReceiptCertificate lotMessage = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(lotMessageSample);
             string lotName = lotMessage.Material.Name = Guid.NewGuid().ToString("N");
-            string waferlName = lotMessage.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
 
             ///<Step> Send ERP Message </Step>
             customExecutionScenario.SmartTablesToClearInSetup = new List<string> { "MaterialDataCollectionContext" };
@@ -404,7 +404,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
             IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
             string expectedErrorMessage = $"The material {lotName} step can not be changed to {lotMessage.Material.Step}";
-            Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+            Assert.IsTrue(ie.ResultDescription != null && ie.ResultDescription.Contains(expectedErrorMessage), 
+                $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
         }
 
         /// <summary>
@@ -424,7 +425,6 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string lotMessageSample = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptUncertificated.xml");
             GoodsReceiptCertificate lotMessage = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(lotMessageSample);
             string lotName = lotMessage.Material.Name = Guid.NewGuid().ToString("N");
-            string waferlName = lotMessage.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
 
             ///<Step> Send ERP Message </Step>
             customExecutionScenario.SmartTablesToClearInSetup = new List<string> { "MaterialDataCollectionContext" };
@@ -436,7 +436,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
             IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
             string expectedErrorMessage = $"The material {lotName} certification configuration is missing the certificate or the EDC Data.";
-            Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+            Assert.IsTrue(ie.ResultDescription != null && ie.ResultDescription.Contains(expectedErrorMessage), 
+                $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
         }
 
         /// <summary>
@@ -467,7 +468,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
             IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
             string expectedErrorMessage = $"The material {lotName} certification configuration is missing the certificate or the EDC Data.";
-            Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+            Assert.IsTrue(ie.ResultDescription != null && ie.ResultDescription.Contains(expectedErrorMessage), 
+                $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
         }
 
         /// <summary>
@@ -489,7 +491,6 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string lotMessageSample = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptUncertificated.xml");
             GoodsReceiptCertificate lotMessage = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(lotMessageSample);
             string lotName = lotMessage.Material.Name = Guid.NewGuid().ToString("N");
-            string waferlName = lotMessage.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
 
             ///<Step> Send ERP Message </Step>
             customExecutionScenario.SmartTablesToClearInSetup = new List<string> { "MaterialDataCollectionContext" };
@@ -532,7 +533,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
             IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
             string expectedErrorMessage = $"The material {lotName} product can not be changed to {lotMessage.Material.Product}";
-            Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+            Assert.IsTrue(ie.ResultDescription != null && ie.ResultDescription.Contains(expectedErrorMessage),
+                $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
         }
 
         /// <summary>
@@ -645,6 +647,39 @@ namespace Cmf.Custom.Tests.Biz.ERP
         }
 
         /// <summary>
+        /// Description:
+        ///     - The MaterialDataCollectionContext has no configuration
+        ///     - Send a message to create a lot 
+        ///         - The Lot does not have information for the wafers
+        /// Acceptance Criteria:
+        ///     - Error message should be: Material {lotName} certification configuration is missing the certificate or the EDC Data.
+        /// </summary>
+        /// <TestCaseID>CustomIncomingMaterialLotCreation.CustomIncomingMaterialLotCreation_CreateLotERPMessage_ErrorNoSubMaterials</TestCaseID>
+        [TestMethod]
+        public void CustomIncomingMaterialLotCreation_CreateLotERPMessage_ErrorNoSubMaterials()
+        {
+            ///<Step> Prepare another message to create a lot with edc data </Step>
+            string lotMessageSample = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptWithoutWafer.xml");
+            GoodsReceiptCertificate lotMessage = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(lotMessageSample);
+            string lotName = lotMessage.Material.Name = Guid.NewGuid().ToString("N");
+
+            ///<Step> Send ERP Message </Step>
+            customExecutionScenario.SmartTablesToClearInSetup = new List<string> { "MaterialDataCollectionContext" };
+            customExecutionScenario.IsToSendIncomingMaterial = true;
+            customExecutionScenario.GoodsReceiptCertificate = lotMessage;
+            customExecutionScenario.Setup();
+
+            ///<ExpecteResult> Integration entry should not be processed </ExpecteResult>
+            IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
+            ie.Load();
+            string expectedErrorMessage = $"The material {lotName} certification configuration is missing the certificate or the EDC Data.";            
+            Assert.IsTrue(ie.ResultDescription != null && ie.ResultDescription.Contains(expectedErrorMessage), 
+                $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+        }
+
+        #region Help methods
+
+        /// <summary>
         /// Validate Created Wafers
         /// </summary>
         private void ValidateCreatedWafers(List<MaterialData> wafers)
@@ -728,5 +763,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
                 }
             }
         }
+
+        #endregion Help methods
     }
 }
