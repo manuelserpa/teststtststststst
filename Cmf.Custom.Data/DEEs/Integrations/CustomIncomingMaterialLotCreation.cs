@@ -133,7 +133,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 incomingLot.PrimaryUnits = materialData.PrimaryUnit;
                 //prod order exists checking
                 
-                if (!materialData.ProductionOrder.IsNullOrEmpty())
+                if (!string.IsNullOrWhiteSpace(materialData.ProductionOrder))
                 {
                     ProductionOrder prodOrder = new ProductionOrder();
                     prodOrder.Name = materialData.ProductionOrder;
