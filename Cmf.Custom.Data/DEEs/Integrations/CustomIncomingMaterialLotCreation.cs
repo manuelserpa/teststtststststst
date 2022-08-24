@@ -132,17 +132,21 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 incomingLot.PrimaryQuantity = decimal.Parse(materialData.PrimaryQuantity);
                 incomingLot.PrimaryUnits = materialData.PrimaryUnit;
                 //prod order exists checking
-                ProductionOrder prodOrder = new ProductionOrder();
-                prodOrder.Name = materialData.ProductionOrder;
-                if (prodOrder.ObjectExists())
+                
+                if (!materialData.ProductionOrder.IsNullOrEmpty())
                 {
-                    prodOrder.Load();
+                    ProductionOrder prodOrder = new ProductionOrder();
+                    prodOrder.Name = materialData.ProductionOrder;
+                    if (prodOrder.ObjectExists())
+                    {
+                        prodOrder.Load();
+                        incomingLot.ProductionOrder = prodOrder;
+                    }
+                    else
+                    {
+                        AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomProductionOrderDoesNotExists, prodOrder.Name);
+                    }
                 }
-                else
-                {
-                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomProductionOrderDoesNotExists, prodOrder.Name);
-                }
-                incomingLot.ProductionOrder = prodOrder;
 
                 Flow flow = product.Flow;
 
