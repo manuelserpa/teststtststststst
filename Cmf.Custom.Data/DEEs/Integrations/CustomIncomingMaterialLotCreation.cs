@@ -129,8 +129,24 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 incomingLot.Form = materialData.Form;
                 incomingLot.Type = materialData.Type;
                 incomingLot.Product = product;
-                incomingLot.PrimaryQuantity = materialData.Wafers.Count * Convert.ToInt32(waferSizeParameter.Value);
-                incomingLot.PrimaryUnits = product.DefaultUnits;
+                incomingLot.PrimaryQuantity = decimal.Parse(materialData.PrimaryQuantity);
+                incomingLot.PrimaryUnits = materialData.PrimaryUnit;
+                //prod order exists checking
+                
+                if (!string.IsNullOrWhiteSpace(materialData.ProductionOrder))
+                {
+                    ProductionOrder prodOrder = new ProductionOrder();
+                    prodOrder.Name = materialData.ProductionOrder;
+                    if (prodOrder.ObjectExists())
+                    {
+                        prodOrder.Load();
+                        incomingLot.ProductionOrder = prodOrder;
+                    }
+                    else
+                    {
+                        AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomProductionOrderDoesNotExists, prodOrder.Name);
+                    }
+                }
 
                 Flow flow = product.Flow;
 
@@ -507,8 +523,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                             Name = wafer.Name,
                             Product = product,
                             Facility = parentMaterial.Facility,
-                            PrimaryQuantity = (wafer.Wafers.IsNullOrEmpty() ? 1 : wafer.Wafers.Count) * Convert.ToInt32(localWaferSizeParameter.Value),
-                            PrimaryUnits = product.DefaultUnits,
+                            PrimaryQuantity = decimal.Parse(wafer.PrimaryQuantity),
+                            PrimaryUnits = wafer.PrimaryUnit,
                             Form = wafer.Form,
                             Type = string.IsNullOrWhiteSpace(wafer.Type) ? parentMaterial.Type : wafer.Type
                         };

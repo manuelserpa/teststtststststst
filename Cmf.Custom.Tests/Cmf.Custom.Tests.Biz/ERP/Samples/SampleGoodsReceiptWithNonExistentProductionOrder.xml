@@ -12,21 +12,14 @@
         <Step>M2-SL-Wafer-Start-07301F001_E</Step>
         <PrimaryQuantity>312</PrimaryQuantity>
         <PrimaryUnit>CM2</PrimaryUnit>
-        <ProductionOrder>CMFTestProductionOrder</ProductionOrder>
+        <ProductionOrder>CMFNonExistentProductionOrder</ProductionOrder>
         <Attributes>
             <key name="GoodsReceiptNo" value="5043575531"/>
         </Attributes>
         <SubMaterial>
             <Material>
                 <Name>L-108-84155-ZK21435-C112.1</Name>
-                <Product>11018814</Product>
-                <Type>Production</Type>
-                <StateModel>CustomMaterialStateModel</StateModel>
-                <State>Queued</State>
                 <Form>Logical Wafer</Form>
-                <Facility>Regensburg Production</Facility>
-                <Flow>FOL-UX3_EPA</Flow>
-                <Step>M2-SL-Wafer-Start-07301F001_E</Step>
                 <PrimaryQuantity>21</PrimaryQuantity>
                 <PrimaryUnit>CM2</PrimaryUnit>
                 <Attributes>
@@ -36,16 +29,7 @@
                 <SubMaterial>
                     <Material>
                         <Name>L-108-84155-ZK21435-C112.1.A</Name>
-                        <Product>11018814</Product>
-                        <Type>Production</Type>
-                        <StateModel>CustomMaterialStateModel</StateModel>
-                        <State>Queued</State>
                         <Form>Wafer</Form>
-                        <Facility>Regensburg Production</Facility>
-                        <Flow>FOL-UX3_EPA</Flow>
-                        <Step>M2-SL-Wafer-Start-07301F001_E</Step>
-                        <PrimaryQuantity>88</PrimaryQuantity>
-                        <PrimaryUnit>CM2</PrimaryUnit>
                         <Attributes>
                             <key name="GoodsReceiptNo" value="55"/>
                             <key name="GoodsReceiptDate" value="12.07.2022"/>

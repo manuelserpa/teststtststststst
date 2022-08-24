@@ -535,6 +535,10 @@
         /// </summary>
         public const string LocalizedMessageCustomMaterialObjectNull = "CustomMaterialObjectNull";
 
+        /// <summary>
+        /// Localized Message: LocalizedMessageProductionOrderDoesNotExists
+        /// </summary>
+        public const string LocalizedMessageCustomProductionOrderDoesNotExists = "CustomProductionOrderDoesNotExists";
         #endregion
 
         #region State Model
