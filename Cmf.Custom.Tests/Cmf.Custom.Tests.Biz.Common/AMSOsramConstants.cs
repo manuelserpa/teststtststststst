@@ -316,5 +316,14 @@
         public static string DefaultVendorContainerTypesConfig = "/AMSOsram/Container/VendorContainerTypes/";
 
         #endregion Configurations
+
+        #region Localized Messages
+
+        /// <summary>
+        /// Localized Message: CustomProductionOrderDoesNotExists
+        /// </summary>
+        public const string LocalizedMessageCustomProductionOrderDoesNotExists = "CustomProductionOrderDoesNotExists";
+
+        #endregion Localized Messages
     }
 }

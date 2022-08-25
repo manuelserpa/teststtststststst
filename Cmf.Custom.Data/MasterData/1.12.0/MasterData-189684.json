@@ -1,0 +1,25 @@
+{
+    "<SM>LocalizedMessageKey": {
+		"1": {
+		  "Name": "CustomProductionOrderDoesNotExists",
+		  "Description": "Error message to inform that the production order does not exists.",
+		  "MessageType": "Message",
+		  "en-US": "The production order does not exists",
+		  "de-DE": "",
+		  "zh-CN": "",
+		  "pt-PT": "",
+		  "zh-TW": "",
+		  "UsageType": "Biz"
+		}
+	},
+	"<SM>DEEAction": {
+        "1": {
+            "Action": "CustomIncomingMaterialLotCreation",
+            "Description": "Create Lots using information from ERP",
+            "CodeFileRelativePath": "Integrations\\CustomIncomingMaterialLotCreation.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        }
+    },
+    "DEEActionOrder": {}
+}

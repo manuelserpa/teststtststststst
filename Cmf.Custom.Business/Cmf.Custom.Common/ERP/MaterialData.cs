@@ -36,6 +36,16 @@ namespace Cmf.Custom.AMSOsram.Common.ERP
         [XmlElement]
         public string Step { get; set; }
 
+        [XmlElement]
+        public string PrimaryQuantity { get; set; }
+
+        [XmlElement]
+        public string PrimaryUnit { get; set; }
+
+        [XmlElement]
+        public string ProductionOrder { get; set; }
+
+
         [XmlArray("Attributes")]
         [XmlArrayItem("key")]
         public List<MaterialAttributes> MaterialAttributes { get; set; }

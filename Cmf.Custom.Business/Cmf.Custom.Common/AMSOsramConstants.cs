@@ -535,6 +535,11 @@
         /// </summary>
         public const string LocalizedMessageCustomMaterialObjectNull = "CustomMaterialObjectNull";
 
+        /// <summary>
+        /// Localized Message: LocalizedMessageProductionOrderDoesNotExists
+        /// </summary>
+        public const string LocalizedMessageCustomProductionOrderDoesNotExists = "CustomProductionOrderDoesNotExists";
+
         /// <summary> 
         /// Localized Message: Custom Localized Message CustomLocalizedMessageContainerCannotBeUndocked
         /// </summary>
