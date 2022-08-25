@@ -902,416 +902,6 @@
       "ObjectType": "Resource"
     }
   },
-  "AutomationEvent": {
-    "1": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "CONTROL_STATERemote",
-      "Description": "",
-      "DeviceEventId": "1",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "2": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "EquipmentOffline",
-      "Description": "",
-      "DeviceEventId": "2",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "3": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "MaterialReceived",
-      "Description": "",
-      "DeviceEventId": "3",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "4": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "MaterialRemoved",
-      "Description": "",
-      "DeviceEventId": "4",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "5": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "OperatorCommandIssued",
-      "Description": "",
-      "DeviceEventId": "6",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "6": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "ProcessingStateChange",
-      "Description": "",
-      "DeviceEventId": "11",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "7": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "ProcessingStopped",
-      "Description": "",
-      "DeviceEventId": "12",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "8": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "LPTSM6_READYTOLOAD_TRANSFERBLOCKED",
-      "Description": "",
-      "DeviceEventId": "9008",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "9": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "LPTSM7_READYTOUNLOAD_TRANSFERBLOCKED",
-      "Description": "",
-      "DeviceEventId": "9009",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "10": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "LPTSM8_TRANSFERBLOCKED_READYTOLOAD",
-      "Description": "",
-      "DeviceEventId": "9010",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "11": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "LPTSM9_TRANSFERBLOCKED_READYTOUNLOAD",
-      "Description": "",
-      "DeviceEventId": "9011",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "12": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "COSM1_NOSTATE_CARRIER",
-      "Description": "",
-      "DeviceEventId": "9013",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "13": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "COSM3_NOSTATE_IDWAITINGFORHOST",
-      "Description": "",
-      "DeviceEventId": "9015",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "14": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "COSM8_IDWAITINGFORHOST_IDVERIFICATIONOK",
-      "Description": "",
-      "DeviceEventId": "9020",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "15": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "COSM9_IDWAITINGFORHOST_IDVERIFICATIONFAIL",
-      "Description": "",
-      "DeviceEventId": "9021",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "16": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "COSM12_NOSTATE_SLOTMAPNOTREAD",
-      "Description": "",
-      "DeviceEventId": "9024",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "17": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "COSM14_SLOTMAPNOTREAD_SLOTMAPWAITINGFORHOST",
-      "Description": "",
-      "DeviceEventId": "9026",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "18": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "COSM15_SLOTMAPWAITINGFORHOST_SLOTMAPVERIFICATIONOK",
-      "Description": "",
-      "DeviceEventId": "9027",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "19": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "COSM17_NOSTATE_NOTACCESSED",
-      "Description": "",
-      "DeviceEventId": "9029",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "20": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "COSM21_CARRIER_NOSTATE",
-      "Description": "",
-      "DeviceEventId": "9033",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "21": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "LPCASM2_NOTASSOCIATED_ASSOCIATED",
-      "Description": "",
-      "DeviceEventId": "9042",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "22": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "LPCASM3_ASSOCIATED_NOTASSOCIATED",
-      "Description": "",
-      "DeviceEventId": "9043",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "23": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "CarrierClosed",
-      "Description": "",
-      "DeviceEventId": "9045",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "24": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "CarrierOpened",
-      "Description": "",
-      "DeviceEventId": "9046",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "25": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "CarrierLocationChange",
-      "Description": "",
-      "DeviceEventId": "9077",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "26": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "E87CarrierSubstratesCreated",
-      "Description": "",
-      "DeviceEventId": "9087",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "27": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "EPTStateChange",
-      "Description": "",
-      "DeviceEventId": "11601",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "28": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "EPTStateChange_[i]",
-      "Description": "",
-      "DeviceEventId": "11605",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "29": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "LightTowerStateChange",
-      "Description": "",
-      "DeviceEventId": "25002",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "30": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "POD_LOADED",
-      "Description": "",
-      "DeviceEventId": "50003",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "31": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "POD_UNLOADED",
-      "Description": "",
-      "DeviceEventId": "50004",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "32": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "POD_LOCKED",
-      "Description": "",
-      "DeviceEventId": "50005",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "33": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "POD_UNLOCKED",
-      "Description": "",
-      "DeviceEventId": "50006",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "34": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "POD_ARRIVED",
-      "Description": "",
-      "DeviceEventId": "50015",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "35": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "POD_REMOVED",
-      "Description": "",
-      "DeviceEventId": "50016",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "36": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "PJSetup",
-      "Description": "",
-      "DeviceEventId": "400101",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "37": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "PJProcessJobComplete",
-      "Description": "",
-      "DeviceEventId": "400105",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "38": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "PJAborted",
-      "Description": "",
-      "DeviceEventId": "400111",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "39": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "PJSM1_NOSTATE_QUEUED",
-      "Description": "",
-      "DeviceEventId": "400200",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "40": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "PJSM2_QUEUED_SETTINGUP",
-      "Description": "",
-      "DeviceEventId": "400201",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "41": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "PJSM7_PROCESSCOMPLETE_NOSTATE",
-      "Description": "",
-      "DeviceEventId": "400206",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "42": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "PJSM13_EXECUTING_ABORTING",
-      "Description": "",
-      "DeviceEventId": "400212",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "43": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "PJSM16_ABORTING_NOSTATE",
-      "Description": "",
-      "DeviceEventId": "400215",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "44": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "SOSM1_NOSTATE_ATSOURCE",
-      "Description": "",
-      "DeviceEventId": "900100",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "45": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "SOSM9_ANYSTATE_NOSTATE",
-      "Description": "",
-      "DeviceEventId": "900108",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "46": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "SOSM10_NOSTATE_NEEDSPROCESSING",
-      "Description": "",
-      "DeviceEventId": "900109",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "47": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "CJSM1_NOSTATE_QUEUED",
-      "Description": "",
-      "DeviceEventId": "940100",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "48": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "CJSM3_QUEUED_SELECTED",
-      "Description": "",
-      "DeviceEventId": "940102",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "49": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "CJSM5_SELECTED_EXECUTING",
-      "Description": "",
-      "DeviceEventId": "940104",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "50": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "CJSM12_ACTIVE_COMPLETED",
-      "Description": "",
-      "DeviceEventId": "940111",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    },
-    "51": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "CJSM13_COMPLETED_NOSTATE",
-      "Description": "",
-      "DeviceEventId": "940112",
-      "IsEnabled": "Yes",
-      "ExtendedData": ""
-    }
-  },
   "AutomationEventProperties": {
     "1": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1329,660 +919,746 @@
     },
     "3": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "OperatorCommandIssued",
-      "AutomationProperty": "OperatorCommand",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"2\",\"$id\":\"1\"}"
-    },
-    "4": {
-      "AutomationDriverDefinition": "UnitySCDriver",
       "AutomationEvent": "ProcessingStateChange",
       "AutomationProperty": "PROCESS_STATE",
       "Order": "1",
       "ExtendedData": "{\"reportId\":\"8\",\"$id\":\"1\"}"
     },
-    "5": {
+    "4": {
       "AutomationDriverDefinition": "UnitySCDriver",
       "AutomationEvent": "ProcessingStateChange",
       "AutomationProperty": "ProcessState",
       "Order": "2",
       "ExtendedData": "{\"reportId\":\"8\",\"$id\":\"1\"}"
     },
-    "6": {
+    "5": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "ProcessingStopped",
+      "AutomationEvent": "E87TransferBlocked2ReadytoUnload",
       "AutomationProperty": "PortID",
       "Order": "1",
-      "ExtendedData": "{\"reportId\":\"7\",\"$id\":\"1\"}"
+      "ExtendedData": "{\"reportId\":\"3070\",\"$id\":\"1\"}"
+    },
+    "6": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "AutomationEvent": "E87TransferBlocked2ReadytoUnload",
+      "AutomationProperty": "PortTransferState",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"3070\",\"$id\":\"1\"}"
     },
     "7": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "ProcessingStopped",
-      "AutomationProperty": "DataID",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"7\",\"$id\":\"1\"}"
+      "AutomationEvent": "E87NoState2WaitingForHost",
+      "AutomationProperty": "PortID",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
     },
     "8": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "LPTSM6_READYTOLOAD_TRANSFERBLOCKED",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3070\",\"$id\":\"1\"}"
+      "AutomationEvent": "E87NoState2WaitingForHost",
+      "AutomationProperty": "CarrierIDStatus",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
     },
     "9": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "LPTSM6_READYTOLOAD_TRANSFERBLOCKED",
-      "AutomationProperty": "PortTransferState",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3070\",\"$id\":\"1\"}"
+      "AutomationEvent": "E87NoState2WaitingForHost",
+      "AutomationProperty": "CarrierID",
+      "Order": "3",
+      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
     },
     "10": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "LPTSM7_READYTOUNLOAD_TRANSFERBLOCKED",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3070\",\"$id\":\"1\"}"
+      "AutomationEvent": "E87NoState2WaitingForHost",
+      "AutomationProperty": "SlotMapStatus",
+      "Order": "4",
+      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
     },
     "11": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "LPTSM7_READYTOUNLOAD_TRANSFERBLOCKED",
-      "AutomationProperty": "PortTransferState",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3070\",\"$id\":\"1\"}"
+      "AutomationEvent": "E87SlotMapNotRead2WaitingForHost",
+      "AutomationProperty": "PortID",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
     },
     "12": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "LPTSM8_TRANSFERBLOCKED_READYTOLOAD",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3070\",\"$id\":\"1\"}"
+      "AutomationEvent": "E87SlotMapNotRead2WaitingForHost",
+      "AutomationProperty": "CarrierID",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
     },
     "13": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "LPTSM8_TRANSFERBLOCKED_READYTOLOAD",
-      "AutomationProperty": "PortTransferState",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3070\",\"$id\":\"1\"}"
+      "AutomationEvent": "E87SlotMapNotRead2WaitingForHost",
+      "AutomationProperty": "ContentMap",
+      "Order": "4",
+      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
     },
     "14": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "LPTSM9_TRANSFERBLOCKED_READYTOUNLOAD",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3070\",\"$id\":\"1\"}"
+      "AutomationEvent": "E87SlotMapNotRead2WaitingForHost",
+      "AutomationProperty": "SlotMap",
+      "Order": "3",
+      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
     },
     "15": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "LPTSM9_TRANSFERBLOCKED_READYTOUNLOAD",
-      "AutomationProperty": "PortTransferState",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3070\",\"$id\":\"1\"}"
+      "AutomationEvent": "E90_Subst_NeedsProcessing2InProcess",
+      "AutomationProperty": "SubstID",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1\"}"
     },
     "16": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM1_NOSTATE_CARRIER",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
+      "AutomationEvent": "E90_Subst_NeedsProcessing2InProcess",
+      "AutomationProperty": "SubstLocID",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1\"}"
     },
     "17": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM1_NOSTATE_CARRIER",
-      "AutomationProperty": "CarrierIDStatus",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
+      "AutomationEvent": "E90_Subst_NeedsProcessing2InProcess",
+      "AutomationProperty": "SubstState",
+      "Order": "3",
+      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1\"}"
     },
     "18": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM1_NOSTATE_CARRIER",
-      "AutomationProperty": "CarrierID",
-      "Order": "3",
-      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
+      "AutomationEvent": "E90_Subst_NeedsProcessing2InProcess",
+      "AutomationProperty": "SubstProcState",
+      "Order": "4",
+      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1\"}"
     },
     "19": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM1_NOSTATE_CARRIER",
-      "AutomationProperty": "SlotMapStatus",
-      "Order": "4",
-      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
+      "AutomationEvent": "E90_Subst_NeedsProcessing2InProcess",
+      "AutomationProperty": "GemClock",
+      "Order": "5",
+      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1\"}"
     },
     "20": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM3_NOSTATE_IDWAITINGFORHOST",
-      "AutomationProperty": "PortID",
+      "AutomationEvent": "E90_Subst_InProcess2ProcessingComplete",
+      "AutomationProperty": "SubstID",
       "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
+      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1\"}"
     },
     "21": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM3_NOSTATE_IDWAITINGFORHOST",
-      "AutomationProperty": "CarrierIDStatus",
+      "AutomationEvent": "E90_Subst_InProcess2ProcessingComplete",
+      "AutomationProperty": "SubstLocID",
       "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
+      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1\"}"
     },
     "22": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM3_NOSTATE_IDWAITINGFORHOST",
-      "AutomationProperty": "CarrierID",
+      "AutomationEvent": "E90_Subst_InProcess2ProcessingComplete",
+      "AutomationProperty": "SubstState",
       "Order": "3",
-      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
+      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1\"}"
     },
     "23": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM3_NOSTATE_IDWAITINGFORHOST",
-      "AutomationProperty": "SlotMapStatus",
+      "AutomationEvent": "E90_Subst_InProcess2ProcessingComplete",
+      "AutomationProperty": "SubstProcState",
       "Order": "4",
-      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
+      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1\"}"
     },
     "24": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM8_IDWAITINGFORHOST_IDVERIFICATIONOK",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
+      "AutomationEvent": "E90_Subst_InProcess2ProcessingComplete",
+      "AutomationProperty": "GemClock",
+      "Order": "5",
+      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1\"}"
     },
     "25": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM8_IDWAITINGFORHOST_IDVERIFICATIONOK",
-      "AutomationProperty": "CarrierIDStatus",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
+      "AutomationEvent": "E90_ID_NotConfirmed2WaitingForHost2",
+      "AutomationProperty": "SubstID",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"3110\",\"$id\":\"1\"}"
     },
     "26": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM8_IDWAITINGFORHOST_IDVERIFICATIONOK",
-      "AutomationProperty": "CarrierID",
-      "Order": "3",
-      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
+      "AutomationEvent": "E90_ID_NotConfirmed2WaitingForHost2",
+      "AutomationProperty": "SubstLocID",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"3110\",\"$id\":\"1\"}"
     },
     "27": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM8_IDWAITINGFORHOST_IDVERIFICATIONOK",
-      "AutomationProperty": "SlotMapStatus",
-      "Order": "4",
-      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
+      "AutomationEvent": "E90_ID_NotConfirmed2WaitingForHost2",
+      "AutomationProperty": "SubstSource",
+      "Order": "3",
+      "ExtendedData": "{\"reportId\":\"3110\",\"$id\":\"1\"}"
     },
     "28": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM9_IDWAITINGFORHOST_IDVERIFICATIONFAIL",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
+      "AutomationEvent": "E90_ID_NotConfirmed2WaitingForHost2",
+      "AutomationProperty": "AcquiredID",
+      "Order": "4",
+      "ExtendedData": "{\"reportId\":\"3110\",\"$id\":\"1\"}"
     },
     "29": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM9_IDWAITINGFORHOST_IDVERIFICATIONFAIL",
-      "AutomationProperty": "CarrierIDStatus",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
+      "AutomationEvent": "E90_ID_NotConfirmed2WaitingForHost2",
+      "AutomationProperty": "GemClock",
+      "Order": "5",
+      "ExtendedData": "{\"reportId\":\"3110\",\"$id\":\"1\"}"
     },
     "30": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM9_IDWAITINGFORHOST_IDVERIFICATIONFAIL",
-      "AutomationProperty": "CarrierID",
-      "Order": "3",
-      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
+      "AutomationEvent": "E94_Selected2Executing",
+      "AutomationProperty": "CtrlJobID",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"3010\",\"$id\":\"1\"}"
     },
     "31": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM9_IDWAITINGFORHOST_IDVERIFICATIONFAIL",
-      "AutomationProperty": "SlotMapStatus",
-      "Order": "4",
-      "ExtendedData": "{\"reportId\":\"3020\",\"$id\":\"1\"}"
+      "AutomationEvent": "E94_Selected2Executing",
+      "AutomationProperty": "CtrlJobState",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"3010\",\"$id\":\"1\"}"
     },
     "32": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM12_NOSTATE_SLOTMAPNOTREAD",
-      "AutomationProperty": "PortID",
+      "AutomationEvent": "E94_Executing2Completed",
+      "AutomationProperty": "CtrlJobID",
       "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
+      "ExtendedData": "{\"reportId\":\"3010\",\"$id\":\"1\"}"
     },
     "33": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM12_NOSTATE_SLOTMAPNOTREAD",
-      "AutomationProperty": "CarrierID",
+      "AutomationEvent": "E94_Executing2Completed",
+      "AutomationProperty": "CtrlJobState",
       "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
+      "ExtendedData": "{\"reportId\":\"3010\",\"$id\":\"1\"}"
     },
     "34": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM12_NOSTATE_SLOTMAPNOTREAD",
-      "AutomationProperty": "ContentMap",
-      "Order": "3",
-      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange",
+      "AutomationProperty": "EPTState",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"4000\",\"$id\":\"1\"}"
     },
     "35": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM12_NOSTATE_SLOTMAPNOTREAD",
-      "AutomationProperty": "SlotMap",
-      "Order": "4",
-      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange",
+      "AutomationProperty": "PreviousEPTState",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"4000\",\"$id\":\"1\"}"
     },
     "36": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM14_SLOTMAPNOTREAD_SLOTMAPWAITINGFORHOST",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange",
+      "AutomationProperty": "EPTStateTime",
+      "Order": "3",
+      "ExtendedData": "{\"reportId\":\"4000\",\"$id\":\"1\"}"
     },
     "37": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM14_SLOTMAPNOTREAD_SLOTMAPWAITINGFORHOST",
-      "AutomationProperty": "CarrierID",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange",
+      "AutomationProperty": "TaskName",
+      "Order": "4",
+      "ExtendedData": "{\"reportId\":\"4000\",\"$id\":\"1\"}"
     },
     "38": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM14_SLOTMAPNOTREAD_SLOTMAPWAITINGFORHOST",
-      "AutomationProperty": "ContentMap",
-      "Order": "3",
-      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange",
+      "AutomationProperty": "TaskType",
+      "Order": "5",
+      "ExtendedData": "{\"reportId\":\"4000\",\"$id\":\"1\"}"
     },
     "39": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM14_SLOTMAPNOTREAD_SLOTMAPWAITINGFORHOST",
-      "AutomationProperty": "SlotMap",
-      "Order": "4",
-      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange",
+      "AutomationProperty": "PreviousTaskName",
+      "Order": "6",
+      "ExtendedData": "{\"reportId\":\"4000\",\"$id\":\"1\"}"
     },
     "40": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM15_SLOTMAPWAITINGFORHOST_SLOTMAPVERIFICATIONOK",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange",
+      "AutomationProperty": "PreviousTaskType",
+      "Order": "7",
+      "ExtendedData": "{\"reportId\":\"4000\",\"$id\":\"1\"}"
     },
     "41": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM15_SLOTMAPWAITINGFORHOST_SLOTMAPVERIFICATIONOK",
-      "AutomationProperty": "CarrierID",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange",
+      "AutomationProperty": "BlockedReason",
+      "Order": "8",
+      "ExtendedData": "{\"reportId\":\"4000\",\"$id\":\"1\"}"
     },
     "42": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM15_SLOTMAPWAITINGFORHOST_SLOTMAPVERIFICATIONOK",
-      "AutomationProperty": "ContentMap",
-      "Order": "3",
-      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange",
+      "AutomationProperty": "BlockedReasonText",
+      "Order": "9",
+      "ExtendedData": "{\"reportId\":\"4000\",\"$id\":\"1\"}"
     },
     "43": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM15_SLOTMAPWAITINGFORHOST_SLOTMAPVERIFICATIONOK",
-      "AutomationProperty": "SlotMap",
-      "Order": "4",
-      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_1",
+      "AutomationProperty": "EPTState_1",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"4010\",\"$id\":\"1\"}"
     },
     "44": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM17_NOSTATE_NOTACCESSED",
-      "AutomationProperty": "CarrierID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3040\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_1",
+      "AutomationProperty": "PreviousEPTState_1",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"4010\",\"$id\":\"1\"}"
     },
     "45": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM17_NOSTATE_NOTACCESSED",
-      "AutomationProperty": "CarrierAccessingStatus",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3040\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_1",
+      "AutomationProperty": "EPTStateTime_1",
+      "Order": "3",
+      "ExtendedData": "{\"reportId\":\"4010\",\"$id\":\"1\"}"
     },
     "46": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM21_CARRIER_NOSTATE",
-      "AutomationProperty": "CarrierID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3040\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_1",
+      "AutomationProperty": "TaskName_1",
+      "Order": "4",
+      "ExtendedData": "{\"reportId\":\"4010\",\"$id\":\"1\"}"
     },
     "47": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "COSM21_CARRIER_NOSTATE",
-      "AutomationProperty": "CarrierAccessingStatus",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3040\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_1",
+      "AutomationProperty": "TaskType_1",
+      "Order": "5",
+      "ExtendedData": "{\"reportId\":\"4010\",\"$id\":\"1\"}"
     },
     "48": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "LPCASM2_NOTASSOCIATED_ASSOCIATED",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3080\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_1",
+      "AutomationProperty": "PreviousTaskName_1",
+      "Order": "6",
+      "ExtendedData": "{\"reportId\":\"4010\",\"$id\":\"1\"}"
     },
     "49": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "LPCASM2_NOTASSOCIATED_ASSOCIATED",
-      "AutomationProperty": "CarrierID",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3080\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_1",
+      "AutomationProperty": "PreviousTaskType_1",
+      "Order": "7",
+      "ExtendedData": "{\"reportId\":\"4010\",\"$id\":\"1\"}"
     },
     "50": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "LPCASM2_NOTASSOCIATED_ASSOCIATED",
-      "AutomationProperty": "PortAssociationState",
-      "Order": "3",
-      "ExtendedData": "{\"reportId\":\"3080\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_1",
+      "AutomationProperty": "BlockedReason_1",
+      "Order": "8",
+      "ExtendedData": "{\"reportId\":\"4010\",\"$id\":\"1\"}"
     },
     "51": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "LPCASM3_ASSOCIATED_NOTASSOCIATED",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3080\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_1",
+      "AutomationProperty": "BlockedReasonText_1",
+      "Order": "9",
+      "ExtendedData": "{\"reportId\":\"4010\",\"$id\":\"1\"}"
     },
     "52": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "LPCASM3_ASSOCIATED_NOTASSOCIATED",
-      "AutomationProperty": "CarrierID",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3080\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_2",
+      "AutomationProperty": "EPTState_2",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"4020\",\"$id\":\"1\"}"
     },
     "53": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "LPCASM3_ASSOCIATED_NOTASSOCIATED",
-      "AutomationProperty": "PortAssociationState",
-      "Order": "3",
-      "ExtendedData": "{\"reportId\":\"3080\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_2",
+      "AutomationProperty": "PreviousEPTState_2",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"4020\",\"$id\":\"1\"}"
     },
     "54": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "POD_LOADED",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"1\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_2",
+      "AutomationProperty": "EPTStateTime_2",
+      "Order": "3",
+      "ExtendedData": "{\"reportId\":\"4020\",\"$id\":\"1\"}"
     },
     "55": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "POD_UNLOADED",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"1\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_2",
+      "AutomationProperty": "TaskName_2",
+      "Order": "4",
+      "ExtendedData": "{\"reportId\":\"4020\",\"$id\":\"1\"}"
     },
     "56": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "POD_LOCKED",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"1\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_2",
+      "AutomationProperty": "TaskType_2",
+      "Order": "5",
+      "ExtendedData": "{\"reportId\":\"4020\",\"$id\":\"1\"}"
     },
     "57": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "POD_UNLOCKED",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"1\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_2",
+      "AutomationProperty": "PreviousTaskName_2",
+      "Order": "6",
+      "ExtendedData": "{\"reportId\":\"4020\",\"$id\":\"1\"}"
     },
     "58": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "POD_ARRIVED",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"1\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_2",
+      "AutomationProperty": "PreviousTaskType_2",
+      "Order": "7",
+      "ExtendedData": "{\"reportId\":\"4020\",\"$id\":\"1\"}"
     },
     "59": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "POD_REMOVED",
-      "AutomationProperty": "PortID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"1\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_2",
+      "AutomationProperty": "BlockedReason_2",
+      "Order": "8",
+      "ExtendedData": "{\"reportId\":\"4020\",\"$id\":\"1\"}"
     },
     "60": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "PJSM1_NOSTATE_QUEUED",
-      "AutomationProperty": "PRJobID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3000\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_2",
+      "AutomationProperty": "BlockedReasonText_2",
+      "Order": "9",
+      "ExtendedData": "{\"reportId\":\"4020\",\"$id\":\"1\"}"
     },
     "61": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "PJSM1_NOSTATE_QUEUED",
-      "AutomationProperty": "PRJobState",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3000\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_3",
+      "AutomationProperty": "EPTState_3",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"4030\",\"$id\":\"1\"}"
     },
     "62": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "PJSM2_QUEUED_SETTINGUP",
-      "AutomationProperty": "PRJobID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3000\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_3",
+      "AutomationProperty": "PreviousEPTState_3",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"4030\",\"$id\":\"1\"}"
     },
     "63": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "PJSM2_QUEUED_SETTINGUP",
-      "AutomationProperty": "PRJobState",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3000\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_3",
+      "AutomationProperty": "EPTStateTime_3",
+      "Order": "3",
+      "ExtendedData": "{\"reportId\":\"4030\",\"$id\":\"1\"}"
     },
     "64": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "PJSM7_PROCESSCOMPLETE_NOSTATE",
-      "AutomationProperty": "PRJobID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3000\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_3",
+      "AutomationProperty": "TaskName_3",
+      "Order": "4",
+      "ExtendedData": "{\"reportId\":\"4030\",\"$id\":\"1\"}"
     },
     "65": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "PJSM7_PROCESSCOMPLETE_NOSTATE",
-      "AutomationProperty": "PRJobState",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3000\",\"$id\":\"1\"}"
+      "AutomationEvent": "EPTStateChange_3",
+      "AutomationProperty": "TaskType_3",
+      "Order": "5",
+      "ExtendedData": "{\"reportId\":\"4030\",\"$id\":\"1\"}"
     },
     "66": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "PJSM13_EXECUTING_ABORTING",
-      "AutomationProperty": "PRJobID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3000\",\"$id\":\"1"
+      "AutomationEvent": "EPTStateChange_3",
+      "AutomationProperty": "PreviousTaskName_3",
+      "Order": "6",
+      "ExtendedData": "{\"reportId\":\"4030\",\"$id\":\"1\"}"
     },
     "67": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "PJSM13_EXECUTING_ABORTING",
-      "AutomationProperty": "PRJobState",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3000\",\"$id\":\"1"
+      "AutomationEvent": "EPTStateChange_3",
+      "AutomationProperty": "PreviousTaskType_3",
+      "Order": "7",
+      "ExtendedData": "{\"reportId\":\"4030\",\"$id\":\"1\"}"
     },
     "68": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "PJSM16_ABORTING_NOSTATE",
-      "AutomationProperty": "PRJobID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3000\",\"$id\":\"1"
+      "AutomationEvent": "EPTStateChange_3",
+      "AutomationProperty": "BlockedReason_3",
+      "Order": "8",
+      "ExtendedData": "{\"reportId\":\"4030\",\"$id\":\"1\"}"
     },
     "69": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "PJSM16_ABORTING_NOSTATE",
-      "AutomationProperty": "PRJobState",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3000\",\"$id\":\"1"
+      "AutomationEvent": "EPTStateChange_3",
+      "AutomationProperty": "BlockedReasonText_3",
+      "Order": "9",
+      "ExtendedData": "{\"reportId\":\"4030\",\"$id\":\"1\"}"
     },
     "70": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "SOSM1_NOSTATE_ATSOURCE",
-      "AutomationProperty": "SubstID",
+      "AutomationEvent": "EPTStateChange_4",
+      "AutomationProperty": "EPTState_4",
       "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1"
+      "ExtendedData": "{\"reportId\":\"4040\",\"$id\":\"1\"}"
     },
     "71": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "SOSM1_NOSTATE_ATSOURCE",
-      "AutomationProperty": "SubstLocID",
+      "AutomationEvent": "EPTStateChange_4",
+      "AutomationProperty": "PreviousEPTState_4",
       "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1"
+      "ExtendedData": "{\"reportId\":\"4040\",\"$id\":\"1\"}"
     },
     "72": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "SOSM1_NOSTATE_ATSOURCE",
-      "AutomationProperty": "SubstState",
+      "AutomationEvent": "EPTStateChange_4",
+      "AutomationProperty": "EPTStateTime_4",
       "Order": "3",
-      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1"
+      "ExtendedData": "{\"reportId\":\"4040\",\"$id\":\"1\"}"
     },
     "73": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "SOSM1_NOSTATE_ATSOURCE",
-      "AutomationProperty": "SubstProcState",
+      "AutomationEvent": "EPTStateChange_4",
+      "AutomationProperty": "TaskName_4",
       "Order": "4",
-      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1"
+      "ExtendedData": "{\"reportId\":\"4040\",\"$id\":\"1\"}"
     },
     "74": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "SOSM1_NOSTATE_ATSOURCE",
-      "AutomationProperty": "GemClock",
+      "AutomationEvent": "EPTStateChange_4",
+      "AutomationProperty": "TaskType_4",
       "Order": "5",
-      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1"
+      "ExtendedData": "{\"reportId\":\"4040\",\"$id\":\"1\"}"
     },
     "75": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "SOSM9_ANYSTATE_NOSTATE",
-      "AutomationProperty": "SubstID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1"
+      "AutomationEvent": "EPTStateChange_4",
+      "AutomationProperty": "PreviousTaskName_4",
+      "Order": "6",
+      "ExtendedData": "{\"reportId\":\"4040\",\"$id\":\"1\"}"
     },
     "76": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "SOSM9_ANYSTATE_NOSTATE",
-      "AutomationProperty": "SubstLocID",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1"
+      "AutomationEvent": "EPTStateChange_4",
+      "AutomationProperty": "PreviousTaskType_4",
+      "Order": "7",
+      "ExtendedData": "{\"reportId\":\"4040\",\"$id\":\"1\"}"
     },
     "77": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "SOSM9_ANYSTATE_NOSTATE",
-      "AutomationProperty": "SubstState",
-      "Order": "3",
-      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1"
+      "AutomationEvent": "EPTStateChange_4",
+      "AutomationProperty": "BlockedReason_4",
+      "Order": "8",
+      "ExtendedData": "{\"reportId\":\"4040\",\"$id\":\"1\"}"
     },
     "78": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "SOSM9_ANYSTATE_NOSTATE",
-      "AutomationProperty": "SubstProcState",
-      "Order": "4",
-      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1"
+      "AutomationEvent": "EPTStateChange_4",
+      "AutomationProperty": "BlockedReasonText_4",
+      "Order": "9",
+      "ExtendedData": "{\"reportId\":\"4040\",\"$id\":\"1\"}"
     },
     "79": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "SOSM9_ANYSTATE_NOSTATE",
-      "AutomationProperty": "GemClock",
-      "Order": "5",
-      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1"
+      "AutomationEvent": "E87WaitingForHost2SlotMapVerificationOk",
+      "AutomationProperty": "PortID",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
     },
     "80": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "SOSM10_NOSTATE_NEEDSPROCESSING",
-      "AutomationProperty": "SubstID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1"
+      "AutomationEvent": "E87WaitingForHost2SlotMapVerificationOk",
+      "AutomationProperty": "CarrierID",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
     },
     "81": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "SOSM10_NOSTATE_NEEDSPROCESSING",
-      "AutomationProperty": "SubstLocID",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1"
+      "AutomationEvent": "E87WaitingForHost2SlotMapVerificationOk",
+      "AutomationProperty": "ContentMap",
+      "Order": "4",
+      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
     },
     "82": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "SOSM10_NOSTATE_NEEDSPROCESSING",
-      "AutomationProperty": "SubstState",
+      "AutomationEvent": "E87WaitingForHost2SlotMapVerificationOk",
+      "AutomationProperty": "SlotMap",
       "Order": "3",
-      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1"
-    },
-    "83": {
+      "ExtendedData": "{\"reportId\":\"3030\",\"$id\":\"1\"}"
+    }
+  },
+  "AutomationEvent": {
+    "1": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "SOSM10_NOSTATE_NEEDSPROCESSING",
-      "AutomationProperty": "SubstProcState",
-      "Order": "4",
-      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1"
+      "Name": "ControlStateLocal",
+      "Description": "Control State Machine switched to local (operator) control",
+      "DeviceEventId": "0",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
     },
-    "84": {
+    "2": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "SOSM10_NOSTATE_NEEDSPROCESSING",
-      "AutomationProperty": "GemClock",
-      "Order": "5",
-      "ExtendedData": "{\"reportId\":\"3100\",\"$id\":\"1"
+      "Name": "ControlStateRemote",
+      "Description": "Control State Machine switched to remote (host) control",
+      "DeviceEventId": "1",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
     },
-    "85": {
+    "3": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "CJSM1_NOSTATE_QUEUED",
-      "AutomationProperty": "CtrlJobID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3010\",\"$id\":\"1"
+      "Name": "EquipmentOffline",
+      "Description": "Control State Machine switched to the offline state by the local operator",
+      "DeviceEventId": "2",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
     },
-    "86": {
+    "4": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "CJSM1_NOSTATE_QUEUED",
-      "AutomationProperty": "CtrlJobState",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3010\",\"$id\":\"1"
+      "Name": "MaterialReceived",
+      "Description": "Material arrived from a port on the equipment",
+      "DeviceEventId": "3",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
     },
-    "87": {
+    "5": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "CJSM3_QUEUED_SELECTED",
-      "AutomationProperty": "CtrlJobID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3010\",\"$id\":\"1"
+      "Name": "MaterialRemoved",
+      "Description": "Material was sent from a port on the equipment",
+      "DeviceEventId": "4",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
     },
-    "88": {
+    "6": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "CJSM3_QUEUED_SELECTED",
-      "AutomationProperty": "CtrlJobState",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3010\",\"$id\":\"1"
+      "Name": "ProcessingStateChange",
+      "Description": "The state of the Processing State Machine has changed",
+      "DeviceEventId": "11",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
     },
-    "89": {
+    "7": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "CJSM5_SELECTED_EXECUTING",
-      "AutomationProperty": "CtrlJobID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3010\",\"$id\":\"1"
+      "Name": "E87TransferBlocked2ReadytoUnload",
+      "Description": "Processing for substrates contained within the carrier has completed, or a CancelCarrier",
+      "DeviceEventId": "9011",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
     },
-    "90": {
+    "8": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "CJSM5_SELECTED_EXECUTING",
-      "AutomationProperty": "CtrlJobState",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3010\",\"$id\":\"1"
+      "Name": "E87NoState2WaitingForHost",
+      "Description": "A carrierID not currently existing at the equipment is successfully read",
+      "DeviceEventId": "9015",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
     },
-    "91": {
+    "9": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "CJSM12_ACTIVE_COMPLETED",
-      "AutomationProperty": "CtrlJobID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3010\",\"$id\":\"1"
+      "Name": "E87SlotMapNotRead2WaitingForHost",
+      "Description": "Slot Map is read successfully and the equipment is waiting for host verification",
+      "DeviceEventId": "9026",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
     },
-    "92": {
+    "10": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "CJSM12_ACTIVE_COMPLETED",
-      "AutomationProperty": "CtrlJobState",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3010\",\"$id\":\"1"
+      "Name": "EPTStateChange",
+      "Description": "The state of EPT module has changed",
+      "DeviceEventId": "11601",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
     },
-    "93": {
+    "11": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "CJSM13_COMPLETED_NOSTATE",
-      "AutomationProperty": "CtrlJobID",
-      "Order": "1",
-      "ExtendedData": "{\"reportId\":\"3010\",\"$id\":\"1"
+      "Name": "EPTStateChange_1",
+      "Description": "The state of EPT module has changed",
+      "DeviceEventId": "11602",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
     },
-    "94": {
+    "12": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "AutomationEvent": "CJSM13_COMPLETED_NOSTATE",
-      "AutomationProperty": "CtrlJobState",
-      "Order": "2",
-      "ExtendedData": "{\"reportId\":\"3010\",\"$id\":\"1"
+      "Name": "EPTStateChange_2",
+      "Description": "The state of EPT module has changed",
+      "DeviceEventId": "11603",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "13": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "EPTStateChange_3",
+      "Description": "The state of EPT module has changed",
+      "DeviceEventId": "11604",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "14": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "EPTStateChange_4",
+      "Description": "The state of EPT module has changed",
+      "DeviceEventId": "11605",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "15": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "EPTStateChange_5",
+      "Description": "The state of EPT module has changed",
+      "DeviceEventId": "11606",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "16": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "E90_Subst_NeedsProcessing2InProcess",
+      "Description": "Substrate starts actual processing",
+      "DeviceEventId": "900110",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "17": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "E90_Subst_InProcess2ProcessingComplete",
+      "Description": "The processing completes because the processing activities were aborted, stopped or completed",
+      "DeviceEventId": "900111",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "18": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "E90_ID_NotConfirmed2WaitingForHost2",
+      "Description": "Substrate ID was successfully read but the acquired ID is different from the one the equipment used to instantiate the substrate object",
+      "DeviceEventId": "900118",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "19": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "E94_Selected2Executing",
+      "Description": "Control Job transitioned from the SELECTED state to the EXECUTING state",
+      "DeviceEventId": "940104",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "20": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "E94_Executing2Completed",
+      "Description": "Control Job transitioned from the EXECUTING state to the COMPLETED state",
+      "DeviceEventId": "940109",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "21": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "E87WaitingForHost2SlotMapVerificationOk",
+      "Description": "A ProceedWithCarrier service is received",
+      "DeviceEventId": "9027",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
     }
   },
   "AutomationProperty": {
     "1": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "OperatorCommand",
-      "Description": "Command issued by the machine operator",
-      "DevicePropertyId": "6",
+      "Name": "GemClock",
+      "Description": "Machine’s internal clock in the format YYYYMMDDhhmmsscc",
+      "DevicePropertyId": "2004",
       "IsReadable": "Yes",
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"6"
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"2004\"}"
     },
     "2": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1993,20 +1669,9 @@
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"2032"
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"2032\"}"
     },
     "3": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "CarrierIDStatus",
-      "Description": "State of the carrier ID status. Enumerated: ID NOT READ, [ID]WAITING FOR HOST,ID VERIFICATION OK, ID VERIFICATION FAILED",
-      "DevicePropertyId": "9206",
-      "IsReadable": "Yes",
-      "IsWritable": "Yes",
-      "DataType": "Integer",
-      "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9206"
-    },
-    "4": {
       "AutomationDriverDefinition": "UnitySCDriver",
       "Name": "CarrierID",
       "Description": "The ID of the carrier",
@@ -2015,75 +1680,174 @@
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9101"
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9101\"}"
     },
-    "5": {
+    "4": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "SlotMapStatus",
-      "Description": "State of the carrier slot map status. Enumerated: SLOT MAP NOT READ, [SLOT]WAITING FOR HOST, SLOT MAP VERIFICATION OK, SLOT MAP VERIFICATION FAILED",
-      "DevicePropertyId": "9208",
-      "IsReadable": "Yes",
-      "IsWritable": "Yes",
-      "DataType": "Integer",
-      "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9208"
-    },
-    "6": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "ContentMap",
-      "Description": "The carrier content map",
-      "DevicePropertyId": "9209",
-      "IsReadable": "Yes",
-      "IsWritable": "Yes",
-      "DataType": "Object",
-      "AutomationProtocolDataType": "L",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9209"
-    },
-    "7": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "SlotMap",
-      "Description": "The carrier slot map",
-      "DevicePropertyId": "9210",
-      "IsReadable": "Yes",
-      "IsWritable": "Yes",
-      "DataType": "Object",
-      "AutomationProtocolDataType": "L",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9210"
-    },
-    "8": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "CarrierAccessingStatus",
-      "Description": "The state of the carrier accessing status. Enumerated: NOT ACCESSED, IN ACCESS, CARRIER COMPLETE, CARRIER STOPPED",
-      "DevicePropertyId": "9207",
-      "IsReadable": "Yes",
-      "IsWritable": "Yes",
-      "DataType": "Integer",
-      "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9207"
-    },
-    "9": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "PRJobID",
-      "Description": "Process Job ID. Set when the process job is created",
-      "DevicePropertyId": "400000",
+      "Name": "BlockedReasonText",
+      "Description": "Description of the blocked reason",
+      "DevicePropertyId": "11605",
       "IsReadable": "Yes",
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"400000"
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11605\"}"
+    },
+    "5": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "TaskName",
+      "Description": "EPT Task name currently running",
+      "DevicePropertyId": "11606",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11606\"}"
+    },
+    "6": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "PreviousTaskName",
+      "Description": "Task name completed by this module or equipment at the occurrence of EPT state transition",
+      "DevicePropertyId": "11608",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11608\"}"
+    },
+    "7": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "TaskName_1",
+      "Description": "EPT Task name currently running module 1",
+      "DevicePropertyId": "11650",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11650\"}"
+    },
+    "8": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "PreviousTaskName_1",
+      "Description": "Task name completed by this module or equipment at the occurrence of EPT state transition module 1",
+      "DevicePropertyId": "11652",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11652\"}"
+    },
+    "9": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "BlockedReasonText_1",
+      "Description": "Description of the blocked reason module 1",
+      "DevicePropertyId": "11655",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11655\"}"
     },
     "10": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "PRJobState",
-      "Description": "This is the Process State of the Job. Is is enumerated",
-      "DevicePropertyId": "400002",
+      "Name": "TaskName_2",
+      "Description": "EPT Task name currently running module 2",
+      "DevicePropertyId": "11670",
       "IsReadable": "Yes",
       "IsWritable": "Yes",
-      "DataType": "Integer",
-      "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"400002"
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11670\"}"
     },
     "11": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "PreviousTaskName_2",
+      "Description": "Task name completed by this module or equipment at the occurrence of EPT state transition module 2",
+      "DevicePropertyId": "11672",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11672\"}"
+    },
+    "12": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "BlockedReasonText_2",
+      "Description": "Description of the blocked reason module 2",
+      "DevicePropertyId": "11675",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11675\"}"
+    },
+    "13": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "TaskName_3",
+      "Description": "EPT Task name currently running module 3",
+      "DevicePropertyId": "11690",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11690\"}"
+    },
+    "14": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "PreviousTaskName_3",
+      "Description": "Task name completed by this module or equipment at the occurrence of EPT state transition module 3",
+      "DevicePropertyId": "11692",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11692\"}"
+    },
+    "15": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "BlockedReasonText_3",
+      "Description": "Description of the blocked reason module 3",
+      "DevicePropertyId": "11695",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11695\"}"
+    },
+    "16": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "TaskName_4",
+      "Description": "EPT Task name currently running module 4",
+      "DevicePropertyId": "11710",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11710\"}"
+    },
+    "17": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "PreviousTaskName_4",
+      "Description": "Task name completed by this module or equipment at the occurrence of EPT state transition module 4",
+      "DevicePropertyId": "11712",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11712\"}"
+    },
+    "18": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "BlockedReasonText_4",
+      "Description": "Description of the blocked reason module 4",
+      "DevicePropertyId": "11715",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11715\"}"
+    },
+    "19": {
       "AutomationDriverDefinition": "UnitySCDriver",
       "Name": "SubstID",
       "Description": "Identifier of the Substrate",
@@ -2092,9 +1856,9 @@
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"900102"
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"900102\"}"
     },
-    "12": {
+    "20": {
       "AutomationDriverDefinition": "UnitySCDriver",
       "Name": "SubstLocID",
       "Description": "The Substrate Location at which this Substrate currently resides",
@@ -2103,42 +1867,31 @@
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"900103"
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"900103\"}"
     },
-    "13": {
+    "21": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "SubstState",
-      "Description": "The Transport State of this Substrate",
-      "DevicePropertyId": "900108",
-      "IsReadable": "Yes",
-      "IsWritable": "Yes",
-      "DataType": "Integer",
-      "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"900108"
-    },
-    "14": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "SubstProcState",
-      "Description": "The Substrate's current Processing State. It is enumerated",
-      "DevicePropertyId": "900106",
-      "IsReadable": "Yes",
-      "IsWritable": "Yes",
-      "DataType": "Integer",
-      "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"900106"
-    },
-    "15": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "GemClock",
-      "Description": "Machine’s internal clock in the format YYYYMMDDhhmmsscc",
-      "DevicePropertyId": "2004",
+      "Name": "SubstSource",
+      "Description": "The starting Substrate Location for this Substrate",
+      "DevicePropertyId": "900107",
       "IsReadable": "Yes",
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"2004"
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"900107\"}"
     },
-    "16": {
+    "22": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "AcquiredID",
+      "Description": "Contains the ID read from the substrate",
+      "DevicePropertyId": "900113",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"900113\"}"
+    },
+    "23": {
       "AutomationDriverDefinition": "UnitySCDriver",
       "Name": "CtrlJobID",
       "Description": "Identifier of the ControlJob",
@@ -2147,53 +1900,31 @@
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"940000"
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"940000\"}"
     },
-    "17": {
+    "24": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "CtrlJobState",
-      "Description": "The current state of the ControlJob Enumerated as: 0 – QUEUED 1 – SELECTED 2 – WAITINGFORSTART 3 – EXECUTING 4 – PAUSED 5 – COMPLETED",
-      "DevicePropertyId": "940002",
+      "Name": "ContentMap",
+      "Description": "Identifies the substrate contained in each Slot of the Carrier",
+      "DevicePropertyId": "9209",
       "IsReadable": "Yes",
       "IsWritable": "Yes",
-      "DataType": "Integer",
-      "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"940002"
+      "DataType": "Object",
+      "AutomationProtocolDataType": "L",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9209\"}"
     },
-    "18": {
+    "25": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "PortID",
-      "Description": "ID of a load port",
-      "DevicePropertyId": "9102",
+      "Name": "SlotMap",
+      "Description": "The carrier slot map",
+      "DevicePropertyId": "9210",
       "IsReadable": "Yes",
       "IsWritable": "Yes",
-      "DataType": "Integer",
-      "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9102"
+      "DataType": "Object",
+      "AutomationProtocolDataType": "L",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9210\"}"
     },
-    "19": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "PortTransferState",
-      "Description": "The current transfer state of a load port. Enumerated: OUT OF SERVICE, TRANSFER BLOCKED, READY TO LOAD, READY TO UNLOAD Super states are not included, only sub states",
-      "DevicePropertyId": "9110",
-      "IsReadable": "Yes",
-      "IsWritable": "Yes",
-      "DataType": "Integer",
-      "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9110"
-    },
-    "20": {
-      "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "PortAssociationState",
-      "Description": "The association state of a load port. Enumerated: NOT ASSOCIATED, ASSOCIATED",
-      "DevicePropertyId": "9108",
-      "IsReadable": "Yes",
-      "IsWritable": "Yes",
-      "DataType": "Integer",
-      "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9108"
-    },
-    "21": {
+    "26": {
       "AutomationDriverDefinition": "UnitySCDriver",
       "Name": "PROCESS_STATE",
       "Description": "State number of the Processing State Machine",
@@ -2202,18 +1933,425 @@
       "IsWritable": "Yes",
       "DataType": "Integer",
       "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"2031"
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"2031\"}"
     },
-    "22": {
+    "27": {
       "AutomationDriverDefinition": "UnitySCDriver",
-      "Name": "DataID",
-      "Description": "Value of SEMI E5 DATAID item",
-      "DevicePropertyId": "4029",
+      "Name": "PortID",
+      "Description": "ID of a load port",
+      "DevicePropertyId": "9102",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9102\"}"
+    },
+    "28": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "PortTransferState",
+      "Description": "The current transfer state of a load port. Enumerated: OUT OF SERVICE, TRANSFER BLOCKED, READY TO LOAD, READY TO UNLOAD Super states are not included, only sub states",
+      "DevicePropertyId": "9110",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9110\"}"
+    },
+    "29": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "CarrierIDStatus",
+      "Description": "State of the carrier ID status.  Enumerated: ID NOT READ, [ID]WAITING FOR HOST,ID VERIFICATION OK, ID VERIFICATION FAILED",
+      "DevicePropertyId": "9206",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9206\"}"
+    },
+    "30": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "SlotMapStatus",
+      "Description": "State of the carrier slot map status. Enumerated: SLOT MAP NOT READ, [SLOT]WAITING FOR HOST, SLOT MAP VERIFICATION OK, SLOT MAP VERIFICATION FAILED",
+      "DevicePropertyId": "9208",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9208\"}"
+    },
+    "31": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "EPTState",
+      "Description": "EPT State",
+      "DevicePropertyId": "11601",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11601\"}"
+    },
+    "32": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "PreviousEPTState",
+      "Description": "Previous EPT State",
+      "DevicePropertyId": "11602",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11602\"}"
+    },
+    "33": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "BlockedReason",
+      "Description": "Identifies the blocked condition of an EPT module",
+      "DevicePropertyId": "11604",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11604\"}"
+    },
+    "34": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "TaskType",
+      "Description": "EPT Task type currently running",
+      "DevicePropertyId": "11607",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11607\"}"
+    },
+    "35": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "PreviousTaskType",
+      "Description": "Previous EPT Task type",
+      "DevicePropertyId": "11609",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11609\"}"
+    },
+    "36": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "EPTState_1",
+      "Description": "EPT State Module State change for Process module 1",
+      "DevicePropertyId": "11647",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11647\"}"
+    },
+    "37": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "PreviousEPTState_1",
+      "Description": "Previous EPT State module 1",
+      "DevicePropertyId": "11648",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11648\"}"
+    },
+    "38": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "TaskType_1",
+      "Description": "EPT Task type currently running module 1",
+      "DevicePropertyId": "11651",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11651\"}"
+    },
+    "39": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "PreviousTaskType_1",
+      "Description": "Previous EPT Task type module 1",
+      "DevicePropertyId": "11653",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11653\"}"
+    },
+    "40": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "BlockedReason_1",
+      "Description": "Identifies the blocked condition of an EPT module 1",
+      "DevicePropertyId": "11654",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11654\"}"
+    },
+    "41": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "EPTState_2",
+      "Description": "EPT State Module State change for Process module 2",
+      "DevicePropertyId": "11667",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11667\"}"
+    },
+    "42": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "PreviousEPTState_2",
+      "Description": "Previous EPT State module 2",
+      "DevicePropertyId": "11668",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11668\"}"
+    },
+    "43": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "TaskType_2",
+      "Description": "EPT Task type currently running module 2",
+      "DevicePropertyId": "11671",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11671\"}"
+    },
+    "44": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "PreviousTaskType_2",
+      "Description": "Previous EPT Task type module 2",
+      "DevicePropertyId": "11673",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11673\"}"
+    },
+    "45": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "BlockedReason_2",
+      "Description": "Identifies the blocked condition of an EPT module 2",
+      "DevicePropertyId": "11674",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11674\"}"
+    },
+    "46": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "EPTState_3",
+      "Description": "EPT State Module State change for Process module 3",
+      "DevicePropertyId": "11687",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11687\"}"
+    },
+    "47": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "PreviousEPTState_3",
+      "Description": "Previous EPT State module 3",
+      "DevicePropertyId": "11688",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11688\"}"
+    },
+    "48": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "TaskType_3",
+      "Description": "EPT Task type currently running module 3",
+      "DevicePropertyId": "11691",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11691\"}"
+    },
+    "49": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "PreviousTaskType_3",
+      "Description": "Previous EPT Task type module 3",
+      "DevicePropertyId": "11693",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11693\"}"
+    },
+    "50": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "BlockedReason_3",
+      "Description": "Identifies the blocked condition of an EPT module 3",
+      "DevicePropertyId": "11694",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11694\"}"
+    },
+    "51": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "EPTState_4",
+      "Description": "EPT State Module State change for Process module 4",
+      "DevicePropertyId": "11707",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11707\"}"
+    },
+    "52": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "PreviousEPTState_4",
+      "Description": "Previous EPT State module 4",
+      "DevicePropertyId": "11708",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11708\"}"
+    },
+    "53": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "TaskType_4",
+      "Description": "EPT Task type currently running module 4",
+      "DevicePropertyId": "11711",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11711\"}"
+    },
+    "54": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "PreviousTaskType_4",
+      "Description": "Previous EPT Task type module 4",
+      "DevicePropertyId": "11713",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11713\"}"
+    },
+    "55": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "BlockedReason_4",
+      "Description": "Identifies the blocked condition of an EPT module 4",
+      "DevicePropertyId": "11714",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11714\"}"
+    },
+    "56": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "SubstProcState",
+      "Description": "The Substrate's current Processing State. It is enumerated",
+      "DevicePropertyId": "900106",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"900106\"}"
+    },
+    "57": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "SubstState",
+      "Description": "The Transport State of this Substrate. It is enumerated",
+      "DevicePropertyId": "900108",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"900108\"}"
+    },
+    "58": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "CtrlJobState",
+      "Description": "The current state of the ControlJob Enumerated as: 0 – QUEUED 1 – SELECTED 2 – WAITINGFORSTART 3 – EXECUTING 4 – PAUSED 5 – COMPLETED",
+      "DevicePropertyId": "940002",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"940002\"}"
+    },
+    "59": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "EPTStateTime",
+      "Description": "Time spent in previous EPT state for the equipment or module",
+      "DevicePropertyId": "11603",
       "IsReadable": "Yes",
       "IsWritable": "Yes",
       "DataType": "Integer",
       "AutomationProtocolDataType": "U4",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"4029"
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11603\"}"
+    },
+    "60": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "EPTStateTime_1",
+      "Description": "Time spent in previous EPT state for the equipment or module 1",
+      "DevicePropertyId": "11649",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11649\"}"
+    },
+    "61": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "EPTStateTime_2",
+      "Description": "Time spent in previous EPT state for the equipment or module 2",
+      "DevicePropertyId": "11669",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11669\"}"
+    },
+    "62": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "EPTStateTime_3",
+      "Description": "Time spent in previous EPT state for the equipment or module 3",
+      "DevicePropertyId": "11689",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11689\"}"
+    },
+    "63": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "EPTStateTime_4",
+      "Description": "Time spent in previous EPT state for the equipment or module 4",
+      "DevicePropertyId": "11709",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11709\"}"
+    },
+    "64": {
+      "AutomationDriverDefinition": "UnitySCDriver",
+      "Name": "ControlState",
+      "Description": "State of the Processing State Machine",
+      "DevicePropertyId": "2028",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"2028\"}"
     }
   },
   "AutomationCommand": {},
@@ -2247,348 +2385,268 @@
   },
   "AutomationControllerWorkflow": {
     "1": {
-      "AutomationController": "UnitySCHolderController",
+      "AutomationController": "UnitySCController",
       "Name": "Setup",
       "DisplayName": "Setup",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\Setup.json",
+      "Workflow": "UnitySC\\Setup.json",
       "Order": "1"
     },
     "2": {
-      "AutomationController": "UnitySCHolderController",
+      "AutomationController": "UnitySCController",
       "Name": "Setup_RFIDReader",
       "DisplayName": "Setup_RFIDReader",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\Setup_RFIDReader.json",
+      "Workflow": "UnitySC\\Setup_RFIDReader.json",
       "Order": "2"
     },
     "3": {
-      "AutomationController": "UnitySCHolderController",
-      "Name": "MaterialReceived_01_MaterialReceivedEvent",
-      "DisplayName": "MaterialReceived_01_MaterialReceivedEvent",
-      "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\MaterialReceived_01_MaterialReceivedEvent.json",
-      "Order": "3"
-    },
-    "4": {
-      "AutomationController": "UnitySCHolderController",
+      "AutomationController": "UnitySCController",
       "Name": "MaterialReceived_01_MaterialReceivedCarrierIdReadRequest",
       "DisplayName": "MaterialReceived_01_MaterialReceivedCarrierIdReadRequest",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\MaterialReceived_01_MaterialReceivedCarrierIdReadRequest.json",
-      "Order": "4"
+      "Workflow": "UnitySC\\MaterialReceived_01_MaterialReceivedCarrierIdReadRequest.json",
+      "Order": "3"
     },
-    "5": {
-      "AutomationController": "UnitySCHolderController",
-      "Name": "CarrierIdRead_01_EventReceived",
-      "DisplayName": "CarrierIdRead_01_EventReceived",
-      "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\CarrierIdRead_01_EventReceived.json",
-      "Order": "5"
-    },
-    "6": {
-      "AutomationController": "UnitySCHolderController",
+    "4": {
+      "AutomationController": "UnitySCController",
       "Name": "SlotMap_01_SlotMapReceived",
       "DisplayName": "SlotMap_01_SlotMapReceived",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\SlotMap_01_SlotMapReceived.json",
-      "Order": "6"
+      "Workflow": "UnitySC\\SlotMap_01_SlotMapReceived.json",
+      "Order": "4"
     },
-    "7": {
-      "AutomationController": "UnitySCHolderController",
+    "5": {
+      "AutomationController": "UnitySCController",
       "Name": "ReadyToUnload_01_EventReceived",
       "DisplayName": "ReadyToUnload_01_EventReceived",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\ReadyToUnload_01_EventReceived.json",
-      "Order": "7"
+      "Workflow": "UnitySC\\ReadyToUnload_01_EventReceived.json",
+      "Order": "5"
     },
-    "8": {
-      "AutomationController": "UnitySCHolderController",
+    "6": {
+      "AutomationController": "UnitySCController",
       "Name": "MaterialRemoved_01_MaterialRemovedEvent",
       "DisplayName": "MaterialRemoved_01_MaterialRemovedEvent",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\MaterialRemoved_01_MaterialRemovedEvent.json",
-      "Order": "8"
+      "Workflow": "UnitySC\\MaterialRemoved_01_MaterialRemovedEvent.json",
+      "Order": "6"
     },
-    "9": {
-      "AutomationController": "UnitySCHolderController",
-      "Name": "TrackIn_01_TrackInRequestReceived",
-      "DisplayName": "TrackIn_01_TrackInRequestReceived",
-      "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\TrackIn_01_TrackInRequestReceived.json",
-      "Order": "9"
-    },
-    "10": {
-      "AutomationController": "UnitySCHolderController",
-      "Name": "PostTrackIn_01_ExecuteStart",
-      "DisplayName": "PostTrackIn_01_ExecuteStart",
-      "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\PostTrackIn_01_ExecuteStart.json",
-      "Order": "10"
-    },
-    "11": {
-      "AutomationController": "UnitySCHolderController",
+    "7": {
+      "AutomationController": "UnitySCController",
       "Name": "TrackIn_01_TrackInRequestReceived300mm",
       "DisplayName": "TrackIn_01_TrackInRequestReceived300mm",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\TrackIn_01_TrackInRequestReceived300mm.json",
-      "Order": "11"
+      "Workflow": "UnitySC\\TrackIn_01_TrackInRequestReceived300mm.json",
+      "Order": "7"
     },
-    "12": {
-      "AutomationController": "UnitySCHolderController",
+    "8": {
+      "AutomationController": "UnitySCController",
+      "Name": "PostTrackIn_01_ExecuteStart",
+      "DisplayName": "PostTrackIn_01_ExecuteStart",
+      "IsFile": "Yes",
+      "Workflow": "UnitySC\\PostTrackIn_01_ExecuteStart.json",
+      "Order": "8"
+    },
+    "9": {
+      "AutomationController": "UnitySCController",
       "Name": "ProcessStarted_01_EventTosProcessStartedReceived",
       "DisplayName": "ProcessStarted_01_EventTosProcessStartedReceived",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\ProcessStarted_01_EventTosProcessStartedReceived.json",
-      "Order": "12"
+      "Workflow": "UnitySC\\ProcessStarted_01_EventTosProcessStartedReceived.json",
+      "Order": "9"
     },
-    "13": {
-      "AutomationController": "UnitySCHolderController",
+    "10": {
+      "AutomationController": "UnitySCController",
       "Name": "WaferStart_01_EventWaferStarted",
       "DisplayName": "WaferStart_01_EventWaferStarted",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\WaferStart_01_EventWaferStarted.json",
-      "Order": "13"
+      "Workflow": "UnitySC\\WaferStart_01_EventWaferStarted.json",
+      "Order": "10"
     },
-    "14": {
-      "AutomationController": "UnitySCHolderController",
+    "11": {
+      "AutomationController": "UnitySCController",
       "Name": "WaferComplete_01_EventWaferCompleted",
       "DisplayName": "WaferComplete_01_EventWaferCompleted",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\WaferComplete_01_EventWaferCompleted.json",
-      "Order": "14"
+      "Workflow": "UnitySC\\WaferComplete_01_EventWaferCompleted.json",
+      "Order": "11"
     },
-    "15": {
-      "AutomationController": "UnitySCHolderController",
+    "12": {
+      "AutomationController": "UnitySCController",
       "Name": "ProcessCompleted_01_EventProcessCompletedReceived",
       "DisplayName": "ProcessCompleted_01_EventProcessCompletedReceived",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\ProcessCompleted_01_EventProcessCompletedReceived.json",
-      "Order": "15"
+      "Workflow": "UnitySC\\ProcessCompleted_01_EventProcessCompletedReceived.json",
+      "Order": "12"
     },
-    "16": {
-      "AutomationController": "UnitySCHolderController",
+    "13": {
+      "AutomationController": "UnitySCController",
       "Name": "TrackOut_01_TrackOutEventReceivedFromMES",
       "DisplayName": "TrackOut_01_TrackOutEventReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\TrackOut_01_TrackOutEventReceivedFromMES.json",
-      "Order": "16"
+      "Workflow": "UnitySC\\TrackOut_01_TrackOutEventReceivedFromMES.json",
+      "Order": "13"
     },
-    "17": {
-      "AutomationController": "UnitySCHolderController",
-      "Name": "Abort_01_AbortEventReceivedFromMES",
-      "DisplayName": "Abort_01_AbortEventReceivedFromMES",
-      "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\Abort_01_AbortEventReceivedFromMES.json",
-      "Order": "17"
-    },
-    "18": {
-      "AutomationController": "UnitySCHolderController",
+    "14": {
+      "AutomationController": "UnitySCController",
       "Name": "Abort_01_AbortEventReceivedFromMES300mm",
       "DisplayName": "Abort_01_AbortEventReceivedFromMES300mm",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\Abort_01_AbortEventReceivedFromMES300mm.json",
-      "Order": "18"
+      "Workflow": "UnitySC\\Abort_01_AbortEventReceivedFromMES300mm.json",
+      "Order": "14"
     },
-    "19": {
-      "AutomationController": "UnitySCHolderController",
+    "15": {
+      "AutomationController": "UnitySCController",
       "Name": "Hold_01_HoldEventReceivedFromMES",
       "DisplayName": "Hold_01_HoldEventReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\Hold_01_HoldEventReceivedFromMES.json",
-      "Order": "19"
+      "Workflow": "UnitySC\\Hold_01_HoldEventReceivedFromMES.json",
+      "Order": "15"
     },
-    "20": {
-      "AutomationController": "UnitySCHolderController",
+    "16": {
+      "AutomationController": "UnitySCController",
       "Name": "AlarmManagement_01_AlarmCollection",
       "DisplayName": "AlarmManagement_01_AlarmCollection",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\AlarmManagement_01_AlarmCollection.json",
-      "Order": "20"
+      "Workflow": "UnitySC\\AlarmManagement_01_AlarmCollection.json",
+      "Order": "16"
     },
-    "21": {
-      "AutomationController": "UnitySCHolderController",
+    "17": {
+      "AutomationController": "UnitySCController",
       "Name": "RecipeManagement_01_GetRecipeList",
       "DisplayName": "RecipeManagement_01_GetRecipeList",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\RecipeManagement_01_GetRecipeList.json",
-      "Order": "21"
+      "Workflow": "UnitySC\\RecipeManagement_01_GetRecipeList.json",
+      "Order": "17"
     },
-    "22": {
-      "AutomationController": "UnitySCHolderController",
+    "18": {
+      "AutomationController": "UnitySCController",
       "Name": "RecipeManagement_02_GetRecipeBody",
       "DisplayName": "RecipeManagement_02_GetRecipeBody",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\RecipeManagement_02_GetRecipeBody.json",
-      "Order": "22"
+      "Workflow": "UnitySC\\RecipeManagement_02_GetRecipeBody.json",
+      "Order": "18"
     },
-    "23": {
-      "AutomationController": "UnitySCHolderController",
+    "19": {
+      "AutomationController": "UnitySCController",
       "Name": "RecipeManagement_03_SetRecipeBody",
       "DisplayName": "RecipeManagement_03_SetRecipeBody",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\RecipeManagement_03_SetRecipeBody.json",
-      "Order": "23"
+      "Workflow": "UnitySC\\RecipeManagement_03_SetRecipeBody.json",
+      "Order": "19"
     },
-    "24": {
-      "AutomationController": "UnitySCHolderController",
+    "20": {
+      "AutomationController": "UnitySCController",
       "Name": "RecipeManagement_04_GetRecipeChecksum",
       "DisplayName": "RecipeManagement_04_GetRecipeChecksum",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\RecipeManagement_04_GetRecipeChecksum.json",
-      "Order": "24"
+      "Workflow": "UnitySC\\RecipeManagement_04_GetRecipeChecksum.json",
+      "Order": "20"
     },
-    "25": {
-      "AutomationController": "UnitySCHolderController",
-      "Name": "RecipeManagement_02_GetFormattedRecipeBody",
-      "DisplayName": "RecipeManagement_02_GetFormattedRecipeBody",
-      "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\RecipeManagement_02_GetFormattedRecipeBody.json",
-      "Order": "25"
-    },
-    "26": {
-      "AutomationController": "UnitySCHolderController",
-      "Name": "RecipeManagement_03_SetFormattedRecipeBody",
-      "DisplayName": "RecipeManagement_03_SetFormattedRecipeBody",
-      "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\RecipeManagement_03_SetFormattedRecipeBody.json",
-      "Order": "26"
-    },
-    "27": {
-      "AutomationController": "UnitySCHolderController",
-      "Name": "RecipeManagement_04_GetFormattedRecipeChecksum",
-      "DisplayName": "RecipeManagement_04_GetFormattedRecipeChecksum",
-      "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\RecipeManagement_04_GetFormattedRecipeChecksum.json",
-      "Order": "27"
-    },
-    "28": {
-      "AutomationController": "UnitySCHolderController",
+    "21": {
+      "AutomationController": "UnitySCController",
       "Name": "ResourceState_01_ProcessStateChanged",
       "DisplayName": "ResourceState_01_ProcessStateChanged",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\ResourceState_01_ProcessStateChanged.json",
-      "Order": "28"
+      "Workflow": "UnitySC\\ResourceState_01_ProcessStateChanged.json",
+      "Order": "21"
     },
-    "29": {
-      "AutomationController": "UnitySCHolderController",
+    "22": {
+      "AutomationController": "UnitySCController",
       "Name": "ResourceEPTState_01_EptStateChangeReceived",
       "DisplayName": "ResourceEPTState_01_EptStateChangeReceived",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\ResourceEPTState_01_EptStateChangeReceived.json",
-      "Order": "29"
+      "Workflow": "UnitySC\\ResourceEPTState_01_EptStateChangeReceived.json",
+      "Order": "22"
     },
-    "30": {
-      "AutomationController": "UnitySCHolderController",
+    "23": {
+      "AutomationController": "UnitySCController",
+      "Name": "ResourceEPTState_02_EptStateChangeReceived",
+      "DisplayName": "ResourceEPTState_02_EptStateChangeReceived",
+      "IsFile": "Yes",
+      "Workflow": "UnitySC\\ResourceEPTState_02_EptStateChangeReceived.json",
+      "Order": "23"
+    },
+    "24": {
+      "AutomationController": "UnitySCController",
+      "Name": "ResourceEPTState_03_EptStateChangeReceived",
+      "DisplayName": "ResourceEPTState_03_EptStateChangeReceived",
+      "IsFile": "Yes",
+      "Workflow": "UnitySC\\ResourceEPTState_03_EptStateChangeReceived.json",
+      "Order": "24"
+    },
+    "25": {
+      "AutomationController": "UnitySCController",
+      "Name": "ResourceEPTState_04_EptStateChangeReceived",
+      "DisplayName": "ResourceEPTState_04_EptStateChangeReceived",
+      "IsFile": "Yes",
+      "Workflow": "UnitySC\\ResourceEPTState_04_EptStateChangeReceived.json",
+      "Order": "25"
+    },
+    "26": {
+      "AutomationController": "UnitySCController",
+      "Name": "ResourceEPTState_05_EptStateChangeReceived",
+      "DisplayName": "ResourceEPTState_05_EptStateChangeReceived",
+      "IsFile": "Yes",
+      "Workflow": "UnitySC\\ResourceEPTState_05_EptStateChangeReceived.json",
+      "Order": "26"
+    },
+    "27": {
+      "AutomationController": "UnitySCController",
+      "Name": "ResourceEPTState_06_EptStateChangeReceived",
+      "DisplayName": "ResourceEPTState_06_EptStateChangeReceived",
+      "IsFile": "Yes",
+      "Workflow": "UnitySC\\ResourceEPTState_06_EptStateChangeReceived.json",
+      "Order": "27"
+    },
+    "28": {
+      "AutomationController": "UnitySCController",
       "Name": "ControlState_01_ControlStateUpdateReceived",
       "DisplayName": "ControlState_01_ControlStateUpdateReceived",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\ControlState_01_ControlStateUpdateReceived.json",
-      "Order": "30"
+      "Workflow": "UnitySC\\ControlState_01_ControlStateUpdateReceived.json",
+      "Order": "28"
     },
-    "31": {
-      "AutomationController": "UnitySCHolderController",
+    "29": {
+      "AutomationController": "UnitySCController",
       "Name": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "DisplayName": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
-      "Order": "31"
+      "Workflow": "UnitySC\\SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
+      "Order": "29"
     },
-    "32": {
-      "AutomationController": "UnitySCHolderController",
+    "30": {
+      "AutomationController": "UnitySCController",
       "Name": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "DisplayName": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\RecipeValidation_01_UnformattedRecipeMainFlow.json",
-      "Order": "32"
+      "Workflow": "UnitySC\\RecipeValidation_01_UnformattedRecipeMainFlow.json",
+      "Order": "30"
     },
-    "33": {
-      "AutomationController": "UnitySCHolderController",
-      "Name": "RecipeValidation_01_FormattedRecipeMainFlow",
-      "DisplayName": "RecipeValidation_01_FormattedRecipeMainFlow",
-      "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\RecipeValidation_01_FormattedRecipeMainFlow.json",
-      "Order": "33"
-    },
-    "34": {
-      "AutomationController": "UnitySCHolderController",
-      "Name": "PPSelect_01_ExecuteCommand",
-      "DisplayName": "PPSelect_01_ExecuteCommand",
-      "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\PPSelect_01_ExecuteCommand.json",
-      "Order": "34"
-    },
-    "35": {
-      "AutomationController": "UnitySCHolderController",
-      "Name": "StartCommand_01_ExecuteCommand",
-      "DisplayName": "StartCommand_01_ExecuteCommand",
-      "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\StartCommand_01_ExecuteCommand.json",
-      "Order": "35"
-    },
-    "36": {
-      "AutomationController": "UnitySCHolderController",
+    "31": {
+      "AutomationController": "UnitySCController",
       "Name": "CreateProcessJob_01_CreateJob",
       "DisplayName": "CreateProcessJob_01_CreateJob",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\CreateProcessJob_01_CreateJob.json",
-      "Order": "36"
+      "Workflow": "UnitySC\\CreateProcessJob_01_CreateJob.json",
+      "Order": "31"
     },
-    "37": {
-      "AutomationController": "UnitySCHolderController",
-      "Name": "MultiCreateProcessJob_01_MultiCreateJob",
-      "DisplayName": "MultiCreateProcessJob_01_MultiCreateJob",
-      "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\MultiCreateProcessJob_01_MultiCreateJob.json",
-      "Order": "37"
-    },
-    "38": {
-      "AutomationController": "UnitySCHolderController",
+    "32": {
+      "AutomationController": "UnitySCController",
       "Name": "CreateControlJob_01_CreateJob",
       "DisplayName": "CreateControlJob_01_CreateJob",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\CreateControlJob_01_CreateJob.json",
-      "Order": "38"
+      "Workflow": "UnitySC\\CreateControlJob_01_CreateJob.json",
+      "Order": "32"
     },
-    "39": {
-      "AutomationController": "UnitySCHolderController",
-      "Name": "CassetteLoad_01_ExecuteCommand",
-      "DisplayName": "CassetteLoad_01_ExecuteCommand",
-      "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\CassetteLoad_01_ExecuteCommand.json",
-      "Order": "39"
-    },
-    "40": {
-      "AutomationController": "UnitySCHolderController",
-      "Name": "CassetteUnload_01_ExecuteCommand",
-      "DisplayName": "CassetteUnload_01_ExecuteCommand",
-      "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\CassetteUnload_01_ExecuteCommand.json",
-      "Order": "40"
-    },
-    "41": {
-      "AutomationController": "UnitySCHolderController",
-      "Name": "CarrierClamped_01_ExecuteCommand",
-      "DisplayName": "CarrierClamped_01_ExecuteCommand",
-      "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\CarrierClamped_01_ExecuteCommand.json",
-      "Order": "41"
-    },
-    "42": {
-      "AutomationController": "UnitySCHolderController",
-      "Name": "CarrierUnclamped_01_ExecuteCommand",
-      "DisplayName": "CarrierUnclamped_01_ExecuteCommand",
-      "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\CarrierUnclamped_01_ExecuteCommand.json",
-      "Order": "42"
-    },
-    "43": {
-      "AutomationController": "UnitySCHolderController",
+    "33": {
+      "AutomationController": "UnitySCController",
       "Name": "AbortJob_01_ExecuteControlJobAbort",
       "DisplayName": "AbortJob_01_ExecuteControlJobAbort",
       "IsFile": "Yes",
-      "Workflow": "UnitySCHolder\\AbortJob_01_ExecuteControlJobAbort.json",
-      "Order": "43"
+      "Workflow": "UnitySC\\AbortJob_01_ExecuteControlJobAbort.json",
+      "Order": "33"
     }
   },
   "<LOOKUP>AutomationInstances": {}
