@@ -41,6 +41,8 @@
                             <key name="Resistivity" value="0,085" />
                             <key name="Bow" value="-5" />
                         </EDCData>
+					    <PrimaryQuantity>11</PrimaryQuantity>
+                        <PrimaryUnit>CM2</PrimaryUnit>
                     </Material>
                 </SubMaterial>
             </Material>

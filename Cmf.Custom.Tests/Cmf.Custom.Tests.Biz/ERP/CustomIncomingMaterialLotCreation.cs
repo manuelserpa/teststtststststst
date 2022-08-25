@@ -550,29 +550,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomIncomingMaterialLotCreation_CreateLotFromMessage_CreateMultipleWafers()
         {
-            // Load Incoming Lot message
-            string incomingLotMessage = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptMultipleWafers.xml");
-
-            // Deserialize message in a MaterialData object
-            GoodsReceiptCertificate incomingLot = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(incomingLotMessage);
-
-            // Set random name to Lot
-            incomingLot.Material.Name = Guid.NewGuid().ToString("N");
-
-            // Set random name to Logical Wafer
-            incomingLot.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
-
-            // Set random name to Wafer
-            incomingLot.Material.Wafers[0].Wafers[0].Name = Guid.NewGuid().ToString("N");
-
-            // Set scenario IsToSendIncomingMaterial property
-            customExecutionScenario.IsToSendIncomingMaterial = true;
-
-            // Set scenario GoodsReceiptCertificate property
-            customExecutionScenario.GoodsReceiptCertificate = incomingLot;
-
-            // Setup scenario
-            customExecutionScenario.Setup();
+            // Set IncomingMaterial scenario
+            GoodsReceiptCertificate incomingLot = SetIncomingMaterialScenario($@"ERP\Samples\SampleGoodsReceiptMultipleWafers.xml");
 
             // Load created Lot
             Material createdLot = new Material()
@@ -613,29 +592,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomIncomingMaterialLotCreation_CreateLotFromMessage_ErrorNonExistentProductionOrder()
         {
-            // Load Incoming Lot message
-            string incomingLotMessage = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptWithNonExistentProductionOrder.xml");
-
-            // Deserialize message in a MaterialData object
-            GoodsReceiptCertificate incomingLot = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(incomingLotMessage);
-
-            // Set random name to Lot
-            incomingLot.Material.Name = Guid.NewGuid().ToString("N");
-
-            // Set random name to Logical Wafer
-            incomingLot.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
-
-            // Set random name to Wafer
-            incomingLot.Material.Wafers[0].Wafers[0].Name = Guid.NewGuid().ToString("N");
-
-            // Set scenario IsToSendIncomingMaterial property
-            customExecutionScenario.IsToSendIncomingMaterial = true;
-
-            // Set scenario GoodsReceiptCertificate property
-            customExecutionScenario.GoodsReceiptCertificate = incomingLot;
-
-            // Setup scenario
-            customExecutionScenario.Setup();
+            // Set IncomingMaterial scenario
+            GoodsReceiptCertificate incomingLot = SetIncomingMaterialScenario($@"ERP\Samples\SampleGoodsReceiptWithNonExistentProductionOrder.xml");
 
             // Get created Integration Entry context
             IntegrationEntry integrationEntry = customExecutionScenario.IntegrationEntries.Last();
@@ -644,6 +602,52 @@ namespace Cmf.Custom.Tests.Biz.ERP
             // Validate throw Message associated to Integration Entry
             string localizedMessage = string.Format(CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageCustomProductionOrderDoesNotExists));
             StringAssert.Contains(integrationEntry.ResultDescription, string.Format(localizedMessage, incomingLot.Material.ProductionOrder), "The returned message is not as expected.");
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Create a Lot through an Integration Entry
+        ///         - The Primary Quantity is missing
+        /// Acceptance Criteria:
+        ///     - Integration Entry will return a message about the Primary Quantity being missing/invalid.
+        /// </summary>
+        /// <TestCaseID>CustomIncomingMaterialLotCreation_CreateLotFromMessage_ErrorNonExistentPrimaryQuantity</TestCaseID>
+        [TestMethod]
+        public void CustomIncomingMaterialLotCreation_CreateLotFromMessage_ErrorNonExistentPrimaryQuantity()
+        {
+            // Set IncomingMaterial scenario
+            GoodsReceiptCertificate incomingLot = SetIncomingMaterialScenario($@"ERP\Samples\SampleGoodsReceiptMissingPrimaryQuantity.xml");
+
+            // Get created Integration Entry context
+            IntegrationEntry integrationEntry = customExecutionScenario.IntegrationEntries.Last();
+            integrationEntry.Load();
+
+            // Validate throw Message associated to Integration Entry
+            string localizedMessage = string.Format(CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageCustomInvalidPrimaryQuantity), incomingLot.Material.Name);
+            StringAssert.Contains(integrationEntry.ResultDescription, string.Format(localizedMessage, incomingLot.Material.Name), "The returned message is not as expected.");
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Create a Lot through an Integration Entry
+        ///         - The Primary Unit is missing
+        /// Acceptance Criteria:
+        ///     - Integration Entry will return a message about the Primary Unit being missing.
+        /// </summary>
+        /// <TestCaseID>CustomIncomingMaterialLotCreation_CreateLotFromMessage_ErrorNonExistentPrimaryUnit</TestCaseID>
+        [TestMethod]
+        public void CustomIncomingMaterialLotCreation_CreateLotFromMessage_ErrorNonExistentPrimaryUnit()
+        {
+            // Set IncomingMaterial scenario
+            GoodsReceiptCertificate incomingLot = SetIncomingMaterialScenario($@"ERP\Samples\SampleGoodsReceiptMissingPrimaryUnit.xml");
+
+            // Get created Integration Entry context
+            IntegrationEntry integrationEntry = customExecutionScenario.IntegrationEntries.Last();
+            integrationEntry.Load();
+
+            // Validate throw Message associated to Integration Entry
+            string localizedMessage = string.Format(CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageCustomPrimaryUnitObjectNull), incomingLot.Material.Name);
+            StringAssert.Contains(integrationEntry.ResultDescription, string.Format(localizedMessage, incomingLot.Material.Name), "The returned message is not as expected.");
         }
 
         /// <summary>
@@ -762,6 +766,40 @@ namespace Cmf.Custom.Tests.Biz.ERP
                     Assert.IsTrue(material.AttributeEquals(materialData.MaterialAttributes[i].Name, materialData.MaterialAttributes[i].value), $"Sub-Material attribute {materialData.MaterialAttributes[i].Name} should have the value {materialData.MaterialAttributes[i].value}.");
                 }
             }
+        }
+
+        /// <summary>
+        /// Set IncomingMaterial scenario
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        private GoodsReceiptCertificate SetIncomingMaterialScenario(string fileName)
+        {
+            // Load Incoming Lot message
+            string incomingLotMessage = FileUtilities.LoadFile(fileName);
+
+            // Deserialize message in a MaterialData object
+            GoodsReceiptCertificate incomingLot = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(incomingLotMessage);
+
+            // Set random name to Lot
+            incomingLot.Material.Name = Guid.NewGuid().ToString("N");
+
+            // Set random name to Logical Wafer
+            incomingLot.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
+
+            // Set random name to Wafer
+            incomingLot.Material.Wafers[0].Wafers[0].Name = Guid.NewGuid().ToString("N");
+
+            // Set scenario IsToSendIncomingMaterial property
+            customExecutionScenario.IsToSendIncomingMaterial = true;
+
+            // Set scenario GoodsReceiptCertificate property
+            customExecutionScenario.GoodsReceiptCertificate = incomingLot;
+
+            // Setup scenario
+            customExecutionScenario.Setup();
+
+            return incomingLot;
         }
 
         #endregion Help methods

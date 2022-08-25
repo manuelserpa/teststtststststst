@@ -119,6 +119,16 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialProductWaferSizeMissing, product.Name);
                 }
 
+                if (!decimal.TryParse(materialData.PrimaryQuantity, out decimal primaryQuantity))
+                {
+                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomInvalidPrimaryQuantity, materialData.Name);
+                }
+
+                if (string.IsNullOrWhiteSpace(materialData.PrimaryUnit))
+                {
+                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomPrimaryUnitObjectNull, materialData.Name);
+                }
+
                 Facility facility = new Facility()
                 {
                     Name = materialData.Facility
@@ -129,7 +139,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 incomingLot.Form = materialData.Form;
                 incomingLot.Type = materialData.Type;
                 incomingLot.Product = product;
-                incomingLot.PrimaryQuantity = decimal.Parse(materialData.PrimaryQuantity);
+                incomingLot.PrimaryQuantity = primaryQuantity;
                 incomingLot.PrimaryUnits = materialData.PrimaryUnit;
                 //prod order exists checking
                 
@@ -518,12 +528,22 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                             AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialProductWaferSizeMissing, product.Name);
                         }
 
+                        if (!decimal.TryParse(wafer.PrimaryQuantity, out decimal waferPrimaryQuantity))
+                        {
+                            AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomInvalidPrimaryQuantity, wafer.Name);
+                        }
+
+                        if (string.IsNullOrWhiteSpace(wafer.PrimaryUnit))
+                        {
+                            AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomPrimaryUnitObjectNull, wafer.Name);
+                        }
+
                         Material material = new Material()
                         {
                             Name = wafer.Name,
                             Product = product,
                             Facility = parentMaterial.Facility,
-                            PrimaryQuantity = decimal.Parse(wafer.PrimaryQuantity),
+                            PrimaryQuantity = waferPrimaryQuantity,
                             PrimaryUnits = wafer.PrimaryUnit,
                             Form = wafer.Form,
                             Type = string.IsNullOrWhiteSpace(wafer.Type) ? parentMaterial.Type : wafer.Type
