@@ -125,9 +125,164 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "TosPortID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "TosCarrierID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CarrierContentMap",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "TosSlotMap",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "TosSlotMapReadSuccessful"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_19525",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        const rawSlotMap = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"TosSlotMap\");",
+					"        const portId = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"TosPortID\");",
+					"        const containerId = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"TosCarrierID\");",
+					"",
+					"        this.framework.logger.debug(\"RawSlotMap from event: \" + rawSlotMap.originalValue.value);",
+					"        this.framework.logger.debug(\"PortId from event: \" + portId.originalValue.value);",
+					"        this.framework.logger.debug(\"ContainerId from event: \" + containerId.originalValue.value);",
+					"",
+					"        if (rawSlotMap == null) {",
+					"            throw new Error(\"Empty slot map\");",
+					"        }",
+					"",
+					"        let slotMap: String = \"\";",
+					"",
+					"        (<any[]>rawSlotMap.originalValue.value).forEach(slot => {",
+					"",
+					"            slotMap += slot.value > 1 ? \"1\" : \"0\";",
+					"",
+					"        });",
+					"",
+					"        this.framework.logger.debug(\"Parsed SlotMap: \" + slotMap);",
+					"",
+					"        return { SlotMap: slotMap, PortId: portId.originalValue.value, ContainerId: containerId.originalValue.value};",
+					"",
+					"",
+					"",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IHJhd1Nsb3RNYXAgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiVG9zU2xvdE1hcCIpOw0KICAgICAgICBjb25zdCBwb3J0SWQgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiVG9zUG9ydElEIik7DQogICAgICAgIGNvbnN0IGNvbnRhaW5lcklkID0gaW5wdXRzLmV2ZW50UmF3RGF0YS52YWx1ZXMuZmluZCh2ID0+IHYucHJvcGVydHkuTmFtZSA9PT0gIlRvc0NhcnJpZXJJRCIpOw0KICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIuZGVidWcoIlJhd1Nsb3RNYXAgZnJvbSBldmVudDogIiArIHJhd1Nsb3RNYXAub3JpZ2luYWxWYWx1ZS52YWx1ZSk7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5kZWJ1ZygiUG9ydElkIGZyb20gZXZlbnQ6ICIgKyBwb3J0SWQub3JpZ2luYWxWYWx1ZS52YWx1ZSk7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5kZWJ1ZygiQ29udGFpbmVySWQgZnJvbSBldmVudDogIiArIGNvbnRhaW5lcklkLm9yaWdpbmFsVmFsdWUudmFsdWUpOw0KICAgICAgICBpZiAocmF3U2xvdE1hcCA9PSBudWxsKSB7DQogICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoIkVtcHR5IHNsb3QgbWFwIik7DQogICAgICAgIH0NCiAgICAgICAgbGV0IHNsb3RNYXAgPSAiIjsNCiAgICAgICAgcmF3U2xvdE1hcC5vcmlnaW5hbFZhbHVlLnZhbHVlLmZvckVhY2goc2xvdCA9PiB7DQogICAgICAgICAgICBzbG90TWFwICs9IHNsb3QudmFsdWUgPiAxID8gIjEiIDogIjAiOw0KICAgICAgICB9KTsNCiAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLmRlYnVnKCJQYXJzZWQgU2xvdE1hcDogIiArIHNsb3RNYXApOw0KICAgICAgICByZXR1cm4geyBTbG90TWFwOiBzbG90TWFwLCBQb3J0SWQ6IHBvcnRJZC5vcmlnaW5hbFZhbHVlLnZhbHVlLCBDb250YWluZXJJZDogY29udGFpbmVySWQub3JpZ2luYWxWYWx1ZS52YWx1ZSB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
+				"inputs": [
+					{
+						"name": "eventRawData",
+						"valueType": {
+							"friendlyName": "eventRawData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "ContainerId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerId"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "SlotMap",
+						"valueType": {
+							"friendlyName": "SlotMap",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "PortId",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
 		}
 	],
 	"converters": [
@@ -142,7 +297,50 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "2e6cbde7-4998-4bf5-a180-731dea718dea",
+			"sourceId": "task_190927",
+			"targetId": "task_19525",
+			"inputName": "eventRawDataIn",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "64bf5128-b50e-467b-9967-0eb03eed1753",
+			"sourceId": "task_190927",
+			"targetId": "task_19525",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "baba7319-9d78-40ab-b7b4-56055604f73f",
+			"sourceId": "task_19525",
+			"targetId": "task_93884",
+			"inputName": "ContainerIdIn",
+			"outputName": "ContainerIdOut"
+		},
+		{
+			"id": "0794c9bc-caa7-423b-a06e-6f62ba3d4bb5",
+			"sourceId": "task_19525",
+			"targetId": "task_93884",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "06518e48-d786-4f94-a33c-274450a24e86",
+			"sourceId": "task_19525",
+			"targetId": "task_93884",
+			"inputName": "SlotMapIn",
+			"outputName": "SlotMapOut"
+		},
+		{
+			"id": "5040778e-7160-45bc-aca0-5c6e2fe4f43d",
+			"sourceId": "task_19525",
+			"targetId": "task_93884",
+			"inputName": "LoadPortIn",
+			"outputName": "PortIdOut"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -161,34 +359,61 @@
 					"task_93884": {
 						"collapsed": false,
 						"position": {
-							"x": 860,
-							"y": 199
+							"x": 1043,
+							"y": 237
 						},
 						"outdated": false
 					},
 					"task_190927": {
 						"collapsed": false,
 						"position": {
-							"x": 277,
-							"y": 187
+							"x": 4,
+							"y": 192
+						},
+						"outdated": false
+					},
+					"task_19525": {
+						"collapsed": false,
+						"position": {
+							"x": 513,
+							"y": 355
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"2e6cbde7-4998-4bf5-a180-731dea718dea": {
+						"vertices": []
+					},
+					"64bf5128-b50e-467b-9967-0eb03eed1753": {
+						"vertices": []
+					},
+					"baba7319-9d78-40ab-b7b4-56055604f73f": {
+						"vertices": []
+					},
+					"0794c9bc-caa7-423b-a06e-6f62ba3d4bb5": {
+						"vertices": []
+					},
+					"06518e48-d786-4f94-a33c-274450a24e86": {
+						"vertices": []
+					},
+					"5040778e-7160-45bc-aca0-5c6e2fe4f43d": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_191122": {
 						"collapsed": false,
 						"position": {
-							"x": 1412,
-							"y": 118
+							"x": 660,
+							"y": 808
 						}
 					}
 				},
-				"zoom": 0.7600000000000002,
+				"zoom": 0.7300000000000002,
 				"pan": {
-					"x": 183.37334964283525,
-					"y": 25.9333195290115
+					"x": 0,
+					"y": 27
 				}
 			}
 		}

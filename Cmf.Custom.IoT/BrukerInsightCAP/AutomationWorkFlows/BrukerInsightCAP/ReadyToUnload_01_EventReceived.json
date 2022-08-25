@@ -114,13 +114,52 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "TosPortID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortTransferState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "LPTSM9_TRANSFERBLOCKED_READYTOUNLOAD"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
 	],
 	"converters": [],
-	"links": [],
+	"links": [
+		{
+			"id": "e265aede-84dc-4902-9287-227c560a2570",
+			"sourceId": "task_158180",
+			"targetId": "task_158178",
+			"inputName": "LoadPortNumberIn",
+			"outputName": "$TosPortID"
+		},
+		{
+			"id": "93ec4605-b91c-4ca4-a2b9-9997658e1dc5",
+			"sourceId": "task_158180",
+			"targetId": "task_158178",
+			"inputName": "activate",
+			"outputName": "$TosPortID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -139,21 +178,28 @@
 					"task_158178": {
 						"collapsed": false,
 						"position": {
-							"x": 1053,
-							"y": 253
+							"x": 1057,
+							"y": 199
 						},
 						"outdated": false
 					},
 					"task_158180": {
 						"collapsed": false,
 						"position": {
-							"x": 502,
-							"y": 250
+							"x": 478,
+							"y": 193
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"e265aede-84dc-4902-9287-227c560a2570": {
+						"vertices": []
+					},
+					"93ec4605-b91c-4ca4-a2b9-9997658e1dc5": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_158182": {
 						"collapsed": false,
@@ -162,6 +208,10 @@
 							"y": 110
 						}
 					}
+				},
+				"pan": {
+					"x": 264,
+					"y": 82
 				}
 			}
 		}

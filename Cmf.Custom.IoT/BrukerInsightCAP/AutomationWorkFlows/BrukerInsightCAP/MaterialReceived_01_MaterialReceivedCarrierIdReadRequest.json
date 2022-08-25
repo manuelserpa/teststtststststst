@@ -114,7 +114,24 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "TosPortID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "TosMaterialReceived"
+					}
+				],
+				"___cmf___description": "TosMaterialReceived"
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -184,6 +201,17 @@
 				],
 				"outputs": [
 					{
+						"name": "LoadPort",
+						"valueType": {
+							"friendlyName": "LoadPort",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
 						"name": "container",
 						"valueType": {
 							"friendlyName": "container",
@@ -195,14 +223,14 @@
 						}
 					},
 					{
-						"name": "LoadPort",
+						"name": "ContainerName",
 						"valueType": {
-							"friendlyName": "LoadPort",
-							"type": 5,
+							"type": 4,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
-							"referenceTypeId": null
+							"referenceTypeId": null,
+							"friendlyName": ""
 						}
 					}
 				],
@@ -456,6 +484,20 @@
 					}
 				}
 			]
+		},
+		{
+			"id": "82f1781d-b5c7-469b-873b-2822d485ea43",
+			"sourceId": "task_29465",
+			"targetId": "task_29463",
+			"inputName": "LoadPortNumberIn",
+			"outputName": "$TosPortID"
+		},
+		{
+			"id": "5814ef6a-e00c-44dd-b140-9d88cfca8902",
+			"sourceId": "task_29465",
+			"targetId": "task_29463",
+			"inputName": "activate",
+			"outputName": "$TosPortID"
 		}
 	],
 	"layout": {
@@ -496,8 +538,8 @@
 					"task_29465": {
 						"collapsed": false,
 						"position": {
-							"x": 360,
-							"y": 351
+							"x": 331,
+							"y": 350
 						},
 						"outdated": false
 					},
@@ -542,6 +584,12 @@
 					"c9eb2b40-bcc2-4be6-bf91-83012e2506ef": {
 						"vertices": []
 					},
+					"82f1781d-b5c7-469b-873b-2822d485ea43": {
+						"vertices": []
+					},
+					"5814ef6a-e00c-44dd-b140-9d88cfca8902": {
+						"vertices": []
+					},
 					"b5bf631f-79d2-43e6-abe5-b4aead9f6255": {
 						"vertices": []
 					},
@@ -575,10 +623,10 @@
 						}
 					}
 				},
-				"zoom": 0.5900000000000003,
+				"zoom": 0.8899999999999999,
 				"pan": {
-					"x": 362.68961690295214,
-					"y": 35.51363202227702
+					"x": 1152,
+					"y": 250
 				}
 			}
 		}

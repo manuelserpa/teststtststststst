@@ -125,7 +125,32 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PRJobID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PRJobState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "PROCESSING_STARTED"
+					}
+				],
+				"___cmf___description": "PROCESSING_STARTED"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -172,7 +197,22 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "4ebd20c7-b538-4534-a4e1-5598a01c331d",
+			"sourceId": "task_51951",
+			"targetId": "task_135964",
+			"inputName": "ProcessJobIdIn",
+			"outputName": "$PRJobID"
+		},
+		{
+			"id": "6db8b36e-2c24-4f12-a750-43da30547c36",
+			"sourceId": "task_51951",
+			"targetId": "task_135964",
+			"inputName": "activate",
+			"outputName": "$PRJobID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#00ff80",
@@ -191,34 +231,41 @@
 					"task_135964": {
 						"collapsed": false,
 						"position": {
-							"x": 1106,
-							"y": 251
+							"x": 1010,
+							"y": 395
 						},
 						"outdated": false
 					},
 					"task_51951": {
 						"collapsed": false,
 						"position": {
-							"x": 241,
-							"y": 234
+							"x": 395,
+							"y": 479
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"4ebd20c7-b538-4534-a4e1-5598a01c331d": {
+						"vertices": []
+					},
+					"6db8b36e-2c24-4f12-a750-43da30547c36": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_53240": {
 						"collapsed": false,
 						"position": {
-							"x": 1616,
-							"y": 32
+							"x": 1464,
+							"y": 163
 						}
 					}
 				},
-				"zoom": 0.6799999999999999,
+				"zoom": 0.71,
 				"pan": {
-					"x": 61.372528999363,
-					"y": 27.32143047733888
+					"x": 59.56942990238554,
+					"y": 157.74598524305554
 				}
 			}
 		}

@@ -460,7 +460,16 @@
 				}
 			},
 			"settings": {
-				"_outputs": [],
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "TosControlState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
 				"___cmf___name": "Get Equipment Properties Values",
 				"___cmf___color": "#ffff80"
 			},
@@ -899,8 +908,8 @@
 					"task_165548": {
 						"collapsed": false,
 						"position": {
-							"x": 3866,
-							"y": 1150
+							"x": 3800,
+							"y": 1353
 						},
 						"outdated": false
 					},
@@ -1003,10 +1012,10 @@
 						}
 					}
 				},
-				"zoom": 0.33999999999999964,
+				"zoom": 0.36999999999999966,
 				"pan": {
-					"x": 223,
-					"y": 23
+					"x": 226,
+					"y": 11
 				}
 			}
 		}

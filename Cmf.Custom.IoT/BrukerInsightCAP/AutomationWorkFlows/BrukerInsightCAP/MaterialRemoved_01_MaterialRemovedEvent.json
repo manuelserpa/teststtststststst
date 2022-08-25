@@ -125,7 +125,23 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "TosPortID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "TosMaterialRemoved"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -162,7 +178,22 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "2f645ded-0b11-4571-b4a8-7f11b73e6bca",
+			"sourceId": "task_189672",
+			"targetId": "task_95323",
+			"inputName": "LoadPortNumberIn",
+			"outputName": "$TosPortID"
+		},
+		{
+			"id": "ff25705a-f2f3-4fdf-8501-35d192c17011",
+			"sourceId": "task_189672",
+			"targetId": "task_95323",
+			"inputName": "activate",
+			"outputName": "$TosPortID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -181,21 +212,28 @@
 					"task_95323": {
 						"collapsed": false,
 						"position": {
-							"x": 1065,
-							"y": 328
+							"x": 1047,
+							"y": 305
 						},
 						"outdated": false
 					},
 					"task_189672": {
 						"collapsed": false,
 						"position": {
-							"x": 502,
-							"y": 250
+							"x": 411,
+							"y": 335
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"2f645ded-0b11-4571-b4a8-7f11b73e6bca": {
+						"vertices": []
+					},
+					"ff25705a-f2f3-4fdf-8501-35d192c17011": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_189487": {
 						"collapsed": false,
@@ -206,10 +244,10 @@
 					}
 				},
 				"pan": {
-					"x": 210.38029919356995,
-					"y": 45.47889645162047
+					"x": 91.41976642769703,
+					"y": 121.84307484567904
 				},
-				"zoom": 0.7200000000000002
+				"zoom": 0.8200000000000003
 			}
 		}
 	}

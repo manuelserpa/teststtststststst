@@ -114,7 +114,55 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstLocID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstProcState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "TosClock",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "WaferEnd"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -141,7 +189,22 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "0fba16b4-253e-4ac8-a013-8a71cbe86010",
+			"sourceId": "task_119709",
+			"targetId": "task_126394",
+			"inputName": "SubMaterialNameIn",
+			"outputName": "$SubstID"
+		},
+		{
+			"id": "151dfbe6-0a53-42e4-a23f-5bd716296190",
+			"sourceId": "task_119709",
+			"targetId": "task_126394",
+			"inputName": "activate",
+			"outputName": "$SubstID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#00ff80",
@@ -168,13 +231,20 @@
 					"task_119709": {
 						"collapsed": false,
 						"position": {
-							"x": 383.0508474576272,
-							"y": 364.406779661017
+							"x": 344,
+							"y": 281
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"0fba16b4-253e-4ac8-a013-8a71cbe86010": {
+						"vertices": []
+					},
+					"151dfbe6-0a53-42e4-a23f-5bd716296190": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_119482": {
 						"collapsed": false,
@@ -184,10 +254,10 @@
 						}
 					}
 				},
-				"zoom": 0.5899999999999999,
+				"zoom": 0.76,
 				"pan": {
-					"x": 50,
-					"y": 10
+					"x": 254.30668431458025,
+					"y": 112.1771875
 				}
 			}
 		}

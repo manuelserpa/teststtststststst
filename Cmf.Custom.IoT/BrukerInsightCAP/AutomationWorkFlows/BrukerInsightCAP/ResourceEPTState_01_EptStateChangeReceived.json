@@ -12,7 +12,24 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "EPT_STATE",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "EquipmentEPTStateChangeEvent"
+					}
+				],
+				"___cmf___description": "EquipmentEPTStateChangeEvent"
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -108,7 +125,22 @@
 		}
 	],
 	"converters": [],
-	"links": [],
+	"links": [
+		{
+			"id": "899d9731-db05-4ede-aa03-4b51a6a8518c",
+			"sourceId": "task_38972",
+			"targetId": "task_39071",
+			"inputName": "EPTStateIn",
+			"outputName": "$EPT_STATE"
+		},
+		{
+			"id": "48b5be5d-f6e8-43b9-8f43-37e5eb9ec048",
+			"sourceId": "task_38972",
+			"targetId": "task_39071",
+			"inputName": "activate",
+			"outputName": "$EPT_STATE"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#0080ff",
@@ -120,26 +152,33 @@
 					"task_38972": {
 						"collapsed": false,
 						"position": {
-							"x": 972,
-							"y": 1002.3125
+							"x": 896,
+							"y": 944
 						},
 						"outdated": false
 					},
 					"task_39071": {
 						"collapsed": false,
 						"position": {
-							"x": 1983,
-							"y": 975
+							"x": 1550,
+							"y": 940
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"899d9731-db05-4ede-aa03-4b51a6a8518c": {
+						"vertices": []
+					},
+					"48b5be5d-f6e8-43b9-8f43-37e5eb9ec048": {
+						"vertices": []
+					}
+				},
 				"notes": {},
-				"zoom": 0.7099999999999997,
+				"zoom": 0.98,
 				"pan": {
-					"x": 764.4444580078125,
-					"y": 362.22222900390625
+					"x": 718,
+					"y": 818
 				}
 			}
 		}

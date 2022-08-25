@@ -1,0 +1,714 @@
+{
+	"tasks": [
+		{
+			"id": "task_14097",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "TosCarrierID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "TosPortID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstLocID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CtrlJobID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PRJobID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_DEPTH_f4DEPTH_AT_MAX",
+							"DataType": 4
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_DEPTH_f4FILTER_CUTOFF",
+							"DataType": 4
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_DEPTH_f4MAX_PEAK",
+							"DataType": 4
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_DEPTH_f4MIN_PEAK",
+							"DataType": 4
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_DEPTH_f4PEAK_TO_PEAK",
+							"DataType": 4
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_DEPTH_f4TOTAL_PEAKS",
+							"DataType": 4
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_DEPTH_u2AUTOPROGRAM_COUNT",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_RECIPE_u1TYPE",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_SITE_f4COLUMN",
+							"DataType": 4
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_SITE_f4ROW",
+							"DataType": 4
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_SITE_f8X_COORD",
+							"DataType": 4
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_SITE_f8X_M20_COORDINATE",
+							"DataType": 4
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_SITE_f8Y_COORD",
+							"DataType": 4
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_SITE_f8Y_M20_COORDINATE",
+							"DataType": 4
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_SITE_szAUTOPROGRAM_NAME",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_SITE_szMASTERSITENAME",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_SITE_szSITENAME",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_SITE_szSUBSTRATE_LOTID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_SITE_szSUBSTRATE_WAFERID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_SITE_u1SITE",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_SITE_u1SLOT",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_SITE_u4TOTAL_SITES_PER_WAFER",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_DEPTH_f4MIN_PEAK_FWHM",
+							"DataType": 4
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DV_DEPTH_f4MAX_PEAK_FWHM",
+							"DataType": 4
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "CE_DEPTH_ANALYSIS_DATA_AVAIL"
+					}
+				]
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_14532",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"",
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        const event = inputs.eventRawData;",
+					"",
+					"        var dataPointsExtractedProcessed = new Map();",
+					"        var waferName = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"SubstID\").originalValue.value;",
+					"        var materialName = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"TosCarrierID\").originalValue.value;",
+					"        if (materialName == null) {",
+					"            throw new Error(\"Empty TosCarrierID\");",
+					"        }",
+					"",
+					"        if (waferName == null) {",
+					"            throw new Error(\"Empty SubstID\");",
+					"        }",
+					"",
+					"        this.framework.logger.info(\"MaterialName: \" + JSON.stringify(materialName) + \" SubstID: \" + JSON.stringify(waferName));",
+					"",
+					"",
+					"        const materialContainer = await this.framework.dataStore.retrieve(\"MaterialOnPersistence\", false);",
+					"",
+					"        var materials;",
+					"        for (var m = 0; m < materialContainer.length; m++) {",
+					"            materials = await this.framework.dataStore.retrieve(materialContainer[m], false);",
+					"            if (materials.MaterialName === materialName) {",
+					"                break;",
+					"            }",
+					"        }",
+					"",
+					"        var selectedSubmaterial = (<any[]>materials.SubMaterials).find(v => v.MaterialName == waferName);",
+					"        if (selectedSubmaterial == null) {",
+					"            this.framework.logger.error(\"Materials: \" + JSON.stringify(materials));",
+					"            throw new Error(\"No SubstID \" + waferName + \" found on Material (Lot): \" + materialName + \", no data will be collected\");",
+					"        }",
+					"",
+					"        this.framework.logger.info(\"SelectedWafer: \" + JSON.stringify(waferName));",
+					"",
+					"        var DV_DEPTH_f4DEPTH_AT_MAX = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_DEPTH_f4DEPTH_AT_MAX\").originalValue.value;",
+					"        var DV_DEPTH_f4FILTER_CUTOFF = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_DEPTH_f4FILTER_CUTOFF\").originalValue.value;",
+					"        var DV_DEPTH_f4MAX_PEAK = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_DEPTH_f4MAX_PEAK\").originalValue.value;",
+					"        var DV_DEPTH_f4MIN_PEAK = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_DEPTH_f4MIN_PEAK\").originalValue.value;",
+					"        var DV_DEPTH_f4PEAK_TO_PEAK = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_DEPTH_f4PEAK_TO_PEAK\").originalValue.value;",
+					"        var DV_DEPTH_f4TOTAL_PEAKS = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_DEPTH_f4TOTAL_PEAKS\").originalValue.value;",
+					"        var DV_DEPTH_u2AUTOPROGRAM_COUNT = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_DEPTH_u2AUTOPROGRAM_COUNT\").originalValue.value;",
+					"        var DV_RECIPE_u1TYPE = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_RECIPE_u1TYPE\").originalValue.value;",
+					"        var DV_SITE_f4COLUMN = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_SITE_f4COLUMN\").originalValue.value;",
+					"        var DV_SITE_f4ROW = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_SITE_f4ROW\").originalValue.value;",
+					"        var DV_SITE_f8X_COORD = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_SITE_f8X_COORD\").originalValue.value;",
+					"        var DV_SITE_f8X_M20_COORDINATE = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_SITE_f8X_M20_COORDINATE\").originalValue.value;",
+					"        var DV_SITE_f8Y_COORD = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_SITE_f8Y_COORD\").originalValue.value;",
+					"        var DV_SITE_f8Y_M20_COORDINATE = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_SITE_f8Y_M20_COORDINATE\").originalValue.value;",
+					"        var DV_SITE_szAUTOPROGRAM_NAME = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_SITE_szAUTOPROGRAM_NAME\").originalValue.value;",
+					"        var DV_SITE_szMASTERSITENAME = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_SITE_szMASTERSITENAME\").originalValue.value;",
+					"        var DV_SITE_szSITENAME = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_SITE_szSITENAME\").originalValue.value;",
+					"        var DV_SITE_szSUBSTRATE_LOTID = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_SITE_szSUBSTRATE_LOTID\").originalValue.value;",
+					"        var DV_SITE_szSUBSTRATE_WAFERID = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_SITE_szSUBSTRATE_WAFERID\").originalValue.value;",
+					"        var DV_SITE_u1SITE = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_SITE_u1SITE\").originalValue.value;",
+					"        var DV_SITE_u1SLOT = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_SITE_u1SLOT\").originalValue.value;",
+					"        var DV_SITE_u4TOTAL_SITES_PER_WAFER = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_SITE_u4TOTAL_SITES_PER_WAFER\").originalValue.value;",
+					"        var DV_DEPTH_f4MIN_PEAK_FWHM = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_DEPTH_f4MIN_PEAK_FWHM\").originalValue.value;",
+					"        var DV_DEPTH_f4MAX_PEAK_FWHM = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"DV_DEPTH_f4MAX_PEAK_FWHM\").originalValue.value;",
+					"",
+					"",
+					"        if (DV_DEPTH_f4DEPTH_AT_MAX != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_DEPTH_f4DEPTH_AT_MAX\", <any>DV_DEPTH_f4DEPTH_AT_MAX);",
+					"        }",
+					"        if (DV_DEPTH_f4FILTER_CUTOFF != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_DEPTH_f4FILTER_CUTOFF\", <any>DV_DEPTH_f4FILTER_CUTOFF);",
+					"        }",
+					"        if (DV_DEPTH_f4MAX_PEAK != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_DEPTH_f4MAX_PEAK\", <any>DV_DEPTH_f4MAX_PEAK);",
+					"        }",
+					"        if (DV_DEPTH_f4MIN_PEAK != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_DEPTH_f4MIN_PEAK\", <any>DV_DEPTH_f4MIN_PEAK);",
+					"        }",
+					"        if (DV_DEPTH_f4PEAK_TO_PEAK != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_DEPTH_f4PEAK_TO_PEAK\", <any>DV_DEPTH_f4PEAK_TO_PEAK);",
+					"        }",
+					"        if (DV_DEPTH_f4TOTAL_PEAKS != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_DEPTH_f4TOTAL_PEAKS\", <any>DV_DEPTH_f4TOTAL_PEAKS);",
+					"        }",
+					"        if (DV_DEPTH_u2AUTOPROGRAM_COUNT != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_DEPTH_u2AUTOPROGRAM_COUNT\", <any>DV_DEPTH_u2AUTOPROGRAM_COUNT);",
+					"        }",
+					"        if (DV_RECIPE_u1TYPE != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_RECIPE_u1TYPE\", <any>DV_RECIPE_u1TYPE);",
+					"        }",
+					"        if (DV_SITE_f4COLUMN != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_SITE_f4COLUMN\", <any>DV_SITE_f4COLUMN);",
+					"        }",
+					"        if (DV_SITE_f4ROW != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_SITE_f4ROW\", <any>DV_SITE_f4ROW);",
+					"        }",
+					"        if (DV_SITE_f8X_COORD != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_SITE_f8X_COORD\", <any>DV_SITE_f8X_COORD);",
+					"        }",
+					"        if (DV_SITE_f8X_M20_COORDINATE != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_SITE_f8X_M20_COORDINATE\", <any>DV_SITE_f8X_M20_COORDINATE);",
+					"        }",
+					"        if (DV_SITE_f8Y_COORD != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_SITE_f8Y_COORD\", <any>DV_SITE_f8Y_COORD);",
+					"        }",
+					"        if (DV_SITE_f8Y_M20_COORDINATE != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_SITE_f8Y_M20_COORDINATE\", <any>DV_SITE_f8Y_M20_COORDINATE);",
+					"        }",
+					"        if (DV_SITE_szAUTOPROGRAM_NAME != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_SITE_szAUTOPROGRAM_NAME\", <any>DV_SITE_szAUTOPROGRAM_NAME);",
+					"        }",
+					"        if (DV_SITE_szMASTERSITENAME != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_SITE_szMASTERSITENAME\", <any>DV_SITE_szMASTERSITENAME);",
+					"        }",
+					"        if (DV_SITE_szSITENAME != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_SITE_szSITENAME\", <any>DV_SITE_szSITENAME);",
+					"        }",
+					"        if (DV_SITE_szSUBSTRATE_LOTID != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_SITE_szSUBSTRATE_LOTID\", <any>DV_SITE_szSUBSTRATE_LOTID);",
+					"        }",
+					"        if (DV_SITE_szSUBSTRATE_WAFERID != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_SITE_szSUBSTRATE_WAFERID\", <any>DV_SITE_szSUBSTRATE_WAFERID);",
+					"        }",
+					"        if (DV_SITE_u1SITE != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_SITE_u1SITE\", <any>DV_SITE_u1SITE);",
+					"        }",
+					"        if (DV_SITE_u1SLOT != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_SITE_u1SLOT\", <any>DV_SITE_u1SLOT);",
+					"        }",
+					"        if (DV_SITE_u4TOTAL_SITES_PER_WAFER != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_SITE_u4TOTAL_SITES_PER_WAFER\", <any>DV_SITE_u4TOTAL_SITES_PER_WAFER);",
+					"        }",
+					"        if (DV_DEPTH_f4MIN_PEAK_FWHM != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_DEPTH_f4MIN_PEAK_FWHM\", <any>DV_DEPTH_f4MIN_PEAK_FWHM);",
+					"        }",
+					"        if (DV_DEPTH_f4MAX_PEAK_FWHM != null) {",
+					"            dataPointsExtractedProcessed.set(\"Bruker/DV_DEPTH_f4MAX_PEAK_FWHM\", <any>DV_DEPTH_f4MAX_PEAK_FWHM);",
+					"        }",
+					"",
+					"        this.framework.logger.info(\"Value for Bruker/DV_DEPTH_f4DEPTH_AT_MAX: \" + DV_DEPTH_f4DEPTH_AT_MAX);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_DEPTH_f4FILTER_CUTOFF: \" + DV_DEPTH_f4FILTER_CUTOFF);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_DEPTH_f4MAX_PEAK: \" + DV_DEPTH_f4MAX_PEAK);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_DEPTH_f4MIN_PEAK: \" + DV_DEPTH_f4MIN_PEAK);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_DEPTH_f4PEAK_TO_PEAK: \" + DV_DEPTH_f4PEAK_TO_PEAK);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_DEPTH_f4TOTAL_PEAKS: \" + DV_DEPTH_f4TOTAL_PEAKS);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_DEPTH_u2AUTOPROGRAM_COUNT: \" + DV_DEPTH_u2AUTOPROGRAM_COUNT);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_RECIPE_u1TYPE: \" + DV_RECIPE_u1TYPE);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_SITE_f4COLUMN: \" + DV_SITE_f4COLUMN);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_SITE_f4ROW: \" + DV_SITE_f4ROW);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_SITE_f8X_COORD: \" + DV_SITE_f8X_COORD);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_SITE_f8X_M20_COORDINATE: \" + DV_SITE_f8X_M20_COORDINATE);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_SITE_f8Y_COORD: \" + DV_SITE_f8Y_COORD);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_SITE_f8Y_M20_COORDINATE: \" + DV_SITE_f8Y_M20_COORDINATE);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_SITE_szAUTOPROGRAM_NAME: \" + DV_SITE_szAUTOPROGRAM_NAME);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_SITE_szMASTERSITENAME: \" + DV_SITE_szMASTERSITENAME);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_SITE_szSITENAME: \" + DV_SITE_szSITENAME);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_SITE_szSUBSTRATE_LOTID: \" + DV_SITE_szSUBSTRATE_LOTID);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_SITE_szSUBSTRATE_WAFERID: \" + DV_SITE_szSUBSTRATE_WAFERID);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_SITE_u1SITE: \" + DV_SITE_u1SITE);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_SITE_u1SLOT: \" + DV_SITE_u1SLOT);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_SITE_u4TOTAL_SITES_PER_WAFER: \" + DV_SITE_u4TOTAL_SITES_PER_WAFER);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_DEPTH_f4MIN_PEAK_FWHM: \" + DV_DEPTH_f4MIN_PEAK_FWHM);",
+					"        this.framework.logger.info(\"Value for Bruker/DV_DEPTH_f4MAX_PEAK_FWHM: \" + DV_DEPTH_f4MAX_PEAK_FWHM);",
+					"",
+					"        return {",
+					"            dataPointsExtracted: dataPointsExtractedProcessed,",
+					"            materialName: materialName,",
+					"            subMaterialName: waferName",
+					"        };",
+					"",
+					"        // emit output during execution: outputs.output1.emit(\"something\");",
+					"        // return example: return { output1: inputs.input1, output2: \"Hello World\" };",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IGV2ZW50ID0gaW5wdXRzLmV2ZW50UmF3RGF0YTsNCiAgICAgICAgdmFyIGRhdGFQb2ludHNFeHRyYWN0ZWRQcm9jZXNzZWQgPSBuZXcgTWFwKCk7DQogICAgICAgIHZhciB3YWZlck5hbWUgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiU3Vic3RJRCIpLm9yaWdpbmFsVmFsdWUudmFsdWU7DQogICAgICAgIHZhciBtYXRlcmlhbE5hbWUgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiVG9zQ2FycmllcklEIikub3JpZ2luYWxWYWx1ZS52YWx1ZTsNCiAgICAgICAgaWYgKG1hdGVyaWFsTmFtZSA9PSBudWxsKSB7DQogICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoIkVtcHR5IFRvc0NhcnJpZXJJRCIpOw0KICAgICAgICB9DQogICAgICAgIGlmICh3YWZlck5hbWUgPT0gbnVsbCkgew0KICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKCJFbXB0eSBTdWJzdElEIik7DQogICAgICAgIH0NCiAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLmluZm8oIk1hdGVyaWFsTmFtZTogIiArIEpTT04uc3RyaW5naWZ5KG1hdGVyaWFsTmFtZSkgKyAiIFN1YnN0SUQ6ICIgKyBKU09OLnN0cmluZ2lmeSh3YWZlck5hbWUpKTsNCiAgICAgICAgY29uc3QgbWF0ZXJpYWxDb250YWluZXIgPSBhd2FpdCB0aGlzLmZyYW1ld29yay5kYXRhU3RvcmUucmV0cmlldmUoIk1hdGVyaWFsT25QZXJzaXN0ZW5jZSIsIGZhbHNlKTsNCiAgICAgICAgdmFyIG1hdGVyaWFsczsNCiAgICAgICAgZm9yICh2YXIgbSA9IDA7IG0gPCBtYXRlcmlhbENvbnRhaW5lci5sZW5ndGg7IG0rKykgew0KICAgICAgICAgICAgbWF0ZXJpYWxzID0gYXdhaXQgdGhpcy5mcmFtZXdvcmsuZGF0YVN0b3JlLnJldHJpZXZlKG1hdGVyaWFsQ29udGFpbmVyW21dLCBmYWxzZSk7DQogICAgICAgICAgICBpZiAobWF0ZXJpYWxzLk1hdGVyaWFsTmFtZSA9PT0gbWF0ZXJpYWxOYW1lKSB7DQogICAgICAgICAgICAgICAgYnJlYWs7DQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICAgICAgdmFyIHNlbGVjdGVkU3VibWF0ZXJpYWwgPSBtYXRlcmlhbHMuU3ViTWF0ZXJpYWxzLmZpbmQodiA9PiB2Lk1hdGVyaWFsTmFtZSA9PSB3YWZlck5hbWUpOw0KICAgICAgICBpZiAoc2VsZWN0ZWRTdWJtYXRlcmlhbCA9PSBudWxsKSB7DQogICAgICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIuZXJyb3IoIk1hdGVyaWFsczogIiArIEpTT04uc3RyaW5naWZ5KG1hdGVyaWFscykpOw0KICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKCJObyBTdWJzdElEICIgKyB3YWZlck5hbWUgKyAiIGZvdW5kIG9uIE1hdGVyaWFsIChMb3QpOiAiICsgbWF0ZXJpYWxOYW1lICsgIiwgbm8gZGF0YSB3aWxsIGJlIGNvbGxlY3RlZCIpOw0KICAgICAgICB9DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5pbmZvKCJTZWxlY3RlZFdhZmVyOiAiICsgSlNPTi5zdHJpbmdpZnkod2FmZXJOYW1lKSk7DQogICAgICAgIHZhciBEVl9ERVBUSF9mNERFUFRIX0FUX01BWCA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJEVl9ERVBUSF9mNERFUFRIX0FUX01BWCIpLm9yaWdpbmFsVmFsdWUudmFsdWU7DQogICAgICAgIHZhciBEVl9ERVBUSF9mNEZJTFRFUl9DVVRPRkYgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiRFZfREVQVEhfZjRGSUxURVJfQ1VUT0ZGIikub3JpZ2luYWxWYWx1ZS52YWx1ZTsNCiAgICAgICAgdmFyIERWX0RFUFRIX2Y0TUFYX1BFQUsgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiRFZfREVQVEhfZjRNQVhfUEVBSyIpLm9yaWdpbmFsVmFsdWUudmFsdWU7DQogICAgICAgIHZhciBEVl9ERVBUSF9mNE1JTl9QRUFLID0gaW5wdXRzLmV2ZW50UmF3RGF0YS52YWx1ZXMuZmluZCh2ID0+IHYucHJvcGVydHkuTmFtZSA9PT0gIkRWX0RFUFRIX2Y0TUlOX1BFQUsiKS5vcmlnaW5hbFZhbHVlLnZhbHVlOw0KICAgICAgICB2YXIgRFZfREVQVEhfZjRQRUFLX1RPX1BFQUsgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiRFZfREVQVEhfZjRQRUFLX1RPX1BFQUsiKS5vcmlnaW5hbFZhbHVlLnZhbHVlOw0KICAgICAgICB2YXIgRFZfREVQVEhfZjRUT1RBTF9QRUFLUyA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJEVl9ERVBUSF9mNFRPVEFMX1BFQUtTIikub3JpZ2luYWxWYWx1ZS52YWx1ZTsNCiAgICAgICAgdmFyIERWX0RFUFRIX3UyQVVUT1BST0dSQU1fQ09VTlQgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiRFZfREVQVEhfdTJBVVRPUFJPR1JBTV9DT1VOVCIpLm9yaWdpbmFsVmFsdWUudmFsdWU7DQogICAgICAgIHZhciBEVl9SRUNJUEVfdTFUWVBFID0gaW5wdXRzLmV2ZW50UmF3RGF0YS52YWx1ZXMuZmluZCh2ID0+IHYucHJvcGVydHkuTmFtZSA9PT0gIkRWX1JFQ0lQRV91MVRZUEUiKS5vcmlnaW5hbFZhbHVlLnZhbHVlOw0KICAgICAgICB2YXIgRFZfU0lURV9mNENPTFVNTiA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJEVl9TSVRFX2Y0Q09MVU1OIikub3JpZ2luYWxWYWx1ZS52YWx1ZTsNCiAgICAgICAgdmFyIERWX1NJVEVfZjRST1cgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiRFZfU0lURV9mNFJPVyIpLm9yaWdpbmFsVmFsdWUudmFsdWU7DQogICAgICAgIHZhciBEVl9TSVRFX2Y4WF9DT09SRCA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJEVl9TSVRFX2Y4WF9DT09SRCIpLm9yaWdpbmFsVmFsdWUudmFsdWU7DQogICAgICAgIHZhciBEVl9TSVRFX2Y4WF9NMjBfQ09PUkRJTkFURSA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJEVl9TSVRFX2Y4WF9NMjBfQ09PUkRJTkFURSIpLm9yaWdpbmFsVmFsdWUudmFsdWU7DQogICAgICAgIHZhciBEVl9TSVRFX2Y4WV9DT09SRCA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJEVl9TSVRFX2Y4WV9DT09SRCIpLm9yaWdpbmFsVmFsdWUudmFsdWU7DQogICAgICAgIHZhciBEVl9TSVRFX2Y4WV9NMjBfQ09PUkRJTkFURSA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJEVl9TSVRFX2Y4WV9NMjBfQ09PUkRJTkFURSIpLm9yaWdpbmFsVmFsdWUudmFsdWU7DQogICAgICAgIHZhciBEVl9TSVRFX3N6QVVUT1BST0dSQU1fTkFNRSA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJEVl9TSVRFX3N6QVVUT1BST0dSQU1fTkFNRSIpLm9yaWdpbmFsVmFsdWUudmFsdWU7DQogICAgICAgIHZhciBEVl9TSVRFX3N6TUFTVEVSU0lURU5BTUUgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiRFZfU0lURV9zek1BU1RFUlNJVEVOQU1FIikub3JpZ2luYWxWYWx1ZS52YWx1ZTsNCiAgICAgICAgdmFyIERWX1NJVEVfc3pTSVRFTkFNRSA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJEVl9TSVRFX3N6U0lURU5BTUUiKS5vcmlnaW5hbFZhbHVlLnZhbHVlOw0KICAgICAgICB2YXIgRFZfU0lURV9zelNVQlNUUkFURV9MT1RJRCA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJEVl9TSVRFX3N6U1VCU1RSQVRFX0xPVElEIikub3JpZ2luYWxWYWx1ZS52YWx1ZTsNCiAgICAgICAgdmFyIERWX1NJVEVfc3pTVUJTVFJBVEVfV0FGRVJJRCA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJEVl9TSVRFX3N6U1VCU1RSQVRFX1dBRkVSSUQiKS5vcmlnaW5hbFZhbHVlLnZhbHVlOw0KICAgICAgICB2YXIgRFZfU0lURV91MVNJVEUgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiRFZfU0lURV91MVNJVEUiKS5vcmlnaW5hbFZhbHVlLnZhbHVlOw0KICAgICAgICB2YXIgRFZfU0lURV91MVNMT1QgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiRFZfU0lURV91MVNMT1QiKS5vcmlnaW5hbFZhbHVlLnZhbHVlOw0KICAgICAgICB2YXIgRFZfU0lURV91NFRPVEFMX1NJVEVTX1BFUl9XQUZFUiA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJEVl9TSVRFX3U0VE9UQUxfU0lURVNfUEVSX1dBRkVSIikub3JpZ2luYWxWYWx1ZS52YWx1ZTsNCiAgICAgICAgdmFyIERWX0RFUFRIX2Y0TUlOX1BFQUtfRldITSA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJEVl9ERVBUSF9mNE1JTl9QRUFLX0ZXSE0iKS5vcmlnaW5hbFZhbHVlLnZhbHVlOw0KICAgICAgICB2YXIgRFZfREVQVEhfZjRNQVhfUEVBS19GV0hNID0gaW5wdXRzLmV2ZW50UmF3RGF0YS52YWx1ZXMuZmluZCh2ID0+IHYucHJvcGVydHkuTmFtZSA9PT0gIkRWX0RFUFRIX2Y0TUFYX1BFQUtfRldITSIpLm9yaWdpbmFsVmFsdWUudmFsdWU7DQogICAgICAgIGlmIChEVl9ERVBUSF9mNERFUFRIX0FUX01BWCAhPSBudWxsKSB7DQogICAgICAgICAgICBkYXRhUG9pbnRzRXh0cmFjdGVkUHJvY2Vzc2VkLnNldCgiQnJ1a2VyL0RWX0RFUFRIX2Y0REVQVEhfQVRfTUFYIiwgRFZfREVQVEhfZjRERVBUSF9BVF9NQVgpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9ERVBUSF9mNEZJTFRFUl9DVVRPRkYgIT0gbnVsbCkgew0KICAgICAgICAgICAgZGF0YVBvaW50c0V4dHJhY3RlZFByb2Nlc3NlZC5zZXQoIkJydWtlci9EVl9ERVBUSF9mNEZJTFRFUl9DVVRPRkYiLCBEVl9ERVBUSF9mNEZJTFRFUl9DVVRPRkYpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9ERVBUSF9mNE1BWF9QRUFLICE9IG51bGwpIHsNCiAgICAgICAgICAgIGRhdGFQb2ludHNFeHRyYWN0ZWRQcm9jZXNzZWQuc2V0KCJCcnVrZXIvRFZfREVQVEhfZjRNQVhfUEVBSyIsIERWX0RFUFRIX2Y0TUFYX1BFQUspOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9ERVBUSF9mNE1JTl9QRUFLICE9IG51bGwpIHsNCiAgICAgICAgICAgIGRhdGFQb2ludHNFeHRyYWN0ZWRQcm9jZXNzZWQuc2V0KCJCcnVrZXIvRFZfREVQVEhfZjRNSU5fUEVBSyIsIERWX0RFUFRIX2Y0TUlOX1BFQUspOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9ERVBUSF9mNFBFQUtfVE9fUEVBSyAhPSBudWxsKSB7DQogICAgICAgICAgICBkYXRhUG9pbnRzRXh0cmFjdGVkUHJvY2Vzc2VkLnNldCgiQnJ1a2VyL0RWX0RFUFRIX2Y0UEVBS19UT19QRUFLIiwgRFZfREVQVEhfZjRQRUFLX1RPX1BFQUspOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9ERVBUSF9mNFRPVEFMX1BFQUtTICE9IG51bGwpIHsNCiAgICAgICAgICAgIGRhdGFQb2ludHNFeHRyYWN0ZWRQcm9jZXNzZWQuc2V0KCJCcnVrZXIvRFZfREVQVEhfZjRUT1RBTF9QRUFLUyIsIERWX0RFUFRIX2Y0VE9UQUxfUEVBS1MpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9ERVBUSF91MkFVVE9QUk9HUkFNX0NPVU5UICE9IG51bGwpIHsNCiAgICAgICAgICAgIGRhdGFQb2ludHNFeHRyYWN0ZWRQcm9jZXNzZWQuc2V0KCJCcnVrZXIvRFZfREVQVEhfdTJBVVRPUFJPR1JBTV9DT1VOVCIsIERWX0RFUFRIX3UyQVVUT1BST0dSQU1fQ09VTlQpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9SRUNJUEVfdTFUWVBFICE9IG51bGwpIHsNCiAgICAgICAgICAgIGRhdGFQb2ludHNFeHRyYWN0ZWRQcm9jZXNzZWQuc2V0KCJCcnVrZXIvRFZfUkVDSVBFX3UxVFlQRSIsIERWX1JFQ0lQRV91MVRZUEUpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9TSVRFX2Y0Q09MVU1OICE9IG51bGwpIHsNCiAgICAgICAgICAgIGRhdGFQb2ludHNFeHRyYWN0ZWRQcm9jZXNzZWQuc2V0KCJCcnVrZXIvRFZfU0lURV9mNENPTFVNTiIsIERWX1NJVEVfZjRDT0xVTU4pOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9TSVRFX2Y0Uk9XICE9IG51bGwpIHsNCiAgICAgICAgICAgIGRhdGFQb2ludHNFeHRyYWN0ZWRQcm9jZXNzZWQuc2V0KCJCcnVrZXIvRFZfU0lURV9mNFJPVyIsIERWX1NJVEVfZjRST1cpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9TSVRFX2Y4WF9DT09SRCAhPSBudWxsKSB7DQogICAgICAgICAgICBkYXRhUG9pbnRzRXh0cmFjdGVkUHJvY2Vzc2VkLnNldCgiQnJ1a2VyL0RWX1NJVEVfZjhYX0NPT1JEIiwgRFZfU0lURV9mOFhfQ09PUkQpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9TSVRFX2Y4WF9NMjBfQ09PUkRJTkFURSAhPSBudWxsKSB7DQogICAgICAgICAgICBkYXRhUG9pbnRzRXh0cmFjdGVkUHJvY2Vzc2VkLnNldCgiQnJ1a2VyL0RWX1NJVEVfZjhYX00yMF9DT09SRElOQVRFIiwgRFZfU0lURV9mOFhfTTIwX0NPT1JESU5BVEUpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9TSVRFX2Y4WV9DT09SRCAhPSBudWxsKSB7DQogICAgICAgICAgICBkYXRhUG9pbnRzRXh0cmFjdGVkUHJvY2Vzc2VkLnNldCgiQnJ1a2VyL0RWX1NJVEVfZjhZX0NPT1JEIiwgRFZfU0lURV9mOFlfQ09PUkQpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9TSVRFX2Y4WV9NMjBfQ09PUkRJTkFURSAhPSBudWxsKSB7DQogICAgICAgICAgICBkYXRhUG9pbnRzRXh0cmFjdGVkUHJvY2Vzc2VkLnNldCgiQnJ1a2VyL0RWX1NJVEVfZjhZX00yMF9DT09SRElOQVRFIiwgRFZfU0lURV9mOFlfTTIwX0NPT1JESU5BVEUpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9TSVRFX3N6QVVUT1BST0dSQU1fTkFNRSAhPSBudWxsKSB7DQogICAgICAgICAgICBkYXRhUG9pbnRzRXh0cmFjdGVkUHJvY2Vzc2VkLnNldCgiQnJ1a2VyL0RWX1NJVEVfc3pBVVRPUFJPR1JBTV9OQU1FIiwgRFZfU0lURV9zekFVVE9QUk9HUkFNX05BTUUpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9TSVRFX3N6TUFTVEVSU0lURU5BTUUgIT0gbnVsbCkgew0KICAgICAgICAgICAgZGF0YVBvaW50c0V4dHJhY3RlZFByb2Nlc3NlZC5zZXQoIkJydWtlci9EVl9TSVRFX3N6TUFTVEVSU0lURU5BTUUiLCBEVl9TSVRFX3N6TUFTVEVSU0lURU5BTUUpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9TSVRFX3N6U0lURU5BTUUgIT0gbnVsbCkgew0KICAgICAgICAgICAgZGF0YVBvaW50c0V4dHJhY3RlZFByb2Nlc3NlZC5zZXQoIkJydWtlci9EVl9TSVRFX3N6U0lURU5BTUUiLCBEVl9TSVRFX3N6U0lURU5BTUUpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9TSVRFX3N6U1VCU1RSQVRFX0xPVElEICE9IG51bGwpIHsNCiAgICAgICAgICAgIGRhdGFQb2ludHNFeHRyYWN0ZWRQcm9jZXNzZWQuc2V0KCJCcnVrZXIvRFZfU0lURV9zelNVQlNUUkFURV9MT1RJRCIsIERWX1NJVEVfc3pTVUJTVFJBVEVfTE9USUQpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9TSVRFX3N6U1VCU1RSQVRFX1dBRkVSSUQgIT0gbnVsbCkgew0KICAgICAgICAgICAgZGF0YVBvaW50c0V4dHJhY3RlZFByb2Nlc3NlZC5zZXQoIkJydWtlci9EVl9TSVRFX3N6U1VCU1RSQVRFX1dBRkVSSUQiLCBEVl9TSVRFX3N6U1VCU1RSQVRFX1dBRkVSSUQpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9TSVRFX3UxU0lURSAhPSBudWxsKSB7DQogICAgICAgICAgICBkYXRhUG9pbnRzRXh0cmFjdGVkUHJvY2Vzc2VkLnNldCgiQnJ1a2VyL0RWX1NJVEVfdTFTSVRFIiwgRFZfU0lURV91MVNJVEUpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9TSVRFX3UxU0xPVCAhPSBudWxsKSB7DQogICAgICAgICAgICBkYXRhUG9pbnRzRXh0cmFjdGVkUHJvY2Vzc2VkLnNldCgiQnJ1a2VyL0RWX1NJVEVfdTFTTE9UIiwgRFZfU0lURV91MVNMT1QpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9TSVRFX3U0VE9UQUxfU0lURVNfUEVSX1dBRkVSICE9IG51bGwpIHsNCiAgICAgICAgICAgIGRhdGFQb2ludHNFeHRyYWN0ZWRQcm9jZXNzZWQuc2V0KCJCcnVrZXIvRFZfU0lURV91NFRPVEFMX1NJVEVTX1BFUl9XQUZFUiIsIERWX1NJVEVfdTRUT1RBTF9TSVRFU19QRVJfV0FGRVIpOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9ERVBUSF9mNE1JTl9QRUFLX0ZXSE0gIT0gbnVsbCkgew0KICAgICAgICAgICAgZGF0YVBvaW50c0V4dHJhY3RlZFByb2Nlc3NlZC5zZXQoIkJydWtlci9EVl9ERVBUSF9mNE1JTl9QRUFLX0ZXSE0iLCBEVl9ERVBUSF9mNE1JTl9QRUFLX0ZXSE0pOw0KICAgICAgICB9DQogICAgICAgIGlmIChEVl9ERVBUSF9mNE1BWF9QRUFLX0ZXSE0gIT0gbnVsbCkgew0KICAgICAgICAgICAgZGF0YVBvaW50c0V4dHJhY3RlZFByb2Nlc3NlZC5zZXQoIkJydWtlci9EVl9ERVBUSF9mNE1BWF9QRUFLX0ZXSE0iLCBEVl9ERVBUSF9mNE1BWF9QRUFLX0ZXSE0pOw0KICAgICAgICB9DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5pbmZvKCJWYWx1ZSBmb3IgQnJ1a2VyL0RWX0RFUFRIX2Y0REVQVEhfQVRfTUFYOiAiICsgRFZfREVQVEhfZjRERVBUSF9BVF9NQVgpOw0KICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIuaW5mbygiVmFsdWUgZm9yIEJydWtlci9EVl9ERVBUSF9mNEZJTFRFUl9DVVRPRkY6ICIgKyBEVl9ERVBUSF9mNEZJTFRFUl9DVVRPRkYpOw0KICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIuaW5mbygiVmFsdWUgZm9yIEJydWtlci9EVl9ERVBUSF9mNE1BWF9QRUFLOiAiICsgRFZfREVQVEhfZjRNQVhfUEVBSyk7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5pbmZvKCJWYWx1ZSBmb3IgQnJ1a2VyL0RWX0RFUFRIX2Y0TUlOX1BFQUs6ICIgKyBEVl9ERVBUSF9mNE1JTl9QRUFLKTsNCiAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLmluZm8oIlZhbHVlIGZvciBCcnVrZXIvRFZfREVQVEhfZjRQRUFLX1RPX1BFQUs6ICIgKyBEVl9ERVBUSF9mNFBFQUtfVE9fUEVBSyk7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5pbmZvKCJWYWx1ZSBmb3IgQnJ1a2VyL0RWX0RFUFRIX2Y0VE9UQUxfUEVBS1M6ICIgKyBEVl9ERVBUSF9mNFRPVEFMX1BFQUtTKTsNCiAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLmluZm8oIlZhbHVlIGZvciBCcnVrZXIvRFZfREVQVEhfdTJBVVRPUFJPR1JBTV9DT1VOVDogIiArIERWX0RFUFRIX3UyQVVUT1BST0dSQU1fQ09VTlQpOw0KICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIuaW5mbygiVmFsdWUgZm9yIEJydWtlci9EVl9SRUNJUEVfdTFUWVBFOiAiICsgRFZfUkVDSVBFX3UxVFlQRSk7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5pbmZvKCJWYWx1ZSBmb3IgQnJ1a2VyL0RWX1NJVEVfZjRDT0xVTU46ICIgKyBEVl9TSVRFX2Y0Q09MVU1OKTsNCiAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLmluZm8oIlZhbHVlIGZvciBCcnVrZXIvRFZfU0lURV9mNFJPVzogIiArIERWX1NJVEVfZjRST1cpOw0KICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIuaW5mbygiVmFsdWUgZm9yIEJydWtlci9EVl9TSVRFX2Y4WF9DT09SRDogIiArIERWX1NJVEVfZjhYX0NPT1JEKTsNCiAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLmluZm8oIlZhbHVlIGZvciBCcnVrZXIvRFZfU0lURV9mOFhfTTIwX0NPT1JESU5BVEU6ICIgKyBEVl9TSVRFX2Y4WF9NMjBfQ09PUkRJTkFURSk7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5pbmZvKCJWYWx1ZSBmb3IgQnJ1a2VyL0RWX1NJVEVfZjhZX0NPT1JEOiAiICsgRFZfU0lURV9mOFlfQ09PUkQpOw0KICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIuaW5mbygiVmFsdWUgZm9yIEJydWtlci9EVl9TSVRFX2Y4WV9NMjBfQ09PUkRJTkFURTogIiArIERWX1NJVEVfZjhZX00yMF9DT09SRElOQVRFKTsNCiAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLmluZm8oIlZhbHVlIGZvciBCcnVrZXIvRFZfU0lURV9zekFVVE9QUk9HUkFNX05BTUU6ICIgKyBEVl9TSVRFX3N6QVVUT1BST0dSQU1fTkFNRSk7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5pbmZvKCJWYWx1ZSBmb3IgQnJ1a2VyL0RWX1NJVEVfc3pNQVNURVJTSVRFTkFNRTogIiArIERWX1NJVEVfc3pNQVNURVJTSVRFTkFNRSk7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5pbmZvKCJWYWx1ZSBmb3IgQnJ1a2VyL0RWX1NJVEVfc3pTSVRFTkFNRTogIiArIERWX1NJVEVfc3pTSVRFTkFNRSk7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5pbmZvKCJWYWx1ZSBmb3IgQnJ1a2VyL0RWX1NJVEVfc3pTVUJTVFJBVEVfTE9USUQ6ICIgKyBEVl9TSVRFX3N6U1VCU1RSQVRFX0xPVElEKTsNCiAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLmluZm8oIlZhbHVlIGZvciBCcnVrZXIvRFZfU0lURV9zelNVQlNUUkFURV9XQUZFUklEOiAiICsgRFZfU0lURV9zelNVQlNUUkFURV9XQUZFUklEKTsNCiAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLmluZm8oIlZhbHVlIGZvciBCcnVrZXIvRFZfU0lURV91MVNJVEU6ICIgKyBEVl9TSVRFX3UxU0lURSk7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5pbmZvKCJWYWx1ZSBmb3IgQnJ1a2VyL0RWX1NJVEVfdTFTTE9UOiAiICsgRFZfU0lURV91MVNMT1QpOw0KICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIuaW5mbygiVmFsdWUgZm9yIEJydWtlci9EVl9TSVRFX3U0VE9UQUxfU0lURVNfUEVSX1dBRkVSOiAiICsgRFZfU0lURV91NFRPVEFMX1NJVEVTX1BFUl9XQUZFUik7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5pbmZvKCJWYWx1ZSBmb3IgQnJ1a2VyL0RWX0RFUFRIX2Y0TUlOX1BFQUtfRldITTogIiArIERWX0RFUFRIX2Y0TUlOX1BFQUtfRldITSk7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5pbmZvKCJWYWx1ZSBmb3IgQnJ1a2VyL0RWX0RFUFRIX2Y0TUFYX1BFQUtfRldITTogIiArIERWX0RFUFRIX2Y0TUFYX1BFQUtfRldITSk7DQogICAgICAgIHJldHVybiB7DQogICAgICAgICAgICBkYXRhUG9pbnRzRXh0cmFjdGVkOiBkYXRhUG9pbnRzRXh0cmFjdGVkUHJvY2Vzc2VkLA0KICAgICAgICAgICAgbWF0ZXJpYWxOYW1lOiBtYXRlcmlhbE5hbWUsDQogICAgICAgICAgICBzdWJNYXRlcmlhbE5hbWU6IHdhZmVyTmFtZQ0KICAgICAgICB9Ow0KICAgICAgICAvLyBlbWl0IG91dHB1dCBkdXJpbmcgZXhlY3V0aW9uOiBvdXRwdXRzLm91dHB1dDEuZW1pdCgic29tZXRoaW5nIik7DQogICAgICAgIC8vIHJldHVybiBleGFtcGxlOiByZXR1cm4geyBvdXRwdXQxOiBpbnB1dHMuaW5wdXQxLCBvdXRwdXQyOiAiSGVsbG8gV29ybGQiIH07DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
+				"inputs": [
+					{
+						"name": "eventRawData",
+						"valueType": {
+							"friendlyName": "eventRawData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "dataPointsExtracted",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "dataPointsExtracted"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "materialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "materialName"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "subMaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "subMaterialName"
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
+		},
+		{
+			"id": "task_14913",
+			"reference": {
+				"name": "retrieve",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_retrieveOnValueChange": false,
+				"_emitInNewContext": false,
+				"___cmf___name": "Retrieve Data",
+				"_outputs": [
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ResourceName"
+						},
+						"defaultValue": "\"\"",
+						"identifier": "Generic_ResourceName"
+					}
+				]
+			}
+		},
+		{
+			"id": "task_13977",
+			"reference": {
+				"name": "dataCollection",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-mes-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"defaultDataCollection": null,
+				"complexPerformDataCollectionMode": 1,
+				"dataCollectionLimitSet": null,
+				"defaultMaterial": null,
+				"defaultResource": null,
+				"isToIgnoreInSPC": false,
+				"skipDCValidation": false,
+				"inputs": [],
+				"retries": 30,
+				"sleepBetweenRetries": 1000,
+				"autoClear": false,
+				"___cmf___name": "Data Collection"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringToEntityInstance",
+			"reference": {
+				"name": "stringToEntityInstance",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "41876084-70b8-4614-8a22-09361216b7ce",
+			"sourceId": "task_14097",
+			"targetId": "task_14532",
+			"inputName": "eventRawDataIn",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "8ddbae30-c49c-4179-9fc4-943bdab0448e",
+			"sourceId": "task_14097",
+			"targetId": "task_14532",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "61da8a66-7abf-4b6b-8a40-692cc2ea4a1c",
+			"sourceId": "task_14532",
+			"targetId": "task_14913",
+			"inputName": "activate",
+			"outputName": "materialNameOut"
+		},
+		{
+			"id": "200e05c8-8190-47d7-9034-bab8f006ef50",
+			"sourceId": "task_14532",
+			"targetId": "task_13977",
+			"inputName": "rawData",
+			"outputName": "dataPointsExtractedOut"
+		},
+		{
+			"id": "3186ac99-01f6-4a0f-b58d-545b1665d98c",
+			"sourceId": "task_14913",
+			"targetId": "task_13977",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "10f88a6a-eda0-4872-9b94-3af918b41f7a",
+			"sourceId": "task_14913",
+			"targetId": "task_13977",
+			"inputName": "resource",
+			"outputName": "ResourceName",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringToEntityInstance",
+					"params": {
+						"entityType": "Resource",
+						"identifier": "Name"
+					}
+				}
+			]
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff80",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_14097": {
+						"collapsed": false,
+						"position": {
+							"x": 127,
+							"y": 55
+						},
+						"outdated": false
+					},
+					"task_14532": {
+						"collapsed": false,
+						"position": {
+							"x": 705,
+							"y": 258
+						},
+						"outdated": false
+					},
+					"task_14913": {
+						"collapsed": false,
+						"position": {
+							"x": 1262,
+							"y": 104
+						},
+						"outdated": false
+					},
+					"task_13977": {
+						"collapsed": false,
+						"position": {
+							"x": 2009,
+							"y": 163
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"41876084-70b8-4614-8a22-09361216b7ce": {
+						"vertices": []
+					},
+					"8ddbae30-c49c-4179-9fc4-943bdab0448e": {
+						"vertices": []
+					},
+					"61da8a66-7abf-4b6b-8a40-692cc2ea4a1c": {
+						"vertices": []
+					},
+					"200e05c8-8190-47d7-9034-bab8f006ef50": {
+						"vertices": []
+					},
+					"3186ac99-01f6-4a0f-b58d-545b1665d98c": {
+						"vertices": []
+					},
+					"10f88a6a-eda0-4872-9b94-3af918b41f7a": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"zoom": 0.6999999999999997,
+				"pan": {
+					"x": 385.7605418345363,
+					"y": -5.03224031690138
+				}
+			}
+		}
+	}
+}

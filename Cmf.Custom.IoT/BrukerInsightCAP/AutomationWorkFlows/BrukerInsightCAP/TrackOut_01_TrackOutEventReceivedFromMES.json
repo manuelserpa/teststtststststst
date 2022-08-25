@@ -1,139 +1,139 @@
 {
-  "tasks": [
-    {
-      "id": "task_3640",
-      "reference": {
-        "name": "systemActionGroupEvent",
-        "package": {
-          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-          "version": "8.3.3-202201212"
-        }
-      },
-      "settings": {
-        "replyTimeout": 60000,
-        "___cmf___name": "On System Event",
-        "actionGroup": "TrackOut",
-        "___cmf___color": "#0080ff"
-      }
-    },
-    {
-      "id": "task_3786",
-      "reference": {
-        "name": "deleteMaterialOnPersistence",
-        "package": {
-          "name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-          "version": "1.0.0"
-        }
-      },
-      "settings": {
-        "___cmf___name": "Delete Material On Persistence",
-        "___cmf___color": "#c0c0c0"
-      }
-    }
-  ],
-  "converters": [
-    {
-      "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
-      "reference": {
-        "name": "anyToAny",
-        "package": {
-          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-          "version": "8.3.3-202201212"
-        }
-      }
-    },
-    {
-      "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
-      "reference": {
-        "name": "objectProperty",
-        "package": {
-          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-          "version": "8.3.3-202201212"
-        }
-      }
-    }
-  ],
-  "links": [
-    {
-      "id": "f13f7b27-ee07-427b-ba70-74c6bf5acf46",
-      "sourceId": "task_3640",
-      "targetId": "task_3786",
-      "inputName": "activate",
-      "outputName": "data"
-    },
-    {
-      "id": "829cc0e1-608d-4d3d-8b7b-bb5e75bdd4f6",
-      "sourceId": "task_3640",
-      "targetId": "task_3786",
-      "inputName": "materials",
-      "outputName": "data"
-    },
-    {
-      "id": "81ed7089-1805-4419-a4ea-aeb3bca529db",
-      "sourceId": "task_3786",
-      "targetId": "task_3640",
-      "inputName": "reply",
-      "outputName": "success",
-      "converters": [
-        {
-          "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
-          "params": {}
-        }
-      ]
-    }
-  ],
-  "layout": {
-    "general": {
-      "color": "#00ff80",
-      "notes": []
-    },
-    "drawers": {
-      "DIAGRAM": {
-        "tasks": {
-          "task_3640": {
-            "collapsed": false,
-            "position": {
-              "x": 232,
-              "y": 676
-            },
-            "outdated": false
-          },
-          "task_3786": {
-            "collapsed": false,
-            "position": {
-              "x": 866,
-              "y": 673
-            },
-            "outdated": false
-          }
-        },
-        "links": {
-          "f13f7b27-ee07-427b-ba70-74c6bf5acf46": {
-            "vertices": []
-          },
-          "829cc0e1-608d-4d3d-8b7b-bb5e75bdd4f6": {
-            "vertices": []
-          },
-          "81ed7089-1805-4419-a4ea-aeb3bca529db": {
-            "vertices": [
-              {
-                "x": 1265,
-                "y": 611
-              },
-              {
-                "x": 219,
-                "y": 607
-              }
-            ]
-          }
-        },
-        "notes": {},
-        "zoom": 0.72,
-        "pan": {
-          "x": 117,
-          "y": 133
-        }
-      }
-    }
-  }
+	"tasks": [
+		{
+			"id": "task_3640",
+			"reference": {
+				"name": "systemActionGroupEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"replyTimeout": 60000,
+				"___cmf___name": "On System Event",
+				"actionGroup": "TrackOut",
+				"___cmf___color": "#0080ff"
+			}
+		},
+		{
+			"id": "task_3786",
+			"reference": {
+				"name": "deleteMaterialOnPersistence",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"___cmf___name": "Delete Material On Persistence",
+				"___cmf___color": "#c0c0c0"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "f13f7b27-ee07-427b-ba70-74c6bf5acf46",
+			"sourceId": "task_3640",
+			"targetId": "task_3786",
+			"inputName": "activate",
+			"outputName": "data"
+		},
+		{
+			"id": "829cc0e1-608d-4d3d-8b7b-bb5e75bdd4f6",
+			"sourceId": "task_3640",
+			"targetId": "task_3786",
+			"inputName": "materials",
+			"outputName": "data"
+		},
+		{
+			"id": "81ed7089-1805-4419-a4ea-aeb3bca529db",
+			"sourceId": "task_3786",
+			"targetId": "task_3640",
+			"inputName": "reply",
+			"outputName": "success",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff80",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_3640": {
+						"collapsed": false,
+						"position": {
+							"x": 232,
+							"y": 676
+						},
+						"outdated": false
+					},
+					"task_3786": {
+						"collapsed": false,
+						"position": {
+							"x": 866,
+							"y": 673
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"f13f7b27-ee07-427b-ba70-74c6bf5acf46": {
+						"vertices": []
+					},
+					"829cc0e1-608d-4d3d-8b7b-bb5e75bdd4f6": {
+						"vertices": []
+					},
+					"81ed7089-1805-4419-a4ea-aeb3bca529db": {
+						"vertices": [
+							{
+								"x": 1265,
+								"y": 611
+							},
+							{
+								"x": 219,
+								"y": 607
+							}
+						]
+					}
+				},
+				"notes": {},
+				"zoom": 1,
+				"pan": {
+					"x": 79,
+					"y": 480
+				}
+			}
+		}
+	}
 }

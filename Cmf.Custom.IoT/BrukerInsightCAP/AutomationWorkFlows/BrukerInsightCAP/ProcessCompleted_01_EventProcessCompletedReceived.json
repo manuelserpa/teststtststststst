@@ -167,7 +167,31 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PRJobID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PRJobState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "PROCESSING_COMPLETED"
+					}
+				]
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -214,7 +238,22 @@
 			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "cb9ee84e-d436-4370-9349-053c464cef24",
+			"sourceId": "task_75124",
+			"targetId": "task_127417",
+			"inputName": "ProcessJobIdIn",
+			"outputName": "$PRJobID"
+		},
+		{
+			"id": "77c33d7d-459d-4ac2-bc78-f68a19832f73",
+			"sourceId": "task_75124",
+			"targetId": "task_127417",
+			"inputName": "activate",
+			"outputName": "$PRJobID"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#00ff80",
@@ -255,7 +294,14 @@
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"cb9ee84e-d436-4370-9349-053c464cef24": {
+						"vertices": []
+					},
+					"77c33d7d-459d-4ac2-bc78-f68a19832f73": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_60654": {
 						"collapsed": false,
@@ -267,8 +313,8 @@
 				},
 				"zoom": 0.6600000000000004,
 				"pan": {
-					"x": 300,
-					"y": 76.25
+					"x": 304,
+					"y": 58
 				}
 			}
 		}
