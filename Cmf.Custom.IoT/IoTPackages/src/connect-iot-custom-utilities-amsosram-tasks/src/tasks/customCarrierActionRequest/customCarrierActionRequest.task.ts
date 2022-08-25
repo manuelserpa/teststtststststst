@@ -100,7 +100,7 @@ export class CustomCarrierActionRequestTask implements Task.TaskInstance, Custom
                             { type: dataIdType, value: Number(Date.now().toString()) }, // dataId
                             { type: "A", value: CarrierActionRequest[this.CarrierActionRequest] }, // carrierAction
                             { type: "A", value: this.CarrierId }, // carrier id
-                            { type: "A", value: portNumberConverted }, // portNumber
+                            { type: "U1", value: portNumberConverted }, // portNumber
                             { type: "L", value: this.CarrierAttributes }​​​​​​​ // carrier attributes list
                         ]
                     }
@@ -114,8 +114,6 @@ export class CustomCarrierActionRequestTask implements Task.TaskInstance, Custom
                 }
 
                 if (!successFound) {
-
-
                     const error = new Error(`EI: Error on Proceed with carrier request: ${reply.item.value[1].value[0].value[0].value}​​​​​​​ - ${reply.item.value[1].value[0].value[1].value}​​​​​​​`);
                     this.error.emit(error);
                     throw error;
