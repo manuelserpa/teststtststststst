@@ -1,7 +1,9 @@
 ﻿using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
+using Cmf.Foundation.BusinessObjects.Cultures;
 using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
+using Cmf.Foundation.BusinessOrchestration.LocalizationManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.QueryManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
@@ -143,8 +145,8 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
         }
         #endregion
 
-
         #region Generators
+
         /// <summary>
         /// Generates a name based on the test method.
         /// Format : [Prefix]_[RandomGuid]_[TestName]
@@ -183,6 +185,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             }
             return "Not called from a test method";
         }
+        
         #endregion
 
         #region Integration Entries
@@ -569,6 +572,32 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             }
 
             return output;
+        }
+
+        #endregion
+
+        #region LocalizedMessage Helper Methods
+
+        /// <summary>
+        /// Get Localized message by Key
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static string GetLocalizedMessageByName(string name, params object[] paramsValue)
+        {
+            string message = new GetLocalizedMessageByNameInput
+            {
+                Name = name,
+                Culture = new Culture(),
+                IgnoreLastServiceId = true
+            }.GetLocalizedMessageByNameSync().LocalizedMessage.MessageText;
+
+            if (paramsValue != null && paramsValue.Any())
+            {
+                message = string.Format(message, paramsValue);
+            }
+
+            return message;
         }
 
         #endregion

@@ -2083,7 +2083,7 @@ namespace Cmf.Custom.AMSOsram.Common
             // Load Material Hold Reasons
             material.LoadRelations(Navigo.Common.Constants.MaterialHoldReason);
 
-            // Check if Material has that Hold Reason and if Step has "Out of Spec" Hold Reason associated
+            // Check if Material has that Hold Reason
             if (material.MaterialHoldReasons is null || !material.MaterialHoldReasons.Any(holdReason => holdReason.TargetEntity.Name.Equals(reasonName)))
             {
                 // Load hold Reason

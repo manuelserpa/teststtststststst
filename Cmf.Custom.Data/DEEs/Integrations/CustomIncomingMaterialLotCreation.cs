@@ -2,6 +2,7 @@
 using Cmf.Custom.AMSOsram.Common;
 using Cmf.Custom.AMSOsram.Common.ERP;
 using Cmf.Foundation.BusinessObjects;
+using Cmf.Foundation.Common;
 using Cmf.Navigo.BusinessObjects;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             // Load Integration Entry
             IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, Foundation.Common.Constants.IntegrationEntry);
-
+            
             // Cast Integation Entry Message to string
             string message = Encoding.UTF8.GetString(integrationEntry.IntegrationMessage.Message);
 
@@ -42,7 +43,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             string certificateDataCollectionName = string.Empty;
             string certificateDataCollectionType = string.Empty;
-            string certificateLimitSetName = string.Empty;
+            string certificateLimitSetName = string.Empty; 
             bool hasCerticateDataCollection = false;
             bool hasWafersCertificateData = false;
 
@@ -128,8 +129,24 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 incomingLot.Form = materialData.Form;
                 incomingLot.Type = materialData.Type;
                 incomingLot.Product = product;
-                incomingLot.PrimaryQuantity = materialData.Wafers.Count * Convert.ToInt32(waferSizeParameter.Value);
-                incomingLot.PrimaryUnits = product.DefaultUnits;
+                incomingLot.PrimaryQuantity = decimal.Parse(materialData.PrimaryQuantity);
+                incomingLot.PrimaryUnits = materialData.PrimaryUnit;
+                //prod order exists checking
+                
+                if (!string.IsNullOrWhiteSpace(materialData.ProductionOrder))
+                {
+                    ProductionOrder prodOrder = new ProductionOrder();
+                    prodOrder.Name = materialData.ProductionOrder;
+                    if (prodOrder.ObjectExists())
+                    {
+                        prodOrder.Load();
+                        incomingLot.ProductionOrder = prodOrder;
+                    }
+                    else
+                    {
+                        AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomProductionOrderDoesNotExists, prodOrder.Name);
+                    }
+                }
 
                 Flow flow = product.Flow;
 
@@ -173,10 +190,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 hasCerticateDataCollection = true;
             }
 
-            //hasWafersCertificateData = materialData.Wafers != null && materialData.Wafers.Any(wafer => wafer.MaterialEDCData != null && wafer.MaterialEDCData.Any());
             hasWafersCertificateData = WafersHasCertificateData(materialData.Wafers);
 
-            if ((hasCerticateDataCollection && !hasWafersCertificateData) || (!hasCerticateDataCollection && hasWafersCertificateData))
+            if (!hasCerticateDataCollection || !hasWafersCertificateData)
             {
                 AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomWrongCertificateConfiguration, incomingLot.Name);
             }
@@ -416,6 +432,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
                 if (certificateDataCollection != null && waferEDCData != null && waferEDCData.Any())
                 {
+                    // In this case we do not want to report the EDC data to SPACE
+                    ApplicationContext.CallContext.SetInformationContext("ReportEDCToSpace", false);
+
                     DataCollectionInstance certificateDataCollectionInstance = AMSOsramUtilities.PerformCertificateDataCollection(wafer, certificateDataCollection, certificateLimitSet, certificateDataCollectionType, waferEDCData);
 
                     if (certificateLimitSet != null && AMSOsramUtilities.IsDataCollectionLimiSetViolated(certificateDataCollectionInstance))
@@ -504,8 +523,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                             Name = wafer.Name,
                             Product = product,
                             Facility = parentMaterial.Facility,
-                            PrimaryQuantity = (wafer.Wafers.IsNullOrEmpty() ? 1 : wafer.Wafers.Count) * Convert.ToInt32(localWaferSizeParameter.Value),
-                            PrimaryUnits = product.DefaultUnits,
+                            PrimaryQuantity = decimal.Parse(wafer.PrimaryQuantity),
+                            PrimaryUnits = wafer.PrimaryUnit,
                             Form = wafer.Form,
                             Type = string.IsNullOrWhiteSpace(wafer.Type) ? parentMaterial.Type : wafer.Type
                         };

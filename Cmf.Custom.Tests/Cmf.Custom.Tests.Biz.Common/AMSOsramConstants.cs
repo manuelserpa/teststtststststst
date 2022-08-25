@@ -305,9 +305,18 @@
         /// </summary>
         public static string FDCActiveConfigPath = "/AMSOsram/FDC/Active/";
 
-        
+
 
 
         #endregion Configurations
+
+        #region Localized Messages
+
+        /// <summary>
+        /// Localized Message: CustomProductionOrderDoesNotExists
+        /// </summary>
+        public const string LocalizedMessageCustomProductionOrderDoesNotExists = "CustomProductionOrderDoesNotExists";
+
+        #endregion Localized Messages
     }
 }
