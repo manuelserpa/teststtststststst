@@ -837,56 +837,6 @@
   },
   "<SM>EntityType": {},
   "<SM>EntityTypeProperty": {},
-  "<SM>StateModel": {
-    "1": {
-      "Name": "CustomPlaceHolderStateModel",
-      "Description": "",
-      "DataGroup": "",
-      "EntityTypeName": "Resource"
-    }
-  },
-  "StateModelState": {
-    "1": {
-      "StateModel": "CustomPlaceHolderStateModel",
-      "Name": "PlaceHolderStandby",
-      "Description": "Standby Example",
-      "Role": "",
-      "IsInitial": "Yes",
-      "IsFinal": "No",
-      "Attributes": "Name[SEMI-E10] ScalarType[VarChar] Value[Standby]"
-    },
-    "2": {
-      "StateModel": "CustomPlaceHolderStateModel",
-      "Name": "PlaceHolderExecuting",
-      "Description": "PlaceHolderExecuting",
-      "Role": "",
-      "IsInitial": "No",
-      "IsFinal": "No",
-      "Attributes": "Name[SEMI-E10] ScalarType[VarChar] Value[Productive]"
-    }
-  },
-  "StateModelTransition": {
-    "1": {
-      "StateModel": "CustomPlaceHolderStateModel",
-      "Name": "Standby to Executing",
-      "Description": "Standby to Executing",
-      "FromState": "PlaceHolderStandby",
-      "ToState": "PlaceHolderExecuting",
-      "Role": "",
-      "ReasonLookupTable": "",
-      "ReasonDefaultValue": ""
-    },
-    "2": {
-      "StateModel": "CustomPlaceHolderStateModel",
-      "Name": "Executing to Standby",
-      "Description": "Executing to Standby",
-      "FromState": "PlaceHolderExecuting",
-      "ToState": "PlaceHolderStandby",
-      "Role": "",
-      "ReasonLookupTable": "",
-      "ReasonDefaultValue": ""
-    }
-  },
   "<SM>DEEAction": {},
   "DEEActionOrder": {},
   "<DM>Rule": {},
@@ -1680,7 +1630,7 @@
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9101\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"9101\"}"
     },
     "4": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1691,7 +1641,7 @@
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11605\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"11605\"}"
     },
     "5": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1702,7 +1652,7 @@
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11606\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"11606\"}"
     },
     "6": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1713,7 +1663,7 @@
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11608\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"11608\"}"
     },
     "7": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1856,7 +1806,7 @@
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"900102\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"900102\"}"
     },
     "20": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1867,7 +1817,7 @@
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"900103\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"900103\"}"
     },
     "21": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1878,7 +1828,7 @@
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"900107\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"900107\"}"
     },
     "22": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1889,7 +1839,7 @@
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"900113\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"900113\"}"
     },
     "23": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1900,7 +1850,7 @@
       "IsWritable": "Yes",
       "DataType": "String",
       "AutomationProtocolDataType": "A",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"940000\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"940000\"}"
     },
     "24": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1911,7 +1861,7 @@
       "IsWritable": "Yes",
       "DataType": "Object",
       "AutomationProtocolDataType": "L",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9209\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"9209\"}"
     },
     "25": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1922,7 +1872,7 @@
       "IsWritable": "Yes",
       "DataType": "Object",
       "AutomationProtocolDataType": "L",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9210\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"9210\"}"
     },
     "26": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1944,7 +1894,7 @@
       "IsWritable": "Yes",
       "DataType": "Integer",
       "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9102\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"9102\"}"
     },
     "28": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1955,7 +1905,7 @@
       "IsWritable": "Yes",
       "DataType": "Integer",
       "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9110\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"9110\"}"
     },
     "29": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1966,7 +1916,7 @@
       "IsWritable": "Yes",
       "DataType": "Integer",
       "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9206\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"9206\"}"
     },
     "30": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1977,7 +1927,7 @@
       "IsWritable": "Yes",
       "DataType": "Integer",
       "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"9208\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"9208\"}"
     },
     "31": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1988,7 +1938,7 @@
       "IsWritable": "Yes",
       "DataType": "Integer",
       "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11601\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"11601\"}"
     },
     "32": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -1999,7 +1949,7 @@
       "IsWritable": "Yes",
       "DataType": "Integer",
       "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11602\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"11602\"}"
     },
     "33": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -2010,7 +1960,7 @@
       "IsWritable": "Yes",
       "DataType": "Integer",
       "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11604\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"11604\"}"
     },
     "34": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -2021,7 +1971,7 @@
       "IsWritable": "Yes",
       "DataType": "Integer",
       "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11607\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"11607\"}"
     },
     "35": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -2032,7 +1982,7 @@
       "IsWritable": "Yes",
       "DataType": "Integer",
       "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11609\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"11609\"}"
     },
     "36": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -2263,7 +2213,7 @@
       "IsWritable": "Yes",
       "DataType": "Integer",
       "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"900106\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"900106\"}"
     },
     "57": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -2274,7 +2224,7 @@
       "IsWritable": "Yes",
       "DataType": "Integer",
       "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"900108\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"900108\"}"
     },
     "58": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -2285,7 +2235,7 @@
       "IsWritable": "Yes",
       "DataType": "Integer",
       "AutomationProtocolDataType": "U1",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"940002\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"940002\"}"
     },
     "59": {
       "AutomationDriverDefinition": "UnitySCDriver",
@@ -2296,7 +2246,7 @@
       "IsWritable": "Yes",
       "DataType": "Integer",
       "AutomationProtocolDataType": "U4",
-      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"11603\"}"
+      "ExtendedData": "{\"variableType\":\"DataVariable\",\"$id\":\"11603\"}"
     },
     "60": {
       "AutomationDriverDefinition": "UnitySCDriver",
