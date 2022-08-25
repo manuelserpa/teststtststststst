@@ -324,6 +324,18 @@
    "actionId": ""
 },
 {
+   "id": "customterminatecontainer",
+   "menuGroupId": "deeactions",
+   "title": "CustomTerminateContainer",
+   "actionId": ""
+},
+{
+   "id": "customundockcontainervalidation",
+   "menuGroupId": "deeactions",
+   "title": "CustomUndockContainerValidation",
+   "actionId": ""
+},
+{
    "id": "customsorterjobdefinition",
    "menuGroupId": "entitytypes",
    "title": "CustomSorterJobDefinition",
@@ -792,9 +804,21 @@
    "actionId": ""
 },
 {
+   "id": "customterminatevendorcontainertype",
+   "menuGroupId": "features",
+   "title": "Terminate Vendor Container Type",
+   "actionId": ""
+},
+{
    "id": "customtibcoemsgateway",
    "menuGroupId": "features",
    "title": "Tibco EMS Gateway",
+   "actionId": ""
+},
+{
+   "id": "customundockvendorcontainertype",
+   "menuGroupId": "features",
+   "title": "Undock Vendor Container Type",
    "actionId": ""
 },
 {

@@ -10,7 +10,9 @@ The features are grouped in the following sections:
 * [Custom Nice Label Print](/AMSOsram/techspec>features>CustomNiceLabelPrint)
 * [Send Critical Data Collection to Space](/AMSOsram/techspec>features>CustomSendMESCriticalDataCollectionToSpace)
 * [Stibo System Integration](/AMSOsram/techspec>features>CustomStiboSystemIntegration)
+* [Terminate Vendor Container Type](/AMSOsram/techspec>features>CustomTerminateVendorContainerType)
 * [Tibco EMS Gateway](/AMSOsram/techspec>features>CustomTibcoEMSGateway)
+* [Undock Vendor Container Type](/AMSOsram/techspec>features>CustomUndockVendorContainerType)
 * [Generate Sorter Job Definition From Future Action](/AMSOsram/techspec>features>GenerateSorterJobDefinitionFromFutureAction)
 
 
