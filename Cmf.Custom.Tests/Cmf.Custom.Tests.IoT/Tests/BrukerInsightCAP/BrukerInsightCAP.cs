@@ -39,8 +39,6 @@ namespace AMSOsramEIAutomaticTests.BrukerInsightCAP
         public string recipeName = "TestRecipeForBrukerInsightCAP";
         public const string serviceName = "Sputtering ZnO with Etching";
 
-        private int loadPortNumber = 1;
-
         private bool loadCommandReceived = false;
         private bool loadCommandDenied = false;
 
@@ -83,7 +81,7 @@ namespace AMSOsramEIAutomaticTests.BrukerInsightCAP
             base.Equipment.RegisterOnMessage("S14F9", OnS14F9);
             base.Equipment.RegisterOnMessage("S16F11", OnS16F11);
 
-            base.LoadPortNumber = loadPortNumber;
+            base.LoadPortNumber = 1; //Default LP
 
             RFIDReader.TestInit(readerResourceName, m_Scenario);
         }
@@ -150,10 +148,10 @@ namespace AMSOsramEIAutomaticTests.BrukerInsightCAP
 
 
         /// <summary> 
-        /// Scenario: Recipe Exists on Equipment
+        /// Scenario: Recipe Exists on Equipment LP1
         /// </summary>
         [TestMethod]
-        public void BrukerInsightCAP_FullProcessRecipeExists()
+        public void BrukerInsightCAP_FullProcessRecipeExists_LP1()
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
 
@@ -166,9 +164,33 @@ namespace AMSOsramEIAutomaticTests.BrukerInsightCAP
             RecipeManagement.SetRecipe(recipe.ResourceRecipeName, recipeBody.Body);
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
-            
 
-            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true) ;
+
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
+        }
+
+        /// <summary> 
+        /// Scenario: Recipe Exists on Equipment LP2
+        /// </summary>
+        [TestMethod]
+        public void BrukerInsightCAP_FullProcessRecipeExists_LP2()
+        {
+            LoadPortNumber = 2;
+
+            base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
+
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName, ".\\RecipeBinaryFiles\\testRecipe");
+
+            var recipe = new Recipe() { Name = RecipeName };
+            recipe.Load();
+            var recipeBody = recipe.Body;
+            recipeBody.Load();
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, recipeBody.Body);
+            RecipeManagement.FailOnNewBody = true;
+            RecipeManagement.RecipeExistsOnList = true;
+
+
+            base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
         }
 
         /// <summary> 
@@ -470,14 +492,14 @@ namespace AMSOsramEIAutomaticTests.BrukerInsightCAP
 
         public override bool CarrierOut(CustomMaterialScenario scenario)
         {
-            base.Equipment.Variables["TosPortID"] = loadPortNumber;
+            base.Equipment.Variables["TosPortID"] = LoadPortNumber;
             base.Equipment.Variables["PortTransferState"] = 0;
             // Trigger event
             base.Equipment.SendMessage(String.Format($"LPTSM9_TRANSFERBLOCKED_READYTOUNLOAD"), null);
             Thread.Sleep(300);
 
             // MaterialRemoved
-            base.Equipment.Variables["TosPortID"] = loadPortNumber;
+            base.Equipment.Variables["TosPortID"] = LoadPortNumber;
 
             // Trigger event
             base.Equipment.SendMessage(String.Format($"TosMaterialRemoved"), null);
