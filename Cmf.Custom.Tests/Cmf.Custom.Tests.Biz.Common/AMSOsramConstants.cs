@@ -121,6 +121,11 @@
         public const string ContainerSMIFPod = "SMIF Pod 8-Inch";
 
         /// <summary>
+        /// Test Container Type: "PEEK Cassette 8-Inch(13)"
+        /// </summary
+        public const string ContainerPeekCassete = "PEEK Cassette 8-Inch(13)"; 
+
+        /// <summary>
         /// Form: Logistical wafer
         /// </summary>
         public static string FormWafer = "Logistical wafer";
@@ -305,8 +310,10 @@
         /// </summary>
         public static string FDCActiveConfigPath = "/AMSOsram/FDC/Active/";
 
-        
-
+        /// <summary>
+        /// Default ContainerType that is not allowed to be undocked
+        /// </summary>
+        public static string DefaultVendorContainerTypesConfig = "/AMSOsram/Container/VendorContainerTypes/";
 
         #endregion Configurations
     }

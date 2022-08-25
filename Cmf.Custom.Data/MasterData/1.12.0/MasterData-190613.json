@@ -1,0 +1,56 @@
+{
+    "WorksheetNameMapping": {},
+	"<SM>LocalizedMessageKey": {
+	  "1": {
+      "Name": "CustomLocalizedMessageContainerCannotBeUndocked",
+      "Description": "",
+      "MessageType": "Message",
+      "en-US": "The Container {0} cannot be undocked due to configuration at {1}.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": ""
+    }
+  },
+    "<SM>DEEAction": {
+        "1": {
+            "Action": "CustomUndockContainerValidation",
+            "Description": " DEE Action to validate if a Container can be undocked based on its Type being or not configured as a VendorContainerType",
+            "CodeFileRelativePath": "Containers\\CustomUndockContainerValidation.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        },
+		"2": {
+            "Action": "CustomTerminateContainer",
+            "Description": "DEE Action to terminate a Container from a specific type configured as a VendorContainerType.",
+            "CodeFileRelativePath": "Containers\\CustomTerminateContainer.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        }
+    },
+    "DEEActionOrder": {
+		"1": {
+		  "ActionGroup": "BusinessObjects.Container.Undock.Pre",
+		  "Action": "CustomUndockContainerValidation",
+		  "Order": "100"
+		},
+		"2": {
+		  "ActionGroup": "BusinessObjects.Container.Undock.Post",
+		  "Action": "CustomUndockContainerValidation",
+		  "Order": "100"
+		},
+		"3": {
+		  "ActionGroup": "BusinessObjects.Container.DisassociateMaterials.Post",
+		  "Action": "CustomTerminateContainer",
+		  "Order": "100"
+		}
+	},
+	"<SM>Config": {
+    "1": {
+      "ParentPath": "/AMSOsram/Container/",
+      "Name": "VendorContainerTypes",
+      "Value": "",
+      "ValueType": "String"
+    }
+  },
+}

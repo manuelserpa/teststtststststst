@@ -535,6 +535,11 @@
         /// </summary>
         public const string LocalizedMessageCustomMaterialObjectNull = "CustomMaterialObjectNull";
 
+        /// <summary> 
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageContainerCannotBeUndocked
+        /// </summary>
+        public static string LocalizedMessageContainerCannotBeUndocked = "CustomLocalizedMessageContainerCannotBeUndocked";
+
         #endregion
 
         #region State Model
@@ -597,6 +602,11 @@
         /// Default Protocol to open when sending information to Space
         /// </summary>
         public static string DefaultSpaceProtocol = "/AMSOsram/Protocol/Space";
+
+        /// <summary>
+        /// Default Vendor ContainerTypes
+        /// </summary>
+        public static string DefaultVendorContainerTypesConfig = "/AMSOsram/Container/VendorContainerTypes/";
 
         #endregion
 
