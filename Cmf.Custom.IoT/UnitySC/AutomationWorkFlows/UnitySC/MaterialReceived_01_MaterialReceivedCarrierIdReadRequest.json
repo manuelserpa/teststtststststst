@@ -201,6 +201,17 @@
 				],
 				"outputs": [
 					{
+						"name": "LoadPort",
+						"valueType": {
+							"friendlyName": "LoadPort",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
 						"name": "container",
 						"valueType": {
 							"friendlyName": "container",
@@ -212,14 +223,14 @@
 						}
 					},
 					{
-						"name": "LoadPort",
+						"name": "ContainerName",
 						"valueType": {
-							"friendlyName": "LoadPort",
-							"type": 5,
+							"type": 4,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
-							"referenceTypeId": null
+							"referenceTypeId": null,
+							"friendlyName": ""
 						}
 					}
 				],
@@ -445,26 +456,6 @@
 			"outputName": "success"
 		},
 		{
-			"id": "58274bad-6e69-48b6-82ce-df81222a2869",
-			"sourceId": "task_1598",
-			"targetId": "task_29636",
-			"inputName": "ContainerIdIn",
-			"outputName": "MaterialId"
-		},
-		{
-			"id": "83b93132-08e2-4ec2-96ea-18ea0950a7e1",
-			"sourceId": "task_1598",
-			"targetId": "task_29636",
-			"inputName": "LoadPortIn",
-			"outputName": "TargetIdResult",
-			"converters": [
-				{
-					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
-					"params": {}
-				}
-			]
-		},
-		{
 			"id": "18e24f76-373d-432c-a305-134dccf33d1b",
 			"sourceId": "task_1598",
 			"targetId": "task_29636",
@@ -516,35 +507,45 @@
 			"outputName": "$PortID"
 		},
 		{
-			"id": "78bb7649-3f48-44a2-a81d-c45cdff6d612",
+			"id": "e0d56284-6b2b-4a67-ac2c-52ca5a404b36",
+			"sourceId": "task_29636",
+			"targetId": "task_8567",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "9c51ebc4-dfea-4d86-8fa1-8b45450eed6e",
+			"sourceId": "task_29636",
+			"targetId": "task_8567",
+			"inputName": "CarrierId",
+			"outputName": "ContainerNameOut"
+		},
+		{
+			"id": "62abbf4a-35fe-4836-a142-450451ae4e3a",
 			"sourceId": "task_29636",
 			"targetId": "task_8567",
 			"inputName": "PortNumber",
 			"outputName": "LoadPortOut"
 		},
 		{
-			"id": "656fd079-d81c-4e07-8496-8ad103067494",
-			"sourceId": "task_29636",
-			"targetId": "task_8567",
-			"inputName": "CarrierId",
-			"outputName": "containerOut",
-			"converters": [
-				{
-					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
-					"params": {
-						"path": "ContainerName",
-						"type": 4,
-						"defaultValue": ""
-					}
-				}
-			]
+			"id": "4f450f42-b275-474d-855b-0f1d1d365377",
+			"sourceId": "task_1598",
+			"targetId": "task_29636",
+			"inputName": "ContainerIdIn",
+			"outputName": "MaterialId"
 		},
 		{
-			"id": "e0d56284-6b2b-4a67-ac2c-52ca5a404b36",
-			"sourceId": "task_29636",
-			"targetId": "task_8567",
-			"inputName": "activate",
-			"outputName": "success"
+			"id": "8131578f-99e9-4deb-aec5-7478c52d9669",
+			"sourceId": "task_1598",
+			"targetId": "task_29636",
+			"inputName": "LoadPortIn",
+			"outputName": "TargetIdResult",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -577,8 +578,8 @@
 					"task_29463": {
 						"collapsed": false,
 						"position": {
-							"x": 911,
-							"y": 355
+							"x": 891,
+							"y": 349
 						},
 						"outdated": false
 					},
@@ -593,41 +594,38 @@
 					"task_29636": {
 						"collapsed": false,
 						"position": {
-							"x": 1903,
-							"y": 287
+							"x": 1945,
+							"y": 353
 						},
 						"outdated": false
 					},
 					"task_1598": {
 						"collapsed": false,
 						"position": {
-							"x": 1432,
-							"y": 364
+							"x": 1425,
+							"y": 352
 						},
 						"outdated": false
 					},
 					"task_2654": {
 						"collapsed": false,
 						"position": {
-							"x": 2046,
-							"y": 799
+							"x": 1943,
+							"y": 835
 						},
 						"outdated": false
 					},
 					"task_8567": {
 						"collapsed": false,
 						"position": {
-							"x": 2418,
-							"y": 305
+							"x": 2453,
+							"y": 358
 						},
 						"outdated": false
 					}
 				},
 				"links": {
 					"95a85db4-26a8-4241-a1e3-609e62c11acd": {
-						"vertices": []
-					},
-					"58274bad-6e69-48b6-82ce-df81222a2869": {
 						"vertices": []
 					},
 					"18e24f76-373d-432c-a305-134dccf33d1b": {
@@ -645,22 +643,25 @@
 					"205eaa4c-f7d3-4fc2-b67f-680cea98802a": {
 						"vertices": []
 					},
-					"78bb7649-3f48-44a2-a81d-c45cdff6d612": {
+					"e0d56284-6b2b-4a67-ac2c-52ca5a404b36": {
 						"vertices": []
 					},
-					"e0d56284-6b2b-4a67-ac2c-52ca5a404b36": {
+					"9c51ebc4-dfea-4d86-8fa1-8b45450eed6e": {
+						"vertices": []
+					},
+					"62abbf4a-35fe-4836-a142-450451ae4e3a": {
+						"vertices": []
+					},
+					"4f450f42-b275-474d-855b-0f1d1d365377": {
 						"vertices": []
 					},
 					"b5bf631f-79d2-43e6-abe5-b4aead9f6255": {
 						"vertices": []
 					},
-					"83b93132-08e2-4ec2-96ea-18ea0950a7e1": {
-						"vertices": []
-					},
 					"f090667f-06e6-4a81-bf77-ef12b28c85c2": {
 						"vertices": []
 					},
-					"656fd079-d81c-4e07-8496-8ad103067494": {
+					"8131578f-99e9-4deb-aec5-7478c52d9669": {
 						"vertices": []
 					}
 				},
@@ -668,15 +669,15 @@
 					"note_29467": {
 						"collapsed": false,
 						"position": {
-							"x": 936,
-							"y": 790
+							"x": 57,
+							"y": 351
 						}
 					},
 					"note_29854": {
 						"collapsed": false,
 						"position": {
-							"x": 2849,
-							"y": 72
+							"x": 2963,
+							"y": 358
 						}
 					},
 					"note_5203": {
@@ -687,10 +688,10 @@
 						}
 					}
 				},
-				"zoom": 0.5300000000000002,
+				"zoom": 0.5299999999999997,
 				"pan": {
-					"x": 311,
-					"y": 188
+					"x": 332,
+					"y": 102
 				}
 			}
 		}
