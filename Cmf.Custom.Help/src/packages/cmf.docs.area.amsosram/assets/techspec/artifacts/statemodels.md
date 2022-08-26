@@ -1,4 +1,4 @@
-﻿# State Models
+# State Models
 
 ## Custom State Models
 

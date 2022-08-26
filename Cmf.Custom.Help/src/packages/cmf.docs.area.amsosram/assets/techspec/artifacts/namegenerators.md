@@ -1,4 +1,4 @@
-﻿# Name Generators
+# Name Generators
 
 ## Custom Name Generators
 

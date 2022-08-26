@@ -1,4 +1,4 @@
-﻿# Services
+# Services
 
 ## Custom Services
 

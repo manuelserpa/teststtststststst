@@ -1,4 +1,4 @@
-﻿# Hermos LFM 4x Reader
+# Hermos LFM 4x Reader
 
 The details of the Hermos LFM 4x Reader are the following:
 * [Configuration](/AMSOsram/techspec>connectiot>iotequipmenttypes>HermosLFM4xReader>HermosLFM4xReader-Configuration)

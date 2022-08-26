@@ -114,15 +114,15 @@
    "actionId": ""
 },
 {
-   "id": "configurations",
-   "menuGroupId": "artifacts",
-   "title": "Configuration Entries",
-   "actionId": ""
-},
-{
    "id": "c_analytics",
    "menuGroupId": "artifacts",
    "title": "Analytics",
+   "actionId": ""
+},
+{
+   "id": "configurations",
+   "menuGroupId": "artifacts",
+   "title": "Configuration Entries",
    "actionId": ""
 },
 {
@@ -558,6 +558,12 @@
    "actionId": ""
 },
 {
+   "id": "unitysc",
+   "menuGroupId": "iotequipmenttypes",
+   "title": "Documentation Generator Equipment Integration Test",
+   "actionId": ""
+},
+{
    "id": "evatecclusterline200ii-configuration",
    "menuGroupId": "evatecclusterline200ii",
    "title": "Configuration",
@@ -722,6 +728,30 @@
 {
    "id": "trymaxneo-workflows",
    "menuGroupId": "trymaxneo",
+   "title": "Workflows",
+   "actionId": ""
+},
+{
+   "id": "unitysc-configuration",
+   "menuGroupId": "unitysc",
+   "title": "Configuration",
+   "actionId": ""
+},
+{
+   "id": "unitysc-features",
+   "menuGroupId": "unitysc",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "unitysc-setup",
+   "menuGroupId": "unitysc",
+   "title": "Setup",
+   "actionId": ""
+},
+{
+   "id": "unitysc-workflows",
+   "menuGroupId": "unitysc",
    "title": "Workflows",
    "actionId": ""
 },

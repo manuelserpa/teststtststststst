@@ -1,4 +1,4 @@
-﻿# DEE Actions
+# DEE Actions
 
 ## Custom DEE Actions
 
