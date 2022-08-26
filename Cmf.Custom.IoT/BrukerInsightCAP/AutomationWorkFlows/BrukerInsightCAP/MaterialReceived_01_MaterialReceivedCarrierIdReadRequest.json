@@ -373,6 +373,18 @@
 				"___cmf___name": "Error Workflow",
 				"___cmf___color": "#ff0000"
 			}
+		},
+		{
+			"id": "task_3275",
+			"reference": {
+				"name": "customCarrierActionRequest",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {},
+			"driver": "SecsGemEquipment"
 		}
 	],
 	"converters": [
@@ -403,6 +415,16 @@
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
 					"version": "1.0.0"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
 				}
 			}
 		}
@@ -498,6 +520,37 @@
 			"targetId": "task_29463",
 			"inputName": "activate",
 			"outputName": "$TosPortID"
+		},
+		{
+			"id": "c208f8c1-f440-4d26-9ecc-fc7116e31858",
+			"sourceId": "task_29636",
+			"targetId": "task_3275",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "74b60cef-2628-4b20-b815-fc5c4571c7f5",
+			"sourceId": "task_29636",
+			"targetId": "task_3275",
+			"inputName": "PortNumber",
+			"outputName": "LoadPortOut"
+		},
+		{
+			"id": "684b7937-97b2-4d99-96ce-a6bf6d7b81b7",
+			"sourceId": "task_29636",
+			"targetId": "task_3275",
+			"inputName": "CarrierId",
+			"outputName": "containerOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "ContainerName",
+						"type": 4,
+						"failIfNotFound": true
+					}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -566,6 +619,14 @@
 							"y": 799
 						},
 						"outdated": false
+					},
+					"task_3275": {
+						"collapsed": false,
+						"position": {
+							"x": 2621,
+							"y": 381
+						},
+						"outdated": false
 					}
 				},
 				"links": {
@@ -590,6 +651,12 @@
 					"5814ef6a-e00c-44dd-b140-9d88cfca8902": {
 						"vertices": []
 					},
+					"c208f8c1-f440-4d26-9ecc-fc7116e31858": {
+						"vertices": []
+					},
+					"74b60cef-2628-4b20-b815-fc5c4571c7f5": {
+						"vertices": []
+					},
 					"b5bf631f-79d2-43e6-abe5-b4aead9f6255": {
 						"vertices": []
 					},
@@ -597,6 +664,9 @@
 						"vertices": []
 					},
 					"f090667f-06e6-4a81-bf77-ef12b28c85c2": {
+						"vertices": []
+					},
+					"684b7937-97b2-4d99-96ce-a6bf6d7b81b7": {
 						"vertices": []
 					}
 				},
@@ -611,8 +681,8 @@
 					"note_29854": {
 						"collapsed": false,
 						"position": {
-							"x": 2465,
-							"y": 69
+							"x": 3111,
+							"y": 111
 						}
 					},
 					"note_5203": {
@@ -623,10 +693,10 @@
 						}
 					}
 				},
-				"zoom": 0.8899999999999999,
+				"zoom": 0.8199999999999998,
 				"pan": {
-					"x": 1152,
-					"y": 250
+					"x": 1123.0001254329034,
+					"y": 77.6953125
 				}
 			}
 		}

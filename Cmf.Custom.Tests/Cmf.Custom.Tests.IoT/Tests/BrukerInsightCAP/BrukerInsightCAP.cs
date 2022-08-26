@@ -483,7 +483,15 @@ namespace AMSOsramEIAutomaticTests.BrukerInsightCAP
                 return RFIDReader.RecievedS18F9();
             });
             RFIDReader.ClearFlags();
-            Thread.Sleep(200);
+
+
+            TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve ProceedWithCarrier", () =>
+            {
+                return proceedWithCarriersReceived;
+            });
+
+            proceedWithCarriersReceived = false;
+
 
             base.Equipment.SendMessage(String.Format($"TosSlotMapReadSuccessful"), null);
 
