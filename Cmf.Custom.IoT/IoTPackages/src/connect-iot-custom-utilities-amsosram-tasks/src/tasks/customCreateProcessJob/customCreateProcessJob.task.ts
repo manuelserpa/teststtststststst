@@ -37,7 +37,7 @@ import { MaterialData } from "../../persistence";
         RecipeParameterList: Task.TaskValueType.Object,
         EventList: Task.TaskValueType.Object,
         StartProcess: Task.TaskValueType.Boolean,
-        ControlJobIdentifier: Task.TaskValueType.String,
+        ProcessJobIdentifier: Task.TaskValueType.String,
         activate: Task.INPUT_ACTIVATE
     },
     outputs: {
@@ -61,7 +61,7 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
     public RecipeName: string = "";
     public RecipeParameterList: any = undefined;
     public StartProcess: boolean = false;
-    public ControlJobIdentifier: string;
+    public ProcessJobIdentifier: string;
     public MaterialFormat: string = "0x0e";
     public SendCarrierContent: boolean = false;
     public RecipeSpecificationType: RecipeSpecificationType = RecipeSpecificationType.RecipeWithoutVariableTuning;
@@ -103,7 +103,7 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
             } else {
                 material = this.MaterialData;
             }
-            material.ProcessJobId = this.ControlJobIdentifier ?? `PrJob_${material.MaterialName}`;
+            material.ProcessJobId = this.ProcessJobIdentifier ?? `PrJob_${material.MaterialName}`;
 
             const dataIdType = (<any>this._driverProxy)._driver._currentIntegrationConfiguration.DeviceConfiguration.communication.dataIdType;
 
