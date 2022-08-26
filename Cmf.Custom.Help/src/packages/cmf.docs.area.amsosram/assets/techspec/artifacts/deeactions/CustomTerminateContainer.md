@@ -6,7 +6,7 @@ DEE Action used to terminate a Container from a specific type configured as a Ve
 
 ## Action Groups
 
-* ContainerManagement.ContainerManagementOrchestration.DisassociateMaterials.Post
+* BusinessObjects.Container.DisassociateMaterials.Post
 
 ## Pre Conditions
 

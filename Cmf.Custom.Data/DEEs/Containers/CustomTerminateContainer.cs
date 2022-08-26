@@ -24,7 +24,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Containers
             /// Summary text
             ///     - DEE Action to terminate a Container from a specific type configured as a VendorContainerType.
             /// Action Groups:
-            /// ContainerManagement.ContainerManagementOrchestration.DisassociateMaterials.Post
+            /// BusinessObjects.Container.DisassociateMaterials.Post
             /// Depends On:
             /// Is Dependency For:
             /// Exceptions:
