@@ -2381,7 +2381,7 @@
     },
     "14": {
       "Name": "5FAFM1",
-      "Description": "5FAFM1 - Omega Plasma etch Cl",
+      "Description": "5FAFM1 - Bruker Insight CAP",
       "Type": "Process",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",
@@ -2449,7 +2449,7 @@
     },
     "15": {
       "Name": "5FAFM1.RFID",
-      "Description": "5FAFM1 - Omega Plasma etch Cl",
+      "Description": "5FAFM1 - Bruker Insight CAP",
       "Type": "Other Auxiliary",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",
@@ -2517,7 +2517,7 @@
     },
     "16": {
       "Name": "5FAFM1-LP1",
-      "Description": "5FAFM1 - Omega Plasma etch Cl",
+      "Description": "5FAFM1 - Bruker Insight CAP",
       "Type": "Process",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",
@@ -2585,7 +2585,7 @@
     },
     "17": {
       "Name": "5FAFM1-LP2",
-      "Description": "5FAFM1 - Omega Plasma etch Cl",
+      "Description": "5FAFM1 - Bruker Insight CAP",
       "Type": "Process",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",
