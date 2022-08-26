@@ -540,6 +540,16 @@
         /// </summary>
         public const string LocalizedMessageCustomProductionOrderDoesNotExists = "CustomProductionOrderDoesNotExists";
 
+        /// <summary>
+        /// Localized Message: CustomInvalidPrimaryQuantity
+        /// </summary>
+        public const string LocalizedMessageCustomInvalidPrimaryQuantity = "CustomInvalidPrimaryQuantity";
+
+        /// <summary>
+        /// Localized Message: CustomPrimaryUnitObjectNull
+        /// </summary>
+        public const string LocalizedMessageCustomPrimaryUnitObjectNull = "CustomPrimaryUnitObjectNull";
+
         /// <summary> 
         /// Localized Message: Custom Localized Message CustomLocalizedMessageContainerCannotBeUndocked
         /// </summary>
