@@ -327,6 +327,34 @@ User Story | Type | Title | Description
 :--------- | :--- | :---- | :----------
 166500|User Story|Vendor Bruker Insight CAP (5FAFM1)| Bruker Insight CAP Implementation
 
+Data Collection
+============
+
+### Requirement Specification
+When a Data Collection equivalent event is received:
+
+- Material must be on Persistance
+
+
+### How it works
+
+Upon a Data Collection being detected:
+
+1. Create a Map object with the received data;
+2. Retrieve the Resource object (With the Resource name and subsequent Converter).
+3. Execute the Data Collection on a defined DataCollection
+
+### Assumptions
+Parent Material must have been tracked in previously.
+
+### Work items
+
+The table below describes the user stories that affect the current functionality
+
+User Story | Type | Title | Description
+:--------- | :--- | :---- | :----------
+166500|User Story|Vendor Bruker Insight CAP (5FAFM1)| Bruker Insight CAP Implementation
+
 Wafer Complete
 ============
 
