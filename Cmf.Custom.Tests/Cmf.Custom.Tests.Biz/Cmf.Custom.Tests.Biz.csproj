@@ -64,9 +64,6 @@
 		<None Update="ERP\Samples\SampleGoodsReceiptUncertificated.xml">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="ERP\Samples\SampleGoodsReceiptWithNonExistentProductionOrder.xml">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="ERP\Samples\SampleGoodsReceiptWithoutWafer.xml">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -74,12 +71,6 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="ERP\Samples\SampleImportProductionOrders.xml">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="ERP\Samples\SampleGoodsReceiptMissingPrimaryQuantity.xml">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="ERP\Samples\SampleGoodsReceiptMissingPrimaryUnit.xml">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
