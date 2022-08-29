@@ -39,6 +39,7 @@ import { MaterialData } from "../../persistence";
         MtrlOutByStatus: Task.TaskValueType.Object,
         ProcessingControlSpecification: Task.TaskValueType.Object,
         DataCollectionPlan: Task.TaskValueType.Object,
+        ControlJobIdentifier: Task.TaskValueType.String,
         activate: Task.INPUT_ACTIVATE
     },
     outputs: {
@@ -59,11 +60,13 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
 
     public MaterialData: any = undefined;
     public MaterialMovement: any = undefined;
+    public ControlJobIdentifier: string;
     public StartMethod: boolean = false;
     public PauseEvent: any = undefined;
     public MtrlOutByStatus: any = undefined;
     public ProcessingControlSpecification: any = undefined;
     public DataCollectionPlan: any = undefined;
+
     /** **Outputs** */
     /** To output a success notification */
     public success: Task.Output<boolean> = new Task.Output<boolean>();
@@ -108,6 +111,8 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
             } else {
                 material = this.MaterialData;
             }
+
+            this._logger.error("Here! " + this.ControlJobIdentifier );
 
             // calculate MaterialOutSpec based on input or sorter job information (if existing) and calculate Carrier Input Spec
             const carrierInputSpec = [];
@@ -202,7 +207,8 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                     }
                 }
             }
-            material.ControlJobId = `CtrlJob_${material.MaterialName}`;
+
+            material.ControlJobId = this.ControlJobIdentifier ?? `CtrlJob_${material.MaterialName}`;
             try {
                 const objectContent = [];
                 objectContent.push({
