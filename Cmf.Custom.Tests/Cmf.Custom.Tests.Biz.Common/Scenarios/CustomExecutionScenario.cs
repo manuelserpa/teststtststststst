@@ -165,6 +165,9 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         }
 
 
+        /// <summary>
+        /// CustomExecutionScenario Setup
+        /// </summary>
         public override void Setup()
         {
             #region Smart Table Configuration

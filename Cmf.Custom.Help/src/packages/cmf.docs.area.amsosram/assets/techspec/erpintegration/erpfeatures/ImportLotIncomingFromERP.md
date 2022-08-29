@@ -32,6 +32,9 @@ These are the mandatory fields validated on **Lot** creation by the system:
 | Facility      | Facility      | Yes       |  Facility    |
 | Flow          | Flow          | No        |  Flow        |
 | Step          | Step          | No        |  Step        |
+| PrimaryQuantity | PrimaryQuantity | Yes        |  Material        |
+| PrimaryUnits          | PrimaryUnits          | Yes        |  Material        |
+| ProductionOrder          | ProductionOrder          | Yes        |  ProductionOrder        |
 
 These are the mandatory fields validated on **Wafer** creation by the system:
 
@@ -46,6 +49,8 @@ These are the mandatory fields validated on **Wafer** creation by the system:
 | Facility      | Facility      | No        |  Facility    |
 | Flow          | Flow          | No        |  Flow        |
 | Step          | Step          | No        |  Step        |
+| PrimaryQuantity | PrimaryQuantity | Yes        |  Material        |
+| PrimaryUnits          | PrimaryUnits          | Yes        |  Material        |
 
 The Attribute field can be present on the Lot and on the Wafer information.
 
@@ -63,3 +68,4 @@ The table below describes de user stories that affect the current functionality
 | :--------: | :--------: | ------------------------------ | ----------- |
 | 160142     | User Story | Incoming material lot creation |             |
 | 183602     | User Story | Certificate Lot - Improvement  |             |
+| 189684     | User Story | Certificate Lot Improvement - Include additional Material fields to be mapped  |             |

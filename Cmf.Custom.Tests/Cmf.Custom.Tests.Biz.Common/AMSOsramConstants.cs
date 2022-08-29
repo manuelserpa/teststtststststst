@@ -305,9 +305,28 @@
         /// </summary>
         public static string FDCActiveConfigPath = "/AMSOsram/FDC/Active/";
 
-        
+
 
 
         #endregion Configurations
+
+        #region Localized Messages
+
+        /// <summary>
+        /// Localized Message: CustomProductionOrderDoesNotExists
+        /// </summary>
+        public const string LocalizedMessageCustomProductionOrderDoesNotExists = "CustomProductionOrderDoesNotExists";
+
+        /// <summary>
+        /// Localized Message: CustomInvalidPrimaryQuantity
+        /// </summary>
+        public const string LocalizedMessageCustomInvalidPrimaryQuantity = "CustomInvalidPrimaryQuantity";
+
+        /// <summary>
+        /// Localized Message: CustomPrimaryUnitObjectNull
+        /// </summary>
+        public const string LocalizedMessageCustomPrimaryUnitObjectNull = "CustomPrimaryUnitObjectNull";
+
+        #endregion Localized Messages
     }
 }

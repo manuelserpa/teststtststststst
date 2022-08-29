@@ -535,6 +535,21 @@
         /// </summary>
         public const string LocalizedMessageCustomMaterialObjectNull = "CustomMaterialObjectNull";
 
+        /// <summary>
+        /// Localized Message: LocalizedMessageProductionOrderDoesNotExists
+        /// </summary>
+        public const string LocalizedMessageCustomProductionOrderDoesNotExists = "CustomProductionOrderDoesNotExists";
+
+        /// <summary>
+        /// Localized Message: CustomInvalidPrimaryQuantity
+        /// </summary>
+        public const string LocalizedMessageCustomInvalidPrimaryQuantity = "CustomInvalidPrimaryQuantity";
+
+        /// <summary>
+        /// Localized Message: CustomPrimaryUnitObjectNull
+        /// </summary>
+        public const string LocalizedMessageCustomPrimaryUnitObjectNull = "CustomPrimaryUnitObjectNull";
+
         #endregion
 
         #region State Model

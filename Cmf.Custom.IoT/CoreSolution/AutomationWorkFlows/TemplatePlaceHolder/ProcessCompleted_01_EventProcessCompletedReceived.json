@@ -1,37 +1,6 @@
 {
 	"tasks": [
 		{
-			"id": "task_6988",
-			"reference": {
-				"name": "retrieve",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"_retrieveOnValueChange": false,
-				"_emitInNewContext": false,
-				"_outputs": [
-					{
-						"name": "Resource",
-						"identifier": "Generic_ResourceName",
-						"defaultValue": "-",
-						"valueType": {
-							"name": "",
-							"friendlyName": "",
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null
-						}
-					}
-				],
-				"___cmf___name": "Retrieve Data",
-				"___cmf___color": "#c0c0c0"
-			}
-		},
-		{
 			"id": "task_127417",
 			"reference": {
 				"name": "workflow",
@@ -230,14 +199,6 @@
 		"drawers": {
 			"DIAGRAM": {
 				"tasks": {
-					"task_6988": {
-						"collapsed": false,
-						"position": {
-							"x": 1608,
-							"y": 1909
-						},
-						"outdated": false
-					},
 					"task_127417": {
 						"collapsed": false,
 						"position": {
@@ -265,10 +226,10 @@
 						}
 					}
 				},
-				"zoom": 0.6600000000000004,
+				"zoom": 0.8999999999999999,
 				"pan": {
-					"x": 300,
-					"y": 76.25
+					"x": 438,
+					"y": 67
 				}
 			}
 		}
