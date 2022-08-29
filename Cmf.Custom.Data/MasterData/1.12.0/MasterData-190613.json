@@ -17,14 +17,14 @@
             "Action": "CustomUndockContainerValidation",
             "Description": " DEE Action to validate if a Container can be undocked based on its Type being or not configured as a VendorContainerType",
             "CodeFileRelativePath": "Containers\\CustomUndockContainerValidation.cs",
-            "IsEnabled": "Yes",
+            "IsEnabled": "No",
             "Classification": ""
         },
 		"2": {
             "Action": "CustomTerminateContainer",
             "Description": "DEE Action to terminate a Container from a specific type configured as a VendorContainerType.",
             "CodeFileRelativePath": "Containers\\CustomTerminateContainer.cs",
-            "IsEnabled": "Yes",
+            "IsEnabled": "No",
             "Classification": ""
         }
     },
