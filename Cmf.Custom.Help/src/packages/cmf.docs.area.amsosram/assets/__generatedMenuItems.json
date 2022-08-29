@@ -576,6 +576,12 @@
    "actionId": ""
 },
 {
+   "id": "unitysc",
+   "menuGroupId": "iotequipmenttypes",
+   "title": "Unity SC",
+   "actionId": ""
+},
+{
    "id": "evatecclusterline200ii-configuration",
    "menuGroupId": "evatecclusterline200ii",
    "title": "Configuration",
@@ -740,6 +746,30 @@
 {
    "id": "trymaxneo-workflows",
    "menuGroupId": "trymaxneo",
+   "title": "Workflows",
+   "actionId": ""
+},
+{
+   "id": "unitysc-configuration",
+   "menuGroupId": "unitysc",
+   "title": "Configuration",
+   "actionId": ""
+},
+{
+   "id": "unitysc-features",
+   "menuGroupId": "unitysc",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "unitysc-setup",
+   "menuGroupId": "unitysc",
+   "title": "Setup",
+   "actionId": ""
+},
+{
+   "id": "unitysc-workflows",
+   "menuGroupId": "unitysc",
    "title": "Workflows",
    "actionId": ""
 },
