@@ -1,4 +1,4 @@
-# Smart Tables
+﻿# Smart Tables
 
 Smart tables are general purpose context resolution tables to store data records. Each smart table has its own database table in the database, and therefore, requires a unique meta-data definition. In addition, the search precedence keys and order is part of the smart table definition.
 

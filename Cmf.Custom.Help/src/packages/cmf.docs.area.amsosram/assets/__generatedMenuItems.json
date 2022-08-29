@@ -114,15 +114,15 @@
    "actionId": ""
 },
 {
-   "id": "c_analytics",
-   "menuGroupId": "artifacts",
-   "title": "Analytics",
-   "actionId": ""
-},
-{
    "id": "configurations",
    "menuGroupId": "artifacts",
    "title": "Configuration Entries",
+   "actionId": ""
+},
+{
+   "id": "c_analytics",
+   "menuGroupId": "artifacts",
+   "title": "Analytics",
    "actionId": ""
 },
 {
@@ -560,7 +560,7 @@
 {
    "id": "unitysc",
    "menuGroupId": "iotequipmenttypes",
-   "title": "Documentation Generator Equipment Integration Test",
+   "title": "Unity SC",
    "actionId": ""
 },
 {

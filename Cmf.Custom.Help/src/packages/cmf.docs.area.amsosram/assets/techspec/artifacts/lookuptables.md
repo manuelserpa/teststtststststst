@@ -1,4 +1,4 @@
-# Lookup Tables
+﻿# Lookup Tables
 
 ## Custom Lookup Tables
 

@@ -1,4 +1,4 @@
-# Unity SC
+﻿# Unity SC
 
 The details of the Unity SC are the following:
 * [Configuration](/AMSOsram/techspec>connectiot>iotequipmenttypes>UnitySC>UnitySC-Configuration)

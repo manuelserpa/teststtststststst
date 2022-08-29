@@ -1,4 +1,4 @@
-# Generic Tables
+﻿# Generic Tables
 
 Generic Tables are general tables to store data records. Each generic table has its own database table in the database, and therefore, requires a unique meta-data definition.
 

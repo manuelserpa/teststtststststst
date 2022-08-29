@@ -1,4 +1,4 @@
-# Release Notes
+﻿# Release Notes
 
 Release information of CM MES implementation for AMSOsram
 
