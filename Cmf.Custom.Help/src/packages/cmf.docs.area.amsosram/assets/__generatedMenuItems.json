@@ -90,6 +90,12 @@
    "actionId": ""
 },
 {
+   "id": "amsosram-20220830-1.12.0",
+   "menuGroupId": "releasenotes",
+   "title": "AMSOsram-20220830-1.12.0",
+   "actionId": ""
+},
+{
    "id": "artifacts",
    "menuGroupId": "techspec",
    "title": "Artifacts",
@@ -321,6 +327,18 @@
    "id": "customsendtrackoutinformationtoiot",
    "menuGroupId": "deeactions",
    "title": "CustomSendTrackOutInformationToIoT",
+   "actionId": ""
+},
+{
+   "id": "customterminatecontainer",
+   "menuGroupId": "deeactions",
+   "title": "CustomTerminateContainer",
+   "actionId": ""
+},
+{
+   "id": "customundockcontainervalidation",
+   "menuGroupId": "deeactions",
+   "title": "CustomUndockContainerValidation",
    "actionId": ""
 },
 {
@@ -822,9 +840,21 @@
    "actionId": ""
 },
 {
+   "id": "customterminatevendorcontainertype",
+   "menuGroupId": "features",
+   "title": "Terminate Vendor Container Type",
+   "actionId": ""
+},
+{
    "id": "customtibcoemsgateway",
    "menuGroupId": "features",
    "title": "Tibco EMS Gateway",
+   "actionId": ""
+},
+{
+   "id": "customundockvendorcontainertype",
+   "menuGroupId": "features",
+   "title": "Undock Vendor Container Type",
    "actionId": ""
 },
 {
