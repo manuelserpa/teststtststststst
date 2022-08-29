@@ -14,3 +14,4 @@ The following table describes the configuration entries created.
 | Mandatory                      | /AMSOsram/FDC/Mandatory/                         | Boolean      | False                          | FDC mandatory                                      |
 | Server                         | /AMSOsram/FDC/Server/                            | String       | lnx-klm37.int.osram-light.com  | FDC server                                         |
 | Port                           | /AMSOsram/FDC/Port/                              | Int          | 1600                           | FDC port                                           |
+| VendorContainerTypes           | /AMSOsram/Container/VendorContainerTypes/        | String       | Empty                          | Vendor Container Types splitted by ','             |

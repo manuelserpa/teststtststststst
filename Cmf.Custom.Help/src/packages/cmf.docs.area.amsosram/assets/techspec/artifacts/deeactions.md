@@ -29,5 +29,7 @@ The following DEE Actions were created to support customer requirements.
 | [Custom Send Process Message](/AMSOsram/techspec>artifacts>deeactions>CustomSendProcessMessage) | Brief DEE Action description | 
 | [CustomSendTrackInInformationToIoT](/AMSOsram/techspec>artifacts>deeactions>CustomSendTrackInInformationToIoT) | DEE action to Trigger IoT call to send the Materials TrackIn related information. | 
 | [CustomSendTrackOutInformationToIoT](/AMSOsram/techspec>artifacts>deeactions>CustomSendTrackOutInformationToIoT) | DEE action to Trigger IoT call to send the Materials Track Out related information. | 
+| [CustomTerminateContainer](/AMSOsram/techspec>artifacts>deeactions>CustomTerminateContainer) | DEE Action used to terminate a Container from a specific type configured as a VendorContainerType. | 
+| [CustomUndockContainerValidation](/AMSOsram/techspec>artifacts>deeactions>CustomUndockContainerValidation) | DEE Action used to validate if a Container can be undocked based on its Type being or not configured as a VendorContainerType. | 
 
 
