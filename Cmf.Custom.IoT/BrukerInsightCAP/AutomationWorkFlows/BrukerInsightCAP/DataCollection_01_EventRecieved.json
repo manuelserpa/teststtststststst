@@ -508,13 +508,6 @@
 			"outputName": "eventRawData"
 		},
 		{
-			"id": "3186ac99-01f6-4a0f-b58d-545b1665d98c",
-			"sourceId": "task_14913",
-			"targetId": "task_13977",
-			"inputName": "activate",
-			"outputName": "success"
-		},
-		{
 			"id": "10f88a6a-eda0-4872-9b94-3af918b41f7a",
 			"sourceId": "task_14913",
 			"targetId": "task_13977",
@@ -591,9 +584,6 @@
 						"vertices": []
 					},
 					"8ddbae30-c49c-4179-9fc4-943bdab0448e": {
-						"vertices": []
-					},
-					"3186ac99-01f6-4a0f-b58d-545b1665d98c": {
 						"vertices": []
 					},
 					"b7ffc9a7-7b0b-4bd3-ad44-90d5ae107312": {
