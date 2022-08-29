@@ -183,6 +183,16 @@
 					"version": "8.3.3-202201212"
 				}
 			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
 		}
 	],
 	"links": [
@@ -258,6 +268,22 @@
 			"targetId": "task_172775",
 			"inputName": "MaterialData",
 			"outputName": "Material"
+		},
+		{
+			"id": "6940282e-4efe-4f45-9606-80aacbe3e403",
+			"sourceId": "task_172777",
+			"targetId": "task_172895",
+			"inputName": "StartProcess",
+			"outputName": "MaterialDataOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "True"
+					}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -328,13 +354,16 @@
 					},
 					"d4eefc1e-a308-4705-beba-58085ca897cb": {
 						"vertices": []
+					},
+					"6940282e-4efe-4f45-9606-80aacbe3e403": {
+						"vertices": []
 					}
 				},
 				"notes": {},
-				"zoom": 0.5699999999999997,
+				"zoom": 0.7399999999999999,
 				"pan": {
-					"x": 505,
-					"y": 260
+					"x": 845.6301673806936,
+					"y": 430.421723005932
 				}
 			}
 		}
