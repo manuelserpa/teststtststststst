@@ -1,6 +1,6 @@
-﻿# Documentation Generator Equipment Integration Test
+﻿# BrukerInsightCAP
 
-The details of the Documentation Generator Equipment Integration Test are the following:
+The details of the BrukerInsightCAP are the following:
 * [Configuration](/AMSOsram/techspec>connectiot>iotequipmenttypes>BrukerInsightCAP>BrukerInsightCAP-Configuration)
 * [Features](/AMSOsram/techspec>connectiot>iotequipmenttypes>BrukerInsightCAP>BrukerInsightCAP-Features)
 * [Setup](/AMSOsram/techspec>connectiot>iotequipmenttypes>BrukerInsightCAP>BrukerInsightCAP-Setup)
