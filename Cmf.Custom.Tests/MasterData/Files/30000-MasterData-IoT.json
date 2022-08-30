@@ -1049,6 +1049,15 @@
       "Configuration": ""
     },
     "7": {
+      "Name": "UnitySC",
+      "Description": "5FORI1",
+      "Type": "General",
+      "LogicalAddress": "5FORI1",
+      "MonitorPackageVersion": "8.3.3-202201212",
+      "ManagerPackageVersion": "8.3.3-202201212",
+      "Configuration": ""
+    },
+    "8": {
       "Name": "BrukerInsightCAP",
       "Description": "5FAFM1",
       "Type": "General",
@@ -1148,6 +1157,24 @@
       "AutomationManager": "OmegaPlasma",
       "DriverName": "RFIDReader",
       "EntityName": "5FICP1.RFID"
+    },
+    "16": {
+      "AutomationController": "UnitySCController",
+      "AutomationManager": "UnitySC",
+      "DriverName": "",
+      "EntityName": "5FORI1"
+    },
+    "17": {
+      "AutomationController": "UnitySCController",
+      "AutomationManager": "UnitySC",
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FORI1"
+    },
+    "18": {
+      "AutomationController": "UnitySCController",
+      "AutomationManager": "UnitySC",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FORI1.RFID"
     },
     "16": {
       "AutomationController": "BrukerInsightCAPController",

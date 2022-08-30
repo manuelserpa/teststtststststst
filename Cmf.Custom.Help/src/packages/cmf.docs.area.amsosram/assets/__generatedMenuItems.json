@@ -90,6 +90,12 @@
    "actionId": ""
 },
 {
+   "id": "amsosram-20220830-1.12.0",
+   "menuGroupId": "releasenotes",
+   "title": "AMSOsram-20220830-1.12.0",
+   "actionId": ""
+},
+{
    "id": "artifacts",
    "menuGroupId": "techspec",
    "title": "Artifacts",
@@ -321,6 +327,18 @@
    "id": "customsendtrackoutinformationtoiot",
    "menuGroupId": "deeactions",
    "title": "CustomSendTrackOutInformationToIoT",
+   "actionId": ""
+},
+{
+   "id": "customterminatecontainer",
+   "menuGroupId": "deeactions",
+   "title": "CustomTerminateContainer",
+   "actionId": ""
+},
+{
+   "id": "customundockcontainervalidation",
+   "menuGroupId": "deeactions",
+   "title": "CustomUndockContainerValidation",
    "actionId": ""
 },
 {
@@ -564,27 +582,9 @@
    "actionId": ""
 },
 {
-   "id": "brukerinsightcap-configuration",
-   "menuGroupId": "brukerinsightcap",
-   "title": "Configuration",
-   "actionId": ""
-},
-{
-   "id": "brukerinsightcap-features",
-   "menuGroupId": "brukerinsightcap",
-   "title": "Features",
-   "actionId": ""
-},
-{
-   "id": "brukerinsightcap-setup",
-   "menuGroupId": "brukerinsightcap",
-   "title": "Setup",
-   "actionId": ""
-},
-{
-   "id": "brukerinsightcap-workflows",
-   "menuGroupId": "brukerinsightcap",
-   "title": "Workflows",
+   "id": "unitysc",
+   "menuGroupId": "iotequipmenttypes",
+   "title": "Unity SC",
    "actionId": ""
 },
 {
@@ -756,6 +756,30 @@
    "actionId": ""
 },
 {
+   "id": "unitysc-configuration",
+   "menuGroupId": "unitysc",
+   "title": "Configuration",
+   "actionId": ""
+},
+{
+   "id": "unitysc-features",
+   "menuGroupId": "unitysc",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "unitysc-setup",
+   "menuGroupId": "unitysc",
+   "title": "Setup",
+   "actionId": ""
+},
+{
+   "id": "unitysc-workflows",
+   "menuGroupId": "unitysc",
+   "title": "Workflows",
+   "actionId": ""
+},
+{
    "id": "erpfeatures",
    "menuGroupId": "erpintegration",
    "title": "ERP Features",
@@ -822,9 +846,21 @@
    "actionId": ""
 },
 {
+   "id": "customterminatevendorcontainertype",
+   "menuGroupId": "features",
+   "title": "Terminate Vendor Container Type",
+   "actionId": ""
+},
+{
    "id": "customtibcoemsgateway",
    "menuGroupId": "features",
    "title": "Tibco EMS Gateway",
+   "actionId": ""
+},
+{
+   "id": "customundockvendorcontainertype",
+   "menuGroupId": "features",
+   "title": "Undock Vendor Container Type",
    "actionId": ""
 },
 {

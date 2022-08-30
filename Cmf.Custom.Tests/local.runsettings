@@ -126,6 +126,16 @@
 						   serviceName="ConnectIoT (5FICP1)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FICP1\remoteTestingConfig.json"
 						   description="RFIDReader" driver="SecsGem" port="5012"/>
 			</Cluster>
+			<Cluster name="5FORI1" automationManager="UnitySC" serviceMachine="vm-ams-osram"
+               serviceName="ConnectIoT (5FORI1)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FORI1\remoteTestingConfig.json">
+				<Equipment name="5FORI1" driverAlias="SecsGemEquipment"
+						   description="SecsGemEquipment" driver="SecsGem" port="5013" serviceMachine="vm-ams-osram"
+						   serviceName="ConnectIoT (5FORI1)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FORI1\remoteTestingConfig.json"
+						   library ="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>
+				<Equipment name="5FORI1.RFID" driverAlias="RFIDReader" serviceMachine="vm-ams-osram"
+						   serviceName="ConnectIoT (5FORI1)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FORI1\remoteTestingConfig.json"
+						   description="RFIDReader" driver="SecsGem" port="5014"/>
+			</Cluster>
 			<Cluster name="5FAFM1" automationManager="BrukerInsightCAP" serviceMachine="vm-ams-osram"
                serviceName="ConnectIoT (5FAFM1)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FAFM1\remoteTestingConfig.json">
 				<Equipment name="5FAFM1" driverAlias="SecsGemEquipment"
