@@ -1,6 +1,6 @@
 ﻿{
-  "version": "1.0.0",
-  "packageId": "Cmf.Custom.IoT.BrukerInsightCAP",
+  "version": "1.9.0",
+  "packageId": "Cmf.Custom.IoT.BrukerInsigthCAP",
   "description": "Cmf Custom Bruker Insight CAP Data Package",
   "packageType": "IoTData",
   "isInstallable": true,
