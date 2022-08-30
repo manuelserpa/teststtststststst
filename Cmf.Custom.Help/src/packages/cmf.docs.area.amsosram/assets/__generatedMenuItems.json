@@ -534,6 +534,12 @@
    "actionId": ""
 },
 {
+   "id": "brukerinsightcap",
+   "menuGroupId": "iotequipmenttypes",
+   "title": "BrukerInsightCAP",
+   "actionId": ""
+},
+{
    "id": "evatecclusterline200ii",
    "menuGroupId": "iotequipmenttypes",
    "title": "Evatec Cluster line 200II",
@@ -579,6 +585,30 @@
    "id": "unitysc",
    "menuGroupId": "iotequipmenttypes",
    "title": "Unity SC",
+   "actionId": ""
+},
+{
+   "id": "brukerinsightcap-configuration",
+   "menuGroupId": "brukerinsightcap",
+   "title": "Configuration",
+   "actionId": ""
+},
+{
+   "id": "brukerinsightcap-features",
+   "menuGroupId": "brukerinsightcap",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "brukerinsightcap-setup",
+   "menuGroupId": "brukerinsightcap",
+   "title": "Setup",
+   "actionId": ""
+},
+{
+   "id": "brukerinsightcap-workflows",
+   "menuGroupId": "brukerinsightcap",
+   "title": "Workflows",
    "actionId": ""
 },
 {

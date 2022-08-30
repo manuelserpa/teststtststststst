@@ -35,6 +35,7 @@ export interface CustomCarrierActionRequestTaskSettings extends
     assign: {
         i18n: i18n,
         CarrierActionRequest: CustomCarrierActionRequestTask.CarrierActionRequest,
+        CarrierActionPortIDValueTypeRequest: CustomCarrierActionRequestTask.CarrierActionPortIDValueTypeRequest,
     }
 })
 export class CustomCarrierActionRequestSettings extends TaskSettingsBase implements ng.OnInit {
@@ -66,6 +67,9 @@ export class CustomCarrierActionRequestSettings extends TaskSettingsBase impleme
 
             this.settings.CarrierActionRequest = this.settings.CarrierActionRequest != null ?
                 this.settings.CarrierActionRequest : this._taskInstance.CarrierActionRequest;
+
+            this.settings.CarrierActionPortIDValueTypeRequest = this.settings.CarrierActionPortIDValueTypeRequest != null ?
+                this.settings.CarrierActionPortIDValueTypeRequest : this._taskInstance.CarrierActionPortIDValueTypeRequest;
         }
 
     }

@@ -1,0 +1,186 @@
+{
+	"tasks": [
+		{
+			"id": "task_1930",
+			"reference": {
+				"name": "equipmentAlarm",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-secsgem-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"___cmf___name": "Equipment Alarm (S5F1)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_1513",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "AlarmCollection",
+					"IsShared": true,
+					"Name": "AlarmCollection"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "Resource",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "AlarmText",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "AlarmCode",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "AlarmId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "Timestamp",
+						"valueType": {
+							"type": 2,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [],
+				"___cmf___name": "AlarmCollection"
+			}
+		}
+	],
+	"converters": [],
+	"links": [
+		{
+			"id": "30acee97-a196-42b0-9270-a7e1eccf0384",
+			"sourceId": "task_1930",
+			"targetId": "task_1513",
+			"inputName": "AlarmIdIn",
+			"outputName": "alarmId"
+		},
+		{
+			"id": "d128cc7f-4c37-4490-8d25-414ec1a75c21",
+			"sourceId": "task_1930",
+			"targetId": "task_1513",
+			"inputName": "AlarmCodeIn",
+			"outputName": "alarmCode"
+		},
+		{
+			"id": "8fba9735-fd2c-4815-8c13-f2262ffd5d1d",
+			"sourceId": "task_1930",
+			"targetId": "task_1513",
+			"inputName": "AlarmTextIn",
+			"outputName": "alarmText"
+		},
+		{
+			"id": "ed56dd89-f2cb-4c12-9dfc-e8cd987eb398",
+			"sourceId": "task_1930",
+			"targetId": "task_1513",
+			"inputName": "TimestampIn",
+			"outputName": "timestamp"
+		},
+		{
+			"id": "a7edc4fc-1270-4289-800f-cda02801e1af",
+			"sourceId": "task_1930",
+			"targetId": "task_1513",
+			"inputName": "activate",
+			"outputName": "timestamp"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff40",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_1930": {
+						"collapsed": false,
+						"position": {
+							"x": 2629,
+							"y": 1071
+						},
+						"outdated": false
+					},
+					"task_1513": {
+						"collapsed": false,
+						"position": {
+							"x": 3338,
+							"y": 1109
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"30acee97-a196-42b0-9270-a7e1eccf0384": {
+						"vertices": []
+					},
+					"d128cc7f-4c37-4490-8d25-414ec1a75c21": {
+						"vertices": []
+					},
+					"8fba9735-fd2c-4815-8c13-f2262ffd5d1d": {
+						"vertices": []
+					},
+					"ed56dd89-f2cb-4c12-9dfc-e8cd987eb398": {
+						"vertices": []
+					},
+					"a7edc4fc-1270-4289-800f-cda02801e1af": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"pan": {
+					"x": 1978,
+					"y": 774
+				},
+				"zoom": 0.8399999999999999
+			}
+		}
+	}
+}
