@@ -1,11 +1,12 @@
 import { Task } from "@criticalmanufacturing/connect-iot-controller-engine";
 import {
-    CustomCarrierActionRequestTask, CustomCarrierActionRequestSettings, CarrierActionRequest
+    CustomCarrierActionRequestTask, CustomCarrierActionRequestSettings, CarrierActionRequest, CarrierActionPortIDValueTypeRequest
 } from "./customCarrierActionRequest.task";
 
 @Task.Designer.TaskDesigner()
 export class CustomCarrierActionRequestDesigner implements Task.Designer.TaskDesignerInstance, CustomCarrierActionRequestSettings {
     CarrierActionRequest: CarrierActionRequest;
+    CarrierActionPortIDValueTypeRequest: CarrierActionPortIDValueTypeRequest;
 
     /**
      * Resolve the inputs to be displayed in the task during design time

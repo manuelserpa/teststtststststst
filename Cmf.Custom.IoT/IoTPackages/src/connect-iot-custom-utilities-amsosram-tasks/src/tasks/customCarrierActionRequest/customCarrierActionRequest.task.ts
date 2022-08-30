@@ -48,7 +48,7 @@ export class CustomCarrierActionRequestTask implements Task.TaskInstance, Custom
     public CarrierId: String;
     public PortNumber: Number;
     public CarrierAttributes: any;
-
+    public CarrierActionPortIDValueTypeRequest: any;
     /** **Inputs** */
     /** Activate task execution */
     public activate: any = undefined;
@@ -88,6 +88,10 @@ export class CustomCarrierActionRequestTask implements Task.TaskInstance, Custom
                 portNumberConverted = this.PortNumber.toString();
             }
 
+            if (this.CarrierActionPortIDValueTypeRequest === undefined) {
+                this.CarrierActionPortIDValueTypeRequest = CarrierActionPortIDValueTypeRequest.U1; // Default Value
+            }
+
             this._logger.info("\nPortNumber S3F17: " + this.PortNumber);
             this._logger.info("\nCarrierAction S3F17: " + this.CarrierActionRequest);
 
@@ -100,7 +104,7 @@ export class CustomCarrierActionRequestTask implements Task.TaskInstance, Custom
                             { type: dataIdType, value: Number(Date.now().toString()) }, // dataId
                             { type: "A", value: CarrierActionRequest[this.CarrierActionRequest] }, // carrierAction
                             { type: "A", value: this.CarrierId }, // carrier id
-                            { type: "U1", value: portNumberConverted }, // portNumber
+                            { type: CarrierActionPortIDValueTypeRequest[this.CarrierActionPortIDValueTypeRequest], value: portNumberConverted }, // portNumber
                             { type: "L", value: this.CarrierAttributes }​​​​​​​ // carrier attributes list
                         ]
                     }
@@ -149,6 +153,7 @@ export class CustomCarrierActionRequestTask implements Task.TaskInstance, Custom
 export interface CustomCarrierActionRequestSettings {
     /** SECS/GEM Stream Function Name */
     CarrierActionRequest: CarrierActionRequest;
+    CarrierActionPortIDValueTypeRequest: CarrierActionPortIDValueTypeRequest;
 }
 
 export enum CarrierActionRequest {
@@ -156,6 +161,12 @@ export enum CarrierActionRequest {
     CancelCarrierAtPort,
     ProceedWithCarrier,
     CarrierOut
+}
+export enum CarrierActionPortIDValueTypeRequest {
+    U1,
+    U2,
+    U4,
+    U8
 }
 
 
