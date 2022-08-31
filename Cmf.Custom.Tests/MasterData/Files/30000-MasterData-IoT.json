@@ -1056,6 +1056,15 @@
       "MonitorPackageVersion": "8.3.3-202201212",
       "ManagerPackageVersion": "8.3.3-202201212",
       "Configuration": ""
+    },
+    "8": {
+      "Name": "BrukerInsightCAP",
+      "Description": "5FAFM1",
+      "Type": "General",
+      "LogicalAddress": "5FAFM1",
+      "MonitorPackageVersion": "8.3.3-202201212",
+      "ManagerPackageVersion": "8.3.3-202201212",
+      "Configuration": ""
     }
   },
   "<LOOKUP>AutomationInstances": {
@@ -1166,6 +1175,24 @@
       "AutomationManager": "UnitySC",
       "DriverName": "RFIDReader",
       "EntityName": "5FORI1.RFID"
+    },
+    "16": {
+      "AutomationController": "BrukerInsightCAPController",
+      "AutomationManager": "BrukerInsightCAP",
+      "DriverName": "",
+      "EntityName": "5FAFM1"
+    },
+    "17": {
+      "AutomationController": "BrukerInsightCAPController",
+      "AutomationManager": "BrukerInsightCAP",
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FAFM1"
+    },
+    "18": {
+      "AutomationController": "BrukerInsightCAPController",
+      "AutomationManager": "BrukerInsightCAP",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FAFM1.RFID"
     }
   }
 }

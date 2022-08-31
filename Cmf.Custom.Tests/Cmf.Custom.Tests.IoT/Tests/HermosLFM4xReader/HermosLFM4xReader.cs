@@ -19,6 +19,7 @@ namespace Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader
 	{
         public Dictionary<String, String> targetIdRFID = new Dictionary<string, string>();
         public string ResourceName = "";
+        private bool recievedS18F9 = false;
 
         public void TestInit(string resourceName, AutomationScenario scenario)
          {
@@ -71,7 +72,16 @@ namespace Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader
             var statusList = new SecsItem();
             statusList.SetTypeToList();
             replyList.Add(statusList);
+            recievedS18F9 = true;
             return true;
+        }
+
+        public bool RecievedS18F9() { 
+            return this.recievedS18F9;
+        }
+
+        public void ClearFlags() {
+            recievedS18F9 = false;
         }
     }
 }
