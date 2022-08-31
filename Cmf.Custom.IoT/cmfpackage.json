@@ -53,6 +53,10 @@
 	{
       "id": "Cmf.Custom.IoT.BrukerInsigthCAP",
       "version": "1.9.0"
+    },
+	{
+      "id": "Cmf.Custom.IoT.Monarch25VHF",
+      "version": "1.9.0"
     }
   ],
   "handlerVersion": 0

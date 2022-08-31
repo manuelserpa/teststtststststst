@@ -128,7 +128,7 @@ namespace AMSOsramEIAutomaticTests.TrymaxNEO
             step.UseInStepSampling = true;
             step.Save();
 
-            ConfigureConnection(resourceName, 5014);
+            ConfigureConnection(resourceName, 5011);
 
         }
 
