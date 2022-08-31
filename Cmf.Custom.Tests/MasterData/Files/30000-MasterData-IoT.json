@@ -1065,6 +1065,15 @@
       "MonitorPackageVersion": "8.3.3-202201212",
       "ManagerPackageVersion": "8.3.3-202201212",
       "Configuration": ""
+    },
+    "9": {
+      "Name": "Monarch25VHF",
+      "Description": "5FVHF1",
+      "Type": "General",
+      "LogicalAddress": "5FVHF1",
+      "MonitorPackageVersion": "8.3.3-202201212",
+      "ManagerPackageVersion": "8.3.3-202201212",
+      "Configuration": ""
     }
   },
   "<LOOKUP>AutomationInstances": {
@@ -1159,24 +1168,6 @@
       "EntityName": "5FICP1.RFID"
     },
     "16": {
-      "AutomationController": "UnitySCController",
-      "AutomationManager": "UnitySC",
-      "DriverName": "",
-      "EntityName": "5FORI1"
-    },
-    "17": {
-      "AutomationController": "UnitySCController",
-      "AutomationManager": "UnitySC",
-      "DriverName": "SecsGemEquipment",
-      "EntityName": "5FORI1"
-    },
-    "18": {
-      "AutomationController": "UnitySCController",
-      "AutomationManager": "UnitySC",
-      "DriverName": "RFIDReader",
-      "EntityName": "5FORI1.RFID"
-    },
-    "16": {
       "AutomationController": "BrukerInsightCAPController",
       "AutomationManager": "BrukerInsightCAP",
       "DriverName": "",
@@ -1193,6 +1184,24 @@
       "AutomationManager": "BrukerInsightCAP",
       "DriverName": "RFIDReader",
       "EntityName": "5FAFM1.RFID"
+    },
+    "19": {
+      "AutomationController": "Monarch25VHFController",
+      "AutomationManager": "Monarch25VHF",
+      "DriverName": "",
+      "EntityName": "5FVHF1"
+    },
+    "20": {
+      "AutomationController": "Monarch25VHFController",
+      "AutomationManager": "Monarch25VHF",
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FVHF1"
+    },
+    "21": {
+      "AutomationController": "Monarch25VHFController",
+      "AutomationManager": "Monarch25VHF",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FVHF1.RFID"
     }
   }
 }

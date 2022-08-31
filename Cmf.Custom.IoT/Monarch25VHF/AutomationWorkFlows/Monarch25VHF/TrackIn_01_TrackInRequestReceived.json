@@ -282,7 +282,7 @@
 							"referenceTypeId": null,
 							"friendlyName": "TrackIn01_ActivatePostTrackIn"
 						},
-						"storage": "Persistent",
+						"storage": "Temporary",
 						"identifier": "TrackIn01_ActivatePostTrackIn",
 						"defaultValue": null
 					}
@@ -722,10 +722,10 @@
 						}
 					}
 				},
-				"zoom": 0.6500000000000004,
+				"zoom": 0.34999999999999964,
 				"pan": {
-					"x": 2162,
-					"y": 58
+					"x": 183.01359844207764,
+					"y": 48.066558837890625
 				}
 			}
 		}
