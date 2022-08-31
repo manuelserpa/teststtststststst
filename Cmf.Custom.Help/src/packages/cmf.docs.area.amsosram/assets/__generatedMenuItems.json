@@ -552,6 +552,12 @@
    "actionId": ""
 },
 {
+   "id": "monarch25vhf",
+   "menuGroupId": "iotequipmenttypes",
+   "title": "Monarch25 VHF",
+   "actionId": ""
+},
+{
    "id": "muetecdavinci",
    "menuGroupId": "iotequipmenttypes",
    "title": "Muetec DaVinci",
@@ -650,6 +656,30 @@
 {
    "id": "mechatronicmws200-workflows",
    "menuGroupId": "mechatronicmws200",
+   "title": "Workflows",
+   "actionId": ""
+},
+{
+   "id": "monarch25vhf-configuration",
+   "menuGroupId": "monarch25vhf",
+   "title": "Configuration",
+   "actionId": ""
+},
+{
+   "id": "monarch25vhf-features",
+   "menuGroupId": "monarch25vhf",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "monarch25vhf-setup",
+   "menuGroupId": "monarch25vhf",
+   "title": "Setup",
+   "actionId": ""
+},
+{
+   "id": "monarch25vhf-workflows",
+   "menuGroupId": "monarch25vhf",
    "title": "Workflows",
    "actionId": ""
 },
