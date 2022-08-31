@@ -143,12 +143,12 @@
 			<Cluster name="5FVHF1" automationManager="Monarch25VHF" serviceMachine="vm-ams-osram"
                serviceName="ConnectIoT (5FVHF1)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FVHF1\remoteTestingConfig.json">
 				<Equipment name="5FVHF1" driverAlias="SecsGemEquipment"
-						   description="SecsGemEquipment" driver="SecsGem" port="5011" serviceMachine="vm-ams-osram"
+						   description="SecsGemEquipment" driver="SecsGem" port="5013" serviceMachine="vm-ams-osram"
 						   serviceName="ConnectIoT (5FVHF1)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FVHF1\remoteTestingConfig.json"
 						   library ="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>
 				<Equipment name="5FVHF1.RFID" driverAlias="RFIDReader" serviceMachine="vm-ams-osram"
 						   serviceName="ConnectIoT (5FVHF1)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FVHF1\remoteTestingConfig.json"
-						   description="RFIDReader" driver="SecsGem" port="5012"/>
+						   description="RFIDReader" driver="SecsGem" port="5014"/>
 			</Cluster>
         </Equipments>
     </connectIotAutomaticTests> -->
