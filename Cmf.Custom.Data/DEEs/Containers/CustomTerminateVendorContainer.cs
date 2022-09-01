@@ -8,7 +8,7 @@ using Cmf.Navigo.BusinessObjects;
 
 namespace Cmf.Custom.AMSOsram.Actions.Containers
 {
-    public class CustomTerminateContainer : DeeDevBase
+    public class CustomTerminateVendorContainer : DeeDevBase
     {
         /// <summary>
         /// DEE Test Condition.
