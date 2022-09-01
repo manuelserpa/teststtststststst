@@ -21,9 +21,9 @@
             "Classification": ""
         },
 		"2": {
-            "Action": "CustomTerminateContainer",
+            "Action": "CustomTerminateVendorContainer",
             "Description": "DEE Action to terminate a Container from a specific type configured as a VendorContainerType.",
-            "CodeFileRelativePath": "Containers\\CustomTerminateContainer.cs",
+            "CodeFileRelativePath": "Containers\\CustomTerminateVendorContainer.cs",
             "IsEnabled": "No",
             "Classification": ""
         }
@@ -41,7 +41,7 @@
 		},
 		"3": {
 		  "ActionGroup": "BusinessObjects.Container.DisassociateMaterials.Post",
-		  "Action": "CustomTerminateContainer",
+		  "Action": "CustomTerminateVendorContainer",
 		  "Order": "100"
 		}
 	},
