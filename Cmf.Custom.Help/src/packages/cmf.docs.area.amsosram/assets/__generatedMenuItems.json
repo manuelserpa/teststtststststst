@@ -90,6 +90,12 @@
    "actionId": ""
 },
 {
+   "id": "amsosram-20220901-1.12.0",
+   "menuGroupId": "releasenotes",
+   "title": "AMSOsram-20220901-1.12.0",
+   "actionId": ""
+},
+{
    "id": "artifacts",
    "menuGroupId": "techspec",
    "title": "Artifacts",
@@ -528,6 +534,12 @@
    "actionId": ""
 },
 {
+   "id": "brukerinsightcap",
+   "menuGroupId": "iotequipmenttypes",
+   "title": "BrukerInsightCAP",
+   "actionId": ""
+},
+{
    "id": "evatecclusterline200ii",
    "menuGroupId": "iotequipmenttypes",
    "title": "Evatec Cluster line 200II",
@@ -543,6 +555,12 @@
    "id": "mechatronicmws200",
    "menuGroupId": "iotequipmenttypes",
    "title": "Mechatronic MWS200",
+   "actionId": ""
+},
+{
+   "id": "monarch25vhf",
+   "menuGroupId": "iotequipmenttypes",
+   "title": "Monarch25 VHF",
    "actionId": ""
 },
 {
@@ -567,6 +585,36 @@
    "id": "trymaxneo",
    "menuGroupId": "iotequipmenttypes",
    "title": "Trymax NEO",
+   "actionId": ""
+},
+{
+   "id": "unitysc",
+   "menuGroupId": "iotequipmenttypes",
+   "title": "Unity SC",
+   "actionId": ""
+},
+{
+   "id": "brukerinsightcap-configuration",
+   "menuGroupId": "brukerinsightcap",
+   "title": "Configuration",
+   "actionId": ""
+},
+{
+   "id": "brukerinsightcap-features",
+   "menuGroupId": "brukerinsightcap",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "brukerinsightcap-setup",
+   "menuGroupId": "brukerinsightcap",
+   "title": "Setup",
+   "actionId": ""
+},
+{
+   "id": "brukerinsightcap-workflows",
+   "menuGroupId": "brukerinsightcap",
+   "title": "Workflows",
    "actionId": ""
 },
 {
@@ -638,6 +686,30 @@
 {
    "id": "mechatronicmws200-workflows",
    "menuGroupId": "mechatronicmws200",
+   "title": "Workflows",
+   "actionId": ""
+},
+{
+   "id": "monarch25vhf-configuration",
+   "menuGroupId": "monarch25vhf",
+   "title": "Configuration",
+   "actionId": ""
+},
+{
+   "id": "monarch25vhf-features",
+   "menuGroupId": "monarch25vhf",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "monarch25vhf-setup",
+   "menuGroupId": "monarch25vhf",
+   "title": "Setup",
+   "actionId": ""
+},
+{
+   "id": "monarch25vhf-workflows",
+   "menuGroupId": "monarch25vhf",
    "title": "Workflows",
    "actionId": ""
 },
@@ -734,6 +806,30 @@
 {
    "id": "trymaxneo-workflows",
    "menuGroupId": "trymaxneo",
+   "title": "Workflows",
+   "actionId": ""
+},
+{
+   "id": "unitysc-configuration",
+   "menuGroupId": "unitysc",
+   "title": "Configuration",
+   "actionId": ""
+},
+{
+   "id": "unitysc-features",
+   "menuGroupId": "unitysc",
+   "title": "Features",
+   "actionId": ""
+},
+{
+   "id": "unitysc-setup",
+   "menuGroupId": "unitysc",
+   "title": "Setup",
+   "actionId": ""
+},
+{
+   "id": "unitysc-workflows",
+   "menuGroupId": "unitysc",
    "title": "Workflows",
    "actionId": ""
 },

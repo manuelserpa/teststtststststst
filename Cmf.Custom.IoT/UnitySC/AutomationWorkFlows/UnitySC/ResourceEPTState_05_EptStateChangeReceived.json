@@ -1,0 +1,290 @@
+{
+  "tasks": [
+    {
+      "id": "task_38972",
+      "reference": {
+        "name": "equipmentEvent",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "8.3.3-202201212"
+        }
+      },
+      "settings": {
+        "_workingMode": "AlwaysActive",
+        "_acceptAllEvents": false,
+        "_outputs": [
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "EPTState_4",
+              "DataType": 5
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "PreviousEPTState_4",
+              "DataType": 5
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "EPTStateTime_4",
+              "DataType": 5
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "TaskName_4",
+              "DataType": 0
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "TaskType_4",
+              "DataType": 5
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "PreviousTaskName_4",
+              "DataType": 0
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "PreviousTaskType_4",
+              "DataType": 5
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "BlockedReason_4",
+              "DataType": 5
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "BlockedReasonText_4",
+              "DataType": 0
+            },
+            "outputType": "Value"
+          }
+        ],
+        "___cmf___name": "On Equipment Event",
+        "___cmf___description": "EPTStateChange_4 (11605)",
+        "_events": [
+          {
+            "$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+            "Name": "EPTStateChange_4"
+          }
+        ]
+      },
+      "driver": "SecsGemEquipment"
+    },
+    {
+      "id": "task_39071",
+      "reference": {
+        "name": "workflow",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "8.3.3-202201212"
+        }
+      },
+      "settings": {
+        "automationWorkflow": {
+          "DisplayName": "UpdateEquipmentPerformanceTrackingState",
+          "IsShared": true,
+          "Name": "UpdateEquipmentPerformanceTrackingState"
+        },
+        "executeWhenAllInputsDefined": false,
+        "contextsExpirationInMilliseconds": 60000,
+        "executionExpirationInMilliseconds": 1200000,
+        "inputs": [
+          {
+            "name": "EPTState",
+            "valueType": {
+              "friendlyName": "EPTState",
+              "type": 5,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null
+            }
+          },
+          {
+            "name": "StateName",
+            "valueType": {
+              "friendlyName": "StateName",
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null
+            }
+          },
+          {
+            "name": "BlockedReason",
+            "valueType": {
+              "friendlyName": "BlockedReason",
+              "type": 5,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null
+            }
+          },
+          {
+            "name": "LoadPortNumber",
+            "valueType": {
+              "friendlyName": "LoadPortNumber",
+              "type": 5,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null
+            }
+          },
+          {
+            "name": "ChamberResourceNumber",
+            "valueType": {
+              "friendlyName": "ChamberResourceNumber",
+              "type": 5,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null
+            }
+          },
+          {
+            "name": "ComponentResourceNumber",
+            "valueType": {
+              "friendlyName": "ComponentResourceNumber",
+              "type": 5,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null
+            }
+          }
+        ],
+        "outputs": [],
+        "___cmf___name": "UpdateEquipmentPerformanceTrackingState"
+      }
+    }
+  ],
+  "converters": [
+    {
+      "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+      "reference": {
+        "name": "anyToConstant",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "8.3.3-202201212"
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "id": "bad25d1d-3731-476a-b99e-6282be8d00dd",
+      "sourceId": "task_38972",
+      "targetId": "task_39071",
+      "inputName": "EPTStateIn",
+      "outputName": "$EPTState_4"
+    },
+    {
+      "id": "aa35ae1e-e922-48b4-8fd7-8cb9eb757183",
+      "sourceId": "task_38972",
+      "targetId": "task_39071",
+      "inputName": "activate",
+      "outputName": "$EPTState_4"
+    },
+    {
+      "id": "9b692cac-4fca-446b-a630-0950e3cec022",
+      "sourceId": "task_38972",
+      "targetId": "task_39071",
+      "inputName": "BlockedReasonIn",
+      "outputName": "$BlockedReason_4"
+    },
+    {
+      "id": "58faae60-7db7-4d3c-bf92-30b88804531d",
+      "sourceId": "task_38972",
+      "targetId": "task_39071",
+      "inputName": "LoadPortNumberIn",
+      "outputName": "$EPTState_4",
+      "converters": [
+        {
+          "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+          "params": {
+            "type": 5,
+            "value": "1"
+          }
+        }
+      ]
+    }
+  ],
+  "layout": {
+    "general": {
+      "color": "#0080ff",
+      "notes": []
+    },
+    "drawers": {
+      "DIAGRAM": {
+        "tasks": {
+          "task_38972": {
+            "collapsed": false,
+            "position": {
+              "x": 246,
+              "y": 306
+            },
+            "outdated": false
+          },
+          "task_39071": {
+            "collapsed": false,
+            "position": {
+              "x": 789,
+              "y": 307
+            },
+            "outdated": false
+          }
+        },
+        "links": {
+          "bad25d1d-3731-476a-b99e-6282be8d00dd": {
+            "vertices": []
+          },
+          "aa35ae1e-e922-48b4-8fd7-8cb9eb757183": {
+            "vertices": []
+          },
+          "9b692cac-4fca-446b-a630-0950e3cec022": {
+            "vertices": []
+          },
+          "58faae60-7db7-4d3c-bf92-30b88804531d": {
+            "vertices": []
+          }
+        },
+        "notes": {},
+        "zoom": 0.7999999999999998,
+        "pan": {
+          "x": 196.8000030517578,
+          "y": 244.79998779296875
+        }
+      }
+    }
+  }
+}
