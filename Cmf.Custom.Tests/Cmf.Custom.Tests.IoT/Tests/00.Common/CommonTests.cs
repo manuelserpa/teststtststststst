@@ -208,84 +208,87 @@ namespace AMSOsramEIAutomaticTests
             return true;
         }
 
-        public static void ConfigureConnection(string resourceName, int? port = null, string library = null, Dictionary<string, object> connectionAttributes = null, bool isEnableAllAlarms = false, bool isEnableAllEvents = false, bool prepareTestScenario = true)
+        public static void ConfigureConnection(string resourceName, int? port = null, string library = null, Dictionary<string, object> connectionAttributes = null, bool isEnableAllAlarms = true, bool isEnableAllEvents = false, bool prepareTestScenario = true, bool killProcess = true)
         {
-			var action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action();
-			try
-			{
-				//Call DEE action called by Operator when clicking on GUI to Download Recipe to Equipment
-				action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.GetActionByNameInput()
-				{
-					Name = "CustomKillProcesses"
-				}.GetActionByNameSync().Action;
-			}
-			catch
-			{
-				string ruleCode = "";
-				ruleCode = File.ReadAllText(".\\HelperFiles\\KillProcessesRules");
+            if (killProcess)
+            {
+                var action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action();
+                try
+                {
+                    //Call DEE action called by Operator when clicking on GUI to Download Recipe to Equipment
+                    action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.GetActionByNameInput()
+                    {
+                        Name = "CustomKillProcesses"
+                    }.GetActionByNameSync().Action;
+                }
+                catch
+                {
+                    string ruleCode = "";
+                    ruleCode = File.ReadAllText(".\\HelperFiles\\KillProcessesRules");
 
-				action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action()
-				{
-					Name = "CustomKillProcesses",
-					ActionCode = ruleCode,
-					IsEnabled = true
-				};
+                    action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action()
+                    {
+                        Name = "CustomKillProcesses",
+                        ActionCode = ruleCode,
+                        IsEnabled = true
+                    };
 
-				action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.CreateActionInput()
-				{
-					Action = action
-				}.CreateActionSync().Action;
-			}
+                    action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.CreateActionInput()
+                    {
+                        Action = action
+                    }.CreateActionSync().Action;
+                }
 
-			var deeOutput = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.ExecuteActionInput()
-			{
-				Action = action,
-				Input = new Dictionary<string, object>()
-				{
-					//{ "ProcessName", "the name of the process" },
-					//{ "ExecutionPath", "the execution path of the process" }
-				}
-			}.ExecuteActionSync();
+                var deeOutput = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.ExecuteActionInput()
+                {
+                    Action = action,
+                    Input = new Dictionary<string, object>()
+                    {
+                        //{ "ProcessName", "the name of the process" },
+                        //{ "ExecutionPath", "the execution path of the process" }
+                    }
+                }.ExecuteActionSync();
 
-			try
-			{
-				//Call DEE action called by Operator when clicking on GUI to Download Recipe to Equipment
-				action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.GetActionByNameInput()
-				{
-					Name = "CustomKillProcesses2"
-				}.GetActionByNameSync().Action;
-			}
-			catch
-			{
-				string ruleCode = "";
-				ruleCode = File.ReadAllText(".\\HelperFiles\\KillProcessesRules2");
+                try
+                {
+                    //Call DEE action called by Operator when clicking on GUI to Download Recipe to Equipment
+                    action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.GetActionByNameInput()
+                    {
+                        Name = "CustomKillProcesses2"
+                    }.GetActionByNameSync().Action;
+                }
+                catch
+                {
+                    string ruleCode = "";
+                    ruleCode = File.ReadAllText(".\\HelperFiles\\KillProcessesRules2");
 
-				action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action()
-				{
-					Name = "CustomKillProcesses2",
-					ActionCode = ruleCode,
-					IsEnabled = true
-				};
+                    action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action()
+                    {
+                        Name = "CustomKillProcesses2",
+                        ActionCode = ruleCode,
+                        IsEnabled = true
+                    };
 
-				action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.CreateActionInput()
-				{
-					Action = action
-				}.CreateActionSync().Action;
-			}
+                    action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.CreateActionInput()
+                    {
+                        Action = action
+                    }.CreateActionSync().Action;
+                }
 
-			deeOutput = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.ExecuteActionInput()
-			{
-				Action = action,
-				Input = new Dictionary<string, object>()
-				{
-					//{ "ProcessName", "the name of the process" },
-					//{ "ExecutionPath", "the execution path of the process" }
-				}
-			}.ExecuteActionSync();
+                deeOutput = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.ExecuteActionInput()
+                {
+                    Action = action,
+                    Input = new Dictionary<string, object>()
+                    {
+                        //{ "ProcessName", "the name of the process" },
+                        //{ "ExecutionPath", "the execution path of the process" }
+                    }
+                }.ExecuteActionSync();
+            
+    			Console.WriteLine(deeOutput.Output["Result"]);
+            }
 
-			Console.WriteLine(deeOutput.Output["Result"]);
-
-			if (!port.HasValue)
+            if (!port.HasValue)
             {
                 port = 5011;
             }

@@ -125,7 +125,7 @@ namespace AMSOsramEIAutomaticTests.MuetecDaVinci
             step.Save();
 
             ConfigureConnection(readerResourceName, 5014, prepareTestScenario: false);
-            ConfigureConnection(resourceName, 5013);
+            ConfigureConnection(resourceName, 5013, killProcess: false);
 
 
 

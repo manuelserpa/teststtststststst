@@ -126,7 +126,7 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
         public static void ClassInitialize(TestContext context)
         {
             ConfigureConnection(resourceName, 5012,isEnableAllAlarms: true); 
-            ConfigureConnection(readerResourceName, 5013, prepareTestScenario: false);
+            ConfigureConnection(readerResourceName, 5013, prepareTestScenario: false, killProcess: false);
 
             Resource lp1 = new Resource() { Name = "5FICP1-LP1" };
             lp1.Load();

@@ -120,7 +120,7 @@ namespace AMSOsramEIAutomaticTests.BrukerInsightCAP
         public static void ClassInitialize(TestContext context)
         {
             ConfigureConnection(resourceName, 5014);
-            ConfigureConnection(readerResourceName, 5015, prepareTestScenario: false);
+            ConfigureConnection(readerResourceName, 5015, prepareTestScenario: false, killProcess: false);
             
 
             Resource lp1 = new Resource() { Name = "5FAFM1-LP1" };
