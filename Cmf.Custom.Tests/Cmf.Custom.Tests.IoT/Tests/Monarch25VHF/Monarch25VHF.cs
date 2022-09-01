@@ -126,7 +126,7 @@ namespace AMSOsramEIAutomaticTests.Monarch25VHF
         public static void ClassInitialize(TestContext context)
         {
             ConfigureConnection(resourceName, 5013,isEnableAllAlarms: true); 
-            ConfigureConnection(readerResourceName, 5014, prepareTestScenario: false);
+            ConfigureConnection(readerResourceName, 5014, prepareTestScenario: false, killProcess: false);
 
             Resource lp1 = new Resource() { Name = "5FVHF1-LP1" };
             lp1.Load();
