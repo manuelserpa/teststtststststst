@@ -330,9 +330,9 @@
    "actionId": ""
 },
 {
-   "id": "customterminatecontainer",
+   "id": "customterminatevendorcontainer",
    "menuGroupId": "deeactions",
-   "title": "CustomTerminateContainer",
+   "title": "CustomTerminateVendorContainer",
    "actionId": ""
 },
 {
