@@ -54,7 +54,10 @@
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="HelperFiles\KillProcessesRules">
+    <None Include="HelperFiles\KillProcessesRules">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="HelperFiles\KillProcessesRules2">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="RecipeBinaryFiles\testRecipe">

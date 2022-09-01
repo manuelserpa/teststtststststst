@@ -1,7 +1,6 @@
 ﻿UseReference("%MicrosoftNetPath%System.Diagnostics.Process.dll", "System.Diagnostics");
 UseReference("%MicrosoftNetPath%System.ComponentModel.Primitives.dll", "");
 //Please start code here
-
 try
 {
 	string processName = string.Empty;
@@ -9,7 +8,7 @@ try
 
 	if (!Input.ContainsKey("ProcessName"))
 	{
-		processName = "Node";
+		processName = "Connect.IoT.AutomationManager.Service";
 	}
 	else
 	{
@@ -37,7 +36,9 @@ try
 			string processPath = process.MainModule.FileName;
 			if (!string.IsNullOrWhiteSpace(processPath) && processPath.Contains(@executionPath))
 			{
-				process.Kill();
+				var processStartInfo = new ProcessStartInfo(@processPath, " stop");
+				var exeProcess = Process.Start(processStartInfo);
+				exeProcess.WaitForExit(5000);
 				numberOfProcessesKilled++;
 			}
 		}
