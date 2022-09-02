@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using Cmf.Custom.AMSOsram.BusinessObjects;
 using Cmf.Custom.AMSOsram.Common;
 using Cmf.Custom.AMSOsram.Common.DataStructures;
+using Cmf.Custom.AMSOsram.Common.ERP;
 using Cmf.Custom.AMSOsram.Orchestration.InputObjects;
 using Cmf.Custom.AMSOsram.Orchestration.OutputObjects;
 using Cmf.Foundation.BusinessObjects;
@@ -567,8 +569,8 @@ namespace Cmf.Custom.AMSOsram.Orchestration
         {
             resource.Load();
             AutomationControllerInstance controllerInstance = resource.GetAutomationControllerInstance();
-            List<MaterialData> materialDataToIot = new List<MaterialData>();
-            MaterialData materialData = new MaterialData
+            List<Common.DataStructures.MaterialData> materialDataToIot = new List<Common.DataStructures.MaterialData>();
+            Common.DataStructures.MaterialData materialData = new Common.DataStructures.MaterialData
             {
                 ContainerName = input.CarrierId,
                 MaterialId = string.IsNullOrWhiteSpace(materialId) ? input.MaterialName : materialId,
@@ -717,6 +719,96 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                     -1,
                     new KeyValuePair<string, object>("CustomReceiveERPMessageInput", input),
                     new KeyValuePair<string, object>("CustomReceiveERPMessageOutput", output));
+            }
+            catch (CmfBaseException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new CmfBaseException(ex.Message, ex);
+            }
+
+            return output;
+        }
+
+        /// <summary>
+        /// Service to provide flow information to ERP
+        /// </summary>
+        /// <param name="input">Input Object</param>
+        /// <returns>Output Object</returns>
+        /// <exception cref="Cmf.Foundation.Common.CmfBaseException">If any unexpected error occurs.</exception>
+        public static CustomFlowOutboundInterfaceOutput CustomFlowOutboundInterface(CustomFlowOutboundInterfaceInput input)
+        {
+            Utilities.StartMethod(
+                OBJECT_TYPE_NAME,
+                "CustomFlowOutboundInterface",
+                new KeyValuePair<string, object>("CustomFlowOutboundInterfaceInput", input));
+
+            FlowData flowData = new FlowData();
+            CustomFlowOutboundInterfaceOutput output = new CustomFlowOutboundInterfaceOutput();
+
+            try
+            {
+                Utilities.ValidateNullInput(input);
+
+                if (!string.IsNullOrWhiteSpace(input.ProductName))
+                {
+                    Product product = new Product() { Name = input.ProductName };
+                    product.LoadAttributes(new Collection<string> { AMSOsramConstants.ProductAttributeProductionLine, AMSOsramConstants.ProductAttributeProductionLevel });
+
+                    flowData.Site = string.Empty; // No relation ReWork?
+
+                    if(product.Attributes != null)
+                    {
+                        if (product.Attributes.ContainsKey(AMSOsramConstants.ProductAttributeProductionLine))
+                        {
+                            if(product.Attributes.TryGetValue(AMSOsramConstants.ProductAttributeProductionLine, out object productAttributeProductLine))
+                            {
+                                flowData.ProductionLine = productAttributeProductLine.ToString();
+                            }
+                        }
+
+                        if (product.Attributes.ContainsKey(AMSOsramConstants.ProductAttributeProductionLevel))
+                        {
+                            if (product.Attributes.TryGetValue(AMSOsramConstants.ProductAttributeProductionLevel, out object productAttributeProductionLevel))
+                            {
+                                flowData.ProductionLevel = productAttributeProductionLevel.ToString();
+                            }
+                        }
+                    }
+
+                    if(product.Flow != null)
+                    {
+                        flowData.FlowId = product.Flow.LogicalNames.FirstOrDefault().Flow.Id.ToString(); // Use logical flow or just flow ReWork?
+                        flowData.FlowName = product.Flow.Name;
+                        flowData.FlowVersion = product.Flow.Version.ToString();
+                        flowData.FlowState = product.Flow.CurrentMainState.ToString();
+                        flowData.FlowType = product.Flow.Type.ToString(); //Flow Type = Flow.Type or Flow.FlowType (doesnt exist) ReWork?
+                        flowData.FlowEffectiveDate = product.Flow.CreatedOn;
+                        flowData.Sequence = string.Empty; // Sequence Type or Step Sequence for the flow (how to get) ReWork?
+                    }
+
+                    
+                }
+                else if(!string.IsNullOrWhiteSpace(input.FlowName))
+                {
+                    // ReWork?
+                }
+                else if (!string.IsNullOrWhiteSpace(input.FlowNameVersion))
+                {
+                    // ReWork?
+                }
+                else
+                {
+                    throw new Exception("Create localized message for this."); // ReWork?
+                }
+
+                    Utilities.EndMethod(
+                    -1,
+                    -1,
+                    new KeyValuePair<string, object>("CustomFlowOutboundInterfaceInput", input),
+                    new KeyValuePair<string, object>("CustomFlowOutboundInterfaceOutput", output));
             }
             catch (CmfBaseException)
             {

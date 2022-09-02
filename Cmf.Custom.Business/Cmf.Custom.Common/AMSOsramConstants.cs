@@ -204,6 +204,16 @@
         /// </summary>
         public static string ResourceAttributeFDCCommunication = "FDCCommunication";
 
+        /// <summary>
+        /// Product Attribute ProductionLine
+        /// </summary>
+        public static string ProductAttributeProductionLine = "ProductionLine";
+
+        /// <summary>
+        /// Product Attribute ProductionLevel
+        /// </summary>
+        public static string ProductAttributeProductionLevel = "ProductionLevel";
+
         #endregion
 
         #region SmartTables

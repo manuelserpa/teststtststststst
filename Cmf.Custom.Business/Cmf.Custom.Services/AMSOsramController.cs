@@ -153,5 +153,42 @@ namespace Cmf.Custom.AMSOsram.Services
 
             return output;
         }
+
+        /// <summary>
+        /// CustomFlowOutboundInterface
+        /// </summary>
+        /// <param name="input">CustomFlowOutboundInterface Input</param>
+        /// <returns>CustomFlowOutboundInterface Output</returns>
+        /// <exception cref="Cmf.Foundation.Common.CmfBaseException">If any unexpected error occurs.</exception>
+        [HttpPost()]
+        public CustomFlowOutboundInterfaceOutput CustomFlowOutboundInterface(CustomFlowOutboundInterfaceInput input)
+        {
+            Utilities.StartMethod(
+                    OBJECT_TYPE_NAME,
+                    "CustomFlowOutboundInterface",
+                    new KeyValuePair<string, object>("CustomFlowOutboundInterfaceInput", input));
+
+            CustomFlowOutboundInterfaceOutput output = null;
+            try
+            {
+                output = AMSOsramOrchestration.CustomFlowOutboundInterface(input);
+
+                Utilities.EndMethod(
+                    -1,
+                    -1,
+                    new KeyValuePair<string, object>("CustomFlowOutboundInterfaceInput", input),
+                    new KeyValuePair<string, object>("CustomFlowOutboundInterfaceOutput", output));
+            }
+            catch (CmfBaseException)
+            {
+                throw;
+            }
+            catch (Exception excep)
+            {
+                throw new CmfBaseException(excep.Message, excep);
+            }
+
+            return output;
+        }
     }
 }
