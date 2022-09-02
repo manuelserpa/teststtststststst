@@ -623,6 +623,11 @@
         /// </summary>
         public static string DefaultVendorContainerTypesConfig = "/AMSOsram/Container/VendorContainerTypes/";
 
+        /// <summary>
+        /// Alphanumeric allowed digits on ProductionLotName Name Generator
+        /// </summary>
+        public static string DefaultProductionLotNameAlphanumericAllowedDigits = "/AMSOsram/NameGenerators/ProductionLotName/AlphanumericAllowedDigits";
+
         #endregion
 
         #region Parameters
