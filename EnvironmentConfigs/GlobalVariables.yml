@@ -10,7 +10,7 @@ variables:
   # cmf cli Repository
   CmfCliRepository: 'https://registry.npmjs.com'
   # cmf cli Version
-  CmfCliVersion: '3.x.x'
+  CmfCliVersion: '3.0.0'
   # cmf pipeline Repository
   CmfPipelineRepository: 'http://vm-it:4873'
   # cmf pipeline Version

@@ -144,8 +144,8 @@ namespace AMSOsramEIAutomaticTests.UnitySC
             step.UseInStepSampling = true;
             step.Save();
 
-            ConfigureConnection(readerResourceName, 5011, prepareTestScenario: false);
-            ConfigureConnection(resourceName, 5012);
+            ConfigureConnection(readerResourceName, 5012, prepareTestScenario: false);
+            ConfigureConnection(resourceName, 5011, killProcess: false);
 
 
 
