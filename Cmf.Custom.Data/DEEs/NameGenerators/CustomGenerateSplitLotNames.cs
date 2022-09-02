@@ -122,7 +122,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             {
                 int position = alphanumericAllowedDigits.IndexOf(newCounterValue[i]);
 
-                if(position != (newCounterValue.Length - 1))
+                if(position != (alphanumericAllowedDigits.Length - 1))
                 {
                     newCounterValue = newCounterValue.Remove(i, 1).Insert(i, alphanumericAllowedDigits[position + 1].ToString());
                     addValue = false;
