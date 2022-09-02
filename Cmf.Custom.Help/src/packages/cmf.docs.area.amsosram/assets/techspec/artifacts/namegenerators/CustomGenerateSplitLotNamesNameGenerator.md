@@ -4,9 +4,9 @@
 
 This generator is used when spliting a Material.
 
-On the splits the name generation should always keep the original lot name adding a 2-digit counter:
+On the splits the name generation should take the first 8 digits of the parent material followed by two digits that are alphanumeric running numbers:
 
-* T2143001 -> T2143001.01 [Original Lot Name].[2 digit counter]
+* UA00000100 -> UA00000101 [8 digits of parent material][2 digit alphanumeric running number]
 
 ## Pre Conditions
 
@@ -17,5 +17,3 @@ N/A.
 | Name             | Calculation Method | Value                                                                                                  | Format |
 | :--------------- | :----------------- | :----------------------------------------------------------------------------------------------------- | :----- |
 | Dee              | Dee                | [Custom Generate Split Lot Names](/AMSOsram/tecspecs>artifacts>deeactions>CustomGenerateSplitLotNames) |        |
-| SeparatorChar    | Constant           | .                                                                                                      |        |
-| CounterFormat    | Rollover Counter   |                                                                                                        | 00     |

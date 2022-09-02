@@ -8,9 +8,9 @@ The following name generators were created to support customer requirements.
 | ------                    | ------            |
 | [Custom Generate Split Lot Names Name Generator](/AMSOsram/techspec>artifacts>namegenerators>CustomGenerateSplitLotNamesNameGenerator) | This generator is used when spliting a Material.
 
-On the splits the name generation should always keep the original lot name adding a 2-digit counter:
+On the splits the name generation should take the first 8 digits of the parent material followed by two digits that are alphanumeric running numbers:
 
-* T2143001 -> T2143001.01 [Original Lot Name].[2 digit counter] | 
+* UA00000100 -> UA00000101 [8 digits of parent material][2 digit alphanumeric running number] | 
 | [Custom Production Lot Name Generator](/AMSOsram/techspec>artifacts>namegenerators>CustomProductionLotNameGenerator) | Name generator for Production Lot Names. This generator is used when creating the main material.
 
 The name generation should be as follows:

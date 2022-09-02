@@ -75,20 +75,18 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
 
             Material materialLot = Input["EntitySource"] as Material;
 
-            // Get Parent Material name
-            string parentMaterialName = materialLot.ParentMaterial.Name;
+            // Get the first 8 digits of the Parent Material
+            string parentMaterialNameSubstring = materialLot.ParentMaterial.Name.Substring(0, 8);
 
             // Get alphanumeric allowed digits from Context
             string alphanumericAllowedDigits = ApplicationContext.CallContext.GetInformationContext("AlphanumericAllowedDigits") as string;
 
             // Lot Name Generator builder
             StringBuilder splitMaterialGeneratedName = new StringBuilder();
-
-            // Get the first 8 digits of the Parent Material
-            splitMaterialGeneratedName.Append(parentMaterialName.Substring(0, 8));
+            splitMaterialGeneratedName.Append(parentMaterialNameSubstring);
 
             // Context Key
-            string contextKey = parentMaterialName;
+            string contextKey = parentMaterialNameSubstring;
 
             // Load Current Context associated to Name Generator
             GeneratorContext contextNG = null;
@@ -154,7 +152,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                 {
                     new GeneratorContext()
                     {
-                        Context = parentMaterialName,
+                        Context = parentMaterialNameSubstring,
                         LastCounterValue = Convert.ToInt32(lastCounterValue)
                     }
                 });

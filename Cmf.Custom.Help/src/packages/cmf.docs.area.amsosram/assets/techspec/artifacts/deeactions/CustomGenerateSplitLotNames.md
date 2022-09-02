@@ -11,6 +11,7 @@ Dee Action used to generate splited Materials name.
 ## Pre Conditions
 
 * Material
+* Configuration Entry AlphanumericAllowedDigits must be configured properly
 
 ## Action
 
@@ -18,6 +19,6 @@ When a material is splitted this Dee Action is executed and returns the Main Mat
 
 Example:
 
-* Material: **T2143001**
-  * Split Material **T2143001**: T2143001.01
-  * Split Material **T2143001.01**: T2143001.02
+* Material: **UA00000100**
+  * Split Material **UA00000100**: UA00000101
+  * Split Material **UA00000101**: UA00000102
