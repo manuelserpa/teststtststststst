@@ -119,9 +119,8 @@ namespace AMSOsramEIAutomaticTests.BrukerInsightCAP
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            ConfigureConnection(resourceName, 5014);
-            ConfigureConnection(readerResourceName, 5015, prepareTestScenario: false, killProcess: false);
-            
+			ConfigureConnection(readerResourceName, 5015, prepareTestScenario: false);
+			ConfigureConnection(resourceName, 5014, killProcess: false);            
 
             Resource lp1 = new Resource() { Name = "5FAFM1-LP1" };
             lp1.Load();

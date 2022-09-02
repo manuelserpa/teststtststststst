@@ -125,8 +125,8 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            ConfigureConnection(resourceName, 5012,isEnableAllAlarms: true); 
-            ConfigureConnection(readerResourceName, 5013, prepareTestScenario: false, killProcess: false);
+			ConfigureConnection(readerResourceName, 5013, prepareTestScenario: false);
+			ConfigureConnection(resourceName, 5012, isEnableAllAlarms: true, killProcess: false);
 
             Resource lp1 = new Resource() { Name = "5FICP1-LP1" };
             lp1.Load();
@@ -139,9 +139,7 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
             lp2.AutomationMode = ResourceAutomationMode.Online;
             lp2.AutomationAddress = ".";
             lp2.Save();
-
         }
-
 
         [ClassCleanup]
         public static void ClassCleanup()
@@ -151,8 +149,7 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
 
         #endregion Test Basic
 
-        #region Tests FullProcessScenario   
-
+        #region Tests FullProcessScenario
 
         /// <summary> 
         /// Scenario: Recipe Exists on Equipment
