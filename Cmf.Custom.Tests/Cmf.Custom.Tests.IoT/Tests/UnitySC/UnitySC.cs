@@ -81,7 +81,7 @@ namespace AMSOsramEIAutomaticTests.UnitySC
         private const string ProcessStateChangeEvent = "ProcessingStateChange";
         private const string EPTStateChangeEvent = "EPTStateChange";
         private const string EPTStateChangeXEvent = "EPTStateChange_";
-        private const string ControlStateEquipmentOfflineEvent = "EquipmenteOffline";
+        private const string ControlStateEquipmentOfflineEvent = "EquipmentOffline";
         private const string ControlStateLocalEvent = "ControlStateLocal";
         private const string ControlStateRemoteEvent = "ControlStateRemote";
         #endregion
