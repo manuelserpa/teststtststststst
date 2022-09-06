@@ -24,27 +24,9 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             ///     - ResolveNameGenerator
             /// </summary>
             #endregion
-            bool canExecute = false;
 
-            if(Input != null && Input.ContainsKey("EntitySource"))
-            {
-                Material material = Input["EntitySource"] as Material;
 
-                if(material != null && material.ParentMaterial != null)
-                {
-                    // Get alphanumeric allowed digits from Config
-                    if (Config.TryGetConfig(AMSOsramConstants.DefaultProductionLotNameAlphanumericAllowedDigits, out Config prodLotNameAplhanumericAllowedDigitsConfig) &&
-                        !string.IsNullOrWhiteSpace(prodLotNameAplhanumericAllowedDigitsConfig.GetConfigValue<string>()))
-                    {
-                        // Set alphanumeric allowed digits Config value to Context 
-                        ApplicationContext.CallContext.SetInformationContext("AlphanumericAllowedDigits", prodLotNameAplhanumericAllowedDigitsConfig.GetConfigValue<string>());
-
-                        canExecute = true;
-                    }
-                }
-            }
-
-            return canExecute;
+            return true;
 
             //---End DEE Condition Code---
         }
@@ -70,82 +52,79 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
 
             // Load Name Generator
-            NameGenerator customGenSplitLotNamesNG = new NameGenerator() { Name = AMSOsramConstants.CustomGenerateSplitLotNames};
+            NameGenerator customGenSplitLotNamesNG = new NameGenerator() { Name = AMSOsramConstants.CustomGenerateSplitLotNames };
             customGenSplitLotNamesNG.Load();
 
             Material materialLot = Input["EntitySource"] as Material;
 
             // Get the first 8 digits of the Parent Material
-            string parentMaterialNameSubstring = materialLot.ParentMaterial.Name.Substring(0, 8);
+            string parentMaterialNameSubstring = materialLot.Name.Substring(0, 8);
 
-            // Get alphanumeric allowed digits from Context
-            string alphanumericAllowedDigits = ApplicationContext.CallContext.GetInformationContext("AlphanumericAllowedDigits") as string;
-
+            // Get alphanumeric allowed digits from Config
+            string alphanumericAllowedDigits = null;
+            if (Config.TryGetConfig(AMSOsramConstants.DefaultProductionLotNameAlphanumericAllowedDigits, out Config prodLotNameAplhanumericAllowedDigitsConfig) &&
+                        !string.IsNullOrWhiteSpace(prodLotNameAplhanumericAllowedDigitsConfig.GetConfigValue<string>()))
+            {
+                alphanumericAllowedDigits = prodLotNameAplhanumericAllowedDigitsConfig.GetConfigValue<string>();
+            } else
+            {
+                alphanumericAllowedDigits = null;
+            }
+            int charListSize = alphanumericAllowedDigits.Length;
             // Lot Name Generator builder
-            StringBuilder splitMaterialGeneratedName = new StringBuilder();
-            splitMaterialGeneratedName.Append(parentMaterialNameSubstring);
-
-            // Context Key
-            string contextKey = parentMaterialNameSubstring;
+            StringBuilder message = new StringBuilder();
+            
+            string finalName = parentMaterialNameSubstring;
 
             // Load Current Context associated to Name Generator
             GeneratorContext contextNG = null;
             customGenSplitLotNamesNG.LoadGeneratorContexts(out int totalRows);
-            contextNG = customGenSplitLotNamesNG.Contexts.FirstOrDefault(ng => ng.Context == contextKey);
+            contextNG = customGenSplitLotNamesNG.Contexts.FirstOrDefault(ng => ng.Context == parentMaterialNameSubstring);
+
+            // Number of characters that will be generated
+            int numberOfCharacters = 2;
 
             // Counter based on ASCII Table
-            string currentCounterValue = string.Empty;
+            int counter = 0;
 
             if (contextNG != null)
             {
                 // Get last counter value from NG Context
-                currentCounterValue = string.Format("{0:0000}", contextNG.LastCounterValue);
+                counter = int.Parse(contextNG.LastCounterValue.ToString());
             }
-            else
+
+            counter++;
+
+            // Build list from start to end
+            int nextCounter = counter;
+            string result = string.Empty;
+            for(int i = 0; i < numberOfCharacters; i++)
             {
-                // - Int: 48 is equals to Char: 0
-                // - Default: "48 48" => "0 0"
-                currentCounterValue = "4848";
+                int currLetterInt = counter % charListSize;
+                result += (char)alphanumericAllowedDigits[0 + currLetterInt];
+                counter /= charListSize;
             }
 
-            // Get Char value from the Substring Decimal value
-            char firstDigit = Convert.ToChar(Convert.ToInt32(currentCounterValue.Substring(0, 2)));
-            char secondDigit = Convert.ToChar(Convert.ToInt32(currentCounterValue.Substring(2, 2)));
-
-            string newCounterValue = $"{firstDigit}{secondDigit}";
-
-            bool addValue = true;
-
-            for(int i = newCounterValue.Length - 1; i >= 0 && addValue; i--)
+            if (counter > 0)
             {
-                int position = alphanumericAllowedDigits.IndexOf(newCounterValue[i]);
-
-                if(position != (alphanumericAllowedDigits.Length - 1))
-                {
-                    newCounterValue = newCounterValue.Remove(i, 1).Insert(i, alphanumericAllowedDigits[position + 1].ToString());
-                    addValue = false;
-                } else
-                {
-                    newCounterValue = newCounterValue.Remove(i, 1).Insert(i, newCounterValue[0].ToString());
-                }
+                // insufficient number of digits to represent the counter
+                throw new ArgumentOutOfRangeCmfException("Name Generator Token Counter", nextCounter.ToString(), Math.Pow(charListSize, numberOfCharacters).ToString(), false);
             }
 
-            splitMaterialGeneratedName.Append(newCounterValue);
+            // Revert the characters
+            char[] charArray = result.ToCharArray();
+            Array.Reverse(charArray);
+            result = new string(charArray);
 
-            // Convert the current number to Integer
-            string lastCounterValue = null;
-
-            foreach(char value in newCounterValue)
-            {
-                lastCounterValue += string.Format("{0:00", Convert.ToInt32(value));
-            }
+            message.AppendFormat("result :: '{0}'", result).AppendLine();
+            message.AppendFormat("counter :: '{0}'", nextCounter).AppendLine();
 
             // Save Generator context
-            if(contextNG != null)
+            if (contextNG != null)
             {
-                contextNG.LastCounterValue = Convert.ToInt32(lastCounterValue);
+                contextNG.LastCounterValue = Convert.ToInt32(result);
                 contextNG.Save();
-            } 
+            }
             else
             {
                 customGenSplitLotNamesNG.AddGeneratorContexts(new GeneratorContextCollection()
@@ -153,12 +132,16 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                     new GeneratorContext()
                     {
                         Context = parentMaterialNameSubstring,
-                        LastCounterValue = Convert.ToInt32(lastCounterValue)
+                        LastCounterValue = Convert.ToInt32(result)
                     }
                 });
             }
 
-            Input.Add("Result", splitMaterialGeneratedName.ToString());
+            finalName += result;
+
+            message.AppendFormat("finalName :: '{0}'", finalName).AppendLine();
+
+            Input.Add("Message", message.ToString());
 
             //---End DEE Code---
 
