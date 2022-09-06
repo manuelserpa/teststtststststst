@@ -424,25 +424,29 @@ namespace AMSOsramEIAutomaticTests
         {
             if (MESScenario != null)
             {
-                if (MESScenario.Entity != null && MESScenario.Entity.LastRecipe != null
-                    && MESScenario.Entity.LastRecipe.UniversalState != Cmf.Foundation.Common.Base.UniversalState.Terminated)
+                if (MESScenario.Entity != null)
                 {
+					MESScenario.Entity.Load();
 
-                    if (MESScenario.Entity.SystemState == MaterialSystemState.InProcess)
-                    {
-                        AbortMaterialProcessInput abortMaterialProcessInput = new AbortMaterialProcessInput()
-                        {
-                            Material = MESScenario.Entity,
-                            NumberOfRetries = 3,
+					if (MESScenario.Entity.LastRecipe != null &&
+						MESScenario.Entity.LastRecipe.UniversalState != Cmf.Foundation.Common.Base.UniversalState.Terminated)
+					{
 
-                        };
-                        abortMaterialProcessInput.AbortMaterialProcessSync();
+						if (MESScenario.Entity.SystemState == MaterialSystemState.InProcess)
+						{
+							AbortMaterialProcessInput abortMaterialProcessInput = new AbortMaterialProcessInput()
+							{
+								Material = MESScenario.Entity,
+								NumberOfRetries = 3,
 
+							};
+							abortMaterialProcessInput.AbortMaterialProcessSync();
+						}
 
-                    }
-                    MESScenario.Entity.LastRecipe.Load();
-                    MESScenario.Entity.LastRecipe.Terminate();
-                }
+						MESScenario.Entity.LastRecipe.Load();
+						MESScenario.Entity.LastRecipe.Terminate();
+					}
+				}				
 
                 MESScenario.TearDown();
             }
