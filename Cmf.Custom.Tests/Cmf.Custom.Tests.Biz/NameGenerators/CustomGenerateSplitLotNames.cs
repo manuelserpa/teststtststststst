@@ -1,4 +1,5 @@
-﻿using Cmf.Custom.TestUtilities;
+﻿using Cmf.Custom.Tests.Biz.Common;
+using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessOrchestration.NameGeneratorManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.NameGeneratorManagement.OutputObjects;
@@ -34,7 +35,7 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
         /// 
         /// Acceptance Citeria:
         ///     - Child Material Name is following the specifed tokens: 
-        ///       - [Original Lot Name].[2 digit counter]
+        ///       - [First 8 chars of parent lot name][2 digits of alphanumeric counter]
         /// 
         /// </summary>
         /// <TestCaseID>CustomGenerateSplitLotNames.CustomGenerateSplitLotNames_SplitMaterials_HappyPath</TestCaseID>
@@ -44,6 +45,8 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
         {
             // Instance for Material Collection
             MaterialCollection materials = new MaterialCollection();
+            // Initial Alphanumeric value
+            string alphaNumericValue = "00";
 
             try
             {
@@ -95,7 +98,8 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
                 foreach (Material childMaterial in splitMaterialOutput.ChildMaterials)
                 {
                     materials.Add(childMaterial);
-                    string childName = $"{material.Name}.0{count}";
+                    string childName = ExpectedMaterialName(splitMaterialOutput.Material.Name,alphaNumericValue);
+                    string newAlphaNumericValue = AlphaNumericValueCalculator(alphaNumericValue);
                     Assert.IsTrue(childName.Equals(childMaterial.Name), $"Child name should be {childName}, instead is {childMaterial.Name}.");
                     count += 1;
                 }
@@ -121,11 +125,13 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
                 };
                 splitMaterialOutput = splitMaterialInput.SplitMaterialSync();
 
+                
                 ///<ExpectedResult> The child material follow the specified tokens </ExpectedResult>
                 foreach (Material childMaterial in splitMaterialOutput.ChildMaterials)
                 {
                     materials.Add(childMaterial);
-                    string childName = $"{material.Name}.0{count}";
+                    string childName = ExpectedMaterialName(splitMaterialOutput.Material.Name, alphaNumericValue);
+                    string newAlphaNumericValue = AlphaNumericValueCalculator(alphaNumericValue);
                     Assert.IsTrue(childName.Equals(childMaterial.Name), $"Child name should be {childName}, instead is {childMaterial.Name}.");
                     count += 1;
                 }
@@ -139,6 +145,43 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
                     materials.TerminateMaterialCollection();
                 }
             }
+        }
+
+        string ExpectedMaterialName(string parentLotName,string alphaNumericValue)
+        {
+            string expectedName = parentLotName.Substring(0, 8);
+            Material parentLot = new Material
+            {
+                Name = parentLotName
+            };
+            parentLot.Load(1);
+
+            expectedName =  expectedName + alphaNumericValue.ToString();
+
+            return expectedName;
+        }
+
+        string AlphaNumericValueCalculator(string alphaNumericValue)
+        {
+            string newAlphaNumericValue = string.Empty;
+            string acceptedChars = "0123456789ACFHLMNRTUX";
+            //In case the counter's first char needs to be changed
+            if (alphaNumericValue.Substring(1) != "X")
+            {
+                int idx = acceptedChars.IndexOf(alphaNumericValue.Substring(1));
+                idx++;
+                newAlphaNumericValue = alphaNumericValue.Substring(0,1) + acceptedChars.Substring(idx,1);
+            }
+            //The case where only the last character needs to change
+            else
+            {
+                int idx = acceptedChars.IndexOf(alphaNumericValue.Substring(0,1));
+                idx++;
+                newAlphaNumericValue = acceptedChars.Substring(idx, 1) + "0";
+            }
+
+
+            return newAlphaNumericValue;
         }
     }
 }
