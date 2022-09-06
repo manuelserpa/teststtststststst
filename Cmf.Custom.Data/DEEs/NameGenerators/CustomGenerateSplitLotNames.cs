@@ -142,6 +142,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             message.AppendFormat("finalName :: '{0}'", finalName).AppendLine();
 
             Input.Add("Message", message.ToString());
+            Input.Add("Result", finalName);
 
             //---End DEE Code---
 
