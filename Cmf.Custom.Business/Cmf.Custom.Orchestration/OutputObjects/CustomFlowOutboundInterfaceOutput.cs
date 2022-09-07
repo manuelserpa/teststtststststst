@@ -1,14 +1,13 @@
 ﻿using Cmf.Foundation.BusinessOrchestration;
-using Cmf.Navigo.BusinessObjects;
 using System.Runtime.Serialization;
 
 namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
 {
     /// <summary>
-    /// Output Object for CustomFlowOutboundInterface Service
+    /// Output Object for CustomGetFlowInformationForERPOutput Service
     /// </summary>
     [DataContract(Name = "CustomFlowOutboundInterfaceOutput")]
-    public class CustomFlowOutboundInterfaceOutput : BaseOutput
+    public class CustomGetFlowInformationForERPOutput : BaseOutput
     {
         #region Properties
 

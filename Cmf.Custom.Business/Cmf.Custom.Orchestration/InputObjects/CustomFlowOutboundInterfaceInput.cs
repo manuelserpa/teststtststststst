@@ -4,10 +4,10 @@ using System.Runtime.Serialization;
 namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects
 {
     /// <summary>
-    /// Input Object for CustomFlowOutboundInterfaceInput Service
+    /// Input Object for CustomGetFlowInformationForERPInput Service
     /// </summary>
     [DataContract(Name = "CustomFlowOutboundInterfaceInput")]
-    public class CustomFlowOutboundInterfaceInput : BaseInput
+    public class CustomGetFlowInformationForERPInput : BaseInput
     {
         #region Properties
 
@@ -24,10 +24,10 @@ namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects
         public string FlowName { get; set; }
 
         /// <summary>
-        /// FlowNameVersion
+        /// FlowVersion
         /// </summary>
-        [DataMember(Name = "FlowNameVersion", Order = 0)]
-        public string FlowNameVersion { get; set; }
+        [DataMember(Name = "FlowVersion", Order = 0)]
+        public string FlowVersion { get; set; }
 
         #endregion
     }

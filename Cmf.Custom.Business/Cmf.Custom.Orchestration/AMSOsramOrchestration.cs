@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using Cmf.Custom.AMSOsram.BusinessObjects;
+﻿using Cmf.Custom.AMSOsram.BusinessObjects;
 using Cmf.Custom.AMSOsram.Common;
 using Cmf.Custom.AMSOsram.Common.DataStructures;
-using Cmf.Custom.AMSOsram.Common.ERP;
 using Cmf.Custom.AMSOsram.Orchestration.InputObjects;
 using Cmf.Custom.AMSOsram.Orchestration.OutputObjects;
 using Cmf.Foundation.BusinessObjects;
@@ -19,20 +12,26 @@ using Cmf.Foundation.Common.Integration;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Xml;
+using static Cmf.Custom.AMSOsram.Common.DataStructures.CustomFlowInformationToERPData;
 
 namespace Cmf.Custom.AMSOsram.Orchestration
 {
     public static class AMSOsramOrchestration
     {
         private const string OBJECT_TYPE_NAME = "Cmf.Custom.AMSOsram.Orchestration.AMSOsramManagementOrchestration";
-        
+
         private const string MATERIAL_IN = "MaterialIn";
         private const string MATERIAL_IN_INPUT = "MaterialInInput";
         private const string MATERIAL_IN_OUTPUT = "MaterialInOutput";
         private const string MATERIAL_OUT = "MaterialOut";
         private const string MATERIAL_OUT_INPUT = "MaterialOutInput";
         private const string MATERIAL_OUT_OUTPUT = "MaterialOutOutput";
-
 
         #region Material
         /// <summary>
@@ -559,6 +558,7 @@ namespace Cmf.Custom.AMSOsram.Orchestration
 
             return output;
         }
+
         /// <summary>
         /// Sends the TrackOut message to IoT
         /// </summary>
@@ -711,7 +711,7 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                 }
                 else
                 {
-                    throw new Exception(LocalizedMessage.GetLocalizedMessage(AMSOsramConstants.CustomReceiveEmptyMessage).MessageText); 
+                    throw new Exception(LocalizedMessage.GetLocalizedMessage(AMSOsramConstants.CustomReceiveEmptyMessage).MessageText);
                 }
 
                 Utilities.EndMethod(
@@ -738,77 +738,221 @@ namespace Cmf.Custom.AMSOsram.Orchestration
         /// <param name="input">Input Object</param>
         /// <returns>Output Object</returns>
         /// <exception cref="Cmf.Foundation.Common.CmfBaseException">If any unexpected error occurs.</exception>
-        public static CustomFlowOutboundInterfaceOutput CustomFlowOutboundInterface(CustomFlowOutboundInterfaceInput input)
+        public static CustomGetFlowInformationForERPOutput CustomGetFlowInformationForERP(CustomGetFlowInformationForERPInput input)
         {
-            Utilities.StartMethod(
-                OBJECT_TYPE_NAME,
-                "CustomFlowOutboundInterface",
-                new KeyValuePair<string, object>("CustomFlowOutboundInterfaceInput", input));
+            Utilities.StartMethod(OBJECT_TYPE_NAME, "CustomGetFlowInformationForERP",
+                                  new KeyValuePair<string, object>("CustomGetFlowInformationForERPInput", input));
 
-            FlowData flowData = new FlowData();
-            CustomFlowOutboundInterfaceOutput output = new CustomFlowOutboundInterfaceOutput();
+            CustomGetFlowInformationForERPOutput output = new CustomGetFlowInformationForERPOutput();
 
             try
             {
                 Utilities.ValidateNullInput(input);
 
+                if (!string.IsNullOrWhiteSpace(input.ProductName) && !string.IsNullOrWhiteSpace(input.FlowName))
+                {
+                    // TODO LocalizedMessage
+                    throw new Exception($"It is not possible to search by ProductName and FlowName at the same time.");
+                }
+
+                if (string.IsNullOrWhiteSpace(input.ProductName) && string.IsNullOrWhiteSpace(input.FlowName))
+                {
+                    // TODO LocalizedMessage
+                    throw new Exception($"It is not possible to search if ProductName or FlowName is not defined on Input.");
+                }
+
+                if (string.IsNullOrWhiteSpace(input.FlowName) && !string.IsNullOrWhiteSpace(input.FlowVersion))
+                {
+                    // TODO LocalizedMessage
+                    throw new Exception($"It is not possible to search by FlowVersion if there is no FlowName defined on Input.");
+                }
+
+                // Use input FlowName by default
+                string flowName = input.FlowName;
+
+                CustomFlowInformationToERPData flowInfoData = new CustomFlowInformationToERPData();
+
+                #region Product Info
+
                 if (!string.IsNullOrWhiteSpace(input.ProductName))
                 {
                     Product product = new Product() { Name = input.ProductName };
-                    product.LoadAttributes(new Collection<string> { AMSOsramConstants.ProductAttributeProductionLine, AMSOsramConstants.ProductAttributeProductionLevel });
 
-                    flowData.Site = string.Empty; // No relation ReWork?
-
-                    if(product.Attributes != null)
+                    if (product.ObjectExists())
                     {
-                        if (product.Attributes.ContainsKey(AMSOsramConstants.ProductAttributeProductionLine))
+                        product.Load();
+
+                        if (string.IsNullOrWhiteSpace(product.FlowPath))
                         {
-                            if(product.Attributes.TryGetValue(AMSOsramConstants.ProductAttributeProductionLine, out object productAttributeProductLine))
+                            // TODO LocalizedMessage
+                            throw new Exception($"The Product has no associated FlowPath.");
+                        }
+
+                        flowName = product.Flow.Name;
+
+                        #region Product Mapping
+
+                        flowInfoData.ProductInformationData = new ProductInformation()
+                        {
+                            Name = product.Name,
+                            Timestamp = product.CreatedOn.ToString(),
+                            Type = product.Type,
+                            Maturity = product.Maturity,
+                            Yield = product.Yield.ToString(),
+                            CycleTime = product.CycleTime.ToString(),
+                            MaximumMaterialSize = product.MaximumMaterialSize.ToString()
+                        };
+
+                        #region Attributes Mapping
+
+                        product.LoadAttributes();
+
+                        if (product != null && product.RelatedAttributes.Any())
+                        {
+                            flowInfoData.ProductInformationData.ProductAttributes = new List<AttributeInformation>();
+
+                            foreach (var relatedAttribute in product.RelatedAttributes)
                             {
-                                flowData.ProductionLine = productAttributeProductLine.ToString();
+                                AttributeInformation productAttribute = new AttributeInformation()
+                                {
+                                    Name = relatedAttribute.Key,
+                                    Value = relatedAttribute.Value.ToString()
+                                };
+
+                                flowInfoData.ProductInformationData.ProductAttributes.Add(productAttribute);
                             }
                         }
 
-                        if (product.Attributes.ContainsKey(AMSOsramConstants.ProductAttributeProductionLevel))
+                        #endregion Attributes Mapping
+
+                        #region Parameters Mapping
+
+                        ParameterSourceCollection productParameters = product.GetProductParameters();
+
+                        if (productParameters != null && productParameters.Any())
                         {
-                            if (product.Attributes.TryGetValue(AMSOsramConstants.ProductAttributeProductionLevel, out object productAttributeProductionLevel))
+                            flowInfoData.ProductInformationData.ProductParameters = new List<ParameterInformation>();
+
+                            foreach (var parameter in productParameters)
                             {
-                                flowData.ProductionLevel = productAttributeProductionLevel.ToString();
+                                ParameterInformation productParameter = new ParameterInformation()
+                                {
+                                    Name = parameter.Parameter.Name,
+                                    Type = parameter.Type.ToString(),
+                                    Value = parameter.Value
+                                };
+
+                                flowInfoData.ProductInformationData.ProductParameters.Add(productParameter);
                             }
+                        }
+
+                        #endregion Parameters Mapping
+
+                        #endregion Product Mapping
+                    }
+                    else
+                    {
+                        // TODO LocalizedMessage
+                        throw new Exception($"Product with name {input.ProductName} doesn't exists.");
+                    }
+                }
+
+                #endregion Product Info
+
+                #region Flow Info
+
+                Flow flow = new Flow()
+                {
+                    Name = flowName,
+                    Version = !string.IsNullOrWhiteSpace(input.FlowVersion) ? Convert.ToInt32(input.FlowVersion) : 0
+                };
+
+                if (flow.ObjectExists())
+                {
+                    #region Flow Mapping
+
+                    flow.Load();
+
+                    flowInfoData.FlowInformationData = new FlowInformation()
+                    {
+                        Name = flow.Name,
+                        Timestamp = flow.CreatedOn.ToString(),
+                        Version = flow.Version.ToString(),
+                        LogicalName = flow.LogicalNames?.FirstOrDefault()?.LogicalName,
+                        State = flow.CurrentMainState?.CurrentState?.Name,
+                        Type = flow.Type.ToString()
+                    };
+
+                    #endregion Flow Mapping
+
+                    #region Steps Mapping
+
+                    flow.LoadChilds();
+
+                    FlowStepCollection flowSteps = flow.FlowSteps;
+
+                    if (flowSteps != null && flowSteps.Any())
+                    {
+                        flowInfoData.FlowInformationData.Steps = new List<StepInformation>();
+
+                        foreach (FlowStep flowStep in flowSteps)
+                        {
+                            StepInformation stepInformation = new StepInformation()
+                            {
+                                Name = flowStep.TargetEntity?.Name,
+                                LogicalName = flowStep.TargetEntity?.LogicalNames?.FirstOrDefault()?.LogicalName,
+                                Description = flowStep.TargetEntity?.Description,
+                                Timestamp = flowStep.TargetEntity?.CreatedOn.ToString(),
+                                Maturity = flowStep.TargetEntity?.Maturity
+                            };
+
+                            flowInfoData.FlowInformationData.Steps.Add(stepInformation);
+
+                            #region Attributes Mapping
+
+                            flowStep.TargetEntity?.LoadAttributes();
+
+                            if (flowStep.TargetEntity.Attributes != null && flowStep.TargetEntity.Attributes.Any())
+                            {
+                                stepInformation.StepAttributes = new List<AttributeInformation>();
+
+                                foreach (var attribute in flowStep.TargetEntity?.Attributes)
+                                {
+                                    AttributeInformation stepAttribute = new AttributeInformation()
+                                    {
+                                        Name = attribute.Key,
+                                        Value = attribute.Value.ToString()
+                                    };
+
+                                    stepInformation.StepAttributes.Add(stepAttribute);
+                                }
+                            }
+
+                            #endregion Attributes Mapping
                         }
                     }
 
-                    if(product.Flow != null)
-                    {
-                        flowData.FlowId = product.Flow.LogicalNames.FirstOrDefault().Flow.Id.ToString(); // Use logical flow or just flow ReWork?
-                        flowData.FlowName = product.Flow.Name;
-                        flowData.FlowVersion = product.Flow.Version.ToString();
-                        flowData.FlowState = product.Flow.CurrentMainState.ToString();
-                        flowData.FlowType = product.Flow.Type.ToString(); //Flow Type = Flow.Type or Flow.FlowType (doesnt exist) ReWork?
-                        flowData.FlowEffectiveDate = product.Flow.CreatedOn;
-                        flowData.Sequence = string.Empty; // Sequence Type or Step Sequence for the flow (how to get) ReWork?
-                    }
-
-                    
-                }
-                else if(!string.IsNullOrWhiteSpace(input.FlowName))
-                {
-                    // ReWork?
-                }
-                else if (!string.IsNullOrWhiteSpace(input.FlowNameVersion))
-                {
-                    // ReWork?
+                    #endregion FlowSteps Mapping
                 }
                 else
                 {
-                    throw new Exception("Create localized message for this."); // ReWork?
+                    // TODO LocalizedMessage
+                    throw new Exception($"Product with name {flowName} doesn't exists.");
                 }
 
-                    Utilities.EndMethod(
-                    -1,
-                    -1,
-                    new KeyValuePair<string, object>("CustomFlowOutboundInterfaceInput", input),
-                    new KeyValuePair<string, object>("CustomFlowOutboundInterfaceOutput", output));
+                #endregion Flow Info
+
+                if (flowInfoData != null)
+                {
+                    XmlDocument xmlDocument = new XmlDocument();
+                    xmlDocument.LoadXml(flowInfoData.SerializeToXML());
+
+                    output.FlowDetails = xmlDocument.InnerXml;
+                }
+
+                Utilities.EndMethod(-1, -1,
+                                    new KeyValuePair<string, object>("CustomGetFlowInformationForERPInput", input),
+                                    new KeyValuePair<string, object>("CustomGetFlowInformationForERPOutput", output));
             }
             catch (CmfBaseException)
             {

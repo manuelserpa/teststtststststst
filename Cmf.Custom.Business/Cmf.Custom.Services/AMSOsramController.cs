@@ -161,23 +161,20 @@ namespace Cmf.Custom.AMSOsram.Services
         /// <returns>CustomFlowOutboundInterface Output</returns>
         /// <exception cref="Cmf.Foundation.Common.CmfBaseException">If any unexpected error occurs.</exception>
         [HttpPost()]
-        public CustomFlowOutboundInterfaceOutput CustomFlowOutboundInterface(CustomFlowOutboundInterfaceInput input)
+        public CustomGetFlowInformationForERPOutput CustomGetFlowInformationForERP(CustomGetFlowInformationForERPInput input)
         {
-            Utilities.StartMethod(
-                    OBJECT_TYPE_NAME,
-                    "CustomFlowOutboundInterface",
-                    new KeyValuePair<string, object>("CustomFlowOutboundInterfaceInput", input));
+            Utilities.StartMethod(OBJECT_TYPE_NAME, "CustomGetFlowInformationForERP",
+                                  new KeyValuePair<string, object>("CustomGetFlowInformationForERPInput", input));
 
-            CustomFlowOutboundInterfaceOutput output = null;
+            CustomGetFlowInformationForERPOutput output = null;
+
             try
             {
-                output = AMSOsramOrchestration.CustomFlowOutboundInterface(input);
+                output = AMSOsramOrchestration.CustomGetFlowInformationForERP(input);
 
-                Utilities.EndMethod(
-                    -1,
-                    -1,
-                    new KeyValuePair<string, object>("CustomFlowOutboundInterfaceInput", input),
-                    new KeyValuePair<string, object>("CustomFlowOutboundInterfaceOutput", output));
+                Utilities.EndMethod(-1, -1,
+                                    new KeyValuePair<string, object>("CustomGetFlowInformationForERPInput", input),
+                                    new KeyValuePair<string, object>("CustomGetFlowInformationForERPOutput", output));
             }
             catch (CmfBaseException)
             {
