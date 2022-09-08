@@ -46,7 +46,7 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
             // Instance for Material Collection
             MaterialCollection materials = new MaterialCollection();
             // Initial Alphanumeric value
-            string alphaNumericValue = "00";
+            string alphaNumericValue = "01";
 
             try
             {
@@ -99,7 +99,7 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
                 {
                     materials.Add(childMaterial);
                     string childName = ExpectedMaterialName(splitMaterialOutput.Material.Name,alphaNumericValue);
-                    string newAlphaNumericValue = AlphaNumericValueCalculator(alphaNumericValue);
+                    alphaNumericValue = AlphaNumericValueCalculator(alphaNumericValue);
                     Assert.IsTrue(childName.Equals(childMaterial.Name), $"Child name should be {childName}, instead is {childMaterial.Name}.");
                     count += 1;
                 }
