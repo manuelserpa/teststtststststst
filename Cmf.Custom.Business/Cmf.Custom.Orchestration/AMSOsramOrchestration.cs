@@ -1,10 +1,12 @@
-﻿using Cmf.Custom.AMSOsram.BusinessObjects;
+﻿using Cmf.Common.CustomActionUtilities;
+using Cmf.Custom.AMSOsram.BusinessObjects;
 using Cmf.Custom.AMSOsram.Common;
 using Cmf.Custom.AMSOsram.Common.DataStructures;
 using Cmf.Custom.AMSOsram.Orchestration.InputObjects;
 using Cmf.Custom.AMSOsram.Orchestration.OutputObjects;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.Cultures;
+using Cmf.Foundation.BusinessObjects.GenericTables;
 using Cmf.Foundation.BusinessOrchestration.GenericServiceManagement;
 using Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects;
 using Cmf.Foundation.Common;
@@ -12,8 +14,10 @@ using Cmf.Foundation.Common.Integration;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
+using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -32,6 +36,9 @@ namespace Cmf.Custom.AMSOsram.Orchestration
         private const string MATERIAL_OUT = "MaterialOut";
         private const string MATERIAL_OUT_INPUT = "MaterialOutInput";
         private const string MATERIAL_OUT_OUTPUT = "MaterialOutOutput";
+        private const string GET_FLOW_INFORMATION_FOR_ERP = "GetFlowInformationForERP";
+        private const string GET_FLOW_INFORMATION_FOR_ERP_INPUT = "CustomGetFlowInformationForERPInput";
+        private const string GET_FLOW_INFORMATION_FOR_ERP_OUTPUT = "CustomGetFlowInformationForERPOutput";
 
         #region Material
         /// <summary>
@@ -735,13 +742,12 @@ namespace Cmf.Custom.AMSOsram.Orchestration
         /// <summary>
         /// Service to provide flow information to ERP
         /// </summary>
-        /// <param name="input">Input Object</param>
-        /// <returns>Output Object</returns>
-        /// <exception cref="Cmf.Foundation.Common.CmfBaseException">If any unexpected error occurs.</exception>
-        public static CustomGetFlowInformationForERPOutput CustomGetFlowInformationForERP(CustomGetFlowInformationForERPInput input)
+        /// <param name="CustomGetFlowInformationForERPInput">Input Object</param>
+        /// <returns></returns>
+        public static CustomGetFlowInformationForERPOutput GetFlowInformationForERP(CustomGetFlowInformationForERPInput input)
         {
-            Utilities.StartMethod(OBJECT_TYPE_NAME, "CustomGetFlowInformationForERP",
-                                  new KeyValuePair<string, object>("CustomGetFlowInformationForERPInput", input));
+            Utilities.StartMethod(OBJECT_TYPE_NAME, GET_FLOW_INFORMATION_FOR_ERP,
+                                  new KeyValuePair<string, object>(GET_FLOW_INFORMATION_FOR_ERP_INPUT, input));
 
             CustomGetFlowInformationForERPOutput output = new CustomGetFlowInformationForERPOutput();
 
@@ -751,20 +757,17 @@ namespace Cmf.Custom.AMSOsram.Orchestration
 
                 if (!string.IsNullOrWhiteSpace(input.ProductName) && !string.IsNullOrWhiteSpace(input.FlowName))
                 {
-                    // TODO LocalizedMessage
-                    throw new Exception($"It is not possible to search by ProductName and FlowName at the same time.");
+                    throw new Exception(LocalizedMessage.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageProductNameAndFlowNameAtSameTime).MessageText);
                 }
 
                 if (string.IsNullOrWhiteSpace(input.ProductName) && string.IsNullOrWhiteSpace(input.FlowName))
                 {
-                    // TODO LocalizedMessage
-                    throw new Exception($"It is not possible to search if ProductName or FlowName is not defined on Input.");
+                    throw new Exception(LocalizedMessage.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageProductNameOrFlowNameNotDefined).MessageText);
                 }
 
                 if (string.IsNullOrWhiteSpace(input.FlowName) && !string.IsNullOrWhiteSpace(input.FlowVersion))
                 {
-                    // TODO LocalizedMessage
-                    throw new Exception($"It is not possible to search by FlowVersion if there is no FlowName defined on Input.");
+                    throw new Exception(LocalizedMessage.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageFlowVersionWithoutFlowName).MessageText);
                 }
 
                 // Use input FlowName by default
@@ -784,19 +787,59 @@ namespace Cmf.Custom.AMSOsram.Orchestration
 
                         if (string.IsNullOrWhiteSpace(product.FlowPath))
                         {
-                            // TODO LocalizedMessage
-                            throw new Exception($"The Product has no associated FlowPath.");
+                            throw new Exception(LocalizedMessage.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageProductHasNoFlowPath).MessageText);
                         }
 
+                        // Set Flow associated to the product
                         flowName = product.Flow.Name;
+
+                        product.LoadAttributes();
+
+                        #region Site Mapping
+
+                        // Set Site associated to ProductLine product attribute
+                        if (product.HasRelatedAttribute(AMSOsramConstants.ProductAttributeProductionLine))
+                        {
+                            string productionLine = product.GetRelatedAttributeValue(AMSOsramConstants.ProductAttributeProductionLine, true) as string;
+
+                            if (!string.IsNullOrWhiteSpace(productionLine))
+                            {
+                                // Load Generic Table CustomProductionLineConversion
+                                GenericTable customProdLineConversionGT = new GenericTable() { Name = AMSOsramConstants.GenericTableCustomProductionLineConversion };
+                                customProdLineConversionGT.Load();
+
+                                // Based on ProductLine Product attribute get Site and Facility name from Generic Table
+                                customProdLineConversionGT.LoadData(new Foundation.BusinessObjects.QueryObject.FilterCollection()
+                                {
+                                    new Foundation.BusinessObjects.QueryObject.Filter()
+                                    {
+                                        Name = AMSOsramConstants.GenericTableCustomProductionLineConversionProductionLineProperty,
+                                        Operator = FieldOperator.IsEqualTo,
+                                        LogicalOperator = LogicalOperator.Nothing,
+                                        Value = productionLine
+                                    }
+                                });
+
+                                if (customProdLineConversionGT.HasData)
+                                {
+                                    DataSet prodLineConversionDataSet = NgpDataSet.ToDataSet(customProdLineConversionGT.Data);
+
+                                    flowInfoData.Site = prodLineConversionDataSet.Tables[0].Rows[0][AMSOsramConstants.GenericTableCustomProductionLineConversionSiteProperty].ToString();
+                                }
+                            }
+                        }
+
+                        #endregion Site Mapping
 
                         #region Product Mapping
 
                         flowInfoData.ProductInformationData = new ProductInformation()
                         {
                             Name = product.Name,
+                            Description = product.Description,
                             Timestamp = product.CreatedOn.ToString(),
                             Type = product.Type,
+                            State = product.UniversalState.ToString(),
                             Maturity = product.Maturity,
                             Yield = product.Yield.ToString(),
                             CycleTime = product.CycleTime.ToString(),
@@ -804,8 +847,6 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                         };
 
                         #region Attributes Mapping
-
-                        product.LoadAttributes();
 
                         if (product != null && product.RelatedAttributes.Any())
                         {
@@ -852,8 +893,7 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                     }
                     else
                     {
-                        // TODO LocalizedMessage
-                        throw new Exception($"Product with name {input.ProductName} doesn't exists.");
+                        throw new Exception(LocalizedMessage.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageProductHasNoFlowPath).MessageText);
                     }
                 }
 
@@ -876,11 +916,12 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                     flowInfoData.FlowInformationData = new FlowInformation()
                     {
                         Name = flow.Name,
+                        Description = flow.Description,
                         Timestamp = flow.CreatedOn.ToString(),
+                        Type = flow.Type.ToString(),
+                        State = flow.UniversalState.ToString(),
                         Version = flow.Version.ToString(),
-                        LogicalName = flow.LogicalNames?.FirstOrDefault()?.LogicalName,
-                        State = flow.CurrentMainState?.CurrentState?.Name,
-                        Type = flow.Type.ToString()
+                        LogicalName = flow.LogicalNames?.FirstOrDefault()?.LogicalName
                     };
 
                     #endregion Flow Mapping
@@ -893,6 +934,15 @@ namespace Cmf.Custom.AMSOsram.Orchestration
 
                     if (flowSteps != null && flowSteps.Any())
                     {
+                        #region Area Mapping
+
+                        flowSteps.FirstOrDefault()?.TargetEntity.LoadRelations(Cmf.Navigo.Common.Constants.StepArea, 1);
+
+                        // Set Cost Center associated to the first Area of the first FlowStep
+                        flowInfoData.CostCenter = flowSteps.FirstOrDefault()?.TargetEntity?.StepAreas?.FirstOrDefault()?.TargetEntity?.CostCenter;
+
+                        #endregion Area Mapping
+
                         flowInfoData.FlowInformationData.Steps = new List<StepInformation>();
 
                         foreach (FlowStep flowStep in flowSteps)
@@ -900,9 +950,11 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                             StepInformation stepInformation = new StepInformation()
                             {
                                 Name = flowStep.TargetEntity?.Name,
-                                LogicalName = flowStep.TargetEntity?.LogicalNames?.FirstOrDefault()?.LogicalName,
                                 Description = flowStep.TargetEntity?.Description,
                                 Timestamp = flowStep.TargetEntity?.CreatedOn.ToString(),
+                                Type = flowStep.TargetEntity?.Type,
+                                State = flowStep.TargetEntity?.UniversalState.ToString(),
+                                LogicalName = flowStep.LogicalName,
                                 Maturity = flowStep.TargetEntity?.Maturity
                             };
 
@@ -936,23 +988,28 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                 }
                 else
                 {
-                    // TODO LocalizedMessage
-                    throw new Exception($"Product with name {flowName} doesn't exists.");
+                    throw new Exception(LocalizedMessage.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageNonExistentFlow).MessageText);
                 }
 
                 #endregion Flow Info
 
-                if (flowInfoData != null)
-                {
-                    XmlDocument xmlDocument = new XmlDocument();
-                    xmlDocument.LoadXml(flowInfoData.SerializeToXML());
+                #region Returned Message
 
-                    output.FlowDetails = xmlDocument.InnerXml;
+                if (flowInfoData is null && flowInfoData.ProductInformationData is null && flowInfoData.FlowInformationData is null)
+                {
+                    throw new Exception(LocalizedMessage.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageCustomFlowInformationToERPDataObjectNull).MessageText);
                 }
 
+                XmlDocument xmlDocument = new XmlDocument();
+                xmlDocument.LoadXml(flowInfoData.SerializeToXML());
+
+                output.FlowInformationXml = xmlDocument.InnerXml;
+
+                #endregion Returned Message
+
                 Utilities.EndMethod(-1, -1,
-                                    new KeyValuePair<string, object>("CustomGetFlowInformationForERPInput", input),
-                                    new KeyValuePair<string, object>("CustomGetFlowInformationForERPOutput", output));
+                                    new KeyValuePair<string, object>(GET_FLOW_INFORMATION_FOR_ERP_INPUT, input),
+                                    new KeyValuePair<string, object>(GET_FLOW_INFORMATION_FOR_ERP_OUTPUT, output));
             }
             catch (CmfBaseException)
             {

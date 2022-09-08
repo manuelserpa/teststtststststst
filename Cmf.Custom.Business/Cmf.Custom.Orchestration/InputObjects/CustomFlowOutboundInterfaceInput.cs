@@ -6,7 +6,7 @@ namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects
     /// <summary>
     /// Input Object for CustomGetFlowInformationForERPInput Service
     /// </summary>
-    [DataContract(Name = "CustomFlowOutboundInterfaceInput")]
+    [DataContract(Name = "CustomGetFlowInformationForERPInput")]
     public class CustomGetFlowInformationForERPInput : BaseInput
     {
         #region Properties

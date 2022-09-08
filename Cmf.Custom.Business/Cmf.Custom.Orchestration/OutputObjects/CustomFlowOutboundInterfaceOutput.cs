@@ -6,7 +6,7 @@ namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
     /// <summary>
     /// Output Object for CustomGetFlowInformationForERPOutput Service
     /// </summary>
-    [DataContract(Name = "CustomFlowOutboundInterfaceOutput")]
+    [DataContract(Name = "CustomGetFlowInformationForERPOutput")]
     public class CustomGetFlowInformationForERPOutput : BaseOutput
     {
         #region Properties
@@ -14,8 +14,8 @@ namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
         /// <summary>
         /// FlowDetails
         /// </summary>
-        [DataMember(Name = "FlowDetails", Order = 0)]
-        public string FlowDetails { get; set; }
+        [DataMember(Name = "FlowInformationXml", Order = 0)]
+        public string FlowInformationXml { get; set; }
 
         #endregion
     }

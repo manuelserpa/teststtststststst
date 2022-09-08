@@ -115,6 +115,26 @@
         /// </summary>
         public static string GenericTableCustomTibcoEMSGatewayResolverCompressMessageProperty = "CompressMessage";
 
+        /// <summary>
+        /// Custom Production Line Conversion table name 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversion = "CustomProductionLineConversion";
+
+        /// <summary>
+        /// Custom Production Line Conversion table ProductionLine property 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversionProductionLineProperty = "ProductionLine";
+
+        /// <summary>
+        /// Custom Production Line Conversion table Site property 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversionSiteProperty = "Site";
+
+        /// <summary>
+        /// Custom Production Line Conversion table Facility property 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversionFacilityProperty = "Facility";
+
         #endregion
 
         #region LookupTables
@@ -564,6 +584,41 @@
         /// Localized Message: Custom Localized Message CustomLocalizedMessageContainerCannotBeUndocked
         /// </summary>
         public static string LocalizedMessageContainerCannotBeUndocked = "CustomLocalizedMessageContainerCannotBeUndocked";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageProductNameAndFlowNameAtSameTime
+        /// </summary>
+        public static string LocalizedMessageProductNameAndFlowNameAtSameTime = "CustomLocalizedMessageProductNameAndFlowNameAtSameTime";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageProductNameOrFlowNameNotDefined
+        /// </summary>
+        public static string LocalizedMessageProductNameOrFlowNameNotDefined = "CustomLocalizedMessageProductNameOrFlowNameNotDefined";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageFlowVersionWithoutFlowName
+        /// </summary>
+        public static string LocalizedMessageFlowVersionWithoutFlowName = "CustomLocalizedMessageFlowVersionWithoutFlowName";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageProductHasNoFlowPath
+        /// </summary>
+        public static string LocalizedMessageProductHasNoFlowPath = "CustomLocalizedMessageProductHasNoFlowPath";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageNonExistentProduct
+        /// </summary>
+        public static string LocalizedMessageNonExistentProduct = "CustomLocalizedMessageNonExistentProduct";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageNonExistentFlow
+        /// </summary>
+        public static string LocalizedMessageNonExistentFlow = "CustomLocalizedMessageNonExistentFlow";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull
+        /// </summary>
+        public static string LocalizedMessageCustomFlowInformationToERPDataObjectNull = "CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull";
 
         #endregion
 

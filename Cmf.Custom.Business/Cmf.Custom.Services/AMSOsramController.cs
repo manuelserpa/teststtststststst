@@ -155,13 +155,13 @@ namespace Cmf.Custom.AMSOsram.Services
         }
 
         /// <summary>
-        /// CustomFlowOutboundInterface
+        /// GetFlowInformationForERP
         /// </summary>
-        /// <param name="input">CustomFlowOutboundInterface Input</param>
-        /// <returns>CustomFlowOutboundInterface Output</returns>
+        /// <param name="input">CustomGetFlowInformationForERP Input Object</param>
+        /// <returns>CustomGetFlowInformationForERP Output Object</returns>
         /// <exception cref="Cmf.Foundation.Common.CmfBaseException">If any unexpected error occurs.</exception>
         [HttpPost()]
-        public CustomGetFlowInformationForERPOutput CustomGetFlowInformationForERP(CustomGetFlowInformationForERPInput input)
+        public CustomGetFlowInformationForERPOutput GetFlowInformationForERP(CustomGetFlowInformationForERPInput input)
         {
             Utilities.StartMethod(OBJECT_TYPE_NAME, "CustomGetFlowInformationForERP",
                                   new KeyValuePair<string, object>("CustomGetFlowInformationForERPInput", input));
@@ -170,7 +170,7 @@ namespace Cmf.Custom.AMSOsram.Services
 
             try
             {
-                output = AMSOsramOrchestration.CustomGetFlowInformationForERP(input);
+                output = AMSOsramOrchestration.GetFlowInformationForERP(input);
 
                 Utilities.EndMethod(-1, -1,
                                     new KeyValuePair<string, object>("CustomGetFlowInformationForERPInput", input),

@@ -39,12 +39,6 @@ namespace Cmf.Custom.AMSOsram.Common.DataStructures
         public class ProductInformation : BasicInformation
         {
             /// <summary>
-            /// Type element property
-            /// </summary>
-            [XmlElement(IsNullable = true)]
-            public string Type { get; set; }
-
-            /// <summary>
             /// Maturity element property
             /// </summary>
             [XmlElement(IsNullable = true)]
@@ -101,18 +95,6 @@ namespace Cmf.Custom.AMSOsram.Common.DataStructures
             public string LogicalName { get; set; }
 
             /// <summary>
-            /// State element property
-            /// </summary>
-            [XmlElement(IsNullable = true)]
-            public string State { get; set; }
-
-            /// <summary>
-            /// Type element property
-            /// </summary>
-            [XmlElement(IsNullable = true)]
-            public string Type { get; set; }
-
-            /// <summary>
             /// Steps list property
             /// </summary>
             [XmlArray(ElementName = "Steps", IsNullable = true)]
@@ -167,6 +149,18 @@ namespace Cmf.Custom.AMSOsram.Common.DataStructures
             /// </summary>
             [XmlElement(IsNullable = true)]
             public string Timestamp { get; set; }
+
+            /// <summary>
+            /// Type element property
+            /// </summary>
+            [XmlElement(IsNullable = true)]
+            public string Type { get; set; }
+
+            /// <summary>
+            /// State element property
+            /// </summary>
+            [XmlElement(IsNullable = true)]
+            public string State { get; set; }
         }
 
         /// <summary>
