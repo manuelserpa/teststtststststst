@@ -1,0 +1,75 @@
+{
+  "WorksheetNameMapping": {},
+  "<SM>LocalizedMessageKey": {
+    "1": {
+      "Name": "CustomLocalizedMessageProductNameAndFlowNameAtSameTime",
+      "Description": "Error message to inform it is not possible to search by ProductName and FlowName at the same time.",
+      "MessageType": "Message",
+      "en-US": "It is not possible to search by ProductName and FlowName at the same time.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": ""
+    },
+    "2": {
+      "Name": "CustomLocalizedMessageProductNameOrFlowNameNotDefined",
+      "Description": "Error message to inform that the ProductName or FlowName is not defined.",
+      "MessageType": "Message",
+      "en-US": "It is not possible to search if ProductName or FlowName is not defined on Input.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": ""
+    },
+    "3": {
+      "Name": "CustomLocalizedMessageFlowVersionWithoutFlowName",
+      "Description": "Error message to inform that it is not possible to set FlowVersion without FlowName.",
+      "MessageType": "Message",
+      "en-US": "It is not possible to search by FlowVersion if there is no FlowName defined on Input.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": ""
+    },
+    "4": {
+      "Name": "CustomLocalizedMessageProductHasNoFlowPath",
+      "Description": "Error message to inform that the Product has no FlowPath defined.",
+      "MessageType": "Message",
+      "en-US": "The Product has no associated FlowPath.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": ""
+    },
+    "5": {
+      "Name": "CustomLocalizedMessageNonExistentProduct",
+      "Description": "Error message to inform that the Product does not exist.",
+      "MessageType": "Message",
+      "en-US": "Product with name {0} doesn't exists.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": ""
+    },
+    "6": {
+      "Name": "CustomLocalizedMessageNonExistentFlow",
+      "Description": "Error message to inform that the Flow does not exist.",
+      "MessageType": "Message",
+      "en-US": "Flow with name {0} doesn't exists.", 
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": ""
+    },
+    "7": {
+      "Name": "CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull",
+      "Description": "Error message to inform about CustomFlowInformationToERPData is null.",
+      "MessageType": "Message",
+      "en-US": "The CustomFlowInformationToERPData object is null.", 
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": ""
+    }
+  }
+}
