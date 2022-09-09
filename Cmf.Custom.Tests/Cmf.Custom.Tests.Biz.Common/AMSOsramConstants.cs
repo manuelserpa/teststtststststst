@@ -109,7 +109,7 @@
         /// Test Facility: Regensburg Production
         /// </summary>
         public static string TestFacility = "Regensburg Production";
-        
+
         /// <summary>
         /// Test Product: "11111335"
         /// </summary>
@@ -123,7 +123,7 @@
         /// <summary>
         /// Test Container Type: "PEEK Cassette 8-Inch(13)"
         /// </summary
-        public const string ContainerPeekCassete = "PEEK Cassette 8-Inch(13)"; 
+        public const string ContainerPeekCassete = "PEEK Cassette 8-Inch(13)";
 
         /// <summary>
         /// Form: Logistical wafer
@@ -168,7 +168,7 @@
         /// TestM3SSTRinseandDryinSRD02121F011_E: "M3-SST-Rinse-and-Dry-in-SRD-02121F011_E"
         /// </summary>
         public static string TestM3SSTRinseandDryinSRD02121F011_E = "M3-SST-Rinse-and-Dry-in-SRD-02121F011_E";
-        
+
         #endregion
 
         #region Container
@@ -334,6 +334,155 @@
         /// </summary>
         public const string LocalizedMessageCustomPrimaryUnitObjectNull = "CustomPrimaryUnitObjectNull";
 
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageProductNameAndFlowNameAtSameTime
+        /// </summary>
+        public static string LocalizedMessageProductNameAndFlowNameAtSameTime = "CustomLocalizedMessageProductNameAndFlowNameAtSameTime";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageProductNameOrFlowNameNotDefined
+        /// </summary>
+        public static string LocalizedMessageProductNameOrFlowNameNotDefined = "CustomLocalizedMessageProductNameOrFlowNameNotDefined";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageFlowVersionWithoutFlowName
+        /// </summary>
+        public static string LocalizedMessageFlowVersionWithoutFlowName = "CustomLocalizedMessageFlowVersionWithoutFlowName";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageProductHasNoFlowPath
+        /// </summary>
+        public static string LocalizedMessageProductHasNoFlowPath = "CustomLocalizedMessageProductHasNoFlowPath";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageNonExistentProduct
+        /// </summary>
+        public static string LocalizedMessageNonExistentProduct = "CustomLocalizedMessageNonExistentProduct";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageNonExistentFlow
+        /// </summary>
+        public static string LocalizedMessageNonExistentFlow = "CustomLocalizedMessageNonExistentFlow";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull
+        /// </summary>
+        public static string LocalizedMessageCustomFlowInformationToERPDataObjectNull = "CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull";
+
         #endregion Localized Messages
+
+        #region FlowInformationToERP
+
+        /// <summary>
+        /// Node: FlowInformationToERP node name
+        /// </summary>
+        public static string FlowInformationToERPNodeName = "FlowInformationToERP";
+
+        /// <summary>
+        /// Node: Product node name
+        /// </summary>
+        public static string ProductInformationNodeName = "Product";
+
+        /// <summary>
+        /// Node: Flow node name
+        /// </summary>
+        public static string FlowInformationNodeName = "Flow";
+
+        /// <summary>
+        /// Node: Steps node name
+        /// </summary>
+        public static string StepsInformationNodeName = "Steps";
+
+        /// <summary>
+        /// Node: Step node name
+        /// </summary>
+        public static string StepInformationNodeName = "Step";
+
+        /// <summary>
+        /// Node: Attributes node name
+        /// </summary>
+        public static string AttributesInformationNodeName = "Attributes";
+
+        /// <summary>
+        /// Node: Parameters node name
+        /// </summary>
+        public static string ParametersInformationNodeName = "Parameters";
+
+        /// <summary>
+        /// Property: Site property name
+        /// </summary>
+        public static string FlowInformationToERPSitePropertyName = "Site";
+
+        /// <summary>
+        /// Property: CostCenter property name
+        /// </summary>
+        public static string FlowInformationToERPCostCenterPropertyName = "CostCenter";
+
+        /// <summary>
+        /// Property: Name property name
+        /// </summary>
+        public static string BasicInformationNamePropertyName = "Name";
+
+        /// <summary>
+        /// Property: Description property name
+        /// </summary>
+        public static string BasicInformationDescriptionPropertyName = "Description";
+
+        /// <summary>
+        /// Property: Timestamp property name
+        /// </summary>
+        public static string BasicInformationTimestampPropertyName = "Timestamp";
+
+        /// <summary>
+        /// Property: Type property name
+        /// </summary>
+        public static string BasicInformationTypePropertyName = "Type";
+
+        /// <summary>
+        /// Property: State property name
+        /// </summary>
+        public static string BasicInformationStatePropertyName = "State";
+
+        /// <summary>
+        /// Property: Product Maturity property name
+        /// </summary>
+        public static string ProductInformationMaturityPropertyName = "Maturity";
+
+        /// <summary>
+        /// Property: Product CycleTime property name
+        /// </summary>
+        public static string ProductInformationCycleTimePropertyName = "CycleTime";
+
+        /// <summary>
+        /// Property: Product Yield property name
+        /// </summary>
+        public static string ProductInformationYieldPropertyName = "Yield";
+
+        /// <summary>
+        /// Property: Product MaximumMaterialSize property name
+        /// </summary>
+        public static string ProductInformationMaximumMaterialSizePropertyName = "MaximumMaterialSize";
+
+        /// <summary>
+        /// Property: Flow LogicalName property name
+        /// </summary>
+        public static string FlowInformationLogicalNamePropertyName = "LogicalName";
+
+        /// <summary>
+        /// Property: Flow Version property name
+        /// </summary>
+        public static string FlowInformationVersionPropertyName = "Version";
+
+        /// <summary>
+        /// Property: Step LogicalName property name
+        /// </summary>
+        public static string StepInformationLogicalNamePropertyName = "LogicalName";
+
+        /// <summary>
+        /// Property: Step Maturity property name
+        /// </summary>
+        public static string StepInformationMaturityPropertyName = "Maturity";
+
+        #endregion FlowInformationToERP
     }
 }
