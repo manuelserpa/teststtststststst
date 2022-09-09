@@ -37011,6 +37011,10 @@ export declare namespace Cmf.Custom.AMSOsram.Common.DataStructures {
         SetVariables = 2,
         ExecuteCommand = 3
     }
+    enum BrokerMessageDirection {
+        Inbound = 0,
+        Outbound = 1
+    }
 }
 export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects {
     class MaterialInInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
@@ -37042,6 +37046,13 @@ export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects {
         Message: string;
         MessageType: string;
     }
+    class CustomGetFlowInformationForERPInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        ProductName: string;
+        FlowName: string;
+        FlowVersion: string;
+    }
 }
 export declare namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects {
     class MaterialInOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
@@ -37064,6 +37075,11 @@ export declare namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects {
         protected $id: string;
         protected $type: string;
         Result: Cmf.Foundation.BusinessObjects.IntegrationEntry;
+    }
+    class CustomGetFlowInformationForERPOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        FlowInformationXml: string;
     }
 }
 export declare namespace Cmf.MessageBus.Client.messages {
@@ -37094,6 +37110,11 @@ export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomRe
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveERPMessageInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomGetFlowInformationForERPInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;

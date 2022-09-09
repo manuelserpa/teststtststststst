@@ -57962,6 +57962,11 @@ export namespace Cmf.Custom.AMSOsram.Common.DataStructures
 		SetVariables = 2,
 		ExecuteCommand = 3,
 	}
+	export enum BrokerMessageDirection
+	{
+		Inbound = 0,
+		Outbound = 1,
+	}
 	
 }
 export namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects
@@ -58015,6 +58020,17 @@ export namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects
 		public MessageType : string;		
 	}
 
+	
+
+	export class CustomGetFlowInformationForERPInput extends Cmf.Foundation.BusinessOrchestration.BaseInput
+	{
+		protected $id:string = null;
+		protected $type:string = "Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomGetFlowInformationForERPInput, Cmf.Custom.AMSOsram.Orchestration";
+		public ProductName : string;		
+		public FlowName : string;		
+		public FlowVersion : string;		
+	}
+
 }
 export namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
 {
@@ -58049,6 +58065,13 @@ export namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
 		protected $id:string = null;
 		protected $type:string = "Cmf.Custom.AMSOsram.Orchestration.OutputObjects.CustomReceiveERPMessageOutput, Cmf.Custom.AMSOsram.Orchestration";
 		public Result : Cmf.Foundation.BusinessObjects.IntegrationEntry;
+		
+	}
+	export class CustomGetFlowInformationForERPOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput
+	{
+		protected $id:string = null;
+		protected $type:string = "Cmf.Custom.AMSOsram.Orchestration.OutputObjects.CustomGetFlowInformationForERPOutput, Cmf.Custom.AMSOsram.Orchestration";
+		public FlowInformationXml : string;
 		
 	}
 }
@@ -58103,6 +58126,12 @@ export namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveERP
 {
 	export var _CMFInternal_URLSuffix = "api/AMSOsram/CustomReceiveERPMessage";
 	export var _CMFInternal_FullNamespace = "Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveERPMessageInput";
+	export var _CMFInternal_HTTPMethod = "POST";                
+}
+export namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomGetFlowInformationForERPInput
+{
+	export var _CMFInternal_URLSuffix = "api/AMSOsram/GetFlowInformationForERP";
+	export var _CMFInternal_FullNamespace = "Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomGetFlowInformationForERPInput";
 	export var _CMFInternal_HTTPMethod = "POST";                
 }
 export namespace Cmf.Foundation.BusinessOrchestration.Administration.InputObjects.GetAllAddressInput
@@ -69073,6 +69102,7 @@ export namespace Cmf.Lbos
 		{ FullName : "Cmf.Common.CustomActionUtilities.DeeTriggerPoint" , Value : Cmf.Common.CustomActionUtilities.DeeTriggerPoint },
 		{ FullName : "Cmf.Connect.BusinessObjects.EquipmentCommunicationState" , Value : Cmf.Connect.BusinessObjects.EquipmentCommunicationState },
 		{ FullName : "Cmf.Custom.AMSOsram.Common.DataStructures.AdHocActionTypes" , Value : Cmf.Custom.AMSOsram.Common.DataStructures.AdHocActionTypes },
+		{ FullName : "Cmf.Custom.AMSOsram.Common.DataStructures.BrokerMessageDirection" , Value : Cmf.Custom.AMSOsram.Common.DataStructures.BrokerMessageDirection },
 		{ FullName : "Cmf.MessageBus.Client.messages.ClientMessageType" , Value : Cmf.MessageBus.Client.messages.ClientMessageType },
  
 	];
