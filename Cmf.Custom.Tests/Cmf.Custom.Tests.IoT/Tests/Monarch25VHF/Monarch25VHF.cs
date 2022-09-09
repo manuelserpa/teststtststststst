@@ -125,8 +125,8 @@ namespace AMSOsramEIAutomaticTests.Monarch25VHF
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            ConfigureConnection(resourceName, 5013,isEnableAllAlarms: true); 
-            ConfigureConnection(readerResourceName, 5014, prepareTestScenario: false);
+			ConfigureConnection(readerResourceName, 5014, prepareTestScenario: false);
+			ConfigureConnection(resourceName, 5013, isEnableAllAlarms: true, killProcess: false);
 
             Resource lp1 = new Resource() { Name = "5FVHF1-LP1" };
             lp1.Load();
@@ -139,7 +139,6 @@ namespace AMSOsramEIAutomaticTests.Monarch25VHF
             lp2.AutomationMode = ResourceAutomationMode.Online;
             lp2.AutomationAddress = ".";
             lp2.Save();
-
         }
 
 
@@ -410,7 +409,6 @@ namespace AMSOsramEIAutomaticTests.Monarch25VHF
 
                 return resource.CurrentStates.FirstOrDefault(s => s.StateModel.Name == "CustomEquipmentPerformanceTrackingStateModel" && s.CurrentState.Name == "Blocked") != null;
             });
-
         }
 
         /// <summary> 
