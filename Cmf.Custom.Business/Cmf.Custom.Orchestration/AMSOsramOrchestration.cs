@@ -848,7 +848,7 @@ namespace Cmf.Custom.AMSOsram.Orchestration
 
                         #region Attributes Mapping
 
-                        if (product != null && product.RelatedAttributes.Any())
+                        if (product.RelatedAttributes.Any())
                         {
                             flowInfoData.ProductInformationData.ProductAttributes = new List<AttributeInformation>();
 
@@ -936,10 +936,10 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                     {
                         #region Area Mapping
 
-                        flowSteps.FirstOrDefault()?.TargetEntity.LoadRelations(Cmf.Navigo.Common.Constants.StepArea, 1);
+                        flowSteps.FirstOrDefault().TargetEntity.LoadRelations(Cmf.Navigo.Common.Constants.StepArea, 1);
 
                         // Set Cost Center associated to the first Area of the first FlowStep
-                        flowInfoData.CostCenter = flowSteps.FirstOrDefault()?.TargetEntity?.StepAreas?.FirstOrDefault()?.TargetEntity?.CostCenter;
+                        flowInfoData.CostCenter = flowSteps.FirstOrDefault().TargetEntity?.StepAreas?.FirstOrDefault()?.TargetEntity?.CostCenter;
 
                         #endregion Area Mapping
 
@@ -964,11 +964,11 @@ namespace Cmf.Custom.AMSOsram.Orchestration
 
                             flowStep.TargetEntity?.LoadAttributes();
 
-                            if (flowStep.TargetEntity.Attributes != null && flowStep.TargetEntity.Attributes.Any())
+                            if (flowStep.TargetEntity?.Attributes != null && flowStep.TargetEntity.Attributes.Any())
                             {
                                 stepInformation.StepAttributes = new List<AttributeInformation>();
 
-                                foreach (var attribute in flowStep.TargetEntity?.Attributes)
+                                foreach (KeyValuePair<string, object> attribute in flowStep.TargetEntity?.Attributes)
                                 {
                                     AttributeInformation stepAttribute = new AttributeInformation()
                                     {
