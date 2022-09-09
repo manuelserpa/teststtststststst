@@ -206,10 +206,10 @@ namespace Cmf.Custom.Tests.Biz.ERP
         /// Acceptance Citeria:
         ///     - The Flow and Steps information is returned in correct format in the XML message.
         /// </summary>
-        /// <TestCaseID>CustomGetFlowInformationForERP_GetFlowInformationForERP_SpecificFlowVersionInformation</TestCaseID>
+        /// <TestCaseID>CustomGetFlowInformationForERP_GetFlowInformationForERP_FlowInformationOfSpecificVersion</TestCaseID>
         /// <Author>André Cruz</Author>
         [TestMethod]
-        public void CustomGetFlowInformationForERP_GetFlowInformationForERP_SpecificFlowVersionInformation()
+        public void CustomGetFlowInformationForERP_GetFlowInformationForERP_FlowInformationOfSpecificVersion()
         {
             foreach (XmlNode flowInfoToERPNode in this.GetFlowInformationScenario(flowName: flowName, flowVersion: flowVersion))
             {
