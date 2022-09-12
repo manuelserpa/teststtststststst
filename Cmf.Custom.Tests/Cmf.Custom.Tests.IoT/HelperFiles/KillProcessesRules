@@ -1,53 +1,53 @@
 ﻿UseReference("%MicrosoftNetPath%System.Diagnostics.Process.dll", "System.Diagnostics");
-			UseReference("%MicrosoftNetPath%System.ComponentModel.Primitives.dll", "");
-			//Please start code here
+UseReference("%MicrosoftNetPath%System.ComponentModel.Primitives.dll", "");
+//Please start code here
 
-			try
+try
+{
+	string processName = string.Empty;
+	string executionPath = string.Empty;
+
+	if (!Input.ContainsKey("ProcessName"))
+	{
+		processName = "Node";
+	}
+	else
+	{
+		processName = Input["ProcessName"] as string;
+	}
+
+	if (!Input.ContainsKey("ExecutionPath"))
+	{
+		executionPath = @"C:\IoTTestsAutomationManagers";
+	}
+	else
+	{
+		executionPath = Input["ExecutionPath"] as string;
+	}
+
+	int numberOfProcessesKilled = 0;
+	// Fetch all node processes running
+	Process[] processes = Process.GetProcessesByName(processName);
+
+	if (processes != null)
+	{
+		foreach (var process in processes)
+		{
+			// retrieve the path where the process is running
+			string processPath = process.MainModule.FileName;
+			if (!string.IsNullOrWhiteSpace(processPath) && processPath.Contains(@executionPath))
 			{
-				string processName = string.Empty;
-				string executionPath = string.Empty;
-
-				if (!Input.ContainsKey("ProcessName"))
-				{
-					processName = "Node";
-				}
-				else
-				{
-					processName = Input["ProcessName"] as string;
-				}
-
-				if (!Input.ContainsKey("ExecutionPath"))
-				{
-					executionPath = @"C:\IoTTestsAutomationManagers";
-				}
-				else
-				{
-					executionPath = Input["ExecutionPath"] as string;
-				}
-
-				int numberOfProcessesKilled = 0;
-				// Fetch all node processes running
-				Process[] processes = Process.GetProcessesByName(processName);
-
-				if (processes != null)
-				{
-					foreach (var process in processes)
-					{
-						// retrieve the path where the process is running
-						string processPath = process.MainModule.FileName;
-						if (!string.IsNullOrWhiteSpace(processPath) && processPath.Contains(@executionPath))
-						{
-							process.Kill();
-							numberOfProcessesKilled++;
-						}
-					}
-				}
-
-				Input["Result"] = string.Format("Number of node processes killed: {0}{1}", numberOfProcessesKilled, Environment.NewLine);
+				process.Kill();
+				numberOfProcessesKilled++;
 			}
-			catch (Exception ex)
-			{
-				// we don't want to stop the execution of the IoT tests.
-				// If it fails, it fails.
-				Input["Result"] = ex.Message;
-			}
+		}
+	}
+
+	Input["Result"] = string.Format("Number of node processes killed: {0}{1}", numberOfProcessesKilled, Environment.NewLine);
+}
+catch (Exception ex)
+{
+	// we don't want to stop the execution of the IoT tests.
+	// If it fails, it fails.
+	Input["Result"] = ex.Message;
+}

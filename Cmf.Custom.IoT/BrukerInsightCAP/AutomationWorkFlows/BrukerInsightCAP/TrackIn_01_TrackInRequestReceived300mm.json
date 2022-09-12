@@ -1,0 +1,1143 @@
+{
+	"tasks": [
+		{
+			"id": "task_1796",
+			"reference": {
+				"name": "systemActionGroupEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"replyTimeout": 60000,
+				"___cmf___name": "On System Event",
+				"actionGroup": "TrackIn",
+				"___cmf___color": "#0080ff"
+			}
+		},
+		{
+			"id": "task_1677",
+			"reference": {
+				"name": "storeMaterialObject",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"___cmf___name": "Store Material Object",
+				"___cmf___color": "#00ff80"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_70871",
+			"reference": {
+				"name": "getEquipmentProperties",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "TosControlState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "Get Equipment Properties Values",
+				"___cmf___color": "#ffff80"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_73090",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "TrackInInitialValidation",
+					"IsShared": true,
+					"Name": "TrackInInitialValidation"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialData"
+						}
+					},
+					{
+						"name": "GemControlState",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "CassettePresent",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "DoNotValidateSlotMap",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "DoNotValidateGemControlState",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "DoNotValidateCassettePresent",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"friendlyName": "ContainerName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "LoadPortPosition",
+						"valueType": {
+							"friendlyName": "LoadPortPosition",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "SorterJobInformation",
+						"valueType": {
+							"friendlyName": "SorterJobInformation",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "MovementList",
+						"valueType": {
+							"friendlyName": "MovementList",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Track In Initial Validation Workflow"
+			}
+		},
+		{
+			"id": "task_83813",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "RecipeValidation_01_UnformattedRecipeMainFlow",
+					"IsShared": false
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialData"
+						}
+					},
+					{
+						"name": "DeleteRecipe",
+						"valueType": {
+							"friendlyName": "DeleteRecipe",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Recipe Validation Workflow"
+			}
+		},
+		{
+			"id": "task_34616",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "CreateProcessJob_01_CreateJob",
+					"IsShared": false
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Execute Create Process Job"
+			}
+		},
+		{
+			"id": "task_14256",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "CreateControlJob_01_CreateJob",
+					"IsShared": false
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Create Control Job"
+			}
+		},
+		{
+			"id": "task_116330",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        const capacity = 13;",
+					"        const materialData = inputs.MaterialData[0];",
+					"        var container = inputs.container;",
+					"        let commandParameters: any[] = [];",
+					"        var substarteCount = 0;",
+					"",
+					"        if (container.SlotMap == null){         ",
+					"            throw new Error(\"SlotMap cannot be empty\");",
+					"        }",
+					"",
+					"        var slotMapList = container.SlotMap.split(\"\");",
+					"",
+					"        commandParameters.push({",
+					"            type: \"L\", value: [",
+					"                { type: \"A\", value: \"Capacity\" },",
+					"                { type: \"U1\", value: capacity }",
+					"            ]",
+					"        });",
+					"",
+					"",
+					"        let waferParameters: any[] = [];",
+					"        let slotMap: any[] = [];",
+					"",
+					"        commandParameters.push({",
+					"            type: \"L\", value: [",
+					"                { type: \"A\", value: \"ContentMap\" },",
+					"                { type: \"L\", value: waferParameters }",
+					"            ]",
+					"        });",
+					"",
+					"        for (let i = 0; i <= capacity; i++) {",
+					"            let subMaterialInSlot = (<any[]>materialData.SubMaterials).find(subMaterial => subMaterial.Slot == i)",
+					"            if (subMaterialInSlot != null) {",
+					"                waferParameters.push({",
+					"                    type: \"L\", value: [",
+					"                        { type: \"A\", value: materialData.MaterialName },",
+					"                        { type: \"A\", value: subMaterialInSlot.MaterialName }",
+					"                    ]",
+					"                });",
+					"            }",
+					"            else {",
+					"                waferParameters.push({",
+					"                    type: \"L\", value: [",
+					"                        { type: \"A\", value: \"\" },",
+					"                        { type: \"A\", value: \"\" }",
+					"                    ]",
+					"                });",
+					"            }",
+					"",
+					"            let slot = slotMapList[i];",
+					"            if(slot === \"1\"){",
+					"                slotMap[i] = { type: \"U1\", value: 3 };",
+					"            } else {",
+					"                slotMap[i] = { type: \"U1\", value: 1 };",
+					"            }",
+					"        }",
+					"        ",
+					"        commandParameters.push({",
+					"            type: \"L\", value: [",
+					"                { type: \"A\", value: \"SlotMap\" },",
+					"                { type: \"L\", value: slotMap }",
+					"            ]",
+					"        });",
+					"",
+					"        commandParameters.push({",
+					"            type: \"L\", value: [",
+					"                { type: \"A\", value: \"SubstrateCount\" },",
+					"                { type: \"U1\", value: substarteCount }",
+					"            ]",
+					"        });",
+					"",
+					"        commandParameters.push({",
+					"            type: \"L\", value: [",
+					"                { type: \"A\", value: \"Usage\" },",
+					"                { type: \"A\", value: \"PRODUCT\" }",
+					"            ]",
+					"        });",
+					"",
+					"",
+					"        // emit output during execution: outputs.output1.emit(\"something\");",
+					"        // return example: return { output1: inputs.input1, output2: \"Hello World\" };",
+					"",
+					"        return {",
+					"            ContainerID: container.ContainerName,",
+					"            LoadPort: container.LoadPortPosition,",
+					"            CarrierAttributes: commandParameters",
+					"        }",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IGNhcGFjaXR5ID0gMTM7DQogICAgICAgIGNvbnN0IG1hdGVyaWFsRGF0YSA9IGlucHV0cy5NYXRlcmlhbERhdGFbMF07DQogICAgICAgIHZhciBjb250YWluZXIgPSBpbnB1dHMuY29udGFpbmVyOw0KICAgICAgICBsZXQgY29tbWFuZFBhcmFtZXRlcnMgPSBbXTsNCiAgICAgICAgdmFyIHN1YnN0YXJ0ZUNvdW50ID0gMDsNCiAgICAgICAgaWYgKGNvbnRhaW5lci5TbG90TWFwID09IG51bGwpIHsNCiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcigiU2xvdE1hcCBjYW5ub3QgYmUgZW1wdHkiKTsNCiAgICAgICAgfQ0KICAgICAgICB2YXIgc2xvdE1hcExpc3QgPSBjb250YWluZXIuU2xvdE1hcC5zcGxpdCgiIik7DQogICAgICAgIGNvbW1hbmRQYXJhbWV0ZXJzLnB1c2goew0KICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIkNhcGFjaXR5IiB9LA0KICAgICAgICAgICAgICAgIHsgdHlwZTogIlUxIiwgdmFsdWU6IGNhcGFjaXR5IH0NCiAgICAgICAgICAgIF0NCiAgICAgICAgfSk7DQogICAgICAgIGxldCB3YWZlclBhcmFtZXRlcnMgPSBbXTsNCiAgICAgICAgbGV0IHNsb3RNYXAgPSBbXTsNCiAgICAgICAgY29tbWFuZFBhcmFtZXRlcnMucHVzaCh7DQogICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiQ29udGVudE1hcCIgfSwNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJMIiwgdmFsdWU6IHdhZmVyUGFyYW1ldGVycyB9DQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICBmb3IgKGxldCBpID0gMDsgaSA8PSBjYXBhY2l0eTsgaSsrKSB7DQogICAgICAgICAgICBsZXQgc3ViTWF0ZXJpYWxJblNsb3QgPSBtYXRlcmlhbERhdGEuU3ViTWF0ZXJpYWxzLmZpbmQoc3ViTWF0ZXJpYWwgPT4gc3ViTWF0ZXJpYWwuU2xvdCA9PSBpKTsNCiAgICAgICAgICAgIGlmIChzdWJNYXRlcmlhbEluU2xvdCAhPSBudWxsKSB7DQogICAgICAgICAgICAgICAgd2FmZXJQYXJhbWV0ZXJzLnB1c2goew0KICAgICAgICAgICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6IG1hdGVyaWFsRGF0YS5NYXRlcmlhbE5hbWUgfSwNCiAgICAgICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogc3ViTWF0ZXJpYWxJblNsb3QuTWF0ZXJpYWxOYW1lIH0NCiAgICAgICAgICAgICAgICAgICAgXQ0KICAgICAgICAgICAgICAgIH0pOw0KICAgICAgICAgICAgfQ0KICAgICAgICAgICAgZWxzZSB7DQogICAgICAgICAgICAgICAgd2FmZXJQYXJhbWV0ZXJzLnB1c2goew0KICAgICAgICAgICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICIiIH0sDQogICAgICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICIiIH0NCiAgICAgICAgICAgICAgICAgICAgXQ0KICAgICAgICAgICAgICAgIH0pOw0KICAgICAgICAgICAgfQ0KICAgICAgICAgICAgbGV0IHNsb3QgPSBzbG90TWFwTGlzdFtpXTsNCiAgICAgICAgICAgIGlmIChzbG90ID09PSAiMSIpIHsNCiAgICAgICAgICAgICAgICBzbG90TWFwW2ldID0geyB0eXBlOiAiVTEiLCB2YWx1ZTogMyB9Ow0KICAgICAgICAgICAgfQ0KICAgICAgICAgICAgZWxzZSB7DQogICAgICAgICAgICAgICAgc2xvdE1hcFtpXSA9IHsgdHlwZTogIlUxIiwgdmFsdWU6IDEgfTsNCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgICAgICBjb21tYW5kUGFyYW1ldGVycy5wdXNoKHsNCiAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJTbG90TWFwIiB9LA0KICAgICAgICAgICAgICAgIHsgdHlwZTogIkwiLCB2YWx1ZTogc2xvdE1hcCB9DQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICBjb21tYW5kUGFyYW1ldGVycy5wdXNoKHsNCiAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJTdWJzdHJhdGVDb3VudCIgfSwNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJVMSIsIHZhbHVlOiBzdWJzdGFydGVDb3VudCB9DQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICBjb21tYW5kUGFyYW1ldGVycy5wdXNoKHsNCiAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJVc2FnZSIgfSwNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJQUk9EVUNUIiB9DQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICAvLyBlbWl0IG91dHB1dCBkdXJpbmcgZXhlY3V0aW9uOiBvdXRwdXRzLm91dHB1dDEuZW1pdCgic29tZXRoaW5nIik7DQogICAgICAgIC8vIHJldHVybiBleGFtcGxlOiByZXR1cm4geyBvdXRwdXQxOiBpbnB1dHMuaW5wdXQxLCBvdXRwdXQyOiAiSGVsbG8gV29ybGQiIH07DQogICAgICAgIHJldHVybiB7DQogICAgICAgICAgICBDb250YWluZXJJRDogY29udGFpbmVyLkNvbnRhaW5lck5hbWUsDQogICAgICAgICAgICBMb2FkUG9ydDogY29udGFpbmVyLkxvYWRQb3J0UG9zaXRpb24sDQogICAgICAgICAgICBDYXJyaWVyQXR0cmlidXRlczogY29tbWFuZFBhcmFtZXRlcnMNCiAgICAgICAgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialData"
+						},
+						"defaultValue": []
+					},
+					{
+						"name": "container",
+						"valueType": {
+							"friendlyName": "container",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "ContainerID",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerID"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LoadPort"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "CarrierAttributes",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "CarrierAttributes"
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
+		},
+		{
+			"id": "task_116332",
+			"reference": {
+				"name": "getContainer",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"inputs": [],
+				"outputs": [],
+				"message": ""
+			}
+		},
+		{
+			"id": "task_116334",
+			"reference": {
+				"name": "customCarrierActionRequest",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			},
+			"settings": {
+				"CarrierActionRequest": 2,
+				"___cmf___name": "Custom Carrier Action Request",
+				"commandName": 2
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#customArrayPositionValue",
+			"reference": {
+				"name": "customArrayPositionValue",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "1.0.0"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "cc8ce25c-4960-4556-84a0-86daf88a8e99",
+			"sourceId": "task_1677",
+			"targetId": "task_1796",
+			"inputName": "reply",
+			"outputName": "success",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		},
+		{
+			"id": "251493f1-4d91-4125-a606-d40d8e6ac3eb",
+			"sourceId": "task_1796",
+			"targetId": "task_73090",
+			"inputName": "MaterialDataIn",
+			"outputName": "data"
+		},
+		{
+			"id": "1a002a2c-a298-45aa-8663-f88bbfe8cbea",
+			"sourceId": "task_70871",
+			"targetId": "task_73090",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "19cb355b-8e2a-4b26-8d6b-00849bbd8517",
+			"sourceId": "task_73090",
+			"targetId": "task_1796",
+			"inputName": "reply",
+			"outputName": "error"
+		},
+		{
+			"id": "03818fd8-aca1-4d0a-8f68-f241c5160ca1",
+			"sourceId": "task_73090",
+			"targetId": "task_83813",
+			"inputName": "MaterialDataIn",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "85e19b85-fbe6-481e-be0e-aa151ae6b852",
+			"sourceId": "task_83813",
+			"targetId": "task_1796",
+			"inputName": "reply",
+			"outputName": "error"
+		},
+		{
+			"id": "66f9b9ef-32eb-4d03-959f-7582351d1b53",
+			"sourceId": "task_1796",
+			"targetId": "task_70871",
+			"inputName": "activate",
+			"outputName": "data"
+		},
+		{
+			"id": "5d35aa28-ad8d-41ea-a554-28a9cf33aff1",
+			"sourceId": "task_73090",
+			"targetId": "task_83813",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "f5e66a95-b9f5-444a-8441-26737bb53dca",
+			"sourceId": "task_34616",
+			"targetId": "task_1796",
+			"inputName": "reply",
+			"outputName": "error"
+		},
+		{
+			"id": "c5cf3d3d-2dbd-4f42-bcac-be1eaaabee07",
+			"sourceId": "task_34616",
+			"targetId": "task_14256",
+			"inputName": "MaterialDataIn",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "bc149e91-e19b-4b9e-a548-5d6e1bbb0a20",
+			"sourceId": "task_34616",
+			"targetId": "task_14256",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "64ff0088-8835-4f08-8f7f-8122cd295e03",
+			"sourceId": "task_14256",
+			"targetId": "task_1677",
+			"inputName": "materialObject",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "8cf5dc88-a3e7-436d-a1cc-8336539eb451",
+			"sourceId": "task_14256",
+			"targetId": "task_1677",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "ac554eb7-9539-4398-af90-c9370580b4db",
+			"sourceId": "task_14256",
+			"targetId": "task_1796",
+			"inputName": "reply",
+			"outputName": "error"
+		},
+		{
+			"id": "3dec2a02-e754-48f1-8428-512ead40e6b4",
+			"sourceId": "task_70871",
+			"targetId": "task_73090",
+			"inputName": "GemControlStateIn",
+			"outputName": "$TosControlState"
+		},
+		{
+			"id": "3b51a8f9-c72d-43af-93e1-5da677635be9",
+			"sourceId": "task_70871",
+			"targetId": "task_73090",
+			"inputName": "DoNotValidateCassettePresentIn",
+			"outputName": "$TosControlState",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "true"
+					}
+				}
+			]
+		},
+		{
+			"id": "9a0062d0-6e51-4801-9970-a59b4a79b705",
+			"sourceId": "task_83813",
+			"targetId": "task_34616",
+			"inputName": "MaterialDataIn",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "task_116330_CarrierAttributesOut-task_116334_CarrierAttributes",
+			"sourceId": "task_116330",
+			"targetId": "task_116334",
+			"inputName": "CarrierAttributes",
+			"outputName": "CarrierAttributesOut",
+			"converters": []
+		},
+		{
+			"id": "task_116330_ContainerIDOut-task_116334_CarrierId",
+			"sourceId": "task_116330",
+			"targetId": "task_116334",
+			"inputName": "CarrierId",
+			"outputName": "ContainerIDOut",
+			"converters": []
+		},
+		{
+			"id": "task_116330_LoadPortOut-task_116334_PortNumber",
+			"sourceId": "task_116330",
+			"targetId": "task_116334",
+			"inputName": "PortNumber",
+			"outputName": "LoadPortOut",
+			"converters": []
+		},
+		{
+			"id": "task_116330_success-task_116334_activate",
+			"sourceId": "task_116330",
+			"targetId": "task_116334",
+			"inputName": "activate",
+			"outputName": "success",
+			"converters": []
+		},
+		{
+			"id": "task_116332_container-task_116330_containerIn",
+			"sourceId": "task_116332",
+			"targetId": "task_116330",
+			"inputName": "containerIn",
+			"outputName": "container",
+			"converters": []
+		},
+		{
+			"id": "task_116332_success-task_116330_activate",
+			"sourceId": "task_116332",
+			"targetId": "task_116330",
+			"inputName": "activate",
+			"outputName": "success",
+			"converters": []
+		},
+		{
+			"id": "93d30dab-a49c-458d-baed-0bd422b9dda7",
+			"sourceId": "task_83813",
+			"targetId": "task_116332",
+			"inputName": "containerId",
+			"outputName": "MaterialDataOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#customArrayPositionValue",
+					"params": {
+						"type": 10,
+						"position": "0"
+					}
+				},
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "ContainerName",
+						"type": 4,
+						"failIfNotFound": true
+					}
+				}
+			]
+		},
+		{
+			"id": "719db976-a9ac-456e-8d48-f19e78c2556b",
+			"sourceId": "task_83813",
+			"targetId": "task_116332",
+			"inputName": "activate",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "34341ff7-b8d2-4b5b-99c2-b5f109228d1c",
+			"sourceId": "task_116334",
+			"targetId": "task_34616",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "080d0c4d-ca8b-4a72-ad21-0e6373beed6f",
+			"sourceId": "task_83813",
+			"targetId": "task_116330",
+			"inputName": "MaterialDataIn",
+			"outputName": "MaterialDataOut"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff40",
+			"notes": [
+				{
+					"id": "note_198963",
+					"name": "Track In - Track Initial Validation Customization",
+					"value": "<p><strong>What it does:</strong></p><p>Default Behavior:</p><ul><li>Validates Slot Map&nbsp;<ul><li>Verify Slot Map existence;</li><li>Verify Slot Map content;</li></ul></li><li>Validates Gem Control State<ul><li>Expects Control State to be 5 (Online Remote);</li></ul></li><li>Validates Cassette Present<ul><li>Expects Cassette&nbsp;Present to be 1.</li></ul></li></ul><p>Allow for disconnecting any verification by setting to true the corresponding flags:</p><ul><li>Slot Map:&nbsp;DoNotValidateSlotMap;</li><li>Gem Control State:&nbsp;DoNotValidateGemControlState;</li><li>Cassette Present:&nbsp;DoNotValidateCassettePresent.</li></ul><p><strong>How to use it:</strong></p><ol><li>Request Variables corresponding to Gem Control State and Cassette&nbsp;Present;</li><li>Send MaterialData to the workflow Input Material Data;</li><li>Send Gem Control State to the&nbsp;GemControlState workflow input;</li><li>Send Cassette Present to the&nbsp;CassettePresent workflow input;</li><li>To disconnect any validation:&nbsp;<ol><li>Drag any output of the event to the corresponding validation skipper workflow Input;</li><li>Set a Converter of Any to Constant with Type Boolean and Value True.</li></ol></li></ol>",
+					"color": "#ffffa5"
+				},
+				{
+					"id": "note_200147",
+					"name": "Track In - Recipe Validation Customization",
+					"value": "<p><strong>What it does:</strong></p><p>Runs through the RecipeData structure of the Material Data structure from the lowest level to the highest one (Child Recipes to Parent Recipe), doing:</p><ul><li>Verify Recipe exists on equipment by comparing PPID with field NameOnEquipment of RecipeData structure;<ul><li>Executes S7F19</li></ul></li><li>Verify Recipe checksum on MES matches checksum of the Recipe existing on the Equipment;<ul><li>Executes S7F5</li></ul></li><li>If any verification fails and MES Resource has the attribute AllowDownloadRecipeAtTrackIn set to true, download Recipe to tool;<ul><li>&nbsp;Executes S7F1 and S7F3</li></ul></li><li>Else fail Track In;</li></ul><p><strong>Note:</strong></p><p>By default the Workflow task is pointing to&nbsp;RecipeValidation_01_UnformattedRecipeMainFlow which implements Unformatted Recipe logic, to set to Formatted recipes logic change the workflow to&nbsp;RecipeValidation_01_FormattedRecipeMainFlow which implements the behavior and Stream and Functions corresponding to that.</p><ul></ul><p><strong>How to use it:</strong></p><ol><li>Pass Material Data to the MaterialData input of the of workflow;</li><li>Activate after executing the initial validation;</li></ol>",
+					"color": "#ffffa5"
+				},
+				{
+					"id": "note_36668",
+					"name": "Track In - Create Process Job",
+					"value": "<p><strong>What it does:</strong></p><p>Creates Process Job</p><ul></ul><p><strong>Note:</strong></p><p>Workflow executed on this task might have to be customized;</p><ul>&nbsp;</ul><p><strong>How to use it:</strong></p><ol><li>Pass Material Data to the MaterialData input of the of workflow;</li><li>Activate after executing the recipe validation;</li></ol>",
+					"color": "#ffffa5"
+				},
+				{
+					"id": "note_16446",
+					"name": "Track In - Create Control Job",
+					"value": "<p><strong>What it does:</strong></p><p>Creates Control Job</p><ul></ul><p><strong>Note:</strong></p><p>Workflow executed on this task might have to be customized;</p><ul>&nbsp;</ul><p><strong>How to use it:</strong></p><ol><li>Pass Material Data to the MaterialData input of the of workflow;</li><li>Activate after creating Process Job;</li></ol>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_1796": {
+						"collapsed": false,
+						"position": {
+							"x": 809,
+							"y": 274
+						},
+						"outdated": false
+					},
+					"task_1677": {
+						"collapsed": false,
+						"position": {
+							"x": 5847,
+							"y": 509
+						},
+						"outdated": false
+					},
+					"task_70871": {
+						"collapsed": false,
+						"position": {
+							"x": 1313,
+							"y": 494
+						},
+						"outdated": false
+					},
+					"task_73090": {
+						"collapsed": false,
+						"position": {
+							"x": 2016,
+							"y": 234
+						},
+						"outdated": false
+					},
+					"task_83813": {
+						"collapsed": false,
+						"position": {
+							"x": 2486,
+							"y": 333
+						},
+						"outdated": false
+					},
+					"task_34616": {
+						"collapsed": false,
+						"position": {
+							"x": 4643,
+							"y": 498
+						},
+						"outdated": false
+					},
+					"task_14256": {
+						"collapsed": false,
+						"position": {
+							"x": 5239,
+							"y": 513
+						},
+						"outdated": false
+					},
+					"task_116330": {
+						"collapsed": false,
+						"position": {
+							"x": 3614,
+							"y": 414
+						},
+						"outdated": false
+					},
+					"task_116332": {
+						"collapsed": false,
+						"position": {
+							"x": 3081,
+							"y": 495
+						},
+						"outdated": false
+					},
+					"task_116334": {
+						"collapsed": false,
+						"position": {
+							"x": 4153,
+							"y": 476
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"251493f1-4d91-4125-a606-d40d8e6ac3eb": {
+						"vertices": []
+					},
+					"1a002a2c-a298-45aa-8663-f88bbfe8cbea": {
+						"vertices": []
+					},
+					"19cb355b-8e2a-4b26-8d6b-00849bbd8517": {
+						"vertices": [
+							{
+								"x": 2341,
+								"y": 854
+							},
+							{
+								"x": 948,
+								"y": 767
+							}
+						]
+					},
+					"03818fd8-aca1-4d0a-8f68-f241c5160ca1": {
+						"vertices": []
+					},
+					"85e19b85-fbe6-481e-be0e-aa151ae6b852": {
+						"vertices": [
+							{
+								"x": 2740,
+								"y": 965
+							},
+							{
+								"x": 1100,
+								"y": 935
+							}
+						]
+					},
+					"66f9b9ef-32eb-4d03-959f-7582351d1b53": {
+						"vertices": []
+					},
+					"5d35aa28-ad8d-41ea-a554-28a9cf33aff1": {
+						"vertices": []
+					},
+					"f5e66a95-b9f5-444a-8441-26737bb53dca": {
+						"vertices": [
+							{
+								"x": 4806,
+								"y": 1051
+							},
+							{
+								"x": 894,
+								"y": 1063
+							}
+						]
+					},
+					"c5cf3d3d-2dbd-4f42-bcac-be1eaaabee07": {
+						"vertices": []
+					},
+					"bc149e91-e19b-4b9e-a548-5d6e1bbb0a20": {
+						"vertices": []
+					},
+					"64ff0088-8835-4f08-8f7f-8122cd295e03": {
+						"vertices": []
+					},
+					"8cf5dc88-a3e7-436d-a1cc-8336539eb451": {
+						"vertices": []
+					},
+					"ac554eb7-9539-4398-af90-c9370580b4db": {
+						"vertices": [
+							{
+								"x": 6383,
+								"y": 1387
+							},
+							{
+								"x": 652,
+								"y": 1290
+							}
+						]
+					},
+					"3dec2a02-e754-48f1-8428-512ead40e6b4": {
+						"vertices": []
+					},
+					"9a0062d0-6e51-4801-9970-a59b4a79b705": {
+						"vertices": [
+							{
+								"x": 3346,
+								"y": 280
+							},
+							{
+								"x": 4247,
+								"y": 338
+							}
+						]
+					},
+					"task_116330_CarrierAttributesOut-task_116334_CarrierAttributes": {
+						"vertices": []
+					},
+					"task_116330_ContainerIDOut-task_116334_CarrierId": {
+						"vertices": []
+					},
+					"task_116330_LoadPortOut-task_116334_PortNumber": {
+						"vertices": []
+					},
+					"task_116330_success-task_116334_activate": {
+						"vertices": []
+					},
+					"task_116332_container-task_116330_containerIn": {
+						"vertices": []
+					},
+					"task_116332_success-task_116330_activate": {
+						"vertices": []
+					},
+					"719db976-a9ac-456e-8d48-f19e78c2556b": {
+						"vertices": []
+					},
+					"34341ff7-b8d2-4b5b-99c2-b5f109228d1c": {
+						"vertices": []
+					},
+					"080d0c4d-ca8b-4a72-ad21-0e6373beed6f": {
+						"vertices": []
+					},
+					"cc8ce25c-4960-4556-84a0-86daf88a8e99": {
+						"vertices": [
+							{
+								"x": 6813,
+								"y": 395
+							},
+							{
+								"x": 4784,
+								"y": 254
+							},
+							{
+								"x": 3202,
+								"y": 188
+							},
+							{
+								"x": 1035,
+								"y": 165
+							}
+						]
+					},
+					"3b51a8f9-c72d-43af-93e1-5da677635be9": {
+						"vertices": []
+					},
+					"93d30dab-a49c-458d-baed-0bd422b9dda7": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_198963": {
+						"collapsed": false,
+						"position": {
+							"x": 1683,
+							"y": 711
+						}
+					},
+					"note_200147": {
+						"collapsed": false,
+						"position": {
+							"x": 2548,
+							"y": 674
+						}
+					},
+					"note_36668": {
+						"collapsed": false,
+						"position": {
+							"x": 4699,
+							"y": 914
+						}
+					},
+					"note_16446": {
+						"collapsed": false,
+						"position": {
+							"x": 5267,
+							"y": 739
+						}
+					}
+				},
+				"zoom": 0.5900000000000003,
+				"pan": {
+					"x": 1556,
+					"y": 34
+				}
+			}
+		}
+	}
+}

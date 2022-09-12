@@ -1,4 +1,5 @@
-﻿using Cmf.Custom.Tests.Biz.Common.ERP.Material;
+﻿using Cmf.Custom.Tests.Biz.Common;
+using Cmf.Custom.Tests.Biz.Common.ERP.Material;
 using Cmf.Custom.Tests.Biz.Common.Extensions;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
@@ -270,7 +271,6 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomIncomingMaterialLotCreation_UpdateLotERPMessage_ErrorDifferentWaferList()
         {
-
             ///<Step> Prepare another message to create a lot with edc data outside the limits </Step>
             string lotMessageSample = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptUncertificated.xml");
             GoodsReceiptCertificate lotMessage = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(lotMessageSample);
@@ -338,7 +338,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
             ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
             expectedErrorMessage = $"The lot {lotName} contains 1 wafers instead of 0";
-            Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+            Assert.IsTrue(ie.ResultDescription != null && ie.ResultDescription.Contains(expectedErrorMessage),
+                $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
         }
 
         /// <summary>
@@ -360,7 +361,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string lotMessageSample = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptUncertificated.xml");
             GoodsReceiptCertificate lotMessage = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(lotMessageSample);
             string lotName = lotMessage.Material.Name = Guid.NewGuid().ToString("N");
-            string waferlName = lotMessage.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
+            lotMessage.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
 
             ///<Step> Send ERP Message </Step>
             customExecutionScenario.SmartTablesToClearInSetup = new List<string> { "MaterialDataCollectionContext" };
@@ -403,7 +404,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
             IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
             string expectedErrorMessage = $"The material {lotName} step can not be changed to {lotMessage.Material.Step}";
-            Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+            Assert.IsTrue(ie.ResultDescription != null && ie.ResultDescription.Contains(expectedErrorMessage),
+                $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
         }
 
         /// <summary>
@@ -423,7 +425,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string lotMessageSample = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptUncertificated.xml");
             GoodsReceiptCertificate lotMessage = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(lotMessageSample);
             string lotName = lotMessage.Material.Name = Guid.NewGuid().ToString("N");
-            string waferlName = lotMessage.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
+            lotMessage.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
 
             ///<Step> Send ERP Message </Step>
             customExecutionScenario.SmartTablesToClearInSetup = new List<string> { "MaterialDataCollectionContext" };
@@ -435,7 +437,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
             IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
             string expectedErrorMessage = $"The material {lotName} certification configuration is missing the certificate or the EDC Data.";
-            Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+            Assert.IsTrue(ie.ResultDescription != null && ie.ResultDescription.Contains(expectedErrorMessage),
+                $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
         }
 
         /// <summary>
@@ -466,7 +469,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
             IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
             string expectedErrorMessage = $"The material {lotName} certification configuration is missing the certificate or the EDC Data.";
-            Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+            Assert.IsTrue(ie.ResultDescription != null && ie.ResultDescription.Contains(expectedErrorMessage),
+                $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
         }
 
         /// <summary>
@@ -488,7 +492,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             string lotMessageSample = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptUncertificated.xml");
             GoodsReceiptCertificate lotMessage = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(lotMessageSample);
             string lotName = lotMessage.Material.Name = Guid.NewGuid().ToString("N");
-            string waferlName = lotMessage.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
+            lotMessage.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
 
             ///<Step> Send ERP Message </Step>
             customExecutionScenario.SmartTablesToClearInSetup = new List<string> { "MaterialDataCollectionContext" };
@@ -531,14 +535,15 @@ namespace Cmf.Custom.Tests.Biz.ERP
             IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
             ie.Load();
             string expectedErrorMessage = $"The material {lotName} product can not be changed to {lotMessage.Material.Product}";
-            Assert.IsTrue(ie.ResultDescription.Contains(expectedErrorMessage), $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+            Assert.IsTrue(ie.ResultDescription != null && ie.ResultDescription.Contains(expectedErrorMessage),
+                $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
         }
 
         /// <summary>
         /// Description:
         ///     - Create a Material received from XML message
         /// 
-        /// Acceptance Citeria:
+        /// Acceptance Criteria:
         ///     - The Material has the structure defined in the XML message
         ///  
         /// </summary>
@@ -553,13 +558,13 @@ namespace Cmf.Custom.Tests.Biz.ERP
             // Deserialize message in a MaterialData object
             GoodsReceiptCertificate incomingLot = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(incomingLotMessage);
 
-            //// Set random name to Lot
+            // Set random name to Lot
             incomingLot.Material.Name = Guid.NewGuid().ToString("N");
 
-            //// Set random name to Logical Wafer
+            // Set random name to Logical Wafer
             incomingLot.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
 
-            //// Set random name to Wafer
+            // Set random name to Wafer
             incomingLot.Material.Wafers[0].Wafers[0].Name = Guid.NewGuid().ToString("N");
 
             // Set scenario IsToSendIncomingMaterial property
@@ -596,9 +601,171 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             // Validate created Wafers
             ValidateCreatedWafers(incomingLot.Material.Wafers);
-
-            this.materials.Add(createdLot);
         }
+
+        /// <summary>
+        /// Description:
+        ///     - Create a Lot through an Integration Entry
+        ///         - The Production Order does not exists on MES
+        /// Acceptance Criteria:
+        ///     - Integration Entry will return a message about the Production Order does not exist in the MES.
+        /// </summary>
+        /// <TestCaseID>CustomIncomingMaterialLotCreation_CreateLotFromMessage_ErrorNonExistentProductionOrder</TestCaseID>
+        /// <Author>André Cruz</Author>
+        [TestMethod]
+        public void CustomIncomingMaterialLotCreation_CreateLotFromMessage_ErrorNonExistentProductionOrder()
+        {
+            // Load Incoming Lot message
+            string incomingLotMessage = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptCertificate.xml");
+
+            // Deserialize message in a MaterialData object
+            GoodsReceiptCertificate incomingLot = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(incomingLotMessage);
+
+            // Set random name to Lot
+            incomingLot.Material.Name = Guid.NewGuid().ToString("N");
+            // Set random name to Logical Wafer
+            incomingLot.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
+            // Set non existing Production Order
+            incomingLot.Material.ProductionOrder = "CMFNonExistentProductionOrder";
+
+            // Set scenario IsToSendIncomingMaterial property
+            customExecutionScenario.IsToSendIncomingMaterial = true;
+
+            // Set scenario GoodsReceiptCertificate property
+            customExecutionScenario.GoodsReceiptCertificate = incomingLot;
+
+            // Setup scenario
+            customExecutionScenario.Setup();
+
+            // Get created Integration Entry context
+            IntegrationEntry integrationEntry = customExecutionScenario.IntegrationEntries.Last();
+            integrationEntry.Load();
+
+            // Validate throw Message associated to Integration Entry
+            string localizedMessage = string.Format(CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageCustomProductionOrderDoesNotExists));
+            StringAssert.Contains(integrationEntry.ResultDescription, string.Format(localizedMessage, incomingLot.Material.ProductionOrder), "The returned message is not as expected.");
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Create a Lot through an Integration Entry
+        ///         - The Primary Quantity is missing
+        /// Acceptance Criteria:
+        ///     - Integration Entry will return a message about the Primary Quantity being missing/invalid.
+        /// </summary>
+        /// <TestCaseID>CustomIncomingMaterialLotCreation_CreateLotFromMessage_ErrorNonExistentPrimaryQuantity</TestCaseID>
+        [TestMethod]
+        public void CustomIncomingMaterialLotCreation_CreateLotFromMessage_ErrorNonExistentPrimaryQuantity()
+        {
+            // Load Incoming Lot message
+            string incomingLotMessage = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptCertificate.xml");
+
+            // Deserialize message in a MaterialData object
+            GoodsReceiptCertificate incomingLot = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(incomingLotMessage);
+
+            // Set random name to Lot
+            incomingLot.Material.Name = Guid.NewGuid().ToString("N");
+
+            // Set random name to Logical Wafer
+            incomingLot.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
+
+            // Set Primary Quantity null
+            incomingLot.Material.PrimaryQuantity = null;
+
+            // Set scenario IsToSendIncomingMaterial property
+            customExecutionScenario.IsToSendIncomingMaterial = true;
+
+            // Set scenario GoodsReceiptCertificate property
+            customExecutionScenario.GoodsReceiptCertificate = incomingLot;
+
+            // Setup scenario
+            customExecutionScenario.Setup();
+
+            // Get created Integration Entry context
+            IntegrationEntry integrationEntry = customExecutionScenario.IntegrationEntries.Last();
+            integrationEntry.Load();
+
+            // Validate throw Message associated to Integration Entry
+            string localizedMessage = string.Format(CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageCustomInvalidPrimaryQuantity), incomingLot.Material.Name);
+            StringAssert.Contains(integrationEntry.ResultDescription, string.Format(localizedMessage, incomingLot.Material.Name), "The returned message is not as expected.");
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Create a Lot through an Integration Entry
+        ///         - The Primary Unit is missing
+        /// Acceptance Criteria:
+        ///     - Integration Entry will return a message about the Primary Unit being missing.
+        /// </summary>
+        /// <TestCaseID>CustomIncomingMaterialLotCreation_CreateLotFromMessage_ErrorNonExistentPrimaryUnit</TestCaseID>
+        [TestMethod]
+        public void CustomIncomingMaterialLotCreation_CreateLotFromMessage_ErrorNonExistentPrimaryUnit()
+        {
+            // Load Incoming Lot message
+            string incomingLotMessage = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptCertificate.xml");
+
+            // Deserialize message in a MaterialData object
+            GoodsReceiptCertificate incomingLot = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(incomingLotMessage);
+
+            // Set random name to Lot
+            incomingLot.Material.Name = Guid.NewGuid().ToString("N");
+
+            // Set random name to Logical Wafer
+            incomingLot.Material.Wafers[0].Name = Guid.NewGuid().ToString("N");
+
+            // Set Primary Unit null
+            incomingLot.Material.PrimaryUnit = null;
+
+            // Set scenario IsToSendIncomingMaterial property
+            customExecutionScenario.IsToSendIncomingMaterial = true;
+
+            // Set scenario GoodsReceiptCertificate property
+            customExecutionScenario.GoodsReceiptCertificate = incomingLot;
+
+            // Setup scenario
+            customExecutionScenario.Setup();
+            
+            // Get created Integration Entry context
+            IntegrationEntry integrationEntry = customExecutionScenario.IntegrationEntries.Last();
+            integrationEntry.Load();
+
+            // Validate throw Message associated to Integration Entry
+            string localizedMessage = string.Format(CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageCustomPrimaryUnitObjectNull), incomingLot.Material.Name);
+            StringAssert.Contains(integrationEntry.ResultDescription, string.Format(localizedMessage, incomingLot.Material.Name), "The returned message is not as expected.");
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - The MaterialDataCollectionContext has no configuration
+        ///     - Send a message to create a lot 
+        ///         - The Lot does not have information for the wafers
+        /// Acceptance Criteria:
+        ///     - Error message should be: Material {lotName} certification configuration is missing the certificate or the EDC Data.
+        /// </summary>
+        /// <TestCaseID>CustomIncomingMaterialLotCreation.CustomIncomingMaterialLotCreation_CreateLotERPMessage_ErrorNoSubMaterials</TestCaseID>
+        [TestMethod]
+        public void CustomIncomingMaterialLotCreation_CreateLotERPMessage_ErrorNoSubMaterials()
+        {
+            ///<Step> Prepare another message to create a lot with edc data </Step>
+            string lotMessageSample = FileUtilities.LoadFile($@"ERP\Samples\SampleGoodsReceiptWithoutWafer.xml");
+            GoodsReceiptCertificate lotMessage = CustomUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(lotMessageSample);
+            string lotName = lotMessage.Material.Name = Guid.NewGuid().ToString("N");
+
+            ///<Step> Send ERP Message </Step>
+            customExecutionScenario.SmartTablesToClearInSetup = new List<string> { "MaterialDataCollectionContext" };
+            customExecutionScenario.IsToSendIncomingMaterial = true;
+            customExecutionScenario.GoodsReceiptCertificate = lotMessage;
+            customExecutionScenario.Setup();
+
+            ///<ExpecteResult> Integration entry should not be processed </ExpecteResult>
+            IntegrationEntry ie = customExecutionScenario.IntegrationEntries.Last();
+            ie.Load();
+            string expectedErrorMessage = $"The material {lotName} certification configuration is missing the certificate or the EDC Data.";
+            Assert.IsTrue(ie.ResultDescription != null && ie.ResultDescription.Contains(expectedErrorMessage),
+                $"Response for integration entry message should be {expectedErrorMessage}, instead is {ie.ResultDescription}.");
+        }
+
+        #region Help methods
 
         /// <summary>
         /// Validate Created Wafers
@@ -639,31 +806,52 @@ namespace Cmf.Custom.Tests.Biz.ERP
         /// </summary>
         private void ValidateCreatedMaterial(MaterialData materialData, Material material)
         {
-            Assert.IsTrue(material.Name.Equals(materialData.Name), $"Material Name should be: {material.Name}, instead is: {materialData.Name}");
+            Assert.AreEqual(materialData.Name, material.Name, $"Material Name should be {materialData.Name}");
 
-            Assert.IsTrue(material.Product.Name.Equals(materialData.Product), $"Product Name should be: {material.Product.Name}, instead is: {materialData.Product}");
+            Assert.AreEqual(materialData.Product, material.Product.Name, $"Product Name should be {materialData.Product}");
 
-            Assert.IsTrue(material.Type.Equals(materialData.Type), $"Material Type should be: {material.Type}, instead is: {materialData.Type}");
+            Assert.AreEqual(materialData.Type, material.Type, $"Material Type should be {materialData.Type}");
 
-            Assert.IsTrue(material.CurrentMainState.StateModel.Name.Equals(materialData.StateModel), $"State Model should be: {material.CurrentMainState.StateModel.Name}, instead is: {materialData.StateModel}");
+            Assert.AreEqual(materialData.StateModel, material.CurrentMainState.StateModel.Name, $"State Model should be {materialData.StateModel}");
 
-            Assert.IsTrue(material.CurrentMainState.CurrentState.Name.Equals(materialData.State), $"Material State should be: {material.CurrentMainState.CurrentState.Name}, instead is: {materialData.State}");
+            Assert.AreEqual(materialData.State, material.CurrentMainState.CurrentState.Name, $"Material State should be {materialData.State}");
 
-            Assert.IsTrue(material.Form.Equals(materialData.Form), $"Material Form should be: {material.Form}, instead is: {materialData.Form}");
+            Assert.AreEqual(materialData.Form, material.Form, $"Material Form should be {materialData.Form}");
 
-            Assert.IsTrue(material.Facility.Name.Equals(materialData.Facility), $"Facility should be: {material.Facility.Name}, instead is: {materialData.Facility}");
+            Assert.AreEqual(materialData.Facility, material.Facility.Name, $"Facility should be {materialData.Facility}");
 
-            Assert.IsTrue(material.Flow.Name.Equals(materialData.Flow), $"Flow should be: {material.Flow.Name}, instead is: {materialData.Flow}");
+            Assert.AreEqual(materialData.Flow, material.Flow.Name, $"Flow should be {materialData.Flow}");
 
-            Assert.IsTrue(material.Step.Name.Equals(materialData.Step), $"Step should be: {material.Step.Name}, instead is: {materialData.Step}");
+            Assert.AreEqual(materialData.Step, material.Step.Name, $"Step should be {materialData.Step}");
 
+            Assert.AreEqual(decimal.Parse(materialData.PrimaryQuantity), material.PrimaryQuantity, $"Primary Quantity should be {string.Format("{0:0.00}", materialData.PrimaryQuantity)}");
+
+            Assert.AreEqual(materialData.PrimaryUnit, material.PrimaryUnits, $"Primary Units should be {materialData.PrimaryUnit}");
+
+            // Validate SecondaryQuantity and SecondaryUnits
+            if (!string.IsNullOrWhiteSpace(materialData.SecondaryQuantity) && !string.IsNullOrWhiteSpace(materialData.SecondaryUnit))
+            {
+                Assert.AreEqual(string.Format("{0:0.00}", materialData.SecondaryQuantity), string.Format("{0:0.00}", material.SecondaryQuantity), $"Primary Quantity should be {string.Format("{0:0.00}", materialData.SecondaryQuantity)}");
+
+                Assert.AreEqual(materialData.SecondaryUnit, material.SecondaryUnits, $"Primary Units should be {materialData.SecondaryUnit}");
+            }
+
+            // Validate ProductionOrder
+            if (!string.IsNullOrWhiteSpace(materialData.ProductionOrder))
+            {
+                Assert.AreEqual(materialData.ProductionOrder, material.ProductionOrder.Name, $"Production Order should be {materialData.ProductionOrder}");
+            }
+
+            // Validate the Material Attributes
             if (material.Attributes.Count > 0 && materialData.MaterialAttributes.Count > 0)
             {
                 for (int i = 0; i < materialData.MaterialAttributes.Count; i++)
                 {
-                    Assert.IsTrue(material.AttributeEquals(materialData.MaterialAttributes[i].Name, materialData.MaterialAttributes[i].value), $"Sub-Material attribute {materialData.MaterialAttributes[i].Name} should have the value {materialData.MaterialAttributes[i].value}, but was {material.GetAttributeValue(materialData.MaterialAttributes[i].Name, string.Empty)}");
+                    Assert.IsTrue(material.AttributeEquals(materialData.MaterialAttributes[i].Name, materialData.MaterialAttributes[i].value), $"Sub-Material attribute {materialData.MaterialAttributes[i].Name} should have the value {materialData.MaterialAttributes[i].value}.");
                 }
             }
         }
+
+        #endregion Help methods
     }
 }

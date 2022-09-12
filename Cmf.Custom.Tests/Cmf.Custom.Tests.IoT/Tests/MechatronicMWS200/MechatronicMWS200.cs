@@ -147,7 +147,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            ConfigureConnection(resourceName, 5013, connectionAttributes: new Dictionary<string, object>() { { "IsSorter", true } });
+            ConfigureConnection(resourceName, 5015, connectionAttributes: new Dictionary<string, object>() { { "IsSorter", true } });
             //ConfigureConnection(resourceName, 5013);
 
         }

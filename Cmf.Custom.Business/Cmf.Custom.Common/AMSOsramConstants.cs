@@ -567,6 +567,26 @@ namespace Cmf.Custom.AMSOsram.Common
         /// </summary>
         public const string LocalizedMessageCustomMaterialObjectNull = "CustomMaterialObjectNull";
 
+        /// <summary>
+        /// Localized Message: LocalizedMessageProductionOrderDoesNotExists
+        /// </summary>
+        public const string LocalizedMessageCustomProductionOrderDoesNotExists = "CustomProductionOrderDoesNotExists";
+
+        /// <summary>
+        /// Localized Message: CustomInvalidPrimaryQuantity
+        /// </summary>
+        public const string LocalizedMessageCustomInvalidPrimaryQuantity = "CustomInvalidPrimaryQuantity";
+
+        /// <summary>
+        /// Localized Message: CustomPrimaryUnitObjectNull
+        /// </summary>
+        public const string LocalizedMessageCustomPrimaryUnitObjectNull = "CustomPrimaryUnitObjectNull";
+
+        /// <summary> 
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageContainerCannotBeUndocked
+        /// </summary>
+        public static string LocalizedMessageContainerCannotBeUndocked = "CustomLocalizedMessageContainerCannotBeUndocked";
+
         #endregion
 
         #region State Model
@@ -629,6 +649,11 @@ namespace Cmf.Custom.AMSOsram.Common
         /// Default Protocol to open when sending information to Space
         /// </summary>
         public static string DefaultSpaceProtocol = "/AMSOsram/Protocol/Space";
+
+        /// <summary>
+        /// Default Vendor ContainerTypes
+        /// </summary>
+        public static string DefaultVendorContainerTypesConfig = "/AMSOsram/Container/VendorContainerTypes/";
 
         /// <summary>
         /// Alphanumeric allowed digits on ProductionLotName Name Generator

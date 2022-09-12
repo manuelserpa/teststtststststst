@@ -121,6 +121,11 @@
         public const string ContainerSMIFPod = "SMIF Pod 8-Inch";
 
         /// <summary>
+        /// Test Container Type: "PEEK Cassette 8-Inch(13)"
+        /// </summary
+        public const string ContainerPeekCassete = "PEEK Cassette 8-Inch(13)"; 
+
+        /// <summary>
         /// Form: Logistical wafer
         /// </summary>
         public static string FormWafer = "Logistical wafer";
@@ -305,9 +310,30 @@
         /// </summary>
         public static string FDCActiveConfigPath = "/AMSOsram/FDC/Active/";
 
-        
-
+        /// <summary>
+        /// Default ContainerType that is not allowed to be undocked
+        /// </summary>
+        public static string DefaultVendorContainerTypesConfig = "/AMSOsram/Container/VendorContainerTypes/";
 
         #endregion Configurations
+
+        #region Localized Messages
+
+        /// <summary>
+        /// Localized Message: CustomProductionOrderDoesNotExists
+        /// </summary>
+        public const string LocalizedMessageCustomProductionOrderDoesNotExists = "CustomProductionOrderDoesNotExists";
+
+        /// <summary>
+        /// Localized Message: CustomInvalidPrimaryQuantity
+        /// </summary>
+        public const string LocalizedMessageCustomInvalidPrimaryQuantity = "CustomInvalidPrimaryQuantity";
+
+        /// <summary>
+        /// Localized Message: CustomPrimaryUnitObjectNull
+        /// </summary>
+        public const string LocalizedMessageCustomPrimaryUnitObjectNull = "CustomPrimaryUnitObjectNull";
+
+        #endregion Localized Messages
     }
 }

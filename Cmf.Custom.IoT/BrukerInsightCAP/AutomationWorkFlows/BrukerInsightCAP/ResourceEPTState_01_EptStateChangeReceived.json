@@ -1,0 +1,186 @@
+{
+	"tasks": [
+		{
+			"id": "task_38972",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "EPT_STATE",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "EquipmentEPTStateChangeEvent"
+					}
+				],
+				"___cmf___description": "EquipmentEPTStateChangeEvent"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_39071",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "UpdateEquipmentPerformanceTrackingState",
+					"IsShared": true,
+					"Name": "UpdateEquipmentPerformanceTrackingState"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "EPTState",
+						"valueType": {
+							"friendlyName": "EPTState",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "StateName",
+						"valueType": {
+							"friendlyName": "StateName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "BlockedReason",
+						"valueType": {
+							"friendlyName": "BlockedReason",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "LoadPortNumber",
+						"valueType": {
+							"friendlyName": "LoadPortNumber",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ChamberResourceNumber",
+						"valueType": {
+							"friendlyName": "ChamberResourceNumber",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ComponentResourceNumber",
+						"valueType": {
+							"friendlyName": "ComponentResourceNumber",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [],
+				"___cmf___name": "UpdateEquipmentPerformanceTrackingState"
+			}
+		}
+	],
+	"converters": [],
+	"links": [
+		{
+			"id": "899d9731-db05-4ede-aa03-4b51a6a8518c",
+			"sourceId": "task_38972",
+			"targetId": "task_39071",
+			"inputName": "EPTStateIn",
+			"outputName": "$EPT_STATE"
+		},
+		{
+			"id": "48b5be5d-f6e8-43b9-8f43-37e5eb9ec048",
+			"sourceId": "task_38972",
+			"targetId": "task_39071",
+			"inputName": "activate",
+			"outputName": "$EPT_STATE"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#0080ff",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_38972": {
+						"collapsed": false,
+						"position": {
+							"x": 896,
+							"y": 944
+						},
+						"outdated": false
+					},
+					"task_39071": {
+						"collapsed": false,
+						"position": {
+							"x": 1550,
+							"y": 940
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"899d9731-db05-4ede-aa03-4b51a6a8518c": {
+						"vertices": []
+					},
+					"48b5be5d-f6e8-43b9-8f43-37e5eb9ec048": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"zoom": 0.98,
+				"pan": {
+					"x": 718,
+					"y": 818
+				}
+			}
+		}
+	}
+}
