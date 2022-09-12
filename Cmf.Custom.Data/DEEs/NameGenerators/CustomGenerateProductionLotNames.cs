@@ -131,6 +131,12 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             // Get alphanumeric allowed digits from Context
             string alphanumericAllowedDigits = ApplicationContext.CallContext.GetInformationContext("AlphanumericAllowedDigits") as string;
 
+            // Get alphanumeric allowed digits size
+            int alphaNumericDigitsSize = alphanumericAllowedDigits.Length;
+
+            // Set number of characters that will be generated
+            int numberOfCharacters = 6;
+
             // Lot Name Generator builder
             StringBuilder generatedLotName = new StringBuilder();
 
@@ -148,67 +154,45 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             customGenProdLotNamesNG.LoadGeneratorContexts(out int totalRows);
             contextNG = customGenProdLotNamesNG.Contexts.FirstOrDefault(ng => ng.Context == contextKey);
 
-            // Counter based on ASCII Table
-            string currentCounterValue = string.Empty;
+            // Create counter
+            int lastCounterValue = 0;
 
             if (contextNG != null)
             {
                 // Get last counter value from NG Context
-                currentCounterValue = string.Format("{0:000000000000}", contextNG.LastCounterValue);
+                lastCounterValue = contextNG.LastCounterValue;
             }
-            else
+
+            // Increment last counter value
+            lastCounterValue++;
+
+            // Set next counter value
+            int nextCounterValue = lastCounterValue;
+
+            string alphanumericCounter = string.Empty;
+
+            for (int i = 0; i < numberOfCharacters; i++)
             {
-                // - Int: 48 is equals to Char: 0
-                // - Default: "48 48 48 48 48 48" => "0 0 0 0 0 0"
-                currentCounterValue = "484848484848";
+                int currLetterInt = lastCounterValue % alphaNumericDigitsSize;
+                alphanumericCounter += (char)alphanumericAllowedDigits[0 + currLetterInt];
+                lastCounterValue /= alphaNumericDigitsSize;
             }
 
-            // Get Char value from the Substring Decimal value
-            char firstDigit = Convert.ToChar(Convert.ToInt32(currentCounterValue.Substring(0, 2)));
-            char secondDigit = Convert.ToChar(Convert.ToInt32(currentCounterValue.Substring(2, 2)));
-            char thirdDigit = Convert.ToChar(Convert.ToInt32(currentCounterValue.Substring(4, 2)));
-            char fourthDigit = Convert.ToChar(Convert.ToInt32(currentCounterValue.Substring(6, 2)));
-            char fifthDigit = Convert.ToChar(Convert.ToInt32(currentCounterValue.Substring(8, 2)));
-            char sixthDigit = Convert.ToChar(Convert.ToInt32(currentCounterValue.Substring(10, 2)));
-
-            string newCounterValue = $"{firstDigit}{secondDigit}{thirdDigit}{fourthDigit}{fifthDigit}{sixthDigit}";
-
-            bool addValue = true;
-
-            // Calculate new Counter Value using alphanumeric allowed digits
-            for (int i = newCounterValue.Length - 1; i >= 0 && addValue; i--)
-            {
-                int position = alphanumericAllowedDigits.IndexOf(newCounterValue[i]);
-
-                if (position != (alphanumericAllowedDigits.Length - 1))
-                {
-                    newCounterValue = newCounterValue.Remove(i, 1).Insert(i, alphanumericAllowedDigits[position + 1].ToString());
-                    addValue = false;
-                }
-                else
-                {
-                    newCounterValue = newCounterValue.Remove(i, 1).Insert(i, alphanumericAllowedDigits[0].ToString());
-                }
-            }
+            // Revert the counter Chars order
+            char[] counterChars = alphanumericCounter.ToCharArray();
+            Array.Reverse(counterChars);
+            alphanumericCounter = new string(counterChars);
 
             // 6-digits Counter Value identifier
-            generatedLotName.Append(newCounterValue);
+            generatedLotName.Append(alphanumericCounter);
 
             // Split Lot counter identifier
             generatedLotName.Append(AMSOsramConstants.CustomNameGeneratorSplitLotCounter);
 
-            // Convert the counter value to Integer
-            string lastCounterValue = string.Empty;
-
-            foreach (char value in newCounterValue)
-            {
-                lastCounterValue += string.Format("{0:00}", Convert.ToInt32(value));
-            }
-
             // Save Name Generator context
             if (contextNG != null)
             {
-                contextNG.LastCounterValue = Convert.ToInt32(lastCounterValue);
+                contextNG.LastCounterValue = nextCounterValue;
                 contextNG.Save();
             }
             else
@@ -218,7 +202,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                     new GeneratorContext
                     {
                         Context = contextKey,
-                        LastCounterValue = Convert.ToInt32(lastCounterValue)
+                        LastCounterValue = nextCounterValue
                     }
                 });
             }
