@@ -38,23 +38,36 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             {
                 Material material = Input["EntitySource"] as Material;
 
-                string productionLine = string.Empty;
-
                 if (material != null && material.Product != null)
                 {
-                    // Set ProductLine Product attribute
-                    if (material.Product.HasRelatedAttribute(AMSOsramConstants.ProductAttributeProductionLine, true))
+                    // Throw an exception case Material Form is not a Lot
+                    if (!material.Form.Equals(AMSOsramConstants.MaterialLotForm, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        productionLine = material.Product.GetRelatedAttributeValue(AMSOsramConstants.ProductAttributeProductionLine) as string;
+                        throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageFormMaterialIsNotLot,
+                                                                                  material.Form));
                     }
-                    else
-                    {
-                        return canExecute;
-                    }
-                }
 
-                if (!string.IsNullOrWhiteSpace(productionLine))
-                {
+                    // Throw an exception case Configuration has no associated value
+                    if (!Config.TryGetConfig(AMSOsramConstants.DefaultLotNameAllowedCharacters, out Config lotNameAllowedCharactersConfig) ||
+                        string.IsNullOrWhiteSpace(lotNameAllowedCharactersConfig.GetConfigValue<string>()))
+                    {
+                        throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageConfigValueIsNullOrWhiteSpace,
+                                                                                  AMSOsramConstants.DefaultLotNameAllowedCharacters));
+                    }
+
+                    // Throw an exception case ProductionLine attribute has no associated value
+                    if (!material.Product.HasRelatedAttribute(AMSOsramConstants.ProductAttributeProductionLine, true))
+                    {
+                        throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageProductionLineAttributeWithoutValue,
+                                                                                  material.Product.Name));
+                    }
+
+                    // Set alphanumeric allowed characters Config value to Context
+                    ApplicationContext.CallContext.SetInformationContext("LotNameAllowedCharacters", lotNameAllowedCharactersConfig.GetConfigValue<string>());
+
+                    // Set ProductLine Product attribute value
+                    string productionLine = material.Product.GetRelatedAttributeValue(AMSOsramConstants.ProductAttributeProductionLine) as string;
+
                     // Load Generic Table CustomProductionLineConversion
                     GenericTable customProdLineConversionGT = new GenericTable() { Name = AMSOsramConstants.GenericTableCustomProductionLineConversion };
                     customProdLineConversionGT.Load();
@@ -71,26 +84,24 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                         }
                     });
 
-                    if (customProdLineConversionGT.HasData)
+                    // Throw an exception case GT has no data for specific ProductionLine value
+                    if (!customProdLineConversionGT.HasData)
                     {
-                        DataSet prodLineConversionDataSet = NgpDataSet.ToDataSet(customProdLineConversionGT.Data);
-
-                        // Set Site associated to ProductionLine attribute to Context 
-                        ApplicationContext.CallContext.SetInformationContext("SiteName", prodLineConversionDataSet.Tables[0].Rows[0][AMSOsramConstants.GenericTableCustomProductionLineConversionSiteProperty]);
-
-                        // Set Facility associated to ProductionLine attribute to Context 
-                        ApplicationContext.CallContext.SetInformationContext("FacilityName", prodLineConversionDataSet.Tables[0].Rows[0][AMSOsramConstants.GenericTableCustomProductionLineConversionFacilityProperty]);
-
-                        // Get alphanumeric allowed digits from Config
-                        if (Config.TryGetConfig(AMSOsramConstants.DefaultProductionLotNameAlphanumericAllowedDigits, out Config prodLotNameAplhanumericAllowedDigitsConfig) &&
-                            !string.IsNullOrWhiteSpace(prodLotNameAplhanumericAllowedDigitsConfig.GetConfigValue<string>()))
-                        {
-                            // Set alphanumeric allowed digits Config value to Context 
-                            ApplicationContext.CallContext.SetInformationContext("AlphanumericAllowedDigits", prodLotNameAplhanumericAllowedDigitsConfig.GetConfigValue<string>());
-
-                            canExecute = true;
-                        }
+                        throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageGTWihtoutDataForSpecificProductionLine,
+                                                                                  AMSOsramConstants.GenericTableCustomProductionLineConversion,
+                                                                                  productionLine));
                     }
+
+                    // Convert Generic Table data to DataSet
+                    DataSet prodLineConversionDataSet = NgpDataSet.ToDataSet(customProdLineConversionGT.Data);
+
+                    // Set Site associated to ProductionLine attribute to Context 
+                    ApplicationContext.CallContext.SetInformationContext("SiteName", prodLineConversionDataSet.Tables[0].Rows[0][AMSOsramConstants.GenericTableCustomProductionLineConversionSiteProperty]);
+
+                    // Set Facility associated to ProductionLine attribute to Context 
+                    ApplicationContext.CallContext.SetInformationContext("FacilityName", prodLineConversionDataSet.Tables[0].Rows[0][AMSOsramConstants.GenericTableCustomProductionLineConversionFacilityProperty]);
+
+                    canExecute = true;
                 }
             }
 
@@ -128,11 +139,11 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             // Get Facility name from Context
             string facilityName = ApplicationContext.CallContext.GetInformationContext("FacilityName") as string;
 
-            // Get alphanumeric allowed digits from Context
-            string alphanumericAllowedDigits = ApplicationContext.CallContext.GetInformationContext("AlphanumericAllowedDigits") as string;
+            // Get alphanumeric allowed characters from Context
+            string lotNameAllowedCharacters = ApplicationContext.CallContext.GetInformationContext("LotNameAllowedCharacters") as string;
 
-            // Get alphanumeric allowed digits size
-            int alphaNumericDigitsSize = alphanumericAllowedDigits.Length;
+            // Get alphanumeric allowed characters size
+            int allowedCharactersSize = lotNameAllowedCharacters.Length;
 
             // Set number of characters that will be generated
             int numberOfCharacters = 6;
@@ -140,11 +151,8 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             // Lot Name Generator builder
             StringBuilder generatedLotName = new StringBuilder();
 
-            // Site name identifier
-            generatedLotName.Append(siteName.Substring(0, 1));
-
-            // Facility name identifier
-            generatedLotName.Append(facilityName.Substring(0, 1));
+            // Site and Facility name identifier
+            generatedLotName.AppendFormat("{0}{1}", siteName.Substring(0, 1), facilityName.Substring(0, 1));
 
             // Context key
             string contextKey = generatedLotName.ToString();
@@ -173,9 +181,17 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
 
             for (int i = 0; i < numberOfCharacters; i++)
             {
-                int currLetterInt = lastCounterValue % alphaNumericDigitsSize;
-                alphanumericCounter += (char)alphanumericAllowedDigits[0 + currLetterInt];
-                lastCounterValue /= alphaNumericDigitsSize;
+                int currLetterInt = lastCounterValue % allowedCharactersSize;
+                alphanumericCounter += (char)lotNameAllowedCharacters[0 + currLetterInt];
+                lastCounterValue /= allowedCharactersSize;
+            }
+
+            // Throw an exception case NG counter has insufficient number of digits
+            if (lastCounterValue > 0)
+            {
+                throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageInsufficientDigitsForNameGenerator,
+                                                                          AMSOsramConstants.CustomGenerateProductionLotNames,
+                                                                          nextCounterValue.ToString()));
             }
 
             // Revert the counter Chars order
@@ -183,11 +199,8 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             Array.Reverse(counterChars);
             alphanumericCounter = new string(counterChars);
 
-            // 6-digits Counter Value identifier
-            generatedLotName.Append(alphanumericCounter);
-
-            // Split Lot counter identifier
-            generatedLotName.Append(AMSOsramConstants.CustomNameGeneratorSplitLotCounter);
+            // 6-digits and Lot Counter Value identifier
+            generatedLotName.AppendFormat("{0}00", alphanumericCounter);
 
             // Save Name Generator context
             if (contextNG != null)

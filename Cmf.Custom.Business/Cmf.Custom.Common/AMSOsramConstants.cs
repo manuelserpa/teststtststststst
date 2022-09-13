@@ -1,6 +1,4 @@
-﻿using Stimulsoft.Base.Localization;
-
-namespace Cmf.Custom.AMSOsram.Common
+﻿namespace Cmf.Custom.AMSOsram.Common
 {
     /// <summary>
     /// Support class that represents the constants to be used on the business layer
@@ -77,11 +75,6 @@ namespace Cmf.Custom.AMSOsram.Common
         /// Default Material Lot Form
         /// </summary>
         public const string MaterialLotForm = "Lot";
-
-        /// <summary>
-        /// Default Split Lot Counter on Name Generator
-        /// </summary>
-        public static string CustomNameGeneratorSplitLotCounter = "00";
 
         #endregion
 
@@ -587,6 +580,36 @@ namespace Cmf.Custom.AMSOsram.Common
         /// </summary>
         public static string LocalizedMessageContainerCannotBeUndocked = "CustomLocalizedMessageContainerCannotBeUndocked";
 
+        /// <summary>
+        /// Localized Message: CustomFormMaterialIsNotLot
+        /// </summary>
+        public static string LocalizedMessageFormMaterialIsNotLot = "CustomFormMaterialIsNotLot";
+
+        /// <summary>
+        /// Localized Message: CustomConfigurationWithoutValue
+        /// </summary>
+        public static string LocalizedMessageConfigurationWithoutValue = "CustomConfigurationWithoutValue";
+
+        /// <summary>
+        /// Localized Message: CustomProductionLineAttributeWithoutValue
+        /// </summary>
+        public static string LocalizedMessageProductionLineAttributeWithoutValue = "CustomProductionLineAttributeWithoutValue";
+
+        /// <summary>
+        /// Localized Message: CustomGTWihtoutDataForSpecificProductionLine
+        /// </summary>
+        public static string LocalizedMessageGTWihtoutDataForSpecificProductionLine = "CustomGTWihtoutDataForSpecificProductionLine";
+
+        /// <summary>
+        /// Localized Message: CustomInsufficientDigitsForNameGenerator
+        /// </summary>
+        public static string LocalizedMessageInsufficientDigitsForNameGenerator = "CustomInsufficientDigitsForNameGenerator";
+
+        /// <summary>
+        /// Localized Message: ConfigValueIsNullOrWhiteSpace
+        /// </summary>
+        public static string LocalizedMessageConfigValueIsNullOrWhiteSpace = "CustomConfigValueIsNullOrWhiteSpace";
+
         #endregion
 
         #region State Model
@@ -656,9 +679,9 @@ namespace Cmf.Custom.AMSOsram.Common
         public static string DefaultVendorContainerTypesConfig = "/AMSOsram/Container/VendorContainerTypes/";
 
         /// <summary>
-        /// Alphanumeric allowed digits on ProductionLotName Name Generator
+        /// Lot name allowed characters
         /// </summary>
-        public static string DefaultProductionLotNameAlphanumericAllowedDigits = "/AMSOsram/NameGenerators/ProductionLotName/AlphanumericAllowedDigits";
+        public static string DefaultLotNameAllowedCharacters = "/AMSOsram/Material/LotNameAllowedCharacters";
 
         #endregion
 
