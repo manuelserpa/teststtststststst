@@ -15,4 +15,4 @@ The following table describes the configuration entries created.
 | Server                         | /AMSOsram/FDC/Server/                                                 | String       | lnx-klm37.int.osram-light.com  | FDC server                                                        |
 | Port                           | /AMSOsram/FDC/Port/                                                   | Int          | 1600                           | FDC port                                                          |
 | VendorContainerTypes           | /AMSOsram/Container/VendorContainerTypes/                             | String       | Empty                          | Vendor Container Types splitted by ','                            |
-| AlphanumericAllowedDigits      | /AMSOsram/NameGenerators/ProductionLotName/AlphanumericAllowedDigits/ | String       | 0123456789ACFHLMNRTUX          | Alphanumeric allowed digits used on Production Lot Name Generator |
+| LotNameAllowedCharacters      | /AMSOsram/Material/LotNameAllowedCharacters | String       | 0123456789ACFHLMNRTUX          | Alphanumeric allowed digits used on Production Lot Name Generator |

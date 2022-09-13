@@ -11,6 +11,7 @@ NA
 ## Pre Conditions
 
 * Material Name is empty.
+* Material Form is Lot.
 * ProductionLine attribute is filled.
 
 ## Action
@@ -19,6 +20,6 @@ When Material is being created and its name is empty (null) then the System will
 
 This action considers the attribute ProductionLine associated to the entity Product to query Generic Table **CustomProductionLineConversion** to get the Site and Facility names associated.
 
-The generated Lot name will consist of the first letter of the Site and Facility name followed by six digits that will be generated considering a set of characters defined in system Config. Since it is ParentMaterial it will always contain the constant value "00" at the end.
+The generated Lot name will consist of the first letter of the Site and Facility name followed by six digits that will be generated considering a set of characters defined in system Configuration (/AMSOsram/Material/LotNameAllowedCharacters). Since it is a Lot it will always contain the constant value "00" at the end.
 
-The generated name is stored in context so that it can be incremented each time a new Lot is created.
+The first 2 letters from the lot name (Site + Facility) will stored in the Name Generator context so that it can be incremented each time a new Lot is created.
