@@ -581,11 +581,6 @@
         public static string LocalizedMessageContainerCannotBeUndocked = "CustomLocalizedMessageContainerCannotBeUndocked";
 
         /// <summary>
-        /// Localized Message: CustomFormMaterialIsNotLot
-        /// </summary>
-        public static string LocalizedMessageFormMaterialIsNotLot = "CustomFormMaterialIsNotLot";
-
-        /// <summary>
         /// Localized Message: CustomConfigurationWithoutValue
         /// </summary>
         public static string LocalizedMessageConfigurationWithoutValue = "CustomConfigurationWithoutValue";

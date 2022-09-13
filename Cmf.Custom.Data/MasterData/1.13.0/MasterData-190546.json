@@ -2,16 +2,6 @@
     "WorksheetNameMapping": {},
     "<SM>LocalizedMessageKey": {
         "1": {
-            "Name": "CustomFormMaterialIsNotLot",
-            "Description": "Error message when Material form is not a Lot",
-            "MessageType": "Message",
-            "en-US": "The form of the Material should be Lot instead of {0}.",
-            "de-DE": "",
-            "zh-CN": "",
-            "pt-PT": "",
-            "zh-TW": ""
-        },
-        "2": {
             "Name": "CustomProductionLineAttributeWithoutValue",
             "Description": "Error message when Product attribute ProductionLine has no value associated.",
             "MessageType": "Message",
@@ -21,7 +11,7 @@
             "pt-PT": "",
             "zh-TW": ""
         },
-        "3": {
+        "2": {
             "Name": "CustomGTWihtoutDataForSpecificProductionLine",
             "Description": "Error message when Generic Table has not data to return for specific ProductionLine.",
             "MessageType": "Message",
@@ -31,7 +21,7 @@
             "pt-PT": "",
             "zh-TW": ""
         },
-        "4": {
+        "3": {
             "Name": "CustomInsufficientDigitsForNameGenerator",
             "Description": "Error message when there is an insufficient number of digits to represent the counter for the Name Generator.",
             "MessageType": "Message",
@@ -41,7 +31,7 @@
             "pt-PT": "",
             "zh-TW": ""
         },
-        "5": {
+        "4": {
             "Name": "CustomConfigValueIsNullOrWhiteSpace",
             "Description": "Error message when Configuration value is null or without.",
             "MessageType": "Message",

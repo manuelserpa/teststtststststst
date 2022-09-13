@@ -38,15 +38,8 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             {
                 Material material = Input["EntitySource"] as Material;
 
-                if (material != null && material.Product != null)
+                if (material != null && material.Product != null && material.Form.Equals(AMSOsramConstants.MaterialLotForm, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    // Throw an exception case Material Form is not a Lot
-                    if (!material.Form.Equals(AMSOsramConstants.MaterialLotForm, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageFormMaterialIsNotLot,
-                                                                                  material.Form));
-                    }
-
                     // Throw an exception case Configuration has no associated value
                     if (!Config.TryGetConfig(AMSOsramConstants.DefaultLotNameAllowedCharacters, out Config lotNameAllowedCharactersConfig) ||
                         string.IsNullOrWhiteSpace(lotNameAllowedCharactersConfig.GetConfigValue<string>()))
