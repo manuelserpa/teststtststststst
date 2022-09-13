@@ -98,7 +98,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
             {
                 new Filter()
                 {
-                    Name = "IsEnabled",
+                    Name = TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverIsEnabledProperty,
                     Operator = FieldOperator.IsEqualTo,
                     Value = true,
                     LogicalOperator = LogicalOperator.Nothing
@@ -108,7 +108,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
             // Execute service to get Generic Table results
             GenericTable genericTable = new GetGenericTableByNameWithFilterInput()
             {
-                Name = TibcoEMSConstants.GTCustomTibcoEMSGatewayResolver,
+                Name = TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolver,
                 Filters = filters
             }.GetGenericTableByNameWithFilterSync().GenericTable;
 
@@ -122,15 +122,17 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
             {
                 DataTable dt = ds.Tables[0];
 
-                output = dt.AsEnumerable().ToDictionary(row => row.Field<string>("Subject"),
+                output = dt.AsEnumerable().ToDictionary(row => row.Field<string>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverSubjectProperty),
                                                         row => new TibcoResolverDto
                                                         {
-                                                            Subject = row.Field<string>("Subject"),
-                                                            Topic = row.Field<string>("Topic"),
-                                                            Rule = row.Table.Columns.Contains("Rule") ? row.Field<string>("Rule") : String.Empty,
-                                                            QueueMessage = row.Table.Columns.Contains("QueueMessage") ? row.Field<bool>("QueueMessage") : false,
-                                                            TextMessage = row.Table.Columns.Contains("TextMessage") ? row.Field<bool>("TextMessage") : false,
-                                                            CompressMessage = row.Table.Columns.Contains("CompressMessage") ? row.Field<bool>("CompressMessage") : false
+                                                            Subject = row.Field<string>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverSubjectProperty),
+                                                            Topic = row.Field<string>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverTopicProperty),
+                                                            Rule = row.Table.Columns.Contains(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverRuleProperty) ?
+                                                                   row.Field<string>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverRuleProperty) :
+                                                                   string.Empty,
+                                                            QueueMessage = row.Field<bool>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverQueueMessageProperty),
+                                                            TextMessage = row.Field<bool>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverTextMessageProperty),
+                                                            CompressMessage = row.Field<bool>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverCompressMessageProperty)
                                                         });
             }
 
