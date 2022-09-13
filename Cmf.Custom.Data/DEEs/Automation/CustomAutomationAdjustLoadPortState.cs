@@ -1,16 +1,19 @@
-﻿using Cmf.Custom.AMSOsram.Actions;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.Extensions;
-using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessObjects.Cultures;
+﻿using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.Extensions;
 using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Foundation.Common.LocalizationService;
+using Cmf.Navigo.BusinessObjects;
+using Cmf.Foundation.BusinessObjects;
 
-namespace Cmf.Custom.AMSOsram.Actions.Automation
+namespace Cmf.Custom.amsOSRAM.Actions.Automation
 {
 	internal class CustomAutomationAdjustLoadPortState : DeeDevBase
 	{
@@ -49,41 +52,43 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 		/// <returns></returns>
 		public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
 		{
-			//---Start DEE Code---
+            //---Start DEE Code---
 
-			UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-			UseReference("", "Cmf.Foundation.BusinessObjects.SmartTables");
-			UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-			UseReference("", "Cmf.Foundation.Common.Exceptions");
-			UseReference("", "Cmf.Foundation.Common");
-			UseReference("Cmf.Foundation.Configuration.dll", "Cmf.Foundation.Configuration");
-			UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.Cultures");
-			// Navigo
-			UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-			// Custom
-			UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-			UseReference("Cmf.Custom.AMSOsram.Common.dll", " Cmf.Custom.AMSOsram.Common.Extensions");
-			// System
-			UseReference("", "System.Data");
-			UseReference("%MicrosoftNetPath%System.Private.CoreLib.dll", "System.Threading");
+            // Foundation
+            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects");
+            UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common.LocalizationService");
 
-			#region Input validation
+            // Custom
+            UseReference("Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition.dll", "Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.Extensions");
 
-			string inputKey = "ResourceName";
-			Resource resource = null;
-			string resourceName = AMSOsramUtilities.GetInputItem<string>(Input, inputKey);
+            // System
+            UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
+            UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
+            UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Schema");
+            UseReference("%MicrosoftNetPath%System.Private.CoreLib.dll", "System.Threading");
 
-			if (!string.IsNullOrWhiteSpace(resourceName))
+            #region Input validation
+
+            string inputKey = "ResourceName";
+
+			string resourceName = amsOSRAMUtilities.GetInputItem<string>(Input, inputKey);
+
+			if (string.IsNullOrWhiteSpace(resourceName))
 			{
-				resource = new Resource() { Name = resourceName };
-			}
-			else
-			{
-				throw new ArgumentNullCmfException("ResourceName");
-			}
+                throw new ArgumentNullCmfException(inputKey);
+            }
 
-			inputKey = "StateName";
-			string state = AMSOsramUtilities.GetInputItem<string>(Input, inputKey);
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
+            IResource resource = entityFactory.Create<IResource>();
+            resource.Name = resourceName;
+
+            inputKey = "StateName";
+			string state = amsOSRAMUtilities.GetInputItem<string>(Input, inputKey);
 
 			if (string.IsNullOrWhiteSpace(state))
 			{
@@ -100,7 +105,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 			}
 
 			inputKey = "LoadPortName";
-			string loadPortName = AMSOsramUtilities.GetInputItem<string>(Input, inputKey);
+			string loadPortName = amsOSRAMUtilities.GetInputItem<string>(Input, inputKey);
 
 			if (!loadPortNumber.HasValue &&
 				string.IsNullOrWhiteSpace(loadPortName))
@@ -109,15 +114,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 			}
 
 			inputKey = "CarrierID";
-			string containerName = AMSOsramUtilities.GetInputItem<string>(Input, inputKey, string.Empty);
-			Container container = null;
+			string containerName = amsOSRAMUtilities.GetInputItem(Input, inputKey, string.Empty);
+			IContainer container = entityFactory.Create<IContainer>();
 
 			if (!string.IsNullOrWhiteSpace(containerName))
 			{
-				container = new Container
-				{
-					Name = containerName
-				};
+				container.Name = containerName;
 
 				if (container.ObjectExists())
 				{
@@ -127,12 +129,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
 			#endregion Input validation
 
-			Resource loadPort = null;
+			IResource loadPort = entityFactory.Create<IResource>(); ;
 
 			if (loadPortNumber != null)
 			{
 				resource.Load();
-				ResourceHierarchy resourceHierarchy = resource.GetDescendentResources(1);
+				IResourceHierarchy resourceHierarchy = resource.GetDescendentResources(1);
 
 				if (resourceHierarchy == null ||
 					resourceHierarchy.Count <= 0)
@@ -146,10 +148,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 			}
 			else if (!String.IsNullOrEmpty(loadPortName))
 			{
-				loadPort = new Resource()
-				{
-					Name = loadPortName
-				};
+				loadPort.Name = loadPortName;
 			}
 			else
 			{
@@ -169,10 +168,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 			// Enforce 'CustomLoadPortStateModelState' State Model if it is not the correct one
 			if (loadPort.CurrentMainState != null &&
 				loadPort.CurrentMainState.StateModel != null &&
-				!loadPort.CurrentMainState.StateModel.Name.Equals(AMSOsramConstants.CustomLoadPortStateModel))
+				!loadPort.CurrentMainState.StateModel.Name.Equals(amsOSRAMConstants.CustomLoadPortStateModel))
 			{
-				StateModel loadPortStateModel = new StateModel() { Name = AMSOsramConstants.CustomLoadPortStateModel };
 
+				IStateModel loadPortStateModel = entityFactory.Create<IStateModel>();
+                loadPortStateModel.Name = amsOSRAMConstants.CustomLoadPortStateModel;
+				
 				if (loadPortStateModel.ObjectExists())
 				{
 					loadPortStateModel.Load();
@@ -181,15 +182,16 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 				}
 				else
 				{
-					throw new CmfBaseException(string.Format(LocalizedMessage.GetLocalizedMessage(Thread.CurrentThread.CurrentCulture.Name, AMSOsramConstants.LocalizedMessageStateModelDoesNotExistException).MessageText, AMSOsramConstants.CustomLoadPortStateModel));
+					ILocalizationService localizationService = serviceProvider.GetService<ILocalizationService>();
+                    throw new CmfBaseException(string.Format(localizationService.Localize(Thread.CurrentThread.CurrentCulture.Name, amsOSRAMConstants.LocalizedMessageStateModelDoesNotExistException), amsOSRAMConstants.CustomLoadPortStateModel));
 				}
 			}
 
-			StateModelState toStateModelState = loadPort.CurrentMainState.StateModel.States.FirstOrDefault(s => s.Name.Equals(state, StringComparison.InvariantCultureIgnoreCase));
+			IStateModelState toStateModelState = loadPort.CurrentMainState.StateModel.States.FirstOrDefault(s => s.Name.Equals(state, StringComparison.InvariantCultureIgnoreCase));
 
 			if (toStateModelState != null)
 			{
-				StateModelTransition stateModelTransition = loadPort.GetStateModelTransitionForState(toStateModelState.Name);
+				IStateModelTransition stateModelTransition = loadPort.GetStateModelTransitionForState(toStateModelState.Name);
 
 				if (stateModelTransition != null)
 				{
@@ -203,15 +205,16 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 			}
 			else
 			{
-				throw new CmfBaseException(string.Format(LocalizedMessage.GetLocalizedMessage(Thread.CurrentThread.CurrentCulture.Name, AMSOsramConstants.LocalizedMessageStateModelStateDoesNotExistException).MessageText, AMSOsramConstants.CustomLoadPortStateModelStateReservedStateModelState));
+                ILocalizationService localizationService = serviceProvider.GetService<ILocalizationService>();
+                throw new CmfBaseException(string.Format(localizationService.Localize(Thread.CurrentThread.CurrentCulture.Name, amsOSRAMConstants.LocalizedMessageStateModelStateDoesNotExistException), amsOSRAMConstants.CustomLoadPortStateModelStateReservedStateModelState));
 			}
 
 			#endregion Load Port State Model and State Model State Validations and Events
 
-			if (state.Equals(AMSOsramConstants.CustomLoadPortStateModelStateReadyToLoadStateModelState, StringComparison.InvariantCultureIgnoreCase) &&
+			if (state.Equals(amsOSRAMConstants.CustomLoadPortStateModelStateReadyToLoadStateModelState, StringComparison.InvariantCultureIgnoreCase) &&
 				loadPort.AutomationMode == ResourceAutomationMode.Online)
 			{
-				loadPort.SaveAttributes(new AttributeCollection() { { AMSOsramConstants.ResourceAttributeIsLoadPortInUse, false } });
+				loadPort.SaveAttributes(new AttributeCollection() { { amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false } });
 
 				if (!string.IsNullOrEmpty(containerName))
 				{
@@ -220,15 +223,15 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
 				//TODO: Call DEE ACtion to get Transport Request when Transport System is available
 			}
-			else if (state.Equals(AMSOsramConstants.CustomLoadPortStateModelStateReadyToUnloadStateModelState, StringComparison.InvariantCultureIgnoreCase) &&
+			else if (state.Equals(amsOSRAMConstants.CustomLoadPortStateModelStateReadyToUnloadStateModelState, StringComparison.InvariantCultureIgnoreCase) &&
 				!string.IsNullOrEmpty(containerName) &&
 				loadPort.AutomationMode == ResourceAutomationMode.Online &&
 				loadPort.UsedPositions > 0)
 			{
 				container.SaveAttributes(new AttributeCollection()
 					{
-						{ AMSOsramConstants.ContainerAttributeMapContainerNeeded, false },
-						{ AMSOsramConstants.ContainerAttributeProduct, string.Empty }
+						{ amsOSRAMConstants.ContainerAttributeMapContainerNeeded, false },
+						{ amsOSRAMConstants.ContainerAttributeProduct, string.Empty }
 					}
 				);
 
@@ -237,6 +240,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
 			Input.Add("LoadPort", loadPort);
 			Input.Add("LoadPortType", loadPort.LoadPortType != null ? loadPort.LoadPortType.ToString() : "none");
+
 			//---End DEE Code---
 
 			return Input;

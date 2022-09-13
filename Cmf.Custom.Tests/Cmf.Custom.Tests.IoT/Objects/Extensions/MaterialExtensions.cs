@@ -15,12 +15,12 @@ using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
 using Cmf.Navigo.BusinessOrchestration.OrderManagement.InputObjects;
 using Cmf.TestScenarios.Others;
-//using AMSOsramEIAutomaticTests.Objects.TestUtilities;
-using AMSOsramEIAutomaticTests.Objects.Utilities;
+//using amsOSRAMEIAutomaticTests.Objects.TestUtilities;
+using amsOSRAMEIAutomaticTests.Objects.Utilities;
 using EIUtilities = cmConnect.TestFramework.Common.Utilities;
 using Cmf.Custom.TestUtilities;
 
-namespace AMSOsramEIAutomaticTests.Objects.Extensions
+namespace amsOSRAMEIAutomaticTests.Objects.Extensions
 {
     /// <summary>
     /// Extension Methods Class that adapts material services as Business Objects extension methods or adds functionality need for testing

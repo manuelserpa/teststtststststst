@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.Extensions;
-using Cmf.Foundation.BusinessObjects.Cultures;
+using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.Extensions;
 using Cmf.Foundation.Common;
 using Cmf.Foundation.Configuration;
-using Cmf.Navigo.BusinessObjects;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.Configuration.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Foundation.Common.LocalizationService;
 
-namespace Cmf.Custom.AMSOsram.Actions.Containers
+namespace Cmf.Custom.amsOSRAM.Actions.Containers
 {
     public class CustomUndockContainerValidation : DeeDevBase
     {
@@ -37,9 +39,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Containers
 
             bool canExecute = false;
 
-            Input.TryGetValueAs(Navigo.Common.Constants.Container, out Container container);
+            Input.TryGetValueAs(Navigo.Common.Constants.Container, out IContainer container);
             
-            if (container != null && Config.TryGetConfig(AMSOsramConstants.DefaultVendorContainerTypesConfig, out Config containerTypesConfig) &&
+            if (container != null && Config.TryGetConfig(amsOSRAMConstants.DefaultVendorContainerTypesConfig, out IConfig containerTypesConfig) &&
                 !string.IsNullOrWhiteSpace(containerTypesConfig.GetConfigValue<string>()))
             {
                 List<string> containerTypes = (containerTypesConfig.GetConfigValue<string>()).Split(new string[] { "," },
@@ -65,19 +67,26 @@ namespace Cmf.Custom.AMSOsram.Actions.Containers
         {
             //---Start DEE Code---
 
+            // System
             UseReference("", "System.Threading");
-            UseReference("", "Cmf.Foundation.BusinessObjects.Cultures");
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.Extensions");
 
-            Input.TryGetValueAs(Navigo.Common.Constants.Container, out Container container);
+            // Custom
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.Extensions");
+
+            // Foundation
+            UseReference("", "Cmf.Foundation.Common.LocalizationService");
+
+            Input.TryGetValueAs(Navigo.Common.Constants.Container, out IContainer container);
             string actionGroup = Input["ActionGroupName"].ToString();
+
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            ILocalizationService localizationService = serviceProvider.GetService<ILocalizationService>();
 
             if (container.UsedPositions > 0)
             {
-                throw new CmfBaseException(string.Format(LocalizedMessage.GetLocalizedMessage(Thread.CurrentThread.CurrentCulture.Name,
-                    AMSOsramConstants.LocalizedMessageContainerCannotBeUndocked).MessageText, container.Name, AMSOsramConstants.DefaultVendorContainerTypesConfig));
+                throw new CmfBaseException(string.Format(localizationService.Localize(Thread.CurrentThread.CurrentCulture.Name,
+                    amsOSRAMConstants.LocalizedMessageContainerCannotBeUndocked), container.Name, amsOSRAMConstants.DefaultVendorContainerTypesConfig));
             }
             else if (actionGroup.EndsWith(".Post"))
             {

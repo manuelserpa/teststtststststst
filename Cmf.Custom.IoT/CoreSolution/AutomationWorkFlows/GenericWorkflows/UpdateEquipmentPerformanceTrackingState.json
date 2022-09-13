@@ -6,7 +6,7 @@
 				"name": "subWorkflowStart",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -87,7 +87,7 @@
 				"name": "subWorkflowEnd",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -100,7 +100,7 @@
 				"name": "executeAction",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -228,7 +228,7 @@
 				"name": "retrieve",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -259,7 +259,7 @@
 				"name": "workflow",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -384,7 +384,7 @@
 				"name": "codeExecution",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -536,7 +536,7 @@
 				"name": "anyToErrorCodeConstant",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
+					"version": "2.0.0"
 				}
 			}
 		},
@@ -546,7 +546,7 @@
 				"name": "anyToConstant",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			}
 		},
@@ -556,7 +556,7 @@
 				"name": "anyToAny",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			}
 		},
@@ -566,7 +566,7 @@
 				"name": "anyToString",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			}
 		}

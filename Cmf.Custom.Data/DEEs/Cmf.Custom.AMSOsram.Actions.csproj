@@ -1,27 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<OutputType>Library</OutputType>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-		<AssemblyName>Cmf.Custom.AMSOsram.Actions</AssemblyName>
-		<RootNamespace>Cmf.Custom.AMSOsram.Actions</RootNamespace>
+		<AssemblyName>Cmf.Custom.amsOSRAM.Actions</AssemblyName>
+		<RootNamespace>Cmf.Custom.amsOSRAM.Actions</RootNamespace>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath>..\..\LocalEnvironment\BusinessTier</OutputPath>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Cmf.Foundation.BusinessObjects" Version="8.3.3" />
-		<PackageReference Include="Cmf.Foundation.BusinessOrchestration" Version="8.3.3" />
-		<PackageReference Include="Cmf.Foundation.Common" Version="8.3.3" />
-		<PackageReference Include="Cmf.Foundation.Helpers" Version="8.3.3" />
-		<PackageReference Include="Cmf.Navigo.BusinessObjects" Version="8.3.3" />
-		<PackageReference Include="Cmf.Navigo.BusinessOrchestration" Version="8.3.3" />
+		<PackageReference Include="Cmf.Common.CustomActionUtilities" Version="9.0.5" />
+		<PackageReference Include="Cmf.Foundation.BusinessObjects" Version="9.1.0.63" />
+		<PackageReference Include="Cmf.Foundation.BusinessOrchestration" Version="9.1.0.63" />
+		<PackageReference Include="Cmf.Foundation.Common" Version="9.1.0.63" />
+		<PackageReference Include="Cmf.Foundation.Helpers" Version="9.1.0.63" />
+		<PackageReference Include="Cmf.Navigo.BusinessObjects" Version="9.1.0.146" />
+		<PackageReference Include="Cmf.Navigo.BusinessOrchestration" Version="9.1.0.146" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\Cmf.Custom.Business\Cmf.Custom.Common\Cmf.Custom.AMSOsram.Common.csproj" />
-		<ProjectReference Include="..\..\Cmf.Custom.Business\Cmf.Custom.Orchestration\Cmf.Custom.AMSOsram.Orchestration.csproj" />
+		<ProjectReference Include="..\..\Cmf.Custom.Business\Cmf.Custom.Common\Cmf.Custom.amsOSRAM.Common.csproj" />
+		<ProjectReference Include="..\..\Cmf.Custom.Business\Cmf.Custom.Orchestration\Cmf.Custom.amsOSRAM.Orchestration.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<Reference Include="Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition">
-			<HintPath>..\..\Libs\EntityTypes\Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition.dll</HintPath>
+		<Reference Include="Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition">
+			<HintPath>..\..\Libs\EntityTypes\Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 </Project>

@@ -1,18 +1,13 @@
 using Cmf.Core.Controls.PageObjects.Components;
 using Cmf.Core.PageObjects;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Customization.Common.PageObjects.Utilities
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	public class PageObjectsUtilities
+    /// <summary>
+    /// 
+    /// </summary>
+    public class PageObjectsUtilities
 	{
 		/// <summary>
 		/// Click on a PageObjectn Open a wizard, complete all the steps and closes the wizard

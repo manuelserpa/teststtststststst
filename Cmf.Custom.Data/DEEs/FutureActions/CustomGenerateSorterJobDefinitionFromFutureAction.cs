@@ -1,20 +1,24 @@
-﻿using Cmf.Custom.AMSOsram.BusinessObjects;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.Extensions;
-using Cmf.Foundation.BusinessObjects;
+﻿using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.Extensions;
 using Cmf.Foundation.BusinessObjects.SmartTables;
 using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Foundation.Common.Abstractions;
+using Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions;
+using Cmf.Foundation.BusinessObjects;
+using Cmf.Navigo.BusinessObjects;
 
-namespace Cmf.Custom.AMSOsram.Actions.FutureActions
+namespace Cmf.Custom.amsOSRAM.Actions.FutureActions
 {
-	class CustomGenerateSorterJobDefinitionFromFutureAction : DeeDevBase
+    class CustomGenerateSorterJobDefinitionFromFutureAction : DeeDevBase
 	{
 		/// <summary>
 		/// DEE Test Condition.
@@ -43,36 +47,41 @@ namespace Cmf.Custom.AMSOsram.Actions.FutureActions
             */
 
 			#endregion
-			Dictionary<Material, FutureAction> materialsWithFutureActions = new Dictionary<Material, FutureAction>();
-			MaterialCollection materials = null;
 
-			if (Input.ContainsKey("MoveMaterialsToNextStepOutput") && Input["MoveMaterialsToNextStepOutput"] is MoveMaterialsToNextStepOutput moveMaterialsToNextStepOutput)
+			Dictionary<IMaterial, IFutureAction> materialsWithFutureActions = new Dictionary<IMaterial, IFutureAction>();
+
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
+			IMaterialCollection materials = entityFactory.CreateCollection<IMaterialCollection>();
+
+            if (Input.ContainsKey("MoveMaterialsToNextStepOutput") && Input["MoveMaterialsToNextStepOutput"] is MoveMaterialsToNextStepOutput moveMaterialsToNextStepOutput)
 			{
 				materials = moveMaterialsToNextStepOutput.Materials;
 			}
 			else if (Input.ContainsKey("ChangeMaterialFlowAndStepOutput") && Input["ChangeMaterialFlowAndStepOutput"] is ChangeMaterialFlowAndStepOutput changeMaterialFlowAndStepOutput)
 			{
-				materials = new MaterialCollection { changeMaterialFlowAndStepOutput.Material };
+                materials.Add(changeMaterialFlowAndStepOutput.Material);
 			}
 			else if (Input.ContainsKey("ReleaseMaterialOutput") && Input["ReleaseMaterialOutput"] is ReleaseMaterialOutput releaseMaterialOutput)
 			{
-				materials = new MaterialCollection { releaseMaterialOutput.Material };
+                materials.Add(releaseMaterialOutput.Material);
 			}
 			else if (Input.ContainsKey("SpecialReleaseMaterialOutput") && Input["SpecialReleaseMaterialOutput"] is SpecialReleaseMaterialOutput specialReleaseMaterialOutput)
 			{
-				materials = new MaterialCollection { specialReleaseMaterialOutput.Material };
+				materials.Add(specialReleaseMaterialOutput.Material);
 			}
 
 			if (materials != null && materials.Count > 0)
 			{
-				foreach (Material material in materials)
+				foreach (IMaterial material in materials)
 				{
 					if (material.RequiredFutureAction == null)
 					{
 						material.Load();
 					}
 
-					FutureAction futureAction = material.RequiredFutureAction;
+					IFutureAction futureAction = material.RequiredFutureAction;
 
 					if (futureAction != null && futureAction.Material != null && futureAction.Material.Name == material.Name && futureAction.ExecutionMode == FutureActionExecutionMode.Manual)
 					{
@@ -98,32 +107,34 @@ namespace Cmf.Custom.AMSOsram.Actions.FutureActions
 		/// <returns></returns>
 		public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
 		{
-			//---Start DEE Code---
-			UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-			UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-			UseReference("", "Cmf.Foundation.Common.Exceptions");
-			UseReference("", "Cmf.Foundation.Common");
-			UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.SmartTables");
-			UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.QueryObject");
+            //---Start DEE Code---
+
+			// Foundation
+            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.SmartTables");
+            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.QueryObject");
+            
 			// Navigo
-			UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-			UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects");
+            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects");
+            
 			// Custom
-			UseReference("Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition.dll", "Cmf.Custom.AMSOsram.BusinessObjects");
-			UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-			UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.Extensions");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition.dll", "Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.Extensions");
+            
 			// System
-			UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
-			UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
-			UseReference("%MicrosoftNetPath%System.Data.Common.dll", "System.Data");
+            UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
+            UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
+            UseReference("%MicrosoftNetPath%System.Data.Common.dll", "System.Data");
 
+            Dictionary<IMaterial, IFutureAction> materialsWithFutureActions = ApplicationContext.CallContext.GetInformationContext("MaterialsWithFutureActions") as Dictionary<IMaterial, IFutureAction>;
 
-			Dictionary<Material, FutureAction> materialsWithFutureActions = ApplicationContext.CallContext.GetInformationContext("MaterialsWithFutureActions") as Dictionary<Material, FutureAction>;
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
 
-			foreach (var materialWithFutureAction in materialsWithFutureActions)
+            foreach (KeyValuePair<IMaterial, IFutureAction> materialWithFutureAction in materialsWithFutureActions)
 			{
-				Material material = materialWithFutureAction.Key;
-				ContainerCollection containersAssociatedWithLot = material.GetContainersForMaterialFamily();
+				IMaterial material = materialWithFutureAction.Key;
+				IContainerCollection containersAssociatedWithLot = material.GetContainersForMaterialFamily();
 
 				/* TO-DO: This exception needs to be handled.
 				if (containersAssociatedWithLot == null || containersAssociatedWithLot.Count == 0)
@@ -132,12 +143,12 @@ namespace Cmf.Custom.AMSOsram.Actions.FutureActions
 				}
 				*/
 
-				FutureAction futureAction = materialWithFutureAction.Value;
+				IFutureAction futureAction = materialWithFutureAction.Value;
 
 				if (futureAction != null && futureAction.Material != null && futureAction.Material.Name == material.Name && futureAction.ExecutionMode == FutureActionExecutionMode.Manual)
 				{
 					// Check if there's already a sorter job definition defined for this material
-					CustomSorterJobDefinition existingSorterJob = AMSOsramUtilities.GetSorterJobDefinition(material);
+					ICustomSorterJobDefinition existingSorterJob = amsOSRAMUtilities.GetSorterJobDefinition(material);
 
 					/* TO-DO: This exception needs to be handled.
 					if (existingSorterJob != null)
@@ -146,37 +157,37 @@ namespace Cmf.Custom.AMSOsram.Actions.FutureActions
 					}
 					*/
 
-					string smartTableName = AMSOsramConstants.CustomSorterJobDefinitionContextName;
+					string smartTableName = amsOSRAMConstants.CustomSorterJobDefinitionContextName;
 					JArray movementList = new JArray();
 					string sourceCarrierType = string.Empty;
 					string targetCarrierType = string.Empty;
 
 					if (futureAction.Action == FutureActionType.Split)
 					{
-						FutureActionSplitMaterialCollection splitMaterialsToGenerate = new FutureActionSplitMaterialCollection();
+						IFutureActionSplitMaterialCollection splitMaterialsToGenerate = entityFactory.CreateCollection<IFutureActionSplitMaterialCollection>();
 
 						// handle split materials
 						futureAction.LoadSplitMaterials();
 						splitMaterialsToGenerate.AddRange(futureAction.SplitMaterials);
-						splitMaterialsToGenerate.LoadRelations(Cmf.Navigo.Common.Constants.FutureActionSplitMaterialId);
+						splitMaterialsToGenerate.LoadRelations(Navigo.Common.Constants.FutureActionSplitMaterialId);
 
 						int containerIndex = 1;
 
-						foreach (FutureActionSplitMaterial fasm in splitMaterialsToGenerate)
+						foreach (IFutureActionSplitMaterial fasm in splitMaterialsToGenerate)
 						{
 							if (fasm.RelationCollection != null &&
-								fasm.RelationCollection.ContainsKey(Cmf.Navigo.Common.Constants.FutureActionSplitMaterialId))
+								fasm.RelationCollection.ContainsKey(Navigo.Common.Constants.FutureActionSplitMaterialId))
 							{
-								foreach (FutureActionSplitMaterialId fasmid in fasm.RelationCollection[Cmf.Navigo.Common.Constants.FutureActionSplitMaterialId].Cast<FutureActionSplitMaterialId>())
+								foreach (IFutureActionSplitMaterialId fasmid in fasm.RelationCollection[Navigo.Common.Constants.FutureActionSplitMaterialId].Cast<IFutureActionSplitMaterialId>())
 								{
-									Material materialToSplit = fasmid.TargetEntity;
+									IMaterial materialToSplit = fasmid.TargetEntity;
 									materialToSplit.Load();
 									materialToSplit.LoadRelations(Navigo.Common.Constants.MaterialContainer);
 
 									// Can only create a sorter job movement if wafer is in a container
 									if (materialToSplit.MaterialContainer != null && materialToSplit.MaterialContainer.Count() > 0)
 									{
-										Container container = materialToSplit.MaterialContainer.First().TargetEntity;
+										IContainer container = materialToSplit.MaterialContainer.First().TargetEntity;
 										container.Load();
 
 										sourceCarrierType = container.Type;
@@ -184,11 +195,11 @@ namespace Cmf.Custom.AMSOsram.Actions.FutureActions
 
 										JObject jObject = new JObject
 										{
-											[AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName] = materialToSplit.Name,
-											[AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer] = container.Name,
-											[AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition] = materialToSplit.MaterialContainer.First().Position,
-											[AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer] = "#" + containerIndex,
-											[AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = materialToSplit.MaterialContainer.First().Position
+											[amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName] = materialToSplit.Name,
+											[amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer] = container.Name,
+											[amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition] = materialToSplit.MaterialContainer.First().Position,
+											[amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer] = "#" + containerIndex,
+											[amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = materialToSplit.MaterialContainer.First().Position
 										};
 
 										movementList.Add(jObject);
@@ -201,7 +212,7 @@ namespace Cmf.Custom.AMSOsram.Actions.FutureActions
 					}
 					else if (futureAction.Action == FutureActionType.Merge)
 					{
-						Container destinationContainer = containersAssociatedWithLot.FirstOrDefault();
+						IContainer destinationContainer = containersAssociatedWithLot.FirstOrDefault();
 						destinationContainer.Load();
 						destinationContainer.LoadRelations(Navigo.Common.Constants.MaterialContainer);
 
@@ -220,15 +231,15 @@ namespace Cmf.Custom.AMSOsram.Actions.FutureActions
 								}
 							}
 
-							FutureActionMergeMaterialCollection mergeMaterialsToGenerate = new FutureActionMergeMaterialCollection();
+							IFutureActionMergeMaterialCollection mergeMaterialsToGenerate = entityFactory.CreateCollection<IFutureActionMergeMaterialCollection>();
 
 							// handle merge materials
 							futureAction.LoadMergeMaterials();
 							mergeMaterialsToGenerate.AddRange(futureAction.MergeMaterials);
 
-							foreach (FutureActionMergeMaterial famm in mergeMaterialsToGenerate)
+							foreach (IFutureActionMergeMaterial famm in mergeMaterialsToGenerate)
 							{
-								Material lotToMerge = famm.Material;
+								IMaterial lotToMerge = famm.Material;
 								lotToMerge.Load();
 								DataSet dataSet = lotToMerge.GetChildrenWithContainersAsDataSet();
 
@@ -265,11 +276,11 @@ namespace Cmf.Custom.AMSOsram.Actions.FutureActions
 
 										JObject jObject = new JObject
 										{
-											[AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName] = materialName,
-											[AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer] = containerName,
-											[AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition] = positionOnContainer,
-											[AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer] = destinationContainer.Name,
-											[AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = freePositions.Dequeue()
+											[amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName] = materialName,
+											[amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer] = containerName,
+											[amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition] = positionOnContainer,
+											[amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer] = destinationContainer.Name,
+											[amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = freePositions.Dequeue()
 										};
 
 										movementList.Add(jObject);
@@ -280,24 +291,22 @@ namespace Cmf.Custom.AMSOsram.Actions.FutureActions
 					}
 
 					if (movementList.Count > 0)
-					{						
+					{
 						// Create custom sorter job definition
-						CustomSorterJobDefinition customSorterJobDefinition = new CustomSorterJobDefinition
-						{
-							Name = Guid.NewGuid().ToString(),
-							SourceCarrierType = sourceCarrierType,
-							TargetCarrierType = targetCarrierType,
-							LogisticalProcess = AMSOsramConstants.LookupTableCustomSorterLogisticalProcessTransferWafers,
-							FlipWafer = false,
-							ReadWaferId = true,
-							WaferIdOnBottom = true
-						};
+						ICustomSorterJobDefinition customSorterJobDefinition = entityFactory.Create<ICustomSorterJobDefinition>();
+						customSorterJobDefinition.Name = Guid.NewGuid().ToString();
+						customSorterJobDefinition.SourceCarrierType = sourceCarrierType;
+						customSorterJobDefinition.TargetCarrierType = targetCarrierType;
+						customSorterJobDefinition.LogisticalProcess = amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessTransferWafers;
+						customSorterJobDefinition.FlipWafer = false;
+						customSorterJobDefinition.ReadWaferId = true;
+						customSorterJobDefinition.WaferIdOnBottom = true;
 
 						JObject mainObj = new JObject
 						{
-							[AMSOsramConstants.CustomSorterJobDefinitionJsonPropertyFutureActionType] = futureAction.Action.ToString(),
-							[AMSOsramConstants.CustomSorterJobDefinitionJsonPropertyMoves] = movementList,
-							[AMSOsramConstants.CustomSorterJobDefinitionJsonPropertyDeleteOnCompletion] = true
+							[amsOSRAMConstants.CustomSorterJobDefinitionJsonPropertyFutureActionType] = futureAction.Action.ToString(),
+							[amsOSRAMConstants.CustomSorterJobDefinitionJsonPropertyMoves] = movementList,
+							[amsOSRAMConstants.CustomSorterJobDefinitionJsonPropertyDeleteOnCompletion] = true
 						};
 
 						customSorterJobDefinition.MovementList = mainObj.ToString();
@@ -306,19 +315,19 @@ namespace Cmf.Custom.AMSOsram.Actions.FutureActions
 						customSorterJobDefinition.Load();
 
 						// Add custom sorter job definitin to context table
-						SmartTable smartTable = new SmartTable() { Name = smartTableName };
+						ISmartTable smartTable = new SmartTable() { Name = smartTableName };
 						smartTable.Load();
 
 						DataSet dataSet = smartTable.GetEmptyTableDataSet();
 
 						DataRow customSorterJobDefinitionContextRow = dataSet.Tables[0].NewRow();
-						customSorterJobDefinitionContextRow[AMSOsramConstants.CustomSorterJobDefinitionContextColumnStep] = material.Step.Name;
-						customSorterJobDefinitionContextRow[AMSOsramConstants.CustomSorterJobDefinitionContextColumnProduct] = null;
-						customSorterJobDefinitionContextRow[AMSOsramConstants.CustomSorterJobDefinitionContextColumnProductGroup] = null;
-						customSorterJobDefinitionContextRow[AMSOsramConstants.CustomSorterJobDefinitionContextColumnFlow] = null;
-						customSorterJobDefinitionContextRow[AMSOsramConstants.CustomSorterJobDefinitionContextColumnMaterial] = material.Name;
-						customSorterJobDefinitionContextRow[AMSOsramConstants.CustomSorterJobDefinitionContextColumnMaterialType] = null;
-						customSorterJobDefinitionContextRow[AMSOsramConstants.CustomSorterJobDefinitionContextColumnCustomSorterJobDefinition] = customSorterJobDefinition.Name;
+						customSorterJobDefinitionContextRow[amsOSRAMConstants.CustomSorterJobDefinitionContextColumnStep] = material.Step.Name;
+						customSorterJobDefinitionContextRow[amsOSRAMConstants.CustomSorterJobDefinitionContextColumnProduct] = null;
+						customSorterJobDefinitionContextRow[amsOSRAMConstants.CustomSorterJobDefinitionContextColumnProductGroup] = null;
+						customSorterJobDefinitionContextRow[amsOSRAMConstants.CustomSorterJobDefinitionContextColumnFlow] = null;
+						customSorterJobDefinitionContextRow[amsOSRAMConstants.CustomSorterJobDefinitionContextColumnMaterial] = material.Name;
+						customSorterJobDefinitionContextRow[amsOSRAMConstants.CustomSorterJobDefinitionContextColumnMaterialType] = null;
+						customSorterJobDefinitionContextRow[amsOSRAMConstants.CustomSorterJobDefinitionContextColumnCustomSorterJobDefinition] = customSorterJobDefinition.Name;
 
 						dataSet.Tables[0].Rows.Add(customSorterJobDefinitionContextRow);
 						dataSet.AcceptChanges();
@@ -329,6 +338,7 @@ namespace Cmf.Custom.AMSOsram.Actions.FutureActions
 					}
 				}
 			}
+
 			//---End DEE Code---
 
 			return Input;

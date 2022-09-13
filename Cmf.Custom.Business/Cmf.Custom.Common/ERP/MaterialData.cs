@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace Cmf.Custom.AMSOsram.Common.ERP
+namespace Cmf.Custom.amsOSRAM.Common.ERP
 {
     /// <summary>
     /// Class representing the structure of the Material element.

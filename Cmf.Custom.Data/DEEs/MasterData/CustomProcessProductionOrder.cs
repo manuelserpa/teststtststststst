@@ -1,28 +1,21 @@
-﻿using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.DataStructures;
-using Cmf.Foundation.BusinessObjects;
-using Cmf.Navigo.BusinessObjects;
+﻿using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.DataStructures;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Foundation.Common.Abstractions;
+using Cmf.Navigo.BusinessObjects;
 
-namespace Cmf.Custom.AMSOsram.Actions.Integrations
+namespace Cmf.Custom.amsOSRAM.Actions.Integrations
 {
     public class CustomProcessProductionOrder : DeeDevBase
     {
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
             //---Start DEE Code---     
-
-            //System
-            UseReference("", "System.Text");
-
-            //Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-
-            //Custom
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.DataStructures");
 
             #region Info
 
@@ -37,17 +30,28 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             #endregion
 
+            //System
+            UseReference("", "System.Text");
+
+            //Custom
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.DataStructures");
+
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
             // Load Integration Entry
-            IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, "IntegrationEntry");
+            IIntegrationEntry integrationEntry = amsOSRAMUtilities.GetInputItem<IIntegrationEntry>(Input, "IntegrationEntry");
 
             // Cast Integation Entry Message to string
             string message = Encoding.UTF8.GetString(integrationEntry.IntegrationMessage.Message);
 
-            CustomImportProductionOrder customImportProductionOrder = AMSOsramUtilities.DeserializeXmlToObject<CustomImportProductionOrder>(message);
+            CustomImportProductionOrder customImportProductionOrder = amsOSRAMUtilities.DeserializeXmlToObject<CustomImportProductionOrder>(message);
 
             string name = !string.IsNullOrEmpty(customImportProductionOrder.Name) ? customImportProductionOrder.Name : customImportProductionOrder.OrderNumber;
 
-            ProductionOrder productionOrder = new ProductionOrder();
+            IProductionOrder productionOrder = entityFactory.Create<IProductionOrder>();
 
             productionOrder.Name = name;
 
@@ -68,7 +72,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             if (!string.IsNullOrEmpty(customImportProductionOrder.Facility))
             {
-                Facility facility = new Facility() { Name = customImportProductionOrder.Facility };
+                IFacility facility = entityFactory.Create<IFacility>();
+                facility.Name = customImportProductionOrder.Facility;
                 facility.Load();
 
                 productionOrder.Facility = facility;
@@ -76,7 +81,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             if (!string.IsNullOrEmpty(customImportProductionOrder.Product))
             {
-                Product product = new Product() { Name = customImportProductionOrder.Product };
+                IProduct product = entityFactory.Create<IProduct>();
+                product.Name = customImportProductionOrder.Product;
                 product.Load();
 
                 productionOrder.Product = product;
@@ -94,12 +100,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             if (!string.IsNullOrEmpty(customImportProductionOrder.DueDate))
             {
-                productionOrder.DueDate = AMSOsramUtilities.GetValueAsDateTime(customImportProductionOrder.DueDate);
+                productionOrder.DueDate = amsOSRAMUtilities.GetValueAsDateTime(customImportProductionOrder.DueDate);
             }
 
             if (!string.IsNullOrEmpty(customImportProductionOrder.RestrictOnComplete))
             {
-                productionOrder.RestrictOnComplete = AMSOsramUtilities.GetValueAsNullableBoolean(customImportProductionOrder.RestrictOnComplete);
+                productionOrder.RestrictOnComplete = amsOSRAMUtilities.GetValueAsNullableBoolean(customImportProductionOrder.RestrictOnComplete);
             }
 
             if (customImportProductionOrder.UnderDeliveryTolerance.HasValue)
@@ -114,12 +120,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             if (!string.IsNullOrEmpty(customImportProductionOrder.PlannedStartDate))
             {
-                productionOrder.PlannedStartDate = AMSOsramUtilities.GetValueAsDateTime(customImportProductionOrder.PlannedStartDate);
+                productionOrder.PlannedStartDate = amsOSRAMUtilities.GetValueAsDateTime(customImportProductionOrder.PlannedStartDate);
             }
 
             if (!string.IsNullOrEmpty(customImportProductionOrder.PlannedEndDate))
             {
-                productionOrder.PlannedEndDate = AMSOsramUtilities.GetValueAsDateTime(customImportProductionOrder.PlannedEndDate);
+                productionOrder.PlannedEndDate = amsOSRAMUtilities.GetValueAsDateTime(customImportProductionOrder.PlannedEndDate);
             }
 
             productionOrder.SystemState = ProductionOrderSystemState.Released;

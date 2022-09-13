@@ -9,17 +9,11 @@
 
 #region Using Directives
 
-using Cmf.Foundation.BusinessOrchestration.SecurityManagement.InputObjects;
-using Cmf.Foundation.Security;
 using Cmf.LightBusinessObjects.Infrastructure;
-using Cmf.Navigo.BusinessObjects;
-using Cmf.Navigo.BusinessOrchestration.LaborManagement.InputObjects;
-using Cmf.TestScenarios.EmployeeHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Threading;
 
 #endregion Using Directives
@@ -120,9 +114,6 @@ namespace Settings
         /// <param name="context">The context.</param>
         public static void BaseInit(TestContext context)
         {
-            BaseContext.UserName = GetString(context, "userName");
-            BaseContext.Password = GetString(context, "password");
-
             ClientConfigurationProvider.ConfigurationFactory = () =>
             {
                 if (config == null)
@@ -131,12 +122,12 @@ namespace Settings
                     {
                         HostAddress = System.IO.Directory.Exists(GetString(context, "hostAdress")) ? GetString(context, "hostAdress") : string.Format("{0}:{1}", GetString(context, "hostAdress"), int.Parse(GetString(context, "hostPort"))),
                         ClientTenantName = GetString(context, "clientTenantName"),
-                        UseSsl = context.Properties.Contains("useSsl") ? bool.Parse(GetString(context, "useSsl")) : false,
+                        UseSsl = context.Properties.Contains("hostUseSSL") ? bool.Parse(GetString(context, "hostUseSSL")) : false,
                         ApplicationName = GetString(context, "applicationName"),
                         IsUsingLoadBalancer = context.Properties.Contains("useLoadBalancer") ? bool.Parse(GetString(context, "useLoadBalancer")) : false,
                         ThingsToDoAfterInitialize = null,
-                        UserName = GetString(context, "userName"),
-                        Password = GetString(context, "password"),
+                        SecurityPortalBaseAddress = new Uri(GetString(context, "securityPortalAdress")),
+                        SecurityAccessToken = GetString(context, "securityAccessToken"),
                         RequestTimeout = GetString(context, "requestTimeout")
                     };
                 }
@@ -144,6 +135,7 @@ namespace Settings
             };
 
             UserRole = context.Properties.Contains("userRole") ? GetString(context, "userRole") : "Almost Admin";
+
 
             // Handle Culture
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(GetString(context, "culture"));
@@ -157,7 +149,7 @@ namespace Settings
 
                 Mode = ioTMode;
             }
-                        
+
             if (GetString(context, "TestRunDirectory").Contains("TestExecution"))
             {
                 FilePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), GetString(context, "filePathRemote")));

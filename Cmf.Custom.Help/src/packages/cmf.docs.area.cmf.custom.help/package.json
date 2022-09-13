@@ -1,0 +1,14 @@
+{
+  "name": "cmf.docs.area.cmf.custom.help",
+  "version": "2.0.0",
+  "description": "cmf.docs.area.cmf.custom.help package",
+  "main": "cmf.docs.area.cmf.custom.help.js",
+  "types": "index.d.ts",
+  "dependencies": {},
+  "optionalDependencies": {
+    "cmf.core": "release-910"
+  },
+  "cmfLinkDependencies": {
+    "cmf.core": "file:../../../apps/cmf.docs.area.web/node_modules/cmf.core"
+  }
+}

@@ -1,16 +1,17 @@
-﻿using Cmf.Common.CustomActionUtilities;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessObjects.Cultures;
+﻿using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using System;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Navigo.BusinessObjects;
 
-namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
+namespace Cmf.Custom.amsOSRAM.Actions.NiceLabelPrinting
 {
     public class CustomNiceLabelPrint : DeeDevBase
     {
@@ -33,7 +34,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
 
             bool isToExecute = false;
 
-            if (!string.IsNullOrEmpty(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.AutomationGenericNiceLabelPrintResourcePath)))
+            if (!string.IsNullOrEmpty(amsOSRAMUtilities.GetConfig<string>(amsOSRAMConstants.AutomationGenericNiceLabelPrintResourcePath)))
             {
                 isToExecute = true;
             }
@@ -47,17 +48,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
         {
             //---Start DEE Code---     
 
-            //System
-            UseReference("", "System.Threading");
-            UseReference("", "System");
-
-            //Foundation
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration");
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-
             //Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.MaterialManagement");
             UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects");
             UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects");
 
@@ -65,11 +56,15 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
             UseReference("Cmf.Common.CustomActionUtilities.dll", "Cmf.Common.CustomActionUtilities");
 
             //Custom
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
 
-            MaterialCollection materialCollection = new MaterialCollection();
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
+            IMaterialCollection materialCollection = entityFactory.CreateCollection<IMaterialCollection>();
             string operation = null;
-            Resource resource = null;
+            IResource resource = null;
 
             if (Input.ContainsKey("ComplexTrackOutMaterialsInput"))
             {
@@ -96,9 +91,9 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
             
             Dictionary<string, Dictionary<string, string>> materials = new Dictionary<string, Dictionary<string, string>>();
 
-            foreach (Material material in materialCollection)
+            foreach (IMaterial material in materialCollection)
             {
-                Dictionary<string, string> materialNiceLabelPrintInformation = AMSOsramUtilities.GetDataForNiceLabelPrinting(material, resource, operation);
+                Dictionary<string, string> materialNiceLabelPrintInformation = amsOSRAMUtilities.GetDataForNiceLabelPrinting(material, resource, operation);
 
                 if (materialNiceLabelPrintInformation != null && materialNiceLabelPrintInformation.Count > 0)
                 {
@@ -112,15 +107,15 @@ namespace Cmf.Custom.AMSOsram.Actions.NiceLabelPrinting
 
             if (materials != null && materials.Count > 0)
             {
-                string resourceName = AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.AutomationGenericNiceLabelPrintResourcePath);
-                Resource resourceToPrint = new Resource();
+                string resourceName = amsOSRAMUtilities.GetConfig<string>(amsOSRAMConstants.AutomationGenericNiceLabelPrintResourcePath);
+                IResource resourceToPrint = entityFactory.Create<IResource>();
                 resourceToPrint.Load(resourceName);
 
-                AutomationControllerInstance controllerInstance = resourceToPrint.GetAutomationControllerInstance();
+                IAutomationControllerInstance controllerInstance = resourceToPrint.GetAutomationControllerInstance();
                 if (controllerInstance != null)
                 {
                     // Send an Assynchronous message to automation controller in the Equipment
-                    string requestType = AMSOsramConstants.AutomationRequestSendNiceLabelPrintInformation;
+                    string requestType = amsOSRAMConstants.AutomationRequestSendNiceLabelPrintInformation;
 
                     controllerInstance.Publish(requestType, materials.ToJsonString());
                 }

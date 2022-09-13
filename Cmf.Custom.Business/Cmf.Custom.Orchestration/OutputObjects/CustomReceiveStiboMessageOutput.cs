@@ -1,8 +1,8 @@
-﻿using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessOrchestration;
+﻿using Cmf.Foundation.BusinessOrchestration;
 using System.Runtime.Serialization;
+using Cmf.Foundation.BusinessObjects.Abstractions;
 
-namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
+namespace Cmf.Custom.amsOSRAM.Orchestration.OutputObjects
 {
     /// <summary>
     /// Output Data Contract for the CustomReceiveStiboMessage service
@@ -17,15 +17,15 @@ namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
         #endregion
 
         #region Properties
-        
+
         /// <summary>
         /// Result
         /// </summary>
         [DataMember(Name = "Result", Order = 100)]
-        public IntegrationEntry Result 
-        { 
-            get; 
-            set; 
+        public IIntegrationEntry Result
+        {
+            get;
+            set;
         }
 
         #endregion

@@ -1,17 +1,21 @@
-﻿using Cmf.Custom.AMSOsram.BusinessObjects;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.DataStructures;
-using Cmf.Foundation.BusinessObjects;
+﻿using Cmf.Custom.amsOSRAM.BusinessObjects;
+using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.DataStructures;
 using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Navigo.BusinessOrchestration.Abstractions;
+using Cmf.Foundation.BusinessObjects;
+using Cmf.Navigo.BusinessObjects;
 
-namespace Cmf.Custom.AMSOsram.Actions.Materials
+namespace Cmf.Custom.amsOSRAM.Actions.Materials
 {
-	class CustomMaterialInPostProcessSorterJobDefinition : DeeDevBase
+    class CustomMaterialInPostProcessSorterJobDefinition : DeeDevBase
 	{
         /// <summary>
 		/// DEE Test Condition.
@@ -45,34 +49,39 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
 		{
             //---Start DEE Code---
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
-            UseReference("", "Cmf.Foundation.Common");
+
             // Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
+            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.Abstractions");
+
             // Custom
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-            UseReference("Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition.dll", "Cmf.Custom.AMSOsram.BusinessObjects");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.DataStructures");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition.dll", "Cmf.Custom.amsOSRAM.BusinessObjects");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.DataStructures");
+
             // System
             UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
             UseReference("%MicrosoftNetPath%System.ObjectModel.dll", "");
 
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
 
             CustomSorterJobDefinition customSorterJobDefinition = Input["CustomSorterJobDefinition"] as CustomSorterJobDefinition;
             string currentContainerName = Input["CurrentContainerName"] as string;
             string currentMaterialName = Input["CurrentMaterialName"] as string;
             string currentLoadPort = Input["CurrentLoadPort"] as string;
             string futureActionType = Input["FutureActionType"] as string;
-            Resource resource = Input["Resource"] as Resource;
+            IResource resource = Input["Resource"] as IResource;
             List<ResourceLoadPortData> dockedContainers = Input["ContainersDocked"] as List<ResourceLoadPortData>;                       
 
-            ResourceCollection loadPortsToSetInUse = new ResourceCollection();
+            IResourceCollection loadPortsToSetInUse = entityFactory.CreateCollection<IResourceCollection>();
 
-            if (customSorterJobDefinition.LogisticalProcess == AMSOsramConstants.LookupTableCustomSorterLogisticalProcessMapCarrier)
+            if (customSorterJobDefinition.LogisticalProcess == amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessMapCarrier)
             {
-                loadPortsToSetInUse.Add(new Resource() { Name = currentLoadPort });
+                IResource currentLoadPortResource = entityFactory.Create<IResource>();
+                currentLoadPortResource.Name = currentLoadPort;
+
+                loadPortsToSetInUse.Add(currentLoadPortResource);
             }
             else
             {
@@ -95,12 +104,14 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 
                         foreach (string containerName in allContainersNeeded)
                         {
-                            var dockedContainer = dockedContainers.FirstOrDefault(c => c.ContainerName.Equals(containerName, StringComparison.InvariantCultureIgnoreCase));
+                            ResourceLoadPortData dockedContainer = dockedContainers.FirstOrDefault(c => c.ContainerName.Equals(containerName, StringComparison.InvariantCultureIgnoreCase));
 
                             if (dockedContainer != null)
                             {
-                                var resourceToSet = new Resource() { Name = dockedContainer.LoadPortName };
+                                IResource resourceToSet = entityFactory.Create<IResource>();
+                                resourceToSet.Name = dockedContainer.LoadPortName;
                                 resourceToSet.Load();
+
                                 if (!loadPortsToSetInUse.Contains(resourceToSet))
                                 {
                                     loadPortsToSetInUse.Add(resourceToSet);
@@ -108,14 +119,14 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                             }
                         }
 
-                        if (customSorterJobDefinition.LogisticalProcess == AMSOsramConstants.LookupTableCustomSorterLogisticalProcessTransferWafers &&
+                        if (customSorterJobDefinition.LogisticalProcess == amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessTransferWafers &&
                             futureActionType.Equals("Merge", StringComparison.InvariantCultureIgnoreCase))
                         {
                             List<string> materialsToTrackIn = new List<string>();
 
                             foreach (string containerName in allContainersNeeded.Where(c => c != currentContainerName))
                             {
-                                var dockedContainer = dockedContainers.FirstOrDefault(l => !string.IsNullOrWhiteSpace(l.ParentMaterialName) && l.ContainerName.Equals(containerName, StringComparison.InvariantCultureIgnoreCase));
+                                ResourceLoadPortData dockedContainer = dockedContainers.FirstOrDefault(l => !string.IsNullOrWhiteSpace(l.ParentMaterialName) && l.ContainerName.Equals(containerName, StringComparison.InvariantCultureIgnoreCase));
 
                                 if (dockedContainer != null)
 								{
@@ -129,27 +140,33 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                 // And we are not tracking in the same material more than one time
                                 foreach (string materialName in materialsToTrackIn.Where(m => m != currentMaterialName).Distinct())
                                 {
-                                    Material otherMaterialToTrackIn = new Material();
-                                    otherMaterialToTrackIn.Load(materialName);
+                                    IMaterial otherMaterialToTrackIn = entityFactory.Create<IMaterial>();
+                                    otherMaterialToTrackIn.Name = materialName;
+                                    otherMaterialToTrackIn.Load();
+
+                                    IMaterialOrchestration materialOrchestration = serviceProvider.GetService<IMaterialOrchestration>();
 
                                     if (otherMaterialToTrackIn.SystemState == MaterialSystemState.Dispatched)
                                     {
                                         resource.Load();
 
-                                        Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.ComplexTrackInMaterialInput complexTrackIn = new Navigo.BusinessOrchestration.MaterialManagement.InputObjects.ComplexTrackInMaterialInput()
+                                        Navigo.BusinessOrchestration.MaterialManagement.InputObjects.ComplexTrackInMaterialInput complexTrackIn = new Navigo.BusinessOrchestration.MaterialManagement.InputObjects.ComplexTrackInMaterialInput()
                                         {
                                             Material = otherMaterialToTrackIn,
                                             Resource = resource
                                         };
+
                                         ApplicationContext.CallContext.SetInformationContext("TrackInForChildLot", true);
-                                        Cmf.Navigo.BusinessOrchestration.MaterialManagement.MaterialManagementOrchestration.ComplexTrackInMaterial(complexTrackIn);
+
+                                        materialOrchestration.ComplexTrackInMaterial(complexTrackIn);
+                                        
                                         ApplicationContext.CallContext.SetInformationContext("TrackInForChildLot", false);
                                     }
                                     else if (otherMaterialToTrackIn.SystemState == MaterialSystemState.Queued)
                                     {
                                         resource.Load();
 
-                                        Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.ComplexDispatchAndTrackInMaterialInput complexDispatchTrackIn = new Navigo.BusinessOrchestration.MaterialManagement.InputObjects.ComplexDispatchAndTrackInMaterialInput()
+                                        Navigo.BusinessOrchestration.MaterialManagement.InputObjects.ComplexDispatchAndTrackInMaterialInput complexDispatchTrackIn = new Navigo.BusinessOrchestration.MaterialManagement.InputObjects.ComplexDispatchAndTrackInMaterialInput()
                                         {
                                             Material = otherMaterialToTrackIn,
                                             Resource = resource,
@@ -157,7 +174,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                         };
 
                                         ApplicationContext.CallContext.SetInformationContext("TrackInForChildLot", true);
-                                        Cmf.Navigo.BusinessOrchestration.MaterialManagement.MaterialManagementOrchestration.ComplexDispatchAndTrackInMaterial(complexDispatchTrackIn);
+                                        materialOrchestration.ComplexDispatchAndTrackInMaterial(complexDispatchTrackIn);
                                         ApplicationContext.CallContext.SetInformationContext("TrackInForChildLot", false);
                                     }
                                 }
@@ -172,11 +189,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
             {
                 loadPortsToSetInUse.Load();
 
-                foreach (Resource loadPort in loadPortsToSetInUse)
+                foreach (IResource loadPort in loadPortsToSetInUse)
                 {
-                    loadPort.SaveAttributes(new AttributeCollection() { { AMSOsramConstants.ResourceAttributeIsLoadPortInUse, true } });
+                    loadPort.SaveAttributes(new AttributeCollection() { { amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, true } });
                 }
             }
+
             //---End DEE Code---
 
             return Input;

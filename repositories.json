@@ -1,6 +1,6 @@
 {
-    "CIRepository": "\\\\vm-ams-osram\\Shares\\Deployments\\CIPackages\\development",
+    "CIRepository": "\\\\cmffs\\public\\amsOSRAM\\amsOSRAMIntegration\\CIPackages\\development-173973-migrate-to-v9",
     "Repositories": [
-        "\\\\vm-ams-osram\\Shares\\Deployments\\Delivered"
+        "\\\\cmffs\\public\\amsOSRAM\\amsOSRAMIntegration\\Delivered"
     ]
 }

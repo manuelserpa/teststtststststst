@@ -2,7 +2,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Cmf.Custom.AMSOsram.Common.DataStructures
+namespace Cmf.Custom.amsOSRAM.Common.DataStructures
 {
 	/// <summary>
 	/// Support class that represents a grouping of the resource and the load port

@@ -1,7 +1,7 @@
 ﻿using Cmf.Foundation.BusinessOrchestration;
 using System.Runtime.Serialization;
 
-namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
+namespace Cmf.Custom.amsOSRAM.Orchestration.OutputObjects
 {
     /// <summary>
     /// Output Object for CustomGetFlowInformationForERPOutput Service

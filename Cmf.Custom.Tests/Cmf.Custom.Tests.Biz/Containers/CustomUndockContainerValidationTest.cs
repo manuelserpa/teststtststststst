@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Cmf.Custom.Tests.Biz.Common;
+﻿using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
-using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Cmf.Custom.TestUtilities;
 using Cmf.Navigo.BusinessObjects;
-using Cmf.TestScenarios.ContainerManagement.ContainerScenarios;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Cmf.Custom.Tests.Biz.Containers
@@ -39,11 +34,11 @@ namespace Cmf.Custom.Tests.Biz.Containers
             #region Configurations
 
             // Get original config value for ContainerTypeUndockNotAllowed to restore later
-            originalVendorContainerTypes = (string)ConfigUtilities.GetConfigValue(AMSOsramConstants.DefaultVendorContainerTypesConfig);
+            originalVendorContainerTypes = (string)ConfigUtilities.GetConfigValue(amsOSRAMConstants.DefaultVendorContainerTypesConfig);
 
             // Set configuration with current ContainerType
-            ConfigUtilities.SetConfigValue(AMSOsramConstants.DefaultVendorContainerTypesConfig,
-                $"{ AMSOsramConstants.ContainerPeekCassete },{ materialScenario.ContainerScenario.Entity.Type }");
+            ConfigUtilities.SetConfigValue(amsOSRAMConstants.DefaultVendorContainerTypesConfig,
+                $"{ amsOSRAMConstants.ContainerPeekCassete },{ materialScenario.ContainerScenario.Entity.Type }");
 
             #endregion Configurations
 
@@ -73,7 +68,7 @@ namespace Cmf.Custom.Tests.Biz.Containers
         public void TestCleanup()
         {
             // Restore ContainerTypeUndockNotAllowed Configuration to original value
-            ConfigUtilities.SetConfigValue(AMSOsramConstants.DefaultVendorContainerTypesConfig, originalVendorContainerTypes);
+            ConfigUtilities.SetConfigValue(amsOSRAMConstants.DefaultVendorContainerTypesConfig, originalVendorContainerTypes);
 
             // MaterialScenario teardown
             if (materialScenario != null)
@@ -85,7 +80,7 @@ namespace Cmf.Custom.Tests.Biz.Containers
 
         /// <summary>
         /// Description:
-        ///     - When trying to Undock a Container which type is configured at /AMSOsram/Container/ContainerTypeUndockNotAllowed/ and that has positions occupied with
+        ///     - When trying to Undock a Container which type is configured at /amsOSRAM/Container/ContainerTypeUndockNotAllowed/ and that has positions occupied with
         ///     materials, the Undock operation must not be allowed and an exception should be thrown.
         /// </summary>
         /// <TestCaseID>CustomUndockContainerValidationTest_UndockContainerWithUsedPositions</TestCaseID>
@@ -100,19 +95,19 @@ namespace Cmf.Custom.Tests.Biz.Containers
         //             IgnoreLastServiceId = true
         //         }.UndockContainerSync(),
         //        $"The Container { materialScenario.ContainerScenario.Entity.Name } cannot be undocked due to configuration",
-        //        $"Undock operation should not be allowed due to configuration at { AMSOsramConstants.DefaultVendorContainerTypesConfig }!");
+        //        $"Undock operation should not be allowed due to configuration at { amsOSRAMConstants.DefaultVendorContainerTypesConfig }!");
 
         //    materialScenario.ContainerScenario.Entity.LoadRelation("ContainerResource");
 
         //    // Validate that the Container is still docked
         //    Assert.IsTrue(materialScenario.ContainerScenario.Entity.ContainerResourceRelations != null && 
         //        materialScenario.ContainerScenario.Entity.ContainerResourceRelations.Count > 0, 
-        //        $"The container { materialScenario.ContainerScenario.Entity.Name} should not have been undocked due to configuration at { AMSOsramConstants.DefaultVendorContainerTypesConfig }!");
+        //        $"The container { materialScenario.ContainerScenario.Entity.Name} should not have been undocked due to configuration at { amsOSRAMConstants.DefaultVendorContainerTypesConfig }!");
         //}
 
         /// <summary>
         /// Description:
-        ///     - When trying to Undock a Container which type is configured at /AMSOsram/Container/ContainerTypeUndockNotAllowed/ and that has no positions occupied,
+        ///     - When trying to Undock a Container which type is configured at /amsOSRAM/Container/ContainerTypeUndockNotAllowed/ and that has no positions occupied,
         ///     the Undock operation must be allowed and at the end the container should be terminated.
         /// </summary>
         /// <TestCaseID>CustomUndockContainerValidationTest_UndockContainerWithoutUsedPositions</TestCaseID>
@@ -149,7 +144,7 @@ namespace Cmf.Custom.Tests.Biz.Containers
 
         /// <summary>
         /// Description:
-        ///     - When trying to Undock a Container which type is not configured at /AMSOsram/Container/ContainerTypeUndockNotAllowed/,
+        ///     - When trying to Undock a Container which type is not configured at /amsOSRAM/Container/ContainerTypeUndockNotAllowed/,
         ///     the Undock operation must be allowed.
         /// </summary>
         /// <TestCaseID>CustomUndockContainerValidationTest_ContainerTypeNotConfigured</TestCaseID>
@@ -157,7 +152,7 @@ namespace Cmf.Custom.Tests.Biz.Containers
         //public void CustomUndockContainerValidationTest_ContainerTypeNotConfigured()
         //{
         //    // Clear configuration
-        //    ConfigUtilities.SetConfigValue(AMSOsramConstants.DefaultVendorContainerTypesConfig, string.Empty);
+        //    ConfigUtilities.SetConfigValue(amsOSRAMConstants.DefaultVendorContainerTypesConfig, string.Empty);
 
         //    // Undock the container
         //    new Cmf.Navigo.BusinessOrchestration.ContainerManagement.InputObjects.UndockContainerInput
@@ -171,7 +166,7 @@ namespace Cmf.Custom.Tests.Biz.Containers
         //    // Validate that the container was undocked
         //    Assert.IsTrue(materialScenario.ContainerScenario.Entity.ContainerResourceRelations == null || 
         //        materialScenario.ContainerScenario.Entity.ContainerResourceRelations.Count == 0, 
-        //        $"The container { materialScenario.ContainerScenario.Entity.Name } should have been undocked since there is no configuration at { AMSOsramConstants.DefaultVendorContainerTypesConfig }!");
+        //        $"The container { materialScenario.ContainerScenario.Entity.Name } should have been undocked since there is no configuration at { amsOSRAMConstants.DefaultVendorContainerTypesConfig }!");
         //}
     }
 }

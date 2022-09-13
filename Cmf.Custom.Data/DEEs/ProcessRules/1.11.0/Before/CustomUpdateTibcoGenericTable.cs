@@ -1,48 +1,45 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Foundation.BusinessObjects;
+using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Foundation.BusinessObjects.GenericTables;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Foundation.BusinessObjects;
 
-namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.Before
+namespace Cmf.Custom.amsOSRAM.Actions.ProcessRules._1._11._0.Before
 {
     public class CustomUpdateTibcoGenericTable : DeeDevBase
     {
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
             //---Start DEE Code---
-            //System
-            UseReference("", "System.Linq");
-            UseReference("", "System.Collections.Generic");
 
             //Foundation
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
             UseReference("", "Cmf.Foundation.BusinessObjects.GenericTables");
 
             //Custom
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
 
-            GenericTable customTibcoEMSGatewayResolver = new GenericTable()
+            IGenericTable customTibcoEMSGatewayResolver = new GenericTable()
             {
-                Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolver
+                Name = amsOSRAMConstants.GenericTableCustomTibcoEMSGatewayResolver
             };
 
             customTibcoEMSGatewayResolver.Load();
             customTibcoEMSGatewayResolver.LoadProperties();
 
-            GenericTablePropertiesCollection propsToAddOrUpdate = new GenericTablePropertiesCollection();
+            IGenericTablePropertiesCollection propsToAddOrUpdate = new GenericTablePropertiesCollection();
 
-            ScalarType booleanScalarType = new ScalarType();
+            IScalarType booleanScalarType = new ScalarType();
             booleanScalarType.Load("Bit");
             int lastPropertyPosition = customTibcoEMSGatewayResolver.GenericTableProperties.Count;
 
             // Check queue flag
-            if(customTibcoEMSGatewayResolver.GenericTableProperties.FirstOrDefault(e => e.Name == AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverQueueMessageProperty) == null)
+            if(customTibcoEMSGatewayResolver.GenericTableProperties.FirstOrDefault(e => e.Name == amsOSRAMConstants.GenericTableCustomTibcoEMSGatewayResolverQueueMessageProperty) == null)
             {
                 lastPropertyPosition++;
                 propsToAddOrUpdate.Add(new GenericTableProperty
                 {
-                    Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverQueueMessageProperty,
+                    Name = amsOSRAMConstants.GenericTableCustomTibcoEMSGatewayResolverQueueMessageProperty,
                     Description = "If true, then send the message to a queue. Otherwise, send the message to Tibco topics.",
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
@@ -53,12 +50,12 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.Before
             }
 
             // Check maptext flag
-            if (customTibcoEMSGatewayResolver.GenericTableProperties.FirstOrDefault(e => e.Name == AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverTextMessageProperty) == null)
+            if (customTibcoEMSGatewayResolver.GenericTableProperties.FirstOrDefault(e => e.Name == amsOSRAMConstants.GenericTableCustomTibcoEMSGatewayResolverTextMessageProperty) == null)
             {
                 lastPropertyPosition++;
                 propsToAddOrUpdate.Add(new GenericTableProperty
                 {
-                    Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverTextMessageProperty,
+                    Name = amsOSRAMConstants.GenericTableCustomTibcoEMSGatewayResolverTextMessageProperty,
                     Description = "If true, then send the message as a Text message. Otherwise, send the message as MapMessage.",
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
@@ -70,12 +67,12 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.Before
             }
 
             // Check compress flag
-            if (customTibcoEMSGatewayResolver.GenericTableProperties.FirstOrDefault(e => e.Name == AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverCompressMessageProperty) == null)
+            if (customTibcoEMSGatewayResolver.GenericTableProperties.FirstOrDefault(e => e.Name == amsOSRAMConstants.GenericTableCustomTibcoEMSGatewayResolverCompressMessageProperty) == null)
             {
                 lastPropertyPosition++;
                 propsToAddOrUpdate.Add(new GenericTableProperty
                 {
-                    Name = AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolverCompressMessageProperty,
+                    Name = amsOSRAMConstants.GenericTableCustomTibcoEMSGatewayResolverCompressMessageProperty,
                     Description = "If true, then compresses the content of the message.",
                     ScalarType = booleanScalarType,
                     ReferenceType = Foundation.Common.ReferenceType.None,
@@ -90,7 +87,9 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._11._0.Before
                 customTibcoEMSGatewayResolver.ManageProperties(propsToAddOrUpdate, new GenericTablePropertiesCollection());
                 customTibcoEMSGatewayResolver.GenerateSchema();
             }
+            
             //---End DEE Code---
+
             return Input;
         }
 

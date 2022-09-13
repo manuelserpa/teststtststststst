@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Cmf.Custom.AMSOsram.Common.FDC
+namespace Cmf.Custom.amsOSRAM.Common.FDC
 {
     public class FDCLotInfo
     {

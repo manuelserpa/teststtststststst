@@ -1,0 +1,510 @@
+{
+  "<SM>LookupTableValues": {
+    "1": {
+      "LookUp Table": "ReasonsNonscheduledToNonscheduled",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "NSU",
+      "Lookup Table Value Description": "Unworked Time",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "2": {
+      "LookUp Table": "ReasonsNonscheduledToNonscheduled",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "NST",
+      "Lookup Table Value Description": "Offline Training",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "3": {
+      "LookUp Table": "ReasonsNonscheduledToNonscheduled",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "NSM",
+      "Lookup Table Value Description": "Equipment Modification",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "4": {
+      "LookUp Table": "ReasonsNonscheduledToNonscheduled",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "NSS",
+      "Lookup Table Value Description": "Shutdown",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "5": {
+      "LookUp Table": "ReasonsNonscheduledToNonscheduled",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "NSI",
+      "Lookup Table Value Description": "Equipment Installation",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "6": {
+      "LookUp Table": "ReasonsNonscheduledToNonscheduled",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "NSR",
+      "Lookup Table Value Description": "Relocation",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "7": {
+      "LookUp Table": "ReasonsUnscheduledDownToUnscheduledDown",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "UDR",
+      "Lookup Table Value Description": "Repair",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "8": {
+      "LookUp Table": "ReasonsUnscheduledDownToUnscheduledDown",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "UDT",
+      "Lookup Table Value Description": "Test",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "9": {
+      "LookUp Table": "ReasonsUnscheduledDownToUnscheduledDown",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "UDM",
+      "Lookup Table Value Description": "Wait for Maintenance",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "10": {
+      "LookUp Table": "ReasonsUnscheduledDownToUnscheduledDown",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "UDP",
+      "Lookup Table Value Description": "Wait for Parts",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "11": {
+      "LookUp Table": "ReasonsUnscheduledDownToUnscheduledDown",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "UDE",
+      "Lookup Table Value Description": "Wait for External",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "12": {
+      "LookUp Table": "ReasonsUnscheduledDownToUnscheduledDown",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "UDS",
+      "Lookup Table Value Description": "Out of Specification",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "13": {
+      "LookUp Table": "ReasonsUnscheduledDownToUnscheduledDown",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "UDC",
+      "Lookup Table Value Description": "Change of Consumable Material",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "14": {
+      "LookUp Table": "ReasonsUnscheduledDownToUnscheduledDown",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "UDF",
+      "Lookup Table Value Description": "Facility",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "15": {
+      "LookUp Table": "ReasonsUnscheduledDownToUnscheduledDown",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "UDI",
+      "Lookup Table Value Description": "IT-System",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "16": {
+      "LookUp Table": "ReasonsScheduledDownToScheduledDown",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "SDP",
+      "Lookup Table Value Description": "Preventive Maintenance",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "17": {
+      "LookUp Table": "ReasonsScheduledDownToScheduledDown",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "SDS",
+      "Lookup Table Value Description": "Setup",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "18": {
+      "LookUp Table": "ReasonsScheduledDownToScheduledDown",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "SDT",
+      "Lookup Table Value Description": "Test",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "19": {
+      "LookUp Table": "ReasonsScheduledDownToScheduledDown",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "SDC",
+      "Lookup Table Value Description": "Change of Consumable Material",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "20": {
+      "LookUp Table": "ReasonsScheduledDownToScheduledDown",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "SDF",
+      "Lookup Table Value Description": "Facility",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "21": {
+      "LookUp Table": "ReasonsScheduledDownToScheduledDown",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "SDI",
+      "Lookup Table Value Description": "IT-System",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "22": {
+      "LookUp Table": "ReasonsEngineeringToEngineering",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "ENE",
+      "Lookup Table Value Description": "Engenineering",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "23": {
+      "LookUp Table": "ReasonsEngineeringToEngineering",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "ENM",
+      "Lookup Table Value Description": "Evaluation by MF",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "24": {
+      "LookUp Table": "ReasonsEngineeringToEngineering",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "ENR",
+      "Lookup Table Value Description": "Evaluation by R&D",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "25": {
+      "LookUp Table": "ReasonsStandbyToStandby",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "SBP",
+      "Lookup Table Value Description": "No Personnel",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "26": {
+      "LookUp Table": "ReasonsStandbyToStandby",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "SBW",
+      "Lookup Table Value Description": "None WIP",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "27": {
+      "LookUp Table": "ReasonsStandbyToStandby",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "SBI",
+      "Lookup Table Value Description": "Idle",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "28": {
+      "LookUp Table": "ReasonsProductiveToProductive",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "PRP",
+      "Lookup Table Value Description": "Production",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "29": {
+      "LookUp Table": "ReasonsProductiveToProductive",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "PRR",
+      "Lookup Table Value Description": "Rework",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "30": {
+      "LookUp Table": "ReasonsProductiveToProductive",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "PRN",
+      "Lookup Table Value Description": "Non-Salable",
+      "Lookup Table IsEnabled": "Yes"
+    }
+  },
+  "<SM>StateModel": {
+    "1": {
+      "Name": "SEMI E10",
+      "Description": "SEMI E10",
+      "DataGroup": "",
+      "EntityTypeName": "Resource"
+    }
+  },
+  "StateModelState": {
+    "1": {
+      "StateModel": "SEMI E10",
+      "Name": "Standby",
+      "Description": "Standby",
+      "Role": "",
+      "IsInitial": "Yes",
+      "IsFinal": "No",
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up];Name[SEMI-E10] ScalarType[VarChar] Value[Standby]"
+    },
+    "2": {
+      "StateModel": "SEMI E10",
+      "Name": "Nonscheduled",
+      "Description": "Nonscheduled",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Nonscheduled];Name[SEMI-E10] ScalarType[VarChar] Value[Nonscheduled]"
+    },
+    "3": {
+      "StateModel": "SEMI E10",
+      "Name": "Unscheduled Down",
+      "Description": "Unscheduled Down",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Down];Name[SEMI-E10] ScalarType[VarChar] Value[Unscheduled Down]"
+    },
+    "4": {
+      "StateModel": "SEMI E10",
+      "Name": "Engineering",
+      "Description": "Engineering",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up];Name[SEMI-E10] ScalarType[VarChar] Value[Engineering]"
+    },
+    "5": {
+      "StateModel": "SEMI E10",
+      "Name": "Productive",
+      "Description": "Productive",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up];Name[SEMI-E10] ScalarType[VarChar] Value[Productive]"
+    },
+    "6": {
+      "StateModel": "SEMI E10",
+      "Name": "Scheduled Down",
+      "Description": "Scheduled Down",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": "Name[Basic] ScalarType[VarChar] Value[Down];Name[SEMI-E10] ScalarType[VarChar] Value[Scheduled Down]"
+    }
+  },
+  "StateModelTransition": {
+    "1": {
+      "StateModel": "SEMI E10",
+      "Name": "Standby to UnscheduledDown",
+      "Description": "Standby to UnscheduledDown",
+      "FromState": "Standby",
+      "ToState": "Unscheduled Down",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "2": {
+      "StateModel": "SEMI E10",
+      "Name": "Standby to ScheduledDown",
+      "Description": "Standby to ScheduledDown",
+      "FromState": "Standby",
+      "ToState": "Scheduled Down",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "3": {
+      "StateModel": "SEMI E10",
+      "Name": "Standby to Productive",
+      "Description": "Standby to Productive",
+      "FromState": "Standby",
+      "ToState": "Productive",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "4": {
+      "StateModel": "SEMI E10",
+      "Name": "Standby to Nonscheduled",
+      "Description": "Standby to Nonscheduled",
+      "FromState": "Standby",
+      "ToState": "Nonscheduled",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "5": {
+      "StateModel": "SEMI E10",
+      "Name": "Standby to Engineering",
+      "Description": "Standby to Engineering",
+      "FromState": "Standby",
+      "ToState": "Engineering",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "6": {
+      "StateModel": "SEMI E10",
+      "Name": "Standby to Standby",
+      "Description": "Standby to Standby",
+      "FromState": "Standby",
+      "ToState": "Standby",
+      "Role": "",
+      "ReasonLookupTable": "ReasonsStandbyToStandby",
+      "ReasonDefaultValue": "SBI"
+    },
+    "7": {
+      "StateModel": "SEMI E10",
+      "Name": "ScheduledDown to Standby",
+      "Description": "ScheduledDown to Standby",
+      "FromState": "Scheduled Down",
+      "ToState": "Standby",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "8": {
+      "StateModel": "SEMI E10",
+      "Name": "ScheduledDown to ScheduledDown",
+      "Description": "ScheduledDown to ScheduledDown",
+      "FromState": "Scheduled Down",
+      "ToState": "Scheduled Down",
+      "Role": "",
+      "ReasonLookupTable": "ReasonsScheduledDownToScheduledDown",
+      "ReasonDefaultValue": "SDP"
+    },
+    "9": {
+      "StateModel": "SEMI E10",
+      "Name": "Productive to UnscheduledDown",
+      "Description": "Productive to UnscheduledDown",
+      "FromState": "Productive",
+      "ToState": "Unscheduled Down",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "10": {
+      "StateModel": "SEMI E10",
+      "Name": "Productive to Standby",
+      "Description": "Productive to Standby",
+      "FromState": "Productive",
+      "ToState": "Standby",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "11": {
+      "StateModel": "SEMI E10",
+      "Name": "Productive to ScheduledDown",
+      "Description": "Productive to ScheduledDown",
+      "FromState": "Productive",
+      "ToState": "Scheduled Down",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "12": {
+      "StateModel": "SEMI E10",
+      "Name": "Productive to Productive",
+      "Description": "Productive to Productive",
+      "FromState": "Productive",
+      "ToState": "Productive",
+      "Role": "",
+      "ReasonLookupTable": "ReasonsProductiveToProductive",
+      "ReasonDefaultValue": "PRP"
+    },
+    "13": {
+      "StateModel": "SEMI E10",
+      "Name": "Productive to Nonscheduled",
+      "Description": "Productive to Nonscheduled",
+      "FromState": "Productive",
+      "ToState": "Nonscheduled",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "14": {
+      "StateModel": "SEMI E10",
+      "Name": "Nonscheduled to Standby",
+      "Description": "Nonscheduled to Standby",
+      "FromState": "Nonscheduled",
+      "ToState": "Standby",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "15": {
+      "StateModel": "SEMI E10",
+      "Name": "Nonscheduled to Nonscheduled",
+      "Description": "Nonscheduled to Nonscheduled",
+      "FromState": "Nonscheduled",
+      "ToState": "Nonscheduled",
+      "Role": "",
+      "ReasonLookupTable": "ReasonsNonscheduledToNonscheduled",
+      "ReasonDefaultValue": "NSU"
+    },
+    "16": {
+      "StateModel": "SEMI E10",
+      "Name": "Engineering to UnscheduledDown",
+      "Description": "Engineering to UnscheduledDown",
+      "FromState": "Engineering",
+      "ToState": "Unscheduled Down",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "17": {
+      "StateModel": "SEMI E10",
+      "Name": "Engineering to Standby",
+      "Description": "Engineering to Standby",
+      "FromState": "Engineering",
+      "ToState": "Standby",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "18": {
+      "StateModel": "SEMI E10",
+      "Name": "Engineering to Engineering",
+      "Description": "Engineering to Engineering",
+      "FromState": "Engineering",
+      "ToState": "Engineering",
+      "Role": "",
+      "ReasonLookupTable": "ReasonsEngineeringToEngineering",
+      "ReasonDefaultValue": "ENE"
+    },
+    "19": {
+      "StateModel": "SEMI E10",
+      "Name": "Engineering to ScheduledDown",
+      "Description": "Engineering to ScheduledDown",
+      "FromState": "Engineering",
+      "ToState": "Scheduled Down",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "20": {
+      "StateModel": "SEMI E10",
+      "Name": "UnscheduledDown to Standby",
+      "Description": "UnscheduledDown to Standby",
+      "FromState": "Unscheduled Down",
+      "ToState": "Standby",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "21": {
+      "StateModel": "SEMI E10",
+      "Name": "UnscheduledDown to Productive",
+      "Description": "UnscheduledDown to Productive",
+      "FromState": "Unscheduled Down",
+      "ToState": "Productive",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "22": {
+      "StateModel": "SEMI E10",
+      "Name": "UnscheduledDown to Engineering",
+      "Description": "UnscheduledDown to Engineering",
+      "FromState": "Unscheduled Down",
+      "ToState": "Engineering",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "23": {
+      "StateModel": "SEMI E10",
+      "Name": "UnscheduledDown to UnscheduledDown",
+      "Description": "UnscheduledDown to UnscheduledDown",
+      "FromState": "Unscheduled Down",
+      "ToState": "Unscheduled Down",
+      "Role": "",
+      "ReasonLookupTable": "ReasonsUnscheduledDownToUnscheduledDown",
+      "ReasonDefaultValue": "UDM"
+    }
+  }
+}

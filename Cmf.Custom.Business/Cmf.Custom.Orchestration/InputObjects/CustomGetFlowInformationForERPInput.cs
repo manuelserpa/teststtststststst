@@ -1,7 +1,7 @@
 ﻿using Cmf.Foundation.BusinessOrchestration;
 using System.Runtime.Serialization;
 
-namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects
+namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects
 {
     /// <summary>
     /// Input Object for CustomGetFlowInformationForERPInput Service

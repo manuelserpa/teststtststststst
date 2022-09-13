@@ -1,5 +1,5 @@
-﻿using Cmf.Custom.AMSOsram.Orchestration.InputObjects;
-using Cmf.Custom.AMSOsram.Orchestration.OutputObjects;
+﻿using Cmf.Custom.amsOSRAM.Orchestration.InputObjects;
+using Cmf.Custom.amsOSRAM.Orchestration.OutputObjects;
 using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Custom.Tests.Biz.Common.ERP.Flow;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
@@ -60,7 +60,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomGetFlowInformationForERP_GetFlowInformationForERP_FlowInformationByProductName()
         {
-            CustomFlowInformationToERPData flowInfoData = this.GetFlowInformationScenario(productName: AMSOsramConstants.DefaultTestProductName);
+            CustomFlowInformationToERPData flowInfoData = this.GetFlowInformationScenario(productName: amsOSRAMConstants.DefaultTestProductName);
 
             Product product = new Product() { Name = flowInfoData.ProductInformationData.Name };
             product.Load();
@@ -104,7 +104,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomGetFlowInformationForERP_GetFlowInformationForERP_FlowInformationByFlowName()
         {
-            CustomFlowInformationToERPData flowInfoData = this.GetFlowInformationScenario(flowName: AMSOsramConstants.DefaultTestFlowName);
+            CustomFlowInformationToERPData flowInfoData = this.GetFlowInformationScenario(flowName: amsOSRAMConstants.DefaultTestFlowName);
 
             Flow flow = new Flow() { Name = flowInfoData.FlowInformationData.Name };
             flow.Load();
@@ -147,7 +147,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomGetFlowInformationForERP_GetFlowInformationForERP_FlowInformationOfSpecificVersion()
         {
-            CustomFlowInformationToERPData flowInfoData = this.GetFlowInformationScenario(flowName: AMSOsramConstants.DefaultTestFlowName, flowVersion: "1");
+            CustomFlowInformationToERPData flowInfoData = this.GetFlowInformationScenario(flowName: amsOSRAMConstants.DefaultTestFlowName, flowVersion: "1");
 
             Flow flow = new Flow() { Name = flowInfoData.FlowInformationData.Name, Version = Convert.ToInt32(flowInfoData.FlowInformationData.Version) };
             flow.Load();
@@ -189,11 +189,11 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomGetFlowInformationForERP_GetFlowInformationForERP_ThrowAnErrorWhenProductNameAndFlowNameAreBothFilled()
         {
-            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageProductNameAndFlowNameAtSameTime);
+            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(amsOSRAMConstants.LocalizedMessageProductNameAndFlowNameAtSameTime);
 
             try
             {
-                this.GetFlowInformationScenario(AMSOsramConstants.DefaultTestProductName, AMSOsramConstants.DefaultTestFlowName);
+                this.GetFlowInformationScenario(amsOSRAMConstants.DefaultTestProductName, amsOSRAMConstants.DefaultTestFlowName);
             }
             catch (Exception ex)
             {
@@ -214,7 +214,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomGetFlowInformationForERP_GetFlowInformationForERP_ThrowAnErrorWhenProductNameAndFlowNameIsNotFilled()
         {
-            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageProductNameOrFlowNameNotDefined);
+            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(amsOSRAMConstants.LocalizedMessageProductNameOrFlowNameNotDefined);
 
             try
             {
@@ -239,11 +239,11 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomGetFlowInformationForERP_GetFlowInformationForERP_ThrowAnErrorWhenFlowVersionIsFilledButFlowNameIsNullOrEmpty()
         {
-            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageFlowVersionWithoutFlowName);
+            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(amsOSRAMConstants.LocalizedMessageFlowVersionWithoutFlowName);
 
             try
             {
-                this.GetFlowInformationScenario(productName: AMSOsramConstants.DefaultTestProductName, flowVersion: "1");
+                this.GetFlowInformationScenario(productName: amsOSRAMConstants.DefaultTestProductName, flowVersion: "1");
             }
             catch (Exception ex)
             {
@@ -261,14 +261,14 @@ namespace Cmf.Custom.Tests.Biz.ERP
         private void ValidateGeneralProperties(CustomFlowInformationToERPData flowInfoData, Flow flow, Product product = null)
         {
             // Validate Site name associated to the ProductionLine attribute
-            if (product != null && product.HasRelatedAttributeDefined(AMSOsramConstants.ProductAttributeProductionLine))
+            if (product != null && product.HasRelatedAttributeDefined(amsOSRAMConstants.ProductAttributeProductionLine))
             {
-                string productionLine = product.GetRelatedAttributeValue<Product, string>(AMSOsramConstants.ProductAttributeProductionLine);
+                string productionLine = product.GetRelatedAttributeValue<Product, string>(amsOSRAMConstants.ProductAttributeProductionLine);
 
                 if (!string.IsNullOrWhiteSpace(productionLine))
                 {
                     // Load Generic Table CustomProductionLineConversion
-                    GenericTable customProdLineConversionGT = new GenericTable() { Name = AMSOsramConstants.GenericTableCustomProductionLineConversion };
+                    GenericTable customProdLineConversionGT = new GenericTable() { Name = amsOSRAMConstants.GenericTableCustomProductionLineConversion };
                     customProdLineConversionGT.Load();
 
                     // Based on ProductLine Product attribute get Site and Facility name from Generic Table
@@ -276,7 +276,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
                     {
                         new Foundation.BusinessObjects.QueryObject.Filter()
                         {
-                            Name = AMSOsramConstants.GenericTableCustomProductionLineConversionProductionLineProperty,
+                            Name = amsOSRAMConstants.GenericTableCustomProductionLineConversionProductionLineProperty,
                             Operator = FieldOperator.IsEqualTo,
                             LogicalOperator = LogicalOperator.Nothing,
                             Value = productionLine
@@ -290,7 +290,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
                             NgpDataSet = customProdLineConversionGT.Data
                         }.ToDataSetSync().DataSet;
 
-                        string flowInfoDataSite = prodLineConversionDataSet.Tables[0].Rows[0][AMSOsramConstants.GenericTableCustomProductionLineConversionSiteProperty].ToString();
+                        string flowInfoDataSite = prodLineConversionDataSet.Tables[0].Rows[0][amsOSRAMConstants.GenericTableCustomProductionLineConversionSiteProperty].ToString();
 
                         Assert.AreEqual(flowInfoData.Site, flowInfoDataSite, $"The Site should be the value {flowInfoData.Site}.");
                     }
@@ -393,7 +393,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
                     productParameters[i].TargetEntity.Load();
 
                     string parameterName = productParameters[i].TargetEntity.Name;
-                    string parameterValue = productParameters.FirstOrDefault(p => p.TargetEntity.Name == parameterName).Value;
+                    string parameterValue = productParameters.FirstOrDefault(p => p.TargetEntity.Name == parameterName).Value.ToString();
                     string parameterType = productParameters[i].Type.ToString();
 
                     Assert.AreEqual(productInfoData.ProductParameters[i].Name, parameterName,

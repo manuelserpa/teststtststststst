@@ -1,9 +1,10 @@
-﻿using Cmf.Custom.AMSOsram.Common;
+﻿using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Foundation.Common;
 using Cmf.Foundation.Configuration;
 using System.Collections.Generic;
+using Cmf.Foundation.Configuration.Abstractions;
 
-namespace Cmf.Custom.AMSOsram.Actions.Configurations
+namespace Cmf.Custom.amsOSRAM.Actions.Configurations
 {
     public class CustomGetTibcoConfigurations : DeeDevBase
     {
@@ -31,15 +32,11 @@ namespace Cmf.Custom.AMSOsram.Actions.Configurations
         {
             //---Start DEE Code---     
 
-            //Foundation
-            UseReference("", "Cmf.Foundation.Common");
-            UseReference("", "Cmf.Foundation.Configuration");
-
             //Common
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
 
             // Get IsEnabled config value
-            Config.TryGetConfig(AMSOsramConstants.TibcoConfigIsEnabledPath, out Config isEnabledConfig);
+            Config.TryGetConfig(amsOSRAMConstants.TibcoConfigIsEnabledPath, out IConfig isEnabledConfig);
 
             if (isEnabledConfig == null || isEnabledConfig.Value == null || string.IsNullOrWhiteSpace(isEnabledConfig.Value.ToString()))
             {
@@ -47,7 +44,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Configurations
             }
 
             // Get Host config value
-            Config.TryGetConfig(AMSOsramConstants.TibcoConfigHostPath, out Config hostConfig);
+            Config.TryGetConfig(amsOSRAMConstants.TibcoConfigHostPath, out IConfig hostConfig);
 
             if (hostConfig == null || hostConfig.Value == null || string.IsNullOrWhiteSpace(hostConfig.Value.ToString()))
             {
@@ -55,7 +52,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Configurations
             }
 
             // Get Username config value
-            Config.TryGetConfig(AMSOsramConstants.TibcoConfigUsernamePath, out Config usernameConfig);
+            Config.TryGetConfig(amsOSRAMConstants.TibcoConfigUsernamePath, out IConfig usernameConfig);
 
             if (usernameConfig == null || usernameConfig.Value == null || string.IsNullOrWhiteSpace(usernameConfig.Value.ToString()))
             {
@@ -63,7 +60,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Configurations
             }
 
             // Get Password config value
-            Config.TryGetConfig(AMSOsramConstants.TibcoConfigPasswordPath, out Config passwordConfig);
+            Config.TryGetConfig(amsOSRAMConstants.TibcoConfigPasswordPath, out IConfig passwordConfig);
 
             if (passwordConfig == null || passwordConfig.Value == null || string.IsNullOrWhiteSpace(passwordConfig.Value.ToString()))
             {
