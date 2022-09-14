@@ -37,7 +37,14 @@
             "Lookup Table Value": "ProdLine1",
             "Lookup Table Value Description": "Production Line 1",
             "Lookup Table IsEnabled": "Yes"
-        }
+        },
+        "5": {
+            "LookUp Table": "CustomProductionLines",
+            "Lookup Table Value Parent": "",
+            "Lookup Table Value": "ProdLine2",
+            "Lookup Table Value Description": "Production Line 2",
+            "Lookup Table IsEnabled": "Yes"
+        },
     },
     "<SM>EntityTypeProperty": {
         "1": {
@@ -643,6 +650,44 @@
             "IsEnabledForMaterialLogistics": "",
             "DefaultBOM": "",
             "MaximumMaterialSize": ""
+        },
+        "3": {
+            "Name": "CMFTestProductProductionLineWithoutGTConfiguration",
+            "Description": "Product used in cmf tests",
+            "Type": "Production",
+            "ProductType": "FinishedGood",
+            "DefaultUnits": "CM2",
+            "IsEnabled": "Yes",
+            "FlowPath": "CMFTestFlow:1/CMFTestStep01:1",
+            "Unit Conversion Factors": "",
+            "Sub Products": "",
+            "Binning Tree": "",
+            "InitialUnitCost": "",
+            "FinishedUnitCost": "",
+            "Yield": "",
+            "CycleTime": "",
+            "IncludeInSchedule": "No",
+            "CapacityClass": "",
+            "MaterialTransferMode": "",
+            "MaterialTransferApprovalMode": "",
+            "MaterialTransferAllowedPickup": "",
+            "ProductGroup": "",
+            "IsEnableForMaintenanceManagement": "No",
+            "MaintenanceManagementConsumeQuantity": "",
+            "IsDiscrete": "No",
+            "MoistureSensitivityLevel": "",
+            "FloorLife": "",
+            "FloorLifeUnitOfTime": "",
+            "RequiresApproval": "",
+            "ApprovalRole": "",
+            "CanSplitForPicking": "",
+            "MaterialLogisticsDefaultRequestQuantity": "",
+            "ConsumptionScrap": "",
+            "AdditionalConsumptionQuantity": "",
+            "IsEnabledForMaterialLogistics": "",
+            "DefaultBOM": "",
+            "MaximumMaterialSize": "",
+            "ProductionLine": "ProdLine2"
         }
     },
     "ProductManufacturer": {},
