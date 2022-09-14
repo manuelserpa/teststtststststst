@@ -2,7 +2,9 @@
 
 ## Overview
 
-This generator is used when spliting a Material.
+This generator is executed when a Material is split, and generates a name for the splitted Materials. It calls the DEE action **[Custom Generate Split Lot Names](/AMSOsram/tecspecs>artifacts>deeactions>CustomGenerateSplitLotNames)**.
+
+## Details
 
 On the splits the name generation should take the first 8 digits of the parent material followed by two digits that are alphanumeric running numbers:
 

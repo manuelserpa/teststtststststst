@@ -61,20 +61,13 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             string parentMaterialNameSubstring = materialLot.Name.Substring(0, 8);
 
             // Get alphanumeric allowed digits from Config
-            string alphanumericAllowedDigits = null;
+            string alphanumericAllowedDigits = "0123456789";
             if (Config.TryGetConfig(AMSOsramConstants.DefaultProductionLotNameAlphanumericAllowedDigits, out Config prodLotNameAplhanumericAllowedDigitsConfig) &&
                         !string.IsNullOrWhiteSpace(prodLotNameAplhanumericAllowedDigitsConfig.GetConfigValue<string>()))
             {
                 alphanumericAllowedDigits = prodLotNameAplhanumericAllowedDigitsConfig.GetConfigValue<string>();
-            } else
-            {
-                alphanumericAllowedDigits = null;
             }
             int charListSize = alphanumericAllowedDigits.Length;
-            // Lot Name Generator builder
-            StringBuilder message = new StringBuilder();
-            
-            string finalName = parentMaterialNameSubstring;
 
             // Load Current Context associated to Name Generator
             GeneratorContext contextNG = null;
@@ -116,13 +109,10 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             Array.Reverse(charArray);
             result = new string(charArray);
 
-            message.AppendFormat("result :: '{0}'", result).AppendLine();
-            message.AppendFormat("counter :: '{0}'", nextCounter).AppendLine();
-
             // Save Generator context
             if (contextNG != null)
             {
-                contextNG.LastCounterValue = Convert.ToInt32(result);
+                contextNG.LastCounterValue = Convert.ToInt32(nextCounter);
                 contextNG.Save();
             }
             else
@@ -132,17 +122,12 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                     new GeneratorContext()
                     {
                         Context = parentMaterialNameSubstring,
-                        LastCounterValue = Convert.ToInt32(result)
+                        LastCounterValue = Convert.ToInt32(nextCounter)
                     }
                 });
             }
 
-            finalName += result;
-
-            message.AppendFormat("finalName :: '{0}'", finalName).AppendLine();
-
-            Input.Add("Message", message.ToString());
-            Input.Add("Result", finalName);
+            Input.Add("Result", parentMaterialNameSubstring + result);
 
             //---End DEE Code---
 

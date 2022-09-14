@@ -626,7 +626,7 @@
         /// <summary>
         /// Alphanumeric allowed digits on ProductionLotName Name Generator
         /// </summary>
-        public static string DefaultProductionLotNameAlphanumericAllowedDigits = "/AMSOsram/NameGenerators/ProductionLotName/AlphanumericAllowedDigits";
+        public static string DefaultProductionLotNameAlphanumericAllowedDigits = "/AMSOsram/Material/LotNameAllowedCharacters/";
 
         #endregion
 

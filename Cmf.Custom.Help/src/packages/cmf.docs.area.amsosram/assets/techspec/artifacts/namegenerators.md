@@ -14,9 +14,9 @@ On the splits the name generation should take the first 8 digits of the parent m
 | [Custom Production Lot Name Generator](/AMSOsram/techspec>artifacts>namegenerators>CustomProductionLotNameGenerator) | Name generator for Production Lot Names. This generator is used when creating the main material.
 
 The name generation should be as follows:
-- [Site][2 digits for the fiscal year][2 digits for the fiscal week][Alphanumeric running number]
-- R2143001….. R214300A
-For the Site it is used the constant T.
+- [First Letter of Site ID][First Letter of Facility ID][6 digits of alphanumeric running number][2 digit alphanumeric split lot counter]
+- UA00000100
+The split lot counter is allways 00.
 
 *Note:*
 Alphanumeric need to exclude the following letters B,D,E,G,I,J,K,O,P,Q,S,V,W,Y,Z | 

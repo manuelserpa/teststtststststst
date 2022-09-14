@@ -13,8 +13,8 @@
   },
   "<SM>Config": {
     "1": {
-      "ParentPath": "/AMSOsram/NameGenerators/ProductionLotName",
-      "Name": "AlphanumericAllowedDigits",
+      "ParentPath": "/AMSOsram/Material/LotNameAllowedCharacters/",
+      "Name": "LotNameAllowedCharacters",
       "Value": "0123456789ACFHLMNRTUX",
       "ValueType": "String"
     }
