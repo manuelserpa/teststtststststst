@@ -12,11 +12,11 @@
         },
         {
             "id": "Cmf.Custom.Business",
-            "version": "1.12.0"
+            "version": "1.13.0"
         },
         {
             "id": "Cmf.Custom.Data",
-            "version": "1.12.0"
+            "version": "1.13.0"
         },
         {
             "id": "Cmf.Custom.Data.ExportedObjects",
@@ -24,7 +24,7 @@
         },
         {
             "id": "Cmf.Custom.Help",
-            "version": "1.12.0"
+            "version": "1.13.0"
         },
         {
             "id": "Cmf.Custom.Html",
@@ -42,11 +42,11 @@
     "testPackages": [
         {
             "id": "Cmf.Custom.Tests",
-            "version": "1.12.0"
+            "version": "1.13.0"
         },
         {
             "id": "Cmf.Custom.Tests.MasterData",
-            "version": "1.11.0"
+            "version": "1.12.0"
         }
     ],
     "handlerVersion": 0

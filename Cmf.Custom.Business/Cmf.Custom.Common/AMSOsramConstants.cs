@@ -115,6 +115,26 @@
         /// </summary>
         public static string GenericTableCustomTibcoEMSGatewayResolverCompressMessageProperty = "CompressMessage";
 
+        /// <summary>
+        /// Custom Production Line Conversion table name 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversion = "CustomProductionLineConversion";
+
+        /// <summary>
+        /// Custom Production Line Conversion table ProductionLine property 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversionProductionLineProperty = "ProductionLine";
+
+        /// <summary>
+        /// Custom Production Line Conversion table Site property 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversionSiteProperty = "Site";
+
+        /// <summary>
+        /// Custom Production Line Conversion table Facility property 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversionFacilityProperty = "Facility";
+
         #endregion
 
         #region LookupTables
@@ -203,6 +223,11 @@
         /// Resource Attribute FDCCommunication
         /// </summary>
         public static string ResourceAttributeFDCCommunication = "FDCCommunication";
+
+        /// <summary>
+        /// Product Attribute ProductionLine
+        /// </summary>
+        public static string ProductAttributeProductionLine = "ProductionLine";
 
         #endregion
 
@@ -555,6 +580,31 @@
         /// </summary>
         public static string LocalizedMessageContainerCannotBeUndocked = "CustomLocalizedMessageContainerCannotBeUndocked";
 
+        /// <summary>
+        /// Localized Message: CustomConfigurationWithoutValue
+        /// </summary>
+        public static string LocalizedMessageConfigurationWithoutValue = "CustomConfigurationWithoutValue";
+
+        /// <summary>
+        /// Localized Message: CustomProductionLineAttributeWithoutValue
+        /// </summary>
+        public static string LocalizedMessageProductionLineAttributeWithoutValue = "CustomProductionLineAttributeWithoutValue";
+
+        /// <summary>
+        /// Localized Message: CustomGTWihtoutDataForSpecificProductionLine
+        /// </summary>
+        public static string LocalizedMessageGTWihtoutDataForSpecificProductionLine = "CustomGTWihtoutDataForSpecificProductionLine";
+
+        /// <summary>
+        /// Localized Message: CustomInsufficientDigitsForNameGenerator
+        /// </summary>
+        public static string LocalizedMessageInsufficientDigitsForNameGenerator = "CustomInsufficientDigitsForNameGenerator";
+
+        /// <summary>
+        /// Localized Message: CustomConfigMissingValue
+        /// </summary>
+        public static string LocalizedMessageConfigMissingValue = "CustomConfigMissingValue";
+
         #endregion
 
         #region State Model
@@ -622,6 +672,11 @@
         /// Default Vendor ContainerTypes
         /// </summary>
         public static string DefaultVendorContainerTypesConfig = "/AMSOsram/Container/VendorContainerTypes/";
+
+        /// <summary>
+        /// Lot name allowed characters
+        /// </summary>
+        public static string DefaultLotNameAllowedCharacters = "/AMSOsram/Material/LotNameAllowedCharacters";
 
         #endregion
 
