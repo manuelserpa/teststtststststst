@@ -44,7 +44,7 @@
             "Lookup Table Value": "ProdLine2",
             "Lookup Table Value Description": "Production Line 2",
             "Lookup Table IsEnabled": "Yes"
-        },
+        }
     },
     "<SM>EntityTypeProperty": {
         "1": {
