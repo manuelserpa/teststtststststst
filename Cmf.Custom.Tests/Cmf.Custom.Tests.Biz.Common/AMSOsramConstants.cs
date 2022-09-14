@@ -315,6 +315,11 @@
         /// </summary>
         public static string DefaultVendorContainerTypesConfig = "/AMSOsram/Container/VendorContainerTypes/";
 
+        /// <summary>
+        /// Lot name allowed characters
+        /// </summary>
+        public static string DefaultLotNameAllowedCharacters = "/AMSOsram/Material/LotNameAllowedCharacters";
+
         #endregion Configurations
 
         #region Localized Messages
