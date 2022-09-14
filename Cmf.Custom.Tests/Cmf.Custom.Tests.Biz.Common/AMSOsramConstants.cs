@@ -101,6 +101,16 @@
         /// </summary>
         public const string DefaultTestResourceName = "CMFTestResource01";
 
+        /// <summary>
+        /// Default Test Product without ProductionLine Name
+        /// </summary>
+        public const string DefaultTestProductWithoutProductionLineName = "CMFTestProductNoProductionLine";
+
+        /// <summary>
+        /// Default Test Product without GT ProductionLine configuration Name
+        /// </summary>
+        public const string DefaultTestProductGTWithoutProductionLineName = "CMFTestProductProductionLineWithoutGTConfiguration";
+
         #endregion
 
         #region MasterData
@@ -339,6 +349,35 @@
         /// </summary>
         public const string LocalizedMessageCustomPrimaryUnitObjectNull = "CustomPrimaryUnitObjectNull";
 
+        /// <summary>
+        /// Localized Message: CustomProductionLineAttributeWithoutValue
+        /// </summary>
+        public static string LocalizedMessageProductionLineAttributeWithoutValue = "CustomProductionLineAttributeWithoutValue";
+
+        /// <summary>
+        /// Localized Message: CustomGTWihtoutDataForSpecificProductionLine
+        /// </summary>
+        public static string LocalizedMessageGTWihtoutDataForSpecificProductionLine = "CustomGTWihtoutDataForSpecificProductionLine";
+
+        /// <summary>
+        /// Localized Message: CustomInsufficientDigitsForNameGenerator
+        /// </summary>
+        public static string LocalizedMessageInsufficientDigitsForNameGenerator = "CustomInsufficientDigitsForNameGenerator";
+
+        /// <summary>
+        /// Localized Message: CustomConfigMissingValue
+        /// </summary>
+        public static string LocalizedMessageConfigMissingValue = "CustomConfigMissingValue";
+
         #endregion Localized Messages
+
+        #region GenericTables
+
+        /// <summary>
+        /// Custom Production Line Conversion table name 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversion = "CustomProductionLineConversion";
+
+        #endregion GenericTables
     }
 }

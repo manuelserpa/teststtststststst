@@ -1,7 +1,9 @@
 ﻿using Cmf.Custom.Tests.Biz.Common;
+using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessOrchestration.NameGeneratorManagement.InputObjects;
+using Cmf.Foundation.Configuration;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects;
 using Cmf.TestScenarios.Others;
@@ -17,6 +19,7 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
     {
         private const string siteFacilityPrefix = "RP";
         private const int numberOfCharacters = 6;
+        private const string productionLineName = "ProdLine2";
 
         private MaterialCollection materials;
 
@@ -48,10 +51,10 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
         /// 
         /// Acceptance Citeria:
         ///     - Production Lot Name following the specifed tokens: 
-        ///       - [Site][2 digits for the fiscal year][2 digits for the fiscal week][Alphanumeric running number] 
+        ///       - [Site & Facility prefix associated to the ProductionLine attribute][Alphanumeric 6 digits counter][00]
         /// 
         /// </summary>
-        /// <TestCaseID>CustomGenerateProductionLotNames.CustomGenerateProductionLotNames_CreateProductionLot_HappyPath</TestCaseID>
+        /// <TestCaseID>CustomGenerateProductionLotNames_CreateProductionLot_HappyPath</TestCaseID>
         /// <Author>André Cruz</Author>
         [TestMethod]
         public void CustomGenerateProductionLotNames_CreateProductionLot_HappyPath()
@@ -66,6 +69,110 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
             };
         }
 
+        /// <summary>
+        /// Description:
+        ///     - Try to create Material without AllowedDigits Configuration
+        /// 
+        /// Acceptance Citeria:
+        ///     - Thow a message associated to the CustomConfigMissingValue LocalizedMessage
+        /// 
+        /// </summary>
+        /// <TestCaseID>CustomGenerateProductionLotNames_CreateProductionLot_ThrowAnErrorWhenAllowedDigitsConfigurationDoesNotExist</TestCaseID>
+        /// <Author>André Cruz</Author>
+        [TestMethod]
+        public void CustomGenerateProductionLotNames_CreateProductionLot_ThrowAnErrorWhenAllowedDigitsConfigurationDoesNotExist()
+        {
+            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageConfigMissingValue,
+                                                                                AMSOsramConstants.DefaultLotNameAllowedCharacters);
+
+
+            string configValue = ConfigUtilities.GetConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters) as string;
+
+            try
+            {
+                ConfigUtilities.RemoveConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters);
+
+                Assert.IsTrue(string.IsNullOrWhiteSpace(ConfigUtilities.GetConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters) as string),
+                              "The Config should be an empty value.");
+
+                this.LotNameGeneratorScenario(AMSOsramConstants.FormLot, AMSOsramConstants.DefaultTestProductWithoutProductionLineName);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(ex.Message.Contains(localizedMessage),
+                              $"The error message returned is different from the message defined in the Localized Message.");
+            }
+            finally
+            {
+                // Rollback to the original Config value
+                ConfigUtilities.SetConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters, configValue);
+            }
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Create Material Lot with the following characteristics:
+        ///       - Name is null
+        ///       - Product without configured ProductionLine attribute
+        /// 
+        /// Acceptance Citeria:
+        ///     - Thow a message associated to the CustomProductionLineAttributeWithoutValue LocalizedMessage
+        /// 
+        /// </summary>
+        /// <TestCaseID>CustomGenerateProductionLotNames_CreateProductionLot_ThrowAnErrorWhenProductionLineAttributeWithoutValue</TestCaseID>
+        /// <Author>André Cruz</Author>
+        [TestMethod]
+        public void CustomGenerateProductionLotNames_CreateProductionLot_ThrowAnErrorWhenProductionLineAttributeWithoutValue()
+        {
+            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageProductionLineAttributeWithoutValue,
+                                                                                AMSOsramConstants.DefaultTestProductWithoutProductionLineName);
+
+            try
+            {
+                this.LotNameGeneratorScenario(AMSOsramConstants.FormLot, AMSOsramConstants.DefaultTestProductWithoutProductionLineName);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(ex.Message.Contains(localizedMessage),
+                              $"The error message returned is different from the message defined in the Localized Message.");
+            }
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Create Material Lot with the following characteristics:
+        ///       - Name is null
+        ///       - ProductionLine associated with Product without configuration in GenericTableCustomProductionLineConversion
+        /// 
+        /// Acceptance Citeria:
+        ///     - Thow a message associated to the CustomGTWihtoutDataForSpecificProductionLine LocalizedMessage
+        /// 
+        /// </summary>
+        /// <TestCaseID>CustomGenerateProductionLotNames_CreateProductionLot_ThrowAnErrorWhenProductionLineIsNotConfigutedOnGT</TestCaseID>
+        /// <Author>André Cruz</Author>
+        [TestMethod]
+        public void CustomGenerateProductionLotNames_CreateProductionLot_ThrowAnErrorWhenProductionLineIsNotConfigutedOnGT()
+        {
+            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageGTWihtoutDataForSpecificProductionLine,
+                                                                                AMSOsramConstants.GenericTableCustomProductionLineConversion,
+                                                                                productionLineName);
+
+            try
+            {
+                this.LotNameGeneratorScenario(AMSOsramConstants.FormLot, AMSOsramConstants.DefaultTestProductGTWithoutProductionLineName);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(ex.Message.Contains(localizedMessage),
+                              $"The error message returned is different from the message defined in the Localized Message.");
+            }
+        }
+
+        /// <summary>
+        /// Generate Lot Names
+        /// </summary>
+        /// <param name="numberOfNamesToGenerate">Number of name to generate</param>
+        /// <returns>List of Lot Names</returns>
         private List<string> GenerateLotNames(int numberOfNamesToGenerate)
         {
             List<string> names = new List<string>();
@@ -116,6 +223,12 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
             return names;
         }
 
+        /// <summary>
+        /// Lot Name Generator Scenario
+        /// </summary>
+        /// <param name="materialForm">Material Form</param>
+        /// <param name="productName">ProductName to associate</param>
+        /// <returns>Material name</returns>
         private string LotNameGeneratorScenario(string materialForm, string productName)
         {
             Material material = new Material()
