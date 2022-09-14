@@ -22,4 +22,4 @@ This action considers the attribute ProductionLine associated to the entity Prod
 
 The generated Lot name will consist of the first letter of the Site and Facility name followed by six digits that will be generated considering a set of characters defined in system Configuration (/AMSOsram/Material/LotNameAllowedCharacters). Since it is a Lot it will always contain the constant value "00" at the end.
 
-The first 2 letters from the lot name (Site + Facility) will stored in the Name Generator context so that it can be incremented each time a new Lot is created.
+The first 2 letters from the lot name (Site + Facility) will be stored in the Name Generator context so that it can be incremented each time a new Lot is created.

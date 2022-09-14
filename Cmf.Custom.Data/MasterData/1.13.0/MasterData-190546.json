@@ -5,7 +5,7 @@
             "Name": "CustomProductionLineAttributeWithoutValue",
             "Description": "Error message when Product attribute ProductionLine has no value associated.",
             "MessageType": "Message",
-            "en-US": "The Product {0} has no value associated with the attribute ProductionLine.",
+            "en-US": "The Product {0} has no value  assigned to the ProductionLine attribute.",
             "de-DE": "",
             "zh-CN": "",
             "pt-PT": "",
@@ -32,10 +32,10 @@
             "zh-TW": ""
         },
         "4": {
-            "Name": "CustomConfigValueIsNullOrWhiteSpace",
-            "Description": "Error message when Configuration value is null or without.",
+            "Name": "CustomConfigMissingValue",
+            "Description": "Error message when Configuration is missing.",
             "MessageType": "Message",
-            "en-US": "The following configuration value is null or without value: {0}.",
+            "en-US": "The following configuration is missing: {0}.",
             "de-DE": "",
             "zh-CN": "",
             "pt-PT": "",

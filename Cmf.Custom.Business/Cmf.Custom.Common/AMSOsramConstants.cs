@@ -601,9 +601,9 @@
         public static string LocalizedMessageInsufficientDigitsForNameGenerator = "CustomInsufficientDigitsForNameGenerator";
 
         /// <summary>
-        /// Localized Message: ConfigValueIsNullOrWhiteSpace
+        /// Localized Message: CustomConfigMissingValue
         /// </summary>
-        public static string LocalizedMessageConfigValueIsNullOrWhiteSpace = "CustomConfigValueIsNullOrWhiteSpace";
+        public static string LocalizedMessageConfigMissingValue = "CustomConfigMissingValue";
 
         #endregion
 

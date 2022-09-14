@@ -44,7 +44,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                     if (!Config.TryGetConfig(AMSOsramConstants.DefaultLotNameAllowedCharacters, out Config lotNameAllowedCharactersConfig) ||
                         string.IsNullOrWhiteSpace(lotNameAllowedCharactersConfig.GetConfigValue<string>()))
                     {
-                        throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageConfigValueIsNullOrWhiteSpace,
+                        throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageConfigMissingValue,
                                                                                   AMSOsramConstants.DefaultLotNameAllowedCharacters));
                     }
 
