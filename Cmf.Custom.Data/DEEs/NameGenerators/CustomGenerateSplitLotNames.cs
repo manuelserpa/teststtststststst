@@ -24,9 +24,25 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             ///     - ResolveNameGenerator
             /// </summary>
             #endregion
+            bool canExecute = false;
 
+            if(Input != null && Input.ContainsKey("EntitySource"))
+            {
+                Material material = Input["EntitySource"] as Material;
+                if(material != null && material.Product != null && material.Form.Equals(AMSOsramConstants.MaterialLotForm, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    // Throw an exception case Configuration has no associated value
+                    if (!Config.TryGetConfig(AMSOsramConstants.DefaultLotNameAllowedCharacters, out Config lotNameAllowedCharactersConfig) ||
+                        string.IsNullOrWhiteSpace(lotNameAllowedCharactersConfig.GetConfigValue<string>()))
+                    {
+                        throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageConfigMissingValue,
+                                                                                  AMSOsramConstants.DefaultLotNameAllowedCharacters));
+                    }
+                    canExecute = true;
+                }
+            }
 
-            return true;
+            return canExecute;
 
             //---End DEE Condition Code---
         }
@@ -61,13 +77,13 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             string parentMaterialNameSubstring = materialLot.Name.Substring(0, 8);
 
             // Get alphanumeric allowed digits from Config
-            string alphanumericAllowedDigits = "0123456789";
-            if (Config.TryGetConfig(AMSOsramConstants.DefaultProductionLotNameAlphanumericAllowedDigits, out Config prodLotNameAplhanumericAllowedDigitsConfig) &&
+            string lotNameAllowedCharacters = null;
+            if (Config.TryGetConfig(AMSOsramConstants.DefaultLotNameAllowedCharacters, out Config prodLotNameAplhanumericAllowedDigitsConfig) &&
                         !string.IsNullOrWhiteSpace(prodLotNameAplhanumericAllowedDigitsConfig.GetConfigValue<string>()))
             {
-                alphanumericAllowedDigits = prodLotNameAplhanumericAllowedDigitsConfig.GetConfigValue<string>();
+                lotNameAllowedCharacters = prodLotNameAplhanumericAllowedDigitsConfig.GetConfigValue<string>();
             }
-            int charListSize = alphanumericAllowedDigits.Length;
+            int allowedCharactersSize = lotNameAllowedCharacters.Length;
 
             // Load Current Context associated to Name Generator
             GeneratorContext contextNG = null;
@@ -78,41 +94,43 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             int numberOfCharacters = 2;
 
             // Counter based on ASCII Table
-            int counter = 0;
+            int lastCounterValue = 0;
 
             if (contextNG != null)
             {
                 // Get last counter value from NG Context
-                counter = int.Parse(contextNG.LastCounterValue.ToString());
+                lastCounterValue = contextNG.LastCounterValue;
             }
 
-            counter++;
+            lastCounterValue++;
 
             // Build list from start to end
-            int nextCounter = counter;
-            string result = string.Empty;
+            int nextCounterValue = lastCounterValue;
+            string alphanumericCounter = string.Empty;
             for(int i = 0; i < numberOfCharacters; i++)
             {
-                int currLetterInt = counter % charListSize;
-                result += (char)alphanumericAllowedDigits[0 + currLetterInt];
-                counter /= charListSize;
+                int currLetterInt = lastCounterValue % allowedCharactersSize;
+                alphanumericCounter += (char)lotNameAllowedCharacters[0 + currLetterInt];
+                lastCounterValue /= allowedCharactersSize;
             }
 
-            if (counter > 0)
+            if (lastCounterValue > 0)
             {
                 // insufficient number of digits to represent the counter
-                throw new ArgumentOutOfRangeCmfException("Name Generator Token Counter", nextCounter.ToString(), Math.Pow(charListSize, numberOfCharacters).ToString(), false);
+                throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageInsufficientDigitsForNameGenerator,
+                                                                          AMSOsramConstants.CustomGenerateProductionLotNames,
+                                                                          nextCounterValue.ToString()));
             }
 
             // Revert the characters
-            char[] charArray = result.ToCharArray();
+            char[] charArray = alphanumericCounter.ToCharArray();
             Array.Reverse(charArray);
-            result = new string(charArray);
+            alphanumericCounter = new string(charArray);
 
             // Save Generator context
             if (contextNG != null)
             {
-                contextNG.LastCounterValue = Convert.ToInt32(nextCounter);
+                contextNG.LastCounterValue = nextCounterValue;
                 contextNG.Save();
             }
             else
@@ -122,12 +140,12 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                     new GeneratorContext()
                     {
                         Context = parentMaterialNameSubstring,
-                        LastCounterValue = Convert.ToInt32(nextCounter)
+                        LastCounterValue = nextCounterValue
                     }
                 });
             }
 
-            Input.Add("Result", parentMaterialNameSubstring + result);
+            Input.Add("Result", parentMaterialNameSubstring + alphanumericCounter);
 
             //---End DEE Code---
 

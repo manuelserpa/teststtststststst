@@ -555,6 +555,16 @@
         /// </summary>
         public static string LocalizedMessageContainerCannotBeUndocked = "CustomLocalizedMessageContainerCannotBeUndocked";
 
+        /// <summary>
+        /// Localized Message: CustomConfigMissingValue
+        /// </summary>
+        public static string LocalizedMessageConfigMissingValue = "CustomConfigMissingValue";
+
+        /// <summary>
+        /// Localized Message: CustomInsufficientDigitsForNameGenerator
+        /// </summary>
+        public static string LocalizedMessageInsufficientDigitsForNameGenerator = "CustomInsufficientDigitsForNameGenerator";
+
         #endregion
 
         #region State Model
@@ -626,7 +636,7 @@
         /// <summary>
         /// Alphanumeric allowed digits on ProductionLotName Name Generator
         /// </summary>
-        public static string DefaultProductionLotNameAlphanumericAllowedDigits = "/AMSOsram/Material/LotNameAllowedCharacters/";
+        public static string DefaultLotNameAllowedCharacters = "/AMSOsram/Material/LotNameAllowedCharacters/";
 
         #endregion
 
