@@ -1,32 +1,43 @@
 ﻿using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Custom.TestUtilities;
-using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessOrchestration.NameGeneratorManagement.InputObjects;
-using Cmf.Foundation.BusinessOrchestration.NameGeneratorManagement.OutputObjects;
-using Cmf.Foundation.Configuration;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects;
-using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
-using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
 using Cmf.TestScenarios.Others;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Cmf.Custom.Tests.Biz.NameGenerators
 {
     [TestClass]
     public class CustomGenerateSplitLotNames
     {
-        private string facilityName = "Regensburg Production";
-        private string productName = "11111335";
-        private string type = "Production";
-        private string flowName = "FOL-UX3_EPA";
-        private string stepName = "M2-SL-Wafer-Start-07301F001_E";
-        private string materialFormName = "Lot";
-        private string defaultUnit = "CM2";
+        private MaterialCollection splittedMaterials;
+        private int numberOfCharacters = 2;
+        private string materialSubString;
+
+
+        /// Test Initialization
+        /// </summary>
+        [TestInitialize]
+        public void TestInitialization()
+        {
+            this.splittedMaterials = new MaterialCollection();
+        }
+
+        /// <summary>
+        /// Test Cleanup
+        /// </summary>
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            if (splittedMaterials.Any())
+            {
+                splittedMaterials.Load();
+                splittedMaterials.TerminateMaterialCollection();
+            }
+        }
 
         /// <summary>
         /// Description:
@@ -44,160 +55,81 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
         [TestMethod]
         public void CustomGenerateSplitLotNames_SplitMaterials_HappyPath()
         {
-            // Instance for Material Collection
-            MaterialCollection materials = new MaterialCollection();
-
-
-            try
+            List<string> generatedSplitNames = GenerateLotNames(25);
+            splittedMaterials = this.SplitLotNameGeneratorScenario(AMSOsramConstants.DefaultMaterialFormName);
+            for (int i = 0; i < generatedSplitNames.Count; i++)
             {
-                ///<Step> Create a material </Step>
-                Material material = new Material()
-                {
-                    Name = Guid.NewGuid().ToString("N"),
-                    Facility = GenericGetsScenario.GetObjectByName<Facility>(facilityName),
-                    Product = GenericGetsScenario.GetObjectByName<Product>(productName),
-                    Type = type,
-                    FlowPath = new GetCorrelationIdFlowPathInput
-                    {
-                        SequenceFlowPath = flowName + ":1/" + stepName + @":1"
-                    }.GetCorrelationIdFlowPathSync().CorrelationIdFlowPath,
-                    Form = materialFormName,
-                    PrimaryQuantity = 10,
-                    PrimaryUnits = defaultUnit
-                };
-                material.Create();
-                materials.Add(material);
-
-                // Generation of alphanumeric values
-                List<string> alphanumericLotNames = GenerateLotNames(3, material.Name);
-                int alphanumericLotNAmesIdx = 0;
-                ///<Step> Split the material </Step>
-                SplitInputParametersCollection splitInputParametersCollection = new SplitInputParametersCollection
-                {
-                    new SplitInputParameters
-                    {
-                        PrimaryQuantity = 4,
-                        MaterialContainer = null
-                    },
-                    new SplitInputParameters
-                    {
-                        PrimaryQuantity = 2,
-                        MaterialContainer = null
-                    }
-                };
-
-                SplitMaterialInput splitMaterialInput = new SplitMaterialInput
-                {
-                    Material = material,
-                    ChildMaterials = splitInputParametersCollection,
-                    SplitMode = MaterialSplitMode.SplitNotAssembled,
-                    IgnoreLastServiceId = true,
-                    ServiceComments = null
-                };
-                SplitMaterialOutput splitMaterialOutput = splitMaterialInput.SplitMaterialSync();
-
-                ///<ExpectedResult> The child materials follow the specified tokens </ExpectedResult>
-                int count = 1;
-                foreach (Material childMaterial in splitMaterialOutput.ChildMaterials)
-                {
-                    materials.Add(childMaterial);
-                    string splittedMaterialName = childMaterial.Name.Substring(0, 8) + alphanumericLotNames[alphanumericLotNAmesIdx];
-                    alphanumericLotNAmesIdx++;
-                    Assert.IsTrue(splittedMaterialName.Equals(childMaterial.Name), $"Child name should be {splittedMaterialName}, instead is {childMaterial.Name}.");
-                    count += 1;
-                }
-
-                ///<Step> Split a child material </Step>
-                Material splitedMaterial = splitMaterialOutput.ChildMaterials.FirstOrDefault();
-                splitInputParametersCollection = new SplitInputParametersCollection
-                {
-                    new SplitInputParameters
-                    {
-                        PrimaryQuantity = 2,
-                        MaterialContainer = null
-                    }
-                };
-
-                splitMaterialInput = new SplitMaterialInput
-                {
-                    Material = splitedMaterial,
-                    ChildMaterials = splitInputParametersCollection,
-                    SplitMode = MaterialSplitMode.SplitNotAssembled,
-                    IgnoreLastServiceId = true,
-                    ServiceComments = null
-                };
-                splitMaterialOutput = splitMaterialInput.SplitMaterialSync();
-
-
-                ///<ExpectedResult> The child material follow the specified tokens </ExpectedResult>
-                foreach (Material childMaterial in splitMaterialOutput.ChildMaterials)
-                {
-                    materials.Add(childMaterial);
-                    string splittedLotName = childMaterial.Name.Substring(0, 8) + alphanumericLotNames[alphanumericLotNAmesIdx];
-                    alphanumericLotNAmesIdx++;
-                    Assert.IsTrue(splittedLotName.Equals(childMaterial.Name), $"Child name should be {splittedLotName}, instead is {childMaterial.Name}.");
-                    count += 1;
-                }
-            }
-            finally
-            {
-                ///<Step> Clear the created materials </Step>
-                if (materials.Count > 0)
-                {
-                    materials.Load();
-                    materials.TerminateMaterialCollection();
-                }
+                string expectedSplitLotName = string.Format("{0}{1}", materialSubString, generatedSplitNames[i]);
+                Assert.AreEqual(expectedSplitLotName, splittedMaterials[i].Name, $"Lot name doesn't not match with the expected name: {expectedSplitLotName}.");
             }
         }
-        
 
-        private List<string> GenerateLotNames(int numberOfNamesToGenerate, string parentMaterialName)
+        /// <summary>
+        /// Split Lot Name Scenario
+        /// </summary>
+        /// <param name="materialForm">Material Form</param>
+        /// <returns>Lot Split Materials</returns>
+        private MaterialCollection SplitLotNameGeneratorScenario(string materialFormName)
+        {
+            Material material = new Material()
+            {
+                Name = null,
+                Facility = GenericGetsScenario.GetObjectByName<Facility>(AMSOsramConstants.DefaultFacilityName),
+                Product = GenericGetsScenario.GetObjectByName<Product>(AMSOsramConstants.DefaultTestProductName),
+                Type = AMSOsramConstants.MaterialTypeProduction,
+                FlowPath = new GetCorrelationIdFlowPathInput
+                {
+                    SequenceFlowPath = AMSOsramConstants.DefaultTestFlowPath
+                }.GetCorrelationIdFlowPathSync().CorrelationIdFlowPath,
+                Form = materialFormName,
+                PrimaryQuantity = 25,
+                PrimaryUnits = AMSOsramConstants.DefaultMaterialUnit
+            };
+            material.Create();
+            materialSubString = material.Name.Substring(0,8);
+            SplitInputParametersCollection splitInputParametersCollection = new SplitInputParametersCollection();
+
+            for (int i = 0; i < material.PrimaryQuantity; i++)
+            {
+                SplitInputParameters splitInputParameters = new SplitInputParameters
+                {
+                    PrimaryQuantity = 1,
+                    MaterialContainer = null
+                };
+                splitInputParametersCollection.Add(splitInputParameters);
+            }
+            return material.Split(splitInputParametersCollection);
+        }
+
+        private List<string> GenerateLotNames(int numberOfNamesToGenerate)
         {
             List<string> names = new List<string>();
-            string parentMaterialNameSubstring = parentMaterialName.Substring(0, 8);
-            GeneratorContext context = new LoadNameGeneratorContextsInput()
-            {
-                NameGenerator = GenericGetsScenario.GetObjectByName<NameGenerator>(AMSOsramConstants.CustomGenerateSplitLotNames)
-            }.LoadNameGeneratorContextsSync().NameGenerator?.Contexts.LastOrDefault(c => c.Context == parentMaterialNameSubstring);
-
             int lastCounterValue = 0;
-
-            if (context != null)
-            {
-                lastCounterValue = context.LastCounterValue;
-            }
-
             string lotNameAllowedCharacters = ConfigUtilities.GetConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters) as string;
             int currentCounter = lastCounterValue;
             int allowedCharactersSize = lotNameAllowedCharacters.Length;
-
             for (int i = 0; i < numberOfNamesToGenerate; i++)
             {
                 currentCounter++;
                 lastCounterValue = currentCounter;
                 string alphanumericCounter = string.Empty;
-
-                for (int y = 0; y < 2; y++)
+                for (int y = 0; y < numberOfCharacters; y++)
                 {
                     int currLetterInt = lastCounterValue % allowedCharactersSize;
                     alphanumericCounter += (char)lotNameAllowedCharacters[0 + currLetterInt];
                     lastCounterValue /= allowedCharactersSize;
                 }
-
                 // Throw an exception case counter has insufficient number of digits
                 if (lastCounterValue > 0)
                 {
                     throw new Exception("Insufficient number of digits");
                 }
-
                 // Revert the counter Chars order
                 char[] counterChars = alphanumericCounter.ToCharArray();
                 Array.Reverse(counterChars);
                 alphanumericCounter = new string(counterChars);
-
                 names.Add(alphanumericCounter);
             }
-
             return names;
         }
     } 
