@@ -2,7 +2,7 @@
 
 ## Overview
 
-This generator is executed when a Material is split, and generates a name for the splitted Materials. It calls the DEE action **[Custom Generate Split Lot Names](/AMSOsram/tecspecs>artifacts>deeactions>CustomGenerateSplitLotNames)**.
+This generator is executed when a Material is split, and generates a name for the splitted Materials. It calls the DEE action **[CustomGenerateSplitLotNames](/AMSOsram/tecspecs>artifacts>deeactions>CustomGenerateSplitLotNames)**.
 
 ## Details
 
