@@ -1,27 +1,5 @@
 {
   "WorksheetNameMapping": {},
-  "<SM>LocalizedMessageKey": {
-    "1": {
-      "Name": "CustomInsufficientDigitsForNameGenerator",
-      "Description": "Error message when there is an insufficient number of digits to represent the counter for the Name Generator.",
-      "MessageType": "Message",
-      "en-US": "Insufficient number of digits to represent the counter for Name Generator {0}. NextTokenCounter: {1}.",
-      "de-DE": "",
-      "zh-CN": "",
-      "pt-PT": "",
-      "zh-TW": ""
-    },
-    "2": {
-      "Name": "CustomConfigMissingValue",
-      "Description": "Error message when Configuration is missing.",
-      "MessageType": "Message",
-      "en-US": "The following configuration is missing: {0}.",
-      "de-DE": "",
-      "zh-CN": "",
-      "pt-PT": "",
-      "zh-TW": ""
-    }
-  },
   "<SM>DEEAction": {
     "1": {
       "Action": "CustomGenerateSplitLotNames",
@@ -32,14 +10,6 @@
     }
   },
   "DEEActionOrder": {
-  },
-  "<SM>Config": {
-    "1": {
-      "ParentPath": "/AMSOsram/Material/",
-      "Name": "LotNameAllowedCharacters",
-      "Value": "0123456789ACFHLMNRTUX",
-      "ValueType": "String"
-    }
   },
   "<SM>NameGenerator": {
     "1": {

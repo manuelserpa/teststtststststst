@@ -38,6 +38,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                         throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageConfigMissingValue,
                                                                                   AMSOsramConstants.DefaultLotNameAllowedCharacters));
                     }
+                    ApplicationContext.CallContext.SetInformationContext("LotNameAllowedCharacters", lotNameAllowedCharactersConfig.GetConfigValue<string>());
                     canExecute = true;
                 }
             }
@@ -77,12 +78,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             string parentMaterialNameSubstring = materialLot.Name.Substring(0, 8);
 
             // Get alphanumeric allowed digits from Config
-            string lotNameAllowedCharacters = null;
-            if (Config.TryGetConfig(AMSOsramConstants.DefaultLotNameAllowedCharacters, out Config prodLotNameAplhanumericAllowedDigitsConfig) &&
-                        !string.IsNullOrWhiteSpace(prodLotNameAplhanumericAllowedDigitsConfig.GetConfigValue<string>()))
-            {
-                lotNameAllowedCharacters = prodLotNameAplhanumericAllowedDigitsConfig.GetConfigValue<string>();
-            }
+            string lotNameAllowedCharacters = ApplicationContext.CallContext.GetInformationContext("LotNameAllowedCharacters") as string;
             int allowedCharactersSize = lotNameAllowedCharacters.Length;
 
             // Load Current Context associated to Name Generator
@@ -93,7 +89,6 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             // Number of characters that will be generated
             int numberOfCharacters = 2;
 
-            // Counter based on ASCII Table
             int lastCounterValue = 0;
 
             if (contextNG != null)
@@ -145,7 +140,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                 });
             }
 
-            Input.Add("Result", parentMaterialNameSubstring + alphanumericCounter);
+            Input.Add("Result", String.Format("{0}{1}", parentMaterialNameSubstring, alphanumericCounter));
 
             //---End DEE Code---
 
