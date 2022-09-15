@@ -1,4 +1,4 @@
-# Custom Generate Split Lot Names Name Generator
+# Custom Generate Split Lot Names
 
 ## Overview
 
@@ -18,4 +18,4 @@ N/A.
 
 | Name             | Calculation Method | Value                                                                                                  | Format |
 | :--------------- | :----------------- | :----------------------------------------------------------------------------------------------------- | :----- |
-| Dee              | Dee                | [Custom Generate Split Lot Names](/AMSOsram/tecspecs>artifacts>deeactions>CustomGenerateSplitLotNames) |        |
+| Dee              | Dee                | [CustomGenerateSplitLotNames](/AMSOsram/tecspecs>artifacts>deeactions>CustomGenerateSplitLotNames) |        |
