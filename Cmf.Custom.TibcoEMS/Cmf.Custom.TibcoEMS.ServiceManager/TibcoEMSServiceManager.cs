@@ -139,7 +139,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         /// </summary>
         private void OnMessageReceived(string subject, MbMessage message)
         {
-            if (message != null && !String.IsNullOrWhiteSpace(message.Data) && this.TibcoResolveConfigurations.ContainsKey(subject))
+            if (message != null && !string.IsNullOrWhiteSpace(message.Data) && this.TibcoResolveConfigurations.ContainsKey(subject))
             {
                 Task.Run(() =>
                 {
@@ -174,9 +174,9 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
 
                     try
                     {
-                        this.Logger.LogInformation(String.Format(TibcoEMSConstants.DefaultLogDataFormat, subject, topicName, String.IsNullOrWhiteSpace(actionName) ? "(null)" : actionName));
+                        this.Logger.LogInformation(string.Format(TibcoEMSConstants.DefaultLogDataFormat, subject, topicName, string.IsNullOrWhiteSpace(actionName) ? "(null)" : actionName));
 
-                        if (!String.IsNullOrWhiteSpace(actionName))
+                        if (!string.IsNullOrWhiteSpace(actionName))
                         {
                             // Execute DEE
                             ExecuteActionOutput actionOutput = TibcoEMSUtilities.ExecuteDEE(actionName, new Dictionary<string, object>() { { "Data", message.Data } });
@@ -307,18 +307,12 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
             // Tibco Message Producer
             MessageProducer tibcoMessageProducer;
 
-            // Tibco Queue
-            Queue tibcoQueue;
-
-            // Tibco Topic
-            Topic tibcoTopic;
-
             if (queueMessage || textMessage)
             {
                 this.Logger.LogInformation($"Create Queue with name {topicName} on Tibco Session...");
 
                 // Create queue on Tibco session
-                tibcoQueue = this.TibcoSession.CreateQueue(topicName);
+                Queue tibcoQueue = this.TibcoSession.CreateQueue(topicName);
 
                 // Create message produce on Tibco session
                 tibcoMessageProducer = this.TibcoSession.CreateProducer(tibcoQueue);
@@ -328,7 +322,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                 this.Logger.LogInformation($"Create Topic with name {topicName} on Tibco Session...");
 
                 // Create topic on Tibco session
-                tibcoTopic = this.TibcoSession.CreateTopic(topicName);
+                Topic tibcoTopic = this.TibcoSession.CreateTopic(topicName);
 
                 // Create message produce on Tibco session
                 tibcoMessageProducer = this.TibcoSession.CreateProducer(tibcoTopic);
@@ -336,10 +330,14 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
 
             if (textMessage)
             {
-                // Create Tibco Text Message
-                TextMessage tibcoTextMessage = this.TibcoSession.CreateTextMessage();
-                tibcoTextMessage.SetBooleanProperty("JMS_TIBCO_COMPRESS", compressMessage);
-                tibcoTextMessage.SetStringProperty("field", messageData);
+                // Create Tibco Text Message with associated message
+                TextMessage tibcoTextMessage = this.TibcoSession.CreateTextMessage(messageData);
+
+                // Set property to compress Text Message only if it is defined on GT with value "true"
+                if (compressMessage)
+                {
+                    tibcoTextMessage.SetBooleanProperty(TibcoEMSConstants.TibcoEMSPropertyCompressTextMessage, compressMessage);
+                }
 
                 this.Logger.LogInformation("Sending Text Message to Tibco...");
 
@@ -353,7 +351,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
             {
                 // Create Tibco Map Message
                 MapMessage tibcoMapMessage = this.TibcoSession.CreateMapMessage();
-                tibcoMapMessage.SetStringProperty("field", messageData);
+                tibcoMapMessage.SetStringProperty(TibcoEMSConstants.TibcoEMSPropertyMapMessageField, messageData);
 
                 this.Logger.LogInformation("Sending Map Message to Tibco...");
 

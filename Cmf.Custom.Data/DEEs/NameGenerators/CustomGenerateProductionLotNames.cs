@@ -1,21 +1,20 @@
-using System.Collections.Generic;
-using System;
-using System.Linq;
-using Cmf.Foundation.Common;
-using Cmf.Foundation.BusinessObjects;
-using Cmf.Navigo.BusinessObjects;
+using Cmf.Common.CustomActionUtilities;
 using Cmf.Custom.AMSOsram.Common;
+using Cmf.Foundation.BusinessObjects;
+using Cmf.Foundation.BusinessObjects.GenericTables;
+using Cmf.Foundation.Common;
+using Cmf.Foundation.Configuration;
+using Cmf.Navigo.BusinessObjects;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
 
 namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
 {
     public class CustomGenerateProductionLotNames : DeeDevBase
     {
-        
-        /// <summary>
-        /// Dees the test condition.
-        /// </summary>
-        /// <param name="Input">The input.</param>
-        /// <returns></returns>
         public override bool DeeTestCondition(Dictionary<string, object> Input)
         {
             //---Start DEE Condition Code---
@@ -23,130 +22,203 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             #region Info
 
             /* Description:
-             *      DEE action used to generate new Lot Names.
+             *    DEE Action used to generate new Lot names.
+             *      - The lot names will be generated based on ProductionLine Product attribute.
+             *      - The 6-digits counter will only use the alphanumeric digits defined in the Config.
              *
              * Action Groups:
              *      N/A.
-            */
+             */
 
             #endregion
 
-            return true;
+            bool canExecute = false;
+
+            if (Input != null && Input.ContainsKey("EntitySource"))
+            {
+                Material material = Input["EntitySource"] as Material;
+
+                if (material != null && material.Product != null && material.Form.Equals(AMSOsramConstants.MaterialLotForm, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    // Throw an exception case Configuration has no associated value
+                    if (!Config.TryGetConfig(AMSOsramConstants.DefaultLotNameAllowedCharacters, out Config lotNameAllowedCharactersConfig) ||
+                        string.IsNullOrWhiteSpace(lotNameAllowedCharactersConfig.GetConfigValue<string>()))
+                    {
+                        throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageConfigMissingValue,
+                                                                                  AMSOsramConstants.DefaultLotNameAllowedCharacters));
+                    }
+
+                    // Throw an exception case ProductionLine attribute has no associated value
+                    if (!material.Product.HasRelatedAttribute(AMSOsramConstants.ProductAttributeProductionLine, true))
+                    {
+                        throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageProductionLineAttributeWithoutValue,
+                                                                                  material.Product.Name));
+                    }
+
+                    // Set alphanumeric allowed characters Config value to Context
+                    ApplicationContext.CallContext.SetInformationContext("LotNameAllowedCharacters", lotNameAllowedCharactersConfig.GetConfigValue<string>());
+
+                    // Set ProductLine Product attribute value
+                    string productionLine = material.Product.GetRelatedAttributeValue(AMSOsramConstants.ProductAttributeProductionLine) as string;
+
+                    // Load Generic Table CustomProductionLineConversion
+                    GenericTable customProdLineConversionGT = new GenericTable() { Name = AMSOsramConstants.GenericTableCustomProductionLineConversion };
+                    customProdLineConversionGT.Load();
+
+                    // Based on ProductLine Product attribute get Site and Facility name from Generic Table
+                    customProdLineConversionGT.LoadData(new Foundation.BusinessObjects.QueryObject.FilterCollection()
+                    {
+                        new Foundation.BusinessObjects.QueryObject.Filter()
+                        {
+                            Name = AMSOsramConstants.GenericTableCustomProductionLineConversionProductionLineProperty,
+                            Operator = FieldOperator.IsEqualTo,
+                            LogicalOperator = LogicalOperator.Nothing,
+                            Value = productionLine
+                        }
+                    });
+
+                    // Throw an exception case GT has no data for specific ProductionLine value
+                    if (!customProdLineConversionGT.HasData)
+                    {
+                        throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageGTWihtoutDataForSpecificProductionLine,
+                                                                                  AMSOsramConstants.GenericTableCustomProductionLineConversion,
+                                                                                  productionLine));
+                    }
+
+                    // Convert Generic Table data to DataSet
+                    DataSet prodLineConversionDataSet = NgpDataSet.ToDataSet(customProdLineConversionGT.Data);
+
+                    // Set Site associated to ProductionLine attribute to Context 
+                    ApplicationContext.CallContext.SetInformationContext("SiteName", prodLineConversionDataSet.Tables[0].Rows[0][AMSOsramConstants.GenericTableCustomProductionLineConversionSiteProperty]);
+
+                    // Set Facility associated to ProductionLine attribute to Context 
+                    ApplicationContext.CallContext.SetInformationContext("FacilityName", prodLineConversionDataSet.Tables[0].Rows[0][AMSOsramConstants.GenericTableCustomProductionLineConversionFacilityProperty]);
+
+                    canExecute = true;
+                }
+            }
+
+            return canExecute;
 
             //---End DEE Condition Code---
         }
 
-        /// <summary>
-        /// Dees the action code.
-        /// </summary>
-        /// <param name="Input">The input.</param>
-        /// <returns></returns>
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
             //---Start DEE Code---
+
+            UseReference("", "System.Data");
+            UseReference("", "System.Text");
+
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
+            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration");
+            UseReference("", "Cmf.Foundation.BusinessObjects.GenericTables");
             UseReference("", "Cmf.Foundation.Common");
-            //Please start code here
+            UseReference("", "Cmf.Foundation.Common.Exceptions");
+
             UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
 
-            // Common
+            UseReference("Cmf.Common.CustomActionUtilities.dll", "Cmf.Common.CustomActionUtilities");
+
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
 
-            System.Text.StringBuilder newName = new System.Text.StringBuilder();
+            // Load Name Generator
+            NameGenerator customGenProdLotNamesNG = new NameGenerator() { Name = AMSOsramConstants.CustomGenerateProductionLotNames };
+            customGenProdLotNamesNG.Load();
 
-            NameGenerator ng = new NameGenerator();
-            ng.Load(AMSOsramConstants.CustomGenerateProductionLotNames); // Need to match the Name Generator name
-            GeneratorContext existingContext = null;
+            // Get Site name from Context
+            string siteName = ApplicationContext.CallContext.GetInformationContext("SiteName") as string;
 
-            // Site
-            newName.Append("T");
+            // Get Facility name from Context
+            string facilityName = ApplicationContext.CallContext.GetInformationContext("FacilityName") as string;
 
-            // Fiscal Information
-            Calendar c = new Calendar();
-            c.Load("General");                          // Need to match the Calendar name
-            var y = c.GetFiscalInformation(DateTime.Now);
-            newName.Append(y.FiscalYear.ToString().Substring(2));
-            newName.AppendFormat("{0:00}", y.FiscalWeek);
+            // Get alphanumeric allowed characters from Context
+            string lotNameAllowedCharacters = ApplicationContext.CallContext.GetInformationContext("LotNameAllowedCharacters") as string;
 
-            // Running Number
-            string contextToSearch = newName.ToString();
+            // Get alphanumeric allowed characters size
+            int allowedCharactersSize = lotNameAllowedCharacters.Length;
 
-            string oldRunningNumberInt = "484848";  // Counter Value for '000'
-            // Get Previous Counter Value
+            // Set number of characters that will be generated
+            int numberOfCharacters = 6;
+
+            // Lot Name Generator builder
+            StringBuilder generatedLotName = new StringBuilder();
+
+            // Site and Facility name identifier
+            generatedLotName.AppendFormat("{0}{1}", siteName.Substring(0, 1), facilityName.Substring(0, 1));
+
+            // Context key
+            string contextKey = generatedLotName.ToString();
+
+            // Load Current Context associated to Name Generator
+            GeneratorContext contextNG = null;
+            customGenProdLotNamesNG.LoadGeneratorContexts(out int totalRows);
+            contextNG = customGenProdLotNamesNG.Contexts.FirstOrDefault(ng => ng.Context == contextKey);
+
+            // Create counter
+            int lastCounterValue = 0;
+
+            if (contextNG != null)
             {
-                ng.LoadGeneratorContexts(out int totalRows);
-                existingContext = ng.Contexts.FirstOrDefault(E => E.Context == contextToSearch);
-
-            
-                if (existingContext != null)
-                {
-                    oldRunningNumberInt = string.Format("{0:000000}", existingContext.LastCounterValue);
-                }
+                // Get last counter value from NG Context
+                lastCounterValue = contextNG.LastCounterValue;
             }
 
-            // Convert Previous Counter Value to digits
-            char firstDigit = (char)int.Parse(oldRunningNumberInt.Substring(0, oldRunningNumberInt.Length-4));
-            char secondDigit = (char)int.Parse(oldRunningNumberInt.Substring(oldRunningNumberInt.Length-4, 2));
-            char thirdDigit = (char)int.Parse(oldRunningNumberInt.Substring(oldRunningNumberInt.Length-2));
-            string oldRunningNumber = string.Format("{0}{1}{2}",firstDigit , secondDigit , thirdDigit);
+            // Increment last counter value
+            lastCounterValue++;
 
-            // Alphanumeric need to exclude the following letters B,D,E,G,I,J,K,O,P,Q,S,V,W,Y,Z
-            string charList = "0123456789ACFHLMNRTUX";
+            // Set next counter value
+            int nextCounterValue = lastCounterValue;
 
-            // Calculate new counter Value
-            bool addValue = true;
+            string alphanumericCounter = string.Empty;
 
-            for (int i = oldRunningNumber.Length - 1; i >= 0 && addValue; i--)
+            for (int i = 0; i < numberOfCharacters; i++)
             {
-                int position = charList.IndexOf(oldRunningNumber[i]);
-
-                if (position != (charList.Length - 1))
-                {
-                    oldRunningNumber = oldRunningNumber.Remove(i, 1).Insert(i, charList[position + 1].ToString());
-                    addValue = false;
-                }
-                else
-                {
-                    oldRunningNumber = oldRunningNumber.Remove(i, 1).Insert(i, charList[0].ToString());
-                }
+                int currLetterInt = lastCounterValue % allowedCharactersSize;
+                alphanumericCounter += (char)lotNameAllowedCharacters[0 + currLetterInt];
+                lastCounterValue /= allowedCharactersSize;
             }
 
-            // Add new running number to the final name
-            newName.Append(oldRunningNumber);
-
-            // Convert the counter value to Integer
-            string runningNumberInt = "";
-            foreach (char cr in oldRunningNumber)
+            // Throw an exception case NG counter has insufficient number of digits
+            if (lastCounterValue > 0)
             {
-                runningNumberInt += string.Format("{0:00}", (int)cr);
+                throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageInsufficientDigitsForNameGenerator,
+                                                                          AMSOsramConstants.CustomGenerateProductionLotNames,
+                                                                          nextCounterValue.ToString()));
             }
 
-            // Save the Context counter value
-            if (existingContext != null)
+            // Revert the counter Chars order
+            char[] counterChars = alphanumericCounter.ToCharArray();
+            Array.Reverse(counterChars);
+            alphanumericCounter = new string(counterChars);
+
+            // 6-digits and Lot Counter Value identifier
+            generatedLotName.AppendFormat("{0}00", alphanumericCounter);
+
+            // Save Name Generator context
+            if (contextNG != null)
             {
-                existingContext.LastCounterValue = int.Parse(runningNumberInt);
-                existingContext.Save();
+                contextNG.LastCounterValue = nextCounterValue;
+                contextNG.Save();
             }
             else
             {
-                ng.AddGeneratorContexts(new GeneratorContextCollection()
+                customGenProdLotNamesNG.AddGeneratorContexts(new GeneratorContextCollection()
                 {
                     new GeneratorContext
                     {
-                        Context = contextToSearch,
-                        LastCounterValue = int.Parse(runningNumberInt)
+                        Context = contextKey,
+                        LastCounterValue = nextCounterValue
                     }
                 });
             }
 
-            Input.Add("Result", newName.ToString());
+            // Set generated Lot name to returned Collection
+            Input.Add("Result", generatedLotName.ToString());
+
             //---End DEE Code---
 
             return Input;
-          
         }
-
     }
 }
