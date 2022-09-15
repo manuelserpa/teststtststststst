@@ -1,926 +1,956 @@
 [
-{
-   "id": "howtoinvokecustomreceiveerpmessageservice",
-   "menuGroupId": "faq",
-   "title": "How to invoke CustomReceiveERPMessage service?",
-   "actionId": ""
-},
-{
-   "id": "howtoinvokecustomreceivestibomessageservice",
-   "menuGroupId": "faq",
-   "title": "How to invoke CustomReceiveStiboMessage service?",
-   "actionId": ""
-},
-{
-   "id": "howtoinvokeserviceexposedonapi",
-   "menuGroupId": "faq",
-   "title": "How to inkove service exposed on API?",
-   "actionId": ""
-},
-{
-   "id": "amsosram-20220215-1_0_0",
-   "menuGroupId": "releasenotes",
-   "title": "AMSOsram-20220215-1.0.0",
-   "actionId": ""
-},
-{
-   "id": "amsosram-20220228-1_1_0",
-   "menuGroupId": "releasenotes",
-   "title": "AMSOsram-20220228-1.1.0",
-   "actionId": ""
-},
-{
-   "id": "amsosram-20220314-1.2.0",
-   "menuGroupId": "releasenotes",
-   "title": "AMSOsram-20220314-1.2.0",
-   "actionId": ""
-},
-{
-   "id": "amsosram-20220328-1.3.0",
-   "menuGroupId": "releasenotes",
-   "title": "AMSOsram-20220328-1.3.0",
-   "actionId": ""
-},
-{
-   "id": "amsosram-20220411-1.4.0",
-   "menuGroupId": "releasenotes",
-   "title": "AMSOsram-20220411-1.4.0",
-   "actionId": ""
-},
-{
-   "id": "amsosram-20220426-1.5.0",
-   "menuGroupId": "releasenotes",
-   "title": "AMSOsram-20220426-1.5.0",
-   "actionId": ""
-},
-{
-   "id": "amsosram-20220509-1.6.0",
-   "menuGroupId": "releasenotes",
-   "title": "AMSOsram-20220509-1.6.0",
-   "actionId": ""
-},
-{
-   "id": "amsosram-20220523-1.7.0",
-   "menuGroupId": "releasenotes",
-   "title": "AMSOsram-20220523-1.7.0",
-   "actionId": ""
-},
-{
-   "id": "amsosram-20220704-1.8.0",
-   "menuGroupId": "releasenotes",
-   "title": "AMSOsram-20220704-1.8.0",
-   "actionId": ""
-},
-{
-   "id": "amsosram-20220721-1.9.0",
-   "menuGroupId": "releasenotes",
-   "title": "AMSOsram-20220721-1.9.0",
-   "actionId": ""
-},
-{
-   "id": "amsosram-20220803-1.10.0",
-   "menuGroupId": "releasenotes",
-   "title": "AMSOsram-20220803-1.10.0",
-   "actionId": ""
-},
-{
-   "id": "amsosram-20220816-1.11.0",
-   "menuGroupId": "releasenotes",
-   "title": "AMSOsram-20220816-1.11.0",
-   "actionId": ""
-},
-{
-   "id": "amsosram-20220902-1.12.0",
-   "menuGroupId": "releasenotes",
-   "title": "AMSOsram-20220902-1.12.0",
-   "actionId": ""
-},
-{
-   "id": "artifacts",
-   "menuGroupId": "techspec",
-   "title": "Artifacts",
-   "actionId": ""
-},
-{
-   "id": "connectiot",
-   "menuGroupId": "techspec",
-   "title": "Connect IoT",
-   "actionId": ""
-},
-{
-   "id": "erpintegration",
-   "menuGroupId": "techspec",
-   "title": "ERP Integration",
-   "actionId": ""
-},
-{
-   "id": "features",
-   "menuGroupId": "techspec",
-   "title": "Features",
-   "actionId": ""
-},
-{
-   "id": "configurations",
-   "menuGroupId": "artifacts",
-   "title": "Configuration Entries",
-   "actionId": ""
-},
-{
-   "id": "c_analytics",
-   "menuGroupId": "artifacts",
-   "title": "Analytics",
-   "actionId": ""
-},
-{
-   "id": "deeactions",
-   "menuGroupId": "artifacts",
-   "title": "DEE Actions",
-   "actionId": ""
-},
-{
-   "id": "entitytypes",
-   "menuGroupId": "artifacts",
-   "title": "Entity Types",
-   "actionId": ""
-},
-{
-   "id": "exportedobjects",
-   "menuGroupId": "artifacts",
-   "title": "Exported Objects",
-   "actionId": ""
-},
-{
-   "id": "generictables",
-   "menuGroupId": "artifacts",
-   "title": "Generic Tables",
-   "actionId": ""
-},
-{
-   "id": "html",
-   "menuGroupId": "artifacts",
-   "title": "Html",
-   "actionId": ""
-},
-{
-   "id": "lookuptables",
-   "menuGroupId": "artifacts",
-   "title": "Lookup Tables",
-   "actionId": ""
-},
-{
-   "id": "namegenerators",
-   "menuGroupId": "artifacts",
-   "title": "Name Generators",
-   "actionId": ""
-},
-{
-   "id": "services",
-   "menuGroupId": "artifacts",
-   "title": "Services",
-   "actionId": ""
-},
-{
-   "id": "smarttables",
-   "menuGroupId": "artifacts",
-   "title": "Smart Tables",
-   "actionId": ""
-},
-{
-   "id": "statemodels",
-   "menuGroupId": "artifacts",
-   "title": "State Models",
-   "actionId": ""
-},
-{
-   "id": "customassociatesorterjobdefinitiontocontexttable",
-   "menuGroupId": "deeactions",
-   "title": "CustomAssociateSorterJobDefinitionToContextTable",
-   "actionId": ""
-},
-{
-   "id": "customautomationadjustloadportstate",
-   "menuGroupId": "deeactions",
-   "title": "CustomAutomationAdjustLoadPortState",
-   "actionId": ""
-},
-{
-   "id": "customautomationgetrecipebody",
-   "menuGroupId": "deeactions",
-   "title": "CustomAutomationGetRecipeBody",
-   "actionId": ""
-},
-{
-   "id": "customcreategoodsissuemessage",
-   "menuGroupId": "deeactions",
-   "title": "Custom Create Goods Issue Message",
-   "actionId": ""
-},
-{
-   "id": "customgenerateproductionlotnames",
-   "menuGroupId": "deeactions",
-   "title": "Custom Generate Production Lot Names",
-   "actionId": ""
-},
-{
-   "id": "customgeneratesorterjobdefinitionfromfutureaction",
-   "menuGroupId": "deeactions",
-   "title": "CustomGenerateSorterJobDefinitionFromFutureAction",
-   "actionId": ""
-},
-{
-   "id": "customgeneratesplitlotnames",
-   "menuGroupId": "deeactions",
-   "title": "Custom Generate Split Lot Names",
-   "actionId": ""
-},
-{
-   "id": "customgettibcoconfigurations",
-   "menuGroupId": "deeactions",
-   "title": "CustomGetTibcoConfigurations",
-   "actionId": ""
-},
-{
-   "id": "customimportproductionordersfromerp",
-   "menuGroupId": "deeactions",
-   "title": "Custom Import Production Orders From ERP",
-   "actionId": ""
-},
-{
-   "id": "customincomingmateriallotcreation",
-   "menuGroupId": "deeactions",
-   "title": "CustomIncomingMaterialLotCreation",
-   "actionId": ""
-},
-{
-   "id": "custominvalidatecache",
-   "menuGroupId": "deeactions",
-   "title": "CustomInvalidateCache",
-   "actionId": ""
-},
-{
-   "id": "customnicelabelprint",
-   "menuGroupId": "deeactions",
-   "title": "Custom Nice Label Print",
-   "actionId": ""
-},
-{
-   "id": "customprocessproduct",
-   "menuGroupId": "deeactions",
-   "title": "Custom Process Product",
-   "actionId": ""
-},
-{
-   "id": "customprocessproductionorder",
-   "menuGroupId": "deeactions",
-   "title": "CustomProcessProductionOrder",
-   "actionId": ""
-},
-{
-   "id": "customprocessproductsfromerp",
-   "menuGroupId": "deeactions",
-   "title": "Custom Process Products From ERP",
-   "actionId": ""
-},
-{
-   "id": "customreportdatatofdc",
-   "menuGroupId": "deeactions",
-   "title": "CustomReportDataToFDC",
-   "actionId": ""
-},
-{
-   "id": "customreportedctospacehandler",
-   "menuGroupId": "deeactions",
-   "title": "CustomReportEDCToSpaceHandler",
-   "actionId": ""
-},
-{
-   "id": "customsendabortinformationtoiot",
-   "menuGroupId": "deeactions",
-   "title": "CustomSendAbortInformationToIoT",
-   "actionId": ""
-},
-{
-   "id": "customsendfdclotinfo",
-   "menuGroupId": "deeactions",
-   "title": "CustomSendFDCLotInfo",
-   "actionId": ""
-},
-{
-   "id": "customsendfdcwaferinfo",
-   "menuGroupId": "deeactions",
-   "title": "CustomSendFDCWaferInfo",
-   "actionId": ""
-},
-{
-   "id": "customsendprocessmessage",
-   "menuGroupId": "deeactions",
-   "title": "Custom Send Process Message",
-   "actionId": ""
-},
-{
-   "id": "customsendtrackininformationtoiot",
-   "menuGroupId": "deeactions",
-   "title": "CustomSendTrackInInformationToIoT",
-   "actionId": ""
-},
-{
-   "id": "customsendtrackoutinformationtoiot",
-   "menuGroupId": "deeactions",
-   "title": "CustomSendTrackOutInformationToIoT",
-   "actionId": ""
-},
-{
-   "id": "customterminatevendorcontainer",
-   "menuGroupId": "deeactions",
-   "title": "CustomTerminateVendorContainer",
-   "actionId": ""
-},
-{
-   "id": "customundockcontainervalidation",
-   "menuGroupId": "deeactions",
-   "title": "CustomUndockContainerValidation",
-   "actionId": ""
-},
-{
-   "id": "customsorterjobdefinition",
-   "menuGroupId": "entitytypes",
-   "title": "CustomSorterJobDefinition",
-   "actionId": ""
-},
-{
-   "id": "etresource",
-   "menuGroupId": "entitytypes",
-   "title": "Resource",
-   "actionId": ""
-},
-{
-   "id": "customgetresourceloadportsdata",
-   "menuGroupId": "exportedobjects",
-   "title": "CustomGetResourceLoadPortsData",
-   "actionId": ""
-},
-{
-   "id": "customreclaimcontainertype",
-   "menuGroupId": "generictables",
-   "title": "CustomReclaimContainerType",
-   "actionId": ""
-},
-{
-   "id": "customtibcoemsgatewayresolver",
-   "menuGroupId": "generictables",
-   "title": "CustomTibcoEMSGatewayResolver",
-   "actionId": ""
-},
-{
-   "id": "cconverters",
-   "menuGroupId": "html",
-   "title": "Converters",
-   "actionId": ""
-},
-{
-   "id": "components",
-   "menuGroupId": "html",
-   "title": "Components",
-   "actionId": ""
-},
-{
-   "id": "datasources",
-   "menuGroupId": "html",
-   "title": "Data Sources",
-   "actionId": ""
-},
-{
-   "id": "reasonsengineeringtoengineering",
-   "menuGroupId": "lookuptables",
-   "title": "Reasons Engineering to Engineering",
-   "actionId": ""
-},
-{
-   "id": "reasonsnonscheduledtononscheduled",
-   "menuGroupId": "lookuptables",
-   "title": "Reasons NonScheduled to NonScheduled",
-   "actionId": ""
-},
-{
-   "id": "reasonsproductivetoproductive",
-   "menuGroupId": "lookuptables",
-   "title": "Reasons Productive to Productive",
-   "actionId": ""
-},
-{
-   "id": "reasonsscheduleddowntoscheduleddown",
-   "menuGroupId": "lookuptables",
-   "title": "Reasons ScheduledDown to ScheduledDown",
-   "actionId": ""
-},
-{
-   "id": "reasonsstandbytostandby",
-   "menuGroupId": "lookuptables",
-   "title": "Reasons Standby to Standby",
-   "actionId": ""
-},
-{
-   "id": "reasonsunscheduleddowntounscheduleddown",
-   "menuGroupId": "lookuptables",
-   "title": "Reasons UnscheduledDown to UnscheduledDown",
-   "actionId": ""
-},
-{
-   "id": "customgeneratesplitlotnamesnamegenerator",
-   "menuGroupId": "namegenerators",
-   "title": "Custom Generate Split Lot Names Name Generator",
-   "actionId": ""
-},
-{
-   "id": "customproductionlotnamegenerator",
-   "menuGroupId": "namegenerators",
-   "title": "Custom Production Lot Name Generator",
-   "actionId": ""
-},
-{
-   "id": "customreceiveerpmessage",
-   "menuGroupId": "services",
-   "title": "Custom Receive ERP Message",
-   "actionId": ""
-},
-{
-   "id": "customreceivestibomessage",
-   "menuGroupId": "services",
-   "title": "Custom Receive Stibo Message",
-   "actionId": ""
-},
-{
-   "id": "dockcontainer",
-   "menuGroupId": "services",
-   "title": "DockContainer",
-   "actionId": ""
-},
-{
-   "id": "materialin",
-   "menuGroupId": "services",
-   "title": "MaterialIn",
-   "actionId": ""
-},
-{
-   "id": "materialout",
-   "menuGroupId": "services",
-   "title": "MaterialOut",
-   "actionId": ""
-},
-{
-   "id": "undockcontainer",
-   "menuGroupId": "services",
-   "title": "UndockContainer",
-   "actionId": ""
-},
-{
-   "id": "custommaterialnicelabelprintcontext",
-   "menuGroupId": "smarttables",
-   "title": "Custom Material Nice Label Print Context",
-   "actionId": ""
-},
-{
-   "id": "customreportconsumptiontosap",
-   "menuGroupId": "smarttables",
-   "title": "CustomReportConsumptionToSAP",
-   "actionId": ""
-},
-{
-   "id": "customsorterjobdefinitioncontext",
-   "menuGroupId": "smarttables",
-   "title": "CustomSorterJobDefinitionContext",
-   "actionId": ""
-},
-{
-   "id": "customloadportstatemodelstate",
-   "menuGroupId": "statemodel",
-   "title": "CustomLoadPortStateModelState",
-   "actionId": ""
-},
-{
-   "id": "custommaterialstatemodel",
-   "menuGroupId": "statemodel",
-   "title": "CustomMaterialStateModel",
-   "actionId": ""
-},
-{
-   "id": "defaultreasonssemie10",
-   "menuGroupId": "statemodel",
-   "title": "Default Reasons for SEMI E10",
-   "actionId": ""
-},
-{
-   "id": "customloadportstatemodelstate",
-   "menuGroupId": "statemodels",
-   "title": "CustomLoadPortStateModelState",
-   "actionId": ""
-},
-{
-   "id": "custommaterialstatemodel",
-   "menuGroupId": "statemodels",
-   "title": "CustomMaterialStateModel",
-   "actionId": ""
-},
-{
-   "id": "iotartifacts",
-   "menuGroupId": "connectiot",
-   "title": "Artifacts",
-   "actionId": ""
-},
-{
-   "id": "iotequipmenttypes",
-   "menuGroupId": "connectiot",
-   "title": "Equipment Types",
-   "actionId": ""
-},
-{
-   "id": "brukerinsightcap",
-   "menuGroupId": "iotequipmenttypes",
-   "title": "BrukerInsightCAP",
-   "actionId": ""
-},
-{
-   "id": "evatecclusterline200ii",
-   "menuGroupId": "iotequipmenttypes",
-   "title": "Evatec Cluster line 200II",
-   "actionId": ""
-},
-{
-   "id": "hermoslfm4xreader",
-   "menuGroupId": "iotequipmenttypes",
-   "title": "Hermos LFM 4x Reader",
-   "actionId": ""
-},
-{
-   "id": "mechatronicmws200",
-   "menuGroupId": "iotequipmenttypes",
-   "title": "Mechatronic MWS200",
-   "actionId": ""
-},
-{
-   "id": "monarch25vhf",
-   "menuGroupId": "iotequipmenttypes",
-   "title": "Monarch25 VHF",
-   "actionId": ""
-},
-{
-   "id": "muetecdavinci",
-   "menuGroupId": "iotequipmenttypes",
-   "title": "Muetec DaVinci",
-   "actionId": ""
-},
-{
-   "id": "nicelabel",
-   "menuGroupId": "iotequipmenttypes",
-   "title": "Nice Label",
-   "actionId": ""
-},
-{
-   "id": "omegaplasma",
-   "menuGroupId": "iotequipmenttypes",
-   "title": "Omega Plasma",
-   "actionId": ""
-},
-{
-   "id": "trymaxneo",
-   "menuGroupId": "iotequipmenttypes",
-   "title": "Trymax NEO",
-   "actionId": ""
-},
-{
-   "id": "unitysc",
-   "menuGroupId": "iotequipmenttypes",
-   "title": "Unity SC",
-   "actionId": ""
-},
-{
-   "id": "brukerinsightcap-configuration",
-   "menuGroupId": "brukerinsightcap",
-   "title": "Configuration",
-   "actionId": ""
-},
-{
-   "id": "brukerinsightcap-features",
-   "menuGroupId": "brukerinsightcap",
-   "title": "Features",
-   "actionId": ""
-},
-{
-   "id": "brukerinsightcap-setup",
-   "menuGroupId": "brukerinsightcap",
-   "title": "Setup",
-   "actionId": ""
-},
-{
-   "id": "brukerinsightcap-workflows",
-   "menuGroupId": "brukerinsightcap",
-   "title": "Workflows",
-   "actionId": ""
-},
-{
-   "id": "evatecclusterline200ii-configuration",
-   "menuGroupId": "evatecclusterline200ii",
-   "title": "Configuration",
-   "actionId": ""
-},
-{
-   "id": "evatecclusterline200ii-features",
-   "menuGroupId": "evatecclusterline200ii",
-   "title": "Features",
-   "actionId": ""
-},
-{
-   "id": "evatecclusterline200ii-setup",
-   "menuGroupId": "evatecclusterline200ii",
-   "title": "Setup",
-   "actionId": ""
-},
-{
-   "id": "evatecclusterline200ii-workflows",
-   "menuGroupId": "evatecclusterline200ii",
-   "title": "Workflows",
-   "actionId": ""
-},
-{
-   "id": "hermoslfm4xreader-configuration",
-   "menuGroupId": "hermoslfm4xreader",
-   "title": "Configuration",
-   "actionId": ""
-},
-{
-   "id": "hermoslfm4xreader-features",
-   "menuGroupId": "hermoslfm4xreader",
-   "title": "Features",
-   "actionId": ""
-},
-{
-   "id": "hermoslfm4xreader-setup",
-   "menuGroupId": "hermoslfm4xreader",
-   "title": "Setup",
-   "actionId": ""
-},
-{
-   "id": "hermoslfm4xreader-workflows",
-   "menuGroupId": "hermoslfm4xreader",
-   "title": "Workflows",
-   "actionId": ""
-},
-{
-   "id": "mechatronicmws200-configuration",
-   "menuGroupId": "mechatronicmws200",
-   "title": "Configuration",
-   "actionId": ""
-},
-{
-   "id": "mechatronicmws200-features",
-   "menuGroupId": "mechatronicmws200",
-   "title": "Features",
-   "actionId": ""
-},
-{
-   "id": "mechatronicmws200-setup",
-   "menuGroupId": "mechatronicmws200",
-   "title": "Setup",
-   "actionId": ""
-},
-{
-   "id": "mechatronicmws200-workflows",
-   "menuGroupId": "mechatronicmws200",
-   "title": "Workflows",
-   "actionId": ""
-},
-{
-   "id": "monarch25vhf-configuration",
-   "menuGroupId": "monarch25vhf",
-   "title": "Configuration",
-   "actionId": ""
-},
-{
-   "id": "monarch25vhf-features",
-   "menuGroupId": "monarch25vhf",
-   "title": "Features",
-   "actionId": ""
-},
-{
-   "id": "monarch25vhf-setup",
-   "menuGroupId": "monarch25vhf",
-   "title": "Setup",
-   "actionId": ""
-},
-{
-   "id": "monarch25vhf-workflows",
-   "menuGroupId": "monarch25vhf",
-   "title": "Workflows",
-   "actionId": ""
-},
-{
-   "id": "muetecdavinci-configuration",
-   "menuGroupId": "muetecdavinci",
-   "title": "Configuration",
-   "actionId": ""
-},
-{
-   "id": "muetecdavinci-features",
-   "menuGroupId": "muetecdavinci",
-   "title": "Features",
-   "actionId": ""
-},
-{
-   "id": "muetecdavinci-setup",
-   "menuGroupId": "muetecdavinci",
-   "title": "Setup",
-   "actionId": ""
-},
-{
-   "id": "muetecdavinci-workflows",
-   "menuGroupId": "muetecdavinci",
-   "title": "Workflows",
-   "actionId": ""
-},
-{
-   "id": "nicelabel-configuration",
-   "menuGroupId": "nicelabel",
-   "title": "Configuration",
-   "actionId": ""
-},
-{
-   "id": "nicelabel-features",
-   "menuGroupId": "nicelabel",
-   "title": "Features",
-   "actionId": ""
-},
-{
-   "id": "nicelabel-setup",
-   "menuGroupId": "nicelabel",
-   "title": "Setup",
-   "actionId": ""
-},
-{
-   "id": "nicelabel-workflows",
-   "menuGroupId": "nicelabel",
-   "title": "Workflows",
-   "actionId": ""
-},
-{
-   "id": "omegaplasma-configuration",
-   "menuGroupId": "omegaplasma",
-   "title": "Configuration",
-   "actionId": ""
-},
-{
-   "id": "omegaplasma-features",
-   "menuGroupId": "omegaplasma",
-   "title": "Features",
-   "actionId": ""
-},
-{
-   "id": "omegaplasma-setup",
-   "menuGroupId": "omegaplasma",
-   "title": "Setup",
-   "actionId": ""
-},
-{
-   "id": "omegaplasma-workflows",
-   "menuGroupId": "omegaplasma",
-   "title": "Workflows",
-   "actionId": ""
-},
-{
-   "id": "trymaxneo-configuration",
-   "menuGroupId": "trymaxneo",
-   "title": "Configuration",
-   "actionId": ""
-},
-{
-   "id": "trymaxneo-features",
-   "menuGroupId": "trymaxneo",
-   "title": "Features",
-   "actionId": ""
-},
-{
-   "id": "trymaxneo-setup",
-   "menuGroupId": "trymaxneo",
-   "title": "Setup",
-   "actionId": ""
-},
-{
-   "id": "trymaxneo-workflows",
-   "menuGroupId": "trymaxneo",
-   "title": "Workflows",
-   "actionId": ""
-},
-{
-   "id": "unitysc-configuration",
-   "menuGroupId": "unitysc",
-   "title": "Configuration",
-   "actionId": ""
-},
-{
-   "id": "unitysc-features",
-   "menuGroupId": "unitysc",
-   "title": "Features",
-   "actionId": ""
-},
-{
-   "id": "unitysc-setup",
-   "menuGroupId": "unitysc",
-   "title": "Setup",
-   "actionId": ""
-},
-{
-   "id": "unitysc-workflows",
-   "menuGroupId": "unitysc",
-   "title": "Workflows",
-   "actionId": ""
-},
-{
-   "id": "erpfeatures",
-   "menuGroupId": "erpintegration",
-   "title": "ERP Features",
-   "actionId": ""
-},
-{
-   "id": "erphandlers",
-   "menuGroupId": "erpintegration",
-   "title": "ERP Handlers",
-   "actionId": ""
-},
-{
-   "id": "importlotincomingfromerp",
-   "menuGroupId": "erpfeatures",
-   "title": "Import Lot Incoming From ERP",
-   "actionId": ""
-},
-{
-   "id": "importproductfromerp",
-   "menuGroupId": "erpfeatures",
-   "title": "Import Product From ERP",
-   "actionId": ""
-},
-{
-   "id": "customerpsystemintegration",
-   "menuGroupId": "features",
-   "title": "ERP (SAP) System Integration",
-   "actionId": ""
-},
-{
-   "id": "customfdcsystemintegration",
-   "menuGroupId": "features",
-   "title": "FDC System Integration",
-   "actionId": ""
-},
-{
-   "id": "customimportproductionorders",
-   "menuGroupId": "features",
-   "title": "Custom Import Production Orders",
-   "actionId": ""
-},
-{
-   "id": "custominformgoodsissuetoerp",
-   "menuGroupId": "features",
-   "title": "Inform Goods Issue to ERP",
-   "actionId": ""
-},
-{
-   "id": "customnicelabelprint",
-   "menuGroupId": "features",
-   "title": "Custom Nice Label Print",
-   "actionId": ""
-},
-{
-   "id": "customsendmescriticaldatacollectiontospace",
-   "menuGroupId": "features",
-   "title": "Send Critical Data Collection to Space",
-   "actionId": ""
-},
-{
-   "id": "customstibosystemintegration",
-   "menuGroupId": "features",
-   "title": "Stibo System Integration",
-   "actionId": ""
-},
-{
-   "id": "customterminatevendorcontainertype",
-   "menuGroupId": "features",
-   "title": "Terminate Vendor Container Type",
-   "actionId": ""
-},
-{
-   "id": "customtibcoemsgateway",
-   "menuGroupId": "features",
-   "title": "Tibco EMS Gateway",
-   "actionId": ""
-},
-{
-   "id": "customundockvendorcontainertype",
-   "menuGroupId": "features",
-   "title": "Undock Vendor Container Type",
-   "actionId": ""
-},
-{
-   "id": "generatesorterjobdefinitionfromfutureaction",
-   "menuGroupId": "features",
-   "title": "Generate Sorter Job Definition From Future Action",
-   "actionId": ""
-}
+  {
+    "id": "howtoinvokecustomreceiveerpmessageservice",
+    "menuGroupId": "faq",
+    "title": "How to invoke CustomReceiveERPMessage service?",
+    "actionId": ""
+  },
+  {
+    "id": "howtoinvokecustomreceivestibomessageservice",
+    "menuGroupId": "faq",
+    "title": "How to invoke CustomReceiveStiboMessage service?",
+    "actionId": ""
+  },
+  {
+    "id": "howtoinvokeserviceexposedonapi",
+    "menuGroupId": "faq",
+    "title": "How to inkove service exposed on API?",
+    "actionId": ""
+  },
+  {
+    "id": "amsosram-20220215-1_0_0",
+    "menuGroupId": "releasenotes",
+    "title": "AMSOsram-20220215-1.0.0",
+    "actionId": ""
+  },
+  {
+    "id": "amsosram-20220228-1_1_0",
+    "menuGroupId": "releasenotes",
+    "title": "AMSOsram-20220228-1.1.0",
+    "actionId": ""
+  },
+  {
+    "id": "amsosram-20220314-1.2.0",
+    "menuGroupId": "releasenotes",
+    "title": "AMSOsram-20220314-1.2.0",
+    "actionId": ""
+  },
+  {
+    "id": "amsosram-20220328-1.3.0",
+    "menuGroupId": "releasenotes",
+    "title": "AMSOsram-20220328-1.3.0",
+    "actionId": ""
+  },
+  {
+    "id": "amsosram-20220411-1.4.0",
+    "menuGroupId": "releasenotes",
+    "title": "AMSOsram-20220411-1.4.0",
+    "actionId": ""
+  },
+  {
+    "id": "amsosram-20220426-1.5.0",
+    "menuGroupId": "releasenotes",
+    "title": "AMSOsram-20220426-1.5.0",
+    "actionId": ""
+  },
+  {
+    "id": "amsosram-20220509-1.6.0",
+    "menuGroupId": "releasenotes",
+    "title": "AMSOsram-20220509-1.6.0",
+    "actionId": ""
+  },
+  {
+    "id": "amsosram-20220523-1.7.0",
+    "menuGroupId": "releasenotes",
+    "title": "AMSOsram-20220523-1.7.0",
+    "actionId": ""
+  },
+  {
+    "id": "amsosram-20220704-1.8.0",
+    "menuGroupId": "releasenotes",
+    "title": "AMSOsram-20220704-1.8.0",
+    "actionId": ""
+  },
+  {
+    "id": "amsosram-20220721-1.9.0",
+    "menuGroupId": "releasenotes",
+    "title": "AMSOsram-20220721-1.9.0",
+    "actionId": ""
+  },
+  {
+    "id": "amsosram-20220803-1.10.0",
+    "menuGroupId": "releasenotes",
+    "title": "AMSOsram-20220803-1.10.0",
+    "actionId": ""
+  },
+  {
+    "id": "amsosram-20220816-1.11.0",
+    "menuGroupId": "releasenotes",
+    "title": "AMSOsram-20220816-1.11.0",
+    "actionId": ""
+  },
+  {
+    "id": "amsosram-20220902-1.12.0",
+    "menuGroupId": "releasenotes",
+    "title": "AMSOsram-20220902-1.12.0",
+    "actionId": ""
+  },
+  {
+    "id": "artifacts",
+    "menuGroupId": "techspec",
+    "title": "Artifacts",
+    "actionId": ""
+  },
+  {
+    "id": "connectiot",
+    "menuGroupId": "techspec",
+    "title": "Connect IoT",
+    "actionId": ""
+  },
+  {
+    "id": "erpintegration",
+    "menuGroupId": "techspec",
+    "title": "ERP Integration",
+    "actionId": ""
+  },
+  {
+    "id": "features",
+    "menuGroupId": "techspec",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "configurations",
+    "menuGroupId": "artifacts",
+    "title": "Configuration Entries",
+    "actionId": ""
+  },
+  {
+    "id": "c_analytics",
+    "menuGroupId": "artifacts",
+    "title": "Analytics",
+    "actionId": ""
+  },
+  {
+    "id": "deeactions",
+    "menuGroupId": "artifacts",
+    "title": "DEE Actions",
+    "actionId": ""
+  },
+  {
+    "id": "entitytypes",
+    "menuGroupId": "artifacts",
+    "title": "Entity Types",
+    "actionId": ""
+  },
+  {
+    "id": "exportedobjects",
+    "menuGroupId": "artifacts",
+    "title": "Exported Objects",
+    "actionId": ""
+  },
+  {
+    "id": "generictables",
+    "menuGroupId": "artifacts",
+    "title": "Generic Tables",
+    "actionId": ""
+  },
+  {
+    "id": "html",
+    "menuGroupId": "artifacts",
+    "title": "Html",
+    "actionId": ""
+  },
+  {
+    "id": "lookuptables",
+    "menuGroupId": "artifacts",
+    "title": "Lookup Tables",
+    "actionId": ""
+  },
+  {
+    "id": "namegenerators",
+    "menuGroupId": "artifacts",
+    "title": "Name Generators",
+    "actionId": ""
+  },
+  {
+    "id": "services",
+    "menuGroupId": "artifacts",
+    "title": "Services",
+    "actionId": ""
+  },
+  {
+    "id": "smarttables",
+    "menuGroupId": "artifacts",
+    "title": "Smart Tables",
+    "actionId": ""
+  },
+  {
+    "id": "statemodels",
+    "menuGroupId": "artifacts",
+    "title": "State Models",
+    "actionId": ""
+  },
+  {
+    "id": "customassociatesorterjobdefinitiontocontexttable",
+    "menuGroupId": "deeactions",
+    "title": "CustomAssociateSorterJobDefinitionToContextTable",
+    "actionId": ""
+  },
+  {
+    "id": "customautomationadjustloadportstate",
+    "menuGroupId": "deeactions",
+    "title": "CustomAutomationAdjustLoadPortState",
+    "actionId": ""
+  },
+  {
+    "id": "customautomationgetrecipebody",
+    "menuGroupId": "deeactions",
+    "title": "CustomAutomationGetRecipeBody",
+    "actionId": ""
+  },
+  {
+    "id": "customcreategoodsissuemessage",
+    "menuGroupId": "deeactions",
+    "title": "Custom Create Goods Issue Message",
+    "actionId": ""
+  },
+  {
+    "id": "customgenerateproductionlotnames",
+    "menuGroupId": "deeactions",
+    "title": "Custom Generate Production Lot Names",
+    "actionId": ""
+  },
+  {
+    "id": "customgeneratesorterjobdefinitionfromfutureaction",
+    "menuGroupId": "deeactions",
+    "title": "CustomGenerateSorterJobDefinitionFromFutureAction",
+    "actionId": ""
+  },
+  {
+    "id": "customgeneratesplitlotnames",
+    "menuGroupId": "deeactions",
+    "title": "Custom Generate Split Lot Names",
+    "actionId": ""
+  },
+  {
+    "id": "customgettibcoconfigurations",
+    "menuGroupId": "deeactions",
+    "title": "CustomGetTibcoConfigurations",
+    "actionId": ""
+  },
+  {
+    "id": "customimportproductionordersfromerp",
+    "menuGroupId": "deeactions",
+    "title": "Custom Import Production Orders From ERP",
+    "actionId": ""
+  },
+  {
+    "id": "customincomingmateriallotcreation",
+    "menuGroupId": "deeactions",
+    "title": "CustomIncomingMaterialLotCreation",
+    "actionId": ""
+  },
+  {
+    "id": "custominvalidatecache",
+    "menuGroupId": "deeactions",
+    "title": "CustomInvalidateCache",
+    "actionId": ""
+  },
+  {
+    "id": "customnicelabelprint",
+    "menuGroupId": "deeactions",
+    "title": "Custom Nice Label Print",
+    "actionId": ""
+  },
+  {
+    "id": "customprocessproduct",
+    "menuGroupId": "deeactions",
+    "title": "Custom Process Product",
+    "actionId": ""
+  },
+  {
+    "id": "customprocessproductionorder",
+    "menuGroupId": "deeactions",
+    "title": "CustomProcessProductionOrder",
+    "actionId": ""
+  },
+  {
+    "id": "customprocessproductsfromerp",
+    "menuGroupId": "deeactions",
+    "title": "Custom Process Products From ERP",
+    "actionId": ""
+  },
+  {
+    "id": "customreportdatatofdc",
+    "menuGroupId": "deeactions",
+    "title": "CustomReportDataToFDC",
+    "actionId": ""
+  },
+  {
+    "id": "customreportedctospacehandler",
+    "menuGroupId": "deeactions",
+    "title": "CustomReportEDCToSpaceHandler",
+    "actionId": ""
+  },
+  {
+    "id": "customsendabortinformationtoiot",
+    "menuGroupId": "deeactions",
+    "title": "CustomSendAbortInformationToIoT",
+    "actionId": ""
+  },
+  {
+    "id": "customsendfdclotinfo",
+    "menuGroupId": "deeactions",
+    "title": "CustomSendFDCLotInfo",
+    "actionId": ""
+  },
+  {
+    "id": "customsendfdcwaferinfo",
+    "menuGroupId": "deeactions",
+    "title": "CustomSendFDCWaferInfo",
+    "actionId": ""
+  },
+  {
+    "id": "customsendprocessmessage",
+    "menuGroupId": "deeactions",
+    "title": "Custom Send Process Message",
+    "actionId": ""
+  },
+  {
+    "id": "customsendtrackininformationtoiot",
+    "menuGroupId": "deeactions",
+    "title": "CustomSendTrackInInformationToIoT",
+    "actionId": ""
+  },
+  {
+    "id": "customsendtrackoutinformationtoiot",
+    "menuGroupId": "deeactions",
+    "title": "CustomSendTrackOutInformationToIoT",
+    "actionId": ""
+  },
+  {
+    "id": "customterminatevendorcontainer",
+    "menuGroupId": "deeactions",
+    "title": "CustomTerminateVendorContainer",
+    "actionId": ""
+  },
+  {
+    "id": "customundockcontainervalidation",
+    "menuGroupId": "deeactions",
+    "title": "CustomUndockContainerValidation",
+    "actionId": ""
+  },
+  {
+    "id": "customsorterjobdefinition",
+    "menuGroupId": "entitytypes",
+    "title": "CustomSorterJobDefinition",
+    "actionId": ""
+  },
+  {
+    "id": "etproduct",
+    "menuGroupId": "entitytypes",
+    "title": "Product",
+    "actionId": ""
+  },
+  {
+    "id": "etresource",
+    "menuGroupId": "entitytypes",
+    "title": "Resource",
+    "actionId": ""
+  },
+  {
+    "id": "customgetresourceloadportsdata",
+    "menuGroupId": "exportedobjects",
+    "title": "CustomGetResourceLoadPortsData",
+    "actionId": ""
+  },
+  {
+    "id": "customproductionlineconversion",
+    "menuGroupId": "generictables",
+    "title": "CustomProductionLineConversion",
+    "actionId": ""
+  },
+  {
+    "id": "customreclaimcontainertype",
+    "menuGroupId": "generictables",
+    "title": "CustomReclaimContainerType",
+    "actionId": ""
+  },
+  {
+    "id": "customtibcoemsgatewayresolver",
+    "menuGroupId": "generictables",
+    "title": "CustomTibcoEMSGatewayResolver",
+    "actionId": ""
+  },
+  {
+    "id": "cconverters",
+    "menuGroupId": "html",
+    "title": "Converters",
+    "actionId": ""
+  },
+  {
+    "id": "components",
+    "menuGroupId": "html",
+    "title": "Components",
+    "actionId": ""
+  },
+  {
+    "id": "datasources",
+    "menuGroupId": "html",
+    "title": "Data Sources",
+    "actionId": ""
+  },
+  {
+    "id": "customproductionlines",
+    "menuGroupId": "lookuptables",
+    "title": "CustomProductionLines",
+    "actionId": ""
+  },
+  {
+    "id": "reasonsengineeringtoengineering",
+    "menuGroupId": "lookuptables",
+    "title": "Reasons Engineering to Engineering",
+    "actionId": ""
+  },
+  {
+    "id": "reasonsnonscheduledtononscheduled",
+    "menuGroupId": "lookuptables",
+    "title": "Reasons NonScheduled to NonScheduled",
+    "actionId": ""
+  },
+  {
+    "id": "reasonsproductivetoproductive",
+    "menuGroupId": "lookuptables",
+    "title": "Reasons Productive to Productive",
+    "actionId": ""
+  },
+  {
+    "id": "reasonsscheduleddowntoscheduleddown",
+    "menuGroupId": "lookuptables",
+    "title": "Reasons ScheduledDown to ScheduledDown",
+    "actionId": ""
+  },
+  {
+    "id": "reasonsstandbytostandby",
+    "menuGroupId": "lookuptables",
+    "title": "Reasons Standby to Standby",
+    "actionId": ""
+  },
+  {
+    "id": "reasonsunscheduleddowntounscheduleddown",
+    "menuGroupId": "lookuptables",
+    "title": "Reasons UnscheduledDown to UnscheduledDown",
+    "actionId": ""
+  },
+  {
+    "id": "customgeneratesplitlotnamesnamegenerator",
+    "menuGroupId": "namegenerators",
+    "title": "Custom Generate Split Lot Names Name Generator",
+    "actionId": ""
+  },
+  {
+    "id": "customproductionlotnamegenerator",
+    "menuGroupId": "namegenerators",
+    "title": "Custom Production Lot Name Generator",
+    "actionId": ""
+  },
+  {
+    "id": "customreceiveerpmessage",
+    "menuGroupId": "services",
+    "title": "Custom Receive ERP Message",
+    "actionId": ""
+  },
+  {
+    "id": "customreceivestibomessage",
+    "menuGroupId": "services",
+    "title": "Custom Receive Stibo Message",
+    "actionId": ""
+  },
+  {
+    "id": "dockcontainer",
+    "menuGroupId": "services",
+    "title": "DockContainer",
+    "actionId": ""
+  },
+  {
+    "id": "getflowinformationforerp",
+    "menuGroupId": "services",
+    "title": "Get Flow Information for ERP",
+    "actionId": ""
+  },
+  {
+    "id": "materialin",
+    "menuGroupId": "services",
+    "title": "MaterialIn",
+    "actionId": ""
+  },
+  {
+    "id": "materialout",
+    "menuGroupId": "services",
+    "title": "MaterialOut",
+    "actionId": ""
+  },
+  {
+    "id": "undockcontainer",
+    "menuGroupId": "services",
+    "title": "UndockContainer",
+    "actionId": ""
+  },
+  {
+    "id": "custommaterialnicelabelprintcontext",
+    "menuGroupId": "smarttables",
+    "title": "Custom Material Nice Label Print Context",
+    "actionId": ""
+  },
+  {
+    "id": "customreportconsumptiontosap",
+    "menuGroupId": "smarttables",
+    "title": "CustomReportConsumptionToSAP",
+    "actionId": ""
+  },
+  {
+    "id": "customsorterjobdefinitioncontext",
+    "menuGroupId": "smarttables",
+    "title": "CustomSorterJobDefinitionContext",
+    "actionId": ""
+  },
+  {
+    "id": "customloadportstatemodelstate",
+    "menuGroupId": "statemodel",
+    "title": "CustomLoadPortStateModelState",
+    "actionId": ""
+  },
+  {
+    "id": "custommaterialstatemodel",
+    "menuGroupId": "statemodel",
+    "title": "CustomMaterialStateModel",
+    "actionId": ""
+  },
+  {
+    "id": "defaultreasonssemie10",
+    "menuGroupId": "statemodel",
+    "title": "Default Reasons for SEMI E10",
+    "actionId": ""
+  },
+  {
+    "id": "customloadportstatemodelstate",
+    "menuGroupId": "statemodels",
+    "title": "CustomLoadPortStateModelState",
+    "actionId": ""
+  },
+  {
+    "id": "custommaterialstatemodel",
+    "menuGroupId": "statemodels",
+    "title": "CustomMaterialStateModel",
+    "actionId": ""
+  },
+  {
+    "id": "iotartifacts",
+    "menuGroupId": "connectiot",
+    "title": "Artifacts",
+    "actionId": ""
+  },
+  {
+    "id": "iotequipmenttypes",
+    "menuGroupId": "connectiot",
+    "title": "Equipment Types",
+    "actionId": ""
+  },
+  {
+    "id": "brukerinsightcap",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "BrukerInsightCAP",
+    "actionId": ""
+  },
+  {
+    "id": "evatecclusterline200ii",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "Evatec Cluster line 200II",
+    "actionId": ""
+  },
+  {
+    "id": "hermoslfm4xreader",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "Hermos LFM 4x Reader",
+    "actionId": ""
+  },
+  {
+    "id": "mechatronicmws200",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "Mechatronic MWS200",
+    "actionId": ""
+  },
+  {
+    "id": "monarch25vhf",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "Monarch25 VHF",
+    "actionId": ""
+  },
+  {
+    "id": "muetecdavinci",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "Muetec DaVinci",
+    "actionId": ""
+  },
+  {
+    "id": "nicelabel",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "Nice Label",
+    "actionId": ""
+  },
+  {
+    "id": "omegaplasma",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "Omega Plasma",
+    "actionId": ""
+  },
+  {
+    "id": "trymaxneo",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "Trymax NEO",
+    "actionId": ""
+  },
+  {
+    "id": "unitysc",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "Unity SC",
+    "actionId": ""
+  },
+  {
+    "id": "brukerinsightcap-configuration",
+    "menuGroupId": "brukerinsightcap",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "brukerinsightcap-features",
+    "menuGroupId": "brukerinsightcap",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "brukerinsightcap-setup",
+    "menuGroupId": "brukerinsightcap",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "brukerinsightcap-workflows",
+    "menuGroupId": "brukerinsightcap",
+    "title": "Workflows",
+    "actionId": ""
+  },
+  {
+    "id": "evatecclusterline200ii-configuration",
+    "menuGroupId": "evatecclusterline200ii",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "evatecclusterline200ii-features",
+    "menuGroupId": "evatecclusterline200ii",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "evatecclusterline200ii-setup",
+    "menuGroupId": "evatecclusterline200ii",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "evatecclusterline200ii-workflows",
+    "menuGroupId": "evatecclusterline200ii",
+    "title": "Workflows",
+    "actionId": ""
+  },
+  {
+    "id": "hermoslfm4xreader-configuration",
+    "menuGroupId": "hermoslfm4xreader",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "hermoslfm4xreader-features",
+    "menuGroupId": "hermoslfm4xreader",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "hermoslfm4xreader-setup",
+    "menuGroupId": "hermoslfm4xreader",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "hermoslfm4xreader-workflows",
+    "menuGroupId": "hermoslfm4xreader",
+    "title": "Workflows",
+    "actionId": ""
+  },
+  {
+    "id": "mechatronicmws200-configuration",
+    "menuGroupId": "mechatronicmws200",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "mechatronicmws200-features",
+    "menuGroupId": "mechatronicmws200",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "mechatronicmws200-setup",
+    "menuGroupId": "mechatronicmws200",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "mechatronicmws200-workflows",
+    "menuGroupId": "mechatronicmws200",
+    "title": "Workflows",
+    "actionId": ""
+  },
+  {
+    "id": "monarch25vhf-configuration",
+    "menuGroupId": "monarch25vhf",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "monarch25vhf-features",
+    "menuGroupId": "monarch25vhf",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "monarch25vhf-setup",
+    "menuGroupId": "monarch25vhf",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "monarch25vhf-workflows",
+    "menuGroupId": "monarch25vhf",
+    "title": "Workflows",
+    "actionId": ""
+  },
+  {
+    "id": "muetecdavinci-configuration",
+    "menuGroupId": "muetecdavinci",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "muetecdavinci-features",
+    "menuGroupId": "muetecdavinci",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "muetecdavinci-setup",
+    "menuGroupId": "muetecdavinci",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "muetecdavinci-workflows",
+    "menuGroupId": "muetecdavinci",
+    "title": "Workflows",
+    "actionId": ""
+  },
+  {
+    "id": "nicelabel-configuration",
+    "menuGroupId": "nicelabel",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "nicelabel-features",
+    "menuGroupId": "nicelabel",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "nicelabel-setup",
+    "menuGroupId": "nicelabel",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "nicelabel-workflows",
+    "menuGroupId": "nicelabel",
+    "title": "Workflows",
+    "actionId": ""
+  },
+  {
+    "id": "omegaplasma-configuration",
+    "menuGroupId": "omegaplasma",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "omegaplasma-features",
+    "menuGroupId": "omegaplasma",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "omegaplasma-setup",
+    "menuGroupId": "omegaplasma",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "omegaplasma-workflows",
+    "menuGroupId": "omegaplasma",
+    "title": "Workflows",
+    "actionId": ""
+  },
+  {
+    "id": "trymaxneo-configuration",
+    "menuGroupId": "trymaxneo",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "trymaxneo-features",
+    "menuGroupId": "trymaxneo",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "trymaxneo-setup",
+    "menuGroupId": "trymaxneo",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "trymaxneo-workflows",
+    "menuGroupId": "trymaxneo",
+    "title": "Workflows",
+    "actionId": ""
+  },
+  {
+    "id": "unitysc-configuration",
+    "menuGroupId": "unitysc",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "unitysc-features",
+    "menuGroupId": "unitysc",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "unitysc-setup",
+    "menuGroupId": "unitysc",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "unitysc-workflows",
+    "menuGroupId": "unitysc",
+    "title": "Workflows",
+    "actionId": ""
+  },
+  {
+    "id": "erpfeatures",
+    "menuGroupId": "erpintegration",
+    "title": "ERP Features",
+    "actionId": ""
+  },
+  {
+    "id": "erphandlers",
+    "menuGroupId": "erpintegration",
+    "title": "ERP Handlers",
+    "actionId": ""
+  },
+  {
+    "id": "importlotincomingfromerp",
+    "menuGroupId": "erpfeatures",
+    "title": "Import Lot Incoming From ERP",
+    "actionId": ""
+  },
+  {
+    "id": "importproductfromerp",
+    "menuGroupId": "erpfeatures",
+    "title": "Import Product From ERP",
+    "actionId": ""
+  },
+  {
+    "id": "customerpsystemintegration",
+    "menuGroupId": "features",
+    "title": "ERP (SAP) System Integration",
+    "actionId": ""
+  },
+  {
+    "id": "customfdcsystemintegration",
+    "menuGroupId": "features",
+    "title": "FDC System Integration",
+    "actionId": ""
+  },
+  {
+    "id": "customflowinformationtoerp",
+    "menuGroupId": "features",
+    "title": "Send Flow Information for ERP",
+    "actionId": ""
+  },
+  {
+    "id": "customimportproductionorders",
+    "menuGroupId": "features",
+    "title": "Custom Import Production Orders",
+    "actionId": ""
+  },
+  {
+    "id": "custominformgoodsissuetoerp",
+    "menuGroupId": "features",
+    "title": "Inform Goods Issue to ERP",
+    "actionId": ""
+  },
+  {
+    "id": "customnicelabelprint",
+    "menuGroupId": "features",
+    "title": "Custom Nice Label Print",
+    "actionId": ""
+  },
+  {
+    "id": "customsendmescriticaldatacollectiontospace",
+    "menuGroupId": "features",
+    "title": "Send Critical Data Collection to Space",
+    "actionId": ""
+  },
+  {
+    "id": "customstibosystemintegration",
+    "menuGroupId": "features",
+    "title": "Stibo System Integration",
+    "actionId": ""
+  },
+  {
+    "id": "customterminatevendorcontainertype",
+    "menuGroupId": "features",
+    "title": "Terminate Vendor Container Type",
+    "actionId": ""
+  },
+  {
+    "id": "customtibcoemsgateway",
+    "menuGroupId": "features",
+    "title": "Tibco EMS Gateway",
+    "actionId": ""
+  },
+  {
+    "id": "customundockvendorcontainertype",
+    "menuGroupId": "features",
+    "title": "Undock Vendor Container Type",
+    "actionId": ""
+  },
+  {
+    "id": "generatesorterjobdefinitionfromfutureaction",
+    "menuGroupId": "features",
+    "title": "Generate Sorter Job Definition From Future Action",
+    "actionId": ""
+  }
 ]

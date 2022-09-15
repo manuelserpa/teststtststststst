@@ -1,10 +1,11 @@
-﻿# Features
+# Features
 
 Everything that is created or updated in the MES system to support customer requirements are considered features.
 
 The features are grouped in the following sections:
 * [ERP (SAP) System Integration](/AMSOsram/techspec>features>CustomERPSystemIntegration)
 * [FDC System Integration](/AMSOsram/techspec>features>CustomFDCSystemIntegration)
+* [Send Flow Information for ERP](/AMSOsram/techspec>features>CustomFlowInformationToERP)
 * [Custom Import Production Orders](/AMSOsram/techspec>features>CustomImportProductionOrders)
 * [Inform Goods Issue to ERP](/AMSOsram/techspec>features>CustomInformGoodsIssueToERP)
 * [Custom Nice Label Print](/AMSOsram/techspec>features>CustomNiceLabelPrint)

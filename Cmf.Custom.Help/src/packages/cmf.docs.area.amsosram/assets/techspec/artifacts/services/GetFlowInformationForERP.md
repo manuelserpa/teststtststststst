@@ -1,0 +1,38 @@
+# Get Flow Information for ERP
+
+## Overview
+
+Service to provide Flow information to ERP.
+
+## Input Object
+
+The table below describes the input parameters for the service:
+
+| Name        | Type   | Description  |
+| :---------- | :----: | :----------- |
+| ProductName | String | Product Name |
+| FlowName    | String | Flow Name    |
+| FlowVersion | String | Flow Version |
+
+## Output Object
+
+The table below describes the output parameters for the service:
+
+| Name               | Type   | Description                       |
+| :----------------- | :----: | :-------------------------------- |
+| FlowInformationXml | String | Flow Information in XML           |
+
+## Pre Conditions
+
+* The input parameters ProductName or FlowName must have a value.
+* The input parameter FlowVersion needs the associated FlowName parameter.
+
+## How it works
+
+The service returns information about the Product/Flow, in XML message, depending on the Input parameters are sent.
+
+* When a **ProductName** parameter is sent to the service, the information of the Product and to the effective version of the associated Flow is returned.
+
+* When a **FlowName** parameter is sent to the service, the information associated to the effective version of the Flow is returned.
+
+* When a **FlowName** and a **FlowVersion** parameters are sent to the service, the information associated to the specified version of the Flow is returned.
