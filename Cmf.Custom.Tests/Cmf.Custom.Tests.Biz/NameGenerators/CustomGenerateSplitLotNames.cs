@@ -1,19 +1,12 @@
 ﻿using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Custom.TestUtilities;
-using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessOrchestration.NameGeneratorManagement.InputObjects;
-using Cmf.Foundation.BusinessOrchestration.NameGeneratorManagement.OutputObjects;
-using Cmf.Foundation.Configuration;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects;
-using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
-using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
 using Cmf.TestScenarios.Others;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Cmf.Custom.Tests.Biz.NameGenerators
 {
@@ -63,7 +56,7 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
         public void CustomGenerateSplitLotNames_SplitMaterials_HappyPath()
         {
             List<string> generatedSplitNames = GenerateLotNames(25);
-            splittedMaterials = LotNameGeneratorScenario(AMSOsramConstants.DefaultMaterialFormName);
+            splittedMaterials = this.SplitLotNameGeneratorScenario(AMSOsramConstants.DefaultMaterialFormName);
             for (int i = 0; i < generatedSplitNames.Count; i++)
             {
                 string expectedSplitLotName = string.Format("{0}{1}", materialSubString, generatedSplitNames[i]);
@@ -71,13 +64,13 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
             }
         }
 
-
-       
-
-
-        private MaterialCollection LotNameGeneratorScenario(string materialFormName)
+        /// <summary>
+        /// Split Lot Name Scenario
+        /// </summary>
+        /// <param name="materialForm">Material Form</param>
+        /// <returns>Lot Split Materials</returns>
+        private MaterialCollection SplitLotNameGeneratorScenario(string materialFormName)
         {
-            
             Material material = new Material()
             {
                 Name = null,
@@ -107,9 +100,6 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
             }
             return material.Split(splitInputParametersCollection);
         }
-
-
-
 
         private List<string> GenerateLotNames(int numberOfNamesToGenerate)
         {
