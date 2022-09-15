@@ -5,7 +5,7 @@ Everything that is created or updated in the MES system to support customer requ
 The features are grouped in the following sections:
 * [ERP (SAP) System Integration](/AMSOsram/techspec>features>CustomERPSystemIntegration)
 * [FDC System Integration](/AMSOsram/techspec>features>CustomFDCSystemIntegration)
-* [Send Flow Information for ERP](/AMSOsram/techspec>features>CustomFlowInformationToERP)
+* [Custom Get Flow Information for ERP](/AMSOsram/techspec>features>CustomGetFlowInformationForERP)
 * [Custom Import Production Orders](/AMSOsram/techspec>features>CustomImportProductionOrders)
 * [Inform Goods Issue to ERP](/AMSOsram/techspec>features>CustomInformGoodsIssueToERP)
 * [Custom Nice Label Print](/AMSOsram/techspec>features>CustomNiceLabelPrint)

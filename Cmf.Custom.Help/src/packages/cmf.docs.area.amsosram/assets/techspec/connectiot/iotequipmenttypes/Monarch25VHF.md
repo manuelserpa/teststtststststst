@@ -1,4 +1,4 @@
-﻿# Monarch25 VHF
+# Monarch25 VHF
 
 The details of the Monarch25 VHF are the following:
 * [Configuration](/AMSOsram/techspec>connectiot>iotequipmenttypes>Monarch25VHF>Monarch25VHF-Configuration)

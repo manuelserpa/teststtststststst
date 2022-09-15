@@ -1,4 +1,4 @@
-# Send Flow Information for ERP
+# Custom Get Flow Information for ERP
 
 ## Requirement Specification
 
@@ -23,7 +23,7 @@ The table below describes the services that are used on this feature.
 
 | Service | Description |
 | ------- | ----------- |
-| [Get Flow Information for ERP](/AMSOsram/techspec>artifacts>services>GetFlowInformationForERP) | Service to provide Flow information to ERP. |
+| [GetFlowInformationForERP](/AMSOsram/techspec>artifacts>services>GetFlowInformationForERP) | Service to provide Flow information to ERP. |
 
 ### Assumptions
 

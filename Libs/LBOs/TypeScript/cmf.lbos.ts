@@ -58071,7 +58071,7 @@ export namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
 	{
 		protected $id:string = null;
 		protected $type:string = "Cmf.Custom.AMSOsram.Orchestration.OutputObjects.CustomGetFlowInformationForERPOutput, Cmf.Custom.AMSOsram.Orchestration";
-		public FlowInformationXml : string;
+		public ResultXml : string;
 		
 	}
 }

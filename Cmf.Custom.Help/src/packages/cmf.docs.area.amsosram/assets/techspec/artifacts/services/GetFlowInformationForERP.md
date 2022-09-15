@@ -1,4 +1,4 @@
-# Get Flow Information for ERP
+# GetFlowInformationForERP
 
 ## Overview
 
@@ -8,24 +8,24 @@ Service to provide Flow information to ERP.
 
 The table below describes the input parameters for the service:
 
-| Name        | Type   | Description  |
-| :---------- | :----: | :----------- |
-| ProductName | String | Product Name |
-| FlowName    | String | Flow Name    |
-| FlowVersion | String | Flow Version |
+| Name        | Type   | Description             |
+| :---------- | :----: | :---------------------- |
+| ProductName | String | Product Name            |
+| FlowName    | String | Flow Name               |
+| FlowVersion | String | Flow Version (optional) |
 
 ## Output Object
 
 The table below describes the output parameters for the service:
 
-| Name               | Type   | Description                       |
-| :----------------- | :----: | :-------------------------------- |
-| FlowInformationXml | String | Flow Information in XML           |
+| Name      | Type   | Description                        |
+| :-------- | :----: | :--------------------------------- |
+| ResultXml | String | Returns Flow Details in XML format |
 
 ## Pre Conditions
 
 * The input parameters ProductName or FlowName must have a value.
-* The input parameter FlowVersion needs the associated FlowName parameter.
+* If FlowName is provided the ProductName must be empty.
 
 ## How it works
 
@@ -33,6 +33,6 @@ The service returns information about the Product/Flow, in XML message, dependin
 
 * When a **ProductName** parameter is sent to the service, the information of the Product and to the effective version of the associated Flow is returned.
 
-* When a **FlowName** parameter is sent to the service, the information associated to the effective version of the Flow is returned.
+* When a **FlowName** parameter is sent to the service without **FlowVersion**, the information associated to the effective version of the Flow is returned.
 
 * When a **FlowName** and a **FlowVersion** parameters are sent to the service, the information associated to the specified version of the Flow is returned.

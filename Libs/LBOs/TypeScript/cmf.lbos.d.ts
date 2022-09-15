@@ -37079,7 +37079,7 @@ export declare namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects {
     class CustomGetFlowInformationForERPOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
-        FlowInformationXml: string;
+        ResultXml: string;
     }
 }
 export declare namespace Cmf.MessageBus.Client.messages {

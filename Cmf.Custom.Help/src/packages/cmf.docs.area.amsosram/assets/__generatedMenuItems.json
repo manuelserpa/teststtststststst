@@ -476,7 +476,7 @@
   {
     "id": "getflowinformationforerp",
     "menuGroupId": "services",
-    "title": "Get Flow Information for ERP",
+    "title": "GetFlowInformationForERP",
     "actionId": ""
   },
   {
@@ -894,9 +894,9 @@
     "actionId": ""
   },
   {
-    "id": "customflowinformationtoerp",
+    "id": "customgetflowinformationforerp",
     "menuGroupId": "features",
-    "title": "Send Flow Information for ERP",
+    "title": "Custom Get Flow Information for ERP",
     "actionId": ""
   },
   {

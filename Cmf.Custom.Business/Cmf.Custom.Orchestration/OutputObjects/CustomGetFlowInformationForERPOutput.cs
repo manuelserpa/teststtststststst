@@ -12,10 +12,10 @@ namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
         #region Properties
 
         /// <summary>
-        /// FlowDetails
+        /// Returns Flow Details in XML format
         /// </summary>
-        [DataMember(Name = "FlowInformationXml", Order = 0)]
-        public string FlowInformationXml { get; set; }
+        [DataMember(Name = "ResultXml", Order = 0)]
+        public string ResultXml { get; set; }
 
         #endregion
     }

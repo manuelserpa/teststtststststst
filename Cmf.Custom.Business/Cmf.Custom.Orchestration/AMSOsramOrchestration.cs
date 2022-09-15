@@ -844,11 +844,25 @@ namespace Cmf.Custom.AMSOsram.Orchestration
 
                     #region Attributes Mapping
 
+                    flowInfoData.ProductInformationData.ProductAttributes = new List<AttributeInformation>();
+
                     if (product.RelatedAttributes.Any())
                     {
-                        flowInfoData.ProductInformationData.ProductAttributes = new List<AttributeInformation>();
+                        foreach (KeyValuePair<string, object> relatedAttribute in product.RelatedAttributes)
+                        {
+                            AttributeInformation productRelatedAttribute = new AttributeInformation()
+                            {
+                                Name = relatedAttribute.Key,
+                                Value = relatedAttribute.Value.ToString()
+                            };
 
-                        foreach (var relatedAttribute in product.RelatedAttributes)
+                            flowInfoData.ProductInformationData.ProductAttributes.Add(productRelatedAttribute);
+                        }
+                    }
+
+                    if (product.Attributes.Any())
+                    {
+                        foreach (KeyValuePair<string, object> relatedAttribute in product.Attributes)
                         {
                             AttributeInformation productAttribute = new AttributeInformation()
                             {
@@ -870,7 +884,7 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                     {
                         flowInfoData.ProductInformationData.ProductParameters = new List<ParameterInformation>();
 
-                        foreach (var parameter in productParameters)
+                        foreach (ParameterSource parameter in productParameters)
                         {
                             ParameterInformation productParameter = new ParameterInformation()
                             {
@@ -987,7 +1001,7 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                 XmlDocument xmlDocument = new XmlDocument();
                 xmlDocument.LoadXml(flowInfoData.SerializeToXML());
 
-                output.FlowInformationXml = xmlDocument.InnerXml;
+                output.ResultXml = xmlDocument.InnerXml;
 
                 #endregion Returned Message
 
