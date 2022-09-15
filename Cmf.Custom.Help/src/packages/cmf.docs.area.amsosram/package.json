@@ -1,6 +1,6 @@
 {
   "name": "cmf.docs.area.amsosram",
-  "version": "1.7.0",
+  "version": "1.13.0",
   "description": "cmf.docs.area.amsosram package",
   "main": "cmf.docs.area.amsosram.js",
   "types": "index.d.ts",

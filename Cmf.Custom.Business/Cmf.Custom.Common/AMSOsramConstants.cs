@@ -620,6 +620,26 @@
         /// </summary>
         public static string LocalizedMessageCustomFlowInformationToERPDataObjectNull = "CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull";
 
+        /// <summary>
+        /// Localized Message: CustomProductionLineAttributeWithoutValue
+        /// </summary>
+        public static string LocalizedMessageProductionLineAttributeWithoutValue = "CustomProductionLineAttributeWithoutValue";
+
+        /// <summary>
+        /// Localized Message: CustomGTWihtoutDataForSpecificProductionLine
+        /// </summary>
+        public static string LocalizedMessageGTWihtoutDataForSpecificProductionLine = "CustomGTWihtoutDataForSpecificProductionLine";
+
+        /// <summary>
+        /// Localized Message: CustomInsufficientDigitsForNameGenerator
+        /// </summary>
+        public static string LocalizedMessageInsufficientDigitsForNameGenerator = "CustomInsufficientDigitsForNameGenerator";
+
+        /// <summary>
+        /// Localized Message: CustomConfigMissingValue
+        /// </summary>
+        public static string LocalizedMessageConfigMissingValue = "CustomConfigMissingValue";
+
         #endregion
 
         #region State Model
@@ -687,6 +707,11 @@
         /// Default Vendor ContainerTypes
         /// </summary>
         public static string DefaultVendorContainerTypesConfig = "/AMSOsram/Container/VendorContainerTypes/";
+
+        /// <summary>
+        /// Lot name allowed characters
+        /// </summary>
+        public static string DefaultLotNameAllowedCharacters = "/AMSOsram/Material/LotNameAllowedCharacters";
 
         #endregion
 

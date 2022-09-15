@@ -1,8 +1,15 @@
 ﻿using Cmf.Custom.Tests.Biz.Common;
+using Cmf.Custom.Tests.Biz.Common.Utilities;
+using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessOrchestration.NameGeneratorManagement.InputObjects;
+using Cmf.Foundation.Configuration;
+using Cmf.Navigo.BusinessObjects;
+using Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects;
 using Cmf.TestScenarios.Others;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cmf.Custom.Tests.Biz.NameGenerators
@@ -10,60 +17,238 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
     [TestClass]
     public class CustomGenerateProductionLotNames
     {
+        private const string siteFacilityPrefix = "RP";
+        private const int numberOfCharacters = 6;
+        private const string productionLineName = "ProdLine2";
+
+        private MaterialCollection materials;
+
+        /// <summary>
+        /// Test Initialization
+        /// </summary>
+        [TestInitialize]
+        public void TestInitialization()
+        {
+            this.materials = new MaterialCollection();
+        }
+
+        /// <summary>
+        /// Test Cleanup
+        /// </summary>
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            if (materials.Any())
+            {
+                materials.Load();
+                materials.TerminateMaterialCollection();
+            }
+        }
+
         /// <summary>
         /// Description:
         ///     - Create Production Lot name to the custom Name Generator CustomProductionLotNameGenerator
         /// 
         /// Acceptance Citeria:
         ///     - Production Lot Name following the specifed tokens: 
-        ///       - [Site][2 digits for the fiscal year][2 digits for the fiscal week][Alphanumeric running number] 
+        ///       - [Site & Facility prefix associated to the ProductionLine attribute][Alphanumeric 6 digits counter][00]
         /// 
         /// </summary>
-        /// <TestCaseID>CustomGenerateProductionLotNames.CustomGenerateProductionLotNames_CreateProductionLot_HappyPath</TestCaseID>
+        /// <TestCaseID>CustomGenerateProductionLotNames_CreateProductionLot_HappyPath</TestCaseID>
         /// <Author>André Cruz</Author>
         [TestMethod]
         public void CustomGenerateProductionLotNames_CreateProductionLot_HappyPath()
         {
-            /// <Step>
-            /// Get CustomGenerateProductionLotNames Name Generator.
-            /// </Step>
-            NameGenerator nameGenerator = GenericGetsScenario.GetObjectByName<NameGenerator>(Name: AMSOsramConstants.CustomGenerateProductionLotNames);
+            List<string> generatedNames = GenerateLotNames(25);
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < generatedNames.Count; i++)
             {
-                /// <Step>
-                /// Generate names for Production Lot using CustomGenerateProductionLotNames Name Generator.
-                /// </Step>
-                string productionLotName = GenerateName(nameGenerator: AMSOsramConstants.CustomGenerateProductionLotNames);
-
-                /// <Step>
-                /// Get last context of CustomGenerateProductionLotNames.
-                /// </Step>
-                var nameGeneratorContext = new LoadNameGeneratorContextsInput()
-                {
-                    NameGenerator = nameGenerator
-                }.LoadNameGeneratorContextsSync().NameGenerator?.Contexts.LastOrDefault();
-
-                /// <ExpectedResult>
-                /// The generated name is equals to the last context saved.
-                /// </ExpectedResult>
-                Assert.IsTrue(nameGeneratorContext.Context.Equals(productionLotName.Substring(0, 5)), $"Production Lot generated name is {productionLotName.Substring(0, 5)} and last context name generator is {nameGeneratorContext.Context}.");
+                string lotName = LotNameGeneratorScenario(AMSOsramConstants.FormLot, AMSOsramConstants.DefaultTestProductName);
+                string expectedLotName = string.Format("{0}{1}00", siteFacilityPrefix, generatedNames[i]);
+                Assert.AreEqual(expectedLotName, lotName, $"Lot name doesn't not match with the expected name: {expectedLotName}.");
             };
         }
 
         /// <summary>
-        /// Generates the name.
+        /// Description:
+        ///     - Try to create Material without AllowedDigits Configuration
+        /// 
+        /// Acceptance Citeria:
+        ///     - Thow a message associated to the CustomConfigMissingValue LocalizedMessage
+        /// 
         /// </summary>
-        /// <param name="nameGenerator">The name generator.</param>
-        /// <param name="entitySourceForProperty">The entity source for property.</param>
-        /// <returns></returns>
-        public static string GenerateName(string nameGenerator, object entitySourceForProperty = null)
+        /// <TestCaseID>CustomGenerateProductionLotNames_CreateProductionLot_ThrowAnErrorWhenAllowedDigitsConfigurationDoesNotExist</TestCaseID>
+        /// <Author>André Cruz</Author>
+        [TestMethod]
+        public void CustomGenerateProductionLotNames_CreateProductionLot_ThrowAnErrorWhenAllowedDigitsConfigurationDoesNotExist()
         {
-            return new GenerateNewNameInput
+            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageConfigMissingValue,
+                                                                                AMSOsramConstants.DefaultLotNameAllowedCharacters);
+
+
+            string configValue = ConfigUtilities.GetConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters) as string;
+
+            try
             {
-                NameGeneratorName = nameGenerator,
-                EntitySourceForProperty = entitySourceForProperty
-            }.GenerateNewNameSync().NewName;
+                ConfigUtilities.RemoveConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters);
+
+                Assert.IsTrue(string.IsNullOrWhiteSpace(ConfigUtilities.GetConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters) as string),
+                              "The Config should be an empty value.");
+
+                this.LotNameGeneratorScenario(AMSOsramConstants.FormLot, AMSOsramConstants.DefaultTestProductWithoutProductionLineName);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(ex.Message.Contains(localizedMessage),
+                              $"The error message returned is different from the message defined in the Localized Message.");
+            }
+            finally
+            {
+                // Rollback to the original Config value
+                ConfigUtilities.SetConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters, configValue);
+            }
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Create Material Lot with the following characteristics:
+        ///       - Name is null
+        ///       - Product without configured ProductionLine attribute
+        /// 
+        /// Acceptance Citeria:
+        ///     - Thow a message associated to the CustomProductionLineAttributeWithoutValue LocalizedMessage
+        /// 
+        /// </summary>
+        /// <TestCaseID>CustomGenerateProductionLotNames_CreateProductionLot_ThrowAnErrorWhenProductionLineAttributeWithoutValue</TestCaseID>
+        /// <Author>André Cruz</Author>
+        [TestMethod]
+        public void CustomGenerateProductionLotNames_CreateProductionLot_ThrowAnErrorWhenProductionLineAttributeWithoutValue()
+        {
+            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageProductionLineAttributeWithoutValue,
+                                                                                AMSOsramConstants.DefaultTestProductWithoutProductionLineName);
+
+            try
+            {
+                this.LotNameGeneratorScenario(AMSOsramConstants.FormLot, AMSOsramConstants.DefaultTestProductWithoutProductionLineName);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(ex.Message.Contains(localizedMessage),
+                              $"The error message returned is different from the message defined in the Localized Message.");
+            }
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Create Material Lot with the following characteristics:
+        ///       - Name is null
+        ///       - ProductionLine associated with Product without configuration in GenericTableCustomProductionLineConversion
+        /// 
+        /// Acceptance Citeria:
+        ///     - Thow a message associated to the CustomGTWihtoutDataForSpecificProductionLine LocalizedMessage
+        /// 
+        /// </summary>
+        /// <TestCaseID>CustomGenerateProductionLotNames_CreateProductionLot_ThrowAnErrorWhenProductionLineIsNotConfigutedOnGT</TestCaseID>
+        /// <Author>André Cruz</Author>
+        [TestMethod]
+        public void CustomGenerateProductionLotNames_CreateProductionLot_ThrowAnErrorWhenProductionLineIsNotConfigutedOnGT()
+        {
+            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageGTWihtoutDataForSpecificProductionLine,
+                                                                                AMSOsramConstants.GenericTableCustomProductionLineConversion,
+                                                                                productionLineName);
+
+            try
+            {
+                this.LotNameGeneratorScenario(AMSOsramConstants.FormLot, AMSOsramConstants.DefaultTestProductGTWithoutProductionLineName);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsTrue(ex.Message.Contains(localizedMessage),
+                              $"The error message returned is different from the message defined in the Localized Message.");
+            }
+        }
+
+        /// <summary>
+        /// Generate Lot Names
+        /// </summary>
+        /// <param name="numberOfNamesToGenerate">Number of name to generate</param>
+        /// <returns>List of Lot Names</returns>
+        private List<string> GenerateLotNames(int numberOfNamesToGenerate)
+        {
+            List<string> names = new List<string>();
+
+            GeneratorContext context = new LoadNameGeneratorContextsInput()
+            {
+                NameGenerator = GenericGetsScenario.GetObjectByName<NameGenerator>(AMSOsramConstants.CustomGenerateProductionLotNames)
+            }.LoadNameGeneratorContextsSync().NameGenerator?.Contexts.LastOrDefault(c => c.Context == siteFacilityPrefix);
+
+            int lastCounterValue = 0;
+
+            if (context != null)
+            {
+                lastCounterValue = context.LastCounterValue;
+            }
+
+            string lotNameAllowedCharacters = ConfigUtilities.GetConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters) as string;
+            int currentCounter = lastCounterValue;
+            int allowedCharactersSize = lotNameAllowedCharacters.Length;
+
+            for (int i = 0; i < numberOfNamesToGenerate; i++)
+            {
+                currentCounter++;
+                lastCounterValue = currentCounter;
+                string alphanumericCounter = string.Empty;
+
+                for (int y = 0; y < numberOfCharacters; y++)
+                {
+                    int currLetterInt = lastCounterValue % allowedCharactersSize;
+                    alphanumericCounter += (char)lotNameAllowedCharacters[0 + currLetterInt];
+                    lastCounterValue /= allowedCharactersSize;
+                }
+
+                // Throw an exception case counter has insufficient number of digits
+                if (lastCounterValue > 0)
+                {
+                    throw new Exception("Insufficient number of digits");
+                }
+
+                // Revert the counter Chars order
+                char[] counterChars = alphanumericCounter.ToCharArray();
+                Array.Reverse(counterChars);
+                alphanumericCounter = new string(counterChars);
+
+                names.Add(alphanumericCounter);
+            }
+
+            return names;
+        }
+
+        /// <summary>
+        /// Lot Name Generator Scenario
+        /// </summary>
+        /// <param name="materialForm">Material Form</param>
+        /// <param name="productName">ProductName to associate</param>
+        /// <returns>Material name</returns>
+        private string LotNameGeneratorScenario(string materialForm, string productName)
+        {
+            Material material = new Material()
+            {
+                Name = null,
+                Facility = GenericGetsScenario.GetObjectByName<Facility>(AMSOsramConstants.DefaultFacilityName),
+                Product = GenericGetsScenario.GetObjectByName<Product>(productName),
+                Type = AMSOsramConstants.MaterialTypeProduction,
+                FlowPath = new GetCorrelationIdFlowPathInput
+                {
+                    SequenceFlowPath = AMSOsramConstants.DefaultTestFlowPath
+                }.GetCorrelationIdFlowPathSync().CorrelationIdFlowPath,
+                Form = materialForm,
+                PrimaryQuantity = 10,
+                PrimaryUnits = "CM2"
+            };
+            material.Create();
+            materials.Add(material);
+
+            return material.Name;
         }
     }
 }
