@@ -188,6 +188,11 @@
         /// </summary>
         public const string CustomGenerateProductionLotNames = "CustomProductionLotNameGenerator";
 
+        /// <summary>
+        /// Split Lot Name Generator
+        /// </summary>
+        public const string CustomGenerateSplitLotNames = "CustomGenerateSplitLotNames";
+
         #endregion
 
         #region SmartTables
@@ -314,6 +319,11 @@
         /// Default ContainerType that is not allowed to be undocked
         /// </summary>
         public static string DefaultVendorContainerTypesConfig = "/AMSOsram/Container/VendorContainerTypes/";
+
+        /// <summary>
+        /// Alphanumeric allowed digits on ProductionLotName Name Generator
+        /// </summary>
+        public static string DefaultLotNameAllowedCharacters = "/AMSOsram/Material/LotNameAllowedCharacters/";
 
         #endregion Configurations
 

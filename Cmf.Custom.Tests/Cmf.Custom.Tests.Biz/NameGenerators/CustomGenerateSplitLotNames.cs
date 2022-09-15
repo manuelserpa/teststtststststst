@@ -3,6 +3,7 @@ using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessOrchestration.NameGeneratorManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.NameGeneratorManagement.OutputObjects;
+using Cmf.Foundation.Configuration;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
@@ -45,8 +46,7 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
         {
             // Instance for Material Collection
             MaterialCollection materials = new MaterialCollection();
-            // Initial Alphanumeric value
-            string alphaNumericValue = "01";
+
 
             try
             {
@@ -68,6 +68,9 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
                 material.Create();
                 materials.Add(material);
 
+                // Generation of alphanumeric values
+                List<string> alphanumericLotNames = GenerateLotNames(3, material.Name);
+                int alphanumericLotNAmesIdx = 0;
                 ///<Step> Split the material </Step>
                 SplitInputParametersCollection splitInputParametersCollection = new SplitInputParametersCollection
                 {
@@ -98,9 +101,9 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
                 foreach (Material childMaterial in splitMaterialOutput.ChildMaterials)
                 {
                     materials.Add(childMaterial);
-                    string childName = ExpectedMaterialName(splitMaterialOutput.Material.Name,alphaNumericValue);
-                    alphaNumericValue = AlphaNumericValueCalculator(alphaNumericValue);
-                    Assert.IsTrue(childName.Equals(childMaterial.Name), $"Child name should be {childName}, instead is {childMaterial.Name}.");
+                    string splittedMaterialName = childMaterial.Name.Substring(0, 8) + alphanumericLotNames[alphanumericLotNAmesIdx];
+                    alphanumericLotNAmesIdx++;
+                    Assert.IsTrue(splittedMaterialName.Equals(childMaterial.Name), $"Child name should be {splittedMaterialName}, instead is {childMaterial.Name}.");
                     count += 1;
                 }
 
@@ -125,63 +128,77 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
                 };
                 splitMaterialOutput = splitMaterialInput.SplitMaterialSync();
 
-                
+
                 ///<ExpectedResult> The child material follow the specified tokens </ExpectedResult>
                 foreach (Material childMaterial in splitMaterialOutput.ChildMaterials)
                 {
                     materials.Add(childMaterial);
-                    string childName = ExpectedMaterialName(splitMaterialOutput.Material.Name, alphaNumericValue);
-                    string newAlphaNumericValue = AlphaNumericValueCalculator(alphaNumericValue);
-                    Assert.IsTrue(childName.Equals(childMaterial.Name), $"Child name should be {childName}, instead is {childMaterial.Name}.");
+                    string splittedLotName = childMaterial.Name.Substring(0, 8) + alphanumericLotNames[alphanumericLotNAmesIdx];
+                    alphanumericLotNAmesIdx++;
+                    Assert.IsTrue(splittedLotName.Equals(childMaterial.Name), $"Child name should be {splittedLotName}, instead is {childMaterial.Name}.");
                     count += 1;
                 }
             }
             finally
             {
                 ///<Step> Clear the created materials </Step>
-                if (materials.Count > 0 )
+                if (materials.Count > 0)
                 {
                     materials.Load();
                     materials.TerminateMaterialCollection();
                 }
             }
         }
+        
 
-        string ExpectedMaterialName(string parentLotName,string alphaNumericValue)
+        private List<string> GenerateLotNames(int numberOfNamesToGenerate, string parentMaterialName)
         {
-            string expectedName = parentLotName.Substring(0, 8);
-            Material parentLot = new Material
+            List<string> names = new List<string>();
+            string parentMaterialNameSubstring = parentMaterialName.Substring(0, 8);
+            GeneratorContext context = new LoadNameGeneratorContextsInput()
             {
-                Name = parentLotName
-            };
-            parentLot.Load(1);
+                NameGenerator = GenericGetsScenario.GetObjectByName<NameGenerator>(AMSOsramConstants.CustomGenerateSplitLotNames)
+            }.LoadNameGeneratorContextsSync().NameGenerator?.Contexts.LastOrDefault(c => c.Context == parentMaterialNameSubstring);
 
-            expectedName =  expectedName + alphaNumericValue.ToString();
+            int lastCounterValue = 0;
 
-            return expectedName;
-        }
-
-        string AlphaNumericValueCalculator(string alphaNumericValue)
-        {
-            string newAlphaNumericValue = string.Empty;
-            string acceptedChars = "0123456789ACFHLMNRTUX";
-            //In case the counter's first char needs to be changed
-            if (alphaNumericValue.Substring(1) != "X")
+            if (context != null)
             {
-                int idx = acceptedChars.IndexOf(alphaNumericValue.Substring(1));
-                idx++;
-                newAlphaNumericValue = alphaNumericValue.Substring(0,1) + acceptedChars.Substring(idx,1);
-            }
-            //The case where only the last character needs to change
-            else
-            {
-                int idx = acceptedChars.IndexOf(alphaNumericValue.Substring(0,1));
-                idx++;
-                newAlphaNumericValue = acceptedChars.Substring(idx, 1) + "0";
+                lastCounterValue = context.LastCounterValue;
             }
 
+            string lotNameAllowedCharacters = ConfigUtilities.GetConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters) as string;
+            int currentCounter = lastCounterValue;
+            int allowedCharactersSize = lotNameAllowedCharacters.Length;
 
-            return newAlphaNumericValue;
+            for (int i = 0; i < numberOfNamesToGenerate; i++)
+            {
+                currentCounter++;
+                lastCounterValue = currentCounter;
+                string alphanumericCounter = string.Empty;
+
+                for (int y = 0; y < 2; y++)
+                {
+                    int currLetterInt = lastCounterValue % allowedCharactersSize;
+                    alphanumericCounter += (char)lotNameAllowedCharacters[0 + currLetterInt];
+                    lastCounterValue /= allowedCharactersSize;
+                }
+
+                // Throw an exception case counter has insufficient number of digits
+                if (lastCounterValue > 0)
+                {
+                    throw new Exception("Insufficient number of digits");
+                }
+
+                // Revert the counter Chars order
+                char[] counterChars = alphanumericCounter.ToCharArray();
+                Array.Reverse(counterChars);
+                alphanumericCounter = new string(counterChars);
+
+                names.Add(alphanumericCounter);
+            }
+
+            return names;
         }
-    }
+    } 
 }
