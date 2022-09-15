@@ -14,7 +14,6 @@ using Cmf.Foundation.Common.Integration;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
-using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -780,36 +779,33 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                 if (!string.IsNullOrWhiteSpace(input.ProductName))
                 {
                     Product product = new Product() { Name = input.ProductName };
+                    product.Load();
 
-                    if (product.ObjectExists())
+                    if (string.IsNullOrWhiteSpace(product.FlowPath))
                     {
-                        product.Load();
+                        throw new Exception(LocalizedMessage.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageProductHasNoFlowPath).MessageText);
+                    }
 
-                        if (string.IsNullOrWhiteSpace(product.FlowPath))
+                    // Set Flow associated to the product
+                    flowName = product.Flow.Name;
+
+                    product.LoadAttributes();
+
+                    #region Site Mapping
+
+                    // Set Site associated to ProductLine product attribute
+                    if (product.HasRelatedAttribute(AMSOsramConstants.ProductAttributeProductionLine))
+                    {
+                        string productionLine = product.GetRelatedAttributeValue(AMSOsramConstants.ProductAttributeProductionLine, true) as string;
+
+                        if (!string.IsNullOrWhiteSpace(productionLine))
                         {
-                            throw new Exception(LocalizedMessage.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageProductHasNoFlowPath).MessageText);
-                        }
+                            // Load Generic Table CustomProductionLineConversion
+                            GenericTable customProdLineConversionGT = new GenericTable() { Name = AMSOsramConstants.GenericTableCustomProductionLineConversion };
+                            customProdLineConversionGT.Load();
 
-                        // Set Flow associated to the product
-                        flowName = product.Flow.Name;
-
-                        product.LoadAttributes();
-
-                        #region Site Mapping
-
-                        // Set Site associated to ProductLine product attribute
-                        if (product.HasRelatedAttribute(AMSOsramConstants.ProductAttributeProductionLine))
-                        {
-                            string productionLine = product.GetRelatedAttributeValue(AMSOsramConstants.ProductAttributeProductionLine, true) as string;
-
-                            if (!string.IsNullOrWhiteSpace(productionLine))
-                            {
-                                // Load Generic Table CustomProductionLineConversion
-                                GenericTable customProdLineConversionGT = new GenericTable() { Name = AMSOsramConstants.GenericTableCustomProductionLineConversion };
-                                customProdLineConversionGT.Load();
-
-                                // Based on ProductLine Product attribute get Site and Facility name from Generic Table
-                                customProdLineConversionGT.LoadData(new Foundation.BusinessObjects.QueryObject.FilterCollection()
+                            // Based on ProductLine Product attribute get Site and Facility name from Generic Table
+                            customProdLineConversionGT.LoadData(new Foundation.BusinessObjects.QueryObject.FilterCollection()
                                 {
                                     new Foundation.BusinessObjects.QueryObject.Filter()
                                     {
@@ -820,81 +816,77 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                                     }
                                 });
 
-                                if (customProdLineConversionGT.HasData)
-                                {
-                                    DataSet prodLineConversionDataSet = NgpDataSet.ToDataSet(customProdLineConversionGT.Data);
-
-                                    flowInfoData.Site = prodLineConversionDataSet.Tables[0].Rows[0][AMSOsramConstants.GenericTableCustomProductionLineConversionSiteProperty].ToString();
-                                }
-                            }
-                        }
-
-                        #endregion Site Mapping
-
-                        #region Product Mapping
-
-                        flowInfoData.ProductInformationData = new ProductInformation()
-                        {
-                            Name = product.Name,
-                            Description = product.Description,
-                            Timestamp = product.CreatedOn.ToString(),
-                            Type = product.Type,
-                            State = product.UniversalState.ToString(),
-                            Maturity = product.Maturity,
-                            Yield = product.Yield.ToString(),
-                            CycleTime = product.CycleTime.ToString(),
-                            MaximumMaterialSize = product.MaximumMaterialSize.ToString()
-                        };
-
-                        #region Attributes Mapping
-
-                        if (product.RelatedAttributes.Any())
-                        {
-                            flowInfoData.ProductInformationData.ProductAttributes = new List<AttributeInformation>();
-
-                            foreach (var relatedAttribute in product.RelatedAttributes)
+                            if (customProdLineConversionGT.HasData)
                             {
-                                AttributeInformation productAttribute = new AttributeInformation()
-                                {
-                                    Name = relatedAttribute.Key,
-                                    Value = relatedAttribute.Value.ToString()
-                                };
+                                DataSet prodLineConversionDataSet = NgpDataSet.ToDataSet(customProdLineConversionGT.Data);
 
-                                flowInfoData.ProductInformationData.ProductAttributes.Add(productAttribute);
+                                flowInfoData.Site = prodLineConversionDataSet.Tables[0].Rows[0][AMSOsramConstants.GenericTableCustomProductionLineConversionSiteProperty].ToString();
                             }
                         }
-
-                        #endregion Attributes Mapping
-
-                        #region Parameters Mapping
-
-                        ParameterSourceCollection productParameters = product.GetProductParameters();
-
-                        if (productParameters != null && productParameters.Any())
-                        {
-                            flowInfoData.ProductInformationData.ProductParameters = new List<ParameterInformation>();
-
-                            foreach (var parameter in productParameters)
-                            {
-                                ParameterInformation productParameter = new ParameterInformation()
-                                {
-                                    Name = parameter.Parameter.Name,
-                                    Type = parameter.Type.ToString(),
-                                    Value = parameter.Value
-                                };
-
-                                flowInfoData.ProductInformationData.ProductParameters.Add(productParameter);
-                            }
-                        }
-
-                        #endregion Parameters Mapping
-
-                        #endregion Product Mapping
                     }
-                    else
+
+                    #endregion Site Mapping
+
+                    #region Product Mapping
+
+                    flowInfoData.ProductInformationData = new ProductInformation()
                     {
-                        throw new Exception(LocalizedMessage.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageProductHasNoFlowPath).MessageText);
+                        Name = product.Name,
+                        Description = product.Description,
+                        Timestamp = product.CreatedOn.ToString(),
+                        Type = product.Type,
+                        State = product.UniversalState.ToString(),
+                        Maturity = product.Maturity,
+                        Yield = product.Yield.ToString(),
+                        CycleTime = product.CycleTime.ToString(),
+                        MaximumMaterialSize = product.MaximumMaterialSize.ToString()
+                    };
+
+                    #region Attributes Mapping
+
+                    if (product.RelatedAttributes.Any())
+                    {
+                        flowInfoData.ProductInformationData.ProductAttributes = new List<AttributeInformation>();
+
+                        foreach (var relatedAttribute in product.RelatedAttributes)
+                        {
+                            AttributeInformation productAttribute = new AttributeInformation()
+                            {
+                                Name = relatedAttribute.Key,
+                                Value = relatedAttribute.Value.ToString()
+                            };
+
+                            flowInfoData.ProductInformationData.ProductAttributes.Add(productAttribute);
+                        }
                     }
+
+                    #endregion Attributes Mapping
+
+                    #region Parameters Mapping
+
+                    ParameterSourceCollection productParameters = product.GetProductParameters();
+
+                    if (productParameters != null && productParameters.Any())
+                    {
+                        flowInfoData.ProductInformationData.ProductParameters = new List<ParameterInformation>();
+
+                        foreach (var parameter in productParameters)
+                        {
+                            ParameterInformation productParameter = new ParameterInformation()
+                            {
+                                Name = parameter.Parameter.Name,
+                                Type = parameter.Type.ToString(),
+                                Value = parameter.Value
+                            };
+
+                            flowInfoData.ProductInformationData.ProductParameters.Add(productParameter);
+                        }
+                    }
+
+                    #endregion Parameters Mapping
+
+                    #endregion Product Mapping
+
                 }
 
                 #endregion Product Info
@@ -906,90 +898,82 @@ namespace Cmf.Custom.AMSOsram.Orchestration
                     Name = flowName,
                     Version = !string.IsNullOrWhiteSpace(input.FlowVersion) ? Convert.ToInt32(input.FlowVersion) : 0
                 };
+                flow.Load();
 
-                if (flow.ObjectExists())
+                #region Flow Mapping
+
+                flowInfoData.FlowInformationData = new FlowInformation()
                 {
-                    #region Flow Mapping
+                    Name = flow.Name,
+                    Description = flow.Description,
+                    Timestamp = flow.CreatedOn.ToString(),
+                    Type = flow.Type.ToString(),
+                    State = flow.UniversalState.ToString(),
+                    Version = flow.Version.ToString(),
+                    LogicalName = flow.LogicalNames?.FirstOrDefault()?.LogicalName
+                };
 
-                    flow.Load();
+                #endregion Flow Mapping
 
-                    flowInfoData.FlowInformationData = new FlowInformation()
+                #region Steps Mapping
+
+                flow.LoadChilds();
+
+                FlowStepCollection flowSteps = flow.FlowSteps;
+
+                if (flowSteps != null && flowSteps.Any())
+                {
+                    #region Area Mapping
+
+                    flowSteps.FirstOrDefault().TargetEntity.LoadRelations(Cmf.Navigo.Common.Constants.StepArea, 1);
+
+                    // Set Cost Center associated to the first Area of the first FlowStep
+                    flowInfoData.CostCenter = flowSteps.FirstOrDefault().TargetEntity?.StepAreas?.FirstOrDefault()?.TargetEntity?.CostCenter;
+
+                    #endregion Area Mapping
+
+                    flowInfoData.FlowInformationData.Steps = new List<StepInformation>();
+
+                    foreach (FlowStep flowStep in flowSteps)
                     {
-                        Name = flow.Name,
-                        Description = flow.Description,
-                        Timestamp = flow.CreatedOn.ToString(),
-                        Type = flow.Type.ToString(),
-                        State = flow.UniversalState.ToString(),
-                        Version = flow.Version.ToString(),
-                        LogicalName = flow.LogicalNames?.FirstOrDefault()?.LogicalName
-                    };
-
-                    #endregion Flow Mapping
-
-                    #region Steps Mapping
-
-                    flow.LoadChilds();
-
-                    FlowStepCollection flowSteps = flow.FlowSteps;
-
-                    if (flowSteps != null && flowSteps.Any())
-                    {
-                        #region Area Mapping
-
-                        flowSteps.FirstOrDefault().TargetEntity.LoadRelations(Cmf.Navigo.Common.Constants.StepArea, 1);
-
-                        // Set Cost Center associated to the first Area of the first FlowStep
-                        flowInfoData.CostCenter = flowSteps.FirstOrDefault().TargetEntity?.StepAreas?.FirstOrDefault()?.TargetEntity?.CostCenter;
-
-                        #endregion Area Mapping
-
-                        flowInfoData.FlowInformationData.Steps = new List<StepInformation>();
-
-                        foreach (FlowStep flowStep in flowSteps)
+                        StepInformation stepInformation = new StepInformation()
                         {
-                            StepInformation stepInformation = new StepInformation()
+                            Name = flowStep.TargetEntity?.Name,
+                            Description = flowStep.TargetEntity?.Description,
+                            Timestamp = flowStep.TargetEntity?.CreatedOn.ToString(),
+                            Type = flowStep.TargetEntity?.Type,
+                            State = flowStep.TargetEntity?.UniversalState.ToString(),
+                            LogicalName = flowStep.LogicalName,
+                            Maturity = flowStep.TargetEntity?.Maturity
+                        };
+
+                        flowInfoData.FlowInformationData.Steps.Add(stepInformation);
+
+                        #region Attributes Mapping
+
+                        flowStep.TargetEntity?.LoadAttributes();
+
+                        if (flowStep.TargetEntity?.Attributes != null && flowStep.TargetEntity.Attributes.Any())
+                        {
+                            stepInformation.StepAttributes = new List<AttributeInformation>();
+
+                            foreach (KeyValuePair<string, object> attribute in flowStep.TargetEntity?.Attributes)
                             {
-                                Name = flowStep.TargetEntity?.Name,
-                                Description = flowStep.TargetEntity?.Description,
-                                Timestamp = flowStep.TargetEntity?.CreatedOn.ToString(),
-                                Type = flowStep.TargetEntity?.Type,
-                                State = flowStep.TargetEntity?.UniversalState.ToString(),
-                                LogicalName = flowStep.LogicalName,
-                                Maturity = flowStep.TargetEntity?.Maturity
-                            };
-
-                            flowInfoData.FlowInformationData.Steps.Add(stepInformation);
-
-                            #region Attributes Mapping
-
-                            flowStep.TargetEntity?.LoadAttributes();
-
-                            if (flowStep.TargetEntity?.Attributes != null && flowStep.TargetEntity.Attributes.Any())
-                            {
-                                stepInformation.StepAttributes = new List<AttributeInformation>();
-
-                                foreach (KeyValuePair<string, object> attribute in flowStep.TargetEntity?.Attributes)
+                                AttributeInformation stepAttribute = new AttributeInformation()
                                 {
-                                    AttributeInformation stepAttribute = new AttributeInformation()
-                                    {
-                                        Name = attribute.Key,
-                                        Value = attribute.Value.ToString()
-                                    };
+                                    Name = attribute.Key,
+                                    Value = attribute.Value.ToString()
+                                };
 
-                                    stepInformation.StepAttributes.Add(stepAttribute);
-                                }
+                                stepInformation.StepAttributes.Add(stepAttribute);
                             }
-
-                            #endregion Attributes Mapping
                         }
-                    }
 
-                    #endregion FlowSteps Mapping
+                        #endregion Attributes Mapping
+                    }
                 }
-                else
-                {
-                    throw new Exception(LocalizedMessage.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageNonExistentFlow).MessageText);
-                }
+
+                #endregion FlowSteps Mapping
 
                 #endregion Flow Info
 

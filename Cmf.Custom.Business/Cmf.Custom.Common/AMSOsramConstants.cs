@@ -606,16 +606,6 @@
         public static string LocalizedMessageProductHasNoFlowPath = "CustomLocalizedMessageProductHasNoFlowPath";
 
         /// <summary>
-        /// Localized Message: Custom Localized Message CustomLocalizedMessageNonExistentProduct
-        /// </summary>
-        public static string LocalizedMessageNonExistentProduct = "CustomLocalizedMessageNonExistentProduct";
-
-        /// <summary>
-        /// Localized Message: Custom Localized Message CustomLocalizedMessageNonExistentFlow
-        /// </summary>
-        public static string LocalizedMessageNonExistentFlow = "CustomLocalizedMessageNonExistentFlow";
-
-        /// <summary>
         /// Localized Message: Custom Localized Message CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull
         /// </summary>
         public static string LocalizedMessageCustomFlowInformationToERPDataObjectNull = "CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull";
