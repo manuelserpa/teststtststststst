@@ -2,7 +2,6 @@
 using Cmf.Custom.AMSOsram.Orchestration.OutputObjects;
 using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
-using Cmf.LightBusinessObjects.Infrastructure.Errors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Xml;
@@ -12,8 +11,6 @@ namespace Cmf.Custom.Tests.Biz.ERP
     [TestClass]
     public class CustomGetFlowInformationForERP
     {
-        private string productName = "CMFTestProduct";
-        private string flowName = "CMFTestFlow";
         private string flowVersion = "1";
 
         /// <summary>
@@ -71,7 +68,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomGetFlowInformationForERP_GetFlowInformationForERP_FlowInformationByProductName()
         {
-            foreach (XmlNode flowInfoToERPNode in GetFlowInformationScenario(productName: productName))
+            foreach (XmlNode flowInfoToERPNode in GetFlowInformationScenario(productName: AMSOsramConstants.DefaultTestProductName))
             {
                 Assert.IsTrue(flowInfoToERPNode != null && flowInfoToERPNode.HasChildNodes,
                               $"The element {AMSOsramConstants.FlowInformationToERPNodeName} should have values in the message.");
@@ -112,8 +109,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
                                      $"The Product element {AMSOsramConstants.ParametersInformationNodeName} should exist in the message.");
 
                     // Validate ProductName
-                    Assert.AreEqual(productName, productInfoNode[AMSOsramConstants.BasicInformationNamePropertyName].InnerText,
-                                    $"The Product property {AMSOsramConstants.BasicInformationNamePropertyName} should be the value {productName}.");
+                    Assert.AreEqual(AMSOsramConstants.DefaultTestProductName, productInfoNode[AMSOsramConstants.BasicInformationNamePropertyName].InnerText,
+                                    $"The Product property {AMSOsramConstants.BasicInformationNamePropertyName} should be the value {AMSOsramConstants.DefaultTestProductName}.");
 
                     #endregion Product Asserts
 
@@ -151,7 +148,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomGetFlowInformationForERP_GetFlowInformationForERP_FlowInformationByFlowName()
         {
-            foreach (XmlNode flowInfoToERPNode in this.GetFlowInformationScenario(flowName: flowName))
+            foreach (XmlNode flowInfoToERPNode in this.GetFlowInformationScenario(flowName: AMSOsramConstants.DefaultTestFlowName))
             {
                 Assert.IsTrue(flowInfoToERPNode != null && flowInfoToERPNode.HasChildNodes,
                               $"The element {AMSOsramConstants.FlowInformationToERPNodeName} should have values in the message.");
@@ -180,8 +177,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
                     ValidateFlowProperties(flowInfoNode);
 
                     // Validate FlowName
-                    Assert.AreEqual(flowName, flowInfoNode[AMSOsramConstants.BasicInformationNamePropertyName].InnerText,
-                                    $"The Flow property {AMSOsramConstants.BasicInformationNamePropertyName} should be the value {flowName}.");
+                    Assert.AreEqual(AMSOsramConstants.DefaultTestFlowName, flowInfoNode[AMSOsramConstants.BasicInformationNamePropertyName].InnerText,
+                                    $"The Flow property {AMSOsramConstants.BasicInformationNamePropertyName} should be the value {AMSOsramConstants.DefaultTestFlowName}.");
 
                     #endregion Flow Asserts
 
@@ -211,7 +208,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomGetFlowInformationForERP_GetFlowInformationForERP_FlowInformationOfSpecificVersion()
         {
-            foreach (XmlNode flowInfoToERPNode in this.GetFlowInformationScenario(flowName: flowName, flowVersion: flowVersion))
+            foreach (XmlNode flowInfoToERPNode in this.GetFlowInformationScenario(flowName: AMSOsramConstants.DefaultTestFlowName, flowVersion: flowVersion))
             {
                 Assert.IsTrue(flowInfoToERPNode != null && flowInfoToERPNode.HasChildNodes,
                               $"The element {AMSOsramConstants.FlowInformationToERPNodeName} should have values in the message.");
@@ -240,8 +237,8 @@ namespace Cmf.Custom.Tests.Biz.ERP
                     ValidateFlowProperties(flowInfoNode);
 
                     // Validate FlowName
-                    Assert.AreEqual(flowName, flowInfoNode[AMSOsramConstants.BasicInformationNamePropertyName].InnerText,
-                                    $"The Flow property {AMSOsramConstants.BasicInformationNamePropertyName} should be the value {flowName}.");
+                    Assert.AreEqual(AMSOsramConstants.DefaultTestFlowName, flowInfoNode[AMSOsramConstants.BasicInformationNamePropertyName].InnerText,
+                                    $"The Flow property {AMSOsramConstants.BasicInformationNamePropertyName} should be the value {AMSOsramConstants.DefaultTestFlowName}.");
 
                     // Validate FlowVersion
                     Assert.AreEqual(flowVersion, flowInfoNode[AMSOsramConstants.FlowInformationVersionPropertyName].InnerText,
@@ -279,7 +276,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             try
             {
-                this.GetFlowInformationScenario(productName, flowName);
+                this.GetFlowInformationScenario(AMSOsramConstants.DefaultTestProductName, AMSOsramConstants.DefaultTestFlowName);
             }
             catch (Exception ex)
             {
@@ -329,7 +326,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             try
             {
-                this.GetFlowInformationScenario(productName: productName, flowVersion: flowVersion);
+                this.GetFlowInformationScenario(productName: AMSOsramConstants.DefaultTestProductName, flowVersion: flowVersion);
             }
             catch (Exception ex)
             {
