@@ -214,7 +214,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             }
 
             // Set generated Lot name to returned Collection
-            Input.Add("Result", generatedLotName.ToString());
+            Input.Add("Result", generatedLotName.ToString().ToUpper());
 
             //---End DEE Code---
 
