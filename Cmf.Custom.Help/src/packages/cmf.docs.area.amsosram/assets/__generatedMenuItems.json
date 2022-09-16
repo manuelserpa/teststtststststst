@@ -96,6 +96,12 @@
    "actionId": ""
 },
 {
+   "id": "amsosram-20220916-1.13.0",
+   "menuGroupId": "releasenotes",
+   "title": "AMSOsram-20220916-1.13.0",
+   "actionId": ""
+},
+{
    "id": "artifacts",
    "menuGroupId": "techspec",
    "title": "Artifacts",
@@ -230,7 +236,7 @@
 {
    "id": "customgeneratesplitlotnames",
    "menuGroupId": "deeactions",
-   "title": "Custom Generate Split Lot Names",
+   "title": "CustomGenerateSplitLotNames",
    "actionId": ""
 },
 {
@@ -348,6 +354,12 @@
    "actionId": ""
 },
 {
+   "id": "etproduct",
+   "menuGroupId": "entitytypes",
+   "title": "Product",
+   "actionId": ""
+},
+{
    "id": "etresource",
    "menuGroupId": "entitytypes",
    "title": "Resource",
@@ -357,6 +369,12 @@
    "id": "customgetresourceloadportsdata",
    "menuGroupId": "exportedobjects",
    "title": "CustomGetResourceLoadPortsData",
+   "actionId": ""
+},
+{
+   "id": "customproductionlineconversion",
+   "menuGroupId": "generictables",
+   "title": "CustomProductionLineConversion",
    "actionId": ""
 },
 {
@@ -387,6 +405,12 @@
    "id": "datasources",
    "menuGroupId": "html",
    "title": "Data Sources",
+   "actionId": ""
+},
+{
+   "id": "customproductionlines",
+   "menuGroupId": "lookuptables",
+   "title": "CustomProductionLines",
    "actionId": ""
 },
 {
@@ -426,15 +450,15 @@
    "actionId": ""
 },
 {
-   "id": "customgeneratesplitlotnamesnamegenerator",
+   "id": "customgeneratesplitlotnames",
    "menuGroupId": "namegenerators",
-   "title": "Custom Generate Split Lot Names Name Generator",
+   "title": "CustomGenerateSplitLotNames",
    "actionId": ""
 },
 {
    "id": "customproductionlotnamegenerator",
    "menuGroupId": "namegenerators",
-   "title": "Custom Production Lot Name Generator",
+   "title": "CustomProductionLotNameGenerator",
    "actionId": ""
 },
 {

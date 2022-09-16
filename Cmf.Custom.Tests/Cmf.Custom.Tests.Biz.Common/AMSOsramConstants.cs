@@ -198,6 +198,12 @@
         /// </summary>
         public const string CustomGenerateProductionLotNames = "CustomProductionLotNameGenerator";
 
+        /// <summary>
+        /// Split Lot Name Generator
+        /// </summary>
+        public const string CustomGenerateSplitLotNames = "CustomGenerateSplitLotNames";
+
+
         #endregion
 
         #region SmartTables
@@ -328,7 +334,7 @@
         /// <summary>
         /// Lot name allowed characters
         /// </summary>
-        public static string DefaultLotNameAllowedCharacters = "/AMSOsram/Material/LotNameAllowedCharacters";
+        public static string DefaultLotNameAllowedCharacters = "/AMSOsram/Material/LotNameAllowedCharacters/";
 
         #endregion Configurations
 

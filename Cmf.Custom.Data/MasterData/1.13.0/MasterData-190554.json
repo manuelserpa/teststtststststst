@@ -1,0 +1,28 @@
+{
+  "WorksheetNameMapping": {},
+  "<SM>DEEAction": {
+    "1": {
+      "Action": "CustomGenerateSplitLotNames",
+      "Description": " Generate split production Lot names - called by Name Generator",
+      "CodeFileRelativePath": "NameGenerators\\CustomGenerateSplitLotNames.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    }
+  },
+  "DEEActionOrder": {
+  },
+  "<SM>NameGenerator": {
+    "1": {
+      "Name": "CustomGenerateSplitLotNames",
+      "Description": "Counter Format",
+      "Sample": "",
+      "TokenName": "Dee",
+      "TokenDescription": "Retrieves the Main Material name",
+      "TokenFormat": "",
+      "TokenOrder": "1",
+      "CalculationMethod": "Dee",
+      "CalendarPath": "",
+      "TokenValue": "CustomGenerateSplitLotNames"
+    }
+  }
+}
