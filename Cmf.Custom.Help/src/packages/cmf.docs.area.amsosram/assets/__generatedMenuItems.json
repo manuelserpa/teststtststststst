@@ -230,7 +230,7 @@
 {
    "id": "customgeneratesplitlotnames",
    "menuGroupId": "deeactions",
-   "title": "Custom Generate Split Lot Names",
+   "title": "CustomGenerateSplitLotNames",
    "actionId": ""
 },
 {

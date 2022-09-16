@@ -12,7 +12,7 @@ The following DEE Actions were created to support customer requirements.
 | [Custom Create Goods Issue Message](/AMSOsram/techspec>artifacts>deeactions>CustomCreateGoodsIssueMessage) | DEE Action to create an Integration Entry with Goods Issue information. | 
 | [Custom Generate Production Lot Names](/AMSOsram/techspec>artifacts>deeactions>CustomGenerateProductionLotNames) | DEE Action used to generate new Lot names. | 
 | [CustomGenerateSorterJobDefinitionFromFutureAction](/AMSOsram/techspec>artifacts>deeactions>CustomGenerateSorterJobDefinitionFromFutureAction) | Dee action to Generate a Custom Sorter Job Definition if exists a Required Future Action for a given material. | 
-| [Custom Generate Split Lot Names](/AMSOsram/techspec>artifacts>deeactions>CustomGenerateSplitLotNames) | Dee Action used to generate splited Materials name. | 
+| [CustomGenerateSplitLotNames](/AMSOsram/techspec>artifacts>deeactions>CustomGenerateSplitLotNames) | Dee Action used to generate Materials name for split lots. | 
 | [CustomGetTibcoConfigurations](/AMSOsram/techspec>artifacts>deeactions>CustomGetTibcoConfigurations) | DEE action that retrieves the required configurations from MES to allow connecting to TibcoEMS. | 
 | [Custom Import Production Orders From ERP](/AMSOsram/techspec>artifacts>deeactions>CustomImportProductionOrdersFromERP) | DEE action to receive a list of **Production Orders** and create a Integration Entry per **Production Order**. | 
 | [CustomIncomingMaterialLotCreation](/AMSOsram/techspec>artifacts>deeactions>CustomIncomingMaterialLotCreation) | DEE action to create or update (on hold) lot incoming from ERP. | 
