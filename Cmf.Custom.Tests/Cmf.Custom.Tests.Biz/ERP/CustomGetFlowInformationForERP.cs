@@ -1,43 +1,37 @@
 ﻿using Cmf.Custom.AMSOsram.Orchestration.InputObjects;
 using Cmf.Custom.AMSOsram.Orchestration.OutputObjects;
 using Cmf.Custom.Tests.Biz.Common;
+using Cmf.Custom.Tests.Biz.Common.ERP.Flow;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
+using Cmf.Custom.TestUtilities;
+using Cmf.Foundation.BusinessObjects;
+using Cmf.Foundation.BusinessObjects.GenericTables;
+using Cmf.Foundation.BusinessOrchestration.Utilities.InputObjects;
+using Cmf.Foundation.Common;
+using Cmf.Navigo.BusinessObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Xml;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using static Cmf.Custom.Tests.Biz.Common.ERP.Flow.CustomFlowInformationToERPData;
 
 namespace Cmf.Custom.Tests.Biz.ERP
 {
     [TestClass]
     public class CustomGetFlowInformationForERP
     {
-        private string flowVersion = "1";
-
-        /// <summary>
-        /// Test Initialization
-        /// </summary>
-        [TestInitialize]
-        public void TestInitialization()
-        {
-        }
-
-        /// <summary>
-        /// Test Cleanup
-        /// </summary>
-        [TestCleanup]
-        public void TestCleanup()
-        {
-        }
-
         /// <summary>
         /// Setup Flow Information Scenario
         /// </summary>
         /// <param name="productName">Input ProductName</param>
         /// <param name="flowName">Input FlowName</param>
         /// <param name="flowVersion">Input FlowVersion</param>
-        /// <returns></returns>
-        private XmlDocument GetFlowInformationScenario(string productName = null, string flowName = null, string flowVersion = null)
+        /// <returns>Object with XML Data</returns>
+        private CustomFlowInformationToERPData GetFlowInformationScenario(string productName = null, string flowName = null, string flowVersion = null)
         {
+            CustomFlowInformationToERPData flowInfoData = new CustomFlowInformationToERPData();
+
             // Call service
             CustomGetFlowInformationForERPOutput output = new CustomGetFlowInformationForERPInput()
             {
@@ -46,14 +40,12 @@ namespace Cmf.Custom.Tests.Biz.ERP
                 FlowVersion = flowVersion
             }.GetFlowInformationForERPSync();
 
-            // Load Xml
-            XmlDocument xml = new XmlDocument();
-            xml.LoadXml(output.FlowInformationXml);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(output.ResultXml), "The ResultXml should have value.");
 
-            // Remove XmlDeclaration
-            xml.RemoveChild(xml.FirstChild);
+            // Deserliaze service output message for an object
+            flowInfoData = CustomUtilities.DeserializeXmlToObject<CustomFlowInformationToERPData>(output.ResultXml);
 
-            return xml;
+            return flowInfoData;
         }
 
         /// <summary>
@@ -68,72 +60,36 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomGetFlowInformationForERP_GetFlowInformationForERP_FlowInformationByProductName()
         {
-            foreach (XmlNode flowInfoToERPNode in GetFlowInformationScenario(productName: AMSOsramConstants.DefaultTestProductName))
-            {
-                Assert.IsTrue(flowInfoToERPNode != null && flowInfoToERPNode.HasChildNodes,
-                              $"The element {AMSOsramConstants.FlowInformationToERPNodeName} should have values in the message.");
+            CustomFlowInformationToERPData flowInfoData = this.GetFlowInformationScenario(productName: AMSOsramConstants.DefaultTestProductName);
 
-                if (flowInfoToERPNode.Name.Equals(AMSOsramConstants.FlowInformationToERPNodeName))
-                {
-                    #region General Asserts
+            Product product = new Product() { Name = flowInfoData.ProductInformationData.Name };
+            product.Load();
 
-                    ValidateGeneralProperties(flowInfoToERPNode);
+            #region Product Asserts
 
-                    #endregion General Asserts
+            ValidateProductProperties(flowInfoData.ProductInformationData, product);
 
-                    #region Product Asserts
+            #endregion Product Asserts
 
-                    XmlNode productInfoNode = flowInfoToERPNode.SelectSingleNode(AMSOsramConstants.ProductInformationNodeName);
+            #region Flow Asserts
 
-                    Assert.IsTrue(productInfoNode != null && productInfoNode.HasChildNodes,
-                                  $"The element {AMSOsramConstants.ProductInformationNodeName} should have values in the message.");
+            product.Flow.Load();
 
-                    ValidateBasicProperties(productInfoNode, AMSOsramConstants.ProductInformationNodeName);
+            ValidateFlowProperties(flowInfoData.FlowInformationData, product.Flow);
 
-                    Assert.IsNotNull(productInfoNode[AMSOsramConstants.ProductInformationMaturityPropertyName],
-                                     $"The Product property {AMSOsramConstants.ProductInformationMaturityPropertyName} should exist in the element.");
+            #endregion Flow Asserts
 
-                    Assert.IsNotNull(productInfoNode[AMSOsramConstants.ProductInformationCycleTimePropertyName],
-                                     $"The Product property {AMSOsramConstants.ProductInformationCycleTimePropertyName} should exist in the message.");
+            #region Steps Asserts
 
-                    Assert.IsNotNull(productInfoNode[AMSOsramConstants.ProductInformationYieldPropertyName],
-                                     $"The Product property {AMSOsramConstants.ProductInformationYieldPropertyName} should exist in the message.");
+            ValidateStepsProperties(flowInfoData.FlowInformationData.Steps, product.Flow);
 
-                    Assert.IsNotNull(productInfoNode[AMSOsramConstants.ProductInformationMaximumMaterialSizePropertyName],
-                                     $"The Product property {AMSOsramConstants.ProductInformationMaximumMaterialSizePropertyName} should exist in the message.");
+            #endregion Steps Asserts
 
-                    Assert.IsNotNull(productInfoNode[AMSOsramConstants.AttributesInformationNodeName],
-                                     $"The Product element {AMSOsramConstants.AttributesInformationNodeName} should exist in the message.");
+            #region General Asserts
 
-                    Assert.IsNotNull(productInfoNode[AMSOsramConstants.ParametersInformationNodeName],
-                                     $"The Product element {AMSOsramConstants.ParametersInformationNodeName} should exist in the message.");
+            ValidateGeneralProperties(flowInfoData, product.Flow, product);
 
-                    // Validate ProductName
-                    Assert.AreEqual(AMSOsramConstants.DefaultTestProductName, productInfoNode[AMSOsramConstants.BasicInformationNamePropertyName].InnerText,
-                                    $"The Product property {AMSOsramConstants.BasicInformationNamePropertyName} should be the value {AMSOsramConstants.DefaultTestProductName}.");
-
-                    #endregion Product Asserts
-
-                    #region Flow Asserts
-
-                    XmlNode flowInfoNode = flowInfoToERPNode.SelectSingleNode(AMSOsramConstants.FlowInformationNodeName);
-
-                    ValidateFlowProperties(flowInfoNode);
-
-                    #endregion Flow Asserts
-
-                    #region Steps Asserts
-
-                    XmlNode stepsInfoNode = flowInfoNode.SelectSingleNode(AMSOsramConstants.StepsInformationNodeName);
-
-                    Assert.IsTrue(flowInfoNode != null && flowInfoNode.HasChildNodes,
-                                  $"The element {AMSOsramConstants.StepsInformationNodeName} should have values in the message.");
-
-                    ValidateStepsProperties(stepsInfoNode);
-
-                    #endregion Steps Asserts
-                }
-            }
+            #endregion General Asserts
         }
 
         /// <summary>
@@ -148,52 +104,35 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomGetFlowInformationForERP_GetFlowInformationForERP_FlowInformationByFlowName()
         {
-            foreach (XmlNode flowInfoToERPNode in this.GetFlowInformationScenario(flowName: AMSOsramConstants.DefaultTestFlowName))
-            {
-                Assert.IsTrue(flowInfoToERPNode != null && flowInfoToERPNode.HasChildNodes,
-                              $"The element {AMSOsramConstants.FlowInformationToERPNodeName} should have values in the message.");
+            CustomFlowInformationToERPData flowInfoData = this.GetFlowInformationScenario(flowName: AMSOsramConstants.DefaultTestFlowName);
 
-                if (flowInfoToERPNode.Name.Equals(AMSOsramConstants.FlowInformationToERPNodeName))
-                {
-                    #region General Asserts
+            Flow flow = new Flow() { Name = flowInfoData.FlowInformationData.Name };
+            flow.Load();
 
-                    ValidateGeneralProperties(flowInfoToERPNode);
+            #region Product Asserts
 
-                    #endregion General Asserts
+            Assert.IsNull(flowInfoData.ProductInformationData, "The Product shouldn't have values in the message.");
 
-                    #region Product Asserts
+            #endregion Product Asserts
 
-                    XmlNode productInfoNode = flowInfoToERPNode.SelectSingleNode(AMSOsramConstants.ProductInformationNodeName);
+            #region Flow Asserts
 
-                    Assert.IsTrue(productInfoNode != null && !productInfoNode.HasChildNodes,
-                                  $"The element {AMSOsramConstants.ProductInformationNodeName} shouldn't have values in the message.");
+            ValidateFlowProperties(flowInfoData.FlowInformationData, flow);
 
-                    #endregion Product Asserts
+            #endregion Flow Asserts
 
-                    #region Flow Asserts
+            #region Steps Asserts
 
-                    XmlNode flowInfoNode = flowInfoToERPNode.SelectSingleNode(AMSOsramConstants.FlowInformationNodeName);
+            ValidateStepsProperties(flowInfoData.FlowInformationData.Steps, flow);
 
-                    ValidateFlowProperties(flowInfoNode);
+            #endregion Steps Asserts
 
-                    // Validate FlowName
-                    Assert.AreEqual(AMSOsramConstants.DefaultTestFlowName, flowInfoNode[AMSOsramConstants.BasicInformationNamePropertyName].InnerText,
-                                    $"The Flow property {AMSOsramConstants.BasicInformationNamePropertyName} should be the value {AMSOsramConstants.DefaultTestFlowName}.");
+            #region General Asserts
 
-                    #endregion Flow Asserts
+            ValidateGeneralProperties(flowInfoData, flow);
 
-                    #region Steps Asserts
+            #endregion General Asserts
 
-                    XmlNode stepsInfoNode = flowInfoNode.SelectSingleNode(AMSOsramConstants.StepsInformationNodeName);
-
-                    Assert.IsTrue(flowInfoNode != null && flowInfoNode.HasChildNodes,
-                                  $"The element {AMSOsramConstants.StepsInformationNodeName} should have values in the message.");
-
-                    ValidateStepsProperties(stepsInfoNode);
-
-                    #endregion Steps Asserts
-                }
-            }
         }
 
         /// <summary>
@@ -208,56 +147,34 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomGetFlowInformationForERP_GetFlowInformationForERP_FlowInformationOfSpecificVersion()
         {
-            foreach (XmlNode flowInfoToERPNode in this.GetFlowInformationScenario(flowName: AMSOsramConstants.DefaultTestFlowName, flowVersion: flowVersion))
-            {
-                Assert.IsTrue(flowInfoToERPNode != null && flowInfoToERPNode.HasChildNodes,
-                              $"The element {AMSOsramConstants.FlowInformationToERPNodeName} should have values in the message.");
+            CustomFlowInformationToERPData flowInfoData = this.GetFlowInformationScenario(flowName: AMSOsramConstants.DefaultTestFlowName, flowVersion: "1");
 
-                if (flowInfoToERPNode.Name.Equals(AMSOsramConstants.FlowInformationToERPNodeName))
-                {
-                    #region General Asserts
+            Flow flow = new Flow() { Name = flowInfoData.FlowInformationData.Name, Version = Convert.ToInt32(flowInfoData.FlowInformationData.Version) };
+            flow.Load();
 
-                    ValidateGeneralProperties(flowInfoToERPNode);
+            #region Product Asserts
 
-                    #endregion General Asserts
+            Assert.IsNull(flowInfoData.ProductInformationData, "The Product shouldn't have values in the message.");
 
-                    #region Product Asserts
+            #endregion Product Asserts
 
-                    XmlNode productInfoNode = flowInfoToERPNode.SelectSingleNode(AMSOsramConstants.ProductInformationNodeName);
+            #region Flow Asserts
 
-                    Assert.IsTrue(productInfoNode != null && !productInfoNode.HasChildNodes,
-                                  $"The element {AMSOsramConstants.ProductInformationNodeName} shouldn't have values in the message.");
+            ValidateFlowProperties(flowInfoData.FlowInformationData, flow);
 
-                    #endregion Product Asserts
+            #endregion Flow Asserts
 
-                    #region Flow Asserts
+            #region Steps Asserts
 
-                    XmlNode flowInfoNode = flowInfoToERPNode.SelectSingleNode(AMSOsramConstants.FlowInformationNodeName);
+            ValidateStepsProperties(flowInfoData.FlowInformationData.Steps, flow);
 
-                    ValidateFlowProperties(flowInfoNode);
+            #endregion Steps Asserts
 
-                    // Validate FlowName
-                    Assert.AreEqual(AMSOsramConstants.DefaultTestFlowName, flowInfoNode[AMSOsramConstants.BasicInformationNamePropertyName].InnerText,
-                                    $"The Flow property {AMSOsramConstants.BasicInformationNamePropertyName} should be the value {AMSOsramConstants.DefaultTestFlowName}.");
+            #region General Asserts
 
-                    // Validate FlowVersion
-                    Assert.AreEqual(flowVersion, flowInfoNode[AMSOsramConstants.FlowInformationVersionPropertyName].InnerText,
-                                    $"The Flow property {AMSOsramConstants.FlowInformationVersionPropertyName} should be the value {flowVersion}.");
+            ValidateGeneralProperties(flowInfoData, flow);
 
-                    #endregion Flow Asserts
-
-                    #region Steps Asserts
-
-                    XmlNode stepsInfoNode = flowInfoNode.SelectSingleNode(AMSOsramConstants.StepsInformationNodeName);
-
-                    Assert.IsTrue(flowInfoNode != null && flowInfoNode.HasChildNodes,
-                                  $"The element {AMSOsramConstants.StepsInformationNodeName} should have values in the message.");
-
-                    ValidateStepsProperties(stepsInfoNode);
-
-                    #endregion Steps Asserts
-                }
-            }
+            #endregion General Asserts
         }
 
         /// <summary>
@@ -326,7 +243,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             try
             {
-                this.GetFlowInformationScenario(productName: AMSOsramConstants.DefaultTestProductName, flowVersion: flowVersion);
+                this.GetFlowInformationScenario(productName: AMSOsramConstants.DefaultTestProductName, flowVersion: "1");
             }
             catch (Exception ex)
             {
@@ -336,80 +253,224 @@ namespace Cmf.Custom.Tests.Biz.ERP
         }
 
         /// <summary>
-        /// Validate General Properties
+        /// Validate General properties
         /// </summary>
-        /// <param name="flowInfoPropertiesNode">FlowInformationToERP node properties</param>
-        private void ValidateGeneralProperties(XmlNode flowInfoPropertiesNode)
+        /// <param name="flowInfoData">Properties from deserialized object</param>
+        /// <param name="flow">Flow entity</param>
+        /// <param name="product">Product entity</param>
+        private void ValidateGeneralProperties(CustomFlowInformationToERPData flowInfoData, Flow flow, Product product = null)
         {
-            Assert.IsNotNull(flowInfoPropertiesNode[AMSOsramConstants.FlowInformationToERPSitePropertyName],
-                             $"The property {AMSOsramConstants.FlowInformationToERPSitePropertyName} should exist in the element.");
-
-            Assert.IsNotNull(flowInfoPropertiesNode[AMSOsramConstants.FlowInformationToERPCostCenterPropertyName],
-                             $"The property {AMSOsramConstants.FlowInformationToERPCostCenterPropertyName} should exist in the element.");
-        }
-
-        /// <summary>
-        /// Validate Basic Properties
-        /// </summary>
-        /// <param name="basicInfoPropertiesNode">Basic properties</param>
-        /// <param name="parentNodeName">ParentNode name</param>
-        private void ValidateBasicProperties(XmlNode basicInfoPropertiesNode, string parentNodeName)
-        {
-            Assert.IsNotNull(basicInfoPropertiesNode[AMSOsramConstants.BasicInformationNamePropertyName],
-                             $"The {parentNodeName} property {AMSOsramConstants.BasicInformationNamePropertyName} should exist in the element.");
-
-            Assert.IsNotNull(basicInfoPropertiesNode[AMSOsramConstants.BasicInformationDescriptionPropertyName],
-                             $"The {parentNodeName} property {AMSOsramConstants.BasicInformationDescriptionPropertyName} should exist in the element.");
-
-            Assert.IsNotNull(basicInfoPropertiesNode[AMSOsramConstants.BasicInformationTimestampPropertyName],
-                             $"The {parentNodeName} property {AMSOsramConstants.BasicInformationTimestampPropertyName} should exist in the element.");
-
-            Assert.IsNotNull(basicInfoPropertiesNode[AMSOsramConstants.BasicInformationTypePropertyName],
-                             $"The {parentNodeName} property {AMSOsramConstants.BasicInformationTypePropertyName} should exist in the element.");
-
-            Assert.IsNotNull(basicInfoPropertiesNode[AMSOsramConstants.BasicInformationStatePropertyName],
-                             $"The {parentNodeName} property {AMSOsramConstants.BasicInformationStatePropertyName} should exist in the element.");
-        }
-
-        /// <summary>
-        /// Validate Flow Properties
-        /// </summary>
-        /// <param name="flowInfoPropertiesNode">Flow properties</param>
-        private void ValidateFlowProperties(XmlNode flowInfoPropertiesNode)
-        {
-            Assert.IsTrue(flowInfoPropertiesNode != null && flowInfoPropertiesNode.HasChildNodes,
-                          $"The element {AMSOsramConstants.FlowInformationNodeName} should have values in the message.");
-
-            ValidateBasicProperties(flowInfoPropertiesNode, AMSOsramConstants.FlowInformationNodeName);
-
-            Assert.IsNotNull(flowInfoPropertiesNode[AMSOsramConstants.FlowInformationVersionPropertyName],
-                             $"The Flow property {AMSOsramConstants.FlowInformationVersionPropertyName} should exist in the element.");
-
-            Assert.IsNotNull(flowInfoPropertiesNode[AMSOsramConstants.FlowInformationLogicalNamePropertyName],
-                             $"The Flow property {AMSOsramConstants.FlowInformationVersionPropertyName} should exist in the element.");
-        }
-
-        /// <summary>
-        /// Validate Steps Properties
-        /// </summary>
-        /// <param name="stepsInfoNodes">Steps nodes</param>
-        private void ValidateStepsProperties(XmlNode stepsInfoNodes)
-        {
-            foreach (XmlNode stepNode in stepsInfoNodes)
+            // Validate Site name associated to the ProductionLine attribute
+            if (product != null && product.HasRelatedAttributeDefined(AMSOsramConstants.ProductAttributeProductionLine))
             {
-                Assert.IsTrue(stepNode != null && stepNode.HasChildNodes,
-                              $"The element {AMSOsramConstants.StepInformationNodeName} should have values in the message.");
+                string productionLine = product.GetRelatedAttributeValue<Product, string>(AMSOsramConstants.ProductAttributeProductionLine);
 
-                ValidateBasicProperties(stepNode, AMSOsramConstants.StepInformationNodeName);
+                if (!string.IsNullOrWhiteSpace(productionLine))
+                {
+                    // Load Generic Table CustomProductionLineConversion
+                    GenericTable customProdLineConversionGT = new GenericTable() { Name = AMSOsramConstants.GenericTableCustomProductionLineConversion };
+                    customProdLineConversionGT.Load();
 
-                Assert.IsNotNull(stepNode[AMSOsramConstants.StepInformationLogicalNamePropertyName],
-                                 $"The Step property {AMSOsramConstants.StepInformationLogicalNamePropertyName} should exist in the element.");
+                    // Based on ProductLine Product attribute get Site and Facility name from Generic Table
+                    customProdLineConversionGT.LoadData(new Foundation.BusinessObjects.QueryObject.FilterCollection()
+                    {
+                        new Foundation.BusinessObjects.QueryObject.Filter()
+                        {
+                            Name = AMSOsramConstants.GenericTableCustomProductionLineConversionProductionLineProperty,
+                            Operator = FieldOperator.IsEqualTo,
+                            LogicalOperator = LogicalOperator.Nothing,
+                            Value = productionLine
+                        }
+                    });
 
-                Assert.IsNotNull(stepNode[AMSOsramConstants.StepInformationMaturityPropertyName],
-                                 $"The Step property {AMSOsramConstants.StepInformationMaturityPropertyName} should exist in the element.");
+                    if (customProdLineConversionGT.HasData)
+                    {
+                        DataSet prodLineConversionDataSet = new ToDataSetInput()
+                        {
+                            NgpDataSet = customProdLineConversionGT.Data
+                        }.ToDataSetSync().DataSet;
 
-                Assert.IsNotNull(stepNode[AMSOsramConstants.AttributesInformationNodeName],
-                                 $"The Step element {AMSOsramConstants.AttributesInformationNodeName} should exist in the element.");
+                        string flowInfoDataSite = prodLineConversionDataSet.Tables[0].Rows[0][AMSOsramConstants.GenericTableCustomProductionLineConversionSiteProperty].ToString();
+
+                        Assert.AreEqual(flowInfoData.Site, flowInfoDataSite, $"The Site should be the value {flowInfoData.Site}.");
+                    }
+                }
+            }
+
+            flow.LoadRelation(nameof(FlowStep));
+
+            FlowStepCollection flowSteps = flow.FlowSteps;
+
+            if (flowSteps != null && flowSteps.Any())
+            {
+                flowSteps.FirstOrDefault().TargetEntity?.LoadRelation(nameof(StepArea));
+
+                string costCenterName = flowSteps.FirstOrDefault().TargetEntity?.StepAreas?.FirstOrDefault()?.TargetEntity?.CostCenter;
+
+                Assert.AreEqual(flowInfoData.CostCenter, costCenterName, $"The CostCenter should be the value {flowInfoData.CostCenter}.");
+            }
+        }
+
+        /// <summary>
+        /// Validate BasicInformation properties
+        /// </summary>
+        /// <param name="basicInfoPropertiesNode">BasicInformation from deserialized object</param>
+        /// <param name="entity">Entiy base</param>
+        private void ValidateBasicProperties(BasicInformation basicInfoPropertiesNode, EntityBase entity)
+        {
+            Assert.AreEqual(basicInfoPropertiesNode.Name, entity.Name,
+                            $"The Name should be the value {basicInfoPropertiesNode.Name}.");
+
+            Assert.AreEqual(basicInfoPropertiesNode.Description, entity.Description,
+                            $"The Description should be the value {basicInfoPropertiesNode.Description}.");
+
+            Assert.AreEqual(basicInfoPropertiesNode.Timestamp, entity.CreatedOn.ToString(),
+                            $"The Timestamp should be the value {basicInfoPropertiesNode.Timestamp}.");
+
+            Assert.AreEqual(basicInfoPropertiesNode.State, entity.UniversalState.ToString(),
+                            $"The State should be the value {basicInfoPropertiesNode.State}.");
+        }
+
+        /// <summary>
+        /// Validate Product properties
+        /// </summary>
+        /// <param name="productInfoData">ProductInformation from deserialized object</param>
+        /// <param name="product">Product entity</param>
+        private void ValidateProductProperties(ProductInformation productInfoData, Product product)
+        {
+            // Validate Basic properties
+            ValidateBasicProperties(productInfoData, product);
+
+            // Validate Product properties
+            Assert.AreEqual(productInfoData.Type, product.Type,
+                            $"The Product Type should be the value {productInfoData.Type}.");
+
+            Assert.AreEqual(productInfoData.Maturity, product.Maturity,
+                            $"The Product Maturity should be the value {productInfoData.Maturity}.");
+
+            Assert.AreEqual(productInfoData.CycleTime, product.CycleTime.ToString(),
+                            $"The Product CycleTime should be the value {productInfoData.CycleTime}.");
+
+            Assert.AreEqual(productInfoData.Yield, product.Yield.ToString(),
+                            $"The Product Yield should be the value {productInfoData.Yield}.");
+
+            Assert.AreEqual(productInfoData.MaximumMaterialSize, product.MaximumMaterialSize.ToString(),
+                            $"The Product MaximumMaterialSize should be the value {productInfoData.MaximumMaterialSize}.");
+
+            product.LoadAttributes();
+
+            // Validate Product attributes
+            if (product.Attributes != null && product.Attributes.Any())
+            {
+                foreach (AttributeInformation attributeInformation in productInfoData.ProductAttributes)
+                {
+                    Assert.AreEqual(attributeInformation.Value, product.Attributes[attributeInformation.Name].ToString(),
+                                    $"The Product Attribute {attributeInformation.Name} should be the value {attributeInformation.Value}.");
+                }
+            }
+
+            // Validate Product related attributes
+            if (product.RelatedAttributes != null && product.RelatedAttributes.Any())
+            {
+                foreach (AttributeInformation attributeInformation in productInfoData.ProductAttributes)
+                {
+                    Assert.AreEqual(attributeInformation.Value, product.RelatedAttributes[attributeInformation.Name].ToString(),
+                                    $"The Product Related Attribute {attributeInformation.Name} should be the value {attributeInformation.Value}.");
+                }
+            }
+
+            product.LoadRelation(nameof(ProductParameter));
+
+            if (product.HasRelation(nameof(ProductParameter)))
+            {
+                List<ProductParameter> productParameters = product.RelationCollection[nameof(ProductParameter)].Cast<ProductParameter>().ToList();
+
+                //Validate Product parameters
+                List<ParameterInformation> productParametersInfoData = productInfoData.ProductParameters;
+
+                for (int i = 0; i < productParametersInfoData.Count; i++)
+                {
+                    productParameters[i].TargetEntity.Load();
+
+                    string parameterName = productParameters[i].TargetEntity.Name;
+                    string parameterValue = productParameters.FirstOrDefault(p => p.TargetEntity.Name == parameterName).Value;
+                    string parameterType = productParameters[i].Type.ToString();
+
+                    Assert.AreEqual(productInfoData.ProductParameters[i].Name, parameterName,
+                                    $"The name of Product Parameter should be {productInfoData.ProductParameters[i].Name}.");
+
+                    Assert.AreEqual(productInfoData.ProductParameters[i].Value, parameterValue,
+                                    $"The Product Parameter {productInfoData.ProductParameters[i].Name} should be the Value {productInfoData.ProductParameters[i].Value}.");
+
+                    Assert.AreEqual(productInfoData.ProductParameters[i].Type, parameterType,
+                                    $"The Product Parameter {productInfoData.ProductParameters[i].Name} should be the Type {productInfoData.ProductParameters[i].Type}.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Validate Flow properties
+        /// </summary>
+        /// <param name="flowInfoData">FlowInformation from deserialized objec</param>
+        /// <param name="flow">Flow entity</param>
+        private void ValidateFlowProperties(FlowInformation flowInfoData, Flow flow)
+        {
+            // Validate Basic properties
+            ValidateBasicProperties(flowInfoData, flow);
+
+            // Validate Flow properties
+            Assert.AreEqual(flowInfoData.Type, flow.Type,
+                            $"The Flow Type should be the value {flowInfoData.Type}.");
+
+            Assert.AreEqual(flowInfoData.LogicalName, flow.LogicalNames?.FirstOrDefault()?.LogicalName,
+                            $"The Flow LogicalName should be the value {flowInfoData.LogicalName}.");
+
+            Assert.AreEqual(flowInfoData.Version, flow.Version.ToString(),
+                            $"The Flow Version should be the value {flowInfoData.Version}.");
+        }
+
+        /// <summary>
+        /// Validate FlowSteps properties
+        /// </summary>
+        /// <param name="flowStepsInfoData">FlowSteps from deserialized object</param>
+        /// <param name="flow">Flow entity</param>
+        private void ValidateStepsProperties(List<StepInformation> flowStepsInfoData, Flow flow)
+        {
+            flow.LoadRelation(nameof(FlowStep));
+
+            FlowStepCollection flowSteps = flow.FlowSteps;
+
+            if (flowSteps != null && flowSteps.Any())
+            {
+                for (int i = 0; i < flowStepsInfoData.Count; i++)
+                {
+                    flowSteps[i].TargetEntity?.Load();
+
+                    // Validate Basic properties
+                    ValidateBasicProperties(flowStepsInfoData[i], flowSteps[i].TargetEntity);
+
+                    // Validate Step properties
+                    Assert.AreEqual(flowStepsInfoData[i].Type, flowSteps[i].TargetEntity?.Type,
+                                    $"The FlowStep Type should be the value {flowStepsInfoData[i].Type}.");
+
+                    Assert.AreEqual(flowStepsInfoData[i].LogicalName, flowSteps[i].LogicalName,
+                                    $"The FlowStep LogicalName should be the value {flowStepsInfoData[i].LogicalName}.");
+
+                    Assert.AreEqual(flowStepsInfoData[i].Maturity, flowSteps[i].TargetEntity?.Maturity,
+                                    $"The FlowStep Maturity should be the value {flowStepsInfoData[i].Maturity}.");
+
+                    // Validate Step attributes
+                    flowSteps[i].TargetEntity?.LoadAttributes();
+
+                    if (flowSteps[i].TargetEntity.Attributes != null && flowSteps[i].TargetEntity.Attributes.Any())
+                    {
+                        foreach (AttributeInformation attributeInformation in flowStepsInfoData[i].StepAttributes)
+                        {
+                            Assert.AreEqual(attributeInformation.Value, flowSteps[i].TargetEntity.Attributes[attributeInformation.Name].ToString(),
+                                            $"The Step Attribute {attributeInformation.Name} should be the value {attributeInformation.Value}.");
+                        }
+                    }
+                }
             }
         }
     }

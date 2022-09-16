@@ -8,6 +8,11 @@
         /// </summary>
         public const string CustomFDCCommunicationAttribute = "FDCCommunication";
 
+        /// <summary>
+        /// Product Attribute ProductionLine
+        /// </summary>
+        public static string ProductAttributeProductionLine = "ProductionLine";
+
         #endregion
 
         #region DEE
@@ -406,126 +411,22 @@
 
         #endregion Localized Messages
 
-        #region FlowInformationToERP
-
-        /// <summary>
-        /// Node: FlowInformationToERP node name
-        /// </summary>
-        public static string FlowInformationToERPNodeName = "FlowInformationToERP";
-
-        /// <summary>
-        /// Node: Product node name
-        /// </summary>
-        public static string ProductInformationNodeName = "Product";
-
-        /// <summary>
-        /// Node: Flow node name
-        /// </summary>
-        public static string FlowInformationNodeName = "Flow";
-
-        /// <summary>
-        /// Node: Steps node name
-        /// </summary>
-        public static string StepsInformationNodeName = "Steps";
-
-        /// <summary>
-        /// Node: Step node name
-        /// </summary>
-        public static string StepInformationNodeName = "Step";
-
-        /// <summary>
-        /// Node: Attributes node name
-        /// </summary>
-        public static string AttributesInformationNodeName = "Attributes";
-
-        /// <summary>
-        /// Node: Parameters node name
-        /// </summary>
-        public static string ParametersInformationNodeName = "Parameters";
-
-        /// <summary>
-        /// Property: Site property name
-        /// </summary>
-        public static string FlowInformationToERPSitePropertyName = "Site";
-
-        /// <summary>
-        /// Property: CostCenter property name
-        /// </summary>
-        public static string FlowInformationToERPCostCenterPropertyName = "CostCenter";
-
-        /// <summary>
-        /// Property: Name property name
-        /// </summary>
-        public static string BasicInformationNamePropertyName = "Name";
-
-        /// <summary>
-        /// Property: Description property name
-        /// </summary>
-        public static string BasicInformationDescriptionPropertyName = "Description";
-
-        /// <summary>
-        /// Property: Timestamp property name
-        /// </summary>
-        public static string BasicInformationTimestampPropertyName = "Timestamp";
-
-        /// <summary>
-        /// Property: Type property name
-        /// </summary>
-        public static string BasicInformationTypePropertyName = "Type";
-
-        /// <summary>
-        /// Property: State property name
-        /// </summary>
-        public static string BasicInformationStatePropertyName = "State";
-
-        /// <summary>
-        /// Property: Product Maturity property name
-        /// </summary>
-        public static string ProductInformationMaturityPropertyName = "Maturity";
-
-        /// <summary>
-        /// Property: Product CycleTime property name
-        /// </summary>
-        public static string ProductInformationCycleTimePropertyName = "CycleTime";
-
-        /// <summary>
-        /// Property: Product Yield property name
-        /// </summary>
-        public static string ProductInformationYieldPropertyName = "Yield";
-
-        /// <summary>
-        /// Property: Product MaximumMaterialSize property name
-        /// </summary>
-        public static string ProductInformationMaximumMaterialSizePropertyName = "MaximumMaterialSize";
-
-        /// <summary>
-        /// Property: Flow LogicalName property name
-        /// </summary>
-        public static string FlowInformationLogicalNamePropertyName = "LogicalName";
-
-        /// <summary>
-        /// Property: Flow Version property name
-        /// </summary>
-        public static string FlowInformationVersionPropertyName = "Version";
-
-        /// <summary>
-        /// Property: Step LogicalName property name
-        /// </summary>
-        public static string StepInformationLogicalNamePropertyName = "LogicalName";
-
-        /// <summary>
-        /// Property: Step Maturity property name
-        /// </summary>
-        public static string StepInformationMaturityPropertyName = "Maturity";
-
-        #endregion FlowInformationToERP
-
         #region GenericTables
 
         /// <summary>
         /// Custom Production Line Conversion table name 
         /// </summary>
         public static string GenericTableCustomProductionLineConversion = "CustomProductionLineConversion";
+
+        /// <summary>
+        /// Custom Production Line Conversion table ProductionLine property 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversionProductionLineProperty = "ProductionLine";
+
+        /// <summary>
+        /// Custom Production Line Conversion table Site property 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversionSiteProperty = "Site";
 
         #endregion GenericTables
     }
