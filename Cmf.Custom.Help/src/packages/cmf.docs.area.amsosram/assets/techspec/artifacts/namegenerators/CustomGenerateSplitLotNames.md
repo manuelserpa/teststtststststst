@@ -1,4 +1,4 @@
-# Custom Generate Split Lot Names
+# CustomGenerateSplitLotNames
 
 ## Overview
 
