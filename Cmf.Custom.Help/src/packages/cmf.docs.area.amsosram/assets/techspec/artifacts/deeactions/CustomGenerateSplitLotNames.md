@@ -1,8 +1,8 @@
-# Custom Generate Split Lot Names
+# CustomGenerateSplitLotNames
 
 ## Overview
 
-Dee Action used to generate splited Materials name.
+Dee Action used to generate Materials name for split lots.
 
 ## Action Groups
 
@@ -11,11 +11,15 @@ Dee Action used to generate splited Materials name.
 ## Pre Conditions
 
 * Material form is Lot
-* Configuration Entry AlphanumericAllowedDigits must be configured properly
+* Configuration Entry **/AMSOsram/Material/LotNameAllowedCharacters** must be configured with aceptable characters.
 
 ## Action
 
-This rule is triggered when the Name Generator **[CustomGenerateSplitLotNames](/AMSOsram/techspec>artifacts>namegenerators>CustomGenerateSplitLotNames)** is executed. It will take the main part of the original Material (first 8 digits), and generate the final two digits in an alphanumeric running number. The available characters for the alphanumeric numbers is found in the Configuration Entry **LotNameAllowedCharacters**.
+This rule is triggered when the Name Generator **[CustomGenerateSplitLotNames](/AMSOsram/techspec>artifacts>namegenerators>CustomGenerateSplitLotNames)** is executed. 
+
+It will take the first 8 digits from the parent Material's name (Lot) and concatenate two alphanumeric characters generated in sequence using the allowed characters. 
+
+The aceptable characters must be configured in the Configuration Entry **LotNameAllowedCharacters**.
 
 Example:
 
