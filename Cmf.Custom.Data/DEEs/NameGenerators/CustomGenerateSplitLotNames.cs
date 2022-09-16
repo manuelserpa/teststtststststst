@@ -1,7 +1,12 @@
 ﻿using Cmf.Custom.AMSOsram.Common;
 using Cmf.Foundation.BusinessObjects;
+using Cmf.Foundation.Common;
+using Cmf.Foundation.Configuration;
 using Cmf.Navigo.BusinessObjects;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
 {
@@ -19,8 +24,26 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             ///     - ResolveNameGenerator
             /// </summary>
             #endregion
+            bool canExecute = false;
 
-            return true;
+            if(Input != null && Input.ContainsKey("EntitySource"))
+            {
+                Material material = Input["EntitySource"] as Material;
+                if(material != null && material.Product != null && material.Form.Equals(AMSOsramConstants.MaterialLotForm, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    // Throw an exception case Configuration has no associated value
+                    if (!Config.TryGetConfig(AMSOsramConstants.DefaultLotNameAllowedCharacters, out Config lotNameAllowedCharactersConfig) ||
+                        string.IsNullOrWhiteSpace(lotNameAllowedCharactersConfig.GetConfigValue<string>()))
+                    {
+                        throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageConfigMissingValue,
+                                                                                  AMSOsramConstants.DefaultLotNameAllowedCharacters));
+                    }
+                    ApplicationContext.CallContext.SetInformationContext("LotNameAllowedCharacters", lotNameAllowedCharactersConfig.GetConfigValue<string>());
+                    canExecute = true;
+                }
+            }
+
+            return canExecute;
 
             //---End DEE Condition Code---
         }
@@ -37,6 +60,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             // Foundation
             UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration");
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
+            UseReference("", "Cmf.Foundation.Common");
 
             // Navigo
             UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
@@ -45,20 +69,78 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
 
             // Load Name Generator
-            NameGenerator nameGenerator = new NameGenerator();
-            nameGenerator.Load(AMSOsramConstants.CustomGenerateSplitLotNames);
+            NameGenerator customGenSplitLotNamesNG = new NameGenerator() { Name = AMSOsramConstants.CustomGenerateSplitLotNames };
+            customGenSplitLotNamesNG.Load();
 
-            Material materialLot = new Material();
+            Material materialLot = Input["EntitySource"] as Material;
 
-            if (Input.ContainsKey("EntitySource"))
+            // Get the first 8 digits of the Parent Material
+            string parentMaterialNameSubstring = materialLot.Name.Substring(0, 8);
+
+            // Get alphanumeric allowed digits from Config
+            string lotNameAllowedCharacters = ApplicationContext.CallContext.GetInformationContext("LotNameAllowedCharacters") as string;
+            int allowedCharactersSize = lotNameAllowedCharacters.Length;
+
+            // Load Current Context associated to Name Generator
+            GeneratorContext contextNG = null;
+            customGenSplitLotNamesNG.LoadGeneratorContexts(out int totalRows);
+            contextNG = customGenSplitLotNamesNG.Contexts.FirstOrDefault(ng => ng.Context == parentMaterialNameSubstring);
+
+            // Number of characters that will be generated
+            int numberOfCharacters = 2;
+
+            int lastCounterValue = 0;
+
+            if (contextNG != null)
             {
-                materialLot = Input["EntitySource"] as Material;
+                // Get last counter value from NG Context
+                lastCounterValue = contextNG.LastCounterValue;
             }
 
-            // Set Material name on first position of Name Generator Array
-            string splitedMaterialName = materialLot.Name.Split('.')[0];
+            lastCounterValue++;
 
-            Input.Add("Result", splitedMaterialName);
+            // Build list from start to end
+            int nextCounterValue = lastCounterValue;
+            string alphanumericCounter = string.Empty;
+            for(int i = 0; i < numberOfCharacters; i++)
+            {
+                int currLetterInt = lastCounterValue % allowedCharactersSize;
+                alphanumericCounter += (char)lotNameAllowedCharacters[0 + currLetterInt];
+                lastCounterValue /= allowedCharactersSize;
+            }
+
+            if (lastCounterValue > 0)
+            {
+                // insufficient number of digits to represent the counter
+                throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageInsufficientDigitsForNameGenerator,
+                                                                          AMSOsramConstants.CustomGenerateProductionLotNames,
+                                                                          nextCounterValue.ToString()));
+            }
+
+            // Revert the characters
+            char[] charArray = alphanumericCounter.ToCharArray();
+            Array.Reverse(charArray);
+            alphanumericCounter = new string(charArray);
+
+            // Save Generator context
+            if (contextNG != null)
+            {
+                contextNG.LastCounterValue = nextCounterValue;
+                contextNG.Save();
+            }
+            else
+            {
+                customGenSplitLotNamesNG.AddGeneratorContexts(new GeneratorContextCollection()
+                {
+                    new GeneratorContext()
+                    {
+                        Context = parentMaterialNameSubstring,
+                        LastCounterValue = nextCounterValue
+                    }
+                });
+            }
+
+            Input.Add("Result", String.Format("{0}{1}", parentMaterialNameSubstring, alphanumericCounter));
 
             //---End DEE Code---
 
