@@ -1,4 +1,4 @@
-# Custom Nice Label Print
+# Nice Label Print
 
 ## Requirement Specification
 When performing a track out a DEE action will be executed resolving the information present on the Smart Table
