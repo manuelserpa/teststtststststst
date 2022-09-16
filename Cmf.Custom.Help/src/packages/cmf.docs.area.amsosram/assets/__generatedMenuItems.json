@@ -96,9 +96,9 @@
    "actionId": ""
 },
 {
-   "id": "amsosram-20220916-1.13.0",
+   "id": "amsosram-20220919-1.13.0",
    "menuGroupId": "releasenotes",
-   "title": "AMSOsram-20220916-1.13.0",
+   "title": "AMSOsram-20220919-1.13.0",
    "actionId": ""
 },
 {
@@ -477,6 +477,12 @@
    "id": "dockcontainer",
    "menuGroupId": "services",
    "title": "DockContainer",
+   "actionId": ""
+},
+{
+   "id": "getflowinformationforerp",
+   "menuGroupId": "services",
+   "title": "GetFlowInformationForERP",
    "actionId": ""
 },
 {
@@ -894,9 +900,15 @@
    "actionId": ""
 },
 {
+   "id": "customgetflowinformationforerp",
+   "menuGroupId": "features",
+   "title": "Get Flow Information for ERP",
+   "actionId": ""
+},
+{
    "id": "customimportproductionorders",
    "menuGroupId": "features",
-   "title": "Custom Import Production Orders",
+   "title": "Import Production Orders",
    "actionId": ""
 },
 {
@@ -908,7 +920,7 @@
 {
    "id": "customnicelabelprint",
    "menuGroupId": "features",
-   "title": "Custom Nice Label Print",
+   "title": "Nice Label Print",
    "actionId": ""
 },
 {

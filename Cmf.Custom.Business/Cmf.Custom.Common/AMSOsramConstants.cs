@@ -229,6 +229,11 @@
         /// </summary>
         public static string ProductAttributeProductionLine = "ProductionLine";
 
+        /// <summary>
+        /// Product Attribute ProductionLevel
+        /// </summary>
+        public static string ProductAttributeProductionLevel = "ProductionLevel";
+
         #endregion
 
         #region SmartTables
@@ -581,9 +586,29 @@
         public static string LocalizedMessageContainerCannotBeUndocked = "CustomLocalizedMessageContainerCannotBeUndocked";
 
         /// <summary>
-        /// Localized Message: CustomConfigurationWithoutValue
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageProductNameAndFlowNameAtSameTime
         /// </summary>
-        public static string LocalizedMessageConfigurationWithoutValue = "CustomConfigurationWithoutValue";
+        public static string LocalizedMessageProductNameAndFlowNameAtSameTime = "CustomLocalizedMessageProductNameAndFlowNameAtSameTime";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageProductNameOrFlowNameNotDefined
+        /// </summary>
+        public static string LocalizedMessageProductNameOrFlowNameNotDefined = "CustomLocalizedMessageProductNameOrFlowNameNotDefined";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageFlowVersionWithoutFlowName
+        /// </summary>
+        public static string LocalizedMessageFlowVersionWithoutFlowName = "CustomLocalizedMessageFlowVersionWithoutFlowName";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageProductHasNoFlowPath
+        /// </summary>
+        public static string LocalizedMessageProductHasNoFlowPath = "CustomLocalizedMessageProductHasNoFlowPath";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull
+        /// </summary>
+        public static string LocalizedMessageCustomFlowInformationToERPDataObjectNull = "CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull";
 
         /// <summary>
         /// Localized Message: CustomProductionLineAttributeWithoutValue

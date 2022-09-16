@@ -1,4 +1,4 @@
-﻿# Omega Plasma
+# Omega Plasma
 
 The details of the Omega Plasma are the following:
 * [Configuration](/AMSOsram/techspec>connectiot>iotequipmenttypes>OmegaPlasma>OmegaPlasma-Configuration)

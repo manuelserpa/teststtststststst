@@ -1,4 +1,4 @@
-﻿# Data Sources
+# Data Sources
 
 ## Data Sources List
 

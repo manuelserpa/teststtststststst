@@ -1,4 +1,4 @@
-﻿# Equipment Types
+# Equipment Types
 
 The details for each Equipment Type is available in the sections:
 * [BrukerInsightCAP](/AMSOsram/techspec>connectiot>iotequipmenttypes>BrukerInsightCAP)

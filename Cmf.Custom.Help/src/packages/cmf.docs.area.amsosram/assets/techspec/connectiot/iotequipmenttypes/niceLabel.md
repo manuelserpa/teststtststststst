@@ -1,4 +1,4 @@
-﻿# Nice Label
+# Nice Label
 
 The details of the Nice Label Integration are the following:
 * [Configuration](/AMSOsram/techspec>connectiot>iotequipmenttypes>niceLabel>niceLabel-Configuration)

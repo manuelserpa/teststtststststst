@@ -1,4 +1,4 @@
-﻿# BrukerInsightCAP
+# BrukerInsightCAP
 
 The details of the BrukerInsightCAP are the following:
 * [Configuration](/AMSOsram/techspec>connectiot>iotequipmenttypes>BrukerInsightCAP>BrukerInsightCAP-Configuration)

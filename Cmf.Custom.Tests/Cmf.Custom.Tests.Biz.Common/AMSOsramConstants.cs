@@ -8,6 +8,11 @@
         /// </summary>
         public const string CustomFDCCommunicationAttribute = "FDCCommunication";
 
+        /// <summary>
+        /// Product Attribute ProductionLine
+        /// </summary>
+        public static string ProductAttributeProductionLine = "ProductionLine";
+
         #endregion
 
         #region DEE
@@ -119,7 +124,7 @@
         /// Test Facility: Regensburg Production
         /// </summary>
         public static string TestFacility = "Regensburg Production";
-        
+
         /// <summary>
         /// Test Product: "11111335"
         /// </summary>
@@ -133,7 +138,7 @@
         /// <summary>
         /// Test Container Type: "PEEK Cassette 8-Inch(13)"
         /// </summary
-        public const string ContainerPeekCassete = "PEEK Cassette 8-Inch(13)"; 
+        public const string ContainerPeekCassete = "PEEK Cassette 8-Inch(13)";
 
         /// <summary>
         /// Form: Logistical wafer
@@ -178,7 +183,7 @@
         /// TestM3SSTRinseandDryinSRD02121F011_E: "M3-SST-Rinse-and-Dry-in-SRD-02121F011_E"
         /// </summary>
         public static string TestM3SSTRinseandDryinSRD02121F011_E = "M3-SST-Rinse-and-Dry-in-SRD-02121F011_E";
-        
+
         #endregion
 
         #region Container
@@ -356,6 +361,41 @@
         public const string LocalizedMessageCustomPrimaryUnitObjectNull = "CustomPrimaryUnitObjectNull";
 
         /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageProductNameAndFlowNameAtSameTime
+        /// </summary>
+        public static string LocalizedMessageProductNameAndFlowNameAtSameTime = "CustomLocalizedMessageProductNameAndFlowNameAtSameTime";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageProductNameOrFlowNameNotDefined
+        /// </summary>
+        public static string LocalizedMessageProductNameOrFlowNameNotDefined = "CustomLocalizedMessageProductNameOrFlowNameNotDefined";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageFlowVersionWithoutFlowName
+        /// </summary>
+        public static string LocalizedMessageFlowVersionWithoutFlowName = "CustomLocalizedMessageFlowVersionWithoutFlowName";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageProductHasNoFlowPath
+        /// </summary>
+        public static string LocalizedMessageProductHasNoFlowPath = "CustomLocalizedMessageProductHasNoFlowPath";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageNonExistentProduct
+        /// </summary>
+        public static string LocalizedMessageNonExistentProduct = "CustomLocalizedMessageNonExistentProduct";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageNonExistentFlow
+        /// </summary>
+        public static string LocalizedMessageNonExistentFlow = "CustomLocalizedMessageNonExistentFlow";
+
+        /// <summary>
+        /// Localized Message: Custom Localized Message CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull
+        /// </summary>
+        public static string LocalizedMessageCustomFlowInformationToERPDataObjectNull = "CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull";
+
+        /// <summary>
         /// Localized Message: CustomProductionLineAttributeWithoutValue
         /// </summary>
         public static string LocalizedMessageProductionLineAttributeWithoutValue = "CustomProductionLineAttributeWithoutValue";
@@ -383,6 +423,16 @@
         /// Custom Production Line Conversion table name 
         /// </summary>
         public static string GenericTableCustomProductionLineConversion = "CustomProductionLineConversion";
+
+        /// <summary>
+        /// Custom Production Line Conversion table ProductionLine property 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversionProductionLineProperty = "ProductionLine";
+
+        /// <summary>
+        /// Custom Production Line Conversion table Site property 
+        /// </summary>
+        public static string GenericTableCustomProductionLineConversionSiteProperty = "Site";
 
         #endregion GenericTables
     }
