@@ -1,8 +1,8 @@
-# Custom Get Flow Information for ERP
+# Get Flow Information for ERP
 
 ## Requirement Specification
 
-Service to provide to ERP information's about Flow.
+Service/API to provide Flow information to ERP.
 
 ## Design Specification
 
