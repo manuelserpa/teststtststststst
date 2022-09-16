@@ -348,6 +348,12 @@
    "actionId": ""
 },
 {
+   "id": "etproduct",
+   "menuGroupId": "entitytypes",
+   "title": "Product",
+   "actionId": ""
+},
+{
    "id": "etresource",
    "menuGroupId": "entitytypes",
    "title": "Resource",
@@ -357,6 +363,12 @@
    "id": "customgetresourceloadportsdata",
    "menuGroupId": "exportedobjects",
    "title": "CustomGetResourceLoadPortsData",
+   "actionId": ""
+},
+{
+   "id": "customproductionlineconversion",
+   "menuGroupId": "generictables",
+   "title": "CustomProductionLineConversion",
    "actionId": ""
 },
 {
@@ -387,6 +399,12 @@
    "id": "datasources",
    "menuGroupId": "html",
    "title": "Data Sources",
+   "actionId": ""
+},
+{
+   "id": "customproductionlines",
+   "menuGroupId": "lookuptables",
+   "title": "CustomProductionLines",
    "actionId": ""
 },
 {
@@ -426,9 +444,9 @@
    "actionId": ""
 },
 {
-   "id": "customgeneratesplitlotnamesnamegenerator",
+   "id": "customgeneratesplitlotnames",
    "menuGroupId": "namegenerators",
-   "title": "Custom Generate Split Lot Names Name Generator",
+   "title": "CustomGenerateSplitLotNames",
    "actionId": ""
 },
 {

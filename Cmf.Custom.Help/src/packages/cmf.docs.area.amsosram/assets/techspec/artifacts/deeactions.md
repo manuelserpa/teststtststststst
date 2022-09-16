@@ -1,4 +1,4 @@
-# DEE Actions
+﻿# DEE Actions
 
 ## Custom DEE Actions
 
@@ -10,7 +10,7 @@ The following DEE Actions were created to support customer requirements.
 | [CustomAutomationAdjustLoadPortState](/AMSOsram/techspec>artifacts>deeactions>CustomAutomationAdjustLoadPortState) | This DEE Action is triggered by IoT Automation in order to adjust the state of a Load Port. | 
 | [CustomAutomationGetRecipeBody](/AMSOsram/techspec>artifacts>deeactions>CustomAutomationGetRecipeBody) | This DEE is responsible for validating the Recipe and return the RecipeBody, the RecipeNameOnEquipment and RecipeName of a given Recipe. | 
 | [Custom Create Goods Issue Message](/AMSOsram/techspec>artifacts>deeactions>CustomCreateGoodsIssueMessage) | DEE Action to create an Integration Entry with Goods Issue information. | 
-| [Custom Generate Production Lot Names](/AMSOsram/techspec>artifacts>deeactions>CustomGenerateProductionLotNames) | DEE action used to generate new Lots Name. | 
+| [Custom Generate Production Lot Names](/AMSOsram/techspec>artifacts>deeactions>CustomGenerateProductionLotNames) | DEE Action used to generate new Lot names. | 
 | [CustomGenerateSorterJobDefinitionFromFutureAction](/AMSOsram/techspec>artifacts>deeactions>CustomGenerateSorterJobDefinitionFromFutureAction) | Dee action to Generate a Custom Sorter Job Definition if exists a Required Future Action for a given material. | 
 | [Custom Generate Split Lot Names](/AMSOsram/techspec>artifacts>deeactions>CustomGenerateSplitLotNames) | Dee Action used to generate splited Materials name. | 
 | [CustomGetTibcoConfigurations](/AMSOsram/techspec>artifacts>deeactions>CustomGetTibcoConfigurations) | DEE action that retrieves the required configurations from MES to allow connecting to TibcoEMS. | 
