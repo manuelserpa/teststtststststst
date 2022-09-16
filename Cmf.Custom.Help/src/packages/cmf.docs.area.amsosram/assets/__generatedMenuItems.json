@@ -96,6 +96,12 @@
    "actionId": ""
 },
 {
+   "id": "amsosram-20220916-1.13.0",
+   "menuGroupId": "releasenotes",
+   "title": "AMSOsram-20220916-1.13.0",
+   "actionId": ""
+},
+{
    "id": "artifacts",
    "menuGroupId": "techspec",
    "title": "Artifacts",
@@ -452,7 +458,7 @@
 {
    "id": "customproductionlotnamegenerator",
    "menuGroupId": "namegenerators",
-   "title": "Custom Production Lot Name Generator",
+   "title": "CustomProductionLotNameGenerator",
    "actionId": ""
 },
 {
