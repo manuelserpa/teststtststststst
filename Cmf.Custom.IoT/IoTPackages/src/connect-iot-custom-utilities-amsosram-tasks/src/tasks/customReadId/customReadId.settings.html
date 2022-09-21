@@ -3,5 +3,15 @@
 
     <!-- General Tab: Settings -->
     <cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS">
+        <cmf-core-business-controls-propertyEditor 
+            [label]="i18n.TARGET_ID_Size"
+            [(value)]="settings.TargetIDSize"
+            valueType="Integer">
+        </cmf-core-business-controls-propertyEditor>
+        <cmf-core-business-controls-propertyEditor 
+            [label]="i18n.TARGET_ID_PADDING_VALUE"
+            [(value)]="settings.TargetIDPaddingValue"
+            valueType="String">
+        </cmf-core-business-controls-propertyEditor>
     </cmf-core-controls-baseWidget>
 </cmf-core-connect-iot-taskSettings>

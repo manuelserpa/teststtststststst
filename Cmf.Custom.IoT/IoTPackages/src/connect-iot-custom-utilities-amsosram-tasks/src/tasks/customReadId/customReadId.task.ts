@@ -50,6 +50,8 @@ export class CustomReadIdTask implements Task.TaskInstance, CustomReadIdSettings
     /** **Inputs** */
     /** Activate task execution */
     public activate: any = undefined;
+    public TargetIDSize: number = 2;
+    public TargetIDPaddingValue: string = "0";
 
     public TargetId: string = "";
 
@@ -84,9 +86,24 @@ export class CustomReadIdTask implements Task.TaskInstance, CustomReadIdSettings
             this.activate = undefined;
             try {
 
+                let paddedTargetID = this.TargetId;
+
+                if (!this.TargetId) {
+                    throw new Error("Failed to receive a TargetID");
+                }
+
+                this._logger.warning("this.TargetId.length: " + this.TargetId.length);
+
+                if (this.TargetId.length < this.TargetIDSize) {
+                    this._logger.warning("Entered IF clause");
+                    paddedTargetID = this.TargetId.padStart(this.TargetIDSize, this.TargetIDPaddingValue);
+                }
+
+                this._logger.warning("paddedTargetID: " + paddedTargetID);
+
                 const sendMessage: Object = {
                     type: "S18F9", item: {
-                        type: "A", value: this.TargetId
+                        type: "A", value: paddedTargetID
                     }
                 }
                 const reply = await this._driverProxy.sendRaw("connect.iot.driver.secsgem.sendMessage", sendMessage);
@@ -104,13 +121,12 @@ export class CustomReadIdTask implements Task.TaskInstance, CustomReadIdSettings
                 const materialId = reply.item.value[2].value;
                 const statusList = reply.item.value[3].value;
 
-                if (targetId === this.TargetId &&
-                    acknowledgeCode === "NO" &&
+                if (acknowledgeCode === "NO" &&
                     materialId) {
                     successFound = true;
                 }
 
-                this.TargetIdResult.emit(targetId);
+                this.TargetIdResult.emit(this.TargetId);
                 this.AcknowledgeCode.emit(acknowledgeCode);
                 this.MaterialId.emit(materialId);
                 this.StatusList.emit(statusList);
