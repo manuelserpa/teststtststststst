@@ -1,0 +1,221 @@
+{
+  "tasks": [
+    {
+      "id": "task_158178",
+      "reference": {
+        "name": "workflow",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "8.3.3-202201212"
+        }
+      },
+      "settings": {
+        "automationWorkflow": {
+          "DisplayName": "ReadyToUnload",
+          "IsShared": true,
+          "Name": "ReadyToUnload"
+        },
+        "executeWhenAllInputsDefined": false,
+        "contextsExpirationInMilliseconds": 60000,
+        "executionExpirationInMilliseconds": 1200000,
+        "inputs": [
+          {
+            "name": "LoadPortNumber",
+            "valueType": {
+              "type": 5,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": "LoadPortNumber"
+            }
+          },
+          {
+            "name": "ContainerId",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            }
+          },
+          {
+            "name": "StateUpdatedOnMainEquipment",
+            "valueType": {
+              "friendlyName": "StateUpdatedOnMainEquipment",
+              "type": 3,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "name": "LoadPortName",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            }
+          },
+          {
+            "name": "LoadPortNumber",
+            "valueType": {
+              "type": 5,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            }
+          },
+          {
+            "name": "LoadPort",
+            "valueType": {
+              "type": 10,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            }
+          },
+          {
+            "name": "ContainerName",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": "ContainerName"
+            }
+          }
+        ],
+        "___cmf___name": "Ready to Unload Workflow"
+      }
+    },
+    {
+      "id": "task_158180",
+      "reference": {
+        "name": "equipmentEvent",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "8.3.3-202201212"
+        }
+      },
+      "settings": {
+        "_workingMode": "AlwaysActive",
+        "_acceptAllEvents": false,
+        "_outputs": [
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "PortID",
+              "DataType": 5
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "PortTransferState",
+              "DataType": 5
+            },
+            "outputType": "Value"
+          }
+        ],
+        "___cmf___name": "On Equipment Event",
+        "_events": [
+          {
+            "$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+            "Name": "E87TransferBlocked2ReadytoUnload"
+          }
+        ],
+        "___cmf___description": "E87TransferBlocked2ReadytoUnload (9011)"
+      },
+      "driver": "SecsGemEquipment"
+    }
+  ],
+  "converters": [],
+  "links": [
+    {
+      "id": "3960d1c3-ce58-42dc-a7c8-a36d3137930e",
+      "sourceId": "task_158180",
+      "targetId": "task_158178",
+      "inputName": "LoadPortNumberIn",
+      "outputName": "$PortID"
+    },
+    {
+      "id": "747dfe3a-da2e-43dd-acac-a72e8408987a",
+      "sourceId": "task_158180",
+      "targetId": "task_158178",
+      "inputName": "activate",
+      "outputName": "$PortID"
+    }
+  ],
+  "layout": {
+    "general": {
+      "color": "#80ffff",
+      "notes": [
+        {
+          "id": "note_158182",
+          "name": "TosReadyToUnload",
+          "value": "<p><strong>What it does:</strong></p><p>Sets corresponding Load Port to ReadyToUnload;</p><p>Request Transport Job for Load Port;</p><p>&nbsp;</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to ReadyToUnload for the Tool;</li><li>Connect the value corresponding to the Load Port Id to the Load Port Id of the Workflow task;<ol><li>If the Equipment does not deliver that information and has only 1 port:<ol><li>Connect any event output to Load Port Id;</li><li>Use the Converter \"Any to Constant\" to send a value of Type Integer and Value 1;</li></ol></li><li>If the Equipment does not deliver that information and has multiple Load Port with multiple Event:<ol><li>Connect any event output to Load Port Id;</li><li>Use the Converter \"Any to Constant\" to send a value of Type Integer and Value corresponding to the Load Port;</li></ol></li></ol></li><li>Pass any event Output to the Activate Input of the Workflow;</li></ol>",
+          "color": "#ffffa5"
+        }
+      ]
+    },
+    "drawers": {
+      "DIAGRAM": {
+        "tasks": {
+          "task_158178": {
+            "collapsed": false,
+            "position": {
+              "x": 1045,
+              "y": 274
+            },
+            "outdated": false
+          },
+          "task_158180": {
+            "collapsed": false,
+            "position": {
+              "x": 481,
+              "y": 276
+            },
+            "outdated": false
+          }
+        },
+        "links": {
+          "3960d1c3-ce58-42dc-a7c8-a36d3137930e": {
+            "vertices": []
+          },
+          "747dfe3a-da2e-43dd-acac-a72e8408987a": {
+            "vertices": []
+          }
+        },
+        "notes": {
+          "note_158182": {
+            "collapsed": false,
+            "position": {
+              "x": 168,
+              "y": 273
+            }
+          }
+        },
+        "pan": {
+          "x": 151.1999969482422,
+          "y": 245.70001220703125
+        },
+        "zoom": 0.8999999999999999
+      }
+    }
+  }
+}

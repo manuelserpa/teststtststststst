@@ -1,0 +1,138 @@
+{
+  "tasks": [
+    {
+      "id": "task_4909",
+      "reference": {
+        "name": "recipeBodyRequested",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-mes-tasks",
+          "version": "8.3.3-202201212"
+        }
+      },
+      "settings": {
+        "autoActivate": true,
+        "recipeBodyRequestedSubject": "RecipeManagement.GetRecipeBody",
+        "replyTimeout": 60000,
+        "___cmf___name": "Recipe Body Requested",
+        "___cmf___color": "#0080ff"
+      }
+    },
+    {
+      "id": "task_4959",
+      "reference": {
+        "name": "getRecipeBody",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-secsgem-tasks",
+          "version": "8.3.3-202201212"
+        }
+      },
+      "settings": {
+        "primaryRequestMessage": "{\"type\":\"A\",\"name\":\"PPID\",\"value\":\"\"}",
+        "streamFunctionName": "S7F5",
+        "recipeNamePrimaryPath": "/",
+        "recipeNameSecondaryPath": "/[1]",
+        "recipeBodyPath": "/[2]",
+        "recipeBodyType": "Buffer",
+        "___cmf___color": "#ffff80"
+      },
+      "driver": "SecsGemEquipment"
+    }
+  ],
+  "converters": [],
+  "links": [
+    {
+      "id": "e2e7a321-61d0-4c99-b6aa-5ecff0cd0bae",
+      "sourceId": "task_4909",
+      "targetId": "task_4959",
+      "inputName": "recipeName",
+      "outputName": "recipeName"
+    },
+    {
+      "id": "9da6eae5-cfff-40f7-80f6-70463e763c47",
+      "sourceId": "task_4909",
+      "targetId": "task_4959",
+      "inputName": "activate",
+      "outputName": "recipeName"
+    },
+    {
+      "id": "64df174b-5e65-4d01-a167-f7187ee62bd9",
+      "sourceId": "task_4959",
+      "targetId": "task_4909",
+      "inputName": "recipeBody",
+      "outputName": "recipeBody"
+    },
+    {
+      "id": "76426aac-08cf-44e2-a9cd-874f48a6d8a9",
+      "sourceId": "task_4959",
+      "targetId": "task_4909",
+      "inputName": "activate",
+      "outputName": "success"
+    }
+  ],
+  "layout": {
+    "general": {
+      "color": "#0080ff",
+      "notes": []
+    },
+    "drawers": {
+      "DIAGRAM": {
+        "tasks": {
+          "task_4959": {
+            "collapsed": false,
+            "position": {
+              "x": 1363,
+              "y": 631
+            },
+            "outdated": null
+          },
+          "task_4909": {
+            "collapsed": false,
+            "position": {
+              "x": 826,
+              "y": 631
+            },
+            "outdated": null
+          }
+        },
+        "links": {
+          "e2e7a321-61d0-4c99-b6aa-5ecff0cd0bae": {
+            "vertices": []
+          },
+          "9da6eae5-cfff-40f7-80f6-70463e763c47": {
+            "vertices": []
+          },
+          "64df174b-5e65-4d01-a167-f7187ee62bd9": {
+            "vertices": [
+              {
+                "x": 1745,
+                "y": 575
+              },
+              {
+                "x": 857,
+                "y": 569
+              }
+            ]
+          },
+          "76426aac-08cf-44e2-a9cd-874f48a6d8a9": {
+            "vertices": [
+              {
+                "x": 1725,
+                "y": 976
+              },
+              {
+                "x": 883,
+                "y": 991
+              }
+            ]
+          }
+        },
+        "notes": {},
+        "pan": {
+          "x": 738.825439453125,
+          "y": 541.3330078125
+        },
+        "zoom": 1
+      }
+    }
+  }
+}
