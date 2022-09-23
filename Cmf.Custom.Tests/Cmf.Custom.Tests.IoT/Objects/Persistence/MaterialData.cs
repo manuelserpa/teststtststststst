@@ -43,6 +43,16 @@ namespace AMSOsramEIAutomaticTests.Objects.Persistence
         /// The sorter job information
         /// </summary>
         public CustomSorterJobDefinition SorterJobInformation { get; set; }
+
+        /// <summary>
+        /// The sorter job information
+        /// </summary>
+        public string ProcessJobId { get; set; }
+
+        /// <summary>
+        /// The sorter job information
+        /// </summary>
+        public string ControlJobId { get; set; }
     }
 
     public enum MaterialStateEnum

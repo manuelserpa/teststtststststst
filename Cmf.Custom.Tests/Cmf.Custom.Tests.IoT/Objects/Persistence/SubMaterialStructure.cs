@@ -18,7 +18,7 @@ namespace AMSOsramEIAutomaticTests.Objects.Persistence
     {
         Queued,
         InProcess,
-        Process,
+        Processed,
         Skipped
     }
 
