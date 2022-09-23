@@ -53,6 +53,7 @@ namespace AMSOsramEIAutomaticTests.UnitySC
         private bool isOnlineRemote = true;
 
         public bool createControlJobReceived = false;
+        public bool ProceedWithSubstrateReceived = false;
         public bool createControlJobDenied = false;
 
         public bool failAtProcessJob = false;
@@ -61,7 +62,8 @@ namespace AMSOsramEIAutomaticTests.UnitySC
 
         public bool isValidProceedWithCarrier = true;
         public bool proceedWithCarriersReceived = false;
-
+        public bool isCreateControlJobSucess = true;
+        public bool isProceedWithSubstrateSucess = true;
 
         private int chamberToProcess = 1;
 
@@ -89,6 +91,7 @@ namespace AMSOsramEIAutomaticTests.UnitySC
         private enum ControlJobStates { QUEUED = 0, SELECTED, WAITINGFORSTART, EXECUTING, PAUSED, COMPLETED }
         private enum SubstrateStates {ATSource = 0, ATWork, ATDestination}
         private enum SubstratProcessStates { NeedProcessing = 0, InProcess, Processed, Aborted, Stopped, Rejected, Lost, Skipped}
+
         #region Test Basics
         [TestInitialize]
         public void TestInit()
@@ -100,10 +103,10 @@ namespace AMSOsramEIAutomaticTests.UnitySC
             base.SubMaterialTrackin = subMaterialTrackin;
 
             base.Equipment.RegisterOnMessage("S1F3", OnS1F3);
-
             base.Equipment.RegisterOnMessage("S3F17", OnS3F17);
             base.Equipment.RegisterOnMessage("S14F9", OnS14F9);
-            base.Equipment.RegisterOnMessage("S16F11", OnS16F11);
+            base.Equipment.RegisterOnMessage("S16F15", OnS16F11);
+            base.Equipment.RegisterOnMessage("S14F19", OnS14F19);
 
             base.LoadPortNumber = loadPortNumber;
 
@@ -478,7 +481,7 @@ namespace AMSOsramEIAutomaticTests.UnitySC
         public override void CarrierInValidation(CustomMaterialScenario MESScenario, int loadPortToSet)
         { 
             //add carrier id to load port on rfid reader
-            RFIDReader.targetIdRFID.Add(loadPortToSet.ToString(), MESScenario.ContainerScenario.Entity.Name);
+            RFIDReader.targetIdRFID.Add("0"+loadPortToSet.ToString(), MESScenario.ContainerScenario.Entity.Name);
 
             base.CarrierInValidation(MESScenario, loadPortToSet);
 
@@ -708,6 +711,8 @@ namespace AMSOsramEIAutomaticTests.UnitySC
 
             Thread.Sleep(2000);
 
+            base.Equipment.SendMessage("SOSM18_NOTCONFIRMED_WAITINGFORHOST", null);
+
             return true;
         }
 
@@ -760,6 +765,48 @@ namespace AMSOsramEIAutomaticTests.UnitySC
         }
 
         //Control Job 
+        protected bool OnS14F19(SecsMessage request, SecsMessage reply)
+        {
+            //Create Control Job
+            var secsItems = request.Item.GetChildList()[3].GetValue().ToString();
+
+            var controlJobItem = secsItems[0];
+
+            var reportList = new SecsItem();
+            reportList.SetTypeToList();
+
+
+            var ackList = new SecsItem();
+            ackList.SetTypeToList();
+
+            ProceedWithSubstrateReceived = true;
+
+            var ack = new SecsItem { U1 = new byte[] { isProceedWithSubstrateSucess ? (byte)0x00 : (byte)0x01 } };
+
+            var errorList = new SecsItem();
+            errorList.SetTypeToList();
+
+            reportList.Add(ack);
+            reportList.Add(errorList);
+
+
+            if (createControlJobDenied)
+            {
+                ack = new SecsItem { U1 = new byte[] { 0x01 } };
+
+                errorList = new SecsItem();
+                errorList.SetTypeToList();
+                var error = new SecsItem();
+                error.SetTypeToList();
+                error.Add(new SecsItem() { U1 = new byte[] { 7 } });
+                error.Add(new SecsItem() { ASCII = $"{MESScenario.Entity.Name} : RecID : IllegalValue'" });
+                errorList.Add(error);
+            }
+
+            reply.Item.Add(reportList);
+            return true;
+        }
+
         protected bool OnS14F9(SecsMessage request, SecsMessage reply)
         {
             //Create Control Job
@@ -768,8 +815,6 @@ namespace AMSOsramEIAutomaticTests.UnitySC
             var controlJobItem = secsItems[0];
             string controlJobName = controlJobItem.GetChildList()[1].GetValue().ToString();
 
-            var carrierInputSpec = secsItems[1];
-            string carrierName = carrierInputSpec.GetChildList()[1].GetChildList()[0].GetValue().ToString();
 
             createControlJobReceived = true;
             /*
@@ -798,7 +843,7 @@ namespace AMSOsramEIAutomaticTests.UnitySC
             var ackList = new SecsItem();
             ackList.SetTypeToList();
 
-            var ack = new SecsItem { U1 = new byte[] { 0x00 } };
+            var ack = new SecsItem { U1 = new byte[] { isCreateControlJobSucess ? (byte)0x00 : (byte)0x01 } };
 
             var errorList = new SecsItem();
             errorList.SetTypeToList();
