@@ -504,17 +504,31 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
                     break;
             }
 
-            var slotMap = new int[13];
+            var slotMap = new SecsItem();
+            slotMap.SetTypeToList();
             // scenario.ContainerScenario.Entity
             if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
             {
-                for (int i = 0; i < 13; i++)
+                for (int i = 0; i < MESScenario.ContainerScenario.Entity.ContainerMaterials.Count; i++)
                 {
-                    slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 1 : 0;
+                    var temp = new SecsItem();
+
+                    var material = MESScenario.ContainerScenario.Entity.ContainerMaterials[i];
+
+                    if (material != null)
+                    {
+                        temp.U1 = new byte[] { 0x01 };
+                    }
+                    else 
+                    {
+                        temp.U1 = new byte[] { 0x00 };
+                    }
+
+                    slotMap.Add(temp);
                 }
             }
 
-            SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
+            //SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
             
             TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve LOAD_POD command", () => {
                 return recievedLoadPodCommand;
@@ -522,7 +536,10 @@ namespace AMSOsramEIAutomaticTests.OmegaPlasma
 
             recievedLoadPodCommand = false;
 
-            base.Equipment.Variables["SLOT_MAP"] =  slotMapDV;
+            SecsItem outerList = new SecsItem(); 
+            outerList.Add( slotMap );
+
+            base.Equipment.Variables["SLOT_MAP"] = outerList;
             base.Equipment.Variables["PORT_ID"] = loadPortToSet;
 
             // Trigger event
