@@ -66,7 +66,7 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
     public MtrlOutByStatus: any = undefined;
     public ProcessingControlSpecification: any = undefined;
     public DataCollectionPlan: any = undefined;
-    public ProcessOrderMgmtValue: ProcessOrderMgmt = ProcessOrderMgmt.ARRIVAL;
+    public ProcessOrderMgmtValue: ProcessOrderMgmt = ProcessOrderMgmt.Arrival;
 
     /** **Outputs** */
     /** To output a success notification */
@@ -106,7 +106,7 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
             // It is advised to reset the activate to allow being reactivated without the value being different
             this.activate = undefined;
 
-            this.ProcessOrderMgmtValue = this.ProcessOrderMgmtValue ?? ProcessOrderMgmt.ARRIVAL;
+            this.ProcessOrderMgmtValue = this.ProcessOrderMgmtValue ?? ProcessOrderMgmt.Arrival;
 
             let material: MaterialData;
             if (Array.isArray(this.MaterialData)) {
@@ -386,7 +386,7 @@ export enum RecipeSpecificationType {
 }
 
 export enum ProcessOrderMgmt {
-    ARRIVAL = 1,
-    OPTIMIZE = 2,
-    LIST = 3
+    Arrival = 1,
+    Optimize = 2,
+    List = 3
 }
