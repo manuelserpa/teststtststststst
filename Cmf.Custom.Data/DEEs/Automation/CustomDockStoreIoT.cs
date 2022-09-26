@@ -1,14 +1,17 @@
-﻿using Cmf.Custom.AMSOsram.Actions;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Foundation.BusinessObjects;
+﻿using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
 using System.Collections.Generic;
 using System.Linq;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.Common.Abstractions;
+using System;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Navigo.BusinessObjects;
+using Cmf.Foundation.BusinessObjects;
 
-namespace Cmf.Custom.AMSOsram.Actions.Automation
+namespace Cmf.Custom.amsOSRAM.Actions.Automation
 {
-	public class CustomDockStoreIoT : DeeDevBase
+    public class CustomDockStoreIoT : DeeDevBase
 	{
 		public override bool DeeTestCondition(Dictionary<string, object> Input)
 		{
@@ -33,62 +36,54 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 		public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
 		{
 			//---Start DEE Code---
-			// Foundation
-			UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-			UseReference("", "Cmf.Foundation.BusinessObjects.SmartTables");
-			UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-			UseReference("", "Cmf.Foundation.Common.Exceptions");
-			UseReference("", "Cmf.Foundation.Common");
-			// Navigo
-			UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-			UseReference("Cmf.Navigo.Common.dll", "Cmf.Navigo.Common");
-			UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-			// System
-			UseReference("", "System.Data");
-			UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
 
-			Container container = null;
-			Resource resource = null;
+			// Custom
+			UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+
+			IContainer container = null;
+			IResource resource = null;
 			int? loadPortNumber = null;
 			bool fromOnlineLoadPort = false;
 			bool fromMCS = false;
 			bool isStorageGroup = false;
 			bool isTransportInvalid = false;
 
+			// Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
 			#region Validate Input Parameters
 
 			// mandatory parameters
 			string inputKey = "CarrierId";
 
-			
-			string containerName = AMSOsramUtilities.GetInputItem<string>(Input, inputKey);
+			string containerName = amsOSRAMUtilities.GetInputItem<string>(Input, inputKey);
 
 			if (string.IsNullOrWhiteSpace(containerName))
 			{
 				throw new ArgumentNullCmfException(inputKey);
 			}
-			else
-			{
-				container = new Container() { Name = containerName };
 
-				if (!container.ObjectExists())
-				{
-					throw new ObjectNotFoundCmfException(Navigo.Common.Constants.Container, container.Name);
-				}
-				else
-				{
-					container.Load();
-				}
+            container = entityFactory.Create<IContainer>();
+			container.Name = containerName;
+
+			if (!container.ObjectExists())
+			{
+				throw new ObjectNotFoundCmfException(Navigo.Common.Constants.Container, container.Name);
 			}
+
+            container.Load();
 
 			// Optional Parameter
 			inputKey = "StorageGroup";
-			string storageGroup = AMSOsramUtilities.GetInputItem<string>(Input, inputKey);
-			resource = new Resource() { Name = storageGroup };
+			string storageGroup = amsOSRAMUtilities.GetInputItem<string>(Input, inputKey);
+
+            resource = entityFactory.Create<IResource>();
+			resource.Name = storageGroup;
 
 			// Mandatory Parameter
 			inputKey = "ResourceId";
-			string resourceName = AMSOsramUtilities.GetInputItem<string>(Input, inputKey);
+			string resourceName = amsOSRAMUtilities.GetInputItem<string>(Input, inputKey);
 
 			if (string.IsNullOrWhiteSpace(resourceName))
 			{
@@ -105,7 +100,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
 			if (!isStorageGroup)
 			{
-				resource = new Resource() { Name = resourceName };
+                resource = entityFactory.Create<IResource>();
+                resource.Name = resourceName;
 
 				if (!resource.ObjectExists())
 				{
@@ -129,10 +125,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
 			// Optional Parameters
 			inputKey = "FromOnlineLoadPort";
-			fromOnlineLoadPort = AMSOsramUtilities.GetInputItem<bool>(Input, inputKey, false);
+			fromOnlineLoadPort = amsOSRAMUtilities.GetInputItem(Input, inputKey, false);
 
 			inputKey = "FromTransportSystem";
-			fromMCS = AMSOsramUtilities.GetInputItem<bool>(Input, inputKey, false);
+			fromMCS = amsOSRAMUtilities.GetInputItem(Input, inputKey, false);
 
 			#endregion Validate Input Parameters
 
@@ -140,12 +136,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
 			if (loadPortNumber != null)
 			{
-				var resourceHierarchy = resource.GetDescendentResources(1);
+				IResourceHierarchy resourceHierarchy = resource.GetDescendentResources(1);
 
 				if (resourceHierarchy != null &&
 					resourceHierarchy.Count > 0)
 				{
-					var possibleLoadPort = resourceHierarchy.FirstOrDefault(s => s.ChildResource.DisplayOrder != null &&
+					IResource possibleLoadPort = resourceHierarchy.FirstOrDefault(s => s.ChildResource.DisplayOrder != null &&
 						s.ChildResource.DisplayOrder.Value == loadPortNumber &&
 						s.ChildResource.ProcessingType == ProcessingType.LoadPort).ChildResource;
 
@@ -180,7 +176,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 							resource: resource,
 							position: null,
 							positionName: resourceName,
-							new Foundation.BusinessObjects.OperationAttributeCollection());
+							new OperationAttributeCollection());
 					}
 					else
 					{
@@ -202,7 +198,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
 						#region Validate Dock
 
-						container.LoadRelations(Cmf.Navigo.Common.Constants.MaterialContainer);
+						container.LoadRelations(Navigo.Common.Constants.MaterialContainer);
 
 						if (container.ContainerMaterials != null &&
 							container.ContainerMaterials.Count > 0)
@@ -213,7 +209,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 								break;
 							}
 
-							Material topMostMaterial = (container.RelationCollection[Cmf.Navigo.Common.Constants.MaterialContainer][0] as MaterialContainer).SourceEntity;
+							IMaterial topMostMaterial = (container.RelationCollection[Navigo.Common.Constants.MaterialContainer][0] as IMaterialContainer).SourceEntity;
 
 							if (topMostMaterial.TopMostMaterial != null)
 							{
@@ -226,9 +222,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 								break;
 							}
 
-							Step step = topMostMaterial.Step;
-							ResourceCollection resourcesOnStep = step.GetResourcesForStep();
-							Resource parentResource = resource.GetTopMostResource();
+							IStep step = topMostMaterial.Step;
+							IResourceCollection resourcesOnStep = step.GetResourcesForStep();
+							IResource parentResource = resource.GetTopMostResource();
 
 							if (!resourcesOnStep.Any(r => r.Name == parentResource.Name))
 							{

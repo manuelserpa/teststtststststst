@@ -9,8 +9,8 @@ using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects;
 using Cmf.SECS.Driver;
 using Cmf.TestScenarios.ContainerManagement.ContainerScenarios;
-using AMSOsramEIAutomaticTests.Objects.Extensions;
-using AMSOsramEIAutomaticTests.Objects.Utilities;
+using amsOSRAMEIAutomaticTests.Objects.Extensions;
+using amsOSRAMEIAutomaticTests.Objects.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Cmf.Custom.TestUtilities;
 using cmConnect.TestFramework.EquipmentSimulator.Objects;
@@ -19,11 +19,8 @@ using Cmf.Foundation.BusinessOrchestration.QueryManagement.OutputObjects;
 using System.Data;
 using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Custom.Tests.IoT.Tests.Common;
-using System.Collections.Generic;
-using Cmf.Foundation.BusinessObjects.SmartTables;
-using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 
-namespace AMSOsramEIAutomaticTests.TrymaxNEO
+namespace amsOSRAMEIAutomaticTests.TrymaxNEO
 {
     [TestClass]
     public class TrymaxNEO : CommonTests

@@ -1,18 +1,13 @@
-﻿using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessObjects.QueryObject;
+﻿using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.Common;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects;
-using AMSOsramEIAutomaticTests.Objects.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AMSOsramEIAutomaticTests.Objects.Extensions
+namespace amsOSRAMEIAutomaticTests.Objects.Extensions
 {
     /// <summary>
     /// Extension Methods Class that adapts step services as Business Objects extension methods or adds functionality need for testing

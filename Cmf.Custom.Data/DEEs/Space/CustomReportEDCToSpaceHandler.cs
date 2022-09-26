@@ -1,16 +1,19 @@
 ﻿using Cmf.Common.CustomActionUtilities;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.DataStructures;
+using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.DataStructures;
 using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
-using Cmf.Navigo.BusinessOrchestration.ExceptionManagement;
 using Cmf.Navigo.BusinessOrchestration.ExceptionManagement.InputObjects;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using System;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Navigo.BusinessOrchestration.Abstractions;
 
-namespace Cmf.Custom.AMSOsram.Actions.Space
+namespace Cmf.Custom.amsOSRAM.Actions.Space
 {
     public class CustomReportEDCToSpaceHandler : DeeDevBase
     {
@@ -32,6 +35,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             /// Exceptions:
             /// </summary>
             #endregion
+
             bool canExecute = false;
             bool reportEDCToSpace = true;
 
@@ -44,7 +48,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                 }
 
                 // Get DataCollectionInstance from Input
-                DataCollectionInstance dataCollectionInstance = AMSOsramUtilities.GetInputItem<DataCollectionInstance>(Input, Navigo.Common.Constants.DataCollectionInstance);
+                IDataCollectionInstance dataCollectionInstance = amsOSRAMUtilities.GetInputItem<IDataCollectionInstance>(Input, Navigo.Common.Constants.DataCollectionInstance);
 
                 // Check if Input data returns DataCollection and associated DataCollection Limit Sets
                 if (reportEDCToSpace && dataCollectionInstance != null && dataCollectionInstance.DataCollectionLimitSet != null)
@@ -53,8 +57,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                     dataCollectionInstance.Step.Load();
 
                     // Check if step needs Space Confirmation
-                    if (dataCollectionInstance.Step.HasAttribute(AMSOsramConstants.StepAttributeRequiresSpaceConfirmation, true) &&
-                        (bool)dataCollectionInstance.Step.GetAttributeValue(AMSOsramConstants.StepAttributeRequiresSpaceConfirmation))
+                    if (dataCollectionInstance.Step.HasAttribute(amsOSRAMConstants.StepAttributeRequiresSpaceConfirmation, true) &&
+                        (bool)dataCollectionInstance.Step.GetAttributeValue(amsOSRAMConstants.StepAttributeRequiresSpaceConfirmation))
                     {
                         // The Action only executed if Step needs Space confirmation
                         canExecute = true;
@@ -75,37 +79,36 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             UseReference("%MicrosoftNetPath%System.Private.Xml.dll", "System.Xml");
             UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
 
-            //Foundation
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
-            UseReference("", "Cmf.Foundation.Common");
-
             //Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.ExceptionManagement");
+            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects.Abstractions");
+            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.Abstractions");
             UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.ExceptionManagement.InputObjects");
 
             //Common
             UseReference("Cmf.Common.CustomActionUtilities.dll", "Cmf.Common.CustomActionUtilities");
 
             //Custom
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.DataStructures");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.DataStructures");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.DataStructures");
 
             // Get DataCollectionInstance from Input
-            DataCollectionInstance dataCollectionInstance = AMSOsramUtilities.GetInputItem<DataCollectionInstance>(Input, Navigo.Common.Constants.DataCollectionInstance);
+            IDataCollectionInstance dataCollectionInstance = amsOSRAMUtilities.GetInputItem<IDataCollectionInstance>(Input, Navigo.Common.Constants.DataCollectionInstance);
 
             if (dataCollectionInstance is null)
             {
                 throw new CmfBaseException("Cannot be possible to get DataCollectionInstance data from Input.");
             }
 
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
             // Load DataCollection Instance
             dataCollectionInstance.Load();
 
             // DataCollection Limit Set
-            DataCollectionLimitSet dataCollectionLimitSet = dataCollectionInstance.DataCollectionLimitSet;
+            IDataCollectionLimitSet dataCollectionLimitSet = dataCollectionInstance.DataCollectionLimitSet;
 
             // Load DataCollection Parameter Limit
             dataCollectionLimitSet.LoadRelations(Navigo.Common.Constants.DataCollectionParameterLimit);
@@ -114,7 +117,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             dataCollectionInstance.LoadRelations(Navigo.Common.Constants.DataCollectionPoint);
 
             // Material associated to DataCollection
-            Material material = dataCollectionInstance.Material;
+            IMaterial material = dataCollectionInstance.Material;
 
             // Check if Material associated to DataCollection have a Parent Material
             if (dataCollectionInstance.Material.ParentMaterial != null)
@@ -127,19 +130,19 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             material.Load();
 
             // Check limits of Data Collection Points
-            foreach (DataCollectionPoint dataCollectionPoint in dataCollectionInstance.DataCollectionPoints)
+            foreach (IDataCollectionPoint dataCollectionPoint in dataCollectionInstance.DataCollectionPoints)
             {
-                DataCollectionParameterLimit parameterLimit = dataCollectionLimitSet.DataCollectionParameterLimits?.FirstOrDefault(limit => limit.TargetEntity.GetNativeValue<long>("TargetEntity").Equals(dataCollectionPoint.TargetEntity.GetNativeValue<long>("TargetEntity")));
+                IDataCollectionParameterLimit parameterLimit = dataCollectionLimitSet.DataCollectionParameterLimits?.FirstOrDefault(limit => limit.TargetEntity.GetNativeValue<long>("TargetEntity").Equals(dataCollectionPoint.TargetEntity.GetNativeValue<long>("TargetEntity")));
 
                 // Parse DataCollection Point Value to Decimal
-                decimal dcPointValue = AMSOsramUtilities.GetValueAsDecimal(dataCollectionPoint.Value.ToString());
+                decimal dcPointValue = amsOSRAMUtilities.GetValueAsDecimal(dataCollectionPoint.Value.ToString());
 
                 // Check Parameter Error Limits
                 if (parameterLimit.LowerErrorLimit != null && parameterLimit.UpperErrorLimit != null &&
                     (dcPointValue < parameterLimit.LowerErrorLimit || dcPointValue > parameterLimit.UpperErrorLimit))
                 {
                     // Hold Material
-                    material.HoldMaterial(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig));
+                    material.HoldMaterial(amsOSRAMUtilities.GetConfig<string>(amsOSRAMConstants.DefaultLotIncomingHoldReasonConfig));
 
                     break;
                 }
@@ -149,7 +152,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                     (dcPointValue < parameterLimit.LowerWarningLimit || dcPointValue > parameterLimit.UpperWarningLimit))
                 {
                     // Hold Material
-                    material.HoldMaterial(AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig));
+                    material.HoldMaterial(amsOSRAMUtilities.GetConfig<string>(amsOSRAMConstants.DefaultLotIncomingHoldReasonConfig));
 
                     break;
                 }
@@ -159,10 +162,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
             if (material.HoldCount == 0)
             {
                 // Protocol
-                Protocol protocol = new Protocol()
-                {
-                    Name = AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultSpaceProtocol)
-                };
+                IProtocol protocol = entityFactory.Create<IProtocol>();
+                protocol.Name = amsOSRAMUtilities.GetConfig<string>(amsOSRAMConstants.DefaultSpaceProtocol);
 
                 // Check if protocol exists
                 if (protocol.ObjectExists())
@@ -170,30 +171,32 @@ namespace Cmf.Custom.AMSOsram.Actions.Space
                     // Load Protocol
                     protocol.Load();
 
+                    IMaterialCollection materials = entityFactory.CreateCollection<IMaterialCollection>();
+                    materials.Add(material);
+
                     // Create relation between Protocol and Material
                     OpenProtocolInstanceInput openProtocol = new OpenProtocolInstanceInput()
                     {
                         Protocol = protocol,
-                        MaterialsToAssociate = new MaterialCollection()
-                        {
-                            material
-                        }
+                        MaterialsToAssociate = materials
                     };
 
+                    IExceptionOrchestration exceptionOrchestration = serviceProvider.GetService<IExceptionOrchestration>();
+
                     // Open Protocol associated to a Material
-                    ExceptionManagementOrchestration.OpenProtocolInstance(openProtocol);
+                    exceptionOrchestration.OpenProtocolInstance(openProtocol);
                 }
             }
 
             // Create Message to send for Space
-            CustomReportEDCToSpace dataCollectionInfoMessage = AMSOsramUtilities.CreateSpaceInfoWaferValues(material, dataCollectionInstance, dataCollectionLimitSet);
+            CustomReportEDCToSpace dataCollectionInfoMessage = amsOSRAMUtilities.CreateSpaceInfoWaferValues(material, dataCollectionInstance, dataCollectionLimitSet);
 
             // Load Xml into XmlDocument to get InnerXml without formatting
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(dataCollectionInfoMessage.SerializeToXML());
 
             // Publish message on Message Bus
-            Utilities.PublishTransactionalMessage(AMSOsramConstants.CustomReportEDCToSpace,
+            Utilities.PublishTransactionalMessage(amsOSRAMConstants.CustomReportEDCToSpace,
                                                   JsonConvert.SerializeObject(new
                                                   {
                                                       Message = xmlDocument.InnerXml

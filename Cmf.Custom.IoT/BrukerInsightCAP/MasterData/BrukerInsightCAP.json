@@ -8416,7 +8416,7 @@
       "Name": "BrukerInsightCAPController",
       "Description": "TemplateController",
       "Type": "General",
-      "ControllerPackageVersion": "8.3.3-202201212",
+      "ControllerPackageVersion": "9.1.0-202209072",
       "ObjectType": "Resource",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-cree-tasks\",\"connect-iot-controller-engine-mes-tasks\",\"connect-iot-controller-engine-secsgem-tasks\"]",
       "Scope": "ConnectIoT"
@@ -8444,7 +8444,7 @@
       "Name": "Setup",
       "DisplayName": "Setup",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\Setup.json",
+      "Workflow": "BrukerInsightCAP/Setup.json",
       "Order": "1"
     },
     "2": {
@@ -8452,7 +8452,7 @@
       "Name": "Setup_RFIDReader",
       "DisplayName": "Setup_RFIDReader",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\Setup_RFIDReader.json",
+      "Workflow": "BrukerInsightCAP/Setup_RFIDReader.json",
       "Order": "2"
     },
     "3": {
@@ -8460,7 +8460,7 @@
       "Name": "MaterialReceived_01_MaterialReceivedCarrierIdReadRequest",
       "DisplayName": "MaterialReceived_01_MaterialReceivedCarrierIdReadRequest",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\MaterialReceived_01_MaterialReceivedCarrierIdReadRequest.json",
+      "Workflow": "BrukerInsightCAP/MaterialReceived_01_MaterialReceivedCarrierIdReadRequest.json",
       "Order": "3"
     },
     "4": {
@@ -8468,7 +8468,7 @@
       "Name": "SlotMap_01_SlotMapReceived",
       "DisplayName": "SlotMap_01_SlotMapReceived",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\SlotMap_01_SlotMapReceived.json",
+      "Workflow": "BrukerInsightCAP/SlotMap_01_SlotMapReceived.json",
       "Order": "4"
     },
     "5": {
@@ -8476,7 +8476,7 @@
       "Name": "ReadyToUnload_01_EventReceived",
       "DisplayName": "ReadyToUnload_01_EventReceived",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\ReadyToUnload_01_EventReceived.json",
+      "Workflow": "BrukerInsightCAP/ReadyToUnload_01_EventReceived.json",
       "Order": "5"
     },
     "6": {
@@ -8484,7 +8484,7 @@
       "Name": "MaterialRemoved_01_MaterialRemovedEvent",
       "DisplayName": "MaterialRemoved_01_MaterialRemovedEvent",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\MaterialRemoved_01_MaterialRemovedEvent.json",
+      "Workflow": "BrukerInsightCAP/MaterialRemoved_01_MaterialRemovedEvent.json",
       "Order": "6"
     },
     "7": {
@@ -8492,7 +8492,7 @@
       "Name": "TrackIn_01_TrackInRequestReceived300mm",
       "DisplayName": "TrackIn_01_TrackInRequestReceived300mm",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\TrackIn_01_TrackInRequestReceived300mm.json",
+      "Workflow": "BrukerInsightCAP/TrackIn_01_TrackInRequestReceived300mm.json",
       "Order": "7"
     },
     "8": {
@@ -8500,7 +8500,7 @@
       "Name": "ProcessStarted_01_EventTosProcessStartedReceived",
       "DisplayName": "ProcessStarted_01_EventTosProcessStartedReceived",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\ProcessStarted_01_EventTosProcessStartedReceived.json",
+      "Workflow": "BrukerInsightCAP/ProcessStarted_01_EventTosProcessStartedReceived.json",
       "Order": "8"
     },
     "9": {
@@ -8508,7 +8508,7 @@
       "Name": "WaferStart_01_EventWaferStarted",
       "DisplayName": "WaferStart_01_EventWaferStarted",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\WaferStart_01_EventWaferStarted.json",
+      "Workflow": "BrukerInsightCAP/WaferStart_01_EventWaferStarted.json",
       "Order": "9"
     },
     "10": {
@@ -8516,7 +8516,7 @@
       "Name": "DataCollection_01_EventRecieved",
       "DisplayName": "DataCollection_01_EventRecieved",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\DataCollection_01_EventRecieved.json",
+      "Workflow": "BrukerInsightCAP/DataCollection_01_EventRecieved.json",
       "Order": "10"
     },
     "11": {
@@ -8524,7 +8524,7 @@
       "Name": "WaferComplete_01_EventWaferCompleted",
       "DisplayName": "WaferComplete_01_EventWaferCompleted",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\WaferComplete_01_EventWaferCompleted.json",
+      "Workflow": "BrukerInsightCAP/WaferComplete_01_EventWaferCompleted.json",
       "Order": "11"
     },
     "12": {
@@ -8532,7 +8532,7 @@
       "Name": "ProcessCompleted_01_EventProcessCompletedReceived",
       "DisplayName": "ProcessCompleted_01_EventProcessCompletedReceived",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\ProcessCompleted_01_EventProcessCompletedReceived.json",
+      "Workflow": "BrukerInsightCAP/ProcessCompleted_01_EventProcessCompletedReceived.json",
       "Order": "12"
     },
     "13": {
@@ -8540,7 +8540,7 @@
       "Name": "TrackOut_01_TrackOutEventReceivedFromMES",
       "DisplayName": "TrackOut_01_TrackOutEventReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\TrackOut_01_TrackOutEventReceivedFromMES.json",
+      "Workflow": "BrukerInsightCAP/TrackOut_01_TrackOutEventReceivedFromMES.json",
       "Order": "13"
     },
     "14": {
@@ -8548,7 +8548,7 @@
       "Name": "Abort_01_AbortEventReceivedFromMES300mm",
       "DisplayName": "Abort_01_AbortEventReceivedFromMES300mm",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\Abort_01_AbortEventReceivedFromMES300mm.json",
+      "Workflow": "BrukerInsightCAP/Abort_01_AbortEventReceivedFromMES300mm.json",
       "Order": "14"
     },
     "15": {
@@ -8556,7 +8556,7 @@
       "Name": "AlarmManagement_01_AlarmCollection",
       "DisplayName": "AlarmManagement_01_AlarmCollection",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\AlarmManagement_01_AlarmCollection.json",
+      "Workflow": "BrukerInsightCAP/AlarmManagement_01_AlarmCollection.json",
       "Order": "15"
     },
     "16": {
@@ -8564,7 +8564,7 @@
       "Name": "Hold_01_HoldEventReceivedFromMES",
       "DisplayName": "Hold_01_HoldEventReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\Hold_01_HoldEventReceivedFromMES.json",
+      "Workflow": "BrukerInsightCAP/Hold_01_HoldEventReceivedFromMES.json",
       "Order": "16"
     },
     "17": {
@@ -8572,7 +8572,7 @@
       "Name": "RecipeManagement_01_GetRecipeList",
       "DisplayName": "RecipeManagement_01_GetRecipeList",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\RecipeManagement_01_GetRecipeList.json",
+      "Workflow": "BrukerInsightCAP/RecipeManagement_01_GetRecipeList.json",
       "Order": "17"
     },
     "18": {
@@ -8580,7 +8580,7 @@
       "Name": "RecipeManagement_02_GetRecipeBody",
       "DisplayName": "RecipeManagement_02_GetRecipeBody",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\RecipeManagement_02_GetRecipeBody.json",
+      "Workflow": "BrukerInsightCAP/RecipeManagement_02_GetRecipeBody.json",
       "Order": "18"
     },
     "19": {
@@ -8588,7 +8588,7 @@
       "Name": "RecipeManagement_03_SetRecipeBody",
       "DisplayName": "RecipeManagement_03_SetRecipeBody",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\RecipeManagement_03_SetRecipeBody.json",
+      "Workflow": "BrukerInsightCAP/RecipeManagement_03_SetRecipeBody.json",
       "Order": "19"
     },
     "20": {
@@ -8596,7 +8596,7 @@
       "Name": "RecipeManagement_04_GetRecipeChecksum",
       "DisplayName": "RecipeManagement_04_GetRecipeChecksum",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\RecipeManagement_04_GetRecipeChecksum.json",
+      "Workflow": "BrukerInsightCAP/RecipeManagement_04_GetRecipeChecksum.json",
       "Order": "20"
     },
     "21": {
@@ -8604,7 +8604,7 @@
       "Name": "ResourceEPTState_01_EptStateChangeReceived",
       "DisplayName": "ResourceEPTState_01_EptStateChangeReceived",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\ResourceEPTState_01_EptStateChangeReceived.json",
+      "Workflow": "BrukerInsightCAP/ResourceEPTState_01_EptStateChangeReceived.json",
       "Order": "21"
     },
     "22": {
@@ -8612,7 +8612,7 @@
       "Name": "ControlState_01_ControlStateUpdateReceived",
       "DisplayName": "ControlState_01_ControlStateUpdateReceived",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\ControlState_01_ControlStateUpdateReceived.json",
+      "Workflow": "BrukerInsightCAP/ControlState_01_ControlStateUpdateReceived.json",
       "Order": "22"
     },
     "23": {
@@ -8620,7 +8620,7 @@
       "Name": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "DisplayName": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
+      "Workflow": "BrukerInsightCAP/SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
       "Order": "23"
     },
     "24": {
@@ -8628,7 +8628,7 @@
       "Name": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "DisplayName": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\RecipeValidation_01_UnformattedRecipeMainFlow.json",
+      "Workflow": "BrukerInsightCAP/RecipeValidation_01_UnformattedRecipeMainFlow.json",
       "Order": "24"
     },
     "25": {
@@ -8636,7 +8636,7 @@
       "Name": "CreateProcessJob_01_CreateJob",
       "DisplayName": "CreateProcessJob_01_CreateJob",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\CreateProcessJob_01_CreateJob.json",
+      "Workflow": "BrukerInsightCAP/CreateProcessJob_01_CreateJob.json",
       "Order": "25"
     },
     "26": {
@@ -8644,7 +8644,7 @@
       "Name": "MultiCreateProcessJob_01_MultiCreateJob",
       "DisplayName": "MultiCreateProcessJob_01_MultiCreateJob",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\MultiCreateProcessJob_01_MultiCreateJob.json",
+      "Workflow": "BrukerInsightCAP/MultiCreateProcessJob_01_MultiCreateJob.json",
       "Order": "26"
     },
     "27": {
@@ -8652,7 +8652,7 @@
       "Name": "CreateControlJob_01_CreateJob",
       "DisplayName": "CreateControlJob_01_CreateJob",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\CreateControlJob_01_CreateJob.json",
+      "Workflow": "BrukerInsightCAP/CreateControlJob_01_CreateJob.json",
       "Order": "27"
     },
     "28": {
@@ -8660,7 +8660,7 @@
       "Name": "AbortJob_01_ExecuteControlJobAbort",
       "DisplayName": "AbortJob_01_ExecuteControlJobAbort",
       "IsFile": "Yes",
-      "Workflow": "BrukerInsightCAP\\AbortJob_01_ExecuteControlJobAbort.json",
+      "Workflow": "BrukerInsightCAP/AbortJob_01_ExecuteControlJobAbort.json",
       "Order": "28"
     }
   },

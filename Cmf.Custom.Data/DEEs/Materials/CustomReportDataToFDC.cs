@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.FDC;
-using Cmf.Foundation.BusinessObjects;
+using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.FDC;
 using Cmf.Foundation.Common;
 using Cmf.Foundation.Configuration;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.Configuration.Abstractions;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Cmf.Custom.AMSOsram.Actions.Materials
+namespace Cmf.Custom.amsOSRAM.Actions.Materials
 {
     public class CustomReportDataToFDC : DeeDevBase
     {
@@ -35,16 +39,14 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
              *      MaterialManagement.MaterialManagementOrchestration.ComplexTrackOutMaterials.Post
             */
 
-            bool canExecute = false;
-
-
             #endregion
 
+            bool canExecute = false;
             string actionGroup = Input["ActionGroupName"].ToString();
-            List<Material> materials = new List<Material>();
+            List<IMaterial> materials = new List<IMaterial>();
 
             // Validate if FDC is active
-            if (Config.TryGetConfig(AMSOsramConstants.FDCConfigActivePath, out Config isActive) &&
+            if (Config.TryGetConfig(amsOSRAMConstants.FDCConfigActivePath, out IConfig isActive) &&
                     isActive.GetConfigValue<bool>())
             {
                 // Abort operation
@@ -111,28 +113,29 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
             //---Start DEE Code--- 
+
+            // System
             UseReference("", "System.Text");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
-            UseReference("", "Cmf.Foundation.Common");
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
+
+            // Navigo
             UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.FDC");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.Extensions");
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
+            
+            // Custom
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.FDC");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.Extensions");
 
-            List<Material> materials = ApplicationContext.CallContext.GetInformationContext("Materials") as List<Material>;
+            List<IMaterial> materials = ApplicationContext.CallContext.GetInformationContext("Materials") as List<IMaterial>;
 
-            foreach (Material material in materials)
+            foreach (IMaterial material in materials)
             {
                 if (material.LastProcessedResource != null)
                 {
                     // Validate FDCCommunication attribute from Resource
-                    material.LastProcessedResource.LoadAttributes(new Collection<string> { AMSOsramConstants.ResourceAttributeFDCCommunication });
+                    material.LastProcessedResource.LoadAttributes(new Collection<string> { amsOSRAMConstants.ResourceAttributeFDCCommunication });
 
-                    if (material.LastProcessedResource.Attributes.ContainsKey(AMSOsramConstants.ResourceAttributeFDCCommunication) &&
-                        (bool)material.LastProcessedResource.Attributes[AMSOsramConstants.ResourceAttributeFDCCommunication])
+                    if (material.LastProcessedResource.Attributes.ContainsKey(amsOSRAMConstants.ResourceAttributeFDCCommunication) &&
+                        (bool)material.LastProcessedResource.Attributes[amsOSRAMConstants.ResourceAttributeFDCCommunication])
                     {
                         string messageType = string.Empty;
                         string integrationEntryMessageXml = string.Empty;
@@ -144,7 +147,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                             case MaterialSystemState.Queued:
                                 if (material.ParentMaterial == null && material.Form.Equals("Lot"))
                                 {
-                                    messageType = AMSOsramConstants.MessageType_LOTOUT;
+                                    messageType = amsOSRAMConstants.MessageType_LOTOUT;
 
                                     // SendFDCLotEnd
                                     fdcLotInfo.LotName = material.Name;
@@ -158,7 +161,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                             case MaterialSystemState.InProcess:
                                 if (material.ParentMaterial == null && material.Form.Equals("Lot"))
                                 {
-                                    messageType = AMSOsramConstants.MessageType_LOTIN;
+                                    messageType = amsOSRAMConstants.MessageType_LOTIN;
 
                                     // SendFDCLotStart
                                     fdcLotInfo.LotName = material.Name;
@@ -178,7 +181,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                 else if (material.ParentMaterial != null)
                                 {
                                     // SendFDCWaferIn
-                                    messageType = AMSOsramConstants.MessageType_WAFERIN;
+                                    messageType = amsOSRAMConstants.MessageType_WAFERIN;
                                     int? containerPosition = null;
 
                                     // Load materialContainer
@@ -207,7 +210,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                 if (material.ParentMaterial == null && material.Form.Equals("Lot"))
                                 {
                                     // SendFDCLotEnd
-                                    messageType = AMSOsramConstants.MessageType_LOTOUT;
+                                    messageType = amsOSRAMConstants.MessageType_LOTOUT;
 
                                     fdcLotInfo.LotName = material.Name;
                                     fdcLotInfo.BatchName = material.Name;
@@ -219,7 +222,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                 else if (material.ParentMaterial != null)
                                 {
                                     // SendFDCWaferOut
-                                    messageType = AMSOsramConstants.MessageType_WAFEROUT;
+                                    messageType = amsOSRAMConstants.MessageType_WAFEROUT;
 
                                     fdcWaferInfo.BatchName = !string.IsNullOrEmpty(material.ParentMaterial?.Name) ? material.ParentMaterial.Name : string.Empty;
                                     fdcWaferInfo.LotName = !string.IsNullOrEmpty(material.ParentMaterial?.Name) ? material.ParentMaterial.Name : string.Empty;
@@ -237,20 +240,23 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 
                         #region Create Integration Entry
 
+                        IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+                        IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
                         if (!string.IsNullOrEmpty(integrationEntryMessageXml))
                         {
                             //Build Integration Entry
-                            IntegrationEntry integrationEntry = new IntegrationEntry();
+                            IIntegrationEntry integrationEntry = entityFactory.Create<IIntegrationEntry>();
                             integrationEntry.Name = $"{ material.Name.Replace(" ", "_") }-{ Guid.NewGuid()}";
                             integrationEntry.MessageType = messageType;
                             integrationEntry.MessageDate = DateTime.Now;
                             integrationEntry.IntegrationMessage.Message = Encoding.UTF8.GetBytes(integrationEntryMessageXml);
-                            integrationEntry.EventName = AMSOsramConstants.OsramEventName;
+                            integrationEntry.EventName = amsOSRAMConstants.OsramEventName;
                             integrationEntry.SourceSystem = Constants.MesSystemDesignation;
-                            integrationEntry.TargetSystem = AMSOsramConstants.TargetSystem_OntoFDC;
+                            integrationEntry.TargetSystem = amsOSRAMConstants.TargetSystem_OntoFDC;
                             integrationEntry.NumberOfRetries = 1;
                             integrationEntry.IsRetriable = true;
-                            integrationEntry.SystemState = Foundation.Common.Integration.IntegrationEntrySystemState.Received;
+                            integrationEntry.SystemState = IntegrationEntrySystemState.Received;
 
                             integrationEntry.Create();
                         }

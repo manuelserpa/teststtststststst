@@ -1,8 +1,8 @@
-﻿using Cmf.Custom.AMSOsram.Orchestration.InputObjects;
-using Cmf.Custom.AMSOsram.Orchestration.OutputObjects;
+﻿using Cmf.Custom.amsOSRAM.Orchestration.InputObjects;
+using Cmf.Custom.amsOSRAM.Orchestration.OutputObjects;
 using Cmf.Foundation.BusinessObjects;
+using Cmf.Foundation.BusinessObjects.Abstractions;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
-using Cmf.Foundation.Common.Integration;
 using Cmf.LightBusinessObjects.Infrastructure.Errors;
 using Cmf.TestScenarios.Others;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

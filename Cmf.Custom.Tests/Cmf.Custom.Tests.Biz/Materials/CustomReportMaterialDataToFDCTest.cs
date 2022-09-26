@@ -26,7 +26,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
         private IntegrationEntryCollection integrationEntriesToTerminate = new IntegrationEntryCollection();
         private static Resource resource;
         private static Resource subResource;
-        private int pollingIntervalConfig = Convert.ToInt32(ConfigUtilities.GetConfigValue(AMSOsramConstants.PollingIntervalConfigValue));
+        private int pollingIntervalConfig = Convert.ToInt32(ConfigUtilities.GetConfigValue(amsOSRAMConstants.PollingIntervalConfigValue));
         private int MaxNumberOfRetries = 30;
         private bool fdcActiveConfig;
         private bool? isRecipeManagementEnabled = null;
@@ -80,8 +80,8 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
 
             // Get original config value for FDCActiveConfigPath to restore later
-            fdcActiveConfig = (bool)ConfigUtilities.GetConfigValue(AMSOsramConstants.FDCActiveConfigPath);
-            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, true);
+            fdcActiveConfig = (bool)ConfigUtilities.GetConfigValue(amsOSRAMConstants.FDCActiveConfigPath);
+            ConfigUtilities.SetConfigValue(amsOSRAMConstants.FDCActiveConfigPath, true);
             #endregion Configurations
             
         }
@@ -120,7 +120,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 foreach (var keyValue in oldResourceFDCCommunicationValue)
                 {
                     keyValue.Key.Load();
-                    keyValue.Key.SaveAttribute(AMSOsramConstants.CustomFDCCommunicationAttribute, keyValue.Value);
+                    keyValue.Key.SaveAttribute(amsOSRAMConstants.CustomFDCCommunicationAttribute, keyValue.Value);
                 }
             }
 
@@ -135,7 +135,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
             #endregion Restore Resource
 
             // Reset FDC Active Configuration to original value
-            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, fdcActiveConfig);
+            ConfigUtilities.SetConfigValue(amsOSRAMConstants.FDCActiveConfigPath, fdcActiveConfig);
 
             if (materialScenario != null)
             {
@@ -157,7 +157,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [TestMethod]
         public void CustomReportDataToFDCTests_FDCActiveConfigurationTest()
         {
-            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
+            ConfigUtilities.SetConfigValue(amsOSRAMConstants.FDCActiveConfigPath, false);
 
             materialScenario.Setup(true);
 
@@ -172,8 +172,8 @@ namespace Cmf.Custom.Tests.Biz.Materials
             GenericUtilities.WaitFor(() =>
             {
                 // Get the IntegrationEntry
-                integrationEntry = IntegrationEntryUtilities.GetIntegrationEntry(AMSOsramConstants.MessageType_LOTIN, fromDate, true,
-                            AMSOsramConstants.SourceSystem_OntoFDC, AMSOsramConstants.TargetSystem_OntoFDC);
+                integrationEntry = IntegrationEntryUtilities.GetIntegrationEntry(amsOSRAMConstants.MessageType_LOTIN, fromDate, true,
+                            amsOSRAMConstants.SourceSystem_OntoFDC, amsOSRAMConstants.TargetSystem_OntoFDC);
                 return integrationEntry != null;
             }, 2, pollingIntervalConfig / 10);
 
@@ -193,7 +193,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [TestMethod]
         public void CustomReportDataToFDCTests_ResourceFDCCommunicationAttributeTest()
         {
-            resource.SaveAttribute(AMSOsramConstants.CustomFDCCommunicationAttribute, false);
+            resource.SaveAttribute(amsOSRAMConstants.CustomFDCCommunicationAttribute, false);
 
             materialScenario.Setup(true);
 
@@ -208,8 +208,8 @@ namespace Cmf.Custom.Tests.Biz.Materials
             GenericUtilities.WaitFor(() =>
             {
                 // Get the IntegrationEntry
-                integrationEntry = IntegrationEntryUtilities.GetIntegrationEntry(AMSOsramConstants.MessageType_LOTIN, fromDate, true,
-                            AMSOsramConstants.SourceSystem_OntoFDC, AMSOsramConstants.TargetSystem_OntoFDC);
+                integrationEntry = IntegrationEntryUtilities.GetIntegrationEntry(amsOSRAMConstants.MessageType_LOTIN, fromDate, true,
+                            amsOSRAMConstants.SourceSystem_OntoFDC, amsOSRAMConstants.TargetSystem_OntoFDC);
                 return integrationEntry != null;
             }, 2, pollingIntervalConfig / 10);
 
@@ -236,7 +236,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
             DateTime fromDate = DateTime.Now;
             materialScenario.Entity.ComplexTrackIn();
 
-            ValidateIntegrationEntry(AMSOsramConstants.MessageType_LOTIN, fromDate, true, materialScenario.Entity.Name, "", resource.Name, "", "", "", materialScenario.Entity.Step.Name, materialScenario.Entity.LastProcessedResource.LastService.Name, materialScenario.Entity.CurrentRecipeInstance?.ParentEntity?.Name, materialScenario.Entity.Product.Name, materialScenario.Entity.Flow.Name, materialScenario.Entity.PrimaryQuantity.ToString(), materialScenario.Entity.Facility.Name);
+            ValidateIntegrationEntry(amsOSRAMConstants.MessageType_LOTIN, fromDate, true, materialScenario.Entity.Name, "", resource.Name, "", "", "", materialScenario.Entity.Step.Name, materialScenario.Entity.LastProcessedResource.LastService.Name, materialScenario.Entity.CurrentRecipeInstance?.ParentEntity?.Name, materialScenario.Entity.Product.Name, materialScenario.Entity.Flow.Name, materialScenario.Entity.PrimaryQuantity.ToString(), materialScenario.Entity.Facility.Name);
         }
 
         /// <summary>
@@ -258,16 +258,16 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
             Assert.IsTrue(materialScenario.Entity.SubMaterialCount > 0, $"The material {materialScenario.Entity.Name} should have submaterials.");
             // Set config with false to avoid create a new integration entry
-            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
+            ConfigUtilities.SetConfigValue(amsOSRAMConstants.FDCActiveConfigPath, false);
             materialScenario.Entity.ComplexTrackIn();
             materialScenario.Entity.LoadChildren();
 
-            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, true);
+            ConfigUtilities.SetConfigValue(amsOSRAMConstants.FDCActiveConfigPath, true);
             DateTime fromDate = DateTime.Now;
             materialScenario.Entity.SubMaterials.ComplexTrackInMaterials(subResource);
             materialScenario.SubMaterials[0].LoadRelation("MaterialContainer");
 
-            ValidateIntegrationEntry(AMSOsramConstants.MessageType_WAFERIN, fromDate, true, materialScenario.Entity.Name, materialScenario.SubMaterials[0].Name, subResource.Name, materialScenario.SubMaterials[0].MaterialContainer.First().Position.ToString(), materialScenario.SubMaterials[0].MaterialContainer.First().Position.ToString(), materialScenario.SubMaterials[0].PrimaryQuantity.Value.ToString());
+            ValidateIntegrationEntry(amsOSRAMConstants.MessageType_WAFERIN, fromDate, true, materialScenario.Entity.Name, materialScenario.SubMaterials[0].Name, subResource.Name, materialScenario.SubMaterials[0].MaterialContainer.First().Position.ToString(), materialScenario.SubMaterials[0].MaterialContainer.First().Position.ToString(), materialScenario.SubMaterials[0].PrimaryQuantity.Value.ToString());
         }
 
         /// <summary>
@@ -289,16 +289,16 @@ namespace Cmf.Custom.Tests.Biz.Materials
             SetupRecipeContext(serviceName, materialScenario.Entity.Name, recipeName);
 
             // Set config with false to avoid create a new integration entry
-            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
+            ConfigUtilities.SetConfigValue(amsOSRAMConstants.FDCActiveConfigPath, false);
             materialScenario.Entity.ComplexTrackIn();
             materialScenario.Entity.Load();
 
-            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, true);
+            ConfigUtilities.SetConfigValue(amsOSRAMConstants.FDCActiveConfigPath, true);
             DateTime fromDate = DateTime.Now;
             materialScenario.Entity.ComplexTrackOutMaterial();
             materialScenario.Entity.Step.Load();
 
-            ValidateIntegrationEntry(AMSOsramConstants.MessageType_LOTOUT, fromDate, true, materialScenario.Entity.Name, "", "", "", "", "", materialScenario.Entity.Step.Name);
+            ValidateIntegrationEntry(amsOSRAMConstants.MessageType_LOTOUT, fromDate, true, materialScenario.Entity.Name, "", "", "", "", "", materialScenario.Entity.Step.Name);
         }
 
         /// <summary>
@@ -319,17 +319,17 @@ namespace Cmf.Custom.Tests.Biz.Materials
             SetupRecipeContext(serviceName, materialScenario.Entity.Name, recipeName);
 
             // Set config with false to avoid create a new integration entry
-            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, false);
+            ConfigUtilities.SetConfigValue(amsOSRAMConstants.FDCActiveConfigPath, false);
             materialScenario.Entity.ComplexTrackIn();
             materialScenario.Entity.LoadChildren();
 
             materialScenario.Entity.SubMaterials.ComplexTrackInMaterials(subResource);
-            ConfigUtilities.SetConfigValue(AMSOsramConstants.FDCActiveConfigPath, true);
+            ConfigUtilities.SetConfigValue(amsOSRAMConstants.FDCActiveConfigPath, true);
             DateTime fromDate = DateTime.Now;
             materialScenario.Entity.SubMaterials[0].ComplexTrackOutMaterial();
             materialScenario.Entity.SubMaterials[0].Load();
 
-            ValidateIntegrationEntry(AMSOsramConstants.MessageType_WAFEROUT, fromDate, true, materialScenario.Entity.Name, materialScenario.SubMaterials[0].Name, subResource.Name, "", "", "", "", "", "", "", "", "", "", materialScenario.Entity.SubMaterials[0].SystemState.ToString());
+            ValidateIntegrationEntry(amsOSRAMConstants.MessageType_WAFEROUT, fromDate, true, materialScenario.Entity.Name, materialScenario.SubMaterials[0].Name, subResource.Name, "", "", "", "", "", "", "", "", "", "", materialScenario.Entity.SubMaterials[0].SystemState.ToString());
         }
 
 
@@ -356,7 +356,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
             materialScenario.Entity.Abort();
             materialScenario.Entity.Step.Load();
 
-            ValidateIntegrationEntry(AMSOsramConstants.MessageType_LOTOUT, fromDate, true, materialScenario.Entity.Name, "", "", "", "", "", materialScenario.Entity.Step.Name);
+            ValidateIntegrationEntry(amsOSRAMConstants.MessageType_LOTOUT, fromDate, true, materialScenario.Entity.Name, "", "", "", "", "", materialScenario.Entity.Step.Name);
         }
 
         #region Help methods
@@ -378,7 +378,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 {
                     // Get the IntegrationEntry
                     integrationEntry = IntegrationEntryUtilities.GetIntegrationEntry(messageType, fromDate, true,
-                                AMSOsramConstants.SourceSystem_OntoFDC, AMSOsramConstants.TargetSystem_OntoFDC);
+                                amsOSRAMConstants.SourceSystem_OntoFDC, amsOSRAMConstants.TargetSystem_OntoFDC);
                     return integrationEntry != null;
                 }, MaxNumberOfRetries, pollingIntervalConfig / MaxNumberOfRetries);
 
@@ -597,16 +597,16 @@ namespace Cmf.Custom.Tests.Biz.Materials
         /// <param name="fdcCommunicationValue"></param>
         private void SetResourceFDCCommunication(Resource resource, bool fdcCommunicationValue)
         {
-            resource.LoadAttributes(new Collection<string> { AMSOsramConstants.CustomFDCCommunicationAttribute });
+            resource.LoadAttributes(new Collection<string> { amsOSRAMConstants.CustomFDCCommunicationAttribute });
 
             if (resource.Attributes != null &&
-                resource.Attributes.ContainsKey(AMSOsramConstants.CustomFDCCommunicationAttribute) &&
-                resource.Attributes[AMSOsramConstants.CustomFDCCommunicationAttribute] != null)
+                resource.Attributes.ContainsKey(amsOSRAMConstants.CustomFDCCommunicationAttribute) &&
+                resource.Attributes[amsOSRAMConstants.CustomFDCCommunicationAttribute] != null)
             {
-                oldResourceFDCCommunicationValue.Add(resource, (bool)resource.Attributes[AMSOsramConstants.CustomFDCCommunicationAttribute]);
+                oldResourceFDCCommunicationValue.Add(resource, (bool)resource.Attributes[amsOSRAMConstants.CustomFDCCommunicationAttribute]);
             }
 
-            resource.SaveAttribute(AMSOsramConstants.CustomFDCCommunicationAttribute, fdcCommunicationValue);
+            resource.SaveAttribute(amsOSRAMConstants.CustomFDCCommunicationAttribute, fdcCommunicationValue);
             resource.Load();
         }
 

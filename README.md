@@ -1,5 +1,5 @@
 # About this Project 
-Implementation of Critical Manufacturing solution for AMSOsram
+Implementation of Critical Manufacturing solution for amsOSRAM
 
 ## Getting Started
 
@@ -7,7 +7,7 @@ You can find our Documentation at our [Sharepoint](https://criticalmfg.sharepoin
 
 The project CM Plan can be found here [Configuration Management Plan](https://criticalmfg.sharepoint.com/:w:/r/sites/amsosram/Shared%20Documents/Documentation/Management/Configuration%20Management%20Plan.docx?d=w325edab3eee84afab0592c2bb57d8096&csf=1&web=1&e=VS0oIx).
 
-The AMSOsram Notebook can be found here [Notebook](https://criticalmfg.sharepoint.com/:o:/r/sites/amsosram/SiteAssets/AMS%20OSRAM%20Notebook?d=w82675bfd174f4d439233c241bb250ea7&csf=1&web=1&e=zC3vxD).
+The amsOSRAM Notebook can be found here [Notebook](https://criticalmfg.sharepoint.com/:o:/r/sites/amsosram/SiteAssets/AMS%20OSRAM%20Notebook?d=w82675bfd174f4d439233c241bb250ea7&csf=1&web=1&e=zC3vxD).
 
 # Environments
 

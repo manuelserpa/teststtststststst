@@ -877,7 +877,7 @@
       "Name": "HermosLFM4xReaderController",
       "Description": "Reference controller for HermosLFM4xReader",
       "Type": "General",
-      "ControllerPackageVersion": "8.3.3-202201212",
+      "ControllerPackageVersion": "9.1.0-202209072",
       "ObjectType": "Resource",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\",\"connect-iot-controller-engine-secsgem-tasks\"]",
       "Scope": "ConnectIoT"
@@ -898,7 +898,7 @@
       "Name": "Setup",
       "DisplayName": "Setup",
       "IsFile": "Yes",
-      "Workflow": "HermosLFM4xReader\\Setup.json",
+      "Workflow": "HermosLFM4xReader/Setup.json",
       "Order": "1"
     }
   },

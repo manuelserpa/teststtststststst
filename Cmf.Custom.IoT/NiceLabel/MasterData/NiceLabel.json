@@ -19,7 +19,7 @@
       "Name": "NiceLabelController",
       "Description": "Nice Label Controller",
       "Type": "General",
-      "ControllerPackageVersion": "8.3.3-202201212",
+      "ControllerPackageVersion": "9.1.0-202209072",
       "ObjectType": "Resource",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-cree-tasks\",\"connect-iot-controller-engine-mes-tasks\",\"connect-iot-controller-engine-secsgem-tasks\"]",
       "Scope": "ConnectIoT"
@@ -41,7 +41,7 @@
       "Name": "Setup",
       "DisplayName": "Setup",
       "IsFile": "Yes",
-      "Workflow": "NiceLabel\\Setup.json",
+      "Workflow": "NiceLabel/Setup.json",
       "Order": "1"
     },
     "2": {
@@ -49,7 +49,7 @@
       "Name": "PrintRequest_01_PrintRequestReceived",
       "DisplayName": "PrintRequest_01_PrintRequestReceived",
       "IsFile": "Yes",
-      "Workflow": "NiceLabel\\PrintRequest_01_PrintRequestReceived.json",
+      "Workflow": "NiceLabel/PrintRequest_01_PrintRequestReceived.json",
       "Order": "2"
     }
   }

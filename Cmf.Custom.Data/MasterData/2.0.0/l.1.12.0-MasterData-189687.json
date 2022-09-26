@@ -1,0 +1,31 @@
+{
+    "WorksheetNameMapping": {},
+    "<SM>DEEAction": {
+        "1": {
+            "Action": "CustomIncomingMaterialLotCreation",
+            "Description": "Create Lots using information from ERP",
+            "CodeFileRelativePath": "Integrations//CustomIncomingMaterialLotCreation.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        },
+		"2": {
+            "Action": "CustomReportEDCToSpaceHandler",
+            "Description": "Action to validate DataCollection and create a XML message to be sent to Space system.",
+            "CodeFileRelativePath": "Space//CustomReportEDCToSpaceHandler.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        }
+    },
+    "DEEActionOrder": {
+		"1": {
+		  "ActionGroup": "BusinessObjects.DataCollectionInstance.PerformImmediate.Post",
+		  "Action": "CustomReportEDCToSpaceHandler",
+		  "Order": "100"
+		},
+		"2": {
+		  "ActionGroup": "BusinessObjects.DataCollectionInstance.Close.Post",
+		  "Action": "CustomReportEDCToSpaceHandler",
+		  "Order": "100"
+		}
+	}
+}

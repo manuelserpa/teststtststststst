@@ -1,16 +1,15 @@
-﻿using Cmf.Custom.AMSOsram.Actions;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Foundation.BusinessObjects.Cultures;
+﻿using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Foundation.Common.Abstractions;
+using Cmf.Foundation.Common.LocalizationService;
 
-namespace Cmf.Custom.AMSOsram.Actions.Automation
+namespace Cmf.Custom.amsOSRAM.Actions.Automation
 {
     class CustomAutomationGetRecipeBody : DeeDevBase
     {
@@ -50,28 +49,29 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
             //---Start DEE Code--- 
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
-            UseReference("", "Cmf.Foundation.Common");
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
 
-            UseReference("", "Cmf.Foundation.BusinessObjects.Cultures");
+            // System
             UseReference("", "System.Threading");
 
+            // Custom
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+
+            // Foundation
+            UseReference("", "Cmf.Foundation.Common.LocalizationService");
 
             if (!Input.ContainsKey("RecipeName"))
             {
                 throw new ArgumentNullCmfException("RecipeName");
             }
 
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
             string recipeName = Input["RecipeName"].ToString();
 
-            Recipe recipe = new Recipe()
-            {
-                Name = recipeName
-            };
+            IRecipe recipe = entityFactory.Create<IRecipe>();
+            recipe.Name = recipeName;
 
             if (!recipe.ObjectExists())
             {
@@ -80,27 +80,26 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
             recipe.Load();
 
+            ILocalizationService localizationService = serviceProvider.GetService<ILocalizationService>();
+
             if (recipe.Body == null)
             {
-                throw new CmfBaseException(string.Format(LocalizedMessage.GetLocalizedMessage(Thread.CurrentThread.CurrentCulture.Name, AMSOsramConstants.LocalizedMessageRecipeWithoutBody).MessageText, recipe.Name));
+                throw new CmfBaseException(string.Format(localizationService.Localize(Thread.CurrentThread.CurrentCulture.Name, amsOSRAMConstants.LocalizedMessageRecipeWithoutBody), recipe.Name));
             }
 
             recipe.Body.Load();
 
             if (recipe.Body.Body == null || !recipe.Body.Body.Any())
             {
-                throw new CmfBaseException(string.Format(LocalizedMessage.GetLocalizedMessage(Thread.CurrentThread.CurrentCulture.Name, AMSOsramConstants.LocalizedMessageRecipeBodyEmpty).MessageText, recipe.Name));
+                throw new CmfBaseException(string.Format(localizationService.Localize(Thread.CurrentThread.CurrentCulture.Name, amsOSRAMConstants.LocalizedMessageRecipeBodyEmpty), recipe.Name));
             }
 
-            var base64String = Convert.ToBase64String(recipe.Body.Body);
-
-            Input.Add("RecipeBody", base64String);
-
+            Input.Add("RecipeBody", Convert.ToBase64String(recipe.Body.Body));
             Input.Add("RecipeNameOnEquipment", recipe.ResourceRecipeName);
-            return Input;
 
             //---End DEE Code---
 
+            return Input;
         }
     }
 }

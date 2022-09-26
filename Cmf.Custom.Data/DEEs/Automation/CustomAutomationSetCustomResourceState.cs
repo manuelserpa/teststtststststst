@@ -1,14 +1,14 @@
-﻿using Cmf.Custom.AMSOsram.Actions;
-using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
+﻿using Cmf.Foundation.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Navigo.BusinessObjects;
 
-namespace Cmf.Custom.AMSOsram.Actions.Automation
+namespace Cmf.Custom.amsOSRAM.Actions.Automation
 {
     class CustomAutomationSetCustomResourceState : DeeDevBase
     {
@@ -46,33 +46,34 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
             //---Start DEE Code--- 
-            // Foundation
-			UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-            UseReference("", "Cmf.Foundation.Common");
-            UseReference("", "Cmf.Foundation.BusinessObjects.Cultures");
-            // Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-            // Custom
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
 
+            // Custom
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
 
             if (!Input.ContainsKey("ResourceName"))
             {
                 throw new ArgumentNullCmfException("ResourceName");
             }
-            Resource resource = new Resource() { Name = Input["ResourceName"] as String };
 
             if (!Input.ContainsKey("StateName"))
             {
                 throw new ArgumentNullCmfException("StateName");
             }
-            String state = Input["StateName"] as String;
+
             if (!Input.ContainsKey("StateModelName"))
             {
                 throw new ArgumentNullCmfException("StateModelName");
             }
-            String stateModelName = Input["StateModelName"] as String;
+
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
+            IResource resource = entityFactory.Create<IResource>();
+            resource.Name = Input["ResourceName"] as string;
+
+            string state = Input["StateName"] as string;
+            string stateModelName = Input["StateModelName"] as string;
 
             int? loadPortNumber = null;
             if (Input.ContainsKey("LoadPortNumber") && Input["LoadPortNumber"] != null && !String.IsNullOrWhiteSpace(Input["LoadPortNumber"].ToString()))
@@ -92,17 +93,17 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
                 componentResourceNumber = int.Parse(Input["ComponentResourceNumber"].ToString());
             }
 
-            String reason = String.Empty;
+            string reason = String.Empty;
 
             if (Input.ContainsKey("Reason"))
             {
-                reason = Input["Reason"] as String;
+                reason = Input["Reason"] as string;
             }
 
             if (loadPortNumber != null && loadPortNumber > 0)
             {
                 resource.Load();
-                var resourceHierarchy = resource.GetDescendentResources(1);
+                IResourceHierarchy resourceHierarchy = resource.GetDescendentResources(1);
 
                 if (resourceHierarchy == null ||
                     resourceHierarchy.Count <= 0)
@@ -115,7 +116,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
             else if (chamberResourceNumber != null && chamberResourceNumber > 0)
             {
                 resource.Load();
-                var resourceHierarchy = resource.GetDescendentResources(1);
+                IResourceHierarchy resourceHierarchy = resource.GetDescendentResources(1);
 
                 if (resourceHierarchy == null ||
                     resourceHierarchy.Count <= 0)
@@ -128,7 +129,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
             else if (componentResourceNumber != null && componentResourceNumber > 0)
             {
                 resource.Load();
-                var resourceHierarchy = resource.GetDescendentResources(1);
+                IResourceHierarchy resourceHierarchy = resource.GetDescendentResources(1);
 
                 if (resourceHierarchy == null ||
                     resourceHierarchy.Count <= 0)
@@ -141,7 +142,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
             resource.Load();
             resource.LoadCurrentStates();
-            CurrentEntityState current = null;
+            ICurrentEntityState current = null;
 
             if (resource.CurrentStates != null)
             {
@@ -149,12 +150,17 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
             }
             if (current == null)
             {
-                var stateModelObject = new StateModel() { Name = stateModelName };
+                IStateModel stateModelObject = entityFactory.Create<IStateModel>();
+                stateModelObject.Name = stateModelName;
                 stateModelObject.Load();
-                resource.AddStateModels(new StateModelCollection() { stateModelObject });
-                resource.LoadCurrentStates();
-                current = resource.CurrentStates.FirstOrDefault(s => s.StateModel.Name == stateModelName);
 
+                IStateModelCollection stateModelCollection = entityFactory.CreateCollection<IStateModelCollection>();
+                stateModelCollection.Add(stateModelObject);
+
+                resource.AddStateModels(stateModelCollection);
+                resource.LoadCurrentStates();
+
+                current = resource.CurrentStates.FirstOrDefault(s => s.StateModel.Name == stateModelName);
             }
 
             if (String.IsNullOrWhiteSpace(reason))
@@ -164,9 +170,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
             else
             {
                 current.StateModel.Load();
-                var transition = current.StateModel.StateTransitions.FirstOrDefault(t => t.FromState.Name == current.CurrentState.Name && t.ToState.Name == state);
+                IStateModelTransition transition = current.StateModel.StateTransitions.FirstOrDefault(t => t.FromState.Name == current.CurrentState.Name && t.ToState.Name == state);
                 resource.LogEvent(transition.Name, current.StateModel, reason);
             }
+
             //---End DEE Code---
 
             return Input;

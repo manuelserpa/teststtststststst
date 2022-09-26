@@ -642,7 +642,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             integrationEntry.Load();
 
             // Validate throw Message associated to Integration Entry
-            string localizedMessage = string.Format(CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageCustomProductionOrderDoesNotExists));
+            string localizedMessage = string.Format(CustomUtilities.GetLocalizedMessageByName(amsOSRAMConstants.LocalizedMessageCustomProductionOrderDoesNotExists));
             StringAssert.Contains(integrationEntry.ResultDescription, string.Format(localizedMessage, incomingLot.Material.ProductionOrder), "The returned message is not as expected.");
         }
 
@@ -686,7 +686,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             integrationEntry.Load();
 
             // Validate throw Message associated to Integration Entry
-            string localizedMessage = string.Format(CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageCustomInvalidPrimaryQuantity), incomingLot.Material.Name);
+            string localizedMessage = string.Format(CustomUtilities.GetLocalizedMessageByName(amsOSRAMConstants.LocalizedMessageCustomInvalidPrimaryQuantity), incomingLot.Material.Name);
             StringAssert.Contains(integrationEntry.ResultDescription, string.Format(localizedMessage, incomingLot.Material.Name), "The returned message is not as expected.");
         }
 
@@ -730,7 +730,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             integrationEntry.Load();
 
             // Validate throw Message associated to Integration Entry
-            string localizedMessage = string.Format(CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageCustomPrimaryUnitObjectNull), incomingLot.Material.Name);
+            string localizedMessage = string.Format(CustomUtilities.GetLocalizedMessageByName(amsOSRAMConstants.LocalizedMessageCustomPrimaryUnitObjectNull), incomingLot.Material.Name);
             StringAssert.Contains(integrationEntry.ResultDescription, string.Format(localizedMessage, incomingLot.Material.Name), "The returned message is not as expected.");
         }
 

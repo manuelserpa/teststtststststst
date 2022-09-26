@@ -1,17 +1,18 @@
-﻿using Cmf.Custom.AMSOsram.Actions;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.Extensions;
-using Cmf.Custom.AMSOsram.Orchestration.InputObjects;
+﻿using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.Extensions;
+using Cmf.Custom.amsOSRAM.Orchestration.InputObjects;
 using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using System;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Cmf.Custom.AMSOsram.Actions.Materials
+namespace Cmf.Custom.amsOSRAM.Actions.Materials
 {
-	class CustomMaterialInValidation : DeeDevBase
+    class CustomMaterialInValidation : DeeDevBase
 	{
         /// <summary>
         /// Dee test condition.
@@ -48,17 +49,15 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 		public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
 		{
             //---Start DEE Code---
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
-            UseReference("", "Cmf.Foundation.Common");
-            // Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-            // Custom
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-            UseReference("", "Cmf.Custom.AMSOsram.Common.Extensions");
-            UseReference("Cmf.Custom.AMSOsram.Orchestration.dll", "Cmf.Custom.AMSOsram.Orchestration.InputObjects");
 
+            // Custom
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("", "Cmf.Custom.amsOSRAM.Common.Extensions");
+            UseReference("Cmf.Custom.amsOSRAM.Orchestration.dll", "Cmf.Custom.amsOSRAM.Orchestration.InputObjects");
+
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
 
             bool isSorter = false;
 
@@ -69,14 +68,15 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 
             MaterialInInput input = Input["MaterialInInput"] as MaterialInInput;
 
-            Cmf.Foundation.Common.Utilities.ValidateNullInput(input);
+            Utilities.ValidateNullInput(input);
 
             if (string.IsNullOrWhiteSpace(input.ResourceName))
             {
                 throw new MissingMandatoryFieldCmfException("ResourceName");
             }
 
-            Resource resource = new Resource() { Name = input.ResourceName };
+            IResource resource = entityFactory.Create<IResource>();
+            resource.Name = input.ResourceName;
 
             if (!resource.ObjectExists())
             {
@@ -84,21 +84,22 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
             }
 
             resource.Load();
-            resource.LoadAttributes(new Collection<string> { AMSOsramConstants.ResourceAttributeIsSorter });
+            resource.LoadAttributes(new Collection<string> { amsOSRAMConstants.ResourceAttributeIsSorter });
 
             if (resource.Attributes != null &&
-                resource.Attributes.ContainsKey(AMSOsramConstants.ResourceAttributeIsSorter) &&
-                resource.Attributes[AMSOsramConstants.ResourceAttributeIsSorter] != null)
+                resource.Attributes.ContainsKey(amsOSRAMConstants.ResourceAttributeIsSorter) &&
+                resource.Attributes[amsOSRAMConstants.ResourceAttributeIsSorter] != null)
             {
-                resource.Attributes.TryGetValueAs(AMSOsramConstants.ResourceAttributeIsSorter, out isSorter);
+                resource.Attributes.TryGetValueAs(amsOSRAMConstants.ResourceAttributeIsSorter, out isSorter);
             }
 
-            Material waferToTrackIn = null;
+            IMaterial waferToTrackIn = null;
 
             // Material Name takes precedence over ContainerId
             if (!string.IsNullOrWhiteSpace(input.MaterialName))
             {
-                waferToTrackIn = new Material() { Name = input.MaterialName };
+                waferToTrackIn = entityFactory.Create<IMaterial>();
+                waferToTrackIn.Name = input.MaterialName;
 
                 if (!waferToTrackIn.ObjectExists())
                 {
@@ -107,7 +108,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
             }
             else if (!string.IsNullOrWhiteSpace(input.CarrierId))
             {
-                Container container = new Container() { Name = input.CarrierId };
+                IContainer container = entityFactory.Create<IContainer>();
+                container.Name = input.CarrierId;
 
                 if (!container.ObjectExists())
                 {

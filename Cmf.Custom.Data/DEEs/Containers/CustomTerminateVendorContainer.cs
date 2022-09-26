@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.Extensions;
+using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.Extensions;
 using Cmf.Foundation.Configuration;
-using Cmf.Navigo.BusinessObjects;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.Configuration.Abstractions;
 
-namespace Cmf.Custom.AMSOsram.Actions.Containers
+namespace Cmf.Custom.amsOSRAM.Actions.Containers
 {
     public class CustomTerminateVendorContainer : DeeDevBase
     {
@@ -33,9 +34,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Containers
 
             bool canExecute = false;
 
-            Input.TryGetValueAs(Navigo.Common.Constants.Container, out Container container);
+            Input.TryGetValueAs(Navigo.Common.Constants.Container, out IContainer container);
 
-            if (container != null && Config.TryGetConfig(AMSOsramConstants.DefaultVendorContainerTypesConfig, out Config containerTypesConfig) &&
+            if (container != null && Config.TryGetConfig(amsOSRAMConstants.DefaultVendorContainerTypesConfig, out IConfig containerTypesConfig) &&
                 !string.IsNullOrWhiteSpace(containerTypesConfig.GetConfigValue<string>()))
             {
                 List<string> containerTypes = (containerTypesConfig.GetConfigValue<string>()).Split(new string[] { "," },
@@ -61,13 +62,11 @@ namespace Cmf.Custom.AMSOsram.Actions.Containers
         {
             //---Start DEE Code---
 
-            UseReference("", "System.Threading");
-            UseReference("", "Cmf.Foundation.BusinessObjects.Cultures");
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.Extensions");
+            // Custom
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.Extensions");
 
-            Input.TryGetValueAs(Navigo.Common.Constants.Container, out Container container);
+            Input.TryGetValueAs(Navigo.Common.Constants.Container, out IContainer container);
 
             // It will only terminate if the container is not docked
             if (container.ContainerResourceRelations == null || container.ContainerResourceRelations.Count == 0)

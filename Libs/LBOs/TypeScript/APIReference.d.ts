@@ -1,5 +1,5 @@
 declare const _default: {
-    AMSOsram: {
+    amsOSRAM: {
         FullNamespace: string;
         APIs: {
             MaterialIn: {
@@ -17,7 +17,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -99,7 +99,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -140,7 +140,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -181,7 +181,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -227,7 +227,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -262,16 +262,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -303,16 +303,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -432,7 +432,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -467,16 +467,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -508,16 +508,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -555,7 +555,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -596,7 +596,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -636,16 +636,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -683,7 +683,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -723,16 +723,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -770,7 +770,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -805,16 +805,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -846,16 +846,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -893,7 +893,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -928,16 +928,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -975,7 +975,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -1144,7 +1144,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -1185,7 +1185,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -1198,47 +1198,6 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            GetChangeSets: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -1917,16 +1876,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -2046,7 +2005,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -2081,16 +2040,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -2368,16 +2327,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -2450,16 +2409,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -2614,16 +2573,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -2655,16 +2614,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -3070,16 +3029,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -3280,16 +3239,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -3327,7 +3286,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -3362,16 +3321,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -3409,7 +3368,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -3450,7 +3409,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -3491,7 +3450,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -3532,7 +3491,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -3567,16 +3526,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -3608,16 +3567,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -3655,7 +3614,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -3690,16 +3649,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -3731,16 +3690,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -3778,7 +3737,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -3813,16 +3772,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -3854,16 +3813,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -3901,7 +3860,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -4029,7 +3988,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -4351,16 +4310,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -4433,16 +4392,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -4474,16 +4433,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -4515,16 +4474,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -4638,16 +4597,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -4849,7 +4808,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -4884,16 +4843,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -4925,16 +4884,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -4966,16 +4925,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -5007,6 +4966,25 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -5017,6 +4995,28 @@ declare const _default: {
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    })[];
+                };
+            };
+            AbortAutomationJobs: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -5048,16 +5048,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -5141,7 +5141,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -5182,7 +5182,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -5217,16 +5217,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -5264,7 +5264,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -5545,16 +5545,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -5586,16 +5586,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -5633,17 +5633,10 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
                         ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
-                        FullNamespace: any;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -5681,7 +5674,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -5716,16 +5709,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -5757,16 +5750,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -5798,16 +5791,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -5839,16 +5832,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -5962,16 +5955,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -6044,16 +6037,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -6091,7 +6084,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -6167,16 +6160,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -6208,16 +6201,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -6255,7 +6248,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -6296,7 +6289,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -6588,7 +6581,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -6696,7 +6689,7 @@ declare const _default: {
                     })[];
                 };
             };
-            LoadDocumentVersionEmployeeTracking: {
+            LoadDocumentEmployeeTracking: {
                 Description: string;
                 Input: {
                     Name: string;
@@ -6746,16 +6739,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -6834,7 +6827,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -6874,16 +6867,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -6915,16 +6908,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -6956,16 +6949,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7003,7 +6996,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -7044,7 +7037,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -7079,16 +7072,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7120,16 +7113,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7167,7 +7160,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -7202,16 +7195,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7243,16 +7236,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7284,16 +7277,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7325,16 +7318,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7366,16 +7359,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7407,16 +7400,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7448,16 +7441,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7489,16 +7482,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7530,16 +7523,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7577,7 +7570,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -7618,7 +7611,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -7659,7 +7652,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -7700,7 +7693,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -7741,7 +7734,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -7776,16 +7769,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7817,16 +7810,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7858,16 +7851,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7899,16 +7892,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7940,16 +7933,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -7981,16 +7974,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8022,16 +8015,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8063,16 +8056,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8104,16 +8097,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8145,16 +8138,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8186,16 +8179,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8233,7 +8226,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -8268,6 +8261,25 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -8278,6 +8290,28 @@ declare const _default: {
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    })[];
+                };
+            };
+            ExecuteReadOnlyAction: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8315,7 +8349,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -8350,16 +8384,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8397,7 +8431,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -8432,16 +8466,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8473,16 +8507,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8514,16 +8548,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8555,16 +8589,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8596,16 +8630,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8637,16 +8671,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8678,16 +8712,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8719,16 +8753,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8760,16 +8794,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8806,16 +8840,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8853,7 +8887,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -8888,16 +8922,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -8935,7 +8969,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -8970,16 +9004,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9011,16 +9045,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9052,16 +9086,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9093,16 +9127,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9134,16 +9168,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9175,16 +9209,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9216,16 +9250,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9257,16 +9291,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9298,16 +9332,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9339,16 +9373,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9380,16 +9414,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9421,16 +9455,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9462,16 +9496,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9503,16 +9537,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9544,16 +9578,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9585,16 +9619,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9626,16 +9660,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9673,7 +9707,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -9714,7 +9748,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -9749,16 +9783,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9790,16 +9824,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9831,16 +9865,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9878,7 +9912,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -9913,16 +9947,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9954,16 +9988,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -9995,16 +10029,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -10036,16 +10070,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -10083,7 +10117,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -10124,7 +10158,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -10159,16 +10193,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -10200,16 +10234,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -10247,7 +10281,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -10288,7 +10322,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -10323,16 +10357,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -10369,16 +10403,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -10580,7 +10614,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -10621,7 +10655,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -10662,7 +10696,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -10697,16 +10731,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -10744,7 +10778,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -10785,7 +10819,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -10826,7 +10860,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -10867,7 +10901,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -10902,16 +10936,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -10943,16 +10977,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -10984,16 +11018,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -11031,7 +11065,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -11072,7 +11106,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -11113,7 +11147,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -11148,16 +11182,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -11189,16 +11223,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -11230,16 +11264,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -11277,7 +11311,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -11318,7 +11352,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -11353,16 +11387,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -11394,16 +11428,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -11441,7 +11475,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -11476,16 +11510,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -11523,7 +11557,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -11558,16 +11592,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -11682,6 +11716,47 @@ declare const _default: {
     GenericService: {
         FullNamespace: string;
         APIs: {
+            UpdateAttachment: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
             UploadDocument: {
                 Description: string;
                 Input: {
@@ -11697,7 +11772,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -11738,7 +11813,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -11779,7 +11854,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -11820,7 +11895,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -11861,48 +11936,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    })[];
-                };
-            };
-            CreateObjectWithVersion: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -11937,16 +11971,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -11978,16 +12012,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12019,16 +12053,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12066,7 +12100,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -12101,16 +12135,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12148,7 +12182,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -12183,16 +12217,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12224,16 +12258,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12265,6 +12299,25 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -12275,6 +12328,28 @@ declare const _default: {
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    })[];
+                };
+            };
+            BulkUpdateObjects: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12306,16 +12381,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12347,16 +12422,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12388,16 +12463,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12429,16 +12504,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12470,16 +12545,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12511,16 +12586,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12552,16 +12627,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12593,16 +12668,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12634,16 +12709,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12675,16 +12750,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12716,16 +12791,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12757,16 +12832,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12798,16 +12873,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12839,16 +12914,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12880,16 +12955,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12921,16 +12996,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -12962,16 +13037,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -13003,16 +13078,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -13044,16 +13119,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -13085,16 +13160,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -13114,129 +13189,6 @@ declare const _default: {
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
-                    })[];
-                };
-            };
-            AddObjectsStateModels: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            RemoveObjectsStateModels: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            AdjustObjectsState: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
                     })[];
                 };
             };
@@ -13249,16 +13201,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -13296,7 +13248,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -13372,16 +13324,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -13445,47 +13397,6 @@ declare const _default: {
                     })[];
                 };
             };
-            TerminateAllVersions: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    })[];
-                };
-            };
             BatchExecute: {
                 Description: string;
                 Input: {
@@ -13495,16 +13406,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -13568,9 +13479,28 @@ declare const _default: {
                     })[];
                 };
             };
-            LoadObjectAttributes: {
+            CloneObjectRevision: {
                 Description: string;
                 Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
                     Name: string;
                     FullNamespace: string;
                     Properties: ({
@@ -13587,6 +13517,69 @@ declare const _default: {
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    })[];
+                };
+            };
+            CompareEntity: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            LoadObjectAttributes: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -13618,16 +13611,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -13741,16 +13734,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -13782,16 +13775,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -13823,16 +13816,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -13987,16 +13980,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -14028,16 +14021,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -14075,7 +14068,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -14116,7 +14109,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -14151,16 +14144,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -14192,16 +14185,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -14233,16 +14226,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -14280,7 +14273,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -14315,16 +14308,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -14356,16 +14349,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -14397,16 +14390,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -14444,7 +14437,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -14479,16 +14472,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -14526,7 +14519,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -14561,16 +14554,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -14608,7 +14601,171 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            SetRevisionsObsolete: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            ReactivateRevisions: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            ManageDefaultRevisionDates: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            GetEntityRevisionsAsDataSet: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -14649,7 +14806,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -14684,16 +14841,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -14725,16 +14882,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -14766,16 +14923,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -14813,7 +14970,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -14848,16 +15005,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -14889,16 +15046,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -14930,16 +15087,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -14977,7 +15134,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -15018,7 +15175,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -15059,7 +15216,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -15100,7 +15257,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -15123,47 +15280,6 @@ declare const _default: {
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
-                    })[];
-                };
-            };
-            UpdateAttachment: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
                     })[];
                 };
             };
@@ -15263,16 +15379,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -15351,7 +15467,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -15433,7 +15549,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -15468,16 +15584,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -15520,7 +15636,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -15561,7 +15677,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -15602,7 +15718,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -15643,7 +15759,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -15684,7 +15800,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -15730,7 +15846,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -15765,16 +15881,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -15805,17 +15921,17 @@ declare const _default: {
                     Properties: ({
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
                         ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -15847,16 +15963,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -15888,16 +16004,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -15929,16 +16045,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -16109,7 +16225,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -16283,7 +16399,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -16324,7 +16440,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -16359,16 +16475,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -16400,16 +16516,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -16441,16 +16557,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -16482,16 +16598,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -16523,16 +16639,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -16570,7 +16686,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -16605,16 +16721,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -16646,16 +16762,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -16687,16 +16803,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -16728,16 +16844,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -16774,16 +16890,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -16821,7 +16937,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -16862,7 +16978,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -16903,7 +17019,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -16938,16 +17054,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -16985,7 +17101,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -17072,7 +17188,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -17113,7 +17229,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -17154,7 +17270,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -17189,16 +17305,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -17236,7 +17352,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -17446,7 +17562,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -17487,7 +17603,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -17887,6 +18003,88 @@ declare const _default: {
     Security: {
         FullNamespace: string;
         APIs: {
+            GetAllFunctionalities: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            GetFunctionalities: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
             GetFunctionalityGroups: {
                 Description: string;
                 Input: {
@@ -17902,7 +18100,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -17937,16 +18135,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -17978,16 +18176,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18019,16 +18217,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18060,16 +18258,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18101,16 +18299,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18142,16 +18340,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18183,16 +18381,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18224,16 +18422,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18265,16 +18463,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18312,7 +18510,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -18353,7 +18551,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -18394,7 +18592,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -18435,7 +18633,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -18476,7 +18674,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -18517,7 +18715,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -18558,7 +18756,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -18593,16 +18791,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18634,16 +18832,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18675,16 +18873,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18716,16 +18914,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18757,16 +18955,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18798,16 +18996,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18839,16 +19037,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18880,16 +19078,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18921,16 +19119,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -18962,16 +19160,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19003,16 +19201,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19044,16 +19242,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19091,7 +19289,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -19126,16 +19324,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19167,16 +19365,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19208,16 +19406,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19255,7 +19453,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -19296,7 +19494,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -19331,16 +19529,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19378,7 +19576,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -19419,7 +19617,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -19454,16 +19652,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19495,16 +19693,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19536,16 +19734,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19583,7 +19781,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -19624,7 +19822,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -19665,7 +19863,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -19700,16 +19898,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19741,16 +19939,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19782,16 +19980,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19823,16 +20021,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19864,16 +20062,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19905,16 +20103,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19946,16 +20144,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -19993,7 +20191,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -20034,7 +20232,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -20075,7 +20273,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -20116,7 +20314,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -20151,16 +20349,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -20198,7 +20396,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -20233,16 +20431,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -20280,7 +20478,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -20315,16 +20513,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -20356,16 +20554,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -20388,6 +20586,47 @@ declare const _default: {
                     })[];
                 };
             };
+            GetUserGrafanaInfo: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+            };
             AddUsersToRole: {
                 Description: string;
                 Input: {
@@ -20397,16 +20636,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -20438,16 +20677,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -20479,16 +20718,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -20526,7 +20765,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -20567,7 +20806,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -20608,7 +20847,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -20643,16 +20882,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -20684,16 +20923,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -20725,16 +20964,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -20766,16 +21005,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -20807,16 +21046,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -20848,16 +21087,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -20889,16 +21128,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -20930,16 +21169,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -20971,16 +21210,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21053,16 +21292,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21094,16 +21333,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21135,16 +21374,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21182,7 +21421,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -21217,16 +21456,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21264,7 +21503,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -21299,16 +21538,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21346,7 +21585,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -21381,16 +21620,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21422,16 +21661,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21463,16 +21702,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21504,16 +21743,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21545,16 +21784,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21592,7 +21831,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -21627,16 +21866,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21668,16 +21907,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21709,16 +21948,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21750,16 +21989,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21791,16 +22030,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21832,23 +22071,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
+                        ScalarType: string;
                         CollectionType: string;
-                        FullNamespace: string;
+                        FullNamespace: any;
                     } | {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
-                        FullNamespace: any;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21880,16 +22112,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21921,16 +22153,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -21962,16 +22194,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22009,7 +22241,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -22050,7 +22282,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -22091,7 +22323,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -22126,16 +22358,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22167,16 +22399,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22208,16 +22440,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22249,16 +22481,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22290,16 +22522,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22331,16 +22563,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22372,16 +22604,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22413,98 +22645,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            GetAllFunctionalities: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            GetFunctionalities: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
                     })[];
                 };
                 Output: {
@@ -22541,16 +22691,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22588,7 +22738,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -22629,7 +22779,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -22664,16 +22814,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22705,16 +22855,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22746,16 +22896,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22787,16 +22937,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22828,16 +22978,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22869,16 +23019,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22910,16 +23060,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22951,16 +23101,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -22992,16 +23142,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23033,16 +23183,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23074,16 +23224,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23121,7 +23271,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -23162,7 +23312,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -23197,16 +23347,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23238,16 +23388,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23279,16 +23429,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23320,16 +23470,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23361,16 +23511,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23402,16 +23552,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23443,16 +23593,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23484,16 +23634,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23525,16 +23675,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23566,16 +23716,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23607,16 +23757,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23648,16 +23798,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23689,16 +23839,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23735,16 +23885,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23776,16 +23926,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -23823,7 +23973,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -23864,7 +24014,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -23905,7 +24055,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -23946,7 +24096,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -23981,16 +24131,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24022,16 +24172,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24063,16 +24213,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24104,16 +24254,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24145,16 +24295,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24186,16 +24336,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24227,16 +24377,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24268,16 +24418,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24309,16 +24459,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24356,7 +24506,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -24391,16 +24541,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24432,16 +24582,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24473,16 +24623,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24514,16 +24664,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24555,16 +24705,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24596,16 +24746,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24643,7 +24793,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -24684,7 +24834,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -24725,7 +24875,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -24766,7 +24916,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -24801,16 +24951,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24842,16 +24992,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24883,16 +25033,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24924,16 +25074,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -24965,16 +25115,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25006,16 +25156,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25047,16 +25197,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25088,16 +25238,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25211,16 +25361,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25252,16 +25402,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25293,16 +25443,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25334,16 +25484,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25375,16 +25525,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25416,16 +25566,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25463,7 +25613,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -25498,16 +25648,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25580,16 +25730,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25621,16 +25771,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25668,7 +25818,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -25709,7 +25859,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -25744,16 +25894,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25785,16 +25935,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25826,16 +25976,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25867,16 +26017,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25908,16 +26058,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -25949,16 +26099,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -26001,7 +26151,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -26083,7 +26233,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -26165,7 +26315,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -26206,7 +26356,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -26252,7 +26402,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -26293,7 +26443,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -26369,6 +26519,47 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            LoadUIPagePresets: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -26388,6 +26579,88 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            FullUpdateUIPage: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            GetPinnedDashboards: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -26421,7 +26694,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -26456,16 +26729,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -26502,16 +26775,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -26543,16 +26816,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -26584,16 +26857,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -26625,16 +26898,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -26672,7 +26945,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -26707,16 +26980,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -26754,7 +27027,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -26794,16 +27067,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -26841,7 +27114,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -26882,7 +27155,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -26923,7 +27196,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -26964,7 +27237,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -27005,7 +27278,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -27046,7 +27319,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -27081,16 +27354,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -27122,16 +27395,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -27168,16 +27441,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -27256,7 +27529,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -27794,7 +28067,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -27829,16 +28102,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -28075,16 +28348,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -28326,16 +28599,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -28619,7 +28892,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -28660,7 +28933,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -29146,16 +29419,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -29802,16 +30075,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -30208,6 +30481,47 @@ declare const _default: {
                     })[];
                 };
             };
+            GetMaterialsForTrackInForMaintenance: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
             GetUndispatchableMaterial: {
                 Description: string;
                 Input: {
@@ -30340,16 +30654,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -30381,16 +30695,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -30422,16 +30736,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -30463,16 +30777,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -30504,16 +30818,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -30545,16 +30859,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -30586,16 +30900,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -30633,7 +30947,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -30674,7 +30988,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -30709,16 +31023,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -30750,16 +31064,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -30791,16 +31105,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -30832,16 +31146,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -30873,16 +31187,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -30914,16 +31228,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -30955,16 +31269,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -30996,16 +31310,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -31078,16 +31392,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -31119,16 +31433,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -31160,16 +31474,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -31201,16 +31515,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -31242,16 +31556,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -31283,16 +31597,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -31324,16 +31638,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -31535,7 +31849,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -31576,7 +31890,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -32641,16 +32955,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -33823,6 +34137,13 @@ declare const _default: {
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: any;
                     })[];
                 };
             };
@@ -36505,16 +36826,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -36546,16 +36867,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -37161,16 +37482,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -37202,16 +37523,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -37243,16 +37564,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -37284,16 +37605,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -37325,16 +37646,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -37582,7 +37903,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -37705,7 +38026,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -37759,6 +38080,47 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            ManageExperimentMaterials: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -38606,16 +38968,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -38688,16 +39050,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -39381,6 +39743,88 @@ declare const _default: {
     Flow: {
         FullNamespace: string;
         APIs: {
+            UpdateStepCertificationRequirementsContexts: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            AddStepLineFlowContexts: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
             RemoveStepLineFlowContexts: {
                 Description: string;
                 Input: {
@@ -39800,16 +40244,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -39929,7 +40373,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -39970,7 +40414,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -40667,7 +41111,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -40708,7 +41152,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -40743,16 +41187,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -41063,6 +41507,47 @@ declare const _default: {
                 };
             };
             LoadStepServiceContexts: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            LoadStepSplitAndTrackOutContexts: {
                 Description: string;
                 Input: {
                     Name: string;
@@ -41733,7 +42218,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -43276,88 +43761,6 @@ declare const _default: {
                     })[];
                 };
             };
-            UpdateStepCertificationRequirementsContexts: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            AddStepLineFlowContexts: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
         };
     };
     Calendar: {
@@ -43419,7 +43822,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -43460,7 +43863,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -44116,7 +44519,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -44157,7 +44560,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -44192,16 +44595,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -44695,7 +45098,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -44736,7 +45139,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -44771,16 +45174,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -44812,16 +45215,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -45556,7 +45959,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -45597,7 +46000,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -45632,16 +46035,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -45679,7 +46082,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -45720,7 +46123,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -46247,6 +46650,47 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            GetAreaResourcesForTrainer: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -46498,16 +46942,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -46539,16 +46983,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -46662,16 +47106,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -46878,7 +47322,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -46913,16 +47357,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -47077,16 +47521,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -47118,16 +47562,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -47159,16 +47603,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -47200,16 +47644,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -47241,16 +47685,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -47323,16 +47767,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -47478,9 +47922,28 @@ declare const _default: {
                     })[];
                 };
             };
-            ManageResourceEmployees: {
+            GetTraineesForResource: {
                 Description: string;
                 Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
                     Name: string;
                     FullNamespace: string;
                     Properties: ({
@@ -47497,6 +47960,28 @@ declare const _default: {
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    })[];
+                };
+            };
+            ManageResourceEmployees: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -47569,16 +48054,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -47897,16 +48382,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -47979,16 +48464,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -48266,16 +48751,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -48307,16 +48792,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -48348,16 +48833,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -48389,16 +48874,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -48430,16 +48915,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -48790,14 +49275,28 @@ declare const _default: {
                     })[];
                 };
             };
-        };
-    };
-    Maintenance: {
-        FullNamespace: string;
-        APIs: {
-            GetMaintenancePlanInstanceAndMaintenancePlanForEntity: {
+            CheckOutTrainees: {
                 Description: string;
                 Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
                     Name: string;
                     FullNamespace: string;
                     Properties: ({
@@ -48814,6 +49313,33 @@ declare const _default: {
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    })[];
+                };
+            };
+        };
+    };
+    Maintenance: {
+        FullNamespace: string;
+        APIs: {
+            GetMaintenancePlanInstanceAndMaintenancePlanForEntity: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -48845,16 +49371,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -48968,16 +49494,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49009,16 +49535,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49050,16 +49576,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49173,16 +49699,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49214,16 +49740,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49255,16 +49781,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49296,16 +49822,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49337,16 +49863,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49378,16 +49904,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49419,16 +49945,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49460,16 +49986,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49501,16 +50027,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49542,16 +50068,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49583,16 +50109,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49747,16 +50273,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49788,16 +50314,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49829,16 +50355,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49870,16 +50396,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49911,16 +50437,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49952,16 +50478,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -49993,16 +50519,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -50034,16 +50560,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -50075,16 +50601,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -50239,6 +50765,25 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -50249,6 +50794,69 @@ declare const _default: {
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    })[];
+                };
+            };
+            CancelMaintenanceActivityOrders: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            ChangeMaintenanceActivityOrdersInformation: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -50285,16 +50893,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -50326,16 +50934,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -50408,16 +51016,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -50449,16 +51057,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -51234,7 +51842,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -51275,7 +51883,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -51316,7 +51924,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -51520,16 +52128,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -51602,16 +52210,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -51643,16 +52251,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -51684,16 +52292,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -51725,16 +52333,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -51766,16 +52374,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -51806,17 +52414,17 @@ declare const _default: {
                     Properties: ({
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
                         ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -51848,16 +52456,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -51889,16 +52497,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -51930,16 +52538,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -52094,16 +52702,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -52135,16 +52743,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -52176,16 +52784,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -52217,16 +52825,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -52258,16 +52866,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -52299,16 +52907,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -52340,16 +52948,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -52545,16 +53153,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -52586,16 +53194,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -52627,16 +53235,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -52709,16 +53317,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -52750,16 +53358,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -52791,16 +53399,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -52873,16 +53481,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -52914,16 +53522,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -52955,16 +53563,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -53201,16 +53809,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -53242,6 +53850,25 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -53252,6 +53879,28 @@ declare const _default: {
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    })[];
+                };
+            };
+            RegisterMaterials: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -53821,16 +54470,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -53862,16 +54511,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -53903,6 +54552,257 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+        };
+    };
+    Material: {
+        FullNamespace: string;
+        APIs: {
+            GetMaterialLineData: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            StartMaterialsFloorLifeCounter: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            StopMaterialsFloorLifeCounter: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            SealMaterials: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            ResetMaterialsFloorLife: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            GetMaterialFloorLifeInformation: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -53935,11 +54835,88 @@ declare const _default: {
                     })[];
                 };
             };
-        };
-    };
-    Material: {
-        FullNamespace: string;
-        APIs: {
+            InsertMaterialIntoLine: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+            };
+            RemoveMaterialFromLine: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+            };
             RecordMaterialDefects: {
                 Description: string;
                 Input: {
@@ -54022,9 +54999,69 @@ declare const _default: {
                     })[];
                 };
             };
-            TemporaryOffFlowMaterials: {
+            CreateSendAheadRun: {
                 Description: string;
                 Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            LoadSendAheadRunMaterials: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
                     Name: string;
                     FullNamespace: string;
                     Properties: ({
@@ -54041,6 +55078,315 @@ declare const _default: {
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    })[];
+                };
+            };
+            FullUpdateSendAheadRun: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            CancelSendAheadRun: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            RecordResultSendAheadRun: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            ReleaseWaitingMaterialsSendAheadRun: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            ExtendSendAheadRun: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            TrackInMaterialForMaintenance: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            RemoteAndLocalReceiveMaterials: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            TemporaryOffFlowMaterials: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -54236,16 +55582,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -55015,16 +56361,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -55129,6 +56475,88 @@ declare const _default: {
                     })[];
                 };
             };
+            GetDataForPerformMaterialProcess: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            PerformMaterialProcess: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
             GetDataForMoveNextWizard: {
                 Description: string;
                 Input: {
@@ -55185,7 +56613,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -55507,16 +56935,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -55548,16 +56976,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -55589,16 +57017,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -55630,16 +57058,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -55671,16 +57099,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -55712,16 +57140,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -55753,16 +57181,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -55835,16 +57263,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -55917,16 +57345,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -55958,16 +57386,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -56122,16 +57550,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -56163,6 +57591,25 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -56173,6 +57620,151 @@ declare const _default: {
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    })[];
+                };
+            };
+            GetDataForPrintMaterialLabelWizard: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            CalculateMaterialLabelsPrintLayout: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            PrintMaterialLabel: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            EvaluatePrintMaterialLabel: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -56286,16 +57878,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -56327,16 +57919,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -56368,16 +57960,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -56491,16 +58083,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -56532,16 +58124,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -56614,16 +58206,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -56655,16 +58247,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -56696,16 +58288,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -56737,16 +58329,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -57015,6 +58607,47 @@ declare const _default: {
                     })[];
                 };
             };
+            CompleteJob: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
             ProcessDispensedMaterial: {
                 Description: string;
                 Input: {
@@ -57106,16 +58739,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -57147,98 +58780,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
                     } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            GetMaterialLineData: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            StartMaterialsFloorLifeCounter: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
                     })[];
                 };
                 Output: {
@@ -57258,252 +58809,6 @@ declare const _default: {
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
-                    })[];
-                };
-            };
-            StopMaterialsFloorLifeCounter: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            SealMaterials: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            ResetMaterialsFloorLife: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            GetMaterialFloorLifeInformation: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            InsertMaterialIntoLine: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    })[];
-                };
-            };
-            RemoveMaterialFromLine: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
                     })[];
                 };
             };
@@ -57516,16 +58821,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -57680,16 +58985,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -58705,16 +60010,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -58828,16 +60133,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -58951,16 +60256,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -59402,16 +60707,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -59525,16 +60830,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -59566,16 +60871,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -59648,16 +60953,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -59730,16 +61035,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -59812,16 +61117,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -60099,16 +61404,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -60181,16 +61486,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -60433,7 +61738,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -60509,16 +61814,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -60550,16 +61855,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -60632,16 +61937,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -60878,16 +62183,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -60919,57 +62224,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            RemoteAndLocalReceiveMaterials: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
                     })[];
                 };
                 Output: {
@@ -61180,6 +62444,25 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -61190,6 +62473,28 @@ declare const _default: {
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    })[];
+                };
+            };
+            SynchronizeProductionOrdersSteps: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -61221,16 +62526,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -61262,16 +62567,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -61303,16 +62608,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -61344,16 +62649,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -61385,16 +62690,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -61426,16 +62731,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -61508,16 +62813,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -61590,6 +62895,216 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            LoadProductionOrderSteps: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            LoadProductionOrderStepDependencies: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            ManageProductionOrderSteps: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            ManageProductionOrderStepDependencies: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+        };
+    };
+    Plan: {
+        FullNamespace: string;
+        APIs: {
+            CreatePlan: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -61608,7 +63123,458 @@ declare const _default: {
                     Properties: ({
                         Name: string;
                         ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            CreatePlanScenario: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            UpdatePlan: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            LoadPlan: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            LoadPlanTimeFrames: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            LoadPlanTimeFramesAndItemsAsDataSet: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            CreatePlanTimeFramesAndItems: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            TerminatePlanTimeFramesAndItems: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            ManagePlanTargets: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            ReleasePlanScenario: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            AdjustPlanTargets: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            SynchronizePlanScenarioWithParentPlan: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -61636,16 +63602,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -61677,16 +63643,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -61718,16 +63684,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -61759,16 +63725,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -61800,16 +63766,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -61841,16 +63807,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -61882,16 +63848,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -61923,16 +63889,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -61964,16 +63930,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -62011,7 +63977,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -62046,16 +64012,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -62087,16 +64053,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -62128,16 +64094,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -62169,16 +64135,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -62338,16 +64304,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -62625,16 +64591,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -62830,6 +64796,52 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+        };
+    };
+    Resource: {
+        FullNamespace: string;
+        APIs: {
+            LoadResourceMeasurementCapabilities: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -62862,11 +64874,47 @@ declare const _default: {
                     })[];
                 };
             };
-        };
-    };
-    Resource: {
-        FullNamespace: string;
-        APIs: {
+            ManageResourceMeasurementCapabilities: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
             SetResourceInstrumentMode: {
                 Description: string;
                 Input: {
@@ -62958,16 +65006,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -63450,16 +65498,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -63573,16 +65621,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -63614,16 +65662,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -63737,16 +65785,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -64153,7 +66201,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -64235,7 +66283,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -64276,7 +66324,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -64434,16 +66482,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -64481,7 +66529,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -64522,7 +66570,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -66298,16 +68346,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
+                        ScalarType: string;
                         CollectionType: string;
-                        FullNamespace: string;
+                        FullNamespace: any;
                     } | {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: string;
+                        ScalarType: any;
                         CollectionType: string;
-                        FullNamespace: any;
+                        FullNamespace: string;
                     })[];
                 };
             };
@@ -66475,89 +68523,48 @@ declare const _default: {
                     })[];
                 };
             };
+            GetStoredContainerForResourceStorageBin: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
             ManageResourceInstruments: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            LoadResourceMeasurementCapabilities: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            ManageResourceMeasurementCapabilities: {
                 Description: string;
                 Input: {
                     Name: string;
@@ -66735,16 +68742,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -66776,16 +68783,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -66817,16 +68824,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -66981,16 +68988,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -67186,16 +69193,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -67227,16 +69234,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -67268,16 +69275,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -67525,7 +69532,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -67730,7 +69737,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -67888,16 +69895,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -67970,6 +69977,47 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            GetScheduleJobs: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -68002,7 +70050,48 @@ declare const _default: {
                     })[];
                 };
             };
-            GetScheduleJobs: {
+            GetCalculatedEffectiveJobs: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            GetUnplannedMaterialsForStepOrResource: {
                 Description: string;
                 Input: {
                     Name: string;
@@ -68222,7 +70311,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -68298,16 +70387,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -68339,16 +70428,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -68380,16 +70469,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -68421,16 +70510,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -68494,7 +70583,7 @@ declare const _default: {
                     })[];
                 };
             };
-            GetScheduleJobsDetails: {
+            GetEffectiveJobsTimeline: {
                 Description: string;
                 Input: {
                     Name: string;
@@ -68502,7 +70591,7 @@ declare const _default: {
                     Properties: ({
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -68535,9 +70624,28 @@ declare const _default: {
                     })[];
                 };
             };
-            GetScheduleScenarioJobsDetails: {
+            GetScheduleJobsDetails: {
                 Description: string;
                 Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
                     Name: string;
                     FullNamespace: string;
                     Properties: ({
@@ -68556,6 +70664,28 @@ declare const _default: {
                         FullNamespace: any;
                     })[];
                 };
+            };
+            GetEffectiveJobsDetails: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
                 Output: {
                     Name: string;
                     FullNamespace: string;
@@ -68563,6 +70693,252 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            GetScheduleScenarioJobsDetails: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            AddScheduleMaterials: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            DeleteScheduleMaterials: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            AddScheduleScenarioMaintenanceActivities: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            DeleteScheduleScenarioMaintenanceActivities: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+            };
+            ManageScheduleScenarioJobDependencies: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -69406,47 +71782,6 @@ declare const _default: {
                     })[];
                 };
             };
-            UpdateChartContextInformation: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
             LoadLogicalCharts: {
                 Description: string;
                 Input: {
@@ -69530,47 +71865,6 @@ declare const _default: {
                 };
             };
             AddChartRules: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            UpdateChartRules: {
                 Description: string;
                 Input: {
                     Name: string;
@@ -69817,416 +72111,6 @@ declare const _default: {
                 };
             };
             SetChartLimits: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            CreateLogicalChart: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            UpdateLogicalChart: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            LoadLogicalChartAttributes: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            UpdateLogicalChartAttributes: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            RemoveLogicalChartAttributes: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            LoadLogicalChartRelations: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            AddLogicalChartRelations: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            UpdateLogicalChartRelations: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            RemoveLogicalChartRelations: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            FullUpdateLogicalChart: {
                 Description: string;
                 Input: {
                     Name: string;
@@ -70645,16 +72529,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -70664,170 +72548,6 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            LoadChartDataPointRelations: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            AddChartDataPointRelations: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            RemoveChartDataPointRelations: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            UpdateChartDataPointRelations: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -71046,212 +72766,7 @@ declare const _default: {
                     })[];
                 };
             };
-            UpdateChartDataPoint: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            LoadChartDataPointAttributes: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            UpdateChartDataPointAttributes: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            RemoveChartDataPointAttributes: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
             LoadChartDataPointContext: {
-                Description: string;
-                Input: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-                Output: {
-                    Name: string;
-                    FullNamespace: string;
-                    Properties: ({
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: string;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
-                        ScalarType: string;
-                        CollectionType: string;
-                        FullNamespace: any;
-                    })[];
-                };
-            };
-            UpdateChartDataPointContext: {
                 Description: string;
                 Input: {
                     Name: string;
@@ -71511,16 +73026,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -71552,16 +73067,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -71675,16 +73190,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -71722,7 +73237,7 @@ declare const _default: {
                     } | {
                         Name: string;
                         ReferenceType: string;
-                        ReferenceTypeName: any;
+                        ReferenceTypeName: string;
                         ScalarType: any;
                         CollectionType: string;
                         FullNamespace: string;
@@ -71880,16 +73395,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -71921,16 +73436,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -72085,16 +73600,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -72167,16 +73682,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -72208,16 +73723,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -72290,16 +73805,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -72331,16 +73846,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {
@@ -72413,16 +73928,16 @@ declare const _default: {
                         Name: string;
                         ReferenceType: string;
                         ReferenceTypeName: any;
-                        ScalarType: any;
-                        CollectionType: string;
-                        FullNamespace: string;
-                    } | {
-                        Name: string;
-                        ReferenceType: string;
-                        ReferenceTypeName: any;
                         ScalarType: string;
                         CollectionType: string;
                         FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
                     })[];
                 };
                 Output: {

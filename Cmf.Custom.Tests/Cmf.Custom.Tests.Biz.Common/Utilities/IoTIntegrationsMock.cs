@@ -2,12 +2,9 @@
 using Cmf.Foundation.BusinessOrchestration.DataPlatform.Domain;
 using Cmf.Navigo.BusinessObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cmf.Custom.Tests.Biz.Common.Utilities
 {

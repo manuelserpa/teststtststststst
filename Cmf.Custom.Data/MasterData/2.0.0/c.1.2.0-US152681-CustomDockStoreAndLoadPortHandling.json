@@ -1,0 +1,28 @@
+{
+  "<SM>DEEAction": {
+    "1": {
+      "Action": "CustomAutomationAdjustLoadPortState",
+      "Description": "Action responsible for adjusting Load Port States and handling their behavior",
+      "CodeFileRelativePath": "Automation//CustomAutomationAdjustLoadPortState.cs",
+      "IsEnabled": "Yes",
+      "Classification": "ConnectIoT"
+    },
+    "2": {
+      "Action": "CustomDockStoreIoT",
+      "Description": "Action responsible for docking or storing a container from IoT",
+      "CodeFileRelativePath": "Automation//CustomDockStoreIoT.cs",
+      "IsEnabled": "Yes",
+      "Classification": "ConnectIoT"
+    }
+  },
+  "DEEActionOrder": {
+  },
+  "<DM>Rule": {
+    "1": {
+      "Name": "CustomDockStoreIoT",
+      "Description": "",
+      "Scope": "ConnectIoT",
+      "DEERule": "CustomDockStoreIoT"
+    }
+  }
+}

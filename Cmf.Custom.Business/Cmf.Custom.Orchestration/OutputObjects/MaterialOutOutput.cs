@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using Cmf.Foundation.BusinessOrchestration;
 
-namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
+namespace Cmf.Custom.amsOSRAM.Orchestration.OutputObjects
 {
     /// <summary>
     /// Output Object for MaterialOut Service

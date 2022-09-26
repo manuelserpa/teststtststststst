@@ -1,0 +1,34 @@
+{
+	"WorksheetNameMapping": {
+		"1": {
+			"WorksheetName": "CertifReqQualif",
+			"Value": "CertificationRequiredQualification"
+		},
+		"2": {
+			"WorksheetName": "AutomationInstances",
+			"Value": "<DM>AutomationControllerInstance"
+		},
+		"3": {
+			"WorksheetName": "MaterialDCContext",
+			"Value": "<ST>MaterialDataCollectionContext"
+		}
+	},
+	"DEEActionOrder": {},
+	"<SM>DEEAction": {
+		"1": {
+			"Action": "CustomAutomationSetCustomResourceState",
+			"Description": "",
+			"CodeFileRelativePath": "Automation//CustomAutomationSetCustomResourceState.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		},
+		"2": {
+			"Action": "CustomAutomationAdjustLoadPortState",
+			"Description": "",
+			"CodeFileRelativePath": "Automation//CustomAutomationAdjustLoadPortState.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		}
+	},
+	"<SM>Config": {}
+}
