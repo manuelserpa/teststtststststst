@@ -13,7 +13,7 @@ resources:
  pipelines:
    - pipeline: CIPublish
      source: CI-Publish
-     branch: 'development-173973-migrate-to-v9'
+     branch: $(Build.SourceBranch)
      project: 'amsOSRAM'
      trigger: true
 
