@@ -1,7 +1,7 @@
 # Nice Label Print
 
 ## Requirement Specification
-When performing a track out a DEE action will be executed resolving the information present on the Smart Table
+When performing a track out a DEE action will be executed resolving the information present on the SmartTable
 
 ## Design Specification
 
@@ -10,11 +10,11 @@ The table below describes the artifacts for this feature:
 
 Name          | Type      | Is Mandatory | Data Type | Description 
 :------------ | :-------- | :----------: | :-------- | :-----------
-[CustomMaterialNiceLabelPrintContext](/cmf.custom.help/cmf.custom.help.techspec>cmf.custom.help.artifacts>cmf.custom.help.smarttables>CustomMaterialNiceLabelPrintContext) | Smart Table | Yes | -- |
+[CustomMaterialNiceLabelPrintContext](/cmf.custom.help/techspec>artifacts>smarttables>CustomMaterialNiceLabelPrintContext) | Smart Table | Yes | -- |
 
 
 ### How it works
-Upon execution, this feature collects the available information to resolve the Smart Table **[CustomMaterialNiceLabelPrintContext](/cmf.custom.help/cmf.custom.help.techspec>cmf.custom.help.artifacts>cmf.custom.help.smarttables>CustomMaterialNiceLabelPrintContext)**.  
+Upon execution, this feature collects the available information to resolve the Smart Table **[CustomMaterialNiceLabelPrintContext](/cmf.custom.help/techspec>artifacts>smarttables>CustomMaterialNiceLabelPrintContext)**.  
 The information that results is attached to the other required fields to later be sent to the printer.
 The result of this functionality should be a list containing the following fields:
 * Label - The label to be printed;

@@ -12,15 +12,15 @@ The table below describes the properties for this entity type:
 | :---------------------------- | :------------ | :-----------: | :-------- | :------------------------------------------------------------------------ |  
 | GoodsIssue                    | Configuration |       No      |   String  | Configuration with the movement Type                                      |
 | Site_Code                     | Attribute     |       No      |   String  | Attribute that contains the site code to be sent to the ERP               |
-|  [Custom Report Consumption To SAP](/cmf.custom.help/cmf.custom.help.techspec>cmf.custom.help.artifacts>cmf.custom.help.smarttables>CustomReportConsumptionToSAP)  | Smart Table   |       Yes     |           | Smart Table containing the StorageLocation                                |
+|  [Custom Report Consumption To SAP](/cmf.custom.help/techspec>artifacts>smarttables>CustomReportConsumptionToSAP)  | Smart Table   |       Yes     |           | Smart Table containing the StorageLocation                                |
 | MessageType                   | Lookup Table  |       Yes     |           | Lookup Table that contains the type of the Integration Entry to generate  |
-| [Custom Create Goods Issue Message](/cmf.custom.help/cmf.custom.help.techspec>cmf.custom.help.artifacts>cmf.custom.help.deeactions>CustomCreateGoodsIssueMessage) | DEE Action    |       Yes     |           | DEE Action to create an Integration Entry with Goods Issue information    |
+| [Custom Create Goods Issue Message](/cmf.custom.help/techspec>artifacts>deeactions>CustomCreateGoodsIssueMessage) | DEE Action    |       Yes     |           | DEE Action to create an Integration Entry with Goods Issue information    |
 | CustomSendProcessMessage      | DEE Action    |       Yes     |           | DEE Action to send the information about the Goods Issue to SAP           |
 
 ### How it works
-When a material is tracked in the DEE [Custom Create Goods Issue Message](/cmf.custom.help/cmf.custom.help.techspec>cmf.custom.help.artifacts>cmf.custom.help.deeactions>CustomCreateGoodsIssueMessage) is executed validating that each of the materials that are tracked in corresponde with the followinf validations:
+When a material is tracked in the DEE [Custom Create Goods Issue Message](/cmf.custom.help/techspec>artifacts>deeactions>CustomCreateGoodsIssueMessage) is executed validating that each of the materials that are tracked in correspondent with the following validations:
 * CustomReportConsumptionToSAP Smart Table resolves information about the **Storage Location**.
-* The material has a Production Order asssociated and is on the **initial Step**.
+* The material has a Production Order associated and is on the **initial Step**.
 * The material is of type **Lot**.
 Only the materials that satisfy these conditions will have generated an Integration Entry (*One Integration Entry per material!*).
 Once the **Integration Entries** are created then the CustomSendProcessMessage Will send each one to the ERP.

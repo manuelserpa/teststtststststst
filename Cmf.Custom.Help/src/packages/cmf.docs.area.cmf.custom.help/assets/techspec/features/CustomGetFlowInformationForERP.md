@@ -23,7 +23,7 @@ The table below describes the services that are used on this feature.
 
 | Service | Description |
 | ------- | ----------- |
-| [GetFlowInformationForERP](/cmf.custom.help/cmf.custom.help.techspec>cmf.custom.help.artifacts>services>GetFlowInformationForERP) | Service to provide Flow information to ERP. |
+| [GetFlowInformationForERP](/cmf.custom.help/techspec>artifacts>services>GetFlowInformationForERP) | Service to provide Flow information to ERP. |
 
 ### Assumptions
 

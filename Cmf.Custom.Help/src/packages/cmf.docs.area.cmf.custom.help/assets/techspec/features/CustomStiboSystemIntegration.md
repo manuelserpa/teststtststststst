@@ -26,7 +26,7 @@ The table below describes the services that are used on this feature.
 
 | Service                                                                                      | Description                                                                          |
 | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| [CustomReceiveStiboMessage](/cmf.custom.help/cmf.custom.help.techspec>cmf.custom.help.artifacts>cmf.custom.help.services>CustomReceiveStiboMessage) | Service to receive an Stibo Message and create an **Integration Entry** accordingly. |
+| [CustomReceiveStiboMessage](/cmf.custom.help/techspec>artifacts>services>CustomReceiveStiboMessage) | Service to receive an Stibo Message and create an **Integration Entry** accordingly. |
 
 ### Assumptions
 N/A.

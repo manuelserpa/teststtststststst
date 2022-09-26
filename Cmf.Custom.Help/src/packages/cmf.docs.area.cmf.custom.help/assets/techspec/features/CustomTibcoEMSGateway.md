@@ -18,9 +18,9 @@ The table below describes the relevant artifacts for this feature:
 
 | Name  | Type | Description |
 | :---- | :--: | :---------- |
-| [CustomTibcoEMSGatewayResolver](/cmf.custom.help/cmf.custom.help.techspec>cmf.custom.help.artifacts>cmf.custom.help.generictables>CustomTibcoEMSGatewayResolver) | Generic Table | Contains the configurations of messages from MES that need to be sent to Tibco. |
-| [CustomInvalidateCache](/cmf.custom.help/cmf.custom.help.techspec>cmf.custom.help.artifacts>cmf.custom.help.deeactions>CustomInvalidateCache) | DEE Action | Action to invalidate cache for Generic Table Tibco Resolver. |
-| [CustomGetTibcoConfigurations](/cmf.custom.help/cmf.custom.help.techspec>cmf.custom.help.artifacts>cmf.custom.help.deeactions>CustomGetTibcoConfigurations) | DEE Action | Action to get Tibco configurations. |
+| [CustomTibcoEMSGatewayResolver](/cmf.custom.help/techspec>artifacts>generictables>CustomTibcoEMSGatewayResolver) | Generic Table | Contains the configurations of messages from MES that need to be sent to Tibco. |
+| [CustomInvalidateCache](/cmf.custom.help/techspec>artifacts>deeactions>CustomInvalidateCache) | DEE Action | Action to invalidate cache for Generic Table Tibco Resolver. |
+| [CustomGetTibcoConfigurations](/cmf.custom.help/techspec>artifacts>deeactions>CustomGetTibcoConfigurations) | DEE Action | Action to get Tibco configurations. |
 | /amsOSRAM/TibcoEMS/IsEnabled/ | Config | Configuration to set TibcoEMS availability. |
 | /amsOSRAM/TibcoEMS/Host/ | Config | Configuration to set TibcoEMS Host value. |
 | /amsOSRAM/TibcoEMS/Username/ | Config | Configuration to set TibcoEMS Username value. |

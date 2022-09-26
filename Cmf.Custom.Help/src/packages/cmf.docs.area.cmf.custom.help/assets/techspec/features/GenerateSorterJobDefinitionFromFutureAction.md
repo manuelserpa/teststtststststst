@@ -10,20 +10,19 @@ The table below describes the properties for this entity type:
 
 Name          | Type      | Is Mandatory | Data Type | Description 
 :------------ | :-------- | :----------: | :-------- | :-----------
-[CustomGenerateSorterJobDefinitionFromFutureAction](/Cree/TechSpec>Artifacts>deeactions>CustomGenerateSorterJobDefinitionFromFutureAction) | DEE Action | Dee action to Generate a Custom Sorter Job Definition if exists a Required Future Action for a given material.
-[CustomSorterJobDefinition](/Cree/TechSpec>Artifacts>entitytypes>CustomSorterJobDefinition) | Entity Type | Custom entity type Custom Sorter Job Definition
-[CustomSorterJobDefinitionContext](/Cree/TechSpec>Artifacts>smarttables>CustomSorterJobDefinitionContext) | Smart Table | Holds Custom Sorter Job Definition Contexts
+[CustomGenerateSorterJobDefinitionFromFutureAction](/cmf.custom.help/techspec>artifacts>deeactions>CustomGenerateSorterJobDefinitionFromFutureAction) | DEE Action | Dee action to Generate a Custom Sorter Job Definition if exists a Required Future Action for a given material.
+[CustomSorterJobDefinition](/cmf.custom.help/techspec>artifacts>entitytypes>CustomSorterJobDefinition) | Entity Type | Custom entity type Custom Sorter Job Definition
+[CustomSorterJobDefinitionContext](/cmf.custom.help/techspec>artifacts>smarttables>CustomSorterJobDefinitionContext) | Smart Table | Holds Custom Sorter Job Definition Contexts
+
 ### How it works
 For the following system operations:
-<ul>
-    <li>Change Material Flow And Step</li>
-    <li>Move Materials To Next Step</li>
-    <li>Release Materal</li>
-    <li>Special Release Material</li>
-</ul>
-The system will check for the current material if it has a required future action, if this is true, the system will convert the required future action created by the user into a Custom Sorter Job Definition and add that information to the smart table 'CustomSorterJobDefinitionContext'.
 
-![CustomGenerateSorterJobDefinitionFromFutureAction](..\..\documents\techspec\artifacts\exportedobjects\CustomGenerateSorterJobDefinitionFromFutureAction.gif)
+- Change Material Flow And Step
+- Move Materials To Next Step
+- Release Material
+- Special Release Material
+
+The system will check for the current material if it has a required future action, if this is true, the system will convert the required future action created by the user into a Custom Sorter Job Definition and add that information to the smart table 'CustomSorterJobDefinitionContext'.
 
 ### Assumptions
 Future Actions must be created with Manual Execution and on the Queued State.

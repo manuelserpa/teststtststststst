@@ -456,12 +456,6 @@
     "actionId": ""
   },
   {
-    "id": "customgeneratesplitlotnamesnamegenerator",
-    "menuGroupId": "namegenerators",
-    "title": "Custom Generate Split Lot Names Name Generator",
-    "actionId": ""
-  },
-  {
     "id": "customproductionlotnamegenerator",
     "menuGroupId": "namegenerators",
     "title": "CustomProductionLotNameGenerator",
@@ -912,7 +906,7 @@
     "actionId": ""
   },
   {
-    "id": "customnicelabelprint",
+    "id": "customnicelabelprintfeature",
     "menuGroupId": "features",
     "title": "Nice Label Print",
     "actionId": ""

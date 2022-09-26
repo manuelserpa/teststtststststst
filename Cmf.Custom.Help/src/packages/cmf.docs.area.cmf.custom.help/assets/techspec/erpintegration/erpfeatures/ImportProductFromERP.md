@@ -58,10 +58,10 @@ These are the mandatory fields validated by the system:
 | FloorLifeUnitOfTime | The units of time of the Floor Life | No | Product | No | FloorLifeUnitOfTime |
 | RequiresApproval | Whether Materials created for this product require an explicit approval before they can be used | No | Product | No | RequiresApproval |
 | ApprovalRole | If defined, only users of this role will be able to approve Materials of this product | No | Role | No | ApprovalRole |
-| CanSplitForPicking | Defines whether Materials from this Product can be split for picking, in case that the Material Logitics mode is Material | Yes | Product | No | CanSplitForPicking |
+| CanSplitForPicking | Defines whether Materials from this Product can be split for picking, in case that the Material Logistics mode is Material | Yes | Product | No | CanSplitForPicking |
 | MaterialLogisticsDefaultRequestQuantity | Specifies the default transfer requirement required quantity | No | Product | No | MaterialLogisticsDefaultRequestQuantity |
 | ConsumptionScrap | The consumption scrap (or reject rate), represented as a percentage | Yes | Product | No | ConsumptionScrap |
-| AdditionalConsumptionQuantity | A safety quantiy to be considered in material requirements calculation (expressed in the default units) | Yes | Product | No | AdditionalConsumptionQuantity |
+| AdditionalConsumptionQuantity | A safety quantity to be considered in material requirements calculation (expressed in the default units) | Yes | Product | No | AdditionalConsumptionQuantity |
 | IsEnabledForMaterialLogistics | Defines whether the Product is enabled for Material Logistics | Yes | Product | No | IsEnabledForMaterialLogistics |
 | DefaultBOM | The Product default BOM | No | BOM | No | DefaultBOM |
 | Name | Product Manufacturer Name | Yes | ProductManufacturer | No | Name |

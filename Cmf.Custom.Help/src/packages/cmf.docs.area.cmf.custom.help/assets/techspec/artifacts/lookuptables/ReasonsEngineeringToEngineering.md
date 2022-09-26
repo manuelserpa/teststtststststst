@@ -6,6 +6,6 @@ Lookup containing the reasons for State Transition **Engineering to Engineering*
 
 ## Values
 
-* ENE - Engenineering
+* ENE - Engineering
 * ENM - Evaluation by MF
 * ENR - Evaluation by R&D

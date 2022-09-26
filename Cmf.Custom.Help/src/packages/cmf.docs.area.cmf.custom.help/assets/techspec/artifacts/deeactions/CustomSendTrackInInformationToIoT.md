@@ -20,6 +20,6 @@ This DEE sends the following TrackIn information to IoT:
 * Container Id and Name
 * Recipe Id, Name, Body Checksum and NameOnEquipment
 
-In case of Material has no StateModel assigned, it will be set with the CustoMaterialStateModel when the StateModelState will be the "Setup".
+In case of Material has no StateModel assigned, it will be set with the CustomMaterialStateModel when the StateModelState will be the "Setup".
 
 It will send a synchronous request with a request type "TrackIn", considering a timeout defined in the configuration path /Cmf/Custom/Automation/TrackInTimeout.
