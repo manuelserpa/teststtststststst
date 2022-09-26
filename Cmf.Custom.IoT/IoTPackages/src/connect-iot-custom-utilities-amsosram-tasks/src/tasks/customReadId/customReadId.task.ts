@@ -104,13 +104,14 @@ export class CustomReadIdTask implements Task.TaskInstance, CustomReadIdSettings
                 const reply = await this._driverProxy.sendRaw("connect.iot.driver.secsgem.sendMessage", sendMessage);
                 let successFound = false;
 
+                this._logger.warning(JSON.stringify(reply.item));
+
                 if (!reply && !reply.item) {
                     const error = new Error(`EI: Read Id Failed to reply`);
                     this.error.emit(error);
                     throw error;
                 }
-
-                this._logger.warning(JSON.stringify(reply.item));
+                
                 const targetId = reply.item.value[0].value;
                 const acknowledgeCode = reply.item.value[1].value;
                 const materialId = reply.item.value[2].value;
