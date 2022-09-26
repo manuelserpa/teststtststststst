@@ -111,7 +111,7 @@ export class CustomReadIdTask implements Task.TaskInstance, CustomReadIdSettings
                     this.error.emit(error);
                     throw error;
                 }
-                
+
                 const targetId = reply.item.value[0].value;
                 const acknowledgeCode = reply.item.value[1].value;
                 const materialId = reply.item.value[2].value;
