@@ -92,14 +92,9 @@ export class CustomReadIdTask implements Task.TaskInstance, CustomReadIdSettings
                     throw new Error("Failed to receive a TargetID");
                 }
 
-                this._logger.warning("this.TargetId.length: " + this.TargetId.length);
-
                 if (this.TargetId.length < this.TargetIDSize) {
-                    this._logger.warning("Entered IF clause");
                     paddedTargetID = this.TargetId.padStart(this.TargetIDSize, this.TargetIDPaddingValue);
                 }
-
-                this._logger.warning("paddedTargetID: " + paddedTargetID);
 
                 const sendMessage: Object = {
                     type: "S18F9", item: {
@@ -121,7 +116,8 @@ export class CustomReadIdTask implements Task.TaskInstance, CustomReadIdSettings
                 const materialId = reply.item.value[2].value;
                 const statusList = reply.item.value[3].value;
 
-                if (acknowledgeCode === "NO" &&
+                if (targetId === this.TargetId &&
+                    acknowledgeCode === "NO" &&
                     materialId) {
                     successFound = true;
                 }
