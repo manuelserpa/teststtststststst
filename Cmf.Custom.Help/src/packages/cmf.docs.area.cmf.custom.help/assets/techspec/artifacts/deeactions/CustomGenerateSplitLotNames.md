@@ -11,15 +11,15 @@ Dee Action used to generate Materials name for split lots.
 ## Pre Conditions
 
 * Material form is Lot
-* Configuration Entry **/amsOSRAM/Material/LotNameAllowedCharacters** must be configured with aceptable characters.
+* Configuration Entry **/amsOSRAM/Material/LotNameAllowedCharacters** must be configured with acceptable characters.
 
 ## Action
 
-This rule is triggered when the Name Generator **[CustomGenerateSplitLotNames](/cmf.custom.help/cmf.custom.help.techspec>cmf.custom.help.artifacts>cmf.custom.help.namegenerators>CustomGenerateSplitLotNames.md)** is executed. 
+This rule is triggered when the Name Generator **[CustomGenerateSplitLotNames](/cmf.custom.help/techspec>artifacts>namegenerators>CustomGenerateSplitLotNames)** is executed. 
 
 It will take the first 8 digits from the parent Material's name (Lot) and concatenate two alphanumeric characters generated in sequence using the allowed characters. 
 
-The aceptable characters must be configured in the Configuration Entry **LotNameAllowedCharacters**.
+The acceptable characters must be configured in the Configuration Entry **LotNameAllowedCharacters**.
 
 Example:
 

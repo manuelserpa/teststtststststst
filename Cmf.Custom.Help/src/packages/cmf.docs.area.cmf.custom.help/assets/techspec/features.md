@@ -8,7 +8,7 @@ The features are grouped in the following sections:
 * [Get Flow Information for ERP](/cmf.custom.help/techspec>features>CustomGetFlowInformationForERP)
 * [Import Production Orders](/cmf.custom.help/techspec>features>CustomImportProductionOrders)
 * [Inform Goods Issue to ERP](/cmf.custom.help/techspec>features>CustomInformGoodsIssueToERP)
-* [Nice Label Print](/cmf.custom.help/techspec>features>CustomNiceLabelPrint)
+* [Nice Label Print](/cmf.custom.help/techspec>features>CustomNiceLabelPrintFeature)
 * [Send Critical Data Collection to Space](/cmf.custom.help/techspec>features>CustomSendMESCriticalDataCollectionToSpace)
 * [Stibo System Integration](/cmf.custom.help/techspec>features>CustomStiboSystemIntegration)
 * [Terminate Vendor Container Type](/cmf.custom.help/techspec>features>CustomTerminateVendorContainerType)

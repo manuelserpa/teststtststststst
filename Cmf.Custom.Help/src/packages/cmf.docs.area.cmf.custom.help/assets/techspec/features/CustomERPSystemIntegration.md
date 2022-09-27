@@ -26,7 +26,7 @@ The table below describes the services that are used on this feature.
 
 | Service                                                                                           | Description                                                                           |
 | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| [Custom Receive ERP Message](/cmf.custom.help/cmf.custom.help.techspec>cmf.custom.help.artifacts>services>CustomReceiveERPMessage)       | Service to receive an ERP Message and create an **Integration Entry** accordingly.    |
+| [Custom Receive ERP Message](/cmf.custom.help/techspec>artifacts>services>CustomReceiveERPMessage)       | Service to receive an ERP Message and create an **Integration Entry** accordingly.    |
 
 ### Assumptions
 N/A.

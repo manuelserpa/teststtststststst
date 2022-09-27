@@ -49,7 +49,7 @@
     "@criticalmanufacturing/connect-iot-controller-engine": "9.1.0-202209072",
     "inversify": "4.13.0",
     "moment": "2.26.0",
-    "cmf.lbos": "8.3.3-20220114.2",
+    "cmf.lbos": "9.1.0-20220907.1",
     "xmldom": "0.3.0"
   },
   "author": "Critical Manufacturing"

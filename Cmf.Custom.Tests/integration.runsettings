@@ -9,7 +9,6 @@
   <!-- Parameters used by tests at runtime -->
   <TestRunParameters>
     <Parameter name="applicationName" value="AutomaticTests" />
-    <!-- <Parameter name="applicationName" value="AutomaticTests" /> -->
     <Parameter name="websiteAdress" value="amsOSRAMIntegration.ds.criticalmanufacturing.dev" />
     <Parameter name="websitePort" value="443" />
     <Parameter name="websiteUseSSL" value="True" />

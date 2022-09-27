@@ -6,7 +6,7 @@ This section aims to demonstrate the steps to create an Access Token and invoke 
 
 ## Create Access Token by User
 
-Below you will find the steps to Create Acess Token:
+Below you will find the steps to Create Access Token:
 
 1. Go to the *Administration* menu and select **Security**.
    - Select **Users**.
@@ -38,7 +38,7 @@ $ curl --location --request POST 'http://<HostURL>:<HostPort>/api/amsOSRAM/<Serv
 | ------------------------------- | ------------------------------------------------------------------------------ |
 | `<HostURL>`                     | Server address                                                                 |
 | `<HostPort>`                    | Server port configured to access API                                           |
-| `<ServiceName>`                 | Name of the [service](/cmf.custom.help/cmf.custom.help.techspec>cmf.custom.help.artifacts>cmf.custom.help.servicesservices.md)                |
+| `<ServiceName>`                 | Name of the [service](/cmf.custom.help/techspec>artifacts>services )                |
 | `<Token>`                       | Alphanumeric code generated on previous [topic](#create-access-token-by-user)  |
 | `<CustomInputEntity>`           | Entity associated with the service                                              |
 | `<CustomInputEntityProperties>` | All properties associated with the Entity                                      |

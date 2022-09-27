@@ -12,4 +12,4 @@ Needs an Entity (Material).
 
 | Name | Calculation Method | Value |
 | :--- | :----------------- | :---- |
-| Dee  | Dee | [CustomGenerateProductionLotNames](/cmf.custom.help/cmf.custom.help.techspec>cmf.custom.help.artifacts>cmf.custom.help.deeactions>CustomGenerateProductionLotNames) |
+| Dee  | Dee | [CustomGenerateProductionLotNames](/cmf.custom.help/techspec>artifacts>deeactions>CustomGenerateProductionLotNames) |

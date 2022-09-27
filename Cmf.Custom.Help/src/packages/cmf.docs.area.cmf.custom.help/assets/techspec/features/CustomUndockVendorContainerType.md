@@ -14,7 +14,7 @@ The table below describes the relevant artifacts for this feature:
 
 | Name          | Type      | Description |
 | :------------ | :-------- | :---------- |
-| [CustomUndockContainerValidation](/cmf.custom.help/cmf.custom.help.techspec>cmf.custom.help.artifacts>cmf.custom.help.deeactions>CustomUndockContainerValidation) | DEE Action | DEE Action used to validate if a Container can be undocked based on its Type being or not configured as a VendorContainerType. |
+| [CustomUndockContainerValidation](/cmf.custom.help/techspec>artifacts>deeactions>CustomUndockContainerValidation) | DEE Action | DEE Action used to validate if a Container can be undocked based on its Type being or not configured as a VendorContainerType. |
 | /amsOSRAM/Container/VendorContainerTypes/ | Configuration | Vendor Container Types splitted by ',' |
 
 

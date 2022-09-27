@@ -14,7 +14,7 @@ The table below describes the relevant artifacts for this feature:
 
 | Name          | Type      | Description |
 | :------------ | :-------- | :---------- |
-| [CustomTerminateVendorContainer](/amsOSRAM/TechSpec>Artifacts>deeactions>CustomTerminateVendorContainer) | DEE Action | DEE Action used to terminate a Container from a specific type configured as a VendorContainerType. |
+| [CustomTerminateVendorContainer](/cmf.custom.help/techspec>artifacts>deeactions>CustomTerminateVendorContainer) | DEE Action | DEE Action used to terminate a Container from a specific type configured as a VendorContainerType. |
 | /amsOSRAM/Container/VendorContainerTypes/ | Configuration | Vendor Container Types splitted by ',' |
 
 
