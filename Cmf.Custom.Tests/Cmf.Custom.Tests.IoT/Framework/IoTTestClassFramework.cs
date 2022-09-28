@@ -50,7 +50,11 @@ namespace AutomaticTests
                 }
 
                 Console.Write("\r\n{0}: Running Tests for '{1}': .", DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss"), equipmentOrCluster);
-
+                
+                // Workarround for the IoT Tests
+                // Need to validate if is required
+                ioTEnvironmentSpecific = new IoTEnvironmentSpecific();
+                
                 m_Scenario = new AutomationScenario(ioTEnvironmentSpecific, equipmentOrCluster, m_mode,
                     pathToConfigurationFile: m_FileNameRunSettings);
 
@@ -68,7 +72,9 @@ namespace AutomaticTests
                     equipment.Value.Variables.Clear();
                 }
 
-                Cleanup();
+                // Workarround for the IoT Tests
+                // Need to validate if is required
+                // Cleanup();
             }
             catch
             {
