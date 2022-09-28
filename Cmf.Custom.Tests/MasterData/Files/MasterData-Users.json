@@ -13,18 +13,6 @@
       "Roles": ""
     },
     "2": {
-      "UserAccount": "CMF\\FBAZEVEDO",
-      "PrimaryRole": "Administrators",
-      "Token": "",
-      "Pin": "",
-      "AutenticationStrategy": "",
-      "AutoLockTimeOut": "0",
-      "IsEnabled": "Yes",
-      "IsIntegrationUser": "No",
-      "RequirePasswordChange": "",
-      "Roles": ""
-    },
-    "3": {
       "UserAccount": "CMF\\T-GALLER",
       "PrimaryRole": "Administrators",
       "Token": "",
@@ -36,19 +24,7 @@
       "RequirePasswordChange": "",
       "Roles": ""
     },
-    "4": {
-      "UserAccount": "CMF\\CWUERZ",
-      "PrimaryRole": "Administrators",
-      "Token": "",
-      "Pin": "",
-      "AutenticationStrategy": "",
-      "AutoLockTimeOut": "0",
-      "IsEnabled": "Yes",
-      "IsIntegrationUser": "No",
-      "RequirePasswordChange": "",
-      "Roles": ""
-    },
-    "5": {
+    "3": {
       "UserAccount": "CMF\\G-PAJOR",
       "PrimaryRole": "Administrators",
       "Token": "",
@@ -60,7 +36,7 @@
       "RequirePasswordChange": "",
       "Roles": ""
     },
-    "6": {
+    "4": {
       "UserAccount": "CMF\\G-BALOGH",
       "PrimaryRole": "Administrators",
       "Token": "",
@@ -72,55 +48,7 @@
       "RequirePasswordChange": "",
       "Roles": ""
     },
-    "7": {
-      "UserAccount": "CMF\\NAPEIXOTO",
-      "PrimaryRole": "Administrators",
-      "Token": "",
-      "Pin": "",
-      "AutenticationStrategy": "",
-      "AutoLockTimeOut": "0",
-      "IsEnabled": "Yes",
-      "IsIntegrationUser": "No",
-      "RequirePasswordChange": "",
-      "Roles": ""
-    },
-    "8": {
-      "UserAccount": "CMF\\ARCRUZ",
-      "PrimaryRole": "Administrators",
-      "Token": "",
-      "Pin": "",
-      "AutenticationStrategy": "",
-      "AutoLockTimeOut": "0",
-      "IsEnabled": "Yes",
-      "IsIntegrationUser": "No",
-      "RequirePasswordChange": "",
-      "Roles": ""
-    },
-    "9": {
-      "UserAccount": "CMF\\RCALDAS",
-      "PrimaryRole": "Administrators",
-      "Token": "",
-      "Pin": "",
-      "AutenticationStrategy": "",
-      "AutoLockTimeOut": "0",
-      "IsEnabled": "Yes",
-      "IsIntegrationUser": "No",
-      "RequirePasswordChange": "",
-      "Roles": ""
-    },
-    "10": {
-      "UserAccount": "CMF\\OJ-SOUSA",
-      "PrimaryRole": "Administrators",
-      "Token": "",
-      "Pin": "",
-      "AutenticationStrategy": "",
-      "AutoLockTimeOut": "0",
-      "IsEnabled": "Yes",
-      "IsIntegrationUser": "No",
-      "RequirePasswordChange": "",
-      "Roles": ""
-    },
-    "11": {
+    "5": {
       "UserAccount": "CMF\\PP-LIMA",
       "PrimaryRole": "Administrators",
       "Token": "",
@@ -132,7 +60,7 @@
       "RequirePasswordChange": "",
       "Roles": ""
     },
-    "12": {
+    "6": {
       "UserAccount": "CMF\\L-RANGARAJULU",
       "PrimaryRole": "Administrators",
       "Token": "",
@@ -144,7 +72,7 @@
       "RequirePasswordChange": "",
       "Roles": ""
     },
-    "13": {
+    "7": {
       "UserAccount": "CMF\\GR-SOARES",
       "PrimaryRole": "Administrators",
       "Token": "",
@@ -156,7 +84,7 @@
       "RequirePasswordChange": "",
       "Roles": ""
     },
-    "14": {
+    "8": {
       "UserAccount": "CMF\\m-nurhakim",
       "PrimaryRole": "Administrators",
       "Token": "",
@@ -168,7 +96,7 @@
       "RequirePasswordChange": "",
       "Roles": ""
     },
-    "15": {
+    "9": {
       "UserAccount": "CMF\\e-yin",
       "PrimaryRole": "Administrators",
       "Token": "",
