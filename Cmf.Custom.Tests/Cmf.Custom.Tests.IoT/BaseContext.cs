@@ -126,10 +126,21 @@ namespace Settings
                         ApplicationName = GetString(context, "applicationName"),
                         IsUsingLoadBalancer = context.Properties.Contains("useLoadBalancer") ? bool.Parse(GetString(context, "useLoadBalancer")) : false,
                         ThingsToDoAfterInitialize = null,
-                        SecurityPortalBaseAddress = new Uri(GetString(context, "securityPortalAdress")),
-                        SecurityAccessToken = GetString(context, "securityAccessToken"),
                         RequestTimeout = GetString(context, "requestTimeout")
                     };
+
+                    string mode = GetString(context, "mode");
+
+                    if (mode == "Local")
+                    {
+                        config.UserName = GetString(context, "userName");
+                        config.Password = GetString(context, "password");
+                    }
+                    else
+                    {
+                        config.SecurityPortalBaseAddress = new Uri(GetString(context, "securityPortalAddress"));
+                        config.SecurityAccessToken = GetString(context, "securityAccessToken");
+                    }
                 }
                 return config;
             };
