@@ -1,0 +1,44 @@
+{
+    "WorksheetNameMapping": {
+      "1": {
+        "WorksheetName": "CertifReqQualif",
+        "Value": "CertificationRequiredQualification"
+      },
+      "2": {
+        "WorksheetName": "AutomationInstances",
+        "Value": "<DM>AutomationControllerInstance"
+      },
+      "3": {
+        "WorksheetName": "MaterialDCContext",
+        "Value": "<ST>MaterialDataCollectionContext"
+      },
+      "4": {
+        "WorksheetName": "CustomNotificationConf",
+        "Value": "<ST>CustomResourceNotificationConfiguration"
+      }
+    },
+    "<SM>DEEAction" : {
+      "1" : {
+        "Action" : "CustomGenerateProductionLotNames",
+        "Description"	: "Generate Production Lot Names - Called by name generator",
+        "CodeFileRelativePath" : "NameGenerators//CustomGenerateProductionLotNames.cs",
+        "IsEnabled"	: "True",
+        "Classification" : ""
+      }
+    },
+    "DEEActionOrder" : { },
+    "<SM>NameGenerator" : {
+        "1" : {
+            "Name" : "CustomProductionLotNameGenerator",
+            "Description" : "Name Generator for Production Lots",
+            "Sample" : "",
+            "TokenName" : "Dee",
+            "TokenDescription" : "Calculates the value",
+            "TokenFormat" : "",
+            "TokenOrder" : 1,
+            "CalculationMethod" : "Dee",
+            "CalendarPath" : "",
+            "TokenValue" : "CustomGenerateProductionLotNames"
+        }
+    }
+  }

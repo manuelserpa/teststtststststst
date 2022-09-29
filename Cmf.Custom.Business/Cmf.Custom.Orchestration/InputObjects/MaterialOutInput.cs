@@ -1,8 +1,8 @@
-﻿using Cmf.Custom.AMSOsram.BusinessObjects;
-using Cmf.Foundation.BusinessOrchestration;
+﻿using Cmf.Foundation.BusinessOrchestration;
 using System.Runtime.Serialization;
+using Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions;
 
-namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects
+namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects
 {
     /// <summary>
     /// Input Object for MaterialOut Service
@@ -33,14 +33,14 @@ namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects
         /// <summary>
         /// Container Only Process
         /// </summary>
-        [DataMember(Name = "ContainerOnlyProcess", Order = 0)] 
+        [DataMember(Name = "ContainerOnlyProcess", Order = 0)]
         public bool ContainerOnlyProcess { get; set; }
 
         /// <summary>
         /// Movement List
         /// </summary>
         [DataMember(Name = "CustomSorterJobDefinition", Order = 0)]
-        public CustomSorterJobDefinition CustomSorterJobDefinition { get; set; }
+        public ICustomSorterJobDefinition CustomSorterJobDefinition { get; set; }
 
         #endregion
     }

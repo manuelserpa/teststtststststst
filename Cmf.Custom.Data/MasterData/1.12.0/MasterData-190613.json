@@ -47,7 +47,7 @@
 	},
 	"<SM>Config": {
     "1": {
-      "ParentPath": "/AMSOsram/Container/",
+      "ParentPath": "/amsOSRAM/Container/",
       "Name": "VendorContainerTypes",
       "Value": "",
       "ValueType": "String"

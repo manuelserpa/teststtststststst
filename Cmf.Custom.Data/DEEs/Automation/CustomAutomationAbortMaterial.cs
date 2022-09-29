@@ -1,42 +1,42 @@
-﻿using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.DataStructures;
-using Cmf.Foundation.BusinessObjects;
+﻿using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.DataStructures;
 using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
-
-namespace Cmf.Custom.AMSOsram.Actions.Automation
+namespace Cmf.Custom.amsOSRAM.Actions.Automation
 {
     class CustomAutomationAbortMaterial : DeeDevBase
     {
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
             //---Start DEE Code---
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
-            UseReference("", "Cmf.Foundation.Common");
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.DataStructures");
+
+            // Custom
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.DataStructures");
 
             if (!Input.ContainsKey("MaterialName"))
             {
                 throw new ArgumentNullCmfException("MaterialName");
             }
-            Material material = new Material() { Name = Input["MaterialName"] as String };
+
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
+            IMaterial material = entityFactory.Create<IMaterial>();
+            material.Name = Input["MaterialName"] as string;
 
             material.Load();
 
             material.AbortProcess();
 
-            Resource resource = material.LastProcessedResource;
+            IResource resource = material.LastProcessedResource;
             resource.Load();
 
             List<MaterialData> materialDataToIot = new List<MaterialData>();
@@ -46,17 +46,17 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
             materialData.MaterialName = material.Name;
             materialDataToIot.Add(materialData);
 
+            IAutomationControllerInstance controllerInstance = resource.GetAutomationControllerInstance();
 
-            AutomationControllerInstance controllerInstance = resource.GetAutomationControllerInstance();
             if (controllerInstance != null)
             {
                 // Get EI default timeout
                 //  --> /Cmf/Custom/Automation/GenericRequestTimeout
-                int requestTimeout = AMSOsramUtilities.GetConfig<int>(AMSOsramConstants.AutomationGenericRequestTimeoutConfigurationPath);
+                int requestTimeout = amsOSRAMUtilities.GetConfig<int>(amsOSRAMConstants.AutomationGenericRequestTimeoutConfigurationPath);
 
                 // Send Synchronous request to automation Abort the Material in the Equipment
-                string requestType = AMSOsramConstants.AutomationRequestTypeAbort;
-                var obj = controllerInstance.SendRequest(requestType, materialDataToIot.ToJsonString(), requestTimeout);
+                string requestType = amsOSRAMConstants.AutomationRequestTypeAbort;
+                object obj = controllerInstance.SendRequest(requestType, materialDataToIot.ToJsonString(), requestTimeout);
 
                 if (obj == null)
                 {

@@ -1,4 +1,4 @@
-﻿using Cmf.Custom.AMSOsram.Orchestration.InputObjects;
+﻿using Cmf.Custom.amsOSRAM.Orchestration.InputObjects;
 using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Custom.Tests.Biz.Common.Extensions;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
@@ -137,8 +137,8 @@ namespace Cmf.Custom.Tests.Biz.Materials
             materialScenario = new CustomMaterialScenario(false);
 
             //Change material to a step where the resource has subResource of type Process
-            materialScenario.FlowName = AMSOsramConstants.TestFlow;
-            materialScenario.StepName = AMSOsramConstants.TestM3MTZnOSputterCluster6in00126F008_E;
+            materialScenario.FlowName = amsOSRAMConstants.TestFlow;
+            materialScenario.StepName = amsOSRAMConstants.TestM3MTZnOSputterCluster6in00126F008_E;
             materialScenario.NumberOfSubMaterials = 1;
 
             // Create the Material and TrackIn
@@ -213,10 +213,10 @@ namespace Cmf.Custom.Tests.Biz.Materials
             }
 
             //Change material to a step where the resource has subResource of type Process
-            Flow flow = new Flow() { Name = AMSOsramConstants.TestFlow };
+            Flow flow = new Flow() { Name = amsOSRAMConstants.TestFlow };
             flow.Load();
 
-            Step step = new Step() { Name = AMSOsramConstants.TestM3MTZnOSputterCluster6in00126F008_E };
+            Step step = new Step() { Name = amsOSRAMConstants.TestM3MTZnOSputterCluster6in00126F008_E };
             step.Load();
 
             string flowPath = FlowExtensionMethods.CustomGetFlowPath(flow, step.Name);
@@ -246,8 +246,8 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
             materialScenario = new CustomMaterialScenario(false);
             //Change material to a step where the resource has subResource of type Process
-            materialScenario.FlowName = AMSOsramConstants.TestFlow;
-            materialScenario.StepName = AMSOsramConstants.TestM3MTZnOSputterCluster6in00126F008_E;
+            materialScenario.FlowName = amsOSRAMConstants.TestFlow;
+            materialScenario.StepName = amsOSRAMConstants.TestM3MTZnOSputterCluster6in00126F008_E;
             materialScenario.NumberOfSubMaterials = 0;
 
             // Create the Material and TrackIn

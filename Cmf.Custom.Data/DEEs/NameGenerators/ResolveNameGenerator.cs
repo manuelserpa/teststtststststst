@@ -1,15 +1,22 @@
-﻿using Cmf.Custom.AMSOsram.Common;
+﻿using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Foundation.BusinessOrchestration.ConnectIoTManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects;
-using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ContainerManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MappingManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using System.Collections.Generic;
 using System.Linq;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using System;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Foundation.BusinessObjects;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Foundation.Common;
+using System.Data;
+using Cmf.Navigo.BusinessOrchestration.MaterialLogisticsManagement.InputObjects;
 
-namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
+namespace Cmf.Custom.amsOSRAM.Actions.NameGenerators
 {
     public class ResolveNameGenerator : DeeDevBase
     {
@@ -39,24 +46,53 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
 
             // System
             UseReference("%MicrosoftNetPath%Microsoft.CSharp.dll", "");
-            
+            UseReference("", "System.Data");
+
             // Foundation
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-            UseReference("", "Cmf.Foundation.BusinessOrchestration");
             UseReference("", "Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects");
             UseReference("", "Cmf.Foundation.BusinessOrchestration.ConnectIoTManagement.InputObjects");
-            
-            // Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
+            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.SmartTables");
             UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects");
             UseReference("", "Cmf.Navigo.BusinessOrchestration.ContainerManagement.InputObjects");
             UseReference("", "Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects");
             UseReference("", "Cmf.Navigo.BusinessOrchestration.MappingManagement.InputObjects");
-			UseReference("%MicrosoftNetPath%Microsoft.CSharp.dll", "");
+            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.MaterialLogisticsManagement.InputObjects");
 
             // Custom
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+
+            // If it is to use the Name Generator Context, it resolves the Name and Revision generator 
+            if (Input.ContainsKey("Operation") && Input.ContainsKey("Instance") &&
+                Input["Instance"] != null && Input["Instance"] is IEntity)
+            {
+                Dictionary<string, object> Output = new Dictionary<string, object>();
+                IEntity instance = Input["Instance"] as IEntity;
+                string entityType = instance.EntityType.Name;
+                bool isTypeAvailableOnEntityType = instance.EntityType.Properties.Any(t => t.Name.Equals(Constants.Type));
+                string entityTypeType = isTypeAvailableOnEntityType ? instance.GetNativeValue<string>(Constants.Type) : string.Empty;
+                string operation = Input["Operation"] as string;
+
+                ISmartTable smartTable = serviceProvider.GetService<ISmartTable>();
+                smartTable.Load("NameGeneratorContext");
+                INgpDataRow row = new NgpDataRow();
+                row.Add("EntityType", entityType);
+                row.Add("EntityTypeType", entityTypeType);
+                row.Add("Operation", operation);
+                INgpDataSet resolveReturnData = smartTable.Resolve(row, true);
+
+                DataSet ds = NgpDataSet.ToDataSet(resolveReturnData);
+                if (ds?.Tables?.Count > 0 && ds.Tables[0].Rows?.Count > 0)
+                {
+                    string nameGenerator = ds.Tables[0].Rows[0]["NameGeneratorName"] as string ?? string.Empty;
+                    string revisionGenerator = ds.Tables[0].Rows[0]["RevisionGeneratorName"] as string ?? string.Empty;
+                    Output.Add("NameGeneratorName", nameGenerator);
+                    Output.Add("RevisionGeneratorName", revisionGenerator);
+                }
+
+                return Output;
+            }
 
             bool isFound = false;
             foreach (KeyValuePair<string, object> myKey in Input)
@@ -70,7 +106,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                             {
                                 if (string.IsNullOrWhiteSpace(((CreateMaterialInput)myKey.Value).Material.Name))
                                 {
-									((CreateMaterialInput)myKey.Value).NameGeneratorName = AMSOsramConstants.CustomGenerateProductionLotNames;
+                                    ((CreateMaterialInput)myKey.Value).NameGeneratorName = amsOSRAMConstants.CustomGenerateProductionLotNames;
                                 }
                                 isFound = true;
                             }
@@ -80,11 +116,11 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                             {
                                 if (((CreateMaterialsInput)myKey.Value).Materials != null && ((CreateMaterialsInput)myKey.Value).Materials.Count > 0)
                                 {
-                                    foreach (Material myMat in ((CreateMaterialsInput)myKey.Value).Materials)
+                                    foreach (IMaterial myMat in ((CreateMaterialsInput)myKey.Value).Materials)
                                     {
                                         if (myMat != null && string.IsNullOrWhiteSpace(myMat.Name))
                                         {
-											((CreateMaterialsInput)myKey.Value).NameGeneratorName = AMSOsramConstants.CustomGenerateProductionLotNames;
+                                            ((CreateMaterialsInput)myKey.Value).NameGeneratorName = amsOSRAMConstants.CustomGenerateProductionLotNames;
                                             break;
                                         }
                                     }
@@ -99,11 +135,11 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                             {
                                 if (((SplitMaterialInput)myKey.Value).ChildMaterials != null && ((SplitMaterialInput)myKey.Value).ChildMaterials.Count > 0)
                                 {
-                                    foreach (SplitInputParameters myMat in ((SplitMaterialInput)myKey.Value).ChildMaterials)
+                                    foreach (ISplitInputParameters myMat in ((SplitMaterialInput)myKey.Value).ChildMaterials)
                                     {
                                         if (myMat != null && string.IsNullOrWhiteSpace(myMat.Name))
                                         {
-                                            ((SplitMaterialInput)myKey.Value).NameGeneratorName = AMSOsramConstants.CustomGenerateSplitLotNames;
+                                            ((SplitMaterialInput)myKey.Value).NameGeneratorName = amsOSRAMConstants.CustomGenerateSplitLotNames;
                                             break;
                                         }
                                     }
@@ -116,7 +152,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                             {
                                 if (((ExpandMaterialInput)myKey.Value).SubMaterials != null && ((ExpandMaterialInput)myKey.Value).SubMaterials.Count > 0)
                                 {
-                                    foreach (Material myMat in ((ExpandMaterialInput)myKey.Value).SubMaterials)
+                                    foreach (IMaterial myMat in ((ExpandMaterialInput)myKey.Value).SubMaterials)
                                     {
                                         if (myMat != null && string.IsNullOrWhiteSpace(myMat.Name))
                                         {
@@ -133,7 +169,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                             {
                                 if (((CreateMaterialSubProductsInput)myKey.Value).MaterialSubProducts != null && ((CreateMaterialSubProductsInput)myKey.Value).MaterialSubProducts.Count > 0)
                                 {
-                                    foreach (Material myMat in ((CreateMaterialSubProductsInput)myKey.Value).MaterialSubProducts)
+                                    foreach (IMaterial myMat in ((CreateMaterialSubProductsInput)myKey.Value).MaterialSubProducts)
                                     {
                                         if (myMat != null && string.IsNullOrWhiteSpace(myMat.Name))
                                         {
@@ -150,7 +186,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                             {
                                 if (((GradeMaterialInput)myKey.Value).MaterialSubProducts != null && ((GradeMaterialInput)myKey.Value).MaterialSubProducts.Count > 0)
                                 {
-                                    foreach (Material myMat in ((GradeMaterialInput)myKey.Value).MaterialSubProducts)
+                                    foreach (IMaterial myMat in ((GradeMaterialInput)myKey.Value).MaterialSubProducts)
                                     {
                                         if (myMat != null && string.IsNullOrWhiteSpace(myMat.Name))
                                         {
@@ -167,7 +203,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                             {
                                 if (((SplitMaterialByProductInput)myKey.Value).SplitByProductMaterials != null && ((SplitMaterialByProductInput)myKey.Value).SplitByProductMaterials.Count > 0)
                                 {
-                                    foreach (SplitByProductMaterial myMat in ((SplitMaterialByProductInput)myKey.Value).SplitByProductMaterials)
+                                    foreach (ISplitByProductMaterial myMat in ((SplitMaterialByProductInput)myKey.Value).SplitByProductMaterials)
                                     {
                                         if (myMat != null && string.IsNullOrWhiteSpace(myMat.Material.Name))
                                         {
@@ -195,7 +231,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                             {
                                 if (((CreateContainersInput)myKey.Value).Containers != null && ((CreateContainersInput)myKey.Value).Containers.Count > 0)
                                 {
-                                    foreach (Container myContainer in ((CreateContainersInput)myKey.Value).Containers)
+                                    foreach (IContainer myContainer in ((CreateContainersInput)myKey.Value).Containers)
                                     {
                                         if (myContainer != null && string.IsNullOrWhiteSpace(myContainer.Name))
                                         {
@@ -309,6 +345,23 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                                 isFound = true;
                             }
                             break;
+                        case "RegisterMaterialsInput":
+                            if (myKey.Value != null)
+                            {
+                                if (((RegisterMaterialsInput)myKey.Value).Materials?.Count > 0)
+                                {
+                                    foreach (RegisterMaterialInput matInput in ((RegisterMaterialsInput)myKey.Value).Materials)
+                                    {
+                                        if (string.IsNullOrWhiteSpace(matInput?.Material?.Name))
+                                        {
+                                            ((RegisterMaterialsInput)myKey.Value).NameGeneratorName = "MaterialNameGenerator";
+                                            break;
+                                        }
+                                    }
+                                }
+                                isFound = true;
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -319,7 +372,6 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                     break;
                 }
             }
-
 
             //---End DEE Code---
 

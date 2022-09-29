@@ -1,9 +1,9 @@
-﻿using Cmf.Custom.AMSOsram.Common;
-using Cmf.Foundation.BusinessObjects;
+﻿using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Foundation.Common;
 using System.Collections.Generic;
+using Cmf.Foundation.BusinessObjects.Abstractions;
 
-namespace Cmf.Custom.AMSOsram.Actions.Integrations
+namespace Cmf.Custom.amsOSRAM.Actions.Integrations
 {
     public class CustomSendProcessMessage : DeeDevBase
     {
@@ -22,7 +22,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             /// </summary>
             #endregion
 
-            IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, Constants.IntegrationEntry);
+            IIntegrationEntry integrationEntry = amsOSRAMUtilities.GetInputItem<IIntegrationEntry>(Input, Constants.IntegrationEntry);
 
             if (integrationEntry is null || integrationEntry.IntegrationMessage is null || integrationEntry.IntegrationMessage.Message is null || integrationEntry.IntegrationMessage.Message.Length <= 0)
             {
@@ -38,19 +38,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
         {
             //---Start DEE Code---     
 
-            //System
-            UseReference("", "System.Collections.Generic");
-
-            //Foundation
-            UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common");
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-
             //Custom
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
 
-            IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, Constants.IntegrationEntry);
+            IIntegrationEntry integrationEntry = amsOSRAMUtilities.GetInputItem<IIntegrationEntry>(Input, Constants.IntegrationEntry);
 
-            // Send Goods Issue data throught AMSOsram service
+            // Send Goods Issue data throught amsOSRAM service
 
             //---End DEE Code---
 

@@ -1,0 +1,47 @@
+{
+    "<SM>LocalizedMessageKey": {
+		"1": {
+		  "Name": "CustomProductionOrderDoesNotExists",
+		  "Description": "Error message to inform that the production order does not exists.",
+		  "MessageType": "Message",
+		  "en-US": "The production order does not exists",
+		  "de-DE": "",
+		  "zh-CN": "",
+		  "pt-PT": "",
+		  "zh-TW": "",
+		  "UsageType": "Biz"
+		},
+		"2": {
+		  "Name": "CustomInvalidPrimaryQuantity",
+		  "Description": "Error message to inform that the primary quantity is invalid.",
+		  "MessageType": "Message",
+		  "en-US": "The primary quantity from material {0} is invalid/missing.",
+		  "de-DE": "",
+		  "zh-CN": "",
+		  "pt-PT": "",
+		  "zh-TW": "",
+		  "UsageType": "Biz"
+		},
+		"3": {
+		  "Name": "CustomPrimaryUnitObjectNull",
+		  "Description": "Error message to inform that the primary unit is missing.",
+		  "MessageType": "Message",
+		  "en-US": "The Primary Unit from material {0} is missing.",
+		  "de-DE": "",
+		  "zh-CN": "",
+		  "pt-PT": "",
+		  "zh-TW": "",
+		  "UsageType": "Biz"
+		}
+	},
+	"<SM>DEEAction": {
+        "1": {
+            "Action": "CustomIncomingMaterialLotCreation",
+            "Description": "Create Lots using information from ERP",
+            "CodeFileRelativePath": "Integrations//CustomIncomingMaterialLotCreation.cs",
+            "IsEnabled": "Yes",
+            "Classification": ""
+        }
+    },
+    "DEEActionOrder": {}
+}

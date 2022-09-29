@@ -1,92 +1,70 @@
 {
-    "packageId": "Cmf.Custom.Data",
-    "version": "1.13.0",
-    "description": "Cmf Custom AMSOsram Cmf.Custom.Data Package",
-    "packageType": "Data",
-    "isInstallable": true,
-    "isUniqueInstall": true,
-    "steps": [
-        {
-            "type": 0,
-            "onExecute": "$(Agent.Root)/agent/scripts/stop_host.ps1",
-            "order": 1
-        },
-        {
-            "type": 2,
-            "file": "Cmf.Foundation.Services.HostService.dll.config",
-            "tagFile": true,
-            "order": 2
-        },
-        {
-            "type": 0,
-            "onExecute": "$(Agent.Root)/agent/scripts/start_host.ps1",
-            "order": 3
-        },
-        {
-            "type": 0,
-            "onExecute": "$(Package[Cmf.Custom.Package].TargetDirectory)/GenerateLBOs.ps1",
-            "order": 4
-        }
-    ],
-    "contentToPack": [
-        {
-            "source": "DEEs/*",
-            "target": "DeeRules",
-            "ignoreFiles": [
-                "../.cmfpackageignore"
-            ],
-            "contentType": "DEE"
-        },
-        {
-            "source": "ChecklistImages/*",
-            "target": "ChecklistImages",
-            "ignoreFiles": [
-                "../.cmfpackageignore"
-            ],
-            "contentType": "ChecklistImages"
-        },
-        {
-            "source": "Documents/*",
-            "target": "Documents",
-            "ignoreFiles": [
-                "../.cmfpackageignore"
-            ],
-            "contentType": "Documents"
-        },
-        {
-            "source": "Maps/*",
-            "target": "Maps",
-            "ignoreFiles": [
-                "../.cmfpackageignore"
-            ],
-            "contentType": "Maps"
-        },
-        {
-            "source": "ExportedObjects/*",
-            "target": "ExportedObjects",
-            "ignoreFiles": [],
-            "contentType": "ExportedObjects"
-        },
-        {
-            "source": "DEEs/ProcessRules/EntityTypes/*",
-            "target": "DeeRules/ProcessRules/EntityTypes/",
-            "contentType": "EntityTypes"
-        },
-        {
-            "source": "DEEs/ProcessRules/$(version)/Before/*",
-            "target": "DeeRules/ProcessRules/$(version)/Before",
-            "contentType": "ProcessRulesPre"
-        },
-        {
-            "source": "MasterData/$(version)/*",
-            "target": "MasterData/$(version)/",
-            "contentType": "MasterData"
-        },
-        {
-            "source": "DEEs/ProcessRules/$(version)/After/*",
-            "target": "DeeRules/ProcessRules/$(version)/After",
-            "contentType": "ProcessRulesPost"
-        }
-    ],
-    "handlerVersion": 0
+  "packageId": "Cmf.Custom.Data",
+  "version": "2.0.0",
+  "description": "Cmf Custom amsOSRAM Cmf.Custom.Data Package",
+  "packageType": "Data",
+  "isInstallable": true,
+  "isUniqueInstall": true,
+  "contentToPack": [  
+    {
+      "source": "DEEs/*",
+      "target": "DeeRules",
+      "ignoreFiles": [
+        "../.cmfpackageignore"
+      ],
+      "contentType": "DEE"
+    },
+    {
+      "source": "ChecklistImages/*",
+      "target": "ChecklistImages",
+      "ignoreFiles": [
+        "../.cmfpackageignore"
+      ],
+      "contentType": "ChecklistImages"
+    },
+    {
+      "source": "Documents/*",
+      "target": "Documents",
+      "ignoreFiles": [
+        "../.cmfpackageignore"
+      ],
+      "contentType": "Documents"
+    },
+    {
+      "source": "Maps/*",
+      "target": "Maps",
+      "ignoreFiles": [
+        "../.cmfpackageignore"
+      ],
+      "contentType": "Maps"
+    },
+    {
+      "source": "ExportedObjects/*",
+      "target": "ExportedObjects",
+      "ignoreFiles": [
+        "../.cmfpackageignore"
+      ],
+      "contentType": "ExportedObjects"
+    },
+    {
+      "source": "DEEs/ProcessRules/EntityTypes/*",
+      "target": "DeeRules/ProcessRules/EntityTypes/",
+      "contentType": "EntityTypes"
+    },
+    {
+      "source": "DEEs/ProcessRules/$(version)/Before/*",
+      "target": "DeeRules/ProcessRules/$(version)/Before",
+      "contentType": "ProcessRulesPre"
+    },
+    {
+      "source": "MasterData/$(version)/*",
+      "target": "MasterData/$(version)/",
+      "contentType": "MasterData"
+    },
+    {
+      "source": "DEEs/ProcessRules/$(version)/After/*",
+      "target": "DeeRules/ProcessRules/$(version)/After",
+      "contentType": "ProcessRulesPost"
+    }
+  ]
 }

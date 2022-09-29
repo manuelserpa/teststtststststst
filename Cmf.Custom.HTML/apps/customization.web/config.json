@@ -7,11 +7,11 @@
     "rest": {
       "enableSsl": false,
       "address": "localhost",
-      "port": 8083,
+      "port": 443,
       "timeout": 0
     },
     "tenant": {
-      "name": "AMSOsram"
+      "name": "amsOSRAM"
     },
     "loadBalancer": {
       "enableSsl": 0,
@@ -88,13 +88,14 @@
       "cmf.mes.facility",
       "cmf.mes.materiallogistics",
       "cmf.mes.newproductintroduction",
+      "cmf.mes.plan",
       "customization.common"
     ],
     "baseDir": "node_modules/",
     "bundlePath": "node_modules/@criticalmanufacturing/mes-ui-web/bundles",
     "bundles": {
-      "metadata":  false,
-	  "i18n":  false
+      "metadata": true,
+      "i18n": true
     }
   },
   "general": {
@@ -107,20 +108,20 @@
       "zh-TW",
       "es-ES",
       "pl-PL",
-      "sv-SE"
+      "sv-SE",
+      "fr-FR"
     ],
-    "environmentName": "AMSOsramLocal",
+    "environmentName": "amsOSRAMLocal",
     "supportedThemes": [
-      "cmf.style.dark.blue",
-      "cmf.style.light.blue",
+      "cmf.style.dark",
       "cmf.style.blue",
-      "cmf.style.blue.grey"
+      "cmf.style.gray"
     ],
     "defaultDomain": "CMF",
     "passwordEncryption": "rsa",
     "startup": {
       "startupCulture": "en-US",
-      "startupTheme": "cmf.style.light.blue"
+      "startupTheme": "cmf.style.blue"
     }
   },
   "connectiot": {
@@ -157,6 +158,6 @@
       }
     ]
   },
-  "cacheId": "212184",
-  "version": "AMSOsram $(Build.BuildNumber) - 8.3.3"
+  "cacheId": "266259",
+  "version": "amsOSRAM $(Build.BuildNumber) - 9.1.0"
 }

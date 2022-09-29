@@ -7,18 +7,15 @@
 
 using Cmf.Custom.Tests.Biz.Common.Extensions;
 using Cmf.Custom.TestUtilities;
-using Cmf.Foundation.BusinessObjects;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.DispatchManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.TestScenarios.ContainerManagement.ContainerScenarios;
 using Cmf.TestScenarios.MaterialManagement.MaterialScenarios;
-using Cmf.TestScenarios.Others;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.IO;
 using System.Linq;
 
 namespace Cmf.Custom.Tests.Biz.Common.Scenarios
@@ -155,8 +152,8 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         public void Setup(bool isMaterialInOut = false,
             bool isToSetAutomationModeOnline = true,
             bool automaticContainerPositions = true,
-            string containerType = AMSOsramConstants.ContainerSMIFPod,
-            string productName = AMSOsramConstants.TestProduct,
+            string containerType = amsOSRAMConstants.ContainerSMIFPod,
+            string productName = amsOSRAMConstants.TestProduct,
             string subMaterialProductName = null)
         {
             Cmf.TestScenarios.Others.Utilities.RunTearDown = true;
@@ -166,7 +163,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
             // Facility
             if (Facility == null)
             {
-                Facility = new Facility() { Name = AMSOsramConstants.TestFacility };
+                Facility = new Facility() { Name = amsOSRAMConstants.TestFacility };
                 Facility.Load();
             }
 
@@ -183,7 +180,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                 numberOfWafers = NumberOfSubMaterials.Value;
             }
 
-            string materialType = AMSOsramConstants.MaterialTypeProduction;
+            string materialType = amsOSRAMConstants.MaterialTypeProduction;
             if (MaterialType != null)
             {
                 materialType = MaterialType;
@@ -215,9 +212,9 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                 this.Entity.FlowPath = FlowExtensionMethods.CustomGetFlowPath(this.Flow, this.Step.Name);
             }
             this.Entity.Product = product;
-            this.Entity.Form = AMSOsramConstants.FormLot;
+            this.Entity.Form = amsOSRAMConstants.FormLot;
             this.Entity.Type = materialType;
-            this.Entity.PrimaryUnits = AMSOsramConstants.UnitWafers;
+            this.Entity.PrimaryUnits = amsOSRAMConstants.UnitWafers;
             this.Entity.PrimaryQuantity = 0;
             //this.Entity.CurrentMainState = new CurrentEntityState()
             //{
@@ -226,8 +223,8 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
             //};
 
             // Setup the SubMaterial info (Wafers)
-            this.MainForm = AMSOsramConstants.FormLot;
-            this.SubForm = AMSOsramConstants.FormWafer;
+            this.MainForm = amsOSRAMConstants.FormLot;
+            this.SubForm = amsOSRAMConstants.FormWafer;
             this.AddServiceContexts = false;
 
             base.Setup();
@@ -259,9 +256,9 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                     ms.Entity.Step = this.Entity.Step;
                     ms.Entity.FlowPath = this.Entity.FlowPath;
                     ms.Entity.Product = waferProduct;
-                    ms.Entity.Form = AMSOsramConstants.FormWafer;
+                    ms.Entity.Form = amsOSRAMConstants.FormWafer;
                     ms.Entity.Type = materialType;
-                    ms.Entity.PrimaryUnits = AMSOsramConstants.UnitWafers;
+                    ms.Entity.PrimaryUnits = amsOSRAMConstants.UnitWafers;
                     ms.Entity.PrimaryQuantity = 1;
                     ms.AddServiceContexts = false;
                     ms.Setup();
@@ -305,10 +302,10 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                 this.ContainerScenario.Entity.Type = containerType;
                 this.ContainerScenario.Entity.PositionUnitType = ContainerPositionUnitType.Material;
                 this.ContainerScenario.Entity.Facility = this.Entity.Facility;
-                this.ContainerScenario.Entity.CapacityUnits = AMSOsramConstants.UnitWafers;
+                this.ContainerScenario.Entity.CapacityUnits = amsOSRAMConstants.UnitWafers;
                 //this.ContainerScenario.Entity.CapacityUnits = "CARRIER";
                 this.ContainerScenario.Entity.CapacityPerPosition = 1;
-                this.ContainerScenario.Entity.TotalPositions = AMSOsramConstants.ContainerTotalPosition;
+                this.ContainerScenario.Entity.TotalPositions = amsOSRAMConstants.ContainerTotalPosition;
                 this.ContainerScenario.Setup();
 
                 // Associate the Wafers to Container
@@ -340,7 +337,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 
                     step = new Step()
                     {
-                        Name = AMSOsramConstants.TestM3MTZnOSputterCluster6in00126F008_E
+                        Name = amsOSRAMConstants.TestM3MTZnOSputterCluster6in00126F008_E
                     };
 
                     step.Load();

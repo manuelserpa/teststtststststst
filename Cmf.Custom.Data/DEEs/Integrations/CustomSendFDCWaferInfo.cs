@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.FDC;
-using Cmf.Foundation.BusinessObjects;
+using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.FDC;
 using Cmf.Foundation.Common;
 using Cmf.Foundation.Configuration;
+using Cmf.Foundation.Configuration.Abstractions;
+using Cmf.Foundation.BusinessObjects.Abstractions;
 
-namespace Cmf.Custom.AMSOsram.Actions.Integrations
+namespace Cmf.Custom.amsOSRAM.Actions.Integrations
 {
     class CustomSendFDCWaferInfo : DeeDevBase
     {
@@ -36,17 +36,16 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
         {
             //---Start DEE Code--- 
 
-            UseReference("", "System.Globalization");
-            UseReference("", "System.Text");
+            // System
             UseReference("%MicrosoftNetPath%System.Private.Xml.dll", "System.Xml");
-            UseReference("", "Cmf.Foundation.BusinessObjects");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
-            UseReference("", "Cmf.Foundation.Common");
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
+
+            // Navigo
             UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.Extensions");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.FDC");
+
+            // Custom
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.Extensions");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.FDC");
 
             #region Input validation
 
@@ -56,42 +55,43 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             }
 
             #endregion
+
             bool fdcActive = false;
             bool fdcMandatory = false;
             string fdcServer = string.Empty;
             short? fdcPort = null;
 
-            IntegrationEntry ie = Input["IntegrationEntry"] as IntegrationEntry;
+            IIntegrationEntry ie = Input["IntegrationEntry"] as IIntegrationEntry;
             ie.LoadIntegrationMessage();
 
             string integrationMessage = System.Text.Encoding.UTF8.GetString(ie.IntegrationMessage.Message);
 
             // Load records from xml
-            FDCWaferInfo fdcWaferInfo = AMSOsramUtilities.DeserializeXmlToObject<FDCWaferInfo>(integrationMessage);
+            FDCWaferInfo fdcWaferInfo = amsOSRAMUtilities.DeserializeXmlToObject<FDCWaferInfo>(integrationMessage);
 
             // Fetch FDC Active config
-            if (Config.TryGetConfig(AMSOsramConstants.FDCConfigActivePath, out Config fdcActiveConfig) &&
+            if (Config.TryGetConfig(amsOSRAMConstants.FDCConfigActivePath, out IConfig fdcActiveConfig) &&
                     fdcActiveConfig.GetConfigValue<bool>())
             {
                 fdcActive = fdcActiveConfig.GetConfigValue<bool>();
             }
 
             //Fetch FDC Mandatory config
-            if (Config.TryGetConfig(AMSOsramConstants.FDCConfigMandatoryPath, out Config fdcMandatoryConfig) &&
+            if (Config.TryGetConfig(amsOSRAMConstants.FDCConfigMandatoryPath, out IConfig fdcMandatoryConfig) &&
                     fdcMandatoryConfig.GetConfigValue<bool>())
             {
                 fdcMandatory = fdcMandatoryConfig.GetConfigValue<bool>();
             }
 
             // Fetch FDC Server config
-            if (Config.TryGetConfig(AMSOsramConstants.FDCConfigServerPath, out Config fdcServerConfig) &&
+            if (Config.TryGetConfig(amsOSRAMConstants.FDCConfigServerPath, out IConfig fdcServerConfig) &&
                     !string.IsNullOrWhiteSpace(fdcServerConfig.GetConfigValue<string>()))
             {
                 fdcServer = fdcServerConfig.GetConfigValue<string>();
             }
 
             // Fetch FDC Port config
-            if (Config.TryGetConfig(AMSOsramConstants.FDCConfigPortPath, out Config fdcPortConfig) &&
+            if (Config.TryGetConfig(amsOSRAMConstants.FDCConfigPortPath, out IConfig fdcPortConfig) &&
                     fdcPortConfig.GetConfigValue<short>() > 0)
             {
                 fdcPort = fdcPortConfig.GetConfigValue<short>();
@@ -103,11 +103,11 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 {
                     //FDC_API_Onto fdcApi = new FDC_API_Onto(fdcActive, fdcMandatory, fdcServer, (int)fdcPort);
 
-                    if (ie.MessageType.Equals(AMSOsramConstants.MessageType_WAFERIN))
+                    if (ie.MessageType.Equals(amsOSRAMConstants.MessageType_WAFERIN))
                     {
                         //fdcApi.SendFdcWaferIn();
                     }
-                    else if (ie.MessageType.Equals(AMSOsramConstants.MessageType_WAFEROUT))
+                    else if (ie.MessageType.Equals(amsOSRAMConstants.MessageType_WAFEROUT))
                     {
                         //fdcApi.SendFdcWaferOut();
                     }
@@ -120,7 +120,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             else
             {
                 throw new CmfBaseException($"Could not send transaction { ie.MessageType } ({ ie.Name }) to Onto FDC due to " +
-                    $"FDC be not active or missing configuration for FDC server or port at /AMSOsram/FDC/");
+                    $"FDC be not active or missing configuration for FDC server or port at /amsOSRAM/FDC/");
             }
 
             //---End DEE Code---

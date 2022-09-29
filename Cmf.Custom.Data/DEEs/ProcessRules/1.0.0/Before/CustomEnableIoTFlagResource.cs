@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
-using Cmf.Foundation.BusinessObjects;
+﻿using System;
+using System.Collections.Generic;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._0._0.Before
+namespace Cmf.Custom.amsOSRAM.Actions.ProcessRules._1._0._0.Before
 {
     public class CustomEnableIoTFlagResource : DeeDevBase
     {
@@ -9,20 +12,14 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._0._0.Before
         {
             //---Start DEE Code---
 
-
-            // Foundation
-            UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common.Base");
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.CommunicationLayer.Sap.dll", "Cmf.Foundation.CommunicationLayer.Converters");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration");
-
-
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration.EntityTypeManagement");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration.EntityTypeManagement.InputObjects");
-
             const string ResourceEntityTypeName = "Resource";
 
-            EntityType resourceEntityType = new EntityType() { Name = ResourceEntityTypeName };
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
+            IEntityType resourceEntityType = entityFactory.Create<IEntityType>();
+            resourceEntityType.Name = ResourceEntityTypeName;
 
             if (resourceEntityType.ObjectExists())
             {
@@ -31,12 +28,8 @@ namespace Cmf.Custom.AMSOsram.Actions.ProcessRules._1._0._0.Before
                 if (!resourceEntityType.ConnectIoTEnabled)
                 {
                     resourceEntityType.ConnectIoTEnabled = true;
-
                     resourceEntityType.Save();
-
                 }
-
-                
             }
 
             //---End DEE Code---

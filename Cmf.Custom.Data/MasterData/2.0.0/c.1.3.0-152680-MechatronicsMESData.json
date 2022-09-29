@@ -1,0 +1,27 @@
+{
+  "<SM>DEEAction": {
+    "1": {
+      "Action": "CustomResolveContainerLoadPortPair",
+      "Description": "Resolve Container Load Port",
+      "CodeFileRelativePath": "Automation//CustomResolveContainerLoadPortPair.cs",
+      "IsEnabled": "Yes",
+      "Classification": "ConnectIoT"
+    },
+    "2": {
+      "Action": "CustomMaterialInPostProcessSorterJobDefinition",
+      "Description": "DEE Action to set the necessary load ports to in Use.",
+      "CodeFileRelativePath": "Materials//CustomMaterialInPostProcessSorterJobDefinition.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    }
+  },
+  "DEEActionOrder": {},
+  "<DM>Rule": {
+    "2": {
+      "Name": "CustomResolveContainerLoadPortPair",
+      "Description": "Resolve Container Load Port",
+      "Scope": "ConnectIoT",
+      "DEERule": "CustomResolveContainerLoadPortPair"
+    }
+  }
+}

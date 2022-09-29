@@ -1056,7 +1056,7 @@
       "PropertyType": "Attribute",
       "CopyOnClone": "No",
       "BelongsTo": "Definition",
-      "ScalarType": "String",
+      "ScalarType": "NVarChar",
       "ScalarSize": "",
       "ScalarPrecision": "",
       "ReferenceType": "None",
@@ -1078,7 +1078,7 @@
       "PropertyType": "Attribute",
       "CopyOnClone": "No",
       "BelongsTo": "Definition",
-      "ScalarType": "Integer",
+      "ScalarType": "Int",
       "ScalarSize": "",
       "ScalarPrecision": "",
       "ReferenceType": "None",
@@ -1100,7 +1100,7 @@
       "PropertyType": "Attribute",
       "CopyOnClone": "No",
       "BelongsTo": "Definition",
-      "ScalarType": "Integer",
+      "ScalarType": "Int",
       "ScalarSize": "",
       "ScalarPrecision": "",
       "ReferenceType": "None",
@@ -1122,7 +1122,7 @@
       "PropertyType": "Attribute",
       "CopyOnClone": "No",
       "BelongsTo": "Definition",
-      "ScalarType": "String",
+      "ScalarType": "NVarChar",
       "ScalarSize": "",
       "ScalarPrecision": "",
       "ReferenceType": "None",
@@ -1144,7 +1144,7 @@
       "PropertyType": "Attribute",
       "CopyOnClone": "No",
       "BelongsTo": "Definition",
-      "ScalarType": "Boolean",
+      "ScalarType": "Bit",
       "ScalarSize": "",
       "ScalarPrecision": "",
       "ReferenceType": "None",
@@ -1166,7 +1166,7 @@
       "PropertyType": "Attribute",
       "CopyOnClone": "No",
       "BelongsTo": "Definition",
-      "ScalarType": "Boolean",
+      "ScalarType": "Bit",
       "ScalarSize": "",
       "ScalarPrecision": "",
       "ReferenceType": "None",
@@ -1188,7 +1188,7 @@
       "PropertyType": "Attribute",
       "CopyOnClone": "No",
       "BelongsTo": "Definition",
-      "ScalarType": "String",
+      "ScalarType": "NVarChar",
       "ScalarSize": "",
       "ScalarPrecision": "",
       "ReferenceType": "LookupValue",
@@ -1210,7 +1210,7 @@
       "PropertyType": "Attribute",
       "CopyOnClone": "No",
       "BelongsTo": "Definition",
-      "ScalarType": "Boolean",
+      "ScalarType": "Bit",
       "ScalarSize": "",
       "ScalarPrecision": "",
       "ReferenceType": "None",
@@ -1232,7 +1232,7 @@
       "PropertyType": "Attribute",
       "CopyOnClone": "No",
       "BelongsTo": "Definition",
-      "ScalarType": "Boolean",
+      "ScalarType": "Bit",
       "ScalarSize": "",
       "ScalarPrecision": "",
       "ReferenceType": "None",
@@ -1254,7 +1254,7 @@
       "PropertyType": "Attribute",
       "CopyOnClone": "No",
       "BelongsTo": "Definition",
-      "ScalarType": "String",
+      "ScalarType": "NVarChar",
       "ScalarSize": "",
       "ScalarPrecision": "",
       "ReferenceType": "LookupValue",
@@ -1276,7 +1276,7 @@
       "PropertyType": "Attribute",
       "CopyOnClone": "No",
       "BelongsTo": "Definition",
-      "ScalarType": "String",
+      "ScalarType": "NVarChar",
       "ScalarSize": "",
       "ScalarPrecision": "",
       "ReferenceType": "LookupValue",
@@ -1298,7 +1298,7 @@
       "PropertyType": "Attribute",
       "CopyOnClone": "No",
       "BelongsTo": "Definition",
-      "ScalarType": "Boolean",
+      "ScalarType": "Bit",
       "ScalarSize": "",
       "ScalarPrecision": "",
       "ReferenceType": "None",
@@ -1320,7 +1320,7 @@
       "PropertyType": "Attribute",
       "CopyOnClone": "",
       "BelongsTo": "Definition",
-      "ScalarType": "String",
+      "ScalarType": "NVarChar",
       "ScalarSize": "256",
       "ScalarPrecision": "",
       "ReferenceType": "None",
@@ -1342,7 +1342,7 @@
       "PropertyType": "Attribute",
       "CopyOnClone": "",
       "BelongsTo": "Definition",
-      "ScalarType": "Integer",
+      "ScalarType": "Int",
       "ScalarSize": "",
       "ScalarPrecision": "",
       "ReferenceType": "None",
@@ -1364,7 +1364,7 @@
       "PropertyType": "Attribute",
       "CopyOnClone": "Yes",
       "BelongsTo": "Definition",
-      "ScalarType": "Boolean",
+      "ScalarType": "Bit",
       "ScalarSize": "",
       "ScalarPrecision": "",
       "ReferenceType": "None",
@@ -1453,24 +1453,6 @@
       "Attributes": ""
     },
     "6": {
-      "StateModel": "CustomLoadPortStateModelState",
-      "Name": "Available",
-      "Description": "LoadPort Available",
-      "Role": "",
-      "IsInitial": "Yes",
-      "IsFinal": "No",
-      "Attributes": ""
-    },
-    "7": {
-      "StateModel": "CustomLoadPortStateModelState",
-      "Name": "Occupied",
-      "Description": "LoadPort Occupied",
-      "Role": "",
-      "IsInitial": "No",
-      "IsFinal": "No",
-      "Attributes": ""
-    },
-    "8": {
       "StateModel": "CustomMaterialStateModel",
       "Name": "Queued",
       "Description": "Queued",
@@ -1479,7 +1461,7 @@
       "IsFinal": "No",
       "Attributes": ""
     },
-    "9": {
+    "7": {
       "StateModel": "CustomMaterialStateModel",
       "Name": "Setup",
       "Description": "Setup",
@@ -1488,7 +1470,7 @@
       "IsFinal": "No",
       "Attributes": ""
     },
-    "10": {
+    "8": {
       "StateModel": "CustomMaterialStateModel",
       "Name": "In Progress",
       "Description": "In Progress",
@@ -1497,7 +1479,7 @@
       "IsFinal": "No",
       "Attributes": ""
     },
-    "11": {
+    "9": {
       "StateModel": "CustomMaterialStateModel",
       "Name": "Abort",
       "Description": "Abort",
@@ -1506,7 +1488,7 @@
       "IsFinal": "No",
       "Attributes": ""
     },
-    "12": {
+    "10": {
       "StateModel": "CustomMaterialStateModel",
       "Name": "Complete",
       "Description": "Complete",
@@ -1515,7 +1497,7 @@
       "IsFinal": "No",
       "Attributes": ""
     },
-    "13": {
+    "11": {
       "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
       "Name": "Idle",
       "Description": "Idle EPT State (E116-0707)",
@@ -1524,7 +1506,7 @@
       "IsFinal": "No",
       "Attributes": ""
     },
-    "14": {
+    "12": {
       "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
       "Name": "Blocked",
       "Description": "Blocked EPT State (E116-0707)",
@@ -1533,7 +1515,7 @@
       "IsFinal": "No",
       "Attributes": ""
     },
-    "15": {
+    "13": {
       "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
       "Name": "Busy",
       "Description": "Busy EPT State (E116-0707)",
@@ -1542,7 +1524,7 @@
       "IsFinal": "No",
       "Attributes": ""
     },
-    "16": {
+    "14": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "ReadyToLoad",
       "Description": "Load Port Available",
@@ -1551,7 +1533,7 @@
       "IsFinal": "No",
       "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up]"
     },
-    "17": {
+    "15": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "TransferBlocked",
       "Description": "LoadPort Occupied",
@@ -1560,7 +1542,7 @@
       "IsFinal": "No",
       "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up]"
     },
-    "18": {
+    "16": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "ReadyToUnload",
       "Description": "Load Port's Carrier Ready to be removed",
@@ -1569,7 +1551,7 @@
       "IsFinal": "No",
       "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up]"
     },
-    "19": {
+    "17": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "Reserved",
       "Description": "Transport Reserved for Load Port",
@@ -1578,7 +1560,7 @@
       "IsFinal": "No",
       "Attributes": "Name[Basic] ScalarType[VarChar] Value[Up]"
     },
-    "20": {
+    "18": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "OutOfService",
       "Description": "Load Port Out of Service",
@@ -1730,26 +1712,6 @@
       "ReasonDefaultValue": ""
     },
     "15": {
-      "StateModel": "CustomLoadPortStateModelState",
-      "Name": "Available to Occupied",
-      "Description": "Available to Occupied",
-      "FromState": "Available",
-      "ToState": "Occupied",
-      "Role": "",
-      "ReasonLookupTable": "",
-      "ReasonDefaultValue": ""
-    },
-    "16": {
-      "StateModel": "CustomLoadPortStateModelState",
-      "Name": "Occupied to Available",
-      "Description": "Occupied to Available",
-      "FromState": "Occupied",
-      "ToState": "Available",
-      "Role": "",
-      "ReasonLookupTable": "",
-      "ReasonDefaultValue": ""
-    },
-    "17": {
       "StateModel": "CustomMaterialStateModel",
       "Name": "Queued to Setup",
       "Description": "Queued to Setup",
@@ -1759,7 +1721,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "18": {
+    "16": {
       "StateModel": "CustomMaterialStateModel",
       "Name": "Setup to In Progress",
       "Description": "Setup to In Progress",
@@ -1769,7 +1731,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "19": {
+    "17": {
       "StateModel": "CustomMaterialStateModel",
       "Name": "Setup to Abort",
       "Description": "Setup to Abort",
@@ -1779,7 +1741,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "20": {
+    "18": {
       "StateModel": "CustomMaterialStateModel",
       "Name": "In Progress to Abort",
       "Description": "In Progress to Abort",
@@ -1789,7 +1751,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "21": {
+    "19": {
       "StateModel": "CustomMaterialStateModel",
       "Name": "In Progress to Complete",
       "Description": "In Progress to Complete",
@@ -1799,7 +1761,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "22": {
+    "20": {
       "StateModel": "CustomMaterialStateModel",
       "Name": "Abort to Setup",
       "Description": "Abort to Setup",
@@ -1809,7 +1771,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "23": {
+    "21": {
       "StateModel": "CustomMaterialStateModel",
       "Name": "Abort to Queued",
       "Description": "Abort to Queued",
@@ -1819,7 +1781,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "24": {
+    "22": {
       "StateModel": "CustomMaterialStateModel",
       "Name": "Complete to Queued",
       "Description": "Complete to Queued",
@@ -1829,7 +1791,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "25": {
+    "23": {
       "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
       "Name": "Idle to Idle",
       "Description": "Idle to Idle",
@@ -1839,7 +1801,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "26": {
+    "24": {
       "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
       "Name": "Idle to Blocked",
       "Description": "Idle to Blocked",
@@ -1849,7 +1811,7 @@
       "ReasonLookupTable": "ReasonsEptBlockedReason",
       "ReasonDefaultValue": "Unknown"
     },
-    "27": {
+    "25": {
       "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
       "Name": "Idle to Busy",
       "Description": "Idle to Busy",
@@ -1859,7 +1821,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "28": {
+    "26": {
       "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
       "Name": "Blocked to Idle",
       "Description": "Blocked to Idle",
@@ -1869,7 +1831,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "29": {
+    "27": {
       "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
       "Name": "Blocked to Blocked",
       "Description": "Blocked to Blocked",
@@ -1879,7 +1841,7 @@
       "ReasonLookupTable": "ReasonsEptBlockedReason",
       "ReasonDefaultValue": "Unknown"
     },
-    "30": {
+    "28": {
       "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
       "Name": "Blocked to Busy",
       "Description": "Blocked to Busy",
@@ -1889,7 +1851,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "31": {
+    "29": {
       "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
       "Name": "Busy to Idle",
       "Description": "Busy to Idle",
@@ -1899,7 +1861,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "32": {
+    "30": {
       "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
       "Name": "Busy to Blocked",
       "Description": "Busy to Blocked",
@@ -1909,7 +1871,7 @@
       "ReasonLookupTable": "ReasonsEptBlockedReason",
       "ReasonDefaultValue": "Unknown"
     },
-    "33": {
+    "31": {
       "StateModel": "CustomEquipmentPerformanceTrackingStateModel",
       "Name": "Busy to Busy",
       "Description": "Busy to Busy",
@@ -1919,7 +1881,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "34": {
+    "32": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "ReadyToLoad to Reserved",
       "Description": "",
@@ -1929,7 +1891,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "35": {
+    "33": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "ReadyToLoad to TransferBlocked",
       "Description": "",
@@ -1939,7 +1901,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "36": {
+    "34": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "ReadyToLoad to OutOfService",
       "Description": "",
@@ -1949,7 +1911,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "37": {
+    "35": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "Reserved ve ReadyToLoad",
       "Description": "",
@@ -1959,7 +1921,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "38": {
+    "36": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "Reserved ve TransferBlocked",
       "Description": "",
@@ -1969,7 +1931,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "39": {
+    "37": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "Reserved ve OutOfService",
       "Description": "",
@@ -1979,7 +1941,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "40": {
+    "38": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "TransferBlocked transfer ReadyToUnload",
       "Description": "",
@@ -1989,7 +1951,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "41": {
+    "39": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "TransferBlocked transfer OutOfService",
       "Description": "",
@@ -1999,7 +1961,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "42": {
+    "40": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "ReadyToUnload to ReadyToLoad",
       "Description": "",
@@ -2009,7 +1971,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "43": {
+    "41": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "ReadyToUnload to OutOfService",
       "Description": "",
@@ -2019,7 +1981,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "44": {
+    "42": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "OutOfService of ReadyToLoad",
       "Description": "",
@@ -2029,7 +1991,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "45": {
+    "43": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "OutOfService of TransferBlocked",
       "Description": "",
@@ -2039,7 +2001,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "46": {
+    "44": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "OutOfService of ReadyToUnload",
       "Description": "",
@@ -2049,7 +2011,7 @@
       "ReasonLookupTable": "",
       "ReasonDefaultValue": ""
     },
-    "47": {
+    "45": {
       "StateModel": "CustomLoadPortStateModel",
       "Name": "OutOfService of Reserved",
       "Description": "",
@@ -2070,14 +2032,14 @@
       "Description": "SecsGem Protocol",
       "Type": "General",
       "Package": "@criticalmanufacturing/connect-iot-driver-secsgem",
-      "PackageVersion": "8.3.3-202201212"
+      "PackageVersion": "9.1.0-202209072"
     },
     "2": {
       "Name": "FileRaw",
       "Description": "FileRaw",
       "Type": "General",
       "Package": "@criticalmanufacturing/connect-iot-driver-fileraw",
-      "PackageVersion": "8.3.3-202201212"
+      "PackageVersion": "9.1.0-202209072"
     }
   },
   "AutomationProtocolParameter": {},

@@ -1,47 +1,52 @@
-﻿using Cmf.Custom.AMSOsram.Common;
+﻿using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessObjects.Cultures;
 using Cmf.Foundation.BusinessObjects.SmartTables;
-using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
-using System.Threading;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Foundation.Common.LocalizationService;
 
-namespace Cmf.Custom.AMSOsram.Actions.Notification
+namespace Cmf.Custom.amsOSRAM.Actions.Notification
 {
     public class CustomResourceNotificationControlCenter : DeeDevBase
     {
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
             //---Start DEE Code---
+
+            // System
             UseReference("%MicrosoftNetPath%System.Private.CoreLib.dll", "System.Threading");
             UseReference("%MicrosoftNetPath%System.Data.Common.dll", "System.Data");
+            
+            // Foundation
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.SmartTables");
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
-            UseReference("", "Cmf.Foundation.Common");
+            UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common.LocalizationService");
 
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.Cultures");
+            // Navigo
             UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
+            
+            // Custom
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
 
             const string triggerTypeSPCViolationValue = "SPCViolation";
             const string triggerTypeResourceStateChangeValue = "ResourceStateChange";
 
             string triggerType = "";
-            Resource resource = null;
+            IResource resource = null;
             string stateModel = "", fromState = "", toState = "";
             string contextMessageEquipment = "";
             string contextMessageSPC = "";
             string titleMessageSPC = "";
             string resourceName = "";
-            Area area = null;
+            IArea area = null;
+
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
 
             if (Input.ContainsKey("ActionGroupName"))
             {
@@ -59,25 +64,28 @@ namespace Cmf.Custom.AMSOsram.Actions.Notification
                 }
                 else if (actionGroup.Equals("BusinessObjects.Resource.AdjustState.Pre"))
                 {
-                    resource = Input[Navigo.Common.Constants.Resource] as Resource;
+                    resource = Input[Navigo.Common.Constants.Resource] as IResource;
                     resourceName = resource.Name;
-                    stateModel = (Input[Foundation.Common.Constants.StateModel] as StateModel).Name;
+                    stateModel = (Input[Foundation.Common.Constants.StateModel] as IStateModel).Name;
                     fromState = resource.CurrentMainState.CurrentState.Name;
-                    toState = Input[AMSOsramConstants.smartTablePropertyStateName] as string;
+                    toState = Input[amsOSRAMConstants.smartTablePropertyStateName] as string;
                     triggerType = triggerTypeResourceStateChangeValue;
                 }
                 else if (actionGroup.Equals("IoTRequest"))
                 {
                     resourceName = Input[Navigo.Common.Constants.Resource].ToString();
-                    resource = new Resource() { Name = resourceName };
-                    triggerType = Input[AMSOsramConstants.smartTablePropertyNotificationTrigger] as string;
-                    contextMessageEquipment = Input[AMSOsramConstants.smartTablePropertyNotificationBodyMessage] as string;
+                    IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
+                    resource = entityFactory.Create<IResource>();
+                    resource.Name = resourceName;
+                    triggerType = Input[amsOSRAMConstants.smartTablePropertyNotificationTrigger] as string;
+                    contextMessageEquipment = Input[amsOSRAMConstants.smartTablePropertyNotificationBodyMessage] as string;
                 }
                 else if (actionGroup.Equals(triggerTypeSPCViolationValue))
                 {
-                    if (Input.ContainsKey(Cmf.Navigo.Common.Constants.Resource))
+                    if (Input.ContainsKey(Navigo.Common.Constants.Resource))
                     {
-                        resource = Input[Navigo.Common.Constants.Resource] as Resource;
+                        resource = Input[Navigo.Common.Constants.Resource] as IResource;
                         if (resource != null)
                         {
                             area = resource.Area;
@@ -86,14 +94,14 @@ namespace Cmf.Custom.AMSOsram.Actions.Notification
                     }
                     triggerType = triggerTypeSPCViolationValue;
 
-                    if (Input.ContainsKey(AMSOsramConstants.smartTablePropertyNotificationTitleMessage))
+                    if (Input.ContainsKey(amsOSRAMConstants.smartTablePropertyNotificationTitleMessage))
                     {
-                        titleMessageSPC = Input[AMSOsramConstants.smartTablePropertyNotificationTitleMessage] as string;
+                        titleMessageSPC = Input[amsOSRAMConstants.smartTablePropertyNotificationTitleMessage] as string;
                     }
 
-                    if (Input.ContainsKey(AMSOsramConstants.smartTablePropertyNotificationBodyMessage))
+                    if (Input.ContainsKey(amsOSRAMConstants.smartTablePropertyNotificationBodyMessage))
                     {
-                        contextMessageSPC = Input[AMSOsramConstants.smartTablePropertyNotificationBodyMessage] as string;
+                        contextMessageSPC = Input[amsOSRAMConstants.smartTablePropertyNotificationBodyMessage] as string;
                     }
                 }
             }
@@ -102,12 +110,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Notification
             {
 
                 //Load SmartTable
-                SmartTable materialNotificationSmartTable = new SmartTable() { Name = AMSOsramConstants.CustomResourceNotificationSTName };
+                ISmartTable materialNotificationSmartTable = new SmartTable() { Name = amsOSRAMConstants.CustomResourceNotificationSTName };
 
                 materialNotificationSmartTable.Load();
                 materialNotificationSmartTable.LoadData();
 
-                NgpDataRow resolveKeys = new NgpDataRow();
+                INgpDataRow resolveKeys = new NgpDataRow();
                 if (resource != null && resource.ObjectExists())
                 {
                     resolveKeys.Add(Navigo.Common.Constants.Resource, resource.Name);
@@ -125,17 +133,17 @@ namespace Cmf.Custom.AMSOsram.Actions.Notification
 
                 if (!string.IsNullOrEmpty(fromState))
                 {
-                    resolveKeys.Add(AMSOsramConstants.smartTablePropertyFromState, fromState);
+                    resolveKeys.Add(amsOSRAMConstants.smartTablePropertyFromState, fromState);
                 }
 
                 if (!string.IsNullOrEmpty(toState))
                 {
-                    resolveKeys.Add(AMSOsramConstants.smartTablePropertyToState, toState);
+                    resolveKeys.Add(amsOSRAMConstants.smartTablePropertyToState, toState);
                 }
 
-                resolveKeys.Add(AMSOsramConstants.smartTablePropertyNotificationTrigger, triggerType);
+                resolveKeys.Add(amsOSRAMConstants.smartTablePropertyNotificationTrigger, triggerType);
 
-                NgpDataSet resolvedData = materialNotificationSmartTable.Resolve(resolveKeys, false);
+                INgpDataSet resolvedData = materialNotificationSmartTable.Resolve(resolveKeys, false);
 
                 //Get Action,Role
                 DataSet dataset = NgpDataSet.ToDataSet(resolvedData);
@@ -144,44 +152,45 @@ namespace Cmf.Custom.AMSOsram.Actions.Notification
                 {
                     foreach (DataRow rowResult in dataset.Tables[0].Rows)
                     {
-                        if (rowResult[AMSOsramConstants.smartTablePropertyIsEnable] != DBNull.Value && (bool)rowResult[AMSOsramConstants.smartTablePropertyIsEnable])
+                        if (rowResult[amsOSRAMConstants.smartTablePropertyIsEnable] != DBNull.Value && (bool)rowResult[amsOSRAMConstants.smartTablePropertyIsEnable])
                         {
-                            string notificationAction = rowResult[AMSOsramConstants.smartTablePropertyNotificationAction].ToString();
-                            string severity = rowResult[AMSOsramConstants.smartTablePropertySeverity].ToString();
-                            string roleName = rowResult[AMSOsramConstants.smartTablePropertyTargetRole].ToString();
-                            string distribuitionList = rowResult[AMSOsramConstants.smartTablePropertyTargetDistributionList].ToString();
-                            string notificationTitleMessage = rowResult[AMSOsramConstants.smartTablePropertyNotificationTitleMessage].ToString();
-                            string notificationBodyMessage = rowResult[AMSOsramConstants.smartTablePropertyNotificationBodyMessage].ToString();
+                            string notificationAction = rowResult[amsOSRAMConstants.smartTablePropertyNotificationAction].ToString();
+                            string severity = rowResult[amsOSRAMConstants.smartTablePropertySeverity].ToString();
+                            string roleName = rowResult[amsOSRAMConstants.smartTablePropertyTargetRole].ToString();
+                            string distribuitionList = rowResult[amsOSRAMConstants.smartTablePropertyTargetDistributionList].ToString();
+                            string notificationTitleMessage = rowResult[amsOSRAMConstants.smartTablePropertyNotificationTitleMessage].ToString();
+                            string notificationBodyMessage = rowResult[amsOSRAMConstants.smartTablePropertyNotificationBodyMessage].ToString();
 
                             List<KeyValuePair<string, object>> deeInput = new List<KeyValuePair<string, object>>();
 
                             if (!string.IsNullOrEmpty(roleName))
                             {
-                                deeInput.Add(new KeyValuePair<string, object>(AMSOsramConstants.smartTablePropertyTargetRole, roleName));
+                                deeInput.Add(new KeyValuePair<string, object>(amsOSRAMConstants.smartTablePropertyTargetRole, roleName));
                             }
                             else if (!string.IsNullOrEmpty(distribuitionList))
                             {
-                                deeInput.Add(new KeyValuePair<string, object>(AMSOsramConstants.smartTablePropertyTargetDistributionList, distribuitionList));
+                                deeInput.Add(new KeyValuePair<string, object>(amsOSRAMConstants.smartTablePropertyTargetDistributionList, distribuitionList));
                             }
                             if (!string.IsNullOrEmpty(roleName) || !string.IsNullOrEmpty(distribuitionList))
                             {
 
-                                string defaultTitleMessage = Cmf.Navigo.Common.Constants.Resource + ":" + resourceName + " - " + triggerType;
+                                string defaultTitleMessage = Navigo.Common.Constants.Resource + ":" + resourceName + " - " + triggerType;
                                 if (!string.IsNullOrEmpty(notificationTitleMessage))
                                 {
-                                    LocalizedMessage titleMessage = LocalizedMessage.GetLocalizedMessage(notificationTitleMessage);
-                                    deeInput.Add(new KeyValuePair<string, object>(AMSOsramConstants.smartTablePropertyNotificationTitleMessage, titleMessage.MessageText + "<br>" + defaultTitleMessage));
+                                    ILocalizationService localizationService = serviceProvider.GetService<ILocalizationService>();
+                                    string titleMessage = localizationService.Localize(notificationTitleMessage);
+                                    deeInput.Add(new KeyValuePair<string, object>(amsOSRAMConstants.smartTablePropertyNotificationTitleMessage, titleMessage + "<br>" + defaultTitleMessage));
                                 }
                                 else if (!string.IsNullOrEmpty(titleMessageSPC))
                                 {
-                                    deeInput.Add(new KeyValuePair<string, object>(AMSOsramConstants.smartTablePropertyNotificationTitleMessage, titleMessageSPC + "<br>" + defaultTitleMessage));
+                                    deeInput.Add(new KeyValuePair<string, object>(amsOSRAMConstants.smartTablePropertyNotificationTitleMessage, titleMessageSPC + "<br>" + defaultTitleMessage));
                                 }
                                 else if (string.IsNullOrEmpty(notificationTitleMessage))
                                 {
-                                    deeInput.Add(new KeyValuePair<string, object>(AMSOsramConstants.smartTablePropertyNotificationTitleMessage, defaultTitleMessage));
+                                    deeInput.Add(new KeyValuePair<string, object>(amsOSRAMConstants.smartTablePropertyNotificationTitleMessage, defaultTitleMessage));
                                 }
 
-                                var context = new System.Text.StringBuilder();
+                                System.Text.StringBuilder context = new System.Text.StringBuilder();
                                 context.AppendFormat($"{Navigo.Common.Constants.Resource}: {resourceName}<br>");
 
                                 if (!string.IsNullOrEmpty(stateModel))
@@ -191,12 +200,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Notification
 
                                 if (!string.IsNullOrEmpty(fromState))
                                 {
-                                    context.AppendFormat($"{AMSOsramConstants.smartTablePropertyFromState}: {fromState}<br>");
+                                    context.AppendFormat($"{amsOSRAMConstants.smartTablePropertyFromState}: {fromState}<br>");
                                 }
 
                                 if (!string.IsNullOrEmpty(toState))
                                 {
-                                    context.AppendFormat($"{AMSOsramConstants.smartTablePropertyToState}: {toState}<br>");
+                                    context.AppendFormat($"{amsOSRAMConstants.smartTablePropertyToState}: {toState}<br>");
                                 }
 
                                 if (!string.IsNullOrEmpty(contextMessageEquipment))
@@ -209,25 +218,26 @@ namespace Cmf.Custom.AMSOsram.Actions.Notification
                                     context.AppendFormat($"{"Message"}: {contextMessageSPC}<br>");
                                 }
 
-                                context.AppendFormat($"{AMSOsramConstants.smartTablePropertyNotificationTrigger}: {triggerType}<br>");
+                                context.AppendFormat($"{amsOSRAMConstants.smartTablePropertyNotificationTrigger}: {triggerType}<br>");
                                 context.AppendFormat($"User: {Foundation.Common.Utilities.DomainUserName}");
 
                                 if (!string.IsNullOrEmpty(notificationBodyMessage))
                                 {
-                                    var bodyMessage = LocalizedMessage.GetLocalizedMessage(notificationBodyMessage);
-                                    deeInput.Add(new KeyValuePair<string, object>(AMSOsramConstants.smartTablePropertyNotificationBodyMessage, bodyMessage.MessageText + "<br>" + context.ToString()));
+                                    ILocalizationService localizationService = serviceProvider.GetService<ILocalizationService>();
+                                    string bodyMessage = localizationService.Localize(notificationBodyMessage);
+                                    deeInput.Add(new KeyValuePair<string, object>(amsOSRAMConstants.smartTablePropertyNotificationBodyMessage, bodyMessage + "<br>" + context.ToString()));
                                 }
                                 else
                                 {
-                                    deeInput.Add(new KeyValuePair<string, object>(AMSOsramConstants.smartTablePropertyNotificationBodyMessage, context.ToString()));
+                                    deeInput.Add(new KeyValuePair<string, object>(amsOSRAMConstants.smartTablePropertyNotificationBodyMessage, context.ToString()));
                                 }
 
-                                deeInput.Add(new KeyValuePair<string, object>(AMSOsramConstants.smartTablePropertyNotificationType, "Equipment"));
-                                deeInput.Add(new KeyValuePair<string, object>(AMSOsramConstants.smartTablePropertyNotificationAction, notificationAction));
-                                deeInput.Add(new KeyValuePair<string, object>(AMSOsramConstants.smartTablePropertyNotificationTrigger, triggerType));
-                                deeInput.Add(new KeyValuePair<string, object>(AMSOsramConstants.smartTablePropertySeverity, severity));
+                                deeInput.Add(new KeyValuePair<string, object>(amsOSRAMConstants.smartTablePropertyNotificationType, "Equipment"));
+                                deeInput.Add(new KeyValuePair<string, object>(amsOSRAMConstants.smartTablePropertyNotificationAction, notificationAction));
+                                deeInput.Add(new KeyValuePair<string, object>(amsOSRAMConstants.smartTablePropertyNotificationTrigger, triggerType));
+                                deeInput.Add(new KeyValuePair<string, object>(amsOSRAMConstants.smartTablePropertySeverity, severity));
 
-                                Cmf.Foundation.Common.DynamicExecutionEngine.Action.ExecuteAction(
+                                Foundation.Common.DynamicExecutionEngine.Action.ExecuteAction(
                                     "CustomTriggerNotifications",
                                     deeInput.ToArray()
 
@@ -238,8 +248,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Notification
                 }
             }
 
-
             //---End DEE Code---
+
             return Input;
         }
 

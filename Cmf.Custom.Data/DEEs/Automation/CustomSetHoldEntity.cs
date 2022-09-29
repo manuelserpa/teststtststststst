@@ -1,14 +1,18 @@
-﻿using Cmf.Custom.AMSOsram.Common;
-using Cmf.Foundation.BusinessObjects.Cultures;
+﻿using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Foundation.Common;
 using Cmf.Foundation.Configuration;
-using Cmf.Navigo.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.Configuration.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Foundation.Common.Abstractions;
+using Cmf.Foundation.Common.LocalizationService;
+using Cmf.Navigo.BusinessObjects;
 
-namespace Cmf.Custom.AMSOsram.Actions.Automation
+namespace Cmf.Custom.amsOSRAM.Actions.Automation
 {
 	public class CustomSetHoldEntity : DeeDevBase
 	{
@@ -36,166 +40,164 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
 		public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
 		{
-			//---Start DEE Code---
-			UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.Cultures");
-			UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-			UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-			UseReference("", "Cmf.Foundation.Common.Exceptions");
-			UseReference("", "Cmf.Foundation.Common");
-			// Navigo
-			UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-			// Custom
-			UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-			// System
-			UseReference("%MicrosoftNetPath%System.Private.CoreLib.dll", "System.Threading");
-			//Please start code here
+            //---Start DEE Code---
 
-			Container container = null;
-			Material material = null;
-			bool setMaterialOnHold = false;
+            // Custom
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
 
-			#region Input Validation
+            // System
+            UseReference("%MicrosoftNetPath%System.Private.CoreLib.dll", "System.Threading");
 
-			if (Input.ContainsKey("MaterialName") &&
-				Input["MaterialName"] != null &&
-				Input["MaterialName"] is string strMaterialName)
-			{
-				material = new Material()
-				{
-					Name = strMaterialName
-				};
+            // Foundation
+            UseReference("", "Cmf.Foundation.Common.LocalizationService");
 
-				material.Load();
-			}
+            IContainer container = null;
+            IMaterial material = null;
+            bool setMaterialOnHold = false;
 
-			if (Input.ContainsKey("ContainerName") &&
-				Input["ContainerName"] != null &&
-				Input["ContainerName"] is string strContainerName)
-			{
-				container = new Container()
-				{
-					Name = strContainerName
-				};
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
 
-				container.Load();
-			}
+            #region Input Validation
 
-			if (Input.ContainsKey("SetMaterialOnContainerOnHold") &&
-				Input["SetMaterialOnContainerOnHold"] != null &&
-				Input["SetMaterialOnContainerOnHold"] is string strMaterialOnHold)
-			{
-				setMaterialOnHold = bool.Parse(strMaterialOnHold);
-			}
+            if (Input.ContainsKey("MaterialName") &&
+                Input["MaterialName"] != null &&
+                Input["MaterialName"] is string strMaterialName)
+            {
+                material = entityFactory.Create<IMaterial>();
+                material.Name = strMaterialName;
 
-			#endregion Input Validation
+                material.Load();
+            }
 
-			if (container != null && setMaterialOnHold)
-			{
-				container.LoadRelations("MaterialContainer");
-				MaterialContainer firstMaterialContainer = container.ContainerMaterials.FirstOrDefault();
+            if (Input.ContainsKey("ContainerName") &&
+                Input["ContainerName"] != null &&
+                Input["ContainerName"] is string strContainerName)
+            {
+                container = entityFactory.Create<IContainer>();
+                container.Name = strContainerName;
 
-				if (firstMaterialContainer != null)
-				{
-					material = firstMaterialContainer.SourceEntity.GetTopMostMaterial();
-				}
-			}
+                container.Load();
+            }
 
-			if (material != null)
-			{
-				// We only want to set Material Lots on hold
-				if (material.Form != "Lot")
-				{
-					throw new InvalidPropertyValueCmfException(material.Form, "Form", "Lot");
-				}
+            if (Input.ContainsKey("SetMaterialOnContainerOnHold") &&
+                Input["SetMaterialOnContainerOnHold"] != null &&
+                Input["SetMaterialOnContainerOnHold"] is string strMaterialOnHold)
+            {
+                setMaterialOnHold = bool.Parse(strMaterialOnHold);
+            }
 
-				// Hold Step Reason config
-				if (!Config.TryGetConfig(AMSOsramConstants.DefaultAbortProcessHoldReasonConfig, out Config abortProcessHoldReason)
-					|| string.IsNullOrWhiteSpace(abortProcessHoldReason.GetConfigValue<string>()))
-				{
-					throw new CmfBaseException(LocalizedMessage.GetLocalizedMessage(Thread.CurrentThread.CurrentCulture.Name, AMSOsramConstants.LocalizedMessageNoHoldReasonAvailableErrorMessage).MessageText);
-				}
+            #endregion Input Validation
 
-				Reason reason = new Reason()
-				{
-					Name = abortProcessHoldReason.Value.ToString()
-				};
+            if (container != null && setMaterialOnHold)
+            {
+                container.LoadRelations("MaterialContainer");
+                IMaterialContainer firstMaterialContainer = container.ContainerMaterials.FirstOrDefault();
 
-				// Validate if hold reason exists
-				if (!reason.ObjectExists())
-				{
-					throw new ObjectNotFoundCmfException(Navigo.Common.Constants.Reason, abortProcessHoldReason.Value.ToString());
-				}
+                if (firstMaterialContainer != null)
+                {
+                    material = firstMaterialContainer.SourceEntity.GetTopMostMaterial();
+                }
+            }
 
-				// Load hold reason
-				reason.Load();
+            if (material != null)
+            {
+                // We only want to set Material Lots on hold
+                if (material.Form != "Lot")
+                {
+                    throw new InvalidPropertyValueCmfException(material.Form, "Form", "Lot");
+                }
 
-				// Check if the reason is already set
-				if (material.HoldCount > 0)
-				{
-					material.LoadRelations(Navigo.Common.Constants.MaterialHoldReason);
+                // Hold Step Reason config
+                if (!Config.TryGetConfig(amsOSRAMConstants.DefaultAbortProcessHoldReasonConfig, out IConfig abortProcessHoldReason)
+                    || string.IsNullOrWhiteSpace(abortProcessHoldReason.GetConfigValue<string>()))
+                {
+                    ILocalizationService localizationService = serviceProvider.GetService<ILocalizationService>();
+                    throw new CmfBaseException(localizationService.Localize(Thread.CurrentThread.CurrentCulture.Name, amsOSRAMConstants.LocalizedMessageNoHoldReasonAvailableErrorMessage));
+                }
 
-					if (material.MaterialHoldReasons != null)
-					{
-						MaterialHoldReason mhReason = material.MaterialHoldReasons.FirstOrDefault(mh => mh.TargetEntity.Id == reason.Id);
 
-						if (mhReason != null && !mhReason.TargetEntity.EnableConcurrentInstances)
-						{
-							throw new CmfBaseException("Material already has the hold reason set.");
-						}
-					}
-				}
+                IReason reason = entityFactory.Create<IReason>();
+                reason.Name = abortProcessHoldReason.Value.ToString();
 
-				// Reason must be a hold reason
-				if (reason.ReasonType != ReasonType.Hold)
-				{
-					throw new CmfBaseException(LocalizedMessage.GetLocalizedMessage(Thread.CurrentThread.CurrentCulture.Name, AMSOsramConstants.LocalizedMessageNoHoldReasonAvailableErrorMessage).MessageText);
-				}
+                // Validate if hold reason exists
+                if (!reason.ObjectExists())
+                {
+                    throw new ObjectNotFoundCmfException(Navigo.Common.Constants.Reason, abortProcessHoldReason.Value.ToString());
+                }
 
-				// Load Step Reasons
-				material.Step.LoadStepReasons();
+                // Load hold reason
+                reason.Load();
 
-				if (material.Step.HoldReasons == null ||
-						(material.Step.HoldReasons != null &&
-							material.Step.HoldReasons.Where(hr => hr.TargetEntity.Name.Equals(abortProcessHoldReason.Value.ToString(), StringComparison.InvariantCultureIgnoreCase)).Count() == 0))
-				{
-					StepReason newStepReason = new StepReason()
-					{
-						SourceEntity = material.Step,
-						TargetEntity = reason
-					};
+                // Check if the reason is already set
+                if (material.HoldCount > 0)
+                {
+                    material.LoadRelations(Navigo.Common.Constants.MaterialHoldReason);
 
-					// Add the hold reason configured to the step
-					material.Step.AddStepReasons(new StepReasonCollection() { newStepReason });
-				}
+                    if (material.MaterialHoldReasons != null)
+                    {
+                        IMaterialHoldReason mhReason = material.MaterialHoldReasons.FirstOrDefault(mh => mh.TargetEntity.Id == reason.Id);
 
-				MaterialHoldReasonCollection materialHoldReason = new MaterialHoldReasonCollection()
-				{
-					new MaterialHoldReason()
-					{
-						SourceEntity = material,
-						TargetEntity = reason,
-						Comment = string.Format($"CustomSetHoldEntity set on hold for container or material!")
-					}
-				};
+                        if (mhReason != null && !mhReason.TargetEntity.EnableConcurrentInstances)
+                        {
+                            throw new CmfBaseException("Material already has the hold reason set.");
+                        }
+                    }
+                }
 
-				//Put Lot on Hold
-				material.Hold(materialHoldReason);
-			}
-			else if (container != null)
-			{
-				if (container.SystemState != ContainerSystemState.Unavailable)
-				{
-					container.HoldForMaintenance(1);
-				}
-			}
-			else
-			{
-				throw new CmfBaseException("It was not possible to retrive a container or a material.");
-			}
+                // Reason must be a hold reason
+                if (reason.ReasonType != ReasonType.Hold)
+                {
+                    ILocalizationService localizationService = serviceProvider.GetService<ILocalizationService>();
 
-			//---End DEE Code---
+                    throw new CmfBaseException(localizationService.Localize(Thread.CurrentThread.CurrentCulture.Name, amsOSRAMConstants.LocalizedMessageNoHoldReasonAvailableErrorMessage));
+                }
 
-			return Input;
+                // Load Step Reasons
+                material.Step.LoadStepReasons();
+
+                if (material.Step.HoldReasons == null ||
+                        (material.Step.HoldReasons != null &&
+                            material.Step.HoldReasons.Where(hr => hr.TargetEntity.Name.Equals(abortProcessHoldReason.Value.ToString(), StringComparison.InvariantCultureIgnoreCase)).Count() == 0))
+                {
+                    IStepReason newStepReason = entityFactory.Create<IStepReason>();
+                    newStepReason.SourceEntity = material.Step;
+                    newStepReason.TargetEntity = reason;
+
+                    // Add the hold reason configured to the step
+                    IStepReasonCollection stepReasons = entityFactory.CreateCollection<IStepReasonCollection>();
+                    stepReasons.Add(newStepReason);
+
+                    material.Step.AddStepReasons(stepReasons);
+                }
+
+                IMaterialHoldReasonCollection materialHoldReasons = entityFactory.CreateCollection<IMaterialHoldReasonCollection>();
+                IMaterialHoldReason materialHoldReason = entityFactory.Create<IMaterialHoldReason>();
+                materialHoldReason.SourceEntity = material;
+                materialHoldReason.TargetEntity = reason;
+                materialHoldReason.Comment = string.Format($"CustomSetHoldEntity set on hold for container or material!");
+
+                materialHoldReasons.Add(materialHoldReason);
+
+                //Put Lot on Hold
+                material.Hold(materialHoldReasons);
+            }
+            else if (container != null)
+            {
+                if (container.SystemState != ContainerSystemState.Unavailable)
+                {
+                    container.HoldForMaintenance(1);
+                }
+            }
+            else
+            {
+                throw new CmfBaseException("It was not possible to retrive a container or a material.");
+            }
+
+            //---End DEE Code---
+
+            return Input;
 		}
 	}
 }

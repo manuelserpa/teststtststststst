@@ -1,10 +1,10 @@
-﻿using Cmf.Custom.AMSOsram.Common;
-using Cmf.Foundation.BusinessObjects.GenericTables;
+﻿using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Foundation.Common;
 using System;
 using System.Collections.Generic;
+using Cmf.Foundation.BusinessObjects.Abstractions;
 
-namespace Cmf.Custom.AMSOsram.Actions.InvalidateCache
+namespace Cmf.Custom.amsOSRAM.Actions.InvalidateCache
 {
     public class CustomInvalidateCache : DeeDevBase
     {
@@ -23,7 +23,7 @@ namespace Cmf.Custom.AMSOsram.Actions.InvalidateCache
             /// </summary>
             #endregion
 
-            string actionGroupName = AMSOsramUtilities.GetInputItem<string>(Input, "ActionGroupName");
+            string actionGroupName = amsOSRAMUtilities.GetInputItem<string>(Input, "ActionGroupName");
 
             if (!string.IsNullOrWhiteSpace(actionGroupName))
             {
@@ -31,11 +31,11 @@ namespace Cmf.Custom.AMSOsram.Actions.InvalidateCache
                     string.Equals(actionGroupName, "GenericTables.GenericTable.RemoveRows.Post", StringComparison.InvariantCultureIgnoreCase) &&
                     Input.ContainsKey(Constants.GenericTable))
                 {
-                    GenericTable genericTable = AMSOsramUtilities.GetInputItem<GenericTable>(Input, Constants.GenericTable);
+                    IGenericTable genericTable = amsOSRAMUtilities.GetInputItem<IGenericTable>(Input, Constants.GenericTable);
 
                     if (genericTable != null)
                     {
-                        return string.Equals(genericTable.Name, AMSOsramConstants.GenericTableCustomTibcoEMSGatewayResolver);
+                        return string.Equals(genericTable.Name, amsOSRAMConstants.GenericTableCustomTibcoEMSGatewayResolver);
                     }
                 }
             }
@@ -49,18 +49,10 @@ namespace Cmf.Custom.AMSOsram.Actions.InvalidateCache
         {
             //---Start DEE Code---     
 
-            //System
-            UseReference("", "System");
-            UseReference("", "System.Collections.Generic");
-
-            //Foundation
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.GenericTables");
-            UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common");
-
             //Common
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
 
-            Utilities.PublishMessage(AMSOsramConstants.CustomTibcoEMSGatewayInvalidateCache);
+            Utilities.PublishMessage(amsOSRAMConstants.CustomTibcoEMSGatewayInvalidateCache);
 
             //---End DEE Code---
 

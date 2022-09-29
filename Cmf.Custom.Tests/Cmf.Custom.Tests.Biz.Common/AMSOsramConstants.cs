@@ -1,6 +1,6 @@
 ﻿namespace Cmf.Custom.Tests.Biz.Common
 {
-    public class AMSOsramConstants
+    public class amsOSRAMConstants
     {
         #region Attributes 
         /// <summary>
@@ -94,7 +94,7 @@
         /// <summary>
         /// Default Test Flow Path
         /// </summary>
-        public const string DefaultTestFlowPath = "CMFTestFlow:1/CMFTestStep01:1";
+        public const string DefaultTestFlowPath = "CMFTestFlow:A:1/CMFTestStep01:1";
 
         /// <summary>
         /// Default Test Production Order Type
@@ -329,17 +329,17 @@
         /// <summary>
         /// PollingInterval config value
         /// </summary>
-        public static string FDCActiveConfigPath = "/AMSOsram/FDC/Active/";
+        public static string FDCActiveConfigPath = "/amsOSRAM/FDC/Active/";
 
         /// <summary>
         /// Default ContainerType that is not allowed to be undocked
         /// </summary>
-        public static string DefaultVendorContainerTypesConfig = "/AMSOsram/Container/VendorContainerTypes/";
+        public static string DefaultVendorContainerTypesConfig = "/amsOSRAM/Container/VendorContainerTypes/";
 
         /// <summary>
         /// Lot name allowed characters
         /// </summary>
-        public static string DefaultLotNameAllowedCharacters = "/AMSOsram/Material/LotNameAllowedCharacters/";
+        public static string DefaultLotNameAllowedCharacters = "/amsOSRAM/Material/LotNameAllowedCharacters";
 
         #endregion Configurations
 

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.SmartTables;
@@ -110,12 +108,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
                     }
                 }.CreateChangeSetSync().ChangeSet;
 
-                var recipeObject = new Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.CreateObjectVersionInput
-                {
-                    Object = recipe
-                }.CreateObjectVersionSync();
-
-
+                recipe.Create();
 
                 recipe.Load();
 
@@ -362,12 +355,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             }.CreateChangeSetSync().ChangeSet;
 
 
-
-            var recipeObject = new Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.CreateObjectVersionInput
-            {
-                Object = recipe
-            }.CreateObjectVersionSync();
-
+            recipe.Create();
             recipe.Load();
 
             recipe.BodySource = RecipeBodySource.DownloadedFromEquipment;

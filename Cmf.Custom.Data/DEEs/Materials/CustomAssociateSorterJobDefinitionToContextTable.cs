@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Text;
-using Cmf.Custom.AMSOsram.BusinessObjects;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.Extensions;
+using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.Extensions;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.SmartTables;
-using Cmf.Foundation.BusinessOrchestration.GenericServiceManagement;
 using Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects;
 using Cmf.Foundation.Common;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using System;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions;
+using Cmf.Foundation.BusinessOrchestration.Abstractions;
 
-namespace Cmf.Custom.AMSOsram.Actions.Materials
+namespace Cmf.Custom.amsOSRAM.Actions.Materials
 {
     class CustomAssociateSorterJobDefinitionToContextTable : DeeDevBase
     {
@@ -72,56 +74,55 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
             //---Start DEE Code---
 
             // Foundation
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.SmartTables");
-            UseReference("", "Cmf.Foundation.Common");
-            UseReference("", "Cmf.Foundation.BusinessObjects.Cultures");
-            UseReference("", "Cmf.Foundation.BusinessOrchestration.GenericServiceManagement");
-            UseReference("", "Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects");
-            // Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
+            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects");
+            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration.Abstractions");
+            
             // Custom
-            UseReference("Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition.dll", "Cmf.Custom.AMSOsram.BusinessObjects");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.Extensions");
+            UseReference("Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition.dll", "Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.Extensions");
+            
             // System
             UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
             UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
             UseReference("%MicrosoftNetPath%System.Data.Common.dll", "System.Data");
 
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+            IGenericServiceOrchestration genericServiceOrchestration = serviceProvider.GetService<IGenericServiceOrchestration>();
+
             // Create Custom Sorter Job Definition
-            CustomSorterJobDefinition customSorterJobDefinition = new CustomSorterJobDefinition
-            {
-                SourceCarrierType = Input["SourceCarrierType"].ToString(),
-                TargetCarrierType = Input["TargetCarrierType"].ToString(),
-                LogisticalProcess = Input["LogisticalProcess"].ToString(),
-                FlipWafer = (bool)Input["FlipWafer"],
-                ReadWaferId = (bool)Input["ReadWaferId"],
-                WaferIdOnBottom = (bool)Input["WaferIdOnBottom"],
-                MovementList = Input["MovementList"].ToString()
-            };
+            ICustomSorterJobDefinition customSorterJobDefinition = entityFactory.Create<ICustomSorterJobDefinition>();
+            customSorterJobDefinition.SourceCarrierType = Input["SourceCarrierType"].ToString();
+            customSorterJobDefinition.TargetCarrierType = Input["TargetCarrierType"].ToString();
+            customSorterJobDefinition.LogisticalProcess = Input["LogisticalProcess"].ToString();
+            customSorterJobDefinition.FlipWafer = (bool)Input["FlipWafer"];
+            customSorterJobDefinition.ReadWaferId = (bool)Input["ReadWaferId"];
+            customSorterJobDefinition.WaferIdOnBottom = (bool)Input["WaferIdOnBottom"];
+            customSorterJobDefinition.MovementList = Input["MovementList"].ToString();
 
             CreateObjectInput createObjectInput = new CreateObjectInput();
             createObjectInput.Object = customSorterJobDefinition;
 
-            CustomSorterJobDefinition createdSortedJobDefinition = GenericServiceManagementOrchestration.CreateObject(createObjectInput).Object as CustomSorterJobDefinition;
+            ICustomSorterJobDefinition createdSortedJobDefinition = genericServiceOrchestration.CreateObject(createObjectInput).Object as ICustomSorterJobDefinition;
 
             // Add Custom Sorter Job Definition to context table
-            string smartTableName = AMSOsramConstants.CustomSorterJobDefinitionContextName;
-            SmartTable smartTable = new SmartTable() { Name = smartTableName };
+            string smartTableName = amsOSRAMConstants.CustomSorterJobDefinitionContextName;
+            ISmartTable smartTable = new SmartTable() { Name = smartTableName };
             smartTable.Load();
 
             DataSet dataSet = smartTable.GetEmptyTableDataSet();
 
             DataRow customSorterJobDefinitionContextRow = dataSet.Tables[0].NewRow();
-            customSorterJobDefinitionContextRow[AMSOsramConstants.CustomSorterJobDefinitionContextColumnStep] = Input["Step"].ToString();
-            customSorterJobDefinitionContextRow[AMSOsramConstants.CustomSorterJobDefinitionContextColumnProduct] = null;
-            customSorterJobDefinitionContextRow[AMSOsramConstants.CustomSorterJobDefinitionContextColumnProductGroup] = null;
-            customSorterJobDefinitionContextRow[AMSOsramConstants.CustomSorterJobDefinitionContextColumnFlow] = null;
-            customSorterJobDefinitionContextRow[AMSOsramConstants.CustomSorterJobDefinitionContextColumnMaterial] = Input["Lot"].ToString();
-            customSorterJobDefinitionContextRow[AMSOsramConstants.CustomSorterJobDefinitionContextColumnMaterialType] = null;
-            customSorterJobDefinitionContextRow[AMSOsramConstants.CustomSorterJobDefinitionContextColumnCustomSorterJobDefinition] = createdSortedJobDefinition.Name;
+            customSorterJobDefinitionContextRow[amsOSRAMConstants.CustomSorterJobDefinitionContextColumnStep] = Input["Step"].ToString();
+            customSorterJobDefinitionContextRow[amsOSRAMConstants.CustomSorterJobDefinitionContextColumnProduct] = null;
+            customSorterJobDefinitionContextRow[amsOSRAMConstants.CustomSorterJobDefinitionContextColumnProductGroup] = null;
+            customSorterJobDefinitionContextRow[amsOSRAMConstants.CustomSorterJobDefinitionContextColumnFlow] = null;
+            customSorterJobDefinitionContextRow[amsOSRAMConstants.CustomSorterJobDefinitionContextColumnMaterial] = Input["Lot"].ToString();
+            customSorterJobDefinitionContextRow[amsOSRAMConstants.CustomSorterJobDefinitionContextColumnMaterialType] = null;
+            customSorterJobDefinitionContextRow[amsOSRAMConstants.CustomSorterJobDefinitionContextColumnCustomSorterJobDefinition] = createdSortedJobDefinition.Name;
 
             dataSet.Tables[0].Rows.Add(customSorterJobDefinitionContextRow);
             dataSet.AcceptChanges();

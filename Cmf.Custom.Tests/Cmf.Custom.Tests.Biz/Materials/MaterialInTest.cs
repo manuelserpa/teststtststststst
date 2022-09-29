@@ -28,8 +28,8 @@ namespace Cmf.Custom.Tests.Biz.Materials
             //Change material to a step where the resource has subResource of type Process
             materialScenario = new CustomMaterialScenario(false)
             {
-                FlowName = AMSOsramConstants.TestFlow,
-                StepName = AMSOsramConstants.TestM3MTZnOSputterCluster6in00126F008_E
+                FlowName = amsOSRAMConstants.TestFlow,
+                StepName = amsOSRAMConstants.TestM3MTZnOSputterCluster6in00126F008_E
             };
 
             // Create the Material and TrackIn
@@ -92,7 +92,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
             Material materialWafer = materialScenario.SubMaterials[0];
 
-            Cmf.Custom.AMSOsram.Orchestration.OutputObjects.MaterialInOutput materialInOutput = new Custom.AMSOsram.Orchestration.InputObjects.MaterialInInput()
+            Cmf.Custom.amsOSRAM.Orchestration.OutputObjects.MaterialInOutput materialInOutput = new Custom.amsOSRAM.Orchestration.InputObjects.MaterialInInput()
             {
                 MaterialName = materialWafer.Name,
                 ResourceName = materialScenario.ResourceMaterialInOut.Name
@@ -120,7 +120,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
             Material materialWafer = materialScenario.SubMaterials[0];
 
-            Cmf.Custom.AMSOsram.Orchestration.OutputObjects.MaterialInOutput materialInOutput = new Custom.AMSOsram.Orchestration.InputObjects.MaterialInInput()
+            Cmf.Custom.amsOSRAM.Orchestration.OutputObjects.MaterialInOutput materialInOutput = new Custom.amsOSRAM.Orchestration.InputObjects.MaterialInInput()
             {
                 MaterialName = materialWafer.Name,
                 ResourceName = materialScenario.ResourceMaterialInOut.Name,
@@ -150,7 +150,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
             Material materialWafer = materialScenario.SubMaterials[0];
             try
             {
-                Cmf.Custom.AMSOsram.Orchestration.OutputObjects.MaterialInOutput materialInOutput = new Custom.AMSOsram.Orchestration.InputObjects.MaterialInInput()
+                Cmf.Custom.amsOSRAM.Orchestration.OutputObjects.MaterialInOutput materialInOutput = new Custom.amsOSRAM.Orchestration.InputObjects.MaterialInInput()
                 {
                     MaterialName = materialWafer.Name,
                     ResourceName = materialScenario.ResourceMaterialInOut.Name,
@@ -182,7 +182,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
         {
             #region Execution and validation of MaterialIn
 
-            Cmf.Custom.AMSOsram.Orchestration.OutputObjects.MaterialInOutput materialInOutput = new Custom.AMSOsram.Orchestration.InputObjects.MaterialInInput()
+            Cmf.Custom.amsOSRAM.Orchestration.OutputObjects.MaterialInOutput materialInOutput = new Custom.amsOSRAM.Orchestration.InputObjects.MaterialInInput()
             {
                 MaterialName = materialScenario.Entity.Name,
                 ResourceName = materialScenario.ResourceMaterialInOut.Name,
@@ -206,7 +206,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
             #region Execution and validation of MaterialIn
 
-            Cmf.Custom.AMSOsram.Orchestration.OutputObjects.MaterialInOutput materialInOutput = new Custom.AMSOsram.Orchestration.InputObjects.MaterialInInput()
+            Cmf.Custom.amsOSRAM.Orchestration.OutputObjects.MaterialInOutput materialInOutput = new Custom.amsOSRAM.Orchestration.InputObjects.MaterialInInput()
             {
                 MaterialName = materialScenario.Entity.Name,
                 ResourceName = materialScenario.ResourceMaterialInOut.Name,

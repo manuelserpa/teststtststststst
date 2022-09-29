@@ -1,0 +1,196 @@
+{
+	"tasks": [
+		{
+			"id": "task_93884",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "SlotMapReceived",
+					"IsShared": true,
+					"Name": "SlotMapReceived"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "ContainerId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "SlotMap",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SlotMap"
+						}
+					},
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LoadPort"
+						}
+					},
+					{
+						"name": "DoNotTriggerMaterialIn",
+						"valueType": {
+							"friendlyName": "DoNotTriggerMaterialIn",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"friendlyName": "ContainerName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "slotMap",
+						"valueType": {
+							"friendlyName": "slotMap",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "container",
+						"valueType": {
+							"friendlyName": "container",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Slot Map Received Workflow"
+			}
+		},
+		{
+			"id": "task_190927",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": []
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [],
+	"layout": {
+		"general": {
+			"color": "#80ffff",
+			"notes": [
+				{
+					"id": "note_191122",
+					"name": "TosCassetteSlotMap",
+					"value": "<p><strong>What it does:</strong></p><p>Stores Slot Map on Container Data for Load Port/Container;</p><p>Default behavior executes Material In for Lot (Parent Material) of Wafers associated with the Container on MES.</p><p>If&nbsp;DoNotTriggerMaterialIn is passed as true Material In will not be executed;</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to TosCassetteSlotMap for the Tool;</li><li>If needed convert Slot Map variable to a supported format and connect to the Slot Map input of the workflow;&nbsp;</li><li>Use either Container Id or Load Port to define which ContainerData the Slot Map belongs to;</li><li>To not execute the Material In:<ol><li>Drag any output of the event to DoNotTriggerMaterialIn workflow Input;</li><li>Set a Converter of Any to Constant with Type Boolean and Value True.</li></ol></li><li>Pass any event Output to the Activate Input of the Workflow;</li></ol><ol><p>&nbsp;</p><p>&nbsp;</p></ol><p>&nbsp;</p>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_93884": {
+						"collapsed": false,
+						"position": {
+							"x": 860,
+							"y": 199
+						},
+						"outdated": false
+					},
+					"task_190927": {
+						"collapsed": false,
+						"position": {
+							"x": 277,
+							"y": 187
+						},
+						"outdated": false
+					}
+				},
+				"links": {},
+				"notes": {
+					"note_191122": {
+						"collapsed": false,
+						"position": {
+							"x": 1412,
+							"y": 118
+						}
+					}
+				},
+				"zoom": 0.7600000000000002,
+				"pan": {
+					"x": 183.37334964283525,
+					"y": 25.9333195290115
+				}
+			}
+		}
+	}
+}

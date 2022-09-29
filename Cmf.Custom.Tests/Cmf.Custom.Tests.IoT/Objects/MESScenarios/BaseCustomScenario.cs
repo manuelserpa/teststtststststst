@@ -1,4 +1,4 @@
-﻿using AMSOsramEIAutomaticTests.Objects.Utilities;
+﻿using amsOSRAMEIAutomaticTests.Objects.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;

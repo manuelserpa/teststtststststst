@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
-using cmConnect.TestFramework.SystemRest.Utilities;
 using cmConnect.TestFramework.EquipmentSimulator.Drivers;
 using Cmf.SECS.Driver;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
-namespace AMSOsramEIAutomaticTests.IoT.Common
+namespace amsOSRAMEIAutomaticTests.IoT.Common
 {
     public class RecipeData
     {

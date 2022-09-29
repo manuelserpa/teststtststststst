@@ -1,13 +1,10 @@
-﻿using Cmf.Custom.AMSOsram.Actions;
-using Cmf.Foundation.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
-namespace Cmf.Custom.AMSOsram.Actions.Automation
+namespace Cmf.Custom.amsOSRAM.Actions.Automation
 {
-	class CustomKillProcesses : DeeDevBase
+    class CustomKillProcesses : DeeDevBase
 	{
 		/// <summary>
 		/// DEE Action Code
@@ -22,7 +19,6 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
 			UseReference("%MicrosoftNetPath%System.Diagnostics.Process.dll", "System.Diagnostics");
 			UseReference("%MicrosoftNetPath%System.ComponentModel.Primitives.dll", "");
-			//Please start code here
 
 			try
 			{
@@ -53,7 +49,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
 				if (processes != null)
 				{
-					foreach (var process in processes)
+					foreach (Process process in processes)
 					{
 						// retrieve the path where the process is running
 						string processPath = process.MainModule.FileName;

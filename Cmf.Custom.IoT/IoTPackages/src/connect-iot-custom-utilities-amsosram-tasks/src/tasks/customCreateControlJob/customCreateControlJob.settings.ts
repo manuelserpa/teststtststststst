@@ -19,7 +19,7 @@ import { Task, Dependencies, System, DI, TYPES } from "@criticalmanufacturing/co
 import i18n from "./i18n/customCreateControlJob.settings.default";
 import i18nHelp from "../../common/i18n/common.default";
 import { ComplexValueType } from "@criticalmanufacturing/connect-iot-controller-engine/src/system";
-import { RecipeSpecificationType } from "./customCreateControlJob.task";
+import { RecipeSpecificationType, ProcessOrderMgmt } from "./customCreateControlJob.task";
 
 /** Constants */
 export interface CustomCreateControlJobTaskSettings extends
@@ -35,6 +35,7 @@ export interface CustomCreateControlJobTaskSettings extends
     templateUrl: "customCreateControlJob.settings.html",
     assign: {
         i18n: i18n,
+        ProcessOrderMgmt: ProcessOrderMgmt,
         RecipeSpecificationType: RecipeSpecificationType
     }
 })
@@ -65,7 +66,10 @@ export class CustomCreateControlJobSettings extends TaskSettingsBase implements 
         // Initialize default values for settings page
         if (this.settings) {
             this.settings.objectSpec = this.settings.objectSpec != null ?
-            this.settings.objectSpec : this._taskInstance.objectSpec;
+                this.settings.objectSpec : this._taskInstance.objectSpec;
+
+            this.settings.ProcessOrderMgmtValue = this.settings.ProcessOrderMgmtValue != null ?
+                this.settings.ProcessOrderMgmtValue : this._taskInstance.ProcessOrderMgmtValue;
         }
 
     }
