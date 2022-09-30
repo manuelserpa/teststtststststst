@@ -1,125 +1,125 @@
 {
-  "tasks": [
-    {
-      "id": "task_1867",
-      "reference": {
-        "name": "recipeListRequested",
-        "package": {
-          "name": "@criticalmanufacturing/connect-iot-controller-engine-mes-tasks",
-          "version": "8.3.3-202201212"
-        }
-      },
-      "settings": {
-        "autoActivate": true,
-        "recipeListRequestedSubject": "RecipeManagement.GetAllRecipes",
-        "replyTimeout": 60000,
-        "___cmf___name": "Recipe List Requested",
-        "___cmf___color": "#0080ff"
-      }
-    },
-    {
-      "id": "task_1916",
-      "reference": {
-        "name": "listRecipes",
-        "package": {
-          "name": "@criticalmanufacturing/connect-iot-controller-engine-secsgem-tasks",
-          "version": "8.3.3-202201212"
-        }
-      },
-      "settings": {
-        "primaryRequestMessage": "{}",
-        "streamFunctionName": "S7F19",
-        "recipeListPath": "/",
-        "___cmf___color": "#ffff80"
-      },
-      "driver": "SecsGemEquipment"
-    }
-  ],
-  "converters": [],
-  "links": [
-    {
-      "id": "46060cc5-699c-4bd8-98cf-e82eb9dbf685",
-      "sourceId": "task_1867",
-      "targetId": "task_1916",
-      "inputName": "activate",
-      "outputName": "onRecipeRequest"
-    },
-    {
-      "id": "c069a4d9-85e6-4a60-963d-f2697e718974",
-      "sourceId": "task_1916",
-      "targetId": "task_1867",
-      "inputName": "recipeList",
-      "outputName": "recipeList"
-    },
-    {
-      "id": "f79c232e-a008-401b-8c28-fd0f0970e3b4",
-      "sourceId": "task_1916",
-      "targetId": "task_1867",
-      "inputName": "activate",
-      "outputName": "success"
-    }
-  ],
-  "layout": {
-    "general": {
-      "color": "#0080ff",
-      "notes": []
-    },
-    "drawers": {
-      "DIAGRAM": {
-        "tasks": {
-          "task_1867": {
-            "collapsed": false,
-            "position": {
-              "x": 706,
-              "y": 586
-            },
-            "outdated": null
-          },
-          "task_1916": {
-            "collapsed": false,
-            "position": {
-              "x": 1354,
-              "y": 565
-            },
-            "outdated": null
-          }
-        },
-        "links": {
-          "46060cc5-699c-4bd8-98cf-e82eb9dbf685": {
-            "vertices": []
-          },
-          "c069a4d9-85e6-4a60-963d-f2697e718974": {
-            "vertices": [
-              {
-                "x": 1741,
-                "y": 498
-              },
-              {
-                "x": 645,
-                "y": 520
-              }
-            ]
-          },
-          "f79c232e-a008-401b-8c28-fd0f0970e3b4": {
-            "vertices": [
-              {
-                "x": 1931,
-                "y": 910
-              },
-              {
-                "x": 492,
-                "y": 939
-              }
-            ]
-          }
-        },
-        "notes": {},
-        "zoom": 0.8999999999999999,
-        "pan": {
-          "x": 325.19488525390625,
-          "y": 423.2996826171875
-        }
-      }
-    }
-  }
+	"tasks": [
+		{
+			"id": "task_1867",
+			"reference": {
+				"name": "recipeListRequested",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-mes-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"autoActivate": true,
+				"recipeListRequestedSubject": "RecipeManagement.GetAllRecipes",
+				"replyTimeout": 60000,
+				"___cmf___name": "Recipe List Requested",
+				"___cmf___color": "#0080ff"
+			}
+		},
+		{
+			"id": "task_1916",
+			"reference": {
+				"name": "listRecipes",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-secsgem-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"primaryRequestMessage": "{}",
+				"streamFunctionName": "S7F19",
+				"recipeListPath": "/",
+				"___cmf___color": "#ffff80"
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [],
+	"links": [
+		{
+			"id": "46060cc5-699c-4bd8-98cf-e82eb9dbf685",
+			"sourceId": "task_1867",
+			"targetId": "task_1916",
+			"inputName": "activate",
+			"outputName": "onRecipeRequest"
+		},
+		{
+			"id": "c069a4d9-85e6-4a60-963d-f2697e718974",
+			"sourceId": "task_1916",
+			"targetId": "task_1867",
+			"inputName": "recipeList",
+			"outputName": "recipeList"
+		},
+		{
+			"id": "f79c232e-a008-401b-8c28-fd0f0970e3b4",
+			"sourceId": "task_1916",
+			"targetId": "task_1867",
+			"inputName": "activate",
+			"outputName": "success"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#0080ff",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_1867": {
+						"collapsed": false,
+						"position": {
+							"x": 706,
+							"y": 586
+						},
+						"outdated": null
+					},
+					"task_1916": {
+						"collapsed": false,
+						"position": {
+							"x": 1354,
+							"y": 565
+						},
+						"outdated": null
+					}
+				},
+				"links": {
+					"46060cc5-699c-4bd8-98cf-e82eb9dbf685": {
+						"vertices": []
+					},
+					"c069a4d9-85e6-4a60-963d-f2697e718974": {
+						"vertices": [
+							{
+								"x": 1741,
+								"y": 498
+							},
+							{
+								"x": 645,
+								"y": 520
+							}
+						]
+					},
+					"f79c232e-a008-401b-8c28-fd0f0970e3b4": {
+						"vertices": [
+							{
+								"x": 1931,
+								"y": 910
+							},
+							{
+								"x": 492,
+								"y": 939
+							}
+						]
+					}
+				},
+				"notes": {},
+				"zoom": 0.48999999999999979,
+				"pan": {
+					"x": 265,
+					"y": 107
+				}
+			}
+		}
+	}
 }

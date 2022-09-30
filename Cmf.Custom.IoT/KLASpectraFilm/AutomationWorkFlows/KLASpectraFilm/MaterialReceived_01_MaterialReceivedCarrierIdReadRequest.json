@@ -118,7 +118,7 @@
 					{
 						"property": {
 							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "PortID",
+							"Name": "PortXID",
 							"DataType": 5
 						},
 						"outputType": "Value"
@@ -128,10 +128,10 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "MaterialReceived"
+						"Name": "CarrierPlaced"
 					}
 				],
-				"___cmf___description": "MaterialReceived (3)"
+				"___cmf___description": "CarrierPlaced (50120)"
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -375,7 +375,7 @@
 			}
 		},
 		{
-			"id": "task_8567",
+			"id": "task_4419",
 			"reference": {
 				"name": "customCarrierActionRequest",
 				"package": {
@@ -385,9 +385,8 @@
 			},
 			"settings": {
 				"CarrierActionRequest": 2,
-				"___cmf___name": "ProceedWithCarrier",
-				"commandName": 2,
-				"___cmf___description": "Proceed With Carrier"
+				"___cmf___name": "Custom Carrier Action Request",
+				"commandName": 2
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -420,16 +419,6 @@
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
 					"version": "1.0.0"
-				}
-			}
-		},
-		{
-			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
-			"reference": {
-				"name": "objectProperty",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
 				}
 			}
 		}
@@ -493,49 +482,42 @@
 			]
 		},
 		{
-			"id": "149eaf6e-2cc5-49d8-91d4-0224f8d65104",
+			"id": "0987aebc-e3df-4552-b79a-313a70498268",
 			"sourceId": "task_29465",
 			"targetId": "task_29463",
 			"inputName": "LoadPortNumberIn",
-			"outputName": "$PortID"
+			"outputName": "$PortXID"
 		},
 		{
-			"id": "205eaa4c-f7d3-4fc2-b67f-680cea98802a",
+			"id": "c548eca0-e784-4f88-abe5-4da88f7b3b59",
 			"sourceId": "task_29465",
 			"targetId": "task_29463",
 			"inputName": "activate",
-			"outputName": "$PortID"
+			"outputName": "$PortXID"
 		},
 		{
-			"id": "e0d56284-6b2b-4a67-ac2c-52ca5a404b36",
+			"id": "675e3288-2868-4005-9daa-319033c2379c",
 			"sourceId": "task_29636",
-			"targetId": "task_8567",
+			"targetId": "task_4419",
 			"inputName": "activate",
 			"outputName": "success"
 		},
 		{
-			"id": "9c51ebc4-dfea-4d86-8fa1-8b45450eed6e",
+			"id": "02abb2ff-5e61-41b2-a69a-3607a70d9a07",
 			"sourceId": "task_29636",
-			"targetId": "task_8567",
+			"targetId": "task_4419",
 			"inputName": "CarrierId",
 			"outputName": "ContainerNameOut"
 		},
 		{
-			"id": "62abbf4a-35fe-4836-a142-450451ae4e3a",
+			"id": "8539776a-242f-4354-af44-a5bab0611693",
 			"sourceId": "task_29636",
-			"targetId": "task_8567",
+			"targetId": "task_4419",
 			"inputName": "PortNumber",
 			"outputName": "LoadPortOut"
 		},
 		{
-			"id": "4f450f42-b275-474d-855b-0f1d1d365377",
-			"sourceId": "task_1598",
-			"targetId": "task_29636",
-			"inputName": "ContainerIdIn",
-			"outputName": "MaterialId"
-		},
-		{
-			"id": "8131578f-99e9-4deb-aec5-7478c52d9669",
+			"id": "80316d19-886e-4976-bf0d-886094145952",
 			"sourceId": "task_1598",
 			"targetId": "task_29636",
 			"inputName": "LoadPortIn",
@@ -546,6 +528,13 @@
 					"params": {}
 				}
 			]
+		},
+		{
+			"id": "082b89a7-fc61-4346-9c2a-b5cfef9bf4fd",
+			"sourceId": "task_1598",
+			"targetId": "task_29636",
+			"inputName": "ContainerIdIn",
+			"outputName": "MaterialId"
 		}
 	],
 	"layout": {
@@ -578,8 +567,8 @@
 					"task_29463": {
 						"collapsed": false,
 						"position": {
-							"x": 891,
-							"y": 349
+							"x": 911,
+							"y": 355
 						},
 						"outdated": false
 					},
@@ -594,32 +583,32 @@
 					"task_29636": {
 						"collapsed": false,
 						"position": {
-							"x": 1945,
-							"y": 353
+							"x": 2051,
+							"y": 365
 						},
 						"outdated": false
 					},
 					"task_1598": {
 						"collapsed": false,
 						"position": {
-							"x": 1425,
-							"y": 352
+							"x": 1432,
+							"y": 364
 						},
 						"outdated": false
 					},
 					"task_2654": {
 						"collapsed": false,
 						"position": {
-							"x": 1943,
-							"y": 835
+							"x": 2046,
+							"y": 799
 						},
 						"outdated": false
 					},
-					"task_8567": {
+					"task_4419": {
 						"collapsed": false,
 						"position": {
-							"x": 2453,
-							"y": 358
+							"x": 2569,
+							"y": 355
 						},
 						"outdated": false
 					}
@@ -637,22 +626,22 @@
 					"c9eb2b40-bcc2-4be6-bf91-83012e2506ef": {
 						"vertices": []
 					},
-					"149eaf6e-2cc5-49d8-91d4-0224f8d65104": {
+					"0987aebc-e3df-4552-b79a-313a70498268": {
 						"vertices": []
 					},
-					"205eaa4c-f7d3-4fc2-b67f-680cea98802a": {
+					"c548eca0-e784-4f88-abe5-4da88f7b3b59": {
 						"vertices": []
 					},
-					"e0d56284-6b2b-4a67-ac2c-52ca5a404b36": {
+					"675e3288-2868-4005-9daa-319033c2379c": {
 						"vertices": []
 					},
-					"9c51ebc4-dfea-4d86-8fa1-8b45450eed6e": {
+					"02abb2ff-5e61-41b2-a69a-3607a70d9a07": {
 						"vertices": []
 					},
-					"62abbf4a-35fe-4836-a142-450451ae4e3a": {
+					"8539776a-242f-4354-af44-a5bab0611693": {
 						"vertices": []
 					},
-					"4f450f42-b275-474d-855b-0f1d1d365377": {
+					"082b89a7-fc61-4346-9c2a-b5cfef9bf4fd": {
 						"vertices": []
 					},
 					"b5bf631f-79d2-43e6-abe5-b4aead9f6255": {
@@ -661,7 +650,7 @@
 					"f090667f-06e6-4a81-bf77-ef12b28c85c2": {
 						"vertices": []
 					},
-					"8131578f-99e9-4deb-aec5-7478c52d9669": {
+					"80316d19-886e-4976-bf0d-886094145952": {
 						"vertices": []
 					}
 				},
@@ -669,15 +658,15 @@
 					"note_29467": {
 						"collapsed": false,
 						"position": {
-							"x": 57,
-							"y": 351
+							"x": 936,
+							"y": 790
 						}
 					},
 					"note_29854": {
 						"collapsed": false,
 						"position": {
-							"x": 2963,
-							"y": 358
+							"x": 2463,
+							"y": 802
 						}
 					},
 					"note_5203": {
@@ -688,10 +677,10 @@
 						}
 					}
 				},
-				"zoom": 0.5299999999999997,
+				"zoom": 0.8900000000000006,
 				"pan": {
-					"x": 332,
-					"y": 102
+					"x": 1525,
+					"y": 218
 				}
 			}
 		}

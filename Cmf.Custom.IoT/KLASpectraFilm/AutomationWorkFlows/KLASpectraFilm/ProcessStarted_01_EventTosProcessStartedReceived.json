@@ -1,273 +1,363 @@
 {
-  "tasks": [
-    {
-      "id": "task_135964",
-      "reference": {
-        "name": "workflow",
-        "package": {
-          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-          "version": "8.3.3-202201212"
-        }
-      },
-      "settings": {
-        "automationWorkflow": {
-          "DisplayName": "ProcessStarted",
-          "IsShared": true,
-          "Name": "ProcessStarted"
-        },
-        "executeWhenAllInputsDefined": false,
-        "contextsExpirationInMilliseconds": 60000,
-        "executionExpirationInMilliseconds": 1200000,
-        "inputs": [
-          {
-            "name": "MaterialName",
-            "valueType": {
-              "type": 4,
-              "collectionType": 0,
-              "referenceType": null,
-              "referenceTypeName": null,
-              "referenceTypeId": null,
-              "friendlyName": "MaterialName"
-            }
-          },
-          {
-            "name": "ContainerName",
-            "valueType": {
-              "type": 4,
-              "collectionType": 0,
-              "referenceType": null,
-              "referenceTypeName": null,
-              "referenceTypeId": null,
-              "friendlyName": "ContainerName"
-            }
-          },
-          {
-            "name": "LoadPortId",
-            "valueType": {
-              "type": 5,
-              "collectionType": 0,
-              "referenceType": null,
-              "referenceTypeName": null,
-              "referenceTypeId": null,
-              "friendlyName": "LoadPortId"
-            }
-          },
-          {
-            "name": "ControlJobId",
-            "valueType": {
-              "type": 4,
-              "collectionType": 0,
-              "referenceType": null,
-              "referenceTypeName": null,
-              "referenceTypeId": null,
-              "friendlyName": "ControlJobId"
-            }
-          },
-          {
-            "name": "ProcessJobId",
-            "valueType": {
-              "type": 4,
-              "collectionType": 0,
-              "referenceType": null,
-              "referenceTypeName": null,
-              "referenceTypeId": null,
-              "friendlyName": "ProcessJobId"
-            }
-          },
-          {
-            "name": "IsBatchAction",
-            "valueType": {
-              "type": 3,
-              "collectionType": 0,
-              "referenceType": null,
-              "referenceTypeName": null,
-              "referenceTypeId": null,
-              "friendlyName": "IsBatchAction"
-            }
-          },
-          {
-            "name": "StateUpdatedOnMainEquipment",
-            "valueType": {
-              "type": 3,
-              "collectionType": 0,
-              "referenceType": null,
-              "referenceTypeName": null,
-              "referenceTypeId": null,
-              "friendlyName": ""
-            }
-          }
-        ],
-        "outputs": [
-          {
-            "name": "MaterialDataObjects",
-            "valueType": {
-              "friendlyName": "MaterialDataObjects",
-              "type": 10,
-              "collectionType": 0,
-              "referenceType": null,
-              "referenceTypeName": null,
-              "referenceTypeId": null
-            }
-          }
-        ],
-        "___cmf___name": "Process Started Workflow"
-      }
-    },
-    {
-      "id": "task_51951",
-      "reference": {
-        "name": "equipmentEvent",
-        "package": {
-          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-          "version": "8.3.3-202201212"
-        }
-      },
-      "settings": {
-        "_workingMode": "AlwaysActive",
-        "_acceptAllEvents": false,
-        "_outputs": [
-          {
-            "property": {
-              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-              "Name": "CtrlJobID",
-              "DataType": 0
-            },
-            "outputType": "Value"
-          },
-          {
-            "property": {
-              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-              "Name": "CtrlJobState",
-              "DataType": 5
-            },
-            "outputType": "Value"
-          }
-        ],
-        "___cmf___name": "On Equipment Event",
-        "_events": [
-          {
-            "$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-            "Name": "E94_Selected2Executing"
-          }
-        ],
-        "___cmf___description": "E94_Selected2Executing (940104)"
-      },
-      "driver": "SecsGemEquipment"
-    }
-  ],
-  "converters": [
-    {
-      "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
-      "reference": {
-        "name": "anyToAny",
-        "package": {
-          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-          "version": "8.3.3-202201212"
-        }
-      }
-    },
-    {
-      "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringToEntityInstance",
-      "reference": {
-        "name": "stringToEntityInstance",
-        "package": {
-          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-          "version": "8.3.3-202201212"
-        }
-      }
-    },
-    {
-      "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
-      "reference": {
-        "name": "objectProperty",
-        "package": {
-          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-          "version": "8.3.3-202201212"
-        }
-      }
-    },
-    {
-      "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
-      "reference": {
-        "name": "anyToConstant",
-        "package": {
-          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-          "version": "8.3.3-202201212"
-        }
-      }
-    }
-  ],
-  "links": [
-    {
-      "id": "c1abe06e-c326-4526-be61-edd322661671",
-      "sourceId": "task_51951",
-      "targetId": "task_135964",
-      "inputName": "ControlJobIdIn",
-      "outputName": "$CtrlJobID"
-    },
-    {
-      "id": "86621b9a-6f43-4d3c-a432-9e826557cc73",
-      "sourceId": "task_51951",
-      "targetId": "task_135964",
-      "inputName": "activate",
-      "outputName": "$CtrlJobID"
-    }
-  ],
-  "layout": {
-    "general": {
-      "color": "#00ff80",
-      "notes": [
-        {
-          "id": "note_53240",
-          "name": "TosProcessStarted",
-          "value": "<p><strong>What it does:</strong></p><p>Updates MaterialData state from Setup to In Process.</p><p>Updates MES Material CustomMaterialStateModel state (Main State Model State) to In Progress.</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to TosProcessStarted for the Tool;</li><li>Use the information received to drive the Process Started workflow;</li><li>Pass any event Output to the Activate Input of the Workflow; </li></ol><p><strong>Note:</strong><strong></strong></p><p>The Workflow Process Start will try to retrieve the MaterialData using the inputs following the next logic:<br /><br /></p><ol><li>If the materialName is available retrieve the corresponding materialData;</li><li>If the containerName is available retrieve the materialData which references it on containerName;</li><li>If the loadPortId is passed it will use a match using load port id and materialState defined on the settings;</li><li>If no information is available on the inputs, if defined, use the materialState defined on the settings to retrieve the first (oldest) materialData available in the persistence;</li><li>If none of this criteria corresponds to available information, return an error.</li></ol><p>The logic described before will be triggered by order, but only one the first matching selection criteria will be run. If the criteria fails to return a materialData an Error will be returned.<br /><br />If a material is found, then it sets its state to the state defined in the setting parameter Material To Set, update the materialData on persistence. When successful output the updated materialData on the output material.</p><p>If IsBatch input is passed as True all the MaterialData that match the inputs, and corresponding Material on MES, will be set to the new state, if not passed or passed as False only the first one will be actuated.&nbsp;</p>",
-          "color": "#ffffa5"
-        }
-      ]
-    },
-    "drawers": {
-      "DIAGRAM": {
-        "tasks": {
-          "task_135964": {
-            "collapsed": false,
-            "position": {
-              "x": 975,
-              "y": 298
-            },
-            "outdated": false
-          },
-          "task_51951": {
-            "collapsed": false,
-            "position": {
-              "x": 451,
-              "y": 296
-            },
-            "outdated": false
-          }
-        },
-        "links": {
-          "c1abe06e-c326-4526-be61-edd322661671": {
-            "vertices": []
-          },
-          "86621b9a-6f43-4d3c-a432-9e826557cc73": {
-            "vertices": []
-          }
-        },
-        "notes": {
-          "note_53240": {
-            "collapsed": false,
-            "position": {
-              "x": 143,
-              "y": 292
-            }
-          }
-        },
-        "zoom": 0.7199999999999998,
-        "pan": {
-          "x": 34,
-          "y": 49
-        }
-      }
-    }
-  }
+	"tasks": [
+		{
+			"id": "task_135964",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ProcessStarted",
+					"IsShared": true,
+					"Name": "ProcessStarted"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialName"
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerName"
+						}
+					},
+					{
+						"name": "LoadPortId",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LoadPortId"
+						}
+					},
+					{
+						"name": "ControlJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ControlJobId"
+						}
+					},
+					{
+						"name": "ProcessJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ProcessJobId"
+						}
+					},
+					{
+						"name": "IsBatchAction",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "IsBatchAction"
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "MaterialDataObjects",
+						"valueType": {
+							"friendlyName": "MaterialDataObjects",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Process Started Workflow"
+			}
+		},
+		{
+			"id": "task_51951",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ProcAcceptedTime",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "LotId",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ProcPPID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ProcSTID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ProcComment",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ProcArpFlag",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ProcPortId",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ProcWaferSelectType",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ProcSlotSelection",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ProcStartedBy",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ProcAssistOnFail",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ProcPathOptimize",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "Proc_InitRun"
+					}
+				],
+				"___cmf___description": "Proc_InitRun (804)"
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringToEntityInstance",
+			"reference": {
+				"name": "stringToEntityInstance",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "8.3.3-202201212"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "5680be52-fe64-4c75-b074-db4f54a6a815",
+			"sourceId": "task_51951",
+			"targetId": "task_135964",
+			"inputName": "LoadPortIdIn",
+			"outputName": "$ProcPortId"
+		},
+		{
+			"id": "ca7f38e7-085b-4798-9d7d-5bde7da79d13",
+			"sourceId": "task_51951",
+			"targetId": "task_135964",
+			"inputName": "MaterialNameIn",
+			"outputName": "$LotId"
+		},
+		{
+			"id": "a4eeb3ba-3ac8-465e-ad6c-d38c6e343e2b",
+			"sourceId": "task_51951",
+			"targetId": "task_135964",
+			"inputName": "activate",
+			"outputName": "$LotId"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff80",
+			"notes": [
+				{
+					"id": "note_53240",
+					"name": "TosProcessStarted",
+					"value": "<p><strong>What it does:</strong></p><p>Updates MaterialData state from Setup to In Process.</p><p>Updates MES Material CustomMaterialStateModel state (Main State Model State) to In Progress.</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to TosProcessStarted for the Tool;</li><li>Use the information received to drive the Process Started workflow;</li><li>Pass any event Output to the Activate Input of the Workflow; </li></ol><p><strong>Note:</strong><strong></strong></p><p>The Workflow Process Start will try to retrieve the MaterialData using the inputs following the next logic:<br /><br /></p><ol><li>If the materialName is available retrieve the corresponding materialData;</li><li>If the containerName is available retrieve the materialData which references it on containerName;</li><li>If the loadPortId is passed it will use a match using load port id and materialState defined on the settings;</li><li>If no information is available on the inputs, if defined, use the materialState defined on the settings to retrieve the first (oldest) materialData available in the persistence;</li><li>If none of this criteria corresponds to available information, return an error.</li></ol><p>The logic described before will be triggered by order, but only one the first matching selection criteria will be run. If the criteria fails to return a materialData an Error will be returned.<br /><br />If a material is found, then it sets its state to the state defined in the setting parameter Material To Set, update the materialData on persistence. When successful output the updated materialData on the output material.</p><p>If IsBatch input is passed as True all the MaterialData that match the inputs, and corresponding Material on MES, will be set to the new state, if not passed or passed as False only the first one will be actuated.&nbsp;</p>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_135964": {
+						"collapsed": false,
+						"position": {
+							"x": 1106,
+							"y": 251
+						},
+						"outdated": false
+					},
+					"task_51951": {
+						"collapsed": false,
+						"position": {
+							"x": 471,
+							"y": 250
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"5680be52-fe64-4c75-b074-db4f54a6a815": {
+						"vertices": []
+					},
+					"ca7f38e7-085b-4798-9d7d-5bde7da79d13": {
+						"vertices": []
+					},
+					"a4eeb3ba-3ac8-465e-ad6c-d38c6e343e2b": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_53240": {
+						"collapsed": false,
+						"position": {
+							"x": 1583,
+							"y": 252
+						}
+					}
+				},
+				"zoom": 0.6399999999999999,
+				"pan": {
+					"x": 0,
+					"y": 117
+				}
+			}
+		}
+	}
 }

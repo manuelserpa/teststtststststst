@@ -1067,6 +1067,15 @@
       "Configuration": ""
     },
     "9": {
+      "Name": "KLASpectraFilm",
+      "Description": "5FELL1",
+      "Type": "General",
+      "LogicalAddress": "5FELL1",
+      "MonitorPackageVersion": "9.1.0-202209072",
+      "ManagerPackageVersion": "9.1.0-202209072",
+      "Configuration": ""
+    },
+    "10": {
       "Name": "Monarch25VHF",
       "Description": "5FVHF1",
       "Type": "General",
@@ -1186,40 +1195,58 @@
       "EntityName": "5FORI1.RFID"
     },
     "19": {
+      "AutomationController": "KLASpectraFilmController",
+      "AutomationManager": "KLASpectraFilm",
+      "DriverName": "",
+      "EntityName": "5FELL1"
+    },
+    "20": {
+      "AutomationController": "KLASpectraFilmController",
+      "AutomationManager": "KLASpectraFilm",
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FELL1"
+    },
+    "21": {
+      "AutomationController": "KLASpectraFilmController",
+      "AutomationManager": "KLASpectraFilm",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FELL1.RFID"
+    },
+    "22": {
       "AutomationController": "BrukerInsightCAPController",
       "AutomationManager": "BrukerInsightCAP",
       "DriverName": "",
       "EntityName": "5FAFM1"
     },
-    "20": {
+    "23": {
       "AutomationController": "BrukerInsightCAPController",
       "AutomationManager": "BrukerInsightCAP",
       "DriverName": "SecsGemEquipment",
       "EntityName": "5FAFM1"
     },
-    "21": {
+    "24": {
       "AutomationController": "BrukerInsightCAPController",
       "AutomationManager": "BrukerInsightCAP",
       "DriverName": "RFIDReader",
       "EntityName": "5FAFM1.RFID"
     },
-    "22": {
+    "25": {
       "AutomationController": "Monarch25VHFController",
       "AutomationManager": "Monarch25VHF",
       "DriverName": "",
       "EntityName": "5FVHF1"
     },
-    "23": {
+    "26": {
       "AutomationController": "Monarch25VHFController",
       "AutomationManager": "Monarch25VHF",
       "DriverName": "SecsGemEquipment",
       "EntityName": "5FVHF1"
     },
-    "24": {
+    "27": {
       "AutomationController": "Monarch25VHFController",
       "AutomationManager": "Monarch25VHF",
       "DriverName": "RFIDReader",
       "EntityName": "5FVHF1.RFID"
-    }
+    }    
   }
 }

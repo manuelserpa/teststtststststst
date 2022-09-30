@@ -58,7 +58,16 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": [],
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ControlState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
 				"___cmf___name": "On Equipment Event",
 				"_events": [
 					{
@@ -66,7 +75,7 @@
 						"Name": "EquipmentOffline"
 					}
 				],
-				"___cmf___description": "EquipmenteOffline (2)"
+				"___cmf___description": "EquipmenteOffline (101)"
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -82,7 +91,16 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": [],
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ControlState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
 				"___cmf___name": "On Equipment Event",
 				"_events": [
 					{
@@ -90,7 +108,7 @@
 						"Name": "ControlStateLocal"
 					}
 				],
-				"___cmf___description": "ControlStateLocal (0)"
+				"___cmf___description": "ControlStateLocal (102)"
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -106,7 +124,16 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": [],
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ControlState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
 				"___cmf___name": "On Equipment Event",
 				"_events": [
 					{
@@ -114,7 +141,7 @@
 						"Name": "ControlStateRemote"
 					}
 				],
-				"___cmf___description": "ControlStateRemote (1)"
+				"___cmf___description": "ControlStateRemote (103)"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -154,52 +181,25 @@
 			"outputName": "event"
 		},
 		{
-			"id": "9fbcee9a-dd21-4407-bc69-ffcfd014f2f4",
+			"id": "ba18e66d-5573-4e08-8945-7cbbb3b9fb1d",
 			"sourceId": "task_124716",
 			"targetId": "task_141393",
 			"inputName": "valueIn",
-			"outputName": "event",
-			"converters": [
-				{
-					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
-					"params": {
-						"type": 5,
-						"value": "1"
-					}
-				}
-			]
+			"outputName": "$ControlState"
 		},
 		{
-			"id": "2385b300-dcf6-4386-ab74-56e996a63a2f",
+			"id": "dd328a68-6b8a-4824-b0a6-8676e1ebea23",
 			"sourceId": "task_38865",
 			"targetId": "task_141393",
 			"inputName": "valueIn",
-			"outputName": "event",
-			"converters": [
-				{
-					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
-					"params": {
-						"type": 5,
-						"value": "4"
-					}
-				}
-			]
+			"outputName": "$ControlState"
 		},
 		{
-			"id": "0a4e114c-9ebf-4590-83af-6095985cd833",
+			"id": "d3980349-d4f0-4958-93aa-e038942ba962",
 			"sourceId": "task_38938",
 			"targetId": "task_141393",
 			"inputName": "valueIn",
-			"outputName": "event",
-			"converters": [
-				{
-					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
-					"params": {
-						"type": 5,
-						"value": "5"
-					}
-				}
-			]
+			"outputName": "$ControlState"
 		}
 	],
 	"layout": {
@@ -220,8 +220,8 @@
 					"task_141393": {
 						"collapsed": false,
 						"position": {
-							"x": 1248,
-							"y": 445
+							"x": 1110,
+							"y": 574
 						},
 						"outdated": false
 					},
@@ -236,16 +236,16 @@
 					"task_38865": {
 						"collapsed": false,
 						"position": {
-							"x": 466,
-							"y": 556
+							"x": 467,
+							"y": 623
 						},
 						"outdated": false
 					},
 					"task_38938": {
 						"collapsed": false,
 						"position": {
-							"x": 466,
-							"y": 838
+							"x": 467,
+							"y": 973
 						},
 						"outdated": false
 					}
@@ -260,13 +260,13 @@
 					"e15bd158-bf46-4b9e-b7fa-524743728853": {
 						"vertices": []
 					},
-					"9fbcee9a-dd21-4407-bc69-ffcfd014f2f4": {
+					"ba18e66d-5573-4e08-8945-7cbbb3b9fb1d": {
 						"vertices": []
 					},
-					"2385b300-dcf6-4386-ab74-56e996a63a2f": {
+					"dd328a68-6b8a-4824-b0a6-8676e1ebea23": {
 						"vertices": []
 					},
-					"0a4e114c-9ebf-4590-83af-6095985cd833": {
+					"d3980349-d4f0-4958-93aa-e038942ba962": {
 						"vertices": []
 					}
 				},
@@ -280,10 +280,10 @@
 					}
 				},
 				"pan": {
-					"x": 419.3999938964844,
-					"y": 246.60000610351562
+					"x": 150,
+					"y": 178
 				},
-				"zoom": 0.8999999999999999
+				"zoom": 0.6499999999999997
 			}
 		}
 	}
