@@ -181,6 +181,66 @@
 							"friendlyName": "LoadPort"
 						},
 						"defaultValue": null
+					},
+					{
+						"name": "DockIsValid",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "DockIsValid"
+						},
+						"defaultValue": false
+					},
+					{
+						"name": "TriedToDockOnOfflineLoadPort",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": false
+					},
+					{
+						"name": "DockIsInvalid",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": false
+					},
+					{
+						"name": "ContainerMaterials",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerMaterials"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "ContainerMaterialData",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
 					}
 				],
 				"action": "CustomDockStoreIoT",
@@ -506,6 +566,126 @@
 				"executionExpirationInMilliseconds": 0,
 				"___cmf___name": "Code"
 			}
+		},
+		{
+			"id": "task_1704",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        const containerMaterials = inputs.ContainerMaterials;",
+					"",
+					"        if (inputs.TriedToDockOnOfflineLoadPort) {",
+					"            this.framework.logger.warning(\"Equipment tried to Dock on a Load Port with Automation Mode other than Online, Container will not be docked\");",
+					"        }",
+					"",
+					"        if (containerMaterials) {",
+					"            return {",
+					"                ContainerMaterials: containerMaterials",
+					"            };",
+					"        } ",
+					"        else {",
+					"            this.framework.logger.warning(\"No ContainerMaterials were found\");",
+					"        }",
+					"",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICBjb25zdCBjb250YWluZXJNYXRlcmlhbHMgPSBpbnB1dHMuQ29udGFpbmVyTWF0ZXJpYWxzOw0KICAgICAgICBpZiAoaW5wdXRzLlRyaWVkVG9Eb2NrT25PZmZsaW5lTG9hZFBvcnQpIHsNCiAgICAgICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci53YXJuaW5nKCJFcXVpcG1lbnQgdHJpZWQgdG8gRG9jayBvbiBhIExvYWQgUG9ydCB3aXRoIEF1dG9tYXRpb24gTW9kZSBvdGhlciB0aGFuIE9ubGluZSwgQ29udGFpbmVyIHdpbGwgbm90IGJlIGRvY2tlZCIpOw0KICAgICAgICB9DQogICAgICAgIGlmIChjb250YWluZXJNYXRlcmlhbHMpIHsNCiAgICAgICAgICAgIHJldHVybiB7DQogICAgICAgICAgICAgICAgQ29udGFpbmVyTWF0ZXJpYWxzOiBjb250YWluZXJNYXRlcmlhbHMNCiAgICAgICAgICAgIH07DQogICAgICAgIH0NCiAgICAgICAgZWxzZSB7DQogICAgICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIud2FybmluZygiTm8gQ29udGFpbmVyTWF0ZXJpYWxzIHdlcmUgZm91bmQiKTsNCiAgICAgICAgfQ0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
+				"inputs": [
+					{
+						"name": "DockIsValid",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "DockIsValid"
+						},
+						"defaultValue": false
+					},
+					{
+						"name": "TriedToDockOnOfflineLoadPort",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "TriedToDockOnOfflineLoadPort"
+						},
+						"defaultValue": false
+					},
+					{
+						"name": "ContainerMaterials",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerMaterials"
+						},
+						"defaultValue": null
+					}
+				],
+				"outputs": [
+					{
+						"name": "ContainerMaterials",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Container Materials"
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
+		},
+		{
+			"id": "task_2124",
+			"reference": {
+				"name": "updateContainer",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "2.0.0"
+				}
+			},
+			"settings": {
+				"inputs": [],
+				"outputs": [],
+				"message": ""
+			}
 		}
 	],
 	"converters": [
@@ -516,6 +696,16 @@
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
 					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+			"reference": {
+				"name": "anyToErrorCodeConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "2.0.0"
 				}
 			}
 		}
@@ -562,13 +752,6 @@
 			"targetId": "task_76502",
 			"inputName": "LoadPort",
 			"outputName": "LoadPort"
-		},
-		{
-			"id": "9cfd6a2a-2142-4d5f-b085-8782b31c843d",
-			"sourceId": "task_78442",
-			"targetId": "task_76502",
-			"inputName": "success",
-			"outputName": "success"
 		},
 		{
 			"id": "4ed72914-cd77-4f77-ae53-90f6271847a6",
@@ -768,6 +951,114 @@
 					}
 				}
 			]
+		},
+		{
+			"id": "f1f1bf7c-7e21-4fdd-b604-ad9122613615",
+			"sourceId": "task_1704",
+			"targetId": "task_2124",
+			"inputName": "slots",
+			"outputName": "ContainerMaterialsOut"
+		},
+		{
+			"id": "9b6689f0-7fea-412c-82fb-64e3c9f79e65",
+			"sourceId": "task_1704",
+			"targetId": "task_2124",
+			"inputName": "activate",
+			"outputName": "ContainerMaterialsOut"
+		},
+		{
+			"id": "b6c5d62f-4451-4b12-88fb-1f20e99a8a1a",
+			"sourceId": "task_78442",
+			"targetId": "task_2124",
+			"inputName": "materialData",
+			"outputName": "ContainerMaterialData"
+		},
+		{
+			"id": "0f39181c-18e5-4c04-9e66-37627ca738f7",
+			"sourceId": "task_78442",
+			"targetId": "task_1704",
+			"inputName": "ContainerMaterialsIn",
+			"outputName": "ContainerMaterials"
+		},
+		{
+			"id": "0fb3a1cc-653d-441f-8883-b8071e12de4c",
+			"sourceId": "task_78442",
+			"targetId": "task_1704",
+			"inputName": "DockIsValidIn",
+			"outputName": "DockIsValid"
+		},
+		{
+			"id": "115a896c-ad1c-4ae6-9fe4-b8dbf8f0102d",
+			"sourceId": "task_78442",
+			"targetId": "task_1704",
+			"inputName": "TriedToDockOnOfflineLoadPortIn",
+			"outputName": "TriedToDockOnOfflineLoadPort"
+		},
+		{
+			"id": "fe4daa8d-2395-492b-b511-6cd591616903",
+			"sourceId": "task_78442",
+			"targetId": "task_1704",
+			"inputName": "activate",
+			"outputName": "DockIsValid"
+		},
+		{
+			"id": "1bc55a41-ae08-4423-a40a-94b11157b5ee",
+			"sourceId": "task_78442",
+			"targetId": "task_83324",
+			"inputName": "ErrorCodeIn",
+			"outputName": "DockIsInvalid",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+					"params": {
+						"ErrorCode": "InvalidCarrierDocked",
+						"SystemOfOrigin": "MES",
+						"ErrorNumber": 0
+					}
+				}
+			]
+		},
+		{
+			"id": "94174a64-1513-4cc9-b8b3-347ff2352a6c",
+			"sourceId": "task_78442",
+			"targetId": "task_83324",
+			"inputName": "activate",
+			"outputName": "DockIsInvalid"
+		},
+		{
+			"id": "94659865-73f1-4772-8a94-b1d25ce83d96",
+			"sourceId": "task_2124",
+			"targetId": "task_76502",
+			"inputName": "success",
+			"outputName": "success"
+		},
+		{
+			"id": "3044049e-8fba-4b3d-867d-3d4a1b142aa6",
+			"sourceId": "task_2124",
+			"targetId": "task_76502",
+			"inputName": "error",
+			"outputName": "error"
+		},
+		{
+			"id": "0f73cdf4-fc9a-4319-a696-4d8843214b4c",
+			"sourceId": "task_2124",
+			"targetId": "task_76502",
+			"inputName": "container",
+			"outputName": "container"
+		},
+		{
+			"id": "548f93d2-afec-438c-bc23-529e38f43fed",
+			"sourceId": "task_1704",
+			"targetId": "task_76502",
+			"inputName": "success",
+			"outputName": "success"
+		},
+		{
+			"id": "3c5a3882-e58f-4ca6-b20f-d621fda43919",
+			"sourceId": "task_1704",
+			"targetId": "task_76502",
+			"inputName": "error",
+			"outputName": "error"
 		}
 	],
 	"layout": {
@@ -781,72 +1072,88 @@
 					"task_76502": {
 						"collapsed": false,
 						"position": {
-							"x": 4425,
-							"y": 301
+							"x": 6446,
+							"y": 940
 						},
 						"outdated": false
 					},
 					"task_76500": {
 						"collapsed": false,
 						"position": {
-							"x": -32,
-							"y": 510
+							"x": 0,
+							"y": 236
 						},
 						"outdated": false
 					},
 					"task_78442": {
 						"collapsed": false,
 						"position": {
-							"x": 3579,
-							"y": 529
+							"x": 3842,
+							"y": 757
 						},
 						"outdated": false
 					},
 					"task_78876": {
 						"collapsed": false,
 						"position": {
-							"x": 2853,
-							"y": 769
+							"x": 3092,
+							"y": 1246
 						},
 						"outdated": false
 					},
 					"task_79353": {
 						"collapsed": false,
 						"position": {
-							"x": 2019,
-							"y": 569
+							"x": 2323,
+							"y": 751
 						},
 						"outdated": false
 					},
 					"task_83324": {
 						"collapsed": false,
 						"position": {
-							"x": 4005,
-							"y": 1104
+							"x": 5344,
+							"y": 1477
 						},
 						"outdated": false
 					},
 					"task_31889": {
 						"collapsed": false,
 						"position": {
-							"x": 1049,
-							"y": 165
+							"x": 1033,
+							"y": 304
 						},
 						"outdated": false
 					},
 					"task_31891": {
 						"collapsed": false,
 						"position": {
-							"x": 1517,
-							"y": 68
+							"x": 1556,
+							"y": 178
 						},
 						"outdated": false
 					},
 					"task_75894": {
 						"collapsed": false,
 						"position": {
-							"x": 562,
-							"y": 188
+							"x": 559,
+							"y": 371
+						},
+						"outdated": false
+					},
+					"task_1704": {
+						"collapsed": false,
+						"position": {
+							"x": 4577,
+							"y": 783
+						},
+						"outdated": false
+					},
+					"task_2124": {
+						"collapsed": false,
+						"position": {
+							"x": 5350,
+							"y": 280
 						},
 						"outdated": false
 					}
@@ -868,9 +1175,6 @@
 						"vertices": []
 					},
 					"80a3c8da-1786-4043-b265-b17f986a826e": {
-						"vertices": []
-					},
-					"9cfd6a2a-2142-4d5f-b085-8782b31c843d": {
 						"vertices": []
 					},
 					"4ed72914-cd77-4f77-ae53-90f6271847a6": {
@@ -930,6 +1234,45 @@
 					"c98b22f0-c326-426b-9100-c4ad985b8ad2": {
 						"vertices": []
 					},
+					"f1f1bf7c-7e21-4fdd-b604-ad9122613615": {
+						"vertices": []
+					},
+					"9b6689f0-7fea-412c-82fb-64e3c9f79e65": {
+						"vertices": []
+					},
+					"b6c5d62f-4451-4b12-88fb-1f20e99a8a1a": {
+						"vertices": []
+					},
+					"0f39181c-18e5-4c04-9e66-37627ca738f7": {
+						"vertices": []
+					},
+					"0fb3a1cc-653d-441f-8883-b8071e12de4c": {
+						"vertices": []
+					},
+					"115a896c-ad1c-4ae6-9fe4-b8dbf8f0102d": {
+						"vertices": []
+					},
+					"fe4daa8d-2395-492b-b511-6cd591616903": {
+						"vertices": []
+					},
+					"94174a64-1513-4cc9-b8b3-347ff2352a6c": {
+						"vertices": []
+					},
+					"94659865-73f1-4772-8a94-b1d25ce83d96": {
+						"vertices": []
+					},
+					"3044049e-8fba-4b3d-867d-3d4a1b142aa6": {
+						"vertices": []
+					},
+					"0f73cdf4-fc9a-4319-a696-4d8843214b4c": {
+						"vertices": []
+					},
+					"548f93d2-afec-438c-bc23-529e38f43fed": {
+						"vertices": []
+					},
+					"3c5a3882-e58f-4ca6-b20f-d621fda43919": {
+						"vertices": []
+					},
 					"495b1776-f864-402b-ba56-b6004d127940": {
 						"vertices": []
 					},
@@ -941,14 +1284,17 @@
 					},
 					"9adf35c7-6f44-4229-9ee0-892b63769435": {
 						"vertices": []
+					},
+					"1bc55a41-ae08-4423-a40a-94b11157b5ee": {
+						"vertices": []
 					}
 				},
 				"notes": {},
 				"pan": {
-					"x": 1055,
-					"y": 9
+					"x": 2183,
+					"y": 230
 				},
-				"zoom": 0.4700000000000002
+				"zoom": 0.5800000000000003
 			}
 		}
 	}
