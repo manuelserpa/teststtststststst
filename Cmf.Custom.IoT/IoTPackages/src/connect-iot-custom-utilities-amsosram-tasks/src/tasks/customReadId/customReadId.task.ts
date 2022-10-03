@@ -1,12 +1,6 @@
 import { Task, Dependencies, System, DI, TYPES } from "@criticalmanufacturing/connect-iot-controller-engine";
 import i18n from "./i18n/customReadId.default";
 
-import { SecsGem } from "../../common/secsGemItem"
-import { SecsItem } from "../../common/secsItem";
-import { SubMaterialStateEnum } from "../../persistence/model/subMaterialData";
-import { StringMap } from "@angular/core/src/render3/jit/compiler_facade_interface";
-
-
 /**
  * @whatItDoes
  *
