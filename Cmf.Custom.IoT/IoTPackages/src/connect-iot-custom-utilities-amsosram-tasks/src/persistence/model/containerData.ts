@@ -1,5 +1,5 @@
 import { WaferData } from "./waferData";
-
+import { MaterialData } from "./materialData";
 
 export interface ContainerData {
     /** Material MO ID */
@@ -14,4 +14,6 @@ export interface ContainerData {
     LoadPortPosition: string
     /** Slot Map */
     SlotMap: object;
+    /** Sub Material List */
+    MaterialData: MaterialData[],
 }

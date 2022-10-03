@@ -35,7 +35,7 @@ export interface ContainerProcess {
      * update container
      * @param carrier  Container
      */
-     updateContainer(containerName: string, loadPortPosition: number, slotMap: object)
+    updateContainer(containerName: string, loadPortPosition: number, slotMap: object, slots: object, materialData: object)
 
     /**
      * Retrieves the Material object for a given Material slot
@@ -52,11 +52,11 @@ export interface ContainerProcess {
      */
     setWaferToContainer(containerName: string, loadPortPosition: number, slot: number, equipmentWaferId: string, materialWaferId);
 
-     /**
-     * Method to create the Material persistence file
-     * when a MO material is tracked in
-     * @param material Material data
-     */
+    /**
+    * Method to create the Material persistence file
+    * when a MO material is tracked in
+    * @param material Material data
+    */
     setWaferDataToContainerData(container: ContainerData, wafer: WaferData);
 
     /**
@@ -85,10 +85,10 @@ export interface ContainerProcess {
      */
     getWaferBySlot(container: ContainerData, slot: number);
 
-        /**
-     * Retrieves the Material object for a given MaterialId
-     * @param id Material Id
-     */
+    /**
+ * Retrieves the Material object for a given MaterialId
+ * @param id Material Id
+ */
     getWaferByEquipmentName(container: ContainerData, equipmentWaferId: string);
 
     /**

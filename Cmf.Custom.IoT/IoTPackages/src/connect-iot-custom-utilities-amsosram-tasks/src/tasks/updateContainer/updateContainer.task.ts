@@ -46,6 +46,8 @@ interface Movement {
         containerId: Task.TaskValueType.String,
         slotMap: Task.TaskValueType.Object,
         loadPort: Task.TaskValueType.Integer,
+        slots: Task.TaskValueType.String,
+        materialData: Task.TaskValueType.String,
         activate: Task.INPUT_ACTIVATE
     },
     outputs: {
@@ -65,6 +67,8 @@ export class UpdateContainerTask implements Task.TaskInstance, UpdateContainerSe
     public loadPort: number;
     public containerId: string;
     public slotMap: object;
+    public slots: string;
+    public materialData: string;
 
     /** **Outputs** */
     /** To output a success notification */
@@ -96,7 +100,20 @@ export class UpdateContainerTask implements Task.TaskInstance, UpdateContainerSe
             // It is advised to reset the activate to allow being reactivated without the value being different
             this.activate = undefined;
             try {
-                const container = await this._containerProcess.updateContainer(this.containerId, this.loadPort, this.slotMap);
+                let slotsParsed = null;
+                let materialDataParsed = null;
+
+                if (this.slots &&
+                    this.slots.length > 0) {
+                    slotsParsed = JSON.parse(this.slots);
+                }
+
+                if (this.materialData &&
+                    this.materialData.length > 0) {
+                    materialDataParsed = JSON.parse(this.materialData);
+                }
+
+                const container = await this._containerProcess.updateContainer(this.containerId, this.loadPort, this.slotMap, slotsParsed, materialDataParsed);
                 this.container.emit(container);
                 this.success.emit(true);
             } catch (e) {
