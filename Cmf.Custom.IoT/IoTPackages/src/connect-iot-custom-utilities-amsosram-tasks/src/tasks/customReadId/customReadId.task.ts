@@ -4,6 +4,7 @@ import i18n from "./i18n/customReadId.default";
 import { SecsGem } from "../../common/secsGemItem"
 import { SecsItem } from "../../common/secsItem";
 import { SubMaterialStateEnum } from "../../persistence/model/subMaterialData";
+import { StringMap } from "@angular/core/src/render3/jit/compiler_facade_interface";
 
 
 /**
@@ -86,7 +87,7 @@ export class CustomReadIdTask implements Task.TaskInstance, CustomReadIdSettings
             this.activate = undefined;
             try {
 
-                let paddedTargetID = this.TargetId;
+                let paddedTargetID: string = this.TargetId.toString();
 
                 if (!this.TargetId) {
                     throw new Error("Failed to receive a TargetID");
@@ -117,7 +118,7 @@ export class CustomReadIdTask implements Task.TaskInstance, CustomReadIdSettings
                 const materialId = reply.item.value[2].value;
                 const statusList = reply.item.value[3].value;
 
-                if (targetId === this.TargetId &&
+                if (targetId === paddedTargetID &&
                     acknowledgeCode === "NO" &&
                     materialId) {
                     successFound = true;
