@@ -6,7 +6,7 @@
 				"name": "systemActionGroupEvent",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -22,7 +22,7 @@
 				"name": "expressionEvaluator",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -68,7 +68,7 @@
 				"name": "getRecipeBody",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-secsgem-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -89,7 +89,7 @@
 				"name": "customCalculateChecksum",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
+					"version": "2.0.0"
 				}
 			},
 			"settings": {
@@ -102,7 +102,7 @@
 				"name": "logMessage",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -122,7 +122,7 @@
 				"name": "listRecipes",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-secsgem-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -140,7 +140,7 @@
 				"name": "checkIfRecipeExistsOnEquipment",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
+					"version": "2.0.0"
 				}
 			},
 			"settings": {}
@@ -151,7 +151,7 @@
 				"name": "expressionEvaluator",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -212,7 +212,7 @@
 				"name": "anyToAny",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			}
 		}
@@ -396,11 +396,27 @@
 						},
 						"outdated": false
 					},
+					"task_22427": {
+						"collapsed": false,
+						"position": {
+							"x": 2663,
+							"y": 212
+						},
+						"outdated": false
+					},
 					"task_22859": {
 						"collapsed": false,
 						"position": {
 							"x": 3262,
 							"y": 396
+						},
+						"outdated": false
+					},
+					"task_52500": {
+						"collapsed": false,
+						"position": {
+							"x": 1496,
+							"y": 711
 						},
 						"outdated": false
 					},
@@ -419,22 +435,6 @@
 							"y": 681
 						},
 						"outdated": false
-					},
-					"task_22427": {
-						"collapsed": false,
-						"position": {
-							"x": 2663,
-							"y": 212
-						},
-						"outdated": null
-					},
-					"task_52500": {
-						"collapsed": false,
-						"position": {
-							"x": 1496,
-							"y": 711
-						},
-						"outdated": null
 					}
 				},
 				"links": {
@@ -566,10 +566,10 @@
 				},
 				"notes": {},
 				"pan": {
-					"x": 17.455882352941218,
+					"x": 17.455882352941217,
 					"y": -10.552626872752
 				},
-				"zoom": 0.33000000000000009
+				"zoom": 0.33000000000000007
 			}
 		}
 	}

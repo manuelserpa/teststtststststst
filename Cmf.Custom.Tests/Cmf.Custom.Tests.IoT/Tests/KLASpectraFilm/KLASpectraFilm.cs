@@ -9,8 +9,8 @@ using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects;
 using Cmf.SECS.Driver;
 using Cmf.TestScenarios.ContainerManagement.ContainerScenarios;
-using AMSOsramEIAutomaticTests.Objects.Extensions;
-using AMSOsramEIAutomaticTests.Objects.Utilities;
+using amsOSRAMEIAutomaticTests.Objects.Extensions;
+using amsOSRAMEIAutomaticTests.Objects.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Cmf.Custom.TestUtilities;
 using cmConnect.TestFramework.EquipmentSimulator.Objects;
@@ -24,7 +24,7 @@ using Cmf.Foundation.BusinessObjects.SmartTables;
 using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 using Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader;
 
-namespace AMSOsramEIAutomaticTests.KLASpectraFilm
+namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
 {
     [TestClass]
     public class KLASpectraFilm : CommonTests
@@ -76,7 +76,7 @@ namespace AMSOsramEIAutomaticTests.KLASpectraFilm
         private const string WaferCompleteEvent = "WaferDataReady";
         //private const string PostTrackinEvent = "E87WaitingForHost2SlotMapVerificationOk";
         private const string SlotMapReceivedEvent = "SlotMapNotReadToWaitingForHost";
-        private const string ReadyToUnloadEvent = "CarrierUnclamped";
+        private const string ReadyToUnloadEvent = "ReadyToUnload";
         private const string MaterialRemovedEvent = "MaterialRemoveEvent";
         private const string ProcessStartedEvent = "Proc_InitRun";
         private const string ProcessCompletedEvent = "Proc_Finished";
@@ -147,8 +147,6 @@ namespace AMSOsramEIAutomaticTests.KLASpectraFilm
 
             ConfigureConnection(readerResourceName, 5012, prepareTestScenario: false);
             ConfigureConnection(resourceName, 5011, killProcess: false);
-
-
 
             Resource lp1 = new Resource() { Name = $"{resourceName}-LP1" };
             lp1.Load();
@@ -654,6 +652,19 @@ namespace AMSOsramEIAutomaticTests.KLASpectraFilm
             return true;
         }
 
+        public bool SendMetrics(Material wafer)
+        {
+
+            base.Equipment.Variables["DP_SECD_LotSummary"] = "";
+            base.Equipment.Variables["DP_SE_RawMeasurementsEx"] = 1;
+            base.Equipment.Variables["DP_SE_RawMeasurementsDeepFormat"] = "";//Stage;
+            
+
+            base.Equipment.SendMessage("CE_DEPTH_ANALYSIS_DATA_AVAIL", null);
+
+            return true;
+        }
+
         public override bool WaferStart(Material wafer)
         {
             wafer.Load();
@@ -682,6 +693,9 @@ namespace AMSOsramEIAutomaticTests.KLASpectraFilm
             wafer.ParentMaterial.Load();
             wafer.MaterialContainer.First().TargetEntity.Load();
             var position = (wafer.MaterialContainer.First().Position ?? 0).ToString("00");
+
+            SendMetrics(wafer);
+
             //var containerId = MESScenario.ContainerScenario.Entity.Name;
             //var subLocId = $"{containerId}.{position}";
             base.Equipment.Variables["LotId"] = wafer.ParentMaterial.Name;

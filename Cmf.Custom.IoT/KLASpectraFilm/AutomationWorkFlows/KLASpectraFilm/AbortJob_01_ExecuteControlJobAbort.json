@@ -6,7 +6,7 @@
 				"name": "subWorkflowStart",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -32,7 +32,7 @@
 				"name": "subWorkflowEnd",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -58,7 +58,7 @@
 				"name": "customControlJobRequest",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
+					"version": "2.0.0"
 				}
 			},
 			"settings": {
@@ -74,7 +74,7 @@
 				"name": "retrieveMaterialProperty",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
+					"version": "2.0.0"
 				}
 			},
 			"settings": {
@@ -89,7 +89,7 @@
 				"name": "codeExecution",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -195,7 +195,7 @@
 				"name": "objectProperty",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			}
 		}
@@ -382,9 +382,9 @@
 					}
 				},
 				"notes": {},
-				"zoom": 0.5999999999999997,
+				"zoom": 0.5999999999999996,
 				"pan": {
-					"x": 17.399993896484376,
+					"x": 17.399993896484375,
 					"y": 123.7998046875
 				}
 			}

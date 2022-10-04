@@ -6,7 +6,7 @@
 				"name": "equipmentEvent",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -22,7 +22,7 @@
 				"name": "workflow",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -138,8 +138,8 @@
 				"notes": {},
 				"zoom": 0.7099999999999997,
 				"pan": {
-					"x": 764.4444580078125,
-					"y": 362.22222900390627
+					"x": 526,
+					"y": 396
 				}
 			}
 		}
