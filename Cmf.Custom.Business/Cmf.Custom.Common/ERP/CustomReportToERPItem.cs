@@ -17,55 +17,73 @@ namespace Cmf.Custom.amsOSRAM.Common.ERP
         /// <summary>
         /// The ProductionOrderNumber property
         /// </summary>
-        [XmlElement(ElementName = "PROD_ORDER_NR")]
+        [XmlElement(ElementName = "ProductionOrderNr")]
         public string ProductionOrderNumber { get; set; }
 
         /// <summary>
         /// The MaterialName property
         /// </summary>
-        [XmlElement(ElementName = "LOT_NUMBER")]
+        [XmlElement(ElementName = "LotNumber")]
         public string MaterialName { get; set; }
 
         /// <summary>
         /// The ProductName property
         /// </summary>
-        [XmlElement(ElementName = "MATERIAL_NR")]
+        [XmlElement(ElementName = "MaterialNr")]
         public string ProductName { get; set; }
 
         /// <summary>
         /// The Quantity property
         /// </summary>
-        [XmlElement(ElementName = "QUANTITY")]
+        [XmlElement(ElementName = "Quantity")]
         public decimal? Quantity { get; set; }
 
         /// <summary>
         /// The Units property
         /// </summary>
-        [XmlElement(ElementName = "QTY_UNIT")]
+        [XmlElement(ElementName = "QuantityUnit")]
         public string Units { get; set; }
 
         /// <summary>
         /// The SAPStore property
         /// </summary>
-        [XmlElement(ElementName = "SAP_STORE")]
+        [XmlElement(ElementName = "SapStore")]
         public string SAPStore { get; set; }
 
         /// <summary>
         /// The Site property
         /// </summary>
-        [XmlElement(ElementName = "SITE")]
+        [XmlElement(ElementName = "Site")]
         public string Site { get; set; }
 
         /// <summary>
         /// The MovementType property
         /// </summary>
-        [XmlElement(ElementName = "MOVE_TYPE")]
+        [XmlElement(ElementName = "MovementType")]
         public string MovementType { get; set; }
 
         /// <summary>
-        /// The SubMaterialCount property
+        /// The SapToStore property
         /// </summary>
-        [XmlElement(ElementName = "WAFERS")]
-        public int SubMaterialCount { get; set; }
+        [XmlElement(ElementName = "SapToStore")]
+        public string SAPToStore { get; set; }
+
+        /// <summary>
+        ///  The Batch property
+        /// </summary>
+        [XmlElement(ElementName = "Batch")]
+        public string BatchName { get; set; }
+
+        /// <summary>
+        /// The MatRecNr property
+        /// </summary>
+        [XmlElement(ElementName = "MatRecNr")]
+        public string MatRecNr { get; set; }
+
+        /// <summary>
+        /// The MatCalYear property
+        /// </summary>
+        [XmlElement(ElementName = "MatCalYear")]
+        public string MatCalYear { get; set; }
     }
 }

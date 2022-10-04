@@ -2364,10 +2364,10 @@ namespace Cmf.Custom.amsOSRAM.Common
                         ProductName = material.Product.Name,
                         Quantity = material.PrimaryQuantity + material.SubMaterialsPrimaryQuantity,
                         Units = material.PrimaryUnits,
-                        MovementType = amsOSRAMConstants.Type261,
-                        SubMaterialCount = material.SubMaterialCount,
                         SAPStore = storageLocation,
-                        Site = siteCode
+                        Site = siteCode,
+                        MovementType = movementType,
+                        BatchName = null
                     };
 
                     break;

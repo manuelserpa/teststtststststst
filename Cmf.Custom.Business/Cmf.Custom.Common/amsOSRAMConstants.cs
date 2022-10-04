@@ -1171,6 +1171,22 @@
         /// </summary>
         public const string Type261 = "261";
 
+        /// <summary>
+        /// ERP web service endpoint configuration path
+        /// </summary>
+        public const string ERPWebServiceEndpointConfigurationPath = "/Cmf/Custom/ERP/WebServiceEndpoint";
+
+        /// <summary>
+        /// ERP credentials username configuration path
+        /// </summary>
+        public const string ERPCredentialsUsernameConfigurationPath = "/Cmf/Custom/ERP/Credentials/Username/";
+
+        /// <summary>
+        /// ERP credentials password configuration path
+        /// </summary>
+        public const string ERPCredentialsPasswordConfigurationPath = "/Cmf/Custom/ERP/Credentials/Password/";
+
+
         #endregion
 
         #region
