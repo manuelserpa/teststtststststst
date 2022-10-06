@@ -43,7 +43,7 @@ namespace Cmf.Custom.amsOSRAM.Common.ERP
         /// The Quantity property
         /// </summary>
         [XmlElement(ElementName = "Quantity")]
-        public decimal? Quantity { get; set; }
+        public int Quantity { get; set; }
 
         /// <summary>
         /// The Units property
