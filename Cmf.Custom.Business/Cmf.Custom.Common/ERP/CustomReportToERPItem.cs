@@ -6,6 +6,7 @@ namespace Cmf.Custom.amsOSRAM.Common.ERP
     /// <summary>
     /// Information to be sent for movement type 261
     /// </summary>
+    [XmlRoot(ElementName = "ReportToERPItem")]
     public class CustomReportToERPItem
     {
         /// <summary>
