@@ -1,11 +1,6 @@
 import { Task, Dependencies, System, DI, TYPES } from "@criticalmanufacturing/connect-iot-controller-engine";
 import i18n from "./i18n/customReadId.default";
 
-import { SecsGem } from "../../common/secsGemItem"
-import { SecsItem } from "../../common/secsItem";
-import { SubMaterialStateEnum } from "../../persistence/model/subMaterialData";
-
-
 /**
  * @whatItDoes
  *
@@ -86,7 +81,7 @@ export class CustomReadIdTask implements Task.TaskInstance, CustomReadIdSettings
             this.activate = undefined;
             try {
 
-                let paddedTargetID = this.TargetId;
+                let paddedTargetID: string = this.TargetId.toString();
 
                 if (!this.TargetId) {
                     throw new Error("Failed to receive a TargetID");
@@ -117,7 +112,7 @@ export class CustomReadIdTask implements Task.TaskInstance, CustomReadIdSettings
                 const materialId = reply.item.value[2].value;
                 const statusList = reply.item.value[3].value;
 
-                if (targetId === this.TargetId &&
+                if (targetId === paddedTargetID &&
                     acknowledgeCode === "NO" &&
                     materialId) {
                     successFound = true;
