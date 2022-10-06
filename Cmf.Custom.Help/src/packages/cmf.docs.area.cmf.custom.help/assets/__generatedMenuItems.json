@@ -102,6 +102,12 @@
     "actionId": ""
   },
   {
+    "id": "amsosram-20221003-2.0.0",
+    "menuGroupId": "releasenotes",
+    "title": "amsOSRAM-20221003-2.0.0",
+    "actionId": ""
+  },
+  {
     "id": "artifacts",
     "menuGroupId": "techspec",
     "title": "Artifacts",

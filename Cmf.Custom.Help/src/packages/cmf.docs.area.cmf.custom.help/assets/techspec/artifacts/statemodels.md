@@ -6,9 +6,9 @@ The following State Models were created to support customer requirements.
 
 | State Model                    | Description       |
 | ------                    | ------            |
-| [CustomLoadPortStateModel](/cmf.custom.help/techspec>artifacts>statemodels>CustomLoadPortStateModel) | This State Model is responsible for keeping the state of the Load Port. |
-| [CustomMaterialStateModel](/cmf.custom.help/techspec>artifacts>statemodels>CustomMaterialStateModel) | This State Model is responsible for keeping the state of the lot. |
-| [Default Reasons for SEMI E10](/cmf.custom.help/techspec>artifacts>statemodels>DefaultReasonsSEMIE10) | For the State Model **SEMI E10** were added new transitions and default reasons.
+| [CustomLoadPortStateModel](/cmf.custom.help/techspec>artifacts>statemodels>customloadportstatemodel) | This State Model is responsible for keeping the state of the Load Port. |
+| [CustomMaterialStateModel](/cmf.custom.help/techspec>artifacts>statemodels>custommaterialstatemodel) | This State Model is responsible for keeping the state of the lot. |
+| [Default Reasons for SEMI E10](/cmf.custom.help/techspec>artifacts>statemodels>defaultreasonssemie10) | For the State Model **SEMI E10** were added new transitions and default reasons.
 
 The following table indicates the Lookup Table and Default Reason used by State Transition:
 
