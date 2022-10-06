@@ -6,6 +6,8 @@ using Cmf.Foundation.Configuration;
 using Cmf.Foundation.Configuration.Abstractions;
 using Cmf.Foundation.BusinessObjects;
 using System;
+using Cmf.Custom.amsOSRAM.Common.ERP;
+using Namotion.Reflection;
 
 namespace Cmf.Custom.amsOSRAM.Actions.Integrations
 {
@@ -51,6 +53,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Integrations
             UseReference("", "System.Text");
             //Custom
             UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.ERP");
             UseReference("Cmf.Custom.ERP.ExternalServices.dll", "ERPWebService");
 
             System.ServiceModel.EndpointAddress endpointAddress = null;
@@ -63,13 +66,36 @@ namespace Cmf.Custom.amsOSRAM.Actions.Integrations
 
             string integrationMessage = System.Text.Encoding.UTF8.GetString(integrationEntry.IntegrationMessage.Message);
 
-            ERPWebService.GoodsIssueRow[] goodsIssueRow = amsOSRAMUtilities.DeserializeXmlToObject<ERPWebService.GoodsIssueRow[]>(integrationMessage);
+            CustomReportToERPItem customReportToERPItem = amsOSRAMUtilities.DeserializeXmlToObject<CustomReportToERPItem>(integrationMessage);
+
+            ERPWebService.GoodsIssueRow goodsIssueRow = new ERPWebService.GoodsIssueRow
+            {
+                id = customReportToERPItem.Id,
+                Batch = customReportToERPItem.BatchName,
+                CostCenter = customReportToERPItem.CostCenter,
+                LotNumber = customReportToERPItem.MaterialName,
+                ProductionOrderNr = customReportToERPItem.ProductionOrderNumber,
+                Quantity = customReportToERPItem.Quantity.ToString(),
+                QuantityUnit = customReportToERPItem.Units,
+                MovementType = customReportToERPItem.MovementType,
+                Site = customReportToERPItem.Site,
+                SapStore = customReportToERPItem.SAPStore,
+                SapToStore = customReportToERPItem.SAPToStore,
+                MatCalYear = customReportToERPItem.MatCalYear,
+                MaterialNr = customReportToERPItem.ProductName,
+                MatRecNr = customReportToERPItem.MatRecNr
+            };
+
+            ERPWebService.GoodsIssueRow[] goodsIssueRows = new ERPWebService.GoodsIssueRow[]
+            {
+                goodsIssueRow
+            };
 
             // Fetch endpoint address
             if (Config.TryGetConfig(amsOSRAMConstants.ERPWebServiceEndpointConfigurationPath, out IConfig endpointAddressConfig) &&
                     !string.IsNullOrWhiteSpace(endpointAddressConfig.GetConfigValue<string>()))
             {
-                endpointAddress = endpointAddressConfig.GetConfigValue<System.ServiceModel.EndpointAddress>();
+                endpointAddress = new System.ServiceModel.EndpointAddress(endpointAddressConfig.GetConfigValue<string>());
             }
 
             // Fetch username
@@ -93,11 +119,10 @@ namespace Cmf.Custom.amsOSRAM.Actions.Integrations
                 distributionList = distributionListConfig.GetConfigValue<string>();
             }
 
-            if(!string.IsNullOrWhiteSpace(endpointAddress.ToString()) && string.IsNullOrWhiteSpace(username) && string.IsNullOrWhiteSpace(password))
+            if(!string.IsNullOrWhiteSpace(endpointAddress.ToString()) && !string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
             {
                 System.ServiceModel.BasicHttpBinding binding = new System.ServiceModel.BasicHttpBinding();
                 binding.MaxBufferSize = int.MaxValue;
-                binding.ReaderQuotas = System.Xml.XmlDictionaryReaderQuotas.Max;
                 binding.MaxReceivedMessageSize = int.MaxValue;
                 binding.AllowCookies = true;
                 try
@@ -105,7 +130,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Integrations
                     ERPWebService.MI_OSRBG_PP_SFC_SAPBOOKINGS_GOODSISSUE_OUTClient client = new ERPWebService.MI_OSRBG_PP_SFC_SAPBOOKINGS_GOODSISSUE_OUTClient(binding, endpointAddress);
                     client.ClientCredentials.UserName.UserName = username;
                     client.ClientCredentials.UserName.Password = password;
-                    var responseTask = client.MI_OSRBG_PP_SFC_SAPBOOKINGS_GoodsIssue_OUTAsync(goodsIssueRow);
+                    var responseTask = client.MI_OSRBG_PP_SFC_SAPBOOKINGS_GoodsIssue_OUTAsync(goodsIssueRows);
                     responseTask.Wait();
                 }
 
