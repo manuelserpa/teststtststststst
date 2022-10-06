@@ -3,6 +3,7 @@ import { Task, Dependencies, System, DI, TYPES, Utilities } from "@criticalmanuf
 import { TaskDefaultSettings } from "@criticalmanufacturing/connect-iot-controller-engine/src/system";
 import i18n from "./i18n/updateContainer.default";
 import { ContainerProcessHandler } from "../../persistence/implementation/containerDataHandler";
+import { WaferData } from "../../persistence";
 
 /** Default values for settings */
 export const SETTINGS_DEFAULTS: UpdateContainerSettings = {
@@ -100,12 +101,12 @@ export class UpdateContainerTask implements Task.TaskInstance, UpdateContainerSe
             // It is advised to reset the activate to allow being reactivated without the value being different
             this.activate = undefined;
             try {
-                let slotsParsed = null;
+                let slotsParsed: WaferData[] = null;
                 let materialDataParsed = null;
 
                 if (this.slots &&
                     this.slots.length > 0) {
-                    slotsParsed = JSON.parse(this.slots);
+                    slotsParsed = JSON.parse(this.slots) as WaferData[];
                 }
 
                 if (this.materialData &&

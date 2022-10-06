@@ -18,7 +18,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     private _ContainerNames: string[];
 
     public async setWaferToContainer(containerName: string, loadPortPosition: number, slot: number,
-        equipmentWaferId: string, materialWaferId: any): Promise<WaferData> {
+        equipmentWaferId: string, materialWaferId: any, parentMaterialName: string): Promise<WaferData> {
         if (this._Containers === undefined) {
             await this.InitializePersistedData();
         }
@@ -40,6 +40,10 @@ export class ContainerProcessHandler implements ContainerProcess {
         wafer.Slot = slot;
         wafer.EquipmentWaferId = equipmentWaferId;
         wafer.MaterialWaferId = materialWaferId;
+
+        if (parentMaterialName) {
+            wafer.ParentMaterialName = parentMaterialName;
+        }
 
         container.Slots.push(wafer);
 
@@ -246,7 +250,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     public async updateContainer(containerName: string,
         loadPortPosition: number,
         slotMap: object,
-        slots: object,
+        slots: WaferData[],
         materialData: object): Promise<ContainerData> {
         if (this._Containers === undefined) {
             await this.InitializePersistedData();
@@ -262,10 +266,10 @@ export class ContainerProcessHandler implements ContainerProcess {
             container.SlotMap = slotMap;
         }
         if (slots) {
-            container.Slots = <WaferData[]>slots;
+            container.Slots = slots as WaferData[];
         }
         if (!container.MaterialData && materialData) {
-            container.MaterialData = <MaterialData[]>materialData;
+            container.MaterialData = materialData as MaterialData[];
         }
 
         await this.storeContainer(container);

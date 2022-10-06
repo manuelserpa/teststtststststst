@@ -132,12 +132,16 @@ export class SetWaferToContainerTask implements Task.TaskInstance, SetWaferToCon
                 if (container) {
 
                     if (this.material) {
+                        wafer.ParentMaterialName = this.material.MaterialName;
+
                         if (slotMES) {
                             wafer.MaterialWaferId = slotMES.MaterialName;
+
                         }
                         if (movement) {
                             wafer.MaterialWaferId = movement.MaterialName;
                         }
+
                     } else {
                         wafer.MaterialWaferId = this.materialWaferId;
                     }
@@ -152,6 +156,7 @@ export class SetWaferToContainerTask implements Task.TaskInstance, SetWaferToCon
 
                     let materialWaferId: string;
                     let equipmentWaferId: string;
+                    let parentMaterialName: string;
 
                     if (slotMES) {
                         materialWaferId = slotMES.MaterialName;
@@ -163,9 +168,18 @@ export class SetWaferToContainerTask implements Task.TaskInstance, SetWaferToCon
                         equipmentWaferId = this.equipmentWaferId
                     }
 
-                    // this._logger.warning("Entered here: 3");
-                    wafer = await this._containerProcess.setWaferToContainer(containerName, loadPort, slotNumber, equipmentWaferId, materialWaferId);
+                    if (this.material) {
+                        parentMaterialName = this.material.MaterialName;
+                    }
 
+                    wafer = await this._containerProcess.setWaferToContainer(
+                        containerName,
+                        loadPort,
+                        slotNumber,
+                        equipmentWaferId,
+                        materialWaferId,
+                        parentMaterialName
+                    );
                 }
 
                 container = await this._containerProcess.getContainer(this.containerId, loadPort);

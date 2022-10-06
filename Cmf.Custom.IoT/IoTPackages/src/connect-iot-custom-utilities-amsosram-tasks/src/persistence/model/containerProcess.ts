@@ -50,7 +50,7 @@ export interface ContainerProcess {
      * when a MO material is tracked in
      * @param material Material data
      */
-    setWaferToContainer(containerName: string, loadPortPosition: number, slot: number, equipmentWaferId: string, materialWaferId);
+    setWaferToContainer(containerName: string, loadPortPosition: number, slot: number, equipmentWaferId: string, materialWaferId, parentMaterialName: string);
 
     /**
     * Method to create the Material persistence file
