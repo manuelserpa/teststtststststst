@@ -2358,16 +2358,15 @@ namespace Cmf.Custom.amsOSRAM.Common
 
                     customReportToERPItem = new CustomReportToERPItem()
                     {
-                        CreatedOn = DateTime.Now,
+                        Id = DateTime.Now.ToString("yyyyMMdd_HHmmssfff"),
                         ProductionOrderNumber = productionOrder.OrderNumber,
                         MaterialName = material.Name,
                         ProductName = material.Product.Name,
                         Quantity = material.PrimaryQuantity + material.SubMaterialsPrimaryQuantity,
                         Units = material.PrimaryUnits,
-                        SAPStore = storageLocation,
-                        Site = siteCode,
                         MovementType = movementType,
-                        BatchName = null
+                        SAPStore = storageLocation,
+                        Site = siteCode
                     };
 
                     break;
