@@ -98,7 +98,7 @@ export class CreateContainerTask implements Task.TaskInstance, CreateContainerSe
             try {
                 let container = await this._containerProcess.getContainer(this.containerId, this.loadPort);
                 if (container) {
-                    container = await this._containerProcess.updateContainer(this.containerId, this.loadPort, this.slotMap, null, null);
+                    container = await this._containerProcess.updateContainer(this.containerId, this.loadPort, this.slotMap, null);
                 } else {
                     container = await this._containerProcess.setContainer(this.containerId, this.loadPort, this.slotMap);
                 }

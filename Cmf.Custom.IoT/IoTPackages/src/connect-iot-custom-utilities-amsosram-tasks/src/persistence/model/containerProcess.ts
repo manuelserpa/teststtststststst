@@ -35,7 +35,7 @@ export interface ContainerProcess {
      * update container
      * @param carrier  Container
      */
-    updateContainer(containerName: string, loadPortPosition: number, slotMap: object, slots: object, materialData: object)
+    updateContainer(containerName: string, loadPortPosition: number, slotMap: object, slots: object)
 
     /**
      * Retrieves the Material object for a given Material slot

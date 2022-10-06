@@ -250,8 +250,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     public async updateContainer(containerName: string,
         loadPortPosition: number,
         slotMap: object,
-        slots: WaferData[],
-        materialData: object): Promise<ContainerData> {
+        slots: WaferData[]): Promise<ContainerData> {
         if (this._Containers === undefined) {
             await this.InitializePersistedData();
         }
@@ -267,9 +266,6 @@ export class ContainerProcessHandler implements ContainerProcess {
         }
         if (slots) {
             container.Slots = slots as WaferData[];
-        }
-        if (!container.MaterialData && materialData) {
-            container.MaterialData = materialData as MaterialData[];
         }
 
         await this.storeContainer(container);

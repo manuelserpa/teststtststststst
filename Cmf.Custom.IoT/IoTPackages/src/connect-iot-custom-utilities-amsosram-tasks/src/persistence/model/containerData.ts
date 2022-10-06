@@ -14,6 +14,4 @@ export interface ContainerData {
     LoadPortPosition: string
     /** Slot Map */
     SlotMap: object;
-    /** Sub Material List */
-    MaterialData: MaterialData[],
 }

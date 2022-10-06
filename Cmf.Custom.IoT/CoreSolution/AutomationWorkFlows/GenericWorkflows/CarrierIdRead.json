@@ -967,13 +967,6 @@
 			"outputName": "ContainerMaterialsOut"
 		},
 		{
-			"id": "b6c5d62f-4451-4b12-88fb-1f20e99a8a1a",
-			"sourceId": "task_78442",
-			"targetId": "task_2124",
-			"inputName": "materialData",
-			"outputName": "ContainerMaterialData"
-		},
-		{
 			"id": "0f39181c-18e5-4c04-9e66-37627ca738f7",
 			"sourceId": "task_78442",
 			"targetId": "task_1704",
@@ -1059,6 +1052,30 @@
 			"targetId": "task_76502",
 			"inputName": "error",
 			"outputName": "error"
+		},
+		{
+			"id": "accc9838-22c4-41fd-971e-38a1c6b276c2",
+			"sourceId": "task_78442",
+			"targetId": "task_2124",
+			"inputName": "loadPort",
+			"outputName": "LoadPort"
+		},
+		{
+			"id": "fed0132a-dd7f-4a4c-8db9-4c528b46ba7e",
+			"sourceId": "task_79353",
+			"targetId": "task_2124",
+			"inputName": "containerId",
+			"outputName": "container",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "ContainerName",
+						"type": 4,
+						"failIfNotFound": false
+					}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -1144,16 +1161,16 @@
 					"task_1704": {
 						"collapsed": false,
 						"position": {
-							"x": 4577,
-							"y": 783
+							"x": 4648,
+							"y": 859
 						},
 						"outdated": false
 					},
 					"task_2124": {
 						"collapsed": false,
 						"position": {
-							"x": 5350,
-							"y": 280
+							"x": 5502,
+							"y": 321
 						},
 						"outdated": false
 					}
@@ -1240,9 +1257,6 @@
 					"9b6689f0-7fea-412c-82fb-64e3c9f79e65": {
 						"vertices": []
 					},
-					"b6c5d62f-4451-4b12-88fb-1f20e99a8a1a": {
-						"vertices": []
-					},
 					"0f39181c-18e5-4c04-9e66-37627ca738f7": {
 						"vertices": []
 					},
@@ -1273,6 +1287,9 @@
 					"3c5a3882-e58f-4ca6-b20f-d621fda43919": {
 						"vertices": []
 					},
+					"accc9838-22c4-41fd-971e-38a1c6b276c2": {
+						"vertices": []
+					},
 					"495b1776-f864-402b-ba56-b6004d127940": {
 						"vertices": []
 					},
@@ -1287,14 +1304,17 @@
 					},
 					"1bc55a41-ae08-4423-a40a-94b11157b5ee": {
 						"vertices": []
+					},
+					"fed0132a-dd7f-4a4c-8db9-4c528b46ba7e": {
+						"vertices": []
 					}
 				},
 				"notes": {},
 				"pan": {
-					"x": 2183,
-					"y": 230
+					"x": 2482,
+					"y": 64
 				},
-				"zoom": 0.5800000000000003
+				"zoom": 0.6300000000000003
 			}
 		}
 	}
