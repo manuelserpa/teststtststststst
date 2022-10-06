@@ -1153,6 +1153,11 @@
         public const string ERPWebServiceEndpointConfigurationPath = "/Cmf/Custom/ERP/WebServiceEndpoint";
 
         /// <summary>
+        /// ERP notification distributaion list configuration path
+        /// </summary>
+        public const string ERPWebServiceDistributionListConfigurationPath = "/Cmf/Custom/ERP/DistributionList";
+
+        /// <summary>
         /// ERP credentials username configuration path
         /// </summary>
         public const string ERPCredentialsUsernameConfigurationPath = "/Cmf/Custom/ERP/Credentials/Username/";

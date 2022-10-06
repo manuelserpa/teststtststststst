@@ -11,14 +11,20 @@ namespace Cmf.Custom.amsOSRAM.Common.ERP
         /// <summary>
         /// The CreatedOn property
         /// </summary>
-        [XmlElement(ElementName = "TIME_STAMP")]
-        public DateTime CreatedOn { get; set; }
+        [XmlElement(ElementName = "id")]
+        public string Id { get; set; }
 
         /// <summary>
         /// The ProductionOrderNumber property
         /// </summary>
         [XmlElement(ElementName = "ProductionOrderNr")]
         public string ProductionOrderNumber { get; set; }
+
+        /// <summary>
+        /// The CostCenter property
+        /// </summary>
+        [XmlElement(ElementName = "CostCenter")]
+        public string CostCenter { get; set; }
 
         /// <summary>
         /// The MaterialName property

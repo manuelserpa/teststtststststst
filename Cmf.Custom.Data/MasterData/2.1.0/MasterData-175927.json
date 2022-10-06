@@ -1,5 +1,4 @@
 {
-  "WorksheetNameMapping": {},
   "<SM>Config": {
     "1": {
       "ParentPath": "/Cmf/Custom/ERP/",
@@ -10,25 +9,31 @@
     "2": {
       "ParentPath": "/Cmf/Custom/ERP/Credentials/",
       "Name": "Username",
-      "Value": "WS_CMFMES",
+      "Value": "",
       "ValueType": "String"
     },
     "3": {
       "ParentPath": "/Cmf/Custom/ERP/Credentials/",
       "Name": "Password",
-      "Value": "sapPI@1234#",
+      "Value": "",
       "ValueType": "SecureString"
+    },
+    "4": {
+      "ParentPath": "/Cmf/Custom/ERP/",
+      "Name": "DistributionList",
+      "Value": "",
+      "ValueType": "String"
     }
   },
-    "<LOOKUP>IntegrationHandler": {
-      "1": {
-        "FromSystem": "MES",
-        "ToSystem": "ERP",
-        "MessageType": "GoodsIssue",
-        "HandlerType": "GenericIntegrationHandler",
-        "ActionName": "",
-        "ErrorHandlingActionName": "",
-        "IsEnabled": "yes"
-      }
+  "<SM>DEEAction": {
+    "1": {
+      "Action": "CustomSendProcessMessage",
+      "Description": " DEE Action will handle Integration Entry with information to send to SAP.",
+      "CodeFileRelativePath": "Integrations//CustomSendProcessMessage.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
     }
+  },
+  "DEEActionOrder": {
   }
+}
