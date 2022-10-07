@@ -1247,6 +1247,12 @@
       "AutomationManager": "DISCODFD6363HC",
       "DriverName": "RFIDReader",
       "EntityName": "5FETR1.RFID"
+    },
+    "28": {
+      "AutomationController": "DISCODFD6363HCController",
+      "AutomationManager": "DISCODFD6363HC",
+      "DriverName": "FileRawDriver",
+      "EntityName": "5FETR1.FILE"
     }
   }
 }
