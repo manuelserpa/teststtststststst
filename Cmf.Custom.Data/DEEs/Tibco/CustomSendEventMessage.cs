@@ -2,7 +2,7 @@
 using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Custom.amsOSRAM.Common.DataStructures;
 using Cmf.Custom.amsOSRAM.Common.Extensions;
-using Cmf.Foundation.BusinessObjects.GenericTables;
+using Cmf.Foundation.BusinessObjects.Abstractions;
 using Cmf.Foundation.Common;
 using Cmf.Foundation.Common.Abstractions;
 using Cmf.Navigo.BusinessObjects.Abstractions;
@@ -34,6 +34,10 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
             /// </summary>
             #endregion
 
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
             bool canExecute = false;
 
             if (Input.TryGetValueAs("ActionGroupName", out string actionGroupName) && !string.IsNullOrWhiteSpace(actionGroupName))
@@ -59,8 +63,8 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 {
                     CustomTransactionTypes transactionToExecute = associatedTransactions[actionGroupName];
 
-                    GenericTable customTransactionsToTibcoGT = new GenericTable() { Name = amsOSRAMConstants.GenericTableCustomTransactionsToTibco };
-                    customTransactionsToTibcoGT.Load();
+                    IGenericTable customTransactionsToTibcoGT = entityFactory.Create<IGenericTable>();
+                    customTransactionsToTibcoGT.Load(amsOSRAMConstants.GenericTableCustomTransactionsToTibco);
 
                     customTransactionsToTibcoGT.LoadData(new Foundation.BusinessObjects.QueryObject.FilterCollection()
                     {
@@ -105,7 +109,6 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
 
             // Foundation
             UseReference("", "Cmf.Foundation.Common.Exceptions");
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.GenericTables");
 
             // Common
             UseReference("Cmf.Common.CustomActionUtilities.dll", "Cmf.Common.CustomActionUtilities");
@@ -162,7 +165,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                     break;
             }
 
-            if (!string.IsNullOrWhiteSpace(messageSubject))
+            if (!string.IsNullOrWhiteSpace(messageSubject) && materialCollection.Any())
             {
                 foreach (IMaterial material in materialCollection)
                 {
@@ -171,12 +174,12 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                                                           JsonConvert.SerializeObject(new
                                                           {
                                                               Header = GetMessageHeader(material, transactionToExecute.ToString()),
-                                                              Message = GetMaterialCollectionXml(material, transactionToExecute.ToString())
+                                                              Message = GetMaterialXml(material)
                                                           }));
                 }
             }
 
-            string GetMaterialCollectionXml(IMaterial material, string actionName)
+            string GetMaterialXml(IMaterial material)
             {
                 IMaterialCollection materialCollection = entityFactory.CreateCollection<IMaterialCollection>();
                 materialCollection.Add(material);
@@ -356,7 +359,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 string facilityCode = string.Empty;
                 if (material.Facility.HasAttribute(amsOSRAMConstants.CustomFacilityCodeAttribute, true))
                 {
-                    facilityCode = material.Facility.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute) as string;
+                    facilityCode = material.Facility.GetAttributeValue(amsOSRAMConstants.CustomFacilityCodeAttribute) as string;
                 }
 
                 material.Facility.Site.Load();
