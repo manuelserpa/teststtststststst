@@ -1,7 +1,7 @@
 {
   "ExtendedData": {
     "inputs": [
-      "../../../../../../Users/Balogh/Downloads/osram_wsdl_from_url.wsdl"
+      "osram_wsdl_from_url.wsdl"
     ],
     "collectionTypes": [
       "System.Array",
