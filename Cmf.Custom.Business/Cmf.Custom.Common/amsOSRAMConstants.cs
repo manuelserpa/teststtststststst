@@ -253,6 +253,11 @@
         /// </summary>
         public static string ProductAttributeSAPProductType = "SAPProductType";
 
+        /// <summary>
+        /// Facility Code Attribute
+        /// </summary>
+        public static string CustomFacilityCodeAttribute = "FacilityCode";
+
         #endregion
 
         #region SmartTables

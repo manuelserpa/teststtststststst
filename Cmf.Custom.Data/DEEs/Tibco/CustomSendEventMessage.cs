@@ -8,7 +8,6 @@ using Cmf.Foundation.Common.Abstractions;
 using Cmf.Navigo.BusinessObjects.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using Stimulsoft.Report.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -106,9 +105,9 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
             IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
             IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
 
+            IMaterialCollection materialCollection = entityFactory.CreateCollection<IMaterialCollection>();
             string messageSubject = string.Empty;
             string messageXml = string.Empty;
-            IMaterialCollection materialCollection = entityFactory.CreateCollection<IMaterialCollection>();
 
             CustomTransactionTypes transactionToExecute = (CustomTransactionTypes)DeeContextHelper.GetContextParameter("TransactionToExecute");
             switch (transactionToExecute)
@@ -119,56 +118,55 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 case CustomTransactionTypes.MaterialTrackIn:
                 case CustomTransactionTypes.MaterialTrackOut:
                 case CustomTransactionTypes.MaterialMoveNext:
-                case CustomTransactionTypes.MaterialSplit:
                 case CustomTransactionTypes.MaterialLoss:
                 case CustomTransactionTypes.MaterialBonus:
                 case CustomTransactionTypes.MaterialHold:
-
-                    materialCollection = DeeActionHelper.GetInputItem<IMaterialCollection>(Input, Navigo.Common.Constants.MaterialCollection);
-
-                    if (materialCollection.Any())
                     {
+                        materialCollection = DeeActionHelper.GetInputItem<IMaterialCollection>(Input, Navigo.Common.Constants.MaterialCollection);
                         messageSubject = amsOSRAMConstants.CustomLotChange;
-                        messageXml = GetMaterialCollectionXml(materialCollection, transactionToExecute.ToString());
                     }
-
                     break;
-
                 case CustomTransactionTypes.MaterialRelease:
                 case CustomTransactionTypes.MaterialMerge:
-
-                    IMaterial material = DeeActionHelper.GetInputItem<IMaterial>(Input, Navigo.Common.Constants.Material);
-
-                    if (material is not null)
                     {
+                        IMaterial material = DeeActionHelper.GetInputItem<IMaterial>(Input, Navigo.Common.Constants.Material);
                         materialCollection.Add(material);
-
                         messageSubject = amsOSRAMConstants.CustomLotChange;
-                        messageXml = GetMaterialCollectionXml(materialCollection, transactionToExecute.ToString());
                     }
-
                     break;
-
+                case CustomTransactionTypes.MaterialSplit:
+                    {
+                        Dictionary<IMaterial, ISplitInputParametersCollection> splittedMaterials = DeeActionHelper.GetInputItem<Dictionary<IMaterial, ISplitInputParametersCollection>>(Input, "ChildMaterialsInformation");
+                        materialCollection.AddRange(splittedMaterials.Keys);
+                        messageSubject = amsOSRAMConstants.CustomLotChange;
+                    }
+                    break;
                 case CustomTransactionTypes.ContainerAssociation:
-
-                    messageSubject = amsOSRAMConstants.CustomEquipmentStatusChange;
-
+                    {
+                        messageSubject = amsOSRAMConstants.CustomEquipmentStatusChange;
+                    }
                     break;
             }
 
-            if (!string.IsNullOrWhiteSpace(messageSubject) && !string.IsNullOrWhiteSpace(messageXml))
+            if (!string.IsNullOrWhiteSpace(messageSubject))
             {
-                // Publish message on Message Bus
-                Utilities.PublishTransactionalMessage(messageSubject,
-                                                      JsonConvert.SerializeObject(new
-                                                      {
-                                                          Header = GetMessageHeader(materialCollection, transactionToExecute.ToString()),
-                                                          Message = messageXml
-                                                      }));
+                foreach (IMaterial material in materialCollection)
+                {
+                    // Publish message on Message Bus
+                    Utilities.PublishTransactionalMessage(messageSubject,
+                                                          JsonConvert.SerializeObject(new
+                                                          {
+                                                              Header = GetMessageHeader(material, transactionToExecute.ToString()),
+                                                              Message = GetMaterialCollectionXml(material, transactionToExecute.ToString())
+                                                          }));
+                }
             }
 
-            string GetMaterialCollectionXml(IMaterialCollection materials, string actionName)
+            string GetMaterialCollectionXml(IMaterial material, string actionName)
             {
+                IMaterialCollection materialCollection = entityFactory.CreateCollection<IMaterialCollection>();
+                materialCollection.Add(material);
+
                 // List of ElementNames to discard on output XML
                 List<string> xmlElementsToDiscard = new List<string>()
                 {
@@ -249,11 +247,11 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 };
 
                 // Load exported XML object
-                XDocument xDocument = XDocument.Parse(materials.ExportToString());
+                XDocument xDocument = XDocument.Parse(materialCollection.ExportToString());
 
                 #region Get & Replace Attributes associated to the Materials
 
-                Dictionary<string, XElement> materialsAttributes = ExportMaterialsAttributesToXml(materials);
+                Dictionary<string, XElement> materialsAttributes = ExportMaterialsAttributesToXml(materialCollection);
 
                 if (materialsAttributes is not null && materialsAttributes.Any())
                 {
@@ -332,50 +330,44 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 return outputMaterialsAttributes;
             }
 
-            object GetMessageHeader(IMaterialCollection materials, string action)
+            object GetMessageHeader(IMaterial material, string action)
             {
                 string lotName = string.Empty;
                 string pathFrom = string.Empty;
                 string pathTo = string.Empty;
                 string sAPproductType = string.Empty;
 
-                IMaterial material = entityFactory.Create<IMaterial>();
+                lotName = material.Name;
 
-                if (materials.Any())
+                string facilityCode = string.Empty;
+                if (material.Facility.HasAttribute(amsOSRAMConstants.CustomFacilityCodeAttribute, true))
                 {
-                    if (materials.FirstOrDefault().ParentMaterial is not null)
-                    {
-                        materials.FirstOrDefault().LoadTopMost();
-                        material = materials.FirstOrDefault().TopMostMaterial;
-                    }
-                    else
-                    {
-                        material = materials.FirstOrDefault();
-                    }
+                    facilityCode = material.Facility.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute) as string;
+                }
 
-                    lotName = material.Name;
+                material.Facility.Site.Load();
+                string siteCode = string.Empty;
+                if (material.Facility.Site.HasAttribute(amsOSRAMConstants.CustomSiteCodeAttribute, true))
+                {
+                    siteCode = material.Facility.Site.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute) as string;
+                }
 
-                    string siteCode = string.Empty;
-                    material.Facility.Site.Load();
-                    if (material.Facility.Site.HasAttribute(amsOSRAMConstants.CustomSiteCodeAttribute, true))
-                    {
-                        siteCode = material.Facility.Site.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute) as string;
-                    }
+                string stepLogicalName = string.Empty;
+                if (material.Step.ContainsLogicalNames)
+                {
+                    material.Flow.LoadRelations(Navigo.Common.Constants.FlowStep);
+                    IFlowStep flowStep = entityFactory.Create<IFlowStep>();
+                    IStep step = entityFactory.Create<IStep>();
 
-                    //TO: Get FacilityCode
+                    material.Flow.GetFlowAndStepFromFlowpath(material.FlowPath, ref step, ref flowStep);
+                    stepLogicalName = flowStep.LogicalName;
+                }
 
-                    string stepLogicalName = string.Empty;
-                    if (material.Step.ContainsLogicalNames)
-                    {
-                        stepLogicalName = material.Step.LogicalNames.FirstOrDefault().Name;
-                    }
+                pathFrom = pathTo = $"{siteCode}.{facilityCode}.{stepLogicalName}";
 
-                    pathFrom = pathTo = $"{siteCode}.{string.Empty}.{stepLogicalName}";
-
-                    if (material.Product.HasRelatedAttribute(amsOSRAMConstants.ProductAttributeSAPProductType, true))
-                    {
-                        sAPproductType = material.Product.GetRelatedAttributeValue(amsOSRAMConstants.ProductAttributeSAPProductType) as string;
-                    }
+                if (material.Product.HasRelatedAttribute(amsOSRAMConstants.ProductAttributeSAPProductType, true))
+                {
+                    sAPproductType = material.Product.GetRelatedAttributeValue(amsOSRAMConstants.ProductAttributeSAPProductType) as string;
                 }
 
                 return new
