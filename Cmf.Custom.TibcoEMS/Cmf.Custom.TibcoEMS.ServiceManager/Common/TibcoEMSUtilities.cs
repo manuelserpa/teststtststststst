@@ -15,6 +15,10 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using TIBCO.EMS;
+using Cmf.LightBusinessObjects.Infrastructure;
+using Cmf.LoadBalancing;
+using Cmf.MessageBus.Client;
+using Cmf.Foundation.BusinessOrchestration.ApplicationSettingManagement.InputObjects;
 
 namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
 {
@@ -23,37 +27,47 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
         #region Public Methods
 
         /// <summary>
-        /// Create Message Bus configuration
+        /// LBOs Client Configuration 
         /// </summary>
-        public static TransportConfig CreateMessageBusTransportConfig()
+        private static ClientConfiguration config = null;
+
+        /// <summary>
+        /// Custom Transport configuration
+        /// </summary>
+        public static TransportConfig messageBusTransportConfig = null;
+
+        public static void InitialConfigurations()
         {
-            string host = ConfigurationManager.AppSettings["MessageBus.Host"];
-            int port = Convert.ToInt32(ConfigurationManager.AppSettings["MessageBus.Port"]);
-            string securityToken = ConfigurationManager.AppSettings["MessageBus.SecurityToken"];
-
-            string tenantName = ConfigurationManager.AppSettings["ClientTenantName"];
-            string applicationName = ConfigurationManager.AppSettings["ApplicationName"];
-            string externalAddress = ConfigurationManager.AppSettings["MessageBus.ExternalAddress"];
-
-            TransportConfig messageBusConfiguration = new TransportConfig()
+            ClientConfigurationProvider.ConfigurationFactory = () =>
             {
-                GatewaysConfig = new List<GatewayConfig>
+                if (config == null)
                 {
-                    new GatewayConfig()
+                    config = new ClientConfiguration()
                     {
-                        Address = host,
-                        Port = port,
-                        ExternalAddress = externalAddress,
-                    }
-                },
-                UseLoadBalancing = false,
-                ApplicationName = applicationName,
-                TenantName = tenantName,
-                SecurityToken = securityToken,
-                UseGatewayExternalAddress = externalAddress.Length > 0
+                        HostAddress = ConfigurationManager.AppSettings["HostAddress"],
+                        ClientTenantName = ConfigurationManager.AppSettings["ClientTenantName"],
+                        ApplicationName = ConfigurationManager.AppSettings["ApplicationName"],
+                        UseSsl =  bool.Parse(ConfigurationManager.AppSettings["UseSsl"] ?? "false"), 
+                        IsUsingLoadBalancer = bool.Parse(ConfigurationManager.AppSettings["IsUsingLoadBalancer"] ?? "false"), 
+                    };
+
+                    config.SecurityPortalBaseAddress = new Uri(ConfigurationManager.AppSettings["SecurityPortalBaseAddress"]);
+                    config.SecurityAccessToken = ConfigurationManager.AppSettings["SecurityAccessToken"];
+                }
+                return config;
             };
 
-            return messageBusConfiguration;
+            
+            if (messageBusTransportConfig == null)
+            {
+                string transportConfigString = new GetApplicationBootInformationInput().GetApplicationBootInformationSync().TransportConfig;
+            
+                TransportConfig transportConfig = Newtonsoft.Json.JsonConvert.DeserializeObject<TransportConfig>(transportConfigString);
+                transportConfig.ApplicationName = ConfigurationManager.AppSettings["ApplicationName"];
+                transportConfig.TenantName = ConfigurationManager.AppSettings["ClientTenantName"];
+
+                messageBusTransportConfig = transportConfig;
+            }
         }
 
         /// <summary>
