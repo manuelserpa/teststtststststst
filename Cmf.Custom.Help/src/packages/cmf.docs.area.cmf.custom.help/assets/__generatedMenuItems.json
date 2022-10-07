@@ -564,6 +564,12 @@
     "actionId": ""
   },
   {
+    "id": "discodfd6363hc",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "DISCO DFD 6363 HC",
+    "actionId": ""
+  },
+  {
     "id": "evatecclusterline200ii",
     "menuGroupId": "iotequipmenttypes",
     "title": "Evatec Cluster line 200II",
