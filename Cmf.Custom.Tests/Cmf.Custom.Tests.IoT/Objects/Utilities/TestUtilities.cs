@@ -6,9 +6,8 @@ using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.DispatchManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.LaborManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.OrderManagement.InputObjects;
-using Cmf.TestScenarios;
-using AMSOsramEIAutomaticTests.Objects.Extensions;
-using AMSOsramEIAutomaticTests.Objects.Utilities;
+using amsOSRAMEIAutomaticTests.Objects.Extensions;
+using amsOSRAMEIAutomaticTests.Objects.Utilities;
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -16,9 +15,9 @@ using System.Linq;
 using TestScenariosUtil = Cmf.TestScenarios.Others;
 using Cmf.Custom.TestUtilities;
 
-namespace AMSOsramEIAutomaticTests.Objects.TestUtilities
+namespace amsOSRAMEIAutomaticTests.Objects.TestUtilities
 {
-	public static class TestUtilities
+    public static class TestUtilities
     {
         #region Production Order
 

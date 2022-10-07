@@ -9,7 +9,6 @@ using Cmf.Foundation.Common.Base;
 using Cmf.Foundation.Security;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects;
-using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects;
 using Cmf.TestScenarios.Others;
 using System;
@@ -18,10 +17,8 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AMSOsramEIAutomaticTests.Objects.Extensions
+namespace amsOSRAMEIAutomaticTests.Objects.Extensions
 {
     /// <summary>
     /// Extension Methods Class that adapts generic services as Business Objects extension methods

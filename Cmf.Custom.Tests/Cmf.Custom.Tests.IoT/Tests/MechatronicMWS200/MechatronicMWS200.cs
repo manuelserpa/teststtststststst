@@ -9,8 +9,8 @@ using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects;
 using Cmf.SECS.Driver;
 using Cmf.TestScenarios.ContainerManagement.ContainerScenarios;
-using AMSOsramEIAutomaticTests.Objects.Extensions;
-using AMSOsramEIAutomaticTests.Objects.Utilities;
+using amsOSRAMEIAutomaticTests.Objects.Extensions;
+using amsOSRAMEIAutomaticTests.Objects.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Cmf.Custom.TestUtilities;
 using cmConnect.TestFramework.EquipmentSimulator.Objects;
@@ -20,16 +20,13 @@ using System.Data;
 using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Custom.Tests.IoT.Tests.Common;
 using System.Collections.Generic;
-using Cmf.Custom.AMSOsram.BusinessObjects;
+using Cmf.Custom.amsOSRAM.BusinessObjects;
 using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Foundation.Common.Base;
 using Newtonsoft.Json.Linq;
-using System.Text;
-using cmConnect.TestFramework.SystemRest.Entities;
-using AMSOsramEIAutomaticTests.Objects.Persistence;
-using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
+using amsOSRAMEIAutomaticTests.Objects.Persistence;
 
-namespace AMSOsramEIAutomaticTests.MechatronicMWS200
+namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 {
     [TestClass]
     public class MechatronicMWS200 : CommonTests
@@ -186,7 +183,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             loadPortsUsed.Add(1);
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, 5);
 
-            customSorterJobDefinition = GetCustomSorterJobDefinition(AMSOsramConstants.CustomSorterLogisticalProcessMapCarrier, new ContainerCollection() { }, new ContainerCollection() { });
+            customSorterJobDefinition = GetCustomSorterJobDefinition(amsOSRAMConstants.CustomSorterLogisticalProcessMapCarrier, new ContainerCollection() { }, new ContainerCollection() { });
             InsertDataIntoCustomSorterJobDefinitionContextTable(stepName, customSorterJobDefinition.Name, materialName: MESScenario.Entity.Name);
 
 
@@ -221,11 +218,11 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             loadPortsUsed.Add(2);
             PrepareSorterScenarioInitializeAndSetup();
 
-            ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(destinationLoadPortNumber, null, AMSOsramConstants.ContainerSMIFPod);
+            ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(destinationLoadPortNumber, null, amsOSRAMConstants.ContainerSMIFPod);
             //MESContainer mesContainer = new MESContainer(containerScenarioForLoadPort2.Entity.Name);
             // m_Scenario.ScenarioContainers.Add(mesContainer.Container);
 
-            customSorterJobDefinition = GetCustomSorterJobDefinition(AMSOsramConstants.CustomSorterLogisticalProcessTransferWafers,
+            customSorterJobDefinition = GetCustomSorterJobDefinition(amsOSRAMConstants.CustomSorterLogisticalProcessTransferWafers,
                 sourceContainers: new ContainerCollection() { base.MESScenario.ContainerScenario.Entity },
                 destinationContainers: new ContainerCollection() { containerScenarioForLoadPort2.Entity },
                 fullTransferWafers: true);
@@ -345,11 +342,11 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             loadPortsUsed.Add(1);
             PrepareSorterScenarioInitializeAndSetup();
 
-            ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(destinationLoadPortNumber, null, AMSOsramConstants.ContainerSMIFPod);
+            ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(destinationLoadPortNumber, null, amsOSRAMConstants.ContainerSMIFPod);
             // MESContainer mesContainer = new MESContainer(containerScenarioForLoadPort2.Entity.Name);
             // m_Scenario.ScenarioContainers.Add(mesContainer.Container);
 
-            customSorterJobDefinition = GetCustomSorterJobDefinition(AMSOsramConstants.CustomSorterLogisticalProcessTransferWafers,
+            customSorterJobDefinition = GetCustomSorterJobDefinition(amsOSRAMConstants.CustomSorterLogisticalProcessTransferWafers,
                 sourceContainers: new ContainerCollection() { base.MESScenario.ContainerScenario.Entity },
                 destinationContainers: new ContainerCollection() { base.MESScenario.ContainerScenario.Entity },
                 sortDescending: true);
@@ -474,12 +471,12 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             base.MESScenario = matScenario;
             base.MESScenario.Setup();
 
-            ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(destinationLoadPortNumber, MESScenario.Entity.Facility.Name ?? null, AMSOsramConstants.ContainerSMIFPod);
+            ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(destinationLoadPortNumber, MESScenario.Entity.Facility.Name ?? null, amsOSRAMConstants.ContainerSMIFPod);
 
-            ContainerScenario containerScenarioForLoadPort3 = CreateEmptyContainerScenario(3, MESScenario.Entity.Facility.Name ?? null, AMSOsramConstants.ContainerSMIFPod);
+            ContainerScenario containerScenarioForLoadPort3 = CreateEmptyContainerScenario(3, MESScenario.Entity.Facility.Name ?? null, amsOSRAMConstants.ContainerSMIFPod);
 
             customSorterJobDefinition = GetCustomSorterJobDefinition(
-                logisticalProcess: AMSOsramConstants.CustomSorterLogisticalProcessTransferWafers,
+                logisticalProcess: amsOSRAMConstants.CustomSorterLogisticalProcessTransferWafers,
                 sourceContainers: new ContainerCollection() { MESScenario.ContainerScenario.Entity },
                 destinationContainers: new ContainerCollection() { containerScenarioForLoadPort2.Entity, containerScenarioForLoadPort3.Entity },
                 futureActionType: "Split");
@@ -610,8 +607,8 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
             #region Create containers scenario
 
-            ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(2, MESScenario.Entity.Facility.Name ?? null, AMSOsramConstants.ContainerSMIFPod);
-            ContainerScenario containerScenarioForLoadPort3 = CreateEmptyContainerScenario(3, MESScenario.Entity.Facility.Name ?? null, AMSOsramConstants.ContainerSMIFPod);
+            ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(2, MESScenario.Entity.Facility.Name ?? null, amsOSRAMConstants.ContainerSMIFPod);
+            ContainerScenario containerScenarioForLoadPort3 = CreateEmptyContainerScenario(3, MESScenario.Entity.Facility.Name ?? null, amsOSRAMConstants.ContainerSMIFPod);
 
             #endregion Create containers scenario
 
@@ -700,7 +697,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
             #endregion SPLIT
 
-            customSorterJobDefinition = GetCustomSorterJobDefinition(AMSOsramConstants.CustomSorterLogisticalProcessTransferWafers,
+            customSorterJobDefinition = GetCustomSorterJobDefinition(amsOSRAMConstants.CustomSorterLogisticalProcessTransferWafers,
                 sourceContainers: new ContainerCollection() { containerScenarioForLoadPort2.Entity, containerScenarioForLoadPort3.Entity },
                 destinationContainers: new ContainerCollection() { base.MESScenario.ContainerScenario.Entity },
                 futureActionType: "Merge");
@@ -1475,7 +1472,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
             if (string.IsNullOrWhiteSpace(facilityName))
             {
-                facility.Name = AMSOsramConstants.TestFacility;
+                facility.Name = amsOSRAMConstants.TestFacility;
                 facility.Load();
             }
             else
@@ -1486,7 +1483,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
 
             if (totalPositions == 0)
             {
-                totalPositions = AMSOsramConstants.ContainerTotalPosition;
+                totalPositions = amsOSRAMConstants.ContainerTotalPosition;
             }
 
             // Create Container to put the Wafers
@@ -1496,7 +1493,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
             containerScenario.Entity.Type = containerType; //CreeConstants.ContainerTypeBEOL;
             containerScenario.Entity.PositionUnitType = ContainerPositionUnitType.Material;
             containerScenario.Entity.Facility = facility;
-            containerScenario.Entity.CapacityUnits = AMSOsramConstants.UnitWafers;
+            containerScenario.Entity.CapacityUnits = amsOSRAMConstants.UnitWafers;
             containerScenario.Entity.CapacityPerPosition = 1;
             containerScenario.Entity.TotalPositions = totalPositions;
             containerScenario.Setup();
@@ -1560,8 +1557,8 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
         private CustomSorterJobDefinition GetCustomSorterJobDefinition(string logisticalProcess,
             ContainerCollection sourceContainers,
             ContainerCollection destinationContainers,
-            string sourceContaineType = AMSOsramConstants.ContainerSMIFPod,
-            string targetContainerType = AMSOsramConstants.ContainerSMIFPod,
+            string sourceContaineType = amsOSRAMConstants.ContainerSMIFPod,
+            string targetContainerType = amsOSRAMConstants.ContainerSMIFPod,
             string futureActionType = "",
             bool fullTransferWafers = false,
             bool sortDescending = false)
@@ -1582,7 +1579,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
                 ["Moves"] = temporaryMovementList,
             };
 
-            if (logisticalProcess == AMSOsramConstants.CustomSorterLogisticalProcessTransferWafers)
+            if (logisticalProcess == amsOSRAMConstants.CustomSorterLogisticalProcessTransferWafers)
             {
                 if (futureActionType.Equals("Split", StringComparison.InvariantCulture)) // Split scenario
                 {
@@ -1721,7 +1718,7 @@ namespace AMSOsramEIAutomaticTests.MechatronicMWS200
                     }
                 }
             }
-            else if (logisticalProcess == AMSOsramConstants.CustomSorterLogisticalProcessCompose)
+            else if (logisticalProcess == amsOSRAMConstants.CustomSorterLogisticalProcessCompose)
             {
                 JArray substitutes = new JArray();
                 JObject jObjectSub = new JObject

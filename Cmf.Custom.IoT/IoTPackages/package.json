@@ -1,7 +1,7 @@
 {
     "private": true,
     "packageId": "Cmf.Custom.IoT.Packages",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "scripts": {
         "preinstall": "node npm.preinstall.js",
         "postinstall": "node npm.postinstall.js"

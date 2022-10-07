@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using cmConnect.TestFramework.Common.Drivers.SpecialVariables;
+﻿using cmConnect.TestFramework.Common.Drivers.SpecialVariables;
 using cmConnect.TestFramework.EquipmentSimulator.Drivers;
 using Cmf.SECS.Driver;
 

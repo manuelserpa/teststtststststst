@@ -1,8 +1,9 @@
 //#region Import statements
 
 
-/** Core */
-import { PackageMetadata, Framework } from "cmf.core/src/core";
+/** MES */
+import { PackageMetadata } from "cmf.mes/src/mes";
+
 
 //#endregion
 

@@ -83,7 +83,7 @@
     },
     "<SM>Config": {
         "1": {
-            "ParentPath": "/AMSOsram/Protocol",
+            "ParentPath": "/amsOSRAM/Protocol",
             "Name": "Space",
             "Value": "",
             "ValueType": "String"

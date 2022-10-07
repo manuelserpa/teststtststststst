@@ -1,0 +1,12 @@
+{
+   "<SM>DEEAction": {
+    "1": {
+      "Action": "CustomProcessProduct",
+      "Description": "Import Product information to MES",
+      "CodeFileRelativePath": "MasterData//CustomProcessProduct.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    }
+  },
+  "DEEActionOrder": { }  
+}

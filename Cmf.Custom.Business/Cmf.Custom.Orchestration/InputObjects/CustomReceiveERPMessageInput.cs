@@ -1,9 +1,7 @@
 ﻿using Cmf.Foundation.BusinessOrchestration;
-using Cmf.Foundation.Security;
-using Cmf.Navigo.BusinessObjects;
 using System.Runtime.Serialization;
 
-namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects
+namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects
 {
     /// <summary>
     /// Input Data Contract for the CustomReceiveERPMessage service

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<OutputType>Library</OutputType>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AssemblyName>Cmf.Custom.amsOSRAM.Orchestration</AssemblyName>
+		<RootNamespace>Cmf.Custom.amsOSRAM.Orchestration</RootNamespace>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath>..\..\LocalEnvironment\BusinessTier</OutputPath>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath>..\Release</OutputPath>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Cmf.Custom.Common\Cmf.Custom.amsOSRAM.Common.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Reference Include="Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition">
+			<HintPath>..\..\Libs\EntityTypes\Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
+</Project>

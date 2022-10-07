@@ -1,63 +1,71 @@
 {
   "packageId": "Cmf.Custom.IoT",
-  "version": "1.9.0",
-  "description": "Cmf Custom AMSOsram Cmf.Custom.IoT Package",
+  "version": "2.1.0",
+  "description": "Cmf Custom amsOSRAM Cmf.Custom.IoT Package",
   "packageType": "Root",
   "isInstallable": true,
   "isUniqueInstall": false,
   "dependencies": [
     {
+      "id": "Cmf.Environment",
+      "version": "9.1.0",
+      "mandatory": false
+    },
+    {
       "id": "CriticalManufacturing.DeploymentMetadata",
-      "version": "8.3.3"
+      "version": "9.1.0"
     },
     {
       "id": "Cmf.Custom.IoT.Packages",
-      "version": "1.9.0"
+      "version": "2.1.0"
     },
     {
       "id": "Cmf.Custom.IoT.CoreSolution",
-      "version": "1.9.0"
+      "version": "2.0.0"
     },
     {
       "id": "Cmf.Custom.IoT.HermosLFM4xReader",
-      "version": "1.6.0"
+      "version": "2.0.0"
     },
-	{
+    {
+      "id": "Cmf.Custom.IoT.TemplateWorkflows",
+      "version": "2.0.0"
+    },
+    {
       "id": "Cmf.Custom.IoT.EvatecClusterline200II",
-      "version": "1.6.0"
+      "version": "2.0.0"
     },
-	{
+    {
       "id": "Cmf.Custom.IoT.NiceLabel",
-      "version": "1.2.0"
+      "version": "2.0.0"
     },
-	{
+    {
       "id": "Cmf.Custom.IoT.MuetecDaVinci",
-      "version": "1.6.0"
+      "version": "2.0.0"
     },
     {
       "id": "Cmf.Custom.IoT.MechatronicMWS200",
-      "version": "1.3.0"
-    },    
-	{
+      "version": "2.0.0"
+    },
+    {
       "id": "Cmf.Custom.IoT.OmegaPlasma",
-      "version": "1.8.0"
+      "version": "2.0.0"
     },
     {
       "id": "Cmf.Custom.IoT.TrymaxNEO",
-      "version": "1.5.0"
+      "version": "2.0.0"
     },
-	{
+    {
       "id": "Cmf.Custom.IoT.UnitySC",
-      "version": "1.9.0"
+      "version": "2.0.0"
     },
-	{
+    {
       "id": "Cmf.Custom.IoT.BrukerInsigthCAP",
-      "version": "1.9.0"
+      "version": "2.1.0"
     },
-	{
+    {
       "id": "Cmf.Custom.IoT.Monarch25VHF",
-      "version": "1.9.0"
+      "version": "2.0.0"
     }
-  ],
-  "handlerVersion": 0
+  ]
 }

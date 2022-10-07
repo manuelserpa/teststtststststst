@@ -1,0 +1,50 @@
+{
+  "<SM>LookupTableValues": {
+    "1": {
+      "LookUp Table": "SamplingPatternType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Logistical wafer",
+      "Lookup Table Value Description": "Logistical Wafer",
+      "Lookup Table IsEnabled": ""
+    },
+  "2": {
+      "LookUp Table": "MaterialForm",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Logistical wafer",
+      "Lookup Table Value Description": "",
+      "Lookup Table IsEnabled": "Yes"
+    }
+  },
+  "<DM>SamplingPattern": {
+    "1": {
+      "Name": "FIRST",
+      "Type": "Logistical wafer",
+      "SamplingPatternType": "System",
+      "SystemSamplingSource": "Logistical wafer",
+      "SystemSamplingCount": "1",
+      "SystemSamplingCountIsPercentage": "0",
+      "SystemSamplingSelection": "Bottom",
+      "SystemSamplingSequence": "0"
+    },
+    "2": {
+      "Name": "MIDDLE",
+      "Type": "Logistical wafer",
+      "SamplingPatternType": "System",
+      "SystemSamplingSource": "Logistical wafer",
+      "SystemSamplingCount": "1",
+      "SystemSamplingCountIsPercentage": "0",
+      "SystemSamplingSelection": "Middle",
+      "SystemSamplingSequence": "0"
+    },
+    "3": {
+      "Name": "LAST",
+      "Type": "Logistical wafer",
+      "SamplingPatternType": "System",
+      "SystemSamplingSource": "Logistical wafer",
+      "SystemSamplingCount": "1",
+      "SystemSamplingCountIsPercentage": "0",
+      "SystemSamplingSelection": "Top",
+      "SystemSamplingSequence": "0"
+    }
+  }
+}

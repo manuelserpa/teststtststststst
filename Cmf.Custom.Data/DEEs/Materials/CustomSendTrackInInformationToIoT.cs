@@ -1,9 +1,7 @@
-﻿using Cmf.Custom.AMSOsram.BusinessObjects;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.DataStructures;
-using Cmf.Custom.AMSOsram.Common.Extensions;
+﻿using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.DataStructures;
+using Cmf.Custom.amsOSRAM.Common.Extensions;
 using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessObjects.Cultures;
 using Cmf.Foundation.Common;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
@@ -12,8 +10,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions;
+using Cmf.Foundation.Common.LocalizationService;
 
-namespace Cmf.Custom.AMSOsram.Actions.Materials
+namespace Cmf.Custom.amsOSRAM.Actions.Materials
 {
 	class CustomSendTrackInInformationToIoT : DeeDevBase
 	{
@@ -41,6 +45,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
             */
 
 			#endregion
+
 			bool canExecute = false;
 
 			bool trackInForChildLot = (bool)(ApplicationContext.CallContext.GetInformationContext("TrackInForChildLot") ?? false);
@@ -54,10 +59,15 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 					if (inputObject.Resource != null && inputObject.Materials != null && inputObject.Materials.Count > 0)
 					{
 						// The Material being Track In is the Top - Most(this rule must not execute / send request on sub - material tracking);
-						List<Material> materialsTotrackIn = inputObject.Materials.Where(m => m.ParentMaterial == null).ToList();
+						List<IMaterial> materialsTotrackIn = inputObject.Materials.Where(m => m.ParentMaterial == null).ToList();
 						if (materialsTotrackIn.Count > 0)
 						{
-							Resource resource = new Resource() { Name = inputObject.Resource.Name };
+                            // Get services provider information
+                            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+                            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
+							IResource resource = entityFactory.Create<IResource>();
+							resource.Name = inputObject.Resource.Name;
 							resource.Load();
 
 							// The Resource Automation Mode is set to Online;
@@ -84,55 +94,63 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 		/// <returns></returns>
 		public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
 		{
-			//---Start DEE Code---
-			UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-			UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-			UseReference("", "Cmf.Foundation.Common");
-			UseReference("", "Cmf.Foundation.BusinessObjects.Cultures");
-			// Navigo
-			UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-			UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects");
-			// Custom
-			UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-			UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.DataStructures");
-			UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.Extensions");
-			UseReference("Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition.dll", "Cmf.Custom.AMSOsram.BusinessObjects");
-			// Other
-			UseReference("", "System.Threading");
+            //---Start DEE Code---
 
-			List<MaterialData> materialDataToIot = new List<MaterialData>();
-			List<Material> materialsTotrackIn = ApplicationContext.CallContext.GetInformationContext("MaterialsToTrackIn") as List<Material>;
-			Resource resourceToTrackIn = ApplicationContext.CallContext.GetInformationContext("ResourceToTrackIn") as Resource;
-			MaterialCollection materialsToSave = new MaterialCollection();
+			// Foundation
+            UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common.LocalizationService");
+            
+			// Navigo
+			UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects");
+            
+			// Custom
+            UseReference("Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition.dll", "Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.DataStructures");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.Extensions");
+            
+			// Other
+            UseReference("", "System.Threading");
+
+            List<MaterialData> materialDataToIot = new List<MaterialData>();
+			List<IMaterial> materialsTotrackIn = ApplicationContext.CallContext.GetInformationContext("MaterialsToTrackIn") as List<IMaterial>;
+			IResource resourceToTrackIn = ApplicationContext.CallContext.GetInformationContext("ResourceToTrackIn") as IResource;
+
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
+            IMaterialCollection materialsToSave = entityFactory.CreateCollection<IMaterialCollection>();
 
 			#region Retrieve Resource Attributes (AllowDownloadRecipeAtTrackIn, IsSorter)
 
-			resourceToTrackIn.LoadAttributes(new Collection<string> { AMSOsramConstants.ResourceAttributeAllowDownloadRecipeAtTrackIn, AMSOsramConstants.ResourceAttributeIsSorter });
+			resourceToTrackIn.LoadAttributes(new Collection<string> { amsOSRAMConstants.ResourceAttributeAllowDownloadRecipeAtTrackIn, amsOSRAMConstants.ResourceAttributeIsSorter });
 			bool allowDownloadRecipeAtTrackIn = false;
 			bool isSorter = false;
 
 			if (resourceToTrackIn.Attributes != null)
 			{
-				if (resourceToTrackIn.Attributes.ContainsKey(AMSOsramConstants.ResourceAttributeAllowDownloadRecipeAtTrackIn) &&
-			resourceToTrackIn.Attributes[AMSOsramConstants.ResourceAttributeAllowDownloadRecipeAtTrackIn] != null)
+				if (resourceToTrackIn.Attributes.ContainsKey(amsOSRAMConstants.ResourceAttributeAllowDownloadRecipeAtTrackIn) &&
+			resourceToTrackIn.Attributes[amsOSRAMConstants.ResourceAttributeAllowDownloadRecipeAtTrackIn] != null)
 				{
-					resourceToTrackIn.Attributes.TryGetValueAs(AMSOsramConstants.ResourceAttributeAllowDownloadRecipeAtTrackIn, out allowDownloadRecipeAtTrackIn);
+					resourceToTrackIn.Attributes.TryGetValueAs(amsOSRAMConstants.ResourceAttributeAllowDownloadRecipeAtTrackIn, out allowDownloadRecipeAtTrackIn);
 				}
-				if (resourceToTrackIn.Attributes.ContainsKey(AMSOsramConstants.ResourceAttributeIsSorter) &&
-				resourceToTrackIn.Attributes[AMSOsramConstants.ResourceAttributeIsSorter] != null)
+				if (resourceToTrackIn.Attributes.ContainsKey(amsOSRAMConstants.ResourceAttributeIsSorter) &&
+				resourceToTrackIn.Attributes[amsOSRAMConstants.ResourceAttributeIsSorter] != null)
 				{
-					resourceToTrackIn.Attributes.TryGetValueAs(AMSOsramConstants.ResourceAttributeIsSorter, out isSorter);
+					resourceToTrackIn.Attributes.TryGetValueAs(amsOSRAMConstants.ResourceAttributeIsSorter, out isSorter);
 				}
 			}
 
 			#endregion Retrieve Resource Attributes (AllowDownloadRecipeAtTrackIn, IsSorter)
 
-			foreach (Material materialIn in materialsTotrackIn)
+			foreach (IMaterial materialIn in materialsTotrackIn)
 			{
 				#region Materials
 
 				MaterialData materialData = new MaterialData();
-				Material material = new Material() { Name = materialIn.Name };
+				IMaterial material = entityFactory.Create<IMaterial>();
+				material.Name = materialIn.Name;
+
 				material.Load();
 				material.LoadChildren(1);
 				material.LoadRelations(Navigo.Common.Constants.MaterialContainer);
@@ -146,7 +164,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 					string customSorterJobDefinitionName = ApplicationContext.CallContext.GetInformationContext("CustomSorterJobDefinitionName") as string;
 					string customSorterJobDefinitionmovementList = ApplicationContext.CallContext.GetInformationContext("CustomSorterJobDefinitionMovementList") as string;
 
-					CustomSorterJobDefinition customSorterJobDefinition = new CustomSorterJobDefinition();
+                    ICustomSorterJobDefinition customSorterJobDefinition = entityFactory.Create<ICustomSorterJobDefinition>();
 
 					// It wasn't possible to resolve the Sorter Job Definition Context
 					if (string.IsNullOrWhiteSpace(customSorterJobDefinitionName))
@@ -155,19 +173,19 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 						{
 							bool canStartProcess = false;
 
-							customSorterJobDefinition = AMSOsramUtilities.GetSorterJobDefinition(material);
+							customSorterJobDefinition = amsOSRAMUtilities.GetSorterJobDefinition(material);
 
 							if (customSorterJobDefinition != null)
 							{
-								Container currentContainer = null;
-								Resource currentLoadPort = null;
-								BOM bom = null;
+								IContainer currentContainer = null;
+								IResource currentLoadPort = null;
+								IBOM bom = null;
 								string futureActionType = string.Empty;
 								List<ResourceLoadPortData> containersDocked = null;
 
-								if (customSorterJobDefinition.LogisticalProcess == AMSOsramConstants.LookupTableCustomSorterLogisticalProcessCompose)
+								if (customSorterJobDefinition.LogisticalProcess == amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessCompose)
 								{
-									bom = AMSOsramUtilities.ResolveBOMContext(material);
+									bom = amsOSRAMUtilities.ResolveBOMContext(material);
 
 									if (bom is null)
 									{
@@ -176,24 +194,24 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 								}
 
 								// Flag to check if container and load port can be retrieved for the main lot
-								bool containerAndLoadPortFound = AMSOsramUtilities.RetrieveContainerAndLoadPortFromMaterial(material, ref currentContainer, ref currentLoadPort);
+								bool containerAndLoadPortFound = amsOSRAMUtilities.RetrieveContainerAndLoadPortFromMaterial(material, ref currentContainer, ref currentLoadPort);
 
 								// Check if it is possible to retrieve the container and the load port from a sub material of the current lot
 								if (!containerAndLoadPortFound)
 								{
-									Material subMaterial = material.SubMaterials.FirstOrDefault();
+									IMaterial subMaterial = material.SubMaterials.FirstOrDefault();
 
 									if (subMaterial != null)
 									{
 										subMaterial.Load();
 										subMaterial.LoadRelations(Navigo.Common.Constants.MaterialContainer);
-										containerAndLoadPortFound = AMSOsramUtilities.RetrieveContainerAndLoadPortFromMaterial(subMaterial, ref currentContainer, ref currentLoadPort);
+										containerAndLoadPortFound = amsOSRAMUtilities.RetrieveContainerAndLoadPortFromMaterial(subMaterial, ref currentContainer, ref currentLoadPort);
 									}
 								}
 
 								if (containerAndLoadPortFound)
 								{
-									Cmf.Foundation.Common.DynamicExecutionEngine.Action actionCustomMaterialInProcessSorterJobDefinition = new Foundation.Common.DynamicExecutionEngine.Action();
+									IAction actionCustomMaterialInProcessSorterJobDefinition = new Foundation.Common.DynamicExecutionEngine.Action();
 									actionCustomMaterialInProcessSorterJobDefinition.Load("CustomMaterialInProcessSorterJobDefinition");
 
 									Dictionary<string, object> actionInputCustomMaterialInProcessSorterJobDefinition = new Dictionary<string, object>()
@@ -232,7 +250,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 										isSorter &&
 										customSorterJobDefinition != null && canStartProcess)
 									{
-										Cmf.Foundation.Common.DynamicExecutionEngine.Action actionCustomMaterialInPostProcessSorterJobDefinition = new Foundation.Common.DynamicExecutionEngine.Action();
+										IAction actionCustomMaterialInPostProcessSorterJobDefinition = new Foundation.Common.DynamicExecutionEngine.Action();
 										actionCustomMaterialInPostProcessSorterJobDefinition.Load("CustomMaterialInPostProcessSorterJobDefinition");
 
 										Dictionary<string, object> actionInputCustomMaterialInPostProcessSorterJobDefinition = new Dictionary<string, object>()
@@ -279,30 +297,42 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 				if (material.CurrentMainState != null && material.CurrentMainState.CurrentState != null)
 				{
 					material.CurrentMainState.StateModel.Load();
-					var state = material.CurrentMainState.StateModel.States.First(s => s.Name == AMSOsramConstants.MaterialStateModelStateSetup);
-					material.CurrentMainState = new CurrentEntityState(material, material.CurrentMainState.StateModel, state);
+					IStateModelState state = material.CurrentMainState.StateModel.States.First(s => s.Name == amsOSRAMConstants.MaterialStateModelStateSetup);
+
+                    ICurrentEntityState currentEntityState = entityFactory.Create<ICurrentEntityState>();
+                    currentEntityState.Entity = material;
+                    currentEntityState.StateModel = material.CurrentMainState.StateModel;
+                    currentEntityState.CurrentState = state;
+
+                    material.CurrentMainState = currentEntityState;
 					materialsToSave.Add(material);
 
 					materialData.MaterialState = material.CurrentMainState.CurrentState.Name;
 				}
 				else
 				{
-					StateModel customMaterialStateModel = new StateModel() { Name = AMSOsramConstants.MaterialStateModel };
+					IStateModel customMaterialStateModel = new StateModel() { Name = amsOSRAMConstants.MaterialStateModel };
 					if (customMaterialStateModel.ObjectExists())
 					{
 						customMaterialStateModel.Load();
-						var state = customMaterialStateModel.States.First(s => s.Name == AMSOsramConstants.MaterialStateModelStateSetup);
-						material.CurrentMainState = new CurrentEntityState(material, customMaterialStateModel, state);
+						IStateModelState state = customMaterialStateModel.States.First(s => s.Name == amsOSRAMConstants.MaterialStateModelStateSetup);
+
+                        ICurrentEntityState currentEntityState = entityFactory.Create<ICurrentEntityState>();
+                        currentEntityState.Entity = material;
+                        currentEntityState.StateModel = customMaterialStateModel;
+                        currentEntityState.CurrentState = state;
+
+                        material.CurrentMainState = currentEntityState;
 						materialsToSave.Add(material);
 					}
 
-					materialData.MaterialState = AMSOsramConstants.MaterialStateModelStateSetup;
+					materialData.MaterialState = amsOSRAMConstants.MaterialStateModelStateSetup;
 				}
 
 				if (material.SubMaterialCount > 0)
 				{
 					materialData.SubMaterials = new List<MaterialData>();
-					foreach (var subMaterial in material.SubMaterials)
+					foreach (IMaterial subMaterial in material.SubMaterials)
 					{
 						MaterialData subMaterialData = new MaterialData()
 						{
@@ -339,11 +369,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 				{
 					string currentLoadPort = ApplicationContext.CallContext.GetInformationContext("CurrentLoadPort") as string;
 
-					Resource loadPort = new Resource();
+					IResource loadPort = entityFactory.Create<IResource>();
 
 					if (string.IsNullOrWhiteSpace(currentLoadPort))
 					{
-						Container container = new Container() { Name = materialData.ContainerName };
+						IContainer container = entityFactory.Create<IContainer>();
+						container.Name = materialData.ContainerName;
 						container.Load();
 						container.LoadRelations(Navigo.Common.Constants.ContainerResource);
 
@@ -370,14 +401,15 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 
 				if (material.CurrentRecipeInstance != null)
 				{
-					Recipe recipe = new Recipe() { Name = material.CurrentRecipeInstance.ParentEntity.Name };
+					IRecipe recipe = entityFactory.Create<IRecipe>();
+					recipe.Name = material.CurrentRecipeInstance.ParentEntity.Name;
 					recipe.Load();
 
-					Func<Recipe, RecipeInstance, RecipeData> RecursiveSubRecipeCollection = null;
+					Func<IRecipe, IRecipeInstance, RecipeData> RecursiveSubRecipeCollection = null;
 
-					RecursiveSubRecipeCollection = new Func<Recipe, RecipeInstance, RecipeData>((recipeToSet, recipeInstance) =>
+					RecursiveSubRecipeCollection = new Func<IRecipe, IRecipeInstance, RecipeData>((recipeToSet, recipeInstance) =>
 					{
-						var recipeDataToReturn = new RecipeData()
+						RecipeData recipeDataToReturn = new RecipeData()
 						{
 							RecipeId = recipeToSet.Id.ToString(),
 							RecipeName = recipeToSet.Name,
@@ -391,9 +423,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 						{
 							recipeDataToReturn.SubRecipes = new List<RecipeData>();
 							recipeInstance.LoadSubRecipeInstances();
-							foreach (SubRecipe subRecipe in recipeToSet.SubRecipes)
+							foreach (ISubRecipe subRecipe in recipeToSet.SubRecipes)
 							{
-								RecipeInstance subRecipeInstance = null;
+								IRecipeInstance subRecipeInstance = null;
 								if (recipeInstance.SubRecipeInstances != null)
 								{
 									subRecipeInstance = recipeInstance.SubRecipeInstances.FirstOrDefault(sr => sr.ParentEntity.Name == subRecipe.ChildRecipe.Name);
@@ -408,19 +440,21 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 						{
 							recipeInstance.LoadRelations(Navigo.Common.Constants.RecipeInstanceParameter);
 
-							var recipeInstanceParameters = recipeInstance.RelationCollection.Where(r => r.Key == Cmf.Navigo.Common.Constants.RecipeInstanceParameter).ToList();
+							List<KeyValuePair<string, IEntityRelationCollection<IEntityRelation>>> recipeInstanceParameters = recipeInstance.RelationCollection.Where(r => r.Key == Navigo.Common.Constants.RecipeInstanceParameter).ToList();
+							
 							if (recipeInstanceParameters != null && recipeInstanceParameters.Count > 0)
 							{
 								recipeDataToReturn.RecipeParameters = new List<RecipeParameterData>();
-								foreach (var riP in recipeInstanceParameters)
+								
+								foreach (KeyValuePair<string, IEntityRelationCollection<IEntityRelation>> riP in recipeInstanceParameters)
 								{
-									var recipeInstanceValueCollection = riP.Value;
+									IEntityRelationCollection<IEntityRelation> recipeInstanceValueCollection = riP.Value;
 
-									foreach (var recipeInstanceValueRelation in recipeInstanceValueCollection)
+									foreach (IEntityRelation recipeInstanceValueRelation in recipeInstanceValueCollection)
 									{
-										var recipeInstanceValue = recipeInstanceValueRelation as RecipeInstanceParameter;
+										IRecipeInstanceParameter recipeInstanceValue = recipeInstanceValueRelation as IRecipeInstanceParameter;
 
-										var recipeInstanceParameterToSet = new RecipeParameterData
+										RecipeParameterData recipeInstanceParameterToSet = new RecipeParameterData
 										{
 											Name = recipeInstanceValue.TargetEntity.Name.ToString(),
 											Value = recipeInstanceValue.Value.ToString()
@@ -454,22 +488,23 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 			if (materialDataToIot.Count > 0)
 			{
 				// TODO: Later confirm that message was sent to IoT correctly (find a way to test it automatically)
-				// Utilities.PublishMessage("AMSOsram.Test.SendTrackInInformationToIoT", new Dictionary<string, object>() { { "Data", materialDataToIot.ToJsonString() } });
+				// Utilities.PublishMessage("amsOSRAM.Test.SendTrackInInformationToIoT", new Dictionary<string, object>() { { "Data", materialDataToIot.ToJsonString() } });
 
-				AutomationControllerInstance controllerInstance = resourceToTrackIn.GetAutomationControllerInstance();
+				IAutomationControllerInstance controllerInstance = resourceToTrackIn.GetAutomationControllerInstance();
 				if (controllerInstance != null)
 				{
 					// Get EI default timeout
 					//  --> /Cmf/Custom/Automation/TrackInTimeout
-					int requestTimeout = AMSOsramUtilities.GetConfig<int>(AMSOsramConstants.AutomationTrackInTimeoutConfigurationPath);
+					int requestTimeout = amsOSRAMUtilities.GetConfig<int>(amsOSRAMConstants.AutomationTrackInTimeoutConfigurationPath);
 
 					// Send Synchronous request to automation TrackIn the Material in the Equipment
-					string requestType = AMSOsramConstants.AutomationRequestTypeTrackIn;
-					var obj = controllerInstance.SendRequest(requestType, materialDataToIot.ToJsonString(), requestTimeout);
+					string requestType = amsOSRAMConstants.AutomationRequestTypeTrackIn;
+					object obj = controllerInstance.SendRequest(requestType, materialDataToIot.ToJsonString(), requestTimeout);
 
 					if (obj == null)
 					{
-						throw new CmfBaseException(string.Format(LocalizedMessage.GetLocalizedMessage(Thread.CurrentThread.CurrentCulture.Name, AMSOsramConstants.LocalizedMessageIoTConnectionTimeout).MessageText, requestType));
+                        ILocalizationService localizationService = serviceProvider.GetService<ILocalizationService>();
+                        throw new CmfBaseException(string.Format(localizationService.Localize(Thread.CurrentThread.CurrentCulture.Name, amsOSRAMConstants.LocalizedMessageIoTConnectionTimeout), requestType));
 					}
 					else if (obj.ToString().Contains("Error"))
 					{

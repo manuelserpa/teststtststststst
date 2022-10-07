@@ -6,7 +6,6 @@ using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.LocalizationManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.QueryManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects;
-using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.TestScenarios.Others;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -44,14 +43,14 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
         {
 
             string productionOrderName = string.IsNullOrEmpty(name) ? GenerateName() : name;
-            string productionOrderProduct = string.IsNullOrEmpty(productName) ? AMSOsramConstants.DefaultTestProductName : productName;
+            string productionOrderProduct = string.IsNullOrEmpty(productName) ? amsOSRAMConstants.DefaultTestProductName : productName;
             Product product = GenericGetsScenario.GetObjectByName<Product>(productionOrderProduct);
 
-            string productionOrderFacility = string.IsNullOrEmpty(facilityName) ? AMSOsramConstants.DefaultFacilityName : facilityName;
+            string productionOrderFacility = string.IsNullOrEmpty(facilityName) ? amsOSRAMConstants.DefaultFacilityName : facilityName;
             Facility facility = GenericGetsScenario.GetObjectByName<Facility>(productionOrderFacility);
-            flowPath = string.IsNullOrEmpty(flowPath) ? AMSOsramConstants.DefaultTestFlowPath : flowPath;
-            flowName = string.IsNullOrEmpty(flowName) ? AMSOsramConstants.DefaultTestFlowName : flowName;
-            stepName = string.IsNullOrEmpty(stepName) ? AMSOsramConstants.DefaultTestStepName : stepName;
+            flowPath = string.IsNullOrEmpty(flowPath) ? amsOSRAMConstants.DefaultTestFlowPath : flowPath;
+            flowName = string.IsNullOrEmpty(flowName) ? amsOSRAMConstants.DefaultTestFlowName : flowName;
+            stepName = string.IsNullOrEmpty(stepName) ? amsOSRAMConstants.DefaultTestStepName : stepName;
             
             Flow flow = GenericGetsScenario.GetObjectByName<Flow>(flowName);
             Step step = GenericGetsScenario.GetObjectByName<Step>(stepName);
@@ -59,10 +58,10 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             ProductionOrder productionOrder = new ProductionOrder
             {
                 Name = productionOrderName,
-                Type = AMSOsramConstants.DefaultTestPOType,
+                Type = amsOSRAMConstants.DefaultTestPOType,
                 OrderNumber = productionOrderName,
                 Quantity = (decimal)quantity,
-                Units = string.IsNullOrEmpty(units) ? AMSOsramConstants.DefaultMaterialUnit : units,
+                Units = string.IsNullOrEmpty(units) ? amsOSRAMConstants.DefaultMaterialUnit : units,
                 Product = product,
                 OverDeliveryTolerance = 0,
                 PlannedStartDate = startTime ?? DateTime.Now,
@@ -109,28 +108,28 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
         {
             const decimal defaultPrimaryQuantity = 1;
 
-            string materialProduct = string.IsNullOrEmpty(productName) ? AMSOsramConstants.DefaultTestProductName : productName;
+            string materialProduct = string.IsNullOrEmpty(productName) ? amsOSRAMConstants.DefaultTestProductName : productName;
             Product product = GenericGetsScenario.GetObjectByName<Product>(materialProduct);
 
-            string materialFacility = string.IsNullOrEmpty(facilityName) ? AMSOsramConstants.DefaultFacilityName : facilityName;
+            string materialFacility = string.IsNullOrEmpty(facilityName) ? amsOSRAMConstants.DefaultFacilityName : facilityName;
 
-            string materialFlowPath = string.IsNullOrEmpty(flowPath) ? AMSOsramConstants.DefaultTestFlowPath : flowPath;
+            string materialFlowPath = string.IsNullOrEmpty(flowPath) ? amsOSRAMConstants.DefaultTestFlowPath : flowPath;
             Facility facility = GenericGetsScenario.GetObjectByName<Facility>(materialFacility);
 
             Material material = new Material
             {
                 Name = string.IsNullOrEmpty(name) ? GenerateName() : name,
-                Type = string.IsNullOrEmpty(type) ? AMSOsramConstants.DefaultMaterialType : type,
-                Form = string.IsNullOrEmpty(form) ? AMSOsramConstants.DefaultMaterialFormName : form,
+                Type = string.IsNullOrEmpty(type) ? amsOSRAMConstants.DefaultMaterialType : type,
+                Form = string.IsNullOrEmpty(form) ? amsOSRAMConstants.DefaultMaterialFormName : form,
                 Facility = facility,
                 Product = product,
                 FlowPath = materialFlowPath,
-                PrimaryQuantity = primaryQuantity == null ? (materialFlowPath == AMSOsramConstants.DefaultTestFlowPath ? 0 : defaultPrimaryQuantity) : (decimal)primaryQuantity,
+                PrimaryQuantity = primaryQuantity == null ? (materialFlowPath == amsOSRAMConstants.DefaultTestFlowPath ? 0 : defaultPrimaryQuantity) : (decimal)primaryQuantity,
                 SecondaryQuantity = secondaryQuantity,
                 ProductionOrder = prodOrder,
                 ExpirationDate = expirationDate,
                 PossibleStartDate = prodOrder?.PlannedStartDate ?? DateTime.Now,
-                PrimaryUnits = string.IsNullOrEmpty(units) ? AMSOsramConstants.DefaultMaterialUnit : units,
+                PrimaryUnits = string.IsNullOrEmpty(units) ? amsOSRAMConstants.DefaultMaterialUnit : units,
                 IsTemplate = isTemplate
             };
 

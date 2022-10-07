@@ -1,8 +1,7 @@
-﻿using Cmf.Custom.AMSOsram.Orchestration.InputObjects;
-using Cmf.Custom.AMSOsram.Orchestration.OutputObjects;
+﻿using Cmf.Custom.amsOSRAM.Orchestration.InputObjects;
+using Cmf.Custom.amsOSRAM.Orchestration.OutputObjects;
 using Cmf.Custom.Tests.Biz.Common.ERP.Material;
 using Cmf.Custom.Tests.Biz.Common.ERP.Product;
-using Cmf.Custom.Tests.Biz.Common.Extensions;
 using Cmf.Custom.Tests.Biz.Common.ERP.ProductionOrder;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Cmf.Custom.TestUtilities;
@@ -103,12 +102,12 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// <summary>
         /// Product Name to be used by the scenario
         /// </summary>
-        public virtual string ProductName { get; set; } = AMSOsramConstants.DefaultTestProductName;
+        public virtual string ProductName { get; set; } = amsOSRAMConstants.DefaultTestProductName;
 
         /// <summary>
         /// Facility Name to be used by the scenario
         /// </summary>
-        public string FacilityName { get; set; } = AMSOsramConstants.DefaultFacilityName;
+        public string FacilityName { get; set; } = amsOSRAMConstants.DefaultFacilityName;
 
         /// <summary>
         /// Lot Name to be used by the scenario
@@ -118,7 +117,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// <summary>
         /// FlowPath to be used by the scenario
         /// </summary>
-        public virtual string FlowPath { get; set; } = AMSOsramConstants.DefaultTestFlowPath;
+        public virtual string FlowPath { get; set; } = amsOSRAMConstants.DefaultTestFlowPath;
 
         /// <summary>
         /// Collection of ProductionOrders generated
@@ -148,7 +147,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// <summary>
         /// Material to be generated form
         /// </summary>
-        public string MaterialToGenerateForm = AMSOsramConstants.DefaultMaterialFormName;
+        public string MaterialToGenerateForm = amsOSRAMConstants.DefaultMaterialFormName;
 
         #endregion
 
@@ -189,7 +188,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
             {
                 foreach (Dictionary<string, string> row in CustomReportConsumptionToSAP)
                 {
-                    SmartTableManager.SetSmartTableData(AMSOsramConstants.CustomReportConsumptionToSAPSmartTable, row);
+                    SmartTableManager.SetSmartTableData(amsOSRAMConstants.CustomReportConsumptionToSAPSmartTable, row);
                 }
             }
 
@@ -294,7 +293,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                     {
                         Material = generatedMaterial,
                         SubMaterials = subMaterialsCollection,
-                        Form = AMSOsramConstants.DefaultMaterialLogisticalWaferForm
+                        Form = amsOSRAMConstants.DefaultMaterialLogisticalWaferForm
                     }.ExpandMaterialSync();
 
                     generatedMaterial = expandMaterialOutput.Material;

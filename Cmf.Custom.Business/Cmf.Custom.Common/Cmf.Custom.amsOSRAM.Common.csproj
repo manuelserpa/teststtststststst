@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<OutputType>Library</OutputType>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AssemblyName>Cmf.Custom.amsOSRAM.Common</AssemblyName>
+		<RootNamespace>Cmf.Custom.amsOSRAM.Common</RootNamespace>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath>..\..\LocalEnvironment\BusinessTier</OutputPath>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath>..\Release</OutputPath>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="cmf.common.customactionutilities" Version="9.0.5" GeneratePathProperty="true" />
+		<PackageReference Include="Cmf.Foundation.BusinessObjects" Version="9.1.0.63" />
+		<PackageReference Include="Cmf.Navigo.BusinessObjects" Version="9.1.0.146" />
+	</ItemGroup>
+		<ItemGroup>
+		<Reference Include="Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition">
+		  <HintPath>..\..\Libs\EntityTypes\Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="$(Pkgcmf_common_customactionutilities)\lib\netstandard2.0\*" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+</Project>

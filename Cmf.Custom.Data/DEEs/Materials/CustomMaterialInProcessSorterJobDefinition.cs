@@ -1,19 +1,22 @@
-﻿using Cmf.Custom.AMSOsram.BusinessObjects;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.DataStructures;
-using Cmf.Custom.AMSOsram.Common.Extensions;
-using Cmf.Foundation.BusinessObjects;
+﻿using Cmf.Custom.amsOSRAM.BusinessObjects;
+using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.DataStructures;
+using Cmf.Custom.amsOSRAM.Common.Extensions;
 using Cmf.Foundation.BusinessObjects.GenericTables;
 using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Foundation.BusinessObjects;
 
-namespace Cmf.Custom.AMSOsram.Actions.Materials
+namespace Cmf.Custom.amsOSRAM.Actions.Materials
 {
     class CustomMaterialInProcessSorterJobDefinition : DeeDevBase
     {
@@ -48,41 +51,44 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
             //---Start DEE Code---
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
-            UseReference("", "Cmf.Foundation.Common");
+
+            // Foundation
             UseReference("", "Cmf.Foundation.BusinessObjects.GenericTables");
-            // Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
+
             // Custom
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-            UseReference("", "Cmf.Custom.AMSOsram.Common.Extensions");
-            UseReference("Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition.dll", "Cmf.Custom.AMSOsram.BusinessObjects");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.DataStructures");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("", "Cmf.Custom.amsOSRAM.Common.Extensions");
+            UseReference("Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition.dll", "Cmf.Custom.amsOSRAM.BusinessObjects");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.DataStructures");
+            
             // System
             UseReference("%MicrosoftNetPath%System.Data.Common.dll", "System.Data");
             UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
             UseReference("%MicrosoftNetPath%System.ObjectModel.dll", "");
 
+
             const int ContainerMaxNumberOfWafers = 25;
             bool canStartProcess = true;
             CustomSorterJobDefinition customSorterJobDefinition = Input["CustomSorterJobDefinition"] as CustomSorterJobDefinition;
-            Container currentContainer = Input["Container"] as Container;
-            Resource resource = Input["Resource"] as Resource;
-            Resource currentLoadPort = Input["LoadPort"] as Resource;
+            IContainer currentContainer = Input["Container"] as IContainer;
+            IResource resource = Input["Resource"] as IResource;
+            IResource currentLoadPort = Input["LoadPort"] as IResource;
             string temporaryMovementList = string.Empty;
             string futureActionType = string.Empty;
             List<ResourceLoadPortData> dockedContainers = null;
 
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
             // Only need to take into account scenarios other than 'Map Carrier'
-            if (customSorterJobDefinition.LogisticalProcess == AMSOsramConstants.LookupTableCustomSorterLogisticalProcessTransferWafers ||
-                customSorterJobDefinition.LogisticalProcess == AMSOsramConstants.LookupTableCustomSorterLogisticalProcessCompose)
+            if (customSorterJobDefinition.LogisticalProcess == amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessTransferWafers ||
+                customSorterJobDefinition.LogisticalProcess == amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessCompose)
             {
                 // Fetch all docked containers on the current resource load ports
-                dockedContainers = AMSOsramUtilities.DockedContainersOnLoadPortsByParentResource(resource);
+                dockedContainers = amsOSRAMUtilities.DockedContainersOnLoadPortsByParentResource(resource);
 
-                if (customSorterJobDefinition.LogisticalProcess == AMSOsramConstants.LookupTableCustomSorterLogisticalProcessTransferWafers)
+                if (customSorterJobDefinition.LogisticalProcess == amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessTransferWafers)
                 {
                     // Parse Custom Sorter Job Movement List Json Object
                     JObject movementListObject;
@@ -109,7 +115,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                     }
 
                     // Get the future action type defined on the custom sorter job definition
-                    futureActionType = movementListObject[AMSOsramConstants.CustomSorterJobDefinitionJsonPropertyFutureActionType].Value<string>() ?? string.Empty;
+                    futureActionType = movementListObject[amsOSRAMConstants.CustomSorterJobDefinitionJsonPropertyFutureActionType].Value<string>() ?? string.Empty;
 
                     // Number of moves in this custom sorter job definition
                     int numberOfMoves = movementList.Count;
@@ -134,7 +140,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                             }
                             else
                             {
-                                var otherContainersDocked = dockedContainers.Where(d => !d.ContainerName.Equals(currentContainer.Name, StringComparison.InvariantCultureIgnoreCase) &&
+                                IEnumerable<ResourceLoadPortData> otherContainersDocked = dockedContainers.Where(d => !d.ContainerName.Equals(currentContainer.Name, StringComparison.InvariantCultureIgnoreCase) &&
                                                             d.ContainerUsedPositions == 0 &&
                                                             !d.LoadPortInUse);
 
@@ -147,7 +153,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 
                                     if (currentContainer.ContainerMaterials != null && currentContainer.ContainerMaterials.Count > 0)
                                     {
-                                        foreach (var containerDocked in otherContainersDocked)
+                                        foreach (ResourceLoadPortData containerDocked in otherContainersDocked)
                                         {
                                             if (containerDocked.ContainerType == customSorterJobDefinition.TargetCarrierType)
                                             {
@@ -167,7 +173,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 
                                     if (canStartProcess && !string.IsNullOrWhiteSpace(destinationContainer))
                                     {
-                                        foreach (MaterialContainer materialInContainer in currentContainer.ContainerMaterials)
+                                        foreach (IMaterialContainer materialInContainer in currentContainer.ContainerMaterials)
                                         {
                                             JObject jObject = new JObject
                                             {
@@ -199,25 +205,26 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                     else
                     {
                         // Fetch the source containers and the destination containers
-                        List<string> sourceContainers = movementList.DistinctBy(m => m.Value<string>(AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer)).Values<string>(AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer).ToList();
-                        List<string> destinationContainers = movementList.DistinctBy(m => m.Value<string>(AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer)).Values<string>(AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer).ToList();
+                        List<string> sourceContainers = movementList.DistinctBy(m => m.Value<string>(amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer)).Values<string>(amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer).ToList();
+                        List<string> destinationContainers = movementList.DistinctBy(m => m.Value<string>(amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer)).Values<string>(amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer).ToList();
 
                         // We need to updated movement list with the actual destination containers when
                         //      the future action type is a Split
-                        if (futureActionType.Equals(AMSOsramConstants.CustomSorterJobDefinitionJsonPropertySplitFutureActionType, StringComparison.InvariantCultureIgnoreCase))
+                        if (futureActionType.Equals(amsOSRAMConstants.CustomSorterJobDefinitionJsonPropertySplitFutureActionType, StringComparison.InvariantCultureIgnoreCase))
                         {
-                            ContainerCollection destinationContainersThatMatchTheCriteria = new ContainerCollection();
+                            IContainerCollection destinationContainersThatMatchTheCriteria = entityFactory.CreateCollection<IContainerCollection>();
                             List<string> updatedDestinationContainers = new List<string>();
                             int numberOfDestinationContainersNeeded = destinationContainers.Count;
-                            var dockedContainersWithoutSourceContainer = dockedContainers.Where(
+                            IEnumerable<ResourceLoadPortData> dockedContainersWithoutSourceContainer = dockedContainers.Where(
                                 d => !d.ContainerName.Equals(currentContainer.Name, StringComparison.InvariantCultureIgnoreCase) &&
                                 d.ContainerUsedPositions == 0 &&
                                 !d.LoadPortInUse);                           
 
-                            foreach (var dockedContainer in dockedContainersWithoutSourceContainer.DistinctBy(d => d.ContainerName))
+                            foreach (ResourceLoadPortData dockedContainer in dockedContainersWithoutSourceContainer.DistinctBy(d => d.ContainerName))
                             {
                                 string containerName = dockedContainer.ContainerName;
-                                Container container = new Container() { Name = containerName };
+                                IContainer container = entityFactory.Create<IContainer>();
+                                container.Name = containerName;
 
                                 if (!string.IsNullOrWhiteSpace(containerName) && container.ObjectExists())
                                 {
@@ -240,7 +247,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                             {
                                 JArray updatedMovementList = new JArray();
 
-                                foreach (var movement in movementList)
+                                foreach (JToken movement in movementList)
                                 {
                                     string destContainer = movement.Value<string>("DestinationContainer");
                                     string sourceContainer = movement.Value<string>("SourceContainer");
@@ -270,10 +277,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                 canStartProcess = false;
                             }
                         }
-                        else if (futureActionType.Equals(AMSOsramConstants.CustomSorterJobDefinitionJsonPropertyGradingFutureActionType, StringComparison.InvariantCultureIgnoreCase)) // Grading process
+                        else if (futureActionType.Equals(amsOSRAMConstants.CustomSorterJobDefinitionJsonPropertyGradingFutureActionType, StringComparison.InvariantCultureIgnoreCase)) // Grading process
                         {
                             // Get the reclaim product
-                            string reclaimProduct = movementListObject[AMSOsramConstants.CustomSorterJobDefinitionJsonPropertyReclaimProduct].Value<string>() ?? string.Empty;
+                            string reclaimProduct = movementListObject[amsOSRAMConstants.CustomSorterJobDefinitionJsonPropertyReclaimProduct].Value<string>() ?? string.Empty;
                             string reclaimContainerType = string.Empty;
                             List<string> updatedDestinationContainers = new List<string>();
 
@@ -281,18 +288,18 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 
                                 if (!string.IsNullOrWhiteSpace(reclaimProduct))
                                 {
-                                    GenericTable table = new GenericTable() { Name = AMSOsramConstants.GenericTableCustomReclaimContainerType };
+                                    IGenericTable table = new GenericTable() { Name = amsOSRAMConstants.GenericTableCustomReclaimContainerType };
                                     table.Load();
 
-                                    // filter by Product
-                                    Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection filters = new Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection
+                                // filter by Product
+                                IFilterCollection filters = new Foundation.BusinessObjects.QueryObject.FilterCollection
                                     {
-                                        new Cmf.Foundation.BusinessObjects.QueryObject.Filter()
+                                        new Foundation.BusinessObjects.QueryObject.Filter()
                                         {
-                                            Name = AMSOsramConstants.GenericTableCustomReclaimContainerTypeSourceContainerTypeProperty,
-                                            Operator = Cmf.Foundation.Common.FieldOperator.IsEqualTo,
+                                            Name = amsOSRAMConstants.GenericTableCustomReclaimContainerTypeSourceContainerTypeProperty,
+                                            Operator = FieldOperator.IsEqualTo,
                                             Value = currentContainer.Type,
-                                            LogicalOperator = Cmf.Foundation.Common.LogicalOperator.Nothing,
+                                            LogicalOperator = LogicalOperator.Nothing,
                                         }
                                     };
 
@@ -307,10 +314,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                         {
                                             foreach (DataRow row in productContainerTypeDataSet.Tables[0].Rows)
                                             {
-                                                if (row[AMSOsramConstants.GenericTableCustomReclaimContainerTypeSourceContainerTypeProperty] != DBNull.Value &&
-                                                    row[AMSOsramConstants.GenericTableCustomReclaimContainerTypeSourceContainerTypeProperty] != null)
+                                                if (row[amsOSRAMConstants.GenericTableCustomReclaimContainerTypeSourceContainerTypeProperty] != DBNull.Value &&
+                                                    row[amsOSRAMConstants.GenericTableCustomReclaimContainerTypeSourceContainerTypeProperty] != null)
                                                 {
-                                                reclaimContainerType = row[AMSOsramConstants.GenericTableCustomReclaimContainerTypeReclaimContainerTypeProperty].ToString();
+                                                reclaimContainerType = row[amsOSRAMConstants.GenericTableCustomReclaimContainerTypeReclaimContainerTypeProperty].ToString();
                                                 }
                                             }
                                         }
@@ -318,7 +325,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 
                                     if (string.IsNullOrWhiteSpace(reclaimContainerType))
                                     {
-                                        throw new CmfBaseException($"It was not possible to resolve a reclaim container type on the table ({AMSOsramConstants.GenericTableCustomReclaimContainerType}) using the source container type ({currentContainer.Type}).");
+                                        throw new CmfBaseException($"It was not possible to resolve a reclaim container type on the table ({amsOSRAMConstants.GenericTableCustomReclaimContainerType}) using the source container type ({currentContainer.Type}).");
                                     }
                                 }
                             #endregion
@@ -326,23 +333,23 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                             JArray jArray = new JArray();
 
                             // Get the different products on the movement list
-                            List<string> products = movementList.DistinctBy(m => m.Value<string>(AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyProductName)).Values<string>(AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyProductName).ToList();
+                            List<string> products = movementList.DistinctBy(m => m.Value<string>(amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyProductName)).Values<string>(amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyProductName).ToList();
 
                             List<ResourceLoadPortData> dockedContainersWithoutSourceContainer = dockedContainers.Where(d => !d.ContainerName.Equals(currentContainer.Name, StringComparison.InvariantCultureIgnoreCase) && !d.LoadPortInUse).ToList();
                             List<(string containerName, int usedPositions, string containerType, Queue<int> freePositions, string productAssigned)> containerInfo = new List<(string containerName, int usedPositions, string containerType, Queue<int> freePositions, string productAssigned)>();
 
                             if (dockedContainersWithoutSourceContainer.Count > 0)
                             {
-                                foreach (var containerDocked in dockedContainersWithoutSourceContainer)
+                                foreach (ResourceLoadPortData containerDocked in dockedContainersWithoutSourceContainer)
                                 {
-                                    Container container = new Container();
+                                    IContainer container = entityFactory.Create<IContainer>();
                                     container.Load(containerDocked.ContainerName);
                                     container.LoadRelations("MaterialContainer");
                                     string productAssociatedWithThisContainer = string.Empty;
 
                                     if (containerDocked.ContainerUsedPositions > 0)
                                     {
-                                        var materialsWithDistincProducts = container.ContainerMaterials.Select(c => c.SourceEntity).DistinctBy(d => d.Product.Name);
+                                        IEnumerable<IMaterial> materialsWithDistincProducts = container.ContainerMaterials.Select(c => c.SourceEntity).DistinctBy(d => d.Product.Name);
 
                                         if (materialsWithDistincProducts.Count() == 1)
                                         {
@@ -373,14 +380,14 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                 foreach (string product in products)
                                 {
                                     #region Movements needed by product
-                                    var movementsByProduct = movementList.Where(m => m.Value<string>(AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyProductName) == product);
-                                    var movements = new Queue<(string MaterialName, string SourceContainer, int SourcePosition)>();
+                                    IEnumerable<JToken> movementsByProduct = movementList.Where(m => m.Value<string>(amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyProductName) == product);
+                                    Queue<(string MaterialName, string SourceContainer, int SourcePosition)> movements = new Queue<(string MaterialName, string SourceContainer, int SourcePosition)>();
 
-                                    foreach (var movement in movementsByProduct)
+                                    foreach (JToken movement in movementsByProduct)
                                     {
-                                        string materialName = movement.Value<string>(AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName);
-                                        string sourceContainer = movement.Value<string>(AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer);
-                                        int sourcePosition = movement.Value<int>(AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition);
+                                        string materialName = movement.Value<string>(amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName);
+                                        string sourceContainer = movement.Value<string>(amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer);
+                                        int sourcePosition = movement.Value<int>(amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition);
                                         movements.Enqueue((materialName, sourceContainer, sourcePosition));
                                     }
                                     #endregion
@@ -392,29 +399,29 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                         targetContainerTypeCheck = reclaimContainerType;
                                     }
 
-                                    var containersForTargetContainerType = containerInfo.Where(c => c.containerType == targetContainerTypeCheck && !destinationContainersUsed.Contains(c.containerName)).ToList();
+                                    List<(string containerName, int usedPositions, string containerType, Queue<int> freePositions, string productAssigned)> containersForTargetContainerType = containerInfo.Where(c => c.containerType == targetContainerTypeCheck && !destinationContainersUsed.Contains(c.containerName)).ToList();
 
                                     if (containersForTargetContainerType.Count > 0)
                                     {
                                         // Check if any of this containers has a product assigned
                                         if (containersForTargetContainerType.Any(c => c.productAssigned.Equals(product, StringComparison.InvariantCultureIgnoreCase)))
                                         {
-                                            foreach (var containerWithProductAssociated in containersForTargetContainerType.Where(c => c.productAssigned.Equals(product)))
+                                            foreach ((string containerName, int usedPositions, string containerType, Queue<int> freePositions, string productAssigned) containerWithProductAssociated in containersForTargetContainerType.Where(c => c.productAssigned.Equals(product)))
                                             {
                                                 // add this container in a temporary list so it can not be used anymore
                                                 destinationContainersUsed.Add(containerWithProductAssociated.containerName);
 
                                                 while (containerWithProductAssociated.freePositions.Count > 0 && movements.Count > 0)
                                                 {
-                                                    var movement = movements.Dequeue();
+                                                    (string MaterialName, string SourceContainer, int SourcePosition) movement = movements.Dequeue();
 
                                                     JObject jObject = new JObject
                                                     {
-                                                        [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName] = movement.MaterialName,
-                                                        [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer] = movement.SourceContainer,
-                                                        [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition] = movement.SourcePosition,
-                                                        [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer] = containerWithProductAssociated.containerName,
-                                                        [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = containerWithProductAssociated.freePositions.Dequeue()
+                                                        [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName] = movement.MaterialName,
+                                                        [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer] = movement.SourceContainer,
+                                                        [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition] = movement.SourcePosition,
+                                                        [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer] = containerWithProductAssociated.containerName,
+                                                        [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = containerWithProductAssociated.freePositions.Dequeue()
                                                     };
 
                                                     jArray.Add(jObject);
@@ -430,22 +437,22 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                         // There are stil movements available, lets use empty containers
                                         if (movements.Count > 0)
                                         {
-                                            foreach (var emptyTargetContainer in containersForTargetContainerType.Where(c => c.usedPositions == 0))
+                                            foreach ((string containerName, int usedPositions, string containerType, Queue<int> freePositions, string productAssigned) emptyTargetContainer in containersForTargetContainerType.Where(c => c.usedPositions == 0))
                                             {
                                                 // add this container in a temporary list so it can not be used anymore
                                                 destinationContainersUsed.Add(emptyTargetContainer.containerName);
 
                                                 while (emptyTargetContainer.freePositions.Count > 0 && movements.Count > 0)
                                                 {
-                                                    var movement = movements.Dequeue();
+                                                    (string MaterialName, string SourceContainer, int SourcePosition) movement = movements.Dequeue();
 
                                                     JObject jObject = new JObject
                                                     {
-                                                        [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName] = movement.MaterialName,
-                                                        [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer] = movement.SourceContainer,
-                                                        [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition] = movement.SourcePosition,
-                                                        [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer] = emptyTargetContainer.containerName,
-                                                        [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = emptyTargetContainer.freePositions.Dequeue()
+                                                        [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName] = movement.MaterialName,
+                                                        [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer] = movement.SourceContainer,
+                                                        [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition] = movement.SourcePosition,
+                                                        [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer] = emptyTargetContainer.containerName,
+                                                        [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = emptyTargetContainer.freePositions.Dequeue()
                                                     };
 
                                                     jArray.Add(jObject);
@@ -481,12 +488,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                 canStartProcess = false;
                             }
                         }
-                        else if (futureActionType.Equals(AMSOsramConstants.CustomSorterJobDefinitionJsonPropertyScrapFutureActionType, StringComparison.InvariantCultureIgnoreCase)) // Scrap Process
+                        else if (futureActionType.Equals(amsOSRAMConstants.CustomSorterJobDefinitionJsonPropertyScrapFutureActionType, StringComparison.InvariantCultureIgnoreCase)) // Scrap Process
                         {
-                            ContainerCollection destinationContainersThatMatchTheCriteria = new ContainerCollection();
+                            IContainerCollection destinationContainersThatMatchTheCriteria = entityFactory.CreateCollection<IContainerCollection>();
                             List<(string containerName, int usedPositions, Queue<int> freePositions)> containerInfo = new List<(string containerName, int usedPositions, Queue<int> freePositions)>();
                             int numberOfDestinationContainersNeeded = destinationContainers.Count;
-                            var targetContainers = dockedContainers.Where(
+                            IOrderedEnumerable<ResourceLoadPortData> targetContainers = dockedContainers.Where(
                                 d => !d.ContainerName.Equals(currentContainer.Name, StringComparison.InvariantCultureIgnoreCase) &&
                                 string.IsNullOrEmpty(d.ContainerLotAttribute) &&
                                 string.IsNullOrEmpty(d.ParentMaterialName) &&
@@ -495,9 +502,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 
                             if (targetContainers.Count() > 0)
                             {
-                                foreach (var containerDocked in targetContainers)
+                                foreach (ResourceLoadPortData containerDocked in targetContainers)
                                 {
-                                    Container container = new Container();
+                                    IContainer container = entityFactory.Create<IContainer>();
                                     container.Load(containerDocked.ContainerName);
                                     container.LoadRelations("MaterialContainer");
 
@@ -517,13 +524,13 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 
                                 JArray updatedMovementList = new JArray();
 
-                                var movements = new Queue<(string MaterialName, string SourceContainer, int SourcePosition)>();
+                                Queue<(string MaterialName, string SourceContainer, int SourcePosition)> movements = new Queue<(string MaterialName, string SourceContainer, int SourcePosition)>();
 
-                                foreach (var movement in movementList)
+                                foreach (JToken movement in movementList)
                                 {
-                                    string materialName = movement.Value<string>(AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName);
-                                    string sourceContainer = movement.Value<string>(AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer);
-                                    int sourcePosition = movement.Value<int>(AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition);
+                                    string materialName = movement.Value<string>(amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName);
+                                    string sourceContainer = movement.Value<string>(amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer);
+                                    int sourcePosition = movement.Value<int>(amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition);
                                     movements.Enqueue((materialName, sourceContainer, sourcePosition));
                                 }
 
@@ -531,22 +538,22 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 
                                 if (containerInfo.Count > 0)
                                 {
-                                    foreach (var targetContainerDocked in containerInfo)
+                                    foreach ((string containerName, int usedPositions, Queue<int> freePositions) targetContainerDocked in containerInfo)
                                     {
                                         // add this container in a temporary list so it can not be used anymore
                                         destinationContainersUsed.Add(targetContainerDocked.containerName);
 
                                         while (targetContainerDocked.freePositions.Count > 0 && movements.Count > 0)
                                         {
-                                            var movement = movements.Dequeue();
+                                            (string MaterialName, string SourceContainer, int SourcePosition) movement = movements.Dequeue();
 
                                             JObject jObject = new JObject
                                             {
-                                                [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName] = movement.MaterialName,
-                                                [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer] = movement.SourceContainer,
-                                                [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition] = movement.SourcePosition,
-                                                [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer] = targetContainerDocked.containerName,
-                                                [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = targetContainerDocked.freePositions.Dequeue()
+                                                [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName] = movement.MaterialName,
+                                                [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer] = movement.SourceContainer,
+                                                [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition] = movement.SourcePosition,
+                                                [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer] = targetContainerDocked.containerName,
+                                                [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = targetContainerDocked.freePositions.Dequeue()
                                             };
 
                                             updatedMovementList.Add(jObject);
@@ -602,7 +609,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                         {
                             // Use case for a simple transfer or a Split
                             if ((string.IsNullOrEmpty(futureActionType) && numberOfMoves > 0) ||
-                                futureActionType.Equals(AMSOsramConstants.CustomSorterJobDefinitionJsonPropertySplitFutureActionType, StringComparison.InvariantCultureIgnoreCase))
+                                futureActionType.Equals(amsOSRAMConstants.CustomSorterJobDefinitionJsonPropertySplitFutureActionType, StringComparison.InvariantCultureIgnoreCase))
                             {
                                 if (currentContainer.Type != customSorterJobDefinition.SourceCarrierType)
                                 {
@@ -630,7 +637,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 
                                     foreach (string containerName in destinationContainers)
                                     {
-                                        Container destinationContainer = new Container() { Name = containerName };
+                                        IContainer destinationContainer = entityFactory.Create<IContainer>();
+                                        destinationContainer.Name = containerName;
 
                                         if (!string.IsNullOrWhiteSpace(containerName) && destinationContainer.ObjectExists())
                                         {
@@ -669,7 +677,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                                     canStartProcess = false;
                                 }
                             }
-                            else if (futureActionType.Equals(AMSOsramConstants.CustomSorterJobDefinitionJsonPropertyMergeFutureActionType, StringComparison.InvariantCultureIgnoreCase)) // This is a Merge
+                            else if (futureActionType.Equals(amsOSRAMConstants.CustomSorterJobDefinitionJsonPropertyMergeFutureActionType, StringComparison.InvariantCultureIgnoreCase)) // This is a Merge
                             {
                                 if (currentContainer.Type != customSorterJobDefinition.TargetCarrierType)
                                 {
@@ -697,7 +705,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 
                                     foreach (string containerName in sourceContainers)
                                     {
-                                        Container sourceContainer = new Container() { Name = containerName };
+                                        IContainer sourceContainer = entityFactory.Create<IContainer>();
+                                        sourceContainer.Name = containerName;
 
                                         if (!string.IsNullOrWhiteSpace(containerName) && sourceContainer.ObjectExists())
                                         {
@@ -746,7 +755,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                         }
                     }
                 }
-                else if (customSorterJobDefinition.LogisticalProcess == AMSOsramConstants.LookupTableCustomSorterLogisticalProcessCompose && Input["BOM"] is BOM bom)
+                else if (customSorterJobDefinition.LogisticalProcess == amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessCompose && Input["BOM"] is IBOM bom)
                 {
                     // Check if target carrier type matches the one defined on custom sorter job definition
                     if (currentContainer.Type != customSorterJobDefinition.TargetCarrierType)
@@ -759,7 +768,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                     Dictionary<string, List<string>> subs = new Dictionary<string, List<string>>();
                     Dictionary<string, int> parentBomProd = new Dictionary<string, int>();
 
-                    foreach (BOMProduct prod in bom.BomProducts.OrderBy(b => b.Order))
+                    foreach (IBOMProduct prod in bom.BomProducts.OrderBy(b => b.Order))
                     {
                         prod.Load();
 
@@ -789,11 +798,11 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                     Dictionary<string, int> currentBomProdNeeds = new Dictionary<string, int>();
                     if (currentContainer.ContainerMaterials != null && currentContainer.ContainerMaterials.Count > 0)
                     {
-                        foreach (var parent in parentBomProd)
+                        foreach (KeyValuePair<string, int> parent in parentBomProd)
                         {
                             string parentBomProductName = parent.Key;
                             int numberOfWafersNeeded = parent.Value;
-                            MaterialContainerCollection materialsInContainer = new MaterialContainerCollection();
+                            IMaterialContainerCollection materialsInContainer = entityFactory.CreateCollection<IMaterialContainerCollection>();
 
                             materialsInContainer.AddRange(currentContainer.ContainerMaterials.Where(c => c.SourceEntity.Product.Name == parentBomProductName));
 
@@ -824,22 +833,22 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                         }
                     }
 
-                    List<Container> containers = AMSOsramUtilities.GetContainersDockedOnResourceLoadPortsReadyForProcess(resource);
+                    List<IContainer> containers = amsOSRAMUtilities.GetContainersDockedOnResourceLoadPortsReadyForProcess(resource);
                     JArray jArray = new JArray();
-                    MaterialContainerCollection materialsInContainers = new MaterialContainerCollection();
+                    IMaterialContainerCollection materialsInContainers = entityFactory.CreateCollection<IMaterialContainerCollection>();
 
-                    foreach (Container container in containers.Where(c => c.Name != currentContainer.Name && c.Type == customSorterJobDefinition.SourceCarrierType))
+                    foreach (IContainer container in containers.Where(c => c.Name != currentContainer.Name && c.Type == customSorterJobDefinition.SourceCarrierType))
                     {
-                        container.LoadAttributes(new Collection<string> { AMSOsramConstants.ContainerAttributeLot });
+                        container.LoadAttributes(new Collection<string> { amsOSRAMConstants.ContainerAttributeLot });
                         container.LoadRelations("MaterialContainer");
 
                         if (container.Attributes != null)
                         {
                             string currentLot = string.Empty;
 
-                            if (container.Attributes.ContainsKey(AMSOsramConstants.ContainerAttributeLot))
+                            if (container.Attributes.ContainsKey(amsOSRAMConstants.ContainerAttributeLot))
                             {
-                                container.Attributes.TryGetValueAs(AMSOsramConstants.ContainerAttributeLot, out currentLot);
+                                container.Attributes.TryGetValueAs(amsOSRAMConstants.ContainerAttributeLot, out currentLot);
                             }
 
                             if (string.IsNullOrWhiteSpace(currentLot))
@@ -853,23 +862,23 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                     }
 
                     Dictionary<string, int> finalBomProdNeeds = new Dictionary<string, int>();
-                    foreach (var parentBomProductNeeded in currentBomProdNeeds)
+                    foreach (KeyValuePair<string, int> parentBomProductNeeded in currentBomProdNeeds)
                     {
                         string parentBomProductNeededName = parentBomProductNeeded.Key;
                         int numberOfNeededWafers = parentBomProductNeeded.Value;
                         finalBomProdNeeds.Add(parentBomProductNeededName, numberOfNeededWafers);
 
-                        List<MaterialContainer> materialsWithNeededParent = materialsInContainers.Where(m => m.SourceEntity.Product.Name == parentBomProductNeededName).ToList();
-                        foreach (var wafer in materialsWithNeededParent)
+                        List<IMaterialContainer> materialsWithNeededParent = materialsInContainers.Where(m => m.SourceEntity.Product.Name == parentBomProductNeededName).ToList();
+                        foreach (IMaterialContainer wafer in materialsWithNeededParent)
                         {
                             JObject jObject = new JObject
                             {
-                                [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyProductName] = wafer?.SourceEntity?.Product?.Name ?? "",
-                                [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer] = wafer.TargetEntity.Name,
-                                [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName] = wafer?.SourceEntity?.Name ?? "",
-                                [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer] = currentContainer.Name,
-                                [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition] = wafer.Position,
-                                [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = freePositions.Dequeue()
+                                [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyProductName] = wafer?.SourceEntity?.Product?.Name ?? "",
+                                [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer] = wafer.TargetEntity.Name,
+                                [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName] = wafer?.SourceEntity?.Name ?? "",
+                                [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer] = currentContainer.Name,
+                                [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition] = wafer.Position,
+                                [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = freePositions.Dequeue()
                             };
 
                             jArray.Add(jObject);
@@ -886,18 +895,18 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                         {
                             foreach (string substitute in subs[parentBomProductNeededName])
                             {
-                                List<MaterialContainer> materialsWithNeededChild = materialsInContainers.Where(m => m.SourceEntity.Product.Name == substitute).ToList();
+                                List<IMaterialContainer> materialsWithNeededChild = materialsInContainers.Where(m => m.SourceEntity.Product.Name == substitute).ToList();
 
-                                foreach (var wafer in materialsWithNeededChild)
+                                foreach (IMaterialContainer wafer in materialsWithNeededChild)
                                 {
                                     JObject jObject = new JObject
                                     {
-                                        [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySubstitute] = wafer?.SourceEntity?.Product?.Name ?? "",
-                                        [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer] = wafer.TargetEntity.Name,
-                                        [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName] = wafer?.SourceEntity?.Name ?? "",
-                                        [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer] = currentContainer.Name,
-                                        [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition] = wafer.Position,
-                                        [AMSOsramConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = freePositions.Dequeue()
+                                        [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySubstitute] = wafer?.SourceEntity?.Product?.Name ?? "",
+                                        [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourceContainer] = wafer.TargetEntity.Name,
+                                        [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyMaterialName] = wafer?.SourceEntity?.Name ?? "",
+                                        [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer] = currentContainer.Name,
+                                        [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertySourcePosition] = wafer.Position,
+                                        [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = freePositions.Dequeue()
                                     };
 
                                     jArray.Add(jObject);
@@ -943,6 +952,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
             Input.Add("CanStartProcess", canStartProcess.ToString());
             Input.Add("FutureActionType", futureActionType);
             Input.Add("ContainersDocked", dockedContainers);
+
             //---End DEE Code---
 
             return Input;

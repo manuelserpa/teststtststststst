@@ -44,7 +44,7 @@
     },
     "<SM>Config": {
         "1": {
-            "ParentPath": "/AMSOsram/Material/",
+            "ParentPath": "/amsOSRAM/Material/",
             "Name": "LotNameAllowedCharacters",
             "Value": "0123456789ACFHLMNRTUX",
             "ValueType": "String"

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Cmf.Custom.AMSOsram.Actions
+namespace Cmf.Custom.amsOSRAM.Actions
 {
     public abstract class DeeDevBase
     {

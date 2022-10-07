@@ -6,7 +6,7 @@
 				"name": "equipmentSetup",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"driver": "FileDriver",
@@ -169,7 +169,7 @@
 				"name": "equipmentSetupResult",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"driver": "FileDriver",
@@ -184,7 +184,7 @@
 				"name": "entityInstance",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -212,7 +212,7 @@
 				"name": "mount",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-filedrivers-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -228,7 +228,7 @@
 				"name": "logMessage",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -261,7 +261,7 @@
 				"name": "store",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -294,7 +294,7 @@
 				"name": "anyToConstant",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			}
 		}

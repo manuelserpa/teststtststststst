@@ -5,12 +5,11 @@ using cmConnect.TestFramework.Common.Utilities;
 using cmConnect.TestFramework.EquipmentSimulator.Drivers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Cmf.Navigo.BusinessObjects;
-using AMSOsramEIAutomaticTests.IoT.Common;
+using amsOSRAMEIAutomaticTests.IoT.Common;
 using cmConnect.TestFramework.ConnectIoT.Entities;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
 using Newtonsoft.Json.Linq;
 using System.IO;
-using cmConnect.TestFramework.SystemRest.Utilities;
 using Cmf.Foundation.BusinessObjects;
 using System.Net;
 using Cmf.SECS.Driver;
@@ -19,15 +18,14 @@ using AutomaticTests;
 using Cmf.TestScenarios.ContainerManagement.ContainerScenarios;
 using System.Collections.ObjectModel;
 using Cmf.Custom.TestUtilities;
-using AMSOsramEIAutomaticTests.Objects.Utilities;
+using amsOSRAMEIAutomaticTests.Objects.Utilities;
 using Cmf.Custom.Tests.Biz.Common;
-using Cmf.Custom.AMSOsram.BusinessObjects;
-using AMSOsramEIAutomaticTests.Objects.Persistence;
+using amsOSRAMEIAutomaticTests.Objects.Persistence;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
-using AMSOsramEIAutomaticTests.Objects.Extensions;
+using amsOSRAMEIAutomaticTests.Objects.Extensions;
 using Newtonsoft.Json;
 
-namespace AMSOsramEIAutomaticTests
+namespace amsOSRAMEIAutomaticTests
 {
     public abstract class CommonTests : TestClassFramework
     {
@@ -54,7 +52,7 @@ namespace AMSOsramEIAutomaticTests
 
         public List<CustomMaterialScenario> MESScenarios;
 
-        public string ContainerType = AMSOsramConstants.ContainerSMIFPod;
+        public string ContainerType = amsOSRAMConstants.ContainerSMIFPod;
 
         public virtual bool CarrierIn(CustomMaterialScenario scenario, int loadPortToSet = 0)
         {
@@ -404,14 +402,14 @@ namespace AMSOsramEIAutomaticTests
             Equipment.RegisterOnMessage("S1F13", OnEstablishCommunication);
             Equipment.RegisterOnMessage("S1F17", OnGoOnline);
 
-
-
             try
             {
                 TestUtilities.WaitFor(120, $"Driver never connected", () =>
                 {
-                    var instance = SystemUtilities.GetObjectById<AutomationDriverInstance>(((IoTEquipment)Equipment.BaseImplementation).EntityInstance.Id);
-                    return (instance.CommunicationState == AutomationCommunicationState.Communicating);
+                    AutomationDriverInstance driverInstance = new AutomationDriverInstance();
+                    driverInstance.Load(((IoTEquipment)Equipment.BaseImplementation).EntityInstance.Id);
+
+                    return (driverInstance.CommunicationState == AutomationCommunicationState.Communicating);
                 });
             }
             catch
@@ -1143,21 +1141,21 @@ namespace AMSOsramEIAutomaticTests
         //{
         //    if (clearSmartTable)
         //    {
-        //        smartTableManager.ClearSmartTable(AMSOsramConstants.STCustomResourceActionNotificationsName);
+        //        smartTableManager.ClearSmartTable(amsOSRAMConstants.STCustomResourceActionNotificationsName);
         //    }
 
         //    Dictionary<string, string> data = new Dictionary<string, string>()
         //    {
-        //        { AMSOsramConstants.STCustomNotificationTriggerProperty, equipmentTypeNotification },
-        //        { AMSOsramConstants.STCustomNotificationActionProperty, action },
-        //        { AMSOsramConstants.STCustomNotificationTargetRoleProperty, role },
-        //        { AMSOsramConstants.STCustomResourceActionNotificationResource, resource },
-        //        { AMSOsramConstants.STCustomResourceActionNotificationResourceType, resourceType },
-        //        { AMSOsramConstants.STCustomActionNotificationSeverity, severity },
-        //        { AMSOsramConstants.STCustomNotificationIsEnableProperty, isEnable },
+        //        { amsOSRAMConstants.STCustomNotificationTriggerProperty, equipmentTypeNotification },
+        //        { amsOSRAMConstants.STCustomNotificationActionProperty, action },
+        //        { amsOSRAMConstants.STCustomNotificationTargetRoleProperty, role },
+        //        { amsOSRAMConstants.STCustomResourceActionNotificationResource, resource },
+        //        { amsOSRAMConstants.STCustomResourceActionNotificationResourceType, resourceType },
+        //        { amsOSRAMConstants.STCustomActionNotificationSeverity, severity },
+        //        { amsOSRAMConstants.STCustomNotificationIsEnableProperty, isEnable },
         //    };
 
-        //    smartTableManager.SetSmartTableData(AMSOsramConstants.STCustomResourceActionNotificationsName, data);
+        //    smartTableManager.SetSmartTableData(amsOSRAMConstants.STCustomResourceActionNotificationsName, data);
         //}
 
 
@@ -1178,7 +1176,7 @@ namespace AMSOsramEIAutomaticTests
 
             if (string.IsNullOrWhiteSpace(facilityName))
             {
-                facility.Name = AMSOsramConstants.TestFacility;
+                facility.Name = amsOSRAMConstants.TestFacility;
                 facility.Load();
             }
             else
@@ -1191,12 +1189,12 @@ namespace AMSOsramEIAutomaticTests
             ContainerScenario containerScenario = new ContainerScenario();
             containerScenario.Entity.IsAutoGeneratePositionEnabled = false;
             containerScenario.Entity.Name = $"Container_{loadPort}_{DateTime.Now:yyyyMMdd_HHmmssfff}";
-            containerScenario.Entity.Type = containerType; //AMSOsramConstants.ContainerTypeBEOL;
+            containerScenario.Entity.Type = containerType; //amsOSRAMConstants.ContainerTypeBEOL;
             containerScenario.Entity.PositionUnitType = ContainerPositionUnitType.Material;
             containerScenario.Entity.Facility = facility;
-            containerScenario.Entity.CapacityUnits = AMSOsramConstants.UnitWafers;
+            containerScenario.Entity.CapacityUnits = amsOSRAMConstants.UnitWafers;
             containerScenario.Entity.CapacityPerPosition = 1;
-            containerScenario.Entity.TotalPositions = AMSOsramConstants.ContainerTotalPosition;
+            containerScenario.Entity.TotalPositions = amsOSRAMConstants.ContainerTotalPosition;
             containerScenario.Setup();
 
             return containerScenario;
@@ -1217,8 +1215,8 @@ namespace AMSOsramEIAutomaticTests
         //public CustomSorterJobDefinition GetCustomSorterJobDefinition(string logisticalProcess,
         //    ContainerCollection sourceContainers,
         //    ContainerCollection destinationContainers,
-        //    string sourceContaineType = AMSOsramConstants.ContainerSMIFPod,
-        //    string targetContainerType = AMSOsramConstants.ContainerSMIFPod,
+        //    string sourceContaineType = amsOSRAMConstants.ContainerSMIFPod,
+        //    string targetContainerType = amsOSRAMConstants.ContainerSMIFPod,
         //    string futureActionType = "",
         //    bool fullTransferWafers = false)
         //{
@@ -1238,7 +1236,7 @@ namespace AMSOsramEIAutomaticTests
         //        ["Moves"] = temporaryMovementList,
         //    };
 
-        //    if (logisticalProcess == AMSOsramConstants.CustomSorterLogisticalProcessTransferWafers)
+        //    if (logisticalProcess == amsOSRAMConstants.CustomSorterLogisticalProcessTransferWafers)
         //    {
         //        if (futureActionType.Equals("Split", StringComparison.InvariantCulture)) // Split scenario
         //        {
@@ -1343,7 +1341,7 @@ namespace AMSOsramEIAutomaticTests
         //            }
         //        }
         //    }
-        //    else if (logisticalProcess == AMSOsramConstants.CustomSorterLogisticalProcessCompose)
+        //    else if (logisticalProcess == amsOSRAMConstants.CustomSorterLogisticalProcessCompose)
         //    {
         //        JArray substitutes = new JArray();
         //        JObject jObjectSub = new JObject

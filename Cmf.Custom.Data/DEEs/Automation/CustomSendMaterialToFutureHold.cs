@@ -1,15 +1,18 @@
-﻿using Cmf.Custom.AMSOsram.Actions;
-using Cmf.Foundation.BusinessObjects.Cultures;
-using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
-using Cmf.Navigo.BusinessOrchestration.MaterialManagement;
+﻿using Cmf.Foundation.Common;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using System;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Foundation.Common.Abstractions;
+using Cmf.Foundation.Common.LocalizationService;
+using Cmf.Navigo.BusinessOrchestration.Abstractions;
+using Cmf.Navigo.BusinessObjects;
 
-namespace Cmf.Custom.AMSOsram.Actions.Automation
+namespace Cmf.Custom.amsOSRAM.Actions.Automation
 {
     class CustomSendMaterialToFutureHold : DeeDevBase
 	{
@@ -49,20 +52,18 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
             //---Start DEE Code---
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
-            UseReference("", "Cmf.Foundation.Common");
-            UseReference("", "Cmf.Foundation.BusinessObjects.Cultures");
-            //Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
+
+            // Foundation
+            UseReference("", "Cmf.Foundation.Common.LocalizationService");
+
+            // Navigo
             UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects");
-            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.MaterialManagement");
-            //Other
+            UseReference("", "Cmf.Navigo.BusinessOrchestration.Abstractions");
+
+            // System
             UseReference("", "System.Threading");
             UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
-			UseReference("%MicrosoftNetPath%System.ObjectModel.dll", "");
-            //Please start code here
+            UseReference("%MicrosoftNetPath%System.ObjectModel.dll", "");
 
             #region Validate Input Parameters
 
@@ -70,19 +71,24 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
             {
                 throw new ArgumentNullCmfException("MaterialName");
             }
-            var materialName = Input["MaterialName"].ToString();
+            string materialName = Input["MaterialName"].ToString();
 
             if (!Input.ContainsKey("ResourceName"))
             {
                 throw new ArgumentNullCmfException("ResourceName");
             }
-            var resourceName = Input["ResourceName"].ToString();
+            string resourceName = Input["ResourceName"].ToString();
 
             if (!Input.ContainsKey("ReasonName"))
             {
                 throw new ArgumentNullCmfException("ReasonName");
             }
-            var reasonName = Input["ReasonName"].ToString();
+
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
+            string reasonName = Input["ReasonName"].ToString();
 			
             string composedComment = "No Comment";
 
@@ -93,19 +99,19 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
             if (Input.ContainsKey("LocalizedMessageName"))
             {
-                var localizedMessageParameters = ((JArray)Input["LocalizedMessageParameters"]).Select(x => x.ToString());
-                composedComment = string.Format(LocalizedMessage.GetLocalizedMessage(Thread.CurrentThread.CurrentCulture.Name,
-                    Input["LocalizedMessageName"].ToString()).MessageText, localizedMessageParameters.ToArray());
-            }
+                IEnumerable<string> localizedMessageParameters = ((JArray)Input["LocalizedMessageParameters"]).Select(x => x.ToString());
+                ILocalizationService localizationService = serviceProvider.GetService<ILocalizationService>();
 
+                composedComment = string.Format(localizationService.Localize(Thread.CurrentThread.CurrentCulture.Name,
+                    Input["LocalizedMessageName"].ToString()), localizedMessageParameters.ToArray());
+            }
 
             #endregion
 
-
             bool hasHoldForInvalidWaferForSlot = false;
-            Reason holdForInvalidWaferForSlot = new Reason();
+            IReason holdForInvalidWaferForSlot = entityFactory.Create<IReason>();
 
-            Material material = new Material();
+            IMaterial material = entityFactory.Create<IMaterial>();
             material.Load(materialName);
             material.Step.LoadStepReasons();
 
@@ -114,14 +120,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
                 hasHoldForInvalidWaferForSlot = material.Step.HoldReasons.Any(hr => hr.TargetEntity.Name == reasonName);
             }
 
-
             if (!hasHoldForInvalidWaferForSlot)
             {
-                holdForInvalidWaferForSlot = new Reason()
-                {
-                    Name = reasonName
-                };
-
+                holdForInvalidWaferForSlot = entityFactory.Create<IReason>();
+                holdForInvalidWaferForSlot.Name = reasonName;
 
                 //Validate if HoldIvalidWaferForSlot exists
                 if (!holdForInvalidWaferForSlot.ObjectExists())
@@ -132,67 +134,60 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
                 // Load HoldIvalidWaferForSlot reason
                 holdForInvalidWaferForSlot.Load();
 
-                StepReason holdAfterScrapStepReason = new StepReason()
-                {
-                    SourceEntity = material.Step,
-                    TargetEntity = holdForInvalidWaferForSlot
-                };
+                IStepReason holdAfterScrapStepReason = entityFactory.Create<IStepReason>();
+                holdAfterScrapStepReason.SourceEntity = material.Step;
+                holdAfterScrapStepReason.TargetEntity = holdForInvalidWaferForSlot;
 
                 // Add Reason to the Step
-                material.Step.AddStepReasons(new StepReasonCollection() { holdAfterScrapStepReason });
+                IStepReasonCollection stepReasonCollection = entityFactory.CreateCollection<IStepReasonCollection>();
+                stepReasonCollection.Add(holdAfterScrapStepReason);
+
+                material.Step.AddStepReasons(stepReasonCollection);
             }
             else
             {
                 // Select HoldIvalidWaferForSlot reason available
-                holdForInvalidWaferForSlot = new Reason()
-                {
-                    Name = reasonName
-                };
+                holdForInvalidWaferForSlot = serviceProvider.GetService<IReason>();
+                holdForInvalidWaferForSlot.Name = reasonName;
 
                 // Load HoldIvalidWaferForSlot reason
                 holdForInvalidWaferForSlot.Load();
             }
 
-
-            FutureActionCollection materialFutureActions = material.GetMaterialFutureActionsByType(FutureActionType.Hold);
+            IFutureActionCollection materialFutureActions = material.GetMaterialFutureActionsByType(FutureActionType.Hold);
             bool hasReasonFutureAction = false;
-            FutureAction materialFutureAction = null;
-
-
+            IFutureAction materialFutureAction = null;
 
             if (materialFutureActions != null && materialFutureActions.Count > 0)
             {
                 materialFutureAction = materialFutureActions.FirstOrDefault(fa => fa.Reason.Name.Equals(holdForInvalidWaferForSlot.Name) && fa.Step.Name.Equals(material.Step.Name)
                 && fa.State == FutureActionState.Processed);
 
-
                 hasReasonFutureAction = materialFutureAction != null;
             }
 
             ManageFutureActionsInput manageFutureActionsInput = new ManageFutureActionsInput();
-            FutureActionCollection futureActionCollection = new FutureActionCollection();
-
+            IFutureActionCollection futureActionCollection = entityFactory.CreateCollection<IFutureActionCollection>();
+            IMaterialOrchestration materialOrchestration = serviceProvider.GetService<IMaterialOrchestration>();
 
             if (!hasReasonFutureAction)
             {
-
-                FutureAction futureAction = new FutureAction()
-                {
-                    Action = FutureActionType.Hold,
-                    State = FutureActionState.Processed,
-                    Comment = composedComment,
-                    Reason = holdForInvalidWaferForSlot,
-                    Step = material.Step,
-                    Material = material,
-                    Source = FutureActionSource.User
-                };
+                IFutureAction futureAction = entityFactory.Create<IFutureAction>();
+                futureAction.Action = FutureActionType.Hold;
+                futureAction.State = FutureActionState.Processed;
+                futureAction.Comment = composedComment;
+                futureAction.Reason = holdForInvalidWaferForSlot;
+                futureAction.Step = material.Step;
+                futureAction.Material = material;
+                futureAction.Source = FutureActionSource.User;
 
                 futureActionCollection.Add(futureAction);
 
                 if (futureActionCollection.Count > 0)
                 {
                     manageFutureActionsInput.AddedUpdatedFutureActions = futureActionCollection;
-                    MaterialManagementOrchestration.ManageFutureActions(manageFutureActionsInput);
+
+                    materialOrchestration.ManageFutureActions(manageFutureActionsInput);
                 }
             }
             else
@@ -204,11 +199,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
                 if (futureActionCollection.Count > 0)
                 {
                     manageFutureActionsInput.AddedUpdatedFutureActions = futureActionCollection;
-                    MaterialManagementOrchestration.ManageFutureActions(manageFutureActionsInput);
+                    materialOrchestration.ManageFutureActions(manageFutureActionsInput);
                 }
-
             }
-
 
             //---End DEE Code---
 

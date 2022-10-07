@@ -62,6 +62,11 @@ export class CustomReadIdSettings extends TaskSettingsBase implements ng.OnInit 
 
         // Initialize default values for settings page
         if (this.settings) {
+            this.settings.TargetIDPaddingValue = this.settings.TargetIDPaddingValue != null ?
+                this.settings.TargetIDPaddingValue : this._taskInstance.TargetIDPaddingValue;
+
+            this.settings.TargetIDSize = this.settings.TargetIDSize != null ?
+                this.settings.TargetIDSize : this._taskInstance.TargetIDSize;
         }
 
     }

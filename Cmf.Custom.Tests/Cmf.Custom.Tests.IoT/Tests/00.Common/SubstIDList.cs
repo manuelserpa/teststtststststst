@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using AMSOsramEIAutomaticTests.IoT.Common.Attributes;
+using amsOSRAMEIAutomaticTests.IoT.Common.Attributes;
 using cmConnect.TestFramework.Common.Drivers.SpecialVariables;
 using cmConnect.TestFramework.EquipmentSimulator.Drivers;
 using Cmf.SECS.Driver;

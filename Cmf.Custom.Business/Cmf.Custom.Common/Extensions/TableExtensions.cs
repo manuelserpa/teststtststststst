@@ -1,10 +1,9 @@
-﻿using Cmf.Foundation.BusinessObjects.SmartTables;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
+using Cmf.Foundation.BusinessObjects.Abstractions;
 
-namespace Cmf.Custom.AMSOsram.Common.Extensions
+namespace Cmf.Custom.amsOSRAM.Common.Extensions
 {
     public static class TableExtensions
     {
@@ -32,7 +31,7 @@ namespace Cmf.Custom.AMSOsram.Common.Extensions
                 CaseSensitive = false
             };
 
-            foreach (var tableProperty in tableProperties)
+            foreach (KeyValuePair<string, Type> tableProperty in tableProperties)
             {
                 emptyDataTable.Columns.Add(new DataColumn
                 {
@@ -53,14 +52,14 @@ namespace Cmf.Custom.AMSOsram.Common.Extensions
         /// <param name="smartTable"></param>
         /// <param name="includeTableIdColumns"></param>
         /// <returns></returns>
-        public static DataSet GetEmptyTableDataSet(this SmartTable smartTable, bool includeTableIdColumns = true)
+        public static DataSet GetEmptyTableDataSet(this ISmartTable smartTable, bool includeTableIdColumns = true)
         {
             if (smartTable == null)
             {
                 throw new ArgumentNullException("smartTable");
             }
 
-            var tableProperties = new Dictionary<string, Type>();
+            Dictionary<string, Type> tableProperties = new Dictionary<string, Type>();
 
             if (includeTableIdColumns)
             {
@@ -69,7 +68,7 @@ namespace Cmf.Custom.AMSOsram.Common.Extensions
                 tableProperties.Add(Cmf.Foundation.Common.Constants.LastOperationHistorySeq, typeof(Int64));
             }
 
-            foreach (var smartTableProperty in smartTable.SmartTableProperties)
+            foreach (ISmartTableProperty smartTableProperty in smartTable.SmartTableProperties)
             {
                 if (!tableProperties.ContainsKey(smartTableProperty.Name))
                 {

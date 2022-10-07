@@ -9,8 +9,8 @@ using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects;
 using Cmf.SECS.Driver;
 using Cmf.TestScenarios.ContainerManagement.ContainerScenarios;
-using AMSOsramEIAutomaticTests.Objects.Extensions;
-using AMSOsramEIAutomaticTests.Objects.Utilities;
+using amsOSRAMEIAutomaticTests.Objects.Extensions;
+using amsOSRAMEIAutomaticTests.Objects.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Cmf.Custom.TestUtilities;
 using cmConnect.TestFramework.EquipmentSimulator.Objects;
@@ -21,7 +21,7 @@ using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Custom.Tests.IoT.Tests.Common;
 using Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader;
 
-namespace AMSOsramEIAutomaticTests.BrukerInsightCAP
+namespace amsOSRAMEIAutomaticTests.BrukerInsightCAP
 {
     [TestClass]
     public class BrukerInsightCAP : CommonTests
@@ -79,7 +79,7 @@ namespace AMSOsramEIAutomaticTests.BrukerInsightCAP
             base.Equipment.RegisterOnMessage("S3F17", OnS3F17);
             base.Equipment.RegisterOnMessage("S1F3", OnS1F3);
             base.Equipment.RegisterOnMessage("S14F9", OnS14F9);
-            base.Equipment.RegisterOnMessage("S16F11", OnS16F11);
+            base.Equipment.RegisterOnMessage("S16F15", OnS16F11);
 
             base.LoadPortNumber = 1; //Default LP
 
@@ -446,7 +446,7 @@ namespace AMSOsramEIAutomaticTests.BrukerInsightCAP
         public override void CarrierInValidation(CustomMaterialScenario MESScenario, int loadPortToSet)
         {
             //add carrier id to load port on rfid reader
-            RFIDReader.targetIdRFID.Add(loadPortToSet.ToString(), MESScenario.ContainerScenario.Entity.Name);
+            RFIDReader.targetIdRFID.Add("0"+loadPortToSet.ToString(), MESScenario.ContainerScenario.Entity.Name);
 
             //material received MaterialReceived
             base.CarrierInValidation(MESScenario, loadPortToSet);
@@ -503,14 +503,14 @@ namespace AMSOsramEIAutomaticTests.BrukerInsightCAP
             base.Equipment.Variables["TosPortID"] = LoadPortNumber;
             base.Equipment.Variables["PortTransferState"] = 0;
             // Trigger event
-            base.Equipment.SendMessage(String.Format($"LPTSM9_TRANSFERBLOCKED_READYTOUNLOAD"), null);
+            base.Equipment.SendMessage(String.Format($"TosCarrierUnclamped"), null);
             Thread.Sleep(300);
 
             // MaterialRemoved
             base.Equipment.Variables["TosPortID"] = LoadPortNumber;
 
             // Trigger event
-            base.Equipment.SendMessage(String.Format($"TosMaterialRemoved"), null);
+            base.Equipment.SendMessage(String.Format($"POD_REMOVED"), null);
 
             Thread.Sleep(200);
 
@@ -520,7 +520,9 @@ namespace AMSOsramEIAutomaticTests.BrukerInsightCAP
 
         public override bool ProcessStartEvent(CustomMaterialScenario scenario)
         {
-            base.Equipment.Variables["PRJobID"] = $"PrJob_{scenario.Entity.Name}";
+            var materialData = GetMaterialDataFromPersistence(scenario.Entity.Name);
+
+            base.Equipment.Variables["PRJobID"] = materialData.ProcessJobId;
             base.Equipment.Variables["PRJobState"] = 0;
 
             //// Trigger event
@@ -532,7 +534,9 @@ namespace AMSOsramEIAutomaticTests.BrukerInsightCAP
 
         public override bool ProcessCompleteEvent(CustomMaterialScenario scenario)
         {
-            base.Equipment.Variables["PRJobID"] = $"PrJob_{scenario.Entity.Name}";
+            var materialData = GetMaterialDataFromPersistence(scenario.Entity.Name);
+
+            base.Equipment.Variables["PRJobID"] = materialData.ProcessJobId;
             base.Equipment.Variables["PRJobState"] = 0;
 
             //// Trigger event
@@ -563,7 +567,7 @@ namespace AMSOsramEIAutomaticTests.BrukerInsightCAP
         public override bool WaferComplete(Material wafer)
         {
             wafer.Load();
-            wafer.ParentMaterial.Load();
+            wafer.ParentMaterial.Load(1);
 
             SendMetrics(wafer);
 
@@ -648,13 +652,16 @@ namespace AMSOsramEIAutomaticTests.BrukerInsightCAP
         #endregion
 
         public bool SendMetrics(Material wafer) {
+  
+            var materialData = GetMaterialDataFromPersistence(wafer.ParentMaterial.Name);
+            wafer.LoadRelations();
 
             base.Equipment.Variables["TosCarrierID"] = wafer.ParentMaterial.Name;
-            base.Equipment.Variables["PORT_ID"] = 2;
-            base.Equipment.Variables["SubstLocID"] = "";//Stage;
+            base.Equipment.Variables["PORT_ID"] = LoadPortNumber;
+            base.Equipment.Variables["SubstLocID"] = wafer.MaterialContainer.First().Position;//Stage;
             base.Equipment.Variables["SubstID"] = wafer.Name;
-            base.Equipment.Variables["CtrlJobID"] = $"CtrlJob_{base.MESScenario.Entity.Name}";
-            base.Equipment.Variables["PRJobID"] = $"PrJob_{base.MESScenario.Entity.Name}";
+            base.Equipment.Variables["CtrlJobID"] = materialData.ControlJobId;
+            base.Equipment.Variables["PRJobID"] = materialData.ProcessJobId;
             base.Equipment.Variables["DV_DEPTH_f4DEPTH_AT_MAX"] = 31.676783;
             base.Equipment.Variables["DV_DEPTH_f4FILTER_CUTOFF"] = "";
             base.Equipment.Variables["DV_DEPTH_f4MAX_PEAK"] = 30.917986;

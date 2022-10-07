@@ -1,6 +1,6 @@
 import { Task } from "@criticalmanufacturing/connect-iot-controller-engine";
 import {
-    CustomCreateControlJobSettings, RecipeSpecificationType,
+    CustomCreateControlJobSettings, ProcessOrderMgmt, RecipeSpecificationType,
 
 } from "./customCreateControlJob.task";
 
@@ -9,6 +9,8 @@ export class CustomCreateControlJobDesigner implements Task.Designer.TaskDesigne
     objectSpec: string;
     occupiedSlot: string;
     useCarrierAtLoadPortAsContainer: boolean;
+    RecipeSpecificationType: RecipeSpecificationType;
+    ProcessOrderMgmtValue: ProcessOrderMgmt;
     /**
      * Resolve the inputs to be displayed in the task during design time
      * @param inputs List of inputs automatically resolved.

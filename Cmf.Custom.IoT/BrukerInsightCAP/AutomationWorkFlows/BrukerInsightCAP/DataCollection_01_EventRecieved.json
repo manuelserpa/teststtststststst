@@ -1,608 +1,608 @@
 {
-	"tasks": [
-		{
-			"id": "task_14097",
-			"reference": {
-				"name": "equipmentEvent",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"_workingMode": "AlwaysActive",
-				"_acceptAllEvents": false,
-				"_outputs": [
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "TosCarrierID",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "TosPortID",
-							"DataType": 5
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "SubstLocID",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "SubstID",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "CtrlJobID",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "PRJobID",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_DEPTH_f4DEPTH_AT_MAX",
-							"DataType": 4
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_DEPTH_f4FILTER_CUTOFF",
-							"DataType": 4
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_DEPTH_f4MAX_PEAK",
-							"DataType": 4
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_DEPTH_f4MIN_PEAK",
-							"DataType": 4
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_DEPTH_f4PEAK_TO_PEAK",
-							"DataType": 4
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_DEPTH_f4TOTAL_PEAKS",
-							"DataType": 4
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_DEPTH_u2AUTOPROGRAM_COUNT",
-							"DataType": 5
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_RECIPE_u1TYPE",
-							"DataType": 5
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_SITE_f4COLUMN",
-							"DataType": 4
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_SITE_f4ROW",
-							"DataType": 4
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_SITE_f8X_COORD",
-							"DataType": 4
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_SITE_f8X_M20_COORDINATE",
-							"DataType": 4
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_SITE_f8Y_COORD",
-							"DataType": 4
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_SITE_f8Y_M20_COORDINATE",
-							"DataType": 4
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_SITE_szAUTOPROGRAM_NAME",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_SITE_szMASTERSITENAME",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_SITE_szSITENAME",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_SITE_szSUBSTRATE_LOTID",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_SITE_szSUBSTRATE_WAFERID",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_SITE_u1SITE",
-							"DataType": 5
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_SITE_u1SLOT",
-							"DataType": 5
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_SITE_u4TOTAL_SITES_PER_WAFER",
-							"DataType": 5
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_DEPTH_f4MIN_PEAK_FWHM",
-							"DataType": 4
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "DV_DEPTH_f4MAX_PEAK_FWHM",
-							"DataType": 4
-						},
-						"outputType": "Value"
-					}
-				],
-				"___cmf___name": "On Equipment Event",
-				"_events": [
-					{
-						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "CE_DEPTH_ANALYSIS_DATA_AVAIL"
-					}
-				]
-			},
-			"driver": "SecsGemEquipment"
-		},
-		{
-			"id": "task_14532",
-			"reference": {
-				"name": "codeExecution",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"tsCode": [
-					"",
-					"import { Framework } from 'framework';",
-					"",
-					"export default class {",
-					"",
-					"    /** Allows accessing external functions */",
-					"    private framework: Framework;",
-					"",
-					"    constructor(framework: Framework) {",
-					"        this.framework = framework;",
-					"    }",
-					"",
-					"    /*",
-					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
-					"     * Should return an object containing the values for each output to emit",
-					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
-					"     */",
-					"    public async main(inputs: any, outputs: any): Promise<any> {",
-					"        // Add code here",
-					"        const event = inputs.eventRawData;",
-					"",
-					"",
-					"",
-					"",
-					"        var waferName = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"SubstID\").originalValue.value;",
-					"        var materialName = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"TosCarrierID\").originalValue.value;",
-					"        if (materialName == null) {",
-					"            throw new Error(\"Empty TosCarrierID\");",
-					"        }",
-					"",
-					"        if (waferName == null) {",
-					"            throw new Error(\"Empty SubstID\");",
-					"        }",
-					"",
-					"        this.framework.logger.info(\"MaterialName: \" + JSON.stringify(materialName) + \" SubstID: \" + JSON.stringify(waferName));",
-					"",
-					"",
-					"        const materialContainer = await this.framework.dataStore.retrieve(\"MaterialOnPersistence\", false);",
-					"",
-					"        var materials;",
-					"        for (var m = 0; m < materialContainer.length; m++) {",
-					"            materials = await this.framework.dataStore.retrieve(materialContainer[m], false);",
-					"            if (materials.MaterialName === materialName) {",
-					"                break;",
-					"            }",
-					"        }",
-					"",
-					"        var selectedSubmaterial = (<any[]>materials.SubMaterials).find(v => v.MaterialName == waferName);",
-					"        if (selectedSubmaterial == null) {",
-					"            this.framework.logger.error(\"Materials: \" + JSON.stringify(materials));",
-					"            throw new Error(\"No SubstID \" + waferName + \" found on Material (Lot): \" + materialName + \", no data will be collected\");",
-					"        }",
-					"",
-					"        this.framework.logger.info(\"SelectedWafer: \" + JSON.stringify(waferName));",
-					"",
-					"",
-					"        //var raw = await this.framework.dataStore.retrieve(\"rawPostDataCollection\", {});",
-					"        let raw: { [key: string]: any } = {};",
-					"        ",
-					"        let edcParam = [\"DV_DEPTH_f4DEPTH_AT_MAX\", \"DV_DEPTH_f4FILTER_CUTOFF\", \"DV_DEPTH_f4MAX_PEAK\", \"DV_DEPTH_f4MIN_PEAK\", \"DV_DEPTH_f4PEAK_TO_PEAK\", \"DV_DEPTH_f4TOTAL_PEAKS\", \"DV_DEPTH_u2AUTOPROGRAM_COUNT\", \"DV_RECIPE_u1TYPE\", \"DV_SITE_f4COLUMN\", \"DV_SITE_f4ROW\", \"DV_SITE_f8X_COORD\", \"DV_SITE_f8X_M20_COORDINATE\", \"DV_SITE_f8Y_COORD\", \"DV_SITE_f8Y_M20_COORDINATE\", \"DV_SITE_szAUTOPROGRAM_NAME\", \"DV_SITE_szMASTERSITENAME\", \"DV_SITE_szSITENAME\", \"DV_SITE_szSUBSTRATE_LOTID\", \"DV_SITE_szSUBSTRATE_WAFERID\", \"DV_SITE_u1SITE\", \"DV_SITE_u1SLOT\", \"DV_SITE_u4TOTAL_SITES_PER_WAFER\", \"DV_DEPTH_f4MIN_PEAK_FWHM\", \"DV_DEPTH_f4MAX_PEAK_FWHM\"];",
-					"",
-					"        edcParam.forEach((propertyName) => {",
-					"            var value = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === propertyName);",
-					"            this.framework.logger.info(\"Value for \" + propertyName + \": \" + value);",
-					"",
-					"            if (value !== undefined) {",
-					"                if (!raw[propertyName]){",
-					"                    raw[propertyName] = {};",
-					"                    raw[propertyName][\"sampleId\"] = [];",
-					"                    raw[propertyName][\"value\"] = [];",
-					"                }",
-					"",
-					"                raw[propertyName][\"sampleId\"].push(propertyName);",
-					"                raw[propertyName][\"value\"] .push(value.originalValue.value);",
-					"            }",
-					"        });",
-					"",
-					"",
-					"        //var raw = await this.framework.dataStore.store(\"rawPostDataCollection\" , raw, \"Persistent\");",
-					"        this.framework.logger.warning(\"Raw DataCollection: \" + JSON.stringify(raw));",
-					"",
-					"        return {",
-					"            rawDataCollection: raw,",
-					"            materialName: materialName,",
-					"            subMaterialName: waferName",
-					"        }",
-					"",
-					"        // emit output during execution: outputs.output1.emit(\"something\");",
-					"        // return example: return { output1: inputs.input1, output2: \"Hello World\" };",
-					"    }",
-					"}",
-					""
-				],
-				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IGV2ZW50ID0gaW5wdXRzLmV2ZW50UmF3RGF0YTsNCiAgICAgICAgdmFyIHdhZmVyTmFtZSA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJTdWJzdElEIikub3JpZ2luYWxWYWx1ZS52YWx1ZTsNCiAgICAgICAgdmFyIG1hdGVyaWFsTmFtZSA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJUb3NDYXJyaWVySUQiKS5vcmlnaW5hbFZhbHVlLnZhbHVlOw0KICAgICAgICBpZiAobWF0ZXJpYWxOYW1lID09IG51bGwpIHsNCiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcigiRW1wdHkgVG9zQ2FycmllcklEIik7DQogICAgICAgIH0NCiAgICAgICAgaWYgKHdhZmVyTmFtZSA9PSBudWxsKSB7DQogICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoIkVtcHR5IFN1YnN0SUQiKTsNCiAgICAgICAgfQ0KICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIuaW5mbygiTWF0ZXJpYWxOYW1lOiAiICsgSlNPTi5zdHJpbmdpZnkobWF0ZXJpYWxOYW1lKSArICIgU3Vic3RJRDogIiArIEpTT04uc3RyaW5naWZ5KHdhZmVyTmFtZSkpOw0KICAgICAgICBjb25zdCBtYXRlcmlhbENvbnRhaW5lciA9IGF3YWl0IHRoaXMuZnJhbWV3b3JrLmRhdGFTdG9yZS5yZXRyaWV2ZSgiTWF0ZXJpYWxPblBlcnNpc3RlbmNlIiwgZmFsc2UpOw0KICAgICAgICB2YXIgbWF0ZXJpYWxzOw0KICAgICAgICBmb3IgKHZhciBtID0gMDsgbSA8IG1hdGVyaWFsQ29udGFpbmVyLmxlbmd0aDsgbSsrKSB7DQogICAgICAgICAgICBtYXRlcmlhbHMgPSBhd2FpdCB0aGlzLmZyYW1ld29yay5kYXRhU3RvcmUucmV0cmlldmUobWF0ZXJpYWxDb250YWluZXJbbV0sIGZhbHNlKTsNCiAgICAgICAgICAgIGlmIChtYXRlcmlhbHMuTWF0ZXJpYWxOYW1lID09PSBtYXRlcmlhbE5hbWUpIHsNCiAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgICAgICB2YXIgc2VsZWN0ZWRTdWJtYXRlcmlhbCA9IG1hdGVyaWFscy5TdWJNYXRlcmlhbHMuZmluZCh2ID0+IHYuTWF0ZXJpYWxOYW1lID09IHdhZmVyTmFtZSk7DQogICAgICAgIGlmIChzZWxlY3RlZFN1Ym1hdGVyaWFsID09IG51bGwpIHsNCiAgICAgICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5lcnJvcigiTWF0ZXJpYWxzOiAiICsgSlNPTi5zdHJpbmdpZnkobWF0ZXJpYWxzKSk7DQogICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoIk5vIFN1YnN0SUQgIiArIHdhZmVyTmFtZSArICIgZm91bmQgb24gTWF0ZXJpYWwgKExvdCk6ICIgKyBtYXRlcmlhbE5hbWUgKyAiLCBubyBkYXRhIHdpbGwgYmUgY29sbGVjdGVkIik7DQogICAgICAgIH0NCiAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLmluZm8oIlNlbGVjdGVkV2FmZXI6ICIgKyBKU09OLnN0cmluZ2lmeSh3YWZlck5hbWUpKTsNCiAgICAgICAgLy92YXIgcmF3ID0gYXdhaXQgdGhpcy5mcmFtZXdvcmsuZGF0YVN0b3JlLnJldHJpZXZlKCJyYXdQb3N0RGF0YUNvbGxlY3Rpb24iLCB7fSk7DQogICAgICAgIGxldCByYXcgPSB7fTsNCiAgICAgICAgbGV0IGVkY1BhcmFtID0gWyJEVl9ERVBUSF9mNERFUFRIX0FUX01BWCIsICJEVl9ERVBUSF9mNEZJTFRFUl9DVVRPRkYiLCAiRFZfREVQVEhfZjRNQVhfUEVBSyIsICJEVl9ERVBUSF9mNE1JTl9QRUFLIiwgIkRWX0RFUFRIX2Y0UEVBS19UT19QRUFLIiwgIkRWX0RFUFRIX2Y0VE9UQUxfUEVBS1MiLCAiRFZfREVQVEhfdTJBVVRPUFJPR1JBTV9DT1VOVCIsICJEVl9SRUNJUEVfdTFUWVBFIiwgIkRWX1NJVEVfZjRDT0xVTU4iLCAiRFZfU0lURV9mNFJPVyIsICJEVl9TSVRFX2Y4WF9DT09SRCIsICJEVl9TSVRFX2Y4WF9NMjBfQ09PUkRJTkFURSIsICJEVl9TSVRFX2Y4WV9DT09SRCIsICJEVl9TSVRFX2Y4WV9NMjBfQ09PUkRJTkFURSIsICJEVl9TSVRFX3N6QVVUT1BST0dSQU1fTkFNRSIsICJEVl9TSVRFX3N6TUFTVEVSU0lURU5BTUUiLCAiRFZfU0lURV9zelNJVEVOQU1FIiwgIkRWX1NJVEVfc3pTVUJTVFJBVEVfTE9USUQiLCAiRFZfU0lURV9zelNVQlNUUkFURV9XQUZFUklEIiwgIkRWX1NJVEVfdTFTSVRFIiwgIkRWX1NJVEVfdTFTTE9UIiwgIkRWX1NJVEVfdTRUT1RBTF9TSVRFU19QRVJfV0FGRVIiLCAiRFZfREVQVEhfZjRNSU5fUEVBS19GV0hNIiwgIkRWX0RFUFRIX2Y0TUFYX1BFQUtfRldITSJdOw0KICAgICAgICBlZGNQYXJhbS5mb3JFYWNoKChwcm9wZXJ0eU5hbWUpID0+IHsNCiAgICAgICAgICAgIHZhciB2YWx1ZSA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09IHByb3BlcnR5TmFtZSk7DQogICAgICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIuaW5mbygiVmFsdWUgZm9yICIgKyBwcm9wZXJ0eU5hbWUgKyAiOiAiICsgdmFsdWUpOw0KICAgICAgICAgICAgaWYgKHZhbHVlICE9PSB1bmRlZmluZWQpIHsNCiAgICAgICAgICAgICAgICBpZiAoIXJhd1twcm9wZXJ0eU5hbWVdKSB7DQogICAgICAgICAgICAgICAgICAgIHJhd1twcm9wZXJ0eU5hbWVdID0ge307DQogICAgICAgICAgICAgICAgICAgIHJhd1twcm9wZXJ0eU5hbWVdWyJzYW1wbGVJZCJdID0gW107DQogICAgICAgICAgICAgICAgICAgIHJhd1twcm9wZXJ0eU5hbWVdWyJ2YWx1ZSJdID0gW107DQogICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgIHJhd1twcm9wZXJ0eU5hbWVdWyJzYW1wbGVJZCJdLnB1c2gocHJvcGVydHlOYW1lKTsNCiAgICAgICAgICAgICAgICByYXdbcHJvcGVydHlOYW1lXVsidmFsdWUiXS5wdXNoKHZhbHVlLm9yaWdpbmFsVmFsdWUudmFsdWUpOw0KICAgICAgICAgICAgfQ0KICAgICAgICB9KTsNCiAgICAgICAgLy92YXIgcmF3ID0gYXdhaXQgdGhpcy5mcmFtZXdvcmsuZGF0YVN0b3JlLnN0b3JlKCJyYXdQb3N0RGF0YUNvbGxlY3Rpb24iICwgcmF3LCAiUGVyc2lzdGVudCIpOw0KICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIud2FybmluZygiUmF3IERhdGFDb2xsZWN0aW9uOiAiICsgSlNPTi5zdHJpbmdpZnkocmF3KSk7DQogICAgICAgIHJldHVybiB7DQogICAgICAgICAgICByYXdEYXRhQ29sbGVjdGlvbjogcmF3LA0KICAgICAgICAgICAgbWF0ZXJpYWxOYW1lOiBtYXRlcmlhbE5hbWUsDQogICAgICAgICAgICBzdWJNYXRlcmlhbE5hbWU6IHdhZmVyTmFtZQ0KICAgICAgICB9Ow0KICAgICAgICAvLyBlbWl0IG91dHB1dCBkdXJpbmcgZXhlY3V0aW9uOiBvdXRwdXRzLm91dHB1dDEuZW1pdCgic29tZXRoaW5nIik7DQogICAgICAgIC8vIHJldHVybiBleGFtcGxlOiByZXR1cm4geyBvdXRwdXQxOiBpbnB1dHMuaW5wdXQxLCBvdXRwdXQyOiAiSGVsbG8gV29ybGQiIH07DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
-				"inputs": [
-					{
-						"name": "eventRawData",
-						"valueType": {
-							"friendlyName": "eventRawData",
-							"type": 10,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null
-						}
-					}
-				],
-				"outputs": [
-					{
-						"name": "rawDataCollection",
-						"valueType": {
-							"type": 10,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "rawDataCollection"
-						},
-						"defaultValue": null
-					},
-					{
-						"name": "materialName",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "materialName"
-						},
-						"defaultValue": null
-					},
-					{
-						"name": "subMaterialName",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "subMaterialName"
-						},
-						"defaultValue": null
-					}
-				],
-				"contextExpirationInMilliseconds": 10000,
-				"executionExpirationInMilliseconds": 0,
-				"___cmf___name": "Code"
-			}
-		},
-		{
-			"id": "task_14913",
-			"reference": {
-				"name": "retrieve",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"_retrieveOnValueChange": false,
-				"_emitInNewContext": false,
-				"___cmf___name": "Retrieve Data",
-				"_outputs": [
-					{
-						"name": "ResourceName",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "ResourceName"
-						},
-						"defaultValue": "\"\"",
-						"identifier": "Generic_ResourceName"
-					}
-				]
-			}
-		},
-		{
-			"id": "task_13977",
-			"reference": {
-				"name": "dataCollection",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-mes-tasks",
-					"version": "8.3.3-202201212"
-				}
-			},
-			"settings": {
-				"defaultDataCollection": null,
-				"complexPerformDataCollectionMode": 1,
-				"dataCollectionLimitSet": null,
-				"defaultMaterial": null,
-				"defaultResource": null,
-				"isToIgnoreInSPC": false,
-				"skipDCValidation": false,
-				"inputs": [],
-				"retries": 30,
-				"sleepBetweenRetries": 1000,
-				"autoClear": false,
-				"___cmf___name": "Data Collection"
-			}
-		}
-	],
-	"converters": [
-		{
-			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringToEntityInstance",
-			"reference": {
-				"name": "stringToEntityInstance",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
-				}
-			}
-		}
-	],
-	"links": [
-		{
-			"id": "41876084-70b8-4614-8a22-09361216b7ce",
-			"sourceId": "task_14097",
-			"targetId": "task_14532",
-			"inputName": "eventRawDataIn",
-			"outputName": "eventRawData"
-		},
-		{
-			"id": "8ddbae30-c49c-4179-9fc4-943bdab0448e",
-			"sourceId": "task_14097",
-			"targetId": "task_14532",
-			"inputName": "activate",
-			"outputName": "eventRawData"
-		},
-		{
-			"id": "10f88a6a-eda0-4872-9b94-3af918b41f7a",
-			"sourceId": "task_14913",
-			"targetId": "task_13977",
-			"inputName": "resource",
-			"outputName": "ResourceName",
-			"converters": [
-				{
-					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringToEntityInstance",
-					"params": {
-						"entityType": "Resource",
-						"identifier": "Name"
-					}
-				}
-			]
-		},
-		{
-			"id": "b7ffc9a7-7b0b-4bd3-ad44-90d5ae107312",
-			"sourceId": "task_14532",
-			"targetId": "task_13977",
-			"inputName": "rawData",
-			"outputName": "rawDataCollectionOut"
-		},
-		{
-			"id": "fe4199dc-d4b7-4d0e-8e7f-b0071d60e216",
-			"sourceId": "task_14532",
-			"targetId": "task_14913",
-			"inputName": "activate",
-			"outputName": "success"
-		}
-	],
-	"layout": {
-		"general": {
-			"color": "#00ff80",
-			"notes": []
-		},
-		"drawers": {
-			"DIAGRAM": {
-				"tasks": {
-					"task_14097": {
-						"collapsed": false,
-						"position": {
-							"x": 127,
-							"y": 55
-						},
-						"outdated": false
-					},
-					"task_14532": {
-						"collapsed": false,
-						"position": {
-							"x": 705,
-							"y": 258
-						},
-						"outdated": false
-					},
-					"task_14913": {
-						"collapsed": false,
-						"position": {
-							"x": 1262,
-							"y": 104
-						},
-						"outdated": false
-					},
-					"task_13977": {
-						"collapsed": false,
-						"position": {
-							"x": 2009,
-							"y": 163
-						},
-						"outdated": null
-					}
-				},
-				"links": {
-					"41876084-70b8-4614-8a22-09361216b7ce": {
-						"vertices": []
-					},
-					"8ddbae30-c49c-4179-9fc4-943bdab0448e": {
-						"vertices": []
-					},
-					"b7ffc9a7-7b0b-4bd3-ad44-90d5ae107312": {
-						"vertices": []
-					},
-					"fe4199dc-d4b7-4d0e-8e7f-b0071d60e216": {
-						"vertices": []
-					},
-					"10f88a6a-eda0-4872-9b94-3af918b41f7a": {
-						"vertices": []
-					}
-				},
-				"notes": {},
-				"zoom": 0.6999999999999997,
-				"pan": {
-					"x": 397,
-					"y": 23
-				}
-			}
-		}
-	}
+  "tasks": [
+    {
+      "id": "task_14097",
+      "reference": {
+        "name": "equipmentEvent",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "9.1.0-202209072"
+        }
+      },
+      "settings": {
+        "_workingMode": "AlwaysActive",
+        "_acceptAllEvents": false,
+        "_outputs": [
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "TosCarrierID",
+              "DataType": 0
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "TosPortID",
+              "DataType": 5
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "SubstLocID",
+              "DataType": 0
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "SubstID",
+              "DataType": 0
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "CtrlJobID",
+              "DataType": 0
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "PRJobID",
+              "DataType": 0
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_DEPTH_f4DEPTH_AT_MAX",
+              "DataType": 4
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_DEPTH_f4FILTER_CUTOFF",
+              "DataType": 4
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_DEPTH_f4MAX_PEAK",
+              "DataType": 4
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_DEPTH_f4MIN_PEAK",
+              "DataType": 4
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_DEPTH_f4PEAK_TO_PEAK",
+              "DataType": 4
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_DEPTH_f4TOTAL_PEAKS",
+              "DataType": 4
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_DEPTH_u2AUTOPROGRAM_COUNT",
+              "DataType": 5
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_RECIPE_u1TYPE",
+              "DataType": 5
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_SITE_f4COLUMN",
+              "DataType": 4
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_SITE_f4ROW",
+              "DataType": 4
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_SITE_f8X_COORD",
+              "DataType": 4
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_SITE_f8X_M20_COORDINATE",
+              "DataType": 4
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_SITE_f8Y_COORD",
+              "DataType": 4
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_SITE_f8Y_M20_COORDINATE",
+              "DataType": 4
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_SITE_szAUTOPROGRAM_NAME",
+              "DataType": 0
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_SITE_szMASTERSITENAME",
+              "DataType": 0
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_SITE_szSITENAME",
+              "DataType": 0
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_SITE_szSUBSTRATE_LOTID",
+              "DataType": 0
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_SITE_szSUBSTRATE_WAFERID",
+              "DataType": 0
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_SITE_u1SITE",
+              "DataType": 5
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_SITE_u1SLOT",
+              "DataType": 5
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_SITE_u4TOTAL_SITES_PER_WAFER",
+              "DataType": 5
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_DEPTH_f4MIN_PEAK_FWHM",
+              "DataType": 4
+            },
+            "outputType": "Value"
+          },
+          {
+            "property": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+              "Name": "DV_DEPTH_f4MAX_PEAK_FWHM",
+              "DataType": 4
+            },
+            "outputType": "Value"
+          }
+        ],
+        "___cmf___name": "On Equipment Event",
+        "_events": [
+          {
+            "$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+            "Name": "CE_DEPTH_ANALYSIS_DATA_AVAIL"
+          }
+        ]
+      },
+      "driver": "SecsGemEquipment"
+    },
+    {
+      "id": "task_14532",
+      "reference": {
+        "name": "codeExecution",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "9.1.0-202209072"
+        }
+      },
+      "settings": {
+        "tsCode": [
+          "",
+          "import { Framework } from 'framework';",
+          "",
+          "export default class {",
+          "",
+          "    /** Allows accessing external functions */",
+          "    private framework: Framework;",
+          "",
+          "    constructor(framework: Framework) {",
+          "        this.framework = framework;",
+          "    }",
+          "",
+          "    /*",
+          "     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+          "     * Should return an object containing the values for each output to emit",
+          "     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+          "     */",
+          "    public async main(inputs: any, outputs: any): Promise<any> {",
+          "        // Add code here",
+          "        const event = inputs.eventRawData;",
+          "",
+          "",
+          "",
+          "",
+          "        var waferName = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"SubstID\").originalValue.value;",
+          "        var materialName = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"TosCarrierID\").originalValue.value;",
+          "        if (materialName == null) {",
+          "            throw new Error(\"Empty TosCarrierID\");",
+          "        }",
+          "",
+          "        if (waferName == null) {",
+          "            throw new Error(\"Empty SubstID\");",
+          "        }",
+          "",
+          "        this.framework.logger.info(\"MaterialName: \" + JSON.stringify(materialName) + \" SubstID: \" + JSON.stringify(waferName));",
+          "",
+          "",
+          "        const materialContainer = await this.framework.dataStore.retrieve(\"MaterialOnPersistence\", false);",
+          "",
+          "        var materials;",
+          "        for (var m = 0; m < materialContainer.length; m++) {",
+          "            materials = await this.framework.dataStore.retrieve(materialContainer[m], false);",
+          "            if (materials.MaterialName === materialName) {",
+          "                break;",
+          "            }",
+          "        }",
+          "",
+          "        var selectedSubmaterial = (<any[]>materials.SubMaterials).find(v => v.MaterialName == waferName);",
+          "        if (selectedSubmaterial == null) {",
+          "            this.framework.logger.error(\"Materials: \" + JSON.stringify(materials));",
+          "            throw new Error(\"No SubstID \" + waferName + \" found on Material (Lot): \" + materialName + \", no data will be collected\");",
+          "        }",
+          "",
+          "        this.framework.logger.info(\"SelectedWafer: \" + JSON.stringify(waferName));",
+          "",
+          "",
+          "        //var raw = await this.framework.dataStore.retrieve(\"rawPostDataCollection\", {});",
+          "        let raw: { [key: string]: any } = {};",
+          "        ",
+          "        let edcParam = [\"DV_DEPTH_f4DEPTH_AT_MAX\", \"DV_DEPTH_f4FILTER_CUTOFF\", \"DV_DEPTH_f4MAX_PEAK\", \"DV_DEPTH_f4MIN_PEAK\", \"DV_DEPTH_f4PEAK_TO_PEAK\", \"DV_DEPTH_f4TOTAL_PEAKS\", \"DV_DEPTH_u2AUTOPROGRAM_COUNT\", \"DV_RECIPE_u1TYPE\", \"DV_SITE_f4COLUMN\", \"DV_SITE_f4ROW\", \"DV_SITE_f8X_COORD\", \"DV_SITE_f8X_M20_COORDINATE\", \"DV_SITE_f8Y_COORD\", \"DV_SITE_f8Y_M20_COORDINATE\", \"DV_SITE_szAUTOPROGRAM_NAME\", \"DV_SITE_szMASTERSITENAME\", \"DV_SITE_szSITENAME\", \"DV_SITE_szSUBSTRATE_LOTID\", \"DV_SITE_szSUBSTRATE_WAFERID\", \"DV_SITE_u1SITE\", \"DV_SITE_u1SLOT\", \"DV_SITE_u4TOTAL_SITES_PER_WAFER\", \"DV_DEPTH_f4MIN_PEAK_FWHM\", \"DV_DEPTH_f4MAX_PEAK_FWHM\"];",
+          "",
+          "        edcParam.forEach((propertyName) => {",
+          "            var value = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === propertyName);",
+          "            this.framework.logger.info(\"Value for \" + propertyName + \": \" + value);",
+          "",
+          "            if (value !== undefined) {",
+          "                if (!raw[propertyName]){",
+          "                    raw[propertyName] = {};",
+          "                    raw[propertyName][\"sampleId\"] = [];",
+          "                    raw[propertyName][\"value\"] = [];",
+          "                }",
+          "",
+          "                raw[propertyName][\"sampleId\"].push(propertyName);",
+          "                raw[propertyName][\"value\"] .push(value.originalValue.value);",
+          "            }",
+          "        });",
+          "",
+          "",
+          "        //var raw = await this.framework.dataStore.store(\"rawPostDataCollection\" , raw, \"Persistent\");",
+          "        this.framework.logger.warning(\"Raw DataCollection: \" + JSON.stringify(raw));",
+          "",
+          "        return {",
+          "            rawDataCollection: raw,",
+          "            materialName: materialName,",
+          "            subMaterialName: waferName",
+          "        }",
+          "",
+          "        // emit output during execution: outputs.output1.emit(\"something\");",
+          "        // return example: return { output1: inputs.input1, output2: \"Hello World\" };",
+          "    }",
+          "}",
+          ""
+        ],
+        "jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IGV2ZW50ID0gaW5wdXRzLmV2ZW50UmF3RGF0YTsNCiAgICAgICAgdmFyIHdhZmVyTmFtZSA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJTdWJzdElEIikub3JpZ2luYWxWYWx1ZS52YWx1ZTsNCiAgICAgICAgdmFyIG1hdGVyaWFsTmFtZSA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJUb3NDYXJyaWVySUQiKS5vcmlnaW5hbFZhbHVlLnZhbHVlOw0KICAgICAgICBpZiAobWF0ZXJpYWxOYW1lID09IG51bGwpIHsNCiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcigiRW1wdHkgVG9zQ2FycmllcklEIik7DQogICAgICAgIH0NCiAgICAgICAgaWYgKHdhZmVyTmFtZSA9PSBudWxsKSB7DQogICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoIkVtcHR5IFN1YnN0SUQiKTsNCiAgICAgICAgfQ0KICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIuaW5mbygiTWF0ZXJpYWxOYW1lOiAiICsgSlNPTi5zdHJpbmdpZnkobWF0ZXJpYWxOYW1lKSArICIgU3Vic3RJRDogIiArIEpTT04uc3RyaW5naWZ5KHdhZmVyTmFtZSkpOw0KICAgICAgICBjb25zdCBtYXRlcmlhbENvbnRhaW5lciA9IGF3YWl0IHRoaXMuZnJhbWV3b3JrLmRhdGFTdG9yZS5yZXRyaWV2ZSgiTWF0ZXJpYWxPblBlcnNpc3RlbmNlIiwgZmFsc2UpOw0KICAgICAgICB2YXIgbWF0ZXJpYWxzOw0KICAgICAgICBmb3IgKHZhciBtID0gMDsgbSA8IG1hdGVyaWFsQ29udGFpbmVyLmxlbmd0aDsgbSsrKSB7DQogICAgICAgICAgICBtYXRlcmlhbHMgPSBhd2FpdCB0aGlzLmZyYW1ld29yay5kYXRhU3RvcmUucmV0cmlldmUobWF0ZXJpYWxDb250YWluZXJbbV0sIGZhbHNlKTsNCiAgICAgICAgICAgIGlmIChtYXRlcmlhbHMuTWF0ZXJpYWxOYW1lID09PSBtYXRlcmlhbE5hbWUpIHsNCiAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgICAgICB2YXIgc2VsZWN0ZWRTdWJtYXRlcmlhbCA9IG1hdGVyaWFscy5TdWJNYXRlcmlhbHMuZmluZCh2ID0+IHYuTWF0ZXJpYWxOYW1lID09IHdhZmVyTmFtZSk7DQogICAgICAgIGlmIChzZWxlY3RlZFN1Ym1hdGVyaWFsID09IG51bGwpIHsNCiAgICAgICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5lcnJvcigiTWF0ZXJpYWxzOiAiICsgSlNPTi5zdHJpbmdpZnkobWF0ZXJpYWxzKSk7DQogICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoIk5vIFN1YnN0SUQgIiArIHdhZmVyTmFtZSArICIgZm91bmQgb24gTWF0ZXJpYWwgKExvdCk6ICIgKyBtYXRlcmlhbE5hbWUgKyAiLCBubyBkYXRhIHdpbGwgYmUgY29sbGVjdGVkIik7DQogICAgICAgIH0NCiAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLmluZm8oIlNlbGVjdGVkV2FmZXI6ICIgKyBKU09OLnN0cmluZ2lmeSh3YWZlck5hbWUpKTsNCiAgICAgICAgLy92YXIgcmF3ID0gYXdhaXQgdGhpcy5mcmFtZXdvcmsuZGF0YVN0b3JlLnJldHJpZXZlKCJyYXdQb3N0RGF0YUNvbGxlY3Rpb24iLCB7fSk7DQogICAgICAgIGxldCByYXcgPSB7fTsNCiAgICAgICAgbGV0IGVkY1BhcmFtID0gWyJEVl9ERVBUSF9mNERFUFRIX0FUX01BWCIsICJEVl9ERVBUSF9mNEZJTFRFUl9DVVRPRkYiLCAiRFZfREVQVEhfZjRNQVhfUEVBSyIsICJEVl9ERVBUSF9mNE1JTl9QRUFLIiwgIkRWX0RFUFRIX2Y0UEVBS19UT19QRUFLIiwgIkRWX0RFUFRIX2Y0VE9UQUxfUEVBS1MiLCAiRFZfREVQVEhfdTJBVVRPUFJPR1JBTV9DT1VOVCIsICJEVl9SRUNJUEVfdTFUWVBFIiwgIkRWX1NJVEVfZjRDT0xVTU4iLCAiRFZfU0lURV9mNFJPVyIsICJEVl9TSVRFX2Y4WF9DT09SRCIsICJEVl9TSVRFX2Y4WF9NMjBfQ09PUkRJTkFURSIsICJEVl9TSVRFX2Y4WV9DT09SRCIsICJEVl9TSVRFX2Y4WV9NMjBfQ09PUkRJTkFURSIsICJEVl9TSVRFX3N6QVVUT1BST0dSQU1fTkFNRSIsICJEVl9TSVRFX3N6TUFTVEVSU0lURU5BTUUiLCAiRFZfU0lURV9zelNJVEVOQU1FIiwgIkRWX1NJVEVfc3pTVUJTVFJBVEVfTE9USUQiLCAiRFZfU0lURV9zelNVQlNUUkFURV9XQUZFUklEIiwgIkRWX1NJVEVfdTFTSVRFIiwgIkRWX1NJVEVfdTFTTE9UIiwgIkRWX1NJVEVfdTRUT1RBTF9TSVRFU19QRVJfV0FGRVIiLCAiRFZfREVQVEhfZjRNSU5fUEVBS19GV0hNIiwgIkRWX0RFUFRIX2Y0TUFYX1BFQUtfRldITSJdOw0KICAgICAgICBlZGNQYXJhbS5mb3JFYWNoKChwcm9wZXJ0eU5hbWUpID0+IHsNCiAgICAgICAgICAgIHZhciB2YWx1ZSA9IGlucHV0cy5ldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09IHByb3BlcnR5TmFtZSk7DQogICAgICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIuaW5mbygiVmFsdWUgZm9yICIgKyBwcm9wZXJ0eU5hbWUgKyAiOiAiICsgdmFsdWUpOw0KICAgICAgICAgICAgaWYgKHZhbHVlICE9PSB1bmRlZmluZWQpIHsNCiAgICAgICAgICAgICAgICBpZiAoIXJhd1twcm9wZXJ0eU5hbWVdKSB7DQogICAgICAgICAgICAgICAgICAgIHJhd1twcm9wZXJ0eU5hbWVdID0ge307DQogICAgICAgICAgICAgICAgICAgIHJhd1twcm9wZXJ0eU5hbWVdWyJzYW1wbGVJZCJdID0gW107DQogICAgICAgICAgICAgICAgICAgIHJhd1twcm9wZXJ0eU5hbWVdWyJ2YWx1ZSJdID0gW107DQogICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgIHJhd1twcm9wZXJ0eU5hbWVdWyJzYW1wbGVJZCJdLnB1c2gocHJvcGVydHlOYW1lKTsNCiAgICAgICAgICAgICAgICByYXdbcHJvcGVydHlOYW1lXVsidmFsdWUiXS5wdXNoKHZhbHVlLm9yaWdpbmFsVmFsdWUudmFsdWUpOw0KICAgICAgICAgICAgfQ0KICAgICAgICB9KTsNCiAgICAgICAgLy92YXIgcmF3ID0gYXdhaXQgdGhpcy5mcmFtZXdvcmsuZGF0YVN0b3JlLnN0b3JlKCJyYXdQb3N0RGF0YUNvbGxlY3Rpb24iICwgcmF3LCAiUGVyc2lzdGVudCIpOw0KICAgICAgICB0aGlzLmZyYW1ld29yay5sb2dnZXIud2FybmluZygiUmF3IERhdGFDb2xsZWN0aW9uOiAiICsgSlNPTi5zdHJpbmdpZnkocmF3KSk7DQogICAgICAgIHJldHVybiB7DQogICAgICAgICAgICByYXdEYXRhQ29sbGVjdGlvbjogcmF3LA0KICAgICAgICAgICAgbWF0ZXJpYWxOYW1lOiBtYXRlcmlhbE5hbWUsDQogICAgICAgICAgICBzdWJNYXRlcmlhbE5hbWU6IHdhZmVyTmFtZQ0KICAgICAgICB9Ow0KICAgICAgICAvLyBlbWl0IG91dHB1dCBkdXJpbmcgZXhlY3V0aW9uOiBvdXRwdXRzLm91dHB1dDEuZW1pdCgic29tZXRoaW5nIik7DQogICAgICAgIC8vIHJldHVybiBleGFtcGxlOiByZXR1cm4geyBvdXRwdXQxOiBpbnB1dHMuaW5wdXQxLCBvdXRwdXQyOiAiSGVsbG8gV29ybGQiIH07DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
+        "inputs": [
+          {
+            "name": "eventRawData",
+            "valueType": {
+              "friendlyName": "eventRawData",
+              "type": 10,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "name": "rawDataCollection",
+            "valueType": {
+              "type": 10,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": "rawDataCollection"
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "materialName",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": "materialName"
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "subMaterialName",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": "subMaterialName"
+            },
+            "defaultValue": null
+          }
+        ],
+        "contextExpirationInMilliseconds": 10000,
+        "executionExpirationInMilliseconds": 0,
+        "___cmf___name": "Code"
+      }
+    },
+    {
+      "id": "task_14913",
+      "reference": {
+        "name": "retrieve",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "9.1.0-202209072"
+        }
+      },
+      "settings": {
+        "_retrieveOnValueChange": false,
+        "_emitInNewContext": false,
+        "___cmf___name": "Retrieve Data",
+        "_outputs": [
+          {
+            "name": "ResourceName",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": "ResourceName"
+            },
+            "defaultValue": "\"\"",
+            "identifier": "Generic_ResourceName"
+          }
+        ]
+      }
+    },
+    {
+      "id": "task_13977",
+      "reference": {
+        "name": "dataCollection",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-mes-tasks",
+          "version": "9.1.0-202209072"
+        }
+      },
+      "settings": {
+        "defaultDataCollection": null,
+        "complexPerformDataCollectionMode": 1,
+        "dataCollectionLimitSet": null,
+        "defaultMaterial": null,
+        "defaultResource": null,
+        "isToIgnoreInSPC": false,
+        "skipDCValidation": false,
+        "inputs": [],
+        "retries": 30,
+        "sleepBetweenRetries": 1000,
+        "autoClear": false,
+        "___cmf___name": "Data Collection"
+      }
+    }
+  ],
+  "converters": [
+    {
+      "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringToEntityInstance",
+      "reference": {
+        "name": "stringToEntityInstance",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "9.1.0-202209072"
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "id": "41876084-70b8-4614-8a22-09361216b7ce",
+      "sourceId": "task_14097",
+      "targetId": "task_14532",
+      "inputName": "eventRawDataIn",
+      "outputName": "eventRawData"
+    },
+    {
+      "id": "8ddbae30-c49c-4179-9fc4-943bdab0448e",
+      "sourceId": "task_14097",
+      "targetId": "task_14532",
+      "inputName": "activate",
+      "outputName": "eventRawData"
+    },
+    {
+      "id": "10f88a6a-eda0-4872-9b94-3af918b41f7a",
+      "sourceId": "task_14913",
+      "targetId": "task_13977",
+      "inputName": "resource",
+      "outputName": "ResourceName",
+      "converters": [
+        {
+          "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringToEntityInstance",
+          "params": {
+            "entityType": "Resource",
+            "identifier": "Name"
+          }
+        }
+      ]
+    },
+    {
+      "id": "b7ffc9a7-7b0b-4bd3-ad44-90d5ae107312",
+      "sourceId": "task_14532",
+      "targetId": "task_13977",
+      "inputName": "rawData",
+      "outputName": "rawDataCollectionOut"
+    },
+    {
+      "id": "fe4199dc-d4b7-4d0e-8e7f-b0071d60e216",
+      "sourceId": "task_14532",
+      "targetId": "task_14913",
+      "inputName": "activate",
+      "outputName": "success"
+    }
+  ],
+  "layout": {
+    "general": {
+      "color": "#00ff80",
+      "notes": []
+    },
+    "drawers": {
+      "DIAGRAM": {
+        "tasks": {
+          "task_14097": {
+            "collapsed": false,
+            "position": {
+              "x": 127,
+              "y": 55
+            },
+            "outdated": false
+          },
+          "task_14532": {
+            "collapsed": false,
+            "position": {
+              "x": 705,
+              "y": 258
+            },
+            "outdated": false
+          },
+          "task_14913": {
+            "collapsed": false,
+            "position": {
+              "x": 1262,
+              "y": 104
+            },
+            "outdated": false
+          },
+          "task_13977": {
+            "collapsed": false,
+            "position": {
+              "x": 2009,
+              "y": 163
+            },
+            "outdated": false
+          }
+        },
+        "links": {
+          "41876084-70b8-4614-8a22-09361216b7ce": {
+            "vertices": []
+          },
+          "8ddbae30-c49c-4179-9fc4-943bdab0448e": {
+            "vertices": []
+          },
+          "b7ffc9a7-7b0b-4bd3-ad44-90d5ae107312": {
+            "vertices": []
+          },
+          "fe4199dc-d4b7-4d0e-8e7f-b0071d60e216": {
+            "vertices": []
+          },
+          "10f88a6a-eda0-4872-9b94-3af918b41f7a": {
+            "vertices": []
+          }
+        },
+        "notes": {},
+        "zoom": 0.8099999999999998,
+        "pan": {
+          "x": 50.66666793823242,
+          "y": 0
+        }
+      }
+    }
+  }
 }
