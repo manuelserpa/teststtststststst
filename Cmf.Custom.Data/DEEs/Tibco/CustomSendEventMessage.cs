@@ -98,8 +98,22 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
         {
             //---Start DEE Code---     
 
-            //Foundation
+            // System
+            UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
+            UseReference("%MicrosoftNetPath%System.Private.Xml.dll", "System.Xml");
+            UseReference("%MicrosoftNetPath%System.Private.Xml.Linq.dll", "System.Xml.Linq");
+
+            // Foundation
             UseReference("", "Cmf.Foundation.Common.Exceptions");
+            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.GenericTables");
+
+            // Common
+            UseReference("Cmf.Common.CustomActionUtilities.dll", "Cmf.Common.CustomActionUtilities");
+
+            // Custom
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("", "Cmf.Custom.amsOSRAM.Common.DataStructures");
+            UseReference("", "Cmf.Custom.amsOSRAM.Common.Extensions");
 
             // Get services provider information
             IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
