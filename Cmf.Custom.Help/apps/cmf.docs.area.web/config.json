@@ -7,11 +7,11 @@
     "rest": {
       "enableSsl": false,
       "address": "localhost",
-      "port": 8083,
+      "port": 443,
       "timeout": 0
     },
     "tenant": {
-      "name": "AMSOsram"
+      "name": "amsOSRAM"
     },
     "loadBalancer": {
       "enableSsl": 0,
@@ -36,32 +36,28 @@
       "cmf.docs.area.installationguide",
       "cmf.docs.area.systemrequirements",
       "cmf.docs.area.tutorials",
-      "cmf.docs.area.amsosram"
+      "cmf.docs.area.cmf.custom.help"
     ],
     "baseDir": "node_modules/"
   },
   "general": {
     "supportedCultures": [
       "en-US",
-      "pt-PT",
-      "de-DE",
-      "vi-VN",
       "zh-CN"
     ],
     "supportedThemes": [
-      "cmf.style.dark.blue",
-      "cmf.style.light.blue",
+      "cmf.style.dark",
       "cmf.style.blue",
-      "cmf.style.blue.grey"
+      "cmf.style.gray"
     ],
     "defaultDomain": "CMF",
     "passwordEncryption": "rsa",
     "startup": {
       "startupCulture": "en-US",
-      "startupTheme": "cmf.style.light.blue",
+      "startupTheme": "cmf.style.blue",
       "startupModule": "node_modules/cmf.docs.shell/src/components/shell/shell#ShellModule"
     }
   },
   "cacheId": "[%BROWSER_CACHE_TOKEN%]",
-  "version": "AMSOsram $(Build.BuildNumber) - 8.3.3"
+  "version": "amsOSRAM $(Build.BuildNumber) - 9.1.0"
 }

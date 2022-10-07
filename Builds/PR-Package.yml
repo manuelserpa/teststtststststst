@@ -78,7 +78,7 @@ steps:
     workingDirectory: ${{ parameters.PackagePath }}
     targetType: inline
     script: |
-      $(Agent.TempDirectory)/node_modules/.bin/cmf-cli/cmf build
+      $(Agent.TempDirectory)/node_modules/.bin/cmf-cli/cmf build --test
 
 # Cleanup
 - task: PostBuildCleanup@3

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
-using System.Xml.Schema;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace Cmf.Custom.Tests.Biz.Common.ERP.ProductionOrder
 {

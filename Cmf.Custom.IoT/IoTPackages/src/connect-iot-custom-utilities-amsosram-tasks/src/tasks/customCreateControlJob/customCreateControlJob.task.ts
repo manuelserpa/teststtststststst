@@ -66,6 +66,7 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
     public MtrlOutByStatus: any = undefined;
     public ProcessingControlSpecification: any = undefined;
     public DataCollectionPlan: any = undefined;
+    public ProcessOrderMgmtValue: ProcessOrderMgmt = ProcessOrderMgmt.Arrival;
 
     /** **Outputs** */
     /** To output a success notification */
@@ -105,14 +106,14 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
             // It is advised to reset the activate to allow being reactivated without the value being different
             this.activate = undefined;
 
+            this.ProcessOrderMgmtValue = this.ProcessOrderMgmtValue ?? ProcessOrderMgmt.Arrival;
+
             let material: MaterialData;
             if (Array.isArray(this.MaterialData)) {
                 material = this.MaterialData[0];
             } else {
                 material = this.MaterialData;
             }
-
-            this._logger.error("Here! " + this.ControlJobIdentifier );
 
             // calculate MaterialOutSpec based on input or sorter job information (if existing) and calculate Carrier Input Spec
             const carrierInputSpec = [];
@@ -296,7 +297,7 @@ export class CustomCreateControlJobTask implements Task.TaskInstance, CustomCrea
                 objectContent.push({
                     type: "L", value: [
                         { type: "A", value: "ProcessOrderMgmt" }, // ProcessOrderMgmt
-                        { type: "U1", value: 1 }, // Define the method for the order in which process  jobs are initiated (currently only 1)
+                        { type: "U1", value: Number(this.ProcessOrderMgmtValue) }, // Define the method for the order in which process  jobs are initiated
                         // possible values of Enum: LIST, ARRIVAL, OPTIMIZE
                     ]
                 });
@@ -376,6 +377,7 @@ export interface CustomCreateControlJobSettings {
     objectSpec: string;
     occupiedSlot: string;
     useCarrierAtLoadPortAsContainer: boolean;
+    ProcessOrderMgmtValue: ProcessOrderMgmt;
 }
 
 export enum RecipeSpecificationType {
@@ -383,4 +385,8 @@ export enum RecipeSpecificationType {
     RecipeWithVariableTuning = 2
 }
 
-
+export enum ProcessOrderMgmt {
+    Arrival = 1,
+    Optimize = 2,
+    List = 3
+}

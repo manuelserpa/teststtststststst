@@ -1,11 +1,6 @@
 import { Task, Dependencies, System, DI, TYPES } from "@criticalmanufacturing/connect-iot-controller-engine";
 import i18n from "./i18n/customReadId.default";
 
-import { SecsGem } from "../../common/secsGemItem"
-import { SecsItem } from "../../common/secsItem";
-import { SubMaterialStateEnum } from "../../persistence/model/subMaterialData";
-
-
 /**
  * @whatItDoes
  *
@@ -50,6 +45,8 @@ export class CustomReadIdTask implements Task.TaskInstance, CustomReadIdSettings
     /** **Inputs** */
     /** Activate task execution */
     public activate: any = undefined;
+    public TargetIDSize: number = 2;
+    public TargetIDPaddingValue: string = "0";
 
     public TargetId: string = "";
 
@@ -84,13 +81,25 @@ export class CustomReadIdTask implements Task.TaskInstance, CustomReadIdSettings
             this.activate = undefined;
             try {
 
+                let paddedTargetID: string = this.TargetId.toString();
+
+                if (!this.TargetId) {
+                    throw new Error("Failed to receive a TargetID");
+                }
+
+                if (this.TargetId.length < this.TargetIDSize) {
+                    paddedTargetID = this.TargetId.padStart(this.TargetIDSize, this.TargetIDPaddingValue);
+                }
+
                 const sendMessage: Object = {
                     type: "S18F9", item: {
-                        type: "A", value: this.TargetId
+                        type: "A", value: paddedTargetID
                     }
                 }
                 const reply = await this._driverProxy.sendRaw("connect.iot.driver.secsgem.sendMessage", sendMessage);
                 let successFound = false;
+
+                this._logger.warning(JSON.stringify(reply.item));
 
                 if (!reply && !reply.item) {
                     const error = new Error(`EI: Read Id Failed to reply`);
@@ -98,19 +107,18 @@ export class CustomReadIdTask implements Task.TaskInstance, CustomReadIdSettings
                     throw error;
                 }
 
-                this._logger.warning(JSON.stringify(reply.item));
                 const targetId = reply.item.value[0].value;
                 const acknowledgeCode = reply.item.value[1].value;
                 const materialId = reply.item.value[2].value;
                 const statusList = reply.item.value[3].value;
 
-                if (targetId === this.TargetId &&
+                if (targetId === paddedTargetID &&
                     acknowledgeCode === "NO" &&
                     materialId) {
                     successFound = true;
                 }
 
-                this.TargetIdResult.emit(targetId);
+                this.TargetIdResult.emit(this.TargetId);
                 this.AcknowledgeCode.emit(acknowledgeCode);
                 this.MaterialId.emit(materialId);
                 this.StatusList.emit(statusList);

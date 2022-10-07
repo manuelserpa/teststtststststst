@@ -1,0 +1,70 @@
+{
+  "WorksheetNameMapping": {
+    "1": {
+      "WorksheetName": "CertifReqQualif",
+      "Value": "CertificationRequiredQualification"
+    },
+    "2": {
+      "WorksheetName": "AutomationInstances",
+      "Value": "<DM>AutomationControllerInstance"
+    },
+    "3": {
+      "WorksheetName": "MaterialDCContext",
+      "Value": "<ST>MaterialDataCollectionContext"
+    }
+  },
+  "<SM>DEEAction": {
+    "1": {
+      "Action": "CustomSendTrackInInformationToIoT",
+      "Description": "",
+      "CodeFileRelativePath": "Materials//CustomSendTrackInInformationToIoT.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "2": {
+      "Action": "CustomSendTrackOutInformationToIoT",
+      "Description": "",
+      "CodeFileRelativePath": "Materials//CustomSendTrackOutInformationToIoT.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "3": {
+      "Action": "CustomSendAbortInformationToIoT",
+      "Description": "",
+      "CodeFileRelativePath": "Materials//CustomSendAbortInformationToIoT.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    }
+  },
+  "DEEActionOrder": {
+    "1": {
+      "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.ComplexTrackInMaterials.Post",
+      "Action": "CustomSendTrackInInformationToIoT",
+      "Order": "100"
+    },
+    "2": {
+      "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.ComplexTrackOutMaterials.Post",
+      "Action": "CustomSendTrackOutInformationToIoT",
+      "Order": "100"
+    },
+    "3": {
+      "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.AbortMaterialsProcess.Post",
+      "Action": "CustomSendAbortInformationToIoT",
+      "Order": "100"
+    }
+  },
+  "<SM>Config": {
+    "1": {
+      "ParentPath": "/Cmf/Custom/Automation/",
+      "Name": "TrackInTimeout",
+      "Value": "60000",
+      "ValueType": "Int32"
+    },
+    "2": {
+      "ParentPath": "/Cmf/Custom/Automation/",
+      "Name": "GenericRequestTimeout",
+      "Value": "30000",
+      "ValueType": "Int32"
+    }
+  }
+}

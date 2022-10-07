@@ -6,7 +6,7 @@
 				"name": "systemActionGroupEvent",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -22,7 +22,7 @@
 				"name": "expressionEvaluator",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -68,7 +68,7 @@
 				"name": "getRecipeBody",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-secsgem-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -89,7 +89,7 @@
 				"name": "customCalculateChecksum",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
+					"version": "2.0.0"
 				}
 			},
 			"settings": {
@@ -102,7 +102,7 @@
 				"name": "logMessage",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -122,7 +122,7 @@
 				"name": "listRecipes",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-secsgem-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -140,7 +140,7 @@
 				"name": "checkIfRecipeExistsOnEquipment",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-					"version": "1.0.0"
+					"version": "2.0.0"
 				}
 			},
 			"settings": {}
@@ -151,7 +151,7 @@
 				"name": "expressionEvaluator",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
@@ -212,7 +212,7 @@
 				"name": "anyToAny",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "8.3.3-202201212"
+					"version": "9.1.0-202209072"
 				}
 			}
 		}

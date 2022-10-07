@@ -16,9 +16,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Xml;
-using System.Xml.Linq;
 
 namespace Cmf.Custom.Tests.Biz.Space
 {
@@ -248,7 +245,7 @@ namespace Cmf.Custom.Tests.Biz.Space
             messageBusTransport.Start();
 
             // Subscribe to event.
-            messageBusTransport.Subscribe(AMSOsramConstants.CustomReportEDCToSpace, (string subject, MbMessage message) =>
+            messageBusTransport.Subscribe(amsOSRAMConstants.CustomReportEDCToSpace, (string subject, MbMessage message) =>
             {
                 if (message != null && !string.IsNullOrWhiteSpace(message.Data))
                 {
@@ -259,7 +256,7 @@ namespace Cmf.Custom.Tests.Biz.Space
 
                     ValidateMessage(receivedMessage["Message"]);
 
-                    messageBusTransport.Unsubscribe(AMSOsramConstants.CustomReportEDCToSpace);
+                    messageBusTransport.Unsubscribe(amsOSRAMConstants.CustomReportEDCToSpace);
 
                     messageBusMessageWasReceived = true;
                 }
@@ -295,12 +292,12 @@ namespace Cmf.Custom.Tests.Biz.Space
             {
                 Dictionary<string, string> expectedKeys = new Dictionary<string, string>()
                 {
-                    {"PROCESS",  AMSOsramConstants.DefaultTestProductName},
+                    {"PROCESS",  amsOSRAMConstants.DefaultTestProductName},
                     {"BASIC_TYPE",string.Empty },
                     {"AREA",string.Empty },
                     {"OWNER", string.Empty},
-                    {"ROUTE",$"{AMSOsramConstants.DefaultTestFlowName}_1"},
-                    {"OPERATION",AMSOsramConstants.DefaultTestStepName},
+                    {"ROUTE",$"{amsOSRAMConstants.DefaultTestFlowName}_1"},
+                    {"OPERATION",amsOSRAMConstants.DefaultTestStepName},
                     {"PROCESS_SPS","CMFTestService"},
                     {"EQUIPMENT", string.Empty},
                     {"CHAMBER",  string.Empty},

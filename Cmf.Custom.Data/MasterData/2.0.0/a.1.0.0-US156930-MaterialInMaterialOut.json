@@ -1,0 +1,442 @@
+{
+	"Config": {
+		"1": {
+			"Revision format": "[<revision>]",
+			"Use Revisions": "Optional",
+			"Default create": "Create Version"
+		}
+	},
+	"<SM>LocalizedMessageKey": {
+		"1": {
+			"Name": "CustomLocalizedMessageConfigNotFound",
+			"Description": "",
+			"MessageType": "Message",
+			"en-US": "The following configuration was not found in the system : {0}",
+			"de-DE": "",
+			"zh-CN": "",
+			"pt-PT": "",
+			"zh-TW": ""
+		},
+		"2": {
+			"Name": "CustomLocalizedMessageIoTConnectionTimeout",
+			"Description": "",
+			"MessageType": "Message",
+			"en-US": "The IoT call for {0} request was timeout.",
+			"de-DE": "",
+			"zh-CN": "",
+			"pt-PT": "",
+			"zh-TW": ""
+		},
+		"3": {
+			"Name": "CustomLocalizedMessageNoHoldReasonAvailableErrorMessage",
+			"Description": "Error message when there is no hold reason available to abort a material (lot)",
+			"MessageType": "Message",
+			"en-US": "There must be a hold reason available to perform this action.",
+			"de-DE": "",
+			"zh-CN": "",
+			"pt-PT": "",
+			"zh-TW": ""
+		},
+		"4": {
+			"Name": "CustomLocalizedMessageRecipeBodyEmpty",
+			"Description": "",
+			"MessageType": "Message",
+			"en-US": "The Body of the Recipe {0} is empty. Please configure it and try again.",
+			"de-DE": "",
+			"zh-CN": "",
+			"pt-PT": "",
+			"zh-TW": ""
+		},
+		"5": {
+			"Name": "CustomLocalizedMessageRecipeWithoutBody",
+			"Description": "",
+			"MessageType": "Message",
+			"en-US": "The Body of the Recipe {0} is missing. Please configure it and try again.",
+			"de-DE": "",
+			"zh-CN": "",
+			"pt-PT": "",
+			"zh-TW": ""
+		},
+		"6": {
+			"Name": "StateModelStateDoesNotExistException",
+			"Description": "",
+			"MessageType": "Message",
+			"en-US": "State Model State {0} does not exist in the System.",
+			"de-DE": "",
+			"zh-CN": "",
+			"pt-PT": "",
+			"zh-TW": ""
+		},
+		"7": {
+			"Name": "StateModelDoesNotExistException",
+			"Description": "",
+			"MessageType": "Message",
+			"en-US": "State Model {0} does not exist in the System.",
+			"de-DE": "",
+			"zh-CN": "",
+			"pt-PT": "",
+			"zh-TW": ""
+		}
+	},
+	"<SM>LookupTableValues": {
+		"1": {
+			"LookUp Table": "CustomSorterLogisticalProcess",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "MapCarrier",
+			"Lookup Table Value Description": "",
+			"Lookup Table IsEnabled": "true"
+		},
+		"2": {
+			"LookUp Table": "CustomSorterLogisticalProcess",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "TransferWafers",
+			"Lookup Table Value Description": "",
+			"Lookup Table IsEnabled": "true"
+		},
+		"3": {
+			"LookUp Table": "CustomSorterLogisticalProcess",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "Compose",
+			"Lookup Table Value Description": "",
+			"Lookup Table IsEnabled": "true"
+		}
+	},
+	"<SM>DEEAction": {
+		"1": {
+			"Action": "CustomMaterialInValidation",
+			"Description": "DEE Action to validate input for the material in service.",
+			"CodeFileRelativePath": "Materials//CustomMaterialInValidation.cs",
+			"IsEnabled": "Yes",
+			"Classification": ""
+		},
+		"2": {
+			"Action": "CustomAutomationAdjustLoadPortState",
+			"Description": "",
+			"CodeFileRelativePath": "Automation//CustomAutomationAdjustLoadPortState.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		},
+		"3": {
+			"Action": "CustomAutomationGetRecipeBody",
+			"Description": "",
+			"CodeFileRelativePath": "Automation//CustomAutomationGetRecipeBody.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		},
+		"4": {
+			"Action": "CustomAutomationSetMaterialState",
+			"Description": "",
+			"CodeFileRelativePath": "Automation//CustomAutomationSetMaterialState.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		},
+		"5": {
+			"Action": "CustomAutomationSetCustomResourceState",
+			"Description": "",
+			"CodeFileRelativePath": "Automation//CustomAutomationSetCustomResourceState.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		},
+		"6": {
+			"Action": "CustomAutomationAbortMaterial",
+			"Description": "",
+			"CodeFileRelativePath": "Automation//CustomAutomationAbortMaterial.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		},
+		"7": {
+			"Action": "CustomSendMaterialToFutureHold",
+			"Description": "",
+			"CodeFileRelativePath": "Automation//CustomSendMaterialToFutureHold.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		},
+		"8": {
+			"Action": "CustomSetHoldEntity",
+			"Description": "",
+			"CodeFileRelativePath": "Automation//CustomSetHoldEntity.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		},
+		"9": {
+			"Action": "CustomSetWaferToContainerSlot",
+			"Description": "",
+			"CodeFileRelativePath": "Automation//CustomSetWaferToContainerSlot.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		}
+	},
+	"DEEActionOrder": {},
+	"<DM>Rule": {
+		"1": {
+			"Name": "CustomAutomationAdjustLoadPortState",
+			"Description": "",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomAutomationAdjustLoadPortState"
+		},
+		"2": {
+			"Name": "CustomAutomationGetRecipeBody",
+			"Description": "",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomAutomationGetRecipeBody"
+		},
+		"3": {
+			"Name": "CustomAutomationSetMaterialState",
+			"Description": "",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomAutomationSetMaterialState"
+		},
+		"4": {
+			"Name": "CustomAutomationSetCustomResourceState",
+			"Description": "",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomAutomationSetCustomResourceState"
+		},
+		"5": {
+			"Name": "CustomAutomationAbortMaterial",
+			"Description": "",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomAutomationAbortMaterial"
+		},
+		"6": {
+			"Name": "CustomSendMaterialToFutureHold",
+			"Description": "",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomSendMaterialToFutureHold"
+		},
+		"7": {
+			"Name": "CustomSetHoldEntity",
+			"Description": "",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomSetHoldEntity"
+		},
+		"8": {
+			"Name": "CustomSetWaferToContainerSlot",
+			"Description": "",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomSetWaferToContainerSlot"
+		}
+	},
+	"<SM>EntityTypeProperty": {
+		"1": {
+			"EntityType": "Resource",
+			"Name": "IsLoadPortInUse",
+			"Description": "If set with true, then currently docked carrier is locked for sorter operation purposes",
+			"PropertyType": "Attribute",
+			"ScalarType": "Bit",
+			"ReferenceType": "None",
+			"IsEnabled": "Yes",
+			"IsHistoryEnable": "Yes",
+			"CopyOnClone": "",
+			"BelongsTo": "",
+			"ScalarSize": "",
+			"ScalarPrecision": "",
+			"ReferenceName": "",
+			"DefaultValue": "",
+			"IsArray": "",
+			"IsIndexed": "",
+			"IsMandatory": "",
+			"AccessLevel": "",
+			"ValidationRange": "",
+			"ValidationRegex": ""
+		},
+		"2": {
+			"EntityType": "Resource",
+			"Name": "IsSorter",
+			"Description": "Check if resource is a sorter equipment",
+			"PropertyType": "Attribute",
+			"ScalarType": "Bit",
+			"ReferenceType": "None",
+			"IsEnabled": "Yes",
+			"IsHistoryEnable": "Yes",
+			"CopyOnClone": "",
+			"BelongsTo": "",
+			"ScalarSize": "",
+			"ScalarPrecision": "",
+			"ReferenceName": "",
+			"DefaultValue": "",
+			"IsArray": "",
+			"IsIndexed": "",
+			"IsMandatory": "",
+			"AccessLevel": "",
+			"ValidationRange": "",
+			"ValidationRegex": ""
+		},
+		"3": {
+			"EntityType": "Container",
+			"Name": "FlipWafer",
+			"Description": "Is to flip wafers on sorter",
+			"PropertyType": "Attribute",
+			"ScalarType": "Bit",
+			"ReferenceType": "None",
+			"IsEnabled": "Yes",
+			"IsHistoryEnable": "Yes",
+			"CopyOnClone": "",
+			"BelongsTo": "",
+			"ScalarSize": "",
+			"ScalarPrecision": "",
+			"ReferenceName": "",
+			"DefaultValue": "",
+			"IsArray": "",
+			"IsIndexed": "",
+			"IsMandatory": "",
+			"AccessLevel": "",
+			"ValidationRange": "",
+			"ValidationRegex": ""
+		},
+		"4": {
+			"EntityType": "Container",
+			"Name": "AlignWafer",
+			"Description": "Is to align wafers on sorter",
+			"PropertyType": "Attribute",
+			"ScalarType": "Bit",
+			"ReferenceType": "None",
+			"IsEnabled": "Yes",
+			"IsHistoryEnable": "Yes",
+			"CopyOnClone": "",
+			"BelongsTo": "",
+			"ScalarSize": "",
+			"ScalarPrecision": "",
+			"ReferenceName": "",
+			"DefaultValue": "",
+			"IsArray": "",
+			"IsIndexed": "",
+			"IsMandatory": "",
+			"AccessLevel": "",
+			"ValidationRange": "",
+			"ValidationRegex": ""
+		},
+		"5": {
+			"EntityType": "Container",
+			"Name": "WaferIdOnTop",
+			"Description": "Is wafer Id on bottom",
+			"PropertyType": "Attribute",
+			"ScalarType": "Bit",
+			"ReferenceType": "None",
+			"IsEnabled": "Yes",
+			"IsHistoryEnable": "Yes",
+			"CopyOnClone": "",
+			"BelongsTo": "",
+			"ScalarSize": "",
+			"ScalarPrecision": "",
+			"ReferenceName": "",
+			"DefaultValue": "",
+			"IsArray": "",
+			"IsIndexed": "",
+			"IsMandatory": "",
+			"AccessLevel": "",
+			"ValidationRange": "",
+			"ValidationRegex": ""
+		},
+		"6": {
+			"EntityType": "Container",
+			"Name": "MapContainerNeeded",
+			"Description": "If set to true, when arriving to a sorter the equipment will perform a Map Carrier",
+			"PropertyType": "Attribute",
+			"ScalarType": "Bit",
+			"ReferenceType": "None",
+			"IsEnabled": "Yes",
+			"IsHistoryEnable": "Yes",
+			"CopyOnClone": "",
+			"BelongsTo": "",
+			"ScalarSize": "",
+			"ScalarPrecision": "",
+			"ReferenceName": "",
+			"DefaultValue": "",
+			"IsArray": "",
+			"IsIndexed": "",
+			"IsMandatory": "",
+			"AccessLevel": "",
+			"ValidationRange": "",
+			"ValidationRegex": ""
+		},
+		"7": {
+			"EntityType": "Container",
+			"Name": "Lot",
+			"Description": "Identifies the current lot on this container",
+			"PropertyType": "Attribute",
+			"CopyOnClone": "No",
+			"BelongsTo": "Definition",
+			"ScalarType": "NVarChar",
+			"ScalarSize": "",
+			"ScalarPrecision": "",
+			"ReferenceType": "None",
+			"ReferenceName": "",
+			"DefaultValue": "",
+			"IsArray": "No",
+			"IsEnabled": "Yes",
+			"IsHistoryEnable": "Yes",
+			"IsIndexed": "No",
+			"IsMandatory": "No",
+			"AccessLevel": "0",
+			"ValidationRange": "",
+			"ValidationRegex": ""
+		},
+		"8": {
+			"EntityType": "Container",
+			"Name": "Product",
+			"Description": "The product used to create wafers for the current container",
+			"PropertyType": "Attribute",
+			"CopyOnClone": "No",
+			"BelongsTo": "Definition",
+			"ScalarType": "NVarChar",
+			"ScalarSize": "",
+			"ScalarPrecision": "",
+			"ReferenceType": "None",
+			"ReferenceName": "",
+			"DefaultValue": "",
+			"IsArray": "No",
+			"IsEnabled": "Yes",
+			"IsHistoryEnable": "Yes",
+			"IsIndexed": "No",
+			"IsMandatory": "No",
+			"AccessLevel": "0",
+			"ValidationRange": "",
+			"ValidationRegex": ""
+		},
+		"9": {
+			"EntityType": "Container",
+			"Name": "TransportRequested",
+			"Description": "Set to true to avoid load port to trigger transport events",
+			"PropertyType": "Attribute",
+			"CopyOnClone": "",
+			"BelongsTo": "Definition",
+			"ScalarType": "Bit",
+			"ScalarSize": "",
+			"ScalarPrecision": "",
+			"ReferenceType": "None",
+			"ReferenceName": "",
+			"DefaultValue": "",
+			"IsArray": "No",
+			"IsEnabled": "Yes",
+			"IsHistoryEnable": "Yes",
+			"IsIndexed": "No",
+			"IsMandatory": "No",
+			"AccessLevel": "",
+			"ValidationRange": "",
+			"ValidationRegex": ""
+		},
+		"10": {
+			"EntityType": "Container",
+			"Name": "WaferIdOnTop",
+			"Description": "Is wafer Id on bottom",
+			"PropertyType": "Attribute",
+			"ScalarType": "Bit",
+			"ReferenceType": "None",
+			"IsEnabled": "Yes",
+			"IsHistoryEnable": "Yes",
+			"CopyOnClone": "",
+			"BelongsTo": "",
+			"ScalarSize": "",
+			"ScalarPrecision": "",
+			"ReferenceName": "",
+			"DefaultValue": "",
+			"IsArray": "",
+			"IsIndexed": "",
+			"IsMandatory": "",
+			"AccessLevel": "",
+			"ValidationRange": "",
+			"ValidationRegex": ""
+		}
+	}
+}

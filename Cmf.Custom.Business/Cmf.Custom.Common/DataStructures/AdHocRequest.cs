@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
 
-namespace Cmf.Custom.AMSOsram.Common.DataStructures
+namespace Cmf.Custom.amsOSRAM.Common.DataStructures
 {
     /// <summary>
     /// Support class that represents a group of AdHoc Actions to be sent to IoT

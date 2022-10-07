@@ -1,17 +1,14 @@
 ﻿using cmConnect.TestFramework.Environment;
 using cmConnect.TestFramework.EquipmentSimulator.Drivers;
-using Cmf.Navigo.BusinessObjects;
 using Cmf.SECS.Driver;
-using AMSOsramEIAutomaticTests.Objects.Extensions;
 using System;
-using System.Net;
-using AMSOsramEIAutomaticTests;
+using amsOSRAMEIAutomaticTests;
 using System.Collections.Generic;
-using cmConnect.TestFramework.Common.Utilities;
 using Cmf.Foundation.BusinessObjects;
 using cmConnect.TestFramework.ConnectIoT.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using Cmf.Custom.TestUtilities;
 
 namespace Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader
 {
@@ -32,8 +29,10 @@ namespace Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader
             {
                 cmConnect.TestFramework.Common.Utilities.TestUtilities.WaitFor(120, $"Driver never connected", () =>
                 {
-                    var instance = cmConnect.TestFramework.SystemRest.Utilities.SystemUtilities.GetObjectById<AutomationDriverInstance>(((IoTEquipment)Equipment.BaseImplementation).EntityInstance.Id);
-                    return (instance.CommunicationState == AutomationCommunicationState.Communicating);
+                    AutomationDriverInstance driverInstance = new AutomationDriverInstance();
+                    driverInstance.Load(((IoTEquipment)Equipment.BaseImplementation).EntityInstance.Id);
+
+                    return (driverInstance.CommunicationState == AutomationCommunicationState.Communicating);
                 });
             }
             catch
@@ -48,7 +47,7 @@ namespace Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader
 
             var targetId = request.Item.ASCII;
 
-            string mid = targetIdRFID.FirstOrDefault(f => f.Key == targetId).Value;
+            string mid = targetIdRFID.FirstOrDefault(f => f.Key == int.Parse(targetId).ToString()).Value;
             Log(String.Format("{0}: [S] Trying to read RFID Target ID {1} value {2}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), targetId, mid));
 
 

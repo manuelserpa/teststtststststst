@@ -1,11 +1,6 @@
-﻿using Cmf.Custom.AMSOsram.BusinessObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Cmf.Custom.amsOSRAM.BusinessObjects;
 
-namespace AMSOsramEIAutomaticTests.Objects.Persistence
+namespace amsOSRAMEIAutomaticTests.Objects.Persistence
 {
     public class MaterialData
     {

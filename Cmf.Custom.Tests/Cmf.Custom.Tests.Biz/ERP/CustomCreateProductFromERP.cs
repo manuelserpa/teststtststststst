@@ -9,7 +9,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 
 namespace Cmf.Custom.Tests.Biz.ERP
@@ -237,7 +236,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
                 if (partParameters.Any(pp => pp.TargetEntity.Name.Equals(parameterName)))
                 {
                     ProductParameter parameter = (ProductParameter)partParameters.FirstOrDefault(pp => pp.TargetEntity.Name.Equals(parameterName));
-                    Assert.IsTrue(CustomUtilities.GetParameterValueAsDataType(parameter.TargetEntity.DataType, parameter.Value).ToString().Equals(CustomUtilities.GetParameterValueAsDataType(parameter.TargetEntity.DataType, parameterData[parameterName]).ToString()));
+                    Assert.IsTrue(CustomUtilities.GetParameterValueAsDataType(parameter.TargetEntity.DataType, parameter.Value.ToString()).ToString().Equals(CustomUtilities.GetParameterValueAsDataType(parameter.TargetEntity.DataType, parameterData[parameterName]).ToString()));
                 }
             }
 

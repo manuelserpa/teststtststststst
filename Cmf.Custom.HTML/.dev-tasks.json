@@ -2,11 +2,9 @@
   "packagePrefix": "customization",
   "framework": "",
   "webAppPrefix": "customization",
-  "isWebAppCompilable": false,
+  "isWebAppCompilable": true,
   "dependencies": [],
-  "packages": [
-    "customization.common"
-  ],
+  "packages": ["customization.common"],
   "registry": "http://cmf-nuget:4873/",
-  "channel": "release-833"
+  "channel": "release-910"
 }

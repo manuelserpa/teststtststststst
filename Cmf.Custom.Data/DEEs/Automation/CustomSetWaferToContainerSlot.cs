@@ -1,13 +1,15 @@
-﻿using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.Extensions;
+﻿using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.Extensions;
 using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Foundation.Common.Abstractions;
 
-namespace Cmf.Custom.AMSOsram.Actions.Automation
+namespace Cmf.Custom.amsOSRAM.Actions.Automation
 {
 	class CustomSetWaferToContainerSlot : DeeDevBase
 	{
@@ -47,18 +49,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 		public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
 		{
 			//---Start DEE Code---
-			UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-			UseReference("", "Cmf.Foundation.BusinessObjects.SmartTables");
-			UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-			UseReference("", "Cmf.Foundation.Common.Exceptions");
-			UseReference("", "Cmf.Foundation.Common");
-			UseReference("Cmf.Foundation.Configuration.dll", "Cmf.Foundation.Configuration");
-			// Navigo
-			UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-			UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects");
+
 			// Custom
-			UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-			UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.Extensions");
+			UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+			UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.Extensions");
 
 			bool createInventory = false;
 			string resourceName = string.Empty;
@@ -81,7 +75,12 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 				throw new ArgumentNullCmfException("WaferId");
 			}
 
-			Material material = new Material() { Name = (Input["WaferId"] as String).Trim() };
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
+			IMaterial material = entityFactory.Create<IMaterial>();
+            material.Name = (Input["WaferId"] as string).Trim();
 
 			// CarrierId
 			if (!Input.ContainsKey("CarrierId"))
@@ -89,7 +88,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 				throw new ArgumentNullCmfException("CarrierId");
 			}
 
-			Container targetContainer = new Container() { Name = Input["CarrierId"] as String };
+			IContainer targetContainer = entityFactory.Create<IContainer>();
+            targetContainer.Name = Input["CarrierId"] as String;
 
 			// SlotNumber
 			if (!Input.ContainsKey("SlotNumber"))
@@ -108,32 +108,33 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 				if (!material.ObjectExists())
 				{
 					targetContainer.LoadAttributes(new Collection<string> {
-						AMSOsramConstants.ContainerAttributeProduct
+						amsOSRAMConstants.ContainerAttributeProduct
 					});
 
-					targetContainer.Attributes.TryGetValueAs(AMSOsramConstants.ContainerAttributeProduct, out string productName);
+					targetContainer.Attributes.TryGetValueAs(amsOSRAMConstants.ContainerAttributeProduct, out string productName);
 
-					Product product = new Product { Name = productName };
+					IProduct product = entityFactory.Create<IProduct>();
+                    product.Name = productName;
 
 					if (product.ObjectExists())
 					{
 						product.Load();
 						product.LoadAttributes(new Collection<string> {
-							AMSOsramConstants.ProductAttributeCanCreateInventory
+							amsOSRAMConstants.ProductAttributeCanCreateInventory
 						});
 
-						product.RelatedAttributes.TryGetValueAs(AMSOsramConstants.ProductAttributeCanCreateInventory, out bool productCanCreateInventory);
+						product.RelatedAttributes.TryGetValueAs(amsOSRAMConstants.ProductAttributeCanCreateInventory, out bool productCanCreateInventory);
 
 						if (productCanCreateInventory)
 						{
-							Step step = product.Step;
-							ResourceCollection resourcesOnStep = step.GetResourcesForStep();
+							IStep step = product.Step;
+							IResourceCollection resourcesOnStep = step.GetResourcesForStep();
 
-							Resource resource = resourcesOnStep.FirstOrDefault(r => r.Name == resourceName);
+							IResource resource = resourcesOnStep.FirstOrDefault(r => r.Name == resourceName);
 
 							if (resource != null && resource.Area != null)
 							{
-								Area area = resource.Area;
+								IArea area = resource.Area;
 								area.Load();
 
 								material.Description = product.Description;
@@ -167,20 +168,23 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 				material.LoadRelations("MaterialContainer");
 
 				targetContainer.LoadRelations("MaterialContainer");
-				MaterialContainerCollection materialsOnContainer = targetContainer.ContainerMaterials ?? new MaterialContainerCollection();
+				IMaterialContainerCollection materialsOnContainer = targetContainer.ContainerMaterials ?? entityFactory.CreateCollection<IMaterialContainerCollection>();
 
 				if (material.MaterialContainer != null && material.MaterialContainer.Count > 0)
 				{
 					// if the target slot is occupied, then we need to remove the existing material from position
-					var previousSlot = materialsOnContainer.FirstOrDefault(s => (s.Position ?? 0) == slotNumber);
+					IMaterialContainer previousSlot = materialsOnContainer.FirstOrDefault(s => (s.Position ?? 0) == slotNumber);
 					if (previousSlot != null)
 					{
 						// if target slot is occupied by the correct material, then we can skip the rest of the execution
 						// Otherwise remove existing wafer from container
 						if (previousSlot.GetNativeValue<long>("SourceEntity") != material.Id)
 						{
-							targetContainer.DisassociateMaterials(new MaterialContainerCollection { previousSlot });
-							materialsOnContainer = targetContainer.ContainerMaterials ?? new MaterialContainerCollection();
+                            IMaterialContainerCollection previousSlotColletion = entityFactory.CreateCollection<IMaterialContainerCollection>();
+							previousSlotColletion.Add(previousSlot);
+
+                            targetContainer.DisassociateMaterials(previousSlotColletion);
+							materialsOnContainer = targetContainer.ContainerMaterials ?? entityFactory.CreateCollection<IMaterialContainerCollection>();
 						}
 						else
 						{
@@ -191,7 +195,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
 					if (!skipAssociate)
 					{
-						MaterialContainer currentMaterialContainer = materialsOnContainer.FirstOrDefault(s => s.GetNativeValue<long>("SourceEntity") == material.Id);
+						IMaterialContainer currentMaterialContainer = materialsOnContainer.FirstOrDefault(s => s.GetNativeValue<long>("SourceEntity") == material.Id);
 
 						if (currentMaterialContainer != null)
 						{
@@ -199,54 +203,65 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 							if (currentMaterialContainer.Position != slotNumber)
 							{
 								currentMaterialContainer.Position = slotNumber;
-								targetContainer.UpdateMaterialPositions(new MaterialContainerCollection { currentMaterialContainer });
+
+								IMaterialContainerCollection currentMaterialContainerCollection = entityFactory.CreateCollection<IMaterialContainerCollection>();
+								currentMaterialContainerCollection.Add(currentMaterialContainer);
+
+                                targetContainer.UpdateMaterialPositions(currentMaterialContainerCollection);
 							}
 							// else (slot position is already the correct one) no change will be needed
 						}
 						else
 						{
 							// new Material Container need to be created
-							currentMaterialContainer = new MaterialContainer()
-							{
-								TargetEntity = targetContainer,
-								SourceEntity = material,
-								Position = slotNumber
-							};
+
+							currentMaterialContainer = entityFactory.Create<IMaterialContainer>();
+							currentMaterialContainer.TargetEntity = targetContainer;
+							currentMaterialContainer.SourceEntity = material;
+                            currentMaterialContainer.Position = slotNumber;
 
 							// If material is in other container, then Transfer
 							material.LoadRelations("MaterialContainer");
 							if (material.RelationCollection.ContainsKey("MaterialContainer"))
 							{
 								// Container exists in the material, need to verify if is different from the target container
-								MaterialContainer existingMaterialContainer = material.RelationCollection["MaterialContainer"].FirstOrDefault() as MaterialContainer;
+								IMaterialContainer existingMaterialContainer = material.RelationCollection["MaterialContainer"].FirstOrDefault() as IMaterialContainer;
 								if (existingMaterialContainer != null &&
 									existingMaterialContainer.GetNativeValue<long>("TargetEntity") != targetContainer.Id)
 								{
-									// Transfer Material to new Container
-									existingMaterialContainer.TargetEntity.TransferMaterials(new MaterialContainerCollection { currentMaterialContainer });
+                                    // Transfer Material to new Container
+                                    IMaterialContainerCollection materialContainerCollection = entityFactory.CreateCollection<IMaterialContainerCollection>();
+									materialContainerCollection.Add(currentMaterialContainer);
+
+                                    existingMaterialContainer.TargetEntity.TransferMaterials(materialContainerCollection);
 								}
 							}
 							else
 							{
-								// Associate material to container
-								targetContainer.AssociateMaterials(new MaterialContainerCollection { currentMaterialContainer });
+                                // Associate material to container
+                                IMaterialContainerCollection materialContainerCollection = entityFactory.CreateCollection<IMaterialContainerCollection>();
+                                materialContainerCollection.Add(currentMaterialContainer);
+
+                                targetContainer.AssociateMaterials(materialContainerCollection);
 							}
 						}
 					}
 				}
 				else // The material is not associated with any container whatsoever
 				{
-					MaterialContainer materialContainer = new MaterialContainer()
-					{
-						TargetEntity = targetContainer,
-						SourceEntity = material,
-						Position = slotNumber
-					};
+					IMaterialContainer materialContainer = entityFactory.Create<IMaterialContainer>();
+					materialContainer.TargetEntity = targetContainer;
+					materialContainer.SourceEntity = material;
+                    materialContainer.Position = slotNumber;
 
-					// Associate material to container
-					targetContainer.AssociateMaterials(new MaterialContainerCollection { materialContainer });
+                    IMaterialContainerCollection materialContainerCollection = entityFactory.CreateCollection<IMaterialContainerCollection>();
+					materialContainerCollection.Add(materialContainer);
+
+                    // Associate material to container
+                    targetContainer.AssociateMaterials(materialContainerCollection);
 				}
 			}
+
 			//---End DEE Code---
 
 			return Input;

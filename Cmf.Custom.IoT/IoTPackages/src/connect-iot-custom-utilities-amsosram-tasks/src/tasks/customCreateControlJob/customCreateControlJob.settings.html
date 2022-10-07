@@ -3,13 +3,17 @@
 
     <!-- General Tab: Settings -->
     <cmf-core-controls-baseWidget [mainTitle]="i18n.SETTINGS">
-        <cmf-core-business-controls-propertyEditor [label]="OBJECT_SPEC" [(value)]="settings.objectSpec"
+        <cmf-core-business-controls-propertyEditor [label]="i18n.OBJECT_SPEC" [(value)]="settings.objectSpec"
             [required]="false" valueType="String"></cmf-core-business-controls-propertyEditor>
         <cmf-core-business-controls-propertyEditor [label]="i18n.USE_CARRIER_AT_LOAD_PORT"
             [(value)]="settings.useCarrierAtLoadPortAsContainer" valueType="Boolean">
         </cmf-core-business-controls-propertyEditor>
         <cmf-core-business-controls-propertyEditor [label]="i18n.OCCUPIED_SLOT" [(value)]="settings.occupiedSlot"
             valueType="String">
+        </cmf-core-business-controls-propertyEditor>
+        <cmf-core-business-controls-propertyEditor [label]="i18n.PROCESS_ORDER_MANAGEMENT" nestedEditorType="Custom">
+            <cmf-core-controls-enumComboBox [enum]="ProcessOrderMgmt" [(value)]="settings.ProcessOrderMgmtValue"
+            (valueChange)="_onSettingsValueChange($event, 'commandName')"></cmf-core-controls-enumComboBox>
         </cmf-core-business-controls-propertyEditor>
     </cmf-core-controls-baseWidget>
 </cmf-core-connect-iot-taskSettings>

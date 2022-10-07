@@ -2631,7 +2631,7 @@
       "Name": "TrymaxNEOController",
       "Description": "Trymax NEO Controller",
       "Type": "General",
-      "ControllerPackageVersion": "8.3.3-202201212",
+      "ControllerPackageVersion": "9.1.0-202209072",
       "ObjectType": "Resource",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\",\"connect-iot-controller-engine-secsgem-tasks\"]",
       "Scope": "ConnectIoT"
@@ -2652,7 +2652,7 @@
       "Name": "Setup",
       "DisplayName": "Setup",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\Setup.json",
+      "Workflow": "TrymaxNEO/Setup.json",
       "Order": "1"
     },
     "2": {
@@ -2660,7 +2660,7 @@
       "Name": "MaterialReceived_01_MaterialReceivedEvent",
       "DisplayName": "MaterialReceived_01_MaterialReceivedEvent",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\MaterialReceived_01_MaterialReceivedEvent.json",
+      "Workflow": "TrymaxNEO/MaterialReceived_01_MaterialReceivedEvent.json",
       "Order": "2"
     },
     "3": {
@@ -2668,7 +2668,7 @@
       "Name": "MaterialReceived_02_MaterialReceivedEvent",
       "DisplayName": "MaterialReceived_02_MaterialReceivedEvent",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\MaterialReceived_02_MaterialReceivedEvent.json",
+      "Workflow": "TrymaxNEO/MaterialReceived_02_MaterialReceivedEvent.json",
       "Order": "3"
     },
     "4": {
@@ -2676,7 +2676,7 @@
       "Name": "MaterialReceived_03_MaterialReceivedEvent",
       "DisplayName": "MaterialReceived_03_MaterialReceivedEvent",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\MaterialReceived_03_MaterialReceivedEvent.json",
+      "Workflow": "TrymaxNEO/MaterialReceived_03_MaterialReceivedEvent.json",
       "Order": "4"
     },
     "5": {
@@ -2684,7 +2684,7 @@
       "Name": "MaterialReceived_04_MaterialReceivedEvent",
       "DisplayName": "MaterialReceived_04_MaterialReceivedEvent",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\MaterialReceived_04_MaterialReceivedEvent.json",
+      "Workflow": "TrymaxNEO/MaterialReceived_04_MaterialReceivedEvent.json",
       "Order": "5"
     },
     "6": {
@@ -2692,7 +2692,7 @@
       "Name": "CarrierIdRead_01_EventReceived",
       "DisplayName": "CarrierIdRead_01_EventReceived",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\CarrierIdRead_01_EventReceived.json",
+      "Workflow": "TrymaxNEO/CarrierIdRead_01_EventReceived.json",
       "Order": "6"
     },
     "7": {
@@ -2700,7 +2700,7 @@
       "Name": "SlotMap_01_SlotMapReceived",
       "DisplayName": "SlotMap_01_SlotMapReceived",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\SlotMap_01_SlotMapReceived.json",
+      "Workflow": "TrymaxNEO/SlotMap_01_SlotMapReceived.json",
       "Order": "7"
     },
     "8": {
@@ -2708,7 +2708,7 @@
       "Name": "SlotMap_02_SlotMapReceived",
       "DisplayName": "SlotMap_02_SlotMapReceived",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\SlotMap_02_SlotMapReceived.json",
+      "Workflow": "TrymaxNEO/SlotMap_02_SlotMapReceived.json",
       "Order": "8"
     },
     "9": {
@@ -2716,7 +2716,7 @@
       "Name": "SlotMap_03_SlotMapReceived",
       "DisplayName": "SlotMap_03_SlotMapReceived",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\SlotMap_03_SlotMapReceived.json",
+      "Workflow": "TrymaxNEO/SlotMap_03_SlotMapReceived.json",
       "Order": "9"
     },
     "10": {
@@ -2724,7 +2724,7 @@
       "Name": "SlotMap_04_SlotMapReceived",
       "DisplayName": "SlotMap_04_SlotMapReceived",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\SlotMap_04_SlotMapReceived.json",
+      "Workflow": "TrymaxNEO/SlotMap_04_SlotMapReceived.json",
       "Order": "10"
     },
     "11": {
@@ -2732,7 +2732,7 @@
       "Name": "ReadyToUnload_01_EventReceived",
       "DisplayName": "ReadyToUnload_01_EventReceived",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\ReadyToUnload_01_EventReceived.json",
+      "Workflow": "TrymaxNEO/ReadyToUnload_01_EventReceived.json",
       "Order": "11"
     },
     "12": {
@@ -2740,7 +2740,7 @@
       "Name": "MaterialRemoved_01_MaterialRemovedEvent",
       "DisplayName": "MaterialRemoved_01_MaterialRemovedEvent",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\MaterialRemoved_01_MaterialRemovedEvent.json",
+      "Workflow": "TrymaxNEO/MaterialRemoved_01_MaterialRemovedEvent.json",
       "Order": "12"
     },
     "13": {
@@ -2748,7 +2748,7 @@
       "Name": "MaterialRemoved_02_MaterialRemovedEvent",
       "DisplayName": "MaterialRemoved_02_MaterialRemovedEvent",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\MaterialRemoved_02_MaterialRemovedEvent.json",
+      "Workflow": "TrymaxNEO/MaterialRemoved_02_MaterialRemovedEvent.json",
       "Order": "13"
     },
     "14": {
@@ -2756,7 +2756,7 @@
       "Name": "MaterialRemoved_03_MaterialRemovedEvent",
       "DisplayName": "MaterialRemoved_03_MaterialRemovedEvent",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\MaterialRemoved_03_MaterialRemovedEvent.json",
+      "Workflow": "TrymaxNEO/MaterialRemoved_03_MaterialRemovedEvent.json",
       "Order": "14"
     },
     "15": {
@@ -2764,7 +2764,7 @@
       "Name": "MaterialRemoved_04_MaterialRemovedEvent",
       "DisplayName": "MaterialRemoved_04_MaterialRemovedEvent",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\MaterialRemoved_04_MaterialRemovedEvent.json",
+      "Workflow": "TrymaxNEO/MaterialRemoved_04_MaterialRemovedEvent.json",
       "Order": "15"
     },
     "16": {
@@ -2772,7 +2772,7 @@
       "Name": "TrackIn_01_TrackInRequestReceived",
       "DisplayName": "TrackIn_01_TrackInRequestReceived",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\TrackIn_01_TrackInRequestReceived.json",
+      "Workflow": "TrymaxNEO/TrackIn_01_TrackInRequestReceived.json",
       "Order": "16"
     },
     "17": {
@@ -2780,7 +2780,7 @@
       "Name": "ProcessStarted_01_EventTosProcessStartedReceived",
       "DisplayName": "ProcessStarted_01_EventTosProcessStartedReceived",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\ProcessStarted_01_EventTosProcessStartedReceived.json",
+      "Workflow": "TrymaxNEO/ProcessStarted_01_EventTosProcessStartedReceived.json",
       "Order": "17"
     },
     "18": {
@@ -2788,7 +2788,7 @@
       "Name": "WaferStart_01_EventWaferStarted",
       "DisplayName": "WaferStart_01_EventWaferStarted",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\WaferStart_01_EventWaferStarted.json",
+      "Workflow": "TrymaxNEO/WaferStart_01_EventWaferStarted.json",
       "Order": "18"
     },
     "19": {
@@ -2796,7 +2796,7 @@
       "Name": "WaferStart_02_EventWaferStarted",
       "DisplayName": "WaferStart_02_EventWaferStarted",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\WaferStart_02_EventWaferStarted.json",
+      "Workflow": "TrymaxNEO/WaferStart_02_EventWaferStarted.json",
       "Order": "19"
     },
     "20": {
@@ -2804,7 +2804,7 @@
       "Name": "WaferStart_03_EventWaferStarted",
       "DisplayName": "WaferStart_03_EventWaferStarted",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\WaferStart_03_EventWaferStarted.json",
+      "Workflow": "TrymaxNEO/WaferStart_03_EventWaferStarted.json",
       "Order": "20"
     },
     "21": {
@@ -2812,7 +2812,7 @@
       "Name": "WaferStart_04_EventWaferStarted",
       "DisplayName": "WaferStart_04_EventWaferStarted",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\WaferStart_04_EventWaferStarted.json",
+      "Workflow": "TrymaxNEO/WaferStart_04_EventWaferStarted.json",
       "Order": "21"
     },
     "22": {
@@ -2820,7 +2820,7 @@
       "Name": "WaferComplete_01_EventWaferCompleted",
       "DisplayName": "WaferComplete_01_EventWaferCompleted",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\WaferComplete_01_EventWaferCompleted.json",
+      "Workflow": "TrymaxNEO/WaferComplete_01_EventWaferCompleted.json",
       "Order": "22"
     },
     "23": {
@@ -2828,7 +2828,7 @@
       "Name": "WaferComplete_02_EventWaferCompleted",
       "DisplayName": "WaferComplete_02_EventWaferCompleted",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\WaferComplete_02_EventWaferCompleted.json",
+      "Workflow": "TrymaxNEO/WaferComplete_02_EventWaferCompleted.json",
       "Order": "23"
     },
     "24": {
@@ -2836,7 +2836,7 @@
       "Name": "WaferComplete_03_EventWaferCompleted",
       "DisplayName": "WaferComplete_03_EventWaferCompleted",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\WaferComplete_03_EventWaferCompleted.json",
+      "Workflow": "TrymaxNEO/WaferComplete_03_EventWaferCompleted.json",
       "Order": "24"
     },
     "25": {
@@ -2844,7 +2844,7 @@
       "Name": "WaferComplete_04_EventWaferCompleted",
       "DisplayName": "WaferComplete_04_EventWaferCompleted",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\WaferComplete_04_EventWaferCompleted.json",
+      "Workflow": "TrymaxNEO/WaferComplete_04_EventWaferCompleted.json",
       "Order": "25"
     },
     "26": {
@@ -2852,7 +2852,7 @@
       "Name": "ProcessCompleted_01_EventProcessCompletedReceived",
       "DisplayName": "ProcessCompleted_01_EventProcessCompletedReceived",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\ProcessCompleted_01_EventProcessCompletedReceived.json",
+      "Workflow": "TrymaxNEO/ProcessCompleted_01_EventProcessCompletedReceived.json",
       "Order": "26"
     },
     "27": {
@@ -2860,7 +2860,7 @@
       "Name": "TrackOut_01_TrackOutEventReceivedFromMES",
       "DisplayName": "TrackOut_01_TrackOutEventReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\TrackOut_01_TrackOutEventReceivedFromMES.json",
+      "Workflow": "TrymaxNEO/TrackOut_01_TrackOutEventReceivedFromMES.json",
       "Order": "27"
     },
     "28": {
@@ -2868,7 +2868,7 @@
       "Name": "Abort_01_AbortEventReceivedFromMES",
       "DisplayName": "Abort_01_AbortEventReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\Abort_01_AbortEventReceivedFromMES.json",
+      "Workflow": "TrymaxNEO/Abort_01_AbortEventReceivedFromMES.json",
       "Order": "28"
     },
     "29": {
@@ -2876,7 +2876,7 @@
       "Name": "Hold_01_HoldEventReceivedFromMES",
       "DisplayName": "Hold_01_HoldEventReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\Hold_01_HoldEventReceivedFromMES.json",
+      "Workflow": "TrymaxNEO/Hold_01_HoldEventReceivedFromMES.json",
       "Order": "29"
     },
     "30": {
@@ -2884,7 +2884,7 @@
       "Name": "AlarmManagement_01_AlarmCollection",
       "DisplayName": "AlarmManagement_01_AlarmCollection",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\AlarmManagement_01_AlarmCollection.json",
+      "Workflow": "TrymaxNEO/AlarmManagement_01_AlarmCollection.json",
       "Order": "30"
     },
     "31": {
@@ -2892,7 +2892,7 @@
       "Name": "RecipeManagement_01_GetRecipeList",
       "DisplayName": "RecipeManagement_01_GetRecipeList",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\RecipeManagement_01_GetRecipeList.json",
+      "Workflow": "TrymaxNEO/RecipeManagement_01_GetRecipeList.json",
       "Order": "31"
     },
     "32": {
@@ -2900,7 +2900,7 @@
       "Name": "RecipeManagement_02_GetRecipeBody",
       "DisplayName": "RecipeManagement_02_GetRecipeBody",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\RecipeManagement_02_GetRecipeBody.json",
+      "Workflow": "TrymaxNEO/RecipeManagement_02_GetRecipeBody.json",
       "Order": "32"
     },
     "33": {
@@ -2908,7 +2908,7 @@
       "Name": "RecipeManagement_03_SetRecipeBody",
       "DisplayName": "RecipeManagement_03_SetRecipeBody",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\RecipeManagement_03_SetRecipeBody.json",
+      "Workflow": "TrymaxNEO/RecipeManagement_03_SetRecipeBody.json",
       "Order": "33"
     },
     "34": {
@@ -2916,7 +2916,7 @@
       "Name": "RecipeManagement_04_GetRecipeChecksum",
       "DisplayName": "RecipeManagement_04_GetRecipeChecksum",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\RecipeManagement_04_GetRecipeChecksum.json",
+      "Workflow": "TrymaxNEO/RecipeManagement_04_GetRecipeChecksum.json",
       "Order": "34"
     },
     "35": {
@@ -2924,7 +2924,7 @@
       "Name": "ResourceState_01_ProcessStateChanged",
       "DisplayName": "ResourceState_01_ProcessStateChanged",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\ResourceState_01_ProcessStateChanged.json",
+      "Workflow": "TrymaxNEO/ResourceState_01_ProcessStateChanged.json",
       "Order": "35"
     },
     "36": {
@@ -2932,7 +2932,7 @@
       "Name": "ControlState_01_ControlStateEquipmentOfflineUpdateReceived",
       "DisplayName": "ControlState_01_ControlStateEquipmentOfflineUpdateReceived",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\ControlState_01_ControlStateEquipmentOfflineUpdateReceived.json",
+      "Workflow": "TrymaxNEO/ControlState_01_ControlStateEquipmentOfflineUpdateReceived.json",
       "Order": "36"
     },
     "37": {
@@ -2940,7 +2940,7 @@
       "Name": "ControlState_02_ControlStateOnlineLocalUpdateReceived",
       "DisplayName": "ControlState_02_ControlStateOnlineLocalUpdateReceived",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\ControlState_02_ControlStateOnlineLocalUpdateReceived.json",
+      "Workflow": "TrymaxNEO/ControlState_02_ControlStateOnlineLocalUpdateReceived.json",
       "Order": "37"
     },
     "38": {
@@ -2948,7 +2948,7 @@
       "Name": "ControlState_03_ControlStateOnlineRemoteUpdateReceived",
       "DisplayName": "ControlState_03_ControlStateOnlineRemoteUpdateReceived",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\ControlState_03_ControlStateOnlineRemoteUpdateReceived.json",
+      "Workflow": "TrymaxNEO/ControlState_03_ControlStateOnlineRemoteUpdateReceived.json",
       "Order": "38"
     },
     "39": {
@@ -2956,7 +2956,7 @@
       "Name": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "DisplayName": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
+      "Workflow": "TrymaxNEO/SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
       "Order": "39"
     },
     "40": {
@@ -2964,7 +2964,7 @@
       "Name": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "DisplayName": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\RecipeValidation_01_UnformattedRecipeMainFlow.json",
+      "Workflow": "TrymaxNEO/RecipeValidation_01_UnformattedRecipeMainFlow.json",
       "Order": "40"
     },
     "41": {
@@ -2972,7 +2972,7 @@
       "Name": "PPSelect_01_ExecuteCommand",
       "DisplayName": "PPSelect_01_ExecuteCommand",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\PPSelect_01_ExecuteCommand.json",
+      "Workflow": "TrymaxNEO/PPSelect_01_ExecuteCommand.json",
       "Order": "41"
     },
     "42": {
@@ -2980,7 +2980,7 @@
       "Name": "StartCommand_01_ExecuteCommand",
       "DisplayName": "StartCommand_01_ExecuteCommand",
       "IsFile": "Yes",
-      "Workflow": "TrymaxNEO\\StartCommand_01_ExecuteCommand.json",
+      "Workflow": "TrymaxNEO/StartCommand_01_ExecuteCommand.json",
       "Order": "42"
     }
   },

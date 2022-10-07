@@ -7282,7 +7282,7 @@
       "Name": "MechatronicMWS200Controller",
       "Description": "TemplateController",
       "Type": "General",
-      "ControllerPackageVersion": "8.3.3-202201212",
+      "ControllerPackageVersion": "9.1.0-202209072",
       "ObjectType": "Resource",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\",\"connect-iot-controller-engine-secsgem-tasks\"]",
       "Scope": "ConnectIoT"
@@ -7303,7 +7303,7 @@
       "Name": "Setup",
       "DisplayName": "Setup",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\Setup.json",
+      "Workflow": "MechatronicMWS200/Setup.json",
       "Order": "1"
     },
     "2": {
@@ -7311,7 +7311,7 @@
       "Name": "MaterialReceived_01_MaterialReceivedEvent",
       "DisplayName": "MaterialReceived_01_MaterialReceivedEvent",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\MaterialReceived_01_MaterialReceivedEvent.json",
+      "Workflow": "MechatronicMWS200/MaterialReceived_01_MaterialReceivedEvent.json",
       "Order": "2"
     },
     "3": {
@@ -7319,7 +7319,7 @@
       "Name": "CarrierIdRead_01_EventReceived",
       "DisplayName": "CarrierIdRead_01_EventReceived",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\CarrierIdRead_01_EventReceived.json",
+      "Workflow": "MechatronicMWS200/CarrierIdRead_01_EventReceived.json",
       "Order": "3"
     },
     "4": {
@@ -7327,7 +7327,7 @@
       "Name": "SlotMap_01_SlotMapReceived",
       "DisplayName": "SlotMap_01_SlotMapReceived",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\SlotMap_01_SlotMapReceived.json",
+      "Workflow": "MechatronicMWS200/SlotMap_01_SlotMapReceived.json",
       "Order": "4"
     },
     "5": {
@@ -7335,7 +7335,7 @@
       "Name": "ReadyToUnload_01_EventReceived",
       "DisplayName": "ReadyToUnload_01_EventReceived",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\ReadyToUnload_01_EventReceived.json",
+      "Workflow": "MechatronicMWS200/ReadyToUnload_01_EventReceived.json",
       "Order": "5"
     },
     "6": {
@@ -7343,7 +7343,7 @@
       "Name": "MaterialRemoved_01_MaterialRemovedEvent",
       "DisplayName": "MaterialRemoved_01_MaterialRemovedEvent",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\MaterialRemoved_01_MaterialRemovedEvent.json",
+      "Workflow": "MechatronicMWS200/MaterialRemoved_01_MaterialRemovedEvent.json",
       "Order": "6"
     },
     "7": {
@@ -7351,7 +7351,7 @@
       "Name": "TrackIn_01_TrackInRequestReceived300mm",
       "DisplayName": "TrackIn_01_TrackInRequestReceived",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\TrackIn_01_TrackInRequestReceived300mm.json",
+      "Workflow": "MechatronicMWS200/TrackIn_01_TrackInRequestReceived300mm.json",
       "Order": "7"
     },
     "8": {
@@ -7359,7 +7359,7 @@
       "Name": "PostTrackIn_01_ExecuteStart",
       "DisplayName": "PostTrackIn_01_ExecuteStart",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\PostTrackIn_01_ExecuteStart.json",
+      "Workflow": "MechatronicMWS200/PostTrackIn_01_ExecuteStart.json",
       "Order": "8"
     },
     "9": {
@@ -7367,7 +7367,7 @@
       "Name": "ProcessStarted_01_EventTosProcessStartedReceived",
       "DisplayName": "ProcessStarted_01_EventTosProcessStartedReceived",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\ProcessStarted_01_EventTosProcessStartedReceived.json",
+      "Workflow": "MechatronicMWS200/ProcessStarted_01_EventTosProcessStartedReceived.json",
       "Order": "9"
     },
     "10": {
@@ -7375,7 +7375,7 @@
       "Name": "WaferStart_01_EventWaferStarted",
       "DisplayName": "WaferStart_01_EventWaferStarted",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\WaferStart_01_EventWaferStarted.json",
+      "Workflow": "MechatronicMWS200/WaferStart_01_EventWaferStarted.json",
       "Order": "10"
     },
     "11": {
@@ -7383,7 +7383,7 @@
       "Name": "WaferIdRead_01_EventWaferIdRead",
       "DisplayName": "WaferIdRead_01_EventWaferIdRead",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\WaferIdRead_01_EventWaferIdRead.json",
+      "Workflow": "MechatronicMWS200/WaferIdRead_01_EventWaferIdRead.json",
       "Order": "11"
     },
     "12": {
@@ -7391,7 +7391,7 @@
       "Name": "WaferComplete_01_EventWaferCompleted",
       "DisplayName": "WaferComplete_01_EventWaferCompleted",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\WaferComplete_01_EventWaferCompleted.json",
+      "Workflow": "MechatronicMWS200/WaferComplete_01_EventWaferCompleted.json",
       "Order": "12"
     },
     "13": {
@@ -7399,7 +7399,7 @@
       "Name": "ProcessCompleted_01_EventProcessCompletedReceived",
       "DisplayName": "ProcessCompleted_01_EventProcessCompletedReceived",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\ProcessCompleted_01_EventProcessCompletedReceived.json",
+      "Workflow": "MechatronicMWS200/ProcessCompleted_01_EventProcessCompletedReceived.json",
       "Order": "13"
     },
     "14": {
@@ -7407,7 +7407,7 @@
       "Name": "TrackOut_01_TrackOutEventReceivedFromMES",
       "DisplayName": "TrackOut_01_TrackOutEventReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\TrackOut_01_TrackOutEventReceivedFromMES.json",
+      "Workflow": "MechatronicMWS200/TrackOut_01_TrackOutEventReceivedFromMES.json",
       "Order": "14"
     },
     "15": {
@@ -7415,7 +7415,7 @@
       "Name": "Abort_01_AbortEventReceivedFromMES300mm",
       "DisplayName": "Abort_01_AbortEventReceivedFromMES300mm",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\Abort_01_AbortEventReceivedFromMES300mm.json",
+      "Workflow": "MechatronicMWS200/Abort_01_AbortEventReceivedFromMES300mm.json",
       "Order": "15"
     },
     "16": {
@@ -7423,7 +7423,7 @@
       "Name": "Hold_01_HoldEventReceivedFromMES",
       "DisplayName": "Hold_01_HoldEventReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\Hold_01_HoldEventReceivedFromMES.json",
+      "Workflow": "MechatronicMWS200/Hold_01_HoldEventReceivedFromMES.json",
       "Order": "16"
     },
     "17": {
@@ -7431,7 +7431,7 @@
       "Name": "AlarmManagement_01_AlarmCollection",
       "DisplayName": "AlarmManagement_01_AlarmCollection",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\AlarmManagement_01_AlarmCollection.json",
+      "Workflow": "MechatronicMWS200/AlarmManagement_01_AlarmCollection.json",
       "Order": "17"
     },
     "18": {
@@ -7439,7 +7439,7 @@
       "Name": "RecipeManagement_01_GetRecipeList",
       "DisplayName": "RecipeManagement_01_GetRecipeList",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\RecipeManagement_01_GetRecipeList.json",
+      "Workflow": "MechatronicMWS200/RecipeManagement_01_GetRecipeList.json",
       "Order": "18"
     },
     "19": {
@@ -7447,7 +7447,7 @@
       "Name": "RecipeManagement_02_GetRecipeBody",
       "DisplayName": "RecipeManagement_02_GetRecipeBody",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\RecipeManagement_02_GetRecipeBody.json",
+      "Workflow": "MechatronicMWS200/RecipeManagement_02_GetRecipeBody.json",
       "Order": "19"
     },
     "20": {
@@ -7455,7 +7455,7 @@
       "Name": "RecipeManagement_03_SetRecipeBody",
       "DisplayName": "RecipeManagement_03_SetRecipeBody",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\RecipeManagement_03_SetRecipeBody.json",
+      "Workflow": "MechatronicMWS200/RecipeManagement_03_SetRecipeBody.json",
       "Order": "20"
     },
     "21": {
@@ -7463,7 +7463,7 @@
       "Name": "RecipeManagement_04_GetRecipeChecksum",
       "DisplayName": "RecipeManagement_04_GetRecipeChecksum",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\RecipeManagement_04_GetRecipeChecksum.json",
+      "Workflow": "MechatronicMWS200/RecipeManagement_04_GetRecipeChecksum.json",
       "Order": "21"
     },
     "22": {
@@ -7471,7 +7471,7 @@
       "Name": "ResourceState_01_ProcessStateChanged",
       "DisplayName": "ResourceState_01_ProcessStateChanged",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\ResourceState_01_ProcessStateChanged.json",
+      "Workflow": "MechatronicMWS200/ResourceState_01_ProcessStateChanged.json",
       "Order": "22"
     },
     "23": {
@@ -7479,7 +7479,7 @@
       "Name": "ResourceEPTState_01_EptStateChangeReceived",
       "DisplayName": "ResourceEPTState_01_EptStateChangeReceived",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\ResourceEPTState_01_EptStateChangeReceived.json",
+      "Workflow": "MechatronicMWS200/ResourceEPTState_01_EptStateChangeReceived.json",
       "Order": "23"
     },
     "24": {
@@ -7487,7 +7487,7 @@
       "Name": "ControlState_01_ControlStateEquipmentOfflineUpdateReceived",
       "DisplayName": "ControlState_01_ControlStateEquipmentOfflineUpdateReceived",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\ControlState_01_ControlStateEquipmentOfflineUpdateReceived.json",
+      "Workflow": "MechatronicMWS200/ControlState_01_ControlStateEquipmentOfflineUpdateReceived.json",
       "Order": "24"
     },
     "25": {
@@ -7495,7 +7495,7 @@
       "Name": "ControlState_02_ControlStateOnlineLocalUpdateReceived",
       "DisplayName": "ControlState_02_ControlStateOnlineLocalUpdateReceived",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\ControlState_02_ControlStateOnlineLocalUpdateReceived.json",
+      "Workflow": "MechatronicMWS200/ControlState_02_ControlStateOnlineLocalUpdateReceived.json",
       "Order": "25"
     },
     "26": {
@@ -7503,7 +7503,7 @@
       "Name": "ControlState_03_ControlStateOnlineRemoteUpdateReceived",
       "DisplayName": "ControlState_03_ControlStateOnlineRemoteUpdateReceived",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\ControlState_03_ControlStateOnlineRemoteUpdateReceived.json",
+      "Workflow": "MechatronicMWS200/ControlState_03_ControlStateOnlineRemoteUpdateReceived.json",
       "Order": "26"
     },
     "27": {
@@ -7511,7 +7511,7 @@
       "Name": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "DisplayName": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
+      "Workflow": "MechatronicMWS200/SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
       "Order": "27"
     },
     "28": {
@@ -7519,7 +7519,7 @@
       "Name": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "DisplayName": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\RecipeValidation_01_UnformattedRecipeMainFlow.json",
+      "Workflow": "MechatronicMWS200/RecipeValidation_01_UnformattedRecipeMainFlow.json",
       "Order": "28"
     },
     "29": {
@@ -7527,7 +7527,7 @@
       "Name": "CreateProcessJob_01_CreateJob",
       "DisplayName": "CreateProcessJob_01_CreateJob",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\CreateProcessJob_01_CreateJob.json",
+      "Workflow": "MechatronicMWS200/CreateProcessJob_01_CreateJob.json",
       "Order": "29"
     },
     "30": {
@@ -7535,7 +7535,7 @@
       "Name": "CreateControlJob_01_CreateJob",
       "DisplayName": "CreateControlJob_01_CreateJob",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\CreateControlJob_01_CreateJob.json",
+      "Workflow": "MechatronicMWS200/CreateControlJob_01_CreateJob.json",
       "Order": "30"
     },
     "31": {
@@ -7543,7 +7543,7 @@
       "Name": "AbortJob_01_ExecuteControlJobAbort",
       "DisplayName": "AbortJob_01_ExecuteControlJobAbort",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200\\AbortJob_01_ExecuteControlJobAbort.json",
+      "Workflow": "MechatronicMWS200/AbortJob_01_ExecuteControlJobAbort.json",
       "Order": "31"
     }
   },

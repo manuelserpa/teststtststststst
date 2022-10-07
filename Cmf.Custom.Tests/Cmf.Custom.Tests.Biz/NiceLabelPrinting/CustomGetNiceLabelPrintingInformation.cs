@@ -63,22 +63,22 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
             Material lot = new Material()
             {
                 Name = Guid.NewGuid().ToString("N"),
-                Facility = GenericGetsScenario.GetObjectByName<Facility>(AMSOsramConstants.DefaultFacilityName),
-                Product = GenericGetsScenario.GetObjectByName<Product>(AMSOsramConstants.DefaultProductName),
-                Type = AMSOsramConstants.DefaultMaterialType,
+                Facility = GenericGetsScenario.GetObjectByName<Facility>(amsOSRAMConstants.DefaultFacilityName),
+                Product = GenericGetsScenario.GetObjectByName<Product>(amsOSRAMConstants.DefaultProductName),
+                Type = amsOSRAMConstants.DefaultMaterialType,
                 FlowPath = new GetCorrelationIdFlowPathInput
                 {
-                    SequenceFlowPath = AMSOsramConstants.DefaultFlowName + ":1/" + AMSOsramConstants.DefaultMVPStepName + @":30"
+                    SequenceFlowPath = amsOSRAMConstants.DefaultFlowName + ":1/" + amsOSRAMConstants.DefaultMVPStepName + @":30"
                 }.GetCorrelationIdFlowPathSync().CorrelationIdFlowPath,
-                Form = AMSOsramConstants.DefaultMaterialFormName,
+                Form = amsOSRAMConstants.DefaultMaterialFormName,
                 PrimaryQuantity = 10,
-                PrimaryUnits = AMSOsramConstants.DefaultMaterialUnit
+                PrimaryUnits = amsOSRAMConstants.DefaultMaterialUnit
             };
             lot.Create();
             customTeardownManager.Push(lot);
 
             //Product 
-            Product product = GenericGetsScenario.GetObjectByName<Product>(AMSOsramConstants.DefaultProductName);
+            Product product = GenericGetsScenario.GetObjectByName<Product>(amsOSRAMConstants.DefaultProductName);
             // Expand MainMaterial to create 3 sub-materials
             MaterialCollection subMaterials = new MaterialCollection();
             for (var i = 0; i < subMaterialQuantity; i++)
@@ -96,7 +96,7 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
             {
                 Material = lot,
                 SubMaterials = subMaterials,
-                Form = AMSOsramConstants.DefaultMaterialLogisticalWaferForm
+                Form = amsOSRAMConstants.DefaultMaterialLogisticalWaferForm
             };
 
             subMaterials = input.ExpandMaterialSync().ExpandedSubMaterials;
@@ -110,11 +110,11 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
             string expectedLabel = "TestLabel";
             string expectedQuantity = "5";
 
-            smartTableManager.ClearSmartTable(AMSOsramConstants.CustomMaterialNiceLabelPrintContextSmartTable);
-            smartTableManager.SetSmartTableData(AMSOsramConstants.CustomMaterialNiceLabelPrintContextSmartTable,
+            smartTableManager.ClearSmartTable(amsOSRAMConstants.CustomMaterialNiceLabelPrintContextSmartTable);
+            smartTableManager.SetSmartTableData(amsOSRAMConstants.CustomMaterialNiceLabelPrintContextSmartTable,
             new Dictionary<string, string>()
             {
-                    { "Step", AMSOsramConstants.DefaultMVPStepName },
+                    { "Step", amsOSRAMConstants.DefaultMVPStepName },
                     { "Operation", "TrackOut" },
                     { "Material", lot.Name },
                     { "Printer", expectedPrinter },
@@ -127,7 +127,7 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
 
             #region Container
 
-            Container container = GenericGetsScenario.GetObjectByName<Container>(AMSOsramConstants.DefaultContainerName);
+            Container container = GenericGetsScenario.GetObjectByName<Container>(amsOSRAMConstants.DefaultContainerName);
             container.Load();
             int position = 1;
 
@@ -201,15 +201,15 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
                 { "LABEL_QUANTITY", expectedQuantity },
                 { "LotName", lot.Name },
                 { "LotAlias", string.Empty },
-                { "ProductName", AMSOsramConstants.DefaultProductName },
+                { "ProductName", amsOSRAMConstants.DefaultProductName },
                 { "ProductDesc", lot.Product.Description },
                 { "ProductType", lot.Product.ProductType.ToString() },
                 { "Product_Type", lot.Product.Type },
                 { "ProductGroupName", lot.Product.ProductGroup.Name },
                 { "ProductGroup_Type", lot.Product.ProductGroup.Type },
-                { "FlowName", AMSOsramConstants.DefaultFlowName },
+                { "FlowName", amsOSRAMConstants.DefaultFlowName },
                 { "BatchName", string.Empty },
-                { "ContainerName", AMSOsramConstants.DefaultContainerName },
+                { "ContainerName", amsOSRAMConstants.DefaultContainerName },
                 { "ExperimentName", string.Empty },
                 { "ProductionOrder", string.Empty },
                 { "LotOwner", string.Empty },
@@ -219,7 +219,7 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
                 { "LotSecondaryQty", string.Empty },
                 { "Lot_Type", lot.Type },
                 { "Area", area.Name },
-                { "Facility", AMSOsramConstants.DefaultFacilityName }
+                { "Facility", amsOSRAMConstants.DefaultFacilityName }
             };
 
             foreach (string line in lines)
@@ -255,23 +255,23 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
             Material lot = new Material()
             {
                 Name = Guid.NewGuid().ToString("N"),
-                Facility = GenericGetsScenario.GetObjectByName<Facility>(AMSOsramConstants.DefaultFacilityName),
-                Product = GenericGetsScenario.GetObjectByName<Product>(AMSOsramConstants.DefaultProductName),
-                Type = AMSOsramConstants.DefaultMaterialType,
+                Facility = GenericGetsScenario.GetObjectByName<Facility>(amsOSRAMConstants.DefaultFacilityName),
+                Product = GenericGetsScenario.GetObjectByName<Product>(amsOSRAMConstants.DefaultProductName),
+                Type = amsOSRAMConstants.DefaultMaterialType,
                 FlowPath = new GetCorrelationIdFlowPathInput
                 {
-                    SequenceFlowPath = AMSOsramConstants.DefaultFlowName + ":1/" + AMSOsramConstants.DefaultMVPStepName + @":30"
+                    SequenceFlowPath = amsOSRAMConstants.DefaultFlowName + ":A:1/" + amsOSRAMConstants.DefaultMVPStepName + @":30"
                 }.GetCorrelationIdFlowPathSync().CorrelationIdFlowPath,
-                Form = AMSOsramConstants.DefaultMaterialFormName,
+                Form = amsOSRAMConstants.DefaultMaterialFormName,
                 PrimaryQuantity = 10,
-                PrimaryUnits = AMSOsramConstants.DefaultMaterialUnit
+                PrimaryUnits = amsOSRAMConstants.DefaultMaterialUnit
             };
             lot.Create();
             customTeardownManager.Push(lot);
             #endregion
 
             ///<Step> Ensure Smart Table CustomMaterialNiceLabelPrintContext is empty</Step>
-            smartTableManager.ClearSmartTable(AMSOsramConstants.CustomMaterialNiceLabelPrintContextSmartTable);
+            smartTableManager.ClearSmartTable(amsOSRAMConstants.CustomMaterialNiceLabelPrintContextSmartTable);
 
 
             Resource printer = GenericGetsScenario.GetObjectByName<Resource>("NiceLabelPrinter");
@@ -317,16 +317,16 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
             Material lot = new Material()
             {
                 Name = Guid.NewGuid().ToString("N"),
-                Facility = GenericGetsScenario.GetObjectByName<Facility>(AMSOsramConstants.DefaultFacilityName),
-                Product = GenericGetsScenario.GetObjectByName<Product>(AMSOsramConstants.DefaultProductName),
-                Type = AMSOsramConstants.DefaultMaterialType,
+                Facility = GenericGetsScenario.GetObjectByName<Facility>(amsOSRAMConstants.DefaultFacilityName),
+                Product = GenericGetsScenario.GetObjectByName<Product>(amsOSRAMConstants.DefaultProductName),
+                Type = amsOSRAMConstants.DefaultMaterialType,
                 FlowPath = new GetCorrelationIdFlowPathInput
                 {
-                    SequenceFlowPath = AMSOsramConstants.DefaultFlowName + ":1/" + AMSOsramConstants.DefaultMVPStepName + @":30"
+                    SequenceFlowPath = amsOSRAMConstants.DefaultFlowName + ":A:1/" + amsOSRAMConstants.DefaultMVPStepName + @":30"
                 }.GetCorrelationIdFlowPathSync().CorrelationIdFlowPath,
-                Form = AMSOsramConstants.DefaultMaterialFormName,
+                Form = amsOSRAMConstants.DefaultMaterialFormName,
                 PrimaryQuantity = 10,
-                PrimaryUnits = AMSOsramConstants.DefaultMaterialUnit
+                PrimaryUnits = amsOSRAMConstants.DefaultMaterialUnit
             };
             lot.Create();
             customTeardownManager.Push(lot);
@@ -339,11 +339,11 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
             string expectedLabel = "TestLabel";
             string expectedQuantity = "5";
 
-            smartTableManager.ClearSmartTable(AMSOsramConstants.CustomMaterialNiceLabelPrintContextSmartTable);
-            smartTableManager.SetSmartTableData(AMSOsramConstants.CustomMaterialNiceLabelPrintContextSmartTable,
+            smartTableManager.ClearSmartTable(amsOSRAMConstants.CustomMaterialNiceLabelPrintContextSmartTable);
+            smartTableManager.SetSmartTableData(amsOSRAMConstants.CustomMaterialNiceLabelPrintContextSmartTable,
             new Dictionary<string, string>()
             {
-                    { "Step", AMSOsramConstants.DefaultMVPStepName },
+                    { "Step", amsOSRAMConstants.DefaultMVPStepName },
                     { "Operation", "TrackOut" },
                     { "Material", lot.Name },
                     { "Printer", expectedPrinter },

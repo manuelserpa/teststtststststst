@@ -1,17 +1,21 @@
-using Cmf.Common.CustomActionUtilities;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessObjects.GenericTables;
-using Cmf.Foundation.Common;
-using Cmf.Foundation.Configuration;
-using Cmf.Navigo.BusinessObjects;
-using System;
 using System.Collections.Generic;
-using System.Data;
+using System;
 using System.Linq;
+using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Foundation.Configuration;
+using Cmf.Foundation.Configuration.Abstractions;
+using Cmf.Common.CustomActionUtilities;
+using Cmf.Foundation.Common;
+using Cmf.Foundation.BusinessObjects.GenericTables;
+using System.Data;
 using System.Text;
+using Cmf.Foundation.BusinessObjects;
 
-namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
+namespace Cmf.Custom.amsOSRAM.Actions.NameGenerators
 {
     public class CustomGenerateProductionLotNames : DeeDevBase
     {
@@ -36,22 +40,22 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
 
             if (Input != null && Input.ContainsKey("EntitySource"))
             {
-                Material material = Input["EntitySource"] as Material;
+                IMaterial material = Input["EntitySource"] as IMaterial;
 
-                if (material != null && material.Product != null && material.Form.Equals(AMSOsramConstants.MaterialLotForm, StringComparison.InvariantCultureIgnoreCase))
+                if (material != null && material.Product != null && material.Form.Equals(amsOSRAMConstants.MaterialLotForm, StringComparison.InvariantCultureIgnoreCase))
                 {
                     // Throw an exception case Configuration has no associated value
-                    if (!Config.TryGetConfig(AMSOsramConstants.DefaultLotNameAllowedCharacters, out Config lotNameAllowedCharactersConfig) ||
+                    if (!Config.TryGetConfig(amsOSRAMConstants.DefaultLotNameAllowedCharacters, out IConfig lotNameAllowedCharactersConfig) ||
                         string.IsNullOrWhiteSpace(lotNameAllowedCharactersConfig.GetConfigValue<string>()))
                     {
-                        throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageConfigMissingValue,
-                                                                                  AMSOsramConstants.DefaultLotNameAllowedCharacters));
+                        throw new Exception(amsOSRAMUtilities.GetLocalizedMessage(amsOSRAMConstants.LocalizedMessageConfigMissingValue,
+                                                                                  amsOSRAMConstants.DefaultLotNameAllowedCharacters));
                     }
 
                     // Throw an exception case ProductionLine attribute has no associated value
-                    if (!material.Product.HasRelatedAttribute(AMSOsramConstants.ProductAttributeProductionLine, true))
+                    if (!material.Product.HasRelatedAttribute(amsOSRAMConstants.ProductAttributeProductionLine, true))
                     {
-                        throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageProductionLineAttributeWithoutValue,
+                        throw new Exception(amsOSRAMUtilities.GetLocalizedMessage(amsOSRAMConstants.LocalizedMessageProductionLineAttributeWithoutValue,
                                                                                   material.Product.Name));
                     }
 
@@ -59,10 +63,10 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                     ApplicationContext.CallContext.SetInformationContext("LotNameAllowedCharacters", lotNameAllowedCharactersConfig.GetConfigValue<string>());
 
                     // Set ProductLine Product attribute value
-                    string productionLine = material.Product.GetRelatedAttributeValue(AMSOsramConstants.ProductAttributeProductionLine) as string;
+                    string productionLine = material.Product.GetRelatedAttributeValue(amsOSRAMConstants.ProductAttributeProductionLine) as string;
 
                     // Load Generic Table CustomProductionLineConversion
-                    GenericTable customProdLineConversionGT = new GenericTable() { Name = AMSOsramConstants.GenericTableCustomProductionLineConversion };
+                    GenericTable customProdLineConversionGT = new GenericTable() { Name = amsOSRAMConstants.GenericTableCustomProductionLineConversion };
                     customProdLineConversionGT.Load();
 
                     // Based on ProductLine Product attribute get Site and Facility name from Generic Table
@@ -70,7 +74,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                     {
                         new Foundation.BusinessObjects.QueryObject.Filter()
                         {
-                            Name = AMSOsramConstants.GenericTableCustomProductionLineConversionProductionLineProperty,
+                            Name = amsOSRAMConstants.GenericTableCustomProductionLineConversionProductionLineProperty,
                             Operator = FieldOperator.IsEqualTo,
                             LogicalOperator = LogicalOperator.Nothing,
                             Value = productionLine
@@ -80,8 +84,8 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                     // Throw an exception case GT has no data for specific ProductionLine value
                     if (!customProdLineConversionGT.HasData)
                     {
-                        throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageGTWihtoutDataForSpecificProductionLine,
-                                                                                  AMSOsramConstants.GenericTableCustomProductionLineConversion,
+                        throw new Exception(amsOSRAMUtilities.GetLocalizedMessage(amsOSRAMConstants.LocalizedMessageGTWihtoutDataForSpecificProductionLine,
+                                                                                  amsOSRAMConstants.GenericTableCustomProductionLineConversion,
                                                                                   productionLine));
                     }
 
@@ -89,10 +93,10 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
                     DataSet prodLineConversionDataSet = NgpDataSet.ToDataSet(customProdLineConversionGT.Data);
 
                     // Set Site associated to ProductionLine attribute to Context 
-                    ApplicationContext.CallContext.SetInformationContext("SiteName", prodLineConversionDataSet.Tables[0].Rows[0][AMSOsramConstants.GenericTableCustomProductionLineConversionSiteProperty]);
+                    ApplicationContext.CallContext.SetInformationContext("SiteName", prodLineConversionDataSet.Tables[0].Rows[0][amsOSRAMConstants.GenericTableCustomProductionLineConversionSiteProperty]);
 
                     // Set Facility associated to ProductionLine attribute to Context 
-                    ApplicationContext.CallContext.SetInformationContext("FacilityName", prodLineConversionDataSet.Tables[0].Rows[0][AMSOsramConstants.GenericTableCustomProductionLineConversionFacilityProperty]);
+                    ApplicationContext.CallContext.SetInformationContext("FacilityName", prodLineConversionDataSet.Tables[0].Rows[0][amsOSRAMConstants.GenericTableCustomProductionLineConversionFacilityProperty]);
 
                     canExecute = true;
                 }
@@ -107,23 +111,25 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
         {
             //---Start DEE Code---
 
+            // System
             UseReference("", "System.Data");
             UseReference("", "System.Text");
 
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration");
-            UseReference("", "Cmf.Foundation.BusinessObjects.GenericTables");
-            UseReference("", "Cmf.Foundation.Common");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
+            // Custom
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
 
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
+            // Foundation
+            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.GenericTables");
 
+            // Common
             UseReference("Cmf.Common.CustomActionUtilities.dll", "Cmf.Common.CustomActionUtilities");
 
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
 
             // Load Name Generator
-            NameGenerator customGenProdLotNamesNG = new NameGenerator() { Name = AMSOsramConstants.CustomGenerateProductionLotNames };
+            NameGenerator customGenProdLotNamesNG = new NameGenerator() { Name = amsOSRAMConstants.CustomGenerateProductionLotNames };
             customGenProdLotNamesNG.Load();
 
             // Get Site name from Context
@@ -151,9 +157,8 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             string contextKey = generatedLotName.ToString();
 
             // Load Current Context associated to Name Generator
-            GeneratorContext contextNG = null;
             customGenProdLotNamesNG.LoadGeneratorContexts(out int totalRows);
-            contextNG = customGenProdLotNamesNG.Contexts.FirstOrDefault(ng => ng.Context == contextKey);
+            IGeneratorContext contextNG = customGenProdLotNamesNG.Contexts.FirstOrDefault(ng => ng.Context == contextKey);
 
             // Create counter
             int lastCounterValue = 0;
@@ -182,8 +187,8 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             // Throw an exception case NG counter has insufficient number of digits
             if (lastCounterValue > 0)
             {
-                throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageInsufficientDigitsForNameGenerator,
-                                                                          AMSOsramConstants.CustomGenerateProductionLotNames,
+                throw new Exception(amsOSRAMUtilities.GetLocalizedMessage(amsOSRAMConstants.LocalizedMessageInsufficientDigitsForNameGenerator,
+                                                                          amsOSRAMConstants.CustomGenerateProductionLotNames,
                                                                           nextCounterValue.ToString()));
             }
 

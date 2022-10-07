@@ -1,14 +1,17 @@
-﻿using Cmf.Custom.AMSOsram.Common;
-using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.Common;
-using Cmf.Foundation.Configuration;
-using Cmf.Navigo.BusinessObjects;
-using System;
+﻿using Cmf.Custom.amsOSRAM.Common;
 using System.Collections.Generic;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Foundation.Common.Abstractions;
+using System;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Foundation.Configuration.Abstractions;
+using Cmf.Foundation.Configuration;
+using Cmf.Foundation.Common;
 using System.Linq;
-using System.Text;
+using Cmf.Foundation.BusinessObjects;
 
-namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
+namespace Cmf.Custom.amsOSRAM.Actions.NameGenerators
 {
     public class CustomGenerateSplitLotNames : DeeDevBase
     {
@@ -24,20 +27,23 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             ///     - ResolveNameGenerator
             /// </summary>
             #endregion
+            
             bool canExecute = false;
 
             if(Input != null && Input.ContainsKey("EntitySource"))
             {
-                Material material = Input["EntitySource"] as Material;
-                if(material != null && material.Product != null && material.Form.Equals(AMSOsramConstants.MaterialLotForm, StringComparison.InvariantCultureIgnoreCase))
+                IMaterial material = Input["EntitySource"] as IMaterial;
+
+                if(material != null && material.Product != null && material.Form.Equals(amsOSRAMConstants.MaterialLotForm, StringComparison.InvariantCultureIgnoreCase))
                 {
                     // Throw an exception case Configuration has no associated value
-                    if (!Config.TryGetConfig(AMSOsramConstants.DefaultLotNameAllowedCharacters, out Config lotNameAllowedCharactersConfig) ||
+                    if (!Config.TryGetConfig(amsOSRAMConstants.DefaultLotNameAllowedCharacters, out IConfig lotNameAllowedCharactersConfig) ||
                         string.IsNullOrWhiteSpace(lotNameAllowedCharactersConfig.GetConfigValue<string>()))
                     {
-                        throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageConfigMissingValue,
-                                                                                  AMSOsramConstants.DefaultLotNameAllowedCharacters));
+                        throw new Exception(amsOSRAMUtilities.GetLocalizedMessage(amsOSRAMConstants.LocalizedMessageConfigMissingValue,
+                                                                                  amsOSRAMConstants.DefaultLotNameAllowedCharacters));
                     }
+
                     ApplicationContext.CallContext.SetInformationContext("LotNameAllowedCharacters", lotNameAllowedCharactersConfig.GetConfigValue<string>());
                     canExecute = true;
                 }
@@ -53,26 +59,27 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             //---Start DEE Code---     
 
             // System
-            UseReference("", "System.Linq");
-            UseReference("", "System.Collections.Generic");
+            UseReference("", "System.Data");
             UseReference("", "System.Text");
 
-            // Foundation
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration");
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("", "Cmf.Foundation.Common");
-
-            // Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-
             // Custom
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+
+            // Foundation
+            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.GenericTables");
+
+            // Common
+            UseReference("Cmf.Common.CustomActionUtilities.dll", "Cmf.Common.CustomActionUtilities");
+
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
 
             // Load Name Generator
-            NameGenerator customGenSplitLotNamesNG = new NameGenerator() { Name = AMSOsramConstants.CustomGenerateSplitLotNames };
-            customGenSplitLotNamesNG.Load();
+            INameGenerator nameGenerator = entityFactory.Create<INameGenerator>();
+            nameGenerator.Load(amsOSRAMConstants.CustomGenerateSplitLotNames);
 
-            Material materialLot = Input["EntitySource"] as Material;
+            IMaterial materialLot = Input["EntitySource"] as IMaterial;
 
             // Get the first 8 digits of the Parent Material
             string parentMaterialNameSubstring = materialLot.Name.Substring(0, 8);
@@ -82,9 +89,8 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             int allowedCharactersSize = lotNameAllowedCharacters.Length;
 
             // Load Current Context associated to Name Generator
-            GeneratorContext contextNG = null;
-            customGenSplitLotNamesNG.LoadGeneratorContexts(out int totalRows);
-            contextNG = customGenSplitLotNamesNG.Contexts.FirstOrDefault(ng => ng.Context == parentMaterialNameSubstring);
+            nameGenerator.LoadGeneratorContexts(out int totalRows);
+            IGeneratorContext contextNG = nameGenerator.Contexts.FirstOrDefault(ng => ng.Context == parentMaterialNameSubstring);
 
             // Number of characters that will be generated
             int numberOfCharacters = 2;
@@ -112,8 +118,8 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             if (lastCounterValue > 0)
             {
                 // insufficient number of digits to represent the counter
-                throw new Exception(AMSOsramUtilities.GetLocalizedMessage(AMSOsramConstants.LocalizedMessageInsufficientDigitsForNameGenerator,
-                                                                          AMSOsramConstants.CustomGenerateProductionLotNames,
+                throw new Exception(amsOSRAMUtilities.GetLocalizedMessage(amsOSRAMConstants.LocalizedMessageInsufficientDigitsForNameGenerator,
+                                                                          amsOSRAMConstants.CustomGenerateProductionLotNames,
                                                                           nextCounterValue.ToString()));
             }
 
@@ -130,7 +136,7 @@ namespace Cmf.Custom.AMSOsram.Actions.NameGenerators
             }
             else
             {
-                customGenSplitLotNamesNG.AddGeneratorContexts(new GeneratorContextCollection()
+                nameGenerator.AddGeneratorContexts(new GeneratorContextCollection()
                 {
                     new GeneratorContext()
                     {

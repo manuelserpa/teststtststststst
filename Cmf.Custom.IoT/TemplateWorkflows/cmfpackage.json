@@ -1,0 +1,20 @@
+﻿{
+  "version": "2.0.0",
+  "packageId": "Cmf.Custom.IoT.TemplateWorkflows",
+  "description": "Cmf Custom Template Workflows Package",
+  "packageType": "IoTData",
+  "isInstallable": true,
+  "isUniqueInstall": true,
+  "contentToPack": [
+    {
+      "source": "MasterData/*",
+      "target": "MasterData/$(version)",
+      "contentType": "MasterData"
+    },
+    {
+      "source": "AutomationWorkFlows/*",
+      "target": "AutomationWorkFlows",
+      "contentType": "AutomationWorkFlows"
+    }
+  ]
+}

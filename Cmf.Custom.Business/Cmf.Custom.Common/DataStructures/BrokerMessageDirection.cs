@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Cmf.Custom.AMSOsram.Common.DataStructures
+namespace Cmf.Custom.amsOSRAM.Common.DataStructures
 {
     /// <summary>
     /// BrokerMessageDirection enum

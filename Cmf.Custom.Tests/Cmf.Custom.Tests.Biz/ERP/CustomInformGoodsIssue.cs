@@ -7,12 +7,10 @@ using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Xml;
 
 namespace Cmf.Custom.Tests.Biz.ERP
 {
@@ -38,10 +36,10 @@ namespace Cmf.Custom.Tests.Biz.ERP
             _scenario.CustomReportConsumptionToSAP = new List<Dictionary<string, string>> {
                 new Dictionary<string, string>
                 {
-                    { "Step", AMSOsramConstants.DefaultTestStepName },
-                    { "Product", AMSOsramConstants.DefaultTestProductName },
-                    { "Flow", AMSOsramConstants.DefaultTestFlowName },
-                    { "MaterialType", AMSOsramConstants.DefaultMaterialType},
+                    { "Step", amsOSRAMConstants.DefaultTestStepName },
+                    { "Product", amsOSRAMConstants.DefaultTestProductName },
+                    { "Flow", amsOSRAMConstants.DefaultTestFlowName },
+                    { "MaterialType", amsOSRAMConstants.DefaultMaterialType},
                     { "StorageLocation", StorageLocation}
                 }
             };
@@ -87,7 +85,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             ///<Step> Dispatch and Tracin the lot </Step>
             Resource resource = new Resource
             {
-                Name = AMSOsramConstants.DefaultTestResourceName
+                Name = amsOSRAMConstants.DefaultTestResourceName
             };
             resource.Load();
 
@@ -165,7 +163,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             ///<Step> Dispatch and Tracin the lot </Step>
             Resource resource = new Resource
             {
-                Name = AMSOsramConstants.DefaultTestResourceName
+                Name = amsOSRAMConstants.DefaultTestResourceName
             };
             resource.Load();
 
@@ -198,7 +196,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             ///<Step> Create a Production Order, a Lot and its wafers </Step>
             _scenario.CustomReportConsumptionToSAP = new List<Dictionary<string, string>>();
-            _scenario.SmartTablesToClearInSetup = new List<string> { AMSOsramConstants.CustomReportConsumptionToSAPSmartTable };
+            _scenario.SmartTablesToClearInSetup = new List<string> { amsOSRAMConstants.CustomReportConsumptionToSAPSmartTable };
             _scenario.Setup();
 
             Material material = _scenario.GeneratedLots.FirstOrDefault();
@@ -206,7 +204,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             ///<Step> Dispatch and Tracin the lot </Step>
             Resource resource = new Resource
             {
-                Name = AMSOsramConstants.DefaultTestResourceName
+                Name = amsOSRAMConstants.DefaultTestResourceName
             };
             resource.Load();
 
@@ -243,7 +241,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             Material material = _scenario.GeneratedLots.FirstOrDefault();
 
-            Step secondStep = new Step() { Name = AMSOsramConstants.DefaultTestSecondStepName };
+            Step secondStep = new Step() { Name = amsOSRAMConstants.DefaultTestSecondStepName };
             secondStep.Load();
             material.Flow.Load();
             material.ChangeFlowAndStep(material.Flow,secondStep);
@@ -251,7 +249,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             ///<Step> Dispatch and Tracin the lot </Step>
             Resource resource = new Resource
             {
-                Name = AMSOsramConstants.DefaultTestResourceName
+                Name = amsOSRAMConstants.DefaultTestResourceName
             };
             resource.Load();
 

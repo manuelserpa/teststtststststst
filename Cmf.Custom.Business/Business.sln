@@ -1,21 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.1.32407.343
+VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmf.Custom.AMSOsram.Common", "Cmf.Custom.Common\Cmf.Custom.AMSOsram.Common.csproj", "{6C3D698D-7F9E-4E39-A571-DEB63582CA52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmf.Custom.amsOSRAM.Common", "Cmf.Custom.Common\Cmf.Custom.amsOSRAM.Common.csproj", "{6C3D698D-7F9E-4E39-A571-DEB63582CA52}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmf.Custom.AMSOsram.Services", "Cmf.Custom.Services\Cmf.Custom.AMSOsram.Services.csproj", "{FA684AB7-3BB6-47CB-ACD8-48CA53F2DCEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmf.Custom.amsOSRAM.Services", "Cmf.Custom.Services\Cmf.Custom.amsOSRAM.Services.csproj", "{FA684AB7-3BB6-47CB-ACD8-48CA53F2DCEF}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4F4342A5-3D64-4D54-B83B-368F768E2A95} = {4F4342A5-3D64-4D54-B83B-368F768E2A95}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmf.Custom.AMSOsram.Orchestration", "Cmf.Custom.Orchestration\Cmf.Custom.AMSOsram.Orchestration.csproj", "{4F4342A5-3D64-4D54-B83B-368F768E2A95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmf.Custom.amsOSRAM.Orchestration", "Cmf.Custom.Orchestration\Cmf.Custom.amsOSRAM.Orchestration.csproj", "{4F4342A5-3D64-4D54-B83B-368F768E2A95}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6C3D698D-7F9E-4E39-A571-DEB63582CA52} = {6C3D698D-7F9E-4E39-A571-DEB63582CA52}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cmf.Custom.AMSOsram.Actions", "..\Cmf.Custom.Data\DEEs\Cmf.Custom.AMSOsram.Actions.csproj", "{5CFF1C0D-E852-4F73-8EF0-71BA35B0E8F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cmf.Custom.amsOSRAM.Actions", "..\Cmf.Custom.Data\DEEs\Cmf.Custom.amsOSRAM.Actions.csproj", "{B66C3244-58DD-462E-9D63-59C04BD10F3A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{4F4342A5-3D64-4D54-B83B-368F768E2A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F4342A5-3D64-4D54-B83B-368F768E2A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F4342A5-3D64-4D54-B83B-368F768E2A95}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5CFF1C0D-E852-4F73-8EF0-71BA35B0E8F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5CFF1C0D-E852-4F73-8EF0-71BA35B0E8F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5CFF1C0D-E852-4F73-8EF0-71BA35B0E8F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5CFF1C0D-E852-4F73-8EF0-71BA35B0E8F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B66C3244-58DD-462E-9D63-59C04BD10F3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B66C3244-58DD-462E-9D63-59C04BD10F3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B66C3244-58DD-462E-9D63-59C04BD10F3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B66C3244-58DD-462E-9D63-59C04BD10F3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

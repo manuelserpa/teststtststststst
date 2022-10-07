@@ -1,9 +1,7 @@
 ﻿using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.Common.Integration;
+using Cmf.Foundation.BusinessObjects.Abstractions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Cmf.Custom.Tests.Biz.Common.Extensions
 {

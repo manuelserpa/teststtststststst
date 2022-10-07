@@ -1,4 +1,4 @@
-﻿using Cmf.Custom.Tests.Biz.Common;
+using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Custom.TestUtilities;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects;
@@ -56,7 +56,7 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
         public void CustomGenerateSplitLotNames_SplitMaterials_HappyPath()
         {
             List<string> generatedSplitNames = GenerateLotNames(25);
-            splittedMaterials = this.SplitLotNameGeneratorScenario(AMSOsramConstants.DefaultMaterialFormName);
+            splittedMaterials = this.SplitLotNameGeneratorScenario(amsOSRAMConstants.DefaultMaterialFormName);
             for (int i = 0; i < generatedSplitNames.Count; i++)
             {
                 string expectedSplitLotName = string.Format("{0}{1}", materialSubString, generatedSplitNames[i]);
@@ -74,16 +74,16 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
             Material material = new Material()
             {
                 Name = null,
-                Facility = GenericGetsScenario.GetObjectByName<Facility>(AMSOsramConstants.DefaultFacilityName),
-                Product = GenericGetsScenario.GetObjectByName<Product>(AMSOsramConstants.DefaultTestProductName),
-                Type = AMSOsramConstants.MaterialTypeProduction,
+                Facility = GenericGetsScenario.GetObjectByName<Facility>(amsOSRAMConstants.DefaultFacilityName),
+                Product = GenericGetsScenario.GetObjectByName<Product>(amsOSRAMConstants.DefaultTestProductName),
+                Type = amsOSRAMConstants.MaterialTypeProduction,
                 FlowPath = new GetCorrelationIdFlowPathInput
                 {
-                    SequenceFlowPath = AMSOsramConstants.DefaultTestFlowPath
+                    SequenceFlowPath = amsOSRAMConstants.DefaultTestFlowPath
                 }.GetCorrelationIdFlowPathSync().CorrelationIdFlowPath,
                 Form = materialFormName,
                 PrimaryQuantity = 25,
-                PrimaryUnits = AMSOsramConstants.DefaultMaterialUnit
+                PrimaryUnits = amsOSRAMConstants.DefaultMaterialUnit
             };
             material.Create();
             materialSubString = material.Name.Substring(0,8);
@@ -105,7 +105,7 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
         {
             List<string> names = new List<string>();
             int lastCounterValue = 0;
-            string lotNameAllowedCharacters = ConfigUtilities.GetConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters) as string;
+            string lotNameAllowedCharacters = ConfigUtilities.GetConfigValue(amsOSRAMConstants.DefaultLotNameAllowedCharacters) as string;
             int currentCounter = lastCounterValue;
             int allowedCharactersSize = lotNameAllowedCharacters.Length;
             for (int i = 0; i < numberOfNamesToGenerate; i++)
