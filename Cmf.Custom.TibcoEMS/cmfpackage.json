@@ -1,6 +1,6 @@
 {
   "packageId": "Cmf.Custom.TibcoEMS",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Cmf TibcoEMS Gateway Package",
   "packageType": "Generic",
   "isInstallable": false,
