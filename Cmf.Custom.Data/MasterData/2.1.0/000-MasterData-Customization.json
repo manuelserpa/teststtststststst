@@ -757,6 +757,12 @@
       "Assumption": "If you want the first field to be empty, type \"NULL\" without the quotes."
     }
   },
+  "WorksheetNameMapping": {
+    "1": {
+      "WorksheetName": "TibcoGatewayResolver",
+      "Value": "<GT>CustomTibcoEMSGatewayResolver"
+    }
+  },
   "<SM>LookupTableValues": {
     "1": {
       "LookUp Table": "CustomTransactions",
@@ -884,10 +890,10 @@
       "Position": "2",
       "Description": "",
       "DefaultValue": "",
-      "IsKey": "Yes",
+      "IsKey": "No",
       "IsMandatory": "Yes",
-      "ScalarType": "Boolean",
-      "Size": "256",
+      "ScalarType": "Bit",
+      "Size": "",
       "Precision": "",
       "ReferenceType": "None",
       "ReferenceName": "",
@@ -971,6 +977,80 @@
       "ActionGroup": "BusinessObjects.Container.AssociateMaterials.Post",
       "Action": "CustomSendEventMessage",
       "Order": "100"
+    }
+  },
+  "<GT>CustomTransactionsToTibco": {
+    "1": {
+      "Transaction": "MaterialCreate",
+      "IsEnabled": "Yes"
+    },
+    "2": {
+      "Transaction": "MaterialTerminate",
+      "IsEnabled": "Yes"
+    },
+    "3": {
+      "Transaction": "MaterialDispatch",
+      "IsEnabled": "Yes"
+    },
+    "4": {
+      "Transaction": "MaterialTrackIn",
+      "IsEnabled": "Yes"
+    },
+    "5": {
+      "Transaction": "MaterialTrackOut",
+      "IsEnabled": "Yes"
+    },
+    "6": {
+      "Transaction": "MaterialMoveNext",
+      "IsEnabled": "Yes"
+    },
+    "7": {
+      "Transaction": "MaterialSplit",
+      "IsEnabled": "Yes"
+    },
+    "8": {
+      "Transaction": "MaterialMerge",
+      "IsEnabled": "Yes"
+    },
+    "9": {
+      "Transaction": "MaterialLoss",
+      "IsEnabled": "Yes"
+    },
+    "10": {
+      "Transaction": "MaterialBonus",
+      "IsEnabled": "Yes"
+    },
+    "11": {
+      "Transaction": "MaterialHold",
+      "IsEnabled": "Yes"
+    },
+    "12": {
+      "Transaction": "MaterialRelease",
+      "IsEnabled": "Yes"
+    },
+    "13": { 
+      "Transaction": "ContainerAssociation",
+      "IsEnabled": "Yes"
+    }
+  },
+  "<LOOKUP>TibcoGatewayResolver": {
+    "1": {
+      "Subject": "CustomLotChange",
+      "Topic": "TOPIC.T1.RBG.SFC.CM.EVT.LOT_CHANGE",
+      "Rule": "",
+      "IsEnabled": "Yes",
+      "QueueMessage": "No",
+      "TextMessage": "Yes",
+      "CompressMessage": "No"
+    },
+    "2": {
+      "Subject": "CustomEquipmentStatusChange",
+      "Topic": "TOPIC.T1.RBG.SFC.CMF.EVT.EQUIPMENT_STATE_CHANGE",
+      "Rule": "",
+      "IsEnabled": "Yes",
+      "QueueMessage": "No",
+      "TextMessage": "Yes",
+      "CompressMessage": "No"
     }
   }
 }
