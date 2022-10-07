@@ -1074,6 +1074,15 @@
       "MonitorPackageVersion": "9.1.0-202209072",
       "ManagerPackageVersion": "9.1.0-202209072",
       "Configuration": ""
+    },
+    "10": {
+      "Name": "DISCODFD6363HC",
+      "Description": "5FETR1",
+      "Type": "General",
+      "LogicalAddress": "5FETR1",
+      "MonitorPackageVersion": "9.1.0-202209072",
+      "ManagerPackageVersion": "9.1.0-202209072",
+      "Configuration": ""
     }
   },
   "<LOOKUP>AutomationInstances": {
@@ -1220,6 +1229,24 @@
       "AutomationManager": "Monarch25VHF",
       "DriverName": "RFIDReader",
       "EntityName": "5FVHF1.RFID"
+    },
+    "25": {
+      "AutomationController": "DISCODFD6363HCController",
+      "AutomationManager": "DISCODFD6363HC",
+      "DriverName": "",
+      "EntityName": "5FETR1"
+    },
+    "26": {
+      "AutomationController": "DISCODFD6363HCController",
+      "AutomationManager": "DISCODFD6363HC",
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FETR1"
+    },
+    "27": {
+      "AutomationController": "DISCODFD6363HCController",
+      "AutomationManager": "DISCODFD6363HC",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FETR1.RFID"
     }
   }
 }

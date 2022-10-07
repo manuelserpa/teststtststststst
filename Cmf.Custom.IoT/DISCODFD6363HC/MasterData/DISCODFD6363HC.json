@@ -1,0 +1,3335 @@
+{
+  "Index": {
+    "1": {
+      "Tab Name": "Index",
+      "Object Type": "",
+      "Description": "Have the description for each tab in the excel",
+      "Execution Order": "0"
+    },
+    "2": {
+      "Tab Name": "Formats",
+      "Object Type": "",
+      "Description": "Have the specific cell content format for specific tabs and columns",
+      "Execution Order": "0"
+    },
+    "3": {
+      "Tab Name": "Assumptions",
+      "Object Type": "",
+      "Description": "Have assumptions for each tab",
+      "Execution Order": "0"
+    },
+    "4": {
+      "Tab Name": "WorksheetNameMapping",
+      "Object Type": "",
+      "Description": "Used to workaround the 31-character limit of the excel worksheet name. \nDefine your tab name using the tag <LOOKUP> and append a shortname for the object (e.g, <LOOKUP>MySmartTable). Then, in this tab,  map it to the tab name you would define otherwise (e.g, MySmartTable/<ST>TheRealNameForMySmartTable).",
+      "Execution Order": "0"
+    },
+    "5": {
+      "Tab Name": "<SM>Role",
+      "Object Type": "Static Model",
+      "Description": "Role details to be created in the system",
+      "Execution Order": "1"
+    },
+    "6": {
+      "Tab Name": "<SM>Features",
+      "Object Type": "Static Model",
+      "Description": "Features details to be created in the system",
+      "Execution Order": "2"
+    },
+    "7": {
+      "Tab Name": "<SM>DataGroup",
+      "Object Type": "Static Model",
+      "Description": "DataGroup details to be created in the system",
+      "Execution Order": "3"
+    },
+    "8": {
+      "Tab Name": "<SM>User",
+      "Object Type": "Static Model",
+      "Description": "User details to be created in the system",
+      "Execution Order": "4"
+    },
+    "9": {
+      "Tab Name": "<SM>LookupTableValues",
+      "Object Type": "Static Model",
+      "Description": "LookupTableValues details to be created in the system",
+      "Execution Order": "5"
+    },
+    "10": {
+      "Tab Name": "<SM>EntityType",
+      "Object Type": "Static Model",
+      "Description": "EntityType details to be created in the system",
+      "Execution Order": "6"
+    },
+    "11": {
+      "Tab Name": "<SM>EntityTypeProperty",
+      "Object Type": "Static Model",
+      "Description": "EntityTypeProperty details to be created in the system",
+      "Execution Order": "7"
+    },
+    "12": {
+      "Tab Name": "<SM>StateModel",
+      "Object Type": "Static Model",
+      "Description": "StateModel details to be created in the system",
+      "Execution Order": "8"
+    },
+    "13": {
+      "Tab Name": "StateModelStates",
+      "Object Type": "",
+      "Description": "Have the Details for the states of the State Models",
+      "Execution Order": "8"
+    },
+    "14": {
+      "Tab Name": "StateModelTransitions",
+      "Object Type": "",
+      "Description": "Have the Details for the Transitions of the State Models",
+      "Execution Order": "8"
+    },
+    "15": {
+      "Tab Name": "<SM>DEEAction",
+      "Object Type": "Static Model",
+      "Description": "DEEAction details to be created in the system",
+      "Execution Order": "9"
+    },
+    "16": {
+      "Tab Name": "<SM>NameGenerator",
+      "Object Type": "Static Model",
+      "Description": "NameGenerator details to be created in the system",
+      "Execution Order": "10"
+    },
+    "17": {
+      "Tab Name": "<DM>Certification",
+      "Object Type": "Dynamic Model",
+      "Description": "Certification details to be created in the system",
+      "Execution Order": "11"
+    },
+    "18": {
+      "Tab Name": "<DM>Rule",
+      "Object Type": "Dynamic Model",
+      "Description": "Rule details to be created in the system",
+      "Execution Order": "12"
+    },
+    "19": {
+      "Tab Name": "<DM>Checklist",
+      "Object Type": "Dynamic Model",
+      "Description": "Checklist details to be created in the system",
+      "Execution Order": "13"
+    },
+    "20": {
+      "Tab Name": "ChecklistItems",
+      "Object Type": "",
+      "Description": "List of Items for the checklists",
+      "Execution Order": "13"
+    },
+    "21": {
+      "Tab Name": "ChecklistItemParameters",
+      "Object Type": "",
+      "Description": "list of parameters for the checklist items",
+      "Execution Order": "13"
+    },
+    "22": {
+      "Tab Name": "<DM>Site",
+      "Object Type": "Dynamic Model",
+      "Description": "Site details to be created in the system",
+      "Execution Order": "14"
+    },
+    "23": {
+      "Tab Name": "<DM>Calendar",
+      "Object Type": "Dynamic Model",
+      "Description": "Calendar details to be created in the system",
+      "Execution Order": "15"
+    },
+    "24": {
+      "Tab Name": "<DM>Team",
+      "Object Type": "Dynamic Model",
+      "Description": "Team details to bre created in the system",
+      "Execution Order": "16"
+    },
+    "25": {
+      "Tab Name": "<DM>ShiftDefinition",
+      "Object Type": "Dynamic Model",
+      "Description": "ShiftDefinition details to be created in the system",
+      "Execution Order": "17"
+    },
+    "26": {
+      "Tab Name": "ShiftDefinitionShift",
+      "Object Type": "",
+      "Description": "tDefinitionShift details to be created in the system",
+      "Execution Order": "17"
+    },
+    "27": {
+      "Tab Name": "<DM>Facility",
+      "Object Type": "Dynamic Model",
+      "Description": "Facility details to be created in the system",
+      "Execution Order": "18"
+    },
+    "28": {
+      "Tab Name": "<DM>Schedule",
+      "Object Type": "Dynamic Model",
+      "Description": "Schedule Details to be created in the system",
+      "Execution Order": "19"
+    },
+    "29": {
+      "Tab Name": "ScheduleSortRule",
+      "Object Type": "",
+      "Description": "",
+      "Execution Order": "19"
+    },
+    "30": {
+      "Tab Name": "ScheduleOptimizationCriteria",
+      "Object Type": "",
+      "Description": "",
+      "Execution Order": "19"
+    },
+    "31": {
+      "Tab Name": "<DM>Area",
+      "Object Type": "Dynamic Model",
+      "Description": "Area details to be created in the system",
+      "Execution Order": "20"
+    },
+    "32": {
+      "Tab Name": "<DM>Document",
+      "Object Type": "Dynamic Model",
+      "Description": "Documents to be created in the system",
+      "Execution Order": "21"
+    },
+    "33": {
+      "Tab Name": "<DM>CalendarDay",
+      "Object Type": "Dynamic Model",
+      "Description": "CalendarDay details to be created in the system",
+      "Execution Order": "22"
+    },
+    "34": {
+      "Tab Name": "<UP>TeamShiftAssociation",
+      "Object Type": "Update Model",
+      "Description": "Updates already created calendar days, associating teams to shifts.",
+      "Execution Order": "23"
+    },
+    "35": {
+      "Tab Name": "<DM>Employee",
+      "Object Type": "Dynamic Model",
+      "Description": "Employee details to be created in the system.",
+      "Execution Order": "24"
+    },
+    "36": {
+      "Tab Name": "<DM>EmployeeCertification",
+      "Object Type": "Dynamic Model",
+      "Description": "Employee Certification relations to be created in the system.",
+      "Execution Order": "25"
+    },
+    "37": {
+      "Tab Name": "<DM>SamplingPlan",
+      "Object Type": "Dynamic Model",
+      "Description": "Sampling Plan details to be created in the system.",
+      "Execution Order": "26"
+    },
+    "38": {
+      "Tab Name": "SPContextInformation",
+      "Object Type": "",
+      "Description": "Sampling Plan Context Information to be associated on the creation of the Sampling Plans.",
+      "Execution Order": "26"
+    },
+    "39": {
+      "Tab Name": "<DM>SamplingPlanInstance",
+      "Object Type": "Dynamic Model",
+      "Description": "Sampling Plan Instance details to be created in the system.",
+      "Execution Order": "27"
+    },
+    "40": {
+      "Tab Name": "<DM>Reason",
+      "Object Type": "Dynamic Model",
+      "Description": "Reason details to be created in the system",
+      "Execution Order": "28"
+    },
+    "41": {
+      "Tab Name": "<DM>SortRuleSet",
+      "Object Type": "Dynamic Model",
+      "Description": "SortRuleSet details to be created in the system",
+      "Execution Order": "29"
+    },
+    "42": {
+      "Tab Name": "<DM>Service",
+      "Object Type": "Dynamic Model",
+      "Description": "Service details to be created in the system",
+      "Execution Order": "30"
+    },
+    "43": {
+      "Tab Name": "<DM>Step",
+      "Object Type": "Dynamic Model",
+      "Description": "Step details to be created in the system",
+      "Execution Order": "31"
+    },
+    "44": {
+      "Tab Name": "StepReason",
+      "Object Type": "",
+      "Description": "List of Reasons to be added to the steps",
+      "Execution Order": "31"
+    },
+    "45": {
+      "Tab Name": "StepSamplingPlan",
+      "Object Type": "",
+      "Description": "List of Sampling Plan to be added to the steps",
+      "Execution Order": "31"
+    },
+    "46": {
+      "Tab Name": "<UP>StepFutureActions",
+      "Object Type": "",
+      "Description": "Step Future Actions",
+      "Execution Order": "32"
+    },
+    "47": {
+      "Tab Name": "<DM>ScheduleFeedStep",
+      "Object Type": "Dynamic Model",
+      "Description": "List of feed steps for Schedule",
+      "Execution Order": "33"
+    },
+    "48": {
+      "Tab Name": "<DM>ProducGroup",
+      "Object Type": "Dynamic Model",
+      "Description": "Product Groups to be created in the system",
+      "Execution Order": "34"
+    },
+    "49": {
+      "Tab Name": "ProductGroupParameters",
+      "Object Type": "",
+      "Description": "Product Group Parameters",
+      "Execution Order": "34"
+    },
+    "50": {
+      "Tab Name": "<DM>Flow",
+      "Object Type": "Dynamic Model",
+      "Description": "Flow details to be created in the system",
+      "Execution Order": "35"
+    },
+    "51": {
+      "Tab Name": "FlowStructures",
+      "Object Type": "",
+      "Description": "Flow Structure details for the Flows",
+      "Execution Order": "35"
+    },
+    "52": {
+      "Tab Name": "<DM>Product",
+      "Object Type": "Dynamic Model",
+      "Description": "Products details to be created in the system",
+      "Execution Order": "36"
+    },
+    "53": {
+      "Tab Name": "<DM>SetupMatrix",
+      "Object Type": "Dynamic Model",
+      "Description": "Setup Matrix to be created in the System",
+      "Execution Order": "37"
+    },
+    "54": {
+      "Tab Name": "SetupMatrixTransitions",
+      "Object Type": "",
+      "Description": "Setup Matrix Transitions",
+      "Execution Order": "37"
+    },
+    "55": {
+      "Tab Name": "<DM>Resource",
+      "Object Type": "Dynamic Model",
+      "Description": "Resources details to be created in the system",
+      "Execution Order": "38"
+    },
+    "56": {
+      "Tab Name": "<DM>ShiftPlan",
+      "Object Type": "Dynamic Model",
+      "Description": "Shift Plans to be created in the system",
+      "Execution Order": "39"
+    },
+    "57": {
+      "Tab Name": "ShiftPlanWorkgroups",
+      "Object Type": "",
+      "Description": "Workgroups to be associated with shift plans",
+      "Execution Order": "39"
+    },
+    "58": {
+      "Tab Name": "<UP>EmployeeShiftDetails",
+      "Object Type": "",
+      "Description": "Assign (with special manage) Team, Shiftplan, Workgroup and position to Employee",
+      "Execution Order": "40"
+    },
+    "59": {
+      "Tab Name": "<DM>Parameter",
+      "Object Type": "Dynamic Model",
+      "Description": "Parameter details to be created in the system",
+      "Execution Order": "41"
+    },
+    "60": {
+      "Tab Name": "<DM>Protocol",
+      "Object Type": "Dynamic Model",
+      "Description": "Protocol details to be created in the system",
+      "Execution Order": "42"
+    },
+    "61": {
+      "Tab Name": "ProtocolStates",
+      "Object Type": "",
+      "Description": "List of State Details for the protocol",
+      "Execution Order": "42"
+    },
+    "62": {
+      "Tab Name": "<DM>KPI",
+      "Object Type": "Dynamic Model",
+      "Description": "KPI details to be created in the system",
+      "Execution Order": "43"
+    },
+    "63": {
+      "Tab Name": "<DM>KPITimeFrame",
+      "Object Type": "Dynamic Model",
+      "Description": "KPITimeFrame details to be created in the system",
+      "Execution Order": "44"
+    },
+    "64": {
+      "Tab Name": "<DM>DataCollection",
+      "Object Type": "Dynamic Model",
+      "Description": "DataCollection details to be created in the system",
+      "Execution Order": "45"
+    },
+    "65": {
+      "Tab Name": "DataCollectionParameters",
+      "Object Type": "",
+      "Description": "List of parameters for Data Collections",
+      "Execution Order": "45"
+    },
+    "66": {
+      "Tab Name": "<DM>DataCollectionLimitSets",
+      "Object Type": "Dynamic Model",
+      "Description": "DataCollectionLimitSets details to be created in the system",
+      "Execution Order": "46"
+    },
+    "67": {
+      "Tab Name": "<DM>BOM",
+      "Object Type": "Dynamic Model",
+      "Description": "BOM details to be created in the system",
+      "Execution Order": "47"
+    },
+    "68": {
+      "Tab Name": "BOMProducts",
+      "Object Type": "",
+      "Description": "List of BOM Products for the BOMs",
+      "Execution Order": "47"
+    },
+    "69": {
+      "Tab Name": "<DM>Chart",
+      "Object Type": "Dynamic Model",
+      "Description": "Chart details to be created in the system",
+      "Execution Order": "48"
+    },
+    "70": {
+      "Tab Name": "<DM>LogicalChart",
+      "Object Type": "Dynamic Model",
+      "Description": "Logical chart details to be created in the system",
+      "Execution Order": "49"
+    },
+    "71": {
+      "Tab Name": "<DM>Recipe",
+      "Object Type": "Dynamic Model",
+      "Description": "Recipes to be created in the system",
+      "Execution Order": "50"
+    },
+    "72": {
+      "Tab Name": "RecipeParameters",
+      "Object Type": "",
+      "Description": "List of Recipe Parameters for each Recipe created",
+      "Execution Order": "50"
+    },
+    "73": {
+      "Tab Name": "SubRecipes",
+      "Object Type": "",
+      "Description": "List of SubRecipe relations",
+      "Execution Order": "50"
+    },
+    "74": {
+      "Tab Name": "SubRecipeParameters",
+      "Object Type": "",
+      "Description": "List of SubRecipe parameter mappings",
+      "Execution Order": "50"
+    },
+    "75": {
+      "Tab Name": "<DM>MaintenancePlan",
+      "Object Type": "Dynamic Model",
+      "Description": "List of Maintenance Plans to add",
+      "Execution Order": "51"
+    },
+    "76": {
+      "Tab Name": "MaintenancePlanActivities",
+      "Object Type": "",
+      "Description": "List of Activities for Maintenance Plans",
+      "Execution Order": "51"
+    },
+    "77": {
+      "Tab Name": "MaintenancePlanActivityCharts",
+      "Object Type": "",
+      "Description": "List of Activity charts for Maintenante Plans",
+      "Execution Order": "51"
+    },
+    "78": {
+      "Tab Name": "<DM>MaintenancePlanInstance",
+      "Object Type": "Dynamic Model",
+      "Description": "List of Maintenance Plans Instances to add",
+      "Execution Order": "52"
+    },
+    "79": {
+      "Tab Name": "<GT>GenericTable",
+      "Object Type": "Generic Table",
+      "Description": "List of Generic Tables to be Created / Updated in the System\nEach Table can have one Tab with the data to be loaded - \"<GT>[GenericTableName]\"",
+      "Execution Order": "53"
+    },
+    "80": {
+      "Tab Name": "GenericTableProperties",
+      "Object Type": "",
+      "Description": "List of Properties of Generic Table",
+      "Execution Order": "53"
+    },
+    "81": {
+      "Tab Name": "<GT>MaterialFormRelation",
+      "Object Type": "Generic Table",
+      "Description": "",
+      "Execution Order": "54"
+    },
+    "82": {
+      "Tab Name": "<ST>SmartTable",
+      "Object Type": "Smart Table",
+      "Description": "List of Smart Tables to be Created / Updated in the System\nEach Table can have one Tab with the data to be loaded - \"<ST>[SmartTableName]\"",
+      "Execution Order": "55"
+    },
+    "83": {
+      "Tab Name": "SmartTableProperties",
+      "Object Type": "",
+      "Description": "",
+      "Execution Order": "55"
+    },
+    "84": {
+      "Tab Name": "SmartTablePrecedenceKeys",
+      "Object Type": "",
+      "Description": "",
+      "Execution Order": "55"
+    },
+    "85": {
+      "Tab Name": "<DM>Container",
+      "Object Type": "Dynamic Model",
+      "Description": "Container details to be created in the system",
+      "Execution Order": "56"
+    },
+    "86": {
+      "Tab Name": "<DM>Material",
+      "Object Type": "Dynamic Model",
+      "Description": "Material details to be created in the system",
+      "Execution Order": "57"
+    },
+    "87": {
+      "Tab Name": "<DM>MapDefinition",
+      "Object Type": "Dynamic Model",
+      "Description": "Map Definitions to be created in the system",
+      "Execution Order": "58"
+    },
+    "88": {
+      "Tab Name": "MapDefinitionLayers",
+      "Object Type": "",
+      "Description": "Layers of Map Definiton",
+      "Execution Order": "58"
+    },
+    "89": {
+      "Tab Name": "<DM>Map",
+      "Object Type": "Dynamic Model",
+      "Description": "Maps to be created in the system",
+      "Execution Order": "59"
+    },
+    "90": {
+      "Tab Name": "<SM>Config",
+      "Object Type": "Static Model",
+      "Description": "Config details to be created in the system",
+      "Execution Order": "60"
+    },
+    "91": {
+      "Tab Name": "<DM>AutomationManager",
+      "Object Type": "Dynamic Model",
+      "Description": "Automation Managers to create",
+      "Execution Order": "#REF!"
+    },
+    "92": {
+      "Tab Name": "<DM>AutomationProtocol",
+      "Object Type": "Dynamic Model",
+      "Description": "Automation Protocols to create (versioned). Depends on AutomationProtocolDataType, AutomationProtocolParameter and AutomationProtocolExtendedData Tabs",
+      "Execution Order": "#REF!"
+    },
+    "93": {
+      "Tab Name": "<DM>AutomationDriverDefinition",
+      "Object Type": "Dynamic Model",
+      "Description": "Automation Driver Definitions to create (versioned). Depends on AutomationProperty, AutomationEvent, AutomationEventProperty AutomationCommand and AutomationCommandParameter Tabs",
+      "Execution Order": "#REF!"
+    },
+    "94": {
+      "Tab Name": "<DM>AutomationController",
+      "Object Type": "Dynamic Model",
+      "Description": "Automation Controllers to create along with the workflows. Depends on AutomationControllerDriverDef, AutomationControllerWorkflow tabs",
+      "Execution Order": "#REF!"
+    },
+    "95": {
+      "Tab Name": "AutomationInstances",
+      "Object Type": "",
+      "Description": "Automation Instances to create",
+      "Execution Order": "#REF!"
+    },
+    "96": {
+      "Tab Name": "<DM>ExperimentDefinition",
+      "Object Type": "Dynamic Model",
+      "Description": "ExperimentDefinition details to be created in the system",
+      "Execution Order": "65"
+    },
+    "97": {
+      "Tab Name": "ExperimentDefinitionSteps",
+      "Object Type": "",
+      "Description": "List of Experiment Definition Step for the experiment definition",
+      "Execution Order": "66"
+    }
+  },
+  "Formats": {
+    "1": {
+      "Sheet": "All Objects",
+      "Column": "MainStateModel",
+      "Format Sample": "SEMI E10 > Standby",
+      "Description": "State Model Name , \">\", State Name\nif the \">\" is not provided then the value will be the StateModel Name, and the object will be setted in the default state for the state model"
+    },
+    "2": {
+      "Sheet": "All Objects",
+      "Column": "OtherStateModels",
+      "Format Sample": "SEMI E10 > Standby; SEMI E10 > Standby; SEMI E10 > Standby",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is:\nState Model Name , \">\", State Name\nif the \">\" is not provided then the value will be the StateModel Name, and the object will be setted in the default state for the state model"
+    },
+    "3": {
+      "Sheet": "All Objects",
+      "Column": "Attributes",
+      "Format Sample": "Name[Basic] ScalarType[VarChar] Value[Up];\nName[Scheduled] ScalarType[VarChar] Value[Scheduled Up]",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is:\nName[AttributeName] ScalarType[ScalarTypeName] Value[AttributeValue]\nIf Attribute is Array Values will be separated by comma (',')"
+    },
+    "4": {
+      "Sheet": "StateModelStates",
+      "Column": "Forbiden Operations",
+      "Format Sample": "Save;Terminate",
+      "Description": "Each item is delimited by a semi-colon ';'\nEach item must be the name of one Operation of the State Model Entity Type"
+    },
+    "5": {
+      "Sheet": "StateModelTransitions",
+      "Column": "Allowed Operations",
+      "Format Sample": "Save;Terminate",
+      "Description": "Each item is delimited by a semi-colon ';'\nEach item must be the name of one Operation of the State Model Entity Type"
+    },
+    "6": {
+      "Sheet": "ShiftDefinitionShift",
+      "Column": "NonWorkingTime",
+      "Format Sample": "Name[Lunch] Start[12:00] End[13:00]",
+      "Description": "Each non working time is delimited by a semi-colon ';'\nEach item is described by tokens according to the sample on the left."
+    },
+    "7": {
+      "Sheet": "SortRuleSets",
+      "Column": "Rules",
+      "Format Sample": "Name[ResourceQueueSize] Direction[Ascending]",
+      "Description": "Each rule is delimited by a semi-colon ';', the sequence is the order in which it appears, starting with 1 and the format is Name[SortRuleName] Direction[Ascending] (Direction can be 'Ascending' or 'Descending')"
+    },
+    "8": {
+      "Sheet": "FlowStructures",
+      "Column": "Reworks",
+      "Format Sample": "GotoFlowPath[Mold Rework:1/Remove Mold:1] ReturnStep[Packaging:5] Reason[Mold Damage]",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is like:\nGotoFlowPath[TargetFlowPath] ReturnStep[ReturnStep] Reason[ReworkReason]\n\nwhere the ReturnStep must include the information about the Correlation Id ( for example \"Step:2\" )"
+    },
+    "9": {
+      "Sheet": "Products",
+      "Column": "Unit Conversion Factors",
+      "Format Sample": "FromUnit[Wafers] ToUnit[Dies] Factor[100]",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is like:\nFromUnit[unitA] ToUnit[unitB] Factor[factor]\n\nWhere \n - Units must exist in lookupTable Units\n - factor can have decimal places"
+    },
+    "10": {
+      "Sheet": "Products",
+      "Column": "Sub Products",
+      "Format Sample": "TargetProduct[WAFCOMP1] Facility[Null] Step[Wafer Saw] ProductChangeDescription[Standard] Type[Standard] IsChangeAutomatic[Yes]",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is like:\nTargetProduct[ProductName] Facility[Null] Step[StepName] ProductChangeDescription[Standard] Type[Standard] IsChangeAutomatic[Yes]"
+    },
+    "11": {
+      "Sheet": "Products",
+      "Column": "Binning Tree",
+      "Format Sample": "TargetProduct[PRODUCTA] BinGroup[Null] BinNumber[1] BinType[MainProduct] Reason[Null] Step[Null]",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is like:\nTargetProduct[PRODUCTA] BinGroup[Null] BinNumber[1] BinType[MainProduct] Reason[Null] Step[Null]\n\nWhere BinType must be one of the following\n - MainProduct\n - SubProduct\n - Loss\nWhere Reason must be the name of one valid Reason"
+    },
+    "12": {
+      "Sheet": "Protocols",
+      "Column": "Parameters",
+      "Format Sample": "Name[MyString] DataType[String] DefaultValue[Null];\nName[MyLong] DataType[Long] DefaultValue[0];\nName[MyDecimal] DataType[Decimal] DefaultValue[0]",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is like:\nName[ParameterName] DataType[String] DefaultValue[Null]\n\nDataType=Long or String or Decimal or Boolean or DateTime\nDefaultValue= Value or Null"
+    },
+    "13": {
+      "Sheet": "ProtocolStates",
+      "Column": "Parameters",
+      "Format Sample": "Name[MyString] IsOptional[No] IsReadOnly[No] SourceType[FreeText] Source[Null];\nName[MyLong] IsOptional[Yes] IsReadOnly[No] SourceType[FreeText] Source[Null]",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is like:\nName[ParameterName] IsOptional[No] IsReadOnly[No] SourceType[] Source[Null]\n\nSourceType=FreeText, LookupTable or Query"
+    },
+    "14": {
+      "Sheet": "Data Collection Limit Sets",
+      "Column": "Parameter Limits",
+      "Format Sample": "Parameter[Scratch Count] LimitType[Absolute] LowerErrorLimit[0] \nLowerWarningLimit[0] Target[0] UpperErrorLimit[105] UpperWarningLimit[50]",
+      "Description": "Each parameter is delimited by a semi-colon (';')\nWhen the text is 'Null' it means that there is no value\nThe decimal separator can be either '.' or ','\nFormat is:\nParameter[ParamName] LimitType[Absolute] LowerErrorLimit[0] LowerWarningLimit[1] Target[0] UpperWarningLimit[49] UpperErrorLimit[50]\n\nLimitType can be 'Absolute' or 'Relative'"
+    },
+    "15": {
+      "Sheet": "BOMProducts",
+      "Column": "Substitutes",
+      "Format Sample": "SourceProduct[UMG] Step[Crystallization] Quantity[0,8]",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is like:\nSourceProduct[ProductName] Step[StepName] Quantity[1]"
+    },
+    "16": {
+      "Sheet": "Charts",
+      "Column": "Rules",
+      "Format Sample": "Rule[UpperSpecSpcViolationRule] Protocol[PDCA]",
+      "Description": "Each item is delimeted by a semi-colon ';'\nformat of each item is like:\nRule[RuleName] Protocol[ProtocolName]\n\nProtocol can be null"
+    },
+    "17": {
+      "Sheet": "Charts",
+      "Column": "Contexts",
+      "Format Sample": "KeyOrder[1] Name[Resource] Description[Resource] Type[Object] Source[Resource]",
+      "Description": "Each item is delimeted by a semi-colon ';'\nformat of each item is like:\nKeyOrder[1] Name[Resource] Description[Resource] Type[Object] Source[Resource]\nWhere \n - Type=Object, FreeText or LookupTable\n - KeyOrder (or zero if non-key)"
+    },
+    "18": {
+      "Sheet": "SubRecipes",
+      "Column": "ParameterMapping",
+      "Format Sample": "Parameter1=Expression1;Parameter2=Expression2",
+      "Description": "Each item is delimited by a semi-colon ';'\nFormat of each item is:\nParameterName, equals ('='), Expression\nWhere \n - ParameterName should be the name of a valid Parameter in the subrecipe."
+    }
+  },
+  "Assumptions": {
+    "1": {
+      "Sheet": "All Objects",
+      "Assumption": "- Name Field is Mandatory\n - All Excel columns must match the Object properties (if defined)\n - Column \"MainStateModel\" can set the Main State Model to the object\n - Column \"OtherStateModel\" can set other State Models to the Object\n - Column \"DataGroup\" can set DataGroup to the Object"
+    },
+    "2": {
+      "Sheet": "All Objects",
+      "Assumption": "FlowPath\nIt represents the position in one Flow, for example\nFlowA:1/FlowB:2/FlowC:1/StepA:1\n\nEach Flow Part in the FlowPath is delimited by '/'\nEach Flow Part is splited in two by ':'\n 1) the first part is the name of the Object (Flow Name, or Step Name if is the last flow part in the FlowPath)\n 2) the second part is the CorrelationId, or it can be the position on the parent flow"
+    },
+    "3": {
+      "Sheet": "Rules",
+      "Assumption": "Rule Type will be UserDefined"
+    },
+    "4": {
+      "Sheet": "Facilities",
+      "Assumption": "If Site is passed then the Facility will have IsRemote set to true, false otherwise"
+    },
+    "5": {
+      "Sheet": "Generic Tables",
+      "Assumption": "If you want the first field to be empty, type \"NULL\" without the quotes."
+    },
+    "6": {
+      "Sheet": "Smart Tables",
+      "Assumption": "If you want the first field to be empty, type \"NULL\" without the quotes."
+    }
+  },
+  "WorksheetNameMapping": {
+    "1": {
+      "WorksheetName": "CertifReqQualif",
+      "Value": "CertificationRequiredQualification"
+    },
+    "2": {
+      "WorksheetName": "AutomationInstances",
+      "Value": "<DM>AutomationControllerInstance"
+    }
+  },
+  "Enums": {
+    "ScheduleCriteria": [
+      "MaximimizePriorityFulfilment",
+      "MaximizeResourceUtilization",
+      "MinimizeDeviationFromDeliveryDates",
+      "MinimizeLateMaterials",
+      "MinimizeMaximumLateness",
+      "MinimizeNumberOfLateMaterials",
+      "MinimizePriorityQuantityWeigthedCycleTime",
+      "MinimizePriorityWeightedLateness",
+      "MinimizeQuantityWeightedCycleTime",
+      "MinimizeSetupTimes",
+      "MinimizeTotalWaitingTime"
+    ],
+    "SchedulingType": [
+      "Machine",
+      "Batch",
+      "Tunnel"
+    ],
+    "ContentStorageType": [
+      "Internal",
+      "External"
+    ],
+    "StepSetupCharacteristic": [
+      "Service",
+      "Product",
+      "ProductGroup",
+      "Recipe"
+    ],
+    "ScheduleSortingRule": [
+      "PossibleStartDate",
+      "Priority",
+      "ExecutionTime",
+      "MaterialName",
+      "Quantity",
+      "CharacteristicOfItemAtResource",
+      "DueDate",
+      "ItemCode"
+    ],
+    "DispatchScheduleType": [
+      "Dispatching",
+      "Scheduling"
+    ],
+    "DefaultSamplingType": [
+      "CounterBased",
+      "TimeBased",
+      "CounterAndTimeBased"
+    ],
+    "Frequency": [
+      "Daily",
+      "Weekly",
+      "Monthly",
+      "Yearly"
+    ],
+    "RuleSortingDirection": [
+      "Ascending",
+      "Descending"
+    ],
+    "TimeScale": [
+      "Days",
+      "Hours",
+      "Minutes",
+      "Seconds"
+    ],
+    "SamplingContext": [
+      "MaterialType",
+      "MaterialProduct",
+      "MaterialProductMaturity",
+      "MaterialResource",
+      "MaterialStep",
+      "MaterialStepMaturity"
+    ],
+    "BOMScope": [
+      "MaterialTracking",
+      "MaintenanceManagement"
+    ],
+    "TimeDueScale": [
+      "Hours",
+      "Days",
+      "Weeks",
+      "Months",
+      "Years"
+    ],
+    "FutureLogisticActionExecutionMode": [
+      "Manual",
+      "Automatic"
+    ],
+    "DefaultScheduleView": [
+      "Day",
+      "Week",
+      "Month"
+    ],
+    "MaintenanceInstanceType": [
+      "Resource",
+      "Container"
+    ],
+    "KPIType": [
+      "Maximum",
+      "Minimum",
+      "Deviation"
+    ],
+    "InstancesToSchedulePattern": [
+      "NumberOfInstances",
+      "Duration"
+    ]
+  },
+  "<SM>EntityType": {},
+  "<SM>EntityTypeProperty": {},
+  "<SM>StateModel": {
+    "1": {
+      "Name": "CustomPlaceHolderStateModel",
+      "Description": "",
+      "DataGroup": "",
+      "EntityTypeName": "Resource"
+    }
+  },
+  "StateModelState": {
+    "1": {
+      "StateModel": "CustomPlaceHolderStateModel",
+      "Name": "PlaceHolderStandby",
+      "Description": "Standby Example",
+      "Role": "",
+      "IsInitial": "Yes",
+      "IsFinal": "No",
+      "Attributes": "Name[SEMI-E10] ScalarType[VarChar] Value[Standby]"
+    },
+    "2": {
+      "StateModel": "CustomPlaceHolderStateModel",
+      "Name": "PlaceHolderExecuting",
+      "Description": "PlaceHolderExecuting",
+      "Role": "",
+      "IsInitial": "No",
+      "IsFinal": "No",
+      "Attributes": "Name[SEMI-E10] ScalarType[VarChar] Value[Productive]"
+    }
+  },
+  "StateModelTransition": {
+    "1": {
+      "StateModel": "CustomPlaceHolderStateModel",
+      "Name": "Standby to Executing",
+      "Description": "Standby to Executing",
+      "FromState": "PlaceHolderStandby",
+      "ToState": "PlaceHolderExecuting",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    },
+    "2": {
+      "StateModel": "CustomPlaceHolderStateModel",
+      "Name": "Executing to Standby",
+      "Description": "Executing to Standby",
+      "FromState": "PlaceHolderExecuting",
+      "ToState": "PlaceHolderStandby",
+      "Role": "",
+      "ReasonLookupTable": "",
+      "ReasonDefaultValue": ""
+    }
+  },
+  "<SM>DEEAction": {},
+  "DEEActionOrder": {},
+  "<DM>Rule": {},
+  "<DM>AutomationManager": {},
+  "<DM>AutomationProtocol": {},
+  "AutomationProtocolParameter": {},
+  "<DM>AutomationDriverDefinition": {
+    "1": {
+      "Name": "DISCODFD6363HCDriver",
+      "Description": "DISCO DFD 6363 HC Edge trimming Driver",
+      "Type": "General",
+      "AutomationProtocol": "SecsGem",
+      "ObjectType": "Resource"
+    }
+  },
+  "AutomationProperty": {
+    "1": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "CLOCK",
+      "Description": "Clock",
+      "DevicePropertyId": "1004",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "2": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SLOT_ID_ROBOT_PICK",
+      "Description": "SlotNo on Robot Pick",
+      "DevicePropertyId": "3096",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "3": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SLOT_ID_PT",
+      "Description": "Slot No on PT",
+      "DevicePropertyId": "3095",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "4": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_1",
+      "Description": "Slot1 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12066",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "5": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_2",
+      "Description": "Slot2 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12065",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "6": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_3",
+      "Description": "Slot3 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12064",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "7": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_4",
+      "Description": "Slot4 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12063",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "8": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_5",
+      "Description": "Slot5 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12062",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "9": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_6",
+      "Description": "Slot6 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12061",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "10": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_7",
+      "Description": "Slot7 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12060",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "11": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_8",
+      "Description": "Slot8 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12059",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "12": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_9",
+      "Description": "Slot9 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12058",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "13": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_10",
+      "Description": "Slot10 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12057",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "14": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_11",
+      "Description": "Slot11 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12056",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "15": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_12",
+      "Description": "Slot12 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12055",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "16": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_13",
+      "Description": "Slot13 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12054",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "17": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_14",
+      "Description": "Slot14 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12053",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "18": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_15",
+      "Description": "Slot15 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12052",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "19": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_16",
+      "Description": "Slot16 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12051",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "20": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_17",
+      "Description": "Slot17 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12050",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "21": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_18",
+      "Description": "Slot18 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12049",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "22": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_19",
+      "Description": "Slot19 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12048",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "23": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_20",
+      "Description": "Slot20 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12047",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "24": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_21",
+      "Description": "Slot21 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12046",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "25": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_22",
+      "Description": "Slot22 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12045",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "26": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_23",
+      "Description": "Slot23 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12044",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "27": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_24",
+      "Description": "Slot24 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12043",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "28": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAP_STATE_25",
+      "Description": "Slot25 state of FOUP Mapping Measure",
+      "DevicePropertyId": "12042",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "29": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_1",
+      "Description": "Cassette Status 1",
+      "DevicePropertyId": "1700",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "30": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_2",
+      "Description": "Cassette Status 2",
+      "DevicePropertyId": "1701",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "31": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_3",
+      "Description": "Cassette Status 3",
+      "DevicePropertyId": "1702",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "32": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_4",
+      "Description": "Cassette Status 4",
+      "DevicePropertyId": "1703",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "33": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_5",
+      "Description": "Cassette Status 5",
+      "DevicePropertyId": "1704",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "34": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_6",
+      "Description": "Cassette Status 6",
+      "DevicePropertyId": "1705",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "35": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_7",
+      "Description": "Cassette Status 7",
+      "DevicePropertyId": "1706",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "36": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_8",
+      "Description": "Cassette Status 8",
+      "DevicePropertyId": "1707",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "37": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_9",
+      "Description": "Cassette Status 9",
+      "DevicePropertyId": "1708",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "38": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_10",
+      "Description": "Cassette Status 10",
+      "DevicePropertyId": "1709",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "39": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_11",
+      "Description": "Cassette Status 11",
+      "DevicePropertyId": "1710",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "40": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_12",
+      "Description": "Cassette Status 12",
+      "DevicePropertyId": "1711",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "41": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_13",
+      "Description": "Cassette Status 13",
+      "DevicePropertyId": "1712",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "42": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_14",
+      "Description": "Cassette Status 14",
+      "DevicePropertyId": "1713",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "43": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_15",
+      "Description": "Cassette Status 15",
+      "DevicePropertyId": "1714",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "44": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_16",
+      "Description": "Cassette Status 16",
+      "DevicePropertyId": "1715",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "45": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_17",
+      "Description": "Cassette Status 17",
+      "DevicePropertyId": "1716",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "46": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_18",
+      "Description": "Cassette Status 18",
+      "DevicePropertyId": "1717",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "47": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_19",
+      "Description": "Cassette Status 19",
+      "DevicePropertyId": "1718",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "48": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_20",
+      "Description": "Cassette Status 20",
+      "DevicePropertyId": "1719",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "49": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_21",
+      "Description": "Cassette Status 21",
+      "DevicePropertyId": "1720",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "50": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_22",
+      "Description": "Cassette Status 22",
+      "DevicePropertyId": "1721",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "51": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_23",
+      "Description": "Cassette Status 23",
+      "DevicePropertyId": "1722",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "52": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_24",
+      "Description": "Cassette Status 24",
+      "DevicePropertyId": "1723",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "53": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_25",
+      "Description": "Cassette Status 25",
+      "DevicePropertyId": "1724",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "54": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_1",
+      "Description": "Work Information 1",
+      "DevicePropertyId": "13652",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "55": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_2",
+      "Description": "Work Information 2",
+      "DevicePropertyId": "13653",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "56": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_3",
+      "Description": "Work Information 3",
+      "DevicePropertyId": "13654",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "57": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_4",
+      "Description": "Work Information 4",
+      "DevicePropertyId": "13655",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "58": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_5",
+      "Description": "Work Information 5",
+      "DevicePropertyId": "13656",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "59": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_6",
+      "Description": "Work Information 6",
+      "DevicePropertyId": "13657",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "60": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_7",
+      "Description": "Work Information 7",
+      "DevicePropertyId": "13658",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "61": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_8",
+      "Description": "Work Information 8",
+      "DevicePropertyId": "13659",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "62": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_9",
+      "Description": "Work Information 9",
+      "DevicePropertyId": "13660",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "63": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_10",
+      "Description": "Work Information 10",
+      "DevicePropertyId": "13661",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "64": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_11",
+      "Description": "Work Information 11",
+      "DevicePropertyId": "13662",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "65": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_12",
+      "Description": "Work Information 12",
+      "DevicePropertyId": "13663",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "66": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_13",
+      "Description": "Work Information 13",
+      "DevicePropertyId": "13664",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "67": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_14",
+      "Description": "Work Information 14",
+      "DevicePropertyId": "13665",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "68": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_15",
+      "Description": "Work Information 15",
+      "DevicePropertyId": "13666",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "69": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_16",
+      "Description": "Work Information 16",
+      "DevicePropertyId": "13667",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "70": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_17",
+      "Description": "Work Information 17",
+      "DevicePropertyId": "13668",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "71": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_18",
+      "Description": "Work Information 18",
+      "DevicePropertyId": "13669",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "72": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_19",
+      "Description": "Work Information 19",
+      "DevicePropertyId": "13670",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "73": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_20",
+      "Description": "Work Information 20",
+      "DevicePropertyId": "13671",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "74": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_21",
+      "Description": "Work Information 21",
+      "DevicePropertyId": "13672",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "75": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_22",
+      "Description": "Work Information 22",
+      "DevicePropertyId": "13673",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "76": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_23",
+      "Description": "Work Information 23",
+      "DevicePropertyId": "13674",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "77": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_24",
+      "Description": "Work Information 24",
+      "DevicePropertyId": "13675",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "78": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_INFO_25",
+      "Description": "Work Information 25",
+      "DevicePropertyId": "13676",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "79": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_POS_DEV_NO_0",
+      "Description": "Device  No. of wafer on C/T",
+      "DevicePropertyId": "1232",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "80": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_POS_DEV_NO_1",
+      "Description": "Device  No. of wafer on centering guide",
+      "DevicePropertyId": "1222",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "81": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_POS_DEV_NO_2",
+      "Description": "Device  No. of wafer on load arm",
+      "DevicePropertyId": "1252",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "82": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_POS_DEV_NO_3",
+      "Description": "Device  No. of wafer on clean arm",
+      "DevicePropertyId": "1262",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "83": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_POS_DEV_NO_4",
+      "Description": "Device  No. of wafer on S/T",
+      "DevicePropertyId": "1242",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "84": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_POS_DEV_NO_5",
+      "Description": "Device  No. of wafer on inspection stage",
+      "DevicePropertyId": "1272",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "85": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WORK_POS_DEV_NO_6",
+      "Description": "Device  No. of wafer onUV stage",
+      "DevicePropertyId": "1282",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "86": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SLOT_ID_WORK_GUIDE",
+      "Description": "Slot No. on centering guide",
+      "DevicePropertyId": "1223",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U2",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "87": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SLOT_ID_WORK_CT",
+      "Description": "Slot No. on C/T",
+      "DevicePropertyId": "1233",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "88": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SLOT_ID_WORK_ST",
+      "Description": "Slot No. on S/T",
+      "DevicePropertyId": "1243",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U2",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "89": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "ST_DEV",
+      "Description": "Device  No. of wafer on S/T",
+      "DevicePropertyId": "1244",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "90": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SLOT_ID_WORK_LOADARM",
+      "Description": "Slot No. of wafer on load arm",
+      "DevicePropertyId": "1253",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U4",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "91": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SLOT_ID_WORK_CLNARM",
+      "Description": "Slot No. of wafer on clean arm",
+      "DevicePropertyId": "1263",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U2",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "92": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SLOT_ID_WORK_INSPEC",
+      "Description": "Slot No. of wafer on inspection stage",
+      "DevicePropertyId": "1273",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U2",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "93": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SLOT_ID_WORK_UV",
+      "Description": "Slot No. of wafer on UV stage",
+      "DevicePropertyId": "1283",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U2",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "94": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "PROCESS_STATE",
+      "Description": "Process State",
+      "DevicePropertyId": "1009",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "95": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "PREVIOUS_PROCESS_STATE",
+      "Description": "Previous Process State",
+      "DevicePropertyId": "1008",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    },
+    "96": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "CONTROL_STATE",
+      "Description": "Control State",
+      "DevicePropertyId": "1005",
+      "IsReadable": "Yes",
+      "IsWritable": "Yes",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "ExtendedData": "{\"variableType\":\"StatusVariable\",\"$id\":\"1\"}"
+    }
+  },
+  "AutomationEvent": {
+    "1": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "CUT_START",
+      "Description": "Cut Start",
+      "DeviceEventId": "1",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "2": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "CUT_END",
+      "Description": "Cut End",
+      "DeviceEventId": "2",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "3": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "PRECUT_START",
+      "Description": "Pre-Cut Start",
+      "DeviceEventId": "3",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "4": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "PRECUT_end",
+      "Description": "Pre-Cut End",
+      "DeviceEventId": "4",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "5": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "ALIGNMENT_START",
+      "Description": "Alignment Start",
+      "DeviceEventId": "5",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "6": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "ALIGNMENT_END",
+      "Description": "Alignment End",
+      "DeviceEventId": "6",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "7": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "KERF_CHECK_START",
+      "Description": "Kerf Check Start",
+      "DeviceEventId": "7",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "8": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "KERF_CHECK_END",
+      "Description": "Kerf Check End",
+      "DeviceEventId": "8",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "9": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "CLEAN_START",
+      "Description": "Clean Start",
+      "DeviceEventId": "9",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "10": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "CLEAN_END",
+      "Description": "Clean End",
+      "DeviceEventId": "10",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "11": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SETUP_START",
+      "Description": "Setup Start",
+      "DeviceEventId": "11",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "12": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SETUP_END",
+      "Description": "Setup End",
+      "DeviceEventId": "12",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "13": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "BLADE_CHANGE_START",
+      "Description": "Blade Change Start",
+      "DeviceEventId": "13",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "14": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "BLADE_CHANGE_END",
+      "Description": "Blade Change End",
+      "DeviceEventId": "14",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "15": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "BLADE_DRESS_START",
+      "Description": "Blade Dress Start",
+      "DeviceEventId": "15",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "16": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "BLADE_DRESS_END",
+      "Description": "Blade Dress End",
+      "DeviceEventId": "16",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "17": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WAFER_LOAD_START",
+      "Description": "Start to Wafer Load",
+      "DeviceEventId": "20",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "18": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WAFER_LOAD_END",
+      "Description": "Wafer/Work has been loaded",
+      "DeviceEventId": "21",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "19": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WAFER_UNLOAD_END",
+      "Description": "Wafer/Work has been Unloaded",
+      "DeviceEventId": "22",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "20": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WAFER_LOADING_START",
+      "Description": "Start to Supply works (Loader Restart)",
+      "DeviceEventId": "23",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "21": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WAFER_LOADING_STOP",
+      "Description": "Stop/Pause to Supply works (Loader Stop)",
+      "DeviceEventId": "24",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "22": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SYSTEM_INITIALIZE_START",
+      "Description": "Press <SYS INI>",
+      "DeviceEventId": "25",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "23": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SYSTEM_INITIALIZE_END",
+      "Description": "System has been initialized",
+      "DeviceEventId": "26",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "24": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "NEW_CASSETTE_SET",
+      "Description": "System has been initialized",
+      "DeviceEventId": "27",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "25": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WAFER_UNLOAD_START",
+      "Description": "Wafer Unload Start",
+      "DeviceEventId": "32",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "26": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WAFER_TO_CLEAN_START",
+      "Description": "Wafer to Clean Start",
+      "DeviceEventId": "33",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "27": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WAFER_TO_CLEAN_END",
+      "Description": "Wafer to Clean End",
+      "DeviceEventId": "34",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "28": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAPPING_START",
+      "Description": "Mapping Start",
+      "DeviceEventId": "35",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "29": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "MAPPING_END",
+      "Description": "Mapping End",
+      "DeviceEventId": "36",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "30": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "CT_PROCESS_COMPLETED",
+      "Description": "Dicer finished the process on the table",
+      "DeviceEventId": "37",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "31": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "FULL_AUTOMATION_INITIALIZE_START",
+      "Description": "<F1>: Single dicing device\n<F2>: Multi dicing device",
+      "DeviceEventId": "41",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "32": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "FULL_AUTOMATION_INITIALIZE_END",
+      "Description": "System was initialize for full automation",
+      "DeviceEventId": "42",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "33": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "FULL_AUTOMATION_START",
+      "Description": "Press <START>",
+      "DeviceEventId": "43",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "34": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "FULL_AUTOMATION_END",
+      "Description": "Cassettes have been processed",
+      "DeviceEventId": "44",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "35": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "FULL_AUTOMATION_PAUSE_STOP",
+      "Description": "Press <STOP> while full automation is processing",
+      "DeviceEventId": "45",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "36": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "FULL_AUTOMATION_RESTART",
+      "Description": "Press <START> while full automation is pause",
+      "DeviceEventId": "46",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "37": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "HOST_MESSAGE_RECOGNIZE",
+      "Description": "Operator recognized the arrived host message",
+      "DeviceEventId": "71",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "38": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "PROCESS_PROGRAM_CHANGE",
+      "Description": "Device data was revised",
+      "DeviceEventId": "72",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "39": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "PP_SELECTED",
+      "Description": "Device data was selected",
+      "DeviceEventId": "73",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "40": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "OFF-LINE",
+      "Description": "",
+      "DeviceEventId": "74",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "41": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "LOCAL",
+      "Description": "",
+      "DeviceEventId": "75",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "42": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "REMOTE",
+      "Description": "",
+      "DeviceEventId": "76",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "43": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "NEUTRAL",
+      "Description": "",
+      "DeviceEventId": "77",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "44": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "Orifla_Notch_Search_Start",
+      "Description": "",
+      "DeviceEventId": "85",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "45": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "Orifla_Notch_Search_End",
+      "Description": "",
+      "DeviceEventId": "86",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "46": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "Process_Program_Created",
+      "Description": "",
+      "DeviceEventId": "121",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "47": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "Process_Program_Rename",
+      "Description": "",
+      "DeviceEventId": "122",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "48": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "Process_Program_Deleted",
+      "Description": "",
+      "DeviceEventId": "123",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "49": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "Process_Program_Moved",
+      "Description": "",
+      "DeviceEventId": "124",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "50": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "PROCESS_STATE_CHANGED",
+      "Description": "",
+      "DeviceEventId": "150",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "51": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "FrameTransferSubProcessStateChange",
+      "Description": "",
+      "DeviceEventId": "151",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "52": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "CTArmSubProcessStateChange",
+      "Description": "",
+      "DeviceEventId": "152",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "53": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "STArmSubProcessStateChange",
+      "Description": "",
+      "DeviceEventId": "153",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "54": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "ClnArmSubProcessStateChange",
+      "Description": "",
+      "DeviceEventId": "154",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "55": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SpoolingActivated",
+      "Description": "Spooling is activated",
+      "DeviceEventId": "170",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "56": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SpoolingDeactivated",
+      "Description": "Spooling is deactivated",
+      "DeviceEventId": "171",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "57": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SpoolTransmitFailuer",
+      "Description": "Spooling transmission was failed",
+      "DeviceEventId": "172",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "58": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "ALI_NSD_START",
+      "Description": "",
+      "DeviceEventId": "178",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "59": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "ALI_NSD_END",
+      "Description": "",
+      "DeviceEventId": "179",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "60": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "WaferIDRead",
+      "Description": "",
+      "DeviceEventId": "202",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "61": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "Smif_Load_Start",
+      "Description": "",
+      "DeviceEventId": "472",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "62": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "Smif_Load_End",
+      "Description": "",
+      "DeviceEventId": "473",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "63": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "Smif_UnLoad_Start",
+      "Description": "",
+      "DeviceEventId": "474",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "64": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "Smif_UnLoad_End",
+      "Description": "",
+      "DeviceEventId": "475",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "65": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "Smif_Pod_Arrived",
+      "Description": "",
+      "DeviceEventId": "481",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "66": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "Smif_Pod_Removed",
+      "Description": "",
+      "DeviceEventId": "482",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "67": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "Smif_Pod_Locked",
+      "Description": "",
+      "DeviceEventId": "483",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "68": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "Smif_Pod_UnLocked",
+      "Description": "",
+      "DeviceEventId": "484",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "69": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SMIF_POD_READY_TO_LOAD",
+      "Description": "",
+      "DeviceEventId": "485",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "70": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "SMIF_POD_READY_TO_UNLOAD",
+      "Description": "",
+      "DeviceEventId": "486",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "71": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "Smif_Cass_UnloadedFromPod",
+      "Description": "",
+      "DeviceEventId": "487",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    },
+    "72": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "Smif_Cass_LoadedToPod",
+      "Description": "",
+      "DeviceEventId": "488",
+      "IsEnabled": "Yes",
+      "ExtendedData": ""
+    }
+  },
+  "AutomationEventProperties": {
+    "1": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "CUT_START",
+      "AutomationProperty": "SLOT_ID_ROBOT_PICK",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"44\",\"$id\":\"3096\"}"
+    },
+    "2": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "CUT_END",
+      "AutomationProperty": "SLOT_ID_ROBOT_PICK",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"44\",\"$id\":\"3096\"}"
+    },
+    "3": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "WAFER_LOAD_START",
+      "AutomationProperty": "SLOT_ID_WORK_LOADARM",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"3\",\"$id\":\"1253\"}"
+    },
+    "4": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "WAFER_LOAD_START",
+      "AutomationProperty": "SLOT_ID_ROBOT_PICK",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"44\",\"$id\":\"3096\"}"
+    },
+    "5": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "WAFER_LOAD_END",
+      "AutomationProperty": "SLOT_ID_WORK_LOADARM",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"3\",\"$id\":\"1253\"}"
+    },
+    "6": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "WAFER_LOAD_END",
+      "AutomationProperty": "SLOT_ID_ROBOT_PICK",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"44\",\"$id\":\"3096\"}"
+    },
+    "7": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "WAFER_UNLOAD_START",
+      "AutomationProperty": "SLOT_ID_WORK_LOADARM",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"3\",\"$id\":\"1253\"}"
+    },
+    "8": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "WAFER_UNLOAD_START",
+      "AutomationProperty": "SLOT_ID_ROBOT_PICK",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"44\",\"$id\":\"3096\"}"
+    },
+    "9": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "WAFER_UNLOAD_END",
+      "AutomationProperty": "SLOT_ID_WORK_LOADARM",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"3\",\"$id\":\"1253\"}"
+    },
+    "10": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "WAFER_UNLOAD_END",
+      "AutomationProperty": "SLOT_ID_ROBOT_PICK",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"44\",\"$id\":\"3096\"}"
+    },
+    "11": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "WaferIDRead",
+      "AutomationProperty": "SLOT_ID_PT",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"202\",\"$id\":\"3095\"}"
+    },
+    "12": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "WaferIDRead",
+      "AutomationProperty": "SLOT_ID_ROBOT_PICK",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"44\",\"$id\":\"3096\"}"
+    },
+    "13": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_1",
+      "Order": "1",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12066\"}"
+    },
+    "14": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_2",
+      "Order": "2",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12065\"}"
+    },
+    "15": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_3",
+      "Order": "3",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12064\"}"
+    },
+    "16": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_4",
+      "Order": "4",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12063\"}"
+    },
+    "17": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_5",
+      "Order": "5",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12062\"}"
+    },
+    "18": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_6",
+      "Order": "6",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12061\"}"
+    },
+    "19": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_7",
+      "Order": "7",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12060\"}"
+    },
+    "20": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_8",
+      "Order": "8",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12059\"}"
+    },
+    "21": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_9",
+      "Order": "9",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12058\"}"
+    },
+    "22": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_10",
+      "Order": "10",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12057\"}"
+    },
+    "23": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_11",
+      "Order": "11",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12056\"}"
+    },
+    "24": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_12",
+      "Order": "12",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12055\"}"
+    },
+    "25": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_13",
+      "Order": "13",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12054\"}"
+    },
+    "26": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_14",
+      "Order": "14",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12053\"}"
+    },
+    "27": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_15",
+      "Order": "15",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12052\"}"
+    },
+    "28": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_16",
+      "Order": "16",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12051\"}"
+    },
+    "29": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_17",
+      "Order": "17",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12050\"}"
+    },
+    "30": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_18",
+      "Order": "18",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12049\"}"
+    },
+    "31": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_19",
+      "Order": "19",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12048\"}"
+    },
+    "32": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_20",
+      "Order": "20",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12047\"}"
+    },
+    "33": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_21",
+      "Order": "21",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12046\"}"
+    },
+    "34": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_22",
+      "Order": "22",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12045\"}"
+    },
+    "35": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_23",
+      "Order": "23",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12044\"}"
+    },
+    "36": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_24",
+      "Order": "24",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12043\"}"
+    },
+    "37": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationEvent": "MAPPING_END",
+      "AutomationProperty": "MAP_STATE_25",
+      "Order": "25",
+      "ExtendedData": "{\"reportId\":\"36\",\"$id\":\"12042\"}"
+    }
+  },
+  "AutomationCommand": {
+    "1": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "GO_LOCAL",
+      "Description": "Local state transition",
+      "DeviceCommandId": "GO_LOCAL",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "2": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "GO_REMOTE",
+      "Description": "Remote state transition",
+      "DeviceCommandId": "GO_REMOTE",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "3": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "LOCK_POD",
+      "Description": "Lock Pod",
+      "DeviceCommandId": "LOCK_POD",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "4": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "LOAD_POD",
+      "Description": "Load Pod",
+      "DeviceCommandId": "UNLOAD_CASS_FRM_PORT",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "5": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "INIT_S",
+      "Description": "Single device full automation initialization processing",
+      "DeviceCommandId": "INIT_S",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "6": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "NEW",
+      "Description": "New cassette setting",
+      "DeviceCommandId": "NEW",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "7": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "PP_SELECT_S",
+      "Description": "Single device process program selection",
+      "DeviceCommandId": "PP_SELECT_S",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "8": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "START_S",
+      "Description": "Single device full automation process stop",
+      "DeviceCommandId": "START_S",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "9": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "GRANT_DENY",
+      "Description": "Grant Deny",
+      "DeviceCommandId": "GRANT_DENY",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "10": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "UNLOAD_POD",
+      "Description": "Unload Pod",
+      "DeviceCommandId": "LOAD_CASS_TO_PORT",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "11": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "UNLOCK_POD",
+      "Description": "Unlock Pod",
+      "DeviceCommandId": "UNLOCK_POD",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "12": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "STOP",
+      "Description": "Full Automation Stop",
+      "DeviceCommandId": "STOP",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "13": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "PAUSE",
+      "Description": "Full Automation Pause",
+      "DeviceCommandId": "PAUSE",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "14": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "RESUME",
+      "Description": "Full Automation Resume",
+      "DeviceCommandId": "RESUME",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "15": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "PAUSE_H",
+      "Description": "Full Automation Pause (host control)",
+      "DeviceCommandId": "PAUSE_H",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "16": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "RESUME_H",
+      "Description": "Full Automation Resume (host control)",
+      "DeviceCommandId": "RESUME_H",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "17": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "ABORT",
+      "Description": "Forced system initialization",
+      "DeviceCommandId": "ABORT",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "18": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "EMERGENCY",
+      "Description": "Z-EM",
+      "DeviceCommandId": "EMERGENCY",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "19": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "CLEAR",
+      "Description": "Unloading of all the wafers",
+      "DeviceCommandId": "CLEAR",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    },
+    "20": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Name": "RECOVERY",
+      "Description": "Error Recovery Display",
+      "DeviceCommandId": "RECOVERY",
+      "ExtendedData": "{\"messageType\":\"S2F41\",\"successAckCodes\":\"0x00,0x04\",\"$id\":\"1\"}"
+    }
+  },
+  "AutomationCommandParameter": {
+    "1": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationCommand": "PP_SELECT_S",
+      "Name": "PORT_ID",
+      "Description": "",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "DefaultValue": "",
+      "IsMandatory": "True",
+      "Order": "1",
+      "ExtendedData": ""
+    },
+    "2": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationCommand": "PP_SELECT_S",
+      "Name": "PPID",
+      "Description": "",
+      "DataType": "String",
+      "AutomationProtocolDataType": "A",
+      "DefaultValue": "",
+      "IsMandatory": "True",
+      "Order": "2",
+      "ExtendedData": ""
+    },
+    "3": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationCommand": "START_S",
+      "Name": "PORT_ID",
+      "Description": "",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "DefaultValue": "",
+      "IsMandatory": "True",
+      "Order": "1",
+      "ExtendedData": ""
+    },
+    "4": {
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "AutomationCommand": "GRANT_DENY",
+      "Name": "PORT_ID",
+      "Description": "",
+      "DataType": "Integer",
+      "AutomationProtocolDataType": "U1",
+      "DefaultValue": "",
+      "IsMandatory": "True",
+      "Order": "1",
+      "ExtendedData": ""
+    }
+  },
+  "<DM>AutomationController": {
+    "1": {
+      "Name": "DISCODFD6363HCController",
+      "Description": "Reference controller for DISCO DFD 6363 HC Edge trimming",
+      "Type": "General",
+      "ControllerPackageVersion": "9.1.0-202209072",
+      "ObjectType": "Resource",
+      "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\",\"connect-iot-controller-engine-secsgem-tasks\"]",
+      "Scope": "ConnectIoT"
+    }
+  },
+  "AutomationControllerDriverDef": {
+    "1": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "SecsGemEquipment",
+      "DisplayName": "SecsGemEquipment",
+      "AutomationDriverDefinition": "DISCODFD6363HCDriver",
+      "Color": "#ffff80"
+    },
+    "2": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "RFIDReader",
+      "DisplayName": "RFIDReader",
+      "AutomationDriverDefinition": "HermosLFM4xReaderDriver",
+      "Color": "#ffdd80"
+    },
+    "3": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "FileDriver",
+      "DisplayName": "FileDriver",
+      "AutomationDriverDefinition": "FileRawDriver",
+      "Color": ""
+    }
+  },
+  "AutomationControllerWorkflow": {
+    "1": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "Setup",
+      "DisplayName": "Setup",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/Setup.json",
+      "Order": "1"
+    },
+    "2": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "Setup_RFIDReader",
+      "DisplayName": "Setup_RFIDReader",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/Setup_RFIDReader.json",
+      "Order": "2"
+    },
+    "3": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "Setup_File",
+      "DisplayName": "Setup_File",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/Setup_File.json",
+      "Order": "3"
+    },
+    "4": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "MaterialReceived_01_MaterialReceivedCarrierIdReadRequest",
+      "DisplayName": "MaterialReceived_01_MaterialReceivedCarrierIdReadRequest",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/MaterialReceived_01_MaterialReceivedCarrierIdReadRequest.json",
+      "Order": "4"
+    },
+    "5": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "ReadyToLoad_01_EventReceived",
+      "DisplayName": "ReadyToLoad_01_EventReceived",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/ReadyToLoad_01_EventReceived.json",
+      "Order": "5"
+    },
+    "6": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "ReadyToInitialize_01_EventReceived",
+      "DisplayName": "ReadyToInitialize_01_EventReceived",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/ReadyToInitialize_01_EventReceived.json",
+      "Order": "6"
+    },
+    "7": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "ReadyToSetCassette_01_EventReceived",
+      "DisplayName": "ReadyToSetCassette_01_EventReceived",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/ReadyToSetCassette_01_EventReceived.json",
+      "Order": "7"
+    },
+    "8": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "SlotMap_01_SlotMapReceived",
+      "DisplayName": "SlotMap_01_SlotMapReceived",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/SlotMap_01_SlotMapReceived.json",
+      "Order": "8"
+    },
+    "9": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "ReadyToUnload_01_EventReceived",
+      "DisplayName": "ReadyToUnload_01_EventReceived",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/ReadyToUnload_01_EventReceived.json",
+      "Order": "9"
+    },
+    "10": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "MaterialRemoved_01_MaterialRemovedEvent",
+      "DisplayName": "MaterialRemoved_01_MaterialRemovedEvent",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/MaterialRemoved_01_MaterialRemovedEvent.json",
+      "Order": "10"
+    },
+    "11": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "PreTrackIn_01_TrackInRequestReceived",
+      "DisplayName": "PreTrackIn_01_TrackInRequestReceived",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/PreTrackIn_01_TrackInRequestReceived.json",
+      "Order": "11"
+    },
+    "12": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "TrackIn_01_TrackInRequestReceived",
+      "DisplayName": "TrackIn_01_TrackInRequestReceived",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/TrackIn_01_TrackInRequestReceived.json",
+      "Order": "12"
+    },
+    "13": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "PostTrackIn_01_ExecuteStart",
+      "DisplayName": "PostTrackIn_01_ExecuteStart",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/PostTrackIn_01_ExecuteStart.json",
+      "Order": "13"
+    },
+    "14": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "ProcessStarted_01_EventTosProcessStartedReceived",
+      "DisplayName": "ProcessStarted_01_EventTosProcessStartedReceived",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/ProcessStarted_01_EventTosProcessStartedReceived.json",
+      "Order": "14"
+    },
+    "15": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "WaferStart_01_EventWaferStarted",
+      "DisplayName": "WaferStart_01_EventWaferStarted",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/WaferStart_01_EventWaferStarted.json",
+      "Order": "15"
+    },
+    "16": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "WaferIdRead_01_EventIdRead",
+      "DisplayName": "WaferIdRead_01_EventIdRead",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/WaferIdRead_01_EventIdRead.json",
+      "Order": "16"
+    },
+    "17": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "WaferComplete_01_EventWaferCompleted",
+      "DisplayName": "WaferComplete_01_EventWaferCompleted",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/WaferComplete_01_EventWaferCompleted.json",
+      "Order": "17"
+    },
+    "18": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "ProcessCompleted_01_EventProcessCompletedReceived",
+      "DisplayName": "ProcessCompleted_01_EventProcessCompletedReceived",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/ProcessCompleted_01_EventProcessCompletedReceived.json",
+      "Order": "18"
+    },
+    "19": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "TrackOut_01_TrackOutEventReceivedFromMES",
+      "DisplayName": "TrackOut_01_TrackOutEventReceivedFromMES",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/TrackOut_01_TrackOutEventReceivedFromMES.json",
+      "Order": "19"
+    },
+    "20": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "Abort_01_AbortEventReceivedFromMES",
+      "DisplayName": "Abort_01_AbortEventReceivedFromMES",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/Abort_01_AbortEventReceivedFromMES.json",
+      "Order": "20"
+    },
+    "21": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "Hold_01_HoldEventReceivedFromMES",
+      "DisplayName": "Hold_01_HoldEventReceivedFromMES",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/Hold_01_HoldEventReceivedFromMES.json",
+      "Order": "21"
+    },
+    "22": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "AlarmManagement_01_AlarmCollection",
+      "DisplayName": "AlarmManagement_01_AlarmCollection",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/AlarmManagement_01_AlarmCollection.json",
+      "Order": "22"
+    },
+    "23": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "RecipeManagement_01_GetRecipeList",
+      "DisplayName": "RecipeManagement_01_GetRecipeList",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/RecipeManagement_01_GetRecipeList.json",
+      "Order": "23"
+    },
+    "24": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "RecipeManagement_02_GetRecipeBody",
+      "DisplayName": "RecipeManagement_02_GetRecipeBody",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/RecipeManagement_02_GetRecipeBody.json",
+      "Order": "24"
+    },
+    "25": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "RecipeManagement_03_SetRecipeBody",
+      "DisplayName": "RecipeManagement_03_SetRecipeBody",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/RecipeManagement_03_SetRecipeBody.json",
+      "Order": "25"
+    },
+    "26": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "RecipeManagement_04_GetRecipeChecksum",
+      "DisplayName": "RecipeManagement_04_GetRecipeChecksum",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/RecipeManagement_04_GetRecipeChecksum.json",
+      "Order": "26"
+    },
+    "27": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "ControlState_01_ControlStateUpdateReceived",
+      "DisplayName": "ControlState_01_ControlStateUpdateReceived",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/ControlState_01_ControlStateUpdateReceived.json",
+      "Order": "27"
+    },
+    "28": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
+      "DisplayName": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
+      "Order": "28"
+    },
+    "29": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "RecipeValidation_01_UnformattedRecipeMainFlow",
+      "DisplayName": "RecipeValidation_01_UnformattedRecipeMainFlow",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/RecipeValidation_01_UnformattedRecipeMainFlow.json",
+      "Order": "29"
+    },
+    "30": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "PPSelect_01_ExecuteCommand",
+      "DisplayName": "PPSelect_01_ExecuteCommand",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/PPSelect_01_ExecuteCommand.json",
+      "Order": "30"
+    },
+    "31": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "StartCommand_01_ExecuteCommand",
+      "DisplayName": "StartCommand_01_ExecuteCommand",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/StartCommand_01_ExecuteCommand.json",
+      "Order": "31"
+    },
+    "32": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "CassetteLoad_01_ExecuteCommand",
+      "DisplayName": "CassetteLoad_01_ExecuteCommand",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/CassetteLoad_01_ExecuteCommand.json",
+      "Order": "32"
+    },
+    "33": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "CassetteUnload_01_ExecuteCommand",
+      "DisplayName": "CassetteUnload_01_ExecuteCommand",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/CassetteUnload_01_ExecuteCommand.json",
+      "Order": "33"
+    },
+    "34": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "CarrierClamped_01_ExecuteCommand",
+      "DisplayName": "CarrierClamped_01_ExecuteCommand",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/CarrierClamped_01_ExecuteCommand.json",
+      "Order": "34"
+    },
+    "35": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "CarrierUnclamped_01_ExecuteCommand",
+      "DisplayName": "CarrierUnclamped_01_ExecuteCommand",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/CarrierUnclamped_01_ExecuteCommand.json",
+      "Order": "35"
+    },
+    "36": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "Initialize_01_ExecuteCommand",
+      "DisplayName": "Initialize_01_ExecuteCommand",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/Initialize_01_ExecuteCommand.json",
+      "Order": "36"
+    },
+    "37": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "CassetteNew_01_ExecuteCommand",
+      "DisplayName": "CassetteNew_01_ExecuteCommand",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/CassetteNew_01_ExecuteCommand.json",
+      "Order": "37"
+    },
+    "38": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "Grant_Deny_01_ExecuteCommand",
+      "DisplayName": "Grant_Deny_01_ExecuteCommand",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/Grant_Deny_01_ExecuteCommand.json",
+      "Order": "38"
+    }
+  },
+  "<LOOKUP>AutomationInstances": {}
+}
