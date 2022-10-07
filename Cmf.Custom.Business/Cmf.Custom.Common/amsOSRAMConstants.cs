@@ -248,6 +248,9 @@
         /// </summary>
         public static string ProductAttributeProductionLevel = "ProductionLevel";
 
+        /// <summary>
+        /// Product Attribute SAPProductType
+        /// </summary>
         public static string ProductAttributeSAPProductType = "SAPProductType";
 
         #endregion
