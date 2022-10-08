@@ -2362,7 +2362,7 @@ namespace Cmf.Custom.amsOSRAM.Common
                         ProductionOrderNumber = productionOrder.OrderNumber,
                         MaterialName = material.Name,
                         ProductName = material.Product.Name,
-                        Quantity = material.PrimaryQuantity + material.SubMaterialsPrimaryQuantity,
+                        Quantity = (int)((material.PrimaryQuantity ?? 0) + (material.SubMaterialsPrimaryQuantity ?? 0)),
                         Units = material.PrimaryUnits,
                         MovementType = movementType,
                         SAPStore = storageLocation,

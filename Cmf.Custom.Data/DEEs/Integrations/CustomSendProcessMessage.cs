@@ -133,7 +133,6 @@ namespace Cmf.Custom.amsOSRAM.Actions.Integrations
                     var responseTask = client.MI_OSRBG_PP_SFC_SAPBOOKINGS_GoodsIssue_OUTAsync(goodsIssueRows);
                     responseTask.Wait();
                 }
-
                 catch (Exception e)
                 {
                     if (!string.IsNullOrEmpty(distributionList))

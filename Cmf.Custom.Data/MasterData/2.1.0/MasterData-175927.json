@@ -1,28 +1,28 @@
 {
   "<SM>Config": {
     "1": {
-      "ParentPath": "/Cmf/Custom/ERP/",
+      "ParentPath": "/amsOSRAM/ERP/",
       "Name": "WebServiceEndpoint",
-      "Value": "http://webx9d.int.osram-light.com:80/XISOAPAdapter/MessageServlet?senderParty=&senderService=BS_NON_T_CMFMES&receiverParty=&receiverService=&interface=MI_OSRBG_PP_SFC_SAPBOOKINGS_GOODSISSUE_OUT&interfaceNamespace=http%3A%2F%2Fosram-os.com%2Frbg%2Fpp%2Fsfc%2Fsapbookings%2Fxi103",
+      "Value": "",
       "ValueType": "String"
     },
     "2": {
-      "ParentPath": "/Cmf/Custom/ERP/Credentials/",
-      "Name": "Username",
+      "ParentPath": "/amsOSRAM/ERP/",
+      "Name": "DistributionList",
       "Value": "",
       "ValueType": "String"
     },
     "3": {
-      "ParentPath": "/Cmf/Custom/ERP/Credentials/",
+      "ParentPath": "/amsOSRAM/ERP/Credentials/",
+      "Name": "Username",
+      "Value": "",
+      "ValueType": "String"
+    },
+    "4": {
+      "ParentPath": "/amsOSRAM/ERP/Credentials/",
       "Name": "Password",
       "Value": "",
       "ValueType": "SecureString"
-    },
-    "4": {
-      "ParentPath": "/Cmf/Custom/ERP/",
-      "Name": "DistributionList",
-      "Value": "",
-      "ValueType": "String"
     }
   },
   "<SM>DEEAction": {
