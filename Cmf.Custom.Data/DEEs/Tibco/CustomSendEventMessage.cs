@@ -169,6 +169,12 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
             {
                 foreach (IMaterial material in materialCollection)
                 {
+                    string text = JsonConvert.SerializeObject(new
+                    {
+                        Header = GetMessageHeader(material, transactionToExecute.ToString()),
+                        Message = GetMaterialXml(material)
+                    });
+
                     // Publish message on Message Bus
                     Utilities.PublishTransactionalMessage(messageSubject,
                                                           JsonConvert.SerializeObject(new
@@ -177,6 +183,59 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                                                               Message = GetMaterialXml(material)
                                                           }));
                 }
+            }
+
+            #region Auxiliar Methods
+
+            object GetMessageHeader(IMaterial material, string action)
+            {
+                string lotName = string.Empty;
+                string pathFrom = string.Empty;
+                string pathTo = string.Empty;
+                string sAPproductType = string.Empty;
+
+                lotName = material.Name;
+
+                string facilityCode = string.Empty;
+                if (material.Facility.HasAttribute(amsOSRAMConstants.CustomFacilityCodeAttribute, true))
+                {
+                    facilityCode = material.Facility.GetAttributeValue(amsOSRAMConstants.CustomFacilityCodeAttribute) as string;
+                }
+
+                material.Facility.Site.Load();
+                string siteCode = string.Empty;
+                if (material.Facility.Site.HasAttribute(amsOSRAMConstants.CustomSiteCodeAttribute, true))
+                {
+                    siteCode = material.Facility.Site.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute) as string;
+                }
+
+                string stepLogicalName = string.Empty;
+                if (material.Step.ContainsLogicalNames)
+                {
+                    material.Flow.LoadRelations(Navigo.Common.Constants.FlowStep);
+                    IFlowStep flowStep = entityFactory.Create<IFlowStep>();
+                    IStep step = entityFactory.Create<IStep>();
+
+                    material.Flow.GetFlowAndStepFromFlowpath(material.FlowPath, ref step, ref flowStep);
+                    stepLogicalName = flowStep.LogicalName;
+                }
+
+                pathFrom = pathTo = $"{siteCode}.{facilityCode}.{stepLogicalName}";
+
+                if (material.Product.HasRelatedAttribute(amsOSRAMConstants.ProductAttributeSAPProductType, true))
+                {
+                    sAPproductType = material.Product.GetRelatedAttributeValue(amsOSRAMConstants.ProductAttributeSAPProductType) as string;
+                }
+
+                return new
+                {
+                    stdObjectName = lotName,
+                    stdFrom = pathFrom,
+                    stdTo = pathTo,
+                    stdProductType = sAPproductType,
+                    stdDataOrigin = Environment.MachineName,
+                    stdTransaction = action
+                };
             }
 
             string GetMaterialXml(IMaterial material)
@@ -347,56 +406,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 return outputMaterialsAttributes;
             }
 
-            object GetMessageHeader(IMaterial material, string action)
-            {
-                string lotName = string.Empty;
-                string pathFrom = string.Empty;
-                string pathTo = string.Empty;
-                string sAPproductType = string.Empty;
-
-                lotName = material.Name;
-
-                string facilityCode = string.Empty;
-                if (material.Facility.HasAttribute(amsOSRAMConstants.CustomFacilityCodeAttribute, true))
-                {
-                    facilityCode = material.Facility.GetAttributeValue(amsOSRAMConstants.CustomFacilityCodeAttribute) as string;
-                }
-
-                material.Facility.Site.Load();
-                string siteCode = string.Empty;
-                if (material.Facility.Site.HasAttribute(amsOSRAMConstants.CustomSiteCodeAttribute, true))
-                {
-                    siteCode = material.Facility.Site.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute) as string;
-                }
-
-                string stepLogicalName = string.Empty;
-                if (material.Step.ContainsLogicalNames)
-                {
-                    material.Flow.LoadRelations(Navigo.Common.Constants.FlowStep);
-                    IFlowStep flowStep = entityFactory.Create<IFlowStep>();
-                    IStep step = entityFactory.Create<IStep>();
-
-                    material.Flow.GetFlowAndStepFromFlowpath(material.FlowPath, ref step, ref flowStep);
-                    stepLogicalName = flowStep.LogicalName;
-                }
-
-                pathFrom = pathTo = $"{siteCode}.{facilityCode}.{stepLogicalName}";
-
-                if (material.Product.HasRelatedAttribute(amsOSRAMConstants.ProductAttributeSAPProductType, true))
-                {
-                    sAPproductType = material.Product.GetRelatedAttributeValue(amsOSRAMConstants.ProductAttributeSAPProductType) as string;
-                }
-
-                return new
-                {
-                    stdObjectName = lotName,
-                    stdFrom = pathFrom,
-                    stdTo = pathTo,
-                    stdProductType = sAPproductType,
-                    stdDataOrigin = Environment.MachineName,
-                    stdTransaction = action
-                };
-            }
+            #endregion Auxiliar Methods
 
             //---End DEE Code---
 
