@@ -102,6 +102,12 @@
     "actionId": ""
   },
   {
+    "id": "amsosram-20221003-2.0.0",
+    "menuGroupId": "releasenotes",
+    "title": "amsOSRAM-20221003-2.0.0",
+    "actionId": ""
+  },
+  {
     "id": "artifacts",
     "menuGroupId": "techspec",
     "title": "Artifacts",
@@ -453,12 +459,6 @@
     "id": "customgeneratesplitlotnames",
     "menuGroupId": "namegenerators",
     "title": "CustomGenerateSplitLotNames",
-    "actionId": ""
-  },
-  {
-    "id": "customgeneratesplitlotnamesnamegenerator",
-    "menuGroupId": "namegenerators",
-    "title": "Custom Generate Split Lot Names Name Generator",
     "actionId": ""
   },
   {
@@ -912,7 +912,7 @@
     "actionId": ""
   },
   {
-    "id": "customnicelabelprint",
+    "id": "customnicelabelprintfeature",
     "menuGroupId": "features",
     "title": "Nice Label Print",
     "actionId": ""

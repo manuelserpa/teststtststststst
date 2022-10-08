@@ -14,16 +14,13 @@
     <Parameter name="websiteUseSSL" value="false" />
     <Parameter name="hostAdress" value="localhost" />
     <Parameter name="hostPort" value="443" />
+    <Parameter name="hostUseSSL" value="false" />
     <Parameter name="clientTenantName" value="amsOSRAM" />
     <Parameter name="culture" value="en-US" />
     <Parameter name="userRole" value="Administrators" />
+    <Parameter name="skipLogin" value="true" />
     <Parameter name="userName" value="CMF\cmfsu" />
     <Parameter name="password" value="qaz123WSX" />
-    <Parameter name="auxiliaryUserName" value="cmf\cmfsu" />
-    <Parameter name="auxiliaryUserPassword" value="qaz123WSX" />
-    <Parameter name="skipLogin" value="true" />
-    <Parameter name="useSsl" value="false" />
-    <Parameter name="hostUseSSL" value="false" />
     <Parameter name="securityToken" value="4n5g84uLK347" />
     <Parameter name="useLoadBalancer" value="false" />
     <Parameter name="requestTimeout" value="00:10:00" />
@@ -32,12 +29,13 @@
     <Parameter name="debug" value="false" />
     <!-- Connect IoT -->
     <Parameter name="mode" value="Local" />
-    <Parameter name="filePathRemote" value="./RunSettings/local.runsettings" />
-    <Parameter name="filePathLocal" value="../../local.runsettings" />
+    <Parameter name="filePathRemote" value="../RunSettings/local.runsettings" />
+    <Parameter name="filePathLocal" value="../../../local.runsettings" />
+    <Parameter name="filePath" value="../../../local.runsettings" />
     <!-- test output -->
-    <Parameter name="screenshotPath" value="\\amsOSRAM-Integration.ds.criticalmanufacturing.dev\Deployment\TestArtifacts" />
-    <Parameter name="logsPath" value="\\amsOSRAM-Integration.ds.criticalmanufacturing.dev\Deployment\TestArtifacts" />
-    <Parameter name="documentationScreenshotPath" value="\\amsOSRAM-Integration.ds.criticalmanufacturing.dev\Deployment\TestArtifacts\Documentation" />
+    <Parameter name="screenshotPath" value="\\cmffs\public\amsOSRAM\amsOSRAMIntegration\TestArtifacts" />
+    <Parameter name="logsPath" value="\\cmffs\public\amsOSRAM\amsOSRAMIntegration\TestArtifacts" />
+    <Parameter name="documentationScreenshotPath" value="\\cmffs\public\amsOSRAM\amsOSRAMIntegration\Documentation" />
   </TestRunParameters>
 
   <!-- MSTest adapter -->
@@ -70,7 +68,7 @@
 
   <!-- Connect IoT -->
   <connectIotAutomaticTests>
-    <Global dataDir="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\" logDebug="true" configLocation="C:\amsOSRAMMngrCfgs\config.json" />
+    <Global dataDir="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\" logDebug="true" configLocation="C:\AMSOsramMngrCfgs\config.json" />
     <!--setAutomationControllerInstanceToNotRunning="false"/>-->
     <!--   configLocation="C:\Users\raazevedo\Downloads\MCSInterface\config.json"/>-->
 

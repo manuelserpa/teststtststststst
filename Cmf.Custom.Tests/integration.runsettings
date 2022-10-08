@@ -9,20 +9,19 @@
   <!-- Parameters used by tests at runtime -->
   <TestRunParameters>
     <Parameter name="applicationName" value="AutomaticTests" />
-    <!-- <Parameter name="applicationName" value="AutomaticTests" /> -->
     <Parameter name="websiteAdress" value="amsOSRAMIntegration.ds.criticalmanufacturing.dev" />
     <Parameter name="websitePort" value="443" />
     <Parameter name="websiteUseSSL" value="True" />
     <Parameter name="hostAdress" value="amsOSRAMIntegration.ds.criticalmanufacturing.dev" />
     <Parameter name="hostPort" value="443" />
+    <Parameter name="hostUseSSL" value="true" />
     <Parameter name="clientTenantName" value="amsOSRAM" />
     <Parameter name="culture" value="en-US" />
     <Parameter name="userRole" value="Administrators" />
-    <Parameter name="skipLogin" value="true" />
-    <Parameter name="hostUseSSL" value="true" />
   	<Parameter name="securityAccessToken" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJZCI6Ik1FUyIsInRlbmFudE5hbWUiOiJhbXNPU1JBTSIsInN1YiI6IkFNU09TUkFNSU9UVVNFUiIsInNjb3BlIjpudWxsLCJleHRyYVZhbHVlcyI6bnVsbCwidHlwZSI6IlBBVCIsImlhdCI6MTY2MzY3MTQ5OCwiZXhwIjoxNjk1MzM3MTM5LCJhdWQiOiJBdXRoUG9ydGFsIiwiaXNzIjoiQXV0aFBvcnRhbCJ9.c2Z5VS98RHzrm26SMVHF_kxc4V4rs069P2FIBfeBtJE" />
-    <Parameter name="securityPortalAdress" value="https://amsosramintegration.ds.criticalmanufacturing.dev/SecurityPortal/tenant" />
+    <Parameter name="securityPortalAddress" value="https://amsosramintegration.ds.criticalmanufacturing.dev/SecurityPortal/tenant" />
   	<Parameter name="securityToken" value="4n5g84uLK347" />
+    <Parameter name="skipLogin" value="true" />
     <Parameter name="useLoadBalancer" value="false" />
     <Parameter name="requestTimeout" value="00:10:00" />
     <Parameter name="reuseWebDriver" value="true" />
@@ -31,7 +30,7 @@
     <!-- Connect IoT -->
     <Parameter name="mode" value="RemoteService" />
     <!-- This is For build, to Run Locally point to your directory -->
-    <Parameter name="filePathRemote" value="./RunSettings/integration.runsettings" />
+    <Parameter name="filePathRemote" value="../RunSettings/integration.runsettings" />
     <Parameter name="filePathLocal" value="../../../integration.runsettings" />
     <Parameter name="filePath" value="../../../integration.runsettings" />
     <!-- test output -->

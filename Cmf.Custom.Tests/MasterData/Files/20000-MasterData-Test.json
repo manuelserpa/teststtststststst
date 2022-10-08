@@ -328,7 +328,7 @@
       "ValueType": "String"
     },
     "2": {
-      "ParentPath": "/AMSOsram/Protocol",
+      "ParentPath": "/amsOSRAM/Protocol",
       "Name": "Space",
       "Value": "8D",
       "ValueType": "String"

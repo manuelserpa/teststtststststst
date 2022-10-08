@@ -13,13 +13,13 @@ The amsOSRAM Notebook can be found here [Notebook](https://criticalmfg.sharepoin
 
 | Environment     | Version | Html                                                         | Documentation                                                |
 | --------------- | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| **DEVELOPMENT** | 8.3.3   | [HTML](https://vm-ams-osram.cmf.criticalmanufacturing.com/Home) | [Documentation](https://vm-ams-osram.cmf.criticalmanufacturing.com/Help) |
+| **DEVELOPMENT** | 9.1.0   | [HTML](https://amsosramintegration.ds.criticalmanufacturing.dev/) | [Documentation](https://amsosramintegration.ds.criticalmanufacturing.dev/Help) |
 
 ## Builds
 |Build|Status|
 |-----|------|
 |Publish|![Build Status](https://tfs-projects.cmf.criticalmanufacturing.com/ImplementationProjects/AMSOSRAM/_apis/build/status/CI-Publish?branchName=development)
-|Release|![Build Status](https://tfs-projects.cmf.criticalmanufacturing.com/ImplementationProjects/AMSOSRAM/_apis/build/status/CI-Release?branchName=development)
+|Release|![Build Status](https://tfs-projects.cmf.criticalmanufacturing.com/ImplementationProjects/AMSOSRAM/_apis/build/status/CD-Containers?branchName=development)
 |Package|![Build Status](https://tfs-projects.cmf.criticalmanufacturing.com/ImplementationProjects/AMSOSRAM/_apis/build/status/CI-Package?branchName=development)
 |Changes|![Build Status](https://tfs-projects.cmf.criticalmanufacturing.com/ImplementationProjects/AMSOSRAM/_apis/build/status/CI-Changes?branchName=development)
 
