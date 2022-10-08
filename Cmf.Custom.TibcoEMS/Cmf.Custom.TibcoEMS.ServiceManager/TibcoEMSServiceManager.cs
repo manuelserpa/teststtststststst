@@ -149,14 +149,14 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                     // Action name
                     string actionName = this.TibcoResolveConfigurations[subject].Rule;
 
-                    // QueueMessage
-                    bool queueMessage = this.TibcoResolveConfigurations[subject].QueueMessage;
+                    // IsToQueueMessage
+                    bool isToQueueMessage = this.TibcoResolveConfigurations[subject].IsToQueueMessage;
 
-                    // CompressMessage
-                    bool compressMessage = this.TibcoResolveConfigurations[subject].CompressMessage;
+                    // IsToCompressMessage
+                    bool isToCompressMessage = this.TibcoResolveConfigurations[subject].IsToCompressMessage;
 
-                    // TextMessage
-                    bool textMessage = this.TibcoResolveConfigurations[subject].TextMessage;
+                    // IsTextMessage
+                    bool isTextMessage = this.TibcoResolveConfigurations[subject].IsTextMessage;
 
                     // Message to send
                     string messageData = message.Data;
@@ -195,7 +195,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                         this.Logger.LogInformation($"MessageBus MessageID: {message.Id}");
 
                         // Send Message to Tibco
-                        this.SendMessageToTibco(messageData, topicName, queueMessage, compressMessage, textMessage);
+                        this.SendMessageToTibco(messageData, topicName, isToQueueMessage, isToCompressMessage, isTextMessage);
 
                         this.MessageBusTransport.Reply(message, "Ok");
 
@@ -280,7 +280,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         /// <summary>
         /// Subscribe topic or queue and send message to Tibco
         /// </summary>
-        private void SendMessageToTibco(string messageData, string topicName, bool queueMessage, bool compressMessage, bool textMessage)
+        private void SendMessageToTibco(string messageData, string topicName, bool isToQueueMessage, bool isToCompressMessage, bool isTextMessage)
         {
             this.Logger.LogInformation("Checking connection to Tibco...");
 
@@ -307,7 +307,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
             // Tibco Message Producer
             MessageProducer tibcoMessageProducer;
 
-            if (queueMessage || textMessage)
+            if (isToQueueMessage || isTextMessage)
             {
                 this.Logger.LogInformation($"Create Queue with name {topicName} on Tibco Session...");
 
@@ -328,15 +328,15 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                 tibcoMessageProducer = this.TibcoSession.CreateProducer(tibcoTopic);
             }
 
-            if (textMessage)
+            if (isTextMessage)
             {
                 // Create Tibco Text Message with associated message
                 TextMessage tibcoTextMessage = this.TibcoSession.CreateTextMessage(messageData);
 
                 // Set property to compress Text Message only if it is defined on GT with value "true"
-                if (compressMessage)
+                if (isToCompressMessage)
                 {
-                    tibcoTextMessage.SetBooleanProperty(TibcoEMSConstants.TibcoEMSPropertyCompressTextMessage, compressMessage);
+                    tibcoTextMessage.SetBooleanProperty(TibcoEMSConstants.TibcoEMSPropertyCompressTextMessage, isToCompressMessage);
                 }
 
                 this.Logger.LogInformation("Sending Text Message to Tibco...");
