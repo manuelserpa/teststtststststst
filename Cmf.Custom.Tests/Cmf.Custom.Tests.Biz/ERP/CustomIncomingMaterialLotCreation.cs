@@ -42,37 +42,37 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestCleanup]
         public void TestCleanup()
         {
-            //if (this.materials.Count > 0)
-            //{
-            //    this.materials.Load();
+            if (this.materials.Count > 0)
+            {
+                this.materials.Load();
 
-            //    foreach (Material material in this.materials)
-            //    {
-            //        if (material.HoldCount > 0)
-            //        {
-            //            material.LoadRelation("MaterialHoldReason");
+                foreach (Material material in this.materials)
+                {
+                    if (material.HoldCount > 0)
+                    {
+                        material.LoadRelation("MaterialHoldReason");
 
-            //            EntityRelationCollection materialHoldReasons = material.RelationCollection["MaterialHoldReason"];
+                        EntityRelationCollection materialHoldReasons = material.RelationCollection["MaterialHoldReason"];
 
-            //            foreach (MaterialHoldReason materialHoldReason in materialHoldReasons)
-            //            {
-            //                material.ReleaseByReason(materialHoldReason);
-            //            }
-            //        }
-            //    }
+                        foreach (MaterialHoldReason materialHoldReason in materialHoldReasons)
+                        {
+                            material.ReleaseByReason(materialHoldReason);
+                        }
+                    }
+                }
 
-            //    this.materials.TerminateMaterialCollection();
-            //}
+                this.materials.TerminateMaterialCollection();
+            }
 
-            //if (customTearDownManager != null)
-            //{
-            //    customTearDownManager.TearDownSequentially();
-            //}
+            if (customTearDownManager != null)
+            {
+                customTearDownManager.TearDownSequentially();
+            }
 
-            //if (customExecutionScenario != null)
-            //{
-            //    customExecutionScenario.CompleteCleanUp();
-            //}
+            if (customExecutionScenario != null)
+            {
+                customExecutionScenario.CompleteCleanUp();
+            }
         }
 
         /// <summary>
