@@ -40,12 +40,12 @@ namespace amsOSRAMEIAutomaticTests.Objects.Persistence
         public CustomSorterJobDefinition SorterJobInformation { get; set; }
 
         /// <summary>
-        /// The sorter job information
+        /// The Process job information
         /// </summary>
         public string ProcessJobId { get; set; }
 
         /// <summary>
-        /// The sorter job information
+        /// The Control job information
         /// </summary>
         public string ControlJobId { get; set; }
     }
