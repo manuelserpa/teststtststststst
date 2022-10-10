@@ -236,14 +236,14 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 string materialPath = string.Empty;
 
                 // Get FacilityCode attribute value
-                string facilityCode = string.Empty;
+                string facilityCode = "EMPTY";
                 if (material.Facility.HasAttribute(amsOSRAMConstants.CustomFacilityCodeAttribute, true))
                 {
                     facilityCode = material.Facility.GetAttributeValue(amsOSRAMConstants.CustomFacilityCodeAttribute) as string;
                 }
 
                 // Get SiteCode attribute value
-                string siteCode = string.Empty;
+                string siteCode = "EMPTY";
                 material.Facility.Site.Load();
                 if (material.Facility.Site.HasAttribute(amsOSRAMConstants.CustomSiteCodeAttribute, true))
                 {
@@ -251,7 +251,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 }
 
                 // Get Step LogicalName value
-                string stepLogicalName = string.Empty;
+                string stepLogicalName = "EMPTY";
                 if (material.Step.ContainsLogicalNames)
                 {
                     material.Flow.LoadRelations(Navigo.Common.Constants.FlowStep);
