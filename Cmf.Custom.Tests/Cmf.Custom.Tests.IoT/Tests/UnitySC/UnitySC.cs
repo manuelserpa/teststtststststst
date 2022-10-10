@@ -779,7 +779,7 @@ namespace amsOSRAMEIAutomaticTests.UnitySC
 
             ProceedWithSubstrateReceived = true;
 
-            var ack = new SecsItem { U1 = new byte[] { isProceedWithSubstrateSucess ? (byte)0x00 : (byte)0x01 } };
+            var ack = new SecsItem { Binary = new byte[] { isProceedWithSubstrateSucess ? (byte)0x00 : (byte)0x01 } };
 
             var errorList = new SecsItem();
             errorList.SetTypeToList();
@@ -788,9 +788,9 @@ namespace amsOSRAMEIAutomaticTests.UnitySC
             reportList.Add(errorList);
 
 
-            if (createControlJobDenied)
+            if (!isProceedWithSubstrateSucess)
             {
-                ack = new SecsItem { U1 = new byte[] { 0x01 } };
+                ack = new SecsItem { Binary = new byte[] { 0x01 } };
 
                 errorList = new SecsItem();
                 errorList.SetTypeToList();
@@ -800,8 +800,9 @@ namespace amsOSRAMEIAutomaticTests.UnitySC
                 error.Add(new SecsItem() { ASCII = $"{MESScenario.Entity.Name} : RecID : IllegalValue'" });
                 errorList.Add(error);
             }
-
-            reply.Item.Add(reportList);
+            
+            reply.Item = reportList;
+            
             return true;
         }
 
