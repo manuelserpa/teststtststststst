@@ -76,7 +76,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         {
             // Create Tibco connection
             this.Logger.LogInformation("Creating Tibco Connection...");
-            
+
             TibcoEMSUtilities.InitialConfigurations();
 
             this.TibcoConnection = TibcoEMSUtilities.CreateTibcoConnection(this.TibcoConfigs);
@@ -161,15 +161,22 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                     // Message to send
                     string messageData = message.Data;
 
+                    Dictionary<string, string> headersData = null;
+
                     if (message.Data.IsJson())
                     {
                         // Deserialize MessageBus message received to a Dictionary
                         // - Key: PropertyName
                         // - Value: PropertyValue (MessageToSend)
-                        Dictionary<string, string> receivedMessage = JsonConvert.DeserializeObject<Dictionary<string, string>>(message.Data);
+                        Dictionary<string, object> receivedMessage = JsonConvert.DeserializeObject<Dictionary<string, object>>(message.Data);
+
+                        if (receivedMessage.ContainsKey("Headers"))
+                        {
+                            headersData = JsonConvert.DeserializeObject<Dictionary<string, string>>(receivedMessage["Headers"].ToString());
+                        }
 
                         // Get Message to Send to Tibco from Json message
-                        messageData = receivedMessage["Message"];
+                        messageData = receivedMessage["Message"] as string;
                     }
 
                     try
@@ -195,7 +202,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                         this.Logger.LogInformation($"MessageBus MessageID: {message.Id}");
 
                         // Send Message to Tibco
-                        this.SendMessageToTibco(messageData, topicName, isToQueueMessage, isToCompressMessage, isTextMessage);
+                        this.SendMessageToTibco(headersData, messageData, topicName, isToQueueMessage, isToCompressMessage, isTextMessage);
 
                         this.MessageBusTransport.Reply(message, "Ok");
 
@@ -280,7 +287,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         /// <summary>
         /// Subscribe topic or queue and send message to Tibco
         /// </summary>
-        private void SendMessageToTibco(string messageData, string topicName, bool isToQueueMessage, bool isToCompressMessage, bool isTextMessage)
+        private void SendMessageToTibco(Dictionary<string, string> headersData, string messageData, string topicName, bool isToQueueMessage, bool isToCompressMessage, bool isTextMessage)
         {
             this.Logger.LogInformation("Checking connection to Tibco...");
 
