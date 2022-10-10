@@ -56,7 +56,8 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                     { "BusinessObjects.MaterialCollection.Hold.Post", CustomTransactionTypes.MaterialHold },
                     { "BusinessObjects.Material.Merge.Post", CustomTransactionTypes.MaterialMerge },
                     { "BusinessObjects.Material.Release.Post", CustomTransactionTypes.MaterialRelease },
-                    { "BusinessObjects.Container.AssociateMaterials.Post", CustomTransactionTypes.ContainerAssociation }
+                    { "BusinessObjects.Container.AssociateMaterials.Post", CustomTransactionTypes.ContainerAssociation },
+                    { "BusinessObjects.MaterialCollection.MoveToNextStep.Pre", CustomTransactionTypes.MaterialMoveNextPre }
                 };
 
                 if (associatedTransactions.ContainsKey(actionGroupName))
@@ -163,18 +164,23 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                         messageSubject = amsOSRAMConstants.CustomEquipmentStatusChange;
                     }
                     break;
+                case CustomTransactionTypes.MaterialMoveNextPre:
+                    {
+                        materialCollection = DeeActionHelper.GetInputItem<IMaterialCollection>(Input, Navigo.Common.Constants.MaterialCollection);
+
+                        foreach (IMaterial material in materialCollection)
+                        {
+                            DeeContextHelper.SetContextParameter("MaterialPathFrom", GetMaterialOriginPath(material));
+                        }
+
+                        return Input;
+                    }
             }
 
             if (!string.IsNullOrWhiteSpace(messageSubject) && materialCollection.Any())
             {
                 foreach (IMaterial material in materialCollection)
                 {
-                    string text = JsonConvert.SerializeObject(new
-                    {
-                        Header = GetMessageHeader(material, transactionToExecute.ToString()),
-                        Message = GetMaterialXml(material)
-                    });
-
                     // Publish message on Message Bus
                     Utilities.PublishTransactionalMessage(messageSubject,
                                                           JsonConvert.SerializeObject(new
@@ -196,31 +202,10 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
 
                 lotName = material.Name;
 
-                string facilityCode = string.Empty;
-                if (material.Facility.HasAttribute(amsOSRAMConstants.CustomFacilityCodeAttribute, true))
-                {
-                    facilityCode = material.Facility.GetAttributeValue(amsOSRAMConstants.CustomFacilityCodeAttribute) as string;
-                }
-
-                material.Facility.Site.Load();
-                string siteCode = string.Empty;
-                if (material.Facility.Site.HasAttribute(amsOSRAMConstants.CustomSiteCodeAttribute, true))
-                {
-                    siteCode = material.Facility.Site.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute) as string;
-                }
-
-                string stepLogicalName = string.Empty;
-                if (material.Step.ContainsLogicalNames)
-                {
-                    material.Flow.LoadRelations(Navigo.Common.Constants.FlowStep);
-                    IFlowStep flowStep = entityFactory.Create<IFlowStep>();
-                    IStep step = entityFactory.Create<IStep>();
-
-                    material.Flow.GetFlowAndStepFromFlowpath(material.FlowPath, ref step, ref flowStep);
-                    stepLogicalName = flowStep.LogicalName;
-                }
-
-                pathFrom = pathTo = $"{siteCode}.{facilityCode}.{stepLogicalName}";
+                pathTo = GetMaterialOriginPath(material);
+                pathFrom = action.Equals(CustomTransactionTypes.MaterialMoveNext.ToString(), StringComparison.InvariantCultureIgnoreCase) ?
+                           DeeContextHelper.GetContextParameter("MaterialPathFrom").ToString() :
+                           pathTo;
 
                 if (material.Product.HasRelatedAttribute(amsOSRAMConstants.ProductAttributeSAPProductType, true))
                 {
@@ -236,6 +221,43 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                     stdDataOrigin = Environment.MachineName,
                     stdTransaction = action
                 };
+            }
+
+            string GetMaterialOriginPath(IMaterial material)
+            {
+                string materialPath = string.Empty;
+
+                // Get FacilityCode attribute value
+                string facilityCode = string.Empty;
+                if (material.Facility.HasAttribute(amsOSRAMConstants.CustomFacilityCodeAttribute, true))
+                {
+                    facilityCode = material.Facility.GetAttributeValue(amsOSRAMConstants.CustomFacilityCodeAttribute) as string;
+                }
+
+                // Get SiteCode attribute value
+                string siteCode = string.Empty;
+                material.Facility.Site.Load();
+                if (material.Facility.Site.HasAttribute(amsOSRAMConstants.CustomSiteCodeAttribute, true))
+                {
+                    siteCode = material.Facility.Site.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute) as string;
+                }
+
+                // Get Step LogicalName value
+                string stepLogicalName = string.Empty;
+                if (material.Step.ContainsLogicalNames)
+                {
+                    material.Flow.LoadRelations(Navigo.Common.Constants.FlowStep);
+                    IFlowStep flowStep = entityFactory.Create<IFlowStep>();
+                    IStep step = entityFactory.Create<IStep>();
+
+                    material.Flow.GetFlowAndStepFromFlowpath(material.FlowPath, ref step, ref flowStep);
+                    stepLogicalName = flowStep.LogicalName;
+                }
+
+                // Build in a string the MaterialPath
+                materialPath = string.Format("{0}.{1}.{2}", siteCode, facilityCode, stepLogicalName);
+
+                return materialPath;
             }
 
             string GetMaterialXml(IMaterial material)
@@ -318,8 +340,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 {
                     "type",
                     "actualtype",
-                    "ExportId",
-                    "RefId"
+                    "ExportId"
                 };
 
                 // Load exported XML object

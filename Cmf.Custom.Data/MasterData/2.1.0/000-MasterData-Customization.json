@@ -96,12 +96,19 @@
       "Lookup Table Value": "ContainerAssociation",
       "Lookup Table Value Description": "Container Association",
       "Lookup Table IsEnabled": "Yes"
+    },
+    "14": {
+      "LookUp Table": "CustomTransactions",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "MaterialMoveNextPre",
+      "Lookup Table Value Description": "Material MoveNext Pre Action",
+      "Lookup Table IsEnabled": "Yes"
     }
   },
   "<GT>GenericTable": {
     "1": {
       "Name": "CustomTransactionsToTibco",
-      "Description": "",
+      "Description": "Generic Table used to activate transactions to send message to Tibco",
       "HistoryRetentionTime": "180",
       "IsHistoryEnabled": "Yes",
       "DataGroup": ""
@@ -148,7 +155,7 @@
   "<SM>DEEAction": {
     "1": {
       "Action": "CustomSendEventMessage",
-      "Description": "",
+      "Description": "DEE Action publish in MessageBus a message regarding with a Material when an Action on Material is triggered.",
       "CodeFileRelativePath": "Tibco//CustomSendEventMessage.cs",
       "IsEnabled": "Yes",
       "Classification": ""
@@ -219,6 +226,11 @@
       "ActionGroup": "BusinessObjects.Container.AssociateMaterials.Post",
       "Action": "CustomSendEventMessage",
       "Order": "100"
+    },
+    "14": {
+      "ActionGroup": "BusinessObjects.MaterialCollection.MoveToNextStep.Pre",
+      "Action": "CustomSendEventMessage",
+      "Order": "100"
     }
   },
   "<GT>CustomTransactionsToTibco": {
@@ -272,6 +284,10 @@
     },
     "13": { 
       "Transaction": "ContainerAssociation",
+      "IsEnabled": "Yes"
+    },
+    "14": {
+      "Transaction": "MaterialMoveNextPre",
       "IsEnabled": "Yes"
     }
   },
