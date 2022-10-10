@@ -149,11 +149,11 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                     // Action name
                     string actionName = this.TibcoResolveConfigurations[subject].Rule;
 
-                    // IsToQueueMessage
-                    bool isToQueueMessage = this.TibcoResolveConfigurations[subject].IsToQueueMessage;
+                    // IsQueue
+                    bool isQueue = this.TibcoResolveConfigurations[subject].IsQueue;
 
-                    // IsToCompressMessage
-                    bool isToCompressMessage = this.TibcoResolveConfigurations[subject].IsToCompressMessage;
+                    // IsToCompress
+                    bool isToCompress = this.TibcoResolveConfigurations[subject].IsToCompress;
 
                     // IsTextMessage
                     bool isTextMessage = this.TibcoResolveConfigurations[subject].IsTextMessage;
@@ -205,7 +205,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                         this.Logger.LogInformation($"MessageBus MessageID: {message.Id}");
 
                         // Send Message to Tibco
-                        this.SendMessageToTibco(headersData, messageData, topicName, isToQueueMessage, isToCompressMessage, isTextMessage);
+                        this.SendMessageToTibco(headersData, messageData, topicName, isQueue, isToCompress, isTextMessage);
 
                         this.MessageBusTransport.Reply(message, "Ok");
 
@@ -290,7 +290,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         /// <summary>
         /// Subscribe topic or queue and send message to Tibco
         /// </summary>
-        private void SendMessageToTibco(Dictionary<string, string> headersData, string messageData, string topicName, bool isToQueueMessage, bool isToCompressMessage, bool isTextMessage)
+        private void SendMessageToTibco(Dictionary<string, string> headersData, string messageData, string topicName, bool isQueueMessage, bool isToCompressMessage, bool isTextMessage)
         {
             this.Logger.LogInformation("Checking connection to Tibco...");
 
@@ -317,7 +317,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
             // Tibco Message Producer
             MessageProducer tibcoMessageProducer;
 
-            if (isToQueueMessage)
+            if (isQueueMessage)
             {
                 this.Logger.LogInformation($"Create Queue with name {topicName} on Tibco Session...");
 
