@@ -75,8 +75,16 @@ export class StoreMaterialObjectTask implements Task.TaskInstance, StoreMaterial
         if (changes["activate"]) {
 
             this.activate = undefined;
-            this.materialObject.forEach(async material => {
-            await this._processMaterial.trackIn(<MaterialData>material);
+            let materialDataObject: MaterialData[] = [];
+
+            if (Array.isArray(this.materialObject)) {
+                materialDataObject = this.materialObject;
+            } else {
+                materialDataObject.push(this.materialObject);
+            }
+
+            materialDataObject.forEach(async material => {
+                await this._processMaterial.trackIn(<MaterialData>material);
             });
 
             this.materialDownloaded.emit(this.materialObject);
