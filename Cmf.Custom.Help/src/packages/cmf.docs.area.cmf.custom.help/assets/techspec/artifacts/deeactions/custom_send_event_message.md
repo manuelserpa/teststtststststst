@@ -23,14 +23,13 @@ DEE Action used to publish Lot event messages to MessageBus based on Material ac
 
 ## Pre Conditions
 
-* Before the *MaterialMoveNext* action is executed the Material path will be saved in Context.
-* This DEE action must be executed when the Transaction associated to ActionGroup is active on Generic Table [CustomTransactionsToTibco](/cmf.custom.help/techspec>artifacts>generictables>custom_transactions_to_tibco).
+* The Transactions from Lookup Table [CustomTransactions](/cmf.custom.help/techspec>artifacts>lookuptables>custom_transactions) (which are mapped to above Action Groups) must be configured and enabled in the Generic Table [CustomTransactionsToTibco](/cmf.custom.help/techspec>artifacts>generictables>custom_transactions_to_tibco).
 
 ## Action
 
-The DEE will publish on the Message Bus a message with all the information associated to the Material on which the Action was triggered.
+The DEE will publish a message on the Message Bus with Material information on each Transaction.
 
-The published message contains the following information:
+The published message will contain the following information:
 
 * Headers, used to filter the messages on TibcoEMS.
 * Message with all Material information in XML format.
