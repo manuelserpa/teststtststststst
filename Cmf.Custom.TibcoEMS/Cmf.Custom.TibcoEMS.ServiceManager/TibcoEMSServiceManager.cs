@@ -76,6 +76,8 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         {
             // Create Tibco connection
             this.Logger.LogInformation("Creating Tibco Connection...");
+            
+            TibcoEMSUtilities.InitialConfigurations();
 
             this.TibcoConnection = TibcoEMSUtilities.CreateTibcoConnection(this.TibcoConfigs);
 
@@ -90,12 +92,10 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
             // Get Message Bus Transport Configurations
             this.Logger.LogInformation("Getting Message Bus Transport Configurations...");
 
-            this.MessageBusTransportConfiguration = TibcoEMSUtilities.CreateMessageBusTransportConfig();
-
             // Create Message Bus Transport
             this.Logger.LogInformation("Creating Message Bus Transport...");
 
-            this.MessageBusTransport = new Transport(this.MessageBusTransportConfiguration);
+            this.MessageBusTransport = new Transport(TibcoEMSUtilities.messageBusTransportConfig);
 
             // Connect to Message Bus
             this.MessageBusTransport.Start();

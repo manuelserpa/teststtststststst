@@ -4,6 +4,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Specialized;
+using Cmf.LightBusinessObjects.Infrastructure;
+using Cmf.LoadBalancing;
+using Cmf.MessageBus.Client;
 
 namespace Cmf.Custom.TibcoEMS.Service
 {
@@ -29,8 +32,10 @@ namespace Cmf.Custom.TibcoEMS.Service
 
             try
             {
-                Logger.LogInformation("Getting Tibco configurations...");
+                // Configure LBOs
+                TibcoEMSUtilities.InitialConfigurations();
 
+                Logger.LogInformation("Getting Tibco configurations...");
                 TibcoConfigs = TibcoEMSUtilities.GetTibcoConfigs();
 
                 if (TibcoConfigs != null && TibcoConfigs.Keys.Count > 0)
@@ -60,7 +65,6 @@ namespace Cmf.Custom.TibcoEMS.Service
                 Logger.LogWarning("It was not possible to start the Service.");
             }
         }
-
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host
