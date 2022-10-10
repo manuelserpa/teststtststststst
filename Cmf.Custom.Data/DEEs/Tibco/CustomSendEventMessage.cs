@@ -42,6 +42,13 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
 
             if (Input.TryGetValueAs("ActionGroupName", out string actionGroupName) && !string.IsNullOrWhiteSpace(actionGroupName))
             {
+                if (actionGroupName == "BusinessObjects.MaterialCollection.MoveToNextStep.Pre")
+                {
+                    DeeContextHelper.SetContextParameter("MaterialsPathFrom", DeeActionHelper.GetInputItem<IMaterialCollection>(Input, Navigo.Common.Constants.MaterialCollection));
+                    
+                    return false;
+                }
+
                 Dictionary<string, CustomTransactionTypes> associatedTransactions = new Dictionary<string, CustomTransactionTypes>()
                 {
                     { "BusinessObjects.MaterialCollection.Create.Post", CustomTransactionTypes.MaterialCreate },
@@ -49,7 +56,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                     { "BusinessObjects.MaterialCollection.Dispatch.Post", CustomTransactionTypes.MaterialDispatch },
                     { "BusinessObjects.MaterialCollection.TrackIn.Post", CustomTransactionTypes.MaterialTrackIn },
                     { "BusinessObjects.MaterialCollection.TrackOut.Post", CustomTransactionTypes.MaterialTrackOut },
-                    { "BusinessObjects.MaterialCollection.MoveToNextStep.Post", CustomTransactionTypes.MaterialMoveNextPost },
+                    { "BusinessObjects.MaterialCollection.MoveToNextStep.Post", CustomTransactionTypes.MaterialMoveNext },
                     { "BusinessObjects.MaterialCollection.Split.Post", CustomTransactionTypes.MaterialSplit },
                     { "BusinessObjects.MaterialCollection.RecordLoss.Post", CustomTransactionTypes.MaterialLoss },
                     { "BusinessObjects.MaterialCollection.RecordBonus.Post", CustomTransactionTypes.MaterialBonus },
@@ -57,7 +64,6 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                     { "BusinessObjects.Material.Merge.Post", CustomTransactionTypes.MaterialMerge },
                     { "BusinessObjects.Material.Release.Post", CustomTransactionTypes.MaterialRelease },
                     { "BusinessObjects.Container.AssociateMaterials.Post", CustomTransactionTypes.ContainerAssociation },
-                    { "BusinessObjects.MaterialCollection.MoveToNextStep.Pre", CustomTransactionTypes.MaterialMoveNextPre }
                 };
 
                 if (associatedTransactions.ContainsKey(actionGroupName))
@@ -135,7 +141,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 case CustomTransactionTypes.MaterialDispatch:
                 case CustomTransactionTypes.MaterialTrackIn:
                 case CustomTransactionTypes.MaterialTrackOut:
-                case CustomTransactionTypes.MaterialMoveNextPost:
+                case CustomTransactionTypes.MaterialMoveNext:
                 case CustomTransactionTypes.MaterialLoss:
                 case CustomTransactionTypes.MaterialBonus:
                 case CustomTransactionTypes.MaterialHold:
@@ -169,15 +175,6 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                         messageSubject = amsOSRAMConstants.CustomEquipmentStatusChange;
                     }
                     break;
-                case CustomTransactionTypes.MaterialMoveNextPre:
-                    {
-                        materialCollection = DeeActionHelper.GetInputItem<IMaterialCollection>(Input, Navigo.Common.Constants.MaterialCollection);
-                        foreach (IMaterial material in materialCollection)
-                        {
-                            DeeContextHelper.SetContextParameter("MaterialPathFrom", GetMaterialOriginPath(material));
-                        }
-                        return Input;
-                    }
             }
 
             if (!string.IsNullOrWhiteSpace(messageSubject) && materialCollection.Any())
@@ -207,10 +204,13 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 pathTo = GetMaterialOriginPath(material);
 
                 // Get stdFrom key header message value
-                string pathFrom = string.Empty;
-                pathFrom = action.Equals(CustomTransactionTypes.MaterialMoveNextPost.ToString(), StringComparison.InvariantCultureIgnoreCase) ?
-                           DeeContextHelper.GetContextParameter("MaterialPathFrom").ToString() :
-                           pathTo;
+                string pathFrom = pathTo;
+                if (action.Equals(CustomTransactionTypes.MaterialMoveNext.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                {
+                    materialCollection = DeeContextHelper.GetContextParameter("MaterialsPathFrom") as IMaterialCollection;
+
+                    pathFrom = GetMaterialOriginPath(materialCollection.FirstOrDefault(f => f.Id == material.Id));
+                }
 
                 // Get stdProductType key header message value
                 string sAPproductType = string.Empty;
@@ -350,6 +350,9 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                     "actualtype",
                     "ExportId"
                 };
+
+                materialCollection.LoadChildren();
+                materialCollection.LoadMaterialOffFlows();
 
                 // Load exported XML object
                 XDocument xDocument = XDocument.Parse(materialCollection.ExportToString());

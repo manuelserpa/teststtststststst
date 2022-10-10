@@ -39,10 +39,10 @@ namespace Cmf.Custom.amsOSRAM.Common.DataStructures
         MaterialTrackOut,
 
         /// <summary>
-        /// Type that represents the MaterialMoveNextPost action
+        /// Type that represents the MaterialMoveNext action
         /// </summary>
         [EnumMember]
-        MaterialMoveNextPost,
+        MaterialMoveNext,
 
         /// <summary>
         /// Type that represents the MaterialSplit action
@@ -84,12 +84,6 @@ namespace Cmf.Custom.amsOSRAM.Common.DataStructures
         /// Type that represents the ContainerAssociation action
         /// </summary>
         [EnumMember]
-        ContainerAssociation,
-
-        /// <summary>
-        /// Type that represents the MaterialMoveNextPre action
-        /// </summary>
-        [EnumMember]
-        MaterialMoveNextPre
+        ContainerAssociation
     }
 }

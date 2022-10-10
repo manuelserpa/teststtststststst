@@ -12,6 +12,7 @@ using Cmf.MessageBus.Messages;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ContainerManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.ContainerManagement.OutputObjects;
+using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.TestScenarios.Others;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
@@ -26,6 +27,7 @@ public enum CustomSendEventMessageTopics
 {
     [EnumMember(Value = "CustomLotChange")]
     CustomLotChange,
+
     [EnumMember(Value = "CustomEquipmentStatusChange")]
     CustomEquipmentStatusChange
 }
@@ -37,6 +39,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
     {
         private CustomExecutionScenario _scenario;
         private List<TibcoCustomSendEventMessage> _tibcoCustomSendEventMessages;
+        private Transport _transport;
 
         /// <summary>
         /// Test Initialization
@@ -58,6 +61,62 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             {
                 _scenario.CompleteCleanUp();
             }
+
+            if (_transport != null)
+            {
+                _transport.Stop();
+            }
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Validates Header and Body message sent to Tibco when a material is created with submaterials
+        ///
+        /// Acceptance Citeria:
+        ///     - Validate created message information
+        ///
+        /// </summary>
+        /// <TestCaseID>CustomSendEventMessage_ValidateMessage_SubMaterial</TestCaseID>
+        /// <Author>Oliverio Sousa</Author>
+        [TestMethod]
+        public void CustomSendEventMessage_ValidateMessage_SubMaterial()
+        {
+            ///<Step> Create a Lot and its wafers </Step>
+            _scenario.NumberOfMaterialsToGenerate = 1;
+            _scenario.NumberOfChildMaterialsToGenerate = 1;
+            _scenario.Setup();
+
+            // Material created
+            Material material = _scenario.GeneratedLots.FirstOrDefault();
+
+            material.Load();
+            material.LoadChildren();
+
+            Assert.AreEqual(1, material.SubMaterials.Count, "Should have been created the Material with one SubMaterial");
+
+            Resource resource = new Resource
+            {
+                Name = amsOSRAMConstants.DefaultTestResourceName
+            };
+            resource.Load();
+
+            Func<bool> waitForMessageBus = SuscribeMessageBus(CustomSendEventMessageTopics.CustomLotChange);
+
+            material.Dispatch(resource);
+
+            waitForMessageBus.WaitFor();
+
+            TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
+
+            Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
+            Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
+
+            material.Load();
+            material.LoadChildren();
+
+            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialDispatch);
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
         /// <summary>
@@ -84,17 +143,14 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
 
             Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
+            Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
             // Material created
             Material material = _scenario.GeneratedLots.FirstOrDefault();
 
-            string xmlMES = GetExportedObjectOfMaterial(material);
-
-            XDocument mesDocument = XDocument.Parse(xmlMES);
-            XDocument messageBusDocument = XDocument.Parse(tibcoCustomSendEventMessage.Message);
-
             ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialCreate);
-            ValidateXML(mesDocument.Root.Descendants("Object").Elements(), messageBusDocument.Root.Descendants("Object").Elements());
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
         /// <summary>
@@ -124,18 +180,14 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             waitForMessageBus.WaitFor();
 
             TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
-            
-            material.Load();
 
             Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
-
-            string xmlMES = GetExportedObjectOfMaterial(material);
-
-            XDocument mesDocument = XDocument.Parse(xmlMES);
-            XDocument messageBusDocument = XDocument.Parse(tibcoCustomSendEventMessage.Message);
+            Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
             ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialTerminate);
-            ValidateXML(mesDocument.Root.Descendants("Object").Elements(), messageBusDocument.Root.Descendants("Object").Elements());
+
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
         /// <summary>
@@ -173,14 +225,11 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
 
             Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
-
-            string xmlMES = GetExportedObjectOfMaterial(material);
-
-            XDocument mesDocument = XDocument.Parse(xmlMES);
-            XDocument messageBusDocument = XDocument.Parse(tibcoCustomSendEventMessage.Message);
+            Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
             ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialDispatch);
-            ValidateXML(mesDocument.Root.Descendants("Object").Elements(), messageBusDocument.Root.Descendants("Object").Elements());
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
         /// <summary>
@@ -220,14 +269,11 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
 
             Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
-
-            string xmlMES = GetExportedObjectOfMaterial(material);
-
-            XDocument mesDocument = XDocument.Parse(xmlMES);
-            XDocument messageBusDocument = XDocument.Parse(tibcoCustomSendEventMessage.Message);
+            Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
             ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialTrackIn);
-            ValidateXML(mesDocument.Root.Descendants("Object").Elements(), messageBusDocument.Root.Descendants("Object").Elements());
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
         /// <summary>
@@ -268,14 +314,11 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
 
             Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
-
-            string xmlMES = GetExportedObjectOfMaterial(material);
-
-            XDocument mesDocument = XDocument.Parse(xmlMES);
-            XDocument messageBusDocument = XDocument.Parse(tibcoCustomSendEventMessage.Message);
+            Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
             ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialTrackOut);
-            ValidateXML(mesDocument.Root.Descendants("Object").Elements(), messageBusDocument.Root.Descendants("Object").Elements());
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
         /// <summary>
@@ -308,6 +351,9 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             material.TrackIn(resource);
             material.TrackOut();
 
+            Step previousStep = material.Step;
+            Flow previousFlow = material.Flow;
+
             Func<bool> waitForMessageBus = SuscribeMessageBus(CustomSendEventMessageTopics.CustomLotChange);
 
             material.ComplexMoveNext();
@@ -317,15 +363,11 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
 
             Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
+            Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
-            material.Load();
-            string xmlMES = GetExportedObjectOfMaterial(material);
-
-            XDocument mesDocument = XDocument.Parse(xmlMES);
-            XDocument messageBusDocument = XDocument.Parse(tibcoCustomSendEventMessage.Message);
-
-            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialMoveNext);
-            ValidateXML(mesDocument.Root.Descendants("Object").Elements(), messageBusDocument.Root.Descendants("Object").Elements());
+            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialMoveNext, previousStep, previousFlow);
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
         /// <summary>
@@ -365,23 +407,20 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             TibcoCustomSendEventMessage tibcoCustomSendEventMessageTerminate = _tibcoCustomSendEventMessages.FirstOrDefault(f => f.Header.stdTransaction == CustomTransactionTypes.MaterialTerminate.ToString());
 
             Assert.IsNotNull(tibcoCustomSendEventMessageSplit, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
+            Assert.IsNotNull(tibcoCustomSendEventMessageSplit.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessageSplit.Message == null || tibcoCustomSendEventMessageSplit.Message == String.Empty, $"The Message should not be null or empty");
+
             Assert.IsNotNull(tibcoCustomSendEventMessageTerminate, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
-
-            string xmlMESSplit = GetExportedObjectOfMaterial(material);
-
-            XDocument mesDocumentSplit = XDocument.Parse(xmlMESSplit);
-            XDocument messageBusDocumentSplit = XDocument.Parse(tibcoCustomSendEventMessageSplit.Message);
+            Assert.IsNotNull(tibcoCustomSendEventMessageTerminate.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessageTerminate.Message == null || tibcoCustomSendEventMessageTerminate.Message == String.Empty, $"The Message should not be null or empty");
 
             ValiteHeaderMessage(material, tibcoCustomSendEventMessageSplit, CustomTransactionTypes.MaterialSplit);
-            ValidateXML(mesDocumentSplit.Root.Descendants("Object").Elements(), messageBusDocumentSplit.Root.Descendants("Object").Elements());
-
-            string xmlMESTerminate = GetExportedObjectOfMaterial(material);
-
-            XDocument mesDocumentTerminate = XDocument.Parse(xmlMESTerminate);
-            XDocument messageBusDocumentTerminate = XDocument.Parse(tibcoCustomSendEventMessageTerminate.Message);
-
             ValiteHeaderMessage(material, tibcoCustomSendEventMessageTerminate, CustomTransactionTypes.MaterialTerminate);
-            ValidateXML(mesDocumentTerminate.Root.Descendants("Object").Elements(), messageBusDocumentTerminate.Root.Descendants("Object").Elements());
+
+            XDocument mesDocument = XDocument.Parse(GetExportedObjectOfMaterial(material));
+
+            ValidateXML(mesDocument, XDocument.Parse(tibcoCustomSendEventMessageSplit.Message));
+            ValidateXML(mesDocument, XDocument.Parse(tibcoCustomSendEventMessageTerminate.Message));
         }
 
         /// <summary>
@@ -419,23 +458,18 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             TibcoCustomSendEventMessage tibcoCustomSendEventMessageTerminated = _tibcoCustomSendEventMessages.FirstOrDefault(f => f.Header.stdTransaction == CustomTransactionTypes.MaterialTerminate.ToString());
 
             Assert.IsNotNull(tibcoCustomSendEventMessageMerged, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
+            Assert.IsNotNull(tibcoCustomSendEventMessageMerged.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessageMerged.Message == null || tibcoCustomSendEventMessageMerged.Message == String.Empty, $"The Message should not be null or empty");
+
             Assert.IsNotNull(tibcoCustomSendEventMessageTerminated, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
-
-            string xmlMESMerged = GetExportedObjectOfMaterial(materialMerged);
-
-            XDocument mesDocumentMerged = XDocument.Parse(xmlMESMerged);
-            XDocument messageBusDocumentMerged = XDocument.Parse(tibcoCustomSendEventMessageMerged.Message);
+            Assert.IsNotNull(tibcoCustomSendEventMessageTerminated.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessageTerminated.Message == null || tibcoCustomSendEventMessageTerminated.Message == String.Empty, $"The Message should not be null or empty");
 
             ValiteHeaderMessage(materialMerged, tibcoCustomSendEventMessageMerged, CustomTransactionTypes.MaterialMerge);
-            ValidateXML(mesDocumentMerged.Root.Descendants("Object").Elements(), messageBusDocumentMerged.Root.Descendants("Object").Elements());
-
-            string xmlMESTerminated = GetExportedObjectOfMaterial(materialTerminated);
-
-            XDocument mesDocumentTerminated = XDocument.Parse(xmlMESTerminated);
-            XDocument messageBusDocumentMerge = XDocument.Parse(tibcoCustomSendEventMessageTerminated.Message);
-
             ValiteHeaderMessage(materialTerminated, tibcoCustomSendEventMessageTerminated, CustomTransactionTypes.MaterialTerminate);
-            ValidateXML(mesDocumentTerminated.Root.Descendants("Object").Elements(), messageBusDocumentMerge.Root.Descendants("Object").Elements());
+
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(materialMerged)), XDocument.Parse(tibcoCustomSendEventMessageMerged.Message));
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(materialTerminated)), XDocument.Parse(tibcoCustomSendEventMessageTerminated.Message));
         }
 
         /// <summary>
@@ -470,14 +504,11 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
 
             Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
-
-            string xmlMES = GetExportedObjectOfMaterial(material);
-
-            XDocument mesDocument = XDocument.Parse(xmlMES);
-            XDocument messageBusDocument = XDocument.Parse(tibcoCustomSendEventMessage.Message);
+            Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
             ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialLoss);
-            ValidateXML(mesDocument.Root.Descendants("Object").Elements(), messageBusDocument.Root.Descendants("Object").Elements());
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
         /// <summary>
@@ -512,14 +543,11 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
 
             Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
-
-            string xmlMES = GetExportedObjectOfMaterial(material);
-
-            XDocument mesDocument = XDocument.Parse(xmlMES);
-            XDocument messageBusDocument = XDocument.Parse(tibcoCustomSendEventMessage.Message);
+            Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
             ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialBonus);
-            ValidateXML(mesDocument.Root.Descendants("Object").Elements(), messageBusDocument.Root.Descendants("Object").Elements());
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
         /// <summary>
@@ -554,14 +582,11 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
 
             Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
-
-            string xmlMES = GetExportedObjectOfMaterial(material);
-
-            XDocument mesDocument = XDocument.Parse(xmlMES);
-            XDocument messageBusDocument = XDocument.Parse(tibcoCustomSendEventMessage.Message);
+            Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
             ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialHold);
-            ValidateXML(mesDocument.Root.Descendants("Object").Elements(), messageBusDocument.Root.Descendants("Object").Elements());
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
         /// <summary>
@@ -600,7 +625,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
 
             Func<bool> waitForMessageBus = SuscribeMessageBus(CustomSendEventMessageTopics.CustomLotChange);
 
-            new Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.ReleaseMaterialInput()
+            new ReleaseMaterialInput()
             {
                 Material = material,
                 MaterialHoldReasonCollection = materialHoldReasons
@@ -611,14 +636,11 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
 
             Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
-
-            string xmlMES = GetExportedObjectOfMaterial(material);
-
-            XDocument mesDocument = XDocument.Parse(xmlMES);
-            XDocument messageBusDocument = XDocument.Parse(tibcoCustomSendEventMessage.Message);
+            Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
             ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialRelease);
-            ValidateXML(mesDocument.Root.Descendants("Object").Elements(), messageBusDocument.Root.Descendants("Object").Elements());
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
         /// <summary>
@@ -649,6 +671,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             int position = 1;
 
             MaterialContainerCollection materialContainerCollection = new MaterialContainerCollection();
+            Material childMaterial = new Material();
             foreach (Material subMaterial in material.SubMaterials)
             {
                 MaterialContainer materialContainerRelation = new MaterialContainer()
@@ -659,6 +682,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
                 };
                 position++;
                 materialContainerCollection.Add(materialContainerRelation);
+                childMaterial = subMaterial;
             }
 
             AssociateMaterialsWithContainerInput associateInput = new AssociateMaterialsWithContainerInput();
@@ -674,81 +698,16 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
 
             Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomEquipmentStatusChange}");
+            Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
-            string xmlMES = GetExportedObjectOfMaterial(material);
+            childMaterial.Load();
 
-            XDocument mesDocument = XDocument.Parse(xmlMES);
-            XDocument messageBusDocument = XDocument.Parse(tibcoCustomSendEventMessage.Message);
-
-            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.ContainerAssociation);
-            ValidateXML(mesDocument.Root.Descendants("Object").Elements(), messageBusDocument.Root.Descendants("Object").Elements());
+            ValiteHeaderMessage(childMaterial, tibcoCustomSendEventMessage, CustomTransactionTypes.ContainerAssociation);
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(childMaterial)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
-        private string GetExportedObjectOfMaterial(Material material)
-        {
-            Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.OutputObjects.GetObjectByNameOutput o = new Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.GetObjectByNameInput
-            {
-                Type = "Material",
-                Name = material.Name
-            }.GetObjectByNameSync();
-
-            CoreBaseCollection materials = new CoreBaseCollection();
-            materials.Add((CoreBase)o.Instance);
-
-            ExportObjectsOutput output = new Cmf.Foundation.BusinessOrchestration.ImportExportManagement.InputObjects.ExportObjectsInput
-            {
-                Objects = materials
-            }.ExportObjectsSync();
-
-            Assert.IsNotNull(output.Xml, "XML response should not be null");
-            Assert.IsFalse(String.Empty == output.Xml, "XML response should not be empty");
-
-            return output.Xml;
-        }
-
-        private void ValiteHeaderMessage(Material material, TibcoCustomSendEventMessage message, CustomTransactionTypes customTransactionType)
-        {
-            // stdObjectName
-            Assert.AreEqual(message.Header.stdObjectName, material.Name, $"The Header message doesnt have the correct material. Should be {material.Name} instead of {message.Header.stdObjectName}");
-
-            // stdProductType
-            material.Product.LoadAttribute(amsOSRAMConstants.ProductAttributeSAPProductType);
-            string expectedAttribute = (string)material.Product.Attributes.GetValueOrDefault(amsOSRAMConstants.ProductAttributeSAPProductType, String.Empty);
-            Assert.AreEqual(message.Header.stdProductType, expectedAttribute, $"The Header message doesnt have the correct product type. Should be {expectedAttribute} instead of {message.Header.stdProductType}");
-
-            // stdDataOrigin
-            Assert.AreEqual(Environment.MachineName, message.Header.stdDataOrigin, $"The Header message doesnt have the correct data origin. Should be {Environment.MachineName} instead of {message.Header.stdDataOrigin}");
-
-            // stdFrom  / stdTo
-            material.Facility.LoadAttribute(amsOSRAMConstants.FacilityAttributeFacilityCode);
-            string expectedFacilityCode = (string)material.Facility.Attributes.GetValueOrDefault(amsOSRAMConstants.FacilityAttributeFacilityCode, String.Empty);
-
-            string expectedSiteCode = String.Empty;
-            if (material.Facility.Site != null)
-            {
-                material.Facility.Site.LoadAttribute(amsOSRAMConstants.SiteAttributeSiteCode);
-                expectedSiteCode = (string)material.Facility.Site.Attributes.GetValueOrDefault(amsOSRAMConstants.SiteAttributeSiteCode, String.Empty);
-            }
-
-            string expetedStepLogicalName = String.Empty;
-            if (material.Step.ContainsLogicalNames)
-            {
-                material.Flow.LoadRelation("FlowStep");
-
-                FlowStep flowStep = material.Flow.FlowSteps.FirstOrDefault(f => f.TargetEntity.Name == material.Step.Name);
-                expetedStepLogicalName = flowStep.LogicalName;
-            }
-
-            string expectedPath = $"{expectedSiteCode}.{expectedFacilityCode}.{expetedStepLogicalName}";
-
-            // Assert.AreEqual(expectedPath, message.Header.stdFrom, $"The Header message doesnt have the correct origin path. Should be {expectedPath} instead of {message.Header.stdFrom}");
-            // Assert.AreEqual(expectedPath, message.Header.stdTo, $"The Header message doesnt have the correct destination path. Should be {expectedPath} instead of {message.Header.stdTo}");
-
-            // stdTransaction
-            Assert.AreEqual(message.Header.stdTransaction, customTransactionType.ToString(), $"The Header message doesnt have the correct transaction name. Should be {customTransactionType.ToString()} instead of {message.Header.stdTransaction}");
-        }
-
-        private void ValidateXML(IEnumerable<XElement> elementsA, IEnumerable<XElement> elementsB)
+        private void ValidateXML(XDocument document1, XDocument document2)
         {
             // List of ElementNames to discard on output XML
             List<string> xmlElementsToDiscard = new List<string>()
@@ -825,36 +784,112 @@ namespace Cmf.Custom.Tests.Biz.Tibco
                 {
                     "type",
                     "actualtype",
-                    "ExportId",
-                    "RefId"
+                    "ExportId"
                 };
 
-            IEnumerable<XElement> filteredElementsA = elementsA.Where(w => !xmlElementsToDiscard.Contains(w.Name.ToString()));
-            IEnumerable<XElement> filteredElementsB = elementsB.Where(w => !xmlElementsToDiscard.Contains(w.Name.ToString()));
+            // Remove Material discarded Elements
+            document1.Root.Descendants().Where(e => xmlElementsToDiscard.Contains(e.Name.LocalName)).Remove();
 
-            foreach (XElement elementA in filteredElementsA)
+            // Remove Material discarded Attributes
+            document1.Root.Descendants().Attributes().Where(a => xmlAttributesToDiscard.Contains(a.Name.LocalName)).Remove();
+
+            Assert.AreEqual(document1.ToString().Trim(), document2.ToString().Trim());
+        }
+
+        private string GetExportedObjectOfMaterial(Material material)
+        {
+            CoreBaseCollection materials = new CoreBaseCollection();
+
+            material.LoadRelations();
+            material.LoadMaterialOffFlows();
+            material.LoadChildren();
+            material.LoadAttributes();
+
+            materials.Add((CoreBase)material);
+
+            ExportObjectsOutput output = new Cmf.Foundation.BusinessOrchestration.ImportExportManagement.InputObjects.ExportObjectsInput
             {
-                XElement elementB = filteredElementsB.FirstOrDefault(f => f.Name == elementA.Name);
+                Objects = materials
+            }.ExportObjectsSync();
 
-                IEnumerable<XAttribute> elementAAttributes = elementA.Attributes().Where(w => !xmlAttributesToDiscard.Contains(w.Name.ToString()));
-                IEnumerable<XAttribute> elementBAttributes = elementB.Attributes().Where(w => !xmlAttributesToDiscard.Contains(w.Name.ToString()));
+            Assert.IsNotNull(output.Xml, "XML response should not be null");
+            Assert.IsFalse(String.Empty == output.Xml, "XML response should not be empty");
 
-                Assert.AreEqual(elementAAttributes.Count(), elementBAttributes.Count(), $"Mismatch between the number of attributes of MES and MessageBus for {elementA.Name}");
+            return output.Xml;
+        }
 
-                foreach (XAttribute elementAAttribute in elementAAttributes)
+        private void ValiteHeaderMessage(Material material, TibcoCustomSendEventMessage message, CustomTransactionTypes customTransactionType, Step previousStep = null, Flow previousFlow = null)
+        {
+            material.Load();
+
+            // stdObjectName
+            Assert.AreEqual(message.Header.stdObjectName, material.Name, $"The Header message doesnt have the correct material. Should be {material.Name} instead of {message.Header.stdObjectName}");
+
+            // stdProductType
+            material.Product.Load();
+            material.Product.LoadAttribute(amsOSRAMConstants.ProductAttributeSAPProductType);
+            string expectedAttribute = (string)material.Product.Attributes.GetValueOrDefault(amsOSRAMConstants.ProductAttributeSAPProductType, String.Empty);
+            Assert.AreEqual(message.Header.stdProductType, expectedAttribute, $"The Header message doesnt have the correct product type. Should be {expectedAttribute} instead of {message.Header.stdProductType}");
+
+            // stdDataOrigin
+            Assert.AreEqual(Environment.MachineName, message.Header.stdDataOrigin, $"The Header message doesnt have the correct data origin. Should be {Environment.MachineName} instead of {message.Header.stdDataOrigin}");
+
+            // stdFrom  / stdTo
+            material.Facility.Load();
+            material.Facility.LoadAttribute(amsOSRAMConstants.FacilityAttributeFacilityCode);
+            string expectedFacilityCode = (string)material.Facility.Attributes.GetValueOrDefault(amsOSRAMConstants.FacilityAttributeFacilityCode, "EMPTY");
+
+            string expectedSiteCode = "EMPTY";
+            if (material.Facility.Site != null)
+            {
+                material.Facility.Site.Load();
+                material.Facility.Site.LoadAttribute(amsOSRAMConstants.SiteAttributeSiteCode);
+                expectedSiteCode = (string)material.Facility.Site.Attributes.GetValueOrDefault(amsOSRAMConstants.SiteAttributeSiteCode, "EMPTY");
+            }
+
+            material.Step.Load();
+            string expetedStepLogicalName = "EMPTY";
+
+            if (material.Step.ContainsLogicalNames)
+            {
+                material.Flow.Load();
+                material.Flow.LoadRelation("FlowStep");
+
+                FlowStep flowStep = material.Flow.FlowSteps.FirstOrDefault(f => f.TargetEntity.Id == material.Step.Id);
+                expetedStepLogicalName = flowStep.LogicalName;
+            }
+
+            string expectedPathTo = $"{expectedSiteCode}.{expectedFacilityCode}.{expetedStepLogicalName}";
+            string expectedPathFrom = expectedPathTo;
+
+            if (previousStep != null && previousFlow != null)
+            {
+                previousStep.Load();
+
+                if (previousStep.ContainsLogicalNames)
                 {
-                    Assert.AreEqual(elementBAttributes.FirstOrDefault(s => s.Name == elementAAttribute.Name).Value, elementAAttribute.Value, $"Mismatch between MES and MessageBus for {elementA.Name}");
+                    previousFlow.Load();
+                    previousFlow.LoadRelation("FlowStep");
+
+                    FlowStep flowStep = previousFlow.FlowSteps.FirstOrDefault(f => f.TargetEntity.Id == material.Step.Id);
+                    expectedPathFrom = $"{expectedSiteCode}.{expectedFacilityCode}.{flowStep.LogicalName}";
                 }
             }
+
+            Assert.AreEqual(expectedPathFrom, message.Header.stdFrom, $"The Header message doesnt have the correct origin path. Should be {expectedPathFrom} instead of {message.Header.stdFrom}");
+            Assert.AreEqual(expectedPathTo, message.Header.stdTo, $"The Header message doesnt have the correct destination path. Should be {expectedPathTo} instead of {message.Header.stdTo}");
+
+            // stdTransaction
+            Assert.AreEqual(message.Header.stdTransaction, customTransactionType.ToString(), $"The Header message doesnt have the correct transaction name. Should be {customTransactionType.ToString()} instead of {message.Header.stdTransaction}");
         }
 
         private Func<bool> SuscribeMessageBus(CustomSendEventMessageTopics topic, int numberOfMessages = 1)
         {
-            Transport messageBusTransport = new Transport(BaseContext.GetMessageBusTransportConfiguration());
+            _transport = new Transport(BaseContext.GetMessageBusTransportConfiguration());
 
-            messageBusTransport.Start();
+            _transport.Start();
 
-            messageBusTransport.Subscribe(topic.ToString(), (string subject, MbMessage message) =>
+            _transport.Subscribe(topic.ToString(), (string subject, MbMessage message) =>
             {
                 if (message != null && !string.IsNullOrWhiteSpace(message.Data))
                 {
@@ -868,7 +903,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
 
                 if (isDone)
                 {
-                    messageBusTransport.Unsubscribe(topic.ToString());
+                    _transport.Unsubscribe(topic.ToString());
                 }
 
                 return isDone;
