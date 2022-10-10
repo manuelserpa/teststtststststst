@@ -3,13 +3,10 @@ using Cmf.Custom.TestUtilities.TerminationHandlers;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.Common.Base;
 using Cmf.Navigo.BusinessObjects;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AMSOsramEIAutomaticTests.Objects.Utilities
+namespace amsOSRAMEIAutomaticTests.Objects.Utilities
 {
     /// <summary>
     /// Custom termination handler, inherits from a default one.

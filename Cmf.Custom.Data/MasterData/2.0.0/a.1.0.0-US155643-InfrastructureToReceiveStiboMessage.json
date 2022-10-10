@@ -1,0 +1,24 @@
+{
+  "<SM>LocalizedMessageKey": {
+    "1": {
+      "Name": "CustomReceiveEmptyMessage",
+      "Description": "Error message to inform that the received message is empty.",
+      "MessageType": "Message",
+      "en-US": "Message Received is empty.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    }
+  },
+  "<SM>LookupTableValues": {
+    "1": {
+      "LookUp Table": "IntegrationSystem",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Stibo",
+      "Lookup Table Value Description": "Stibo",
+      "Lookup Table IsEnabled": "Yes"
+    }
+  }
+}

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Cmf.Custom.TestUtilities;
 using Cmf.Navigo.BusinessObjects;
 
@@ -25,7 +23,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Extensions
             List<string> strs = new List<string>();
             if (string.IsNullOrWhiteSpace(flowPath))
             {
-                instacePath = string.Concat(instance.Name, ":", 1);
+                instacePath = string.Format("{0}:{1}:{2}", instance.Name, instance.Revision, 1);
             }
             if (instance != null)
             {

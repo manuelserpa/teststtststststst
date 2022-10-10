@@ -1,33 +1,11 @@
-{
+﻿{
   "packageId": "Cmf.Custom.Tests.MasterData",
-  "version": "1.12.0",
-  "description": "Cmf AMSOsram Test MasterData Package",
+  "version": "2.0.0",
+  "description": "Cmf amsOSRAM Test MasterData Package",
   "packageType": "Data",
   "isInstallable": false,
   "isUniqueInstall": true,
-  "steps": [
-    {
-      "type": 0,
-      "onExecute": "$(Agent.Root)/agent/scripts/stop_host.ps1",
-      "order": 1
-    },
-    {
-      "type": 2,
-      "file": "Cmf.Foundation.Services.HostService.dll.config",
-      "tagFile": true,
-      "order": 2
-    },
-    {
-      "type": 0,
-      "onExecute": "$(Agent.Root)/agent/scripts/start_host.ps1",
-      "order": 3
-    },
-    {
-      "type": 0,
-      "onExecute": "$(Package[Cmf.Custom.Package].TargetDirectory)/GenerateLBOs.ps1",
-      "order": 4
-    }
-  ],
+  "isToSetDefaultSteps": false,
   "contentToPack": [
     {
       "source": "Files/*",
@@ -39,6 +17,5 @@
       "target": "ExportedObjects",
       "contentType": "ExportedObjects"
     }
-  ],
-  "handlerVersion": 0
+  ]
 }

@@ -13395,7 +13395,7 @@
       "Name": "MuetecDaVinciController",
       "Description": "TemplateController",
       "Type": "General",
-      "ControllerPackageVersion": "8.3.3-202201212",
+      "ControllerPackageVersion": "9.1.0-202209072",
       "ObjectType": "Resource",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\",\"connect-iot-controller-engine-secsgem-tasks\"]",
       "Scope": "ConnectIoT"
@@ -13423,7 +13423,7 @@
       "Name": "Setup",
       "DisplayName": "Setup",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\Setup.json",
+      "Workflow": "MuetecDaVinci/Setup.json",
       "Order": "1"
     },
     "2": {
@@ -13431,7 +13431,7 @@
       "Name": "Setup_RFIDReader",
       "DisplayName": "Setup_RFIDReader",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\Setup_RFIDReader.json",
+      "Workflow": "MuetecDaVinci/Setup_RFIDReader.json",
       "Order": "2"
     },
     "3": {
@@ -13439,7 +13439,7 @@
       "Name": "MaterialReceived_01_MaterialReceivedEvent",
       "DisplayName": "MaterialReceived_01_MaterialReceivedEvent",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\MaterialReceived_01_MaterialReceivedEvent.json",
+      "Workflow": "MuetecDaVinci/MaterialReceived_01_MaterialReceivedEvent.json",
       "Order": "3"
     },
     "4": {
@@ -13447,7 +13447,7 @@
       "Name": "MaterialReceived_02_MaterialReceivedEvent",
       "DisplayName": "MaterialReceived_02_MaterialReceivedEvent",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\MaterialReceived_02_MaterialReceivedEvent.json",
+      "Workflow": "MuetecDaVinci/MaterialReceived_02_MaterialReceivedEvent.json",
       "Order": "4"
     },
     "5": {
@@ -13455,7 +13455,7 @@
       "Name": "MaterialReceived_03_MaterialReceivedEvent",
       "DisplayName": "MaterialReceived_03_MaterialReceivedEvent",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\MaterialReceived_03_MaterialReceivedEvent.json",
+      "Workflow": "MuetecDaVinci/MaterialReceived_03_MaterialReceivedEvent.json",
       "Order": "5"
     },
     "6": {
@@ -13463,7 +13463,7 @@
       "Name": "CarrierIdRead_01_EventReceived",
       "DisplayName": "CarrierIdRead_01_EventReceived",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\CarrierIdRead_01_EventReceived.json",
+      "Workflow": "MuetecDaVinci/CarrierIdRead_01_EventReceived.json",
       "Order": "6"
     },
     "7": {
@@ -13471,7 +13471,7 @@
       "Name": "SlotMap_01_SlotMapReceived",
       "DisplayName": "SlotMap_01_SlotMapReceived",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\SlotMap_01_SlotMapReceived.json",
+      "Workflow": "MuetecDaVinci/SlotMap_01_SlotMapReceived.json",
       "Order": "7"
     },
     "8": {
@@ -13479,7 +13479,7 @@
       "Name": "ReadyToUnload_01_EventReceived",
       "DisplayName": "ReadyToUnload_01_EventReceived",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\ReadyToUnload_01_EventReceived.json",
+      "Workflow": "MuetecDaVinci/ReadyToUnload_01_EventReceived.json",
       "Order": "8"
     },
     "9": {
@@ -13487,7 +13487,7 @@
       "Name": "MaterialRemoved_01_MaterialRemovedEvent",
       "DisplayName": "MaterialRemoved_01_MaterialRemovedEvent",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\MaterialRemoved_01_MaterialRemovedEvent.json",
+      "Workflow": "MuetecDaVinci/MaterialRemoved_01_MaterialRemovedEvent.json",
       "Order": "9"
     },
     "10": {
@@ -13495,7 +13495,7 @@
       "Name": "TrackIn_01_TrackInRequestReceived",
       "DisplayName": "TrackIn_01_TrackInRequestReceived",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\TrackIn_01_TrackInRequestReceived.json",
+      "Workflow": "MuetecDaVinci/TrackIn_01_TrackInRequestReceived.json",
       "Order": "10"
     },
     "11": {
@@ -13503,7 +13503,7 @@
       "Name": "PostTrackIn_01_ExecuteStart",
       "DisplayName": "PostTrackIn_01_ExecuteStart",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\PostTrackIn_01_ExecuteStart.json",
+      "Workflow": "MuetecDaVinci/PostTrackIn_01_ExecuteStart.json",
       "Order": "11"
     },
     "12": {
@@ -13511,7 +13511,7 @@
       "Name": "ProcessStarted_01_EventTosProcessStartedReceived",
       "DisplayName": "ProcessStarted_01_EventTosProcessStartedReceived",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\ProcessStarted_01_EventTosProcessStartedReceived.json",
+      "Workflow": "MuetecDaVinci/ProcessStarted_01_EventTosProcessStartedReceived.json",
       "Order": "12"
     },
     "13": {
@@ -13519,7 +13519,7 @@
       "Name": "WaferStart_01_EventWaferStarted",
       "DisplayName": "WaferStart_01_EventWaferStarted",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\WaferStart_01_EventWaferStarted.json",
+      "Workflow": "MuetecDaVinci/WaferStart_01_EventWaferStarted.json",
       "Order": "13"
     },
     "14": {
@@ -13527,7 +13527,7 @@
       "Name": "WaferComplete_01_EventWaferCompleted",
       "DisplayName": "WaferComplete_01_EventWaferCompleted",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\WaferComplete_01_EventWaferCompleted.json",
+      "Workflow": "MuetecDaVinci/WaferComplete_01_EventWaferCompleted.json",
       "Order": "14"
     },
     "15": {
@@ -13535,7 +13535,7 @@
       "Name": "WaferComplete_02_EventWaferCompleted",
       "DisplayName": "WaferComplete_02_EventWaferCompleted",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\WaferComplete_02_EventWaferCompleted.json",
+      "Workflow": "MuetecDaVinci/WaferComplete_02_EventWaferCompleted.json",
       "Order": "15"
     },
     "16": {
@@ -13543,7 +13543,7 @@
       "Name": "ProcessCompleted_01_EventProcessCompletedReceived",
       "DisplayName": "ProcessCompleted_01_EventProcessCompletedReceived",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\ProcessCompleted_01_EventProcessCompletedReceived.json",
+      "Workflow": "MuetecDaVinci/ProcessCompleted_01_EventProcessCompletedReceived.json",
       "Order": "16"
     },
     "17": {
@@ -13551,7 +13551,7 @@
       "Name": "TrackOut_01_TrackOutEventReceivedFromMES",
       "DisplayName": "TrackOut_01_TrackOutEventReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\TrackOut_01_TrackOutEventReceivedFromMES.json",
+      "Workflow": "MuetecDaVinci/TrackOut_01_TrackOutEventReceivedFromMES.json",
       "Order": "17"
     },
     "18": {
@@ -13559,7 +13559,7 @@
       "Name": "Abort_01_AbortEventReceivedFromMES300mm",
       "DisplayName": "Abort_01_AbortEventReceivedFromMES300mm",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\Abort_01_AbortEventReceivedFromMES300mm.json",
+      "Workflow": "MuetecDaVinci/Abort_01_AbortEventReceivedFromMES300mm.json",
       "Order": "18"
     },
     "19": {
@@ -13567,7 +13567,7 @@
       "Name": "Hold_01_HoldEventReceivedFromMES",
       "DisplayName": "Hold_01_HoldEventReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\Hold_01_HoldEventReceivedFromMES.json",
+      "Workflow": "MuetecDaVinci/Hold_01_HoldEventReceivedFromMES.json",
       "Order": "19"
     },
     "20": {
@@ -13575,7 +13575,7 @@
       "Name": "AlarmManagement_01_AlarmCollection",
       "DisplayName": "AlarmManagement_01_AlarmCollection",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\AlarmManagement_01_AlarmCollection.json",
+      "Workflow": "MuetecDaVinci/AlarmManagement_01_AlarmCollection.json",
       "Order": "20"
     },
     "21": {
@@ -13583,7 +13583,7 @@
       "Name": "RecipeManagement_01_GetRecipeList",
       "DisplayName": "RecipeManagement_01_GetRecipeList",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\RecipeManagement_01_GetRecipeList.json",
+      "Workflow": "MuetecDaVinci/RecipeManagement_01_GetRecipeList.json",
       "Order": "21"
     },
     "22": {
@@ -13591,7 +13591,7 @@
       "Name": "RecipeManagement_02_GetRecipeBody",
       "DisplayName": "RecipeManagement_02_GetRecipeBody",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\RecipeManagement_02_GetRecipeBody.json",
+      "Workflow": "MuetecDaVinci/RecipeManagement_02_GetRecipeBody.json",
       "Order": "22"
     },
     "23": {
@@ -13599,7 +13599,7 @@
       "Name": "RecipeManagement_03_SetRecipeBody",
       "DisplayName": "RecipeManagement_03_SetRecipeBody",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\RecipeManagement_03_SetRecipeBody.json",
+      "Workflow": "MuetecDaVinci/RecipeManagement_03_SetRecipeBody.json",
       "Order": "23"
     },
     "24": {
@@ -13607,7 +13607,7 @@
       "Name": "RecipeManagement_04_GetRecipeChecksum",
       "DisplayName": "RecipeManagement_04_GetRecipeChecksum",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\RecipeManagement_04_GetRecipeChecksum.json",
+      "Workflow": "MuetecDaVinci/RecipeManagement_04_GetRecipeChecksum.json",
       "Order": "24"
     },
     "25": {
@@ -13615,7 +13615,7 @@
       "Name": "ResourceState_01_ProcessStateChanged",
       "DisplayName": "ResourceState_01_ProcessStateChanged",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\ResourceState_01_ProcessStateChanged.json",
+      "Workflow": "MuetecDaVinci/ResourceState_01_ProcessStateChanged.json",
       "Order": "25"
     },
     "26": {
@@ -13623,7 +13623,7 @@
       "Name": "ResourceEPTState_01_EptStateChangeReceived",
       "DisplayName": "ResourceEPTState_01_EptStateChangeReceived",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\ResourceEPTState_01_EptStateChangeReceived.json",
+      "Workflow": "MuetecDaVinci/ResourceEPTState_01_EptStateChangeReceived.json",
       "Order": "26"
     },
     "27": {
@@ -13631,7 +13631,7 @@
       "Name": "ControlState_01_ControlStateEquipmentOfflineUpdateReceived",
       "DisplayName": "ControlState_01_ControlStateEquipmentOfflineUpdateReceived",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\ControlState_01_ControlStateEquipmentOfflineUpdateReceived.json",
+      "Workflow": "MuetecDaVinci/ControlState_01_ControlStateEquipmentOfflineUpdateReceived.json",
       "Order": "27"
     },
     "28": {
@@ -13639,7 +13639,7 @@
       "Name": "ControlState_02_ControlStateOnlineLocalUpdateReceived",
       "DisplayName": "ControlState_02_ControlStateOnlineLocalUpdateReceived",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\ControlState_02_ControlStateOnlineLocalUpdateReceived.json",
+      "Workflow": "MuetecDaVinci/ControlState_02_ControlStateOnlineLocalUpdateReceived.json",
       "Order": "28"
     },
     "29": {
@@ -13647,7 +13647,7 @@
       "Name": "ControlState_03_ControlStateOnlineRemoteUpdateReceived",
       "DisplayName": "ControlState_03_ControlStateOnlineRemoteUpdateReceived",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\ControlState_03_ControlStateOnlineRemoteUpdateReceived.json",
+      "Workflow": "MuetecDaVinci/ControlState_03_ControlStateOnlineRemoteUpdateReceived.json",
       "Order": "29"
     },
     "30": {
@@ -13655,7 +13655,7 @@
       "Name": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "DisplayName": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
+      "Workflow": "MuetecDaVinci/SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
       "Order": "30"
     },
     "31": {
@@ -13663,7 +13663,7 @@
       "Name": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "DisplayName": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\RecipeValidation_01_UnformattedRecipeMainFlow.json",
+      "Workflow": "MuetecDaVinci/RecipeValidation_01_UnformattedRecipeMainFlow.json",
       "Order": "31"
     },
     "32": {
@@ -13671,7 +13671,7 @@
       "Name": "CreateProcessJob_01_CreateJob",
       "DisplayName": "CreateProcessJob_01_CreateJob",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\CreateProcessJob_01_CreateJob.json",
+      "Workflow": "MuetecDaVinci/CreateProcessJob_01_CreateJob.json",
       "Order": "32"
     },
     "33": {
@@ -13679,7 +13679,7 @@
       "Name": "CreateControlJob_01_CreateJob",
       "DisplayName": "CreateControlJob_01_CreateJob",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\CreateControlJob_01_CreateJob.json",
+      "Workflow": "MuetecDaVinci/CreateControlJob_01_CreateJob.json",
       "Order": "33"
     },
     "34": {
@@ -13687,7 +13687,7 @@
       "Name": "CassetteLoad_01_ExecuteCommand",
       "DisplayName": "CassetteLoad_01_ExecuteCommand",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\CassetteLoad_01_ExecuteCommand.json",
+      "Workflow": "MuetecDaVinci/CassetteLoad_01_ExecuteCommand.json",
       "Order": "34"
     },
     "35": {
@@ -13695,7 +13695,7 @@
       "Name": "CarrierClamped_01_ExecuteCommand",
       "DisplayName": "CarrierClamped_01_ExecuteCommand",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\CarrierClamped_01_ExecuteCommand.json",
+      "Workflow": "MuetecDaVinci/CarrierClamped_01_ExecuteCommand.json",
       "Order": "35"
     },
     "36": {
@@ -13703,7 +13703,7 @@
       "Name": "AbortJob_01_ExecuteControlJobAbort",
       "DisplayName": "AbortJob_01_ExecuteControlJobAbort",
       "IsFile": "Yes",
-      "Workflow": "MuetecDaVinci\\AbortJob_01_ExecuteControlJobAbort.json",
+      "Workflow": "MuetecDaVinci/AbortJob_01_ExecuteControlJobAbort.json",
       "Order": "36"
     }
   },

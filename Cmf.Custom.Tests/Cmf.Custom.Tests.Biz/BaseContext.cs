@@ -9,12 +9,15 @@
 
 #region Using Directives
 
+using Cmf.Foundation.BusinessOrchestration.ApplicationSettingManagement.InputObjects;
 using Cmf.LightBusinessObjects.Infrastructure;
+using Cmf.LoadBalancing;
 using Cmf.MessageBus.Client;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Reflection;
 using System.Threading;
 
 #endregion Using Directives
@@ -33,8 +36,14 @@ namespace Settings
         /// </summary>
         private static ClientConfiguration config = null;
 
+        /// <summary>
+        /// Custom Transport configuration
+        /// </summary>
         private static TransportConfig messageBusTransportConfig = null;
 
+        /// <summary>
+        /// Custom Test context
+        /// </summary>
         private static TestContext testContext = null;
 
         #endregion
@@ -101,10 +110,8 @@ namespace Settings
         /// <param name="context">The context.</param>
         public static void BaseInit(TestContext context)
         {
+            // Set custom test context
             BaseContext.testContext = context;
-
-            BaseContext.UserName = GetString(context, "userName");
-            BaseContext.Password = GetString(context, "password");
 
             ClientConfigurationProvider.ConfigurationFactory = () =>
             {
@@ -114,14 +121,25 @@ namespace Settings
                     {
                         HostAddress = System.IO.Directory.Exists(GetString(context, "hostAdress")) ? GetString(context, "hostAdress") : string.Format("{0}:{1}", GetString(context, "hostAdress"), int.Parse(GetString(context, "hostPort"))),
                         ClientTenantName = GetString(context, "clientTenantName"),
-                        UseSsl = context.Properties.Contains("useSsl") ? bool.Parse(GetString(context, "useSsl")) : false,
+                        UseSsl = context.Properties.Contains("hostUseSSL") ? bool.Parse(GetString(context, "hostUseSSL")) : false,
                         ApplicationName = GetString(context, "applicationName"),
                         IsUsingLoadBalancer = context.Properties.Contains("useLoadBalancer") ? bool.Parse(GetString(context, "useLoadBalancer")) : false,
                         ThingsToDoAfterInitialize = null,
-                        UserName = GetString(context, "userName"),
-                        Password = GetString(context, "password"),
                         RequestTimeout = GetString(context, "requestTimeout")
                     };
+
+                    string mode = GetString(context, "mode");
+
+                    if (mode == "Local")
+                    {
+                        config.UserName = GetString(context, "userName");
+                        config.Password = GetString(context, "password");
+                    }
+                    else
+                    {
+                        config.SecurityPortalBaseAddress = new Uri(GetString(context, "securityPortalAddress"));
+                        config.SecurityAccessToken = GetString(context, "securityAccessToken");
+                    }
                 }
                 return config;
             };
@@ -180,34 +198,25 @@ namespace Settings
         }
 
         /// <summary>
-        /// Get Message Bus Transport Configuration
+        /// Custom: Get Message Bus Transport Configuration
         /// </summary>
         /// <returns></returns>
         public static TransportConfig GetMessageBusTransportConfiguration()
         {
             if (messageBusTransportConfig == null)
             {
-                messageBusTransportConfig = new TransportConfig()
-                {
-                    GatewaysConfig = new List<GatewayConfig>
-                    {
-                        new GatewayConfig()
-                        {
-                            Address =  GetString(testContext, "MessageBus.Gateway.Address"),
-                            Port = Convert.ToInt32(GetString(testContext, "MessageBus.Gateway.Port")),
-                            ExternalAddress = GetString(testContext, "MessageBus.Gateway.ExternalAddress"),
-                        }
-                    },
-                    UseLoadBalancing = Convert.ToBoolean(GetString(testContext, "MessageBus.UseLoadBalancing")),
-                    ApplicationName = GetString(testContext, "applicationName"),
-                    TenantName = GetString(testContext, "clientTenantName"),
-                    SecurityToken = GetString(testContext, "MessageBus.SecurityToken"),
-                    UseGatewayExternalAddress = Convert.ToBoolean(GetString(testContext, "MessageBus.UseGatewayExternalAddress"))
-                };
+                string transportConfigString = new GetApplicationBootInformationInput().GetApplicationBootInformationSync().TransportConfig;
+            
+                TransportConfig transportConfig = Newtonsoft.Json.JsonConvert.DeserializeObject<TransportConfig>(transportConfigString);
+                transportConfig.ApplicationName = GetString(testContext, "applicationName");
+                transportConfig.TenantName = GetString(testContext, "clientTenantName");
+
+                messageBusTransportConfig = transportConfig;
             }
 
             return messageBusTransportConfig;
         }
+
         #endregion
 
         #region Private & Internal Methods

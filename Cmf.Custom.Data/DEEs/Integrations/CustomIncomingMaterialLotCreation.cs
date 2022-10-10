@@ -1,6 +1,6 @@
 ﻿using Cmf.Common.CustomActionUtilities;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.ERP;
+using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.ERP;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.Common;
 using Cmf.Navigo.BusinessObjects;
@@ -9,8 +9,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Cmf.Custom.AMSOsram.Actions.Integrations
+namespace Cmf.Custom.amsOSRAM.Actions.Integrations
 {
     public class CustomIncomingMaterialLotCreation : DeeDevBase
     {
@@ -33,13 +37,13 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             DeeContext currentContext = DeeContextHelper.SetCurrentServiceContext("CustomIncomingMaterialLotCreationContext");
 
             // Load Integration Entry
-            IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, Foundation.Common.Constants.IntegrationEntry);
+            IIntegrationEntry integrationEntry = amsOSRAMUtilities.GetInputItem<IIntegrationEntry>(Input, Constants.IntegrationEntry);
             
             // Cast Integation Entry Message to string
             string message = Encoding.UTF8.GetString(integrationEntry.IntegrationMessage.Message);
 
             // Deserialize XML Message to an object
-            GoodsReceiptCertificate goodsReceiptCertificate = AMSOsramUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(message);
+            GoodsReceiptCertificate goodsReceiptCertificate = amsOSRAMUtilities.DeserializeXmlToObject<GoodsReceiptCertificate>(message);
 
             string certificateDataCollectionName = string.Empty;
             string certificateDataCollectionType = string.Empty;
@@ -47,14 +51,16 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             bool hasCerticateDataCollection = false;
             bool hasWafersCertificateData = false;
 
-            ParameterSource waferSizeParameter = null;
+            IParameterSource waferSizeParameter = null;
 
             MaterialData materialData = goodsReceiptCertificate.Material;
 
-            Material incomingLot = new Material()
-            {
-                Name = materialData.Name
-            };
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
+            IMaterial incomingLot = entityFactory.Create<IMaterial>();
+            incomingLot.Name = materialData.Name;
 
             if (incomingLot.ObjectExists())
             {
@@ -62,27 +68,27 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
                 if (!incomingLot.Type.Equals(materialData.Type))
                 {
-                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialDifferentType, incomingLot.Name, materialData.Type);
+                    amsOSRAMUtilities.ThrowLocalizedException(amsOSRAMConstants.LocalizedMessageCustomUpdateMaterialDifferentType, incomingLot.Name, materialData.Type);
                 }
 
                 if (!incomingLot.Product.Name.Equals(materialData.Product))
                 {
-                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialDifferentProduct, incomingLot.Name, materialData.Product);
+                    amsOSRAMUtilities.ThrowLocalizedException(amsOSRAMConstants.LocalizedMessageCustomUpdateMaterialDifferentProduct, incomingLot.Name, materialData.Product);
                 }
 
                 if (materialData.Flow != null && incomingLot.Flow != null && !incomingLot.Flow.Name.Equals(materialData.Flow, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialDifferentFlow, incomingLot.Name, materialData.Flow);
+                    amsOSRAMUtilities.ThrowLocalizedException(amsOSRAMConstants.LocalizedMessageCustomUpdateMaterialDifferentFlow, incomingLot.Name, materialData.Flow);
                 }
 
                 if (materialData.Step != null && incomingLot.Step != null && !incomingLot.Step.Name.Equals(materialData.Step, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialDifferentStep, incomingLot.Name, materialData.Step);
+                    amsOSRAMUtilities.ThrowLocalizedException(amsOSRAMConstants.LocalizedMessageCustomUpdateMaterialDifferentStep, incomingLot.Name, materialData.Step);
                 }
 
                 if (materialData.Wafers.Count != incomingLot.SubMaterialCount)
                 {
-                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialDifferentWafers, incomingLot.Name, incomingLot.SubMaterialCount.ToString(), materialData.Wafers.Count.ToString());
+                    amsOSRAMUtilities.ThrowLocalizedException(amsOSRAMConstants.LocalizedMessageCustomUpdateMaterialDifferentWafers, incomingLot.Name, incomingLot.SubMaterialCount.ToString(), materialData.Wafers.Count.ToString());
                 }
 
                 // Verify if Lot Wafers and IncomingLotWafer has the same order
@@ -94,45 +100,41 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
                     if (!wafersHasSameOrder)
                     {
-                        AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomWrongCertificateConfiguration, incomingLot.Name);
+                        amsOSRAMUtilities.ThrowLocalizedException(amsOSRAMConstants.LocalizedMessageCustomWrongCertificateConfiguration, incomingLot.Name);
                     }
                 }
             }
             else
             {
-                Product product = new Product()
-                {
-                    Name = materialData.Product
-                };
+                IProduct product = entityFactory.Create<IProduct>();
+                product.Name = materialData.Product;
 
                 product.Load();
 
-                ParameterSourceCollection productParameters = product.GetProductParameters();
+                IParameterSourceCollection productParameters = product.GetProductParameters();
 
                 if (productParameters != null && productParameters.Any())
                 {
-                    waferSizeParameter = productParameters.FirstOrDefault(productParameter => productParameter.Parameter.Name.Equals(AMSOsramConstants.CustomParameterWaferQuantity, StringComparison.InvariantCultureIgnoreCase));
+                    waferSizeParameter = productParameters.FirstOrDefault(productParameter => productParameter.Parameter.Name.Equals(amsOSRAMConstants.CustomParameterWaferQuantity, StringComparison.InvariantCultureIgnoreCase));
                 }
 
                 if (waferSizeParameter == null)
                 {
-                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialProductWaferSizeMissing, product.Name);
+                    amsOSRAMUtilities.ThrowLocalizedException(amsOSRAMConstants.LocalizedMessageCustomUpdateMaterialProductWaferSizeMissing, product.Name);
                 }
 
                 if (!decimal.TryParse(materialData.PrimaryQuantity, out decimal primaryQuantity))
                 {
-                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomInvalidPrimaryQuantity, materialData.Name);
+                    amsOSRAMUtilities.ThrowLocalizedException(amsOSRAMConstants.LocalizedMessageCustomInvalidPrimaryQuantity, materialData.Name);
                 }
 
                 if (string.IsNullOrWhiteSpace(materialData.PrimaryUnit))
                 {
-                    AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomPrimaryUnitObjectNull, materialData.Name);
+                    amsOSRAMUtilities.ThrowLocalizedException(amsOSRAMConstants.LocalizedMessageCustomPrimaryUnitObjectNull, materialData.Name);
                 }
 
-                Facility facility = new Facility()
-                {
-                    Name = materialData.Facility
-                };
+                IFacility facility = entityFactory.Create<IFacility>();
+                facility.Name = materialData.Facility;
                 facility.Load();
 
                 incomingLot.Facility = facility;
@@ -145,8 +147,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 
                 if (!string.IsNullOrWhiteSpace(materialData.ProductionOrder))
                 {
-                    ProductionOrder prodOrder = new ProductionOrder();
+                    IProductionOrder prodOrder = entityFactory.Create<IProductionOrder>();
                     prodOrder.Name = materialData.ProductionOrder;
+
                     if (prodOrder.ObjectExists())
                     {
                         prodOrder.Load();
@@ -154,46 +157,44 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     }
                     else
                     {
-                        AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomProductionOrderDoesNotExists, prodOrder.Name);
+                        amsOSRAMUtilities.ThrowLocalizedException(amsOSRAMConstants.LocalizedMessageCustomProductionOrderDoesNotExists, prodOrder.Name);
                     }
                 }
 
-                Flow flow = product.Flow;
+                IFlow flow = product.Flow;
 
                 if (materialData.Flow != null)
                 {
-                    flow = new Flow()
-                    {
-                        Name = materialData.Flow
-                    };
+                    flow = entityFactory.Create<IFlow>();
+                    flow.Name = materialData.Flow;
+
                     flow.Load();
                 }
 
                 incomingLot.Flow = flow;
 
-                Step step = product.Step;
+                IStep step = product.Step;
 
                 if (materialData.Step != null)
                 {
-                    step = new Step()
-                    {
-                        Name = materialData.Step
-                    };
+                    step = entityFactory.Create<IStep>();
+                    step.Name = materialData.Step;
+
                     step.Load();
                 }
 
                 incomingLot.Step = step;
             }
 
-            NgpDataSet ngpdsCertificateContext = AMSOsramUtilities.CustomResolveCertificateDataCollectionContext(incomingLot);
+            INgpDataSet ngpdsCertificateContext = amsOSRAMUtilities.CustomResolveCertificateDataCollectionContext(incomingLot);
 
             DataSet dsCertificateContext = NgpDataSet.ToDataSet(ngpdsCertificateContext);
 
             if (dsCertificateContext.HasData())
             {
-                certificateDataCollectionName = dsCertificateContext.Tables[0].Rows[0].Field<string>(Cmf.Navigo.Common.Constants.DataCollection);
+                certificateDataCollectionName = dsCertificateContext.Tables[0].Rows[0].Field<string>(Navigo.Common.Constants.DataCollection);
 
-                certificateLimitSetName = dsCertificateContext.Tables[0].Rows[0].Field<string>(Cmf.Navigo.Common.Constants.DataCollectionLimitSet);
+                certificateLimitSetName = dsCertificateContext.Tables[0].Rows[0].Field<string>(Navigo.Common.Constants.DataCollectionLimitSet);
 
                 certificateDataCollectionType = dsCertificateContext.Tables[0].Rows[0].Field<string>("DataCollectionType");
 
@@ -204,7 +205,7 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             if (!hasCerticateDataCollection || !hasWafersCertificateData)
             {
-                AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomWrongCertificateConfiguration, incomingLot.Name);
+                amsOSRAMUtilities.ThrowLocalizedException(amsOSRAMConstants.LocalizedMessageCustomWrongCertificateConfiguration, incomingLot.Name);
             }
 
             DeeContextHelper.SetContextParameter("MaterialData", materialData);
@@ -222,26 +223,26 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             // Validate if Wafers has Certificate Data
             bool WafersHasCertificateData(List<MaterialData> wafers)
             {
-                if (!wafers.IsNullOrEmpty())
+                if (GenericExtensions.IsNullOrEmpty(wafers))
                 {
-                    foreach (MaterialData wafer in wafers)
+                    return false;
+                }
+
+                foreach (MaterialData wafer in wafers)
+                {
+                    if (wafer.MaterialEDCData == null || wafer.MaterialEDCData.Count() == 0)
                     {
-                        if (!wafer.MaterialEDCData.IsNullOrEmpty())
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return WafersHasCertificateData(wafer.Wafers);
-                        }
+                        return WafersHasCertificateData(wafer.Wafers);
                     }
+
+                    return true;
                 }
 
                 return false;
             }
 
             // Validate if Lot Wafers and IncomingLotWafer has the same order
-            bool WafersHasSameOrder(MaterialCollection subMaterials, List<MaterialData> incomingWafers)
+            bool WafersHasSameOrder(IMaterialCollection subMaterials, List<MaterialData> incomingWafers)
             {
                 List<string> subMaterialNames = subMaterials.Select(sm => sm.Name).ToList();
 
@@ -255,17 +256,17 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                 }
 
                 // Get all the Names of Lot Wafers
-                foreach (Material material in subMaterials)
+                foreach (IMaterial material in subMaterials)
                 {
                     MaterialData wafer = incomingWafers.FirstOrDefault(w => w.Name.Equals(material.Name, StringComparison.InvariantCultureIgnoreCase));
 
-                    if ((material.SubMaterialCount > 0 && (wafer.Wafers.IsNullOrEmpty() || wafer.Wafers.Count != material.SubMaterialCount)) ||
-                        (material.SubMaterialCount <= 0 && !wafer.Wafers.IsNullOrEmpty()))
+                    if ((material.SubMaterialCount > 0 && (GenericExtensions.IsNullOrEmpty(wafer.Wafers) || wafer.Wafers.Count != material.SubMaterialCount)) ||
+                        (material.SubMaterialCount <= 0 && !GenericExtensions.IsNullOrEmpty(wafer.Wafers)))
                     {
                         return false;
                     }
 
-                    if (material.SubMaterialCount > 0 && !wafer.Wafers.IsNullOrEmpty() && wafer.Wafers.Count == material.SubMaterialCount)
+                    if (material.SubMaterialCount > 0 && !GenericExtensions.IsNullOrEmpty(wafer.Wafers) && wafer.Wafers.Count == material.SubMaterialCount)
                     {
                         material.LoadChildren();
 
@@ -287,54 +288,51 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             //System
             UseReference("", "System");
-            UseReference("", "System.Collections.Generic");
             UseReference("", "System.Data");
-            UseReference("", "System.Linq");
             UseReference("", "System.Text");
 
             //Common
             UseReference("Cmf.Common.CustomActionUtilities.dll", "Cmf.Common.CustomActionUtilities");
 
-            //Foundation
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-
             //Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement");
             UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects");
             UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.OutputObjects");
 
             //Custom
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.ERP");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.ERP");
+
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
 
             MaterialData materialData = DeeContextHelper.GetContextParameter("MaterialData") as MaterialData;
-            Material incomingLot = DeeContextHelper.GetContextParameter("IncominLot") as Material;
-            ParameterSource waferSizeParameter = DeeContextHelper.GetContextParameter("WaferSizeParameter") as ParameterSource;
+            IMaterial incomingLot = DeeContextHelper.GetContextParameter("IncominLot") as IMaterial;
+            IParameterSource waferSizeParameter = DeeContextHelper.GetContextParameter("WaferSizeParameter") as IParameterSource;
 
             string certificateDataCollectionName = DeeContextHelper.GetContextParameter("CertificateDataCollectionName") as string;
             string certificateDataCollectionType = DeeContextHelper.GetContextParameter("CertificateDataCollectionType") as string;
             string certificateLimitSetName = DeeContextHelper.GetContextParameter("CertificateLimitSetName") as string;
 
-            string outOfSpecName = AMSOsramUtilities.GetConfig<string>(AMSOsramConstants.DefaultLotIncomingHoldReasonConfig);
+            string outOfSpecName = amsOSRAMUtilities.GetConfig<string>(amsOSRAMConstants.DefaultLotIncomingHoldReasonConfig);
 
-            DataCollection certificateDataCollection = null;
-            DataCollectionLimitSet certificateLimitSet = null;
-            MaterialHoldReasonCollection incomingLotHoldReasons = new MaterialHoldReasonCollection();
-            MaterialCollection wafers = new MaterialCollection();
+            IDataCollection certificateDataCollection = null;
+            IDataCollectionLimitSet certificateLimitSet = null;
+            IMaterialHoldReasonCollection incomingLotHoldReasons = entityFactory.CreateCollection<IMaterialHoldReasonCollection>();
+            IMaterialCollection wafers = entityFactory.CreateCollection<IMaterialCollection>();
 
             // Sub Materials of Materials
-            Dictionary<Material, MaterialCollection> subMaterialsOfMaterials = new Dictionary<Material, MaterialCollection>();
+            Dictionary<IMaterial, IMaterialCollection> subMaterialsOfMaterials = new Dictionary<IMaterial, IMaterialCollection>();
 
             bool isOutOfSpec = false;
 
-            Dictionary<string, object> incomingLotAttributes = AMSOsramUtilities.GetEntityAttributesDefinition(Cmf.Navigo.Common.Constants.Material);
+            Dictionary<string, object> incomingLotAttributes = amsOSRAMUtilities.GetEntityAttributesDefinition(Navigo.Common.Constants.Material);
 
             if (!incomingLot.ObjectExists())
             {
-                Facility facility = incomingLot.Facility;
+                IFacility facility = incomingLot.Facility;
 
-                Product product = incomingLot.Product;
+                IProduct product = incomingLot.Product;
 
                 decimal waferSize = Convert.ToDecimal(waferSizeParameter.Value);
 
@@ -342,24 +340,24 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
                 if (materialData.StateModel != null && materialData.State != null)
                 {
-                    AMSOsramUtilities.SetMaterialStateModel(incomingLot, materialData.StateModel, materialData.State);
+                    amsOSRAMUtilities.SetMaterialStateModel(incomingLot, materialData.StateModel, materialData.State);
                     incomingLot.Load();
                 }
 
                 CreateSubMaterialsObject(incomingLot, materialData.Wafers);
 
-                MaterialCollection materialsToCreate = new MaterialCollection();
+                IMaterialCollection materialsToCreate = entityFactory.CreateCollection<IMaterialCollection>();
 
-                foreach (MaterialCollection matCollection in subMaterialsOfMaterials.Values)
+                foreach (IMaterialCollection matCollection in subMaterialsOfMaterials.Values)
                 {
                     materialsToCreate.AddRange(matCollection);
                 }
 
                 materialsToCreate.Create();
 
-                foreach (KeyValuePair<Material, MaterialCollection> keyValue in subMaterialsOfMaterials)
+                foreach (KeyValuePair<IMaterial, IMaterialCollection> keyValue in subMaterialsOfMaterials)
                 {
-                    Material parent = keyValue.Key;
+                    IMaterial parent = keyValue.Key;
 
                     parent.Load();
 
@@ -369,11 +367,11 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             if (incomingLot.HoldCount > 0)
             {
-                incomingLot.LoadRelations(Cmf.Navigo.Common.Constants.MaterialHoldReason);
+                incomingLot.LoadRelations(Navigo.Common.Constants.MaterialHoldReason);
                 incomingLotHoldReasons.AddRange(incomingLot.MaterialHoldReasons);
                 incomingLot.Release(incomingLotHoldReasons, false);
 
-                MaterialHoldReason outOfSpecHoldReason = incomingLotHoldReasons.FirstOrDefault(incomingLotHoldReason => incomingLotHoldReason.TargetEntity.Name.Equals(outOfSpecName, StringComparison.InvariantCulture));
+                IMaterialHoldReason outOfSpecHoldReason = incomingLotHoldReasons.FirstOrDefault(incomingLotHoldReason => incomingLotHoldReason.TargetEntity.Name.Equals(outOfSpecName, StringComparison.InvariantCulture));
 
                 if (outOfSpecHoldReason != null)
                 {
@@ -383,22 +381,22 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             incomingLot.LoadAttributes();
 
-            AttributeCollection lotAttributes = AMSOsramUtilities.GetMaterialAttributesFromXML(incomingLotAttributes, materialData.MaterialAttributes);
+            IAttributeCollection lotAttributes = amsOSRAMUtilities.GetMaterialAttributesFromXML(incomingLotAttributes, materialData.MaterialAttributes);
 
             if (lotAttributes != null && lotAttributes.Any())
             {
                 incomingLot.SaveAttributes(lotAttributes);
             }
 
-            Dictionary<string, AttributeCollection> wafersAttributes = new Dictionary<string, AttributeCollection>();
+            Dictionary<string, IAttributeCollection> wafersAttributes = new Dictionary<string, IAttributeCollection>();
 
             Dictionary<string, Dictionary<string, object>> wafersEDCData = new Dictionary<string, Dictionary<string, object>>();
 
             foreach (MaterialData wafer in materialData.Wafers)
             {
-                AttributeCollection waferAttributes = AMSOsramUtilities.GetMaterialAttributesFromXML(incomingLotAttributes, wafer.MaterialAttributes);
+                IAttributeCollection waferAttributes = amsOSRAMUtilities.GetMaterialAttributesFromXML(incomingLotAttributes, wafer.MaterialAttributes);
 
-                Dictionary<string, object> waferEDCData = AMSOsramUtilities.GetMaterialEDCDataFromXML(wafer.MaterialEDCData);
+                Dictionary<string, object> waferEDCData = amsOSRAMUtilities.GetMaterialEDCDataFromXML(wafer.MaterialEDCData);
 
                 wafersAttributes.Add(wafer.Name, waferAttributes);
 
@@ -411,27 +409,24 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             if (!string.IsNullOrEmpty(certificateDataCollectionName))
             {
-                certificateDataCollection = new DataCollection
-                {
-                    Name = certificateDataCollectionName
-                };
+                
+                certificateDataCollection = entityFactory.Create<IDataCollection>();
+                certificateDataCollection.Name = certificateDataCollectionName;
 
                 certificateDataCollection.Load();
 
                 if (!string.IsNullOrEmpty(certificateLimitSetName))
                 {
-                    certificateLimitSet = new DataCollectionLimitSet()
-                    {
-                        Name = certificateLimitSetName
-                    };
+                    certificateLimitSet = entityFactory.Create<IDataCollectionLimitSet>();
+                    certificateLimitSet.Name = certificateLimitSetName;
 
                     certificateLimitSet.Load();
                 }
             }
 
-            foreach (Material wafer in wafers)
+            foreach (IMaterial wafer in wafers)
             {
-                AttributeCollection waferAttributes = wafersAttributes[wafer.Name];
+                IAttributeCollection waferAttributes = wafersAttributes[wafer.Name];
 
                 if (waferAttributes != null && waferAttributes.Any())
                 {
@@ -445,9 +440,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                     // In this case we do not want to report the EDC data to SPACE
                     ApplicationContext.CallContext.SetInformationContext("ReportEDCToSpace", false);
 
-                    DataCollectionInstance certificateDataCollectionInstance = AMSOsramUtilities.PerformCertificateDataCollection(wafer, certificateDataCollection, certificateLimitSet, certificateDataCollectionType, waferEDCData);
+                    IDataCollectionInstance certificateDataCollectionInstance = amsOSRAMUtilities.PerformCertificateDataCollection(wafer, certificateDataCollection, certificateLimitSet, certificateDataCollectionType, waferEDCData);
 
-                    if (certificateLimitSet != null && AMSOsramUtilities.IsDataCollectionLimiSetViolated(certificateDataCollectionInstance))
+                    if (certificateLimitSet != null && amsOSRAMUtilities.IsDataCollectionLimiSetViolated(certificateDataCollectionInstance))
                     {
                         isOutOfSpec = true;
                     }
@@ -456,17 +451,15 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
 
             if (isOutOfSpec)
             {
-                Reason outOfSpecReason = new Reason()
-                {
-                    Name = outOfSpecName
-                };
+                IReason outOfSpecReason = entityFactory.Create<IReason>();
+                outOfSpecReason.Name = outOfSpecName;
                 outOfSpecReason.Load();
 
-                incomingLotHoldReasons.Add(new MaterialHoldReason()
-                {
-                    SourceEntity = incomingLot,
-                    TargetEntity = outOfSpecReason
-                });
+                IMaterialHoldReason materialHoldReason = entityFactory.Create<IMaterialHoldReason>();
+                materialHoldReason.SourceEntity = incomingLot;
+                materialHoldReason.TargetEntity = outOfSpecReason;
+
+                incomingLotHoldReasons.Add(materialHoldReason);
             }
 
             if (incomingLotHoldReasons != null && incomingLotHoldReasons.Any())
@@ -475,15 +468,15 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
             }
 
             // Create Sub Materials
-            void CreateSubMaterialsObject(Material parentMaterial, List<MaterialData> incomingWafers, List<Product> currentProducts = null)
+            void CreateSubMaterialsObject(IMaterial parentMaterial, List<MaterialData> incomingWafers, List<IProduct> currentProducts = null)
             {
-                List<Product> productList = currentProducts;
+                List<IProduct> productList = currentProducts;
 
                 if (parentMaterial != null && incomingWafers != null && incomingWafers.Any())
                 {
                     if (productList is null)
                     {
-                        productList = new List<Product>();
+                        productList = new List<IProduct>();
                     }
 
                     if (!productList.Any(p => p.Name.Equals(parentMaterial.Product.Name, StringComparison.InvariantCultureIgnoreCase)))
@@ -491,18 +484,16 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                         productList.Add(parentMaterial.Product);
                     }
 
-                    MaterialCollection subMaterials = new MaterialCollection();
+                    IMaterialCollection subMaterials = entityFactory.CreateCollection<IMaterialCollection>();
 
                     foreach (MaterialData wafer in incomingWafers)
                     {
-                        Product product = productList.FirstOrDefault(p => p.Name.Equals(wafer.Product, StringComparison.InvariantCultureIgnoreCase));
+                        IProduct product = productList.FirstOrDefault(p => p.Name.Equals(wafer.Product, StringComparison.InvariantCultureIgnoreCase));
 
                         if (product is null)
                         {
-                            product = new Product()
-                            {
-                                Name = wafer.Product
-                            };
+                            product = entityFactory.Create<IProduct>();
+                            product.Name = wafer.Product;
 
                             if (!product.ObjectExists())
                             {
@@ -514,44 +505,42 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                             productList.Add(product);
                         }
 
-                        ParameterSourceCollection productParameters = product.GetProductParameters();
+                        IParameterSourceCollection productParameters = product.GetProductParameters();
 
-                        ParameterSource localWaferSizeParameter = null;
+                        IParameterSource localWaferSizeParameter = null;
 
                         if (productParameters != null && productParameters.Any())
                         {
-                            localWaferSizeParameter = productParameters.FirstOrDefault(productParameter => productParameter.Parameter.Name.Equals(AMSOsramConstants.CustomParameterWaferQuantity, StringComparison.InvariantCultureIgnoreCase));
+                            localWaferSizeParameter = productParameters.FirstOrDefault(productParameter => productParameter.Parameter.Name.Equals(amsOSRAMConstants.CustomParameterWaferQuantity, StringComparison.InvariantCultureIgnoreCase));
                         }
 
                         if (localWaferSizeParameter == null)
                         {
-                            AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomUpdateMaterialProductWaferSizeMissing, product.Name);
+                            amsOSRAMUtilities.ThrowLocalizedException(amsOSRAMConstants.LocalizedMessageCustomUpdateMaterialProductWaferSizeMissing, product.Name);
                         }
 
                         if (!decimal.TryParse(wafer.PrimaryQuantity, out decimal waferPrimaryQuantity))
                         {
-                            AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomInvalidPrimaryQuantity, wafer.Name);
+                            amsOSRAMUtilities.ThrowLocalizedException(amsOSRAMConstants.LocalizedMessageCustomInvalidPrimaryQuantity, wafer.Name);
                         }
 
                         if (string.IsNullOrWhiteSpace(wafer.PrimaryUnit))
                         {
-                            AMSOsramUtilities.ThrowLocalizedException(AMSOsramConstants.LocalizedMessageCustomPrimaryUnitObjectNull, wafer.Name);
+                            amsOSRAMUtilities.ThrowLocalizedException(amsOSRAMConstants.LocalizedMessageCustomPrimaryUnitObjectNull, wafer.Name);
                         }
 
-                        Material material = new Material()
-                        {
-                            Name = wafer.Name,
-                            Product = product,
-                            Facility = parentMaterial.Facility,
-                            PrimaryQuantity = waferPrimaryQuantity,
-                            PrimaryUnits = wafer.PrimaryUnit,
-                            Form = wafer.Form,
-                            Type = string.IsNullOrWhiteSpace(wafer.Type) ? parentMaterial.Type : wafer.Type
-                        };
+                        IMaterial material = entityFactory.Create<IMaterial>();
+                        material.Name = wafer.Name;
+                        material.Product = product;
+                        material.Facility = parentMaterial.Facility;
+                        material.PrimaryQuantity = waferPrimaryQuantity;
+                        material.PrimaryUnits = wafer.PrimaryUnit;
+                        material.Form = wafer.Form;
+                        material.Type = string.IsNullOrWhiteSpace(wafer.Type) ? parentMaterial.Type : wafer.Type;
 
                         if (!string.IsNullOrWhiteSpace(wafer.StateModel))
                         {
-                            StateModel stateModel = new StateModel()
+                            IStateModel stateModel = new StateModel()
                             {
                                 Name = wafer.StateModel
                             };
@@ -559,10 +548,15 @@ namespace Cmf.Custom.AMSOsram.Actions.Integrations
                             if (stateModel.ObjectExists())
                             {
                                 stateModel.Load();
-                                StateModelState stateModelState = new StateModelState();
+                                IStateModelState stateModelState = entityFactory.Create<IStateModelState>();
                                 stateModelState.Load(wafer.State, stateModel);
 
-                                material.CurrentMainState = new CurrentEntityState(material, stateModel, stateModelState);
+                                ICurrentEntityState currentEntityState = entityFactory.Create<ICurrentEntityState>();
+                                currentEntityState.Entity = material;
+                                currentEntityState.StateModel = stateModel;
+                                currentEntityState.CurrentState = stateModelState;
+
+                                material.CurrentMainState = currentEntityState;
                             }
                         }
 

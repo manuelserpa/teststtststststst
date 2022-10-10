@@ -2,7 +2,6 @@
 using System.Data;
 using System.IO;
 using System.Xml;
-using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
@@ -30,19 +29,19 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             {
                 new Filter()
                 {
-                    Name = AMSOsramConstants.SourceSystem,
-                    Value = string.IsNullOrWhiteSpace(sourceSystem)?AMSOsramConstants.SourceSystem_OntoFDC:sourceSystem,
+                    Name = amsOSRAMConstants.SourceSystem,
+                    Value = string.IsNullOrWhiteSpace(sourceSystem)?amsOSRAMConstants.SourceSystem_OntoFDC:sourceSystem,
                     LogicalOperator = Foundation.Common.LogicalOperator.AND
                 },
                 new Filter()
                 {
-                    Name = AMSOsramConstants.TargetSystem,
-                    Value = string.IsNullOrWhiteSpace(targetSystem)?AMSOsramConstants.TargetSystem_OntoFDC: targetSystem,
+                    Name = amsOSRAMConstants.TargetSystem,
+                    Value = string.IsNullOrWhiteSpace(targetSystem)?amsOSRAMConstants.TargetSystem_OntoFDC: targetSystem,
                     LogicalOperator = Foundation.Common.LogicalOperator.AND
                 },
                 new Filter()
                 {
-                    Name = AMSOsramConstants.MessageType,
+                    Name = amsOSRAMConstants.MessageType,
                     Value = messageType,
                     LogicalOperator = Foundation.Common.LogicalOperator.AND
                 },

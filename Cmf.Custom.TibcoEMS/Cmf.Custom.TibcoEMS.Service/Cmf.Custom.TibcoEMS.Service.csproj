@@ -22,6 +22,12 @@
       <Reference Include="Cmf.LightBusinessObjects">
         <HintPath>..\..\Libs\LBOs\NetStandard\Cmf.LightBusinessObjects.dll</HintPath>
       </Reference>
+      <Reference Include="Cmf.LoadBalancing">
+        <HintPath>..\..\Libs\LBOs\NetStandard\Libs\Cmf.LoadBalancing.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Net.Http.Formatting">
+        <HintPath>..\..\Libs\LBOs\NetStandard\Libs\System.Net.Http.Formatting.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
     <ItemGroup>

@@ -63,7 +63,7 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
 
             for (int i = 0; i < generatedNames.Count; i++)
             {
-                string lotName = LotNameGeneratorScenario(AMSOsramConstants.FormLot, AMSOsramConstants.DefaultTestProductName);
+                string lotName = LotNameGeneratorScenario(amsOSRAMConstants.FormLot, amsOSRAMConstants.DefaultTestProductName);
                 string expectedLotName = string.Format("{0}{1}00", siteFacilityPrefix, generatedNames[i]);
                 Assert.AreEqual(expectedLotName, lotName, $"Lot name doesn't not match with the expected name: {expectedLotName}.");
             };
@@ -82,20 +82,20 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
         [TestMethod]
         public void CustomGenerateProductionLotNames_CreateProductionLot_ThrowAnErrorWhenAllowedDigitsConfigurationDoesNotExist()
         {
-            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageConfigMissingValue,
-                                                                                AMSOsramConstants.DefaultLotNameAllowedCharacters);
+            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(amsOSRAMConstants.LocalizedMessageConfigMissingValue,
+                                                                                amsOSRAMConstants.DefaultLotNameAllowedCharacters);
 
 
-            string configValue = ConfigUtilities.GetConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters) as string;
+            string configValue = ConfigUtilities.GetConfigValue(amsOSRAMConstants.DefaultLotNameAllowedCharacters) as string;
 
             try
             {
-                ConfigUtilities.RemoveConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters);
+                ConfigUtilities.RemoveConfigValue(amsOSRAMConstants.DefaultLotNameAllowedCharacters);
 
-                Assert.IsTrue(string.IsNullOrWhiteSpace(ConfigUtilities.GetConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters) as string),
+                Assert.IsTrue(string.IsNullOrWhiteSpace(ConfigUtilities.GetConfigValue(amsOSRAMConstants.DefaultLotNameAllowedCharacters) as string),
                               "The Config should be an empty value.");
 
-                this.LotNameGeneratorScenario(AMSOsramConstants.FormLot, AMSOsramConstants.DefaultTestProductWithoutProductionLineName);
+                this.LotNameGeneratorScenario(amsOSRAMConstants.FormLot, amsOSRAMConstants.DefaultTestProductWithoutProductionLineName);
             }
             catch (Exception ex)
             {
@@ -105,7 +105,7 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
             finally
             {
                 // Rollback to the original Config value
-                ConfigUtilities.SetConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters, configValue);
+                ConfigUtilities.SetConfigValue(amsOSRAMConstants.DefaultLotNameAllowedCharacters, configValue);
             }
         }
 
@@ -124,12 +124,12 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
         [TestMethod]
         public void CustomGenerateProductionLotNames_CreateProductionLot_ThrowAnErrorWhenProductionLineAttributeWithoutValue()
         {
-            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageProductionLineAttributeWithoutValue,
-                                                                                AMSOsramConstants.DefaultTestProductWithoutProductionLineName);
+            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(amsOSRAMConstants.LocalizedMessageProductionLineAttributeWithoutValue,
+                                                                                amsOSRAMConstants.DefaultTestProductWithoutProductionLineName);
 
             try
             {
-                this.LotNameGeneratorScenario(AMSOsramConstants.FormLot, AMSOsramConstants.DefaultTestProductWithoutProductionLineName);
+                this.LotNameGeneratorScenario(amsOSRAMConstants.FormLot, amsOSRAMConstants.DefaultTestProductWithoutProductionLineName);
             }
             catch (Exception ex)
             {
@@ -153,13 +153,13 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
         [TestMethod]
         public void CustomGenerateProductionLotNames_CreateProductionLot_ThrowAnErrorWhenProductionLineIsNotConfigutedOnGT()
         {
-            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(AMSOsramConstants.LocalizedMessageGTWihtoutDataForSpecificProductionLine,
-                                                                                AMSOsramConstants.GenericTableCustomProductionLineConversion,
+            string localizedMessage = CustomUtilities.GetLocalizedMessageByName(amsOSRAMConstants.LocalizedMessageGTWihtoutDataForSpecificProductionLine,
+                                                                                amsOSRAMConstants.GenericTableCustomProductionLineConversion,
                                                                                 productionLineName);
 
             try
             {
-                this.LotNameGeneratorScenario(AMSOsramConstants.FormLot, AMSOsramConstants.DefaultTestProductGTWithoutProductionLineName);
+                this.LotNameGeneratorScenario(amsOSRAMConstants.FormLot, amsOSRAMConstants.DefaultTestProductGTWithoutProductionLineName);
             }
             catch (Exception ex)
             {
@@ -179,7 +179,7 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
 
             GeneratorContext context = new LoadNameGeneratorContextsInput()
             {
-                NameGenerator = GenericGetsScenario.GetObjectByName<NameGenerator>(AMSOsramConstants.CustomGenerateProductionLotNames)
+                NameGenerator = GenericGetsScenario.GetObjectByName<NameGenerator>(amsOSRAMConstants.CustomGenerateProductionLotNames)
             }.LoadNameGeneratorContextsSync().NameGenerator?.Contexts.LastOrDefault(c => c.Context == siteFacilityPrefix);
 
             int lastCounterValue = 0;
@@ -189,7 +189,7 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
                 lastCounterValue = context.LastCounterValue;
             }
 
-            string lotNameAllowedCharacters = ConfigUtilities.GetConfigValue(AMSOsramConstants.DefaultLotNameAllowedCharacters) as string;
+            string lotNameAllowedCharacters = ConfigUtilities.GetConfigValue(amsOSRAMConstants.DefaultLotNameAllowedCharacters) as string;
             int currentCounter = lastCounterValue;
             int allowedCharactersSize = lotNameAllowedCharacters.Length;
 
@@ -234,12 +234,12 @@ namespace Cmf.Custom.Tests.Biz.NameGenerators
             Material material = new Material()
             {
                 Name = null,
-                Facility = GenericGetsScenario.GetObjectByName<Facility>(AMSOsramConstants.DefaultFacilityName),
+                Facility = GenericGetsScenario.GetObjectByName<Facility>(amsOSRAMConstants.DefaultFacilityName),
                 Product = GenericGetsScenario.GetObjectByName<Product>(productName),
-                Type = AMSOsramConstants.MaterialTypeProduction,
+                Type = amsOSRAMConstants.MaterialTypeProduction,
                 FlowPath = new GetCorrelationIdFlowPathInput
                 {
-                    SequenceFlowPath = AMSOsramConstants.DefaultTestFlowPath
+                    SequenceFlowPath = amsOSRAMConstants.DefaultTestFlowPath
                 }.GetCorrelationIdFlowPathSync().CorrelationIdFlowPath,
                 Form = materialForm,
                 PrimaryQuantity = 10,

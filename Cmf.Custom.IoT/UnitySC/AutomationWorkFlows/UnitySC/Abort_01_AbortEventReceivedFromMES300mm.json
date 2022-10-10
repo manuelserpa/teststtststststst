@@ -6,7 +6,7 @@
         "name": "systemActionGroupEvent",
         "package": {
           "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-          "version": "8.3.3-202201212"
+          "version": "9.1.0-202209072"
         }
       },
       "settings": {
@@ -22,7 +22,7 @@
         "name": "deleteMaterialOnPersistence",
         "package": {
           "name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-          "version": "1.0.0"
+          "version": "2.0.0"
         }
       },
       "settings": {
@@ -36,7 +36,7 @@
         "name": "workflow",
         "package": {
           "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-          "version": "8.3.3-202201212"
+          "version": "9.1.0-202209072"
         }
       },
       "settings": {
@@ -85,7 +85,7 @@
         "name": "anyToAny",
         "package": {
           "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-          "version": "8.3.3-202201212"
+          "version": "9.1.0-202209072"
         }
       }
     },
@@ -95,7 +95,7 @@
         "name": "objectProperty",
         "package": {
           "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-          "version": "8.3.3-202201212"
+          "version": "9.1.0-202209072"
         }
       }
     }

@@ -1,21 +1,13 @@
 ﻿using Cmf.Custom.Tests.Biz.Common.Scenarios;
 using Cmf.Navigo.BusinessObjects;
-using Cmf.TestScenarios.Others;
-using AMSOsramEIAutomaticTests.Objects.TestUtilities;
-using System.Collections.Generic;
+using amsOSRAMEIAutomaticTests.Objects.TestUtilities;
 using System.Linq;
-using cmConnect.TestFramework.SystemRest.Utilities;
-using Cmf.Navigo.BusinessOrchestration.DispatchManagement.InputObjects;
-using AMSOsramEIAutomaticTests.Objects.Utilities;
+using amsOSRAMEIAutomaticTests.Objects.Utilities;
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AMSOsramEIAutomaticTests.Objects;
-using AMSOsramEIAutomaticTests.Objects.Extensions;
-using Cmf.Foundation.Common.Base;
-using System.Collections.ObjectModel;
+using amsOSRAMEIAutomaticTests.Objects.Extensions;
 using Cmf.Custom.TestUtilities;
 
-namespace AMSOsramEIAutomaticTests.MESObjects
+namespace amsOSRAMEIAutomaticTests.MESObjects
 {
     public class ExecutionScenario : BaseCustomScenario
     {

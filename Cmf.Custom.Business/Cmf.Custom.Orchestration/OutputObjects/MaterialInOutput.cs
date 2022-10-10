@@ -1,8 +1,8 @@
 ﻿using Cmf.Foundation.BusinessOrchestration;
-using Cmf.Navigo.BusinessObjects;
 using System.Runtime.Serialization;
+using Cmf.Navigo.BusinessObjects.Abstractions;
 
-namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
+namespace Cmf.Custom.amsOSRAM.Orchestration.OutputObjects
 {
     /// <summary>
     /// Output Object for MaterialIn Service
@@ -16,7 +16,7 @@ namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
         /// Material
         /// </summary>
         [DataMember(Name = "Material", Order = 0)]
-        public Material Material { get; set; }
+        public IMaterial Material { get; set; }
 
         #endregion
     }

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Cmf.Custom.AMSOsram.Common;
+using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
+using Cmf.Foundation.Common.Abstractions;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Cmf.Custom.AMSOsram.Actions.Resources
+namespace Cmf.Custom.amsOSRAM.Actions.Resources
 {
     public class CustomSendResourceNotification : DeeDevBase
     {
@@ -13,28 +14,11 @@ namespace Cmf.Custom.AMSOsram.Actions.Resources
         {
             //---Start DEE Code---
 
-            // Foundation
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
-            UseReference("", "Cmf.Foundation.Common");
-            // Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-            UseReference("Cmf.Navigo.Common.dll", "Cmf.Navigo.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
 
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-
-            Resource resource = new Resource();
-
-
-            if (!Input.ContainsKey(Cmf.Navigo.Common.Constants.Resource))
+            if (!Input.ContainsKey(Navigo.Common.Constants.Resource))
             {
-                throw new ArgumentNullCmfException(Cmf.Navigo.Common.Constants.Resource);
-            }
-            else
-            {
-                resource.Name = Input[Cmf.Navigo.Common.Constants.Resource] as string;
-                resource.Load();
+                throw new ArgumentNullCmfException(Navigo.Common.Constants.Resource);
             }
 
             if (!Input.ContainsKey("EquipmentTypeError"))
@@ -42,9 +26,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Resources
                 throw new ArgumentNullCmfException("EquipmentTypeError");
             }
 
-            if (!Input.ContainsKey(AMSOsramConstants.smartTablePropertySeverity))
+            if (!Input.ContainsKey(amsOSRAMConstants.smartTablePropertySeverity))
             {
-                throw new ArgumentNullCmfException(AMSOsramConstants.smartTablePropertySeverity);
+                throw new ArgumentNullCmfException(amsOSRAMConstants.smartTablePropertySeverity);
             }
 
             if (!Input.ContainsKey("Message"))
@@ -52,19 +36,27 @@ namespace Cmf.Custom.AMSOsram.Actions.Resources
                 throw new ArgumentNullCmfException("Message");
             }
 
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
+            IResource resource = entityFactory.Create<IResource>();
+            resource.Name = Input[Navigo.Common.Constants.Resource] as string;
+            resource.Load();
+
             List<KeyValuePair<string, object>> deeInput = new List<KeyValuePair<string, object>>();
 
-            deeInput.Add(new KeyValuePair<string, object>(Cmf.Navigo.Common.Constants.Resource, resource.Name));
-            deeInput.Add(new KeyValuePair<string, object>(AMSOsramConstants.smartTablePropertyNotificationTrigger, Input["EquipmentTypeError"] as string));
-            deeInput.Add(new KeyValuePair<string, object>(AMSOsramConstants.smartTablePropertyNotificationBodyMessage, Input["Message"] as string));
+            deeInput.Add(new KeyValuePair<string, object>(Navigo.Common.Constants.Resource, resource.Name));
+            deeInput.Add(new KeyValuePair<string, object>(amsOSRAMConstants.smartTablePropertyNotificationTrigger, Input["EquipmentTypeError"] as string));
+            deeInput.Add(new KeyValuePair<string, object>(amsOSRAMConstants.smartTablePropertyNotificationBodyMessage, Input["Message"] as string));
             deeInput.Add(new KeyValuePair<string, object>("ActionGroupName", "IoTRequest"));
 
-            Cmf.Foundation.Common.DynamicExecutionEngine.Action.ExecuteAction(
+            Foundation.Common.DynamicExecutionEngine.Action.ExecuteAction(
                 "CustomResourceNotificationControlCenter",
                 deeInput.ToArray()
                 );
 
-            //Cmf.Custom.AMSOsram.Common.AMSOsramUtilities.SendNotification(Input["Resource"].ToString(), Input["EquipmentTypeError"].ToString(), Input["Severity"].ToString(), Input["Message"].ToString(), notificationType);
+            //Cmf.Custom.amsOSRAM.Common.amsOSRAMUtilities.SendNotification(Input["Resource"].ToString(), Input["EquipmentTypeError"].ToString(), Input["Severity"].ToString(), Input["Message"].ToString(), notificationType);
 
             //---End DEE Code---
 

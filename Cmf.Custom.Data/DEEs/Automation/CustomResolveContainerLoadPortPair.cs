@@ -1,13 +1,12 @@
-﻿using Cmf.Custom.AMSOsram.Actions;
-using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
+﻿using Cmf.Foundation.Common;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Foundation.Common.Abstractions;
+using Cmf.Navigo.BusinessObjects;
 
-namespace Cmf.Custom.AMSOsram.Actions.Automation
+namespace Cmf.Custom.amsOSRAM.Actions.Automation
 {
     class CustomResolveContainerLoadPortPair : DeeDevBase
     {
@@ -46,14 +45,10 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
         {
             //---Start DEE Code--- 
 
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
-            UseReference("", "Cmf.Foundation.Common");
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-            UseReference("", "Cmf.Custom.AMSOsram.Common.Extensions");
-            UseReference("Cmf.Custom.AMSOsram.Orchestration.dll", "Cmf.Custom.AMSOsram.Orchestration.InputObjects");
+            // Custom
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+
+            // Newtonsoft
             UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
 
             if (!Input.ContainsKey("ArrayContainersToResolve"))
@@ -61,7 +56,11 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
                 throw new CmfBaseException("Not a valid ArrayContainersToResolve Input!");
             }
 
-            var arrayToResolve = new string[] { };
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
+            string[] arrayToResolve = new string[] { };
 
             if (Input["ArrayContainersToResolve"] is Newtonsoft.Json.Linq.JArray)
             {
@@ -74,33 +73,28 @@ namespace Cmf.Custom.AMSOsram.Actions.Automation
 
             Dictionary<int, string> containersResolved = new Dictionary<int, string>();
 
-            foreach (var containerName in arrayToResolve)
+            foreach (string containerName in arrayToResolve)
             {
-                Container container = new Container() { Name = containerName };
-
+                IContainer container = entityFactory.Create<IContainer>();
+                container.Name = containerName;
 
                 if (!container.ObjectExists())
                 {
                     throw new ObjectNotFoundCmfException(Navigo.Common.Constants.Container, container.Name);
                 }
-                else
-                {
-                    container.Load();
-                }
+                
+                container.Load();
 
-                container.LoadRelations(Cmf.Navigo.Common.Constants.ContainerResource);
+                container.LoadRelations(Navigo.Common.Constants.ContainerResource);
 
-                foreach (ContainerResource containerResource in container.ContainerResourceRelations)
+                foreach (IContainerResource containerResource in container.ContainerResourceRelations)
                 {
                     if (containerResource.SourceEntity.ResourceAssociationType == ContainerResourceAssociationType.DockedContainer)
                         containersResolved.Add(containerResource.TargetEntity.DisplayOrder ?? -1, containerName);
                 }
             }
 
-            Console.WriteLine(containersResolved.ToJsonString());
-
             Input.Add("ContainerResolved", containersResolved);
-
 
             //---End DEE Code---
 

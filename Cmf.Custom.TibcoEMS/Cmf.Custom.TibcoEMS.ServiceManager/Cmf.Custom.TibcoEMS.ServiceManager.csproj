@@ -9,6 +9,7 @@
         <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.0" />
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
         <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+      <PackageReference Include="WebSocket4Net" Version="0.15.2" />
     </ItemGroup>
 
     <ItemGroup>
@@ -16,10 +17,16 @@
         <HintPath>..\..\Libs\LBOs\NetStandard\Cmf.LightBusinessObjects.dll</HintPath>
       </Reference>
       <Reference Include="Cmf.MessageBus.Client">
-        <HintPath>..\..\Libs\LBOs\NetStandard\Cmf.MessageBus.Client.dll</HintPath>
+        <HintPath>..\..\Libs\LBOs\NetStandard\Libs\Cmf.MessageBus.Client.dll</HintPath>
+      </Reference>
+      <Reference Include="Cmf.LoadBalancing">
+        <HintPath>..\..\Libs\LBOs\NetStandard\Libs\Cmf.LoadBalancing.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Net.Http.Formatting">
+        <HintPath>..\..\Libs\LBOs\NetStandard\Libs\System.Net.Http.Formatting.dll</HintPath>
       </Reference>
       <Reference Include="Newtonsoft.Json">
-        <HintPath>..\..\Libs\LBOs\NetStandard\Newtonsoft.Json.dll</HintPath>
+        <HintPath>..\..\Libs\LBOs\NetStandard\Libs\Newtonsoft.Json.dll</HintPath>
       </Reference>
       <Reference Include="TIBCO.EMS">
         <HintPath>..\..\Libs\External\TIBCO.EMS.dll</HintPath>

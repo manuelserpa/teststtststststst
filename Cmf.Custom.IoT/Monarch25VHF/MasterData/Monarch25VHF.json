@@ -2339,7 +2339,7 @@
       "Name": "Monarch25VHFController",
       "Description": "Reference controller for Monarch25 VHF",
       "Type": "General",
-      "ControllerPackageVersion": "8.3.3-202201212",
+      "ControllerPackageVersion": "9.1.0-202209072",
       "ObjectType": "Resource",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\",\"connect-iot-controller-engine-secsgem-tasks\"]",
       "Scope": "ConnectIoT"
@@ -2367,7 +2367,7 @@
       "Name": "Setup",
       "DisplayName": "Setup",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\Setup.json",
+      "Workflow": "Monarch25VHF/Setup.json",
       "Order": "1"
     },
     "2": {
@@ -2375,7 +2375,7 @@
       "Name": "Setup_RFIDReader",
       "DisplayName": "Setup_RFIDReader",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\Setup_RFIDReader.json",
+      "Workflow": "Monarch25VHF/Setup_RFIDReader.json",
       "Order": "2"
     },
     "3": {
@@ -2383,7 +2383,7 @@
       "Name": "MaterialReceived_01_MaterialReceivedCarrierIdReadRequest",
       "DisplayName": "MaterialReceived_01_MaterialReceivedCarrierIdReadRequest",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\MaterialReceived_01_MaterialReceivedCarrierIdReadRequest.json",
+      "Workflow": "Monarch25VHF/MaterialReceived_01_MaterialReceivedCarrierIdReadRequest.json",
       "Order": "3"
     },
     "4": {
@@ -2391,7 +2391,7 @@
       "Name": "ReadyToLoad_01_EventReceived",
       "DisplayName": "ReadyToLoad_01_EventReceived",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\ReadyToLoad_01_EventReceived.json",
+      "Workflow": "Monarch25VHF/ReadyToLoad_01_EventReceived.json",
       "Order": "4"
     },
     "5": {
@@ -2399,7 +2399,7 @@
       "Name": "SlotMap_01_SlotMapReceived",
       "DisplayName": "SlotMap_01_SlotMapReceived",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\SlotMap_01_SlotMapReceived.json",
+      "Workflow": "Monarch25VHF/SlotMap_01_SlotMapReceived.json",
       "Order": "5"
     },
     "6": {
@@ -2407,7 +2407,7 @@
       "Name": "ReadyToUnload_01_EventReceived",
       "DisplayName": "ReadyToUnload_01_EventReceived",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\ReadyToUnload_01_EventReceived.json",
+      "Workflow": "Monarch25VHF/ReadyToUnload_01_EventReceived.json",
       "Order": "6"
     },
     "7": {
@@ -2415,7 +2415,7 @@
       "Name": "MaterialRemoved_01_MaterialRemovedEvent",
       "DisplayName": "MaterialRemoved_01_MaterialRemovedEvent",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\MaterialRemoved_01_MaterialRemovedEvent.json",
+      "Workflow": "Monarch25VHF/MaterialRemoved_01_MaterialRemovedEvent.json",
       "Order": "7"
     },
     "8": {
@@ -2423,7 +2423,7 @@
       "Name": "TrackIn_01_TrackInRequestReceived",
       "DisplayName": "TrackIn_01_TrackInRequestReceived",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\TrackIn_01_TrackInRequestReceived.json",
+      "Workflow": "Monarch25VHF/TrackIn_01_TrackInRequestReceived.json",
       "Order": "8"
     },
     "9": {
@@ -2431,7 +2431,7 @@
       "Name": "PostTrackIn_01_ExecuteStart",
       "DisplayName": "PostTrackIn_01_ExecuteStart",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\PostTrackIn_01_ExecuteStart.json",
+      "Workflow": "Monarch25VHF/PostTrackIn_01_ExecuteStart.json",
       "Order": "9"
     },
     "10": {
@@ -2439,7 +2439,7 @@
       "Name": "ProcessStarted_01_EventTosProcessStartedReceived",
       "DisplayName": "ProcessStarted_01_EventTosProcessStartedReceived",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\ProcessStarted_01_EventTosProcessStartedReceived.json",
+      "Workflow": "Monarch25VHF/ProcessStarted_01_EventTosProcessStartedReceived.json",
       "Order": "10"
     },
     "11": {
@@ -2447,7 +2447,7 @@
       "Name": "WaferStart_01_EventWaferStarted",
       "DisplayName": "WaferStart_01_EventWaferStarted",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\WaferStart_01_EventWaferStarted.json",
+      "Workflow": "Monarch25VHF/WaferStart_01_EventWaferStarted.json",
       "Order": "11"
     },
     "12": {
@@ -2455,7 +2455,7 @@
       "Name": "WaferComplete_01_EventWaferCompleted",
       "DisplayName": "WaferComplete_01_EventWaferCompleted",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\WaferComplete_01_EventWaferCompleted.json",
+      "Workflow": "Monarch25VHF/WaferComplete_01_EventWaferCompleted.json",
       "Order": "12"
     },
     "13": {
@@ -2463,7 +2463,7 @@
       "Name": "ProcessCompleted_01_EventProcessCompletedReceived",
       "DisplayName": "ProcessCompleted_01_EventProcessCompletedReceived",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\ProcessCompleted_01_EventProcessCompletedReceived.json",
+      "Workflow": "Monarch25VHF/ProcessCompleted_01_EventProcessCompletedReceived.json",
       "Order": "13"
     },
     "14": {
@@ -2471,7 +2471,7 @@
       "Name": "TrackOut_01_TrackOutEventReceivedFromMES",
       "DisplayName": "TrackOut_01_TrackOutEventReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\TrackOut_01_TrackOutEventReceivedFromMES.json",
+      "Workflow": "Monarch25VHF/TrackOut_01_TrackOutEventReceivedFromMES.json",
       "Order": "14"
     },
     "15": {
@@ -2479,7 +2479,7 @@
       "Name": "Abort_01_AbortEventReceivedFromMES",
       "DisplayName": "Abort_01_AbortEventReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\Abort_01_AbortEventReceivedFromMES.json",
+      "Workflow": "Monarch25VHF/Abort_01_AbortEventReceivedFromMES.json",
       "Order": "15"
     },
     "16": {
@@ -2487,7 +2487,7 @@
       "Name": "Hold_01_HoldEventReceivedFromMES",
       "DisplayName": "Hold_01_HoldEventReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\Hold_01_HoldEventReceivedFromMES.json",
+      "Workflow": "Monarch25VHF/Hold_01_HoldEventReceivedFromMES.json",
       "Order": "16"
     },
     "17": {
@@ -2495,7 +2495,7 @@
       "Name": "AlarmManagement_01_AlarmCollection",
       "DisplayName": "AlarmManagement_01_AlarmCollection",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\AlarmManagement_01_AlarmCollection.json",
+      "Workflow": "Monarch25VHF/AlarmManagement_01_AlarmCollection.json",
       "Order": "17"
     },
     "18": {
@@ -2503,7 +2503,7 @@
       "Name": "RecipeManagement_01_GetRecipeList",
       "DisplayName": "RecipeManagement_01_GetRecipeList",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\RecipeManagement_01_GetRecipeList.json",
+      "Workflow": "Monarch25VHF/RecipeManagement_01_GetRecipeList.json",
       "Order": "18"
     },
     "19": {
@@ -2511,7 +2511,7 @@
       "Name": "RecipeManagement_02_GetRecipeBody",
       "DisplayName": "RecipeManagement_02_GetRecipeBody",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\RecipeManagement_02_GetRecipeBody.json",
+      "Workflow": "Monarch25VHF/RecipeManagement_02_GetRecipeBody.json",
       "Order": "19"
     },
     "20": {
@@ -2519,7 +2519,7 @@
       "Name": "RecipeManagement_03_SetRecipeBody",
       "DisplayName": "RecipeManagement_03_SetRecipeBody",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\RecipeManagement_03_SetRecipeBody.json",
+      "Workflow": "Monarch25VHF/RecipeManagement_03_SetRecipeBody.json",
       "Order": "20"
     },
     "21": {
@@ -2527,7 +2527,7 @@
       "Name": "RecipeManagement_04_GetRecipeChecksum",
       "DisplayName": "RecipeManagement_04_GetRecipeChecksum",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\RecipeManagement_04_GetRecipeChecksum.json",
+      "Workflow": "Monarch25VHF/RecipeManagement_04_GetRecipeChecksum.json",
       "Order": "21"
     },
     "22": {
@@ -2535,7 +2535,7 @@
       "Name": "ResourceState_01_ProcessStateChanged",
       "DisplayName": "ResourceState_01_ProcessStateChanged",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\ResourceState_01_ProcessStateChanged.json",
+      "Workflow": "Monarch25VHF/ResourceState_01_ProcessStateChanged.json",
       "Order": "22"
     },
     "23": {
@@ -2543,7 +2543,7 @@
       "Name": "ResourceEPTState_01_EptStateChangeReceived",
       "DisplayName": "ResourceEPTState_01_EptStateChangeReceived",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\ResourceEPTState_01_EptStateChangeReceived.json",
+      "Workflow": "Monarch25VHF/ResourceEPTState_01_EptStateChangeReceived.json",
       "Order": "23"
     },
     "24": {
@@ -2551,7 +2551,7 @@
       "Name": "ControlState_01_ControlStateUpdateReceived",
       "DisplayName": "ControlState_01_ControlStateUpdateReceived",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\ControlState_01_ControlStateUpdateReceived.json",
+      "Workflow": "Monarch25VHF/ControlState_01_ControlStateUpdateReceived.json",
       "Order": "24"
     },
     "25": {
@@ -2559,7 +2559,7 @@
       "Name": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "DisplayName": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
+      "Workflow": "Monarch25VHF/SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
       "Order": "25"
     },
     "26": {
@@ -2567,7 +2567,7 @@
       "Name": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "DisplayName": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\RecipeValidation_01_UnformattedRecipeMainFlow.json",
+      "Workflow": "Monarch25VHF/RecipeValidation_01_UnformattedRecipeMainFlow.json",
       "Order": "26"
     },
     "27": {
@@ -2575,7 +2575,7 @@
       "Name": "PPSelect_01_ExecuteCommand",
       "DisplayName": "PPSelect_01_ExecuteCommand",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\PPSelect_01_ExecuteCommand.json",
+      "Workflow": "Monarch25VHF/PPSelect_01_ExecuteCommand.json",
       "Order": "27"
     },
     "28": {
@@ -2583,7 +2583,7 @@
       "Name": "StartCommand_01_ExecuteCommand",
       "DisplayName": "StartCommand_01_ExecuteCommand",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\StartCommand_01_ExecuteCommand.json",
+      "Workflow": "Monarch25VHF/StartCommand_01_ExecuteCommand.json",
       "Order": "28"
     },
     "29": {
@@ -2591,7 +2591,7 @@
       "Name": "CassetteLoad_01_ExecuteCommand",
       "DisplayName": "CassetteLoad_01_ExecuteCommand",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\CassetteLoad_01_ExecuteCommand.json",
+      "Workflow": "Monarch25VHF/CassetteLoad_01_ExecuteCommand.json",
       "Order": "29"
     },
     "30": {
@@ -2599,7 +2599,7 @@
       "Name": "CassetteUnload_01_ExecuteCommand",
       "DisplayName": "CassetteUnload_01_ExecuteCommand",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\CassetteUnload_01_ExecuteCommand.json",
+      "Workflow": "Monarch25VHF/CassetteUnload_01_ExecuteCommand.json",
       "Order": "30"
     },
     "31": {
@@ -2607,7 +2607,7 @@
       "Name": "CarrierClamped_01_ExecuteCommand",
       "DisplayName": "CarrierClamped_01_ExecuteCommand",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\CarrierClamped_01_ExecuteCommand.json",
+      "Workflow": "Monarch25VHF/CarrierClamped_01_ExecuteCommand.json",
       "Order": "31"
     },
     "32": {
@@ -2615,7 +2615,7 @@
       "Name": "CarrierUnclamped_01_ExecuteCommand",
       "DisplayName": "CarrierUnclamped_01_ExecuteCommand",
       "IsFile": "Yes",
-      "Workflow": "Monarch25VHF\\CarrierUnclamped_01_ExecuteCommand.json",
+      "Workflow": "Monarch25VHF/CarrierUnclamped_01_ExecuteCommand.json",
       "Order": "32"
     }
   },

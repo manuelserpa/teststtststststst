@@ -1,5 +1,4 @@
-﻿using System;
-using Cmf.Custom.Tests.Biz.Common;
+﻿using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
 using Cmf.Custom.TestUtilities;
 using Cmf.Navigo.BusinessObjects;
@@ -38,11 +37,11 @@ namespace Cmf.Custom.Tests.Biz.Containers
             #region Configurations
 
             // Get original config value for ContainerTypeUndockNotAllowed to restore later
-            originalVendorContainerTypes = (string)ConfigUtilities.GetConfigValue(AMSOsramConstants.DefaultVendorContainerTypesConfig);
+            originalVendorContainerTypes = (string)ConfigUtilities.GetConfigValue(amsOSRAMConstants.DefaultVendorContainerTypesConfig);
 
             // Set configuration with current ContainerType
-            ConfigUtilities.SetConfigValue(AMSOsramConstants.DefaultVendorContainerTypesConfig,
-                $"{ AMSOsramConstants.ContainerPeekCassete },{ materialScenario.ContainerScenario.Entity.Type }");
+            ConfigUtilities.SetConfigValue(amsOSRAMConstants.DefaultVendorContainerTypesConfig,
+                $"{ amsOSRAMConstants.ContainerPeekCassete },{ materialScenario.ContainerScenario.Entity.Type }");
 
             #endregion Configurations
         }
@@ -54,7 +53,7 @@ namespace Cmf.Custom.Tests.Biz.Containers
         public void TestCleanup()
         {
             // Restore ContainerTypeUndockNotAllowed Configuration to original value
-            ConfigUtilities.SetConfigValue(AMSOsramConstants.DefaultVendorContainerTypesConfig, originalVendorContainerTypes);
+            ConfigUtilities.SetConfigValue(amsOSRAMConstants.DefaultVendorContainerTypesConfig, originalVendorContainerTypes);
 
             // ContainerScenario teardown
             if (containerScenario != null)
@@ -73,7 +72,7 @@ namespace Cmf.Custom.Tests.Biz.Containers
 
         /// <summary>
         /// Description:
-        ///     - When a Container which type is not configured at /AMSOsram/Container/ContainerTypeUndockNotAllowed/ is emptied,
+        ///     - When a Container which type is not configured at /amsOSRAM/Container/ContainerTypeUndockNotAllowed/ is emptied,
         ///     then the container should not be terminated (regardless it is docked or not).
         /// </summary>
         /// <TestCaseID>CustomTerminateVendorContainerTest_ContainerTypeNotConfigured</TestCaseID>
@@ -81,7 +80,7 @@ namespace Cmf.Custom.Tests.Biz.Containers
         //public void CustomTerminateVendorContainerTest_ContainerTypeNotConfigured()
         //{
         //    // Clear configuration
-        //    ConfigUtilities.SetConfigValue(AMSOsramConstants.DefaultVendorContainerTypesConfig, string.Empty);
+        //    ConfigUtilities.SetConfigValue(amsOSRAMConstants.DefaultVendorContainerTypesConfig, string.Empty);
 
         //    // Empty container
         //    materialScenario.ContainerScenario.Entity.Empty();
@@ -92,12 +91,12 @@ namespace Cmf.Custom.Tests.Biz.Containers
         //    // Validate that the container was not terminated
         //    Assert.AreNotEqual(Foundation.Common.Base.UniversalState.Terminated, materialScenario.ContainerScenario.Entity.UniversalState,
         //        $"The container { materialScenario.ContainerScenario.Entity.Name } should not have been terminated, since the ContainerType is not " +
-        //        $"configured at { AMSOsramConstants.DefaultVendorContainerTypesConfig }!");
+        //        $"configured at { amsOSRAMConstants.DefaultVendorContainerTypesConfig }!");
         //}
 
         /// <summary>
         /// Description:
-        ///     - When removing all the materials from a container which type is configured at /AMSOsram/Container/ContainerTypeUndockNotAllowed/,
+        ///     - When removing all the materials from a container which type is configured at /amsOSRAM/Container/ContainerTypeUndockNotAllowed/,
         ///     if the container is docked, it should not be terminated.
         /// </summary>
         /// <TestCaseID>CustomTerminateVendorContainerTest_ContainerDockedDisassociateMaterials</TestCaseID>
@@ -139,7 +138,7 @@ namespace Cmf.Custom.Tests.Biz.Containers
 
         /// <summary>
         /// Description:
-        ///     - When  a container which type is configured at /AMSOsram/Container/ContainerTypeUndockNotAllowed/ is emptied,
+        ///     - When  a container which type is configured at /amsOSRAM/Container/ContainerTypeUndockNotAllowed/ is emptied,
         ///     if the container is not docked, then it should be terminated.
         /// </summary>
         /// <TestCaseID>CustomTerminateVendorContainerTest_ContainerUndockedEmptyContainer</TestCaseID>
@@ -159,7 +158,7 @@ namespace Cmf.Custom.Tests.Biz.Containers
 
         /// <summary>
         /// Description:
-        ///     - When removing all the materials from a container which type is configured at /AMSOsram/Container/ContainerTypeUndockNotAllowed/,
+        ///     - When removing all the materials from a container which type is configured at /amsOSRAM/Container/ContainerTypeUndockNotAllowed/,
         ///     if the container is not docked, then it should be terminated.
         /// </summary>
         /// <TestCaseID>CustomTerminateVendorContainerTest_ContainerUndockedDisassociateMaterials</TestCaseID>
@@ -187,7 +186,7 @@ namespace Cmf.Custom.Tests.Biz.Containers
         /// <summary>
         /// Description:
         ///     - When all the materials are transfered to another container and the source container type is configured
-        ///     at /AMSOsram/Container/ContainerTypeUndockNotAllowed/, if the container is not docked, then it should be terminated.
+        ///     at /amsOSRAM/Container/ContainerTypeUndockNotAllowed/, if the container is not docked, then it should be terminated.
         /// </summary>
         /// <TestCaseID>CustomTerminateContainerTest_ContainerUndockedTransferMaterialBetweenContainers</TestCaseID>
         //[TestMethod]
@@ -202,9 +201,9 @@ namespace Cmf.Custom.Tests.Biz.Containers
         //    containerScenario.Entity.Type = materialScenario.ContainerScenario.Entity.Type;
         //    containerScenario.Entity.PositionUnitType = ContainerPositionUnitType.Material;
         //    containerScenario.Entity.Facility = materialScenario.Entity.Facility;
-        //    containerScenario.Entity.CapacityUnits = AMSOsramConstants.UnitWafers;
+        //    containerScenario.Entity.CapacityUnits = amsOSRAMConstants.UnitWafers;
         //    containerScenario.Entity.CapacityPerPosition = 1;
-        //    containerScenario.Entity.TotalPositions = AMSOsramConstants.ContainerTotalPosition;
+        //    containerScenario.Entity.TotalPositions = amsOSRAMConstants.ContainerTotalPosition;
         //    containerScenario.Setup();
 
         //    #endregion  Create target container

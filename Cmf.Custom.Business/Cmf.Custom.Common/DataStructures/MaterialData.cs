@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Cmf.Custom.AMSOsram.BusinessObjects;
+using Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions;
 
-namespace Cmf.Custom.AMSOsram.Common.DataStructures
+namespace Cmf.Custom.amsOSRAM.Common.DataStructures
 {
     /// <summary>
     /// Support class to send Material data to IoT
@@ -94,6 +94,6 @@ namespace Cmf.Custom.AMSOsram.Common.DataStructures
         /// The sorter job information
         /// </summary>
         [DataMember]
-        public CustomSorterJobDefinition SorterJobInformation { get; set; }
+        public ICustomSorterJobDefinition SorterJobInformation { get; set; }
     }
 }

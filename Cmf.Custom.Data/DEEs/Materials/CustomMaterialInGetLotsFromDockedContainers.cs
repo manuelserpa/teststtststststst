@@ -1,12 +1,15 @@
-﻿using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.DataStructures;
+﻿using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.DataStructures;
 using Cmf.Foundation.Common;
-using Cmf.Navigo.BusinessObjects;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using System;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Cmf.Custom.AMSOsram.Actions.Materials
+namespace Cmf.Custom.amsOSRAM.Actions.Materials
 {
     class CustomMaterialInGetLotsFromDockedContainers : DeeDevBase
     {
@@ -41,29 +44,28 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
 		public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
             //---Start DEE Code---
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
-            UseReference("", "Cmf.Foundation.Common");
-            // Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
+
             // Custom
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.DataStructures");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.DataStructures");
+            
             // System
             UseReference("%MicrosoftNetPath%System.Data.Common.dll", "System.Data");
-
 
             if (!Input.ContainsKey(Navigo.Common.Constants.Resource))
             {
                 throw new ArgumentNullCmfException(Navigo.Common.Constants.Resource);
             }
 
-            Resource resource = Input["Resource"] as Resource;
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
 
-            List<(Material material, string loadPort, string container, bool mapContainerNeeded)> lotsDockedOnSorters = new List<(Material material, string loadPort, string container, bool mapContainerNeeded)>();
+            IResource resource = Input["Resource"] as IResource;
 
-            List<ResourceLoadPortData> dockedContainersOnResourceLoadPorts = AMSOsramUtilities.DockedContainersOnLoadPortsByParentResource(resource);
+            List<(IMaterial material, string loadPort, string container, bool mapContainerNeeded)> lotsDockedOnSorters = new List<(IMaterial material, string loadPort, string container, bool mapContainerNeeded)>();
+
+            List<ResourceLoadPortData> dockedContainersOnResourceLoadPorts = amsOSRAMUtilities.DockedContainersOnLoadPortsByParentResource(resource);
 
             foreach (ResourceLoadPortData resourceLoadPortData in dockedContainersOnResourceLoadPorts.OrderBy(d => d.LoadPortModifiedOn).ThenBy(d => d.ContainerLotAttribute))
             {
@@ -71,7 +73,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                 {
                     if (!string.IsNullOrWhiteSpace(resourceLoadPortData.ContainerLotAttribute))
                     {
-                        Material topMostMaterial = new Material { Name = resourceLoadPortData.ContainerLotAttribute };
+                        IMaterial topMostMaterial = entityFactory.Create<IMaterial>();
+                        topMostMaterial.Name = resourceLoadPortData.ContainerLotAttribute;
 
                         if (topMostMaterial.ObjectExists() && !lotsDockedOnSorters.Any(l => l.material.Name == topMostMaterial.Name))
                         {
@@ -80,7 +83,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                     }
                     else if (!string.IsNullOrWhiteSpace(resourceLoadPortData.ParentMaterialName) && resourceLoadPortData.ContainerUsedPositions > 0)
                     {
-                        Material topMostMaterial = new Material { Name = resourceLoadPortData.ParentMaterialName };
+                        IMaterial topMostMaterial = entityFactory.Create<IMaterial>();
+                        topMostMaterial.Name = resourceLoadPortData.ParentMaterialName;
 
                         if (topMostMaterial.ObjectExists() && !lotsDockedOnSorters.Any(l => l.material.Name == topMostMaterial.Name))
                         {
@@ -91,12 +95,13 @@ namespace Cmf.Custom.AMSOsram.Actions.Materials
                         string.IsNullOrWhiteSpace(resourceLoadPortData.ParentMaterialName) &&
                         resourceLoadPortData.ContainerMapContainerNeededAttribute)
                     {
-                        lotsDockedOnSorters.Add((new Material(), resourceLoadPortData.LoadPortName, resourceLoadPortData.ContainerName, resourceLoadPortData.ContainerMapContainerNeededAttribute));
+                        lotsDockedOnSorters.Add((entityFactory.Create<IMaterial>(), resourceLoadPortData.LoadPortName, resourceLoadPortData.ContainerName, resourceLoadPortData.ContainerMapContainerNeededAttribute));
                     }
                 }
             }
 
             Input.Add("LotsDockedOnSorters", lotsDockedOnSorters);
+
             //---End DEE Code---
 
             return Input;

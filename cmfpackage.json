@@ -1,53 +1,53 @@
 {
-    "packageId": "Cmf.Custom.Package",
-    "version": "1.13.0",
-    "description": "This package deploys Critical Manufacturing MES AMSOsram Customization",
-    "packageType": "Root",
-    "isInstallable": true,
-    "isUniqueInstall": false,
-    "dependencies": [
-        {
-            "id": "CriticalManufacturing.DeploymentMetadata",
-            "version": "8.3.3"
-        },
-        {
-            "id": "Cmf.Custom.Business",
-            "version": "1.13.0"
-        },
-        {
-            "id": "Cmf.Custom.Data",
-            "version": "1.13.0"
-        },
-        {
-            "id": "Cmf.Custom.Data.ExportedObjects",
-            "version": "1.3.0"
-        },
-        {
-            "id": "Cmf.Custom.Help",
-            "version": "1.13.0"
-        },
-        {
-            "id": "Cmf.Custom.Html",
-            "version": "1.3.0"
-        },
-        {
-            "id": "Cmf.Custom.IoT",
-            "version": "1.9.0"
-        },
-        {
-            "id": "Cmf.Custom.TibcoEMS",
-            "version": "1.2.0"
-        }
-    ],
-    "testPackages": [
-        {
-            "id": "Cmf.Custom.Tests",
-            "version": "1.13.0"
-        },
-        {
-            "id": "Cmf.Custom.Tests.MasterData",
-            "version": "1.12.0"
-        }
-    ],
-    "handlerVersion": 0
+  "packageId": "Cmf.Custom.Package",
+  "version": "2.1.0",
+  "description": "This package deploys Critical Manufacturing MES amsOSRAM Customization",
+  "packageType": "Root",
+  "isInstallable": true,
+  "isUniqueInstall": false,
+  "dependencies": [
+    {
+      "id": "Cmf.Environment",
+      "version": "9.1.0",
+      "mandatory": false
+    },
+    {
+      "id": "CriticalManufacturing.DeploymentMetadata",
+      "version": "9.1.0"
+    },
+    {
+      "id": "Cmf.Custom.Business",
+      "version": "2.0.0"
+    },
+    {
+      "id": "Cmf.Custom.Data",
+      "version": "2.1.0"
+    },
+    {
+      "id": "Cmf.Custom.Data.ExportedObjects",
+      "version": "2.0.0"
+    },
+    {
+      "id": "Cmf.Custom.Help",
+      "version": "2.0.0"
+    },
+    {
+      "id": "Cmf.Custom.IoT",
+      "version": "2.1.0"
+    },
+    {
+      "id": "Cmf.Custom.TibcoEMS",
+      "version": "2.1.0"
+    }
+  ],
+  "testPackages": [
+    {
+      "id": "Cmf.Custom.Tests",
+      "version": "2.0.0"
+    },
+    {
+      "id": "Cmf.Custom.Tests.MasterData",
+      "version": "2.1.0"
+    }
+  ]
 }

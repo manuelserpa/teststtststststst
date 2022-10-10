@@ -1,21 +1,16 @@
 ﻿
 using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessOrchestration;
-using Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.StateModelsManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.DispatchManagement.InputObjects;
-using Cmf.Navigo.BusinessOrchestration.LaborManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects;
 using Cmf.TestScenarios.Others;
-using AMSOsramEIAutomaticTests.Objects.Utilities;
+using amsOSRAMEIAutomaticTests.Objects.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 
-namespace AMSOsramEIAutomaticTests.Objects.Extensions
+namespace amsOSRAMEIAutomaticTests.Objects.Extensions
 {
     /// <summary>
     /// Extension Methods Class that adapts resource services as Business Objects extension methods or adds functionality need for testing

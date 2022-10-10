@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
-namespace Cmf.Custom.AMSOsram.Common.DataStructures
+namespace Cmf.Custom.amsOSRAM.Common.DataStructures
 {
     /// <summary>
     /// Defines the Custom Import PRoduction Order Collection.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace Cmf.Custom.AMSOsram.Common.ERP
+namespace Cmf.Custom.amsOSRAM.Common.ERP
 {
     /// <summary>
     /// Information to be sent for movement type 261

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using cmConnect.TestFramework.Common.Drivers.SpecialVariables;
 using cmConnect.TestFramework.EquipmentSimulator.Drivers;
 using Cmf.SECS.Driver;
-using AMSOsramEIAutomaticTests.IoT.Common.Attributes;
+using amsOSRAMEIAutomaticTests.IoT.Common.Attributes;
 
-namespace AMSOsramEIAutomaticTests.IoT.Common
+namespace amsOSRAMEIAutomaticTests.IoT.Common
 {
     public class ComplexList<T> : ICustomVariable
     {

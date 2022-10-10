@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace Cmf.Custom.AMSOsram.Common.Extensions
+namespace Cmf.Custom.amsOSRAM.Common.Extensions
 {
     /// <summary>
     /// Extensions to extend dictionary functionalities

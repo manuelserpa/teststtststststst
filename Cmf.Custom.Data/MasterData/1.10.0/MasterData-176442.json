@@ -145,25 +145,25 @@
     },
     "<SM>Config": {
         "1": {
-            "ParentPath": "/AMSOsram/FDC",
+            "ParentPath": "/amsOSRAM/FDC",
             "Name": "Active",
             "Value": "Yes",
             "ValueType": "Boolean"
         },
 		"2": {
-            "ParentPath": "/AMSOsram/FDC",
+            "ParentPath": "/amsOSRAM/FDC",
             "Name": "Mandatory",
             "Value": "No",
             "ValueType": "Boolean"
         },
 		"3": {
-            "ParentPath": "/AMSOsram/FDC",
+            "ParentPath": "/amsOSRAM/FDC",
             "Name": "Server",
             "Value": "lnx-klm37.int.osram-light.com",
             "ValueType": "String"
         },
 		"4": {
-            "ParentPath": "/AMSOsram/FDC",
+            "ParentPath": "/amsOSRAM/FDC",
             "Name": "Port",
             "Value": "1600",
             "ValueType": "Int16"

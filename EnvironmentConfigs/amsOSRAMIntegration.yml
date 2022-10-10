@@ -1,0 +1,27 @@
+variables:
+  # Environment Config file name exported from DevOpsCenter
+  EnvironmentConfigName: 'amsOSRAMIntegration_Development_parameters.json'
+
+  # Run Settings
+  RunSettings: 'integration.runsettings'
+
+  # Root Package to be installed in CI-Release/CD-Containers
+  RootPackageIdToInstall: 'Cmf.Custom.Package'
+
+  # MasterData Filter to be used in CI-Release/CD-Containers
+  TestMasterDataFilter: '*MasterData*'
+
+  # Customer Environment Name defined in DevOpsCenter
+  CustomerEnvironmentName: 'amsOSRAMIntegration'
+
+  # Site
+  SiteName: 'AMS-OSRAM - Regensburg'
+
+  # Deployment Package
+  DeploymentPackage:  '@criticalmanufacturing\mes:9.1.0'
+
+  # License
+  LicenseName: 'AMS-OSRAM - Regensburg_Development_v9.0.0_ED20221213'
+
+  # Deployment Target
+  DeploymentTarget: 'portainer'

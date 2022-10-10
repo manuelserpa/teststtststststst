@@ -1,34 +1,34 @@
-﻿using Cmf.Custom.AMSOsram.Common;
+﻿using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.Common;
 using Cmf.Foundation.Security;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using Cmf.Foundation.Security.Abstractions;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Navigo.BusinessObjects.Abstractions;
 
-namespace Cmf.Custom.AMSOsram.Actions.Notification
+namespace Cmf.Custom.amsOSRAM.Actions.Notification
 {
     public class CustomTriggerNotifications : DeeDevBase
     {
         public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
         {
             //---Start DEE Code---
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
+
+            // Foudation
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.SmartTables");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration.GenericServiceManagement");
             UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects");
-            UseReference("", "Cmf.Foundation.Common.Exceptions");
-            UseReference("", "Cmf.Foundation.Common");
 
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-
+            // Custom
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
 
             //Validate Title Message
             string notificationTitleMessage;
-            if (Input.ContainsKey(AMSOsramConstants.smartTablePropertyNotificationTitleMessage))
+            if (Input.ContainsKey(amsOSRAMConstants.smartTablePropertyNotificationTitleMessage))
             {
-                notificationTitleMessage = Input[AMSOsramConstants.smartTablePropertyNotificationTitleMessage].ToString();
+                notificationTitleMessage = Input[amsOSRAMConstants.smartTablePropertyNotificationTitleMessage].ToString();
             }
             else
             {
@@ -37,9 +37,9 @@ namespace Cmf.Custom.AMSOsram.Actions.Notification
 
             //Validate Subject Message
             string notificationBodyMessage;
-            if (Input.ContainsKey(AMSOsramConstants.smartTablePropertyNotificationBodyMessage))
+            if (Input.ContainsKey(amsOSRAMConstants.smartTablePropertyNotificationBodyMessage))
             {
-                notificationBodyMessage = Input[AMSOsramConstants.smartTablePropertyNotificationBodyMessage].ToString();
+                notificationBodyMessage = Input[amsOSRAMConstants.smartTablePropertyNotificationBodyMessage].ToString();
             }
             else
             {
@@ -47,37 +47,37 @@ namespace Cmf.Custom.AMSOsram.Actions.Notification
             }
 
             string distributionList = null;
-            Role notificationRole = null;
-            if (Input.ContainsKey(AMSOsramConstants.smartTablePropertyTargetRole))
+            IRole notificationRole = null;
+            if (Input.ContainsKey(amsOSRAMConstants.smartTablePropertyTargetRole))
             {
-                notificationRole = new Role() { Name = Input[AMSOsramConstants.smartTablePropertyTargetRole].ToString() };
+                notificationRole = new Role() { Name = Input[amsOSRAMConstants.smartTablePropertyTargetRole].ToString() };
                 notificationRole.Load();
                 distributionList = notificationRole.DistributionList;
             }
-            else if (Input.ContainsKey(AMSOsramConstants.smartTablePropertyTargetDistributionList))
+            else if (Input.ContainsKey(amsOSRAMConstants.smartTablePropertyTargetDistributionList))
             {
-                distributionList = Input[AMSOsramConstants.smartTablePropertyTargetDistributionList].ToString();
+                distributionList = Input[amsOSRAMConstants.smartTablePropertyTargetDistributionList].ToString();
             }
 
             //Validate 
 
-            if (Input[AMSOsramConstants.smartTablePropertyNotificationAction].ToString().Equals(AMSOsramConstants.smartTableResultActionNotification) && notificationRole != null)
+            if (Input[amsOSRAMConstants.smartTablePropertyNotificationAction].ToString().Equals(amsOSRAMConstants.smartTableResultActionNotification) && notificationRole != null)
             {
-                Cmf.Navigo.BusinessObjects.Notification notification = new Cmf.Navigo.BusinessObjects.Notification()
-                {
-                    Severity = Input[AMSOsramConstants.smartTablePropertySeverity].ToString(),
-                    Type = Input[AMSOsramConstants.smartTablePropertyNotificationType].ToString(),
-                    AssignmentType = Navigo.BusinessObjects.AssignmentType.Role,
-                    AssignedToRole = notificationRole
-                };
+                // Get services provider information
+                IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+                IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
 
+                INotification notification = entityFactory.Create<INotification>();
+                notification.Severity = Input[amsOSRAMConstants.smartTablePropertySeverity].ToString();
+                notification.Type = Input[amsOSRAMConstants.smartTablePropertyNotificationType].ToString();
+                notification.AssignmentType = Navigo.BusinessObjects.AssignmentType.Role;
+                notification.AssignedToRole = notificationRole;
                 notification.Title = notificationTitleMessage;
-
                 notification.Details = notificationBodyMessage;
 
                 notification.Create();
             }
-            else if (Input[AMSOsramConstants.smartTablePropertyNotificationAction].ToString().Equals(AMSOsramConstants.smartTableResultActionEmail) && !string.IsNullOrWhiteSpace(distributionList))
+            else if (Input[amsOSRAMConstants.smartTablePropertyNotificationAction].ToString().Equals(amsOSRAMConstants.smartTableResultActionEmail) && !string.IsNullOrWhiteSpace(distributionList))
             {
                 CmfMail mail = new CmfMail()
                 {
@@ -96,8 +96,8 @@ namespace Cmf.Custom.AMSOsram.Actions.Notification
                 }
             }
 
-
             //---End DEE Code---
+
             return Input;
         }
 

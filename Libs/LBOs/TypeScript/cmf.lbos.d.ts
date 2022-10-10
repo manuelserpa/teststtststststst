@@ -40,6 +40,8 @@ export declare namespace Cmf.Foundation.Common.Base {
 }
 export declare namespace Cmf.Foundation.BusinessObjects {
 }
+export declare namespace Cmf.Foundation.BusinessObjects.Abstractions {
+}
 export declare namespace Cmf.Foundation.BusinessObjects.ConnectIoT {
 }
 export declare namespace Cmf.Foundation.BusinessObjects.Cultures {
@@ -220,8 +222,6 @@ export declare namespace Cmf.Foundation.Common.Helpers {
 }
 export declare namespace Cmf.Foundation.Common.ImportExport {
 }
-export declare namespace Cmf.Foundation.Common.Integration {
-}
 export declare namespace Cmf.Foundation.Common.Licenses {
 }
 export declare namespace Cmf.Foundation.Common.Licenses.Enums {
@@ -239,6 +239,10 @@ export declare namespace Cmf.Foundation.Erp {
 export declare namespace Cmf.Foundation.ExpressionEvaluator {
 }
 export declare namespace Cmf.Foundation.Helpers {
+}
+export declare namespace Cmf.Foundation.Integration {
+}
+export declare namespace Cmf.Foundation.Integration.Abstractions {
 }
 export declare namespace Cmf.Foundation.Loaders.Abstractions {
 }
@@ -346,6 +350,10 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.OrderManagement.InputO
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.OrderManagement.OutputObjects {
 }
+export declare namespace Cmf.Navigo.BusinessOrchestration.PlanManagement.InputObjects {
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.PlanManagement.OutputObjects {
+}
 export declare namespace Cmf.Navigo.BusinessOrchestration.PrintManagement.InputObjects {
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.PrintManagement.OutputObjects {
@@ -390,13 +398,13 @@ export declare namespace Cmf.Common.CustomActionUtilities {
 }
 export declare namespace Cmf.Connect.BusinessObjects {
 }
-export declare namespace Cmf.Custom.AMSOsram.BusinessObjects {
+export declare namespace Cmf.Custom.amsOSRAM.BusinessObjects {
 }
-export declare namespace Cmf.Custom.AMSOsram.Common.DataStructures {
+export declare namespace Cmf.Custom.amsOSRAM.Common.DataStructures {
 }
-export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects {
+export declare namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects {
 }
-export declare namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects {
+export declare namespace Cmf.Custom.amsOSRAM.Orchestration.OutputObjects {
 }
 export declare namespace Cmf.MessageBus.Client.messages {
 }
@@ -574,24 +582,28 @@ export declare namespace Cmf.Foundation.Common.Base {
     class CoreBase {
         protected $id: string;
         protected $type: string;
-        Id: string;
-        CreatedOn: moment.Moment;
         CreatedBy: string;
-        ModifiedOn: moment.Moment;
-        ModifiedBy: string;
-        LastServiceHistoryId: string;
-        LastOperationHistorySeq: string;
+        CreatedOn: moment.Moment;
         DataGroupId: string;
         DataGroupName: string;
-        UniversalState: Cmf.Foundation.Common.Base.UniversalState;
-        ObjectLocked: boolean;
+        Id: string;
+        LastOperationHistorySeq: string;
+        LastServiceHistoryId: string;
         LockType: Cmf.Foundation.Common.LockType;
+        ModifiedBy: string;
+        ModifiedOn: moment.Moment;
+        ObjectLocked: boolean;
+        UniversalState: Cmf.Foundation.Common.Base.UniversalState;
     }
     enum CloneBehavior {
         NoCopy = 0,
         CopyIfSourceOrTarget = 1,
         CopyIfSource = 2,
         CopyIfTarget = 3
+    }
+    enum RevisionState {
+        Active = 0,
+        Obsolete = 1
     }
     enum UniversalState {
         Created = 0,
@@ -681,6 +693,18 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         XCoordinate: number;
         YCoordinate: number;
         ZCoordinate: number;
+    }
+    class EntityComparisonResult {
+        protected $id: string;
+        protected $type: string;
+        Depth: number;
+        Scope: string;
+        EntityName: string;
+        Order: number;
+        CompareFrom: Cmf.Foundation.BusinessObjects.EntityBase;
+        CompareTo: Cmf.Foundation.BusinessObjects.EntityBase;
+        ParentEntity: Cmf.Foundation.BusinessObjects.EntityBase;
+        ComparisonResult: Cmf.Foundation.DiffComputationTool.DiffComputationResult;
     }
     class FullUpdateAssetsParameters {
         protected $id: string;
@@ -826,7 +850,6 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         ChecklistItemInstance: Cmf.Foundation.BusinessObjects.ChecklistItemInstance;
         PerformChecklistOperation: Cmf.Foundation.BusinessObjects.PerformChecklistOperation;
         Comment: string;
-        SignatureUser: string;
         SignatureToken: string;
         Parameters: CMFMap<string, any>;
         Signatures: Cmf.Foundation.BusinessObjects.ChecklistItemInstanceSignatureCollection;
@@ -855,7 +878,6 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         Comment: string;
         Parameters: CMFMap<string, any>;
         RuleInputs: CMFMap<string, any>;
-        SignatureUser: string;
     }
     class EntityDocumentationFullFileNamePair {
         protected $id: string;
@@ -898,15 +920,18 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         IsEnabled: boolean;
         ParentValueId: string;
         Value: string;
+        LookupTableId: string;
     }
     class EntityBase extends Cmf.Foundation.Common.Base.CoreBase {
         protected $id: string;
         protected $type: string;
-        Name: string;
+        Attributes: Cmf.Foundation.BusinessObjects.AttributeCollection;
         Description: string;
         DocumentationURL: string;
         Image: string;
-        Attributes: Cmf.Foundation.BusinessObjects.AttributeCollection;
+        EntityPicture: Cmf.Foundation.BusinessObjects.CmfFile;
+        Name: string;
+        AdditionalOperationContexts: CMFMap<string, any>;
     }
     class EntityRelation extends Cmf.Foundation.BusinessObjects.EntityBase {
         protected $id: string;
@@ -930,10 +955,17 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         IsLocked: boolean;
         LockedBy: string;
         LockedOn: moment.Moment;
-        Version: number;
-        RelatedRelationCollection: Cmf.Foundation.BusinessObjects.CmfEntityRelationCollection;
         RelatedAttributes: Cmf.Foundation.BusinessObjects.AttributeCollection;
+        RelatedRelationCollection: Cmf.Foundation.BusinessObjects.CmfEntityRelationCollection;
+        Version: number;
         VersionCounter: number;
+        Revision: string;
+        RevisionSequence: number;
+        RevisionDefaultFromDate: moment.Moment;
+        RevisionDefaultToDate: moment.Moment;
+        RevisionCounter: number;
+        RevisionState: Cmf.Foundation.Common.Base.RevisionState;
+        IsDefaultRevision: boolean;
     }
     class EntityInstance extends Cmf.Foundation.BusinessObjects.Entity {
         protected $id: string;
@@ -1188,6 +1220,7 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         UpperRangeValue: number;
         ValidationRange: string;
         ValidationRegex: string;
+        BelongsToEnrichedObject: boolean;
     }
     class EntityTypeCollection extends Array<EntityType> {
         protected $id: string;
@@ -1208,6 +1241,8 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         ConnectIoTEnabled: boolean;
         InternallyManagedStateModels: boolean;
         MakeChangeSetItemsEffectiveOnApproval: boolean;
+        EnableDefaultRevisionDates: boolean;
+        DisableVersionCreation: boolean;
         LocalizedMessageKey: string;
         AllowBarcodeIds: boolean;
         Description: string;
@@ -1372,12 +1407,6 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         SourceEntity: Cmf.Foundation.BusinessObjects.AutomationManager;
         TargetEntity: Cmf.Foundation.BusinessObjects.AutomationManager;
     }
-    class EntityVersionBase extends Cmf.Foundation.BusinessObjects.Entity {
-        protected $id: string;
-        protected $type: string;
-        Version: number;
-        ChangeSet: Cmf.Foundation.BusinessObjects.ChangeSet;
-    }
     class StateModelFlow extends Cmf.Foundation.BusinessObjects.EntityVersion {
         protected $id: string;
         protected $type: string;
@@ -1443,6 +1472,27 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         IoTEventDefinitions: Cmf.Foundation.BusinessObjects.AutomationControllerIoTEventDefinitionCollection;
         AutomationJobs: Cmf.Foundation.BusinessObjects.AutomationJobCollection;
     }
+    class UIPageCollection extends Array<UIPage> {
+        protected $id: string;
+        protected $type: string;
+        protected $typeCMF: string;
+    }
+    class UIPage extends Cmf.Foundation.BusinessObjects.EntityVersion {
+        protected $id: string;
+        protected $type: string;
+        MainStateModelStateReason: string;
+        Settings: string;
+        UIType: Cmf.Foundation.BusinessObjects.UIType;
+        IsSystem: boolean;
+        Folder: Cmf.Foundation.BusinessObjects.Folder;
+        Label: string;
+        MenuEntry: string;
+        PinToRole: Cmf.Foundation.Security.Role;
+        PinType: Cmf.Foundation.BusinessObjects.UIPinType;
+        Scope: Cmf.Foundation.BusinessObjects.UIScope;
+        EntityType: Cmf.Foundation.BusinessObjects.EntityType;
+        Presets: Cmf.Foundation.BusinessObjects.UIPagePresetCollection;
+    }
     class DocumentCollection extends Array<Document> {
         protected $id: string;
         protected $type: string;
@@ -1474,7 +1524,7 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         RequireSignatureForReadAndUnderstand: boolean;
         ReadAndUnderstandExpiration: number;
         ApplicableRoles: Cmf.Foundation.BusinessObjects.DocumentApplicableRoleCollection;
-        DocumentVersionEmployeeTracking: Cmf.Foundation.BusinessObjects.DocumentVersionEmployeeTrackingCollection;
+        DocumentEmployeeTracking: Cmf.Foundation.BusinessObjects.DocumentEmployeeTrackingCollection;
         HasReadAndUnderstood: boolean;
         MustReadAndUnderstand: boolean;
     }
@@ -1490,6 +1540,7 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         Type: string;
         ExecutionMode: Cmf.Foundation.BusinessObjects.ChecklistExecutionMode;
         BOM: Cmf.Foundation.BusinessObjects.EntityVersion;
+        DataCollection: Cmf.Foundation.BusinessObjects.EntityVersion;
         Items: Cmf.Foundation.BusinessObjects.ChecklistItemCollection;
     }
     class StateModelFlowStateDetail extends Cmf.Foundation.BusinessObjects.EntityInstance {
@@ -1513,10 +1564,31 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         DataType: Cmf.Foundation.BusinessObjects.StateModelFlowParameterType;
         DefaultValue: any;
     }
-    class EntityVersionDefinition extends Cmf.Foundation.BusinessObjects.EntityInstance {
+    class ChecklistItemDataCollectionParameterCollection extends Array<ChecklistItemDataCollectionParameter> {
         protected $id: string;
         protected $type: string;
-        ContextChangeSet: Cmf.Foundation.BusinessObjects.ChangeSet;
+        protected $typeCMF: string;
+    }
+    class ChecklistItemDataCollectionParameter extends Cmf.Foundation.BusinessObjects.EntityInstance {
+        protected $id: string;
+        protected $type: string;
+        ChecklistItem: Cmf.Foundation.BusinessObjects.ChecklistItem;
+        FromSample: number;
+        Order: number;
+        Parameter: string;
+        ToSample: number;
+    }
+    class DocumentEmployeeTrackingCollection extends Array<DocumentEmployeeTracking> {
+        protected $id: string;
+        protected $type: string;
+        protected $typeCMF: string;
+    }
+    class DocumentEmployeeTracking extends Cmf.Foundation.BusinessObjects.EntityInstance {
+        protected $id: string;
+        protected $type: string;
+        Date: moment.Moment;
+        MainStateModelStateReason: string;
+        User: Cmf.Foundation.Security.User;
     }
     class AppCollection extends Array<App> {
         protected $id: string;
@@ -2123,6 +2195,7 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         ObjectId: any;
         ObjectType: Cmf.Foundation.BusinessObjects.EntityType;
         SystemState: Cmf.Foundation.BusinessObjects.AutomationSystemState;
+        AutomationControllerVersion: Cmf.Foundation.BusinessObjects.AutomationController;
         AutomationDriverInstanceCollection: Cmf.Foundation.BusinessObjects.AutomationDriverInstanceCollection;
     }
     class AutomationManagerCollection extends Array<AutomationManager> {
@@ -2286,20 +2359,9 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         IsFloorBackgroundVisible: boolean;
         Thumbnail: Cmf.Foundation.BusinessObjects.Multimedia;
         Settings: string;
+        Data: string;
+        DataFile: Cmf.Foundation.BusinessObjects.CmfFile;
         FabLive3DLayers: Cmf.Foundation.BusinessObjects.FabLive3DLayerCollection;
-    }
-    class UIPageCollection extends Array<UIPage> {
-        protected $id: string;
-        protected $type: string;
-        protected $typeCMF: string;
-    }
-    class UIPage extends Cmf.Foundation.BusinessObjects.EntityInstance {
-        protected $id: string;
-        protected $type: string;
-        MainStateModelStateReason: string;
-        Settings: string;
-        UIType: Cmf.Foundation.BusinessObjects.UIType;
-        IsSystem: boolean;
     }
     class IntegrationMessageCollection extends Array<IntegrationMessage> {
         protected $id: string;
@@ -2334,7 +2396,7 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         MessageDate: moment.Moment;
         NumberOfRetries: number;
         SourceSystem: string;
-        SystemState: Cmf.Foundation.Common.Integration.IntegrationEntrySystemState;
+        SystemState: Cmf.Foundation.BusinessObjects.Abstractions.IntegrationEntrySystemState;
         TargetSystem: string;
         IsRetriable: boolean;
         SuppressRetryCountIncrement: boolean;
@@ -2342,18 +2404,6 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         TerminateOnFail: boolean;
         IntegrationMessage: Cmf.Foundation.BusinessObjects.IntegrationMessage;
         ParentIntegrationEntry: Cmf.Foundation.BusinessObjects.IntegrationEntry;
-    }
-    class DocumentVersionEmployeeTrackingCollection extends Array<DocumentVersionEmployeeTracking> {
-        protected $id: string;
-        protected $type: string;
-        protected $typeCMF: string;
-    }
-    class DocumentVersionEmployeeTracking extends Cmf.Foundation.BusinessObjects.EntityInstance {
-        protected $id: string;
-        protected $type: string;
-        Date: moment.Moment;
-        MainStateModelStateReason: string;
-        User: Cmf.Foundation.Security.User;
     }
     class DocumentApplicableRoleCollection extends Array<DocumentApplicableRole> {
         protected $id: string;
@@ -2377,6 +2427,7 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         ChecklistItemParameter: Cmf.Foundation.BusinessObjects.ChecklistItemParameter;
         DisplayOrder: number;
         Value: any;
+        File: Cmf.Foundation.BusinessObjects.CmfFile;
         IsOptional: boolean;
     }
     class CmfTimerCollection extends Array<CmfTimer> {
@@ -2450,6 +2501,7 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         Scope: string;
         Thumbnail: any[];
         Type: Cmf.Foundation.BusinessObjects.MultimediaType;
+        IsSystem: boolean;
     }
     class FolderCollection extends Array<Folder> {
         protected $id: string;
@@ -2498,14 +2550,13 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         Order: number;
         Rule: Cmf.Foundation.BusinessObjects.Rule;
         TrackingType: Cmf.Foundation.BusinessObjects.TrackingType;
-        SignatureRole: Cmf.Foundation.Security.Role;
-        SignatureAllowSelf: boolean;
         ValidTo: moment.Moment;
         ValidFrom: moment.Moment;
         Group: string;
         Type: string;
         DiagramFile: Cmf.Foundation.BusinessObjects.CmfFile;
         DiagramFileAnnotation: string;
+        ChecklistItemDataCollectionParameters: Cmf.Foundation.BusinessObjects.ChecklistItemDataCollectionParameterCollection;
         ChecklistItemParameters: Cmf.Foundation.BusinessObjects.ChecklistItemParameterCollection;
         ChecklistItemSignatures: Cmf.Foundation.BusinessObjects.ChecklistItemSignatureCollection;
     }
@@ -2514,6 +2565,21 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         protected $type: string;
         Documents: Cmf.Foundation.BusinessObjects.EntityDocumentationCollection;
         IsReadyToMove: boolean;
+    }
+    class UIPagePresetCollection extends Array<UIPagePreset> {
+        protected $id: string;
+        protected $type: string;
+        protected $typeCMF: string;
+    }
+    class UIPagePreset extends Cmf.Foundation.BusinessObjects.ChildEntityInstance {
+        protected $id: string;
+        protected $type: string;
+        EncodedSettings: string;
+        Label: string;
+        MainStateModelStateReason: string;
+        ParentEntity: Cmf.Foundation.BusinessObjects.UIPage;
+        PinToRole: Cmf.Foundation.Security.Role;
+        PinType: Cmf.Foundation.BusinessObjects.UIPinType;
     }
     class ChecklistItemInstanceCollection extends Array<ChecklistItemInstance> {
         protected $id: string;
@@ -2530,7 +2596,6 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         EditState: Cmf.Foundation.BusinessObjects.CheckListItemInstanceEditState;
         Order: number;
         ExecutionOrder: number;
-        SignatureUser: Cmf.Foundation.Security.User;
         ChecklistItemInstanceParameters: Cmf.Foundation.BusinessObjects.ChecklistItemInstanceParameterCollection;
         ChecklistItemInstanceSignatures: Cmf.Foundation.BusinessObjects.ChecklistItemInstanceSignatureCollection;
     }
@@ -2546,6 +2611,7 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         SystemState: Cmf.Foundation.BusinessObjects.ChecklistInstanceSystemState;
         ExecutionMode: Cmf.Foundation.BusinessObjects.ChecklistExecutionMode;
         BOMInstance: Cmf.Foundation.BusinessObjects.EntityBase;
+        DataCollectionInstance: Cmf.Foundation.BusinessObjects.EntityBase;
         Items: Cmf.Foundation.BusinessObjects.ChecklistItemInstanceCollection;
     }
     class RuleCollection extends Array<Rule> {
@@ -2578,6 +2644,7 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         ObjectName: string;
         ObjectType: string;
         ObjectVersion: number;
+        ObjectRevision: string;
         Object: Cmf.Foundation.BusinessObjects.EntityVersion;
     }
     class ChangeSetCollection extends Array<ChangeSet> {
@@ -2594,7 +2661,6 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         MakeEffectiveOnApproval: boolean;
         SystemState: Cmf.Foundation.BusinessObjects.ChangeSetSystemState;
         Type: string;
-        Note: string;
         Requester: string;
         SendEmailNotificationsToApprovers: boolean;
         SendEmailNotificationsToRequester: boolean;
@@ -2704,7 +2770,8 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         Boolean = 3,
         String = 4,
         Integer = 5,
-        Url = 6
+        Url = 6,
+        File = 7
     }
     enum DateTimePickerMode {
         None = 0,
@@ -2766,7 +2833,8 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         Object = 9,
         Password = 10,
         Text = 11,
-        Culture = 12
+        Culture = 12,
+        ExtensionParameters = 13
     }
     enum AutomationReferenceType {
         None = 0,
@@ -2820,8 +2888,9 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         Bypass = 2
     }
     enum EntityTypeSource {
-        Definition = 0,
-        Version = 1
+        Revision = 0,
+        Version = 1,
+        Entity = 2
     }
     enum EntityTagScope {
         AugmentedReality = 0,
@@ -2889,6 +2958,17 @@ export declare namespace Cmf.Foundation.BusinessObjects {
         PurgeContextsWithRetentionTime = 1,
         DoNotStoreContexts = 2
     }
+    enum UIPinType {
+        None = 0,
+        Role = 1,
+        AllUsers = 2
+    }
+    enum UIScope {
+        General = 0,
+        EntityType = 1,
+        MenuEntry = 2,
+        AssetDashboard = 3
+    }
     enum UIType {
         Page = 0,
         Step = 1,
@@ -2898,6 +2978,15 @@ export declare namespace Cmf.Foundation.BusinessObjects {
     enum RuleType {
         System = 0,
         UserDefined = 1
+    }
+}
+export declare namespace Cmf.Foundation.BusinessObjects.Abstractions {
+    enum IntegrationEntrySystemState {
+        Received = 0,
+        Processing = 1,
+        Processed = 2,
+        Failed = 3,
+        Rejected = 4
     }
 }
 export declare namespace Cmf.Foundation.BusinessObjects.ConnectIoT {
@@ -3716,12 +3805,13 @@ export declare namespace Cmf.Foundation.BusinessOrchestration {
         protected $id: string;
         protected $type: string;
         IgnoreLastServiceId: boolean;
-        IsNewDefinition: boolean;
+        OperationTarget: Cmf.Foundation.BusinessObjects.EntityTypeSource;
         NumberOfRetries: number;
         OperationAttributes: Cmf.Foundation.BusinessObjects.OperationAttributeCollection;
         PageNumber: number;
         PageSize: number;
         ServiceComments: string;
+        ExtraParameters: CMFMap<string, any>;
     }
     class AdjustObjectStateParameters {
         protected $id: string;
@@ -3858,6 +3948,7 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.ApplicationMonitor
         protected $id: string;
         protected $type: string;
         Result: boolean;
+        MaintenanceId: string;
     }
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.ApplicationSettingManagement.InputObjects {
@@ -3959,29 +4050,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.ApplicationSetting
     }
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.ChangeSetManagement.InputObjects {
-    class UnterminateChangeSetInput {
-        protected $id: string;
-        protected $type: string;
-        ChangeSet: Cmf.Foundation.BusinessObjects.ChangeSet;
-    }
-    class SetChangeSetItemsInput {
-        protected $id: string;
-        protected $type: string;
-    }
-    class GetObjectFromChangeSetInput {
-        protected $id: string;
-        protected $type: string;
-        ChangeSet: Cmf.Foundation.BusinessObjects.ChangeSet;
-        EntityVersion: Cmf.Foundation.BusinessObjects.EntityVersionBase;
-    }
-    class GetChangeSetHistoryInput {
-        protected $id: string;
-        protected $type: string;
-    }
-    class CreateOrUpdateChangeSetInput {
-        protected $id: string;
-        protected $type: string;
-    }
     class CreateChangeSetTemplateInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -4013,11 +4081,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.ChangeSetManagemen
         protected $id: string;
         protected $type: string;
         Name: string;
-    }
-    class GetChangeSetsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Filters: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
     }
     class LoadChangeSetAttributesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -4253,28 +4316,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.ChangeSetManagemen
     }
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.ChangeSetManagement.OutputObjects {
-    class UnterminateChangeSetOutput {
-        protected $id: string;
-        protected $type: string;
-        ChangeSet: Cmf.Foundation.BusinessObjects.ChangeSet;
-    }
-    class SetChangeSetItemsOutput {
-        protected $id: string;
-        protected $type: string;
-    }
-    class GetObjectFromChangeSetOutput {
-        protected $id: string;
-        protected $type: string;
-        EntityVersion: Cmf.Foundation.BusinessObjects.EntityVersionBase;
-    }
-    class GetChangeSetHistoryOutput {
-        protected $id: string;
-        protected $type: string;
-    }
-    class CreateOrUpdateChangeSetOutput {
-        protected $id: string;
-        protected $type: string;
-    }
     class CreateChangeSetTemplateOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -4299,11 +4340,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.ChangeSetManagemen
         protected $id: string;
         protected $type: string;
         ChangeSet: Cmf.Foundation.BusinessObjects.ChangeSet;
-    }
-    class GetChangeSetsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        ChangeSets: Cmf.Foundation.BusinessObjects.ChangeSetCollection;
     }
     class LoadChangeSetAttributesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -4534,7 +4570,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.ChecklistManagemen
         ChecklistItemInstance: Cmf.Foundation.BusinessObjects.ChecklistItemInstance;
         PerformChecklistOperation: Cmf.Foundation.BusinessObjects.PerformChecklistOperation;
         Comment: string;
-        SignatureUser: string;
         Parameters: CMFMap<string, any>;
         Signatures: Cmf.Foundation.BusinessObjects.ChecklistItemInstanceSignatureCollection;
         SignatureToken: string;
@@ -5038,6 +5073,11 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.ConnectIoTManageme
         protected $type: string;
         AutomationJobs: Cmf.Foundation.BusinessObjects.AutomationJobCollection;
     }
+    class AbortAutomationJobsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        AutomationJobs: Cmf.Foundation.BusinessObjects.AutomationJobCollection;
+    }
     class SetAutomationJobsToErrorInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -5195,6 +5235,14 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.ConnectIoTManageme
         protected $type: string;
         AutomationJobs: Cmf.Foundation.BusinessObjects.AutomationJobCollection;
     }
+    class AbortAutomationJobsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        AutomationJobsParsed: Cmf.Foundation.BusinessObjects.AutomationJobCollection;
+        AutomationJobsTimedOut: Cmf.Foundation.BusinessObjects.AutomationJobCollection;
+        AutomationJobsNotFound: Cmf.Foundation.BusinessObjects.AutomationJobCollection;
+        AutomationJobsSkipped: Cmf.Foundation.BusinessObjects.AutomationJobCollection;
+    }
     class SetAutomationJobsToErrorOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -5268,10 +5316,24 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.DataPlatform.Input
         protected $type: string;
         EventFiles: Cmf.Foundation.BusinessOrchestration.DataPlatform.Domain.EventFile[];
     }
+    class GetManfufacturingAssetDirectoryInput {
+        protected $id: string;
+        protected $type: string;
+    }
+    class FullLoadAssetInput {
+        protected $id: string;
+        protected $type: string;
+        Asset: Cmf.Foundation.BusinessObjects.Asset;
+    }
     class DownloadFileInput {
         protected $id: string;
         protected $type: string;
         FileIdentifier: any;
+    }
+    class CreateAssetInput {
+        protected $id: string;
+        protected $type: string;
+        Asset: Cmf.Foundation.BusinessObjects.Asset;
     }
     class GetAllConsumerPackagesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -5515,11 +5577,26 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.DataPlatform.Outpu
         MaxSizeExceeded: boolean;
         InvalidType: boolean;
     }
+    class GetManfufacturingAssetDirectoryOutput {
+        protected $id: string;
+        protected $type: string;
+        AssetDirectory: Cmf.Foundation.BusinessObjects.AssetDirectory;
+    }
+    class FullLoadAssetOutput {
+        protected $id: string;
+        protected $type: string;
+        Asset: Cmf.Foundation.BusinessObjects.Asset;
+    }
     class DownloadFileOutput {
         protected $id: string;
         protected $type: string;
         File: any[];
         Filename: string;
+    }
+    class CreateAssetOutput {
+        protected $id: string;
+        protected $type: string;
+        Asset: Cmf.Foundation.BusinessObjects.Asset;
     }
     class GetAllConsumerPackagesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -5725,13 +5802,14 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.DocumentManagement
         OnlyForReadAndUnderstand: boolean;
         SearchTerm: string;
         IncludeObjectsInSubFolders: boolean;
+        AdditionalFilters: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
     }
     class LoadDocumentApplicableRolesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
         Document: Cmf.Foundation.BusinessObjects.Document;
     }
-    class LoadDocumentVersionEmployeeTrackingInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+    class LoadDocumentEmployeeTrackingInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
         Document: Cmf.Foundation.BusinessObjects.Document;
@@ -5797,7 +5875,7 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.DocumentManagement
         protected $type: string;
         Document: Cmf.Foundation.BusinessObjects.Document;
     }
-    class LoadDocumentVersionEmployeeTrackingOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+    class LoadDocumentEmployeeTrackingOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
         Document: Cmf.Foundation.BusinessObjects.Document;
@@ -5805,7 +5883,7 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.DocumentManagement
     class ReadAndUnderstandDocumentOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
-        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentVersionEmployeeTracking>;
+        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentEmployeeTracking>;
     }
     class GetDocumentTrackingInformationOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -6009,6 +6087,12 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.DynamicExecutionEn
         protected $type: string;
         Input: CMFMap<string, any>;
         Action: Cmf.Foundation.Common.DynamicExecutionEngine.Action;
+    }
+    class ExecuteReadOnlyActionInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Input: CMFMap<string, any>;
+        ActionName: string;
     }
     class DisableAllActionsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -6255,6 +6339,11 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.DynamicExecutionEn
         protected $type: string;
         Output: CMFMap<string, any>;
         Action: Cmf.Foundation.Common.DynamicExecutionEngine.Action;
+    }
+    class ExecuteReadOnlyActionOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Output: CMFMap<string, any>;
     }
     class DisableAllActionsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -6537,6 +6626,7 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.EntityTypeManageme
         protected $type: string;
         AttachmentsToAdd: Cmf.Foundation.BusinessObjects.EntityDocumentationFullFileNamePair[];
         AttachmentsToRemove: Cmf.Foundation.BusinessObjects.EntityDocumentationCollection;
+        AttachmentsToUpdate: Cmf.Foundation.BusinessObjects.EntityDocumentationCollection;
         Entity: any;
     }
 }
@@ -6754,7 +6844,7 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.ErpManagement.Inpu
         protected $id: string;
         protected $type: string;
         IntegrationEntry: Cmf.Foundation.BusinessObjects.IntegrationEntry;
-        RoutingContext: Cmf.Foundation.Common.Integration.IntegrationRoute;
+        RoutingContext: Cmf.Foundation.Integration.IntegrationRoute;
     }
     class FailIntegrationEntryInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -7126,6 +7216,11 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         ExportableColumns: string[];
         ExportableDataName: string;
     }
+    class UpdateAttachmentInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Attachment: Cmf.Foundation.BusinessObjects.EntityDocumentation;
+    }
     class CreateObjectInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -7140,13 +7235,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         protected $id: string;
         protected $type: string;
         Object: any;
-        ChangeSetItemApprovalRole: string;
-    }
-    class CreateObjectWithVersionInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        DefinitionObject: any;
-        VersionObject: any;
         ChangeSetItemApprovalRole: string;
     }
     class CreateObjectsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
@@ -7198,6 +7286,14 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         protected $id: string;
         protected $type: string;
         Objects: any[];
+    }
+    class BulkUpdateObjectsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        EntitiesToUpdate: Cmf.Foundation.Common.Base.CoreBaseCollection;
+        PropertiesToUpdate: CMFMap<string, string[]>;
+        AttributesToUpdate: CMFMap<string, Cmf.Foundation.BusinessObjects.AttributeCollection>;
+        RelatedAttributesToUpdate: CMFMap<string, Cmf.Foundation.BusinessObjects.AttributeCollection>;
     }
     class AddObjectRelationsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -7320,21 +7416,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         Object: any;
         LogObjectEventParameters: Cmf.Foundation.BusinessOrchestration.LogObjectEventParameters;
     }
-    class AddObjectsStateModelsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Objects: CMFMap<any, Cmf.Foundation.BusinessObjects.StateModelCollection>;
-    }
-    class RemoveObjectsStateModelsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Objects: CMFMap<any, Cmf.Foundation.BusinessObjects.StateModelCollection>;
-    }
-    class AdjustObjectsStateInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Objects: CMFMap<any, Cmf.Foundation.BusinessOrchestration.AdjustObjectStateParameters>;
-    }
     class LogObjectsEventInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -7363,11 +7444,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         Objects: CMFMap<any, CMFMap<string, any>>;
         ChangeSet: Cmf.Foundation.BusinessObjects.ChangeSet;
     }
-    class TerminateAllVersionsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Object: any;
-    }
     class BatchExecuteInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -7380,6 +7456,25 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         Targets: any[];
         ChangeSetItemApprovalRole: string;
         ChangeSet: Cmf.Foundation.BusinessObjects.ChangeSet;
+    }
+    class CloneObjectRevisionInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Source: Cmf.Foundation.BusinessObjects.EntityVersion;
+        Revision: Cmf.Foundation.BusinessObjects.EntityVersion;
+        ChangeSetItemApprovalRole: string;
+        KeepOnlyRevisionFromTarget: boolean;
+    }
+    class CompareEntityInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        CompareFrom: Cmf.Foundation.BusinessObjects.EntityBase;
+        CompareTo: Cmf.Foundation.BusinessObjects.EntityBase;
+        IsToCompareSideBySideDifferences: boolean;
+        IsToIgnoreWhitespace: boolean;
+        IsToIgnoreCase: boolean;
+        LevelsToLoad: number;
+        isToAddFirstLevelPropsToParent: boolean;
     }
     class LoadObjectAttributesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -7400,7 +7495,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         Object: any;
         RelationNames: string[];
         LevelsToLoad: number;
-        ContextChangeSet: Cmf.Foundation.BusinessObjects.ChangeSet;
         Attributes: string[];
         LoadAttributes: boolean;
     }
@@ -7410,7 +7504,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         Entities: any[];
         RelationNames: string[];
         LevelsToLoad: number;
-        ContextChangeSet: Cmf.Foundation.BusinessObjects.ChangeSet;
     }
     class LoadObjectStateModelsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -7436,17 +7529,16 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         Id: string;
         LevelsToLoad: number;
         DoNotThrowException: boolean;
-        ContextChangeSet: Cmf.Foundation.BusinessObjects.ChangeSet;
     }
     class GetObjectByNameInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
         Type: any;
         Name: string;
+        Revision: string;
         Version: number;
         LevelsToLoad: number;
         DoNotThrowException: boolean;
-        ContextChangeSet: Cmf.Foundation.BusinessObjects.ChangeSet;
     }
     class GetObjectsByFilterInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -7454,7 +7546,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         Type: any;
         Filter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
         LevelsToLoad: number;
-        ContextChangeSet: Cmf.Foundation.BusinessObjects.ChangeSet;
     }
     class GetObjectsByFilterAsDataSetInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -7575,6 +7666,26 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         Type: any;
         Name: string;
     }
+    class SetRevisionsObsoleteInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Revisions: any[];
+    }
+    class ReactivateRevisionsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Revisions: any[];
+    }
+    class ManageDefaultRevisionDatesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Revisions: any[];
+    }
+    class GetEntityRevisionsAsDataSetInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Entities: any[];
+    }
     class GetObjectLocationInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -7585,6 +7696,7 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         protected $type: string;
         Type: any;
         EntityIdsFilter: string[];
+        EntityNamesFilter: string[];
     }
     class SetObjectLocationInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -7622,11 +7734,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         protected $type: string;
         Checksum: string;
     }
-    class UpdateAttachmentInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Attachment: Cmf.Foundation.BusinessObjects.EntityDocumentation;
-    }
     class RemoveObjectRelatedRelationsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -7655,6 +7762,11 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         protected $type: string;
         FileData: any[];
     }
+    class UpdateAttachmentOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Attachment: Cmf.Foundation.BusinessObjects.EntityDocumentation;
+    }
     class CreateObjectOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -7669,12 +7781,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         protected $id: string;
         protected $type: string;
         Object: any;
-    }
-    class CreateObjectWithVersionOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        DefinitionObject: any;
-        VersionObject: any;
     }
     class CreateObjectsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -7722,6 +7828,11 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         protected $id: string;
         protected $type: string;
         Objects: any[];
+    }
+    class BulkUpdateObjectsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Entities: Cmf.Foundation.BusinessObjects.Entity[];
     }
     class AddObjectRelationsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -7818,21 +7929,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         protected $type: string;
         Object: any;
     }
-    class AddObjectsStateModelsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Objects: any[];
-    }
-    class RemoveObjectsStateModelsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Objects: any[];
-    }
-    class AdjustObjectsStateOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Objects: any[];
-    }
     class LogObjectsEventOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -7858,11 +7954,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         protected $type: string;
         Objects: any[];
     }
-    class TerminateAllVersionsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Object: any;
-    }
     class BatchExecuteOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -7872,6 +7963,18 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         protected $id: string;
         protected $type: string;
         Targets: any[];
+    }
+    class CloneObjectRevisionOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Revision: Cmf.Foundation.BusinessObjects.EntityVersion;
+    }
+    class CompareEntityOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        CompareFrom: Cmf.Foundation.BusinessObjects.EntityBase;
+        CompareTo: Cmf.Foundation.BusinessObjects.EntityBase;
+        DiffResults: Cmf.Foundation.BusinessObjects.EntityComparisonResult[];
     }
     class LoadObjectAttributesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -8006,6 +8109,26 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         protected $type: string;
         Results: System.Data.DataSet;
     }
+    class SetRevisionsObsoleteOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Revisions: any[];
+    }
+    class ReactivateRevisionsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Revisions: any[];
+    }
+    class ManageDefaultRevisionDatesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Revisions: any[];
+    }
+    class GetEntityRevisionsAsDataSetOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Revisions: System.Data.DataSet;
+    }
     class GetObjectLocationOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -8015,6 +8138,7 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         protected $id: string;
         protected $type: string;
         Locations: CMFMap<string, Cmf.Foundation.BusinessObjects.Location>;
+        LocationsByName: CMFMap<string, Cmf.Foundation.BusinessObjects.Location>;
     }
     class SetObjectLocationOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -8047,11 +8171,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
         protected $id: string;
         protected $type: string;
         FileExists: boolean;
-    }
-    class UpdateAttachmentOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Attachment: Cmf.Foundation.BusinessObjects.EntityDocumentation;
     }
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.ImportExportManagement.InputObjects {
@@ -8330,6 +8449,7 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.MasterDataManageme
         MasterDataPackage: Cmf.Foundation.BusinessObjects.MasterDataPackage;
         ExecutionConfiguration: string;
         ExecutionOperation: Cmf.Foundation.BusinessObjects.MasterDataPackageExecutionOperation;
+        IsToPerformSync: boolean;
     }
     class UpdateMasterDataPackageLogsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -8373,7 +8493,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.MobileManagement.I
         Type: string;
         Filter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
         LevelsToLoad: number;
-        ContextChangeSet: Cmf.Foundation.BusinessObjects.ChangeSet;
     }
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.MobileManagement.OutputObjects {
@@ -8896,6 +9015,17 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.SecurityManagement
         Roles: Cmf.Foundation.Security.RoleCollection;
         DataGroupRoleAccessModes: Cmf.Foundation.Security.DataGroupRoleAccessModeCollection;
     }
+    class GetAllFunctionalitiesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        OnlySystem: boolean;
+        MaxLastServiceHistoryId: string;
+    }
+    class GetFunctionalitiesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Filters: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+    }
     class GetFunctionalityGroupsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -9260,6 +9390,11 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.SecurityManagement
         PersonalAccessTokens: Cmf.Foundation.Security.PersonalAccessTokenCollection;
         Code: string;
     }
+    class GetUserGrafanaInfoInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        UserAccount: string;
+    }
     class AddUsersToRoleInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -9525,17 +9660,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.SecurityManagement
         protected $type: string;
         NameFilter: string[];
     }
-    class GetAllFunctionalitiesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        OnlySystem: boolean;
-        MaxLastServiceHistoryId: string;
-    }
-    class GetFunctionalitiesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Filters: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
-    }
     class UpdateDataGroupAndRolesAccessModeOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -9563,6 +9687,17 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.SecurityManagement
         protected $type: string;
         IdFilter: string[];
         IncludeSubRolesAccessModes: boolean;
+    }
+    class GetAllFunctionalitiesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Functionalities: Cmf.Foundation.Security.FunctionalityCollection;
+        MaxLastServiceHistoryId: string;
+    }
+    class GetFunctionalitiesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Functionalities: Cmf.Foundation.Security.FunctionalityCollection;
     }
     class GetFunctionalityGroupsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -9898,6 +10033,11 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.SecurityManagement
         protected $type: string;
         PersonalAccessTokens: Cmf.Foundation.Security.PersonalAccessTokenCollection;
     }
+    class GetUserGrafanaInfoOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        GrafanaRole: string;
+    }
     class AddUsersToRoleOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -10144,17 +10284,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.SecurityManagement
         protected $id: string;
         protected $type: string;
         FunctionalityCollection: Cmf.Foundation.Security.FunctionalityCollection;
-    }
-    class GetAllFunctionalitiesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Functionalities: Cmf.Foundation.Security.FunctionalityCollection;
-        MaxLastServiceHistoryId: string;
-    }
-    class GetFunctionalitiesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Functionalities: Cmf.Foundation.Security.FunctionalityCollection;
     }
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.StateModelsManagement.InputObjects {
@@ -10629,6 +10758,16 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.TableManagement.In
         RowsToRemove: System.Data.DataSet;
         RowsToAddOrUpdate: System.Data.DataSet;
     }
+    class GetGenericTablesByFilterInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Filter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+    }
+    class GetSmartTablesByFilterInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Filter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+    }
     class CreateSmartTableInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -10852,16 +10991,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.TableManagement.In
     }
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.TableManagement.OutputObjects {
-    class GetGenericTablesByFilterInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Filter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
-    }
-    class GetSmartTablesByFilterInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Filter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
-    }
     class GetLookupTablesByFilterInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -11208,11 +11337,13 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.UIPageManagement.I
         protected $type: string;
         Id: string;
         IsToLocalize: boolean;
+        IsDefinition: boolean;
     }
     class GetUIPageByNameInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
         Name: string;
+        Revision: string;
         IsToLocalize: boolean;
     }
     class LocalizeUIPageInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
@@ -11226,6 +11357,30 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.UIPageManagement.I
         protected $type: string;
         Context: Cmf.Foundation.BusinessObjects.NgpDataRow;
     }
+    class LoadUIPagePresetsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        UIPage: Cmf.Foundation.BusinessObjects.UIPage;
+        Filters: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+    }
+    class FullUpdateUIPageInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        UIPage: Cmf.Foundation.BusinessObjects.UIPage;
+        PresetsToAdd: Cmf.Foundation.BusinessObjects.UIPagePresetCollection;
+        PresetsToUpdate: Cmf.Foundation.BusinessObjects.UIPagePresetCollection;
+        PresetsToRemove: Cmf.Foundation.BusinessObjects.UIPagePresetCollection;
+    }
+    class GetPinnedDashboardsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Scope: Cmf.Foundation.BusinessObjects.UIScope;
+        LoadUIPageSettings: boolean;
+        LoadUIPagePresetSettings: boolean;
+        EntityType: Cmf.Foundation.BusinessObjects.EntityType;
+        MenuEntry: string;
+        IsToLocalize: boolean;
+    }
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.UIPageManagement.OutputObjects {
     class GetUIPageByIdOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
@@ -11233,6 +11388,7 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.UIPageManagement.O
         protected $type: string;
         UIPage: Cmf.Foundation.BusinessObjects.UIPage;
         HasPersonalizedLayout: boolean;
+        HasPresets: boolean;
     }
     class GetUIPageByNameOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -11248,6 +11404,22 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.UIPageManagement.O
         protected $id: string;
         protected $type: string;
         UIPage: Cmf.Foundation.BusinessObjects.UIPage;
+    }
+    class LoadUIPagePresetsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        UIPage: Cmf.Foundation.BusinessObjects.UIPage;
+    }
+    class FullUpdateUIPageOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        UIPage: Cmf.Foundation.BusinessObjects.UIPage;
+    }
+    class GetPinnedDashboardsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        UIPages: Cmf.Foundation.BusinessObjects.UIPageCollection;
+        UIPagePresets: Cmf.Foundation.BusinessObjects.UIPagePresetCollection;
     }
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.Utilities.InputObjects {
@@ -11498,6 +11670,11 @@ export declare namespace Cmf.Foundation.Common {
         Method = 3,
         Property = 4
     }
+    enum FileSystemOperationType {
+        Move = 0,
+        Copy = 1,
+        Delete = 2
+    }
     enum LockType {
         FullAccess = 0,
         ReadOnly = 1,
@@ -11525,6 +11702,7 @@ export declare namespace Cmf.Foundation.Common {
         Db20006 = 20006,
         Db20007 = 20007,
         Db20008 = 20008,
+        Db20009 = 20009,
         Rep25000 = 25000,
         Rep25001 = 25001,
         Rep25002 = 25002,
@@ -11740,6 +11918,21 @@ export declare namespace Cmf.Foundation.Common {
         Val50180 = 50180,
         Val50181 = 50181,
         Val50182 = 50182,
+        Val50183 = 50183,
+        Val50184 = 50184,
+        Val50185 = 50185,
+        Val50186 = 50186,
+        Val50187 = 50187,
+        Val50188 = 50188,
+        Val50189 = 50189,
+        Val50190 = 50190,
+        Val50191 = 50191,
+        Val50192 = 50192,
+        Rev55000 = 55000,
+        Rev55001 = 55001,
+        Rev55002 = 55002,
+        Rev55003 = 55003,
+        Rev55004 = 55004,
         Bo60000 = 60000,
         Bo60001 = 60001,
         Bo60002 = 60002,
@@ -11969,6 +12162,8 @@ export declare namespace Cmf.Foundation.Common {
         Bo61492 = 61492,
         Bo61501 = 61501,
         Bo61524 = 61524,
+        Bo61557 = 61557,
+        Bo61558 = 61558,
         Erp70000 = 70000,
         Erp70001 = 70001,
         Erp70002 = 70002,
@@ -12428,35 +12623,6 @@ export declare namespace Cmf.Foundation.Common.ImportExport {
         Successful = 6
     }
 }
-export declare namespace Cmf.Foundation.Common.Integration {
-    class IntegrationRoute {
-        protected $id: string;
-        protected $type: string;
-        SourceSystem: string;
-        TargetSystem: string;
-        MessageType: string;
-        PackageName: string;
-        ActionName: string;
-        ErrorHandlingActionName: string;
-    }
-    enum ActivationMode {
-        None = 0,
-        PerCall = 1,
-        PerProcess = 2
-    }
-    enum EdiDirection {
-        Unknown = 0,
-        Inbound = 1,
-        Outbound = 2
-    }
-    enum IntegrationEntrySystemState {
-        Received = 0,
-        Processing = 1,
-        Processed = 2,
-        Failed = 3,
-        Rejected = 4
-    }
-}
 export declare namespace Cmf.Foundation.Common.Licenses {
     class EntityTypeLimitationCollection extends Array<Cmf.Foundation.Common.Licenses.EntityTypeLimitation> {
     }
@@ -12759,6 +12925,30 @@ export declare namespace Cmf.Foundation.Helpers {
         String = 4
     }
 }
+export declare namespace Cmf.Foundation.Integration {
+    class IntegrationRoute {
+        protected $id: string;
+        protected $type: string;
+        SourceSystem: string;
+        TargetSystem: string;
+        MessageType: string;
+        PackageName: string;
+        ActionName: string;
+        ErrorHandlingActionName: string;
+    }
+}
+export declare namespace Cmf.Foundation.Integration.Abstractions {
+    enum ActivationMode {
+        None = 0,
+        PerCall = 1,
+        PerProcess = 2
+    }
+    enum EdiDirection {
+        Unknown = 0,
+        Inbound = 1,
+        Outbound = 2
+    }
+}
 export declare namespace Cmf.Foundation.Loaders.Abstractions {
     enum CacheManagerType {
         Roles = 0,
@@ -12979,12 +13169,7 @@ export declare namespace Cmf.Foundation.Security {
     }
 }
 export declare namespace Cmf.Foundation.Services.HostStartup {
-    enum MiddlewarePositioning {
-        None = 0,
-        EarlyOn = 1,
-        LaterOn = 2
-    }
-    enum ServiceRegistrationOrderEnum {
+    enum CoreServiceRegistrationOrderEnum {
         HostStartupModule = 0,
         BusinessObjectsBaseStartupModule = 80,
         CommonStartupModule = 100,
@@ -12994,9 +13179,23 @@ export declare namespace Cmf.Foundation.Services.HostStartup {
         IntegrationHandlingStartupModule = 500,
         CmfODataStartupModuleExtension = 600,
         BusinessOrchestrationBaseStartupModule = 700,
-        CommonLoadersStartupModule = 900,
+        CommonLoadersStartupModule = 800,
+        SecurityStartupModule = 900,
         LoadersStartupModule = 1000,
+        ConfigurationStartupModule = 1100,
+        ReportsStartupModule = 1200,
+        ErpStartupModule = 1300,
+        ODataSourcesStartupModule = 1400,
+        TimerHandlingStartupModule = 1500,
+        DataPlatformFrameworkStartupModule = 1600,
+        IoTEventHandlerStartupModule = 1700,
+        RepositoryStartupModule = 1800,
         LocalizationServiceSolver = 9999
+    }
+    enum MiddlewarePositioning {
+        None = 0,
+        EarlyOn = 1,
+        LaterOn = 2
     }
 }
 export declare namespace Cmf.Navigo.BusinessObjects {
@@ -13035,6 +13234,8 @@ export declare namespace Cmf.Navigo.BusinessObjects {
     }
     class PreviewAndPrintLayoutCollection extends Array<Cmf.Navigo.BusinessObjects.PreviewAndPrintLayout> {
     }
+    class ProductionOrderItemToManageCollection extends Array<Cmf.Navigo.BusinessObjects.ProductionOrderItemToManage> {
+    }
     class SplitMaterialCollection extends Array<Cmf.Navigo.BusinessObjects.SplitMaterial> {
     }
     class SplitInputSubMaterialCollection extends Array<Cmf.Navigo.BusinessObjects.SplitInputSubMaterial> {
@@ -13042,6 +13243,10 @@ export declare namespace Cmf.Navigo.BusinessObjects {
     class SplitInputParametersCollection extends Array<Cmf.Navigo.BusinessObjects.SplitInputParameters> {
     }
     class SplitByProductMaterialCollection extends Array<Cmf.Navigo.BusinessObjects.SplitByProductMaterial> {
+    }
+    class SplitAndTrackOutResultCollection extends Array<Cmf.Navigo.BusinessObjects.SplitAndTrackOutResult> {
+    }
+    class SendAheadRunMaterialParametersCollection extends Array<Cmf.Navigo.BusinessObjects.SendAheadRunMaterialParameters> {
     }
     class NextStepsResultCollection extends Array<Cmf.Navigo.BusinessObjects.NextStepsResult> {
     }
@@ -13072,6 +13277,8 @@ export declare namespace Cmf.Navigo.BusinessObjects {
     class MaterialLineStepResourceDataCollection extends Array<Cmf.Navigo.BusinessObjects.MaterialLineStepResourceData> {
     }
     class MaterialLineStepDataCollection extends Array<Cmf.Navigo.BusinessObjects.MaterialLineStepData> {
+    }
+    class MaterialLabelPrintingInformationCollection extends Array<Cmf.Navigo.BusinessObjects.MaterialLabelPrintingInformation> {
     }
     class DispenseMaterialCollection extends Array<Cmf.Navigo.BusinessObjects.DispenseMaterial> {
     }
@@ -13106,6 +13313,8 @@ export declare namespace Cmf.Navigo.BusinessObjects {
     class LogicalFlowPathResultCollection {
         protected $id: string;
         protected $type: string;
+    }
+    class ManageExperimentMaterialParametersCollection extends Array<Cmf.Navigo.BusinessObjects.ManageExperimentMaterialParameters> {
     }
     class GetEDCChartDataSeriesParametersCollection extends Array<Cmf.Navigo.BusinessObjects.GetEDCChartDataSeriesParameters> {
     }
@@ -13262,6 +13471,50 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         EmployeeDetails: System.Data.DataSet;
         ToolDetails: System.Data.DataSet;
         DependencyDetails: System.Data.DataSet;
+    }
+    class ScheduleDependency {
+        protected $id: string;
+        protected $type: string;
+        FromScheduleScenarioJob: Cmf.Navigo.BusinessObjects.ScheduleScenarioJob;
+        FromScheduleScenarioMaintenanceActivity: Cmf.Navigo.BusinessObjects.ScheduleScenarioMaintenanceActivity;
+        ToScheduleScenarioJob: Cmf.Navigo.BusinessObjects.ScheduleScenarioJob;
+        ToScheduleScenarioMaintenanceActivity: Cmf.Navigo.BusinessObjects.ScheduleScenarioMaintenanceActivity;
+    }
+    class EffectiveJob {
+        protected $id: string;
+        protected $type: string;
+        ScheduleScenario: Cmf.Navigo.BusinessObjects.ScheduleScenario;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+        Resource: Cmf.Navigo.BusinessObjects.Resource;
+        FlowPath: string;
+        Facility: Cmf.Navigo.BusinessObjects.Facility;
+        Step: Cmf.Navigo.BusinessObjects.Step;
+        UserLocked: boolean;
+        SystemLocked: boolean;
+        PlannedQuantity: number;
+        Product: Cmf.Navigo.BusinessObjects.Product;
+        Service: Cmf.Navigo.BusinessObjects.Service;
+        PlannedCapacityClass: string;
+        PlannedStartDate: moment.Moment;
+        PlannedEndDate: moment.Moment;
+        ActualStartDate: moment.Moment;
+        ActualEndDate: moment.Moment;
+        ScheduledQuantity: number;
+        IsMainJob: boolean;
+        SystemState: Cmf.Navigo.BusinessObjects.ScheduleJobSystemState;
+        ScheduleScenarioJobType: Cmf.Navigo.BusinessObjects.ScheduleJobType;
+        PlannedSetupTime: moment.Duration;
+        PlannedProcessTime: moment.Duration;
+        PlannedDuration: moment.Duration;
+        Sequence: number;
+        PlannedProductGroup: Cmf.Navigo.BusinessObjects.ProductGroup;
+        PlannedRecipe: Cmf.Navigo.BusinessObjects.Recipe;
+        StepSetupCharacteristic: Cmf.Navigo.BusinessObjects.StepSetupCharacteristic;
+        ScheduledMaterial: Cmf.Navigo.BusinessObjects.ScheduleMaterial;
+        ReworkLevel: number;
+        CompletedQuantity: number;
+        InProgressQuantity: number;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
     }
     class InspectionDetails {
         protected $id: string;
@@ -13484,6 +13737,14 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         NewProduct: Cmf.Navigo.BusinessObjects.Product;
         NewQuantity: number;
     }
+    class ProductionOrderItemToManage {
+        protected $id: string;
+        protected $type: string;
+        ProductionOrder: Cmf.Navigo.BusinessObjects.ProductionOrder;
+        ProductionOrderItemId: string;
+        ProductionOrderItemName: string;
+        ProductionOrderItemTargetQuantity: number;
+    }
     class StoreParameters {
         protected $id: string;
         protected $type: string;
@@ -13525,6 +13786,23 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         MaterialContainer: Cmf.Navigo.BusinessObjects.MaterialContainer;
         IsCollapse: boolean;
         IsToSplit: boolean;
+    }
+    class SplitAndTrackOutResult {
+        protected $id: string;
+        protected $type: string;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+        DefaultQuantity: number;
+        EnableQuantityOverride: boolean;
+        TrackOutMaterialMode: Cmf.Navigo.BusinessObjects.TrackOutMaterialMode;
+        MaterialLossesMode: Cmf.Navigo.BusinessObjects.MaterialLossesMode;
+    }
+    class SendAheadRunMaterialParameters {
+        protected $id: string;
+        protected $type: string;
+        Material: Cmf.Navigo.BusinessObjects.SendAheadRunMaterial;
+        SplitMaterials: Cmf.Navigo.BusinessObjects.SplitInputParametersCollection;
+        SplitScope: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialSplitScope;
+        SplitType: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialSplitType;
     }
     class RemoteReceiveMaterialParameters {
         protected $id: string;
@@ -13581,6 +13859,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         protected $type: string;
         Material: Cmf.Navigo.BusinessObjects.Material;
         NewProduct: Cmf.Navigo.BusinessObjects.Product;
+        NewBinCode: string;
     }
     class MaterialProduct {
         protected $id: string;
@@ -13623,6 +13902,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         MaterialName: string;
         MaterialId: string;
         ProductName: string;
+        ProductRevision: string;
         ProductId: string;
         ProductDescription: string;
         StepName: string;
@@ -13640,6 +13920,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         AssembleQuantity: number;
         AssembleUnits: string;
         BOMName: string;
+        BOMRevision: string;
         BOMId: string;
         AssembleSecondaryQuantity: number;
         IsExplicitAssemble: boolean;
@@ -13738,6 +14019,14 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         UniversalState: Cmf.Foundation.Common.Base.UniversalState;
         LineResourcesData: Cmf.Navigo.BusinessObjects.MaterialLineStepResourceDataCollection;
         MaterialLineStepId: string;
+    }
+    class MaterialLabelPrintingInformation {
+        protected $id: string;
+        protected $type: string;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+        PrintableDocument: Cmf.Navigo.BusinessObjects.PrintableDocument;
+        PrinterName: string;
+        NumberOfCopies: number;
     }
     class MaterialFloorLifeInformation {
         protected $id: string;
@@ -13852,6 +14141,12 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         IsToCopyReworkInformationFromMainMaterialToDetachedMaterials: boolean;
         IsToTerminateMainMaterialOnZeroQuantity: boolean;
     }
+    class FutureActionCreateSendAheadRunData {
+        protected $id: string;
+        protected $type: string;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+        SendAheadRunMaterialParameters: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialParametersCollection;
+    }
     class FutureActionCollapseData {
         protected $id: string;
         protected $type: string;
@@ -13866,6 +14161,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         Resource: Cmf.Navigo.BusinessObjects.Resource;
         ResourceContainers: Cmf.Navigo.BusinessObjects.ContainerResourceCollection;
         PositionName: string;
+        IsTrackInForMaintenance: boolean;
     }
     class ComposeSourceMaterial {
         protected $id: string;
@@ -13898,6 +14194,9 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         ChecklistParameters: Cmf.Foundation.BusinessObjects.PerformImmediateInputParametersCollection;
         SubMaterialLosses: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Navigo.BusinessObjects.LossBonusAffectedQuantityCollection>;
         IsToIgnoreInSPC: boolean;
+        SendAheadRunMaterial: Cmf.Navigo.BusinessObjects.SendAheadRunMaterial;
+        SplitAndTrackOutParameters: Cmf.Navigo.BusinessObjects.SplitInputParameters;
+        IsToSkipQuantityOverrideValidation: boolean;
     }
     class ComplexTrackOutAndMoveNextParametersResult {
         protected $id: string;
@@ -13923,6 +14222,9 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         ChecklistParameters: Cmf.Foundation.BusinessObjects.PerformImmediateInputParametersCollection;
         SubMaterialLosses: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Navigo.BusinessObjects.LossBonusAffectedQuantityCollection>;
         FlowPath: string;
+        SendAheadRunMaterial: Cmf.Navigo.BusinessObjects.SendAheadRunMaterial;
+        SplitAndTrackOutParameters: Cmf.Navigo.BusinessObjects.SplitInputParameters;
+        IsToSkipQuantityOverrideValidation: boolean;
     }
     class ComplexReworkParametersResult {
         protected $id: string;
@@ -13940,12 +14242,19 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         CombinedPrimaryQuantity: number;
         CombinedSecondaryQuantity: number;
     }
+    class ChangeMaterialProductProperties {
+        protected $id: string;
+        protected $type: string;
+        Product: Cmf.Navigo.BusinessObjects.Product;
+        BinCode: string;
+    }
     class AffectedMaterial {
         protected $id: string;
         protected $type: string;
         MaterialName: string;
         MaterialId: string;
         ProductName: string;
+        ProductRevision: string;
         ProductId: string;
         ProductDescription: string;
         StepName: string;
@@ -13957,6 +14266,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         AssembleQuantity: number;
         AssembleUnits: string;
         BOMName: string;
+        BOMRevision: string;
         BOMId: string;
         AssembleSecondaryQuantity: number;
         ResourceId: string;
@@ -14082,7 +14392,6 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         Operation: Cmf.Foundation.BusinessObjects.PerformChecklistOperation;
         Comment: string;
         Parameters: CMFMap<string, any>;
-        SignatureUser: string;
         Signatures: Cmf.Foundation.BusinessObjects.ChecklistItemInstanceSignatureCollection;
     }
     class MaintenanceActivityOrderDetails {
@@ -14211,6 +14520,13 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         ForceStateChange: boolean;
         ReasonsToIgnore: CMFMap<Cmf.Foundation.BusinessObjects.StateModelTransition, string[]>;
     }
+    class ManageExperimentMaterialParameters {
+        protected $id: string;
+        protected $type: string;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+        SubMaterialNumber: number;
+        IsToDetach: boolean;
+    }
     class FullUpdateExperimentDefinitionStepParameters {
         protected $id: string;
         protected $type: string;
@@ -14271,12 +14587,14 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         protected $type: string;
         MaintenanceActivityOrderCertification: CMFMap<Cmf.Navigo.BusinessObjects.MaintenanceActivityOrder, Cmf.Navigo.BusinessObjects.Certification>;
         EmployeeToCheckOut: CMFMap<Cmf.Navigo.BusinessObjects.MaintenanceActivityOrder, Cmf.Navigo.BusinessObjects.Employee>;
+        MaintenanceActivityOrderTrainers: CMFMap<Cmf.Navigo.BusinessObjects.MaintenanceActivityOrder, Cmf.Navigo.BusinessObjects.Employee>;
     }
     class CheckInEmployeeParameters {
         protected $id: string;
         protected $type: string;
         ResourcesCertification: CMFMap<Cmf.Navigo.BusinessObjects.Resource, Cmf.Navigo.BusinessObjects.Certification>;
         EmployeeToCheckOut: CMFMap<Cmf.Navigo.BusinessObjects.Resource, Cmf.Navigo.BusinessObjects.Employee>;
+        ResourcesTrainer: CMFMap<Cmf.Navigo.BusinessObjects.Resource, Cmf.Navigo.BusinessObjects.Employee>;
     }
     class GetEDCChartDataSeriesParameters {
         protected $id: string;
@@ -14324,6 +14642,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         protected $type: string;
         Position: number;
         PositionName: string;
+        StorageBin: Cmf.Navigo.BusinessObjects.StorageBin;
     }
     class GetContainersBasicInformationResult {
         protected $id: string;
@@ -14362,6 +14681,23 @@ export declare namespace Cmf.Navigo.BusinessObjects {
     class ExceptionProtocol extends Cmf.Foundation.BusinessObjects.EntityVersionInstanceStateObject {
         protected $id: string;
         protected $type: string;
+    }
+    class FutureActionSendAheadRunMaterialIdCollection extends Array<FutureActionSendAheadRunMaterialId> {
+        protected $id: string;
+        protected $type: string;
+        protected $typeCMF: string;
+    }
+    class FutureActionSendAheadRunMaterialId extends Cmf.Foundation.BusinessObjects.EntityRelation {
+        protected $id: string;
+        protected $type: string;
+        IsTemplate: boolean;
+        MainStateModelId: string;
+        MainStateModelStateId: string;
+        MainStateModelStateReason: string;
+        Order: number;
+        SourceEntity: Cmf.Navigo.BusinessObjects.FutureAction;
+        TargetEntity: Cmf.Navigo.BusinessObjects.Material;
+        Version: number;
     }
     class EmployeeDelegateCollection extends Array<EmployeeDelegate> {
         protected $id: string;
@@ -14481,6 +14817,8 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         SourceEntity: Cmf.Navigo.BusinessObjects.Experiment;
         SubMaterialNumber: number;
         TargetEntity: Cmf.Navigo.BusinessObjects.Material;
+        CurrentSequence: number;
+        IsOptional: boolean;
     }
     class ExperimentDefinitionStepMaterialGroupCollection extends Array<ExperimentDefinitionStepMaterialGroup> {
         protected $id: string;
@@ -14738,7 +15076,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         TargetEntity: Cmf.Navigo.BusinessObjects.Parameter;
         Order: number;
         Type: Cmf.Navigo.BusinessObjects.ProductGroupParameterType;
-        Value: string;
+        Value: any;
         Step: Cmf.Navigo.BusinessObjects.Step;
         LowerSpecLimit: number;
         TargetSpecValue: number;
@@ -14758,7 +15096,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         TargetEntity: Cmf.Navigo.BusinessObjects.Parameter;
         Order: number;
         Type: Cmf.Navigo.BusinessObjects.ProductGroupParameterType;
-        Value: string;
+        Value: any;
         Step: Cmf.Navigo.BusinessObjects.Step;
         LowerSpecLimit: number;
         TargetSpecValue: number;
@@ -14822,6 +15160,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         Certification: Cmf.Navigo.BusinessObjects.Certification;
         Exclusive: boolean;
         AutomaticEndDate: moment.Moment;
+        Trainer: Cmf.Navigo.BusinessObjects.Employee;
     }
     class ResourcePersonnelRequirementsCollection extends Array<ResourcePersonnelRequirements> {
         protected $id: string;
@@ -14868,6 +15207,8 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         GrantType: Cmf.Navigo.BusinessObjects.EmployeeCertificationGrantType;
         ValidTo: moment.Moment;
         ExcludeFromScheduling: boolean;
+        IsTrainee: boolean;
+        IsTrainer: boolean;
         Status: Cmf.Navigo.BusinessObjects.EmployeeCertificationStatus;
     }
     class SubResourceCollection extends Array<SubResource> {
@@ -14927,6 +15268,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         EndDate: moment.Moment;
         Duration: number;
         Cost: number;
+        Trainer: Cmf.Navigo.BusinessObjects.Employee;
     }
     class MaintenanceActivityOrderCmfTimerCollection extends Array<MaintenanceActivityOrderCmfTimer> {
         protected $id: string;
@@ -15066,6 +15408,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         Location: string;
         ReferenceDesignator: string;
         QuantityCalculationRule: Cmf.Foundation.BusinessObjects.Rule;
+        BinCode: string;
         Parent: Cmf.Navigo.BusinessObjects.BOMProduct;
     }
     class MaterialHoldReasonCollection extends Array<MaterialHoldReason> {
@@ -15081,6 +15424,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         ReleaseRole: Cmf.Foundation.Security.Role;
         SourceEntity: Cmf.Navigo.BusinessObjects.Material;
         TargetEntity: Cmf.Navigo.BusinessObjects.Reason;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
     }
     class DataCollectionPointCollection extends Array<DataCollectionPoint> {
         protected $id: string;
@@ -15270,6 +15614,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         TargetEntity: Cmf.Navigo.BusinessObjects.Resource;
         PositionName: string;
         Location: Cmf.Navigo.BusinessObjects.ResourceLocation;
+        StorageBin: Cmf.Navigo.BusinessObjects.StorageBin;
     }
     class ProductBinningCollection extends Array<ProductBinning> {
         protected $id: string;
@@ -15329,6 +15674,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         StartDate: moment.Moment;
         StorageBin: Cmf.Navigo.BusinessObjects.StorageBin;
         Location: Cmf.Navigo.BusinessObjects.ResourceLocation;
+        PositionInParentResource: number;
     }
     class MaterialContainerCollection extends Array<MaterialContainer> {
         protected $id: string;
@@ -15434,7 +15780,6 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         CorrelationID: string;
         IsOptional: boolean;
         Position: number;
-        Probability: number;
         SourceEntity: Cmf.Navigo.BusinessObjects.Flow;
         TargetEntity: Cmf.Navigo.BusinessObjects.Step;
         IsLine: boolean;
@@ -15575,6 +15920,8 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         RequiredSubMaterialsForm: string;
         Result: Cmf.Navigo.BusinessObjects.ExperimentResult;
         Type: string;
+        EmptySubMaterials: string;
+        OptionalSubMaterials: string;
         Objectives: Cmf.Navigo.BusinessObjects.ExperimentDefinitionObjectiveCollection;
         MaterialGroups: Cmf.Navigo.BusinessObjects.ExperimentDefinitionMaterialGroupCollection;
         Steps: Cmf.Navigo.BusinessObjects.ExperimentDefinitionStepCollection;
@@ -15679,7 +16026,6 @@ export declare namespace Cmf.Navigo.BusinessObjects {
     class BOM extends Cmf.Foundation.BusinessObjects.EntityVersion {
         protected $id: string;
         protected $type: string;
-        Diagram: string;
         Type: string;
         Units: string;
         Scope: Cmf.Navigo.BusinessObjects.BOMScope;
@@ -15719,11 +16065,9 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         IsBlocked: boolean;
         ProductGroup: Cmf.Navigo.BusinessObjects.ProductGroup;
         DefaultMapDefinition: Cmf.Navigo.BusinessObjects.MapDefinition;
-        IsEnabledForMaintenanceManagement: boolean;
         MaintenanceManagementConsumeQuantity: boolean;
         DefaultMaterialForm: string;
         DefaultMaterialType: string;
-        IsDurable: boolean;
         MaximumMaterialSize: number;
         IsDiscrete: boolean;
         MinimumMaterialSize: number;
@@ -15780,6 +16124,8 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         PanelType: Cmf.Navigo.BusinessObjects.ECADPanelType;
         ProductComponentLocationSource: Cmf.Navigo.BusinessObjects.ProductComponentLocationSource;
         ProductComponentSource: Cmf.Navigo.BusinessObjects.ProductComponentSource;
+        BinCodeRequired: boolean;
+        SchedulingMode: Cmf.Navigo.BusinessObjects.SchedulingMode;
         SubProducts: Cmf.Navigo.BusinessObjects.SubProductCollection;
         ProductBinnings: Cmf.Navigo.BusinessObjects.ProductBinningCollection;
         UnitConversionFactors: Cmf.Foundation.BusinessObjects.GenericTables.GenericTable;
@@ -15808,6 +16154,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         ProductGroupRecipeContexts: System.Data.DataSet;
         ProductGroupMapDefinitionContexts: System.Data.DataSet;
         ProductGroupRecipeParameterOverrides: System.Data.DataSet;
+        Products: Cmf.Navigo.BusinessObjects.ProductCollection;
     }
     class FlowCollection extends Array<Flow> {
         protected $id: string;
@@ -15890,6 +16237,261 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         Type: string;
         IsEnabled: boolean;
     }
+    class ScheduleScenarioMaintenanceActivityCollection extends Array<ScheduleScenarioMaintenanceActivity> {
+        protected $id: string;
+        protected $type: string;
+        protected $typeCMF: string;
+    }
+    class ScheduleScenarioMaintenanceActivity extends Cmf.Foundation.BusinessObjects.EntityInstance {
+        protected $id: string;
+        protected $type: string;
+        ApplicableTo: Cmf.Navigo.BusinessObjects.ApplicableTo;
+        InstanceNumber: number;
+        MaintenanceActivity: Cmf.Navigo.BusinessObjects.MaintenanceActivity;
+        MaintenancePlan: Cmf.Navigo.BusinessObjects.MaintenancePlan;
+        PlannedDuration: moment.Duration;
+        PlannedEndDate: moment.Moment;
+        PlannedStartDate: moment.Moment;
+        Resource: Cmf.Navigo.BusinessObjects.Resource;
+        ScheduleScenario: Cmf.Navigo.BusinessObjects.ScheduleScenario;
+        ScheduleScenarioMaintenanceType: Cmf.Navigo.BusinessObjects.ScheduleScenarioMaintenanceType;
+        SystemLocked: boolean;
+    }
+    class ProductionOrderStepDependencyCollection extends Array<ProductionOrderStepDependency> {
+        protected $id: string;
+        protected $type: string;
+        protected $typeCMF: string;
+    }
+    class ProductionOrderStepDependency extends Cmf.Foundation.BusinessObjects.EntityInstance {
+        protected $id: string;
+        protected $type: string;
+        FromFlowPath: string;
+        FromProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
+        FromQuantity: string;
+        FromStep: Cmf.Navigo.BusinessObjects.Step;
+        FromUnits: string;
+        ProductionOrder: Cmf.Navigo.BusinessObjects.ProductionOrder;
+        ToFlowPath: string;
+        ToProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
+        ToQuantity: string;
+        ToStep: Cmf.Navigo.BusinessObjects.Step;
+        ToUnits: string;
+        TransferMaterialSize: number;
+    }
+    class ProductionOrderStepCollection extends Array<ProductionOrderStep> {
+        protected $id: string;
+        protected $type: string;
+        protected $typeCMF: string;
+    }
+    class ProductionOrderStep extends Cmf.Foundation.BusinessObjects.EntityInstance {
+        protected $id: string;
+        protected $type: string;
+        CompletePrimaryQuantity: number;
+        Facility: Cmf.Navigo.BusinessObjects.Facility;
+        Flow: Cmf.Navigo.BusinessObjects.Flow;
+        FlowPath: string;
+        InProgressPrimaryQuantity: number;
+        PrimaryQuantity: number;
+        PrimaryUnits: string;
+        ProcessEndDate: moment.Moment;
+        ProcessStartDate: moment.Moment;
+        ProductionOrder: Cmf.Navigo.BusinessObjects.ProductionOrder;
+        ProductionOrderItemId: string;
+        ProductionOrderItemName: string;
+        ProductionOrderItemSequence: number;
+        ProductionOrderItemTargetQuantity: number;
+        Resource: Cmf.Navigo.BusinessObjects.Resource;
+        SetupEndDate: moment.Moment;
+        SetupStartDate: moment.Moment;
+        Step: Cmf.Navigo.BusinessObjects.Step;
+        SystemState: Cmf.Navigo.BusinessObjects.ProductionOrderStepSystemState;
+    }
+    class SendAheadRunMaterialCollection extends Array<SendAheadRunMaterial> {
+        protected $id: string;
+        protected $type: string;
+        protected $typeCMF: string;
+    }
+    class SendAheadRunMaterial extends Cmf.Foundation.BusinessObjects.EntityInstance {
+        protected $id: string;
+        protected $type: string;
+        IgnoreResult: boolean;
+        MainStateModelStateReason: string;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+        Result: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialResult;
+        ResultCaptureMode: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialResultCaptureMode;
+        ResultRemarks: string;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+        SendAheadType: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialSendAheadType;
+        Sequence: number;
+        SplitScope: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialSplitScope;
+        SplitType: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialSplitType;
+        SystemState: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialSystemState;
+    }
+    class PlanMaterialTypeCollection extends Array<PlanMaterialType> {
+        protected $id: string;
+        protected $type: string;
+        protected $typeCMF: string;
+    }
+    class PlanMaterialType extends Cmf.Foundation.BusinessObjects.EntityInstance {
+        protected $id: string;
+        protected $type: string;
+        MaterialType: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+    }
+    class PlanTimeFrameItemCollection extends Array<PlanTimeFrameItem> {
+        protected $id: string;
+        protected $type: string;
+        protected $typeCMF: string;
+    }
+    class PlanTimeFrameItem extends Cmf.Foundation.BusinessObjects.EntityInstance {
+        protected $id: string;
+        protected $type: string;
+        ActualVolume: number;
+        LastReleasedBy: string;
+        LastReleasedOn: moment.Moment;
+        LastReleasedPlanScenario: Cmf.Navigo.BusinessObjects.Plan;
+        MainStateModelStateReason: string;
+        PlanItem: Cmf.Navigo.BusinessObjects.PlanItem;
+        PlannedVolume: number;
+        PlanTimeFrame: Cmf.Navigo.BusinessObjects.PlanTimeFrame;
+        SystemState: Cmf.Navigo.BusinessObjects.PlanTimeFrameItemSystemState;
+    }
+    class PlanTimeFrameCollection extends Array<PlanTimeFrame> {
+        protected $id: string;
+        protected $type: string;
+        protected $typeCMF: string;
+    }
+    class PlanTimeFrame extends Cmf.Foundation.BusinessObjects.EntityInstance {
+        protected $id: string;
+        protected $type: string;
+        FromDate: moment.Moment;
+        MainStateModelStateReason: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        TimeUnit: Cmf.Navigo.BusinessObjects.PlanTimeUnit;
+        ToDate: moment.Moment;
+        PlanTimeFrameItems: Cmf.Navigo.BusinessObjects.PlanTimeFrameItemCollection;
+    }
+    class PlanItemCollection extends Array<PlanItem> {
+        protected $id: string;
+        protected $type: string;
+        protected $typeCMF: string;
+    }
+    class PlanItem extends Cmf.Foundation.BusinessObjects.EntityInstance {
+        protected $id: string;
+        protected $type: string;
+        MainStateModelStateReason: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        PlanItemLevel: Cmf.Navigo.BusinessObjects.PlanItemLevel;
+        Product: Cmf.Navigo.BusinessObjects.Product;
+        ProductGroup: Cmf.Navigo.BusinessObjects.ProductGroup;
+        Status: Cmf.Navigo.BusinessObjects.PlanItemStatus;
+    }
+    class PlanStepCollection extends Array<PlanStep> {
+        protected $id: string;
+        protected $type: string;
+        protected $typeCMF: string;
+    }
+    class PlanStep extends Cmf.Foundation.BusinessObjects.EntityInstance {
+        protected $id: string;
+        protected $type: string;
+        Facility: Cmf.Navigo.BusinessObjects.Facility;
+        LogicalFlowPath: string;
+        MainStateModelStateReason: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        Step: Cmf.Navigo.BusinessObjects.Step;
+    }
+    class PlanCollection extends Array<Plan> {
+        protected $id: string;
+        protected $type: string;
+        protected $typeCMF: string;
+    }
+    class Plan extends Cmf.Foundation.BusinessObjects.EntityInstance {
+        protected $id: string;
+        protected $type: string;
+        Area: Cmf.Navigo.BusinessObjects.Area;
+        Calendar: Cmf.Navigo.BusinessObjects.Calendar;
+        EffectivePlan: Cmf.Navigo.BusinessObjects.Plan;
+        Enterprise: Cmf.Foundation.BusinessObjects.Enterprise;
+        Facility: Cmf.Navigo.BusinessObjects.Facility;
+        FrozenPeriod: number;
+        IsReleased: boolean;
+        LastReleasedBy: string;
+        LastReleasedOn: moment.Moment;
+        LastReleasedPlanScenario: Cmf.Navigo.BusinessObjects.Plan;
+        MainStateModelStateReason: string;
+        ManufacturingLevelType: Cmf.Navigo.BusinessObjects.PlanManufacturingLevelType;
+        ParentPlan: Cmf.Navigo.BusinessObjects.Plan;
+        PlanApplicability: Cmf.Navigo.BusinessObjects.PlanApplicability;
+        PlanGroup: string;
+        PlanItemLevel: Cmf.Navigo.BusinessObjects.PlanItemLevel;
+        PlanningHorizon: number;
+        Site: Cmf.Foundation.BusinessObjects.Site;
+        SubPlanVolumeSynchronizationMode: Cmf.Navigo.BusinessObjects.SubPlanVolumeSynchronizationMode;
+        SubPlanVolumeSynchronizationRule: Cmf.Foundation.BusinessObjects.Rule;
+        TimeUnit: Cmf.Navigo.BusinessObjects.PlanTimeUnit;
+        Units: string;
+        PlanItems: Cmf.Navigo.BusinessObjects.PlanItemCollection;
+        PlanSteps: Cmf.Navigo.BusinessObjects.PlanStepCollection;
+        PlanMaterialTypes: Cmf.Navigo.BusinessObjects.PlanMaterialTypeCollection;
+        PlanTimeFrames: Cmf.Navigo.BusinessObjects.PlanTimeFrameCollection;
+    }
+    class ExperimentMaterialChangeCollection extends Array<ExperimentMaterialChange> {
+        protected $id: string;
+        protected $type: string;
+        protected $typeCMF: string;
+    }
+    class ExperimentMaterialChange extends Cmf.Foundation.BusinessObjects.EntityInstance {
+        protected $id: string;
+        protected $type: string;
+        AddedMaterial: Cmf.Navigo.BusinessObjects.Material;
+        AddedMaterialFlow: Cmf.Navigo.BusinessObjects.Flow;
+        AddedMaterialFlowPath: string;
+        AddedMaterialStep: Cmf.Navigo.BusinessObjects.Step;
+        ChangeOperation: Cmf.Navigo.BusinessObjects.ExperimentMaterialChangeOperation;
+        Experiment: Cmf.Navigo.BusinessObjects.Experiment;
+        MainStateModelStateReason: string;
+        RemovedMaterial: Cmf.Navigo.BusinessObjects.Material;
+        RemovedMaterialFlow: Cmf.Navigo.BusinessObjects.Flow;
+        RemovedMaterialFlowPath: string;
+        RemovedMaterialStep: Cmf.Navigo.BusinessObjects.Step;
+        Sequence: number;
+        SubMaterialNumber: number;
+    }
+    class SendAheadRunCollection extends Array<SendAheadRun> {
+        protected $id: string;
+        protected $type: string;
+        protected $typeCMF: string;
+    }
+    class SendAheadRun extends Cmf.Foundation.BusinessObjects.EntityInstance {
+        protected $id: string;
+        protected $type: string;
+        AutoReleaseOnPass: boolean;
+        CurrentSequence: number;
+        EvaluationFlow: Cmf.Navigo.BusinessObjects.Flow;
+        EvaluationFlowPath: string;
+        EvaluationLogicalPath: string;
+        EvaluationStep: Cmf.Navigo.BusinessObjects.Step;
+        MainStateModelStateReason: string;
+        MergeFlow: Cmf.Navigo.BusinessObjects.Flow;
+        MergeFlowPath: string;
+        MergeLogicalPath: string;
+        MergeStep: Cmf.Navigo.BusinessObjects.Step;
+        Result: Cmf.Navigo.BusinessObjects.SendAheadRunResult;
+        ResultsCaptureMode: Cmf.Navigo.BusinessObjects.SendAheadRunResultsCaptureMode;
+        StartFlow: Cmf.Navigo.BusinessObjects.Flow;
+        StartFlowPath: string;
+        StartStep: Cmf.Navigo.BusinessObjects.Step;
+        SystemState: Cmf.Navigo.BusinessObjects.SendAheadRunSystemState;
+        WaitFlow: Cmf.Navigo.BusinessObjects.Flow;
+        WaitFlowPath: string;
+        WaitingMaterialsReleased: boolean;
+        WaitLogicalPath: string;
+        WaitStep: Cmf.Navigo.BusinessObjects.Step;
+        Materials: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialCollection;
+        FutureActions: Cmf.Navigo.BusinessObjects.FutureActionCollection;
+        MaterialsOnHold: Cmf.Navigo.BusinessObjects.MaterialCollection;
+        HoldReason: Cmf.Navigo.BusinessObjects.Reason;
+    }
     class MaterialDefectCollection extends Array<MaterialDefect> {
         protected $id: string;
         protected $type: string;
@@ -15935,6 +16537,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         SubMaterialId: string;
         SystemState: Cmf.Navigo.BusinessObjects.MaterialDefectSystemState;
         TopMostFlowPath: string;
+        DateEnteredStep: moment.Moment;
     }
     class ReasonRepairActionCollection extends Array<ReasonRepairAction> {
         protected $id: string;
@@ -16444,6 +17047,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         TransferOrder: Cmf.Navigo.BusinessObjects.TransferOrder;
         TransferRequirementItem: Cmf.Navigo.BusinessObjects.TransferRequirementItem;
         Type: Cmf.Navigo.BusinessObjects.TransferOrderItemType;
+        BinCode: string;
     }
     class TransferOrderCollection extends Array<TransferOrder> {
         protected $id: string;
@@ -16498,6 +17102,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         TransferRequirementItem: Cmf.Navigo.BusinessObjects.TransferRequirementItem;
         TransferRequirementItemReleasedQuantity: number;
         Units: string;
+        BinCode: string;
     }
     class PickListCollection extends Array<PickList> {
         protected $id: string;
@@ -16524,6 +17129,8 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         SourceLocation: Cmf.Navigo.BusinessObjects.Area;
         SystemState: Cmf.Navigo.BusinessObjects.PickListSystemState;
         TransferRequirement: Cmf.Navigo.BusinessObjects.TransferRequirement;
+        HasOnlyFloorLifeMaterials: boolean;
+        StorageResource: Cmf.Navigo.BusinessObjects.Resource;
         Items: Cmf.Navigo.BusinessObjects.PickListItemCollection;
     }
     class TransferRequirementItemCollection extends Array<TransferRequirementItem> {
@@ -16553,6 +17160,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         AllowSubstitutes: boolean;
         RequestedBOMProduct: Cmf.Navigo.BusinessObjects.BOMProduct;
         SubstitutesAvailable: boolean;
+        BinCode: string;
     }
     class TransferRequirementCollection extends Array<TransferRequirement> {
         protected $id: string;
@@ -16585,6 +17193,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         SourceLocation: Cmf.Navigo.BusinessObjects.Area;
         SystemState: Cmf.Navigo.BusinessObjects.TransferRequirementSystemState;
         Type: string;
+        SeparatePickListPerStorageResource: boolean;
         Items: Cmf.Navigo.BusinessObjects.TransferRequirementItemCollection;
     }
     class ResourceInventoryCollection extends Array<ResourceInventory> {
@@ -16708,6 +17317,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         Resource: Cmf.Navigo.BusinessObjects.Resource;
         TotalPositions: number;
         UsedPositions: number;
+        ContainerType: string;
     }
     class AreaTransferRequirementTypeCollection extends Array<AreaTransferRequirementType> {
         protected $id: string;
@@ -16731,6 +17341,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         SkipPicking: boolean;
         SourceLocation: Cmf.Navigo.BusinessObjects.Area;
         TransferRequirementType: string;
+        SeparatePickListPerStorageResource: boolean;
     }
     class AreaSupplyAreaCollection extends Array<AreaSupplyArea> {
         protected $id: string;
@@ -16936,6 +17547,20 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         SetRecipeSetParameters: boolean;
         SetResourceAutomaticDispatch: boolean;
         SetResourceResource: Cmf.Navigo.BusinessObjects.Resource;
+        SendAheadEvaluateFlow: Cmf.Navigo.BusinessObjects.Flow;
+        SendAheadEvaluateFlowPath: string;
+        SendAheadEvaluateStep: Cmf.Navigo.BusinessObjects.Step;
+        SendAheadMergeFlow: Cmf.Navigo.BusinessObjects.Flow;
+        SendAheadMergeFlowPath: string;
+        SendAheadMergeStep: Cmf.Navigo.BusinessObjects.Step;
+        SendAheadResultsCaptureMode: Cmf.Navigo.BusinessObjects.SendAheadRunResultsCaptureMode;
+        SendAheadSplitType: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialSplitType;
+        SendAheadSubMaterialNumbers: string;
+        SendMailCreateNotification: boolean;
+        SendMailNotificationAssignedToEmployee: Cmf.Navigo.BusinessObjects.Employee;
+        SendMailNotificationAssignedToRole: Cmf.Foundation.Security.Role;
+        SendMailNotificationAssignmentType: Cmf.Navigo.BusinessObjects.AssignmentType;
+        SetServiceService: Cmf.Navigo.BusinessObjects.Service;
         RecipeParameters: Cmf.Navigo.BusinessObjects.ExperimentDefinitionStepActionRecipeParameterCollection;
     }
     class ExperimentDefinitionStepCollection extends Array<ExperimentDefinitionStep> {
@@ -17103,6 +17728,9 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         ScheduleScenario: Cmf.Navigo.BusinessObjects.ScheduleScenario;
         Step: Cmf.Navigo.BusinessObjects.Step;
         ProductionOrder: Cmf.Navigo.BusinessObjects.ProductionOrder;
+        PossibleStartDate: moment.Moment;
+        ProductionOrderItemId: string;
+        SchedulingMode: Cmf.Navigo.BusinessObjects.SchedulingMode;
     }
     class MaterialOffFlowCollection extends Array<MaterialOffFlow> {
         protected $id: string;
@@ -17511,6 +18139,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         AutomaticEndDate: moment.Moment;
         EndDate: moment.Moment;
         MainStateModelStateReason: string;
+        Trainer: Cmf.Navigo.BusinessObjects.Employee;
     }
     class SamplingPlanContextValuesCollection extends Array<SamplingPlanContextValues> {
         protected $id: string;
@@ -17647,6 +18276,8 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         PredecessorScheduleScenarioJob: Cmf.Navigo.BusinessObjects.ScheduleScenarioJob;
         Type: Cmf.Navigo.BusinessObjects.JobPredecessorType;
         TimeLimit: number;
+        PredecessorScheduleScenarioMaintenanceActivity: Cmf.Navigo.BusinessObjects.ScheduleScenarioMaintenanceActivity;
+        ScheduleScenarioMaintenanceActivity: Cmf.Navigo.BusinessObjects.ScheduleScenarioMaintenanceActivity;
     }
     class ScheduleScenarioJobCollection extends Array<ScheduleScenarioJob> {
         protected $id: string;
@@ -17695,6 +18326,9 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         StepSetupCharacteristic: Cmf.Navigo.BusinessObjects.StepSetupCharacteristic;
         HasDependencies: boolean;
         ReworkLevel: number;
+        CompletedQuantity: number;
+        InProgressQuantity: number;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
     }
     class ScheduleScenarioMessageCollection extends Array<ScheduleScenarioMessage> {
         protected $id: string;
@@ -17821,6 +18455,28 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         SplitType: Cmf.Navigo.BusinessObjects.FutureActionSplitType;
         SetResourceAutomaticDispatch: boolean;
         SetResourceResource: Cmf.Navigo.BusinessObjects.Resource;
+        LogicalFlowPath: string;
+        MaterialDateEnteredStep: moment.Moment;
+        SendAheadEvaluateFlow: Cmf.Navigo.BusinessObjects.Flow;
+        SendAheadEvaluateFlowPath: string;
+        SendAheadEvaluateStep: Cmf.Navigo.BusinessObjects.Step;
+        SendAheadManualSelection: string;
+        SendAheadMergeFlow: Cmf.Navigo.BusinessObjects.Flow;
+        SendAheadMergeFlowPath: string;
+        SendAheadMergeStep: Cmf.Navigo.BusinessObjects.Step;
+        SendAheadResultsCaptureMode: Cmf.Navigo.BusinessObjects.SendAheadRunResultsCaptureMode;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+        SendAheadSplitType: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialSplitType;
+        SendAheadSubMaterialsCount: number;
+        SendAheadSubMaterialsSelectionMode: Cmf.Navigo.BusinessObjects.FutureActionSendAheadSubMaterialsSelectionMode;
+        SendAheadSubMaterialsSelectionRule: Cmf.Foundation.BusinessObjects.Rule;
+        SendAheadSystemSelection: Cmf.Navigo.BusinessObjects.SystemSamplingSelection;
+        SendMailCreateNotification: boolean;
+        SendMailNotificationAssignedToEmployee: Cmf.Navigo.BusinessObjects.Employee;
+        SendMailNotificationAssignedToRole: Cmf.Foundation.Security.Role;
+        SendMailNotificationAssignmentType: Cmf.Navigo.BusinessObjects.AssignmentType;
+        SetServiceService: Cmf.Navigo.BusinessObjects.Service;
+        SourceFutureAction: Cmf.Navigo.BusinessObjects.FutureAction;
         SplitMaterials: Cmf.Navigo.BusinessObjects.FutureActionSplitMaterialCollection;
         MergeMaterials: Cmf.Navigo.BusinessObjects.FutureActionMergeMaterialCollection;
     }
@@ -18062,6 +18718,9 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         NumberOfInstancesToSchedule: number;
         IsCalibrationActivity: boolean;
         UsageBasedCounterMode: Cmf.Navigo.BusinessObjects.UsageBasedCounterMode;
+        MaintenanceType: Cmf.Navigo.BusinessObjects.MaintenanceType;
+        MaterialType: string;
+        MaterialTypeRestrictionMode: Cmf.Navigo.BusinessObjects.MaterialTypeRestrictionMode;
         JoinedMAOs: Cmf.Navigo.BusinessObjects.MaintenanceActivityOrderCollection;
     }
     class MaintenanceActivityCollection extends Array<MaintenanceActivity> {
@@ -18125,6 +18784,9 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         IsCalibrationActivity: boolean;
         UsageBasedCounterInitialValue: number;
         UsageBasedCounterMode: Cmf.Navigo.BusinessObjects.UsageBasedCounterMode;
+        MaintenanceType: Cmf.Navigo.BusinessObjects.MaintenanceType;
+        MaterialType: string;
+        MaterialTypeRestrictionMode: Cmf.Navigo.BusinessObjects.MaterialTypeRestrictionMode;
         MaintenanceActivityRules: Cmf.Navigo.BusinessObjects.MaintenanceActivityRuleCollection;
         MaintenanceActivityPersonnelRequirements: Cmf.Navigo.BusinessObjects.MaintenanceActivityPersonnelRequirementCollection;
         MaintenanceActivityDocuments: Cmf.Navigo.BusinessObjects.MaintenanceActivityDocumentCollection;
@@ -18354,6 +19016,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         FailCount: number;
         InspectionOrderStepSample: Cmf.Navigo.BusinessObjects.InspectionOrderStepSample;
         Result: Cmf.Navigo.BusinessObjects.DataCollectionInstanceInspectionResult;
+        LogicalFlowPath: string;
         DataCollectionPoints: Cmf.Navigo.BusinessObjects.DataCollectionPointCollection;
         Parameters: Cmf.Navigo.BusinessObjects.DataCollectionInstanceParameterCollection;
     }
@@ -18447,6 +19110,10 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         TerminateOnZeroMaterials: boolean;
         Source: Cmf.Navigo.BusinessObjects.ProtocolInstanceSource;
         SourceInspectionOrder: Cmf.Navigo.BusinessObjects.InspectionOrder;
+        FlowPath: string;
+        SourceChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
+        SourceDataCollectionInstance: Cmf.Navigo.BusinessObjects.DataCollectionInstance;
+        SourceDataCollectionParameter: Cmf.Navigo.BusinessObjects.DataCollectionParameter;
         CurrentPath: Cmf.Navigo.BusinessObjects.ProtocolPath;
         ExecutedPaths: Cmf.Navigo.BusinessObjects.ProtocolPathCollection;
     }
@@ -18522,7 +19189,6 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         IsProductionComplete: boolean;
         LastProcessState: Cmf.Navigo.BusinessObjects.LastProcessState;
         LastProcessedResource: Cmf.Navigo.BusinessObjects.Resource;
-        Location: string;
         NotificationCount: number;
         OpenExceptionProtocolsCount: number;
         OrderNumber: string;
@@ -18616,6 +19282,12 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         BinCode: string;
         OpenDefectCount: number;
         PendingLineReworkReturn: boolean;
+        CurrentSendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+        RequiredServiceSource: Cmf.Navigo.BusinessObjects.MaterialRequiredServiceSource;
+        LastSetupResource: Cmf.Navigo.BusinessObjects.Resource;
+        SetupEndDate: moment.Moment;
+        SetupStartDate: moment.Moment;
+        SetupStatus: Cmf.Navigo.BusinessObjects.MaterialSetupStatus;
         DepthToTopMost: number;
         LocationAltitude: number;
         LocationLatitude: number;
@@ -18737,8 +19409,6 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         CostPerHour: number;
         CostPerUnit: number;
         CurrentBOMAssemblyType: Cmf.Navigo.BusinessObjects.BOMAssemblyType;
-        CurrentBOMVersion: Cmf.Navigo.BusinessObjects.BOM;
-        CurrentRecipeVersion: Cmf.Navigo.BusinessObjects.Recipe;
         DefaultScheduleView: Cmf.Navigo.BusinessObjects.DefaultScheduleView;
         DefaultSetupTime: number;
         DefaultSetupTimeTimeScale: Cmf.Navigo.Common.TimeScale;
@@ -18762,7 +19432,6 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         IsSubMaterialTrackingEnabled: boolean;
         IsUploadRecipeCapable: boolean;
         LastCostingUpdate: moment.Moment;
-        LastRecipeVersion: Cmf.Navigo.BusinessObjects.Recipe;
         LoadPortType: Cmf.Navigo.BusinessObjects.LoadPortType;
         LogCheckInActivity: boolean;
         MaterialsInProcessCount: number;
@@ -18831,10 +19500,8 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         PreserveMaterialIntegrity: boolean;
         LastScheduleJob: Cmf.Navigo.BusinessObjects.ScheduleJob;
         AttachedConsumableFeedsCount: number;
-        ConsumableFeedContainerDocked: boolean;
         ConsumableFeedPositions: number;
         CurrentRecipeSource: Cmf.Navigo.BusinessObjects.CurrentRecipeSource;
-        EnableConsumableFeedContainerDock: boolean;
         ResourceCapacityMode: Cmf.Navigo.BusinessObjects.ResourceCapacityMode;
         SetResourceAsPreferred: boolean;
         AutomaticReplenishmentTransferRequirementType: string;
@@ -18863,6 +19530,14 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         LastSetupCharacteristic: Cmf.Navigo.BusinessObjects.StepSetupCharacteristic;
         LocationCount: number;
         LocationType: string;
+        CurrentBOM: Cmf.Navigo.BusinessObjects.BOM;
+        CurrentRecipe: Cmf.Navigo.BusinessObjects.Recipe;
+        LastMaterial: Cmf.Navigo.BusinessObjects.Material;
+        LastProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
+        LastSchedulingMode: Cmf.Navigo.BusinessObjects.SchedulingMode;
+        LastStep: Cmf.Navigo.BusinessObjects.Step;
+        OpenCorrectiveMAOsCount: number;
+        ScheduleViewMode: Cmf.Navigo.BusinessObjects.ScheduleViewMode;
         ResourceServices: Cmf.Navigo.BusinessObjects.ResourceServiceCollection;
         ResourceMaterials: Cmf.Navigo.BusinessObjects.MaterialResourceCollection;
         ResourceContainers: Cmf.Navigo.BusinessObjects.ContainerResourceCollection;
@@ -18880,6 +19555,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         ParentResources: Cmf.Navigo.BusinessObjects.ResourceCollection;
         ResourcePersonnelRequirements: Cmf.Navigo.BusinessObjects.ResourcePersonnelRequirementsCollection;
         ResourceEmployees: Cmf.Navigo.BusinessObjects.ResourceEmployeeCollection;
+        HasPriorityInScheduleScenario: boolean;
         ResourceIdealCycleTime: System.Data.DataSet;
         StorageBins: Cmf.Navigo.BusinessObjects.StorageBinCollection;
         ResourceInventories: Cmf.Navigo.BusinessObjects.ResourceInventoryCollection;
@@ -19115,6 +19791,14 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         EnableInspections: boolean;
         RequireInstrumentsAtTrackIn: boolean;
         CalculatePassYield: boolean;
+        IsPlanCountingStep: boolean;
+        MaterialLabel: Cmf.Navigo.BusinessObjects.PrintableDocument;
+        PrintMaterialLabelsAutomatically: boolean;
+        ProductionOrderSchedulingMode: Cmf.Navigo.BusinessObjects.ProductionOrderSchedulingMode;
+        ProductionOrderStepProcessingMode: Cmf.Navigo.BusinessObjects.ProductionOrderStepProcessingMode;
+        ProductionOrderStepSize: number;
+        ScheduleViewMode: Cmf.Navigo.BusinessObjects.ScheduleViewMode;
+        UseSplitAndTrackout: boolean;
         BonusReasons: Cmf.Navigo.BusinessObjects.StepReasonCollection;
         HoldReasons: Cmf.Navigo.BusinessObjects.StepReasonCollection;
         LossReasons: Cmf.Navigo.BusinessObjects.StepReasonCollection;
@@ -19129,6 +19813,7 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         StepReasons: Cmf.Navigo.BusinessObjects.StepReasonCollection;
         StepSamplingPatterns: System.Data.DataSet;
         StepServiceContexts: System.Data.DataSet;
+        StepSplitAndTrackOutContexts: System.Data.DataSet;
         TimeConstraintsContexts: System.Data.DataSet;
         StepCertificationRequirementsContexts: System.Data.DataSet;
         StepLineFlowContexts: System.Data.DataSet;
@@ -19524,6 +20209,9 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         IsSelfGrantAllowed: boolean;
         AllowValidityOverrides: boolean;
         AllowManualGrants: boolean;
+        DefaultIsTrainee: boolean;
+        TrainingMaximumDuration: number;
+        TrainingMaximumDurationScale: Cmf.Navigo.BusinessObjects.TimeDueScale;
         EmployeeCertificationCollection: Cmf.Navigo.BusinessObjects.EmployeeCertificationCollection;
         CertificationRequiredQualificationCollection: Cmf.Navigo.BusinessObjects.CertificationRequiredQualificationCollection;
     }
@@ -19863,6 +20551,11 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         Completed = 3,
         Canceled = 4
     }
+    enum ExperimentMaterialChangeOperation {
+        Added = 0,
+        Replaced = 1,
+        Removed = 2
+    }
     enum ExperimentMode {
         FullMaterial = 0,
         SubMaterials = 1
@@ -19889,7 +20582,10 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         SetRecipe = 9,
         SetNote = 10,
         SkipStep = 11,
-        SetResource = 12
+        SetResource = 12,
+        SendMail = 13,
+        SetService = 14,
+        CreateSendAheadRun = 15
     }
     enum ExperimentStepMaterialGroupActionEvent {
         Queued = 0,
@@ -19942,6 +20638,10 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         AtFirstSubTrackIn = 2,
         AtEverySubTrackIn = 3
     }
+    enum MaterialLossesMode {
+        InProcessMaterialExceptLast = 0,
+        TrackedOutMaterial = 1
+    }
     enum StepInspectionSeverityContextInformationContext {
         MaterialType = 0,
         Product = 1,
@@ -19958,6 +20658,10 @@ export declare namespace Cmf.Navigo.BusinessObjects {
     enum StepInspectionSeveritySwitchingRuleFilterType {
         Time = 0,
         LastOccurrences = 1
+    }
+    enum TrackOutMaterialMode {
+        Child = 0,
+        ChildExceptLast = 1
     }
     enum FlowChildType {
         Step = 0,
@@ -20054,6 +20758,17 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         Earliest = 0,
         Latest = 1
     }
+    enum MaintenanceType {
+        Preventive = 0,
+        Corrective = 1,
+        Calibration = 2,
+        Inspection = 3
+    }
+    enum MaterialTypeRestrictionMode {
+        AllowNone = 0,
+        AllowAll = 1,
+        AllowSpecific = 2
+    }
     enum FavoriteObjectType {
         All = 0,
         Resource = 1,
@@ -20082,7 +20797,8 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         Closed = 6,
         Skipped = 7,
         Reworked = 8,
-        ClosedAsJoined = 9
+        ClosedAsJoined = 9,
+        Canceled = 10
     }
     enum MaintenanceInstanceType {
         Resource = 0,
@@ -20313,6 +21029,9 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         Accepted = 3,
         NotFixable = 4
     }
+    enum MaterialRequiredServiceSource {
+        FutureAction = 0
+    }
     enum MaterialWeighingMethod {
         Negative = 0,
         Positive = 1
@@ -20321,11 +21040,19 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         Automatic = 0,
         Manual = 1
     }
+    enum FutureActionSendAheadSubMaterialsSelectionMode {
+        Rule = 0,
+        Manual = 1,
+        System = 2,
+        SubMaterialIds = 3
+    }
     enum FutureActionSource {
         User = 0,
         Scheduling = 1,
         Experiment = 2,
-        Inspection = 3
+        Inspection = 3,
+        SendAheadRun = 4,
+        FutureAction = 5
     }
     enum FutureActionSplitMode {
         Percentage = 0,
@@ -20361,7 +21088,10 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         Batch = 10,
         BatchForStep = 11,
         Unbatch = 12,
-        SetResource = 13
+        SetResource = 13,
+        SendMail = 14,
+        SetService = 15,
+        CreateSendAheadRun = 16
     }
     enum GenealogyDirection {
         Ascendant = 0,
@@ -20418,6 +21148,11 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         Full = 0,
         Single = 1
     }
+    enum MaterialSetupStatus {
+        None = 0,
+        InSetup = 1,
+        SetupComplete = 2
+    }
     enum MaterialSplitMode {
         SplitAssembled = 0,
         SplitNotAssembled = 1
@@ -20435,6 +21170,48 @@ export declare namespace Cmf.Navigo.BusinessObjects {
     enum OffFlowType {
         Rework = 0,
         TemporaryOffFlow = 1
+    }
+    enum SendAheadRunMaterialResult {
+        Pass = 0,
+        Fail = 1
+    }
+    enum SendAheadRunMaterialResultCaptureMode {
+        Manual = 0,
+        ManualAtTrackOut = 1,
+        SPCWithNoViolation = 2,
+        DataCollectionWithinLimits = 3
+    }
+    enum SendAheadRunMaterialSendAheadType {
+        SendAhead = 0,
+        Waiting = 1
+    }
+    enum SendAheadRunMaterialSplitScope {
+        Temporary = 0,
+        Permanent = 1
+    }
+    enum SendAheadRunMaterialSplitType {
+        None = 0,
+        Logical = 1,
+        Physical = 2
+    }
+    enum SendAheadRunMaterialSystemState {
+        Open = 0,
+        Closed = 1
+    }
+    enum SendAheadRunResult {
+        Pass = 0,
+        Fail = 1
+    }
+    enum SendAheadRunResultsCaptureMode {
+        Manual = 0,
+        ManualAtTrackOut = 1,
+        SPCWithNoViolation = 2,
+        DataCollectionWithinLimits = 3
+    }
+    enum SendAheadRunSystemState {
+        Open = 0,
+        Closed = 1,
+        Canceled = 2
     }
     enum SplitMergeRestrictionType {
         NoSplitOrMergeRestrictions = 0,
@@ -20523,12 +21300,30 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         QRCode = 3,
         PDF417 = 4,
         Maxicode = 5,
-        AZTEC = 6
+        AZTEC = 6,
+        ECC200 = 7
     }
     enum LabelSpecificationFieldDataType {
         Long = 0,
         String = 1,
-        Date = 2
+        Date = 2,
+        Boolean = 3
+    }
+    enum ProductionOrderSchedulingMode {
+        FullProductionOrder = 0,
+        FixedSize = 1
+    }
+    enum ProductionOrderStepProcessingMode {
+        Manual = 0,
+        Automatic = 1
+    }
+    enum ProductionOrderStepSystemState {
+        Created = 0,
+        Released = 1,
+        InSetup = 2,
+        SetupComplete = 3,
+        InProgress = 4,
+        Completed = 5
     }
     enum ProductionOrderSystemState {
         Created = 0,
@@ -20537,6 +21332,42 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         Completed = 3,
         Closed = 4,
         Canceled = 5
+    }
+    enum PlanApplicability {
+        EffectivePlan = 0,
+        PlanScenario = 1
+    }
+    enum PlanItemLevel {
+        Product = 0,
+        ProductGroup = 1
+    }
+    enum PlanItemStatus {
+        Open = 0,
+        Closed = 1
+    }
+    enum PlanManufacturingLevelType {
+        Enterprise = 0,
+        Site = 1,
+        Facility = 2,
+        Area = 3
+    }
+    enum PlanTimeFrameItemSystemState {
+        New = 0,
+        Planned = 1,
+        Frozen = 2,
+        InProgress = 3,
+        Completed = 4
+    }
+    enum PlanTimeUnit {
+        Month = 0,
+        Week = 1,
+        Day = 2,
+        Shift = 3
+    }
+    enum SubPlanVolumeSynchronizationMode {
+        None = 0,
+        Rule = 1,
+        BreakdownEvenlyByPeriod = 2
     }
     enum PrintableDocumentContextItemValueDataType {
         String = 0,
@@ -20558,6 +21389,10 @@ export declare namespace Cmf.Navigo.BusinessObjects {
     enum PrintableDocumentContextItemType {
         Variable = 0,
         Input = 1
+    }
+    enum PrintableDocumentContextScope {
+        LotTraveler = 0,
+        Label = 1
     }
     enum PrintableDocumentLayoutType {
         Content = 0,
@@ -20762,6 +21597,10 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         UpTime = 5,
         DownTime = 6
     }
+    enum ScheduleViewMode {
+        Material = 0,
+        ProductionOrderStep = 1
+    }
     enum SchedulingType {
         Machine = 0,
         Batch = 1,
@@ -20881,6 +21720,10 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         Setup = 1,
         Process = 2
     }
+    enum ApplicableTo {
+        Resource = 0,
+        Durable = 1
+    }
     enum ChangeType {
         Replace = 0,
         AddOrSubtract = 1
@@ -20981,6 +21824,10 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         QuantityWeightedAverageCycleTime = 303,
         PriorityQuantityWeightedAverageCycleTime = 304
     }
+    enum ScheduleScenarioMaintenanceType {
+        Effective = 0,
+        Planned = 1
+    }
     enum ScheduleScenarioMessageCode {
         None = 0,
         JobsOutsidePlanningHorizon = 1,
@@ -21024,6 +21871,10 @@ export declare namespace Cmf.Navigo.BusinessObjects {
         WaitTime = 10,
         SetupTime = 12,
         OperationalDueDate = 13
+    }
+    enum SchedulingMode {
+        Material = 0,
+        ProductionOrder = 1
     }
     enum SchedulingRule {
         Forward = 0,
@@ -21224,6 +22075,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.AlarmManagement.InputO
         Employee: Cmf.Navigo.BusinessObjects.Employee;
         IncludeTerminated: boolean;
         IsToIncludeOnlyEmployeeClosedNotifications: boolean;
+        IsToSkipLoadEmployeeTracking: boolean;
     }
     class GetNotificationsForEmployeeAsDataSetInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -21395,6 +22247,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.CertificationManagemen
         protected $id: string;
         protected $type: string;
         QualificationCollection: Cmf.Navigo.BusinessObjects.QualificationCollection;
+        CertificationCollection: Cmf.Navigo.BusinessObjects.CertificationCollection;
     }
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.CertificationManagement.OutputObjects {
@@ -22112,6 +22965,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.DispatchManagement.Inp
         LevelsToLoad: number;
         DispatchScheduleType: Cmf.Navigo.BusinessObjects.DispatchScheduleType;
         IgnoreDispatchScheduleType: boolean;
+        IsTrackInForMaintenance: boolean;
     }
     class GetDispatchListForMaterialAsDataSetInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -22119,6 +22973,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.DispatchManagement.Inp
         Material: Cmf.Navigo.BusinessObjects.Material;
         DispatchType: Cmf.Navigo.BusinessObjects.ProcessingType;
         DispatchScheduleType: Cmf.Navigo.BusinessObjects.DispatchScheduleType;
+        IsTrackInForMaintenance: boolean;
     }
     class GetDispatchListForResourceInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -22137,6 +22992,12 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.DispatchManagement.Inp
         protected $type: string;
         Resource: Cmf.Navigo.BusinessObjects.Resource;
         IsToIncludeMaterialsOnHold: boolean;
+    }
+    class GetMaterialsForTrackInForMaintenanceInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Resource: Cmf.Navigo.BusinessObjects.Resource;
+        MaintenanceActivityOrder: Cmf.Navigo.BusinessObjects.MaintenanceActivityOrder;
     }
     class GetUndispatchableMaterialInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -22161,6 +23022,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.DispatchManagement.Inp
         LevelsToLoad: number;
         Filters: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
         IsToIncludeMaterialsOnHold: boolean;
+        Step: Cmf.Navigo.BusinessObjects.Step;
     }
     class AddServiceRecipeContextsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -22456,6 +23318,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.DispatchManagement.Out
         protected $type: string;
         Materials: System.Data.DataSet;
     }
+    class GetMaterialsForTrackInForMaintenanceOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+    }
     class GetUndispatchableMaterialOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -22472,6 +23339,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.DispatchManagement.Out
         Resource: Cmf.Navigo.BusinessObjects.Resource;
         CountPlannedMaterials: number;
         CountUnplannedMaterials: number;
+        Step: Cmf.Navigo.BusinessObjects.Step;
     }
     class AddServiceRecipeContextsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -22896,6 +23764,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.EdcManagement.DataColl
         IsToFormat: boolean;
         IsToReturnAsXML: boolean;
         IsOnlyModifiedPoints: boolean;
+        IsToIgnoreErrors: boolean;
     }
     class RemoveDataCollectionInstanceAttributesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -23668,6 +24537,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.ExceptionManagement.In
         Facility: Cmf.Navigo.BusinessObjects.Facility;
         Product: Cmf.Navigo.BusinessObjects.Product;
         Flow: Cmf.Navigo.BusinessObjects.Flow;
+        FlowPath: string;
         Step: Cmf.Navigo.BusinessObjects.Step;
         Resource: Cmf.Navigo.BusinessObjects.Resource;
         InhibitMoveFromStep: boolean;
@@ -24296,6 +25166,13 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.ExperimentManagement.I
         protected $type: string;
         ExperimentDefinition: Cmf.Navigo.BusinessObjects.ExperimentDefinition;
     }
+    class ManageExperimentMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Experiment: Cmf.Navigo.BusinessObjects.Experiment;
+        MaterialsToAdd: Cmf.Navigo.BusinessObjects.ManageExperimentMaterialParametersCollection;
+        MaterialsToRemove: Cmf.Navigo.BusinessObjects.ManageExperimentMaterialParametersCollection;
+    }
     class CreateExperimentInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -24382,6 +25259,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.ExperimentManagement.O
         protected $id: string;
         protected $type: string;
         ExperimentDefinitionSteps: Cmf.Navigo.BusinessObjects.ExperimentDefinitionStepCollection;
+    }
+    class ManageExperimentMaterialsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Experiment: Cmf.Navigo.BusinessObjects.Experiment;
     }
     class CreateExperimentOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -24688,6 +25570,12 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.Are
         FromDateTime: moment.Moment;
         ToDateTime: moment.Moment;
     }
+    class GetAreaResourcesForTrainerInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Area: Cmf.Navigo.BusinessObjects.Area;
+        Trainer: Cmf.Navigo.BusinessObjects.Employee;
+    }
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.AreaManagement.OutputObjects {
     class CreateOrUpdateFacilityOutput {
@@ -24909,6 +25797,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.Are
         protected $id: string;
         protected $type: string;
         NonWorkingTimes: System.Data.DataSet;
+    }
+    class GetAreaResourcesForTrainerOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Resources: System.Data.DataSet;
     }
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.CalendarManagement.InputObjects {
@@ -25284,6 +26177,18 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.Flo
         protected $type: string;
         Step: Cmf.Navigo.BusinessObjects.Step;
     }
+    class UpdateStepCertificationRequirementsContextsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Step: Cmf.Navigo.BusinessObjects.Step;
+        StepCertificationRequirementsContextsToUpdate: System.Data.DataSet;
+    }
+    class AddStepLineFlowContextsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Step: Cmf.Navigo.BusinessObjects.Step;
+        StepLineFlowContextsToAdd: System.Data.DataSet;
+    }
     class RemoveStepLineFlowContextsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -25554,6 +26459,12 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.Flo
         RelationCollection: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
     }
     class LoadStepServiceContextsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Step: Cmf.Navigo.BusinessObjects.Step;
+        Filters: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+    }
+    class LoadStepSplitAndTrackOutContextsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
         Step: Cmf.Navigo.BusinessObjects.Step;
@@ -25930,18 +26841,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.Flo
         Step: Cmf.Navigo.BusinessObjects.Step;
         StepCertificationRequirementsContextsToRemove: System.Data.DataSet;
     }
-    class UpdateStepCertificationRequirementsContextsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Step: Cmf.Navigo.BusinessObjects.Step;
-        StepCertificationRequirementsContextsToUpdate: System.Data.DataSet;
-    }
-    class AddStepLineFlowContextsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Step: Cmf.Navigo.BusinessObjects.Step;
-        StepLineFlowContextsToAdd: System.Data.DataSet;
-    }
     class UpdateStepChecklistContextsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -25974,6 +26873,16 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.Flo
     class GetBonusCodesForStepOutput {
         protected $id: string;
         protected $type: string;
+    }
+    class UpdateStepCertificationRequirementsContextsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Step: Cmf.Navigo.BusinessObjects.Step;
+    }
+    class AddStepLineFlowContextsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Step: Cmf.Navigo.BusinessObjects.Step;
     }
     class RemoveStepLineFlowContextsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -26192,6 +27101,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.Flo
         Step: Cmf.Navigo.BusinessObjects.Step;
     }
     class LoadStepServiceContextsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Step: Cmf.Navigo.BusinessObjects.Step;
+    }
+    class LoadStepSplitAndTrackOutContextsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
         Step: Cmf.Navigo.BusinessObjects.Step;
@@ -26450,16 +27364,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.Flo
         Step: Cmf.Navigo.BusinessObjects.Step;
     }
     class RemoveStepCertificationRequirementsContextsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Step: Cmf.Navigo.BusinessObjects.Step;
-    }
-    class UpdateStepCertificationRequirementsContextsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Step: Cmf.Navigo.BusinessObjects.Step;
-    }
-    class AddStepLineFlowContextsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
         Step: Cmf.Navigo.BusinessObjects.Step;
@@ -26871,6 +27775,8 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.KPIManagement.InputObj
         Resources: string[];
         ResourceTypes: string[];
         ResourceResourceTypes: string[];
+        ShiftDefinitions: string[];
+        Shifts: string[];
     }
     class GetDataForEPMInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -27149,6 +28055,12 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.LaborManagement.InputO
         protected $type: string;
         Resource: Cmf.Navigo.BusinessObjects.Resource;
     }
+    class GetTraineesForResourceInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Resource: Cmf.Navigo.BusinessObjects.Resource;
+        Trainer: Cmf.Navigo.BusinessObjects.Employee;
+    }
     class ManageResourceEmployeesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -27382,6 +28294,12 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.LaborManagement.InputO
         EmployeeDelegatesToUpdate: Cmf.Navigo.BusinessObjects.EmployeeDelegateCollection;
         EmployeeDelegatesToRemove: Cmf.Navigo.BusinessObjects.EmployeeDelegateCollection;
     }
+    class CheckOutTraineesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        MaintenanceActivityOrderTrainees: CMFMap<Cmf.Navigo.BusinessObjects.MaintenanceActivityOrder, Cmf.Navigo.BusinessObjects.EmployeeCollection>;
+        ResourceTrainees: CMFMap<Cmf.Navigo.BusinessObjects.Resource, Cmf.Navigo.BusinessObjects.EmployeeCollection>;
+    }
     class SignOffShiftLogbookInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -27504,6 +28422,12 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.LaborManagement.Output
         protected $id: string;
         protected $type: string;
         EmployeesDataSet: System.Data.DataSet;
+    }
+    class GetTraineesForResourceOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        EmployeesAvailableForCheckIn: Cmf.Navigo.BusinessObjects.EmployeeCollection;
+        EmployeesCheckedIn: Cmf.Navigo.BusinessObjects.EmployeeCollection;
     }
     class ManageResourceEmployeesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -27677,6 +28601,14 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.LaborManagement.Output
         protected $id: string;
         protected $type: string;
         Employee: Cmf.Navigo.BusinessObjects.Employee;
+    }
+    class CheckOutTraineesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        MaintenanceActivityOrderTrainees: Cmf.Navigo.BusinessObjects.EmployeeCollection;
+        ResourceTrainees: Cmf.Navigo.BusinessObjects.EmployeeCollection;
+        MaintenanceActivityOrders: Cmf.Navigo.BusinessObjects.MaintenanceActivityOrderCollection;
+        Resources: Cmf.Navigo.BusinessObjects.ResourceCollection;
     }
     class SignOffShiftLogbookOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -27854,7 +28786,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaintenanceManagement.
         PerformChecklistOperation: Cmf.Foundation.BusinessObjects.PerformChecklistOperation;
         Comment: string;
         Parameters: CMFMap<string, any>;
-        SignatureUser: string;
         Signatures: Cmf.Foundation.BusinessObjects.ChecklistItemInstanceSignatureCollection;
     }
     class LoadMaintenancePlanVersionAttributesInput {
@@ -28234,6 +29165,17 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaintenanceManagement.
         EndDate: moment.Moment;
         Type: any;
     }
+    class CancelMaintenanceActivityOrdersInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        MaintenanceActivityOrders: Cmf.Navigo.BusinessObjects.MaintenanceActivityOrderCollection;
+        NotesToAppend: string;
+    }
+    class ChangeMaintenanceActivityOrdersInformationInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        MaintenanceActivityOrders: Cmf.Navigo.BusinessObjects.MaintenanceActivityOrderCollection;
+    }
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.MaintenanceManagement.InputObjects.Helpers {
     class IncreaseMaintenanceCountersObject {
@@ -28529,7 +29471,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaintenanceManagement.
         PostChartDataPointResults: Cmf.Navigo.BusinessObjects.PostChartDataPointResultCollection;
         LogicalCharts: Cmf.Navigo.BusinessObjects.LogicalChartCollection;
         PerformMaoCheckListItem: Cmf.Navigo.BusinessOrchestration.MaintenanceManagement.OutputObjects.PerformMaoChecklistItemOutput[];
-        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentVersionEmployeeTracking>;
+        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentEmployeeTracking>;
     }
     class ApproveMaintenanceActivityOrdersOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -28674,6 +29616,16 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaintenanceManagement.
         protected $id: string;
         protected $type: string;
         MaintenanceActivityOrders: CMFMap<Cmf.Foundation.BusinessObjects.Entity, Cmf.Navigo.BusinessObjects.MaintenanceActivityOrderDetailsCollection>;
+    }
+    class CancelMaintenanceActivityOrdersOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        MaintenanceActivityOrders: Cmf.Navigo.BusinessObjects.MaintenanceActivityOrderCollection;
+    }
+    class ChangeMaintenanceActivityOrdersInformationOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        MaintenanceActivityOrders: Cmf.Navigo.BusinessObjects.MaintenanceActivityOrderCollection;
     }
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.MaintenanceManagement.OutputObjects.Helpers {
@@ -29045,6 +29997,13 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialLogisticsManag
         protected $type: string;
         PickList: Cmf.Navigo.BusinessObjects.PickList;
     }
+    class RegisterMaterialInput {
+        protected $id: string;
+        protected $type: string;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+        QuantityOfLabelsToPrint: number;
+        NumberIdenticalMaterialsToRegister: number;
+    }
     class CreateTransferRequirementForMaintenanceActivityOrderInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -29339,6 +30298,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialLogisticsManag
         protected $type: string;
         TransferRequirements: Cmf.Navigo.BusinessObjects.TransferRequirementCollection;
     }
+    class RegisterMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessOrchestration.MaterialLogisticsManagement.InputObjects.RegisterMaterialInput[];
+    }
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialLogisticsManagement.OutputObjects {
     class TakePickListOwnershipOutput {
@@ -29584,6 +30548,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialLogisticsManag
         protected $type: string;
         TransferRequirements: Cmf.Navigo.BusinessObjects.TransferRequirementCollection;
     }
+    class RegisterMaterialsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+    }
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects {
     class GetMaterialsInput {
@@ -29623,6 +30592,61 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         Name: string;
         Template: Cmf.Navigo.BusinessObjects.Material;
     }
+    class GetMaterialLineDataInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Resource: Cmf.Navigo.BusinessObjects.Resource;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+        Filters: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+        IsToLoadGeneralData: boolean;
+        IsToLoadResourcesData: boolean;
+        IsToLoadMaterialsBomData: boolean;
+        IsToLoadDurablesBomData: boolean;
+        IsToLoadRecipesData: boolean;
+        IsToLoadDataCollectionData: boolean;
+        IsToLoadChecklistData: boolean;
+        IsToLoad: boolean;
+    }
+    class StartMaterialsFloorLifeCounterInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+    }
+    class StopMaterialsFloorLifeCounterInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+    }
+    class SealMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+    }
+    class ResetMaterialsFloorLifeInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+    }
+    class GetMaterialFloorLifeInformationInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+    }
+    class InsertMaterialIntoLineInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+        LineMaterial: Cmf.Navigo.BusinessObjects.Material;
+        LineFlowPath: string;
+        IsToBypassMaterialFormValidationForSiblings: boolean;
+        IsSpecial: boolean;
+    }
+    class RemoveMaterialFromLineInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+        IsSpecial: boolean;
+    }
     class RecordMaterialDefectsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -29635,6 +30659,77 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         Material: Cmf.Navigo.BusinessObjects.Material;
         MaterialDefects: Cmf.Navigo.BusinessObjects.MaterialDefectCollection;
         LossReasonClassification: Cmf.Navigo.BusinessObjects.LossReasonClassification;
+    }
+    class CreateSendAheadRunInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+        Materials: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialParametersCollection;
+    }
+    class LoadSendAheadRunMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+        Filters: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+        LevelsToLoad: number;
+    }
+    class FullUpdateSendAheadRunInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+        MaterialsToAdd: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialParametersCollection;
+        MaterialsToUpdate: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialParametersCollection;
+        MaterialsToRemove: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialParametersCollection;
+    }
+    class CancelSendAheadRunInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+    }
+    class RecordResultSendAheadRunInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+        Materials: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialCollection;
+    }
+    class ReleaseWaitingMaterialsSendAheadRunInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+    }
+    class ExtendSendAheadRunInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+    }
+    class TrackInMaterialForMaintenanceInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+        Resource: Cmf.Navigo.BusinessObjects.Resource;
+        StateModel: Cmf.Foundation.BusinessObjects.StateModel;
+        StateModelTransition: Cmf.Foundation.BusinessObjects.StateModelTransition;
+        StateModelTransitionReason: string;
+        CurrentDataCollectionPoints: Cmf.Navigo.BusinessObjects.DataCollectionPointCollection;
+        DataCollectionPointsXml: string;
+        SkipDCValidation: boolean;
+        Recipe: Cmf.Navigo.BusinessObjects.Recipe;
+        RecipeParameterValues: CMFMap<Cmf.Navigo.BusinessObjects.Parameter, any>;
+        ChecklistParameters: Cmf.Foundation.BusinessObjects.PerformImmediateInputParametersCollection;
+        Position: number;
+        Order: number;
+        ResourceContainers: Cmf.Navigo.BusinessObjects.ContainerResourceCollection;
+        ScheduleOverride: boolean;
+        InstrumentsToAdd: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
+        InstrumentsToUpdate: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
+        InstrumentsToRemove: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
+        MaintenanceActivityOrder: Cmf.Navigo.BusinessObjects.MaintenanceActivityOrder;
+    }
+    class RemoteAndLocalReceiveMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Materials: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Navigo.BusinessObjects.ReceiveMaterialParameters>;
+        RemoteMaterials: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Navigo.BusinessObjects.RemoteReceiveMaterialParameters>;
     }
     class TemporaryOffFlowMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -29794,6 +30889,8 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         Material: Cmf.Navigo.BusinessObjects.Material;
         IsLoadTopMost: boolean;
         IsLoadRelationsToContainer: boolean;
+        IsToLoadMaterialOffFlowInformation: boolean;
+        IsToLoadSendAheadRunInformation: boolean;
         IsLoadRelationsToResource: boolean;
         IsToLoadResourceDurables: boolean;
         LevelsToLoad: number;
@@ -29829,6 +30926,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         Operation: Cmf.Navigo.BusinessObjects.GetDataForTrackInOperation;
         Resource: Cmf.Navigo.BusinessObjects.Resource;
         RecipeLevelsToLoad: number;
+        IsTrackInForMaintenance: boolean;
     }
     class GetDataForTrackInWizardInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -29844,6 +30942,21 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         Operation: Cmf.Navigo.BusinessObjects.GetDataForTrackInOperation;
         Resource: Cmf.Navigo.BusinessObjects.Resource;
         RecipeLevelsToLoad: number;
+    }
+    class GetDataForPerformMaterialProcessInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+    }
+    class PerformMaterialProcessInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+        ChecklistItemsToPerform: Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.PerformMaterialChecklistItemsInput;
+        DataCollectionPointsToPost: Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects.PostDataCollectionPointsInput;
+        InspectionDataCollectionPointsToPost: Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects.PostDataCollectionPointsInput;
+        ResourceInstrumentsToManage: Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects.ManageResourceInstrumentsInput;
+        MaterialToAssemble: Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.AssembleMaterialInput;
     }
     class GetDataForMoveNextWizardInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -29923,6 +31036,8 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         Recipe: Cmf.Navigo.BusinessObjects.Recipe;
         RecipeParameterValues: CMFMap<Cmf.Navigo.BusinessObjects.Parameter, any>;
         ScheduleOverride: boolean;
+        IsTrackInForMaintenance: boolean;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
     }
     class TrackOutMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -29933,6 +31048,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         StateModelTransitionReason: string;
         TrackOutLossParameters: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Navigo.BusinessObjects.RecordLossParameters>;
         TrackOutBonusParameters: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Navigo.BusinessObjects.LossBonusAffectedQuantityCollection>;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
     }
     class DispatchMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30031,6 +31147,30 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         PrintScope: Cmf.Navigo.BusinessObjects.LotTravelerPrintScope;
         IsToLoadDocumentLayoutAsJSON: boolean;
     }
+    class GetDataForPrintMaterialLabelWizardInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+    }
+    class CalculateMaterialLabelsPrintLayoutInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+        PrinterName: string;
+        IsToLoadDocumentLayoutAsJSON: boolean;
+    }
+    class PrintMaterialLabelInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+        PrinterName: string;
+    }
+    class EvaluatePrintMaterialLabelInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        OperationName: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+    }
     class ChangeMaterialOffFlowInformationInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -30045,8 +31185,9 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         ChecklistItemInstance: Cmf.Foundation.BusinessObjects.ChecklistItemInstance;
         PerformChecklistOperation: Cmf.Foundation.BusinessObjects.PerformChecklistOperation;
         Comment: string;
-        SignatureUser: string;
         Parameters: CMFMap<string, any>;
+        DataCollectionPoints: Cmf.Navigo.BusinessObjects.DataCollectionPointCollection;
+        DataCollectionPointsToDelete: Cmf.Navigo.BusinessObjects.DataCollectionPointCollection;
         Signatures: Cmf.Foundation.BusinessObjects.ChecklistItemInstanceSignatureCollection;
     }
     class PerformMaterialChecklistItemsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
@@ -30084,6 +31225,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         Material: Cmf.Navigo.BusinessObjects.Material;
         SplitData: Cmf.Navigo.BusinessObjects.FutureActionSplitData;
         MergeData: CMFMap<Cmf.Navigo.BusinessObjects.FutureActionMergeMaterial, Cmf.Navigo.BusinessObjects.FutureActionMergeInputParameterCollection>;
+        CreateSendAheadRunData: Cmf.Navigo.BusinessObjects.FutureActionCreateSendAheadRunData;
     }
     class ManageFutureActionsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30097,6 +31239,9 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         FutureActionSplitMaterialRelationsToAdd: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
         FutureActionSplitMaterialRelationsToRemove: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
         FutureActionSplitMaterialRelationsToUpdate: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
+        FutureActionSendAheadRunMaterialIdRelationsToAdd: Cmf.Navigo.BusinessObjects.FutureActionSendAheadRunMaterialIdCollection;
+        FutureActionSendAheadRunMaterialIdRelationsToUpdate: Cmf.Navigo.BusinessObjects.FutureActionSendAheadRunMaterialIdCollection;
+        FutureActionSendAheadRunMaterialIdRelationsToRemove: Cmf.Navigo.BusinessObjects.FutureActionSendAheadRunMaterialIdCollection;
     }
     class SpecialManageFutureActionsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30110,16 +31255,24 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         FutureActionSplitMaterialRelationsToAdd: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
         FutureActionSplitMaterialRelationsToRemove: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
         FutureActionSplitMaterialRelationsToUpdate: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
+        FutureActionSendAheadRunMaterialIdRelationsToAdd: Cmf.Navigo.BusinessObjects.FutureActionSendAheadRunMaterialIdCollection;
+        FutureActionSendAheadRunMaterialIdRelationsToUpdate: Cmf.Navigo.BusinessObjects.FutureActionSendAheadRunMaterialIdCollection;
+        FutureActionSendAheadRunMaterialIdRelationsToRemove: Cmf.Navigo.BusinessObjects.FutureActionSendAheadRunMaterialIdCollection;
     }
     class GetFutureActionsToManageInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
-        OnlyForCurrrentUser: boolean;
+        OnlyForCurrentUser: boolean;
         Material: Cmf.Navigo.BusinessObjects.Material;
         LevelsToLoad: number;
         OnlyForManage: boolean;
         ShowTerminated: boolean;
         ShowSourceInspection: boolean;
+        ShowSourceSendAheadRun: boolean;
+        ShowSourceFutureAction: boolean;
+        SortField: string;
+        SortAsc: boolean;
+        Filters: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
     }
     class GetFutureActionsFromMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30202,6 +31355,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         BOM: Cmf.Navigo.BusinessObjects.BOM;
         DepthLevel: number;
     }
+    class CompleteJobInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        ProductionOrderSteps: Cmf.Navigo.BusinessObjects.ProductionOrderStepCollection;
+    }
     class ProcessDispensedMaterialInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -30247,61 +31405,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         protected $id: string;
         protected $type: string;
         MaterialsResource: Cmf.Navigo.BusinessObjects.MaterialResourceCollection;
-    }
-    class GetMaterialLineDataInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Resource: Cmf.Navigo.BusinessObjects.Resource;
-        Material: Cmf.Navigo.BusinessObjects.Material;
-        Filters: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
-        IsToLoadGeneralData: boolean;
-        IsToLoadResourcesData: boolean;
-        IsToLoadMaterialsBomData: boolean;
-        IsToLoadDurablesBomData: boolean;
-        IsToLoadRecipesData: boolean;
-        IsToLoadDataCollectionData: boolean;
-        IsToLoadChecklistData: boolean;
-        IsToLoad: boolean;
-    }
-    class StartMaterialsFloorLifeCounterInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
-    }
-    class StopMaterialsFloorLifeCounterInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
-    }
-    class SealMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
-    }
-    class ResetMaterialsFloorLifeInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
-    }
-    class GetMaterialFloorLifeInformationInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Material: Cmf.Navigo.BusinessObjects.Material;
-    }
-    class InsertMaterialIntoLineInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Material: Cmf.Navigo.BusinessObjects.Material;
-        LineMaterial: Cmf.Navigo.BusinessObjects.Material;
-        LineFlowPath: string;
-        IsToBypassMaterialFormValidationForSiblings: boolean;
-        IsSpecial: boolean;
-    }
-    class RemoveMaterialFromLineInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Material: Cmf.Navigo.BusinessObjects.Material;
-        IsSpecial: boolean;
     }
     class ApproveMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30543,6 +31646,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         MaterialResource: Cmf.Navigo.BusinessObjects.MaterialResource;
         Order: number;
         ResourceContainers: Cmf.Navigo.BusinessObjects.ContainerResourceCollection;
+        IsTrackInForMaintenance: boolean;
     }
     class SetOrUnSetMaterialDispatchableInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30550,6 +31654,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         Material: Cmf.Navigo.BusinessObjects.Material;
         IsDispatchable: boolean;
         ExecuteRule: boolean;
+        IsToOverrideCurrentSetService: boolean;
     }
     class SetOrUnSetMaterialsDispatchableInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30557,6 +31662,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
         IsDispatchable: boolean;
         ExecuteRule: boolean;
+        IsToOverrideCurrentSetService: boolean;
     }
     class TrackInMaterialInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30569,6 +31675,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         Recipe: Cmf.Navigo.BusinessObjects.Recipe;
         RecipeParameterValues: CMFMap<Cmf.Navigo.BusinessObjects.Parameter, any>;
         ScheduleOverride: boolean;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
     }
     class TrackOutMaterialInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30576,6 +31683,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         Material: Cmf.Navigo.BusinessObjects.Material;
         StateModel: Cmf.Foundation.BusinessObjects.StateModel;
         StateModelTransition: Cmf.Foundation.BusinessObjects.StateModelTransition;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
         StateModelTransitionReason: string;
     }
     class MergeMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
@@ -30693,6 +31801,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         StateModel: Cmf.Foundation.BusinessObjects.StateModel;
         StateModelTransition: Cmf.Foundation.BusinessObjects.StateModelTransition;
         StateModelTransitionReason: string;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
     }
     class AbortMaterialsProcessInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30701,12 +31810,14 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         StateModel: Cmf.Foundation.BusinessObjects.StateModel;
         StateModelTransition: Cmf.Foundation.BusinessObjects.StateModelTransition;
         StateModelTransitionReason: string;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
     }
     class ChangeMaterialProductInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
         Material: Cmf.Navigo.BusinessObjects.Material;
         Product: Cmf.Navigo.BusinessObjects.Product;
+        BinCode: string;
     }
     class ChangeMaterialsProductInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30720,6 +31831,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         protected $type: string;
         Material: Cmf.Navigo.BusinessObjects.Material;
         Product: Cmf.Navigo.BusinessObjects.Product;
+        BinCode: string;
     }
     class SpecialChangeMaterialsProductInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30767,6 +31879,8 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         InstrumentsToAdd: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
         InstrumentsToUpdate: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
         InstrumentsToRemove: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
+        IsTrackInForMaintenance: boolean;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
     }
     class ComplexTrackInMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30788,6 +31902,8 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         InstrumentsToAdd: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
         InstrumentsToUpdate: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
         InstrumentsToRemove: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
+        IsTrackInForMaintenance: boolean;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
     }
     class ComplexTrackOutMaterialInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30809,6 +31925,10 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         StateModelTransitionReason: string;
         SubMaterialLosses: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Navigo.BusinessObjects.LossBonusAffectedQuantityCollection>;
         TerminateOnZeroQuantity: boolean;
+        SendAheadRunMaterial: Cmf.Navigo.BusinessObjects.SendAheadRunMaterial;
+        SplitAndTrackOutParameters: Cmf.Navigo.BusinessObjects.SplitInputParameters;
+        IsToSkipQuantityOverrideValidation: boolean;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
     }
     class ComplexTrackOutMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30818,6 +31938,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         StateModel: Cmf.Foundation.BusinessObjects.StateModel;
         StateModelTransition: Cmf.Foundation.BusinessObjects.StateModelTransition;
         StateModelTransitionReason: string;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
     }
     class ComplexTrackOutAndMoveMaterialToNextStepInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30840,6 +31961,9 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         StateModelTransitionReason: string;
         SubMaterialLosses: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Navigo.BusinessObjects.LossBonusAffectedQuantityCollection>;
         TerminateOnZeroQuantity: boolean;
+        SendAheadRunMaterial: Cmf.Navigo.BusinessObjects.SendAheadRunMaterial;
+        SplitAndTrackOutParameters: Cmf.Navigo.BusinessObjects.SplitInputParameters;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
     }
     class ComplexTrackOutAndMoveMaterialsToNextStepInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30849,6 +31973,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         StateModel: Cmf.Foundation.BusinessObjects.StateModel;
         StateModelTransition: Cmf.Foundation.BusinessObjects.StateModelTransition;
         StateModelTransitionReason: string;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
     }
     class ComplexDispatchAndTrackInMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30868,6 +31993,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         InstrumentsToAdd: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
         InstrumentsToUpdate: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
         InstrumentsToRemove: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
     }
     class ComplexDispatchAndTrackInMaterialInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30890,6 +32016,8 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         InstrumentsToAdd: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
         InstrumentsToUpdate: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
         InstrumentsToRemove: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
+        IsTrackInForMaintenance: boolean;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
     }
     class TransferSubMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -30991,12 +32119,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
         protected $type: string;
         Materials: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Navigo.BusinessObjects.RemoteReceiveMaterialParameters>;
     }
-    class RemoteAndLocalReceiveMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Materials: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Navigo.BusinessObjects.ReceiveMaterialParameters>;
-        RemoteMaterials: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Navigo.BusinessObjects.RemoteReceiveMaterialParameters>;
-    }
     class GetMaterialHoldReasonsWithUserInformationOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -31046,6 +32168,46 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         protected $type: string;
         Material: Cmf.Navigo.BusinessObjects.Material;
     }
+    class GetMaterialLineDataOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+        LineStepsData: Cmf.Navigo.BusinessObjects.MaterialLineStepDataCollection;
+        LineBOMSetupInformation: CMFMap<string, Cmf.Navigo.BusinessOrchestration.ResourceManagement.OutputObjects.BOMSetupInformation>;
+    }
+    class StartMaterialsFloorLifeCounterOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+    }
+    class StopMaterialsFloorLifeCounterOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+    }
+    class SealMaterialsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+    }
+    class ResetMaterialsFloorLifeOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+    }
+    class GetMaterialFloorLifeInformationOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        MaterialFloorLifeInformation: Cmf.Navigo.BusinessObjects.MaterialFloorLifeInformation;
+    }
+    class InsertMaterialIntoLineOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+    }
+    class RemoveMaterialFromLineOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+    }
     class RecordMaterialDefectsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -31055,6 +32217,60 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         protected $id: string;
         protected $type: string;
         Material: Cmf.Navigo.BusinessObjects.Material;
+    }
+    class CreateSendAheadRunOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+    }
+    class LoadSendAheadRunMaterialsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        SendAheadRunMaterials: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialCollection;
+    }
+    class FullUpdateSendAheadRunOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+    }
+    class CancelSendAheadRunOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+    }
+    class RecordResultSendAheadRunOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+        Materials: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialCollection;
+    }
+    class ReleaseWaitingMaterialsSendAheadRunOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+    }
+    class ExtendSendAheadRunOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        SendAheadRun: Cmf.Navigo.BusinessObjects.SendAheadRun;
+    }
+    class TrackInMaterialForMaintenanceOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+        Resource: Cmf.Navigo.BusinessObjects.Resource;
+        AppliedFutureActions: Cmf.Navigo.BusinessObjects.FutureActionCollection;
+        OpenedProtocolInstances: Cmf.Navigo.BusinessObjects.ProtocolInstanceCollection;
+        PostChartDataPointResults: Cmf.Navigo.BusinessObjects.PostChartDataPointResultCollection;
+        OpenedRecipeInstance: Cmf.Navigo.BusinessObjects.RecipeInstance;
+        OpenedChecklistInstance: Cmf.Foundation.BusinessObjects.ChecklistInstance;
+        MaintenanceActivityOrder: Cmf.Navigo.BusinessObjects.MaintenanceActivityOrder;
+    }
+    class RemoteAndLocalReceiveMaterialsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+        AppliedFutureActions: Cmf.Navigo.BusinessObjects.FutureActionCollection;
     }
     class TemporaryOffFlowMaterialsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -31076,7 +32292,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         Material: Cmf.Navigo.BusinessObjects.Material;
         OpenedProtocolInstances: Cmf.Navigo.BusinessObjects.ProtocolInstanceCollection;
         PostChartDataPointResults: Cmf.Navigo.BusinessObjects.PostChartDataPointResultCollection;
-        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentVersionEmployeeTracking>;
+        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentEmployeeTracking>;
     }
     class GetPossibleReworkPathsForMaterialOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -31186,6 +32402,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         Material: Cmf.Navigo.BusinessObjects.Material;
         MaterialResourceQueueOrder: number;
         RecipeInstance: Cmf.Navigo.BusinessObjects.RecipeInstance;
+        SendAheadRunInstances: Cmf.Navigo.BusinessObjects.SendAheadRunCollection;
     }
     class GetMaterialsBasicInformationOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -31238,6 +32455,50 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         Durables: Cmf.Navigo.BusinessObjects.MaterialCollection;
         ResourceDurables: Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects.ResourceDurablesForTrackIn[];
         SamplingPattern: Cmf.Navigo.BusinessObjects.SamplingPattern;
+    }
+    class GetDataForPerformMaterialProcessOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+        Resource: Cmf.Navigo.BusinessObjects.Resource;
+        Checklist: Cmf.Foundation.BusinessObjects.Checklist;
+        DataCollection: Cmf.Navigo.BusinessObjects.DataCollection;
+        DataCollectionLimitSet: Cmf.Navigo.BusinessObjects.DataCollectionLimitSet;
+        InspectionDataCollection: Cmf.Navigo.BusinessObjects.DataCollection;
+        InspectionDataCollectionLimitSet: Cmf.Navigo.BusinessObjects.DataCollectionLimitSet;
+        BOMSetupInformation: Cmf.Navigo.BusinessOrchestration.ResourceManagement.OutputObjects.BOMSetupInformation;
+        CurrentBOMVersion: Cmf.Navigo.BusinessObjects.BOM;
+        SourceMaterials: System.Data.DataSet;
+        BOMInstanceItems: Cmf.Navigo.BusinessObjects.BOMInstanceItemCollection;
+        CurrentBOMInstance: Cmf.Navigo.BusinessObjects.BOMInstance;
+        Durables: Cmf.Navigo.BusinessObjects.MaterialCollection;
+        ResourceDurables: Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects.ResourceDurablesForTrackIn[];
+        DurablesBOMs: Cmf.Navigo.BusinessObjects.BOMCollection;
+        RecipeInstance: Cmf.Navigo.BusinessObjects.RecipeInstance;
+        Recipe: Cmf.Navigo.BusinessObjects.Recipe;
+        Documents: Cmf.Foundation.BusinessObjects.DocumentCollection;
+        DocumentsByOperationName: CMFMap<string, Cmf.Foundation.BusinessObjects.DocumentCollection>;
+        HasChecklistInformation: boolean;
+        HasDataCollectionInformation: boolean;
+        HasInspectionDataCollectionInformation: boolean;
+        HasInstrumentsInformation: boolean;
+        HasAssembleInformation: boolean;
+        IsAssembleReadOnly: boolean;
+        HasRecipeInformation: boolean;
+        HasDurablesInformation: boolean;
+        HasDocumentsInformation: boolean;
+        HasNoteInformation: boolean;
+    }
+    class PerformMaterialProcessOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+        MaterialData: Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects.GetDataForPerformMaterialProcessOutput;
+        ChecklistPerformItemsResult: Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects.PerformMaterialChecklistItemsOutput;
+        DataCollectionPostedPointsResult: Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.OutputObjects.PostDataCollectionPointsOutput;
+        InspectionDataCollectionPostedPointsResult: Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.OutputObjects.PostDataCollectionPointsOutput;
+        ResourceInstrumentsManageResult: Cmf.Navigo.BusinessOrchestration.ResourceManagement.OutputObjects.ManageResourceInstrumentsOutput;
+        MaterialAssembleResult: Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects.AssembleMaterialOutput;
     }
     class GetDataForMoveNextWizardOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -31293,6 +32554,8 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         Documents: System.Data.DataSet;
         NotesToDisplay: CMFMap<string, Cmf.Navigo.BusinessObjects.FutureAction>;
         InspectionDetails: Cmf.Navigo.BusinessObjects.InspectionDetails;
+        SendAheadRunMaterials: Cmf.Navigo.BusinessObjects.SendAheadRunMaterialCollection;
+        SplitAndTrackOutResults: Cmf.Navigo.BusinessObjects.SplitAndTrackOutResultCollection;
     }
     class GetDataForPerformFutureActionWizardOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -31302,6 +32565,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         IsSplitAllowed: boolean;
         IsMergeAllowed: boolean;
         MaterialsNotReady: Cmf.Navigo.BusinessObjects.MaterialCollection;
+        CreateSendAheadRunData: Cmf.Navigo.BusinessObjects.FutureActionCreateSendAheadRunData;
     }
     class GradeMaterialOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -31358,7 +32622,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         AppliedFutureActions: Cmf.Navigo.BusinessObjects.FutureActionCollection;
         OpenedProtocolInstances: Cmf.Navigo.BusinessObjects.ProtocolInstanceCollection;
         MaterialResults: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Navigo.BusinessObjects.ComplexMoveNextParametersResult>;
-        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentVersionEmployeeTracking>;
+        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentEmployeeTracking>;
     }
     class CreateMaterialsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -31417,6 +32681,30 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
         PrintLayouts: Cmf.Navigo.BusinessObjects.PreviewAndPrintLayoutCollection;
     }
+    class GetDataForPrintMaterialLabelWizardOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+        PrintableDocument: Cmf.Navigo.BusinessObjects.PrintableDocument;
+        Printers: string[];
+    }
+    class CalculateMaterialLabelsPrintLayoutOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+        PrintLayouts: Cmf.Navigo.BusinessObjects.PreviewAndPrintLayoutCollection;
+    }
+    class PrintMaterialLabelOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+    }
+    class EvaluatePrintMaterialLabelOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+        MaterialLabelPrintingInformation: Cmf.Navigo.BusinessObjects.MaterialLabelPrintingInformationCollection;
+    }
     class ChangeMaterialOffFlowInformationOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -31428,12 +32716,14 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         protected $type: string;
         ChecklistItemInstance: Cmf.Foundation.BusinessObjects.ChecklistItemInstance;
         Material: Cmf.Navigo.BusinessObjects.Material;
+        PostChartDataPointResults: Cmf.Navigo.BusinessObjects.PostChartDataPointResultCollection;
     }
     class PerformMaterialChecklistItemsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
         ChecklistItems: Cmf.Foundation.BusinessObjects.ChecklistItemInstanceCollection;
         Material: Cmf.Navigo.BusinessObjects.Material;
+        PostChartDataPointResults: Cmf.Navigo.BusinessObjects.PostChartDataPointResultCollection;
     }
     class ChangeMaterialsCostOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -31456,6 +32746,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         PerformedFutureAction: Cmf.Navigo.BusinessObjects.FutureAction;
         SplitResult: Cmf.Navigo.BusinessObjects.FutureActionSplitResult;
         MergeResult: Cmf.Navigo.BusinessObjects.FutureActionMergeResult;
+        CreateSendAheadRunResult: Cmf.Navigo.BusinessObjects.SendAheadRun;
     }
     class ManageFutureActionsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -31529,6 +32820,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         protected $type: string;
         Data: System.Data.DataSet;
     }
+    class CompleteJobOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        ProductionOrderSteps: Cmf.Navigo.BusinessObjects.ProductionOrderStepCollection;
+    }
     class ProcessDispensedMaterialOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -31546,46 +32842,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         protected $id: string;
         protected $type: string;
         MaterialsResource: Cmf.Navigo.BusinessObjects.MaterialResourceCollection;
-    }
-    class GetMaterialLineDataOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Material: Cmf.Navigo.BusinessObjects.Material;
-        LineStepsData: Cmf.Navigo.BusinessObjects.MaterialLineStepDataCollection;
-        LineBOMSetupInformation: CMFMap<string, Cmf.Navigo.BusinessOrchestration.ResourceManagement.OutputObjects.BOMSetupInformation>;
-    }
-    class StartMaterialsFloorLifeCounterOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
-    }
-    class StopMaterialsFloorLifeCounterOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
-    }
-    class SealMaterialsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
-    }
-    class ResetMaterialsFloorLifeOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
-    }
-    class GetMaterialFloorLifeInformationOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        MaterialFloorLifeInformation: Cmf.Navigo.BusinessObjects.MaterialFloorLifeInformation;
-    }
-    class InsertMaterialIntoLineOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-    }
-    class RemoveMaterialFromLineOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
     }
     class ApproveMaterialsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -31817,7 +33073,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         Material: Cmf.Navigo.BusinessObjects.Material;
         OpenedProtocolInstances: Cmf.Navigo.BusinessObjects.ProtocolInstanceCollection;
         PostChartDataPointResults: Cmf.Navigo.BusinessObjects.PostChartDataPointResultCollection;
-        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentVersionEmployeeTracking>;
+        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentEmployeeTracking>;
     }
     class MoveMaterialToStepOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -31831,7 +33087,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         Material: Cmf.Navigo.BusinessObjects.Material;
         AppliedFutureActions: Cmf.Navigo.BusinessObjects.FutureActionCollection;
         OpenedProtocolInstances: Cmf.Navigo.BusinessObjects.ProtocolInstanceCollection;
-        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentVersionEmployeeTracking>;
+        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentEmployeeTracking>;
     }
     class RecordMaterialLossOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -31930,7 +33186,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         PostChartDataPointResults: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Navigo.BusinessObjects.PostChartDataPointResultCollection>;
         OpenedRecipeInstances: Cmf.Navigo.BusinessObjects.RecipeInstanceCollection;
         OpenedChecklistInstances: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Foundation.BusinessObjects.ChecklistInstance>;
-        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentVersionEmployeeTracking>;
+        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentEmployeeTracking>;
     }
     class ComplexTrackOutMaterialOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -31939,7 +33195,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         Material: Cmf.Navigo.BusinessObjects.Material;
         OpenedProtocolInstances: Cmf.Navigo.BusinessObjects.ProtocolInstanceCollection;
         PostChartDataPointResults: Cmf.Navigo.BusinessObjects.PostChartDataPointResultCollection;
-        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentVersionEmployeeTracking>;
+        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentEmployeeTracking>;
         SubProductsMaterials: Cmf.Navigo.BusinessObjects.MaterialCollection;
     }
     class ComplexTrackOutMaterialsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
@@ -31947,7 +33203,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         protected $type: string;
         AppliedFutureActions: Cmf.Navigo.BusinessObjects.FutureActionCollection;
         Materials: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Navigo.BusinessObjects.ComplexTrackOutParametersResult>;
-        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentVersionEmployeeTracking>;
+        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentEmployeeTracking>;
     }
     class ComplexTrackOutAndMoveMaterialToNextStepOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -31956,7 +33212,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         Material: Cmf.Navigo.BusinessObjects.Material;
         OpenedProtocolInstances: Cmf.Navigo.BusinessObjects.ProtocolInstanceCollection;
         PostChartDataPointResults: Cmf.Navigo.BusinessObjects.PostChartDataPointResultCollection;
-        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentVersionEmployeeTracking>;
+        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentEmployeeTracking>;
         SubProductsMaterials: Cmf.Navigo.BusinessObjects.MaterialCollection;
     }
     class ComplexTrackOutAndMoveMaterialsToNextStepOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
@@ -31964,7 +33220,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         protected $type: string;
         AppliedFutureActions: Cmf.Navigo.BusinessObjects.FutureActionCollection;
         Materials: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Navigo.BusinessObjects.ComplexTrackOutAndMoveNextParametersResult>;
-        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentVersionEmployeeTracking>;
+        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentEmployeeTracking>;
     }
     class ComplexDispatchAndTrackInMaterialsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -31976,7 +33232,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         PostChartDataPointResults: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Navigo.BusinessObjects.PostChartDataPointResultCollection>;
         OpenedRecipeInstances: Cmf.Navigo.BusinessObjects.RecipeInstanceCollection;
         OpenedChecklistInstances: CMFMap<Cmf.Navigo.BusinessObjects.Material, Cmf.Foundation.BusinessObjects.ChecklistInstance>;
-        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentVersionEmployeeTracking>;
+        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentEmployeeTracking>;
     }
     class ComplexDispatchAndTrackInMaterialOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -32072,12 +33328,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Out
         Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
         AppliedFutureActions: Cmf.Navigo.BusinessObjects.FutureActionCollection;
     }
-    class RemoteAndLocalReceiveMaterialsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
-        AppliedFutureActions: Cmf.Navigo.BusinessObjects.FutureActionCollection;
-    }
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.MobileManagementNavigo.InputObjects {
     class GetWidgetsDataInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
@@ -32151,10 +33401,16 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.OrderManagement.InputO
         protected $type: string;
         ProductionOrders: Cmf.Navigo.BusinessObjects.ProductionOrderCollection;
     }
+    class SynchronizeProductionOrdersStepsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        ProductionOrders: Cmf.Navigo.BusinessObjects.ProductionOrderCollection;
+    }
     class ReleaseProductionOrdersInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
         ProductionOrders: Cmf.Navigo.BusinessObjects.ProductionOrderCollection;
+        IsToSynchronizeProductionOrderSteps: boolean;
     }
     class UnreleaseProductionOrdersInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -32209,10 +33465,48 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.OrderManagement.InputO
         protected $type: string;
         ProductionOrders: Cmf.Navigo.BusinessObjects.ProductionOrderCollection;
         IsToExplodeBOM: boolean;
+        IsToSynchronizeProductionOrderSteps: boolean;
+    }
+    class LoadProductionOrderStepsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        ProductionOrders: Cmf.Navigo.BusinessObjects.ProductionOrderCollection;
+        Filters: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+        LevelsToLoad: number;
+    }
+    class LoadProductionOrderStepDependenciesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        ProductionOrders: Cmf.Navigo.BusinessObjects.ProductionOrderCollection;
+        Filters: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+        LevelsToLoad: number;
+    }
+    class ManageProductionOrderStepsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        ProductionOrders: Cmf.Navigo.BusinessObjects.ProductionOrderCollection;
+        ProductionOrderStepsToAdd: Cmf.Navigo.BusinessObjects.ProductionOrderStepCollection;
+        ProductionOrderStepsToUpdate: Cmf.Navigo.BusinessObjects.ProductionOrderStepCollection;
+        ProductionOrderStepsToRemove: Cmf.Navigo.BusinessObjects.ProductionOrderStepCollection;
+        ProductionOrderItemsToUpdate: Cmf.Navigo.BusinessObjects.ProductionOrderItemToManageCollection;
+        ProductionOrderItemsToRemove: Cmf.Navigo.BusinessObjects.ProductionOrderItemToManageCollection;
+    }
+    class ManageProductionOrderStepDependenciesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        ProductionOrders: Cmf.Navigo.BusinessObjects.ProductionOrderCollection;
+        ProductionOrderStepDependenciesToAdd: Cmf.Navigo.BusinessObjects.ProductionOrderStepDependencyCollection;
+        ProductionOrderStepDependenciesToUpdate: Cmf.Navigo.BusinessObjects.ProductionOrderStepDependencyCollection;
+        ProductionOrderStepDependenciesToRemove: Cmf.Navigo.BusinessObjects.ProductionOrderStepDependencyCollection;
     }
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.OrderManagement.OutputObjects {
     class RestrictOrUnrestrictProductionOrdersOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        ProductionOrders: Cmf.Navigo.BusinessObjects.ProductionOrderCollection;
+    }
+    class SynchronizeProductionOrdersStepsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
         ProductionOrders: Cmf.Navigo.BusinessObjects.ProductionOrderCollection;
@@ -32267,6 +33561,194 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.OrderManagement.Output
         protected $id: string;
         protected $type: string;
         ProductionOrders: Cmf.Navigo.BusinessObjects.ProductionOrderCollection;
+    }
+    class LoadProductionOrderStepsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        ProductionOrders: Cmf.Navigo.BusinessObjects.ProductionOrderCollection;
+        ProductionOrderSteps: Cmf.Navigo.BusinessObjects.ProductionOrderStepCollection;
+    }
+    class LoadProductionOrderStepDependenciesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        ProductionOrders: Cmf.Navigo.BusinessObjects.ProductionOrderCollection;
+        ProductionOrderStepDependencies: Cmf.Navigo.BusinessObjects.ProductionOrderStepDependencyCollection;
+    }
+    class ManageProductionOrderStepsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        ProductionOrders: Cmf.Navigo.BusinessObjects.ProductionOrderCollection;
+    }
+    class ManageProductionOrderStepDependenciesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        ProductionOrders: Cmf.Navigo.BusinessObjects.ProductionOrderCollection;
+    }
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.PlanManagement.InputObjects {
+    class CreatePlanInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        PlanItems: Cmf.Navigo.BusinessObjects.PlanItemCollection;
+        PlanSteps: Cmf.Navigo.BusinessObjects.PlanStepCollection;
+        PlanMaterialTypes: Cmf.Navigo.BusinessObjects.PlanMaterialTypeCollection;
+    }
+    class CreatePlanScenarioInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        EffectivePlan: Cmf.Navigo.BusinessObjects.Plan;
+        Name: string;
+        Description: string;
+    }
+    class UpdatePlanInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        PlanItemsToAdd: Cmf.Navigo.BusinessObjects.PlanItemCollection;
+        PlanItemsToUpdate: Cmf.Navigo.BusinessObjects.PlanItemCollection;
+        PlanItemsToRemove: Cmf.Navigo.BusinessObjects.PlanItemCollection;
+        PlanStepsToAdd: Cmf.Navigo.BusinessObjects.PlanStepCollection;
+        PlanStepsToUpdate: Cmf.Navigo.BusinessObjects.PlanStepCollection;
+        PlanStepsToRemove: Cmf.Navigo.BusinessObjects.PlanStepCollection;
+        PlanMaterialTypesToAdd: Cmf.Navigo.BusinessObjects.PlanMaterialTypeCollection;
+        PlanMaterialTypesToRemove: Cmf.Navigo.BusinessObjects.PlanMaterialTypeCollection;
+    }
+    class LoadPlanInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        IsToLoadPlanItems: boolean;
+        IsToLoadPlanSteps: boolean;
+        IsToLoadPlanMaterialTypes: boolean;
+    }
+    class LoadPlanTimeFramesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        FromDate: moment.Moment;
+        ToDate: moment.Moment;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+    }
+    class LoadPlanTimeFramesAndItemsAsDataSetInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        FromDate: moment.Moment;
+        ToDate: moment.Moment;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        IncludeTerminated: boolean;
+    }
+    class CreatePlanTimeFramesAndItemsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        RunForPlanItems: boolean;
+        PlanItems: Cmf.Navigo.BusinessObjects.PlanItemCollection;
+    }
+    class TerminatePlanTimeFramesAndItemsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        RunForWholePlan: boolean;
+        PlanItems: Cmf.Navigo.BusinessObjects.PlanItemCollection;
+    }
+    class ManagePlanTargetsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        PlannedVolumes: CMFMap<string, number>;
+        OverrideFrozenTimeFrameTargets: boolean;
+        OverrideInProgressTimeFrameItems: boolean;
+    }
+    class ReleasePlanScenarioInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        OverrideFrozenPeriodTimeFrameItems: boolean;
+        OverrideInProgressPeriodTimeFrameItems: boolean;
+    }
+    class AdjustPlanTargetsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        PlannedVolumes: CMFMap<string, number>;
+    }
+    class SynchronizePlanScenarioWithParentPlanInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+    }
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.PlanManagement.OutputObjects {
+    class CreatePlanOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+    }
+    class CreatePlanScenarioOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        PlanScenario: Cmf.Navigo.BusinessObjects.Plan;
+    }
+    class UpdatePlanOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        PlanItems: Cmf.Navigo.BusinessObjects.PlanItemCollection;
+        PlanSteps: Cmf.Navigo.BusinessObjects.PlanStepCollection;
+        PlanMaterialTypes: Cmf.Navigo.BusinessObjects.PlanMaterialTypeCollection;
+    }
+    class LoadPlanOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        PlanItems: Cmf.Navigo.BusinessObjects.PlanItemCollection;
+        PlanSteps: Cmf.Navigo.BusinessObjects.PlanStepCollection;
+        PlanMaterialTypes: Cmf.Navigo.BusinessObjects.PlanMaterialTypeCollection;
+    }
+    class LoadPlanTimeFramesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        PlanTimeFrames: Cmf.Navigo.BusinessObjects.PlanTimeFrameCollection;
+        PlanTimeFrameItems: Cmf.Navigo.BusinessObjects.PlanTimeFrameItemCollection;
+    }
+    class LoadPlanTimeFramesAndItemsAsDataSetOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        PlanTimeFrameItems: System.Data.DataSet;
+    }
+    class CreatePlanTimeFramesAndItemsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+    }
+    class TerminatePlanTimeFramesAndItemsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+    }
+    class ManagePlanTargetsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        PlanTimeFrameItems: System.Data.DataSet;
+    }
+    class ReleasePlanScenarioOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+    }
+    class AdjustPlanTargetsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
+        PlanTimeFrameItems: System.Data.DataSet;
+    }
+    class SynchronizePlanScenarioWithParentPlanOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Plan: Cmf.Navigo.BusinessObjects.Plan;
     }
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.PrintManagement.InputObjects {
@@ -32345,6 +33827,8 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.PrintManagement.InputO
         ResourceName: string;
         ResourceType: string;
         Model: string;
+        Facility: string;
+        AppliesTo: string;
     }
     class PreviewPrintableDocumentsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -32882,6 +34366,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.RecipeManagement.Outpu
         BodyChecksum: string;
         BodyDownloadedDate: moment.Moment;
         BodySize: number;
+        BodyFileName: string;
     }
     class PreviewRecipeInstanceOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -32897,6 +34382,21 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.RecipeManagement.Outpu
     }
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects {
+    class LoadResourceMeasurementCapabilitiesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Resource: Cmf.Navigo.BusinessObjects.Resource;
+        Filters: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+        LevelsToLoad: number;
+    }
+    class ManageResourceMeasurementCapabilitiesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Resource: Cmf.Navigo.BusinessObjects.Resource;
+        MeasurementCapabilitiesToAdd: Cmf.Navigo.BusinessObjects.ResourceMeasurementCapabilityCollection;
+        MeasurementCapabilitiesToUpdate: Cmf.Navigo.BusinessObjects.ResourceMeasurementCapabilityCollection;
+        MeasurementCapabilitiesToRemove: Cmf.Navigo.BusinessObjects.ResourceMeasurementCapabilityCollection;
+    }
     class SetResourceInstrumentModeInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -33456,6 +34956,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.ResourceManagement.Inp
         StateModelTransition: Cmf.Foundation.BusinessObjects.StateModelTransition;
         StateModelTransitionReason: string;
         ScheduleOverride: boolean;
+        ProductionOrderStep: Cmf.Navigo.BusinessObjects.ProductionOrderStep;
     }
     class CompleteSetupInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -33535,6 +35036,12 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.ResourceManagement.Inp
         Resource: Cmf.Navigo.BusinessObjects.Resource;
         StorageBins: Cmf.Navigo.BusinessObjects.StorageBinCollection;
     }
+    class GetStoredContainersForResourceStorageBinInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Resource: Cmf.Navigo.BusinessObjects.Resource;
+        StorageBins: Cmf.Navigo.BusinessObjects.StorageBinCollection;
+    }
     class ManageResourceInstrumentsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -33542,21 +35049,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.ResourceManagement.Inp
         InstrumentsToAdd: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
         InstrumentsToUpdate: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
         InstrumentsToRemove: Cmf.Navigo.BusinessObjects.ResourceInstrumentCollection;
-    }
-    class LoadResourceMeasurementCapabilitiesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Resource: Cmf.Navigo.BusinessObjects.Resource;
-        Filters: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
-        LevelsToLoad: number;
-    }
-    class ManageResourceMeasurementCapabilitiesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Resource: Cmf.Navigo.BusinessObjects.Resource;
-        MeasurementCapabilitiesToAdd: Cmf.Navigo.BusinessObjects.ResourceMeasurementCapabilityCollection;
-        MeasurementCapabilitiesToUpdate: Cmf.Navigo.BusinessObjects.ResourceMeasurementCapabilityCollection;
-        MeasurementCapabilitiesToRemove: Cmf.Navigo.BusinessObjects.ResourceMeasurementCapabilityCollection;
     }
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.ResourceManagement.OutputObjects {
@@ -33576,6 +35068,16 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.ResourceManagement.Out
         BOMProductToConsumableFeed: CMFMap<string, string>;
         ConsumableFeedPossibleMaterials: CMFMap<string, System.Data.DataSet>;
         BOMAssemblyType: Cmf.Navigo.BusinessObjects.BOMAssemblyType;
+    }
+    class LoadResourceMeasurementCapabilitiesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        MeasurementCapabilities: Cmf.Navigo.BusinessObjects.ResourceMeasurementCapabilityCollection;
+    }
+    class ManageResourceMeasurementCapabilitiesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Resource: Cmf.Navigo.BusinessObjects.Resource;
     }
     class SetResourceInstrumentModeOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -33680,7 +35182,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.ResourceManagement.Out
         protected $type: string;
         OpenedProtocolInstances: Cmf.Navigo.BusinessObjects.ProtocolInstanceCollection;
         PostChartDataPointResults: Cmf.Navigo.BusinessObjects.PostChartDataPointResultCollection;
-        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentVersionEmployeeTracking>;
+        ReadAndUnderstoodDocuments: CMFMap<Cmf.Foundation.BusinessObjects.Document, Cmf.Foundation.BusinessObjects.DocumentEmployeeTracking>;
         RequestMAOResults: Cmf.Navigo.BusinessObjects.MaintenanceActivityOrderCollection;
         Resource: Cmf.Navigo.BusinessObjects.Resource;
     }
@@ -34025,6 +35527,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.ResourceManagement.Out
         DataCollectionAtTrackIn: Cmf.Navigo.BusinessObjects.DataCollection;
         DataCollectionTypeAtTrackIn: string;
         DataCollectionLimitSetAtTrackIn: Cmf.Navigo.BusinessObjects.DataCollectionLimitSet;
+        ScheduleScenarioJob: Cmf.Navigo.BusinessObjects.ScheduleScenarioJob;
     }
     class GetStoredMaterialsForResourceOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -34059,17 +35562,12 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.ResourceManagement.Out
         protected $type: string;
         MaterialResources: Cmf.Navigo.BusinessObjects.MaterialResourceCollection;
     }
+    class GetStoredContainersForResourceStorageBinOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        ContainerResources: Cmf.Navigo.BusinessObjects.ContainerResourceCollection;
+    }
     class ManageResourceInstrumentsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Resource: Cmf.Navigo.BusinessObjects.Resource;
-    }
-    class LoadResourceMeasurementCapabilitiesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        MeasurementCapabilities: Cmf.Navigo.BusinessObjects.ResourceMeasurementCapabilityCollection;
-    }
-    class ManageResourceMeasurementCapabilitiesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
         Resource: Cmf.Navigo.BusinessObjects.Resource;
@@ -34400,9 +35898,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.I
         protected $id: string;
         protected $type: string;
         ScheduleJob: Cmf.Navigo.BusinessObjects.ScheduleJob;
+        ScheduleScenarioJob: Cmf.Navigo.BusinessObjects.ScheduleScenarioJob;
         NewResource: Cmf.Navigo.BusinessObjects.Resource;
         NewPlannedStartDate: moment.Moment;
         OnlyCurrentJob: boolean;
+        ScheduleScenarioJobs: Cmf.Navigo.BusinessObjects.ScheduleScenarioJobCollection;
     }
     class AdjustScheduleScenarioInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -34411,6 +35911,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.I
         NewResource: Cmf.Navigo.BusinessObjects.Resource;
         NewPlannedStartDate: moment.Moment;
         OnlyCurrentJob: boolean;
+        ScheduleScenarioJobs: Cmf.Navigo.BusinessObjects.ScheduleScenarioJobCollection;
     }
     class LockScheduleScenarioJobInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -34449,6 +35950,31 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.I
         ToolStateFilter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
         EmployeeStateFilter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
         IncludePastOpenJobs: boolean;
+    }
+    class GetCalculatedEffectiveJobsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Schedule: Cmf.Navigo.BusinessObjects.Schedule;
+        IncludeMAOs: boolean;
+        FromDateTime: moment.Moment;
+        ToDateTime: moment.Moment;
+        Resource: Cmf.Navigo.BusinessObjects.Resource;
+        Material: Cmf.Navigo.BusinessObjects.Material;
+        Step: Cmf.Navigo.BusinessObjects.Step;
+        ResourceStateFilter: Cmf.Navigo.BusinessObjects.ResourceSystemState;
+        MaterialStateFilter: Cmf.Navigo.BusinessObjects.MaterialSystemState;
+        StepFilter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+        ToolStateFilter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+        EmployeeStateFilter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+        ScheduleScenarioJobsFilter: Cmf.Navigo.BusinessObjects.ScheduleScenarioJobCollection;
+    }
+    class GetUnplannedMaterialsForStepOrResourceInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Materials: Cmf.Navigo.BusinessObjects.MaterialCollection;
+        ProductionOrderSteps: Cmf.Navigo.BusinessObjects.ProductionOrderStepCollection;
+        Step: Cmf.Navigo.BusinessObjects.Step;
+        Resource: Cmf.Navigo.BusinessObjects.Resource;
     }
     class GetScheduleScenarioJobsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -34535,10 +36061,30 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.I
         EmployeesFilter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
         ToolsFilter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
     }
+    class GetEffectiveJobsTimelineInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        Schedule: Cmf.Navigo.BusinessObjects.Schedule;
+        ScheduleScenario: Cmf.Navigo.BusinessObjects.ScheduleScenario;
+        FromDateTime: moment.Moment;
+        ToDateTime: moment.Moment;
+        ResourcesFilter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+        MaterialsFilter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+        EmployeesFilter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+        ToolsFilter: Cmf.Foundation.BusinessObjects.QueryObject.FilterCollection;
+    }
     class GetScheduleJobsDetailsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
         ScheduleJobs: Cmf.Navigo.BusinessObjects.ScheduleJobCollection;
+        IsToIncludeEmployeesDetails: boolean;
+        IsToIncludeToolsDetails: boolean;
+        IsToIncludeDependenciesDetails: boolean;
+    }
+    class GetEffectiveJobsDetailsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        ScheduleScenarioJobs: Cmf.Navigo.BusinessObjects.ScheduleScenarioJobCollection;
         IsToIncludeEmployeesDetails: boolean;
         IsToIncludeToolsDetails: boolean;
         IsToIncludeDependenciesDetails: boolean;
@@ -34550,6 +36096,37 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.I
         IsToIncludeEmployeesDetails: boolean;
         IsToIncludeToolsDetails: boolean;
         IsToIncludeDependenciesDetails: boolean;
+    }
+    class AddScheduleMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        ScheduleScenario: Cmf.Navigo.BusinessObjects.ScheduleScenario;
+        ScheduleMaterialsJobs: CMFMap<Cmf.Navigo.BusinessObjects.ScheduleMaterial, Cmf.Navigo.BusinessObjects.ScheduleScenarioJobCollection>;
+    }
+    class DeleteScheduleMaterialsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        ScheduleScenario: Cmf.Navigo.BusinessObjects.ScheduleScenario;
+        ScheduleMaterials: Cmf.Navigo.BusinessObjects.ScheduleMaterialCollection;
+    }
+    class AddScheduleScenarioMaintenanceActivitiesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        ScheduleScenario: Cmf.Navigo.BusinessObjects.ScheduleScenario;
+        ScheduleScenarioMaintenanceActivities: Cmf.Navigo.BusinessObjects.ScheduleScenarioMaintenanceActivityCollection;
+    }
+    class DeleteScheduleScenarioMaintenanceActivitiesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        ScheduleScenario: Cmf.Navigo.BusinessObjects.ScheduleScenario;
+        ScheduleScenarioMaintenanceActivities: Cmf.Navigo.BusinessObjects.ScheduleScenarioMaintenanceActivityCollection;
+    }
+    class ManageScheduleScenarioJobsDependenciesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        ScheduleScenario: Cmf.Navigo.BusinessObjects.ScheduleScenario;
+        JobsDependencies: Cmf.Navigo.BusinessObjects.ScheduleDependency[];
+        IsToAdd: boolean;
     }
     class GenerateScheduleScenarioInformationForGenerationOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -34631,6 +36208,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.O
         protected $id: string;
         protected $type: string;
         Schedule: Cmf.Navigo.BusinessObjects.Schedule;
+        ScheduleScenario: Cmf.Navigo.BusinessObjects.ScheduleScenario;
         AllJobs: System.Data.DataSet;
     }
     class AdjustScheduleScenarioOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
@@ -34666,6 +36244,19 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.O
         AllResources: System.Data.DataSet;
         ScheduleJobsTools: System.Data.DataSet;
         ScheduleJobsEmployees: System.Data.DataSet;
+    }
+    class GetCalculatedEffectiveJobsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        EffectiveJobs: System.Data.DataSet;
+        AllResources: System.Data.DataSet;
+        EffectiveJobsTools: System.Data.DataSet;
+        EffectiveJobsEmployees: System.Data.DataSet;
+    }
+    class GetUnplannedMaterialsForStepOrResourceOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        UnplannedMaterials: Cmf.Navigo.BusinessObjects.MaterialCollection;
     }
     class GetScheduleScenarioJobsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -34732,7 +36323,21 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.O
         ScheduleJobsEmployees: System.Data.DataSet;
         ScheduleJobsTools: System.Data.DataSet;
     }
+    class GetEffectiveJobsTimelineOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        EffectiveJobsTimeline: System.Data.DataSet;
+        EffectiveJobsResources: System.Data.DataSet;
+        EffectiveJobsMaterials: System.Data.DataSet;
+        EffectiveJobsEmployees: System.Data.DataSet;
+        EffectiveJobsTools: System.Data.DataSet;
+    }
     class GetScheduleJobsDetailsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Details: CMFMap<string, Cmf.Navigo.BusinessObjects.ScheduleJobDetails>;
+    }
+    class GetEffectiveJobsDetailsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
         Details: CMFMap<string, Cmf.Navigo.BusinessObjects.ScheduleJobDetails>;
@@ -34741,6 +36346,35 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.O
         protected $id: string;
         protected $type: string;
         Details: CMFMap<string, Cmf.Navigo.BusinessObjects.ScheduleJobDetails>;
+    }
+    class AddScheduleMaterialsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        ScheduleScenario: Cmf.Navigo.BusinessObjects.ScheduleScenario;
+        ScheduleMaterialsJobs: CMFMap<Cmf.Navigo.BusinessObjects.ScheduleMaterial, Cmf.Navigo.BusinessObjects.ScheduleScenarioJobCollection>;
+    }
+    class DeleteScheduleMaterialsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        ScheduleScenario: Cmf.Navigo.BusinessObjects.ScheduleScenario;
+        ScheduleMaterials: Cmf.Navigo.BusinessObjects.ScheduleMaterialCollection;
+    }
+    class AddScheduleScenarioMaintenanceActivitiesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        ScheduleScenario: Cmf.Navigo.BusinessObjects.ScheduleScenario;
+        ScheduleScenarioMaintenanceActivities: Cmf.Navigo.BusinessObjects.ScheduleScenarioMaintenanceActivityCollection;
+    }
+    class DeleteScheduleScenarioMaintenanceActivitiesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        ScheduleScenario: Cmf.Navigo.BusinessObjects.ScheduleScenario;
+        ScheduleScenarioMaintenanceActivities: Cmf.Navigo.BusinessObjects.ScheduleScenarioMaintenanceActivityCollection;
+    }
+    class ManageScheduleScenarioJobsDependenciesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        ScheduleScenario: Cmf.Navigo.BusinessObjects.ScheduleScenario;
     }
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects {
@@ -34751,16 +36385,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObj
         protected $type: string;
         Chart: Cmf.Navigo.BusinessObjects.Chart;
         Title: string;
-    }
-    class FullUpdateChartDataPointInput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-        RelationsToAdd: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
-        RelationsToRemove: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
-        RelationsToUpdate: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
-        AttributesToAddOrUpdate: Cmf.Foundation.BusinessObjects.AttributeCollection;
-        AttributesNamesToRemove: string[];
     }
     class CreateChartInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -34858,12 +36482,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObj
         protected $type: string;
         Chart: Cmf.Navigo.BusinessObjects.Chart;
     }
-    class UpdateChartContextInformationInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Chart: Cmf.Navigo.BusinessObjects.Chart;
-        ContextInformation: CMFMap<string, string>;
-    }
     class LoadLogicalChartsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -34876,12 +36494,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObj
         Chart: Cmf.Navigo.BusinessObjects.Chart;
     }
     class AddChartRulesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        Chart: Cmf.Navigo.BusinessObjects.Chart;
-        ChartRules: Cmf.Navigo.BusinessObjects.ChartRuleCollection;
-    }
-    class UpdateChartRulesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
         Chart: Cmf.Navigo.BusinessObjects.Chart;
@@ -34936,70 +36548,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObj
         AutoCalculateControlLimitIndicators: boolean;
         AutoCalculateControlLimitIndicatorsWindowSize: number;
         LogicalChartsLimits: Cmf.Navigo.BusinessObjects.LogicalChartLimitsCollection;
-    }
-    class CreateLogicalChartInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-        ContextInformation: CMFMap<string, string>;
-    }
-    class UpdateLogicalChartInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-    }
-    class LoadLogicalChartAttributesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-        AttributeNames: string[];
-    }
-    class UpdateLogicalChartAttributesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-        Attributes: Cmf.Foundation.BusinessObjects.AttributeCollection;
-    }
-    class RemoveLogicalChartAttributesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-        AttributeNames: string[];
-    }
-    class LoadLogicalChartRelationsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-        RelationNames: string[];
-        LevelsToLoad: number;
-    }
-    class AddLogicalChartRelationsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-        RelationCollection: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
-    }
-    class UpdateLogicalChartRelationsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-        RelationCollection: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
-    }
-    class RemoveLogicalChartRelationsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-        RelationCollection: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
-    }
-    class FullUpdateLogicalChartInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-        RelationsToAdd: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
-        RelationsToRemove: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
-        RelationsToUpdate: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
-        AttributesToAddOrUpdate: Cmf.Foundation.BusinessObjects.AttributeCollection;
-        AttributesNamesToRemove: string[];
     }
     class TerminateLogicalChartInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -35065,31 +36613,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObj
         protected $type: string;
         ChartDataPoints: Cmf.Navigo.BusinessObjects.ChartDataPointCollection;
     }
-    class LoadChartDataPointRelationsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-        RelationNames: string[];
-        LevelsToLoad: number;
-    }
-    class AddChartDataPointRelationsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-        RelationCollection: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
-    }
-    class RemoveChartDataPointRelationsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-        RelationCollection: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
-    }
-    class UpdateChartDataPointRelationsInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-        RelationCollection: Array<Cmf.Foundation.BusinessObjects.EntityRelation>;
-    }
     class ExcludeChartDataPointInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -35120,39 +36643,10 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObj
         protected $type: string;
         ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
     }
-    class UpdateChartDataPointInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-    }
-    class LoadChartDataPointAttributesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-        AttributeNames: string[];
-    }
-    class UpdateChartDataPointAttributesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-        Attributes: Cmf.Foundation.BusinessObjects.AttributeCollection;
-    }
-    class RemoveChartDataPointAttributesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-        AttributeNames: string[];
-    }
     class LoadChartDataPointContextInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
         ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-    }
-    class UpdateChartDataPointContextInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-        ContextInformation: CMFMap<string, string>;
     }
     class LoadChartDataPointOccurrencesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -35190,11 +36684,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObj
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.OutputObjects {
     class RemoveChartDataPointContextOutput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-    }
-    class FullUpdateChartDataPointOutput {
         protected $id: string;
         protected $type: string;
         ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
@@ -35280,11 +36769,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.OutputOb
         protected $type: string;
         Chart: Cmf.Navigo.BusinessObjects.Chart;
     }
-    class UpdateChartContextInformationOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Chart: Cmf.Navigo.BusinessObjects.Chart;
-    }
     class LoadLogicalChartsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -35296,11 +36780,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.OutputOb
         Chart: Cmf.Navigo.BusinessObjects.Chart;
     }
     class AddChartRulesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        Chart: Cmf.Navigo.BusinessObjects.Chart;
-    }
-    class UpdateChartRulesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
         Chart: Cmf.Navigo.BusinessObjects.Chart;
@@ -35335,56 +36814,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.OutputOb
         protected $type: string;
         Chart: Cmf.Navigo.BusinessObjects.Chart;
         LogicalCharts: Cmf.Navigo.BusinessObjects.LogicalChartCollection;
-    }
-    class CreateLogicalChartOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-    }
-    class UpdateLogicalChartOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-    }
-    class LoadLogicalChartAttributesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-    }
-    class UpdateLogicalChartAttributesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-    }
-    class RemoveLogicalChartAttributesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-    }
-    class LoadLogicalChartRelationsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-    }
-    class AddLogicalChartRelationsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-    }
-    class UpdateLogicalChartRelationsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-    }
-    class RemoveLogicalChartRelationsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
-    }
-    class FullUpdateLogicalChartOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        LogicalChart: Cmf.Navigo.BusinessObjects.LogicalChart;
     }
     class TerminateLogicalChartOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
@@ -35450,26 +36879,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.OutputOb
         protected $type: string;
         ChartDataPoints: Cmf.Navigo.BusinessObjects.ChartDataPointCollection;
     }
-    class LoadChartDataPointRelationsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-    }
-    class AddChartDataPointRelationsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-    }
-    class RemoveChartDataPointRelationsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-    }
-    class UpdateChartDataPointRelationsOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-    }
     class ExcludeChartDataPointOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -35494,32 +36903,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.OutputOb
         protected $id: string;
         protected $type: string;
     }
-    class UpdateChartDataPointOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-    }
-    class LoadChartDataPointAttributesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-    }
-    class UpdateChartDataPointAttributesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-    }
-    class RemoveChartDataPointAttributesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-    }
     class LoadChartDataPointContextOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
-        protected $id: string;
-        protected $type: string;
-        ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
-    }
-    class UpdateChartDataPointContextOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
         ChartDataPoint: Cmf.Navigo.BusinessObjects.ChartDataPoint;
@@ -35931,6 +37315,44 @@ export declare namespace Cmf.Navigo.Common {
         Experiment13290 = 13290,
         Experiment13300 = 13300,
         Experiment13310 = 13310,
+        Experiment13320 = 13320,
+        Experiment13330 = 13330,
+        Experiment13340 = 13340,
+        Experiment13350 = 13350,
+        Experiment13360 = 13360,
+        Experiment13370 = 13370,
+        Experiment13380 = 13380,
+        Experiment13390 = 13390,
+        Experiment13430 = 13430,
+        Experiment13440 = 13440,
+        Experiment13450 = 13450,
+        Experiment13460 = 13460,
+        Experiment13470 = 13470,
+        Experiment13480 = 13480,
+        Experiment13490 = 13490,
+        Experiment13500 = 13500,
+        Experiment13510 = 13510,
+        Experiment13520 = 13520,
+        Experiment13530 = 13530,
+        Experiment13540 = 13540,
+        Experiment13550 = 13550,
+        Experiment13560 = 13560,
+        Experiment13570 = 13570,
+        Experiment13580 = 13580,
+        Experiment13590 = 13590,
+        Experiment13600 = 13600,
+        Experiment13610 = 13610,
+        Experiment13620 = 13620,
+        Experiment13630 = 13630,
+        Experiment13640 = 13640,
+        Experiment13650 = 13650,
+        Experiment13660 = 13660,
+        Experiment13670 = 13670,
+        Experiment13680 = 13680,
+        Experiment13690 = 13690,
+        Experiment13700 = 13700,
+        Experiment13710 = 13710,
+        Experiment13720 = 13720,
         Scheduling14000 = 14000,
         Scheduling14001 = 14001,
         Scheduling14002 = 14002,
@@ -36329,7 +37751,6 @@ export declare namespace Cmf.Navigo.Common {
         Bo60723 = 60723,
         Bo60724 = 60724,
         Bo60725 = 60725,
-        Bo60726 = 60726,
         Bo60727 = 60727,
         Bo60728 = 60728,
         Bo60729 = 60729,
@@ -36365,7 +37786,6 @@ export declare namespace Cmf.Navigo.Common {
         Bo60759 = 60759,
         Bo60760 = 60760,
         Bo60761 = 60761,
-        Bo60762 = 60762,
         Bo60763 = 60763,
         Bo60764 = 60764,
         Bo60765 = 60765,
@@ -36836,6 +38256,7 @@ export declare namespace Cmf.Navigo.Common {
         Bo61518 = 61518,
         Bo61519 = 61519,
         Bo61520 = 61520,
+        Bo61521 = 61521,
         Bo61522 = 61522,
         Bo61523 = 61523,
         Bo61525 = 61525,
@@ -36843,7 +38264,117 @@ export declare namespace Cmf.Navigo.Common {
         Bo61527 = 61527,
         Bo61528 = 61528,
         Bo61529 = 61529,
+        Bo61530 = 61530,
+        Bo61531 = 61531,
+        Bo61532 = 61532,
+        Bo61533 = 61533,
+        Bo61534 = 61534,
+        Bo61535 = 61535,
+        Bo61536 = 61536,
+        Bo61537 = 61537,
+        Bo61538 = 61538,
+        Bo61539 = 61539,
+        Bo61540 = 61540,
+        Bo61541 = 61541,
+        Bo61542 = 61542,
+        Bo61543 = 61543,
+        Bo61544 = 61544,
+        Bo61545 = 61545,
+        Bo61546 = 61546,
+        Bo61547 = 61547,
+        Bo61548 = 61548,
+        Bo61549 = 61549,
+        Bo61550 = 61550,
+        Bo61551 = 61551,
+        Bo61552 = 61552,
+        Bo61553 = 61553,
+        Bo61554 = 61554,
+        Bo61555 = 61555,
+        Bo61556 = 61556,
+        Bo61557 = 61557,
+        Bo61558 = 61558,
+        Bo61559 = 61559,
+        Bo61560 = 61560,
+        Bo61561 = 61561,
+        Bo61562 = 61562,
+        Bo61563 = 61563,
+        Bo61564 = 61564,
+        Bo61565 = 61565,
+        Bo61566 = 61566,
+        Bo61567 = 61567,
+        Bo61568 = 61568,
+        Bo61569 = 61569,
+        Bo61570 = 61570,
+        Bo61571 = 61571,
+        Bo61572 = 61572,
+        Bo61573 = 61573,
+        Bo61574 = 61574,
+        Bo61575 = 61575,
+        Bo61576 = 61576,
+        Bo61577 = 61577,
+        Bo61578 = 61578,
+        Bo61579 = 61579,
         Bo61580 = 61580,
+        Bo61582 = 61582,
+        Bo61583 = 61583,
+        Bo61584 = 61584,
+        Bo61585 = 61585,
+        Bo61586 = 61586,
+        Bo61587 = 61587,
+        Bo61588 = 61588,
+        Bo61589 = 61589,
+        Bo61590 = 61590,
+        Bo61591 = 61591,
+        Bo61592 = 61592,
+        Bo61593 = 61593,
+        Bo61594 = 61594,
+        Bo61595 = 61595,
+        Bo61596 = 61596,
+        Bo61598 = 61598,
+        Bo61599 = 61599,
+        Bo61600 = 61600,
+        Bo61601 = 61601,
+        Bo61602 = 61602,
+        Bo61603 = 61603,
+        Bo61604 = 61604,
+        Bo61605 = 61605,
+        Bo61606 = 61606,
+        Bo61607 = 61607,
+        Bo61608 = 61608,
+        Bo61609 = 61609,
+        Bo61610 = 61610,
+        Bo61611 = 61611,
+        Bo61612 = 61612,
+        Bo61613 = 61613,
+        Bo61614 = 61614,
+        Bo61615 = 61615,
+        Bo61616 = 61616,
+        Bo61617 = 61617,
+        Bo61618 = 61618,
+        Bo61619 = 61619,
+        Bo61620 = 61620,
+        Bo61621 = 61621,
+        Bo61622 = 61622,
+        Bo61623 = 61623,
+        Bo61624 = 61624,
+        Bo61625 = 61625,
+        Bo61626 = 61626,
+        Bo61627 = 61627,
+        Bo61628 = 61628,
+        Bo61629 = 61629,
+        Bo61630 = 61630,
+        Bo61631 = 61631,
+        Bo61632 = 61632,
+        Bo61633 = 61633,
+        Bo61634 = 61634,
+        Bo61635 = 61635,
+        Bo61636 = 61636,
+        Bo61637 = 61637,
+        Bo61641 = 61641,
+        Bo61642 = 61642,
+        Bo61643 = 61643,
+        Bo61644 = 61644,
+        Bo61645 = 61645,
         Cert90000 = 90000,
         Cert90001 = 90001,
         Cert90002 = 90002,
@@ -36869,6 +38400,12 @@ export declare namespace Cmf.Navigo.Common {
         Quali110000 = 110000,
         Alarm120000 = 120000,
         Alarm120001 = 120001
+    }
+    enum MesServiceRegistrationOrderEnum {
+        BusinessObjectsStartupModule = 100,
+        CommonStartupModule = 200,
+        LoadersStartupModule = 300,
+        BusinessOrchestrationStartupModule = 400
     }
     enum TimeScale {
         Days = 0,
@@ -36909,7 +38446,7 @@ export declare namespace Cmf.Connect.BusinessObjects {
         LastShutdownUnexpected = 9
     }
 }
-export declare namespace Cmf.Custom.AMSOsram.BusinessObjects {
+export declare namespace Cmf.Custom.amsOSRAM.BusinessObjects {
     class CustomSorterJobDefinitionCollection extends Array<CustomSorterJobDefinition> {
         protected $id: string;
         protected $type: string;
@@ -36918,7 +38455,6 @@ export declare namespace Cmf.Custom.AMSOsram.BusinessObjects {
     class CustomSorterJobDefinition extends Cmf.Foundation.BusinessObjects.EntityInstance {
         protected $id: string;
         protected $type: string;
-        MainStateModelStateReason: string;
         LogisticalProcess: string;
         TargetCarrierType: string;
         SourceCarrierType: string;
@@ -36929,7 +38465,7 @@ export declare namespace Cmf.Custom.AMSOsram.BusinessObjects {
         WaferIdOnBottom: boolean;
     }
 }
-export declare namespace Cmf.Custom.AMSOsram.Common.DataStructures {
+export declare namespace Cmf.Custom.amsOSRAM.Common.DataStructures {
     class ResourceLoadPortData {
         protected $id: string;
         protected $type: string;
@@ -36968,8 +38504,8 @@ export declare namespace Cmf.Custom.AMSOsram.Common.DataStructures {
         NameOnEquipment: string;
         Checksum: string;
         Order: string;
-        SubRecipes: Cmf.Custom.AMSOsram.Common.DataStructures.RecipeData[];
-        RecipeParameters: Cmf.Custom.AMSOsram.Common.DataStructures.RecipeParameterData[];
+        SubRecipes: Cmf.Custom.amsOSRAM.Common.DataStructures.RecipeData[];
+        RecipeParameters: Cmf.Custom.amsOSRAM.Common.DataStructures.RecipeParameterData[];
     }
     class MaterialData {
         protected $id: string;
@@ -36977,8 +38513,8 @@ export declare namespace Cmf.Custom.AMSOsram.Common.DataStructures {
         MaterialId: string;
         MaterialName: string;
         MaterialState: string;
-        SubMaterials: Cmf.Custom.AMSOsram.Common.DataStructures.MaterialData[];
-        Recipe: Cmf.Custom.AMSOsram.Common.DataStructures.RecipeData;
+        SubMaterials: Cmf.Custom.amsOSRAM.Common.DataStructures.MaterialData[];
+        Recipe: Cmf.Custom.amsOSRAM.Common.DataStructures.RecipeData;
         ContainerName: string;
         ContainerId: string;
         Slot: string;
@@ -36987,7 +38523,7 @@ export declare namespace Cmf.Custom.AMSOsram.Common.DataStructures {
         LoadPortPosition: string;
         AllowDownloadRecipeAtTrackIn: boolean;
         ContainerOnlyProcess: boolean;
-        SorterJobInformation: Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition;
+        SorterJobInformation: Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition;
     }
     class AdHocRequestAction {
         protected $id: string;
@@ -36995,7 +38531,7 @@ export declare namespace Cmf.Custom.AMSOsram.Common.DataStructures {
         Order: number;
         Driver: string;
         Name: string;
-        Type: Cmf.Custom.AMSOsram.Common.DataStructures.AdHocActionTypes;
+        Type: Cmf.Custom.amsOSRAM.Common.DataStructures.AdHocActionTypes;
         Content: any;
     }
     class AdHocRequest {
@@ -37003,7 +38539,7 @@ export declare namespace Cmf.Custom.AMSOsram.Common.DataStructures {
         protected $type: string;
         Driver: string;
         StopOnError: boolean;
-        Actions: Cmf.Custom.AMSOsram.Common.DataStructures.AdHocRequestAction[];
+        Actions: Cmf.Custom.amsOSRAM.Common.DataStructures.AdHocRequestAction[];
     }
     enum AdHocActionTypes {
         SendRequest = 0,
@@ -37016,7 +38552,7 @@ export declare namespace Cmf.Custom.AMSOsram.Common.DataStructures {
         Outbound = 1
     }
 }
-export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects {
+export declare namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects {
     class MaterialInInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
         protected $type: string;
@@ -37032,7 +38568,7 @@ export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects {
         ResourceName: string;
         CarrierId: string;
         ContainerOnlyProcess: boolean;
-        CustomSorterJobDefinition: Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition;
+        CustomSorterJobDefinition: Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition;
     }
     class CustomReceiveStiboMessageInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
         protected $id: string;
@@ -37054,7 +38590,7 @@ export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects {
         FlowVersion: string;
     }
 }
-export declare namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects {
+export declare namespace Cmf.Custom.amsOSRAM.Orchestration.OutputObjects {
     class MaterialInOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
@@ -37094,27 +38630,27 @@ export declare namespace Cmf.Services.GenericServiceManagement {
 }
 export declare namespace Cmf.Services.ImportExportManagement {
 }
-export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.MaterialInInput {
+export declare namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects.MaterialInInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
-export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.MaterialOutInput {
+export declare namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects.MaterialOutInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
-export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveStiboMessageInput {
+export declare namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects.CustomReceiveStiboMessageInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
-export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomReceiveERPMessageInput {
+export declare namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects.CustomReceiveERPMessageInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
-export declare namespace Cmf.Custom.AMSOsram.Orchestration.InputObjects.CustomGetFlowInformationForERPInput {
+export declare namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects.CustomGetFlowInformationForERPInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -37235,11 +38771,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.ChangeSetManagemen
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.ChangeSetManagement.InputObjects.GetChangeSetByNameInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Foundation.BusinessOrchestration.ChangeSetManagement.InputObjects.GetChangeSetsInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -37704,6 +39235,11 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.ConnectIoTManageme
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
+export declare namespace Cmf.Foundation.BusinessOrchestration.ConnectIoTManagement.InputObjects.AbortAutomationJobsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
 export declare namespace Cmf.Foundation.BusinessOrchestration.ConnectIoTManagement.InputObjects.SetAutomationJobsToErrorInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -37904,7 +39440,7 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.DocumentManagement
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
-export declare namespace Cmf.Foundation.BusinessOrchestration.DocumentManagement.InputObjects.LoadDocumentVersionEmployeeTrackingInput {
+export declare namespace Cmf.Foundation.BusinessOrchestration.DocumentManagement.InputObjects.LoadDocumentEmployeeTrackingInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -38095,6 +39631,11 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.DynamicExecutionEn
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.ExecuteActionInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.ExecuteReadOnlyActionInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -38509,6 +40050,11 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.FabLiveManagement.
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
+export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.UpdateAttachmentInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
 export declare namespace Cmf.Services.GenericServiceManagement.UploadDocumentStreamingInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -38530,11 +40076,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.CreateObjectVersionInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.CreateObjectWithVersionInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -38580,6 +40121,11 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.SetObjectVersionsEffectiveInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.BulkUpdateObjectsInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -38684,21 +40230,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
-export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.AddObjectsStateModelsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.RemoveObjectsStateModelsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.AdjustObjectsStateInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
 export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.LogObjectsEventInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -38724,17 +40255,22 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
-export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.TerminateAllVersionsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
 export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.BatchExecuteInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.CloneObjectInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.CloneObjectRevisionInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.CompareEntityInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -38869,6 +40405,26 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceMana
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
+export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.SetRevisionsObsoleteInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.ReactivateRevisionsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.ManageDefaultRevisionDatesInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.GetEntityRevisionsAsDataSetInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
 export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.GetObjectLocationInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -38925,11 +40481,6 @@ export declare namespace Cmf.Services.GenericServiceManagement.UploadAttachmentS
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Services.GenericServiceManagement.DownloadAttachmentStreamingInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.UpdateAttachmentInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -39259,6 +40810,16 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.RuleManagement.Inp
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
+export declare namespace Cmf.Foundation.BusinessOrchestration.SecurityManagement.InputObjects.GetAllFunctionalitiesInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Foundation.BusinessOrchestration.SecurityManagement.InputObjects.GetFunctionalitiesInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
 export declare namespace Cmf.Foundation.BusinessOrchestration.SecurityManagement.InputObjects.GetFunctionalityGroupsInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -39564,6 +41125,11 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.SecurityManagement
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
+export declare namespace Cmf.Foundation.BusinessOrchestration.SecurityManagement.InputObjects.GetUserGrafanaInfoInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
 export declare namespace Cmf.Foundation.BusinessOrchestration.SecurityManagement.InputObjects.AddUsersToRoleInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -39814,16 +41380,6 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.SecurityManagement
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
-export declare namespace Cmf.Foundation.BusinessOrchestration.SecurityManagement.InputObjects.GetAllFunctionalitiesInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Foundation.BusinessOrchestration.SecurityManagement.InputObjects.GetFunctionalitiesInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
 export declare namespace Cmf.Foundation.BusinessOrchestration.StateModelsManagement.InputObjects.CreateStateModelInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -40059,12 +41615,12 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.TableManagement.In
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
-export declare namespace Cmf.Foundation.BusinessOrchestration.TableManagement.OutputObjects.GetGenericTablesByFilterInput {
+export declare namespace Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects.GetGenericTablesByFilterInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
-export declare namespace Cmf.Foundation.BusinessOrchestration.TableManagement.OutputObjects.GetSmartTablesByFilterInput {
+export declare namespace Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects.GetSmartTablesByFilterInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -40290,6 +41846,21 @@ export declare namespace Cmf.Foundation.BusinessOrchestration.UIPageManagement.I
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Foundation.BusinessOrchestration.UIPageManagement.InputObjects.GetUIPageForActionInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Foundation.BusinessOrchestration.UIPageManagement.InputObjects.LoadUIPagePresetsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Foundation.BusinessOrchestration.UIPageManagement.InputObjects.FullUpdateUIPageInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Foundation.BusinessOrchestration.UIPageManagement.InputObjects.GetPinnedDashboardsInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -40750,6 +42321,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.DispatchManagement.Inp
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.DispatchManagement.InputObjects.GetDispatchListForResourceAsDataSetInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.DispatchManagement.InputObjects.GetMaterialsForTrackInForMaintenanceInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -41674,6 +43250,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.ExperimentManagement.I
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
+export declare namespace Cmf.Navigo.BusinessOrchestration.ExperimentManagement.InputObjects.ManageExperimentMaterialsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
 export declare namespace Cmf.Navigo.BusinessOrchestration.ExperimentManagement.InputObjects.CreateExperimentInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -41865,6 +43446,16 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.Pro
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.ProductManagement.InputObjects.LoadProductRecipeParameterOverridesInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects.UpdateStepCertificationRequirementsContextsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects.AddStepLineFlowContextsInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -42075,6 +43666,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.Flo
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects.LoadStepServiceContextsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects.LoadStepSplitAndTrackOutContextsInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -42340,16 +43936,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.Flo
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects.RemoveStepCertificationRequirementsContextsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects.UpdateStepCertificationRequirementsContextsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.FlowManagement.InputObjects.AddStepLineFlowContextsInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -42709,6 +44295,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.Are
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
+export declare namespace Cmf.Navigo.BusinessOrchestration.FacilityManagement.AreaManagement.InputObjects.GetAreaResourcesForTrainerInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
 export declare namespace Cmf.Navigo.BusinessOrchestration.KPIManagement.InputObjects.GetDataForOEEInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -42850,6 +44441,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.LaborManagement.InputO
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.LaborManagement.InputObjects.GetEmployeesForResourceInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.LaborManagement.InputObjects.GetTraineesForResourceInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -43010,6 +44606,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.LaborManagement.InputO
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.LaborManagement.InputObjects.FullUpdateEmployeeInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.LaborManagement.InputObjects.CheckOutTraineesInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -43190,6 +44791,16 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaintenanceManagement.
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.MaintenanceManagement.InputObjects.GetMaintenanceActivityOrdersByEntityInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaintenanceManagement.InputObjects.CancelMaintenanceActivityOrdersInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaintenanceManagement.InputObjects.ChangeMaintenanceActivityOrdersInformationInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -43559,6 +45170,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialLogisticsManag
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialLogisticsManagement.InputObjects.RegisterMaterialsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
 export declare namespace Cmf.Navigo.BusinessOrchestration.ReasonManagement.InputObjects.CreateReasonInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -43639,12 +45255,97 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.ReasonManagement.Input
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.GetMaterialLineDataInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.StartMaterialsFloorLifeCounterInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.StopMaterialsFloorLifeCounterInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.SealMaterialsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.ResetMaterialsFloorLifeInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.GetMaterialFloorLifeInformationInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.InsertMaterialIntoLineInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.RemoveMaterialFromLineInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
 export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.RecordMaterialDefectsInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.ManageMaterialDefectsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.CreateSendAheadRunInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.LoadSendAheadRunMaterialsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.FullUpdateSendAheadRunInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.CancelSendAheadRunInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.RecordResultSendAheadRunInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.ReleaseWaitingMaterialsSendAheadRunInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.ExtendSendAheadRunInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.TrackInMaterialForMaintenanceInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.RemoteAndLocalReceiveMaterialsInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -43784,6 +45485,16 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.GetDataForPerformMaterialProcessInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.PerformMaterialProcessInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
 export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.GetDataForMoveNextWizardInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -43914,6 +45625,26 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.GetDataForPrintMaterialLabelWizardInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.CalculateMaterialLabelsPrintLayoutInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.PrintMaterialLabelInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.EvaluatePrintMaterialLabelInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
 export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.ChangeMaterialOffFlowInformationInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -44014,6 +45745,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
+export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.CompleteJobInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
 export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.ProcessDispensedMaterialInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -44030,46 +45766,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.UpdateProcessProgressInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.GetMaterialLineDataInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.StartMaterialsFloorLifeCounterInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.StopMaterialsFloorLifeCounterInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.SealMaterialsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.ResetMaterialsFloorLifeInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.GetMaterialFloorLifeInformationInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.InsertMaterialIntoLineInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.RemoveMaterialFromLineInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -44494,11 +46190,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.Inp
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
-export declare namespace Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.RemoteAndLocalReceiveMaterialsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
 export declare namespace Cmf.Navigo.BusinessOrchestration.MobileManagementNavigo.InputObjects.GetWidgetsDataInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -44520,6 +46211,11 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.NewProductIntroduction
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.OrderManagement.InputObjects.RestrictOrUnrestrictProductionOrdersInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.OrderManagement.InputObjects.SynchronizeProductionOrdersStepsInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -44570,6 +46266,86 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.OrderManagement.InputO
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.OrderManagement.InputObjects.StartProductionOrdersInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.OrderManagement.InputObjects.LoadProductionOrderStepsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.OrderManagement.InputObjects.LoadProductionOrderStepDependenciesInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.OrderManagement.InputObjects.ManageProductionOrderStepsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.OrderManagement.InputObjects.ManageProductionOrderStepDependenciesInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.PlanManagement.InputObjects.CreatePlanInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.PlanManagement.InputObjects.CreatePlanScenarioInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.PlanManagement.InputObjects.UpdatePlanInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.PlanManagement.InputObjects.LoadPlanInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.PlanManagement.InputObjects.LoadPlanTimeFramesInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.PlanManagement.InputObjects.LoadPlanTimeFramesAndItemsAsDataSetInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.PlanManagement.InputObjects.CreatePlanTimeFramesAndItemsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.PlanManagement.InputObjects.TerminatePlanTimeFramesAndItemsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.PlanManagement.InputObjects.ManagePlanTargetsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.PlanManagement.InputObjects.ReleasePlanScenarioInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.PlanManagement.InputObjects.AdjustPlanTargetsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.PlanManagement.InputObjects.SynchronizePlanScenarioWithParentPlanInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -44720,6 +46496,16 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.RecipeManagement.Input
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.RecipeManagement.InputObjects.CompareRecipesInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects.LoadResourceMeasurementCapabilitiesInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects.ManageResourceMeasurementCapabilitiesInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -45164,17 +46950,12 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.ResourceManagement.Inp
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
+export declare namespace Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects.GetStoredContainersForResourceStorageBinInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
 export declare namespace Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects.ManageResourceInstrumentsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects.LoadResourceMeasurementCapabilitiesInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects.ManageResourceMeasurementCapabilitiesInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -45354,6 +47135,16 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.I
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
+export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.InputObjects.GetCalculatedEffectiveJobsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.InputObjects.GetUnplannedMaterialsForStepOrResourceInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
 export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.InputObjects.GetScheduleScenarioJobsInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -45409,12 +47200,47 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.I
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
+export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.InputObjects.GetEffectiveJobsTimelineInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
 export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.InputObjects.GetScheduleJobsDetailsInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
+export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.InputObjects.GetEffectiveJobsDetailsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
 export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.InputObjects.GetScheduleScenarioJobsDetailsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.InputObjects.AddScheduleMaterialsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.InputObjects.DeleteScheduleMaterialsInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.InputObjects.AddScheduleScenarioMaintenanceActivitiesInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.InputObjects.DeleteScheduleScenarioMaintenanceActivitiesInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Navigo.BusinessOrchestration.SchedulingManagement.InputObjects.ManageScheduleScenarioJobsDependenciesInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -45519,11 +47345,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObj
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.UpdateChartContextInformationInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
 export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.LoadLogicalChartsInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -45535,11 +47356,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObj
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.AddChartRulesInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.UpdateChartRulesInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -45570,56 +47386,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObj
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.SetChartLimitsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.CreateLogicalChartInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.UpdateLogicalChartInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.LoadLogicalChartAttributesInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.UpdateLogicalChartAttributesInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.RemoveLogicalChartAttributesInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.LoadLogicalChartRelationsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.AddLogicalChartRelationsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.UpdateLogicalChartRelationsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.RemoveLogicalChartRelationsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.FullUpdateLogicalChartInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
@@ -45674,26 +47440,6 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObj
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.LoadChartDataPointRelationsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.AddChartDataPointRelationsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.RemoveChartDataPointRelationsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.UpdateChartDataPointRelationsInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
 export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.ExcludeChartDataPointInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
@@ -45719,32 +47465,7 @@ export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObj
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;
 }
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.UpdateChartDataPointInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.LoadChartDataPointAttributesInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.UpdateChartDataPointAttributesInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.RemoveChartDataPointAttributesInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
 export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.LoadChartDataPointContextInput {
-    var _CMFInternal_URLSuffix: string;
-    var _CMFInternal_FullNamespace: string;
-    var _CMFInternal_HTTPMethod: string;
-}
-export declare namespace Cmf.Navigo.BusinessOrchestration.SpcManagement.InputObjects.UpdateChartDataPointContextInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;

@@ -26,7 +26,7 @@ $TfsProject = "AMSOSRAM"
 $TfsProjectTeam = "$TfsProject Team"
 $TfsWiqlUrl = "$TfsServerUrl/$TfsProject/$TfsProjectTeam/_apis/wit/wiql"
 
-$packageName = "cmf.docs.area.amsosram"
+$packageName = "cmf.docs.area.cmf.custom.help"
 $assetsPath = ".\$basePath\src\packages\$packageName\assets"
 
 $releaseNotesId = "releasenotes"

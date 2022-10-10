@@ -1,10 +1,8 @@
-﻿using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessOrchestration;
-using Cmf.Foundation.Security;
-using Cmf.Navigo.BusinessObjects;
+﻿using Cmf.Foundation.BusinessOrchestration;
 using System.Runtime.Serialization;
+using Cmf.Foundation.BusinessObjects.Abstractions;
 
-namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
+namespace Cmf.Custom.amsOSRAM.Orchestration.OutputObjects
 {
     /// <summary>
     /// Output Data Contract for the CustomReceiveERPMessage service
@@ -24,7 +22,7 @@ namespace Cmf.Custom.AMSOsram.Orchestration.OutputObjects
 		/// Result
 		/// </summary>
 		[DataMember(Name = "Result", Order = 100)]
-        public IntegrationEntry Result
+        public IIntegrationEntry Result
         {
             get;
             set;

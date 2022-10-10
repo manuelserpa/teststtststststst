@@ -641,7 +641,7 @@
       "DisplayName": "CarrierArrived",
       "Description": "Carrier Arrived to Load Port, Load Port Set to Occuppied",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\CarrierArrived.json",
+      "Workflow": "./GenericWorkflows/CarrierArrived.json",
       "IsFile": "Yes"
     },
     "2": {
@@ -649,7 +649,7 @@
       "DisplayName": "CarrierIdRead",
       "Description": "Carrier Id Read, Sets Carrier Id to ContainerData, Docks Container, , If error occurs Container is Set on Hold",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\CarrierIdRead.json",
+      "Workflow": "./GenericWorkflows/CarrierIdRead.json",
       "IsFile": "Yes"
     },
     "3": {
@@ -657,7 +657,7 @@
       "DisplayName": "SlotMapReceived",
       "Description": "Slot Map Received, Store Slot Map on Container Data, Executes Material In, If error occurs Container is Set on Hold",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\SlotMapReceived.json",
+      "Workflow": "./GenericWorkflows/SlotMapReceived.json",
       "IsFile": "Yes"
     },
     "4": {
@@ -665,7 +665,7 @@
       "DisplayName": "CarrierRemoved",
       "Description": "Carrier Removed from Load Port, Load Port Set to Available, Container Undocked",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\CarrierRemoved.json",
+      "Workflow": "./GenericWorkflows/CarrierRemoved.json",
       "IsFile": "Yes"
     },
     "5": {
@@ -673,7 +673,7 @@
       "DisplayName": "ErrorHandling",
       "Description": "Error Triggered, Logs error, Creates Notification",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\ErrorHandling.json",
+      "Workflow": "./GenericWorkflows/ErrorHandling.json",
       "IsFile": "Yes"
     },
     "6": {
@@ -681,7 +681,7 @@
       "DisplayName": "ProcessStarted",
       "Description": "Process Started, Change MaterialData to InProcess state and Material state to InProgress",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\ProcessStarted.json",
+      "Workflow": "./GenericWorkflows/ProcessStarted.json",
       "IsFile": "Yes"
     },
     "7": {
@@ -689,7 +689,7 @@
       "DisplayName": "WaferStarted",
       "Description": "Wafer Started, executes Material In for Sub-Material, sets SubMaterialData In Process",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\WaferStarted.json",
+      "Workflow": "./GenericWorkflows/WaferStarted.json",
       "IsFile": "Yes"
     },
     "8": {
@@ -697,7 +697,7 @@
       "DisplayName": "WaferComplete",
       "Description": "Wafer Complete, executes Material Out for Sub-Material, sets SubMaterialData Complete",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\WaferComplete.json",
+      "Workflow": "./GenericWorkflows/WaferComplete.json",
       "IsFile": "Yes"
     },
     "9": {
@@ -705,7 +705,7 @@
       "DisplayName": "ProcessComplete",
       "Description": "Process Complete, executes Material Out for Lot, sets MaterialData to Complete",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\ProcessComplete.json",
+      "Workflow": "./GenericWorkflows/ProcessComplete.json",
       "IsFile": "Yes"
     },
     "10": {
@@ -713,7 +713,7 @@
       "DisplayName": "UpdateEquipmentProcessState",
       "Description": "Update Equipment Process State, Updates Resource Custom Current State, Triggers automatic Update on Resource Main State",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\UpdateEquipmentProcessState.json",
+      "Workflow": "./GenericWorkflows/UpdateEquipmentProcessState.json",
       "IsFile": "Yes"
     },
     "11": {
@@ -721,7 +721,7 @@
       "DisplayName": "UpdateControlState",
       "Description": "Updates Control State, Updates Control State on Resource Current State",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\UpdateControlState.json",
+      "Workflow": "./GenericWorkflows/UpdateControlState.json",
       "IsFile": "Yes"
     },
     "12": {
@@ -729,7 +729,7 @@
       "DisplayName": "TrackInInitialValidation",
       "Description": "Validates Initial Track In Conditions (Slot Map, Gem Control State, Cassette Present)",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\TrackInInitialValidation.json",
+      "Workflow": "./GenericWorkflows/TrackInInitialValidation.json",
       "IsFile": "Yes"
     },
     "13": {
@@ -737,7 +737,7 @@
       "DisplayName": "ValidateRecipeExists",
       "Description": "Validates Recipe Exists on the List",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\ValidateRecipeExists.json",
+      "Workflow": "./GenericWorkflows/ValidateRecipeExists.json",
       "IsFile": "Yes"
     },
     "14": {
@@ -745,7 +745,7 @@
       "DisplayName": "ValidateRecipeBody",
       "Description": "Validates Recipe Body Checksum",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\ValidateRecipeBody.json",
+      "Workflow": "./GenericWorkflows/ValidateRecipeBody.json",
       "IsFile": "Yes"
     },
     "15": {
@@ -753,7 +753,7 @@
       "DisplayName": "GetRecipeBody",
       "Description": "Gets Recipe Body from MES",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\GetRecipeBody.json",
+      "Workflow": "./GenericWorkflows/GetRecipeBody.json",
       "IsFile": "Yes"
     },
     "16": {
@@ -761,7 +761,7 @@
       "DisplayName": "TransferWaferBetweenContainers",
       "Description": "Transfer Wafer Between Container and Container Datas",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\TransferWaferBetweenContainers.json",
+      "Workflow": "./GenericWorkflows/TransferWaferBetweenContainers.json",
       "IsFile": "Yes"
     },
     "17": {
@@ -769,7 +769,7 @@
       "DisplayName": "ReadyToUnload",
       "Description": "Sets Load Port CustomLoadPortStateModel to ReadyToUnload, sets CustomEquipmentProcessState to ReadyToUnload",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\ReadyToUnload.json",
+      "Workflow": "./GenericWorkflows/ReadyToUnload.json",
       "IsFile": "Yes"
     },
     "18": {
@@ -777,7 +777,7 @@
       "DisplayName": "TransferBlocked",
       "Description": "Sets CustomEquipmentProcessState to TransferBlocked",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\TransferBlocked.json",
+      "Workflow": "./GenericWorkflows/TransferBlocked.json",
       "IsFile": "Yes"
     },
     "19": {
@@ -785,7 +785,7 @@
       "DisplayName": "CarrierClamped",
       "Description": "Sets CustomEquipmentProcessState to CarrierClamped",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\CarrierClamped.json",
+      "Workflow": "./GenericWorkflows/CarrierClamped.json",
       "IsFile": "Yes"
     },
     "20": {
@@ -793,7 +793,7 @@
       "DisplayName": "CarrierOpen",
       "Description": "Sets CustomEquipmentProcessState to CarrierOpen",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\CarrierOpen.json",
+      "Workflow": "./GenericWorkflows/CarrierOpen.json",
       "IsFile": "Yes"
     },
     "21": {
@@ -801,7 +801,7 @@
       "DisplayName": "CassetteMap",
       "Description": "Sets CustomEquipmentProcessState to CassetteMap",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\CassetteMap.json",
+      "Workflow": "./GenericWorkflows/CassetteMap.json",
       "IsFile": "Yes"
     },
     "22": {
@@ -809,7 +809,7 @@
       "DisplayName": "CassetteLoaded",
       "Description": "Sets CustomEquipmentProcessState to CassetteLoaded",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\CassetteLoaded.json",
+      "Workflow": "./GenericWorkflows/CassetteLoaded.json",
       "IsFile": "Yes"
     },
     "23": {
@@ -817,7 +817,7 @@
       "DisplayName": "PPSelectCommandSucceed",
       "Description": "Sets CustomEquipmentProcessState to PPSelectCommandSucceed",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\PPSelectCommandSucceeded.json",
+      "Workflow": "./GenericWorkflows/PPSelectCommandSucceeded.json",
       "IsFile": "Yes"
     },
     "24": {
@@ -825,7 +825,7 @@
       "DisplayName": "PPSelectCommandFailed",
       "Description": "Sets CustomEquipmentProcessState to PPSelectCommandFailed",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\PPSelectCommandFailed.json",
+      "Workflow": "./GenericWorkflows/PPSelectCommandFailed.json",
       "IsFile": "Yes"
     },
     "25": {
@@ -833,7 +833,7 @@
       "DisplayName": "StartCommandSent",
       "Description": "Sets CustomEquipmentProcessState to StartCommandSent",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\StartCommandSent.json",
+      "Workflow": "./GenericWorkflows/StartCommandSent.json",
       "IsFile": "Yes"
     },
     "26": {
@@ -841,7 +841,7 @@
       "DisplayName": "StartCommandFailed",
       "Description": "Sets CustomEquipmentProcessState to StartCommandFailed",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\StartCommandFailed.json",
+      "Workflow": "./GenericWorkflows/StartCommandFailed.json",
       "IsFile": "Yes"
     },
     "27": {
@@ -849,7 +849,7 @@
       "DisplayName": "CarrierClosed",
       "Description": "Sets CustomEquipmentProcessState to CarrierClosed",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\CarrierClosed.json",
+      "Workflow": "./GenericWorkflows/CarrierClosed.json",
       "IsFile": "Yes"
     },
     "28": {
@@ -857,7 +857,7 @@
       "DisplayName": "CassetteUnloaded",
       "Description": "Sets CustomEquipmentProcessState to CassetteUnloaded",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\CassetteUnloaded.json",
+      "Workflow": "./GenericWorkflows/CassetteUnloaded.json",
       "IsFile": "Yes"
     },
     "29": {
@@ -865,7 +865,7 @@
       "DisplayName": "CarrierUnclamped",
       "Description": "Sets CustomEquipmentProcessState to CarrierUnclamped",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\CarrierUnclamped.json",
+      "Workflow": "./GenericWorkflows/CarrierUnclamped.json",
       "IsFile": "Yes"
     },
     "30": {
@@ -873,7 +873,7 @@
       "DisplayName": "ReadyToLoad",
       "Description": "Sets CustomEquipmentProcessState to ReadyToLoad",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\ReadyToLoad.json",
+      "Workflow": "./GenericWorkflows/ReadyToLoad.json",
       "IsFile": "Yes"
     },
     "31": {
@@ -881,7 +881,7 @@
       "DisplayName": "UpdateEquipmentE10MainState",
       "Description": "Update Equipment E10 State",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\UpdateEquipmentE10MainState.json",
+      "Workflow": "./GenericWorkflows/UpdateEquipmentE10MainState.json",
       "IsFile": "Yes"
     },
     "32": {
@@ -889,7 +889,7 @@
       "DisplayName": "HoldActionCalculation",
       "Description": "Calculate Actions to Execute after Hold",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\HoldActionCalculation.json",
+      "Workflow": "./GenericWorkflows/HoldActionCalculation.json",
       "IsFile": "Yes"
     },
     "33": {
@@ -897,7 +897,7 @@
       "DisplayName": "UpdateEquipmentPerformanceTrackingState",
       "Description": "Updates Equipment Performance Tracking",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\UpdateEquipmentPerformanceTrackingState.json",
+      "Workflow": "./GenericWorkflows/UpdateEquipmentPerformanceTrackingState.json",
       "IsFile": "Yes"
     },
     "34": {
@@ -905,7 +905,7 @@
       "DisplayName": "AlarmCollection",
       "Description": "Stores Alarm Occurrences on a Data Collection",
       "TasksPackages": "[\"connect-iot-controller-engine-core-tasks\",\"connect-iot-custom-utilities-amsosram-tasks\",\"connect-iot-controller-engine-mes-tasks\"]",
-      "Workflow": ".\\GenericWorkflows\\AlarmCollection.json",
+      "Workflow": "./GenericWorkflows/AlarmCollection.json",
       "IsFile": "Yes"
     }
   }

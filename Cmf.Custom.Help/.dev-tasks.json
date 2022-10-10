@@ -5,8 +5,8 @@
   "isWebAppCompilable": false,
   "dependencies": [],
   "packages": [
-    "cmf.docs.area.amsosram"
+    "cmf.docs.area.cmf.custom.help"
   ],
   "registry": "http://cmf-nuget:4873/",
-  "channel": "release-833"
+  "channel": "release-910"
 }

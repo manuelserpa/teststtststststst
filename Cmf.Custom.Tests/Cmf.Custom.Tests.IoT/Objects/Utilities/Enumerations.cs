@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AMSOsramEIAutomaticTests.Objects.Utilities
+﻿namespace amsOSRAMEIAutomaticTests.Objects.Utilities
 {
-   public enum LoadPortStateModelStateEnum
+    public enum LoadPortStateModelStateEnum
     {
         ReadyToLoad,
         TransferBlocked,

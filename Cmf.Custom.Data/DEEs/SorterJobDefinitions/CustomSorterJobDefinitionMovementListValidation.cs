@@ -1,7 +1,8 @@
-﻿using Cmf.Custom.AMSOsram.BusinessObjects;
-using Cmf.Custom.AMSOsram.Common;
-using Cmf.Foundation.BusinessObjects.Cultures;
+﻿using Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions;
+using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Foundation.Common;
+using Cmf.Foundation.Common.LocalizationService;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
@@ -9,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Cmf.Custom.AMSOsram.Actions.SorterJobDefinitions
+namespace Cmf.Custom.amsOSRAM.Actions.SorterJobDefinitions
 {
 	internal class CustomSorterJobDefinitionMovementListValidation : DeeDevBase
 	{
@@ -29,78 +30,84 @@ namespace Cmf.Custom.AMSOsram.Actions.SorterJobDefinitions
 
 			#endregion Info
 
-			CustomSorterJobDefinition customSorterJobDefinition = null;
+			ICustomSorterJobDefinition customSorterJobDefinition = null;
 
-			if (Input.ContainsKey("CustomSorterJobDefinition") && Input["CustomSorterJobDefinition"] is CustomSorterJobDefinition inputCustomSorterJobDefinition)
+			if (Input.ContainsKey("CustomSorterJobDefinition") && Input["CustomSorterJobDefinition"] is ICustomSorterJobDefinition inputCustomSorterJobDefinition)
 			{
 				customSorterJobDefinition = inputCustomSorterJobDefinition;
 				ApplicationContext.CallContext.SetInformationContext("CustomSorterJobDefinition", customSorterJobDefinition);
 			}
 
 			return customSorterJobDefinition != null;
+
 			//---End DEE Condition Code---
 		}
 
 		public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
 		{
-			//---Start DEE Code---
-			UseReference("%MicrosoftNetPath%System.Private.CoreLib.dll", "System.Threading");
-			UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.Cultures");
-			UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects");
-			UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
-			UseReference("Cmf.Foundation.BusinessOrchestration.dll", "");
-			UseReference("", "Cmf.Foundation.Common.Exceptions");
-			UseReference("", "Cmf.Foundation.Common");
-			// Custom
-			UseReference("Cmf.Custom.AMSOsram.BusinessObjects.CustomSorterJobDefinition.dll", "Cmf.Custom.AMSOsram.BusinessObjects");
-			UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-			// System
-			UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
-			UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
-			UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Schema");
-			UseReference("%MicrosoftNetPath%System.Private.CoreLib.dll", "System.Threading");
+            //---Start DEE Code---
 
-			string schemaJson = string.Empty;
-			CustomSorterJobDefinition customSorterJobDefinition = ApplicationContext.CallContext.GetInformationContext("CustomSorterJobDefinition") as CustomSorterJobDefinition;
+            // Foundation
+            UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects");
+            UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common.LocalizationService");
 
-			if (customSorterJobDefinition.LogisticalProcess == AMSOsramConstants.LookupTableCustomSorterLogisticalProcessMapCarrier)
-			{
-				schemaJson = AMSOsramConstants.CustomSorterJobDefinitionMapCarrierSchema;
-			}
-			else if (customSorterJobDefinition.LogisticalProcess == AMSOsramConstants.LookupTableCustomSorterLogisticalProcessTransferWafers)
-			{
-				schemaJson = AMSOsramConstants.CustomSorterJobDefinitionTransferWafersSchema;
-			}
-			else if (customSorterJobDefinition.LogisticalProcess == AMSOsramConstants.LookupTableCustomSorterLogisticalProcessCompose)
-			{
-				schemaJson = AMSOsramConstants.CustomSorterJobDefinitionComposeSchema;
-			}
+            // Custom
+            UseReference("Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition.dll", "Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
 
-			JsonSchema schema = JsonSchema.Parse(schemaJson);
+            // System
+            UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
+            UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
+            UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Schema");
+            UseReference("%MicrosoftNetPath%System.Private.CoreLib.dll", "System.Threading");
 
-			try
-			{
-				JObject movementListObject = JObject.Parse(customSorterJobDefinition.MovementList);
-				bool valid = movementListObject.IsValid(schema, out IList<string> messages);
 
-				if (!valid)
-				{
-					string exceptionMessage = string.Empty;
-					foreach (string message in messages)
-					{
-						exceptionMessage += message + Environment.NewLine;
-					}
+            string schemaJson = string.Empty;
+            ICustomSorterJobDefinition customSorterJobDefinition = ApplicationContext.CallContext.GetInformationContext("CustomSorterJobDefinition") as ICustomSorterJobDefinition;
 
-					throw new CmfBaseException(exceptionMessage);
-				}
-			}
-			catch (JsonReaderException ex)
-			{
-				throw new CmfBaseException(string.Format(LocalizedMessage.GetLocalizedMessage(Thread.CurrentThread.CurrentCulture.Name, AMSOsramConstants.LocalizedMessageCustomSorterJobDefinitionInvalidMovementList).MessageText, Environment.NewLine, ex.Message));
-			}
-			//---End DEE Code---
+            if (customSorterJobDefinition.LogisticalProcess == amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessMapCarrier)
+            {
+                schemaJson = amsOSRAMConstants.CustomSorterJobDefinitionMapCarrierSchema;
+            }
+            else if (customSorterJobDefinition.LogisticalProcess == amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessTransferWafers)
+            {
+                schemaJson = amsOSRAMConstants.CustomSorterJobDefinitionTransferWafersSchema;
+            }
+            else if (customSorterJobDefinition.LogisticalProcess == amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessCompose)
+            {
+                schemaJson = amsOSRAMConstants.CustomSorterJobDefinitionComposeSchema;
+            }
 
-			return Input;
+            JsonSchema schema = JsonSchema.Parse(schemaJson);
+
+            try
+            {
+                JObject movementListObject = JObject.Parse(customSorterJobDefinition.MovementList);
+                bool valid = movementListObject.IsValid(schema, out IList<string> messages);
+
+                if (!valid)
+                {
+                    string exceptionMessage = string.Empty;
+                    foreach (string message in messages)
+                    {
+                        exceptionMessage += message + Environment.NewLine;
+                    }
+
+                    throw new CmfBaseException(exceptionMessage);
+                }
+            }
+            catch (JsonReaderException ex)
+            {
+                // Get services provider information
+                IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+                ILocalizationService localizationService = serviceProvider.GetService<ILocalizationService>();
+
+                throw new CmfBaseException(string.Format(localizationService.Localize(Thread.CurrentThread.CurrentCulture.Name, amsOSRAMConstants.LocalizedMessageCustomSorterJobDefinitionInvalidMovementList), Environment.NewLine, ex.Message));
+            }
+
+            //---End DEE Code---
+
+            return Input;
 		}
 	}
 }

@@ -1,18 +1,22 @@
-﻿using Cmf.Custom.AMSOsram.Common;
-using Cmf.Custom.AMSOsram.Common.ERP;
-using Cmf.Foundation.BusinessObjects;
+﻿using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.ERP;
 using Cmf.Foundation.BusinessObjects.GenericTables;
 using Cmf.Foundation.Common;
-using Cmf.Foundation.Common.Base;
 using Cmf.Foundation.Security;
-using Cmf.Navigo.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.Security.Abstractions;
+using Cmf.Foundation.Common.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Foundation.BusinessObjects;
+using Cmf.Navigo.BusinessObjects;
 
-namespace Cmf.Custom.AMSOsram.Actions.MasterData
+namespace Cmf.Custom.amsOSRAM.Actions.MasterData
 {
     public class CustomProcessProduct : DeeDevBase
     {
@@ -31,7 +35,7 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
             /// </summary>
             #endregion
 
-            IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, Constants.IntegrationEntry);
+            IIntegrationEntry integrationEntry = amsOSRAMUtilities.GetInputItem<IIntegrationEntry>(Input, Constants.IntegrationEntry);
 
             if (integrationEntry is null || integrationEntry.IntegrationMessage is null || integrationEntry.IntegrationMessage.Message is null || integrationEntry.IntegrationMessage.Message.Length <= 0)
             {
@@ -48,39 +52,31 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
             //---Start DEE Code---
 
             //System
-            UseReference("", "System");
-            UseReference("", "System.Collections.Generic");
             UseReference("", "System.Data");
-            UseReference("", "System.Linq");
             UseReference("", "System.Text");
 
             //Foundation
-            UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects");
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.GenericTables");
-            UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common");
-            UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common.Base");
-            UseReference("Cmf.Foundation.Security.dll", "Cmf.Foundation.Security");
-
-            //Navigo
-            UseReference("Cmf.Navigo.BusinessObjects.dll", "Cmf.Navigo.BusinessObjects");
 
             //Custom
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common");
-            UseReference("Cmf.Custom.AMSOsram.Common.dll", "Cmf.Custom.AMSOsram.Common.ERP");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.ERP");
 
+            // Get services provider information
+            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
 
             // Load Integration Entry
-            IntegrationEntry integrationEntry = AMSOsramUtilities.GetInputItem<IntegrationEntry>(Input, Constants.IntegrationEntry);
+            IIntegrationEntry integrationEntry = amsOSRAMUtilities.GetInputItem<IIntegrationEntry>(Input, Constants.IntegrationEntry);
 
             // Cast Integation Entry Message to string
             string message = Encoding.UTF8.GetString(integrationEntry.IntegrationMessage.Message);
 
             // Deserialize XML Message to an object
-            ProductData productData = AMSOsramUtilities.DeserializeXmlToObject<ProductData>(message);
+            ProductData productData = amsOSRAMUtilities.DeserializeXmlToObject<ProductData>(message);
 
             // Create Product context using data received from Integration Entry
-            Product product = new Product();
-
+            IProduct product = entityFactory.Create<IProduct>();
             product.Name = productData.Name;
 
             #region Properties
@@ -89,7 +85,6 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
             {
                 product.Load();
             }
-
 
             if (!string.IsNullOrWhiteSpace(productData.Description))
             {
@@ -103,7 +98,7 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             if (!string.IsNullOrWhiteSpace(productData.ProductType))
             {
-                product.ProductType = AMSOsramUtilities.GetValueAsEnum<ProductType>(productData.ProductType);
+                product.ProductType = amsOSRAMUtilities.GetValueAsEnum<ProductType>(productData.ProductType);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.DefaultUnits))
@@ -113,47 +108,45 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             if (!string.IsNullOrWhiteSpace(productData.IsEnabled))
             {
-                product.IsEnabled = AMSOsramUtilities.GetValueAsNullableBoolean(productData.IsEnabled);
+                product.IsEnabled = amsOSRAMUtilities.GetValueAsNullableBoolean(productData.IsEnabled);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.Yield))
             {
-                product.Yield = AMSOsramUtilities.GetValueAsDecimal(productData.Yield);
+                product.Yield = amsOSRAMUtilities.GetValueAsDecimal(productData.Yield);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.ProductGroup))
             {
-                ProductGroup productGroup = new ProductGroup();
-                {
-                    productGroup.Load(productData.ProductGroup);
-                };
+                IProductGroup productGroup = entityFactory.Create<IProductGroup>();
+                productGroup.Load(productData.ProductGroup);
 
                 product.ProductGroup = productGroup;
             }
 
             if (!string.IsNullOrWhiteSpace(productData.MaximumMaterialSize))
             {
-                product.MaximumMaterialSize = AMSOsramUtilities.GetValueAsNullableDecimal(productData.MaximumMaterialSize);
+                product.MaximumMaterialSize = amsOSRAMUtilities.GetValueAsNullableDecimal(productData.MaximumMaterialSize);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.InitialUnitCost))
             {
-                product.InitialUnitCost = AMSOsramUtilities.GetValueAsDecimal(productData.InitialUnitCost);
+                product.InitialUnitCost = amsOSRAMUtilities.GetValueAsDecimal(productData.InitialUnitCost);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.FinishedUnitCost))
             {
-                product.FinishedUnitCost = AMSOsramUtilities.GetValueAsDecimal(productData.FinishedUnitCost);
+                product.FinishedUnitCost = amsOSRAMUtilities.GetValueAsDecimal(productData.FinishedUnitCost);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.CycleTime))
             {
-                product.CycleTime = AMSOsramUtilities.GetValueAsDecimal(productData.CycleTime);
+                product.CycleTime = amsOSRAMUtilities.GetValueAsDecimal(productData.CycleTime);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.IncludeInSchedule))
             {
-                product.IncludeInSchedule = AMSOsramUtilities.GetValueAsNullableBoolean(productData.IncludeInSchedule);
+                product.IncludeInSchedule = amsOSRAMUtilities.GetValueAsNullableBoolean(productData.IncludeInSchedule);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.CapacityClass))
@@ -163,32 +156,27 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             if (!string.IsNullOrWhiteSpace(productData.MaterialTransferMode))
             {
-                product.MaterialTransferMode = AMSOsramUtilities.GetValueAsEnum<MaterialTransferMode>(productData.MaterialTransferMode);
+                product.MaterialTransferMode = amsOSRAMUtilities.GetValueAsEnum<MaterialTransferMode>(productData.MaterialTransferMode);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.MaterialTransferApprovalMode))
             {
-                product.MaterialTransferApprovalMode = AMSOsramUtilities.GetValueAsEnum<MaterialTransferApprovalMode>(productData.MaterialTransferApprovalMode);
+                product.MaterialTransferApprovalMode = amsOSRAMUtilities.GetValueAsEnum<MaterialTransferApprovalMode>(productData.MaterialTransferApprovalMode);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.MaterialTransferAllowedPickup))
             {
-                product.MaterialTransferAllowedPickup = AMSOsramUtilities.GetValueAsEnum<MaterialTransferAllowedPickup>(productData.MaterialTransferAllowedPickup);
-            }
-
-            if (!string.IsNullOrWhiteSpace(productData.IsEnableForMaintenanceManagement))
-            {
-                product.IsEnabledForMaintenanceManagement = AMSOsramUtilities.GetValueAsBoolean(productData.IsEnableForMaintenanceManagement);
+                product.MaterialTransferAllowedPickup = amsOSRAMUtilities.GetValueAsEnum<MaterialTransferAllowedPickup>(productData.MaterialTransferAllowedPickup);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.MaintenanceManagementConsumerQuantity))
             {
-                product.MaintenanceManagementConsumeQuantity = AMSOsramUtilities.GetValueAsBoolean(productData.MaintenanceManagementConsumerQuantity);
+                product.MaintenanceManagementConsumeQuantity = amsOSRAMUtilities.GetValueAsBoolean(productData.MaintenanceManagementConsumerQuantity);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.IsDiscrete))
             {
-                product.IsDiscrete = AMSOsramUtilities.GetValueAsNullableBoolean(productData.IsDiscrete);
+                product.IsDiscrete = amsOSRAMUtilities.GetValueAsNullableBoolean(productData.IsDiscrete);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.MoistureSensitivityLevel))
@@ -203,17 +191,17 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             if (!string.IsNullOrWhiteSpace(productData.FloorLifeUnitOfTime))
             {
-                product.FloorLifeUnitOfTime = AMSOsramUtilities.GetValueAsEnum<UnitOfTime>(productData.FloorLifeUnitOfTime);
+                product.FloorLifeUnitOfTime = amsOSRAMUtilities.GetValueAsEnum<UnitOfTime>(productData.FloorLifeUnitOfTime);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.RequiresApproval))
             {
-                product.RequiresApproval = AMSOsramUtilities.GetValueAsNullableBoolean(productData.RequiresApproval);
+                product.RequiresApproval = amsOSRAMUtilities.GetValueAsNullableBoolean(productData.RequiresApproval);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.ApprovalRole))
             {
-                Role approvalRole = new Role();
+                IRole approvalRole = new Role();
                 {
                     approvalRole.Load(productData.ApprovalRole);
                 }
@@ -223,65 +211,61 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             if (!string.IsNullOrWhiteSpace(productData.CanSplitForPicking))
             {
-                product.CanSplitForPicking = AMSOsramUtilities.GetValueAsBoolean(productData.CanSplitForPicking);
+                product.CanSplitForPicking = amsOSRAMUtilities.GetValueAsBoolean(productData.CanSplitForPicking);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.MaterialLogisticsDefaultRequestQuantity))
             {
-                product.MaterialLogisticsDefaultRequestQuantity = AMSOsramUtilities.GetValueAsNullableDecimal(productData.MaterialLogisticsDefaultRequestQuantity);
+                product.MaterialLogisticsDefaultRequestQuantity = amsOSRAMUtilities.GetValueAsNullableDecimal(productData.MaterialLogisticsDefaultRequestQuantity);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.ConsumptionScrap))
             {
-                product.ConsumptionScrap = AMSOsramUtilities.GetValueAsDecimal(productData.ConsumptionScrap);
+                product.ConsumptionScrap = amsOSRAMUtilities.GetValueAsDecimal(productData.ConsumptionScrap);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.AdditionalConsumptionQuantity))
             {
-                product.AdditionalConsumptionQuantity = AMSOsramUtilities.GetValueAsDecimal(productData.AdditionalConsumptionQuantity);
+                product.AdditionalConsumptionQuantity = amsOSRAMUtilities.GetValueAsDecimal(productData.AdditionalConsumptionQuantity);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.IsEnabledForMaterialLogistics))
             {
-                product.IsEnabledForMaterialLogistics = AMSOsramUtilities.GetValueAsBoolean(productData.IsEnabledForMaterialLogistics);
+                product.IsEnabledForMaterialLogistics = amsOSRAMUtilities.GetValueAsBoolean(productData.IsEnabledForMaterialLogistics);
             }
 
             if (!string.IsNullOrWhiteSpace(productData.DefaultBOM))
             {
-                BOM defaultBOM = new BOM();
-                {
-                    defaultBOM.Load(productData.DefaultBOM);
-                }
+                IBOM defaultBOM = entityFactory.Create<IBOM>();
+                defaultBOM.Load(productData.DefaultBOM);
 
                 product.DefaultBOM = defaultBOM;
             }
 
             if (productData.ProductManufacturer != null)
             {
-                product.ProductManufacturers = new ProductManufacturerCollection()
-                {
-                        new ProductManufacturer()
-                        {
-                            Name = productData.ProductManufacturer.Name,
-                            Note = productData.ProductManufacturer.Note
-                        }
-                 };
+                IProductManufacturer productManufacturer = entityFactory.Create<IProductManufacturer>();
+                productManufacturer.Name = productData.ProductManufacturer.Name;
+                productManufacturer.Note = productData.ProductManufacturer.Note;
+
+                IProductManufacturerCollection productManufacturers = entityFactory.CreateCollection<IProductManufacturerCollection>();
+                productManufacturers.Add(productManufacturer);
+
+                product.ProductManufacturers = productManufacturers;
             }
 
             #endregion
 
             #region Create Version
 
-            ChangeSet changeSet = new ChangeSet()
-            {
-                Name = Guid.NewGuid().ToString(),
-                Type = "General",
-                MakeEffectiveOnApproval = true,
-            };
+            IChangeSet changeSet = entityFactory.Create<IChangeSet>();
+            changeSet.Name = Guid.NewGuid().ToString();
+            changeSet.Type = "General";
+            changeSet.MakeEffectiveOnApproval = true;
 
             changeSet.Create();
 
-            product.CreateVersion(false, changeSet, null);
+            product.CreateEntity(changeSet);
 
             changeSet.RequestApproval();
 
@@ -293,7 +277,7 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             if (!productData.UnitConversionFactors.IsNullOrEmpty())
             {
-                GenericTable genericTable = new GenericTable();
+                IGenericTable genericTable = new GenericTable();
                 {
                     genericTable.Load("ProductUnitConversionFactors");
                 }
@@ -302,7 +286,7 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
                 foreach (Conversion conversion in productData.UnitConversionFactors)
                 {
-                    Foundation.BusinessObjects.QueryObject.FilterCollection filters = new Foundation.BusinessObjects.QueryObject.FilterCollection();
+                    IFilterCollection filters = new Foundation.BusinessObjects.QueryObject.FilterCollection();
 
                     filters.Add(new Foundation.BusinessObjects.QueryObject.Filter() { Name = "ProductName", Operator = FieldOperator.IsEqualTo, Value = productData.Name });
                     filters.Add(new Foundation.BusinessObjects.QueryObject.Filter() { Name = "FromUnit", Operator = FieldOperator.IsEqualTo, Value = conversion.FromUnit });
@@ -344,29 +328,26 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             if (!productData.ProductParametersData.IsNullOrEmpty())
             {
-                ProductParameterCollection productParameters = new ProductParameterCollection();
+                IProductParameterCollection productParameters = entityFactory.CreateCollection<IProductParameterCollection>();
 
                 // Associate relation between Product to Parameter
                 foreach (ProductParameterData parameterData in productData.ProductParametersData)
                 {
-                    Parameter parameter = new Parameter();
-                    {
-                        parameter.Name = parameterData.Name;
-                    }
+                    IParameter parameter = entityFactory.Create<IParameter>();
+                    parameter.Name = parameterData.Name;
 
                     if (parameter.ObjectExists())
                     {
                         parameter.Load();
 
-                        ProductParameter productParameter = new ProductParameter();
-                        {
-                            productParameter.SourceEntity = product;
-                            productParameter.TargetEntity = parameter;
-                            productParameter.Type = ProductGroupParameterType.Characteristic;
-                            productParameter.Value = AMSOsramUtilities.GetParameterValueAsDataType(parameter.DataType, parameterData.Value).ToString();
+                        IProductParameter productParameter = entityFactory.Create<IProductParameter>();
+    
+                        productParameter.SourceEntity = product;
+                        productParameter.TargetEntity = parameter;
+                        productParameter.Type = ProductGroupParameterType.Characteristic;
+                        productParameter.Value = amsOSRAMUtilities.GetParameterValueAsDataType(parameter.DataType, parameterData.Value).ToString();
 
-                            productParameters.Add(productParameter);
-                        }
+                        productParameters.Add(productParameter);
                     }
                 }
 
@@ -383,9 +364,9 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
             if (!productData.ProductAttributesData.IsNullOrEmpty())
             {
-                EntityType entityType = new EntityType();
+                IEntityType entityType = new EntityType();
                 {
-                    entityType.Load(AMSOsramConstants.EntityTypes.Product);
+                    entityType.Load(amsOSRAMConstants.EntityTypes.Product);
                     entityType.LoadProperties();
                 }
 
@@ -394,24 +375,24 @@ namespace Cmf.Custom.AMSOsram.Actions.MasterData
 
                 product.LoadAttributes();
 
-                AttributeCollection attributes = product.RelatedAttributes;
+                IAttributeCollection attributes = product.RelatedAttributes;
 
-                AttributeCollection relatedAttributes = new AttributeCollection();
+                IAttributeCollection relatedAttributes = new AttributeCollection();
 
                 // Associate relation between Product to Attribute
                 foreach (ProductAttributeData attributeData in productData.ProductAttributesData)
                 {
                     if (productAttributes.ContainsKey(attributeData.Name))
                     {
-                        ScalarType scalarType = productAttributes[attributeData.Name] as ScalarType;
+                        IScalarType scalarType = productAttributes[attributeData.Name] as IScalarType;
 
                         if (attributes.ContainsKey(attributeData.Name))
                         {
-                            relatedAttributes[attributeData.Name] = AMSOsramUtilities.GetAttributeValueAsDataType(scalarType, attributeData.Value);
+                            relatedAttributes[attributeData.Name] = amsOSRAMUtilities.GetAttributeValueAsDataType(scalarType, attributeData.Value);
                         }
                         else
                         {
-                            relatedAttributes.Add(attributeData.Name, AMSOsramUtilities.GetAttributeValueAsDataType(scalarType, attributeData.Value));
+                            relatedAttributes.Add(attributeData.Name, amsOSRAMUtilities.GetAttributeValueAsDataType(scalarType, attributeData.Value));
                         }
                     }
                 }
