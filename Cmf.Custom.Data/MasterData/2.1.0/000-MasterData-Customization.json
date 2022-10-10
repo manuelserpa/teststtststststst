@@ -44,8 +44,8 @@
     "6": {
       "LookUp Table": "CustomTransactions",
       "Lookup Table Value Parent": "",
-      "Lookup Table Value": "MaterialMoveNext",
-      "Lookup Table Value Description": "Material MoveNext",
+      "Lookup Table Value": "MaterialMoveNextPost",
+      "Lookup Table Value Description": "Material MoveNext Post Action",
       "Lookup Table IsEnabled": "Yes"
     },
     "7": {
@@ -255,7 +255,7 @@
       "IsEnabled": "Yes"
     },
     "6": {
-      "Transaction": "MaterialMoveNext",
+      "Transaction": "MaterialMoveNextPost",
       "IsEnabled": "Yes"
     },
     "7": {

@@ -49,7 +49,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                     { "BusinessObjects.MaterialCollection.Dispatch.Post", CustomTransactionTypes.MaterialDispatch },
                     { "BusinessObjects.MaterialCollection.TrackIn.Post", CustomTransactionTypes.MaterialTrackIn },
                     { "BusinessObjects.MaterialCollection.TrackOut.Post", CustomTransactionTypes.MaterialTrackOut },
-                    { "BusinessObjects.MaterialCollection.MoveToNextStep.Post", CustomTransactionTypes.MaterialMoveNext },
+                    { "BusinessObjects.MaterialCollection.MoveToNextStep.Post", CustomTransactionTypes.MaterialMoveNextPost },
                     { "BusinessObjects.MaterialCollection.Split.Post", CustomTransactionTypes.MaterialSplit },
                     { "BusinessObjects.MaterialCollection.RecordLoss.Post", CustomTransactionTypes.MaterialLoss },
                     { "BusinessObjects.MaterialCollection.RecordBonus.Post", CustomTransactionTypes.MaterialBonus },
@@ -135,7 +135,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 case CustomTransactionTypes.MaterialDispatch:
                 case CustomTransactionTypes.MaterialTrackIn:
                 case CustomTransactionTypes.MaterialTrackOut:
-                case CustomTransactionTypes.MaterialMoveNext:
+                case CustomTransactionTypes.MaterialMoveNextPost:
                 case CustomTransactionTypes.MaterialLoss:
                 case CustomTransactionTypes.MaterialBonus:
                 case CustomTransactionTypes.MaterialHold:
@@ -172,12 +172,10 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 case CustomTransactionTypes.MaterialMoveNextPre:
                     {
                         materialCollection = DeeActionHelper.GetInputItem<IMaterialCollection>(Input, Navigo.Common.Constants.MaterialCollection);
-
                         foreach (IMaterial material in materialCollection)
                         {
                             DeeContextHelper.SetContextParameter("MaterialPathFrom", GetMaterialOriginPath(material));
                         }
-
                         return Input;
                     }
             }
@@ -200,23 +198,28 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
 
             object GetMessageHeader(IMaterial material, string action)
             {
+                // Get stdObjectName key header message value
                 string lotName = string.Empty;
-                string pathFrom = string.Empty;
-                string pathTo = string.Empty;
-                string sAPproductType = string.Empty;
-
                 lotName = material.Name;
 
+                // Get stdTo key header message value
+                string pathTo = string.Empty;
                 pathTo = GetMaterialOriginPath(material);
-                pathFrom = action.Equals(CustomTransactionTypes.MaterialMoveNext.ToString(), StringComparison.InvariantCultureIgnoreCase) ?
+
+                // Get stdFrom key header message value
+                string pathFrom = string.Empty;
+                pathFrom = action.Equals(CustomTransactionTypes.MaterialMoveNextPost.ToString(), StringComparison.InvariantCultureIgnoreCase) ?
                            DeeContextHelper.GetContextParameter("MaterialPathFrom").ToString() :
                            pathTo;
 
+                // Get stdProductType key header message value
+                string sAPproductType = string.Empty;
                 if (material.Product.HasRelatedAttribute(amsOSRAMConstants.ProductAttributeSAPProductType, true))
                 {
                     sAPproductType = material.Product.GetRelatedAttributeValue(amsOSRAMConstants.ProductAttributeSAPProductType) as string;
                 }
 
+                // Build Header object
                 return new
                 {
                     stdObjectName = lotName,
