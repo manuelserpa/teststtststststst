@@ -20,17 +20,7 @@ using Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Xml.Linq;
-
-public enum CustomSendEventMessageTopics
-{
-    [EnumMember(Value = "CustomLotChange")]
-    CustomLotChange,
-
-    [EnumMember(Value = "CustomEquipmentStatusChange")]
-    CustomEquipmentStatusChange
-}
 
 namespace Cmf.Custom.Tests.Biz.Tibco
 {
