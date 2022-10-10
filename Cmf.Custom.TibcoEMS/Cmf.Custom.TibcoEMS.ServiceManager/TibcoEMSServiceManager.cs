@@ -161,6 +161,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                     // Message to send
                     string messageData = message.Data;
 
+                    // Headers to send
                     Dictionary<string, string> headersData = null;
 
                     if (message.Data.IsJson())
@@ -172,7 +173,9 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
 
                         if (receivedMessage.ContainsKey("Headers"))
                         {
-                            headersData = JsonConvert.DeserializeObject<Dictionary<string, string>>(receivedMessage["Headers"].ToString());
+                            // Get Headers to Send to Tibco from Json message
+                            string jsonHeaders = JsonConvert.SerializeObject(receivedMessage["Headers"]);
+                            headersData = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonHeaders);
                         }
 
                         // Get Message to Send to Tibco from Json message
@@ -340,6 +343,15 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                 // Create Tibco Text Message with associated message
                 TextMessage tibcoTextMessage = this.TibcoSession.CreateTextMessage(messageData);
 
+                // Set Headers on TextMessage
+                if (headersData != null && headersData.Any())
+                {
+                    foreach (KeyValuePair<string, string> header in headersData)
+                    {
+                        tibcoTextMessage.SetStringProperty(header.Key, header.Value);
+                    }
+                }
+
                 // Set property to compress Text Message only if it is defined on GT with value "true"
                 if (isToCompressMessage)
                 {
@@ -359,6 +371,15 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                 // Create Tibco Map Message
                 MapMessage tibcoMapMessage = this.TibcoSession.CreateMapMessage();
                 tibcoMapMessage.SetStringProperty(TibcoEMSConstants.TibcoEMSPropertyMapMessageField, messageData);
+
+                // Set Headers on MapMessage
+                if (headersData != null && headersData.Any())
+                {
+                    foreach (KeyValuePair<string, string> header in headersData)
+                    {
+                        tibcoMapMessage.SetStringProperty(header.Key, header.Value);
+                    }
+                }
 
                 this.Logger.LogInformation("Sending Map Message to Tibco...");
 
