@@ -14,7 +14,7 @@ The table below describes the relevant artifacts for this feature:
 | ---- | ---- | ----------- |
 | [CustomTransactionsToTibco](/cmf.custom.help/techspec>artifacts>generictables>custom_transactions_to_tibco) | Generic Table | Generic Table used to activate transactions to send message to Tibco. |
 | [CustomTransactions](/cmf.custom.help/techspec>artifacts>lookuptables>custom_transactions) | Lookup Table  | Lookup Table with Tibco Transactions. |
-| [CustomSendEventMessage](/cmf.custom.help/techspec>artifacts>deeactions>custom_send_event_message) | DEE Action  | DEE action to publish a Material message to Message Bus when an Action on Material is triggered. |
+| [CustomSendEventMessage](/cmf.custom.help/techspec>artifacts>deeactions>custom_send_event_message) | DEE Action  | DEE Action used to publish Lot event messages to MessageBus based on Material action. |
 
 ### How it works
 

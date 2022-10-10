@@ -2,7 +2,7 @@
 
 ## Overview
 
-DEE action to publish a Material message to Message Bus when an Action on Material is triggered.
+DEE Action used to publish Lot event messages to MessageBus based on Material action. E.g.: Material.TrackIn, Material.TrackOut, Material.MoveNext.
 
 ## Action Groups
 

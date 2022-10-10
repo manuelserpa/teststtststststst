@@ -101,7 +101,7 @@
   "<GT>GenericTable": {
     "1": {
       "Name": "CustomTransactionsToTibco",
-      "Description": "Generic Table used to activate transactions to send message to Tibco",
+      "Description": "Generic Table used to activate transactions to send event messages to Tibco.",
       "HistoryRetentionTime": "180",
       "IsHistoryEnabled": "Yes",
       "DataGroup": ""
@@ -112,7 +112,7 @@
       "GenericTable": "CustomTransactionsToTibco",
       "Name": "Transaction",
       "Position": "1",
-      "Description": "",
+      "Description": "Transaction Name",
       "DefaultValue": "",
       "IsKey": "Yes",
       "IsMandatory": "Yes",
@@ -130,7 +130,7 @@
       "GenericTable": "CustomTransactionsToTibco",
       "Name": "IsEnabled",
       "Position": "2",
-      "Description": "",
+      "Description": "Enable/disable transaction.",
       "DefaultValue": "",
       "IsKey": "No",
       "IsMandatory": "Yes",
@@ -148,7 +148,7 @@
   "<SM>DEEAction": {
     "1": {
       "Action": "CustomSendEventMessage",
-      "Description": "DEE Action publish in MessageBus a message regarding with a Material when an Action on Material is triggered.",
+      "Description": "DEE Action used to publish Lot event messages to MessageBus based on Material action. E.g.: Material.TrackIn, Material.TrackOut, Material.MoveNext.",
       "CodeFileRelativePath": "Tibco//CustomSendEventMessage.cs",
       "IsEnabled": "Yes",
       "Classification": ""
@@ -223,7 +223,7 @@
     "14": {
       "ActionGroup": "BusinessObjects.MaterialCollection.MoveToNextStep.Pre",
       "Action": "CustomSendEventMessage",
-      "Order": "100"
+      "Order": "1"
     }
   },
   "<GT>CustomTransactionsToTibco": {

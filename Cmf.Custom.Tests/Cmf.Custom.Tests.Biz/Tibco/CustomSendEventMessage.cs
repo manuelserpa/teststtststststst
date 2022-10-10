@@ -689,7 +689,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             associateInput.MaterialContainerRelations = materialContainerCollection;
             associateInput.Container = container;
 
-            Func<bool> waitForMessageBus = SuscribeMessageBus(CustomSendEventMessageTopics.CustomEquipmentStatusChange);
+            Func<bool> waitForMessageBus = SuscribeMessageBus(CustomSendEventMessageTopics.CustomLotChange);
 
             AssociateMaterialsWithContainerOutput associateOutput = associateInput.AssociateMaterialsWithContainerSync();
 
