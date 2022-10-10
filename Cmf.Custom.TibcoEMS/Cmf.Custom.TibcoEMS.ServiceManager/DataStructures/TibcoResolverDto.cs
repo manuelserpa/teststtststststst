@@ -23,12 +23,12 @@
         /// <summary>
         /// IsToQueueMessage
         /// </summary>
-        public bool IsToQueueMessage { get; set; }
+        public bool IsQueue { get; set; }
 
         /// <summary>
         /// IsToCompressMessage
         /// </summary>
-        public bool IsToCompressMessage { get; set; }
+        public bool IsToCompress { get; set; }
 
         /// <summary>
         /// IsTextMessage

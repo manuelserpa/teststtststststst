@@ -287,18 +287,18 @@
           "     * Should return an object containing the values for each output to emit",
           "     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
           "     */",
-          "    public async main(inputs: any, outputs: any): Promise<any> {",
-          "        ",
+          "    public async main(inputs: any, outputs: any): Promise<any> {        ",
           "        // Add code here",
           "        const materialData = inputs.MaterialData[0];",
           "        this.framework.logger.warning(materialData);",
           "        const remoteCommandSuccessCode = \"0x00,0x04\";",
           "        let commandParameters: any[] = [];",
+          "",
           "        const sendMessage: Object = {",
           "            type: \"S3F17\", ",
           "            item: {",
           "                type: \"L\", value: [",
-          "                    { type: \"U4\", value: 8 }, //DataID",
+          "                    { type: \"U4\", value: 1 }, //DataID",
           "                    { type: \"A\", value: \"PROCEEDWITHCARRIER\" }, ",
           "                    { type: \"A\", value: materialData.ContainerName },",
           "                    { type: \"U1\", value: materialData.LoadPortPosition }, ",
@@ -310,19 +310,21 @@
           "        commandParameters.push({",
           "            type: \"L\", value: [",
           "                { type: \"A\", value: \"Capacity\" },",
-          "                { type: \"U1\", value: 13 }",
+          "                { type: \"U1\", value: 25 }",
           "            ]",
           "        });",
+          "",
           "        commandParameters.push({",
           "            type: \"L\", value: [",
           "                { type: \"A\", value: \"Usage\" },",
-          "                { type: \"A\", value: \"Product\" }",
+          "                { type: \"A\", value: \"PRODUCT\" }",
           "            ]",
           "        });",
+          "",
           "        commandParameters.push({",
           "            type: \"L\", value: [",
           "                { type: \"A\", value: \"SubstrateCount\" },",
-          "                { type: \"U1\", value: 0 }",
+          "                { type: \"U1\", value: (<any[]>materialData.SubMaterials).length }",
           "            ]",
           "        });",
           "",
@@ -333,6 +335,7 @@
           "                { type: \"L\", value: waferParameters }",
           "            ]",
           "        });",
+          "",
           "        let slotmapParameters: any[] = [];",
           "        commandParameters.push({",
           "            type: \"L\", value: [",
@@ -340,9 +343,11 @@
           "                { type: \"L\", value: slotmapParameters }",
           "            ]",
           "        });",
-          "        for (let i = 1; i <= 13; i++) {",
-          "            let subMaterialInSlot = (<any[]>materialData.SubMaterials).find(subMaterial => subMaterial.Slot == i)",
-          "            if(subMaterialInSlot != null) {",
+          "",
+          "        for (let i = 1; i <= 25; i++) {",
+          "            let subMaterialInSlot = (<any[]>materialData.SubMaterials).find(subMaterial => subMaterial.Slot == i);",
+          "",
+          "            if (subMaterialInSlot != null) {",
           "                waferParameters.push({",
           "                    type: \"L\", value: [",
           "                        { type: \"A\", value: materialData.MaterialName },",
@@ -363,8 +368,7 @@
           "                slotmapParameters.push({",
           "                    type: \"U1\", value: 1",
           "                });",
-          "            }",
-          "            ",
+          "            }            ",
           "        }",
           "",
           "        const reply = await this.framework.driver.sendRaw(\"connect.iot.driver.secsgem.sendMessage\", sendMessage);",
@@ -380,14 +384,11 @@
           "        if (!successFound) {",
           "            throw new Error(`ProceedWithCarrier failed in TrackIn for LP${materialData.LoadPortPosition}: \\nReply:${JSON.stringify(reply)}`);",
           "        }",
-          "",
-          "        // emit output during execution: outputs.output1.emit(\"something\");",
-          "        // return example: return { output1: inputs.input1, output2: \"Hello World\" };",
           "    }",
           "}",
           ""
         ],
-        "jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IG1hdGVyaWFsRGF0YSA9IGlucHV0cy5NYXRlcmlhbERhdGFbMF07DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci53YXJuaW5nKG1hdGVyaWFsRGF0YSk7DQogICAgICAgIGNvbnN0IHJlbW90ZUNvbW1hbmRTdWNjZXNzQ29kZSA9ICIweDAwLDB4MDQiOw0KICAgICAgICBsZXQgY29tbWFuZFBhcmFtZXRlcnMgPSBbXTsNCiAgICAgICAgY29uc3Qgc2VuZE1lc3NhZ2UgPSB7DQogICAgICAgICAgICB0eXBlOiAiUzNGMTciLA0KICAgICAgICAgICAgaXRlbTogew0KICAgICAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiVTQiLCB2YWx1ZTogOCB9LA0KICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJQUk9DRUVEV0lUSENBUlJJRVIiIH0sDQogICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogbWF0ZXJpYWxEYXRhLkNvbnRhaW5lck5hbWUgfSwNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiVTEiLCB2YWx1ZTogbWF0ZXJpYWxEYXRhLkxvYWRQb3J0UG9zaXRpb24gfSwNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiTCIsIHZhbHVlOiBjb21tYW5kUGFyYW1ldGVycyB9DQogICAgICAgICAgICAgICAgXQ0KICAgICAgICAgICAgfQ0KICAgICAgICB9Ow0KICAgICAgICBjb21tYW5kUGFyYW1ldGVycy5wdXNoKHsNCiAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJDYXBhY2l0eSIgfSwNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJVMSIsIHZhbHVlOiAxMyB9DQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICBjb21tYW5kUGFyYW1ldGVycy5wdXNoKHsNCiAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJVc2FnZSIgfSwNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJQcm9kdWN0IiB9DQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICBjb21tYW5kUGFyYW1ldGVycy5wdXNoKHsNCiAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJTdWJzdHJhdGVDb3VudCIgfSwNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJVMSIsIHZhbHVlOiAwIH0NCiAgICAgICAgICAgIF0NCiAgICAgICAgfSk7DQogICAgICAgIGxldCB3YWZlclBhcmFtZXRlcnMgPSBbXTsNCiAgICAgICAgY29tbWFuZFBhcmFtZXRlcnMucHVzaCh7DQogICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiQ29udGVudE1hcCIgfSwNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJMIiwgdmFsdWU6IHdhZmVyUGFyYW1ldGVycyB9DQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICBsZXQgc2xvdG1hcFBhcmFtZXRlcnMgPSBbXTsNCiAgICAgICAgY29tbWFuZFBhcmFtZXRlcnMucHVzaCh7DQogICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiU2xvdE1hcCIgfSwNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJMIiwgdmFsdWU6IHNsb3RtYXBQYXJhbWV0ZXJzIH0NCiAgICAgICAgICAgIF0NCiAgICAgICAgfSk7DQogICAgICAgIGZvciAobGV0IGkgPSAxOyBpIDw9IDEzOyBpKyspIHsNCiAgICAgICAgICAgIGxldCBzdWJNYXRlcmlhbEluU2xvdCA9IG1hdGVyaWFsRGF0YS5TdWJNYXRlcmlhbHMuZmluZChzdWJNYXRlcmlhbCA9PiBzdWJNYXRlcmlhbC5TbG90ID09IGkpOw0KICAgICAgICAgICAgaWYgKHN1Yk1hdGVyaWFsSW5TbG90ICE9IG51bGwpIHsNCiAgICAgICAgICAgICAgICB3YWZlclBhcmFtZXRlcnMucHVzaCh7DQogICAgICAgICAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogbWF0ZXJpYWxEYXRhLk1hdGVyaWFsTmFtZSB9LA0KICAgICAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiBzdWJNYXRlcmlhbEluU2xvdC5NYXRlcmlhbE5hbWUgfQ0KICAgICAgICAgICAgICAgICAgICBdDQogICAgICAgICAgICAgICAgfSk7DQogICAgICAgICAgICAgICAgc2xvdG1hcFBhcmFtZXRlcnMucHVzaCh7DQogICAgICAgICAgICAgICAgICAgIHR5cGU6ICJVMSIsIHZhbHVlOiAzDQogICAgICAgICAgICAgICAgfSk7DQogICAgICAgICAgICB9DQogICAgICAgICAgICBlbHNlIHsNCiAgICAgICAgICAgICAgICB3YWZlclBhcmFtZXRlcnMucHVzaCh7DQogICAgICAgICAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIiIgfSwNCiAgICAgICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIiIgfQ0KICAgICAgICAgICAgICAgICAgICBdDQogICAgICAgICAgICAgICAgfSk7DQogICAgICAgICAgICAgICAgc2xvdG1hcFBhcmFtZXRlcnMucHVzaCh7DQogICAgICAgICAgICAgICAgICAgIHR5cGU6ICJVMSIsIHZhbHVlOiAxDQogICAgICAgICAgICAgICAgfSk7DQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICAgICAgY29uc3QgcmVwbHkgPSBhd2FpdCB0aGlzLmZyYW1ld29yay5kcml2ZXIuc2VuZFJhdygiY29ubmVjdC5pb3QuZHJpdmVyLnNlY3NnZW0uc2VuZE1lc3NhZ2UiLCBzZW5kTWVzc2FnZSk7DQogICAgICAgIGxldCBzdWNjZXNzRm91bmQgPSBmYWxzZTsNCiAgICAgICAgZm9yIChjb25zdCBzdWNjZXNzQ29kZSBvZiByZW1vdGVDb21tYW5kU3VjY2Vzc0NvZGUuc3BsaXQoIiwiKSkgew0KICAgICAgICAgICAgaWYgKHJlcGx5ICYmIHJlcGx5Lml0ZW0gJiYgcGFyc2VJbnQocmVwbHkuaXRlbS52YWx1ZVswXS52YWx1ZSkgPT09IHBhcnNlSW50KHN1Y2Nlc3NDb2RlLnRyaW0oKSkpIHsNCiAgICAgICAgICAgICAgICBzdWNjZXNzRm91bmQgPSB0cnVlOw0KICAgICAgICAgICAgICAgIGJyZWFrOw0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgICAgIGlmICghc3VjY2Vzc0ZvdW5kKSB7DQogICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYFByb2NlZWRXaXRoQ2FycmllciBmYWlsZWQgaW4gVHJhY2tJbiBmb3IgTFAke21hdGVyaWFsRGF0YS5Mb2FkUG9ydFBvc2l0aW9ufTogXG5SZXBseToke0pTT04uc3RyaW5naWZ5KHJlcGx5KX1gKTsNCiAgICAgICAgfQ0KICAgICAgICAvLyBlbWl0IG91dHB1dCBkdXJpbmcgZXhlY3V0aW9uOiBvdXRwdXRzLm91dHB1dDEuZW1pdCgic29tZXRoaW5nIik7DQogICAgICAgIC8vIHJldHVybiBleGFtcGxlOiByZXR1cm4geyBvdXRwdXQxOiBpbnB1dHMuaW5wdXQxLCBvdXRwdXQyOiAiSGVsbG8gV29ybGQiIH07DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
+        "jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IG1hdGVyaWFsRGF0YSA9IGlucHV0cy5NYXRlcmlhbERhdGFbMF07DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci53YXJuaW5nKG1hdGVyaWFsRGF0YSk7DQogICAgICAgIGNvbnN0IHJlbW90ZUNvbW1hbmRTdWNjZXNzQ29kZSA9ICIweDAwLDB4MDQiOw0KICAgICAgICBsZXQgY29tbWFuZFBhcmFtZXRlcnMgPSBbXTsNCiAgICAgICAgY29uc3Qgc2VuZE1lc3NhZ2UgPSB7DQogICAgICAgICAgICB0eXBlOiAiUzNGMTciLA0KICAgICAgICAgICAgaXRlbTogew0KICAgICAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiVTQiLCB2YWx1ZTogMSB9LA0KICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJQUk9DRUVEV0lUSENBUlJJRVIiIH0sDQogICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogbWF0ZXJpYWxEYXRhLkNvbnRhaW5lck5hbWUgfSwNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiVTEiLCB2YWx1ZTogbWF0ZXJpYWxEYXRhLkxvYWRQb3J0UG9zaXRpb24gfSwNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiTCIsIHZhbHVlOiBjb21tYW5kUGFyYW1ldGVycyB9DQogICAgICAgICAgICAgICAgXQ0KICAgICAgICAgICAgfQ0KICAgICAgICB9Ow0KICAgICAgICBjb21tYW5kUGFyYW1ldGVycy5wdXNoKHsNCiAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJDYXBhY2l0eSIgfSwNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJVMSIsIHZhbHVlOiAyNSB9DQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICBjb21tYW5kUGFyYW1ldGVycy5wdXNoKHsNCiAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJVc2FnZSIgfSwNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJQUk9EVUNUIiB9DQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICBjb21tYW5kUGFyYW1ldGVycy5wdXNoKHsNCiAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJTdWJzdHJhdGVDb3VudCIgfSwNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJVMSIsIHZhbHVlOiBtYXRlcmlhbERhdGEuU3ViTWF0ZXJpYWxzLmxlbmd0aCB9DQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICBsZXQgd2FmZXJQYXJhbWV0ZXJzID0gW107DQogICAgICAgIGNvbW1hbmRQYXJhbWV0ZXJzLnB1c2goew0KICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIkNvbnRlbnRNYXAiIH0sDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiTCIsIHZhbHVlOiB3YWZlclBhcmFtZXRlcnMgfQ0KICAgICAgICAgICAgXQ0KICAgICAgICB9KTsNCiAgICAgICAgbGV0IHNsb3RtYXBQYXJhbWV0ZXJzID0gW107DQogICAgICAgIGNvbW1hbmRQYXJhbWV0ZXJzLnB1c2goew0KICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIlNsb3RNYXAiIH0sDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiTCIsIHZhbHVlOiBzbG90bWFwUGFyYW1ldGVycyB9DQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICBmb3IgKGxldCBpID0gMTsgaSA8PSAyNTsgaSsrKSB7DQogICAgICAgICAgICBsZXQgc3ViTWF0ZXJpYWxJblNsb3QgPSBtYXRlcmlhbERhdGEuU3ViTWF0ZXJpYWxzLmZpbmQoc3ViTWF0ZXJpYWwgPT4gc3ViTWF0ZXJpYWwuU2xvdCA9PSBpKTsNCiAgICAgICAgICAgIGlmIChzdWJNYXRlcmlhbEluU2xvdCAhPSBudWxsKSB7DQogICAgICAgICAgICAgICAgd2FmZXJQYXJhbWV0ZXJzLnB1c2goew0KICAgICAgICAgICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6IG1hdGVyaWFsRGF0YS5NYXRlcmlhbE5hbWUgfSwNCiAgICAgICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogc3ViTWF0ZXJpYWxJblNsb3QuTWF0ZXJpYWxOYW1lIH0NCiAgICAgICAgICAgICAgICAgICAgXQ0KICAgICAgICAgICAgICAgIH0pOw0KICAgICAgICAgICAgICAgIHNsb3RtYXBQYXJhbWV0ZXJzLnB1c2goew0KICAgICAgICAgICAgICAgICAgICB0eXBlOiAiVTEiLCB2YWx1ZTogMw0KICAgICAgICAgICAgICAgIH0pOw0KICAgICAgICAgICAgfQ0KICAgICAgICAgICAgZWxzZSB7DQogICAgICAgICAgICAgICAgd2FmZXJQYXJhbWV0ZXJzLnB1c2goew0KICAgICAgICAgICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICIiIH0sDQogICAgICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICIiIH0NCiAgICAgICAgICAgICAgICAgICAgXQ0KICAgICAgICAgICAgICAgIH0pOw0KICAgICAgICAgICAgICAgIHNsb3RtYXBQYXJhbWV0ZXJzLnB1c2goew0KICAgICAgICAgICAgICAgICAgICB0eXBlOiAiVTEiLCB2YWx1ZTogMQ0KICAgICAgICAgICAgICAgIH0pOw0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgICAgIGNvbnN0IHJlcGx5ID0gYXdhaXQgdGhpcy5mcmFtZXdvcmsuZHJpdmVyLnNlbmRSYXcoImNvbm5lY3QuaW90LmRyaXZlci5zZWNzZ2VtLnNlbmRNZXNzYWdlIiwgc2VuZE1lc3NhZ2UpOw0KICAgICAgICBsZXQgc3VjY2Vzc0ZvdW5kID0gZmFsc2U7DQogICAgICAgIGZvciAoY29uc3Qgc3VjY2Vzc0NvZGUgb2YgcmVtb3RlQ29tbWFuZFN1Y2Nlc3NDb2RlLnNwbGl0KCIsIikpIHsNCiAgICAgICAgICAgIGlmIChyZXBseSAmJiByZXBseS5pdGVtICYmIHBhcnNlSW50KHJlcGx5Lml0ZW0udmFsdWVbMF0udmFsdWUpID09PSBwYXJzZUludChzdWNjZXNzQ29kZS50cmltKCkpKSB7DQogICAgICAgICAgICAgICAgc3VjY2Vzc0ZvdW5kID0gdHJ1ZTsNCiAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgICAgICBpZiAoIXN1Y2Nlc3NGb3VuZCkgew0KICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBQcm9jZWVkV2l0aENhcnJpZXIgZmFpbGVkIGluIFRyYWNrSW4gZm9yIExQJHttYXRlcmlhbERhdGEuTG9hZFBvcnRQb3NpdGlvbn06IFxuUmVwbHk6JHtKU09OLnN0cmluZ2lmeShyZXBseSl9YCk7DQogICAgICAgIH0NCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
         "inputs": [
           {
             "name": "MaterialData",
@@ -555,6 +556,13 @@
           }
         }
       ]
+    },
+    {
+      "id": "ee7d2cc1-1033-45d3-9a83-715087fbc2ba",
+      "sourceId": "task_45674",
+      "targetId": "task_1796",
+      "inputName": "reply",
+      "outputName": "error"
     }
   ],
   "layout": {
@@ -571,12 +579,6 @@
           "id": "note_200147",
           "name": "Track In - Recipe Validation Customization",
           "value": "<p><strong>What it does:</strong></p><p>Runs through the RecipeData structure of the Material Data structure from the lowest level to the highest one (Child Recipes to Parent Recipe), doing:</p><ul><li>Verify Recipe exists on equipment by comparing PPID with field NameOnEquipment of RecipeData structure;<ul><li>Executes S7F19</li></ul></li><li>Verify Recipe checksum on MES matches checksum of the Recipe existing on the Equipment;<ul><li>Executes S7F5</li></ul></li><li>If any verification fails and MES Resource has the attribute AllowDownloadRecipeAtTrackIn set to true, download Recipe to tool;<ul><li>&nbsp;Executes S7F1 and S7F3</li></ul></li><li>Else fail Track In;</li></ul><p><strong>Note:</strong></p><p>By default the Workflow task is pointing to&nbsp;RecipeValidation_01_UnformattedRecipeMainFlow which implements Unformatted Recipe logic, to set to Formatted recipes logic change the workflow to&nbsp;RecipeValidation_01_FormattedRecipeMainFlow which implements the behavior and Stream and Functions corresponding to that.</p><ul></ul><p><strong>How to use it:</strong></p><ol><li>Pass Material Data to the MaterialData input of the of workflow;</li><li>Activate after executing the initial validation;</li></ol>",
-          "color": "#ffffa5"
-        },
-        {
-          "id": "note_36668",
-          "name": "Track In - Create Process Job",
-          "value": "<p><strong>What it does:</strong></p><p>Creates Process Job</p><ul></ul><p><strong>Note:</strong></p><p>Workflow executed on this task might have to be customized;</p><ul>&nbsp;</ul><p><strong>How to use it:</strong></p><ol><li>Pass Material Data to the MaterialData input of the of workflow;</li><li>Activate after executing the recipe validation;</li></ol>",
           "color": "#ffffa5"
         },
         {
@@ -601,8 +603,8 @@
           "task_1677": {
             "collapsed": false,
             "position": {
-              "x": 3865,
-              "y": 353
+              "x": 3660,
+              "y": 292
             },
             "outdated": false
           },
@@ -633,8 +635,8 @@
           "task_45674": {
             "collapsed": false,
             "position": {
-              "x": 3186,
-              "y": 317
+              "x": 3071,
+              "y": 284
             },
             "outdated": false
           }
@@ -664,8 +666,8 @@
           "85e19b85-fbe6-481e-be0e-aa151ae6b852": {
             "vertices": [
               {
-                "x": 3520,
-                "y": 974
+                "x": 2749,
+                "y": 925
               },
               {
                 "x": 1100,
@@ -694,20 +696,28 @@
           "ffc920fa-b238-4e01-a809-72fea7decd73": {
             "vertices": [
               {
-                "x": 3476,
-                "y": 289
+                "x": 3278,
+                "y": 242
+              }
+            ]
+          },
+          "ee7d2cc1-1033-45d3-9a83-715087fbc2ba": {
+            "vertices": [
+              {
+                "x": 3163,
+                "y": 922
+              },
+              {
+                "x": 1135,
+                "y": 990
               }
             ]
           },
           "cc8ce25c-4960-4556-84a0-86daf88a8e99": {
             "vertices": [
               {
-                "x": 4301,
-                "y": 268
-              },
-              {
-                "x": 3202,
-                "y": 188
+                "x": 3656,
+                "y": 209
               },
               {
                 "x": 1035,
@@ -723,22 +733,15 @@
           "note_198963": {
             "collapsed": false,
             "position": {
-              "x": 341,
-              "y": 270
+              "x": 1873,
+              "y": 799
             }
           },
           "note_200147": {
             "collapsed": false,
             "position": {
-              "x": 2427,
-              "y": 578
-            }
-          },
-          "note_36668": {
-            "collapsed": false,
-            "position": {
-              "x": 4103,
-              "y": 665
+              "x": 2424,
+              "y": 546
             }
           },
           "note_16446": {
@@ -749,10 +752,10 @@
             }
           }
         },
-        "zoom": 0.34999999999999964,
+        "zoom": 0.47999999999999976,
         "pan": {
-          "x": 119.3499755859375,
-          "y": 48.066558837890625
+          "x": 880,
+          "y": 129
         }
       }
     }

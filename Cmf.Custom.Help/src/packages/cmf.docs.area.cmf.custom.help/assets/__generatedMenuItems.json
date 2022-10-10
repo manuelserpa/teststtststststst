@@ -354,6 +354,12 @@
     "actionId": ""
   },
   {
+    "id": "custom_send_event_message",
+    "menuGroupId": "deeactions",
+    "title": "CustomSendEventMessage",
+    "actionId": ""
+  },
+  {
     "id": "customsorterjobdefinition",
     "menuGroupId": "entitytypes",
     "title": "CustomSorterJobDefinition",
@@ -396,6 +402,12 @@
     "actionId": ""
   },
   {
+    "id": "custom_transactions_to_tibco",
+    "menuGroupId": "generictables",
+    "title": "CustomTransactionsToTibco",
+    "actionId": ""
+  },
+  {
     "id": "cconverters",
     "menuGroupId": "html",
     "title": "Converters",
@@ -417,6 +429,12 @@
     "id": "customproductionlines",
     "menuGroupId": "lookuptables",
     "title": "CustomProductionLines",
+    "actionId": ""
+  },
+  {
+    "id": "custom_transactions",
+    "menuGroupId": "lookuptables",
+    "title": "CustomTransactions",
     "actionId": ""
   },
   {
@@ -564,6 +582,12 @@
     "actionId": ""
   },
   {
+    "id": "discodfd6363hc",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "DISCO DFD 6363 HC",
+    "actionId": ""
+  },
+  {
     "id": "evatecclusterline200ii",
     "menuGroupId": "iotequipmenttypes",
     "title": "Evatec Cluster line 200II",
@@ -638,6 +662,30 @@
   {
     "id": "brukerinsightcap-workflows",
     "menuGroupId": "brukerinsightcap",
+    "title": "Workflows",
+    "actionId": ""
+  },
+  {
+    "id": "discodfd6363hc-configuration",
+    "menuGroupId": "discodfd6363hc",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "discodfd6363hc-features",
+    "menuGroupId": "discodfd6363hc",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "discodfd6363hc-setup",
+    "menuGroupId": "discodfd6363hc",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "discodfd6363hc-workflows",
+    "menuGroupId": "discodfd6363hc",
     "title": "Workflows",
     "actionId": ""
   },
@@ -945,6 +993,12 @@
     "id": "customundockvendorcontainertype",
     "menuGroupId": "features",
     "title": "Undock Vendor Container Type",
+    "actionId": ""
+  },
+  {
+    "id": "custom_lot_change_event",
+    "menuGroupId": "features",
+    "title": "Lot Change Event",
     "actionId": ""
   },
   {

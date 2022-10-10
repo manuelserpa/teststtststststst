@@ -1,0 +1,147 @@
+{
+	"tasks": [
+		{
+			"id": "task_14233",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "Initialize_01_ExecuteCommand",
+					"IsShared": false
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "CarrierId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"friendlyName": "LoadPort",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "CarrierId",
+						"valueType": {
+							"friendlyName": "CarrierId",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Internal Workflow",
+				"___cmf___description": "Initialize_01_ExecuteCommand"
+			}
+		},
+		{
+			"id": "task_14235",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "Smif_Cass_UnloadedFromPod"
+					}
+				],
+				"___cmf___description": "Smif_Cass_UnloadedFromPod (487)"
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [],
+	"links": [
+		{
+			"id": "task_14235_event-task_14233_activate",
+			"sourceId": "task_14235",
+			"targetId": "task_14233",
+			"inputName": "activate",
+			"outputName": "event",
+			"converters": []
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#80ffff",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_14233": {
+						"collapsed": false,
+						"position": {
+							"x": 1550,
+							"y": 269
+						},
+						"outdated": false
+					},
+					"task_14235": {
+						"collapsed": false,
+						"position": {
+							"x": 967,
+							"y": 262
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"task_14235_event-task_14233_activate": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"pan": {
+					"x": 472,
+					"y": 0
+				},
+				"zoom": 0.7199999999999999
+			}
+		}
+	}
+}

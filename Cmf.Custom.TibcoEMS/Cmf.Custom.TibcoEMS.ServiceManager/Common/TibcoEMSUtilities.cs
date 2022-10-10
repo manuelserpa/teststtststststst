@@ -142,9 +142,9 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
                                                             Rule = row.Table.Columns.Contains(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverRuleProperty) ?
                                                                    row.Field<string>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverRuleProperty) :
                                                                    string.Empty,
-                                                            IsToQueueMessage = row.Field<bool>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverQueueMessageProperty),
+                                                            IsQueue = row.Field<bool>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverQueueMessageProperty),
                                                             IsTextMessage = row.Field<bool>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverTextMessageProperty),
-                                                            IsToCompressMessage = row.Field<bool>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverCompressMessageProperty)
+                                                            IsToCompress = row.Field<bool>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverCompressMessageProperty)
                                                         });
             }
 

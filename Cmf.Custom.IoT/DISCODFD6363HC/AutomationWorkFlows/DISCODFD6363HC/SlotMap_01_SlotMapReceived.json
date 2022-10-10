@@ -1,0 +1,1119 @@
+{
+	"tasks": [
+		{
+			"id": "task_39862",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_1",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_2",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_3",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_4",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_5",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_6",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_7",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_8",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_9",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_10",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_11",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_12",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_13",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_14",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_15",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_16",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_17",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_18",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_19",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_20",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_21",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_22",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_23",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_24",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "MAP_STATE_25",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "MAPPING_END"
+					}
+				],
+				"___cmf___description": "MAPPING_END (36)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_40344",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here       ",
+					"        const portId = 1;",
+					"",
+					"        let slotMap: String = \"\";",
+					"",
+					"        slotMap += inputs.MAP_STATE_1 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_2 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_3 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_4 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_5 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_6 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_7 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_8 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_9 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_10 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_11 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_12 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_13 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_14 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_15 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_16 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_17 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_18 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_19 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_20 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_21 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_22 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_23 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_24 == 1 ? \"1\" : \"0\";",
+					"        slotMap += inputs.MAP_STATE_25 == 1 ? \"1\" : \"0\";       ",
+					"",
+					"        return { SlotMap: slotMap, PortId: portId};",
+					"",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlICAgICAgIA0KICAgICAgICBjb25zdCBwb3J0SWQgPSAxOw0KICAgICAgICBsZXQgc2xvdE1hcCA9ICIiOw0KICAgICAgICBzbG90TWFwICs9IGlucHV0cy5NQVBfU1RBVEVfMSA9PSAxID8gIjEiIDogIjAiOw0KICAgICAgICBzbG90TWFwICs9IGlucHV0cy5NQVBfU1RBVEVfMiA9PSAxID8gIjEiIDogIjAiOw0KICAgICAgICBzbG90TWFwICs9IGlucHV0cy5NQVBfU1RBVEVfMyA9PSAxID8gIjEiIDogIjAiOw0KICAgICAgICBzbG90TWFwICs9IGlucHV0cy5NQVBfU1RBVEVfNCA9PSAxID8gIjEiIDogIjAiOw0KICAgICAgICBzbG90TWFwICs9IGlucHV0cy5NQVBfU1RBVEVfNSA9PSAxID8gIjEiIDogIjAiOw0KICAgICAgICBzbG90TWFwICs9IGlucHV0cy5NQVBfU1RBVEVfNiA9PSAxID8gIjEiIDogIjAiOw0KICAgICAgICBzbG90TWFwICs9IGlucHV0cy5NQVBfU1RBVEVfNyA9PSAxID8gIjEiIDogIjAiOw0KICAgICAgICBzbG90TWFwICs9IGlucHV0cy5NQVBfU1RBVEVfOCA9PSAxID8gIjEiIDogIjAiOw0KICAgICAgICBzbG90TWFwICs9IGlucHV0cy5NQVBfU1RBVEVfOSA9PSAxID8gIjEiIDogIjAiOw0KICAgICAgICBzbG90TWFwICs9IGlucHV0cy5NQVBfU1RBVEVfMTAgPT0gMSA/ICIxIiA6ICIwIjsNCiAgICAgICAgc2xvdE1hcCArPSBpbnB1dHMuTUFQX1NUQVRFXzExID09IDEgPyAiMSIgOiAiMCI7DQogICAgICAgIHNsb3RNYXAgKz0gaW5wdXRzLk1BUF9TVEFURV8xMiA9PSAxID8gIjEiIDogIjAiOw0KICAgICAgICBzbG90TWFwICs9IGlucHV0cy5NQVBfU1RBVEVfMTMgPT0gMSA/ICIxIiA6ICIwIjsNCiAgICAgICAgc2xvdE1hcCArPSBpbnB1dHMuTUFQX1NUQVRFXzE0ID09IDEgPyAiMSIgOiAiMCI7DQogICAgICAgIHNsb3RNYXAgKz0gaW5wdXRzLk1BUF9TVEFURV8xNSA9PSAxID8gIjEiIDogIjAiOw0KICAgICAgICBzbG90TWFwICs9IGlucHV0cy5NQVBfU1RBVEVfMTYgPT0gMSA/ICIxIiA6ICIwIjsNCiAgICAgICAgc2xvdE1hcCArPSBpbnB1dHMuTUFQX1NUQVRFXzE3ID09IDEgPyAiMSIgOiAiMCI7DQogICAgICAgIHNsb3RNYXAgKz0gaW5wdXRzLk1BUF9TVEFURV8xOCA9PSAxID8gIjEiIDogIjAiOw0KICAgICAgICBzbG90TWFwICs9IGlucHV0cy5NQVBfU1RBVEVfMTkgPT0gMSA/ICIxIiA6ICIwIjsNCiAgICAgICAgc2xvdE1hcCArPSBpbnB1dHMuTUFQX1NUQVRFXzIwID09IDEgPyAiMSIgOiAiMCI7DQogICAgICAgIHNsb3RNYXAgKz0gaW5wdXRzLk1BUF9TVEFURV8yMSA9PSAxID8gIjEiIDogIjAiOw0KICAgICAgICBzbG90TWFwICs9IGlucHV0cy5NQVBfU1RBVEVfMjIgPT0gMSA/ICIxIiA6ICIwIjsNCiAgICAgICAgc2xvdE1hcCArPSBpbnB1dHMuTUFQX1NUQVRFXzIzID09IDEgPyAiMSIgOiAiMCI7DQogICAgICAgIHNsb3RNYXAgKz0gaW5wdXRzLk1BUF9TVEFURV8yNCA9PSAxID8gIjEiIDogIjAiOw0KICAgICAgICBzbG90TWFwICs9IGlucHV0cy5NQVBfU1RBVEVfMjUgPT0gMSA/ICIxIiA6ICIwIjsNCiAgICAgICAgcmV0dXJuIHsgU2xvdE1hcDogc2xvdE1hcCwgUG9ydElkOiBwb3J0SWQgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
+				"inputs": [
+					{
+						"name": "eventRawData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "eventRawData"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_1",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_1"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_2",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_2"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_3",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_3"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_4",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_4"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_5",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_5"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_6",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_6"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_7",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_7"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_8",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_8"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_9",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_9"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_10",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_10"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_11",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_11"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_12",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_12"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_13",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_13"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_14",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_14"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_15",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_15"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_16",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_16"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_17",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_17"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_18",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_18"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_19",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_19"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_20",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_20"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_21",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_21"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_22",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_22"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_23",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_23"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_24",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_24"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "MAP_STATE_25",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MAP_STATE_25"
+						},
+						"defaultValue": null
+					}
+				],
+				"outputs": [
+					{
+						"name": "SlotMap",
+						"valueType": {
+							"friendlyName": "SlotMap",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "PortId",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
+		},
+		{
+			"id": "task_5483",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "SlotMapReceived",
+					"IsShared": true,
+					"Name": "SlotMapReceived"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "ContainerId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "SlotMap",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SlotMap"
+						}
+					},
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LoadPort"
+						}
+					},
+					{
+						"name": "DoNotTriggerMaterialIn",
+						"valueType": {
+							"friendlyName": "DoNotTriggerMaterialIn",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"friendlyName": "ContainerName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "slotMap",
+						"valueType": {
+							"friendlyName": "slotMap",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "container",
+						"valueType": {
+							"friendlyName": "container",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Slot Map Received Workflow"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "3f22fa61-6385-4698-b495-08caf49eeaab",
+			"sourceId": "task_40344",
+			"targetId": "task_5483",
+			"inputName": "SlotMapIn",
+			"outputName": "SlotMapOut"
+		},
+		{
+			"id": "ce16c373-a739-4a7f-9e08-5bc4c5a7b85b",
+			"sourceId": "task_40344",
+			"targetId": "task_5483",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "496a6652-c25e-4519-a54d-0e1ec6289065",
+			"sourceId": "task_40344",
+			"targetId": "task_5483",
+			"inputName": "DoNotTriggerMaterialInIn",
+			"outputName": "SlotMapOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "TRUE"
+					}
+				}
+			]
+		},
+		{
+			"id": "b49d28c6-697f-4d64-bd8e-be48e5e16b5c",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_1In",
+			"outputName": "$MAP_STATE_1"
+		},
+		{
+			"id": "86a1be14-50cd-472e-99df-adc88af3d993",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_2In",
+			"outputName": "$MAP_STATE_2"
+		},
+		{
+			"id": "1d28e097-f6a4-4678-8f74-6f2f5ab453e0",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_3In",
+			"outputName": "$MAP_STATE_3"
+		},
+		{
+			"id": "e49a0077-5efe-41c9-833a-46193d1ee304",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_4In",
+			"outputName": "$MAP_STATE_4"
+		},
+		{
+			"id": "5fe34d59-94e5-4c39-b0ef-7f70e56669aa",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_5In",
+			"outputName": "$MAP_STATE_5"
+		},
+		{
+			"id": "b4f860bc-a9d9-4c4f-8f33-a5b622e68322",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_6In",
+			"outputName": "$MAP_STATE_6"
+		},
+		{
+			"id": "b2c5fcbc-5d09-4c38-aeec-a0b40f11f9a1",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_7In",
+			"outputName": "$MAP_STATE_7"
+		},
+		{
+			"id": "9d4e9acf-4c28-4a53-8f73-d6120526db3d",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_8In",
+			"outputName": "$MAP_STATE_8"
+		},
+		{
+			"id": "6e5d9bb5-ed44-4457-9a58-63ae3c78c20e",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_9In",
+			"outputName": "$MAP_STATE_9"
+		},
+		{
+			"id": "a0522738-bbd8-47b6-a89f-6577cbfa4d34",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_10In",
+			"outputName": "$MAP_STATE_10"
+		},
+		{
+			"id": "077b02f5-3eed-4ebb-b078-484c5332a0e8",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_11In",
+			"outputName": "$MAP_STATE_11"
+		},
+		{
+			"id": "cd4563f2-1cdc-4f13-a27d-26ba22af31e3",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_12In",
+			"outputName": "$MAP_STATE_12"
+		},
+		{
+			"id": "e318fba3-d49b-4649-a607-665e8370e992",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_13In",
+			"outputName": "$MAP_STATE_13"
+		},
+		{
+			"id": "aad41c9d-f5bd-48dd-b5dc-148c1312876f",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_14In",
+			"outputName": "$MAP_STATE_14"
+		},
+		{
+			"id": "653eca96-8a0f-4aef-a52e-f5ef5eac8f0f",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_15In",
+			"outputName": "$MAP_STATE_15"
+		},
+		{
+			"id": "8daa7230-0b9e-4349-991f-78bad30689b1",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_16In",
+			"outputName": "$MAP_STATE_16"
+		},
+		{
+			"id": "ee333aff-de19-4fae-8bf6-1ee97060b335",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_17In",
+			"outputName": "$MAP_STATE_17"
+		},
+		{
+			"id": "1c8c93d6-826b-4a8f-aaf1-9bd596c70131",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_18In",
+			"outputName": "$MAP_STATE_18"
+		},
+		{
+			"id": "536b9dba-a1fa-40b4-82f9-40b35b2d1420",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_19In",
+			"outputName": "$MAP_STATE_19"
+		},
+		{
+			"id": "eed2f2f1-e2a0-431a-a544-4ce6a63a6ea3",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_20In",
+			"outputName": "$MAP_STATE_20"
+		},
+		{
+			"id": "ce89af09-47b0-415e-867d-af75d32f974e",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_21In",
+			"outputName": "$MAP_STATE_21"
+		},
+		{
+			"id": "61835ada-7ea1-4a22-8f91-d70904b06a62",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_22In",
+			"outputName": "$MAP_STATE_22"
+		},
+		{
+			"id": "c1be50b0-30a2-4aa3-bdde-fb6eed58c9b7",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_23In",
+			"outputName": "$MAP_STATE_23"
+		},
+		{
+			"id": "4ef3c25f-4d73-42c5-acf2-6f0e7f484eb3",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_24In",
+			"outputName": "$MAP_STATE_24"
+		},
+		{
+			"id": "dce6592e-e8d9-4d72-9193-d58c8dd417c2",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "MAP_STATE_25In",
+			"outputName": "$MAP_STATE_25"
+		},
+		{
+			"id": "6140726a-6998-4d41-b26b-761aa573aec6",
+			"sourceId": "task_39862",
+			"targetId": "task_40344",
+			"inputName": "activate",
+			"outputName": "$MAP_STATE_25"
+		},
+		{
+			"id": "c2eacd25-981b-4e33-a9c6-9f6ada39712c",
+			"sourceId": "task_40344",
+			"targetId": "task_5483",
+			"inputName": "LoadPortIn",
+			"outputName": "PortIdOut"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#80ffff",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_39862": {
+						"collapsed": false,
+						"position": {
+							"x": 586,
+							"y": 59
+						},
+						"outdated": false
+					},
+					"task_40344": {
+						"collapsed": false,
+						"position": {
+							"x": 1268,
+							"y": 53
+						},
+						"outdated": false
+					},
+					"task_5483": {
+						"collapsed": false,
+						"position": {
+							"x": 2024,
+							"y": 94
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"3f22fa61-6385-4698-b495-08caf49eeaab": {
+						"vertices": []
+					},
+					"ce16c373-a739-4a7f-9e08-5bc4c5a7b85b": {
+						"vertices": []
+					},
+					"b49d28c6-697f-4d64-bd8e-be48e5e16b5c": {
+						"vertices": []
+					},
+					"86a1be14-50cd-472e-99df-adc88af3d993": {
+						"vertices": []
+					},
+					"1d28e097-f6a4-4678-8f74-6f2f5ab453e0": {
+						"vertices": []
+					},
+					"e49a0077-5efe-41c9-833a-46193d1ee304": {
+						"vertices": []
+					},
+					"5fe34d59-94e5-4c39-b0ef-7f70e56669aa": {
+						"vertices": []
+					},
+					"b4f860bc-a9d9-4c4f-8f33-a5b622e68322": {
+						"vertices": []
+					},
+					"b2c5fcbc-5d09-4c38-aeec-a0b40f11f9a1": {
+						"vertices": []
+					},
+					"9d4e9acf-4c28-4a53-8f73-d6120526db3d": {
+						"vertices": []
+					},
+					"6e5d9bb5-ed44-4457-9a58-63ae3c78c20e": {
+						"vertices": []
+					},
+					"a0522738-bbd8-47b6-a89f-6577cbfa4d34": {
+						"vertices": []
+					},
+					"077b02f5-3eed-4ebb-b078-484c5332a0e8": {
+						"vertices": []
+					},
+					"cd4563f2-1cdc-4f13-a27d-26ba22af31e3": {
+						"vertices": []
+					},
+					"e318fba3-d49b-4649-a607-665e8370e992": {
+						"vertices": []
+					},
+					"aad41c9d-f5bd-48dd-b5dc-148c1312876f": {
+						"vertices": []
+					},
+					"653eca96-8a0f-4aef-a52e-f5ef5eac8f0f": {
+						"vertices": []
+					},
+					"8daa7230-0b9e-4349-991f-78bad30689b1": {
+						"vertices": []
+					},
+					"ee333aff-de19-4fae-8bf6-1ee97060b335": {
+						"vertices": []
+					},
+					"1c8c93d6-826b-4a8f-aaf1-9bd596c70131": {
+						"vertices": []
+					},
+					"536b9dba-a1fa-40b4-82f9-40b35b2d1420": {
+						"vertices": []
+					},
+					"eed2f2f1-e2a0-431a-a544-4ce6a63a6ea3": {
+						"vertices": []
+					},
+					"ce89af09-47b0-415e-867d-af75d32f974e": {
+						"vertices": []
+					},
+					"61835ada-7ea1-4a22-8f91-d70904b06a62": {
+						"vertices": []
+					},
+					"c1be50b0-30a2-4aa3-bdde-fb6eed58c9b7": {
+						"vertices": []
+					},
+					"4ef3c25f-4d73-42c5-acf2-6f0e7f484eb3": {
+						"vertices": []
+					},
+					"dce6592e-e8d9-4d72-9193-d58c8dd417c2": {
+						"vertices": []
+					},
+					"6140726a-6998-4d41-b26b-761aa573aec6": {
+						"vertices": []
+					},
+					"c2eacd25-981b-4e33-a9c6-9f6ada39712c": {
+						"vertices": []
+					},
+					"496a6652-c25e-4519-a54d-0e1ec6289065": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"pan": {
+					"x": 0,
+					"y": 0
+				},
+				"zoom": 0.48999999999999955
+			}
+		}
+	}
+}
