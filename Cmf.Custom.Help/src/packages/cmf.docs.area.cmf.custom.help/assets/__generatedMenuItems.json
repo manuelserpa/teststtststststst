@@ -354,6 +354,12 @@
     "actionId": ""
   },
   {
+    "id": "custom_send_event_message",
+    "menuGroupId": "deeactions",
+    "title": "CustomSendEventMessage",
+    "actionId": ""
+  },
+  {
     "id": "customsorterjobdefinition",
     "menuGroupId": "entitytypes",
     "title": "CustomSorterJobDefinition",
@@ -396,6 +402,12 @@
     "actionId": ""
   },
   {
+    "id": "custom_transactions_to_tibco",
+    "menuGroupId": "generictables",
+    "title": "CustomTransactionsToTibco",
+    "actionId": ""
+  },
+  {
     "id": "cconverters",
     "menuGroupId": "html",
     "title": "Converters",
@@ -417,6 +429,12 @@
     "id": "customproductionlines",
     "menuGroupId": "lookuptables",
     "title": "CustomProductionLines",
+    "actionId": ""
+  },
+  {
+    "id": "custom_transactions",
+    "menuGroupId": "lookuptables",
+    "title": "CustomTransactions",
     "actionId": ""
   },
   {
@@ -945,6 +963,12 @@
     "id": "customundockvendorcontainertype",
     "menuGroupId": "features",
     "title": "Undock Vendor Container Type",
+    "actionId": ""
+  },
+  {
+    "id": "custom_lot_change_event",
+    "menuGroupId": "features",
+    "title": "Lot Change Event",
     "actionId": ""
   },
   {
