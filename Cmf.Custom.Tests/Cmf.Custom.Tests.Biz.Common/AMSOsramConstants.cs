@@ -13,6 +13,21 @@
         /// </summary>
         public static string ProductAttributeProductionLine = "ProductionLine";
 
+        /// <summary>
+        /// Product Attribute SAPProductType
+        /// </summary>
+        public static string ProductAttributeSAPProductType = "SAPProductType";
+
+        /// <summary>
+        /// Facility Attribute FacilityCode
+        /// </summary>
+        public static string FacilityAttributeFacilityCode = "FacilityCode";
+
+        /// <summary>
+        /// Site Attribute SiteCode
+        /// </summary>
+        public static string SiteAttributeSiteCode = "SiteCode";
+
         #endregion
 
         #region DEE
