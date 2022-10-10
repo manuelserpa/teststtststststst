@@ -161,6 +161,11 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                     break;
                 case CustomTransactionTypes.ContainerAssociation:
                     {
+                        IMaterialContainerCollection materialContainerCollection = DeeActionHelper.GetInputItem<IMaterialContainerCollection>(Input, "MaterialRelations");
+                        foreach (IMaterialContainer materialContainer in materialContainerCollection)
+                        {
+                            materialCollection.Add(materialContainer.SourceEntity);
+                        }
                         messageSubject = amsOSRAMConstants.CustomEquipmentStatusChange;
                     }
                     break;
