@@ -229,55 +229,55 @@
   "<GT>CustomTransactionsToTibco": {
     "1": {
       "Transaction": "MaterialCreate",
-      "IsEnabled": "Yes"
+      "IsEnabled": "No"
     },
     "2": {
       "Transaction": "MaterialTerminate",
-      "IsEnabled": "Yes"
+      "IsEnabled": "No"
     },
     "3": {
       "Transaction": "MaterialDispatch",
-      "IsEnabled": "Yes"
+      "IsEnabled": "No"
     },
     "4": {
       "Transaction": "MaterialTrackIn",
-      "IsEnabled": "Yes"
+      "IsEnabled": "No"
     },
     "5": {
       "Transaction": "MaterialTrackOut",
-      "IsEnabled": "Yes"
+      "IsEnabled": "No"
     },
     "6": {
       "Transaction": "MaterialMoveNext",
-      "IsEnabled": "Yes"
+      "IsEnabled": "No"
     },
     "7": {
       "Transaction": "MaterialSplit",
-      "IsEnabled": "Yes"
+      "IsEnabled": "No"
     },
     "8": {
       "Transaction": "MaterialMerge",
-      "IsEnabled": "Yes"
+      "IsEnabled": "No"
     },
     "9": {
       "Transaction": "MaterialLoss",
-      "IsEnabled": "Yes"
+      "IsEnabled": "No"
     },
     "10": {
       "Transaction": "MaterialBonus",
-      "IsEnabled": "Yes"
+      "IsEnabled": "No"
     },
     "11": {
       "Transaction": "MaterialHold",
-      "IsEnabled": "Yes"
+      "IsEnabled": "No"
     },
     "12": {
       "Transaction": "MaterialRelease",
-      "IsEnabled": "Yes"
+      "IsEnabled": "No"
     },
     "13": { 
       "Transaction": "ContainerAssociation",
-      "IsEnabled": "Yes"
+      "IsEnabled": "No"
     }
   },
   "<LOOKUP>TibcoGatewayResolver": {
