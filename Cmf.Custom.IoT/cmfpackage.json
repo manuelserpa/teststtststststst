@@ -61,11 +61,15 @@
     },
     {
       "id": "Cmf.Custom.IoT.BrukerInsigthCAP",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     {
       "id": "Cmf.Custom.IoT.Monarch25VHF",
       "version": "2.0.0"
+    },
+    {
+      "id": "Cmf.Custom.IoT.DISCODFD6363HC",
+      "version": "2.1.0"
     }
   ]
 }
