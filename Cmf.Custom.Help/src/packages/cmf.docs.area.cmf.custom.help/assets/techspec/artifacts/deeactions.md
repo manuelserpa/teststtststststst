@@ -6,7 +6,7 @@ The following DEE Actions were created to support customer requirements.
 
 | DEE Action                     | Description       |
 | ------                    | ------            |
-| [CustomSendEventMessage](/cmf.custom.help/techspec>artifacts>deeactions>custom_send_event_message) | DEE action to publish a Material message to Message Bus when an Action on Material is triggered. |
+| [CustomSendEventMessage](/cmf.custom.help/techspec>artifacts>deeactions>custom_send_event_message) | DEE Action used to publish Lot event messages to MessageBus based on Material action. E.g.: Material.TrackIn, Material.TrackOut, Material.MoveNext. |
 | [CustomAssociateSorterJobDefinitionToContextTable](/cmf.custom.help/techspec>artifacts>deeactions>customassociatesorterjobdefinitiontocontexttable) | DEE action to create CustomSorterJobDefinition and associate to the context on CustomSorterJobDefinitionContext smart table. |
 | [CustomAutomationAdjustLoadPortState](/cmf.custom.help/techspec>artifacts>deeactions>customautomationadjustloadportstate) | This DEE Action is triggered by IoT Automation in order to adjust the state of a Load Port. |
 | [CustomAutomationGetRecipeBody](/cmf.custom.help/techspec>artifacts>deeactions>customautomationgetrecipebody) | This DEE is responsible for validating the Recipe and return the RecipeBody, the RecipeNameOnEquipment and RecipeName of a given Recipe. |
