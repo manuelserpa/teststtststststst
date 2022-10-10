@@ -79,10 +79,10 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
 
             TibcoEMSUtilities.InitialConfigurations();
 
-            this.TibcoConnection = TibcoEMSUtilities.CreateTibcoConnection(this.TibcoConfigs);
+            //this.TibcoConnection = TibcoEMSUtilities.CreateTibcoConnection(this.TibcoConfigs);
 
             // Connect to Tibco
-            this.TibcoConnection.Start();
+            //this.TibcoConnection.Start();
 
             // Create Tibco session and associate to the connection 
             this.Logger.LogInformation("Creating Tibco Session...");
@@ -171,10 +171,10 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                         // - Value: PropertyValue (MessageToSend)
                         Dictionary<string, object> receivedMessage = JsonConvert.DeserializeObject<Dictionary<string, object>>(message.Data);
 
-                        if (receivedMessage.ContainsKey("Headers"))
+                        if (receivedMessage.ContainsKey("Header"))
                         {
                             // Get Headers to Send to Tibco from Json message
-                            string jsonHeaders = JsonConvert.SerializeObject(receivedMessage["Headers"]);
+                            string jsonHeaders = JsonConvert.SerializeObject(receivedMessage["Header"]);
                             headersData = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonHeaders);
                         }
 
@@ -317,7 +317,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
             // Tibco Message Producer
             MessageProducer tibcoMessageProducer;
 
-            if (isToQueueMessage || isTextMessage)
+            if (isToQueueMessage)
             {
                 this.Logger.LogInformation($"Create Queue with name {topicName} on Tibco Session...");
 
@@ -370,7 +370,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
             {
                 // Create Tibco Map Message
                 MapMessage tibcoMapMessage = this.TibcoSession.CreateMapMessage();
-                tibcoMapMessage.SetStringProperty(TibcoEMSConstants.TibcoEMSPropertyMapMessageField, messageData);
+                tibcoMapMessage.SetString(TibcoEMSConstants.TibcoEMSPropertyMapMessageField, messageData);
 
                 // Set Headers on MapMessage
                 if (headersData != null && headersData.Any())
