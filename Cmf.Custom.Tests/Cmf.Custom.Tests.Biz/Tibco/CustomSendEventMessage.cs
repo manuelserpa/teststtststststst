@@ -100,11 +100,18 @@ namespace Cmf.Custom.Tests.Biz.Tibco
 
             // Material created
             Material material = _scenario.GeneratedLots.FirstOrDefault();
+            material.SaveAttribute("GoodsReceiptNo", "TestGoodsReceiptNo");
 
             material.Load();
             material.LoadChildren();
 
             Assert.AreEqual(1, material.SubMaterials.Count, "Should have been created the Material with one SubMaterial");
+
+            Material subMaterial = material.SubMaterials.FirstOrDefault();
+
+            // TODO: To be tested with the product fix after MES upgrade to 9.1
+            // It is missing exporting attributes on the SubMaterials
+            //subMaterial.SaveAttribute("GoodsReceiptNo", "TestSubMaterialGoodsReceiptNo");
 
             Resource resource = new Resource
             {
@@ -123,9 +130,6 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
             Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
             Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
-
-            material.Load();
-            material.LoadChildren();
 
             ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialDispatch);
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
@@ -709,7 +713,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
 
             TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
 
-            Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomEquipmentStatusChange}");
+            Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
             Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
             Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
@@ -817,7 +821,15 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             material.LoadChildren();
             material.LoadAttributes();
 
-            materials.Add((CoreBase)material);
+            // TODO: To be tested with the product fix after MES upgrade to 9.1
+            // It is missing exporting attributes on the SubMaterials
+
+            //foreach (Material sub in material.SubMaterials)
+            //{
+            //    sub.LoadAttributes();
+            //}
+
+            materials.Add(material);
 
             ExportObjectsOutput output = new Cmf.Foundation.BusinessOrchestration.ImportExportManagement.InputObjects.ExportObjectsInput
             {
