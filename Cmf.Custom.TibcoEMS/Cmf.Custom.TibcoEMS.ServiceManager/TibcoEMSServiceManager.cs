@@ -76,7 +76,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         {
             // Create Tibco connection
             this.Logger.LogInformation("Creating Tibco Connection...");
-            
+
             TibcoEMSUtilities.InitialConfigurations();
 
             this.TibcoConnection = TibcoEMSUtilities.CreateTibcoConnection(this.TibcoConfigs);
@@ -149,27 +149,37 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                     // Action name
                     string actionName = this.TibcoResolveConfigurations[subject].Rule;
 
-                    // QueueMessage
-                    bool queueMessage = this.TibcoResolveConfigurations[subject].QueueMessage;
+                    // IsQueue
+                    bool isQueue = this.TibcoResolveConfigurations[subject].IsQueue;
 
-                    // CompressMessage
-                    bool compressMessage = this.TibcoResolveConfigurations[subject].CompressMessage;
+                    // IsToCompress
+                    bool isToCompress = this.TibcoResolveConfigurations[subject].IsToCompress;
 
-                    // TextMessage
-                    bool textMessage = this.TibcoResolveConfigurations[subject].TextMessage;
+                    // IsTextMessage
+                    bool isTextMessage = this.TibcoResolveConfigurations[subject].IsTextMessage;
 
                     // Message to send
                     string messageData = message.Data;
+
+                    // Headers to send
+                    Dictionary<string, string> headersData = null;
 
                     if (message.Data.IsJson())
                     {
                         // Deserialize MessageBus message received to a Dictionary
                         // - Key: PropertyName
                         // - Value: PropertyValue (MessageToSend)
-                        Dictionary<string, string> receivedMessage = JsonConvert.DeserializeObject<Dictionary<string, string>>(message.Data);
+                        Dictionary<string, object> receivedMessage = JsonConvert.DeserializeObject<Dictionary<string, object>>(message.Data);
+
+                        if (receivedMessage.ContainsKey("Header"))
+                        {
+                            // Get Headers to Send to Tibco from Json message
+                            string jsonHeaders = JsonConvert.SerializeObject(receivedMessage["Header"]);
+                            headersData = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonHeaders);
+                        }
 
                         // Get Message to Send to Tibco from Json message
-                        messageData = receivedMessage["Message"];
+                        messageData = receivedMessage["Message"] as string;
                     }
 
                     try
@@ -195,7 +205,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                         this.Logger.LogInformation($"MessageBus MessageID: {message.Id}");
 
                         // Send Message to Tibco
-                        this.SendMessageToTibco(messageData, topicName, queueMessage, compressMessage, textMessage);
+                        this.SendMessageToTibco(headersData, messageData, topicName, isQueue, isToCompress, isTextMessage);
 
                         this.MessageBusTransport.Reply(message, "Ok");
 
@@ -280,7 +290,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
         /// <summary>
         /// Subscribe topic or queue and send message to Tibco
         /// </summary>
-        private void SendMessageToTibco(string messageData, string topicName, bool queueMessage, bool compressMessage, bool textMessage)
+        private void SendMessageToTibco(Dictionary<string, string> headersData, string messageData, string topicName, bool isQueueMessage, bool isToCompressMessage, bool isTextMessage)
         {
             this.Logger.LogInformation("Checking connection to Tibco...");
 
@@ -307,7 +317,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
             // Tibco Message Producer
             MessageProducer tibcoMessageProducer;
 
-            if (queueMessage || textMessage)
+            if (isQueueMessage)
             {
                 this.Logger.LogInformation($"Create Queue with name {topicName} on Tibco Session...");
 
@@ -328,15 +338,24 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                 tibcoMessageProducer = this.TibcoSession.CreateProducer(tibcoTopic);
             }
 
-            if (textMessage)
+            if (isTextMessage)
             {
                 // Create Tibco Text Message with associated message
                 TextMessage tibcoTextMessage = this.TibcoSession.CreateTextMessage(messageData);
 
-                // Set property to compress Text Message only if it is defined on GT with value "true"
-                if (compressMessage)
+                // Set Headers on TextMessage
+                if (headersData != null && headersData.Any())
                 {
-                    tibcoTextMessage.SetBooleanProperty(TibcoEMSConstants.TibcoEMSPropertyCompressTextMessage, compressMessage);
+                    foreach (KeyValuePair<string, string> header in headersData)
+                    {
+                        tibcoTextMessage.SetStringProperty(header.Key, header.Value);
+                    }
+                }
+
+                // Set property to compress Text Message only if it is defined on GT with value "true"
+                if (isToCompressMessage)
+                {
+                    tibcoTextMessage.SetBooleanProperty(TibcoEMSConstants.TibcoEMSPropertyCompressTextMessage, isToCompressMessage);
                 }
 
                 this.Logger.LogInformation("Sending Text Message to Tibco...");
@@ -351,7 +370,16 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
             {
                 // Create Tibco Map Message
                 MapMessage tibcoMapMessage = this.TibcoSession.CreateMapMessage();
-                tibcoMapMessage.SetStringProperty(TibcoEMSConstants.TibcoEMSPropertyMapMessageField, messageData);
+                tibcoMapMessage.SetString(TibcoEMSConstants.TibcoEMSPropertyMapMessageField, messageData);
+
+                // Set Headers on MapMessage
+                if (headersData != null && headersData.Any())
+                {
+                    foreach (KeyValuePair<string, string> header in headersData)
+                    {
+                        tibcoMapMessage.SetStringProperty(header.Key, header.Value);
+                    }
+                }
 
                 this.Logger.LogInformation("Sending Map Message to Tibco...");
 

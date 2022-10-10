@@ -270,7 +270,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                         prodOrder: productionOrder,
                         productName: ProductName,
                         flowPath: FlowPath,
-                        primaryQuantity: ScenarioQuantity * NumberOfChildMaterialsToGenerate,
+                        primaryQuantity: NumberOfChildMaterialsToGenerate != 0 ? ScenarioQuantity * NumberOfChildMaterialsToGenerate : ScenarioQuantity,
                         facilityName: FacilityName,
                         form: MaterialToGenerateForm);
 

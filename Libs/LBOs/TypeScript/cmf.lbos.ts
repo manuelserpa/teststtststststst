@@ -60225,6 +60225,22 @@ export namespace Cmf.Custom.amsOSRAM.Common.DataStructures
         Inbound = 0,
         Outbound = 1,
     }
+    export enum CustomTransactionTypes
+    {
+        MaterialCreate = 0,
+        MaterialTerminate = 1,
+        MaterialDispatch = 2,
+        MaterialTrackIn = 3,
+        MaterialTrackOut = 4,
+        MaterialMoveNext = 5,
+        MaterialSplit = 6,
+        MaterialMerge = 7,
+        MaterialLoss = 8,
+        MaterialBonus = 9,
+        MaterialHold = 10,
+        MaterialRelease = 11,
+        ContainerAssociation = 12,
+    }
     
 }
 export namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects
@@ -71620,6 +71636,7 @@ export namespace Cmf.Lbos
         { FullName : "Cmf.Connect.BusinessObjects.EquipmentCommunicationState" , Value : Cmf.Connect.BusinessObjects.EquipmentCommunicationState },
         { FullName : "Cmf.Custom.amsOSRAM.Common.DataStructures.AdHocActionTypes" , Value : Cmf.Custom.amsOSRAM.Common.DataStructures.AdHocActionTypes },
         { FullName : "Cmf.Custom.amsOSRAM.Common.DataStructures.BrokerMessageDirection" , Value : Cmf.Custom.amsOSRAM.Common.DataStructures.BrokerMessageDirection },
+        { FullName : "Cmf.Custom.amsOSRAM.Common.DataStructures.CustomTransactionTypes" , Value : Cmf.Custom.amsOSRAM.Common.DataStructures.CustomTransactionTypes },
         { FullName : "Cmf.MessageBus.Client.messages.ClientMessageType" , Value : Cmf.MessageBus.Client.messages.ClientMessageType },
  
     ];
