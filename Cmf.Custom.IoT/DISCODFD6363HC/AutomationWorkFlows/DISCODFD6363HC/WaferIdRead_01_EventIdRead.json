@@ -1,0 +1,162 @@
+{
+	"tasks": [
+		{
+			"id": "task_60996",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SLOT_ID_PT",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SLOT_ID_ROBOT_PICK",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "WaferIDRead"
+					}
+				],
+				"___cmf___description": "WaferIDRead (202)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_61521",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "Grant_Deny_01_ExecuteCommand",
+					"IsShared": false
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Internal Workflow",
+				"___cmf___description": "Grant_Deny_01_ExecuteCommand"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "0f2bbc75-486a-4b0e-a51f-ceca94ed8323",
+			"sourceId": "task_60996",
+			"targetId": "task_61521",
+			"inputName": "MaterialDataIn",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "77975243-229c-4ef2-b72f-0491354b3e86",
+			"sourceId": "task_60996",
+			"targetId": "task_61521",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff80",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_60996": {
+						"collapsed": false,
+						"position": {
+							"x": 356,
+							"y": 153
+						},
+						"outdated": false
+					},
+					"task_61521": {
+						"collapsed": false,
+						"position": {
+							"x": 1013,
+							"y": 306
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"0f2bbc75-486a-4b0e-a51f-ceca94ed8323": {
+						"vertices": []
+					},
+					"77975243-229c-4ef2-b72f-0491354b3e86": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"pan": {
+					"x": 28,
+					"y": 0
+				},
+				"zoom": 0.6999999999999998
+			}
+		}
+	}
+}
