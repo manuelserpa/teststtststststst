@@ -21,6 +21,7 @@ using Cmf.Custom.Tests.IoT.Tests.Common;
 using Cmf.Foundation.BusinessObjects.SmartTables;
 using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 using Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader;
+using cmConnect.TestFramework.Common.Interfaces;
 
 namespace amsOSRAMEIAutomaticTests.OmegaPlasma
 {
@@ -505,13 +506,11 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
             // scenario.ContainerScenario.Entity
             if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
             {
-                for (int i = 0; i < MESScenario.ContainerScenario.Entity.ContainerMaterials.Count; i++)
+                for (int i = 0; i < 13; i++)
                 {
                     var temp = new SecsItem();
 
-                    var material = MESScenario.ContainerScenario.Entity.ContainerMaterials[i];
-
-                    if (material != null)
+                    if (MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1))
                     {
                         temp.U1 = new byte[] { 0x01 };
                     }
@@ -536,14 +535,53 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
             outerList.Add( slotMap );
 
             base.Equipment.Variables["SLOT_MAP"] = outerList;
-            base.Equipment.Variables["PORT_ID"] = loadPortToSet;
+            base.Equipment.Variables["PORT_ID"] = new SecsItem() { U1 = new byte[] { (byte)loadPortToSet } };
 
             // Trigger event
-            base.Equipment.SendMessage(String.Format($"SlotMapRead"), null);
+            base.Equipment.SendMessage(sendCustomMessage(String.Format($"SlotMapRead")) , null);
 
             ValidatePersistenceContainerExists(loadPortToSet);
         }
 
+
+        private SecsTransaction sendCustomMessage(string messageName) {
+            IEvent @event = base.Equipment.Events[messageName];
+            SecsTransaction secsTransaction = base.Equipment.Driver.Library.GetTransaction("S6F11").Duplicate();
+
+            secsTransaction.Primary.Item.GetChildList()[0].U4 = new uint[] { 1 };
+
+            secsTransaction.Primary.Item.GetChildList()[1].U4 = new uint[] { uint.Parse(@event.DataItemId) };
+
+            SecsItem secsItem = secsTransaction.Primary.Item.GetChildList()[2];
+            secsItem.Clear();
+            foreach (IReport report in @event.Reports)
+            {
+                SecsItem secsItem2 = new SecsItem();
+                secsItem2.SetTypeToList();
+                SecsItem secsItem3 = new SecsItem();
+                secsItem3.U4 = new uint[] { uint.Parse(report.DataItemId) };
+                secsItem2.Add(secsItem3);
+                SecsItem secsItem4 = new SecsItem();
+                secsItem4.SetTypeToList();
+                
+                foreach (IVariable variable in report.Variables)
+                {
+                    if (base.Equipment.Variables.ContainsKey(variable.AbstractName))
+                    {
+                        secsItem4.Add(base.Equipment.Variables[variable.AbstractName] as SecsItem);
+                    }
+                }
+            
+                secsItem2.Add(secsItem4);
+
+                secsItem.Add(secsItem2);
+            }
+
+            return secsTransaction;
+        }            
+
+
+        
 
 
         public override bool CarrierOut(CustomMaterialScenario scenario)
