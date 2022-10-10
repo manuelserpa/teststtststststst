@@ -39,7 +39,24 @@ namespace Cmf.Custom.Tests.Biz.Tibco
     {
         private CustomExecutionScenario _scenario;
         private List<TibcoCustomSendEventMessage> _tibcoCustomSendEventMessages;
-        private Transport _transport;
+        private static Transport _transport;
+        private string isToUnsubscribeTopic;
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            _transport = new Transport(BaseContext.GetMessageBusTransportConfiguration());
+            _transport.Start();
+        }
+
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            if (_transport != null)
+            {
+                _transport.Stop();
+            }
+        }
 
         /// <summary>
         /// Test Initialization
@@ -62,9 +79,14 @@ namespace Cmf.Custom.Tests.Biz.Tibco
                 _scenario.CompleteCleanUp();
             }
 
-            if (_transport != null)
+            if (isToUnsubscribeTopic != null)
             {
-                _transport.Stop();
+                _transport.Unsubscribe(isToUnsubscribeTopic);
+            }
+
+            if (_tibcoCustomSendEventMessages.Count > 0)
+            {
+                _tibcoCustomSendEventMessages.Clear();
             }
         }
 
@@ -885,10 +907,6 @@ namespace Cmf.Custom.Tests.Biz.Tibco
 
         private Func<bool> SuscribeMessageBus(CustomSendEventMessageTopics topic, int numberOfMessages = 1)
         {
-            _transport = new Transport(BaseContext.GetMessageBusTransportConfiguration());
-
-            _transport.Start();
-
             _transport.Subscribe(topic.ToString(), (string subject, MbMessage message) =>
             {
                 if (message != null && !string.IsNullOrWhiteSpace(message.Data))
@@ -897,6 +915,8 @@ namespace Cmf.Custom.Tests.Biz.Tibco
                 }
             });
 
+            isToUnsubscribeTopic = topic.ToString();
+
             Func<bool> waitForMessageBus = () =>
             {
                 bool isDone = _tibcoCustomSendEventMessages.Count == numberOfMessages;
@@ -904,6 +924,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
                 if (isDone)
                 {
                     _transport.Unsubscribe(topic.ToString());
+                    isToUnsubscribeTopic = null;
                 }
 
                 return isDone;
