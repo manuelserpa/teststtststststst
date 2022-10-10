@@ -1,7 +1,7 @@
 {
   "tasks": [
     {
-      "id": "task_170742",
+      "id": "task_172775",
       "reference": {
         "name": "subWorkflowEnd",
         "package": {
@@ -26,7 +26,7 @@
       }
     },
     {
-      "id": "task_170744",
+      "id": "task_172777",
       "reference": {
         "name": "subWorkflowStart",
         "package": {
@@ -53,7 +53,7 @@
       }
     },
     {
-      "id": "task_170746",
+      "id": "task_172779",
       "reference": {
         "name": "workflow",
         "package": {
@@ -156,68 +156,22 @@
       }
     },
     {
-      "id": "task_171073",
+      "id": "task_172895",
       "reference": {
-        "name": "customCreateProcessJob",
+        "name": "customMultiCreateProcessJob",
         "package": {
           "name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
           "version": "2.0.0"
         }
       },
       "settings": {
-        "___cmf___name": "Custom Create Process Job",
-        "SendCarrierContent": true,
+        "___cmf___name": "Custom Multi Create Process Job",
         "RecipeSpecificationType": 1,
         "commandName": 1,
-        "MaterialFormat": "0x0d"
+        "SendCarrierContent": true,
+        "MaterialFormat": "0x0D"
       },
       "driver": "SecsGemEquipment"
-    },
-    {
-      "id": "task_28851",
-      "reference": {
-        "name": "expressionEvaluator",
-        "package": {
-          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-          "version": "9.1.0-202209072"
-        }
-      },
-      "settings": {
-        "_expressionType": 0,
-        "_evaluatorBehavior": "EvaluateAll",
-        "___cmf___name": "Expression Evaluator",
-        "_inputs": [
-          {
-            "name": "MaterialData",
-            "valueType": {
-              "type": 10,
-              "collectionType": 0,
-              "referenceType": null,
-              "referenceTypeName": null,
-              "referenceTypeId": null,
-              "friendlyName": "MaterialData"
-            },
-            "defaultValue": [],
-            "required": true
-          }
-        ],
-        "_outputs": [
-          {
-            "name": "RecipeNameOnEquipment",
-            "valueType": {
-              "type": 4,
-              "collectionType": 0,
-              "referenceType": null,
-              "referenceTypeName": null,
-              "referenceTypeId": null,
-              "friendlyName": "RecipeNameOnEquipment"
-            },
-            "expression": "MaterialData.Recipe.NameOnEquipment",
-            "defaultValue": null
-          }
-        ],
-        "_clearInputs": true
-      }
     }
   ],
   "converters": [
@@ -244,82 +198,84 @@
   ],
   "links": [
     {
-      "id": "task_170746_ErrorOut-task_170742_error",
-      "sourceId": "task_170746",
-      "targetId": "task_170742",
+      "id": "task_172779_ErrorOut-task_172775_error",
+      "sourceId": "task_172779",
+      "targetId": "task_172775",
       "inputName": "error",
       "outputName": "ErrorOut",
       "converters": []
     },
     {
-      "id": "7b244644-81d6-4f52-8f4d-2f118b835f17",
-      "sourceId": "task_171073",
-      "targetId": "task_170742",
+      "id": "afa86352-664a-44de-839a-5777099e5066",
+      "sourceId": "task_172895",
+      "targetId": "task_172775",
       "inputName": "success",
       "outputName": "success"
     },
     {
-      "id": "04d8ecab-c241-4ed3-9e40-a22475994c0c",
-      "sourceId": "task_171073",
-      "targetId": "task_170746",
-      "inputName": "activate",
-      "outputName": "error"
-    },
-    {
-      "id": "edd8fc1c-ec7b-4096-8bdd-9069a7000fa9",
-      "sourceId": "task_171073",
-      "targetId": "task_170746",
+      "id": "2ea9862e-3964-45fa-8bcc-d7ab8628b597",
+      "sourceId": "task_172895",
+      "targetId": "task_172779",
       "inputName": "ErrorIn",
       "outputName": "error"
     },
     {
-      "id": "c30cb3a1-2a69-4227-8f6c-708ac65b17ba",
-      "sourceId": "task_170744",
-      "targetId": "task_171073",
+      "id": "2d491e68-b099-408f-9917-4d571d58c8db",
+      "sourceId": "task_172895",
+      "targetId": "task_172779",
+      "inputName": "activate",
+      "outputName": "error"
+    },
+    {
+      "id": "f2376235-4ac0-405d-87c4-978160c4e494",
+      "sourceId": "task_172777",
+      "targetId": "task_172895",
       "inputName": "MaterialData",
       "outputName": "MaterialDataOut"
     },
     {
-      "id": "3f36c13e-822d-4368-9a40-33151a4e5525",
-      "sourceId": "task_170744",
-      "targetId": "task_170746",
+      "id": "b3334341-9943-4ad0-9c5d-71d6c932dd1a",
+      "sourceId": "task_172777",
+      "targetId": "task_172779",
       "inputName": "MaterialDataIn",
       "outputName": "MaterialDataOut"
     },
     {
-      "id": "a9dc78b2-eca8-4381-b93b-51453f5a37e3",
-      "sourceId": "task_171073",
-      "targetId": "task_170742",
+      "id": "54f7e94d-e5ab-4e35-99d1-70746bda94b0",
+      "sourceId": "task_172895",
+      "targetId": "task_172775",
       "inputName": "MaterialData",
       "outputName": "Material"
     },
     {
-      "id": "44714340-77f7-470f-96fb-a2b154487019",
-      "sourceId": "task_170744",
-      "targetId": "task_28851",
-      "inputName": "MaterialData",
-      "outputName": "MaterialDataOut"
-    },
-    {
-      "id": "abfc59f5-7312-4d3d-a8a1-ad6b3661bed6",
-      "sourceId": "task_28851",
-      "targetId": "task_171073",
+      "id": "d7467559-f29e-44f5-9310-8eb6213a4236",
+      "sourceId": "task_172777",
+      "targetId": "task_172895",
       "inputName": "RecipeName",
-      "outputName": "RecipeNameOnEquipment"
+      "outputName": "MaterialDataOut",
+      "converters": [
+        {
+          "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+          "params": {
+            "path": "Recipe.NameOnEquipment",
+            "type": 4
+          }
+        }
+      ]
     },
     {
-      "id": "3a6ec4e8-82ba-4313-8838-da7e59268b77",
-      "sourceId": "task_28851",
-      "targetId": "task_171073",
+      "id": "55050457-8132-4194-9532-248fa5073ba0",
+      "sourceId": "task_172777",
+      "targetId": "task_172895",
       "inputName": "activate",
-      "outputName": "RecipeNameOnEquipment"
+      "outputName": "activateOut"
     },
     {
-      "id": "df7cf29c-3700-430f-a09c-caa950aca98f",
-      "sourceId": "task_28851",
-      "targetId": "task_171073",
+      "id": "1070de0b-e0ff-44bb-94be-d0104dca9775",
+      "sourceId": "task_172777",
+      "targetId": "task_172895",
       "inputName": "StartProcess",
-      "outputName": "RecipeNameOnEquipment",
+      "outputName": "activateOut",
       "converters": [
         {
           "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
@@ -339,87 +295,85 @@
     "drawers": {
       "DIAGRAM": {
         "tasks": {
-          "task_170742": {
+          "task_172775": {
             "collapsed": false,
             "position": {
-              "x": 3292,
-              "y": 716
+              "x": 2179,
+              "y": 531
             },
             "outdated": false
           },
-          "task_170744": {
+          "task_172777": {
             "collapsed": false,
             "position": {
-              "x": 953,
-              "y": 775
+              "x": 315,
+              "y": 534
             },
             "outdated": false
           },
-          "task_170746": {
+          "task_172779": {
             "collapsed": false,
             "position": {
-              "x": 2771,
-              "y": 1327
+              "x": 1624,
+              "y": 976
             },
             "outdated": false
           },
-          "task_171073": {
+          "task_172895": {
             "collapsed": false,
             "position": {
-              "x": 2125,
-              "y": 712
-            },
-            "outdated": false
-          },
-          "task_28851": {
-            "collapsed": false,
-            "position": {
-              "x": 1476,
-              "y": 1053
+              "x": 1121,
+              "y": 530
             },
             "outdated": false
           }
         },
         "links": {
-          "task_170746_ErrorOut-task_170742_error": {
+          "task_172779_ErrorOut-task_172775_error": {
             "vertices": []
           },
-          "7b244644-81d6-4f52-8f4d-2f118b835f17": {
+          "afa86352-664a-44de-839a-5777099e5066": {
             "vertices": []
           },
-          "04d8ecab-c241-4ed3-9e40-a22475994c0c": {
+          "2ea9862e-3964-45fa-8bcc-d7ab8628b597": {
             "vertices": []
           },
-          "edd8fc1c-ec7b-4096-8bdd-9069a7000fa9": {
+          "2d491e68-b099-408f-9917-4d571d58c8db": {
             "vertices": []
           },
-          "c30cb3a1-2a69-4227-8f6c-708ac65b17ba": {
+          "f2376235-4ac0-405d-87c4-978160c4e494": {
             "vertices": []
           },
-          "3f36c13e-822d-4368-9a40-33151a4e5525": {
+          "b3334341-9943-4ad0-9c5d-71d6c932dd1a": {
+            "vertices": [
+              {
+                "x": 857,
+                "y": 728
+              },
+              {
+                "x": 1169,
+                "y": 1198
+              }
+            ]
+          },
+          "54f7e94d-e5ab-4e35-99d1-70746bda94b0": {
             "vertices": []
           },
-          "a9dc78b2-eca8-4381-b93b-51453f5a37e3": {
+          "55050457-8132-4194-9532-248fa5073ba0": {
             "vertices": []
           },
-          "44714340-77f7-470f-96fb-a2b154487019": {
+          "d7467559-f29e-44f5-9310-8eb6213a4236": {
             "vertices": []
           },
-          "abfc59f5-7312-4d3d-a8a1-ad6b3661bed6": {
-            "vertices": []
-          },
-          "3a6ec4e8-82ba-4313-8838-da7e59268b77": {
-            "vertices": []
-          },
-          "df7cf29c-3700-430f-a09c-caa950aca98f": {
+          "1070de0b-e0ff-44bb-94be-d0104dca9775": {
             "vertices": []
           }
         },
         "notes": {},
-        "zoom": 0.7599999999999998,
+        "zoom": 0.6999999999999997,
         "pan": {
-          "x": 520,
-          "y": 392
+          "x": 220.5,
+          "y": 371
         }
       }
     }
