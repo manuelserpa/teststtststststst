@@ -174,7 +174,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                         materialCollection = DeeActionHelper.GetInputItem<IMaterialCollection>(Input, Navigo.Common.Constants.MaterialCollection);
                         foreach (IMaterial material in materialCollection)
                         {
-                            DeeContextHelper.SetContextParameter("MaterialPathFrom", GetMaterialOriginPath(material));
+                            DeeContextHelper.SetContextParameter("MaterialPathFrom", GetMaterialSourcePath(material));
                         }
                         return Input;
                     }
@@ -204,7 +204,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
 
                 // Get stdTo key header message value
                 string pathTo = string.Empty;
-                pathTo = GetMaterialOriginPath(material);
+                pathTo = GetMaterialSourcePath(material);
 
                 // Get stdFrom key header message value
                 string pathFrom = string.Empty;
@@ -231,7 +231,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 };
             }
 
-            string GetMaterialOriginPath(IMaterial material)
+            string GetMaterialSourcePath(IMaterial material)
             {
                 string materialPath = string.Empty;
 
