@@ -44,8 +44,8 @@
     "6": {
       "LookUp Table": "CustomTransactions",
       "Lookup Table Value Parent": "",
-      "Lookup Table Value": "MaterialMoveNextPost",
-      "Lookup Table Value Description": "Material MoveNext Post Action",
+      "Lookup Table Value": "MaterialMoveNext",
+      "Lookup Table Value Description": "Material MoveNext Action",
       "Lookup Table IsEnabled": "Yes"
     },
     "7": {
@@ -95,13 +95,6 @@
       "Lookup Table Value Parent": "",
       "Lookup Table Value": "ContainerAssociation",
       "Lookup Table Value Description": "Container Association",
-      "Lookup Table IsEnabled": "Yes"
-    },
-    "14": {
-      "LookUp Table": "CustomTransactions",
-      "Lookup Table Value Parent": "",
-      "Lookup Table Value": "MaterialMoveNextPre",
-      "Lookup Table Value Description": "Material MoveNext Pre Action",
       "Lookup Table IsEnabled": "Yes"
     }
   },
@@ -255,7 +248,7 @@
       "IsEnabled": "Yes"
     },
     "6": {
-      "Transaction": "MaterialMoveNextPost",
+      "Transaction": "MaterialMoveNext",
       "IsEnabled": "Yes"
     },
     "7": {
@@ -284,10 +277,6 @@
     },
     "13": { 
       "Transaction": "ContainerAssociation",
-      "IsEnabled": "Yes"
-    },
-    "14": {
-      "Transaction": "MaterialMoveNextPre",
       "IsEnabled": "Yes"
     }
   },
