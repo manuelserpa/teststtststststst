@@ -68,7 +68,7 @@
       },
       "settings": {
         "automationWorkflow": {
-          "DisplayName": "CreateProcessJob_01_CreateJob",
+          "DisplayName": "MultiCreateProcessJob_01_MultiCreateJob",
           "IsShared": false
         },
         "executeWhenAllInputsDefined": false,
@@ -100,8 +100,8 @@
             }
           }
         ],
-        "___cmf___name": "Execute Create Process Job",
-        "___cmf___description": "CreateProcessJob_01_CreateJob"
+        "___cmf___name": "Create Process Job",
+        "___cmf___description": "MultiCreateProcessJob_01_MultiCreateJob"
       }
     },
     {
@@ -147,7 +147,8 @@
             }
           }
         ],
-        "___cmf___name": "Create Control Job"
+        "___cmf___name": "Create Control Job",
+        "___cmf___description": "CreateControlJob_01_CreateJob"
       }
     },
     {
@@ -248,6 +249,155 @@
         "executionExpirationInMilliseconds": 0,
         "___cmf___name": "Code"
       }
+    },
+    {
+      "id": "task_12324",
+      "reference": {
+        "name": "errorMessage",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+          "version": "2.0.0"
+        }
+      },
+      "settings": {
+        "message": "",
+        "errorCodeToEmit": "StartCommandFailed",
+        "errorNumber": "1",
+        "clearInputs": true,
+        "mode": "MultipleInputs",
+        "isCustomFormat": true,
+        "messageFormat": "Process failed for Material  ${MaterialName} with Error ${Error}",
+        "inputs": [
+          {
+            "name": "MaterialName",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            },
+            "defaultValue": "-"
+          },
+          {
+            "name": "Error",
+            "valueType": {
+              "friendlyName": "Error",
+              "type": 10,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null
+            }
+          }
+        ],
+        "___cmf___name": "Create Error Message",
+        "systemOfOrigin": "EI"
+      }
+    },
+    {
+      "id": "task_12326",
+      "reference": {
+        "name": "workflow",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "9.1.0-202209072"
+        }
+      },
+      "settings": {
+        "automationWorkflow": {
+          "DisplayName": "ErrorHandling",
+          "IsShared": true,
+          "Name": "ErrorHandling"
+        },
+        "executeWhenAllInputsDefined": false,
+        "contextsExpirationInMilliseconds": 60000,
+        "executionExpirationInMilliseconds": 1200000,
+        "inputs": [
+          {
+            "name": "Error",
+            "valueType": {
+              "type": 10,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            }
+          },
+          {
+            "name": "ErrorCode",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            }
+          },
+          {
+            "name": "ErrorText",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            }
+          },
+          {
+            "name": "ResourceName",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            }
+          },
+          {
+            "name": "MaterialData",
+            "valueType": {
+              "friendlyName": "MaterialData",
+              "type": 10,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null
+            }
+          },
+          {
+            "name": "ContainerData",
+            "valueType": {
+              "friendlyName": "ContainerData",
+              "type": 10,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "name": "Error",
+            "valueType": {
+              "friendlyName": "Error",
+              "type": 10,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null
+            }
+          }
+        ],
+        "___cmf___name": "Workflow",
+        "___cmf___color": "#ff0000"
+      }
     }
   ],
   "converters": [
@@ -288,6 +438,16 @@
         "package": {
           "name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
           "version": "2.0.0"
+        }
+      }
+    },
+    {
+      "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToString",
+      "reference": {
+        "name": "anyToString",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "9.1.0-202209072"
         }
       }
     }
@@ -371,16 +531,105 @@
       "targetId": "task_9850",
       "inputName": "containerName",
       "outputName": "$CarrierID"
+    },
+    {
+      "id": "task_12324_errorCode-task_12326_ErrorCodeIn",
+      "sourceId": "task_12324",
+      "targetId": "task_12326",
+      "inputName": "ErrorCodeIn",
+      "outputName": "errorCode",
+      "converters": []
+    },
+    {
+      "id": "task_12324_errorText-task_12326_ErrorTextIn",
+      "sourceId": "task_12324",
+      "targetId": "task_12326",
+      "inputName": "ErrorTextIn",
+      "outputName": "errorText",
+      "converters": []
+    },
+    {
+      "id": "task_12324_errorCode-task_12326_activate",
+      "sourceId": "task_12324",
+      "targetId": "task_12326",
+      "inputName": "activate",
+      "outputName": "errorCode",
+      "converters": []
+    },
+    {
+      "id": "02809227-b340-4ce4-b56e-efa6ccfe6cc5",
+      "sourceId": "task_9850",
+      "targetId": "task_12324",
+      "inputName": "MaterialNameIn",
+      "outputName": "material",
+      "converters": [
+        {
+          "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+          "params": {
+            "path": "MaterialName",
+            "type": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "6edd3f9f-d9d9-48b8-be57-da70c34cd077",
+      "sourceId": "task_26211",
+      "targetId": "task_12324",
+      "inputName": "ErrorIn",
+      "outputName": "error"
+    },
+    {
+      "id": "ebcbdd45-2e9b-41a8-af11-c0bc23c5ce40",
+      "sourceId": "task_26213",
+      "targetId": "task_12324",
+      "inputName": "ErrorIn",
+      "outputName": "error"
+    },
+    {
+      "id": "f0cf27c9-2598-470f-ae1b-296de6e33853",
+      "sourceId": "task_26213",
+      "targetId": "task_12324",
+      "inputName": "activate",
+      "outputName": "error"
+    },
+    {
+      "id": "8aa2dcca-b8ae-456b-8ca0-04053b5f7d40",
+      "sourceId": "task_26211",
+      "targetId": "task_12324",
+      "inputName": "activate",
+      "outputName": "error"
     }
   ],
   "layout": {
     "general": {
       "color": "#00ff40",
-      "notes": []
+      "notes": [
+        {
+          "id": "note_13683",
+          "name": "Track In - Create Process Job",
+          "value": "<p><strong>What it does:</strong></p><p>Creates Process Job</p><ul></ul><p><strong>Note:</strong></p><p>Workflow executed on this task might have to be customized;</p><ul>&nbsp;</ul><p><strong>How to use it:</strong></p><ol><li>Pass Material Data to the MaterialData input of the of workflow;</li><li>Activate after executing the recipe validation;</li></ol>",
+          "color": "#ffffa5"
+        },
+        {
+          "id": "note_14367",
+          "name": "Track In - Create Control Job",
+          "value": "<p><strong>What it does:</strong></p><p>Creates Control Job</p><ul></ul><p><strong>Note:</strong></p><p>Workflow executed on this task might have to be customized;</p><ul>&nbsp;</ul><p><strong>How to use it:</strong></p><ol><li>Pass Material Data to the MaterialData input of the of workflow;</li><li>Activate after creating Process Job;</li></ol>",
+          "color": "#ffffa5"
+        }
+      ]
     },
     "drawers": {
       "DIAGRAM": {
         "tasks": {
+          "task_12324": {
+            "collapsed": false,
+            "position": {
+              "x": 2365,
+              "y": 1191
+            },
+            "outdated": false
+          },
           "task_41812": {
             "collapsed": false,
             "position": {
@@ -428,6 +677,14 @@
               "y": 879
             },
             "outdated": false
+          },
+          "task_12326": {
+            "collapsed": false,
+            "position": {
+              "x": 2879,
+              "y": 1200
+            },
+            "outdated": false
           }
         },
         "links": {
@@ -463,13 +720,67 @@
           },
           "577ec853-f24d-4f5a-b34a-0d7139214f44": {
             "vertices": []
+          },
+          "task_12324_errorCode-task_12326_ErrorCodeIn": {
+            "vertices": []
+          },
+          "task_12324_errorText-task_12326_ErrorTextIn": {
+            "vertices": []
+          },
+          "task_12324_errorCode-task_12326_activate": {
+            "vertices": []
+          },
+          "6edd3f9f-d9d9-48b8-be57-da70c34cd077": {
+            "vertices": [
+              {
+                "x": 2164,
+                "y": 1289
+              }
+            ]
+          },
+          "ebcbdd45-2e9b-41a8-af11-c0bc23c5ce40": {
+            "vertices": []
+          },
+          "f0cf27c9-2598-470f-ae1b-296de6e33853": {
+            "vertices": []
+          },
+          "8aa2dcca-b8ae-456b-8ca0-04053b5f7d40": {
+            "vertices": [
+              {
+                "x": 2104,
+                "y": 1385
+              }
+            ]
+          },
+          "02809227-b340-4ce4-b56e-efa6ccfe6cc5": {
+            "vertices": [
+              {
+                "x": 1572,
+                "y": 1211
+              }
+            ]
           }
         },
-        "notes": {},
+        "notes": {
+          "note_13683": {
+            "collapsed": false,
+            "position": {
+              "x": 1378,
+              "y": 528
+            }
+          },
+          "note_14367": {
+            "collapsed": false,
+            "position": {
+              "x": 1861,
+              "y": 547
+            }
+          }
+        },
         "zoom": 0.4999999999999996,
         "pan": {
           "x": 175.5,
-          "y": 437.5
+          "y": 264
         }
       }
     }
