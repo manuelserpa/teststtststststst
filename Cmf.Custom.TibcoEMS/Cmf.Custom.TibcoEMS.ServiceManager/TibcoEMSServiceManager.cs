@@ -79,10 +79,10 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
 
             TibcoEMSUtilities.InitialConfigurations();
 
-            //this.TibcoConnection = TibcoEMSUtilities.CreateTibcoConnection(this.TibcoConfigs);
+            this.TibcoConnection = TibcoEMSUtilities.CreateTibcoConnection(this.TibcoConfigs);
 
             // Connect to Tibco
-            //this.TibcoConnection.Start();
+            this.TibcoConnection.Start();
 
             // Create Tibco session and associate to the connection 
             this.Logger.LogInformation("Creating Tibco Session...");
