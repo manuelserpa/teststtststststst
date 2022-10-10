@@ -209,7 +209,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 {
                     materialCollection = DeeContextHelper.GetContextParameter("MaterialsPre") as IMaterialCollection;
 
-                    pathFrom = GetMaterialOriginPath(materialCollection.FirstOrDefault(f => f.Id == material.Id));
+                    pathFrom = GetMaterialSourcePath(materialCollection.FirstOrDefault(f => f.Id == material.Id));
                 }
 
                 // Get stdProductType key header message value
