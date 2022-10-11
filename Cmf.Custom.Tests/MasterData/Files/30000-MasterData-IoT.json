@@ -1251,7 +1251,7 @@
     "28": {
       "AutomationController": "DISCODFD6363HCController",
       "AutomationManager": "DISCODFD6363HC",
-      "DriverName": "FileRawDriver",
+      "DriverName": "FileDriver",
       "EntityName": "5FETR1.FILE"
     }
   }
