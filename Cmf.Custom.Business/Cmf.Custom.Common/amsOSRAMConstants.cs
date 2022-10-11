@@ -1171,9 +1171,29 @@
         /// </summary>
         public const string Type261 = "261";
 
+        /// <summary>
+        /// ERP web service endpoint configuration path
+        /// </summary>
+        public const string ERPWebServiceEndpointConfigurationPath = "/amsOSRAM/ERP/WebServiceEndpoint/";
+
+        /// <summary>
+        /// ERP notification distributaion list configuration path
+        /// </summary>
+        public const string ERPWebServiceDistributionListConfigurationPath = "/amsOSRAM/ERP/DistributionList/";
+
+        /// <summary>
+        /// ERP credentials username configuration path
+        /// </summary>
+        public const string ERPCredentialsUsernameConfigurationPath = "/amsOSRAM/ERP/Credentials/Username/";
+
+        /// <summary>
+        /// ERP credentials password configuration path
+        /// </summary>
+        public const string ERPCredentialsPasswordConfigurationPath = "/amsOSRAM/ERP/Credentials/Password/";
+
         #endregion
 
-        #region
+        #region Smart Tables
 
         /// <summary>
         /// smartTable NotificationTitleMessage Property

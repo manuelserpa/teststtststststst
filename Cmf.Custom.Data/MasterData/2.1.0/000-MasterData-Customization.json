@@ -5,6 +5,32 @@
       "Value": "<GT>CustomTibcoEMSGatewayResolver"
     }
   },
+  "<SM>Config": {
+    "1": {
+      "ParentPath": "/amsOSRAM/ERP/",
+      "Name": "WebServiceEndpoint",
+      "Value": "",
+      "ValueType": "String"
+    },
+    "2": {
+      "ParentPath": "/amsOSRAM/ERP/",
+      "Name": "DistributionList",
+      "Value": "",
+      "ValueType": "String"
+    },
+    "3": {
+      "ParentPath": "/amsOSRAM/ERP/Credentials/",
+      "Name": "Username",
+      "Value": "",
+      "ValueType": "String"
+    },
+    "4": {
+      "ParentPath": "/amsOSRAM/ERP/Credentials/",
+      "Name": "Password",
+      "Value": "",
+      "ValueType": "SecureString"
+    }
+  },
   "<SM>LookupTableValues": {
     "1": {
       "LookUp Table": "CustomTransactions",
@@ -154,6 +180,13 @@
       "Classification": ""
     },
     "2": {
+      "Action": "CustomSendProcessMessage",
+      "Description": "DEE Action that handles Integration Entries for Good Issues and to send to SAP WebService.",
+      "CodeFileRelativePath": "Integrations//CustomSendProcessMessage.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "3": {
       "Action": "CustomDockStoreIoT",
       "Description": "Action responsible for docking or storing a container from IoT",
       "CodeFileRelativePath": "Automation//CustomDockStoreIoT.cs",

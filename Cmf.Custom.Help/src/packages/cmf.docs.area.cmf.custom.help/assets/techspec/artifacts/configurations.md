@@ -9,7 +9,7 @@ The following table describes the configuration entries created.
 | GenericRequestTimeout          | /Cmf/Custom/Automation/GenericRequestTimeout/    | Int32        | 30000                          | Generic IoT Request Timeout in milliseconds        |
 | TrackInTimeout                 | /Cmf/Custom/Automation/TrackInTimeout/           | Int32        | 60000                          | TrackIn IoT Request Timeout in milliseconds        |
 | GoodsIssue                     | /Cmf/Custom/ERP/MovementType/GoodsIssue          | String       | 261                            |                                                    |
-| Space                          | //Protocol/Space                         | String       | Empty                          | Default Protocol when sending information to Space |
+| Space                          | /amsOSRAM/Protocol/Space                         | String       | Empty                          | Default Protocol when sending information to Space |
 | Active                         | /amsOSRAM/FDC/Active/                            | Boolean      | True                           | Enables the Onto FDC integration                   |
 | Mandatory                      | /amsOSRAM/FDC/Mandatory/                         | Boolean      | False                          | FDC mandatory                                      |
 | Server                         | /amsOSRAM/FDC/Server/                            | String       | lnx-klm37.int.osram-light.com  | FDC server                                         |
