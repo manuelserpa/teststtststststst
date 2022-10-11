@@ -1383,7 +1383,8 @@
       "DefaultCalendar": "General",
       "TerminateOnShip": "",
       "Site": "Regensburg",
-      "Shipping Facilities": ""
+      "Shipping Facilities": "",
+      "FacilityCode": "RegensburgFacilityCode"
     },
     "2": {
       "Name": "Regensburg Warehouse",

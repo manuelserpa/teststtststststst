@@ -38551,6 +38551,21 @@ export declare namespace Cmf.Custom.amsOSRAM.Common.DataStructures {
         Inbound = 0,
         Outbound = 1
     }
+    enum CustomTransactionTypes {
+        MaterialCreate = 0,
+        MaterialTerminate = 1,
+        MaterialDispatch = 2,
+        MaterialTrackIn = 3,
+        MaterialTrackOut = 4,
+        MaterialMoveNext = 5,
+        MaterialSplit = 6,
+        MaterialMerge = 7,
+        MaterialLoss = 8,
+        MaterialBonus = 9,
+        MaterialHold = 10,
+        MaterialRelease = 11,
+        ContainerAssociation = 12
+    }
 }
 export declare namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects {
     class MaterialInInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {

@@ -21,18 +21,18 @@
         public string Rule { get; set; }
 
         /// <summary>
-        /// QueueMessage
+        /// IsToQueueMessage
         /// </summary>
-        public bool QueueMessage { get; set; }
+        public bool IsQueue { get; set; }
 
         /// <summary>
-        /// CompressMessage
+        /// IsToCompressMessage
         /// </summary>
-        public bool CompressMessage { get; set; }
+        public bool IsToCompress { get; set; }
 
         /// <summary>
-        /// TextMessage
+        /// IsTextMessage
         /// </summary>
-        public bool TextMessage { get; set; }
+        public bool IsTextMessage { get; set; }
     }
 }
