@@ -643,6 +643,8 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
             });
             receivedPPSelectCommand = false;
 
+            Thread.Sleep(500);
+
             switch (LoadPortNumber)
             {
                 case 1:
@@ -731,7 +733,10 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
 
             base.Equipment.Variables["WAFER_ID"] = wafer.Name;
             base.Equipment.Variables["LOT_ID"] = wafer.ParentMaterial.Name;
-            base.Equipment.Variables["WaferNo"] = "";
+
+            var lpId = LoadPortNumber == 1 ? "A" : "B";
+            
+            base.Equipment.Variables["WaferNo"] = lpId + MESScenario.ContainerScenario.Entity.ContainerMaterials.Where(x => x.Name.Contains(wafer.Name)).FirstOrDefault().Position;
 
             ////// Trigger event
             base.Equipment.SendMessage("WaferStarted", null);
@@ -748,7 +753,10 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
 
             base.Equipment.Variables["WAFER_ID"] = wafer.Name;
             base.Equipment.Variables["LOT_ID"] = wafer.ParentMaterial.Name;
-            base.Equipment.Variables["WaferNo"] = "";
+
+            var lpId = LoadPortNumber == 1 ? "A" : "B";
+
+            base.Equipment.Variables["WaferNo"] = lpId + MESScenario.ContainerScenario.Entity.ContainerMaterials.Where(x => x.Name.Contains(wafer.Name)).FirstOrDefault().Position;
 
             ////// Trigger event
             base.Equipment.SendMessage("WaferComplete", null);
