@@ -1,37 +1,6 @@
 {
 	"tasks": [
 		{
-			"id": "task_6988",
-			"reference": {
-				"name": "retrieve",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "9.1.0-202209072"
-				}
-			},
-			"settings": {
-				"_retrieveOnValueChange": false,
-				"_emitInNewContext": false,
-				"_outputs": [
-					{
-						"name": "Resource",
-						"identifier": "Generic_ResourceName",
-						"defaultValue": "-",
-						"valueType": {
-							"name": "",
-							"friendlyName": "",
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null
-						}
-					}
-				],
-				"___cmf___name": "Retrieve Data",
-				"___cmf___color": "#c0c0c0"
-			}
-		},
-		{
 			"id": "task_127417",
 			"reference": {
 				"name": "workflow",
@@ -203,6 +172,75 @@
 				"___cmf___description": "CassetteComplete (852)"
 			},
 			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_3244",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "CassetteUnload_01_ExecuteCommand",
+					"IsShared": false
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "CarrierId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"friendlyName": "LoadPort",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "CarrierId",
+						"valueType": {
+							"friendlyName": "CarrierId",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Internal Workflow",
+				"___cmf___description": "CassetteUnload_01_ExecuteCommand"
+			}
 		}
 	],
 	"converters": [
@@ -261,6 +299,33 @@
 			"targetId": "task_127417",
 			"inputName": "activate",
 			"outputName": "$LOT_ID"
+		},
+		{
+			"id": "234fa344-4d56-4f95-a498-8a552ac86159",
+			"sourceId": "task_127417",
+			"targetId": "task_3244",
+			"inputName": "LoadPortIn",
+			"outputName": "MaterialDataObjectsOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "LoadPortPosition",
+						"type": 4
+					}
+				},
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		},
+		{
+			"id": "37385e2b-7b3e-4aef-b090-4ef4a5f96c19",
+			"sourceId": "task_127417",
+			"targetId": "task_3244",
+			"inputName": "activate",
+			"outputName": "success"
 		}
 	],
 	"layout": {
@@ -278,27 +343,27 @@
 		"drawers": {
 			"DIAGRAM": {
 				"tasks": {
-					"task_6988": {
-						"collapsed": false,
-						"position": {
-							"x": 1608,
-							"y": 1909
-						},
-						"outdated": false
-					},
 					"task_127417": {
 						"collapsed": false,
 						"position": {
-							"x": 1134,
-							"y": 301
+							"x": 1165,
+							"y": 854
 						},
 						"outdated": false
 					},
 					"task_75124": {
 						"collapsed": false,
 						"position": {
-							"x": 494.3396226415092,
-							"y": 320.75471698113193
+							"x": 441,
+							"y": 858
+						},
+						"outdated": false
+					},
+					"task_3244": {
+						"collapsed": false,
+						"position": {
+							"x": 1825,
+							"y": 1015
 						},
 						"outdated": false
 					}
@@ -309,21 +374,27 @@
 					},
 					"8932592f-21a6-41fb-9fb3-d134e409137f": {
 						"vertices": []
+					},
+					"37385e2b-7b3e-4aef-b090-4ef4a5f96c19": {
+						"vertices": []
+					},
+					"234fa344-4d56-4f95-a498-8a552ac86159": {
+						"vertices": []
 					}
 				},
 				"notes": {
 					"note_60654": {
 						"collapsed": false,
 						"position": {
-							"x": 1631,
-							"y": 74
+							"x": 98,
+							"y": 688
 						}
 					}
 				},
-				"zoom": 0.6600000000000004,
+				"zoom": 0.55,
 				"pan": {
-					"x": 300,
-					"y": 76.25
+					"x": 45.650000000000006,
+					"y": 323.40000000000003
 				}
 			}
 		}

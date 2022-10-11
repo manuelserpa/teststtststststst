@@ -21,6 +21,7 @@ using Cmf.Custom.Tests.IoT.Tests.Common;
 using Cmf.Foundation.BusinessObjects.SmartTables;
 using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 using Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader;
+using cmConnect.TestFramework.Common.Interfaces;
 
 namespace amsOSRAMEIAutomaticTests.OmegaPlasma
 {
@@ -62,6 +63,7 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
         public bool recievedStartCommand = false;
         public bool recievedClampPodCommand = false;
         public bool recievedLoadPodCommand = false;
+        public bool recievedUnloadPodCommand = false;
         public bool receivedPPSelectCommand = false;
 
 
@@ -108,6 +110,7 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
             recievedStartCommand = false;
             recievedClampPodCommand = false;
             recievedLoadPodCommand = false;
+            recievedUnloadPodCommand = false;
             receivedPPSelectCommand = false;
 
             proceedWithCarriersReceived = false;
@@ -500,17 +503,29 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
                     break;
             }
 
-            var slotMap = new int[13];
+            var slotMap = new SecsItem();
+            slotMap.SetTypeToList();
             // scenario.ContainerScenario.Entity
             if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
             {
                 for (int i = 0; i < 13; i++)
                 {
-                    slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 1 : 0;
+                    var temp = new SecsItem();
+
+                    if (MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1))
+                    {
+                        temp.U1 = new byte[] { 0x01 };
+                    }
+                    else 
+                    {
+                        temp.U1 = new byte[] { 0x00 };
+                    }
+
+                    slotMap.Add(temp);
                 }
             }
 
-            SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
+            //SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
             
             TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve LOAD_POD command", () => {
                 return recievedLoadPodCommand;
@@ -518,15 +533,57 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
 
             recievedLoadPodCommand = false;
 
-            base.Equipment.Variables["SLOT_MAP"] =  slotMapDV;
-            base.Equipment.Variables["PORT_ID"] = loadPortToSet;
+            SecsItem outerList = new SecsItem(); 
+            outerList.Add( slotMap );
+
+            base.Equipment.Variables["SLOT_MAP"] = outerList;
+            base.Equipment.Variables["PORT_ID"] = new SecsItem() { U1 = new byte[] { (byte)loadPortToSet } };
 
             // Trigger event
-            base.Equipment.SendMessage(String.Format($"SlotMapRead"), null);
+            base.Equipment.SendMessage(sendCustomMessage(String.Format($"SlotMapRead")) , null);
 
             ValidatePersistenceContainerExists(loadPortToSet);
         }
 
+
+        private SecsTransaction sendCustomMessage(string messageName) {
+            IEvent @event = base.Equipment.Events[messageName];
+            SecsTransaction secsTransaction = base.Equipment.Driver.Library.GetTransaction("S6F11").Duplicate();
+
+            secsTransaction.Primary.Item.GetChildList()[0].U4 = new uint[] { 1 };
+
+            secsTransaction.Primary.Item.GetChildList()[1].U4 = new uint[] { uint.Parse(@event.DataItemId) };
+
+            SecsItem secsItem = secsTransaction.Primary.Item.GetChildList()[2];
+            secsItem.Clear();
+            foreach (IReport report in @event.Reports)
+            {
+                SecsItem secsItem2 = new SecsItem();
+                secsItem2.SetTypeToList();
+                SecsItem secsItem3 = new SecsItem();
+                secsItem3.U4 = new uint[] { uint.Parse(report.DataItemId) };
+                secsItem2.Add(secsItem3);
+                SecsItem secsItem4 = new SecsItem();
+                secsItem4.SetTypeToList();
+                
+                foreach (IVariable variable in report.Variables)
+                {
+                    if (base.Equipment.Variables.ContainsKey(variable.AbstractName))
+                    {
+                        secsItem4.Add(base.Equipment.Variables[variable.AbstractName] as SecsItem);
+                    }
+                }
+            
+                secsItem2.Add(secsItem4);
+
+                secsItem.Add(secsItem2);
+            }
+
+            return secsTransaction;
+        }            
+
+
+        
 
 
         public override bool CarrierOut(CustomMaterialScenario scenario)
@@ -538,10 +595,10 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
             switch (LoadPortNumber)
             {
                 case 1:
-                    base.Equipment.SendMessage("DoorOpen1", null);
+                    base.Equipment.SendMessage("VCEAUnloadComplete", null);
                     break;
                 case 2:
-                    base.Equipment.SendMessage("DoorOpen2", null);
+                    base.Equipment.SendMessage("VCEBUnloadComplete", null);
                     break;
 
                 default:
@@ -556,10 +613,20 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
             base.Equipment.Variables["PORT_ID"] = LoadPortNumber;
 
             // Trigger event
-            base.Equipment.SendMessage(String.Format($"MaterialRemoved"), null);
+            switch (LoadPortNumber)
+            {
+                case 1:
+                    base.Equipment.SendMessage("SMIFPodAbsent1", null);
+                    break;
+                case 2:
+                    base.Equipment.SendMessage("SMIFPodAbsent2", null);
+                    break;
 
-            Thread.Sleep(200);
+                default:
+                    break;
+            }
 
+            ValidateLoadPortState(scenario, LoadPortStateModelStateEnum.ReadyToLoad.ToString());
 
             return true;
         }
@@ -587,6 +654,8 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
                 return receivedPPSelectCommand;
             });
             receivedPPSelectCommand = false;
+
+            Thread.Sleep(500);
 
             switch (LoadPortNumber)
             {
@@ -676,7 +745,10 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
 
             base.Equipment.Variables["WAFER_ID"] = wafer.Name;
             base.Equipment.Variables["LOT_ID"] = wafer.ParentMaterial.Name;
-            base.Equipment.Variables["WaferNo"] = "";
+
+            var lpId = LoadPortNumber == 1 ? "A" : "B";
+            
+            base.Equipment.Variables["WaferNo"] = lpId + MESScenario.ContainerScenario.Entity.ContainerMaterials.Where(x => x.Name.Contains(wafer.Name)).FirstOrDefault().Position;
 
             ////// Trigger event
             base.Equipment.SendMessage("WaferStarted", null);
@@ -693,7 +765,10 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
 
             base.Equipment.Variables["WAFER_ID"] = wafer.Name;
             base.Equipment.Variables["LOT_ID"] = wafer.ParentMaterial.Name;
-            base.Equipment.Variables["WaferNo"] = "";
+
+            var lpId = LoadPortNumber == 1 ? "A" : "B";
+
+            base.Equipment.Variables["WaferNo"] = lpId + MESScenario.ContainerScenario.Entity.ContainerMaterials.Where(x => x.Name.Contains(wafer.Name)).FirstOrDefault().Position;
 
             ////// Trigger event
             base.Equipment.SendMessage("WaferComplete", null);
@@ -909,6 +984,12 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
             if (command == "LOAD")
             {
                 recievedLoadPodCommand = true;
+                CommandSuccess = true;
+            }
+
+            if (command == "UNLOAD")
+            {
+                recievedUnloadPodCommand = true;
                 CommandSuccess = true;
             }
             reply.Item.GetChildList()[0].Binary = new byte[] { (byte)(CommandSuccess ? 0x00 : 0x02) };
