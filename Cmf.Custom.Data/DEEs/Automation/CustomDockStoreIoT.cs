@@ -1,44 +1,6 @@
-﻿using Cmf.Custom.amsOSRAM.Common;
-using Cmf.Foundation.Common;
-using System.Collections.Generic;
-using System.Linq;
-using Cmf.Navigo.BusinessObjects.Abstractions;
-using Cmf.Foundation.Common.Abstractions;
-using System;
-using Microsoft.Extensions.DependencyInjection;
-using Cmf.Navigo.BusinessObjects;
-using Cmf.Foundation.BusinessObjects;
-
-namespace Cmf.Custom.amsOSRAM.Actions.Automation
-{
-    public class CustomDockStoreIoT : DeeDevBase
-	{
-		public override bool DeeTestCondition(Dictionary<string, object> Input)
-		{
-			//---Start DEE Condition Code---
-
-			#region Info
-
-			/* Description:
-             *     DEE Action is triggered by IoT Automation to dock or store carrier into resource.
-             *
-             * Action Groups:
-             *      None
-             *
-            */
-
-			#endregion Info
-
-			return true;
-			//---End DEE Condition Code---
-		}
-
-		public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
-		{
-			//---Start DEE Code---
-
-			// Custom
-			UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+﻿UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.DataStructures");
+UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
 
 			IContainer container = null;
 			IResource resource = null;
@@ -201,37 +163,76 @@ namespace Cmf.Custom.amsOSRAM.Actions.Automation
 						container.LoadRelations(Navigo.Common.Constants.MaterialContainer);
 
 						if (container.ContainerMaterials != null &&
-							container.ContainerMaterials.Count > 0)
+								container.ContainerMaterials.Count > 0)
 						{
-							if (resource.LoadPortType == LoadPortType.Output) // CHECK IF CONTAINER HAS CASSETTE (TODO)
+							JArray containerMaterials = new JArray();
+
+							foreach (MaterialContainer materialInContainer in container.ContainerMaterials)
 							{
-								isTransportInvalid = true;
-								break;
+								JObject slotInformation = new JObject
+								{
+									["Slot"] = materialInContainer.Position,
+									["EquipmentWaferId"] = null,
+									["MaterialWaferId"] = materialInContainer.SourceEntity.Name,
+									["ParentMaterialName"] = materialInContainer.SourceEntity.ParentMaterial?.Name ?? String.Empty
+								};
+
+								containerMaterials.Add(slotInformation);
 							}
 
-							IMaterial topMostMaterial = (container.RelationCollection[Navigo.Common.Constants.MaterialContainer][0] as IMaterialContainer).SourceEntity;
+							Input.Add("ContainerMaterials", containerMaterials.ToString());
 
-							if (topMostMaterial.TopMostMaterial != null)
-							{
-								topMostMaterial = topMostMaterial.TopMostMaterial;
-							}
+							// var parentMaterials = container.ContainerMaterials.Where(c => c.SourceEntity.ParentMaterial != null).Select(s => s.SourceEntity.ParentMaterial).DistinctBy(m => m.Id);
 
-							if (topMostMaterial.HoldCount > 0)
-							{
-								isTransportInvalid = true;
-								break;
-							}
+							// List<MaterialData> materials = new List<MaterialData>();
 
-							IStep step = topMostMaterial.Step;
-							IResourceCollection resourcesOnStep = step.GetResourcesForStep();
-							IResource parentResource = resource.GetTopMostResource();
+							// foreach (Material material in parentMaterials)
+							// {
+							// 	material.Load();
+							// 	material.LoadChildren(1);
+							// 	material.LoadRelations(Navigo.Common.Constants.MaterialContainer);
+							// 	material.SubMaterials.LoadRelations(Navigo.Common.Constants.MaterialContainer);
 
-							if (!resourcesOnStep.Any(r => r.Name == parentResource.Name))
-							{
-								isTransportInvalid = true;
-								break;
-							}
+							// 	MaterialData materialData = new MaterialData
+							// 	{
+							// 		MaterialId = material.Id.ToString(),
+							// 		MaterialName = material.Name,
+							// 		MaterialState = material.SystemState.ToString(),
+							// 		ContainerId = container.Id.ToString(),
+							// 		ContainerName = container.Name
+							// 	};
+
+							// 	if (material.SubMaterialCount > 0)
+							// 	{
+							// 		materialData.SubMaterials = new List<MaterialData>();
+
+							// 		foreach (var subMaterial in material.SubMaterials)
+							// 		{
+							// 			MaterialData subMaterialData = new MaterialData()
+							// 			{
+							// 				MaterialId = subMaterial.Id.ToString(),
+							// 				MaterialName = subMaterial.Name,
+							// 				MaterialState = subMaterial.SystemState.ToString()
+							// 			};
+
+							// 			if (subMaterial.MaterialContainer != null &&
+							// 				subMaterial.MaterialContainer.Count > 0)
+							// 			{
+							// 				if (subMaterial.MaterialContainer.First().TargetEntity.Id == container.Id)
+							// 				{
+							// 					subMaterialData.Slot = subMaterial.MaterialContainer.First().Position.ToString();
+							// 					materialData.SubMaterials.Add(subMaterialData);
+							// 				}
+							// 			}
+							// 		}
+							// 	}
+
+							// 	materials.Add(materialData);
+							// }
+
+							// Input.Add("ContainerMaterialData", materials.ToJsonString());
 						}
+
 
 						#endregion Validate Dock
 					}
@@ -250,9 +251,3 @@ namespace Cmf.Custom.amsOSRAM.Actions.Automation
 				Input.Add("DockIsValid", !isTransportInvalid);
 			}
 
-			//---End DEE Code---
-
-			return Input;
-		}
-	}
-}
