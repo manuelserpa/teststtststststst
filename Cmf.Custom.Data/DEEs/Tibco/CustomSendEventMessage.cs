@@ -230,7 +230,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 {
                     Dictionary<string, string> materialsSourcePath = DeeContextHelper.GetContextParameter("MaterialsPreSourcePath") as Dictionary<string, string>;
 
-                    pathFrom = materialsSourcePath.FirstOrDefault(f => f.Key.Equals(material.Name, StringComparison.InvariantCultureIgnoreCase)).Value;
+                    pathFrom = materialsSourcePath.GetValueOrDefault(material.Name);
                 }
 
                 // Get stdProductType key header message value
