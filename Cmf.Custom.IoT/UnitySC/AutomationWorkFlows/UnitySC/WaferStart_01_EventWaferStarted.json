@@ -211,14 +211,14 @@
             "outputType": "Value"
           }
         ],
-        "___cmf___name": "On Equipment Event",
+        "___cmf___name": "OEV (900110)",
         "_events": [
           {
             "$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
             "Name": "E90_Subst_NeedsProcessing2InProcess"
           }
         ],
-        "___cmf___description": "E90_Subst_NeedsProcessing2InProcess (900110)"
+        "___cmf___description": "E90_Subst_NeedsProcessing2InProcess"
       },
       "driver": "SecsGemEquipment"
     }
@@ -320,10 +320,10 @@
             }
           }
         },
-        "zoom": 0.39999999999999963,
+        "zoom": 0.4499999999999996,
         "pan": {
-          "x": 66.4000015258789,
-          "y": 130.79998779296875
+          "x": 74.70000076293945,
+          "y": 147.14999389648438
         }
       }
     }

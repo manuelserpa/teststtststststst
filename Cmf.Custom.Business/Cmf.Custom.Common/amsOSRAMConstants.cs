@@ -135,6 +135,21 @@
         /// </summary>
         public static string GenericTableCustomProductionLineConversionFacilityProperty = "Facility";
 
+        /// <summary>
+        /// Custom Transactions to Tibco table name 
+        /// </summary>
+        public static string GenericTableCustomTransactionsToTibco = "CustomTransactionsToTibco";
+
+        /// <summary>
+        /// Custom Transactions to Tibco table Transaction property 
+        /// </summary>
+        public static string GenericTableCustomTransactionsToTibcoTransactionProperty = "Transaction";
+
+        /// <summary>
+        /// Custom Transactions to Tibco table IsEnabled property 
+        /// </summary>
+        public static string GenericTableCustomTransactionsToTibcoIsEnabledProperty = "IsEnabled";
+
         #endregion
 
         #region LookupTables
@@ -188,7 +203,6 @@
         /// </summary>
         public static string ResourceAttributeAllowDownloadRecipeAtTrackIn = "AllowDownloadRecipeAtTrackIn";
 
-
         /// <summary>
         /// Container Attribute Map Container Needed for sorter
         /// </summary>
@@ -233,6 +247,16 @@
         /// Product Attribute ProductionLevel
         /// </summary>
         public static string ProductAttributeProductionLevel = "ProductionLevel";
+
+        /// <summary>
+        /// Product Attribute SAPProductType
+        /// </summary>
+        public static string ProductAttributeSAPProductType = "SAPProductType";
+
+        /// <summary>
+        /// Facility Code Attribute
+        /// </summary>
+        public static string CustomFacilityCodeAttribute = "FacilityCode";
 
         #endregion
 
@@ -1267,6 +1291,17 @@
         /// Tibco Password config path
         /// </summary>
         public const string TibcoConfigPasswordPath = "/amsOSRAM/TibcoEMS/Password";
+
+        /// <summary>
+        /// Tibco subject for report Lot changes
+        /// </summary>
+        public const string CustomLotChange = "CustomLotChange";
+
+        /// <summary>
+        /// Tibco subject for report Equipment Status changes
+        /// </summary>
+        public const string CustomEquipmentStatusChange = "CustomEquipmentStatusChange";
+
 
         #endregion
 
