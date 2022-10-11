@@ -4,7 +4,6 @@ import * as moment from "moment";
 import { ContainerProcess } from "../model/containerProcess";
 import { ContainerData } from "../model/containerData";
 import { WaferData } from "../model/waferData"
-import { MaterialData } from "../model/materialData";
 
 @inversify.injectable()
 export class ContainerProcessHandler implements ContainerProcess {
@@ -29,8 +28,7 @@ export class ContainerProcessHandler implements ContainerProcess {
             container = await this.setContainer(containerName, loadPortPosition, null)
         }
 
-        let wafer: WaferData;
-        wafer = await this.getWafer(container, slot, equipmentWaferId, null);
+        const wafer = await this.getWafer(container, slot, equipmentWaferId, null);
 
         if (wafer) {
             this._logger.error("");
@@ -61,22 +59,21 @@ export class ContainerProcessHandler implements ContainerProcess {
         const waferExistsByEquipmentWaferId = await this.getWafer(container, null, wafer.EquipmentWaferId, null);
 
         if (waferExistsBySlot && waferExistsByEquipmentWaferId && waferExistsBySlot.Slot !== waferExistsByEquipmentWaferId.Slot) {
-            this._logger.error("Wafer Missmatch");
-            return wafer;
+            this._logger.error(`Wafer Slot mismatch Wafer - on slot ${waferExistsBySlot.Slot} EquipmentWaferId is ${waferExistsBySlot.EquipmentWaferId}
+             and not ${waferExistsByEquipmentWaferId.EquipmentWaferId} which is on slot ${waferExistsByEquipmentWaferId.Slot}`);
+            return waferExistsBySlot;
         }
 
         if (waferExistsBySlot || waferExistsByEquipmentWaferId) {
             this.updateWaferDataOnContainer(container, wafer);
-            return wafer
+            return wafer;
         }
 
-        wafer.CreatedOn = moment().utc().valueOf().toString();
-        wafer.ModifiedOn = wafer.CreatedOn;
+        wafer = this.validateWafer(wafer);
 
         container.Slots.push(wafer);
 
         this.storeContainer(container);
-
 
         return wafer;
     }
@@ -90,24 +87,7 @@ export class ContainerProcessHandler implements ContainerProcess {
             return null;
         }
 
-        if (!wafer.Slot) {
-            wafer.Slot = null;
-        }
-        if (!wafer.EquipmentWaferId) {
-            wafer.EquipmentWaferId = null;
-        }
-        if (!wafer.MaterialWaferId) {
-            wafer.MaterialWaferId = null;
-        }
-        if (!wafer.ParentMaterialName) {
-            wafer.ParentMaterialName = null;
-        }
-        if (!wafer.CreatedOn) {
-            wafer.CreatedOn = moment().utc().valueOf().toString();
-        }
-        if (!wafer.ModifiedOn) {
-            wafer.ModifiedOn = wafer.CreatedOn;
-        }
+        wafer = this.validateWafer(wafer);
 
         container.Slots[index] = wafer;
         this.storeContainer(container);
@@ -297,7 +277,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     public async updateContainer(containerName: string,
         loadPortPosition: number,
         slotMap: object,
-        slots: WaferData[]): Promise<ContainerData> {
+        slots: WaferData[] = []): Promise<ContainerData> {
         if (this._Containers === undefined) {
             await this.InitializePersistedData();
         }
@@ -375,5 +355,27 @@ export class ContainerProcessHandler implements ContainerProcess {
                 this._Containers.push(wafer);
             }
         }
+    }
+
+    public validateWafer(wafer: WaferData): WaferData {
+        if (!wafer.Slot) {
+            wafer.Slot = null;
+        }
+        if (!wafer.EquipmentWaferId) {
+            wafer.EquipmentWaferId = null;
+        }
+        if (!wafer.MaterialWaferId) {
+            wafer.MaterialWaferId = null;
+        }
+        if (!wafer.ParentMaterialName) {
+            wafer.ParentMaterialName = null;
+        }
+        if (!wafer.CreatedOn) {
+            wafer.CreatedOn = moment().utc().valueOf().toString();
+        }
+        if (!wafer.ModifiedOn) {
+            wafer.ModifiedOn = wafer.CreatedOn;
+        }
+        return wafer;
     }
 }
