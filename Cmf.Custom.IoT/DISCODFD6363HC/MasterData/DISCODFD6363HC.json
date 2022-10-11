@@ -3282,6 +3282,14 @@
       "IsFile": "Yes",
       "Workflow": "DISCODFD6363HC/Grant_Deny_01_ExecuteCommand.json",
       "Order": "38"
+    },
+    "39": {
+      "AutomationController": "DISCODFD6363HCController",
+      "Name": "FileTransfer_01_EventReceived",
+      "DisplayName": "FileTransfer_01_EventReceived",
+      "IsFile": "Yes",
+      "Workflow": "DISCODFD6363HC/FileTransfer_01_EventReceived.json",
+      "Order": "39"
     }
   },
   "<LOOKUP>AutomationInstances": {}
