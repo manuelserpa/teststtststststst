@@ -64,7 +64,7 @@ export interface ContainerProcess {
      * @param MaterialName Material Name
      */
     updateWaferOnContainer(containerName: string, loadPortPosition: number,
-        slot: number, equipmentWaferId: string, materialWaferId: string);
+        slot: number, equipmentWaferId: string, materialWaferId: string, parentMaterialName: string);
 
     /**
      * Updates the state for a given MaterialId

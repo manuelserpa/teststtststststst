@@ -57,23 +57,66 @@ export class ContainerProcessHandler implements ContainerProcess {
             await this.InitializePersistedData();
         }
 
-        const waferExists = await this.getWafer(container, wafer.Slot, wafer.EquipmentWaferId, null);
+        const waferExistsBySlot = await this.getWafer(container, wafer.Slot, null, null);
+        const waferExistsByEquipmentWaferId = await this.getWafer(container, null, wafer.EquipmentWaferId, null);
 
-        if (waferExists) {
-            this._logger.error("");
-            return waferExists;
+        if (waferExistsBySlot && waferExistsByEquipmentWaferId && waferExistsBySlot.Slot !== waferExistsByEquipmentWaferId.Slot) {
+            this._logger.error("Wafer Missmatch");
+            return wafer;
+        }
+
+        if (waferExistsBySlot || waferExistsByEquipmentWaferId) {
+            this.updateWaferDataOnContainer(container, wafer);
+            return wafer
         }
 
         wafer.CreatedOn = moment().utc().valueOf().toString();
         wafer.ModifiedOn = wafer.CreatedOn;
+
         container.Slots.push(wafer);
+
+        this.storeContainer(container);
+
+
+        return wafer;
+    }
+
+    public async updateWaferDataOnContainer(container: ContainerData, wafer: WaferData): Promise<WaferData> {
+
+        const index = container?.Slots?.map(x => x.MaterialWaferId)?.indexOf(wafer.MaterialWaferId);
+
+        if (index === undefined || index === -1) {
+            this._logger.error("Wafer not found on container");
+            return null;
+        }
+
+        if (!wafer.Slot) {
+            wafer.Slot = null;
+        }
+        if (!wafer.EquipmentWaferId) {
+            wafer.EquipmentWaferId = null;
+        }
+        if (!wafer.MaterialWaferId) {
+            wafer.MaterialWaferId = null;
+        }
+        if (!wafer.ParentMaterialName) {
+            wafer.ParentMaterialName = null;
+        }
+        if (!wafer.CreatedOn) {
+            wafer.CreatedOn = moment().utc().valueOf().toString();
+        }
+        if (!wafer.ModifiedOn) {
+            wafer.ModifiedOn = wafer.CreatedOn;
+        }
+
+        container.Slots[index] = wafer;
         this.storeContainer(container);
 
         return wafer;
     }
 
     public async updateWaferOnContainer(containerName: string, loadPortPosition: number,
-        slot: number, equipmentWaferId: string, materialWaferId: string): Promise<WaferData> {
+        slot: number, equipmentWaferId: string, materialWaferId: string, parentMaterialName: string): Promise<WaferData> {
         if (this._Containers === undefined) {
             await this.InitializePersistedData();
         }
@@ -102,6 +145,10 @@ export class ContainerProcessHandler implements ContainerProcess {
 
         if (wafer.MaterialWaferId !== materialWaferId) {
             wafer.MaterialWaferId = materialWaferId;
+        }
+
+        if (parentMaterialName && wafer.ParentMaterialName !== parentMaterialName) {
+            wafer.ParentMaterialName = parentMaterialName;
         }
 
         this.storeContainer(container);
