@@ -1,5 +1,4 @@
-﻿using Cmf.Custom.amsOSRAM.Common;
-using Cmf.Foundation.BusinessObjects;
+﻿using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.Abstractions;
 using Cmf.Foundation.BusinessObjects.SmartTables;
 using System.Collections.Generic;
@@ -28,8 +27,6 @@ namespace Cmf.Custom.amsOSRAM.Actions.ProcessRules._2._0._0.After
             //Foundation
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.SmartTables");
 
-            //Custom
-            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
 
             // Load Smart Table
             ISmartTable integrationHandlerResolution = new SmartTable() { Name = "IntegrationHandlerResolution"};
@@ -42,7 +39,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.ProcessRules._2._0._0.After
             {
                 { "FromSystem", "MES" },
                 { "ToSystem", "ERP" },
-                { "MessageType", amsOSRAMConstants.CustomPerformConsumption }
+                { "MessageType", "CustomPerformConsumption" }
             };
 
             INgpDataSet resolveDataSet = integrationHandlerResolution.Resolve(resolveRow, false);
