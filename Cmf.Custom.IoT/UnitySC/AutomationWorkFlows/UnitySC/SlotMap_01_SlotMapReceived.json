@@ -208,11 +208,13 @@
           "",
           "        let slotMap: String = \"\";",
           "",
-          "        (<any[]>rawSlotMap.originalValue.value).forEach(slot => {",
+          "        var tempSlotMap = rawSlotMap.originalValue.value;",
+          "        for(var i = 0;  i < 13 ; i++)",
+          "        {",
           "",
-          "            slotMap += slot.value > 1 ? \"1\" : \"0\";",
+          "            slotMap += tempSlotMap[i].value > 1 ? \"1\" : \"0\";",
           "",
-          "        });",
+          "        };",
           "",
           "        return { SlotMap: slotMap, PortId: portId.originalValue.value };",
           "",
@@ -222,7 +224,7 @@
           "}",
           ""
         ],
-        "jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IHJhd1Nsb3RNYXAgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiU2xvdE1hcCIpOw0KICAgICAgICBjb25zdCBwb3J0SWQgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiUG9ydElEIik7DQogICAgICAgIGlmIChyYXdTbG90TWFwID09IG51bGwpIHsNCiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcigiRW1wdHkgc2xvdCBtYXAiKTsNCiAgICAgICAgfQ0KICAgICAgICBsZXQgc2xvdE1hcCA9ICIiOw0KICAgICAgICByYXdTbG90TWFwLm9yaWdpbmFsVmFsdWUudmFsdWUuZm9yRWFjaChzbG90ID0+IHsNCiAgICAgICAgICAgIHNsb3RNYXAgKz0gc2xvdC52YWx1ZSA+IDEgPyAiMSIgOiAiMCI7DQogICAgICAgIH0pOw0KICAgICAgICByZXR1cm4geyBTbG90TWFwOiBzbG90TWFwLCBQb3J0SWQ6IHBvcnRJZC5vcmlnaW5hbFZhbHVlLnZhbHVlIH07DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
+        "jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IHJhd1Nsb3RNYXAgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiU2xvdE1hcCIpOw0KICAgICAgICBjb25zdCBwb3J0SWQgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiUG9ydElEIik7DQogICAgICAgIGlmIChyYXdTbG90TWFwID09IG51bGwpIHsNCiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcigiRW1wdHkgc2xvdCBtYXAiKTsNCiAgICAgICAgfQ0KICAgICAgICBsZXQgc2xvdE1hcCA9ICIiOw0KICAgICAgICB2YXIgdGVtcFNsb3RNYXAgPSByYXdTbG90TWFwLm9yaWdpbmFsVmFsdWUudmFsdWU7DQogICAgICAgIGZvciAodmFyIGkgPSAwOyBpIDwgMTM7IGkrKykgew0KICAgICAgICAgICAgc2xvdE1hcCArPSB0ZW1wU2xvdE1hcFtpXS52YWx1ZSA+IDEgPyAiMSIgOiAiMCI7DQogICAgICAgIH0NCiAgICAgICAgOw0KICAgICAgICByZXR1cm4geyBTbG90TWFwOiBzbG90TWFwLCBQb3J0SWQ6IHBvcnRJZC5vcmlnaW5hbFZhbHVlLnZhbHVlIH07DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
         "inputs": [
           {
             "name": "eventRawData",
@@ -334,8 +336,8 @@
           "task_93884": {
             "collapsed": false,
             "position": {
-              "x": 1490,
-              "y": 255
+              "x": 1519,
+              "y": 258
             },
             "outdated": false
           },
@@ -350,8 +352,8 @@
           "task_15191": {
             "collapsed": false,
             "position": {
-              "x": 967,
-              "y": 253
+              "x": 992,
+              "y": 255
             },
             "outdated": false
           }
@@ -382,10 +384,10 @@
             }
           }
         },
-        "zoom": 0.8999999999999999,
+        "zoom": 1,
         "pan": {
-          "x": 127.80000305175781,
-          "y": 227.70001220703125
+          "x": 866,
+          "y": 118
         }
       }
     }

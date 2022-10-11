@@ -6,6 +6,7 @@ The following lookup tables were created to support customer requirements.
 
 | Table                     | Description       |
 | ------                    | ------            |
+| [CustomTransactions](/cmf.custom.help/techspec>artifacts>lookuptables>custom_transactions) | Lookup Table with Tibco Transactions. |
 | [CustomProductionLines](/cmf.custom.help/techspec>artifacts>lookuptables>customproductionlines) | Lookup Table with available Production Lines to use on Lot Name Generator. |
 | [Reasons Engineering to Engineering](/cmf.custom.help/techspec>artifacts>lookuptables>reasonsengineeringtoengineering) | Lookup containing the reasons for State Transition **Engineering to Engineering** |
 | [Reasons NonScheduled to NonScheduled](/cmf.custom.help/techspec>artifacts>lookuptables>reasonsnonscheduledtononscheduled) | Lookup containing the reasons for State Transition **NonScheduled to NonScheduled** |
