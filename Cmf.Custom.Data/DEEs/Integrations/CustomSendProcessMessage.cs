@@ -1,13 +1,12 @@
 ﻿using Cmf.Custom.amsOSRAM.Common;
-using Cmf.Foundation.Common;
-using System.Collections.Generic;
+using Cmf.Custom.amsOSRAM.Common.ERP;
+using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Foundation.Common;
 using Cmf.Foundation.Configuration;
 using Cmf.Foundation.Configuration.Abstractions;
-using Cmf.Foundation.BusinessObjects;
 using System;
-using Cmf.Custom.amsOSRAM.Common.ERP;
-using Namotion.Reflection;
+using System.Collections.Generic;
 
 namespace Cmf.Custom.amsOSRAM.Actions.Integrations
 {
@@ -19,23 +18,19 @@ namespace Cmf.Custom.amsOSRAM.Actions.Integrations
 
             #region Info
             /// <summary>
-            /// Summary text
-            ///     
-            /// Action Groups:
-            /// Depends On:
-            /// Is Dependency For:
-            /// Exceptions:
+            ///
+            /// DEE action is triggered by Integration Entry Handler in order to process Integration Entries.
+            /// Transaction Types need to be defined in Smart Table: IntegrationHandlerResolution
+            /// 
             /// </summary>
             #endregion
 
             IIntegrationEntry integrationEntry = amsOSRAMUtilities.GetInputItem<IIntegrationEntry>(Input, Constants.IntegrationEntry);
 
-            if (integrationEntry is null || integrationEntry.IntegrationMessage is null || integrationEntry.IntegrationMessage.Message is null || integrationEntry.IntegrationMessage.Message.Length <= 0)
-            {
-                return false;
-            }
-
-            return true;
+            return (integrationEntry != null &&
+                integrationEntry.IntegrationMessage != null &&
+                integrationEntry.IntegrationMessage.Message != null &&
+                integrationEntry.IntegrationMessage.Message.Length > 0);
 
             //---End DEE Condition Code---
         }
@@ -99,27 +94,27 @@ namespace Cmf.Custom.amsOSRAM.Actions.Integrations
             }
 
             // Fetch username
-            if(Config.TryGetConfig(amsOSRAMConstants.ERPCredentialsUsernameConfigurationPath, out IConfig usernameConfig) &&
+            if (Config.TryGetConfig(amsOSRAMConstants.ERPCredentialsUsernameConfigurationPath, out IConfig usernameConfig) &&
                 !string.IsNullOrWhiteSpace(usernameConfig.GetConfigValue<string>()))
             {
                 username = usernameConfig.GetConfigValue<string>();
             }
 
             // Fetch password
-            if(Config.TryGetConfig(amsOSRAMConstants.ERPCredentialsPasswordConfigurationPath, out IConfig passwordConfig) &&
+            if (Config.TryGetConfig(amsOSRAMConstants.ERPCredentialsPasswordConfigurationPath, out IConfig passwordConfig) &&
                 !string.IsNullOrWhiteSpace(passwordConfig.GetConfigValue<string>()))
             {
                 password = passwordConfig.GetDecryptedConfigValue();
             }
-            
+
             // Fetch distribution list to send notifications to in case of an error
-            if(Config.TryGetConfig(amsOSRAMConstants.ERPWebServiceDistributionListConfigurationPath, out IConfig distributionListConfig) &&
+            if (Config.TryGetConfig(amsOSRAMConstants.ERPWebServiceDistributionListConfigurationPath, out IConfig distributionListConfig) &&
                 !string.IsNullOrWhiteSpace(distributionListConfig.GetConfigValue<string>()))
             {
                 distributionList = distributionListConfig.GetConfigValue<string>();
             }
 
-            if(!string.IsNullOrWhiteSpace(endpointAddress.ToString()) && !string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
+            if (!string.IsNullOrWhiteSpace(endpointAddress.ToString()) && !string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
             {
                 System.ServiceModel.BasicHttpBinding binding = new System.ServiceModel.BasicHttpBinding();
                 binding.MaxBufferSize = int.MaxValue;
@@ -149,7 +144,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Integrations
                         {
                             cmfMail.SendMail();
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             Utilities.WriteLogError(string.Format("Failed sending e-mail to \"{0}\" on CustomSendProcessMessage:\n {1}", distributionList, ex.Message));
                         }
@@ -159,7 +154,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Integrations
             }
             else
             {
-                string errorMessage = $"Could not send transaction {integrationEntry.MessageType} ({integrationEntry.Name}) To SAP due to missing configuration for WebServiceEndpoint or Credentials at /Cmf/Custom/ERP/";
+                string errorMessage = $"Could not send transaction {integrationEntry.MessageType} ({integrationEntry.Name}) to SAP due to missing configuration for WebServiceEndpoint or Credentials at /amsOSRAM/ERP/";
 
                 if (!string.IsNullOrEmpty(distributionList))
                 {
@@ -168,14 +163,14 @@ namespace Cmf.Custom.amsOSRAM.Actions.Integrations
                         Subject = "Not able to process Integration Entry for SAP - missing Configuration",
                         Message = errorMessage,
                         To = distributionList,
-                        IsBodyHtml= true
+                        IsBodyHtml = true
                     };
 
                     try
                     {
                         cmfMail.SendMail();
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Utilities.WriteLogError(string.Format("Failed sending e-mail to \"{0}\" on CustomSendProcessMessage:\n {1}", distributionList, ex.Message));
                     }
@@ -183,7 +178,6 @@ namespace Cmf.Custom.amsOSRAM.Actions.Integrations
 
                 throw new Exception(errorMessage);
             }
-            // Send Goods Issue data throught amsOSRAM service
 
             //---End DEE Code---
 
