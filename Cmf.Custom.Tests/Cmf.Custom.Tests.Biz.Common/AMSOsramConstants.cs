@@ -247,6 +247,11 @@
         public static string CustomSorterLogisticalProcessLookupTable = "CustomSorterLogisticalProcess";
 
         /// <summary>
+        /// Lookup table CustomTransactions Name
+        /// </summary>
+        public static string CustomTransactionsLookupTable = "CustomTransactions";
+
+        /// <summary>
         /// Lookup table CustomSorterLogisticalProcess MapCarrier Value
         /// </summary>
         public static string CustomSorterLogisticalProcessMapCarrier = "MapCarrier";
@@ -453,6 +458,21 @@
         /// Custom Production Line Conversion table Site property 
         /// </summary>
         public static string GenericTableCustomProductionLineConversionSiteProperty = "Site";
+
+        /// <summary>
+        /// Custom Transactions to Tibco table name
+        /// </summary>
+        public static string GenericTableCustomTransactionsToTibco = "CustomTransactionsToTibco";
+
+        /// <summary>
+        /// Custom Transactions to Tibco table Transaction Property
+        /// </summary>
+        public static string GenericTableCustomTransactionsToTibcoTransactionProperty = "Transaction";
+
+        /// <summary>
+        /// Custom Transactions to Tibco table IsEnabled Property
+        /// </summary>
+        public static string GenericTableCustomTransactionsToTibcoIsEnabledProperty = "IsEnabled";
 
         #endregion GenericTables
     }

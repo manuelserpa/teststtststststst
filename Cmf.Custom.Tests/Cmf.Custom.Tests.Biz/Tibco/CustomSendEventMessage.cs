@@ -27,6 +27,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
     [TestClass]
     public class CustomSendEventMessage
     {
+        private static CustomExecutionScenario _classScenario;
         private CustomExecutionScenario _scenario;
         private List<TibcoCustomSendEventMessage> _tibcoCustomSendEventMessages;
         private static Transport _transport;
@@ -37,6 +38,22 @@ namespace Cmf.Custom.Tests.Biz.Tibco
         {
             _transport = new Transport(BaseContext.GetMessageBusTransportConfiguration());
             _transport.Start();
+
+            LookupTable lookupTable = new LookupTable();
+            lookupTable.Name = amsOSRAMConstants.CustomTransactionsLookupTable;
+
+            lookupTable.Load();
+
+            _classScenario = new CustomExecutionScenario();
+            
+            foreach (LookupTableValue lookupTableValue in lookupTable.Values)
+            {
+                _classScenario.GenericTableManager.SetGenericTableData(amsOSRAMConstants.GenericTableCustomTransactionsToTibco, new Dictionary<string, object>
+                {
+                    { amsOSRAMConstants.GenericTableCustomTransactionsToTibcoTransactionProperty, lookupTableValue.Value },
+                    { amsOSRAMConstants.GenericTableCustomTransactionsToTibcoIsEnabledProperty, true },
+                });
+            }
         }
 
         [ClassCleanup]
@@ -45,6 +62,11 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             if (_transport != null)
             {
                 _transport.Stop();
+            }
+
+            if (_classScenario != null)
+            {
+                _classScenario.GenericTableManager.TearDown();
             }
         }
 
