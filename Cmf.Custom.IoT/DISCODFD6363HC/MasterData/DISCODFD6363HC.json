@@ -2997,10 +2997,10 @@
     },
     "3": {
       "AutomationController": "DISCODFD6363HCController",
-      "Name": "Setup_File",
-      "DisplayName": "Setup_File",
+      "Name": "Setup_FileRaw",
+      "DisplayName": "Setup_FileRaw",
       "IsFile": "Yes",
-      "Workflow": "DISCODFD6363HC/Setup_File.json",
+      "Workflow": "DISCODFD6363HC/Setup_FileRaw.json",
       "Order": "3"
     },
     "4": {
