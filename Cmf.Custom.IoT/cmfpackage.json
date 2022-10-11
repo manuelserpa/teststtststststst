@@ -28,6 +28,10 @@
       "version": "2.0.0"
     },
     {
+      "id": "Cmf.Custom.IoT.FileRaw",
+      "version": "2.1.0"
+    },
+    {
       "id": "Cmf.Custom.IoT.TemplateWorkflows",
       "version": "2.0.0"
     },
