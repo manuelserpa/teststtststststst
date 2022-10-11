@@ -1,28 +1,41 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	  <TargetFramework>net6.0</TargetFramework>
-	  <OutputType>Library</OutputType>
-	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-	  <AssemblyName>Cmf.Custom.ERP.ExternalServices</AssemblyName>
-	  <RootNamespace>Cmf.Custom.ERP.ExternalServices</RootNamespace>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <OutputPath>..\..\LocalEnvironment\BusinessTier</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <OutputPath>..\Release</OutputPath>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <OutputType>Library</OutputType>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <AssemblyName>Cmf.Custom.ERP.ExternalServices</AssemblyName>
+        <RootNamespace>Cmf.Custom.ERP.ExternalServices</RootNamespace>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <OutputPath>..\..\LocalEnvironment\BusinessTier</OutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <OutputPath>..\Release</OutputPath>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Private.ServiceModel" Version="4.8.1" />
-    <PackageReference Include="System.ServiceModel.Duplex" Version="4.8.*" />
-    <PackageReference Include="System.ServiceModel.Federation" Version="4.8.*" />
-    <PackageReference Include="System.ServiceModel.Http" Version="4.8.*" />
-    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.8.*" />
-    <PackageReference Include="System.ServiceModel.Primitives" Version="4.8.1" />
-    <PackageReference Include="System.ServiceModel.Security" Version="4.8.*" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="System.Private.ServiceModel" Version="4.8.1">
+            <GeneratePathProperty>True</GeneratePathProperty>
+        </PackageReference>
+        <PackageReference Include="System.ServiceModel.Http" Version="4.8.*">
+            <GeneratePathProperty>True</GeneratePathProperty>
+        </PackageReference>
+        <PackageReference Include="System.ServiceModel.Primitives" Version="4.8.1">
+            <GeneratePathProperty>True</GeneratePathProperty>
+        </PackageReference>
+    </ItemGroup>
 
+    <Target Name="CopySystem_Private_ServiceModel" AfterTargets="Build">
+        <Copy SourceFiles="$(PkgSystem_Private_ServiceModel)\lib\netstandard2.0\System.Private.ServiceModel.dll" DestinationFolder="$(OutDir)" />
+    </Target>
+
+    <Target Name="CopySystem_ServiceModel_Http" AfterTargets="Build">
+        <Copy SourceFiles="$(PkgSystem_ServiceModel_Http)\lib\netstandard2.0\System.ServiceModel.Http.dll" DestinationFolder="$(OutDir)" />
+    </Target>
+
+    <Target Name="CopySystem_ServiceModel_Primitives" AfterTargets="Build">
+        <Copy SourceFiles="$(PkgSystem_ServiceModel_Primitives)\lib\netstandard2.0\System.ServiceModel.Primitives.dll" DestinationFolder="$(OutDir)" />
+    </Target>
 </Project>
