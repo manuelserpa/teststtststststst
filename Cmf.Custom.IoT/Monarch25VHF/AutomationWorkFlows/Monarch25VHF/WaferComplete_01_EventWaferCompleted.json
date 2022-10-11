@@ -172,6 +172,26 @@
 					"version": "9.1.0-202209072"
 				}
 			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringRemove",
+			"reference": {
+				"name": "stringRemove",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
 		}
 	],
 	"links": [
@@ -188,6 +208,27 @@
 			"targetId": "task_126394",
 			"inputName": "activate",
 			"outputName": "$LOT_ID"
+		},
+		{
+			"id": "e81f575d-ead8-4965-8611-7248f92262ba",
+			"sourceId": "task_119709",
+			"targetId": "task_126394",
+			"inputName": "SubMaterialSlotIn",
+			"outputName": "$WaferNo",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringRemove",
+					"params": {
+						"from": "Start",
+						"start": 0,
+						"count": 1
+					}
+				},
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -208,8 +249,8 @@
 					"task_126394": {
 						"collapsed": false,
 						"position": {
-							"x": 1034,
-							"y": 348
+							"x": 1047,
+							"y": 387
 						},
 						"outdated": false
 					},
@@ -228,21 +269,24 @@
 					},
 					"3239a5bf-b282-4cab-b269-151d04a75ee5": {
 						"vertices": []
+					},
+					"e81f575d-ead8-4965-8611-7248f92262ba": {
+						"vertices": []
 					}
 				},
 				"notes": {
 					"note_119482": {
 						"collapsed": false,
 						"position": {
-							"x": 1688.1355932203394,
-							"y": 94.91525423728815
+							"x": 78,
+							"y": 363
 						}
 					}
 				},
-				"zoom": 0.78,
+				"zoom": 0.7200000000000003,
 				"pan": {
-					"x": 278.29863029464855,
-					"y": 124.19204879353612
+					"x": 120.49326750757427,
+					"y": 141.63594587226441
 				}
 			}
 		}

@@ -1,7 +1,7 @@
 ﻿{
   "version": "2.1.0",
-  "packageId": "Cmf.Custom.IoT.OmegaPlasma",
-  "description": "Cmf Omega Plasma Data Package",
+  "packageId": "Cmf.Custom.IoT.FileRaw",
+  "description": "Cmf Custom File Raw Data Package",
   "packageType": "IoTData",
   "isInstallable": true,
   "isUniqueInstall": true,
