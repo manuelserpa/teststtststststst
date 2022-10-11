@@ -1,5 +1,4 @@
 import { WaferData } from "./waferData";
-import { MaterialData } from "./materialData";
 
 export interface ContainerData {
     /** Material MO ID */
