@@ -1644,7 +1644,7 @@ namespace Cmf.Custom.amsOSRAM.Common
 
                 dcInstance.RelationCollection.Add(point);
             }
-            
+
             IDataCollectionInstanceOrchestration dataCollectionInstanceManagementOrchestration = serviceProvider.GetService<IDataCollectionInstanceOrchestration>();
             PerformImmediateDataCollectionOutput dataCollectionInstanceResult = dataCollectionInstanceManagementOrchestration.PerformImmediateDataCollection(
                 new PerformImmediateDataCollectionInput()
@@ -1692,7 +1692,7 @@ namespace Cmf.Custom.amsOSRAM.Common
                 point.TargetEntity = parameter;
                 point.SourceEntity = dcInstance;
                 point.Value = amsOSRAMUtilities.GetParameterValueAsDataType(parameter.DataType, waferPoints[parameter.Name].ToString());
-                
+
                 dcPoints.Add(point);
 
                 if (dcInstance.RelationCollection == null)
@@ -2153,6 +2153,55 @@ namespace Cmf.Custom.amsOSRAM.Common
                 // Put Material on Hold
                 material.Hold(materialHoldReasons);
             }
+        }
+
+        /// <summary>
+        /// Get Material Source Path
+        /// </summary>
+        /// <param name="material">Material</param>
+        /// <returns></returns>
+        public static string GetMaterialSourcePath(IMaterial material)
+        {
+            string materialPath = string.Empty;
+            string stepLogicalName = string.Empty;
+            string facilityCode, siteCode;
+            facilityCode = siteCode = "EMPTY";
+
+            // Get FacilityCode attribute value
+            if (material.Facility.HasAttribute(amsOSRAMConstants.CustomFacilityCodeAttribute, true))
+            {
+                facilityCode = material.Facility.GetAttributeValue(amsOSRAMConstants.CustomFacilityCodeAttribute) as string;
+            }
+
+            // Get SiteCode attribute value
+            material.Facility.Site.Load();
+            if (material.Facility.Site.HasAttribute(amsOSRAMConstants.CustomSiteCodeAttribute, true))
+            {
+                siteCode = material.Facility.Site.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute) as string;
+            }
+
+            // Get Step LogicalName value
+            if (material.Step.ContainsLogicalNames)
+            {
+                IServiceProvider serviceProvider = ApplicationContext.CurrentServiceProvider;
+                IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
+                material.Flow.LoadRelations(Navigo.Common.Constants.FlowStep);
+                IFlowStep flowStep = entityFactory.Create<IFlowStep>();
+                IStep step = entityFactory.Create<IStep>();
+
+                material.Flow.GetFlowAndStepFromFlowpath(material.FlowPath, ref step, ref flowStep);
+                stepLogicalName = flowStep.LogicalName;
+            }
+            else
+            {
+                stepLogicalName = material.Step.Name;
+            }
+
+            // Build in a string the MaterialPath
+            materialPath = string.Format("{0}.{1}.{2}", siteCode, facilityCode, stepLogicalName);
+
+            return materialPath;
         }
 
         #endregion

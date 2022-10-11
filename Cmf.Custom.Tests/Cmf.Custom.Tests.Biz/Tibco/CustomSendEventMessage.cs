@@ -872,7 +872,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             }
 
             material.Step.Load();
-            string expetedStepLogicalName = "EMPTY";
+            string expetedStepLogicalName = material.Step.Name;
 
             if (material.Step.ContainsLogicalNames)
             {
@@ -889,15 +889,17 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             if (previousStep != null && previousFlow != null)
             {
                 previousStep.Load();
-
+                string stepSourcePathName = previousStep.Name;
                 if (previousStep.ContainsLogicalNames)
                 {
                     previousFlow.Load();
                     previousFlow.LoadRelation("FlowStep");
 
                     FlowStep flowStep = previousFlow.FlowSteps.FirstOrDefault(f => f.TargetEntity.Id == material.Step.Id);
-                    expectedPathFrom = $"{expectedSiteCode}.{expectedFacilityCode}.{flowStep.LogicalName}";
+                    stepSourcePathName = flowStep.LogicalName;
                 }
+
+                expectedPathFrom = $"{expectedSiteCode}.{expectedFacilityCode}.{stepSourcePathName}";
             }
 
             Assert.AreEqual(expectedPathFrom, message.Header.stdFrom, $"The Header message doesnt have the correct origin path. Should be {expectedPathFrom} instead of {message.Header.stdFrom}");

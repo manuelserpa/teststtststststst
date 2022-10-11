@@ -58,7 +58,16 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
             {
                 if (actionGroupName == "BusinessObjects.MaterialCollection.MoveToNextStep.Pre")
                 {
-                    DeeContextHelper.SetContextParameter("MaterialsPre", DeeActionHelper.GetInputItem<IMaterialCollection>(Input, Navigo.Common.Constants.MaterialCollection));
+                    IMaterialCollection materialCollection = DeeActionHelper.GetInputItem<IMaterialCollection>(Input, Navigo.Common.Constants.MaterialCollection);
+
+                    Dictionary<string, string> materialsSourcePath = new Dictionary<string, string>();
+
+                    foreach (IMaterial material in materialCollection)
+                    {
+                        materialsSourcePath.Add(material.Name, amsOSRAMUtilities.GetMaterialSourcePath(material));
+                    }
+
+                    DeeContextHelper.SetContextParameter("MaterialsPreSourcePath", materialsSourcePath);
 
                     return canExecute;
                 }
@@ -213,15 +222,15 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 string lotName = material.Name;
 
                 // Get stdTo key header message value
-                string pathTo = GetMaterialSourcePath(material);
+                string pathTo = amsOSRAMUtilities.GetMaterialSourcePath(material);
 
                 // Get stdFrom key header message value
                 string pathFrom = pathTo;
                 if (transactionToExecute == CustomTransactionTypes.MaterialMoveNext)
                 {
-                    materialCollection = DeeContextHelper.GetContextParameter("MaterialsPre") as IMaterialCollection;
+                    Dictionary<string, string> materialsSourcePath = DeeContextHelper.GetContextParameter("MaterialsPreSourcePath") as Dictionary<string, string>;
 
-                    pathFrom = GetMaterialSourcePath(materialCollection.FirstOrDefault(f => f.Id == material.Id));
+                    pathFrom = materialsSourcePath.GetValueOrDefault(material.Name);
                 }
 
                 // Get stdProductType key header message value
@@ -241,47 +250,6 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                     stdDataOrigin = Environment.MachineName,
                     stdTransaction = transactionToExecute.ToString()
                 };
-            }
-
-            string GetMaterialSourcePath(IMaterial material)
-            {
-                string materialPath = string.Empty;
-                string stepLogicalName = string.Empty;
-                string facilityCode, siteCode;
-                facilityCode = siteCode = "EMPTY";
-
-                // Get FacilityCode attribute value
-                if (material.Facility.HasAttribute(amsOSRAMConstants.CustomFacilityCodeAttribute, true))
-                {
-                    facilityCode = material.Facility.GetAttributeValue(amsOSRAMConstants.CustomFacilityCodeAttribute) as string;
-                }
-
-                // Get SiteCode attribute value
-                material.Facility.Site.Load();
-                if (material.Facility.Site.HasAttribute(amsOSRAMConstants.CustomSiteCodeAttribute, true))
-                {
-                    siteCode = material.Facility.Site.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute) as string;
-                }
-
-                // Get Step LogicalName value
-                if (material.Step.ContainsLogicalNames)
-                {
-                    material.Flow.LoadRelations(Navigo.Common.Constants.FlowStep);
-                    IFlowStep flowStep = entityFactory.Create<IFlowStep>();
-                    IStep step = entityFactory.Create<IStep>();
-
-                    material.Flow.GetFlowAndStepFromFlowpath(material.FlowPath, ref step, ref flowStep);
-                    stepLogicalName = flowStep.LogicalName;
-                }
-                else
-                {
-                    stepLogicalName = material.Step.Name;
-                }
-
-                // Build in a string the MaterialPath
-                materialPath = string.Format("{0}.{1}.{2}", siteCode, facilityCode, stepLogicalName);
-
-                return materialPath;
             }
 
             string GetMaterialXml(IMaterial material)
