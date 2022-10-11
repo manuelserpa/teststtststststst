@@ -63,6 +63,7 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
         public bool recievedStartCommand = false;
         public bool recievedClampPodCommand = false;
         public bool recievedLoadPodCommand = false;
+        public bool recievedUnloadPodCommand = false;
         public bool receivedPPSelectCommand = false;
 
 
@@ -109,6 +110,7 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
             recievedStartCommand = false;
             recievedClampPodCommand = false;
             recievedLoadPodCommand = false;
+            recievedUnloadPodCommand = false;
             receivedPPSelectCommand = false;
 
             proceedWithCarriersReceived = false;
@@ -593,10 +595,10 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
             switch (LoadPortNumber)
             {
                 case 1:
-                    base.Equipment.SendMessage("DoorOpen1", null);
+                    base.Equipment.SendMessage("VCEAUnloadComplete", null);
                     break;
                 case 2:
-                    base.Equipment.SendMessage("DoorOpen2", null);
+                    base.Equipment.SendMessage("VCEBUnloadComplete", null);
                     break;
 
                 default:
@@ -611,10 +613,20 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
             base.Equipment.Variables["PORT_ID"] = LoadPortNumber;
 
             // Trigger event
-            base.Equipment.SendMessage(String.Format($"MaterialRemoved"), null);
+            switch (LoadPortNumber)
+            {
+                case 1:
+                    base.Equipment.SendMessage("SMIFPodAbsent1", null);
+                    break;
+                case 2:
+                    base.Equipment.SendMessage("SMIFPodAbsent2", null);
+                    break;
 
-            Thread.Sleep(200);
+                default:
+                    break;
+            }
 
+            ValidateLoadPortState(scenario, LoadPortStateModelStateEnum.ReadyToLoad.ToString());
 
             return true;
         }
@@ -972,6 +984,12 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
             if (command == "LOAD")
             {
                 recievedLoadPodCommand = true;
+                CommandSuccess = true;
+            }
+
+            if (command == "UNLOAD")
+            {
+                recievedUnloadPodCommand = true;
                 CommandSuccess = true;
             }
             reply.Item.GetChildList()[0].Binary = new byte[] { (byte)(CommandSuccess ? 0x00 : 0x02) };
