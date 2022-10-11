@@ -156,7 +156,7 @@
     "2": {
       "Action": "CustomDockStoreIoT",
       "Description": "Action responsible for docking or storing a container from IoT",
-      "CodeFileRelativePath": "Automation\\CustomDockStoreIoT.cs",
+      "CodeFileRelativePath": "Automation//CustomDockStoreIoT.cs",
       "IsEnabled": "Yes",
       "Classification": ""
     }
