@@ -779,7 +779,6 @@
       "Value": "<ST>IntegrationHandlerResolution"
     }
   },
-  "<SM>LocalizedMessageKey": {},
   "<SM>DEEAction": {
     "1": {
       "Action": "CustomDockStoreIoT",

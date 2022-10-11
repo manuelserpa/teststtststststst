@@ -1,6 +1,46 @@
-﻿UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
-UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.DataStructures");
-UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
+﻿using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Foundation.Common;
+using System.Collections.Generic;
+using System.Linq;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Foundation.Common.Abstractions;
+using System;
+using Microsoft.Extensions.DependencyInjection;
+using Cmf.Navigo.BusinessObjects;
+using Cmf.Foundation.BusinessObjects;
+
+namespace Cmf.Custom.amsOSRAM.Actions.Automation
+{
+    public class CustomDockStoreIoT : DeeDevBase
+	{
+		public override bool DeeTestCondition(Dictionary<string, object> Input)
+		{
+			//---Start DEE Condition Code---
+
+			#region Info
+
+			/* Description:
+             *     DEE Action is triggered by IoT Automation to dock or store carrier into resource.
+             *
+             * Action Groups:
+             *      None
+             *
+            */
+
+			#endregion Info
+
+			return true;
+			//---End DEE Condition Code---
+		}
+
+		public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
+		{
+			//---Start DEE Code---
+
+			// Custom
+			UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+			UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.DataStructures");
+			UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
 
 			IContainer container = null;
 			IResource resource = null;
@@ -251,3 +291,9 @@ UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
 				Input.Add("DockIsValid", !isTransportInvalid);
 			}
 
+			//---End DEE Code---
+
+			return Input;
+		}
+	}
+}
