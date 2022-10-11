@@ -1,17 +1,18 @@
 ﻿using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.Common;
+using Cmf.Foundation.Common.Abstractions;
+using Cmf.Navigo.BusinessObjects;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cmf.Navigo.BusinessObjects.Abstractions;
-using Cmf.Foundation.Common.Abstractions;
-using System;
-using Microsoft.Extensions.DependencyInjection;
-using Cmf.Navigo.BusinessObjects;
-using Cmf.Foundation.BusinessObjects;
 
 namespace Cmf.Custom.amsOSRAM.Actions.Automation
 {
-    public class CustomDockStoreIoT : DeeDevBase
+	public class CustomDockStoreIoT : DeeDevBase
 	{
 		public override bool DeeTestCondition(Dictionary<string, object> Input)
 		{
@@ -51,8 +52,8 @@ namespace Cmf.Custom.amsOSRAM.Actions.Automation
 			bool isTransportInvalid = false;
 
 			// Get services provider information
-            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
-            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+			IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+			IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
 
 			#region Validate Input Parameters
 
@@ -66,7 +67,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Automation
 				throw new ArgumentNullCmfException(inputKey);
 			}
 
-            container = entityFactory.Create<IContainer>();
+			container = entityFactory.Create<IContainer>();
 			container.Name = containerName;
 
 			if (!container.ObjectExists())
@@ -74,13 +75,13 @@ namespace Cmf.Custom.amsOSRAM.Actions.Automation
 				throw new ObjectNotFoundCmfException(Navigo.Common.Constants.Container, container.Name);
 			}
 
-            container.Load();
+			container.Load();
 
 			// Optional Parameter
 			inputKey = "StorageGroup";
 			string storageGroup = amsOSRAMUtilities.GetInputItem<string>(Input, inputKey);
 
-            resource = entityFactory.Create<IResource>();
+			resource = entityFactory.Create<IResource>();
 			resource.Name = storageGroup;
 
 			// Mandatory Parameter
@@ -102,8 +103,8 @@ namespace Cmf.Custom.amsOSRAM.Actions.Automation
 
 			if (!isStorageGroup)
 			{
-                resource = entityFactory.Create<IResource>();
-                resource.Name = resourceName;
+				resource = entityFactory.Create<IResource>();
+				resource.Name = resourceName;
 
 				if (!resource.ObjectExists())
 				{
@@ -221,58 +222,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Automation
 							}
 
 							Input.Add("ContainerMaterials", containerMaterials.ToString());
-
-							// var parentMaterials = container.ContainerMaterials.Where(c => c.SourceEntity.ParentMaterial != null).Select(s => s.SourceEntity.ParentMaterial).DistinctBy(m => m.Id);
-
-							// List<MaterialData> materials = new List<MaterialData>();
-
-							// foreach (Material material in parentMaterials)
-							// {
-							// 	material.Load();
-							// 	material.LoadChildren(1);
-							// 	material.LoadRelations(Navigo.Common.Constants.MaterialContainer);
-							// 	material.SubMaterials.LoadRelations(Navigo.Common.Constants.MaterialContainer);
-
-							// 	MaterialData materialData = new MaterialData
-							// 	{
-							// 		MaterialId = material.Id.ToString(),
-							// 		MaterialName = material.Name,
-							// 		MaterialState = material.SystemState.ToString(),
-							// 		ContainerId = container.Id.ToString(),
-							// 		ContainerName = container.Name
-							// 	};
-
-							// 	if (material.SubMaterialCount > 0)
-							// 	{
-							// 		materialData.SubMaterials = new List<MaterialData>();
-
-							// 		foreach (var subMaterial in material.SubMaterials)
-							// 		{
-							// 			MaterialData subMaterialData = new MaterialData()
-							// 			{
-							// 				MaterialId = subMaterial.Id.ToString(),
-							// 				MaterialName = subMaterial.Name,
-							// 				MaterialState = subMaterial.SystemState.ToString()
-							// 			};
-
-							// 			if (subMaterial.MaterialContainer != null &&
-							// 				subMaterial.MaterialContainer.Count > 0)
-							// 			{
-							// 				if (subMaterial.MaterialContainer.First().TargetEntity.Id == container.Id)
-							// 				{
-							// 					subMaterialData.Slot = subMaterial.MaterialContainer.First().Position.ToString();
-							// 					materialData.SubMaterials.Add(subMaterialData);
-							// 				}
-							// 			}
-							// 		}
-							// 	}
-
-							// 	materials.Add(materialData);
-							// }
-
-							// Input.Add("ContainerMaterialData", materials.ToJsonString());
 						}
-
 
 						#endregion Validate Dock
 					}
