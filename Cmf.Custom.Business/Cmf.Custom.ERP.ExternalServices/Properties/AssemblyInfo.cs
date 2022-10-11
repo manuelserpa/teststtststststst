@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Cmf.Custom.amsOSRAM.Orchestration")]
+[assembly: AssemblyTitle("Cmf.Custom.ERP.ExternalServices")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Cmf.Custom.amsOSRAM.Orchestration")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyProduct("Cmf.Custom.ERP.ExternalServices")]
+[assembly: AssemblyCopyright("Copyright �  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("4f4342a5-3d64-4d54-b83b-368f768e2a95")]
+[assembly: Guid("1CC1FE86-77D4-46DB-9141-020EA34D04B9")]
 
 // Version information for an assembly consists of the following four values:
 //

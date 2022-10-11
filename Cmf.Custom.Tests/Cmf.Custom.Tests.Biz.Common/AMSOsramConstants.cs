@@ -356,6 +356,11 @@
         /// </summary>
         public static string DefaultLotNameAllowedCharacters = "/amsOSRAM/Material/LotNameAllowedCharacters";
 
+        /// <summary>
+        /// Movement type to send goods issue
+        /// </summary>
+        public static string DefaultGoodsIssueMovementTypeConfig = "/Cmf/Custom/ERP/MovementType/GoodsIssue";
+
         #endregion Configurations
 
         #region Localized Messages

@@ -10,7 +10,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 
 namespace Cmf.Custom.Tests.Biz.ERP
 {
@@ -21,6 +20,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
         private CustomTearDownManager customTeardownManager = null;
         private const string StorageLocation = "TestStorageLocation";
         private const string Site = "TestSiteCode";
+        private string Quantity;
 
         /// <summary>
         /// Test Initialization
@@ -93,49 +93,43 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             ///<Step> Trackout the lot </Step>
             material.TrackOut();
-            Thread.Sleep(4000);
 
             ///<Step> Get the last Integration Entry generated after the trackout </Step>
-            IntegrationEntry ie = CustomUtilities.GetIntegrationEntry(material.Name);
-            ie.Load();
+            IntegrationEntry ie = LoadIntegrationEntry(material.Name);
+            string integrationMessage = Encoding.UTF8.GetString(ie.IntegrationMessage.Message);
 
-            //Necessary to load inner message
-            IntegrationEntry integrationEntryInfo = new GetIntegrationEntryInput
-            {
-                Id = ie.Id
-            }.GetIntegrationEntrySync().IntegrationEntry;
-            string integrationMessage = Encoding.UTF8.GetString(integrationEntryInfo.IntegrationMessage.Message);
+            Quantity = (_scenario.NumberOfChildMaterialsToGenerate * _scenario.ScenarioQuantity).ToString();
+
+            string movementTypeConfigValue = ConfigUtilities.GetConfigValue(amsOSRAMConstants.DefaultGoodsIssueMovementTypeConfig) as string;
 
             ///<Step> Validate the content of the Integration Entry </Step>
             CustomReportToERPItem goodsIssueItem = CustomUtilities.DeserializeXmlToObject<CustomReportToERPItem>(integrationMessage);
 
             ///<ExpectedResult> The Integration Entry body contains the information regarding the material that was tracked out </ExpectedResult>
-            Assert.IsTrue(goodsIssueItem.ProductionOrderNumber.Equals(_scenario.GeneratedProductionOrders[0].OrderNumber),
-                $"The property ProductionOrderNumber should be equals to: {_scenario.GeneratedProductionOrders[0].OrderNumber}, instead is: {goodsIssueItem.ProductionOrderNumber}.");
+            Assert.AreEqual(_scenario.GeneratedProductionOrders[0].OrderNumber, goodsIssueItem.ProductionOrderNumber,
+                            $"The property ProductionOrderNumber should be the value {_scenario.GeneratedProductionOrders[0].OrderNumber}.");
+            Assert.AreEqual(_scenario.ProductName, goodsIssueItem.ProductName,
+                            $"The property Product Name should be the value {_scenario.ProductName}.");
+            Assert.AreEqual(_scenario.GeneratedLots[0].Name, goodsIssueItem.MaterialName,
+                            $"The property Material Name should be the value {_scenario.GeneratedLots[0].Name}.");
+            Assert.AreEqual(Quantity, goodsIssueItem.Quantity,
+                            $"The property Quantity should be the value {Quantity}.");
+            Assert.AreEqual(_scenario.GeneratedProductionOrders[0].Units, goodsIssueItem.Units,
+                            $"The property Units should be the value {_scenario.GeneratedProductionOrders[0].Units}.");
+            Assert.AreEqual(Site, goodsIssueItem.Site, $"The property Site should be the value {Site}.");
+            Assert.AreEqual(movementTypeConfigValue, goodsIssueItem.MovementType, $"The property Movement Type should be the value {movementTypeConfigValue}.");
+            Assert.AreEqual(StorageLocation, goodsIssueItem.SAPStore, $"The property Storage Location should be the value {StorageLocation}.");
 
-            Assert.IsTrue(goodsIssueItem.ProductName.Equals(_scenario.ProductName),
-                $"The property Product Name should be equals to: {_scenario.ProductName}, instead is: {goodsIssueItem.ProductName}.");
+            #region Future Validation
 
-            Assert.IsTrue(goodsIssueItem.MaterialName.Equals(_scenario.GeneratedLots[0].Name),
-                $"The property Material Name should be equals to: {_scenario.GeneratedLots[0].Name}, instead is: {goodsIssueItem.MaterialName}.");
+            //Batch
+            //Assert.IsTrue(goodsIssueItem.BatchName);
+            //MatRecNr
+            //Assert.IsTrue(goodsIssueItem.MatRecNr);
+            //MatCalYear
+            //Assert.IsTrue(goodsIssueItem.MatCalYear); 
 
-            Assert.IsTrue(goodsIssueItem.Quantity.Equals(_scenario.NumberOfChildMaterialsToGenerate * _scenario.ScenarioQuantity),
-                $"The property Quantity should be equals to: {_scenario.NumberOfChildMaterialsToGenerate * _scenario.ScenarioQuantity}, instead is: {goodsIssueItem.Quantity}.");
-
-            Assert.IsTrue(goodsIssueItem.Units.Equals(_scenario.GeneratedProductionOrders[0].Units),
-                $"The property Units should be equals to: {_scenario.GeneratedProductionOrders[0].Units}, instead is: {goodsIssueItem.Units}.");
-
-            Assert.IsTrue(goodsIssueItem.MovementType.Equals("261"),
-                $"The property Movement Type should be equals to: {"261"}, instead is: {goodsIssueItem.MovementType}.");
-
-            Assert.IsTrue(goodsIssueItem.SubMaterialCount.Equals(_scenario.GeneratedLots[0].SubMaterialCount),
-                $"The property Sub Material Count should be equals to: {_scenario.GeneratedLots[0].SubMaterialCount}, instead is: {goodsIssueItem.SubMaterialCount}.");
-
-            Assert.IsTrue(goodsIssueItem.SAPStore.Equals(StorageLocation),
-                $"The property Storage Location should be equals to: {StorageLocation}, instead is: {goodsIssueItem.SAPStore}.");
-
-            Assert.IsTrue(goodsIssueItem.Site.Equals(Site),
-                $"The property Site should be equals to: {Site}, instead is: {goodsIssueItem.Site}.");
+            #endregion Future Validation
         }
 
         /// <summary>
@@ -153,7 +147,6 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomInformGoodsIssue_TrackOutLotWithoutPO_SkipIntegrationEntryCreation()
         {
-
             ///<Step> Create a Production Order, a Lot and its wafers </Step>
             _scenario.IsToAssingPOsToMaterials = false;
             _scenario.Setup();
@@ -171,10 +164,9 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             ///<Step> Trackout the lot </Step>
             material.TrackOut();
-            Thread.Sleep(4000);
 
             ///<Step> Get the last Integration Entry generated after the trackout </Step>
-            IntegrationEntry ie = CustomUtilities.GetIntegrationEntry(material.Name);
+            IntegrationEntry ie = LoadIntegrationEntry(material.Name);
             Assert.IsNull(ie.Name, $"The Trackout operation should not have created the Integration Entry {ie.Name} for the Material {material.Name}.");
         }
 
@@ -193,7 +185,6 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomInformGoodsIssue_TrackOutLotWithouST_SkipIntegrationEntryCreation()
         {
-
             ///<Step> Create a Production Order, a Lot and its wafers </Step>
             _scenario.CustomReportConsumptionToSAP = new List<Dictionary<string, string>>();
             _scenario.SmartTablesToClearInSetup = new List<string> { amsOSRAMConstants.CustomReportConsumptionToSAPSmartTable };
@@ -212,10 +203,9 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             ///<Step> Trackout the lot </Step>
             material.TrackOut();
-            Thread.Sleep(4000);
 
-            ///<Step> Get the last Integration Entry generated after the trackout </Step>
-            IntegrationEntry ie = CustomUtilities.GetIntegrationEntry(material.Name);
+            ///<Step> Get the last Integration Entry generated after the trackout </Step>            
+            IntegrationEntry ie = LoadIntegrationEntry(material.Name);
             Assert.IsNull(ie.Name, $"The Trackout operation should not have created the Integration Entry {ie.Name} for the Material {material.Name}.");
         }
 
@@ -235,7 +225,6 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomInformGoodsIssue_TrackOutLot_SkipIntegrationEntryCreation()
         {
-
             ///<Step> Create a Production Order, a Lot and its wafers </Step>
             _scenario.Setup();
 
@@ -244,7 +233,7 @@ namespace Cmf.Custom.Tests.Biz.ERP
             Step secondStep = new Step() { Name = amsOSRAMConstants.DefaultTestSecondStepName };
             secondStep.Load();
             material.Flow.Load();
-            material.ChangeFlowAndStep(material.Flow,secondStep);
+            material.ChangeFlowAndStep(material.Flow, secondStep);
 
             ///<Step> Dispatch and Tracin the lot </Step>
             Resource resource = new Resource
@@ -257,11 +246,44 @@ namespace Cmf.Custom.Tests.Biz.ERP
 
             ///<Step> Trackout the lot </Step>
             material.TrackOut();
-            Thread.Sleep(4000);
 
             ///<Step> Get the last Integration Entry generated after the trackout </Step>
-            IntegrationEntry ie = CustomUtilities.GetIntegrationEntry(material.Name);
+            IntegrationEntry ie = LoadIntegrationEntry(material.Name);
             Assert.IsNull(ie.Name, $"The Trackout operation should not have created the Integration Entry {ie.Name} for the Material {material.Name}.");
+        }
+
+        /// <summary>
+        /// Load Integration Entry informations
+        /// </summary>
+        /// <param name="materialName">Material name</param>
+        /// <returns>An instance of a Integration Entrie</returns>
+        private IntegrationEntry LoadIntegrationEntry(string materialName)
+        {
+            IntegrationEntry integrationEntry = null;
+
+            // Validate that Integration Entry was created
+            GenericUtilities.WaitFor(() =>
+            {
+                integrationEntry = CustomUtilities.GetIntegrationEntry(materialName);
+
+                return integrationEntry != null;
+            });
+
+            Assert.IsNotNull(integrationEntry, $"It should have been created an Integration Entry.");
+
+            // Load integration entry
+            integrationEntry.Load();
+
+            if (integrationEntry.Name is not null)
+            {
+                //Necessary to load inner message
+                integrationEntry = new GetIntegrationEntryInput
+                {
+                    Id = integrationEntry.Id
+                }.GetIntegrationEntrySync().IntegrationEntry;
+            }
+
+            return integrationEntry;
         }
     }
 }

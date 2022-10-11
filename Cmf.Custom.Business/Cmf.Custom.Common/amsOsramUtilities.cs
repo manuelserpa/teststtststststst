@@ -2407,14 +2407,13 @@ namespace Cmf.Custom.amsOSRAM.Common
 
                     customReportToERPItem = new CustomReportToERPItem()
                     {
-                        CreatedOn = DateTime.Now,
+                        Id = DateTime.Now.ToString("yyyyMMdd_HHmmssfff"),
                         ProductionOrderNumber = productionOrder.OrderNumber,
                         MaterialName = material.Name,
                         ProductName = material.Product.Name,
-                        Quantity = material.PrimaryQuantity + material.SubMaterialsPrimaryQuantity,
+                        Quantity = (int)((material.PrimaryQuantity ?? 0) + (material.SubMaterialsPrimaryQuantity ?? 0)),
                         Units = material.PrimaryUnits,
-                        MovementType = amsOSRAMConstants.Type261,
-                        SubMaterialCount = material.SubMaterialCount,
+                        MovementType = movementType,
                         SAPStore = storageLocation,
                         Site = siteCode
                     };
