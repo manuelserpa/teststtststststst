@@ -389,8 +389,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             material.TrackIn(resource);
             material.TrackOut();
 
-            Step previousStep = material.Step;
-            Flow previousFlow = material.Flow;
+            string previousPath = GetMessageHeaderComposedPath(material);
 
             Func<bool> waitForMessageBus = SuscribeMessageBus(CustomSendEventMessageTopics.CustomLotChange);
 
@@ -404,7 +403,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
             Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
-            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialMoveNext, previousStep, previousFlow);
+            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialMoveNext, previousPath);
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
@@ -864,7 +863,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             return output.Xml;
         }
 
-        private void ValiteHeaderMessage(Material material, TibcoCustomSendEventMessage message, CustomTransactionTypes customTransactionType, Step previousStep = null, Flow previousFlow = null)
+        private void ValiteHeaderMessage(Material material, TibcoCustomSendEventMessage message, CustomTransactionTypes customTransactionType, string previousPath = null)
         {
             material.Load();
 
@@ -881,11 +880,24 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.AreEqual(CustomUtilities.GetEnvironmentName(), message.Header.stdDataOrigin, $"The Header message doesnt have the correct data origin. Should be {Environment.MachineName} instead of {message.Header.stdDataOrigin}");
 
             // stdFrom  / stdTo
+            string expectedPathTo = GetMessageHeaderComposedPath(material);
+            string expectedPathFrom = previousPath ?? expectedPathTo;
+
+            Assert.AreEqual(expectedPathFrom, message.Header.stdFrom, $"The Header message doesnt have the correct origin path. Should be {expectedPathFrom} instead of {message.Header.stdFrom}");
+            Assert.AreEqual(expectedPathTo, message.Header.stdTo, $"The Header message doesnt have the correct destination path. Should be {expectedPathTo} instead of {message.Header.stdTo}");
+
+            // stdTransaction
+            Assert.AreEqual(message.Header.stdTransaction, customTransactionType.ToString(), $"The Header message doesnt have the correct transaction name. Should be {customTransactionType.ToString()} instead of {message.Header.stdTransaction}");
+        }
+
+        private string GetMessageHeaderComposedPath(Material material)
+        {
             material.Facility.Load();
             material.Facility.LoadAttribute(amsOSRAMConstants.FacilityAttributeFacilityCode);
-            string expectedFacilityCode = (string)material.Facility.Attributes.GetValueOrDefault(amsOSRAMConstants.FacilityAttributeFacilityCode, "EMPTY");
 
+            string expectedFacilityCode = (string)material.Facility.Attributes.GetValueOrDefault(amsOSRAMConstants.FacilityAttributeFacilityCode, "EMPTY");
             string expectedSiteCode = "EMPTY";
+
             if (material.Facility.Site != null)
             {
                 material.Facility.Site.Load();
@@ -894,7 +906,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             }
 
             material.Step.Load();
-            string expetedStepLogicalName = material.Step.Name;
+            string expectedStepLogicalName = material.Step.Name;
 
             if (material.Step.ContainsLogicalNames)
             {
@@ -902,33 +914,10 @@ namespace Cmf.Custom.Tests.Biz.Tibco
                 material.Flow.LoadRelation("FlowStep");
 
                 FlowStep flowStep = material.Flow.FlowSteps.FirstOrDefault(f => f.TargetEntity.Id == material.Step.Id);
-                expetedStepLogicalName = flowStep.LogicalName;
+                expectedStepLogicalName = flowStep.LogicalName;
             }
 
-            string expectedPathTo = $"{expectedSiteCode}.{expectedFacilityCode}.{expetedStepLogicalName}";
-            string expectedPathFrom = expectedPathTo;
-
-            if (previousStep != null && previousFlow != null)
-            {
-                previousStep.Load();
-                string stepSourcePathName = previousStep.Name;
-                if (previousStep.ContainsLogicalNames)
-                {
-                    previousFlow.Load();
-                    previousFlow.LoadRelation("FlowStep");
-
-                    FlowStep flowStep = previousFlow.FlowSteps.FirstOrDefault(f => f.TargetEntity.Id == material.Step.Id);
-                    stepSourcePathName = flowStep.LogicalName;
-                }
-
-                expectedPathFrom = $"{expectedSiteCode}.{expectedFacilityCode}.{stepSourcePathName}";
-            }
-
-            Assert.AreEqual(expectedPathFrom, message.Header.stdFrom, $"The Header message doesnt have the correct origin path. Should be {expectedPathFrom} instead of {message.Header.stdFrom}");
-            Assert.AreEqual(expectedPathTo, message.Header.stdTo, $"The Header message doesnt have the correct destination path. Should be {expectedPathTo} instead of {message.Header.stdTo}");
-
-            // stdTransaction
-            Assert.AreEqual(message.Header.stdTransaction, customTransactionType.ToString(), $"The Header message doesnt have the correct transaction name. Should be {customTransactionType.ToString()} instead of {message.Header.stdTransaction}");
+            return $"{expectedSiteCode}.{expectedFacilityCode}.{expectedStepLogicalName}";
         }
 
         private Func<bool> SuscribeMessageBus(CustomSendEventMessageTopics topic, int numberOfMessages = 1)
