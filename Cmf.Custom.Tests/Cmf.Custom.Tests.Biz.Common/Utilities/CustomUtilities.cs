@@ -9,6 +9,7 @@ using Cmf.Navigo.BusinessObjects;
 using Cmf.TestScenarios.Others;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Globalization;
@@ -527,6 +528,45 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
                 default:
                     return value;
             }
+        }
+
+        public static string GetEnvironmentName()
+        {
+            Foundation.Common.DynamicExecutionEngine.Action action;
+            string actionName = "CustomGetEnvironmentMachineName";
+
+            try
+            {
+                //Call DEE action called by Operator when clicking on GUI to Download Recipe to Equipment
+                action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.GetActionByNameInput()
+                {
+                    Name = actionName
+                }.GetActionByNameSync().Action;
+            }
+            catch
+            {
+                string ruleCode = @"string environmentMachineName = Environment.MachineName; Input[""Result""] = environmentMachineName.ToString();";
+
+                action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action()
+                {
+                    Name = actionName,
+                    ActionCode = ruleCode,
+                    IsEnabled = true
+                };
+
+                action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.CreateActionInput()
+                {
+                    Action = action
+                }.CreateActionSync().Action;
+            }
+
+            var deeOutput = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.ExecuteActionInput()
+            {
+                Action = action,
+                Input = new Dictionary<string, object>() { }
+            }.ExecuteActionSync();
+
+            return deeOutput.Output["Result"] as string;
         }
 
         #endregion

@@ -878,7 +878,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.AreEqual(message.Header.stdProductType, expectedAttribute, $"The Header message doesnt have the correct product type. Should be {expectedAttribute} instead of {message.Header.stdProductType}");
 
             // stdDataOrigin
-            Assert.AreEqual(Environment.MachineName, message.Header.stdDataOrigin, $"The Header message doesnt have the correct data origin. Should be {Environment.MachineName} instead of {message.Header.stdDataOrigin}");
+            Assert.AreEqual(CustomUtilities.GetEnvironmentName(), message.Header.stdDataOrigin, $"The Header message doesnt have the correct data origin. Should be {Environment.MachineName} instead of {message.Header.stdDataOrigin}");
 
             // stdFrom  / stdTo
             material.Facility.Load();
