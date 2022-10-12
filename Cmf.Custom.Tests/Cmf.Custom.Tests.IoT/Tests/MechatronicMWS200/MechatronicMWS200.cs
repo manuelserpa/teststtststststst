@@ -25,6 +25,7 @@ using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Foundation.Common.Base;
 using Newtonsoft.Json.Linq;
 using amsOSRAMEIAutomaticTests.Objects.Persistence;
+using Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader;
 
 namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 {
@@ -76,8 +77,10 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
         public bool failAtProcessJob = false;
         public bool createProcessJobReceived = false;
         public bool createProcessJobDenied = false;
+        public bool proceedWithCarrierCommandRecieved = false;
 
-
+        public HermosLFM4xReader RFIDReader = new HermosLFM4xReader();
+        public const string readerResourceName = "ENA01.RFID";
 
         [TestInitialize]
         public void TestInit()
@@ -94,6 +97,8 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             base.Equipment.RegisterOnMessage("S16F11", OnS16F11);
 
             base.LoadPortNumber = loadPortNumber;
+
+            RFIDReader.TestInit(readerResourceName, m_Scenario);
         }
 
         [TestCleanup]
@@ -107,6 +112,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
             createProcessJobReceived = false;
             createProcessJobDenied = false;
+            proceedWithCarrierCommandRecieved = false;
 
             foreach (var containerScenario in containerScenariosUsed)
             {
@@ -134,8 +140,8 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             var resourceToAbortMaterial = new Resource { Name = resourceName };
             resourceToAbortMaterial.Load();
             EnsureMaterialStartConditions(resourceToAbortMaterial);
-            
 
+            RFIDReader.CleanUp(MESScenario);
             base.CleanUp(MESScenario);
 
 
@@ -144,6 +150,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
+            ConfigureConnection(readerResourceName, 5014, prepareTestScenario: false);
             ConfigureConnection(resourceName, 5015, connectionAttributes: new Dictionary<string, object>() { { "IsSorter", true } });
             //ConfigureConnection(resourceName, 5013);
 
@@ -921,13 +928,39 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             foreach (var lp in loadPortsUsed)
             {
                 base.Equipment.Variables["PortID"] = lp;
+
+                base.Equipment.Variables["PortTransferState"] = null;
+                base.Equipment.Variables["AccessMode"] = null;
+                base.Equipment.Variables["LoadPortReservationState"] = null;
+                base.Equipment.Variables["PortAssociationState"] = null;
+                base.Equipment.Variables["PortStateInfo"] = null;
+                base.Equipment.SendMessage(String.Format($"LPTSM6_READYTOLOAD_TRANSFERBLOCKED"), null);
+
+                Thread.Sleep(300);
+
+                RFIDReader.targetIdRFID.Add(lp.ToString(), MESScenario.ContainerScenario.Entity.Name);
+
                 base.Equipment.Variables["PlacedCarrierPattern1"] = 1;
                 base.Equipment.Variables["PlacedCarrierPattern2"] = 2;
                 base.Equipment.Variables["PlacedCarrierPattern3"] = 3;
                 base.Equipment.Variables["PlacedCarrierPattern4"] = 4;
 
-                // Trigger event
+                //Trigger event
                 base.Equipment.SendMessage(String.Format($"MATERIAL_PLACED"), null);
+
+
+                TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve S18F9", () =>
+                {
+                    return RFIDReader.RecievedS18F9();
+                });
+                RFIDReader.ClearFlags();
+
+
+                TestUtilities.WaitFor(60, String.Format($"ProceedWithCarrier request was never received"), () =>
+                {
+                    return proceedWithCarrierCommandRecieved;
+                });
+                proceedWithCarrierCommandRecieved = false;
 
                 Thread.Sleep(300);
 
@@ -998,9 +1031,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
         public override void CarrierInValidation(CustomMaterialScenario MESScenario, int loadPortToSet)
         {
-            //clamped
-            base.CarrierInValidation(MESScenario, loadPortToSet);
-
+            
             var slotMap = new int[MESScenario.ContainerScenario.Entity.TotalPositions.Value];
             // scenario.ContainerScenario.Entity
             if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
@@ -1161,6 +1192,12 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             base.Equipment.Variables["ContentMap"] = slotMapDV;
             base.Equipment.Variables["SlotMap"] = slotMapDV;
 
+
+            TestUtilities.WaitFor(60, String.Format($"ProceedWithCarrier request was never received"), () =>
+            {
+                return proceedWithCarrierCommandRecieved;
+            });
+            proceedWithCarrierCommandRecieved = false;
 
             base.Equipment.SendMessage("COSM15_SLOTMAPWAITINGFORHOST_SLOTMAPVERIFICATIONOK", null);
 
@@ -1423,6 +1460,8 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
             var errorList = new SecsItem();
             errorList.SetTypeToList();
+
+            proceedWithCarrierCommandRecieved = true;
 
             //if (createControlJobDenied)
             //{
