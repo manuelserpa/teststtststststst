@@ -59,6 +59,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             { 4, "ENA01-LP04" }
         };
 
+        private Dictionary<int, string> containerAtLoadPort = null;
 
         private const int numberOfLoadPorts = 4;
 
@@ -98,7 +99,9 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
             base.LoadPortNumber = loadPortNumber;
 
+            containerAtLoadPort = null;
             RFIDReader.TestInit(readerResourceName, m_Scenario);
+            RFIDReader.ClearFlags();
         }
 
         [TestCleanup]
@@ -113,6 +116,8 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             createProcessJobReceived = false;
             createProcessJobDenied = false;
             proceedWithCarrierCommandRecieved = false;
+
+            containerAtLoadPort = null;
 
             foreach (var containerScenario in containerScenariosUsed)
             {
@@ -617,6 +622,11 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(2, MESScenario.Entity.Facility.Name ?? null, amsOSRAMConstants.ContainerSMIFPod);
             ContainerScenario containerScenarioForLoadPort3 = CreateEmptyContainerScenario(3, MESScenario.Entity.Facility.Name ?? null, amsOSRAMConstants.ContainerSMIFPod);
 
+            containerAtLoadPort = new Dictionary<int, string>();
+            containerAtLoadPort.Add(1, matScenario.ContainerScenario.Entity.Name);
+            containerAtLoadPort.Add(2, containerScenarioForLoadPort2.Entity.Name);
+            containerAtLoadPort.Add(3, containerScenarioForLoadPort3.Entity.Name);
+
             #endregion Create containers scenario
 
             #region SPLIT
@@ -929,16 +939,23 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             {
                 base.Equipment.Variables["PortID"] = lp;
 
-                base.Equipment.Variables["PortTransferState"] = null;
-                base.Equipment.Variables["AccessMode"] = null;
-                base.Equipment.Variables["LoadPortReservationState"] = null;
-                base.Equipment.Variables["PortAssociationState"] = null;
+                base.Equipment.Variables["PortTransferState"] = 0;
+                base.Equipment.Variables["AccessMode"] = 0;
+                base.Equipment.Variables["LoadPortReservationState"] = 0;
+                base.Equipment.Variables["PortAssociationState"] = 0;
                 base.Equipment.Variables["PortStateInfo"] = null;
                 base.Equipment.SendMessage(String.Format($"LPTSM6_READYTOLOAD_TRANSFERBLOCKED"), null);
 
                 Thread.Sleep(300);
 
-                RFIDReader.targetIdRFID.Add(lp.ToString(), MESScenario.ContainerScenario.Entity.Name);
+                if (containerAtLoadPort is null)
+                {
+                    RFIDReader.targetIdRFID.Add(lp.ToString(), MESScenario.ContainerScenario.Entity.Name);
+                }
+                else {
+                    RFIDReader.targetIdRFID.Add(lp.ToString(), containerAtLoadPort[lp]);
+                }
+
 
                 base.Equipment.Variables["PlacedCarrierPattern1"] = 1;
                 base.Equipment.Variables["PlacedCarrierPattern2"] = 2;
