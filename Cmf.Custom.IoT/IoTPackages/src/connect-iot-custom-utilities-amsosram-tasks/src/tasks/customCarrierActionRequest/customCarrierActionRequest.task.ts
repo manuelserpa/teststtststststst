@@ -1,6 +1,7 @@
 import { Task, Dependencies, System, DI, TYPES } from "@criticalmanufacturing/connect-iot-controller-engine";
 import i18n from "./i18n/customCarrierActionRequest.default";
-import { ContainerData } from "../../persistence";
+import { ContainerData, WaferData } from "../../persistence";
+import { Attribute } from "@angular/core";
 
 
 /**
@@ -29,6 +30,7 @@ import { ContainerData } from "../../persistence";
         CarrierId: Task.TaskValueType.String,
         PortNumber: Task.TaskValueType.Integer,
         CarrierAttributes: Task.TaskValueType.Object,
+        ContainerData: Task.TaskValueType.Object,
         activate: Task.INPUT_ACTIVATE
     },
     outputs: {
@@ -47,6 +49,7 @@ export class CustomCarrierActionRequestTask implements Task.TaskInstance, Custom
     public CarrierId: String;
     public PortNumber: Number;
     public CarrierAttributes: any;
+    public ContainerData: ContainerData;
     public CarrierActionPortIDValueTypeRequest: any;
     /** **Inputs** */
     /** Activate task execution */
@@ -75,7 +78,7 @@ export class CustomCarrierActionRequestTask implements Task.TaskInstance, Custom
             // It is advised to reset the activate to allow being reactivated without the value being different
             this.activate = undefined;
             let commandParameters: any[] = [];
-            const containerData = this.CarrierAttributes as ContainerData;
+            const containerData = this.ContainerData as ContainerData;
 
             let portNumberConverted = '';
 
@@ -87,20 +90,48 @@ export class CustomCarrierActionRequestTask implements Task.TaskInstance, Custom
                 this.CarrierActionPortIDValueTypeRequest = CarrierActionPortIDValueTypeRequest.U1; // Default Value
             }
 
-            if (containerData && !Array.isArray(this.CarrierAttributes)) {
+            if (containerData) {
                 this.CarrierId = containerData.ContainerName;
                 portNumberConverted = containerData.LoadPortPosition;
                 const containerSlotMap: string = containerData.SlotMap?.toString();
 
                 // retrieve Capacity and SubstrateCount from slot map
-                const arr: string[] = containerSlotMap.split("");
+                const slotMapArray: string[] = containerSlotMap.split("");
+                const waferParameters: any[] = [];
 
-                const substrateCount: number = arr.reduce((accumulator, current) => {
+                const substrateCount: number = slotMapArray.reduce((accumulator, current, currentIndex) => {
+
+                    if (containerData.Slots /* && containerData.Slots.length > 0*/) {
+                        const subMaterialInSlot = (<any[]>containerData.Slots).find(subMaterial => subMaterial.Slot === currentIndex + 1) as WaferData
+
+                        if (subMaterialInSlot !== undefined && Number(current) === 1) {
+                            waferParameters.push({
+                                type: "L", value: [
+                                    { type: "A", value: subMaterialInSlot.ParentMaterialName },
+                                    { type: "A", value: subMaterialInSlot.MaterialWaferId }
+                                ]
+                            });
+                        } else {
+                            waferParameters.push({
+                                type: "L", value: [
+                                    { type: "A", value: "" },
+                                    { type: "A", value: "" }
+                                ]
+                            });
+                        }
+                    }
+
                     return +accumulator + +current;
                 }, 0);
 
                 const capacity: number = containerSlotMap.length;
 
+                commandParameters.push({
+                    type: "L", value: [
+                        { type: "A", value: "ContentMap" },
+                        { type: "L", value: waferParameters }
+                    ]
+                });
 
                 commandParameters.push({
                     type: "L", value: [
@@ -115,6 +146,12 @@ export class CustomCarrierActionRequestTask implements Task.TaskInstance, Custom
                         { type: "U1", value: substrateCount }
                     ]
                 });
+
+                if (this.CarrierAttributes && Array.isArray(this.CarrierAttributes)) {
+                    this.CarrierAttributes.forEach((attribute) => {
+                        commandParameters.push(attribute);
+                    })
+                }
 
             } else {
                 commandParameters = this.CarrierAttributes;
