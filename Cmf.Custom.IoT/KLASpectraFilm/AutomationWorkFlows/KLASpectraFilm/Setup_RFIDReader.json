@@ -613,8 +613,8 @@
 					"task_7827": {
 						"collapsed": false,
 						"position": {
-							"x": 912,
-							"y": 672
+							"x": 1015,
+							"y": 618
 						},
 						"outdated": false
 					},
@@ -629,24 +629,24 @@
 					"task_8362": {
 						"collapsed": false,
 						"position": {
-							"x": 3325,
-							"y": 917
+							"x": 3109,
+							"y": 640
 						},
 						"outdated": false
 					},
 					"task_8668": {
 						"collapsed": false,
 						"position": {
-							"x": 2190,
-							"y": 702
+							"x": 2103,
+							"y": 611
 						},
 						"outdated": false
 					},
 					"task_9027": {
 						"collapsed": false,
 						"position": {
-							"x": 2690,
-							"y": 612
+							"x": 2590,
+							"y": 606
 						},
 						"outdated": false
 					}
@@ -695,7 +695,12 @@
 						"vertices": []
 					},
 					"3bc95687-2d7c-40da-914f-006e8190e122": {
-						"vertices": []
+						"vertices": [
+							{
+								"x": 2681,
+								"y": 868
+							}
+						]
 					},
 					"86ef94a3-a73d-40d0-8681-d33bf6613d37": {
 						"vertices": [
@@ -711,10 +716,10 @@
 					}
 				},
 				"notes": {},
-				"zoom": 0.8500000000000005,
+				"zoom": 0.6200000000000002,
 				"pan": {
-					"x": 1030,
-					"y": 386
+					"x": 542,
+					"y": 282
 				}
 			}
 		}

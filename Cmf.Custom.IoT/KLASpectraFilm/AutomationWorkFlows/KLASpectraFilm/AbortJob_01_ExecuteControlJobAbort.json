@@ -299,53 +299,72 @@
 					"task_11277": {
 						"collapsed": false,
 						"position": {
-							"x": 1961,
-							"y": 1046
+							"x": 2028,
+							"y": 697
 						},
 						"outdated": false
 					},
 					"task_11205": {
 						"collapsed": false,
 						"position": {
-							"x": 29,
-							"y": 626
+							"x": 454,
+							"y": 294
 						},
 						"outdated": false
 					},
 					"task_11381": {
 						"collapsed": false,
 						"position": {
-							"x": 1963,
-							"y": 403
+							"x": 1928,
+							"y": 280
 						},
 						"outdated": false
 					},
 					"task_11689": {
 						"collapsed": false,
 						"position": {
-							"x": 1458,
-							"y": 289
+							"x": 1461,
+							"y": 290
 						},
 						"outdated": false
 					},
 					"task_17717": {
 						"collapsed": false,
 						"position": {
-							"x": 599,
-							"y": 277
+							"x": 964,
+							"y": 285
 						},
 						"outdated": false
 					}
 				},
 				"links": {
 					"a8222086-4cad-4a0d-af77-0b937a09aa0c": {
-						"vertices": []
+						"vertices": [
+							{
+								"x": 1883,
+								"y": 648
+							}
+						]
 					},
 					"b950a93b-f1cf-46da-9ecd-f426a03de4d2": {
-						"vertices": []
+						"vertices": [
+							{
+								"x": 1922,
+								"y": 761
+							},
+							{
+								"x": 1950,
+								"y": 914
+							}
+						]
 					},
 					"bfcd4175-6ffc-4ff2-b4eb-87c6300f42b7": {
-						"vertices": []
+						"vertices": [
+							{
+								"x": 1138,
+								"y": 863
+							}
+						]
 					},
 					"74615f71-0af8-4c8c-a79e-85331c33b63a": {
 						"vertices": []
@@ -356,20 +375,30 @@
 					"41f53e57-a6c0-4c1d-a780-f164bb229f4d": {
 						"vertices": [
 							{
-								"x": 2312,
-								"y": 322
+								"x": 2290,
+								"y": 254
 							},
 							{
-								"x": 627,
-								"y": 234
+								"x": 1113,
+								"y": 233
 							}
 						]
 					},
 					"2480668d-f539-454c-895a-b16af234444d": {
-						"vertices": []
+						"vertices": [
+							{
+								"x": 1595,
+								"y": 968
+							}
+						]
 					},
 					"2983c349-39a8-4e8a-9014-943597ffdb82": {
-						"vertices": []
+						"vertices": [
+							{
+								"x": 1512,
+								"y": 843
+							}
+						]
 					},
 					"c5f0bdac-4dcb-4496-b978-a28f28b24dec": {
 						"vertices": []
@@ -382,10 +411,10 @@
 					}
 				},
 				"notes": {},
-				"zoom": 0.5999999999999996,
+				"zoom": 0.9500000000000001,
 				"pan": {
-					"x": 17.399993896484375,
-					"y": 123.7998046875
+					"x": 650,
+					"y": 186
 				}
 			}
 		}

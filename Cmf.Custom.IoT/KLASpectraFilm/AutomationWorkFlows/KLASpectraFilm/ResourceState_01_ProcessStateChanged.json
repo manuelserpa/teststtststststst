@@ -58,7 +58,32 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PRJobID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PRJobState",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "PRJobStateChange"
+					}
+				],
+				"___cmf___description": "PRJobStateChange (3059)"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -93,9 +118,40 @@
 					"version": "9.1.0-202209072"
 				}
 			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToString",
+			"reference": {
+				"name": "anyToString",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
 		}
 	],
-	"links": [],
+	"links": [
+		{
+			"id": "cd90a052-645f-4aa0-9405-c652e6ba95e8",
+			"sourceId": "task_123026",
+			"targetId": "task_150088",
+			"inputName": "activate",
+			"outputName": "$PRJobState"
+		},
+		{
+			"id": "05a0fe57-046c-4add-b6fe-d5d43e12d74c",
+			"sourceId": "task_123026",
+			"targetId": "task_150088",
+			"inputName": "StateModelNameIn",
+			"outputName": "$PRJobState",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#0080ff",
@@ -114,8 +170,8 @@
 					"task_150088": {
 						"collapsed": false,
 						"position": {
-							"x": 1153,
-							"y": 293
+							"x": 1176,
+							"y": 376
 						},
 						"outdated": false
 					},
@@ -128,20 +184,27 @@
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"cd90a052-645f-4aa0-9405-c652e6ba95e8": {
+						"vertices": []
+					},
+					"05a0fe57-046c-4add-b6fe-d5d43e12d74c": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_123288": {
 						"collapsed": false,
 						"position": {
-							"x": 1644,
-							"y": 154
+							"x": 1621,
+							"y": 297
 						}
 					}
 				},
-				"zoom": 0.6399999999999999,
+				"zoom": 0.75,
 				"pan": {
-					"x": 164.2063687456283,
-					"y": 25.857167571168816
+					"x": 261,
+					"y": 183
 				}
 			}
 		}

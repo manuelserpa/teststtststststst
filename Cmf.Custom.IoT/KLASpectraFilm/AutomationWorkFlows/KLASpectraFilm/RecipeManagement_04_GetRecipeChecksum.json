@@ -97,26 +97,6 @@
 			}
 		},
 		{
-			"id": "task_53903",
-			"reference": {
-				"name": "logMessage",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "9.1.0-202209072"
-				}
-			},
-			"settings": {
-				"message": "",
-				"verbosity": "Error",
-				"clearInputs": true,
-				"mode": "RawText",
-				"isCustomFormat": false,
-				"messageFormat": "",
-				"inputs": [],
-				"___cmf___name": "Log Message"
-			}
-		},
-		{
 			"id": "task_52500",
 			"reference": {
 				"name": "listRecipes",
@@ -261,13 +241,6 @@
 			"outputName": "error"
 		},
 		{
-			"id": "58d851dd-8aaa-4eef-8db9-9fa6205af507",
-			"sourceId": "task_19517",
-			"targetId": "task_53903",
-			"inputName": "message",
-			"outputName": "data"
-		},
-		{
 			"id": "382e24b9-62c3-460c-99b6-8a0e1e806a0f",
 			"sourceId": "task_20061",
 			"targetId": "task_22427",
@@ -380,14 +353,6 @@
 						},
 						"outdated": false
 					},
-					"task_53903": {
-						"collapsed": false,
-						"position": {
-							"x": 973,
-							"y": 237
-						},
-						"outdated": false
-					},
 					"task_20061": {
 						"collapsed": false,
 						"position": {
@@ -399,16 +364,16 @@
 					"task_22427": {
 						"collapsed": false,
 						"position": {
-							"x": 2663,
-							"y": 212
+							"x": 2699,
+							"y": 446
 						},
 						"outdated": false
 					},
 					"task_22859": {
 						"collapsed": false,
 						"position": {
-							"x": 3262,
-							"y": 396
+							"x": 3216,
+							"y": 440
 						},
 						"outdated": false
 					},
@@ -431,8 +396,8 @@
 					"task_56506": {
 						"collapsed": false,
 						"position": {
-							"x": 2786,
-							"y": 681
+							"x": 2824,
+							"y": 817
 						},
 						"outdated": false
 					}
@@ -483,11 +448,13 @@
 							}
 						]
 					},
-					"58d851dd-8aaa-4eef-8db9-9fa6205af507": {
-						"vertices": []
-					},
 					"382e24b9-62c3-460c-99b6-8a0e1e806a0f": {
-						"vertices": []
+						"vertices": [
+							{
+								"x": 2294,
+								"y": 329
+							}
+						]
 					},
 					"684e7f30-425e-4444-8ca7-4fc8812ef529": {
 						"vertices": []
@@ -554,22 +521,22 @@
 					"1974b765-5a20-49c3-8f96-6920cabed164": {
 						"vertices": [
 							{
-								"x": 3383,
-								"y": 164
+								"x": 3302,
+								"y": 317
 							},
 							{
-								"x": 617,
-								"y": 158
+								"x": 686,
+								"y": 279
 							}
 						]
 					}
 				},
 				"notes": {},
 				"pan": {
-					"x": 17.455882352941217,
-					"y": -10.552626872752
+					"x": 518,
+					"y": 146
 				},
-				"zoom": 0.33000000000000007
+				"zoom": 0.5
 			}
 		}
 	}

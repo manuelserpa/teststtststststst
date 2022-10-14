@@ -129,96 +129,8 @@
 					{
 						"property": {
 							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "ProcAcceptedTime",
+							"Name": "PRJobID",
 							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "LotId",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "ProcPPID",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "ProcSTID",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "ProcComment",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "ProcArpFlag",
-							"DataType": 5
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "ProcPortId",
-							"DataType": 5
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "ProcWaferSelectType",
-							"DataType": 5
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "ProcSlotSelection",
-							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "ProcStartedBy",
-							"DataType": 5
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "ProcAssistOnFail",
-							"DataType": 5
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "ProcPathOptimize",
-							"DataType": 5
 						},
 						"outputType": "Value"
 					}
@@ -227,10 +139,10 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "Proc_InitRun"
+						"Name": "ProcessStart"
 					}
 				],
-				"___cmf___description": "Proc_InitRun (804)"
+				"___cmf___description": "ProcessStart (3003)"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -279,25 +191,18 @@
 	],
 	"links": [
 		{
-			"id": "5680be52-fe64-4c75-b074-db4f54a6a815",
+			"id": "f140c40b-705b-47bd-9e35-3a2c1f96d4e9",
 			"sourceId": "task_51951",
 			"targetId": "task_135964",
-			"inputName": "LoadPortIdIn",
-			"outputName": "$ProcPortId"
+			"inputName": "ProcessJobIdIn",
+			"outputName": "$PRJobID"
 		},
 		{
-			"id": "ca7f38e7-085b-4798-9d7d-5bde7da79d13",
-			"sourceId": "task_51951",
-			"targetId": "task_135964",
-			"inputName": "MaterialNameIn",
-			"outputName": "$LotId"
-		},
-		{
-			"id": "a4eeb3ba-3ac8-465e-ad6c-d38c6e343e2b",
+			"id": "946a92f0-0171-47ee-8d9d-913dfd9d008d",
 			"sourceId": "task_51951",
 			"targetId": "task_135964",
 			"inputName": "activate",
-			"outputName": "$LotId"
+			"outputName": "$PRJobID"
 		}
 	],
 	"layout": {
@@ -326,20 +231,17 @@
 					"task_51951": {
 						"collapsed": false,
 						"position": {
-							"x": 471,
-							"y": 250
+							"x": 465,
+							"y": 344
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"5680be52-fe64-4c75-b074-db4f54a6a815": {
+					"f140c40b-705b-47bd-9e35-3a2c1f96d4e9": {
 						"vertices": []
 					},
-					"ca7f38e7-085b-4798-9d7d-5bde7da79d13": {
-						"vertices": []
-					},
-					"a4eeb3ba-3ac8-465e-ad6c-d38c6e343e2b": {
+					"946a92f0-0171-47ee-8d9d-913dfd9d008d": {
 						"vertices": []
 					}
 				},
@@ -352,10 +254,10 @@
 						}
 					}
 				},
-				"zoom": 0.6399999999999999,
+				"zoom": 0.83,
 				"pan": {
 					"x": 0,
-					"y": 117
+					"y": 203
 				}
 			}
 		}

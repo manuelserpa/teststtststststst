@@ -118,7 +118,7 @@
 					{
 						"property": {
 							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "PortXID",
+							"Name": "PortID",
 							"DataType": 5
 						},
 						"outputType": "Value"
@@ -128,10 +128,10 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "CarrierUnclamped"
+						"Name": "ReadyToUnload"
 					}
 				],
-				"___cmf___description": "CarrierUnclamped (50123)"
+				"___cmf___description": "ReadyToUnload (2058)"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -139,18 +139,18 @@
 	"converters": [],
 	"links": [
 		{
-			"id": "375f82f7-7849-494d-8fc5-5f9594139c94",
+			"id": "414b086b-6782-4e74-92c6-c02b9728755e",
 			"sourceId": "task_158180",
 			"targetId": "task_158178",
 			"inputName": "LoadPortNumberIn",
-			"outputName": "$PortXID"
+			"outputName": "$PortID"
 		},
 		{
-			"id": "8c637f1e-9daf-4b48-bc78-be75af03636d",
+			"id": "6b7f0bc4-3f8d-412c-991c-055dafd0e64b",
 			"sourceId": "task_158180",
 			"targetId": "task_158178",
 			"inputName": "activate",
-			"outputName": "$PortXID"
+			"outputName": "$PortID"
 		}
 	],
 	"layout": {
@@ -171,25 +171,25 @@
 					"task_158178": {
 						"collapsed": false,
 						"position": {
-							"x": 1053,
-							"y": 253
+							"x": 1139,
+							"y": 255
 						},
 						"outdated": false
 					},
 					"task_158180": {
 						"collapsed": false,
 						"position": {
-							"x": 509,
-							"y": 250
+							"x": 489,
+							"y": 273
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"375f82f7-7849-494d-8fc5-5f9594139c94": {
+					"414b086b-6782-4e74-92c6-c02b9728755e": {
 						"vertices": []
 					},
-					"8c637f1e-9daf-4b48-bc78-be75af03636d": {
+					"6b7f0bc4-3f8d-412c-991c-055dafd0e64b": {
 						"vertices": []
 					}
 				},
@@ -197,10 +197,15 @@
 					"note_158182": {
 						"collapsed": false,
 						"position": {
-							"x": 1529,
-							"y": 110
+							"x": 1567,
+							"y": 256
 						}
 					}
+				},
+				"zoom": 0.7999999999999998,
+				"pan": {
+					"x": 189,
+					"y": 76
 				}
 			}
 		}

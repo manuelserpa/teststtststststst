@@ -140,16 +140,8 @@
 					{
 						"property": {
 							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "LotId",
+							"Name": "PRJobID",
 							"DataType": 0
-						},
-						"outputType": "Value"
-					},
-					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "ProcLotResult",
-							"DataType": 5
 						},
 						"outputType": "Value"
 					}
@@ -158,10 +150,10 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "Proc_Finished"
+						"Name": "ProcessComplete"
 					}
 				],
-				"___cmf___description": "Proc_Finished (820)"
+				"___cmf___description": "ProcessComplete (3005)"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -210,18 +202,18 @@
 	],
 	"links": [
 		{
-			"id": "425ecde7-cbfe-4d65-959d-fad57728048f",
-			"sourceId": "task_75124",
-			"targetId": "task_127417",
-			"inputName": "MaterialNameIn",
-			"outputName": "$LotId"
-		},
-		{
-			"id": "eeceb8fe-fbe9-463e-9f4b-e997852eb4d1",
+			"id": "a39f8773-5ec5-4e3f-bd31-7addbf9ad47e",
 			"sourceId": "task_75124",
 			"targetId": "task_127417",
 			"inputName": "activate",
-			"outputName": "$LotId"
+			"outputName": "$PRJobID"
+		},
+		{
+			"id": "b403f327-6acb-422f-8450-d51f76394042",
+			"sourceId": "task_75124",
+			"targetId": "task_127417",
+			"inputName": "ProcessJobIdIn",
+			"outputName": "$PRJobID"
 		}
 	],
 	"layout": {
@@ -257,10 +249,10 @@
 					}
 				},
 				"links": {
-					"425ecde7-cbfe-4d65-959d-fad57728048f": {
+					"a39f8773-5ec5-4e3f-bd31-7addbf9ad47e": {
 						"vertices": []
 					},
-					"eeceb8fe-fbe9-463e-9f4b-e997852eb4d1": {
+					"b403f327-6acb-422f-8450-d51f76394042": {
 						"vertices": []
 					}
 				},
@@ -273,10 +265,10 @@
 						}
 					}
 				},
-				"zoom": 0.8799999999999999,
+				"zoom": 0.8599999999999999,
 				"pan": {
-					"x": 417,
-					"y": 166
+					"x": 383.7356093967703,
+					"y": 150.33815550550366
 				}
 			}
 		}

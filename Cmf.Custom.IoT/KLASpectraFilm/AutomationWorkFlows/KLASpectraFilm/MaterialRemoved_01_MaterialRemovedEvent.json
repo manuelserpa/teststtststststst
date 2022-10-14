@@ -139,10 +139,10 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "MaterialRemoveEvent"
+						"Name": "MaterialRemove"
 					}
 				],
-				"___cmf___description": "MaterialRemoveEvent (2099)"
+				"___cmf___description": "MaterialRemove (2099)"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -239,16 +239,16 @@
 					"note_189487": {
 						"collapsed": false,
 						"position": {
-							"x": 1529,
-							"y": 110
+							"x": 1590,
+							"y": 329
 						}
 					}
 				},
 				"pan": {
-					"x": 210.38029919356995,
-					"y": 45.47889645162047
+					"x": 227.01349899924332,
+					"y": 85.74891542646776
 				},
-				"zoom": 0.7200000000000002
+				"zoom": 0.7299999999999998
 			}
 		}
 	}

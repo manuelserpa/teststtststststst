@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Cmf.Common.TestUtilities" Version="2.3.451748" />
-    <PackageReference Include="Cmf.Dev.Mes.TestScenarios" Version="9.1.1.482" />
+    <PackageReference Include="Cmf.Dev.Mes.TestScenarios" Version="9.1.0.436" />
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +61,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="RecipeBinaryFiles\testRecipe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Tests\KLASpectraFilm\KLASpectraFilmDataCollection.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

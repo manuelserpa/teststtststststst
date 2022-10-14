@@ -690,6 +690,30 @@
     "actionId": ""
   },
   {
+    "id": "klaspectrafilm-configuration",
+    "menuGroupId": "klaspectrafilm",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "klaspectrafilm-features",
+    "menuGroupId": "klaspectrafilm",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "klaspectrafilm-setup",
+    "menuGroupId": "klaspectrafilm",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "klaspectrafilm-workflows",
+    "menuGroupId": "klaspectrafilm",
+    "title": "Workflows",
+    "actionId": ""
+  },
+  {
     "id": "mechatronicmws200-configuration",
     "menuGroupId": "mechatronicmws200",
     "title": "Configuration",

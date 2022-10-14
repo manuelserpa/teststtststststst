@@ -23,6 +23,9 @@ using System.Collections.Generic;
 using Cmf.Foundation.BusinessObjects.SmartTables;
 using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 using Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader;
+using System.IO;
+using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
 {
@@ -70,17 +73,15 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
         public const string readerResourceName = "5FELL1.RFID";
         #region Event Names
         private const string MaterialReceivedEvent = "CarrierPlaced";
-        //private const string WaferStartEvent = "StartFirstWafer";
-        private const string StartFirstWafer = "StartFirstWafer";
-        private const string StartNextWafer = "NextWafer";
-        private const string WaferCompleteEvent = "WaferDataReady";
+        private const string WaferStartEvent = "WaferStart";
+        private const string WaferCompleteEvent = "WaferComplete";
         //private const string PostTrackinEvent = "E87WaitingForHost2SlotMapVerificationOk";
         private const string SlotMapReceivedEvent = "SlotMapNotReadToWaitingForHost";
         private const string ReadyToUnloadEvent = "ReadyToUnload";
-        private const string MaterialRemovedEvent = "MaterialRemoveEvent";
-        private const string ProcessStartedEvent = "Proc_InitRun";
-        private const string ProcessCompletedEvent = "Proc_Finished";
-        //private const string ProcessStateChangeEvent = "ProcessingStateChange";
+        private const string MaterialRemovedEvent = "MaterialRemove";
+        private const string ProcessStartedEvent = "ProcessStart";
+        private const string ProcessCompletedEvent = "ProcessComplete";
+        private const string ProcessStateChangeEvent = "PRJobStateChange";
         //private const string EPTStateChangeEvent = "EPTStateChange";
         private const string ControlStateEquipmentOfflineEvent = "EquipmentOffline";
         private const string ControlStateLocalEvent = "ControlStateLocal";
@@ -88,8 +89,8 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
         #endregion
 
         private enum ControlJobStates { QUEUED = 0, SELECTED, WAITINGFORSTART, EXECUTING, PAUSED, COMPLETED }
-        private enum SubstrateStates {ATSource = 0, ATWork, ATDestination}
-        private enum SubstratProcessStates { NeedProcessing = 0, InProcess, Processed, Aborted, Stopped, Rejected, Lost, Skipped}
+        private enum SubstrateStates { ATSource = 0, ATWork, ATDestination }
+        private enum SubstratProcessStates { NeedProcessing = 0, InProcess, Processed, Aborted, Stopped, Rejected, Lost, Skipped }
         #region Test Basics
         [TestInitialize]
         public void TestInit()
@@ -164,7 +165,12 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
 
         #endregion Test Basic
 
-        #region Tests FullProcessScenario   
+        #region Tests FullProcessScenario 
+        //[TestMethod]
+        //public void SendMetrics()
+        //{
+        //    SendMetrics();
+        //}
 
 
         /// <summary> 
@@ -251,7 +257,7 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
 
             WaitForControlState("EquipmentOffline", "Control State was not updated to Host Offline");
             //Thread.Sleep(1000);
-            
+
             base.Equipment.Variables["ControlState"] = EquipmentControlStateEnum.OnlineLocal;
             // Trigger event
             base.Equipment.SendMessage(ControlStateLocalEvent, null);
@@ -413,18 +419,18 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
         #region Events
         public override bool CarrierIn(CustomMaterialScenario scenario, int loadPortToSet)
         {
-            
+
             // Trigger event
 
-                    base.Equipment.Variables["PortXID"] = loadPortToSet;
-                    base.Equipment.SendMessage(MaterialReceivedEvent, null);
-           
+            base.Equipment.Variables["PortXID"] = loadPortToSet;
+            base.Equipment.SendMessage(MaterialReceivedEvent, null);
+
             return true;
 
         }
 
         public override void CarrierInValidation(CustomMaterialScenario MESScenario, int loadPortToSet)
-        { 
+        {
             //add carrier id to load port on rfid reader
             RFIDReader.targetIdRFID.Add(loadPortToSet.ToString(), MESScenario.ContainerScenario.Entity.Name);
 
@@ -465,7 +471,7 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
             SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
 
 
-            
+
             base.Equipment.Variables["CarrierID"] = MESScenario.ContainerScenario.Entity.Name;
             base.Equipment.Variables["SlotMap"] = slotMapDV;
             base.Equipment.Variables["PortID"] = loadPortToSet;
@@ -481,9 +487,7 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
         public override bool CarrierOut(CustomMaterialScenario scenario)
         {
 
-            base.Equipment.Variables["PortID"] = loadPortNumber;
-            base.Equipment.Variables["PortTransferState"] = 0;
-            base.Equipment.Variables["PortStateInfo"] = 0;
+            base.Equipment.Variables["PortXID"] = loadPortNumber;
 
             // Trigger event
             base.Equipment.SendMessage(ReadyToUnloadEvent, null);
@@ -509,19 +513,8 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
             //base.Equipment.Variables["CtrlJobID"] = $"CtrlJob_{scenario.Entity.Name}";
             //base.Equipment.Variables["CtrlJobState"] = (int)ControlJobStates.EXECUTING;
 
-            base.Equipment.Variables["LotId"] = MESScenario.Entity.Name;
-            base.Equipment.Variables["ProcPortId"] = LoadPortNumber;
-            base.Equipment.Variables["ProcAcceptedTime"] = "";
-            base.Equipment.Variables["ProcPPID"] = "";
-            base.Equipment.Variables["ProcSTID"] = "";
-            base.Equipment.Variables["ProcComment"] = "";
-            base.Equipment.Variables["ProcArpFlag"] = 0;
-            base.Equipment.Variables["ProcWaferSelectType"] = 0;
-            base.Equipment.Variables["ProcSlotSelection"] = "";
-            base.Equipment.Variables["ProcStartedBy"] = 0;
-            base.Equipment.Variables["ProcAssistOnFail"] = 0;
-            base.Equipment.Variables["ProcPathOptimize"] = 0; 
-
+            base.Equipment.Variables["PRJobID"] = $"PrJob_{scenario.Entity.Name}";
+            
             //// Trigger event
             base.Equipment.SendMessage(ProcessStartedEvent, null);
 
@@ -532,8 +525,7 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
 
         public override bool ProcessCompleteEvent(CustomMaterialScenario scenario)
         {
-            base.Equipment.Variables["LotId"] = MESScenario.Entity.Name;
-            base.Equipment.Variables["ProcLotResult"] = 0;
+            base.Equipment.Variables["PRJobID"] = $"PrJob_{scenario.Entity.Name}";
 
             //// Trigger event
             base.Equipment.SendMessage(ProcessCompletedEvent, null);
@@ -652,64 +644,220 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
             return true;
         }
 
-        public bool SendMetrics(Material wafer)
+        public bool SendMetrics()
         {
-
-            base.Equipment.Variables["DP_SECD_LotSummary"] = "";
-            base.Equipment.Variables["DP_SE_RawMeasurementsEx"] = 1;
-            base.Equipment.Variables["DP_SE_RawMeasurementsDeepFormat"] = "";//Stage;
-            
-
-            base.Equipment.SendMessage("CE_DEPTH_ANALYSIS_DATA_AVAIL", null);
-
+            var message = new SecsTransaction(this.Equipment.Driver);
+            message.Primary = new SecsMessage();
+            message.Primary.Stream = 6;
+            message.Primary.Function = 11;
+            message.Primary.Item = new SecsItem();
+            message.Primary.Item.SetTypeToList();
+            message.Primary.Item.Add(new SecsItem { Name = "DATAID", U4 = new uint[] { 157443 } });
+            message.Primary.Item.Add(new SecsItem { Name = "CEID", U4 = new uint[] { 704 } });
+            var eventreports = new SecsItem();
+            eventreports.SetTypeToList();
+            eventreports.Add(new SecsItem());
+            eventreports[0].Add(new SecsItem() { Name = "RPTID", U4 = new uint[] { 999 } });
+            message.Primary.Item.Add(eventreports);
+            eventreports[0].Add(new SecsItem());
+            eventreports[0][1].SetTypeToList();
+            var data = File.ReadAllText(@"Tests\KLASpectraFilm\KLASpectraFilmDataCollection.json");
+            dynamic ser = JsonConvert.DeserializeObject<dynamic>(data);
+            foreach (var item in ser["values"])
+            {
+                eventreports[0][1].Add(GetSecsItemFromValue(item["originalValue"]));
+            }
+            base.Equipment.SendMessage(message);
+            Thread.Sleep(5000);
             return true;
+        }
+
+        private SecsItem GetSecsItemFromValue(dynamic originalValue)
+        {
+            var newItem = new SecsItem();
+
+            if (originalValue.type == "L")
+            {
+                //var values = new List<SecsItem>();
+                newItem.SetTypeToList();
+                foreach (var val in originalValue["value"])
+                {
+                    newItem.Add(GetSecsItemFromValue(val));
+                    //values.Add(GetSecsItemFromValue(val));
+                }
+                //newItem.SetValue(SecsItem.ItemType.List, values);
+            }
+            else if (originalValue.type == "A")
+            {
+                newItem.ASCII = originalValue["value"];
+            }
+            else if (originalValue.type == "U1")
+            {
+                newItem.U1 = new byte[] { originalValue["value"] };
+            }
+            else if (originalValue.type == "I4")
+            {
+                var value = originalValue["value"];
+                var valArray = new List<int>();
+                if (value.GetType().Name == "JArray")
+                {
+                    foreach (var val in value)
+                    {
+                        valArray.Add((int)val);
+                    }
+                }
+                else
+                {
+                    valArray.Add((int)value);
+                }
+                newItem.I4 = valArray.ToArray();
+            }
+            else if (originalValue.type == "I2")
+            {
+                var value = originalValue["value"];
+                var valArray = new List<short>();
+                if (value.GetType().Name == "JArray")
+                {
+                    foreach (var val in value)
+                    {
+                        valArray.Add((short)val);
+                    }
+                }
+                else
+                {
+                    valArray.Add((short)value);
+                }
+                newItem.I2 = valArray.ToArray();
+            }
+            else if (originalValue.type == "F8")
+            {
+                var value = originalValue["value"];
+                var valArray = new List<double>();
+                if (value.GetType().Name == "JArray")
+                {
+                    foreach (var val in value)
+                    {
+                        valArray.Add((double)val);
+                    }
+                }
+                else
+                {
+                    valArray.Add((double)value);
+                }
+                newItem.F8 = valArray.ToArray();
+            }
+            else if (originalValue.type == "U4")
+            {
+                var value = originalValue["value"];
+                var valArray = new List<uint>();
+                if (value.GetType().Name == "JArray")
+                {
+                    foreach (var val in value)
+                    {
+                        valArray.Add((uint)val);
+                    }
+                }
+                else
+                {
+                    valArray.Add((uint)value);
+                }
+                newItem.U4 = valArray.ToArray();
+            }
+            else if (originalValue.type == "U2")
+            {
+                var value = originalValue["value"];
+                var valArray = new List<ushort>();
+                if (value.GetType().Name == "JArray")
+                {
+                    foreach (var val in value)
+                    {
+                        valArray.Add((ushort)val);
+                    }
+                }
+                else
+                {
+                    valArray.Add((ushort)value);
+                }
+                newItem.U2 = valArray.ToArray();
+            }
+            return newItem;
         }
 
         public override bool WaferStart(Material wafer)
         {
-            wafer.Load();
-            wafer.LoadRelations();
-            wafer.ParentMaterial.Load();
-            wafer.MaterialContainer.First().TargetEntity.Load();
-            var position = (wafer.MaterialContainer.First().Position??0).ToString("00");
+            //wafer.Load();
+            //wafer.LoadRelations();
+            //wafer.ParentMaterial.Load();
+            //wafer.MaterialContainer.First().TargetEntity.Load();
+            //var position = (wafer.MaterialContainer.First().Position ?? 0).ToString("00");
             //var containerId = MESScenario.ContainerScenario.Entity.Name;
             //var subLocId = $"{containerId}.{position}";
 
-            base.Equipment.Variables["SlotId"] = position;
-            base.Equipment.Variables["LotId"] = wafer.ParentMaterial.Name;
-            base.Equipment.Variables["ProcActualWaferID"] = wafer.Name;
+            //base.Equipment.Variables["SlotId"] = position;
             ////// Trigger event
-            base.Equipment.SendMessage(position == "01" ? StartFirstWafer : StartNextWafer, null);
+            //base.Equipment.SendMessage(WaferStartEvent, null);
+            SendWaferMessage(wafer, 2071);
 
             Thread.Sleep(2000);
+            try
+            {
+                SendMetrics();
+            }
+            catch
+            {
+                Assert.Inconclusive("Error send Metrics");
+            }
 
             return true;
         }
 
         public override bool WaferComplete(Material wafer)
         {
-            wafer.Load();
-            wafer.LoadRelations();
-            wafer.ParentMaterial.Load();
-            wafer.MaterialContainer.First().TargetEntity.Load();
-            var position = (wafer.MaterialContainer.First().Position ?? 0).ToString("00");
+            //wafer.Load();
+            //wafer.LoadRelations();
+            //wafer.ParentMaterial.Load();
+            //wafer.MaterialContainer.First().TargetEntity.Load();
+            //var position = (wafer.MaterialContainer.First().Position ?? 0).ToString("00");
 
-            SendMetrics(wafer);
-
-            //var containerId = MESScenario.ContainerScenario.Entity.Name;
-            //var subLocId = $"{containerId}.{position}";
-            base.Equipment.Variables["LotId"] = wafer.ParentMaterial.Name;
-            base.Equipment.Variables["ProcSlotId"] = position;
-            base.Equipment.Variables["ProcResultWaferState"] = 0;
-            base.Equipment.Variables["ProcResultWaferID"] = wafer.Name;
-            ////// Trigger event
-            base.Equipment.SendMessage(WaferCompleteEvent, null);
+            SendWaferMessage(wafer, 2081);
 
             Thread.Sleep(2000);
-
             return true;
         }
 
+        private void SendWaferMessage(Material wafer, uint ceid)
+        {
+            wafer.ParentMaterial.Load();
+            var message = new SecsTransaction(this.Equipment.Driver);
+            message.Primary = new SecsMessage();
+            message.Primary.Stream = 6;
+            message.Primary.Function = 11;
+            message.Primary.Item = new SecsItem();
+            message.Primary.Item.SetTypeToList();
+            message.Primary.Item.Add(new SecsItem { Name = "DATAID", U4 = new uint[] { 157443 } });
+            message.Primary.Item.Add(new SecsItem { Name = "CEID", U4 =  new uint[] { ceid } });
+            var eventreports = new SecsItem();
+            eventreports.SetTypeToList();
+            message.Primary.Item.Add(eventreports);
+            eventreports.Add(new SecsItem());
+            eventreports[0].Add(new SecsItem() { Name = "RPTID", U4 = new uint[] { 26 } });
+
+            var listLb = new SecsItem();
+            listLb.SetTypeToList();
+            eventreports[0].Add(listLb);
+
+            var listaSubstrate = new SecsItem();
+            listaSubstrate.SetTypeToList();
+            listLb.Add(listaSubstrate);
+            listaSubstrate.Add(new SecsItem());
+            listaSubstrate.Add(new SecsItem());
+            listaSubstrate[0].Add(new SecsItem() { ASCII = "LotID" });
+            listaSubstrate[0].Add(new SecsItem() { ASCII = wafer.ParentMaterial.Name });
+            listaSubstrate[1].Add(new SecsItem() { ASCII = "ObjID"});
+            listaSubstrate[1].Add(new SecsItem() { ASCII = wafer.Name });
+
+            base.Equipment.SendMessage(message);
+        }
 
         public override bool ValidateSubMaterialState(Material submaterial, string subMaterialState)
         {
