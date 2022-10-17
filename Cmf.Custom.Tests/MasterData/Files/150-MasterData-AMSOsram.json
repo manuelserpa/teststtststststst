@@ -3401,7 +3401,7 @@
     },
     "29": {
       "Name": "5FELL1",
-      "Description": "5FELL1 - KLA SpectraFilm Ellipsometer",
+      "Description": "5FELL1 -KLA SpectraFilm",
       "Type": "Process",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",
@@ -3469,7 +3469,7 @@
     },
     "30": {
       "Name": "5FELL1.RFID",
-      "Description": "5FELL1 - KLA SpectraFilm Ellipsometer",
+      "Description": "5FELL1 -KLA SpectraFilm",
       "Type": "Other Auxiliary",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",
@@ -3537,7 +3537,7 @@
     },
     "31": {
       "Name": "5FELL1-LP1",
-      "Description": "5FELL1 - KLA SpectraFilm Ellipsometer",
+      "Description": "5FELL1 -KLA SpectraFilm",
       "Type": "Process",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",
@@ -3605,7 +3605,7 @@
     },
     "32": {
       "Name": "5FELL1-LP2",
-      "Description": "5FELL1 - KLA SpectraFilm Ellipsometer",
+      "Description": "5FELL1 -KLA SpectraFilm",
       "Type": "Process",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",
@@ -3673,7 +3673,7 @@
     },
     "33": {
       "Name": "5FELL1-LP3",
-      "Description": "5FELL1 - KLA SpectraFilm Ellipsometer",
+      "Description": "5FELL1 -KLA SpectraFilm",
       "Type": "Process",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",
@@ -3684,7 +3684,7 @@
       "Priority": "",
       "SortRuleSet": "",
       "Area": "Plasma Etching",
-      "DisplayOrder": "3",
+      "DisplayOrder": "1",
       "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "LoadPort",
       "SubResources": "",
@@ -3741,7 +3741,7 @@
     },
     "34": {
       "Name": "5FELL1-LP4",
-      "Description": "5FELL1 - KLA SpectraFilm Ellipsometer",
+      "Description": "5FELL1 -KLA SpectraFilm",
       "Type": "Process",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",
@@ -3752,7 +3752,7 @@
       "Priority": "",
       "SortRuleSet": "",
       "Area": "Plasma Etching",
-      "DisplayOrder": "4",
+      "DisplayOrder": "2",
       "IsSubMaterialTrackingEnabled": "No",
       "ProcessingType": "LoadPort",
       "SubResources": "",
@@ -3950,31 +3950,31 @@
       "ConsumableFeedPosition": ""
     }
   },
-    "<DM>ResourceService": {
-        "1": {
-            "SourceEntity": "5FASH1",
-            "TargetEntity": "Ashing-UX3-L",
-            "IsEnabled": "Yes"
-        },
-        "2": {
-            "SourceEntity": "5FICP1",
-            "TargetEntity": "CD-Measurement",
-            "IsEnabled": "Yes"
-        },
-        "3": {
-            "SourceEntity": "5FORI1",
-            "TargetEntity": "CD-Measurement",
-            "IsEnabled": "Yes"
-        },
-        "4": {
-            "SourceEntity": "5FAFM1",
-            "TargetEntity": "Sputtering ZnO with Etching",
-            "IsEnabled": "Yes"
-        },
-        "5": {
-            "SourceEntity": "5FVHF1",
-            "TargetEntity": "CD-Measurement",
-            "IsEnabled": "Yes"
+  "<DM>ResourceService": {
+    "1": {
+      "SourceEntity": "5FASH1",
+      "TargetEntity": "Ashing-UX3-L",
+      "IsEnabled": "Yes"
+    },
+    "2": {
+      "SourceEntity": "5FICP1",
+      "TargetEntity": "CD-Measurement",
+      "IsEnabled": "Yes"
+    },
+    "3": {
+      "SourceEntity": "5FORI1",
+      "TargetEntity": "CD-Measurement",
+      "IsEnabled": "Yes"
+    },
+    "4": {
+      "SourceEntity": "5FAFM1",
+      "TargetEntity": "Sputtering ZnO with Etching",
+      "IsEnabled": "Yes"
+    },
+    "5": {
+      "SourceEntity": "5FVHF1",
+      "TargetEntity": "CD-Measurement",
+      "IsEnabled": "Yes"
     },
     "6": {
       "SourceEntity": "5FETR1",
@@ -3985,7 +3985,8 @@
       "SourceEntity": "5FELL1",
       "TargetEntity": "CD-Measurement",
       "IsEnabled": "Yes"
-    },
+    }
+  },
   "<DM>Recipe": {},
   "RecipeParameters": {},
   "SubRecipes": {},
