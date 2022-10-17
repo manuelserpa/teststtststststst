@@ -47,7 +47,7 @@ namespace Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader
 
             var targetId = request.Item.ASCII;
 
-            string mid = targetIdRFID.FirstOrDefault(f => f.Key == int.Parse(targetId).ToString()).Value;
+            string mid = targetIdRFID.FirstOrDefault(f => int.Parse(f.Key) == int.Parse(targetId)).Value;
             Log(String.Format("{0}: [S] Trying to read RFID Target ID {1} value {2}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), targetId, mid));
 
 

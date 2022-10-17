@@ -77,6 +77,11 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// </summary>
         public List<Dictionary<string, string>> CustomReportConsumptionToSAP = new List<Dictionary<string, string>>();
 
+        /// <summary>
+        /// GenericTableManager
+        /// </summary>
+        public GenericTableManager GenericTableManager { get; set; } = new GenericTableManager();
+
         public int ProductsToGenerate { get; set; } = 1;
 
         /// <summary>
@@ -270,7 +275,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                         prodOrder: productionOrder,
                         productName: ProductName,
                         flowPath: FlowPath,
-                        primaryQuantity: ScenarioQuantity * NumberOfChildMaterialsToGenerate,
+                        primaryQuantity: NumberOfChildMaterialsToGenerate != 0 ? ScenarioQuantity * NumberOfChildMaterialsToGenerate : ScenarioQuantity,
                         facilityName: FacilityName,
                         form: MaterialToGenerateForm);
 

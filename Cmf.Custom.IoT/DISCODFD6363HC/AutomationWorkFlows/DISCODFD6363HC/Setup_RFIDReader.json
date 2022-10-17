@@ -1,0 +1,722 @@
+{
+	"tasks": [
+		{
+			"id": "task_7827",
+			"reference": {
+				"name": "customLoadSetupConfiguration",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "2.0.0"
+				}
+			},
+			"settings": {
+				"entityTypeName": "Resource",
+				"attributes": [],
+				"loadAllAttributes": false,
+				"levelsToLoad": 0,
+				"driverName": "RFIDReader",
+				"reloadEveryChange": false,
+				"retries": 30,
+				"sleepBetweenRetries": 1000,
+				"_autoActivate": false
+			},
+			"driver": "RFIDReader"
+		},
+		{
+			"id": "task_7987",
+			"reference": {
+				"name": "equipmentSetup",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"reconnectInterval": 10000,
+				"reconnectMaxAttempts": 0,
+				"requireBuffering": true,
+				"heartbeatInterval": 60000,
+				"setupTimeout": 10000,
+				"intervalBeforeReconnect": 5000,
+				"connectingTimeout": 30000,
+				"emitInNewContext": false,
+				"_inputs": [
+					{
+						"name": "autoConfigure",
+						"defaultValue": "True",
+						"dataType": "Boolean",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "autoConfigure"
+						},
+						"automationDataType": 8
+					},
+					{
+						"name": "customLibrary",
+						"defaultValue": "",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "customLibrary"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "variableIdType",
+						"defaultValue": "U4",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "variableIdType"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "reportIdType",
+						"defaultValue": "U4",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "reportIdType"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "alarmIdType",
+						"defaultValue": "U4",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "alarmIdType"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "eventIdType",
+						"defaultValue": "U4",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "eventIdType"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "dataIdType",
+						"defaultValue": "U4",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "dataIdType"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "commandType",
+						"defaultValue": "A",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "commandType"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "commandParameterNameType",
+						"defaultValue": "A",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "commandParameterNameType"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "protocol",
+						"defaultValue": "HSMS",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "protocol"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "connectionMode",
+						"defaultValue": "Active",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "connectionMode"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "networkAddress",
+						"defaultValue": "127.0.0.1",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "networkAddress"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "networkPort",
+						"defaultValue": "5000",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "networkPort"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "serialPortName",
+						"defaultValue": "",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "serialPortName"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "autoBaudRate",
+						"defaultValue": "True",
+						"dataType": "Boolean",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "autoBaudRate"
+						},
+						"automationDataType": 8
+					},
+					{
+						"name": "isSecsHost",
+						"defaultValue": "True",
+						"dataType": "Boolean",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "isSecsHost"
+						},
+						"automationDataType": 8
+					},
+					{
+						"name": "baudRate",
+						"defaultValue": "9600",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "baudRate"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "t1",
+						"defaultValue": "1",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "t1"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "t2",
+						"defaultValue": "1",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "t2"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "t3",
+						"defaultValue": "60",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "t3"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "t4",
+						"defaultValue": "15",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "t4"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "t5",
+						"defaultValue": "10",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "t5"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "t6",
+						"defaultValue": "10",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "t6"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "t7",
+						"defaultValue": "10",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "t7"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "t8",
+						"defaultValue": "10",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "t8"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "linkTestInterval",
+						"defaultValue": "60",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "linkTestInterval"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "monitorEnabled",
+						"defaultValue": "False",
+						"dataType": "Boolean",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "monitorEnabled"
+						},
+						"automationDataType": 8
+					},
+					{
+						"name": "deviceId",
+						"defaultValue": "0",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "deviceId"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "retryLimit",
+						"defaultValue": "1",
+						"dataType": "Integer",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "retryLimit"
+						},
+						"automationDataType": 5
+					},
+					{
+						"name": "allowInterleave",
+						"defaultValue": "True",
+						"dataType": "Boolean",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "allowInterleave"
+						},
+						"automationDataType": 8
+					},
+					{
+						"name": "allowMultipleOpen",
+						"defaultValue": "True",
+						"dataType": "Boolean",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "allowMultipleOpen"
+						},
+						"automationDataType": 8
+					},
+					{
+						"name": "allowDuplicatedBlocks",
+						"defaultValue": "True",
+						"dataType": "Boolean",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "allowDuplicatedBlocks"
+						},
+						"automationDataType": 8
+					},
+					{
+						"name": "deleteReportsMode",
+						"defaultValue": "DeleteAllCreatedReports",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "deleteReportsMode"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "enableDisableEventsMode",
+						"defaultValue": "DisableAllEnableSelection",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "enableDisableEventsMode"
+						},
+						"automationDataType": 0
+					},
+					{
+						"name": "enableDisableAlarmsMode",
+						"defaultValue": "DisableAllEnableSelection",
+						"dataType": "String",
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProtocolParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "enableDisableAlarmsMode"
+						},
+						"automationDataType": 0
+					}
+				]
+			},
+			"driver": "RFIDReader"
+		},
+		{
+			"id": "task_8362",
+			"reference": {
+				"name": "equipmentSetupResult",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {},
+			"driver": "RFIDReader"
+		},
+		{
+			"id": "task_8668",
+			"reference": {
+				"name": "goOnline",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-secsgem-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"driverHandlerMode": "NotifyOnly",
+				"replyPath": "/",
+				"successCodes": "0x00",
+				"primaryRequestMessage": {},
+				"secondaryReplyMessage": {
+					"type": "BI",
+					"name": "ONLACK",
+					"value": 0
+				}
+			},
+			"driver": "RFIDReader"
+		},
+		{
+			"id": "task_9027",
+			"reference": {
+				"name": "setEquipmentProperties",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_inputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ProtocolChangeAllow",
+							"DataType": 5
+						},
+						"required": false,
+						"defaultValue": 0,
+						"dataType": "Integer"
+					}
+				],
+				"___cmf___name": "Set Equipment Properties Values"
+			},
+			"driver": "RFIDReader"
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "d91c5f59-c823-4cf9-97ad-d2b72fb047d7",
+			"sourceId": "task_7827",
+			"targetId": "task_7987",
+			"inputName": "connect",
+			"outputName": "instance"
+		},
+		{
+			"id": "33cdfd40-ce75-441f-9c3f-51b255162e1e",
+			"sourceId": "task_7827",
+			"targetId": "task_7987",
+			"inputName": "customLibrary",
+			"outputName": "customLibrary"
+		},
+		{
+			"id": "a21fdc8f-02b1-4323-b899-2eb2159751f9",
+			"sourceId": "task_7827",
+			"targetId": "task_7987",
+			"inputName": "networkAddress",
+			"outputName": "equipmentIPAddress"
+		},
+		{
+			"id": "bc473f46-9e4e-4605-8deb-cb93199651e1",
+			"sourceId": "task_7827",
+			"targetId": "task_7987",
+			"inputName": "networkPort",
+			"outputName": "equipmentIPPort"
+		},
+		{
+			"id": "340ed1c7-649e-404f-8c14-70c637aa54af",
+			"sourceId": "task_7827",
+			"targetId": "task_7987",
+			"inputName": "serialPortName",
+			"outputName": "equipmentSerialPortName"
+		},
+		{
+			"id": "344443eb-4045-4a5f-a2a0-9c80bfd83c3d",
+			"sourceId": "task_7827",
+			"targetId": "task_7987",
+			"inputName": "baudRate",
+			"outputName": "equipmentBaudRate"
+		},
+		{
+			"id": "33295f30-806e-4f0a-a195-d3b4a237a38f",
+			"sourceId": "task_7827",
+			"targetId": "task_7987",
+			"inputName": "deviceId",
+			"outputName": "equipmentDeviceId"
+		},
+		{
+			"id": "b3710f20-5b49-4194-8cd2-e9cd251d2b0f",
+			"sourceId": "task_7827",
+			"targetId": "task_7987",
+			"inputName": "deleteReportsMode",
+			"outputName": "deleteReportMode"
+		},
+		{
+			"id": "433e8181-6838-46b2-8d13-dc7c16c7ede4",
+			"sourceId": "task_7827",
+			"targetId": "task_7987",
+			"inputName": "enableDisableEventsMode",
+			"outputName": "enableDisableEventMode"
+		},
+		{
+			"id": "113affc7-6a7b-4cb8-a223-6ab7f3f19f08",
+			"sourceId": "task_7827",
+			"targetId": "task_7987",
+			"inputName": "enableDisableAlarmsMode",
+			"outputName": "enableDisableAlarmMode"
+		},
+		{
+			"id": "d043f623-a227-4c7b-9b61-05c00fb03c0c",
+			"sourceId": "task_7987",
+			"targetId": "task_8668",
+			"inputName": "activate",
+			"outputName": "onSetup"
+		},
+		{
+			"id": "1c2bc3e2-bfdd-4d44-930b-54e70618b922",
+			"sourceId": "task_8668",
+			"targetId": "task_9027",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "43f43182-ffc5-44e6-aa63-a3713c23a8f8",
+			"sourceId": "task_9027",
+			"targetId": "task_8362",
+			"inputName": "success",
+			"outputName": "success"
+		},
+		{
+			"id": "3d2c79f8-a9a6-4d6e-b202-906f3718b879",
+			"sourceId": "task_9027",
+			"targetId": "task_8362",
+			"inputName": "failure",
+			"outputName": "error"
+		},
+		{
+			"id": "3bc95687-2d7c-40da-914f-006e8190e122",
+			"sourceId": "task_8668",
+			"targetId": "task_8362",
+			"inputName": "failure",
+			"outputName": "error"
+		},
+		{
+			"id": "86ef94a3-a73d-40d0-8681-d33bf6613d37",
+			"sourceId": "task_7987",
+			"targetId": "task_7827",
+			"inputName": "activate",
+			"outputName": "onInitialize"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#ffff00",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_7827": {
+						"collapsed": false,
+						"position": {
+							"x": 912,
+							"y": 672
+						},
+						"outdated": false
+					},
+					"task_7987": {
+						"collapsed": false,
+						"position": {
+							"x": 1637,
+							"y": 616
+						},
+						"outdated": false
+					},
+					"task_8362": {
+						"collapsed": false,
+						"position": {
+							"x": 3325,
+							"y": 917
+						},
+						"outdated": false
+					},
+					"task_8668": {
+						"collapsed": false,
+						"position": {
+							"x": 2190,
+							"y": 702
+						},
+						"outdated": false
+					},
+					"task_9027": {
+						"collapsed": false,
+						"position": {
+							"x": 2690,
+							"y": 612
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"d91c5f59-c823-4cf9-97ad-d2b72fb047d7": {
+						"vertices": []
+					},
+					"33cdfd40-ce75-441f-9c3f-51b255162e1e": {
+						"vertices": []
+					},
+					"a21fdc8f-02b1-4323-b899-2eb2159751f9": {
+						"vertices": []
+					},
+					"bc473f46-9e4e-4605-8deb-cb93199651e1": {
+						"vertices": []
+					},
+					"340ed1c7-649e-404f-8c14-70c637aa54af": {
+						"vertices": []
+					},
+					"344443eb-4045-4a5f-a2a0-9c80bfd83c3d": {
+						"vertices": []
+					},
+					"33295f30-806e-4f0a-a195-d3b4a237a38f": {
+						"vertices": []
+					},
+					"b3710f20-5b49-4194-8cd2-e9cd251d2b0f": {
+						"vertices": []
+					},
+					"433e8181-6838-46b2-8d13-dc7c16c7ede4": {
+						"vertices": []
+					},
+					"113affc7-6a7b-4cb8-a223-6ab7f3f19f08": {
+						"vertices": []
+					},
+					"d043f623-a227-4c7b-9b61-05c00fb03c0c": {
+						"vertices": []
+					},
+					"1c2bc3e2-bfdd-4d44-930b-54e70618b922": {
+						"vertices": []
+					},
+					"43f43182-ffc5-44e6-aa63-a3713c23a8f8": {
+						"vertices": []
+					},
+					"3d2c79f8-a9a6-4d6e-b202-906f3718b879": {
+						"vertices": []
+					},
+					"3bc95687-2d7c-40da-914f-006e8190e122": {
+						"vertices": []
+					},
+					"86ef94a3-a73d-40d0-8681-d33bf6613d37": {
+						"vertices": [
+							{
+								"x": 1950,
+								"y": 431
+							},
+							{
+								"x": 816,
+								"y": 504
+							}
+						]
+					}
+				},
+				"notes": {},
+				"zoom": 0.7100000000000004,
+				"pan": {
+					"x": 1239,
+					"y": 340
+				}
+			}
+		}
+	}
+}

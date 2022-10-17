@@ -3,6 +3,7 @@
 Everything that is created or updated in the MES system to support customer requirements are considered features.
 
 The features are grouped in the following sections:
+* [Lot Change Event](/cmf.custom.help/techspec>features>custom_lot_change_event)
 * [ERP (SAP) System Integration](/cmf.custom.help/techspec>features>customerpsystemintegration)
 * [FDC System Integration](/cmf.custom.help/techspec>features>customfdcsystemintegration)
 * [Get Flow Information for ERP](/cmf.custom.help/techspec>features>customgetflowinformationforerp)

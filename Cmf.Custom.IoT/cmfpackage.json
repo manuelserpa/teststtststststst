@@ -21,15 +21,19 @@
     },
     {
       "id": "Cmf.Custom.IoT.CoreSolution",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     {
       "id": "Cmf.Custom.IoT.HermosLFM4xReader",
       "version": "2.0.0"
     },
     {
+      "id": "Cmf.Custom.IoT.FileRaw",
+      "version": "2.1.0"
+    },
+    {
       "id": "Cmf.Custom.IoT.TemplateWorkflows",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     {
       "id": "Cmf.Custom.IoT.EvatecClusterline200II",
@@ -49,7 +53,7 @@
     },
     {
       "id": "Cmf.Custom.IoT.OmegaPlasma",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     {
       "id": "Cmf.Custom.IoT.TrymaxNEO",
@@ -57,11 +61,11 @@
     },
     {
       "id": "Cmf.Custom.IoT.UnitySC",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     {
       "id": "Cmf.Custom.IoT.BrukerInsigthCAP",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
 	{
       "id": "Cmf.Custom.IoT.KLASpectraFilm",
@@ -69,7 +73,11 @@
     },
     {
       "id": "Cmf.Custom.IoT.Monarch25VHF",
-      "version": "2.0.0"
+      "version": "2.1.0"
+    },
+    {
+      "id": "Cmf.Custom.IoT.DISCODFD6363HC",
+      "version": "2.1.0"
     }
   ]
 }

@@ -1,17 +1,18 @@
 ﻿using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.Common;
+using Cmf.Foundation.Common.Abstractions;
+using Cmf.Navigo.BusinessObjects;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cmf.Navigo.BusinessObjects.Abstractions;
-using Cmf.Foundation.Common.Abstractions;
-using System;
-using Microsoft.Extensions.DependencyInjection;
-using Cmf.Navigo.BusinessObjects;
-using Cmf.Foundation.BusinessObjects;
 
 namespace Cmf.Custom.amsOSRAM.Actions.Automation
 {
-    public class CustomDockStoreIoT : DeeDevBase
+	public class CustomDockStoreIoT : DeeDevBase
 	{
 		public override bool DeeTestCondition(Dictionary<string, object> Input)
 		{
@@ -39,6 +40,8 @@ namespace Cmf.Custom.amsOSRAM.Actions.Automation
 
 			// Custom
 			UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+			UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.DataStructures");
+			UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
 
 			IContainer container = null;
 			IResource resource = null;
@@ -49,8 +52,8 @@ namespace Cmf.Custom.amsOSRAM.Actions.Automation
 			bool isTransportInvalid = false;
 
 			// Get services provider information
-            IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
-            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+			IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
+			IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
 
 			#region Validate Input Parameters
 
@@ -64,7 +67,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Automation
 				throw new ArgumentNullCmfException(inputKey);
 			}
 
-            container = entityFactory.Create<IContainer>();
+			container = entityFactory.Create<IContainer>();
 			container.Name = containerName;
 
 			if (!container.ObjectExists())
@@ -72,13 +75,13 @@ namespace Cmf.Custom.amsOSRAM.Actions.Automation
 				throw new ObjectNotFoundCmfException(Navigo.Common.Constants.Container, container.Name);
 			}
 
-            container.Load();
+			container.Load();
 
 			// Optional Parameter
 			inputKey = "StorageGroup";
 			string storageGroup = amsOSRAMUtilities.GetInputItem<string>(Input, inputKey);
 
-            resource = entityFactory.Create<IResource>();
+			resource = entityFactory.Create<IResource>();
 			resource.Name = storageGroup;
 
 			// Mandatory Parameter
@@ -100,8 +103,8 @@ namespace Cmf.Custom.amsOSRAM.Actions.Automation
 
 			if (!isStorageGroup)
 			{
-                resource = entityFactory.Create<IResource>();
-                resource.Name = resourceName;
+				resource = entityFactory.Create<IResource>();
+				resource.Name = resourceName;
 
 				if (!resource.ObjectExists())
 				{
@@ -201,36 +204,24 @@ namespace Cmf.Custom.amsOSRAM.Actions.Automation
 						container.LoadRelations(Navigo.Common.Constants.MaterialContainer);
 
 						if (container.ContainerMaterials != null &&
-							container.ContainerMaterials.Count > 0)
+								container.ContainerMaterials.Count > 0)
 						{
-							if (resource.LoadPortType == LoadPortType.Output) // CHECK IF CONTAINER HAS CASSETTE (TODO)
+							JArray containerMaterials = new JArray();
+
+							foreach (MaterialContainer materialInContainer in container.ContainerMaterials)
 							{
-								isTransportInvalid = true;
-								break;
+								JObject slotInformation = new JObject
+								{
+									["Slot"] = materialInContainer.Position,
+									["EquipmentWaferId"] = null,
+									["MaterialWaferId"] = materialInContainer.SourceEntity.Name,
+									["ParentMaterialName"] = materialInContainer.SourceEntity.ParentMaterial?.Name ?? String.Empty
+								};
+
+								containerMaterials.Add(slotInformation);
 							}
 
-							IMaterial topMostMaterial = (container.RelationCollection[Navigo.Common.Constants.MaterialContainer][0] as IMaterialContainer).SourceEntity;
-
-							if (topMostMaterial.TopMostMaterial != null)
-							{
-								topMostMaterial = topMostMaterial.TopMostMaterial;
-							}
-
-							if (topMostMaterial.HoldCount > 0)
-							{
-								isTransportInvalid = true;
-								break;
-							}
-
-							IStep step = topMostMaterial.Step;
-							IResourceCollection resourcesOnStep = step.GetResourcesForStep();
-							IResource parentResource = resource.GetTopMostResource();
-
-							if (!resourcesOnStep.Any(r => r.Name == parentResource.Name))
-							{
-								isTransportInvalid = true;
-								break;
-							}
+							Input.Add("ContainerMaterials", containerMaterials.ToString());
 						}
 
 						#endregion Validate Dock

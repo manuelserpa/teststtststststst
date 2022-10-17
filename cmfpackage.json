@@ -17,11 +17,11 @@
     },
     {
       "id": "Cmf.Custom.Business",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     {
       "id": "Cmf.Custom.Data",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     {
       "id": "Cmf.Custom.Data.ExportedObjects",
@@ -37,7 +37,7 @@
     },
     {
       "id": "Cmf.Custom.TibcoEMS",
-      "version": "2.0.0"
+      "version": "2.1.0"
     }
   ],
   "testPackages": [

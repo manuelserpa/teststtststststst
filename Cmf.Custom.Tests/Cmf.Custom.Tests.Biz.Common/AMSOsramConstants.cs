@@ -13,6 +13,21 @@
         /// </summary>
         public static string ProductAttributeProductionLine = "ProductionLine";
 
+        /// <summary>
+        /// Product Attribute SAPProductType
+        /// </summary>
+        public static string ProductAttributeSAPProductType = "SAPProductType";
+
+        /// <summary>
+        /// Facility Attribute FacilityCode
+        /// </summary>
+        public static string FacilityAttributeFacilityCode = "FacilityCode";
+
+        /// <summary>
+        /// Site Attribute SiteCode
+        /// </summary>
+        public static string SiteAttributeSiteCode = "SiteCode";
+
         #endregion
 
         #region DEE
@@ -232,6 +247,11 @@
         public static string CustomSorterLogisticalProcessLookupTable = "CustomSorterLogisticalProcess";
 
         /// <summary>
+        /// Lookup table CustomTransactions Name
+        /// </summary>
+        public static string CustomTransactionsLookupTable = "CustomTransactions";
+
+        /// <summary>
         /// Lookup table CustomSorterLogisticalProcess MapCarrier Value
         /// </summary>
         public static string CustomSorterLogisticalProcessMapCarrier = "MapCarrier";
@@ -341,6 +361,11 @@
         /// </summary>
         public static string DefaultLotNameAllowedCharacters = "/amsOSRAM/Material/LotNameAllowedCharacters";
 
+        /// <summary>
+        /// Movement type to send goods issue
+        /// </summary>
+        public static string DefaultGoodsIssueMovementTypeConfig = "/Cmf/Custom/ERP/MovementType/GoodsIssue";
+
         #endregion Configurations
 
         #region Localized Messages
@@ -433,6 +458,21 @@
         /// Custom Production Line Conversion table Site property 
         /// </summary>
         public static string GenericTableCustomProductionLineConversionSiteProperty = "Site";
+
+        /// <summary>
+        /// Custom Transactions to Tibco table name
+        /// </summary>
+        public static string GenericTableCustomTransactionsToTibco = "CustomTransactionsToTibco";
+
+        /// <summary>
+        /// Custom Transactions to Tibco table Transaction Property
+        /// </summary>
+        public static string GenericTableCustomTransactionsToTibcoTransactionProperty = "Transaction";
+
+        /// <summary>
+        /// Custom Transactions to Tibco table IsEnabled Property
+        /// </summary>
+        public static string GenericTableCustomTransactionsToTibcoIsEnabledProperty = "IsEnabled";
 
         #endregion GenericTables
     }

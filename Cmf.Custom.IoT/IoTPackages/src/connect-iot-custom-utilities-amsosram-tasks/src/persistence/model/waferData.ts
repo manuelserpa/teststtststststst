@@ -5,6 +5,8 @@ export interface WaferData {
     EquipmentWaferId: string,
      /** Material Wafer Id */
     MaterialWaferId: string,
+    /** Parent Material Id */
+    ParentMaterialName: string,
     /** Created on */
     CreatedOn: string,
     /** Last Modified time */

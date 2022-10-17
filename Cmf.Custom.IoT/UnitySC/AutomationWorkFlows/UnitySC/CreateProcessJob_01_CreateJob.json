@@ -168,7 +168,8 @@
         "___cmf___name": "Custom Create Process Job",
         "SendCarrierContent": true,
         "RecipeSpecificationType": 1,
-        "commandName": 1
+        "commandName": 1,
+        "MaterialFormat": "0x0d"
       },
       "driver": "SecsGemEquipment"
     },
@@ -373,8 +374,8 @@
           "task_28851": {
             "collapsed": false,
             "position": {
-              "x": 1420,
-              "y": 1062
+              "x": 1476,
+              "y": 1053
             },
             "outdated": false
           }
@@ -410,21 +411,15 @@
           "3a6ec4e8-82ba-4313-8838-da7e59268b77": {
             "vertices": []
           },
-          "a45584ab-5f42-4488-95e3-2736ae5c8169": {
-            "vertices": []
-          },
-          "a5574470-e1fb-4659-a147-dae612d891d2": {
-            "vertices": []
-          },
           "df7cf29c-3700-430f-a09c-caa950aca98f": {
             "vertices": []
           }
         },
         "notes": {},
-        "zoom": 0.5499999999999996,
+        "zoom": 0.7599999999999998,
         "pan": {
-          "x": 524.1500015258789,
-          "y": 391.6000061035156
+          "x": 520,
+          "y": 392
         }
       }
     }
