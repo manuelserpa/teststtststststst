@@ -1,10 +1,37 @@
 {
+  "WorksheetNameMapping": {
+    "1": {
+        "WorksheetName": "TibcoGatewayResolver",
+        "Value": "<GT>CustomTibcoEMSGatewayResolver"
+    }
+  },
   "<SM>LookupTableValues": {
     "1": {
       "LookUp Table": "CustomSorterProcess",
       "Lookup Table Value Parent": "",
       "Lookup Table Value": "WaferReception",
       "Lookup Table Value Description": "Wafer Reception",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "2": {
+      "LookUp Table": "MaterialType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Crystal",
+      "Lookup Table Value Description": "Crystal",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "3": {
+      "LookUp Table": "MaterialType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Substrate",
+      "Lookup Table Value Description": "Substrate",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "4": {
+      "LookUp Table": "MaterialType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Carrier",
+      "Lookup Table Value Description": "Carrier",
       "Lookup Table IsEnabled": "Yes"
     }
   },
@@ -121,6 +148,50 @@
 			"AccessLevel": "",
 			"ValidationRange": "",
 			"ValidationRegex": ""
+    },
+    "2": {
+			"EntityType": "Area",
+			"Name": "AreaCode",
+			"Description": "Represents the Area Code",
+			"PropertyType": "Attribute",
+			"ScalarType": "NVarChar",
+			"ReferenceType": "None",
+			"IsEnabled": "Yes",
+			"IsHistoryEnable": "Yes",
+			"CopyOnClone": "",
+			"BelongsTo": "",
+			"ScalarSize": "",
+			"ScalarPrecision": "",
+			"ReferenceName": "",
+			"DefaultValue": "",
+			"IsArray": "",
+			"IsIndexed": "",
+			"IsMandatory": "",
+			"AccessLevel": "",
+			"ValidationRange": "",
+			"ValidationRegex": ""
+		},
+		"3": {
+			"EntityType": "Parameter",
+			"Name": "SendToSpace",
+			"Description": "If set sends the parameter to SPACE",
+			"PropertyType": "Attribute",
+			"ScalarType": "Bit",
+			"ReferenceType": "None",
+			"IsEnabled": "Yes",
+			"IsHistoryEnable": "Yes",
+			"CopyOnClone": "",
+			"BelongsTo": "",
+			"ScalarSize": "",
+			"ScalarPrecision": "",
+			"ReferenceName": "",
+			"DefaultValue": "",
+			"IsArray": "",
+			"IsIndexed": "",
+			"IsMandatory": "",
+			"AccessLevel": "",
+			"ValidationRange": "",
+			"ValidationRegex": ""
 		}
   },
   "<SM>DEEAction": {
@@ -135,6 +206,13 @@
       "Action": "CustomValidateMaterialReceptionSubstrate",
       "Description": "DEE Action used by IoT to validate Material Reception of substrates.",
       "CodeFileRelativePath": "Materials//CustomValidateMaterialReceptionSubstrate.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "3": {
+      "Action": "CustomReportEDCToSpaceHandler",
+      "Description": "DEE Action to validate DataCollection and create a XML message to be sent to Space system.",
+      "CodeFileRelativePath": "Space//CustomReportEDCToSpaceHandler.cs",
       "IsEnabled": "Yes",
       "Classification": ""
     }
@@ -307,6 +385,18 @@
       "ResourceProcessingType": "",
       "Page": "Custom_ResourceView_Cluster",
       "BusinessRule": ""
+    }
+  },
+  "<LOOKUP>TibcoGatewayResolver": {
+    "1": {
+        "Subject": "CustomReportEDCToSpace",
+        "Topic": "QUEUE.P.RBG.SPACE_INPUT",
+        "ReplyTo": "QUEUE.P.RBG.SPACE_OUTPUT",
+        "Rule": "",
+        "IsEnabled": "Yes",
+        "QueueMessage": "Yes",
+        "TextMessage": "No",
+        "CompressMessage": "No"
     }
   }
 }

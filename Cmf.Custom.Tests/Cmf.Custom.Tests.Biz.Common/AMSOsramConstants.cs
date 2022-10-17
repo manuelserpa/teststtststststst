@@ -45,6 +45,21 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// </summary>
         public const string StepAttributeIsWaferReception = "IsWaferReception";
 
+        /// <summary>
+        /// Area Attribute AreaCode
+        /// </summary>
+        public static string AreaAttributeAreaCode = "AreaCode";
+
+        /// <summary>
+        /// Product Attribute BasicType
+        /// </summary>
+        public static string ProductAttributeBasicType = "BasicType";
+
+        /// <summary>
+        /// Parameter Attribute SendToSpace
+        /// </summary>
+        public static string ParameterAttributeSendToSpace = "SendToSpace";
+
         #endregion
 
         #region DEE
