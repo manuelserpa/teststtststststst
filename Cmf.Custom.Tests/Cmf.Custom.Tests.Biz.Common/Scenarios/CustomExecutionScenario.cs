@@ -507,6 +507,21 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
             // Remove created Integration Entries
             TerminateIntegrationEntries();
 
+            foreach (Material material in GeneratedLots)
+            {
+                if (material.HoldCount > 0)
+                {
+                    material.LoadRelation("MaterialHoldReason");
+
+                    EntityRelationCollection materialHoldReasons = material.RelationCollection["MaterialHoldReason"];
+
+                    foreach (MaterialHoldReason materialHoldReason in materialHoldReasons)
+                    {
+                        material.ReleaseByReason(materialHoldReason);
+                    }
+                }
+            }
+
             TearDownManager.TearDownSequentially();
         }
 

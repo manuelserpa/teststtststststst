@@ -229,6 +229,16 @@
         public static string CustomSiteCodeAttribute = "SiteCode";
 
         /// <summary>
+        /// Area Code Attribute
+        /// </summary>
+        public static string CustomAreaCodeAttribute = "AreaCode";
+
+        /// <summary>
+        /// Parameter SendToSpace Attribute
+        /// </summary>
+        public static string CustomParameterSendToSpaceAttribute = "SendToSpace";
+
+        /// <summary>
         /// Step Attribute RequiresSpaceConfirmation
         /// </summary>
         public static string StepAttributeRequiresSpaceConfirmation = "RequiresSpaceConfirmation";

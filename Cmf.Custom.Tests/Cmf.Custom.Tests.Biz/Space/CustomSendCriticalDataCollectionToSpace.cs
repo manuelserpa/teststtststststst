@@ -1,6 +1,8 @@
-﻿using Cmf.Custom.Tests.Biz.Common;
+﻿using Cmf.Custom.amsOSRAM.Common.DataStructures;
+using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Custom.Tests.Biz.Common.ERP.Space;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
+using Cmf.Custom.Tests.Biz.Common.Tibco;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
@@ -9,12 +11,14 @@ using Cmf.MessageBus.Messages;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.OutputObjects;
+using Cmf.TestScenarios.MaintenanceManagement.MaintenancePlanScenarios;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Settings;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Cmf.Custom.Tests.Biz.Space
@@ -24,14 +28,28 @@ namespace Cmf.Custom.Tests.Biz.Space
     {
         private const string DataCollectionName = "SpaceDCTest";
         private const string DataCollectionLimitSetName = "SpaceDCTestLimitSet";
-        private List<string> parametersName = new List<string>() { "SScOTest", "QScOTest" };
 
-        private CustomExecutionScenario _scenario;
-        private CustomTearDownManager customTeardownManager = null;
-        private MaterialCollection materials;
-        private DataCollectionInstance dataCollectionInstance = null;
-        private Material material = null;
-        private decimal defaultValue = 0;
+        private CustomExecutionScenario scenario;
+        
+        private static Transport transport;
+        private string isToUnsubscribeTopic;
+        private List<Dictionary<string, string>> messageBusMessages;
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            transport = new Transport(BaseContext.GetMessageBusTransportConfiguration());
+            transport.Start();
+        }
+
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            if (transport != null)
+            {
+                transport.Stop();
+            }
+        }
 
         /// <summary>
         /// Test Initialization
@@ -39,13 +57,11 @@ namespace Cmf.Custom.Tests.Biz.Space
         [TestInitialize]
         public void TestInitialization()
         {
-            _scenario = new CustomExecutionScenario();
-            _scenario.NumberOfMaterialsToGenerate = 1;
-            _scenario.NumberOfChildMaterialsToGenerate = 3;
+            scenario = new CustomExecutionScenario();
+            scenario.NumberOfMaterialsToGenerate = 1;
+            scenario.NumberOfChildMaterialsToGenerate = 3;
 
-            materials = new MaterialCollection();
-
-            customTeardownManager = new CustomTearDownManager();
+            messageBusMessages = new List<Dictionary<string, string>>();
         }
 
         /// <summary>
@@ -54,34 +70,14 @@ namespace Cmf.Custom.Tests.Biz.Space
         [TestCleanup]
         public void TestCleanup()
         {
-            foreach (Material material in materials)
+            if (scenario != null)
             {
-                if (material.HoldCount > 0)
-                {
-                    material.LoadRelation("MaterialHoldReason");
-
-                    EntityRelationCollection materialHoldReasons = material.RelationCollection["MaterialHoldReason"];
-
-                    foreach (MaterialHoldReason materialHoldReason in materialHoldReasons)
-                    {
-                        material.ReleaseByReason(materialHoldReason);
-                    }
-                }
+                scenario.CompleteCleanUp();
             }
 
-            if (dataCollectionInstance != null && dataCollectionInstance.UniversalState != Foundation.Common.Base.UniversalState.Terminated)
+            if (!String.IsNullOrEmpty(isToUnsubscribeTopic))
             {
-                dataCollectionInstance.Terminate();
-            }
-
-            if (customTeardownManager != null)
-            {
-                customTeardownManager.TearDownSequentially();
-            }
-
-            if (_scenario != null)
-            {
-                _scenario.CompleteCleanUp();
+                transport.Unsubscribe(isToUnsubscribeTopic);
             }
         }
 
@@ -101,16 +97,17 @@ namespace Cmf.Custom.Tests.Biz.Space
         public void CustomSendCriticalDataCollectionToSpace_PostEDCDataOutsideLimits_ValidateAndCreateXMLMessage()
         {
             ///<Step> Create a Lot and its wafers </Step>
-            _scenario.Setup();
+            scenario.Setup();
 
-            defaultValue = 634;
+            decimal defaultValue = 634;
 
-            material = _scenario.GeneratedLots.FirstOrDefault();
-            materials.Add(material);
+            Material material = scenario.GeneratedLots.FirstOrDefault();
             material.LoadChildren();
 
             ///<Step> Open Data Collection Instance </Step>
-            DataCollection dataCollection = new DataCollection() { Name = DataCollectionName };
+            DataCollection dataCollection = new DataCollection() { 
+                Name = DataCollectionName 
+            };
             dataCollection.Load();
 
             DataCollectionLimitSet datacollectionLimitSet = new DataCollectionLimitSet
@@ -122,38 +119,48 @@ namespace Cmf.Custom.Tests.Biz.Space
             DataCollectionPointCollection pointsToPost = new DataCollectionPointCollection();
 
             int count = 0;
-            foreach (string parameterName in parametersName)
-            {
-                Parameter parameter = new Parameter() { Name = parameterName };
-                parameter.Load();
+            dataCollection.LoadRelations(new Collection<string> { "DataCollectionParameter" });
 
-                foreach (Material wafer in material.SubMaterials)
+            ParameterCollection parameters = new ParameterCollection();
+            parameters.AddRange(dataCollection.DataCollectionParameters.Select(s => s.TargetEntity));
+            parameters.Load();
+
+            foreach (Parameter parameter in parameters)
+            {
+                DataCollectionParameterSampleKey? sampleKey = dataCollection.DataCollectionParameters.FirstOrDefault(f => f.TargetEntity.Id == parameter.Id).SampleKey;
+
+                if (sampleKey == DataCollectionParameterSampleKey.MaterialId)
+                {
+                    foreach (Material wafer in material.SubMaterials)
+                    {
+                        DataCollectionPoint collectionPoint = new DataCollectionPoint();
+                        collectionPoint.Value = defaultValue + count;
+                        collectionPoint.TargetEntity = parameter;
+                        collectionPoint.ReadingNumber = 1;
+                        collectionPoint.SampleId = wafer.Name;
+                        pointsToPost.Add(collectionPoint);
+                        count++;
+                    }
+                }
+                else
                 {
                     DataCollectionPoint collectionPoint = new DataCollectionPoint();
                     collectionPoint.Value = defaultValue + count;
                     collectionPoint.TargetEntity = parameter;
                     collectionPoint.ReadingNumber = 1;
-                    collectionPoint.SampleId = wafer.Name;
+                    collectionPoint.SampleId = "1";
                     pointsToPost.Add(collectionPoint);
                     count++;
                 }
             }
 
-            PostDataCollectionAndValidateSpaceMessage(dataCollection, datacollectionLimitSet, pointsToPost);
+            string message = PostDataCollectionAndValidateSpaceMessage(material, dataCollection, datacollectionLimitSet, pointsToPost);
 
-            ///<Step> Validate Material Hold Reasons.</Step>
-            ///<ExpectedValue> The Material has one Hold Reasons (Out of Spec).</ExpectedValue>
+            ValidateMessage(message, material, pointsToPost, dataCollection, datacollectionLimitSet);
+
             material.Load();
-            material.LoadRelations(new Collection<string>
-            {
-                "MaterialHoldReason"
-            });
 
             Assert.IsTrue(material.HoldCount == 1, $"Material should have 1 reason instead has {material.HoldCount}");
-            MaterialHoldReason outOfSpecHoldReason = material.MaterialHoldReasons.FirstOrDefault();
-            outOfSpecHoldReason.TargetEntity.Load();
-            Assert.IsTrue(outOfSpecHoldReason.TargetEntity.Name.Equals("Out Of Spec"), $"Material Hold Reason Name should be: Out of Spec instead is: {outOfSpecHoldReason.TargetEntity.Name}");
-
             Assert.IsTrue(material.OpenExceptionProtocolsCount == 0, $"Material shouldn't have protocol instance opened, instead has {material.OpenExceptionProtocolsCount}.");
         }
 
@@ -174,16 +181,15 @@ namespace Cmf.Custom.Tests.Biz.Space
         public void CustomSendCriticalDataCollectionToSpace_PostEDCDataInsideLimits_ValidateAndCreateXMLMessage()
         {
             ///<Step> Create a Lot and its wafers </Step>
-            _scenario.Setup();
+            scenario.Setup();
 
-            defaultValue = 640;
-
-            material = _scenario.GeneratedLots.FirstOrDefault();
-            materials.Add(material);
+            Material material = scenario.GeneratedLots.FirstOrDefault();
             material.LoadChildren();
 
             ///<Step> Open Data Collection Instance </Step>
-            DataCollection dataCollection = new DataCollection() { Name = DataCollectionName };
+            DataCollection dataCollection = new DataCollection() { 
+                Name = DataCollectionName 
+            };
             dataCollection.Load();
 
             DataCollectionLimitSet datacollectionLimitSet = new DataCollectionLimitSet
@@ -194,37 +200,58 @@ namespace Cmf.Custom.Tests.Biz.Space
 
             DataCollectionPointCollection pointsToPost = new DataCollectionPointCollection();
 
-            int count = 0;
-            foreach (string parameterName in parametersName)
-            {
-                Parameter parameter = new Parameter() { Name = parameterName };
-                parameter.Load();
+            dataCollection.LoadRelations(new Collection<string> { "DataCollectionParameter" });
+            
+            ParameterCollection parameters = new ParameterCollection();
+            parameters.AddRange(dataCollection.DataCollectionParameters.Select(s => s.TargetEntity));
+            parameters.Load();
 
-                foreach (Material wafer in material.SubMaterials)
+            int count = 0;
+            foreach (Parameter parameter in parameters)
+            {
+                decimal defaultValue = 640;
+
+                DataCollectionParameterSampleKey? sampleKey = dataCollection.DataCollectionParameters.FirstOrDefault(f => f.TargetEntity.Id == parameter.Id).SampleKey;
+
+                if (sampleKey == DataCollectionParameterSampleKey.MaterialId)
+                {
+                    foreach (Material wafer in material.SubMaterials)
+                    {
+                        DataCollectionPoint collectionPoint = new DataCollectionPoint();
+                        collectionPoint.Value = defaultValue + count;
+                        collectionPoint.TargetEntity = parameter;
+                        collectionPoint.ReadingNumber = 1;
+                        collectionPoint.SampleId = wafer.Name;
+                        pointsToPost.Add(collectionPoint);
+                        count++;
+                    }
+                }
+                else
                 {
                     DataCollectionPoint collectionPoint = new DataCollectionPoint();
                     collectionPoint.Value = defaultValue + count;
                     collectionPoint.TargetEntity = parameter;
                     collectionPoint.ReadingNumber = 1;
-                    collectionPoint.SampleId = wafer.Name;
+                    collectionPoint.SampleId = "1";
                     pointsToPost.Add(collectionPoint);
                     count++;
                 }
             }
 
-            PostDataCollectionAndValidateSpaceMessage(dataCollection, datacollectionLimitSet, pointsToPost);
+            string message = PostDataCollectionAndValidateSpaceMessage(material, dataCollection, datacollectionLimitSet, pointsToPost);
+
+            ValidateMessage(message, material, pointsToPost, dataCollection, datacollectionLimitSet);
 
             ///<Step> Validate Protocol Opened.</Step>
             ///<ExpectedValue> The lot should have a protocol opened.</ExpectedValue>
             material.Load();
-            material.LoadRelations(new Collection<string> { "MaterialHoldReason", "ProtocolMaterial" });
+            material.LoadRelations(new Collection<string> { "ProtocolMaterial" });
             Assert.IsTrue(material.OpenExceptionProtocolsCount == 1, $"Material should have one protocol instance opened, instead has {material.OpenExceptionProtocolsCount}.");
 
             ProtocolInstance protocolInstance = material.MaterialProtocols.FirstOrDefault().SourceEntity;
             protocolInstance.Load();
             protocolInstance.ParentEntity.Load();
             Assert.IsTrue(protocolInstance.ParentEntity.Name.Equals("8D"), $"Protocol should be 8D instead is {protocolInstance.ParentEntity.Name}");
-
             Assert.IsTrue(material.HoldCount == 0, $"Material should have 1 reason instead has {material.HoldCount}");
         }
 
@@ -234,115 +261,228 @@ namespace Cmf.Custom.Tests.Biz.Space
         /// <param name="dataCollection">DataCollection</param>
         /// <param name="datacollectionLimitSet">DataCollection Limit Set</param>
         /// <param name="pointsToPost">Points to Post</param>
-        private void PostDataCollectionAndValidateSpaceMessage(DataCollection dataCollection, DataCollectionLimitSet datacollectionLimitSet, DataCollectionPointCollection pointsToPost)
+        private string PostDataCollectionAndValidateSpaceMessage(Material material, DataCollection dataCollection, DataCollectionLimitSet datacollectionLimitSet, DataCollectionPointCollection pointsToPost)
         {
-            bool messageBusMessageWasReceived = false;
+            Func<bool> waitForMessageBus = SubscribeMessageBus(amsOSRAMConstants.CustomReportEDCToSpace, 1);
 
-            // Initialize message bus.
-            Transport messageBusTransport = new Transport(BaseContext.GetMessageBusTransportConfiguration());
-
-            // Connect to message bus.
-            messageBusTransport.Start();
-
-            // Subscribe to event.
-            messageBusTransport.Subscribe(amsOSRAMConstants.CustomReportEDCToSpace, (string subject, MbMessage message) =>
-            {
-                if (message != null && !string.IsNullOrWhiteSpace(message.Data))
-                {
-                    // Deserialize MessageBus message received to a Dictionary
-                    // - Key: PropertyName
-                    // - Value: PropertyValue (MessageToSend)
-                    Dictionary<string, string> receivedMessage = JsonConvert.DeserializeObject<Dictionary<string, string>>(message.Data);
-
-                    ValidateMessage(receivedMessage["Message"]);
-
-                    messageBusTransport.Unsubscribe(amsOSRAMConstants.CustomReportEDCToSpace);
-
-                    messageBusMessageWasReceived = true;
-                }
-            });
-
-            ComplexPerformDataCollectionInput complexPostDCDataInput = new ComplexPerformDataCollectionInput()
+            ComplexPerformDataCollectionOutput complexPostDCDataOutput = new ComplexPerformDataCollectionInput()
             {
                 Material = material,
                 DataCollection = dataCollection,
                 DataCollectionLimitSet = datacollectionLimitSet,
                 DataCollectionPointCollection = pointsToPost
-            };
-
-            ComplexPerformDataCollectionOutput complexPostDCDataOutput = complexPostDCDataInput.ComplexPerformDataCollectionSync();
-
-            Func<bool> waitForMessageBus = () =>
-            {
-                return messageBusMessageWasReceived;
-            };
+            }.ComplexPerformDataCollectionSync();
 
             waitForMessageBus.WaitFor();
 
-            Assert.IsTrue(messageBusMessageWasReceived, "Message was not received from message bus.");
+            Dictionary<string, string> messageBusMessage = messageBusMessages.FirstOrDefault();
+            Assert.IsTrue(messageBusMessage.Count > 0, "Message was not received from message bus.");
+
+            string message;
+            messageBusMessage.TryGetValue("Message", out message);
+
+            return message;
         }
 
         /// <summary>
         /// Validate message received from Message Bus
         /// </summary>
         /// <param name="message">Message to validate</param>
-        private void ValidateMessage(string message)
+        private void ValidateMessage(string message, Material material, DataCollectionPointCollection pointsToPost, DataCollection dataCollection, DataCollectionLimitSet dataCollectionLimitSet)
         {
-            if (!string.IsNullOrWhiteSpace(message))
+            Assert.IsFalse(String.IsNullOrEmpty(message), "Message received from MessageBus cannot be null or empty");
+
+            material.Load(1);
+
+            Product product = material.Product;
+            product.LoadAttribute(amsOSRAMConstants.ProductAttributeBasicType);
+
+            Area area = null;
+            Resource subResource = null;
+            Resource resource = material.LastProcessedResource;
+            
+            string ldCode = String.Empty;
+            string productBasicType = String.Empty;
+            if (material.Product.Attributes.ContainsKey(amsOSRAMConstants.ProductAttributeBasicType))
             {
-                Dictionary<string, string> expectedKeys = new Dictionary<string, string>()
+                productBasicType = (string)material.Product.Attributes.GetValueOrDefault(amsOSRAMConstants.ProductAttributeBasicType);
+            }
+
+            if (resource != null)
+            {
+                resource.LoadRelations(new Collection<string> { "SubResource" });
+
+                if (resource.RelationCollection.ContainsKey("SubResource"))
                 {
-                    {"PROCESS",  amsOSRAMConstants.DefaultTestProductName},
-                    {"BASIC_TYPE",string.Empty },
-                    {"AREA",string.Empty },
-                    {"OWNER", string.Empty},
-                    {"ROUTE",$"{amsOSRAMConstants.DefaultTestFlowName}_1"},
-                    {"OPERATION",amsOSRAMConstants.DefaultTestStepName},
-                    {"PROCESS_SPS","CMFTestService"},
-                    {"EQUIPMENT", string.Empty},
-                    {"CHAMBER",  string.Empty},
-                    {"RECIPE", string.Empty},
-                    {"MEAS_EQUIPMENT", string.Empty },
-                    {"BATCH_NAME", string.Empty },
-                    {"LOT",$"{material.Name}"},
-                    {"QTY","3.00000000"},
-                    {"WAFER","."},
-                    {"PUNKT","."},
-                    {"X","."},
-                    {"Y","."}
-                };
+                    subResource = resource.SubResources.FirstOrDefault();
+                }
 
-                ///<Step> Validate the content of the Integration Entry </Step>
-                CustomReportEDCToSpace spaceInformation = CustomUtilities.DeserializeXmlToObject<CustomReportEDCToSpace>(message);
+                area = resource.Area;
 
-                foreach (Key key in spaceInformation.Keys)
+                if (area != null)
+                {
+                    ldCode = area.Attributes.GetValueOrDefault(amsOSRAMConstants.AreaAttributeAreaCode).ToString();
+                }
+            }
+
+            if (String.IsNullOrEmpty(ldCode))
+            {
+                // Load Site
+                Site site = material.Facility?.Site;
+                site.Load();
+
+                site.LoadAttribute(amsOSRAMConstants.SiteAttributeSiteCode);
+
+                // Get SiteCode attribute value
+                ldCode = site.Attributes.GetValueOrDefault(amsOSRAMConstants.SiteAttributeSiteCode).ToString();
+            }
+
+            Dictionary<string, string> expectedKeys = new Dictionary<string, string>()
+            {
+                {"PROCESS",  product.Name},
+                {"BASIC_TYPE",productBasicType },
+                {"AREA", area != null ? area.Name : String.Empty },
+                {"OWNER", material.ProductionOrder != null ? material.ProductionOrder.Name : String.Empty},
+                {"ROUTE", $"{material.Flow.Name}_{material.Flow.Version}"},
+                {"OPERATION",material.Step.Name},
+                {"PROCESS_SPS", material.RequiredService != null ? material.RequiredService.Name : String.Empty},
+                {"EQUIPMENT", resource != null ? resource.Name: String.Empty },
+                {"CHAMBER",  subResource != null ? subResource.Name : String.Empty},
+                {"RECIPE", material.CurrentRecipeInstance != null ? material.CurrentRecipeInstance.ParentEntity.Name : String.Empty},
+                {"MEAS_EQUIPMENT", resource != null && resource.Type.Equals("Measure") ? resource.Type : String.Empty },
+                {"BATCH_NAME", String.Empty },
+                {"LOT",$"{material.Name}"},
+                {"QTY",$"{material.PrimaryQuantity + material.SubMaterialsPrimaryQuantity}"},
+                {"WAFER","."},
+                {"PUNKT","."},
+                {"X","."},
+                {"Y","."}
+            };
+
+            CustomReportEDCToSpace spaceInformation = CustomUtilities.DeserializeXmlToObject<CustomReportEDCToSpace>(message);
+
+            // Validate Parameter Names that should be sent to SPACE
+            ParameterCollection parameters = new ParameterCollection();
+            parameters.AddRange(dataCollection.DataCollectionParameters.Select(s => s.TargetEntity));
+            parameters.Load();
+
+            foreach(Parameter parameter in parameters)
+            {
+                parameter.LoadAttributes(new Collection<string> { amsOSRAMConstants.ParameterAttributeSendToSpace });
+            }
+
+            ParameterCollection elegibleParameters = new ParameterCollection();
+            elegibleParameters.AddRange(
+                parameters.Where(s => 
+                    s.HasAttributeDefined(amsOSRAMConstants.ParameterAttributeSendToSpace) && 
+                    s.GetAttributeValue(amsOSRAMConstants.ParameterAttributeSendToSpace, false) &&
+                    (s.DataType == ParameterDataType.Decimal || s.DataType == ParameterDataType.Long)));
+
+            Assert.AreEqual(elegibleParameters.Count, spaceInformation.Samples.Count, $"Should have {elegibleParameters.Count} samples but got {spaceInformation.Samples.Count} instead");
+            Assert.IsTrue(elegibleParameters.Select(s => s.Name).ToList().Except(spaceInformation.Samples.Select(s => s.ParameterName)).ToList().Count == 0, "There is a mismatch between the parameters that should be send to space and the ones sent to space");
+
+            // Validate Sender
+            Assert.AreEqual(CustomUtilities.GetEnvironmentName(), spaceInformation.Sender.Value, $"The Sender should be {CustomUtilities.GetEnvironmentName()} instead of {spaceInformation.Sender.Value}");
+            
+            // Validate LDS
+            Assert.AreEqual(1, spaceInformation.Lds.Count, $"Should have 1 LD instead of {spaceInformation.Lds.Count}");
+            Assert.AreEqual(ldCode, spaceInformation.Lds.FirstOrDefault().Id, $"The LDSCode should be {ldCode} instead of {spaceInformation.Lds.FirstOrDefault().Id}");
+
+            // Validate SampleDate
+            Assert.IsNotNull(spaceInformation.SampleDate, "The SampleDate cannot be null or empty");
+
+            dataCollectionLimitSet.LoadRelations(new Collection<string> { "DataCollectionParameterLimit" }, 1);
+
+            foreach (Sample sample in spaceInformation.Samples)
+            {
+                // Validate Parameter name and unit
+                DataCollectionPointCollection dataCollectionPoints = new DataCollectionPointCollection();
+                dataCollectionPoints.AddRange(pointsToPost.Where(f => f.TargetEntity.Name == sample.ParameterName));
+
+                DataCollectionParameterLimit limits = dataCollectionLimitSet.DataCollectionParameterLimits.FirstOrDefault(f => f.TargetEntity.Name == sample.ParameterName);
+                Parameter parameter = parameters.FirstOrDefault(f => f.Name == sample.ParameterName);
+
+                if (!String.IsNullOrEmpty(parameter.DataUnit))
+                {
+                    Assert.AreEqual(parameter.DataUnit, sample.ParameterUnit, $"Sample field for parameter {sample.ParameterName} should have the unit {parameter.DataUnit} but got {sample.ParameterUnit} instead.");
+                }
+
+                foreach (Key key in sample.Keys)
                 {
                     if (!string.IsNullOrEmpty(expectedKeys[key.Name]))
                     {
-                        Assert.IsTrue(key.Value.Equals(expectedKeys[key.Name]), $"The value for key with name {key.Name} is {key.Value}, but should be {expectedKeys[key.Name]}.");
+                        Assert.AreEqual(expectedKeys[key.Name], key.Value, $"Sample field for parameter {sample.ParameterName} should have the key with name {key.Name} with the value {expectedKeys[key.Name]}, but got {key.Value} instead.");
                     }
                 }
 
-                Assert.IsTrue(spaceInformation.Samples.Count == 1, $"The number of samples present on the message is {spaceInformation.Samples.Count}, but should be 1.");
-                Assert.IsTrue(spaceInformation.Samples[0].Raws.raws.Count == material.SubMaterialCount, $"Each wafer should be present on the sample data.");
-
-                int sampleCount = 0;
-                foreach (Sample sample in spaceInformation.Samples)
+                if (limits != null)
                 {
-                    if (sample.ParameterName.Equals("SScOTest"))
+                    if (limits.LowerWarningLimit != null && limits.LowerWarningLimit.HasValue)
                     {
-                        Assert.IsTrue(sample.Lower.Equals("635.0000000000"), $"Sample field for parameter {sample.ParameterName} should have the lower limit error equal to 635.0000000000 instead is {sample.Lower}.");
-                        Assert.IsTrue(sample.Upper.Equals("665.0000000000"), $"Sample field for parameter {sample.ParameterName} should have the upper limit error equal to 665.0000000000 instead is {sample.Upper}.");
+                        Assert.AreEqual(Decimal.Truncate((decimal)limits.LowerWarningLimit.Value), Decimal.Truncate(Decimal.Parse(sample.Lower)), $"Sample field for parameter {sample.ParameterName} should have the lower limit error equal to {Decimal.Truncate((decimal)limits.LowerWarningLimit.Value)} instead is {Decimal.Truncate(Decimal.Parse(sample.Lower))}.");
+                    } else if (limits.LowerErrorLimit != null && limits.LowerErrorLimit.HasValue)
+                    {
+                        Assert.AreEqual(Decimal.Truncate((decimal)limits.LowerErrorLimit.Value), Decimal.Truncate(Decimal.Parse(sample.Lower)), $"Sample field for parameter {sample.ParameterName} should have the lower limit error equal to {Decimal.Truncate((decimal)limits.LowerErrorLimit.Value)} instead is {Decimal.Truncate(Decimal.Parse(sample.Lower))}.");
                     }
 
-                    foreach (Raw sampleRaw in sample.Raws.raws)
+                    if (limits.UpperWarningLimit != null && limits.UpperWarningLimit.HasValue)
                     {
-                        decimal value = defaultValue + sampleCount;
-                        Assert.IsTrue(sampleRaw.RawValue.Equals(value), $"Value for parameter {sample.ParameterName} should be {value} instead is {sampleRaw.RawValue}.");
-                        sampleCount++;
+                        Assert.AreEqual(Decimal.Truncate((decimal)limits.UpperWarningLimit.Value), Decimal.Truncate(Decimal.Parse(sample.Upper)), $"Sample field for parameter {sample.ParameterName} should have the lower limit error equal to {Decimal.Truncate((decimal)limits.UpperWarningLimit.Value)} instead is {Decimal.Truncate(Decimal.Parse(sample.Upper))}.");
+                    }
+                    else if (limits.UpperErrorLimit != null && limits.UpperErrorLimit.HasValue)
+                    {
+                        Assert.AreEqual(Decimal.Truncate((decimal)limits.UpperErrorLimit.Value), Decimal.Truncate(Decimal.Parse(sample.Upper)), $"Sample field for parameter {sample.ParameterName} should have the lower limit error equal to {Decimal.Truncate((decimal)limits.UpperErrorLimit.Value)} instead is {Decimal.Truncate(Decimal.Parse(sample.Upper))}.");
+                    }
+                }
+
+                Assert.AreEqual(dataCollectionPoints.Count, sample.Raws.raws.Count, $"Sample field for parameter {sample.ParameterName} should have {dataCollectionPoints.Count} raws instead of {sample.Raws.raws.Count}.");
+                Assert.AreEqual("True", sample.Raws.StoreRaws, $"Sample field for parameter {sample.ParameterName} should have the StoreRaws set to True instead of {sample.Raws.StoreRaws}.");
+
+                int counter = 0;
+                bool isSampleTypeMaterialId = dataCollection.DataCollectionParameters.FirstOrDefault(f => f.TargetEntity.Name == sample.ParameterName).SampleKey == DataCollectionParameterSampleKey.MaterialId;
+
+                foreach (Raw sampleRaw in sample.Raws.raws)
+                {
+                    DataCollectionPoint point = dataCollectionPoints[counter];
+                    Assert.AreEqual(point.Value, sampleRaw.RawValue, $"Sample field for parameter {sample.ParameterName} should have the raw{counter} as {point.Value} but got {sampleRaw.RawValue} instead.");
+                    counter++;
+
+                    
+                    if (isSampleTypeMaterialId)
+                    {
+                        Assert.AreEqual(point.Value, sampleRaw.RawValue, $"Sample field for parameter {sample.ParameterName} should have the raw{counter} as {point.Value} but got {sampleRaw.RawValue} instead.");
                     }
                 }
             }
+        }
+
+        private Func<bool> SubscribeMessageBus(string topic, int numberOfMessages = 1)
+        {
+
+            transport.Subscribe(topic.ToString(), (string subject, MbMessage message) =>
+            {
+                if (message != null && !string.IsNullOrWhiteSpace(message.Data))
+                {
+                    messageBusMessages.Add(JsonConvert.DeserializeObject<Dictionary<string, string>>(message.Data));
+                }
+            });
+
+            isToUnsubscribeTopic = topic.ToString();
+
+            Func<bool> waitForMessageBus = () =>
+            {
+                bool isDone = messageBusMessages.Count == numberOfMessages;
+
+                if (isDone)
+                {
+                    transport.Unsubscribe(topic.ToString());
+                    isToUnsubscribeTopic = null;
+                }
+
+                return isDone;
+            };
+
+            return waitForMessageBus;
         }
     }
 }
