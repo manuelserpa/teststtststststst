@@ -27,7 +27,7 @@ The following DEE Actions were created to support customer requirements.
 | [CustomSendAbortInformationToIoT](/cmf.custom.help/techspec>artifacts>deeactions>customsendabortinformationtoiot) | DEE action to Trigger IoT call to send information about Aborted Materials. |
 | [CustomSendFDCLotInfo](/cmf.custom.help/techspec>artifacts>deeactions>customsendfdclotinfo) | DEE action to be triggered by the Integration Entry Handler to process Integration Entries and send Lot data to Onto FDC. |
 | [CustomSendFDCWaferInfo](/cmf.custom.help/techspec>artifacts>deeactions>customsendfdcwaferinfo) | DEE action to be triggered by the Integration Entry Handler to process Integration Entries and send Lot data to Onto FDC. |
-| [Custom Send Process Message](/cmf.custom.help/techspec>artifacts>deeactions>customsendprocessmessage) | Brief DEE Action description |
+| [CustomSendProcessMessage](/cmf.custom.help/techspec>artifacts>deeactions>customsendprocessmessage) | DEE action to be triggered by the Integration Entry Handler to process Integration Entries and send Inform Goods Issue message to ERP. |
 | [CustomSendTrackInInformationToIoT](/cmf.custom.help/techspec>artifacts>deeactions>customsendtrackininformationtoiot) | DEE action to Trigger IoT call to send the Materials TrackIn related information. |
 | [CustomSendTrackOutInformationToIoT](/cmf.custom.help/techspec>artifacts>deeactions>customsendtrackoutinformationtoiot) | DEE action to Trigger IoT call to send the Materials Track Out related information. |
 | [CustomTerminateVendorContainer](/cmf.custom.help/techspec>artifacts>deeactions>customterminatevendorcontainer) | DEE Action used to terminate a Container from a specific type configured as a VendorContainerType. |

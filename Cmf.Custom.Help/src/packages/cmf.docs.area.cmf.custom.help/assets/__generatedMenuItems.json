@@ -108,9 +108,9 @@
     "actionId": ""
   },
   {
-    "id": "amsosram-20221011-2.1.0",
+    "id": "amsosram-20221012-2.1.0",
     "menuGroupId": "releasenotes",
-    "title": "amsOSRAM-20221011-2.1.0",
+    "title": "amsOSRAM-20221012-2.1.0",
     "actionId": ""
   },
   {
@@ -332,7 +332,7 @@
   {
     "id": "customsendprocessmessage",
     "menuGroupId": "deeactions",
-    "title": "Custom Send Process Message",
+    "title": "CustomSendProcessMessage",
     "actionId": ""
   },
   {
@@ -603,6 +603,12 @@
     "id": "hermoslfm4xreader",
     "menuGroupId": "iotequipmenttypes",
     "title": "Hermos LFM 4x Reader",
+    "actionId": ""
+  },
+  {
+    "id": "klaspectrafilm",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "KLA SpectraFilm Ellipsometer",
     "actionId": ""
   },
   {
