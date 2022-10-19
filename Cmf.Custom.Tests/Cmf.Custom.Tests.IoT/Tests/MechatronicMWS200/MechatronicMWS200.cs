@@ -1321,7 +1321,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
                 }
             };
 
-            base.Equipment.Variables["SubstID"] = wafer.Name;
+            base.Equipment.Variables["SubstID"] = String.Format("{0}.{1:D2}", MESScenario.ContainerScenario.Entity.Name, wafer.MaterialContainer.First().Position);
             base.Equipment.Variables["SubstLotID"] = wafer.ParentMaterial.Name;
             base.Equipment.Variables["SubstSubstLocID"] = String.Format("{0}.{1:D2}", MESScenario.ContainerScenario.Entity.Name, wafer.MaterialContainer.First().Position);
             base.Equipment.Variables["SubstState"] = 2;
@@ -1962,7 +1962,9 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
                     }
                 };
 
-                base.Equipment.Variables["SubstID"] = wafer.Name;
+                
+
+                base.Equipment.Variables["SubstID"] = String.Format("{0}.{1:D2}", sourceContainer, sourcePosition);
                 base.Equipment.Variables["SubstLotID"] = materialData.MaterialName;
                 base.Equipment.Variables["SubstSubstLocID"] = String.Format("{0}.{1:D2}", destinationContainer, destinationPosition);
                 base.Equipment.Variables["SubstState"] = 2;
