@@ -156,6 +156,11 @@
         public const string ContainerPeekCassete = "PEEK Cassette 8-Inch(13)";
 
         /// <summary>
+        /// Test Container Type: "PEEK Cassette 8-Inch(25)"
+        /// </summary
+        public const string ContainerPeekCassete25 = "PEEK Cassette 8-Inch (25)";
+
+        /// <summary>
         /// Form: Logistical wafer
         /// </summary>
         public static string FormWafer = "Logistical wafer";
