@@ -2,11 +2,14 @@
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.Cultures;
 using Cmf.Foundation.BusinessObjects.QueryObject;
+using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects;
+using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.OutputObjects;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.LocalizationManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.QueryManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.TestScenarios.Others;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -530,45 +533,6 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
             }
         }
 
-        public static string GetEnvironmentName()
-        {
-            Foundation.Common.DynamicExecutionEngine.Action action;
-            string actionName = "CustomGetEnvironmentMachineName";
-
-            try
-            {
-                //Call DEE action called by Operator when clicking on GUI to Download Recipe to Equipment
-                action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.GetActionByNameInput()
-                {
-                    Name = actionName
-                }.GetActionByNameSync().Action;
-            }
-            catch
-            {
-                string ruleCode = @"string environmentMachineName = Environment.MachineName; Input[""Result""] = environmentMachineName.ToString();";
-
-                action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action()
-                {
-                    Name = actionName,
-                    ActionCode = ruleCode,
-                    IsEnabled = true
-                };
-
-                action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.CreateActionInput()
-                {
-                    Action = action
-                }.CreateActionSync().Action;
-            }
-
-            var deeOutput = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.ExecuteActionInput()
-            {
-                Action = action,
-                Input = new Dictionary<string, object>() { }
-            }.ExecuteActionSync();
-
-            return deeOutput.Output["Result"] as string;
-        }
-
         #endregion
 
         #region XML
@@ -640,6 +604,82 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
         }
 
         #endregion
+
+        #region DEE
+
+        public static Foundation.Common.DynamicExecutionEngine.Action UpdateOrCreateDEE(string actionName, string actionCode, string codeToReplace = null)
+        {
+            if (actionName == null || actionName == String.Empty || actionCode == null && actionCode == String.Empty)
+            {
+                throw new Exception("The DEE action must have a name and code");
+            }
+
+            string actionCodeToSave = actionCode;
+
+            if (codeToReplace != null && codeToReplace != String.Empty)
+            {
+                actionCodeToSave = actionCodeToSave.Replace("// DO NOT DELETE: This is a hook for test purposes", codeToReplace);
+            }
+
+            Cmf.Foundation.Common.DynamicExecutionEngine.Action action = new CreateActionInput()
+            {
+                Action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action()
+                {
+                    Name = actionName,
+                    ActionCode = actionCodeToSave,
+                    IsEnabled = true
+                }
+            }.CreateActionSync().Action;
+
+            action = new MakeActionVersionEffectiveInput()
+            {
+                Action = action
+            }.MakeActionVersionEffectiveSync().Action;
+
+            return action;
+        }
+
+        public static object RunDEEForTests(Foundation.Common.DynamicExecutionEngine.Action action, Dictionary<string, object> input)
+        {
+            if (action== null || action.Name == null || action.Name == String.Empty)
+            {
+                throw new Exception("The DEE action must have a name");
+            }
+
+            // Check if needs load
+            if (action.ActionCode == null || action.ActionCode == String.Empty)
+            {
+                try
+                {
+                    action = new GetActionByNameInput()
+                    {
+                        Name = action.Name
+                    }.GetActionByNameSync().Action;
+                }
+                catch
+                {
+                    throw new Exception($"The DEE with the name {action.Name} does not exist");
+                }
+            }
+
+            ExecuteActionOutput deeOutput = new ExecuteActionInput()
+            {
+                Action = action,
+                Input = input
+            }.ExecuteActionSync();
+
+            return deeOutput.Output["Result"];
+        }
+
+        #endregion
+
+        public static string GetEnvironmentName()
+        {
+            string ruleCode = @"string environmentMachineName = Environment.MachineName; Input[""Result""] = environmentMachineName.ToString();";
+            Foundation.Common.DynamicExecutionEngine.Action action = UpdateOrCreateDEE("CustomGetEnvironmentMachineName", ruleCode);
+
+            return (string)RunDEEForTests(action, new Dictionary<string, object>());
+        }
 
         public static void WaitFor(this Func<bool> condition, int maxNumberOfRetries = 10, int msSleepTime = 500)
         {

@@ -108,9 +108,9 @@
     "actionId": ""
   },
   {
-    "id": "amsosram-20221011-2.1.0",
+    "id": "amsosram-20221012-2.1.0",
     "menuGroupId": "releasenotes",
-    "title": "amsOSRAM-20221011-2.1.0",
+    "title": "amsOSRAM-20221012-2.1.0",
     "actionId": ""
   },
   {
@@ -332,7 +332,7 @@
   {
     "id": "customsendprocessmessage",
     "menuGroupId": "deeactions",
-    "title": "Custom Send Process Message",
+    "title": "CustomSendProcessMessage",
     "actionId": ""
   },
   {
@@ -360,27 +360,45 @@
     "actionId": ""
   },
   {
+    "id": "custom_send_adhoc_transfer_information_to_iot",
+    "menuGroupId": "deeactions",
+    "title": "CustomSendAdHocTransferInformationToIoT",
+    "actionId": ""
+  },
+  {
     "id": "custom_send_event_message",
     "menuGroupId": "deeactions",
     "title": "CustomSendEventMessage",
     "actionId": ""
   },
   {
-    "id": "customsorterjobdefinition",
+    "id": "custom_validate_material_reception_substrate",
+    "menuGroupId": "deeactions",
+    "title": "CustomValidateMaterialReceptionSubstrate",
+    "actionId": ""
+  },
+  {
+    "id": "custom_sorter_job_definition",
     "menuGroupId": "entitytypes",
     "title": "CustomSorterJobDefinition",
     "actionId": ""
   },
   {
-    "id": "etproduct",
+    "id": "et_product",
     "menuGroupId": "entitytypes",
     "title": "Product",
     "actionId": ""
   },
   {
-    "id": "etresource",
+    "id": "et_resource",
     "menuGroupId": "entitytypes",
     "title": "Resource",
+    "actionId": ""
+  },
+  {
+    "id": "et_step",
+    "menuGroupId": "entitytypes",
+    "title": "Step",
     "actionId": ""
   },
   {
@@ -432,9 +450,21 @@
     "actionId": ""
   },
   {
+    "id": "custom_wizard_adhoc_transfer",
+    "menuGroupId": "components",
+    "title": "CustomWizardAdhocTransfer",
+    "actionId": ""
+  },
+  {
     "id": "customproductionlines",
     "menuGroupId": "lookuptables",
     "title": "CustomProductionLines",
+    "actionId": ""
+  },
+  {
+    "id": "custom_sorter_process",
+    "menuGroupId": "lookuptables",
+    "title": "CustomSorterProcess",
     "actionId": ""
   },
   {
@@ -549,6 +579,12 @@
     "id": "customsorterjobdefinitioncontext",
     "menuGroupId": "smarttables",
     "title": "CustomSorterJobDefinitionContext",
+    "actionId": ""
+  },
+  {
+    "id": "custom_product_container_capacities",
+    "menuGroupId": "smarttables",
+    "title": "CustomProductContainerCapacities",
     "actionId": ""
   },
   {
@@ -1005,6 +1041,12 @@
     "id": "custom_lot_change_event",
     "menuGroupId": "features",
     "title": "Lot Change Event",
+    "actionId": ""
+  },
+  {
+    "id": "custom_wafer_reception",
+    "menuGroupId": "features",
+    "title": "Wafer Reception (AdHoc Sorter Job)",
     "actionId": ""
   },
   {

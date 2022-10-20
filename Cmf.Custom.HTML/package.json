@@ -1,6 +1,6 @@
 {
   "name": "customization.amsosram",
-  "version": "2.0.0",
+  "version": "2.2.0",
   "description": "HTML customization package for amsOSRAM",
   "private": true,
   "scripts": {

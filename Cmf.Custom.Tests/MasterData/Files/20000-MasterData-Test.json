@@ -1280,6 +1280,11 @@
       "IsEnabled": "Yes"
     },
     "2": {
+      "SourceEntity": "ENA01",
+      "TargetEntity": "WaferReception",
+      "IsEnabled": "Yes"
+    },
+    "3": {
       "SourceEntity": "CMFTestResource01",
       "TargetEntity": "CMFTestService",
       "IsEnabled": "Yes"

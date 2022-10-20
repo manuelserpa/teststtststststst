@@ -1,5 +1,5 @@
 {
 	"@criticalmanufacturing/generator-html": {
-		"package": "customization.common"
+		"package": "customization.amsosram.resource"
 	}
 }
