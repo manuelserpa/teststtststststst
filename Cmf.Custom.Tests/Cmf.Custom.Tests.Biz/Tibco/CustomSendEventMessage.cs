@@ -12,6 +12,7 @@ using Cmf.MessageBus.Messages;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ContainerManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.ContainerManagement.OutputObjects;
+using Cmf.Navigo.BusinessOrchestration.FacilityManagement.AreaManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.TestScenarios.Others;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -357,6 +358,63 @@ namespace Cmf.Custom.Tests.Biz.Tibco
 
             ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialTrackOut);
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Validates Header and Body message sent to Tibco when tracking out a material while the facility does not have a site assigned
+        ///
+        /// Acceptance Citeria:
+        ///     - Validate created message information
+        ///
+        /// </summary>
+        /// <TestCaseID>CustomSendEventMessage_ValidateMessage_MaterialTrackOut_noSite</TestCaseID>
+        /// <Author>Gergoe Pajor</Author>
+        [TestMethod]
+        public void CustomSendEventMessage_ValidateMessage_MaterialTrackOut_noSite()
+        {
+            ///<Step> Create a Lot and its wafers </Step>
+            _scenario.NumberOfMaterialsToGenerate = 1;
+            _scenario.Setup();
+
+            // Material created
+            Material material = _scenario.GeneratedLots.FirstOrDefault();
+
+            Resource resource = new Resource
+            {
+                Name = amsOSRAMConstants.DefaultTestResourceName
+            };
+            resource.Load();
+
+            // Removal of site
+            Facility originalFacility = new Facility() { Name = _scenario.FacilityName };
+            originalFacility.Load();
+            Site originalSite = originalFacility.Site;
+            
+            originalFacility.Site = null;
+            originalFacility.Save();
+
+            material.Dispatch(resource);
+            material.TrackIn(resource);
+
+            Func<bool> waitForMessageBus = SuscribeMessageBus(CustomSendEventMessageTopics.CustomLotChange);
+
+            material.TrackOut();
+
+            waitForMessageBus.WaitFor();
+
+            TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
+
+            Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
+            Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
+
+            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialTrackOut);
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
+
+            //Readding of Site
+            originalFacility.Site = originalSite;
+            originalFacility.Save();
         }
 
         /// <summary>

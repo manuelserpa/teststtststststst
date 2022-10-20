@@ -2162,7 +2162,6 @@ namespace Cmf.Custom.amsOSRAM.Common
         /// <returns></returns>
         public static string GetMaterialSourcePath(IMaterial material)
         {
-            string materialPath = string.Empty;
             string stepLogicalName = string.Empty;
             string facilityCode, siteCode;
             facilityCode = siteCode = "EMPTY";
@@ -2174,12 +2173,14 @@ namespace Cmf.Custom.amsOSRAM.Common
             }
 
             // Get SiteCode attribute value
-            material.Facility.Site.Load();
-            if (material.Facility.Site.HasAttribute(amsOSRAMConstants.CustomSiteCodeAttribute, true))
+            if (material.Facility.Site != null)
             {
-                siteCode = material.Facility.Site.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute) as string;
+                material.Facility.Site.Load();
+                if (material.Facility.Site.HasAttribute(amsOSRAMConstants.CustomSiteCodeAttribute, true))
+                {
+                    siteCode = material.Facility.Site.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute) as string;
+                }
             }
-
             // Get Step LogicalName value
             if (material.Step.ContainsLogicalNames)
             {
@@ -2199,9 +2200,7 @@ namespace Cmf.Custom.amsOSRAM.Common
             }
 
             // Build in a string the MaterialPath
-            materialPath = string.Format("{0}.{1}.{2}", siteCode, facilityCode, stepLogicalName);
-
-            return materialPath;
+            return string.Format("{0}.{1}.{2}", siteCode, facilityCode, stepLogicalName);
         }
 
         #endregion
