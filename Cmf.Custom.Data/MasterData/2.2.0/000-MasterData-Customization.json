@@ -148,6 +148,7 @@
       "Classification": ""
     }
   },
+  "DEEActionOrder": {},
   "<SM>LocalizedMessageKey": {
     "1": {
       "Name": "CustomValueDoesNotExistLookupTable",

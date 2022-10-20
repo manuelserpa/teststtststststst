@@ -76,9 +76,6 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
             UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
             UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
 
-            // Other
-            UseReference("", "System.Threading");
-
             #region Check if all arguments exist
 
             if (!Input.TryGetValueAs("Resource", out string resourceName))
