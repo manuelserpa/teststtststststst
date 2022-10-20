@@ -7,6 +7,7 @@ import { SubMaterialStateEnum } from "../../persistence/model/subMaterialData";
 import { ContainerProcessHandler } from "../../persistence/implementation/containerDataHandler";
 import { MovementData } from "../../persistence/model/movementData";
 import { MaterialData } from "../../persistence";
+import { off } from "process";
 
 
 /**
@@ -103,6 +104,33 @@ export class CustomCreateProcessJobTask implements Task.TaskInstance, CustomCrea
             } else {
                 material = this.MaterialData;
             }
+
+            if (this.RecipeParameterList === undefined && this.MaterialData !== undefined) {
+                const RecipeParameters = this.MaterialData[0]?.Recipe?.RecipeParameters;
+
+                if (RecipeParameters && Array.isArray(RecipeParameters)) {
+                    this.RecipeParameterList = [];
+
+                    RecipeParameters.forEach(parameter => {
+                        const recipeParameter = {
+                            type: "L", value: [
+                                {
+                                    type: "A", value: parameter.Name // [RCPPARNM] Recipe varaible parameter name
+                                },
+                                {
+                                    type: "A", value: parameter.Value// [RCPPARVAL] Recipe varaible parameter value
+                                }
+                            ]
+                        }
+                        this.RecipeParameterList.push(recipeParameter)
+                    })
+                }
+            }
+
+            if (this.RecipeParameterList !== undefined && typeof this.RecipeParameterList === 'string') {
+                this.RecipeParameterList = JSON.parse(this.RecipeParameterList);
+            }
+
             material.ProcessJobId = this.ProcessJobIdentifier ?? `PrJob_${material.MaterialName}`;
 
             const dataIdType = (<any>this._driverProxy)._driver._currentIntegrationConfiguration.DeviceConfiguration.communication.dataIdType;
