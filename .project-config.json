@@ -11,7 +11,7 @@
   "RESTPort": "443",
   "Tenant": "amsOSRAM",
   "MESVersion": "9.1.0",
-  "DevTasksVersion": "8.2.0",
+  "DevTasksVersion": "9.0.4",
   "HTMLStarterVersion": "8.0.0",
   "YoGeneratorVersion": "8.1.1",
   "NugetVersion": "9.0.4",
