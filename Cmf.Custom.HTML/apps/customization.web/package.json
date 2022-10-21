@@ -6,6 +6,9 @@
     "@criticalmanufacturing/mes-ui-web": "release-910",
     "lodash": "3.10.1"
   },
+  "optionalDependencies": {
+    "customization.amsosram.resource": "release-910"
+  },
   "cmfLinkDependencies": {
     "cmf.lbos": "file:../../../Libs/LBOs/TypeScript",
     "customization.amsosram.resource": "file:../../src/packages/customization.amsosram.resource"
