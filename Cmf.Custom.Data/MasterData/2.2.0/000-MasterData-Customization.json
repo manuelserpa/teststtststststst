@@ -304,5 +304,18 @@
       "zh-TW": "",
       "UsageType": "Biz"
     }
+  },
+  "<ST>UIPageContext": {
+    "1": {
+      "Action": "FabExplorer.ResourceView.View",
+      "PrimaryRole": "",
+      "Facility": "",
+      "Area": "",
+      "Step": "",
+      "Resource": "",
+      "ResourceProcessingType": "",
+      "Page": "Custom_ResourceView_Cluster",
+      "BusinessRule": ""
+    }
   }
 }

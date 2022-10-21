@@ -133,7 +133,7 @@ export class CustomWizardAdhocTransfer extends CoreComponent implements Transact
 
         const instanceInput = new Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects.GetObjectByIdInput();
         instanceInput.IgnoreLastServiceId = true;
-        instanceInput.Id = this._pageBag.context.resourceId;
+        instanceInput.Id = this._pageBag.context.resource.Id;
         instanceInput.Type = "Resource";
 
         const inputs: Cmf.Foundation.BusinessOrchestration.BaseInput[] = [];

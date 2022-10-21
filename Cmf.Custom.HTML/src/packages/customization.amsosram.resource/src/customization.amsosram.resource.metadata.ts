@@ -21,27 +21,16 @@ import Cmf from "cmf.lbos";
 const onSendAdHocTransferInformationBuildContext: ActionButtonBuildContextHandler =
   (framework: Framework, context?: any): Promise<any> => {
     const sourceComponent = context[SOURCE_COMPONENT];
+    let resource = context.resource;
 
-    if (sourceComponent) {
-      let resource = new Cmf.Navigo.BusinessObjects.Resource();
-
-      if (sourceComponent.source.component._entityType === "Resource") {
-        resource = sourceComponent.source.component._parentComponent.epEntity;
-      }
-
-      if (sourceComponent.source.component._entityType === "UIPage") {
-        resource = context[UI_PAGE_COMPONENT].source.ClusterProperties.Resource;
-      }
-
-      if (resource.Name) {
-        context = {
-          ...context,
-          resource: resource,
-          resourceId: resource.Id,
-          resourceName: resource.Name,
-        };
-      }
+    if (sourceComponent?.source?.component?._entityType === "Resource") {
+      resource = sourceComponent.source.component._parentComponent.epEntity;
     }
+
+    context = {
+      ...context,
+      resource: resource
+    };
 
     return Promise.resolve(context);
   };
@@ -51,22 +40,21 @@ const onSendAdHocTransferInformationBuildContext: ActionButtonBuildContextHandle
 //#region CanExecute
 
 const CustomSendAdHocTransferInformationCanExecute: ActionCanExecuteHandler =
-  async (framework: Framework, context: any, messages: string[]): Promise<boolean> => {
-    if (context.resource == null) {
-      return false;
+  async(framework: Framework, context: any, messages: string[]): Promise<boolean> => {
+    let resource = context.resource;
+
+    if (resource != null && (resource.Id != null || resource.Name != null)) {
+      const input = new Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects.LoadResourceAttributesInput();
+      input.Resource = resource;
+      input.AttributeNames = ["IsSorter"];
+
+      const output = await framework.sandbox.lbo.call(input) as
+        Cmf.Navigo.BusinessOrchestration.ResourceManagement.OutputObjects.LoadResourceAttributesOutput;
+
+      resource = output.Resource;
     }
 
-    const input = new Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects.LoadResourceAttributesInput();
-    input.Resource = context.resource;
-    input.AttributeNames = ["IsSorter"];
-
-    const output = await framework.sandbox.lbo.call(input) as
-      Cmf.Navigo.BusinessOrchestration.ResourceManagement.OutputObjects.LoadResourceAttributesOutput;
-
-    return (
-      output.Resource.Attributes.has("IsSorter") &&
-      output.Resource.Attributes.get("IsSorter") === true
-    );
+    return Promise.resolve(resource?.Attributes?.has("IsSorter") && resource?.Attributes?.get("IsSorter") === true)
   };
 
 //#endregion
@@ -123,15 +111,6 @@ function applyConfig(packageName: string) {
               id: "Custom.Resource.SendAdHocTransferInformationButton",
             },
           ],
-        },
-        {
-          id: "UIPage_16652929767335483",
-          elementsToAdd: [
-            {
-              type: ActionBarElementType.ACTION_BUTTON,
-              id: "Custom.Resource.SendAdHocTransferInformationButton"
-            }
-          ]
         }
       ],
       actionButtonGroups: [],
@@ -151,12 +130,6 @@ function applyConfig(packageName: string) {
           mode: ActionMode.ModalPage,
           route: "Entity/Resource/:id/CustomAdhocTransfWizard",
           inputs: {
-            resourceId: <ActionComplexValueType>{
-              type: ActionValueType.String,
-            },
-            resourceName: <ActionComplexValueType>{
-              type: ActionValueType.String,
-            },
             resource: <ActionComplexValueType>{
               type: ActionValueType.ReferenceType,
               referenceType: Cmf.Foundation.Common.ReferenceType.EntityType,

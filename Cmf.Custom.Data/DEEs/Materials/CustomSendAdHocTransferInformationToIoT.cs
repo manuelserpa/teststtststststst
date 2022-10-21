@@ -340,6 +340,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
 
             JArray movementList = new JArray();
             int currentMovement = 0;
+            Dictionary<string, IResource> containerLoadPortDestinationMap = new Dictionary<string, IResource>();
 
             foreach (IContainer container in eligibleContainers.OrderByDescending(o => o.UsedPositions))
             {
@@ -369,6 +370,15 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
                             [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = i
                         };
 
+                        
+                        if (!containerLoadPortDestinationMap.ContainsKey(container.Name))
+                        {
+                            IResource loadPortDestination = entityFactory.Create<IResource>();
+                            loadPortDestination.Name = dockedContainers.FirstOrDefault(f => f.ContainerName == container.Name).LoadPortName;
+
+                            containerLoadPortDestinationMap.Add(container.Name, loadPortDestination);
+                        }
+
                         movementList.Add(jObject);
                         containerMaterialsCount++;
                     }
@@ -385,6 +395,18 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
                         break;
                     }
                 }
+            }
+
+            if (containerLoadPortDestinationMap.Count > 0)
+            {
+                IResourceCollection resourcesToUpdate = entityFactory.CreateCollection<IResourceCollection>();
+                resourcesToUpdate.AddRange(containerLoadPortDestinationMap.Values);
+                resourcesToUpdate.Load();
+
+                resourcesToUpdate.SaveAttributes(new AttributeCollection
+                {
+                    { amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, true }
+                });
             }
 
             #endregion Create the movement list
