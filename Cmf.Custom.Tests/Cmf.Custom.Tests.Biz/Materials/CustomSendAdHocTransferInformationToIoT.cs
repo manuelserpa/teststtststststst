@@ -42,6 +42,17 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
+            // Set IsRecipeManagementEnabled on the resource
+            Resource resource = new Resource();
+            resource.Name = amsOSRAMConstants.DefaultSorterResourceName;
+
+            resource.Load();
+
+            rollbackResourceProperties.Add("IsRecipeManagementEnabled", resource.IsRecipeManagementEnabled);
+            resource.IsRecipeManagementEnabled = true;
+
+            resource.Save();
+
             classExecutionScenario = new CustomExecutionScenario
             {
                 ResourceAttributesToSet = new Dictionary<string, Foundation.BusinessObjects.AttributeCollection>()
@@ -86,17 +97,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
             };
 
             classExecutionScenario.Setup();
-
-            // Set IsRecipeManagementEnabled on the resource
-            Resource resource = new Resource();
-            resource.Name = amsOSRAMConstants.DefaultSorterResourceName;
-
-            resource.Load();
-
-            rollbackResourceProperties.Add("IsRecipeManagementEnabled", resource.IsRecipeManagementEnabled);
-            resource.IsRecipeManagementEnabled = true;
-
-            resource.Save();
 
             // Set Resource Online
             classMaterialScenario = new CustomMaterialScenario(setResourceOnline: true, createContainer: false, setResourceOffline: false);
@@ -196,6 +196,9 @@ namespace Cmf.Custom.Tests.Biz.Materials
         {
             CustomMaterialScenario materialScenario = null;
 
+            Resource sourceLoadPort = new Resource();
+            Resource loadPortToDock1 = new Resource();
+
             try
             {
                 materialScenario = new CustomMaterialScenario(setResourceOnline: false, createContainer: true, setResourceOffline: false)
@@ -204,7 +207,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 };
                 materialScenario.Setup(productName: productName, positionSorting: ContainerPositionSorting.Descending);
 
-                Resource loadPortToDock1 = new Resource();
                 loadPortToDock1.Name = loadPortToDockName;
                 loadPortToDock1.Load();
 
@@ -212,7 +214,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
                 MaterialData materialData = RunExecuteAction(actionToExecute);
 
-                Resource sourceLoadPort = new Resource();
                 sourceLoadPort.Name = loadPortName;
                 sourceLoadPort.Load();
 
@@ -236,6 +237,9 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 containers.Add(container);
 
                 ValidateMovementList(movementList, containers, quantityToFullfil, targetCapacity, carrierAtLoadPort);
+
+                Assert.IsTrue(sourceLoadPort.GetAttributeValue(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false), $"LoadPort {sourceLoadPort.Name} should have the attribute {amsOSRAMConstants.ResourceAttributeIsLoadPortInUse} set to true");
+                Assert.IsTrue(loadPortToDock1.GetAttributeValue(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false), $"LoadPort {loadPortToDock1.Name} should have the attribute {amsOSRAMConstants.ResourceAttributeIsLoadPortInUse} set to true");
             }
             catch (Exception ex)
             {
@@ -243,6 +247,12 @@ namespace Cmf.Custom.Tests.Biz.Materials
             }
             finally
             {
+                sourceLoadPort.Load();
+                loadPortToDock1.Load();
+                
+                sourceLoadPort.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false);
+                loadPortToDock1.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false);
+                
                 if (materialScenario != null)
                 {
                     materialScenario.TearDown();
@@ -276,6 +286,10 @@ namespace Cmf.Custom.Tests.Biz.Materials
             CustomMaterialScenario materialScenarioLP1 = null;
             CustomMaterialScenario materialScenarioLP2 = null;
 
+            Resource sourceLoadPort = new Resource();
+            Resource loadPortToDock1 = new Resource();
+            Resource loadPortToDock2 = new Resource();
+
             try
             {
                 materialScenarioLP1 = new CustomMaterialScenario(setResourceOnline: false, createContainer: true, setResourceOffline: false)
@@ -305,13 +319,11 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
                 materialScenarioLP2.ContainerScenario.AssociateMaterials(materialContainerCollection);
 
-                Resource loadPortToDock1 = new Resource();
                 loadPortToDock1.Name = loadPortToDockName;
                 loadPortToDock1.Load();
 
                 materialScenarioLP1.DockContainer(loadPortToDock1);
 
-                Resource loadPortToDock2 = new Resource();
                 loadPortToDock2.Name = loadPortToDock2Name;
                 loadPortToDock2.Load();
 
@@ -322,7 +334,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
                 MaterialData materialData = RunExecuteAction(actionToExecute);
 
-                Resource sourceLoadPort = new Resource();
                 sourceLoadPort.Name = loadPortName;
                 sourceLoadPort.Load();
 
@@ -348,6 +359,13 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 containers.Add(container2);
 
                 ValidateMovementList(movementList, containers, quantityToFullfil, targetCapacity, carrierAtLoadPort);
+
+                loadPortToDock1.LoadAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse);
+                loadPortToDock2.LoadAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse);
+
+                Assert.IsTrue(sourceLoadPort.GetAttributeValue(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false), $"LoadPort {sourceLoadPort.Name} should have the attribute {amsOSRAMConstants.ResourceAttributeIsLoadPortInUse} set to true");
+                Assert.IsTrue(loadPortToDock1.GetAttributeValue(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false), $"LoadPort {loadPortToDock1.Name} should have the attribute {amsOSRAMConstants.ResourceAttributeIsLoadPortInUse} set to true");
+                Assert.IsTrue(loadPortToDock2.GetAttributeValue(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false), $"LoadPort {loadPortToDock2.Name} should have the attribute {amsOSRAMConstants.ResourceAttributeIsLoadPortInUse} set to true");
             }
             catch (Exception ex)
             {
@@ -355,6 +373,14 @@ namespace Cmf.Custom.Tests.Biz.Materials
             }
             finally
             {
+                sourceLoadPort.Load();
+                loadPortToDock1.Load();
+                loadPortToDock2.Load();
+
+                sourceLoadPort.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false);
+                loadPortToDock1.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false);
+                loadPortToDock2.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false);
+
                 if (materialScenarioLP1 != null)
                 {
                     materialScenarioLP1.TearDown();
