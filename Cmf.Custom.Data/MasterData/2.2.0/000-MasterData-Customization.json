@@ -123,15 +123,6 @@
 			"ValidationRegex": ""
 		}
   },
-  "<DM>Service": {
-    "1": {
-      "Name": "WaferReception",
-      "Description": "Wafer Reception Service used to resolve RecipeContext",
-      "Type": "Production",
-      "ProcessingType": "Process",
-      "IsEnabled": "Yes"
-    }
-  },
   "<SM>DEEAction": {
     "1": {
       "Action": "CustomSendAdHocTransferInformationToIoT",
