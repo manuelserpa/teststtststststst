@@ -1,28 +1,17 @@
 ﻿using Cmf.Core.Business.Controls.PageObjects.Components;
 using Cmf.Core.Controls.PageObjects.Components;
-using Cmf.Core.PageObjects;
 using Cmf.Custom.Tests.Biz.Common;
-using Cmf.Custom.Tests.Biz.Common.Scenarios;
 using Cmf.Custom.Tests.GUI.PageObjects.Components;
 using Cmf.Custom.TestUtilities;
 using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects;
-using Cmf.MessageBus.Client;
-using Cmf.MessageBus.Messages;
 using Cmf.Navigo.BusinessObjects;
-using Cmf.Navigo.BusinessOrchestration.ContainerManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.ResourceManagement.OutputObjects;
-using Cmf.TestScenarios.ContainerManagement.ContainerScenarios;
-using Customization.Common.PageObjects.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 using OpenQA.Selenium;
 using Settings;
-using Stimulsoft.System.Windows.Forms;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace Cmf.Custom.Tests.GUI.SendAdHocTransferInformation
@@ -31,7 +20,7 @@ namespace Cmf.Custom.Tests.GUI.SendAdHocTransferInformation
     /// SendAdHocTransferInformation GUI Tests
     /// </summary>
     [TestClass]
-    public class SendAdHocTransferInformationTest : BaseTestClass
+    public class SendAdHocTransferInformationTest : amsOSRAMBaseTest
     {
         #region Variables and constants
 
@@ -107,7 +96,8 @@ namespace Cmf.Custom.Tests.GUI.SendAdHocTransferInformation
                 if (teardownAttribute == null)
                 {
                     resource.RemoveAttribute(amsOSRAMConstants.ResourceAttributeIsSorter);
-                } else
+                }
+                else
                 {
                     resource.LoadAttribute(amsOSRAMConstants.ResourceAttributeIsSorter);
                     resource.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsSorter, teardownAttribute);
@@ -180,7 +170,7 @@ namespace Cmf.Custom.Tests.GUI.SendAdHocTransferInformation
         ///     - The Source Load Port list should list all the load ports of a given resource
         ///     - The Product should list all the products
         ///     - Sorter Process should list all the values inside the LookupTable
-        ///     - The Quantity should be filled automatically after choosing a Product 
+        ///     - The Quantity should be filled automatically after choosing a Product
         ///         - This value should be the result of the source quantity of the SmartTable resolution
         ///     - On Transfer should call the DEE
         /// </summary>
@@ -209,7 +199,7 @@ namespace Cmf.Custom.Tests.GUI.SendAdHocTransferInformation
                     { "TargetCapacity", "10" }
                 });
 
-                #endregion Resource setup
+                #endregion Resource and SmartTable setup
 
                 #region Open wizard
 
@@ -224,7 +214,7 @@ namespace Cmf.Custom.Tests.GUI.SendAdHocTransferInformation
                 //On Cleanup set the previous version as effetive and delete the version created here
                 WizardStepSorterProcess wizardStepSorterProcess = CreatePageObject<WizardStepSorterProcess>(WizardStepSorterProcess.Selector);
 
-                #endregion 
+                #endregion Open wizard
 
                 #region Validate Parent Resource
 
@@ -233,7 +223,7 @@ namespace Cmf.Custom.Tests.GUI.SendAdHocTransferInformation
                 Assert.AreEqual(parentResource.Name, resource.Name, $"Should have the {resource.Name} displayed instead of {parentResource.Name}");
                 parentResource.Load();
 
-                #endregion
+                #endregion Validate Parent Resource
 
                 #region Validate Load Ports
 
@@ -242,7 +232,7 @@ namespace Cmf.Custom.Tests.GUI.SendAdHocTransferInformation
                     Resource = parentResource,
                     Depth = 1
                 }.GetDescendentResourcesSync();
-                
+
                 IEnumerable<Resource> loadPortsList = getDescendentResources.DescendentResources
                     .Where(w => w.ChildResource.ProcessingType == ProcessingType.LoadPort)
                     .Select(s => s.ChildResource);
@@ -258,7 +248,7 @@ namespace Cmf.Custom.Tests.GUI.SendAdHocTransferInformation
 
                 wizardStepSorterProcess.SourceLoadPort = loadPorts.FirstOrDefault();
 
-                #endregion
+                #endregion Validate Load Ports
 
                 #region Validate Product
 
@@ -272,7 +262,7 @@ namespace Cmf.Custom.Tests.GUI.SendAdHocTransferInformation
 
                 wizardStepSorterProcess.Product = product;
 
-                #endregion
+                #endregion Validate Product
 
                 #region Validate Sorter Process
 
@@ -289,13 +279,13 @@ namespace Cmf.Custom.Tests.GUI.SendAdHocTransferInformation
 
                 wizardStepSorterProcess.SorterProcess = sorterProcess.Values.FirstOrDefault(f => f.Value == amsOSRAMConstants.CustomSorterProcessWaferReception);
 
-                #endregion
+                #endregion Validate Sorter Process
 
                 #region Validate Quantity
 
                 Assert.AreEqual(wizardStepSorterProcess.Quantity, sourceCapacity, $"Quantity should be {sourceCapacity} but is {wizardStepSorterProcess.Quantity}");
 
-                #endregion
+                #endregion Validate Quantity
             }
             finally
             {

@@ -137,8 +137,8 @@ namespace Settings
                     }
                     else
                     {
-                        config.SecurityPortalBaseAddress = new Uri(GetString(context, "securityPortalAddress"));
-                        config.SecurityAccessToken = GetString(context, "securityAccessToken");
+                        config.SecurityPortalBaseAddress = new Uri(GetString(context, "securityPortalBaseAddress"));
+                        config.SecurityAccessToken = GetString(context, "securityPortalAccessToken");
                     }
                 }
                 return config;
