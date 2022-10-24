@@ -1,6 +1,6 @@
 {
   "name": "customization.amsosram",
-  "version": "2.0.0",
+  "version": "2.2.0",
   "description": "HTML customization package for amsOSRAM",
   "private": true,
   "scripts": {
@@ -15,7 +15,7 @@
     "gulp": "^3.9.1",
     "run-sequence": "~1.1.0",
     "yargs": "~4.8.0",
-    "@criticalmanufacturing/dev-tasks": "8.2.0",
+    "@criticalmanufacturing/dev-tasks": "9.0.4",
     "@criticalmanufacturing/generator-html": "8.1.1"
   }
 }

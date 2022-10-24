@@ -3,13 +3,13 @@ var path = require('path');
 
 //place your config here
 var ctx = {
-  packageName: 'customization.common',
+  packageName: 'customization.amsosram.resource',
   baseDir: __dirname,
   libsFolder: 'node_modules/',
   localLibsFolder: 'local_libs/',
   tempFolder: 'temp/',
   sourceFolder: 'src/',
-  project: 'customization.common.csproj',
+  project: 'customization.amsosram.resource.csproj',
   type: 'module'
 };
 
