@@ -1,0 +1,415 @@
+{
+  "tasks": [
+    {
+      "id": "task_44586",
+      "reference": {
+        "name": "subWorkflowEnd",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "9.1.0-202209072"
+        }
+      },
+      "settings": {
+        "inputs": [
+          {
+            "name": "MaterialData",
+            "valueType": {
+              "friendlyName": "MaterialData",
+              "type": 10,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "task_44588",
+      "reference": {
+        "name": "subWorkflowStart",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "9.1.0-202209072"
+        }
+      },
+      "settings": {
+        "outputs": [
+          {
+            "name": "MaterialData",
+            "valueType": {
+              "type": 10,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            },
+            "defaultValue": null
+          }
+        ],
+        "___cmf___name": "Start"
+      }
+    },
+    {
+      "id": "task_44590",
+      "reference": {
+        "name": "workflow",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "9.1.0-202209072"
+        }
+      },
+      "settings": {
+        "automationWorkflow": {
+          "DisplayName": "ErrorHandling",
+          "IsShared": true,
+          "Name": "ErrorHandling"
+        },
+        "executeWhenAllInputsDefined": false,
+        "contextsExpirationInMilliseconds": 60000,
+        "executionExpirationInMilliseconds": 1200000,
+        "inputs": [
+          {
+            "name": "Error",
+            "valueType": {
+              "type": 10,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            }
+          },
+          {
+            "name": "ErrorCode",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            }
+          },
+          {
+            "name": "ErrorText",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            }
+          },
+          {
+            "name": "ResourceName",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "name": "Error",
+            "valueType": {
+              "friendlyName": "Error",
+              "type": 10,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null
+            }
+          }
+        ],
+        "___cmf___name": "Workflow",
+        "___cmf___color": "#ff0000"
+      }
+    },
+    {
+      "id": "task_44592",
+      "reference": {
+        "name": "equipmentCommand",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "9.1.0-202209072"
+        }
+      },
+      "settings": {
+        "_inputs": [
+          {
+            "parameter": {
+              "$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+              "Name": "VCE",
+              "DataType": 0
+            },
+            "dataType": "String"
+          }
+        ],
+        "_command": {
+          "$type": "Cmf.Foundation.BusinessObjects.AutomationCommand, Cmf.Foundation.BusinessObjects",
+          "Name": "ABORT"
+        },
+        "___cmf___name": "Execute Equipment Command"
+      },
+      "driver": "SecsGemEquipment"
+    },
+    {
+      "id": "task_14530",
+      "reference": {
+        "name": "codeExecution",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "9.1.0-202209072"
+        }
+      },
+      "settings": {
+        "tsCode": [
+          "import { Framework } from 'framework';",
+          "",
+          "export default class {",
+          "",
+          "    /** Allows accessing external functions */",
+          "    private framework: Framework;",
+          "",
+          "    constructor(framework: Framework) {",
+          "        this.framework = framework;",
+          "    }",
+          "",
+          "    /*",
+          "     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+          "     * Should return an object containing the values for each output to emit",
+          "     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+          "     */",
+          "    public async main(inputs: any, outputs: any): Promise<any> {",
+          "        // Add code here",
+          "        const materialData = inputs.MaterialData;",
+          "        const PortID = materialData.LoadPortPosition === \"1\" ? \"A\" : materialData.LoadPortPosition === \"2\" ? \"B\" : null ;",
+          "        const lotName = materialData.MaterialName;",
+          "        const recipeId = materialData.Recipe.NameOnEquipment;",
+          "        ",
+          "        return {",
+          "            PORT_ID: PortID ,",
+          "            PPID: recipeId,",
+          "            LOT_ID: lotName",
+          "        };",
+          "",
+          "",
+          "",
+          "    }",
+          "}",
+          ""
+        ],
+        "jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IG1hdGVyaWFsRGF0YSA9IGlucHV0cy5NYXRlcmlhbERhdGE7DQogICAgICAgIGNvbnN0IFBvcnRJRCA9IG1hdGVyaWFsRGF0YS5Mb2FkUG9ydFBvc2l0aW9uID09PSAiMSIgPyAiQSIgOiBtYXRlcmlhbERhdGEuTG9hZFBvcnRQb3NpdGlvbiA9PT0gIjIiID8gIkIiIDogbnVsbDsNCiAgICAgICAgY29uc3QgbG90TmFtZSA9IG1hdGVyaWFsRGF0YS5NYXRlcmlhbE5hbWU7DQogICAgICAgIGNvbnN0IHJlY2lwZUlkID0gbWF0ZXJpYWxEYXRhLlJlY2lwZS5OYW1lT25FcXVpcG1lbnQ7DQogICAgICAgIHJldHVybiB7DQogICAgICAgICAgICBQT1JUX0lEOiBQb3J0SUQsDQogICAgICAgICAgICBQUElEOiByZWNpcGVJZCwNCiAgICAgICAgICAgIExPVF9JRDogbG90TmFtZQ0KICAgICAgICB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
+        "inputs": [
+          {
+            "name": "MaterialData",
+            "valueType": {
+              "type": 10,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": "MaterialData"
+            },
+            "defaultValue": null
+          }
+        ],
+        "outputs": [
+          {
+            "name": "PORT_ID",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": "PORT_ID"
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "LOT_ID",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": "LOT_ID"
+            },
+            "defaultValue": null
+          }
+        ],
+        "contextExpirationInMilliseconds": 10000,
+        "executionExpirationInMilliseconds": 0,
+        "___cmf___name": "Code"
+      }
+    }
+  ],
+  "converters": [],
+  "links": [
+    {
+      "id": "task_44588_MaterialDataOut-task_44586_MaterialData",
+      "sourceId": "task_44588",
+      "targetId": "task_44586",
+      "inputName": "MaterialData",
+      "outputName": "MaterialDataOut",
+      "converters": []
+    },
+    {
+      "id": "task_44592_success-task_44586_success",
+      "sourceId": "task_44592",
+      "targetId": "task_44586",
+      "inputName": "success",
+      "outputName": "success",
+      "converters": []
+    },
+    {
+      "id": "task_44592_error-task_44590_ErrorIn",
+      "sourceId": "task_44592",
+      "targetId": "task_44590",
+      "inputName": "ErrorIn",
+      "outputName": "error",
+      "converters": []
+    },
+    {
+      "id": "task_44592_error-task_44590_activate",
+      "sourceId": "task_44592",
+      "targetId": "task_44590",
+      "inputName": "activate",
+      "outputName": "error",
+      "converters": []
+    },
+    {
+      "id": "task_44590_ErrorOut-task_44586_error",
+      "sourceId": "task_44590",
+      "targetId": "task_44586",
+      "inputName": "error",
+      "outputName": "ErrorOut",
+      "converters": []
+    },
+    {
+      "id": "a5fce5f8-57cb-4b84-aace-636e7be29469",
+      "sourceId": "task_44588",
+      "targetId": "task_14530",
+      "inputName": "activate",
+      "outputName": "activateOut"
+    },
+    {
+      "id": "f2e7e028-0622-467b-9333-ce0f8e6d71a2",
+      "sourceId": "task_14530",
+      "targetId": "task_44592",
+      "inputName": "$VCE",
+      "outputName": "PORT_IDOut"
+    },
+    {
+      "id": "6f835eb5-4d7e-495a-a5c4-d83c6320d5fb",
+      "sourceId": "task_14530",
+      "targetId": "task_44592",
+      "inputName": "activate",
+      "outputName": "success"
+    },
+    {
+      "id": "b3fc6732-8a96-4472-8693-c25d5f950f2c",
+      "sourceId": "task_44588",
+      "targetId": "task_14530",
+      "inputName": "MaterialDataIn",
+      "outputName": "MaterialDataOut"
+    }
+  ],
+  "layout": {
+    "general": {
+      "color": "#ffff80",
+      "notes": []
+    },
+    "drawers": {
+      "DIAGRAM": {
+        "tasks": {
+          "task_44586": {
+            "collapsed": false,
+            "position": {
+              "x": 2716,
+              "y": 368
+            },
+            "outdated": false
+          },
+          "task_44588": {
+            "collapsed": false,
+            "position": {
+              "x": 415,
+              "y": 365
+            },
+            "outdated": false
+          },
+          "task_44590": {
+            "collapsed": false,
+            "position": {
+              "x": 2168,
+              "y": 668
+            },
+            "outdated": false
+          },
+          "task_44592": {
+            "collapsed": false,
+            "position": {
+              "x": 1563,
+              "y": 530
+            },
+            "outdated": false
+          },
+          "task_14530": {
+            "collapsed": false,
+            "position": {
+              "x": 975,
+              "y": 529
+            },
+            "outdated": false
+          }
+        },
+        "links": {
+          "task_44588_MaterialDataOut-task_44586_MaterialData": {
+            "vertices": []
+          },
+          "task_44592_success-task_44586_success": {
+            "vertices": []
+          },
+          "task_44592_error-task_44590_ErrorIn": {
+            "vertices": []
+          },
+          "task_44592_error-task_44590_activate": {
+            "vertices": []
+          },
+          "task_44590_ErrorOut-task_44586_error": {
+            "vertices": []
+          },
+          "a5fce5f8-57cb-4b84-aace-636e7be29469": {
+            "vertices": []
+          },
+          "f2e7e028-0622-467b-9333-ce0f8e6d71a2": {
+            "vertices": []
+          },
+          "6f835eb5-4d7e-495a-a5c4-d83c6320d5fb": {
+            "vertices": []
+          },
+          "b3fc6732-8a96-4472-8693-c25d5f950f2c": {
+            "vertices": []
+          }
+        },
+        "notes": {},
+        "zoom": 0.5499999999999996,
+        "pan": {
+          "x": 228.25,
+          "y": 200.75
+        }
+      }
+    }
+  }
+}

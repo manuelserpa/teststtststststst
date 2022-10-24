@@ -21,6 +21,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\Cmf.Custom.Business\Cmf.Custom.Common\Cmf.Custom.amsOSRAM.Common.csproj" />
+		<ProjectReference Include="..\..\Cmf.Custom.Business\Cmf.Custom.ERP.ExternalServices\Cmf.Custom.ERP.ExternalServices.csproj" />
 		<ProjectReference Include="..\..\Cmf.Custom.Business\Cmf.Custom.Orchestration\Cmf.Custom.amsOSRAM.Orchestration.csproj" />
 	</ItemGroup>
 	<ItemGroup>

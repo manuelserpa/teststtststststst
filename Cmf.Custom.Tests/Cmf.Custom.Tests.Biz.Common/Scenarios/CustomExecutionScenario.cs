@@ -13,6 +13,7 @@ using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Cmf.Custom.Tests.Biz.Common.Scenarios
@@ -43,12 +44,12 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         public IntegrationEntryCollection IntegrationEntries;
 
         /// <summary>
-        /// 
+        /// ProductDataOutput
         /// </summary>
         public ProductDataOutput ProductOutput;
 
         /// <summary>
-        /// 
+        /// GoodsReceiptCertificate
         /// </summary>
         public GoodsReceiptCertificate GoodsReceiptCertificate;
 
@@ -73,11 +74,24 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         public List<Dictionary<string, string>> MaterialDCContext = new List<Dictionary<string, string>>();
 
         /// <summary>
+        /// SmartTable CustomProductContainerCapacities 
+        /// </summary>
+        public List<Dictionary<string, string>> CustomProductContainerCapacities = new List<Dictionary<string, string>>();
+
+        /// <summary>
+        /// SmartTable RecipeContext 
+        /// </summary>
+        public List<Dictionary<string, string>> RecipeContext = new List<Dictionary<string, string>>();
+
+        /// <summary>
         /// SmartTable CustomReportConsumptionToSAP 
         /// </summary>
         public List<Dictionary<string, string>> CustomReportConsumptionToSAP = new List<Dictionary<string, string>>();
 
-        public int ProductsToGenerate { get; set; } = 1;
+        /// <summary>
+        /// GenericTableManager
+        /// </summary>
+        public GenericTableManager GenericTableManager { get; set; } = new GenericTableManager();
 
         /// <summary>
         /// 
@@ -149,6 +163,26 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// </summary>
         public string MaterialToGenerateForm = amsOSRAMConstants.DefaultMaterialFormName;
 
+        /// <summary>
+        /// Resource Attributes to Set
+        /// </summary>
+        public Dictionary<string, AttributeCollection> ResourceAttributesToSet = new Dictionary<string, AttributeCollection>();
+
+        /// <summary>
+        /// Step Attributes to Set
+        /// </summary>
+        public Dictionary<string, AttributeCollection> StepAttributesToSet = new Dictionary<string, AttributeCollection>();
+
+        /// <summary>
+        /// Resource attributs to Rollback in TearDown
+        /// </summary>
+        private readonly Dictionary<string, AttributeCollection> ResourceAttributesToRollback = new Dictionary<string, AttributeCollection>();
+
+        /// <summary>
+        /// Step attributs to Rollback in TearDown
+        /// </summary>
+        private readonly Dictionary<string, AttributeCollection> StepAttributesToRollback = new Dictionary<string, AttributeCollection>();
+
         #endregion
 
         /// <summary>
@@ -184,11 +218,104 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                 }
             }
 
+            if (RecipeContext.Any())
+            {
+                foreach (Dictionary<string, string> row in RecipeContext)
+                {
+                    SmartTableManager.SetSmartTableData("RecipeContext", row);
+                }
+            }
+
+            if (CustomProductContainerCapacities.Any())
+            {
+                foreach (Dictionary<string, string> row in CustomProductContainerCapacities)
+                {
+                    SmartTableManager.SetSmartTableData(amsOSRAMConstants.CustomProductContainerCapacitiesSmartTable, row);
+                }
+            }
+
             if (CustomReportConsumptionToSAP.Any())
             {
                 foreach (Dictionary<string, string> row in CustomReportConsumptionToSAP)
                 {
                     SmartTableManager.SetSmartTableData(amsOSRAMConstants.CustomReportConsumptionToSAPSmartTable, row);
+                }
+            }
+
+            #endregion
+
+            #region Set attributes
+
+            if (ResourceAttributesToSet.Any())
+            {
+                foreach (string name in ResourceAttributesToSet.Keys)
+                {
+                    Resource resource = new Resource()
+                    {
+                        Name = name
+                    };
+
+                    Collection<string> attributesNames = new Collection<string>();
+                    Collection<string> attributesNamesToRemove = new Collection<string>();
+                    AttributeCollection attributesToSave = new AttributeCollection();
+
+                    foreach (KeyValuePair<string, object> attributes in ResourceAttributesToSet[name])
+                    {
+                        attributesNames.Add(attributes.Key);
+
+                        if (attributes.Value == null)
+                        {
+                            attributesNamesToRemove.Add(attributes.Key);
+                        } else
+                        {
+                            attributesToSave.Add(attributes.Key, attributes.Value);
+                        }
+                    }
+
+                    resource.Load();
+                    resource.LoadAttributes(attributesNames);
+
+                    ResourceAttributesToRollback.Add(name, resource.Attributes);
+
+                    resource.RemoveAttributes(attributesNamesToRemove);
+                    resource.SaveAttributes(attributesToSave);
+                }
+            }
+
+            if (StepAttributesToSet.Any())
+            {
+                foreach (string name in StepAttributesToSet.Keys)
+                {
+                    Step step = new Step()
+                    {
+                        Name = name
+                    };
+
+                    Collection<string> attributesNames = new Collection<string>();
+                    Collection<string> attributesNamesToRemove = new Collection<string>();
+                    AttributeCollection attributesToSave = new AttributeCollection();
+
+                    foreach (KeyValuePair<string, object> attributes in StepAttributesToSet[name])
+                    {
+                        attributesNames.Add(attributes.Key);
+
+                        if (attributes.Value == null)
+                        {
+                            attributesNamesToRemove.Add(attributes.Key);
+                        }
+                        else
+                        {
+                            attributesToSave.Add(attributes.Key, attributes.Value);
+                        }
+                    }
+
+                    step.Load();
+                    step.LoadAttributes(attributesNames);
+
+                    StepAttributesToRollback.Add(name, step.Attributes);
+
+                    step.RemoveAttributes(attributesNamesToRemove);
+                    step.SaveAttributes(attributesToSave);
                 }
             }
 
@@ -270,7 +397,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                         prodOrder: productionOrder,
                         productName: ProductName,
                         flowPath: FlowPath,
-                        primaryQuantity: ScenarioQuantity * NumberOfChildMaterialsToGenerate,
+                        primaryQuantity: NumberOfChildMaterialsToGenerate != 0 ? ScenarioQuantity * NumberOfChildMaterialsToGenerate : ScenarioQuantity,
                         facilityName: FacilityName,
                         form: MaterialToGenerateForm);
 
@@ -306,7 +433,73 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 
         public override void CompleteCleanUp()
         {
-            if (MaterialDCContext.Any() || SmartTablesToClearInSetup.Any())
+            if (ResourceAttributesToSet.Any())
+            {
+                foreach (string name in ResourceAttributesToSet.Keys)
+                {
+                    Resource resource = new Resource()
+                    {
+                        Name = name
+                    };
+
+                    resource.Load();
+
+                    if (ResourceAttributesToRollback.ContainsKey(name))
+                    {
+                        resource.SaveAttributes(ResourceAttributesToRollback[name]);
+                    }
+
+                    Collection<string> attributesToRemove = new Collection<string>();
+
+                    foreach (string attributeName in ResourceAttributesToSet[name].Keys)
+                    {
+                        if (!(ResourceAttributesToRollback.ContainsKey(name) && ResourceAttributesToRollback[name].ContainsKey(attributeName)))
+                        {
+                            attributesToRemove.Add(attributeName);
+                        }
+                    }
+
+                    if (attributesToRemove.Count > 0)
+                    {
+                        resource.RemoveAttributes(attributesToRemove);
+                    }
+                }
+            }
+
+            if (StepAttributesToSet.Any())
+            {
+                foreach (string name in StepAttributesToSet.Keys)
+                {
+                    Step step = new Step()
+                    {
+                        Name = name
+                    };
+
+                    step.Load();
+
+                    if (StepAttributesToRollback.ContainsKey(name))
+                    {
+                        step.SaveAttributes(StepAttributesToRollback[name]);
+                    }
+
+                    Collection<string> attributesToRemove = new Collection<string>();
+
+                    foreach (string attributeName in StepAttributesToSet[name].Keys)
+                    {
+                        if (!(StepAttributesToRollback.ContainsKey(name) && StepAttributesToRollback[name].ContainsKey(attributeName)))
+                        {
+                            attributesToRemove.Add(attributeName);
+                        }
+                    }
+
+                    if (attributesToRemove.Count > 0)
+                    {
+                        step.RemoveAttributes(attributesToRemove);
+                    }
+                }
+            }
+
+            if (MaterialDCContext.Any() || SmartTablesToClearInSetup.Any() || RecipeContext.Any() || CustomProductContainerCapacities.Any())
             {
                 SmartTableManager.TearDown();
             }

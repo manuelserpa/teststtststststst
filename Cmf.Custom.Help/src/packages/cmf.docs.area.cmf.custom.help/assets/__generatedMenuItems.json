@@ -108,6 +108,12 @@
     "actionId": ""
   },
   {
+    "id": "amsosram-20221012-2.1.0",
+    "menuGroupId": "releasenotes",
+    "title": "amsOSRAM-20221012-2.1.0",
+    "actionId": ""
+  },
+  {
     "id": "artifacts",
     "menuGroupId": "techspec",
     "title": "Artifacts",
@@ -326,7 +332,7 @@
   {
     "id": "customsendprocessmessage",
     "menuGroupId": "deeactions",
-    "title": "Custom Send Process Message",
+    "title": "CustomSendProcessMessage",
     "actionId": ""
   },
   {
@@ -354,21 +360,45 @@
     "actionId": ""
   },
   {
-    "id": "customsorterjobdefinition",
+    "id": "custom_send_adhoc_transfer_information_to_iot",
+    "menuGroupId": "deeactions",
+    "title": "CustomSendAdHocTransferInformationToIoT",
+    "actionId": ""
+  },
+  {
+    "id": "custom_send_event_message",
+    "menuGroupId": "deeactions",
+    "title": "CustomSendEventMessage",
+    "actionId": ""
+  },
+  {
+    "id": "custom_validate_material_reception_substrate",
+    "menuGroupId": "deeactions",
+    "title": "CustomValidateMaterialReceptionSubstrate",
+    "actionId": ""
+  },
+  {
+    "id": "custom_sorter_job_definition",
     "menuGroupId": "entitytypes",
     "title": "CustomSorterJobDefinition",
     "actionId": ""
   },
   {
-    "id": "etproduct",
+    "id": "et_product",
     "menuGroupId": "entitytypes",
     "title": "Product",
     "actionId": ""
   },
   {
-    "id": "etresource",
+    "id": "et_resource",
     "menuGroupId": "entitytypes",
     "title": "Resource",
+    "actionId": ""
+  },
+  {
+    "id": "et_step",
+    "menuGroupId": "entitytypes",
+    "title": "Step",
     "actionId": ""
   },
   {
@@ -396,6 +426,12 @@
     "actionId": ""
   },
   {
+    "id": "custom_transactions_to_tibco",
+    "menuGroupId": "generictables",
+    "title": "CustomTransactionsToTibco",
+    "actionId": ""
+  },
+  {
     "id": "cconverters",
     "menuGroupId": "html",
     "title": "Converters",
@@ -414,9 +450,27 @@
     "actionId": ""
   },
   {
+    "id": "custom_wizard_adhoc_transfer",
+    "menuGroupId": "components",
+    "title": "CustomWizardAdhocTransfer",
+    "actionId": ""
+  },
+  {
     "id": "customproductionlines",
     "menuGroupId": "lookuptables",
     "title": "CustomProductionLines",
+    "actionId": ""
+  },
+  {
+    "id": "custom_sorter_process",
+    "menuGroupId": "lookuptables",
+    "title": "CustomSorterProcess",
+    "actionId": ""
+  },
+  {
+    "id": "custom_transactions",
+    "menuGroupId": "lookuptables",
+    "title": "CustomTransactions",
     "actionId": ""
   },
   {
@@ -528,6 +582,12 @@
     "actionId": ""
   },
   {
+    "id": "custom_product_container_capacities",
+    "menuGroupId": "smarttables",
+    "title": "CustomProductContainerCapacities",
+    "actionId": ""
+  },
+  {
     "id": "customloadportstatemodel",
     "menuGroupId": "statemodels",
     "title": "CustomLoadPortStateModel",
@@ -561,6 +621,12 @@
     "id": "brukerinsightcap",
     "menuGroupId": "iotequipmenttypes",
     "title": "BrukerInsightCAP",
+    "actionId": ""
+  },
+  {
+    "id": "discodfd6363hc",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "DISCO DFD 6363 HC",
     "actionId": ""
   },
   {
@@ -644,6 +710,30 @@
   {
     "id": "brukerinsightcap-workflows",
     "menuGroupId": "brukerinsightcap",
+    "title": "Workflows",
+    "actionId": ""
+  },
+  {
+    "id": "discodfd6363hc-configuration",
+    "menuGroupId": "discodfd6363hc",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "discodfd6363hc-features",
+    "menuGroupId": "discodfd6363hc",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "discodfd6363hc-setup",
+    "menuGroupId": "discodfd6363hc",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "discodfd6363hc-workflows",
+    "menuGroupId": "discodfd6363hc",
     "title": "Workflows",
     "actionId": ""
   },
@@ -975,6 +1065,18 @@
     "id": "customundockvendorcontainertype",
     "menuGroupId": "features",
     "title": "Undock Vendor Container Type",
+    "actionId": ""
+  },
+  {
+    "id": "custom_lot_change_event",
+    "menuGroupId": "features",
+    "title": "Lot Change Event",
+    "actionId": ""
+  },
+  {
+    "id": "custom_wafer_reception",
+    "menuGroupId": "features",
+    "title": "Wafer Reception (AdHoc Sorter Job)",
     "actionId": ""
   },
   {

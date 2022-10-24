@@ -156,8 +156,8 @@
             "outputType": "Value"
           }
         ],
-        "___cmf___name": "On Equipment Event",
-        "___cmf___description": "E90_Subst_InProcess2ProcessingComplete (900111)",
+        "___cmf___name": "OEV (900111)",
+        "___cmf___description": "E90_Subst_InProcess2ProcessingComplete",
         "_events": [
           {
             "$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
@@ -235,7 +235,7 @@
             "collapsed": false,
             "position": {
               "x": 990,
-              "y": 360
+              "y": 358
             },
             "outdated": false
           },
@@ -267,7 +267,7 @@
         },
         "zoom": 0.4499999999999996,
         "pan": {
-          "x": 64.34999990463257,
+          "x": 64.35000038146973,
           "y": 161.10000610351562
         }
       }

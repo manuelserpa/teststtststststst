@@ -135,6 +135,21 @@
         /// </summary>
         public static string GenericTableCustomProductionLineConversionFacilityProperty = "Facility";
 
+        /// <summary>
+        /// Custom Transactions to Tibco table name 
+        /// </summary>
+        public static string GenericTableCustomTransactionsToTibco = "CustomTransactionsToTibco";
+
+        /// <summary>
+        /// Custom Transactions to Tibco table Transaction property 
+        /// </summary>
+        public static string GenericTableCustomTransactionsToTibcoTransactionProperty = "Transaction";
+
+        /// <summary>
+        /// Custom Transactions to Tibco table IsEnabled property 
+        /// </summary>
+        public static string GenericTableCustomTransactionsToTibcoIsEnabledProperty = "IsEnabled";
+
         #endregion
 
         #region LookupTables
@@ -164,6 +179,11 @@
         /// </summary>
         public static string LookupTableContainerType = "ContainerType";
 
+        /// <summary>
+        /// Custom Sorter Process
+        /// </summary>
+        public static string LookupTableCustomSorterProcess = "CustomSorterProcess";
+
         #endregion
 
         #region Attributes
@@ -187,7 +207,6 @@
         /// Resource Allow Download Recipe At TrackIn
         /// </summary>
         public static string ResourceAttributeAllowDownloadRecipeAtTrackIn = "AllowDownloadRecipeAtTrackIn";
-
 
         /// <summary>
         /// Container Attribute Map Container Needed for sorter
@@ -215,6 +234,11 @@
         public static string StepAttributeRequiresSpaceConfirmation = "RequiresSpaceConfirmation";
 
         /// <summary>
+        /// Step Attribute IsWaferReception
+        /// </summary>
+        public static string StepAttributeIsWaferReception = "IsWaferReception";
+
+        /// <summary>
         /// Product Attribute BasicType
         /// </summary>
         public static string ProductAttributeBasicType = "BasicType";
@@ -233,6 +257,16 @@
         /// Product Attribute ProductionLevel
         /// </summary>
         public static string ProductAttributeProductionLevel = "ProductionLevel";
+
+        /// <summary>
+        /// Product Attribute SAPProductType
+        /// </summary>
+        public static string ProductAttributeSAPProductType = "SAPProductType";
+
+        /// <summary>
+        /// Facility Code Attribute
+        /// </summary>
+        public static string CustomFacilityCodeAttribute = "FacilityCode";
 
         #endregion
 
@@ -583,52 +617,122 @@
         /// <summary> 
         /// Localized Message: Custom Localized Message CustomLocalizedMessageContainerCannotBeUndocked
         /// </summary>
-        public static string LocalizedMessageContainerCannotBeUndocked = "CustomLocalizedMessageContainerCannotBeUndocked";
+        public const string LocalizedMessageContainerCannotBeUndocked = "CustomLocalizedMessageContainerCannotBeUndocked";
 
         /// <summary>
         /// Localized Message: Custom Localized Message CustomLocalizedMessageProductNameAndFlowNameAtSameTime
         /// </summary>
-        public static string LocalizedMessageProductNameAndFlowNameAtSameTime = "CustomLocalizedMessageProductNameAndFlowNameAtSameTime";
+        public const string LocalizedMessageProductNameAndFlowNameAtSameTime = "CustomLocalizedMessageProductNameAndFlowNameAtSameTime";
 
         /// <summary>
         /// Localized Message: Custom Localized Message CustomLocalizedMessageProductNameOrFlowNameNotDefined
         /// </summary>
-        public static string LocalizedMessageProductNameOrFlowNameNotDefined = "CustomLocalizedMessageProductNameOrFlowNameNotDefined";
+        public const string LocalizedMessageProductNameOrFlowNameNotDefined = "CustomLocalizedMessageProductNameOrFlowNameNotDefined";
 
         /// <summary>
         /// Localized Message: Custom Localized Message CustomLocalizedMessageFlowVersionWithoutFlowName
         /// </summary>
-        public static string LocalizedMessageFlowVersionWithoutFlowName = "CustomLocalizedMessageFlowVersionWithoutFlowName";
+        public const string LocalizedMessageFlowVersionWithoutFlowName = "CustomLocalizedMessageFlowVersionWithoutFlowName";
 
         /// <summary>
         /// Localized Message: Custom Localized Message CustomLocalizedMessageProductHasNoFlowPath
         /// </summary>
-        public static string LocalizedMessageProductHasNoFlowPath = "CustomLocalizedMessageProductHasNoFlowPath";
+        public const string LocalizedMessageProductHasNoFlowPath = "CustomLocalizedMessageProductHasNoFlowPath";
 
         /// <summary>
         /// Localized Message: Custom Localized Message CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull
         /// </summary>
-        public static string LocalizedMessageCustomFlowInformationToERPDataObjectNull = "CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull";
+        public const string LocalizedMessageCustomFlowInformationToERPDataObjectNull = "CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull";
 
         /// <summary>
         /// Localized Message: CustomProductionLineAttributeWithoutValue
         /// </summary>
-        public static string LocalizedMessageProductionLineAttributeWithoutValue = "CustomProductionLineAttributeWithoutValue";
+        public const string LocalizedMessageProductionLineAttributeWithoutValue = "CustomProductionLineAttributeWithoutValue";
 
         /// <summary>
         /// Localized Message: CustomGTWihtoutDataForSpecificProductionLine
         /// </summary>
-        public static string LocalizedMessageGTWihtoutDataForSpecificProductionLine = "CustomGTWihtoutDataForSpecificProductionLine";
+        public const string LocalizedMessageGTWihtoutDataForSpecificProductionLine = "CustomGTWihtoutDataForSpecificProductionLine";
 
         /// <summary>
         /// Localized Message: CustomInsufficientDigitsForNameGenerator
         /// </summary>
-        public static string LocalizedMessageInsufficientDigitsForNameGenerator = "CustomInsufficientDigitsForNameGenerator";
+        public const string LocalizedMessageInsufficientDigitsForNameGenerator = "CustomInsufficientDigitsForNameGenerator";
 
         /// <summary>
         /// Localized Message: CustomConfigMissingValue
         /// </summary>
-        public static string LocalizedMessageConfigMissingValue = "CustomConfigMissingValue";
+        public const string LocalizedMessageConfigMissingValue = "CustomConfigMissingValue";
+
+        /// <summary>
+        /// Localized Message: CustomValueDoesNotExistLookupTable
+        /// </summary>
+        public const string LocalizedMessageCustomValueDoesNotExistLookupTable = "CustomValueDoesNotExistLookupTable";
+
+        /// <summary>
+        /// Localized Message: CustomResourceIsNotSorter
+        /// </summary>
+        public const string LocalizedMessageCustomResourceIsNotSorter = "CustomResourceIsNotSorter";
+
+        /// <summary>
+        /// Localized Message: CustomResourceNotOnline
+        /// </summary>
+        public const string LocalizedMessageCustomResourceNotOnline = "CustomResourceNotOnline";
+
+        /// <summary>
+        /// Localized Message: CustomResourceNotDescendant
+        /// </summary>
+        public const string LocalizedMessageCustomResourceNotDescendant = "CustomResourceNotDescendant";
+
+        /// <summary>
+        /// Localized Message: CustomResourceInUse
+        /// </summary>
+        public const string LocalizedMessageCustomResourceInUse = "CustomResourceInUse";
+
+        /// <summary>
+        /// Localized Message: CustomSmartTableNoResolution
+        /// </summary>
+        public const string LocalizedMessageCustomSmartTableNoResolution = "CustomSmartTableNoResolution";
+
+        /// <summary>
+        /// Localized Message: CustomConvertToType
+        /// </summary>
+        public const string LocalizedMessageCustomConvertToType = "CustomConvertToType";
+
+        /// <summary>
+        /// Localized Message: CustomResourceNoDockerContainer
+        /// </summary>
+        public const string LocalizedMessageCustomResourceNoDockerContainer = "CustomResourceNoDockerContainer";
+
+        /// <summary>
+        /// Localized Message: CustomResourceNoEnoughPositionsOrInUse
+        /// </summary>
+        public const string LocalizedMessageCustomResourceNoEnoughPositionsOrInUse = "CustomResourceNoEnoughPositionsOrInUse";
+
+        /// <summary>
+        /// Localized Message: CustomResourceContainerDockedDifferentProducts
+        /// </summary>
+        public const string LocalizedMessageCustomResourceContainerDockedDifferentProducts = "CustomResourceContainerDockedDifferentProducts";
+
+        /// <summary>
+        /// Localized Message: CustomResourceContainersNoEnoughPositions
+        /// </summary>
+        public const string LocalizedMessageCustomResourceContainersNoEnoughPositions = "CustomResourceContainersNoEnoughPositions";
+
+        /// <summary>
+        /// Localized Message: CustomResourceContainersWrongPositions
+        /// </summary>
+        public const string LocalizedMessageCustomResourceContainersWrongPositions = "CustomResourceContainersWrongPositions";
+
+        /// <summary>
+        /// Localized Message: CustomStepNoWaferReception
+        /// </summary>
+        public const string LocalizedMessageCustomStepNoWaferReception = "CustomStepNoWaferReception";
+
+        /// <summary>
+        /// Localized Message: CustomContainerDifferentProducts
+        /// </summary>
+        public const string LocalizedMessageCustomContainerDifferentProducts = "CustomContainerDifferentProducts";
 
         #endregion
 
@@ -1147,9 +1251,29 @@
         /// </summary>
         public const string Type261 = "261";
 
+        /// <summary>
+        /// ERP web service endpoint configuration path
+        /// </summary>
+        public const string ERPWebServiceEndpointConfigurationPath = "/amsOSRAM/ERP/WebServiceEndpoint/";
+
+        /// <summary>
+        /// ERP notification distributaion list configuration path
+        /// </summary>
+        public const string ERPWebServiceDistributionListConfigurationPath = "/amsOSRAM/ERP/DistributionList/";
+
+        /// <summary>
+        /// ERP credentials username configuration path
+        /// </summary>
+        public const string ERPCredentialsUsernameConfigurationPath = "/amsOSRAM/ERP/Credentials/Username/";
+
+        /// <summary>
+        /// ERP credentials password configuration path
+        /// </summary>
+        public const string ERPCredentialsPasswordConfigurationPath = "/amsOSRAM/ERP/Credentials/Password/";
+
         #endregion
 
-        #region
+        #region SmartTables
 
         /// <summary>
         /// smartTable NotificationTitleMessage Property
@@ -1234,6 +1358,26 @@
         /// </summary>
         public static string smartTablePropertyNotificationType = "NotificationType";
 
+        /// <summary>
+        /// SmartTable CustomProductContainerCapacities Name
+        /// </summary>
+        public static string CustomProductContainerCapacitiesSTName = "CustomProductContainerCapacities";
+
+        /// <summary>
+        /// SmartTable SourceCapacity Property
+        /// </summary>
+        public static string SmartTablePropertySourceCapacity = "SourceCapacity";
+
+        /// <summary>
+        /// SmartTable TargetCapacity Property
+        /// </summary>
+        public static string SmartTablePropertyTargetCapacity = "TargetCapacity";
+
+        /// <summary>
+        /// SmartTable RunningMode Property
+        /// </summary>
+        public static string SmartTablePropertyRunningMode = "RunningMode";
+
         #endregion
 
         #region Tibco
@@ -1267,6 +1411,17 @@
         /// Tibco Password config path
         /// </summary>
         public const string TibcoConfigPasswordPath = "/amsOSRAM/TibcoEMS/Password";
+
+        /// <summary>
+        /// Tibco subject for report Lot changes
+        /// </summary>
+        public const string CustomLotChange = "CustomLotChange";
+
+        /// <summary>
+        /// Tibco subject for report Equipment Status changes
+        /// </summary>
+        public const string CustomEquipmentStatusChange = "CustomEquipmentStatusChange";
+
 
         #endregion
 

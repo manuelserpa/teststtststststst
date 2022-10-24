@@ -529,7 +529,20 @@
   "StepContextInformation": {},
   "StepSwitchingRule": {},
   "StepInspectionSeverityInstance": {},
-  "StepLogicalName": {},
+  "StepLogicalName": {
+    "1": {
+      "Step": "CMFTestStep01",
+      "LogicalName": "CMFTestStep01LogicalName"
+    },
+    "2": {
+      "Step": "CMFTestStep02",
+      "LogicalName": "CMFTestStep02LogicalName"
+    },
+    "3": {
+      "Step": "CMFTestStep03",
+      "LogicalName": "CMFTestStep03LogicalName"
+    }
+  },
   "<DM>Flow": {
     "1": {
       "Name": "CMFTestFlow",
@@ -551,7 +564,7 @@
       "Reworks": "",
       "IsLine": "No",
       "LineFlows": "",
-      "LogicalName": ""
+      "LogicalName": "CMFTestStep01LogicalName"
     },
     "2": {
       "Flow": "CMFTestFlow",
@@ -561,7 +574,7 @@
       "Reworks": "",
       "IsLine": "No",
       "LineFlows": "",
-      "LogicalName": ""
+      "LogicalName": "CMFTestStep02LogicalName"
     },
     "3": {
       "Flow": "CMFTestFlow",
@@ -571,7 +584,7 @@
       "Reworks": "",
       "IsLine": "No",
       "LineFlows": "",
-      "LogicalName": ""
+      "LogicalName": "CMFTestStep03LogicalName"
     }
   },
   "FlowLogicalName": {},
@@ -1267,6 +1280,11 @@
       "IsEnabled": "Yes"
     },
     "2": {
+      "SourceEntity": "ENA01",
+      "TargetEntity": "WaferReception",
+      "IsEnabled": "Yes"
+    },
+    "3": {
       "SourceEntity": "CMFTestResource01",
       "TargetEntity": "CMFTestService",
       "IsEnabled": "Yes"
@@ -1800,6 +1818,15 @@
       "ApplicableToAssemble": "",
       "ApplicableToRecordLoss": "Yes",
       "ApplicableToTerminate": "Yes",
+      "ApplicableToRework": "",
+      "ApplicableToTemporaryOffFlow": ""
+    },
+    "6": {
+      "SourceEntity": "CMFTestStep01",
+      "TargetEntity": "Bonus",
+      "ApplicableToAssemble": "",
+      "ApplicableToRecordLoss": "",
+      "ApplicableToTerminate": "",
       "ApplicableToRework": "",
       "ApplicableToTemporaryOffFlow": ""
     }

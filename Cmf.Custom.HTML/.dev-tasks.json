@@ -4,7 +4,9 @@
   "webAppPrefix": "customization",
   "isWebAppCompilable": true,
   "dependencies": [],
-  "packages": ["customization.common"],
+  "packages": [
+    "customization.amsosram.resource"
+  ],
   "registry": "http://cmf-nuget:4873/",
   "channel": "release-910"
 }

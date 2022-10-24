@@ -29,8 +29,10 @@ namespace Cmf.Custom.TibcoEMS.Service
 
             try
             {
-                Logger.LogInformation("Getting Tibco configurations...");
+                // Configure LBOs
+                TibcoEMSUtilities.InitialConfigurations();
 
+                Logger.LogInformation("Getting Tibco configurations...");
                 TibcoConfigs = TibcoEMSUtilities.GetTibcoConfigs();
 
                 if (TibcoConfigs != null && TibcoConfigs.Keys.Count > 0)
@@ -60,7 +62,6 @@ namespace Cmf.Custom.TibcoEMS.Service
                 Logger.LogWarning("It was not possible to start the Service.");
             }
         }
-
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host

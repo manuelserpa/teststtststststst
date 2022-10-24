@@ -1,0 +1,343 @@
+{
+  "WorksheetNameMapping": {
+    "1": {
+      "WorksheetName": "TibcoGatewayResolver",
+      "Value": "<GT>CustomTibcoEMSGatewayResolver"
+    }
+  },
+  "<SM>Config": {
+    "1": {
+      "ParentPath": "/amsOSRAM/ERP/",
+      "Name": "WebServiceEndpoint",
+      "Value": "",
+      "ValueType": "String"
+    },
+    "2": {
+      "ParentPath": "/amsOSRAM/ERP/",
+      "Name": "DistributionList",
+      "Value": "",
+      "ValueType": "String"
+    },
+    "3": {
+      "ParentPath": "/amsOSRAM/ERP/Credentials/",
+      "Name": "Username",
+      "Value": "",
+      "ValueType": "String"
+    },
+    "4": {
+      "ParentPath": "/amsOSRAM/ERP/Credentials/",
+      "Name": "Password",
+      "Value": "",
+      "ValueType": "SecureString"
+    }
+  },
+  "<SM>LookupTableValues": {
+    "1": {
+      "LookUp Table": "CustomTransactions",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "MaterialCreate",
+      "Lookup Table Value Description": "Material Create",
+      "Lookup Table IsEnabled": "true"
+    },
+    "2": {
+      "LookUp Table": "CustomTransactions",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "MaterialTerminate",
+      "Lookup Table Value Description": "Material Terminate",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "3": {
+      "LookUp Table": "CustomTransactions",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "MaterialDispatch",
+      "Lookup Table Value Description": "Material Dispatch",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "4": {
+      "LookUp Table": "CustomTransactions",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "MaterialTrackIn",
+      "Lookup Table Value Description": "Material TrackIn",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "5": {
+      "LookUp Table": "CustomTransactions",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "MaterialTrackOut",
+      "Lookup Table Value Description": "Material TrackOut",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "6": {
+      "LookUp Table": "CustomTransactions",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "MaterialMoveNext",
+      "Lookup Table Value Description": "Material MoveNext Action",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "7": {
+      "LookUp Table": "CustomTransactions",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "MaterialSplit",
+      "Lookup Table Value Description": "Material Split",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "8": {
+      "LookUp Table": "CustomTransactions",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "MaterialMerge",
+      "Lookup Table Value Description": "Material Merge",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "9": {
+      "LookUp Table": "CustomTransactions",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "MaterialLoss",
+      "Lookup Table Value Description": "Material Loss",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "10": {
+      "LookUp Table": "CustomTransactions",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "MaterialBonus",
+      "Lookup Table Value Description": "Material Bonus",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "11": {
+      "LookUp Table": "CustomTransactions",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "MaterialHold",
+      "Lookup Table Value Description": "Material Hold",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "12": {
+      "LookUp Table": "CustomTransactions",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "MaterialRelease",
+      "Lookup Table Value Description": "Material Release",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "13": {
+      "LookUp Table": "CustomTransactions",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "ContainerAssociation",
+      "Lookup Table Value Description": "Container Association",
+      "Lookup Table IsEnabled": "Yes"
+    }
+  },
+  "<GT>GenericTable": {
+    "1": {
+      "Name": "CustomTransactionsToTibco",
+      "Description": "Generic Table used to activate transactions to send event messages to Tibco.",
+      "HistoryRetentionTime": "180",
+      "IsHistoryEnabled": "Yes",
+      "DataGroup": ""
+    }
+  },
+  "GenericTableProperties": {
+    "1": {
+      "GenericTable": "CustomTransactionsToTibco",
+      "Name": "Transaction",
+      "Position": "1",
+      "Description": "Transaction Name",
+      "DefaultValue": "",
+      "IsKey": "Yes",
+      "IsMandatory": "Yes",
+      "ScalarType": "NVarChar",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "LookupValue",
+      "ReferenceName": "CustomTransactions",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": "",
+      "IsIndexed": ""
+    },
+    "2": {
+      "GenericTable": "CustomTransactionsToTibco",
+      "Name": "IsEnabled",
+      "Position": "2",
+      "Description": "Enable/disable transaction.",
+      "DefaultValue": "",
+      "IsKey": "No",
+      "IsMandatory": "Yes",
+      "ScalarType": "Bit",
+      "Size": "",
+      "Precision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": "",
+      "IsIndexed": ""
+    }
+  },
+  "<SM>DEEAction": {
+    "1": {
+      "Action": "CustomSendEventMessage",
+      "Description": "DEE Action used to publish Lot event messages to MessageBus based on Material action. E.g.: Material.TrackIn, Material.TrackOut, Material.MoveNext.",
+      "CodeFileRelativePath": "Tibco//CustomSendEventMessage.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "2": {
+      "Action": "CustomSendProcessMessage",
+      "Description": "DEE Action that handles Integration Entries for Good Issues and to send to SAP WebService.",
+      "CodeFileRelativePath": "Integrations//CustomSendProcessMessage.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "3": {
+      "Action": "CustomDockStoreIoT",
+      "Description": "Action responsible for docking or storing a container from IoT",
+      "CodeFileRelativePath": "Automation//CustomDockStoreIoT.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    }
+  },
+  "DEEActionOrder": {
+    "1": {
+      "ActionGroup": "BusinessObjects.MaterialCollection.Create.Post",
+      "Action": "CustomSendEventMessage",
+      "Order": "100"
+    },
+    "2": {
+      "ActionGroup": "BusinessObjects.MaterialCollection.Dispatch.Post",
+      "Action": "CustomSendEventMessage",
+      "Order": "100"
+    },
+    "3": {
+      "ActionGroup": "BusinessObjects.MaterialCollection.TrackIn.Post",
+      "Action": "CustomSendEventMessage",
+      "Order": "100"
+    },
+    "4": {
+      "ActionGroup": "BusinessObjects.MaterialCollection.TrackOut.Post",
+      "Action": "CustomSendEventMessage",
+      "Order": "100"
+    },
+    "5": {
+      "ActionGroup": "BusinessObjects.MaterialCollection.MoveToNextStep.Post",
+      "Action": "CustomSendEventMessage",
+      "Order": "100"
+    },
+    "6": {
+      "ActionGroup": "BusinessObjects.MaterialCollection.Split.Post",
+      "Action": "CustomSendEventMessage",
+      "Order": "100"
+    },
+    "7": {
+      "ActionGroup": "BusinessObjects.MaterialCollection.RecordLoss.Post",
+      "Action": "CustomSendEventMessage",
+      "Order": "100"
+    },
+    "8": {
+      "ActionGroup": "BusinessObjects.MaterialCollection.RecordBonus.Post",
+      "Action": "CustomSendEventMessage",
+      "Order": "100"
+    },
+    "9": {
+      "ActionGroup": "BusinessObjects.MaterialCollection.Hold.Post",
+      "Action": "CustomSendEventMessage",
+      "Order": "100"
+    },
+    "10": {
+      "ActionGroup": "BusinessObjects.MaterialCollection.Terminate.Post",
+      "Action": "CustomSendEventMessage",
+      "Order": "100"
+    },
+    "11": {
+      "ActionGroup": "BusinessObjects.Material.Release.Post",
+      "Action": "CustomSendEventMessage",
+      "Order": "100"
+    },
+    "12": {
+      "ActionGroup": "BusinessObjects.Material.Merge.Post",
+      "Action": "CustomSendEventMessage",
+      "Order": "100"
+    },
+    "13": {
+      "ActionGroup": "BusinessObjects.Container.AssociateMaterials.Post",
+      "Action": "CustomSendEventMessage",
+      "Order": "100"
+    },
+    "14": {
+      "ActionGroup": "BusinessObjects.MaterialCollection.MoveToNextStep.Pre",
+      "Action": "CustomSendEventMessage",
+      "Order": "1"
+    }
+  },
+  "<GT>CustomTransactionsToTibco": {
+    "1": {
+      "Transaction": "MaterialCreate",
+      "IsEnabled": "No"
+    },
+    "2": {
+      "Transaction": "MaterialTerminate",
+      "IsEnabled": "No"
+    },
+    "3": {
+      "Transaction": "MaterialDispatch",
+      "IsEnabled": "No"
+    },
+    "4": {
+      "Transaction": "MaterialTrackIn",
+      "IsEnabled": "No"
+    },
+    "5": {
+      "Transaction": "MaterialTrackOut",
+      "IsEnabled": "No"
+    },
+    "6": {
+      "Transaction": "MaterialMoveNext",
+      "IsEnabled": "No"
+    },
+    "7": {
+      "Transaction": "MaterialSplit",
+      "IsEnabled": "No"
+    },
+    "8": {
+      "Transaction": "MaterialMerge",
+      "IsEnabled": "No"
+    },
+    "9": {
+      "Transaction": "MaterialLoss",
+      "IsEnabled": "No"
+    },
+    "10": {
+      "Transaction": "MaterialBonus",
+      "IsEnabled": "No"
+    },
+    "11": {
+      "Transaction": "MaterialHold",
+      "IsEnabled": "No"
+    },
+    "12": {
+      "Transaction": "MaterialRelease",
+      "IsEnabled": "No"
+    },
+    "13": { 
+      "Transaction": "ContainerAssociation",
+      "IsEnabled": "No"
+    }
+  },
+  "<LOOKUP>TibcoGatewayResolver": {
+    "1": {
+      "Subject": "CustomLotChange",
+      "Topic": "TOPIC.T1.RBG.SFC.CM.EVT.LOT_CHANGE",
+      "Rule": "",
+      "IsEnabled": "Yes",
+      "QueueMessage": "No",
+      "TextMessage": "Yes",
+      "CompressMessage": "No"
+    },
+    "2": {
+      "Subject": "CustomEquipmentStatusChange",
+      "Topic": "TOPIC.T1.RBG.SFC.CMF.EVT.EQUIPMENT_STATE_CHANGE",
+      "Rule": "",
+      "IsEnabled": "Yes",
+      "QueueMessage": "No",
+      "TextMessage": "Yes",
+      "CompressMessage": "No"
+    }
+  }
+}

@@ -12,7 +12,7 @@
     {
         Queued,
         InProcess,
-        Process,
+        Processed,
         Skipped
     }
 

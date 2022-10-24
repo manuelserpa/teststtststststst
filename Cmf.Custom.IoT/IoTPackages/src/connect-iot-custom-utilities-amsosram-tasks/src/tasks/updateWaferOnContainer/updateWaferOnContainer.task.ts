@@ -42,6 +42,7 @@ export const SETTINGS_DEFAULTS: UpdateWaferOnContainerSettings = {
         loadPort: Task.TaskValueType.Integer,
         slotNumber: Task.TaskValueType.Integer,
         equipmentWaferId: Task.TaskValueType.String,
+        parentMaterialId: Task.TaskValueType.String,
         activate: Task.INPUT_ACTIVATE,
     },
     outputs: {
@@ -64,6 +65,7 @@ export class UpdateWaferOnContainerTask implements Task.TaskInstance, UpdateWafe
     public loadPort: number;
     public slotNumber: number;
     public equipmentWaferId: string;
+    public parentMaterialId: string;
 
     /** **Outputs** */
     /** To output a success notification */
@@ -97,41 +99,41 @@ export class UpdateWaferOnContainerTask implements Task.TaskInstance, UpdateWafe
             try {
                 // ... code here
                 // create slot positions
-                 const containerName = this.material.ContainerName;
-                 let movementList;
-                 if (this.material.SorterJobInformation) {
-                 movementList = <MovementData[]>JSON.parse(this.material.SorterJobInformation.MovementList);
-                 }
+                const containerName = this.material.ContainerName;
+                let movementList;
+                if (this.material.SorterJobInformation) {
+                    movementList = <MovementData[]>JSON.parse(this.material.SorterJobInformation.MovementList);
+                }
 
-                 const slotNumber = this.slotNumber;
-                 const loadPort = this.loadPort;
-                 let slotMES;
-                 let movement;
-                 let container: ContainerData = await this._containerProcess.getContainer(this.containerId, loadPort);
-                 if (this.containerId === containerName) {
-                     slotMES = this.material.SubMaterials.find(s => s.Slot === slotNumber);
-                 } else if (movementList) {
-                     movement = movementList.find(w => w.SourceContainer === this.containerId && w.SourcePosition === slotNumber)
-                 }
+                const slotNumber = this.slotNumber;
+                const loadPort = this.loadPort;
+                let slotMES;
+                let movement;
+                let container: ContainerData = await this._containerProcess.getContainer(this.containerId, loadPort);
+                if (this.containerId === containerName) {
+                    slotMES = this.material.SubMaterials.find(s => s.Slot === slotNumber);
+                } else if (movementList) {
+                    movement = movementList.find(w => w.SourceContainer === this.containerId && w.SourcePosition === slotNumber)
+                }
 
-                 let wafer: WaferData;
+                let wafer: WaferData;
 
-                 if (slotMES) {
+                if (slotMES) {
                     wafer = await this._containerProcess.updateWaferOnContainer(containerName, loadPort,
-                        slotNumber, slotMES.MaterialName, this.equipmentWaferId);
-                 } else if (movement) {
+                        slotNumber, slotMES.MaterialName, this.equipmentWaferId, this.parentMaterialId);
+                } else if (movement) {
                     wafer = await this._containerProcess.updateWaferOnContainer(containerName, loadPort,
-                        slotNumber, movement.MaterialName, this.equipmentWaferId);
-                 } else {
+                        slotNumber, movement.MaterialName, this.equipmentWaferId, this.parentMaterialId);
+                } else {
                     wafer = await this._containerProcess.updateWaferOnContainer(containerName, loadPort,
-                        slotNumber, null, this.equipmentWaferId);
-                 }
+                        slotNumber, null, this.equipmentWaferId, this.parentMaterialId);
+                }
 
-                 container = await this._containerProcess.getContainer(this.containerId, loadPort);
+                container = await this._containerProcess.getContainer(this.containerId, loadPort);
 
-                 this.wafer.emit(wafer);
-                 this.container.emit(container);
-                 this.success.emit(true);
+                this.wafer.emit(wafer);
+                this.container.emit(container);
+                this.success.emit(true);
             } catch (e) {
                 throw new Error(e);
             }

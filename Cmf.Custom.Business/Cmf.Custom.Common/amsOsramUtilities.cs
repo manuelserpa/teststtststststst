@@ -1,16 +1,24 @@
 ﻿using Cmf.Common.CustomActionUtilities;
+using Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions;
 using Cmf.Custom.amsOSRAM.Common.DataStructures;
 using Cmf.Custom.amsOSRAM.Common.ERP;
 using Cmf.Custom.amsOSRAM.Common.Extensions;
 using Cmf.Foundation.BusinessObjects;
+using Cmf.Foundation.BusinessObjects.Abstractions;
 using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.BusinessObjects.SmartTables;
 using Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects;
 using Cmf.Foundation.Common;
+using Cmf.Foundation.Common.Abstractions;
+using Cmf.Foundation.Common.LocalizationService;
 using Cmf.Foundation.Configuration;
+using Cmf.Foundation.Configuration.Abstractions;
 using Cmf.Navigo.BusinessObjects;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Navigo.BusinessOrchestration.Abstractions;
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.OutputObjects;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -22,14 +30,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
-using Cmf.Navigo.BusinessObjects.Abstractions;
-using Cmf.Foundation.BusinessObjects.Abstractions;
-using Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions;
-using Cmf.Foundation.Configuration.Abstractions;
-using Cmf.Foundation.Common.Abstractions;
-using Microsoft.Extensions.DependencyInjection;
-using Cmf.Foundation.Common.LocalizationService;
-using Cmf.Navigo.BusinessOrchestration.Abstractions;
 
 namespace Cmf.Custom.amsOSRAM.Common
 {
@@ -67,7 +67,7 @@ namespace Cmf.Custom.amsOSRAM.Common
                 return null;
             }
 
-            // True: Possible values 
+            // True: Possible values
             string[] positiveValues = { "y", "true", "yes", "1" };
 
             if (positiveValues.Contains(value.Trim(), StringComparer.InvariantCultureIgnoreCase))
@@ -139,7 +139,6 @@ namespace Cmf.Custom.amsOSRAM.Common
 
             return result;
         }
-
 
         /// <summary>
         /// Gets the value as enum.
@@ -238,7 +237,7 @@ namespace Cmf.Custom.amsOSRAM.Common
             }
         }
 
-        #endregion
+        #endregion Generic
 
         #region Configs
 
@@ -294,7 +293,7 @@ namespace Cmf.Custom.amsOSRAM.Common
             // If logical flow path is filled apply it as a filter
             if (!string.IsNullOrWhiteSpace(logicalFlowPath))
             {
-                values.Add("LogicalFlowPath", logicalFlowPath);
+                values.Add(Cmf.Navigo.Common.Constants.LogicalFlowPath, logicalFlowPath);
             }
 
             // If product name is filled apply it as a filter
@@ -368,7 +367,7 @@ namespace Cmf.Custom.amsOSRAM.Common
         }
 
         /// <summary>
-        /// Method to resolve Material Data Collection Context 
+        /// Method to resolve Material Data Collection Context
         /// </summary>
         /// <param name="step"></param>
         /// <param name="logicalFlowPath"></param>
@@ -520,7 +519,120 @@ namespace Cmf.Custom.amsOSRAM.Common
             return storageLocation;
         }
 
-        #endregion
+        /// <summary>
+        /// Method to resolve Recipe Context
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="step"></param>
+        /// <param name="logicalFlowPath"></param>
+        /// <param name="product"></param>
+        /// <param name="productGroup"></param>
+        /// <param name="flow"></param>
+        /// <param name="material"></param>
+        /// <param name="materialType"></param>
+        /// <param name="resource"></param>
+        /// <param name="resourceType"></param>
+        /// <param name="model"></param>
+        /// <param name="runningMode"></param>
+        /// <returns></returns>
+        public static DataSet ResolveRecipeContext(string service = null,
+                                                        string step = null,
+                                                        string logicalFlowPath = null,
+                                                        string product = null,
+                                                        string productGroup = null,
+                                                        string flow = null,
+                                                        string material = null,
+                                                        string materialType = null,
+                                                        string resource = null,
+                                                        string resourceType = null,
+                                                        string model = null,
+                                                        string runningMode = null)
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+
+            NgpDataRow values = new NgpDataRow();
+
+            // If step name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(service))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Service, service);
+            }
+
+            // If step name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(step))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Step, step);
+            }
+
+            // If logical flow path is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(logicalFlowPath))
+            {
+                values.Add("LogicalFlowPath", logicalFlowPath);
+            }
+
+            // If product name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(product))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Product, product);
+            }
+
+            // If product group is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(productGroup))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.ProductGroup, productGroup);
+            }
+
+            // If flow name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(flow))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Flow, flow);
+            }
+
+            // If lot name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(material))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Material, material);
+            }
+
+            // If lot type is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(materialType))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.MaterialType, materialType);
+            }
+
+            // If resource name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(resource))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Resource, resource);
+            }
+
+            // If resource type is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(resourceType))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.ResourceType, resourceType);
+            }
+
+            // If model is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(model))
+            {
+                values.Add(Cmf.Navigo.Common.Constants.Model, model);
+            }
+
+            // If operation name is filled apply it as a filter
+            if (!string.IsNullOrWhiteSpace(runningMode))
+            {
+                values.Add(amsOSRAMConstants.SmartTablePropertyRunningMode, runningMode);
+            }
+
+            ISmartTable smartTable = new SmartTable();
+            smartTable.Load(Cmf.Navigo.Common.Constants.RecipeContext);
+
+            INgpDataSet ngpDataSet = smartTable.Resolve(values, true);
+
+            return ngpDataSet != null && ngpDataSet.Tables != null && ngpDataSet.Tables.Count > 0 ? NgpDataSet.ToDataSet(ngpDataSet) : new DataSet();
+        }
+
+        #endregion SmartTables
 
         #region Sorter
 
@@ -1478,7 +1590,6 @@ namespace Cmf.Custom.amsOSRAM.Common
             return customReportEDCToSpace;
         }
 
-
         /// <summary>
         /// Method to create xml message with Wafer and Data Collection Info to be sent to Space system
         /// </summary>
@@ -1579,12 +1690,12 @@ namespace Cmf.Custom.amsOSRAM.Common
             return customReportEDCToSpace;
         }
 
-        #endregion
+        #endregion Space
 
         #region Data Collection
 
         /// <summary>
-        /// Method to validate if one of the posted points do not respect the configured limit set 
+        /// Method to validate if one of the posted points do not respect the configured limit set
         /// </summary>
         /// <param name="dataCollectionInstance"></param>
         /// <returns></returns>
@@ -1595,8 +1706,6 @@ namespace Cmf.Custom.amsOSRAM.Common
             IDataCollectionLimitSet dataCollectionLimitSet = dataCollectionInstance.DataCollectionLimitSet;
 
             IDataCollectionPointCollection dataCollectionPoints = dataCollectionInstance.DataCollectionPoints;
-
-
 
             foreach (IDataCollectionParameterLimit parameterLimit in dataCollectionLimitSet.DataCollectionParameterLimits)
             {
@@ -1640,11 +1749,11 @@ namespace Cmf.Custom.amsOSRAM.Common
                 dcPoints.Add(point);
 
                 if (dcInstance.RelationCollection == null)
-                    dcInstance.RelationCollection = new CmfEntityRelationCollection();
+                    dcInstance.RelationCollection = serviceProvider.GetService<ICmfEntityRelationCollection>();
 
                 dcInstance.RelationCollection.Add(point);
             }
-            
+
             IDataCollectionInstanceOrchestration dataCollectionInstanceManagementOrchestration = serviceProvider.GetService<IDataCollectionInstanceOrchestration>();
             PerformImmediateDataCollectionOutput dataCollectionInstanceResult = dataCollectionInstanceManagementOrchestration.PerformImmediateDataCollection(
                 new PerformImmediateDataCollectionInput()
@@ -1682,7 +1791,7 @@ namespace Cmf.Custom.amsOSRAM.Common
             OpenDataCollectionInstanceOutput openDCInstanceOutput = dataCollectionInstanceManagementOrchestration.OpenDataCollectionInstance(openDCInstanceInput);
             dcInstance = openDCInstanceOutput.DataCollectionInstance;
 
-            //insert dc point values 
+            //insert dc point values
             IDataCollectionPointCollection dcPoints = entityFactory.CreateCollection<IDataCollectionPointCollection>();
             foreach (IParameter parameter in parametersToUse)
             {
@@ -1692,14 +1801,13 @@ namespace Cmf.Custom.amsOSRAM.Common
                 point.TargetEntity = parameter;
                 point.SourceEntity = dcInstance;
                 point.Value = amsOSRAMUtilities.GetParameterValueAsDataType(parameter.DataType, waferPoints[parameter.Name].ToString());
-                
+
                 dcPoints.Add(point);
 
                 if (dcInstance.RelationCollection == null)
-                    dcInstance.RelationCollection = new CmfEntityRelationCollection();
+                    dcInstance.RelationCollection = serviceProvider.GetService<ICmfEntityRelationCollection>();
 
                 dcInstance.RelationCollection.Add(point);
-
             }
             dcInstance.Load();
 
@@ -1749,7 +1857,7 @@ namespace Cmf.Custom.amsOSRAM.Common
             return null;
         }
 
-        #endregion
+        #endregion Data Collection
 
         #region DEEActionUtilities
 
@@ -1782,9 +1890,7 @@ namespace Cmf.Custom.amsOSRAM.Common
         /// <returns></returns>
         public static string GetActionGroup(Dictionary<string, object> Input)
         {
-            string returnValue = GetInputItem<string>(Input, "ActionGroupName", String.Empty);
-
-            return returnValue;
+            return GetInputItem(Input, "ActionGroupName", String.Empty);
         }
 
         /// <summary>
@@ -1852,8 +1958,8 @@ namespace Cmf.Custom.amsOSRAM.Common
                     }
                 }
 
-                // add addictional information about the lot
-                // TODO: Missing information to map: LotAlias; BatchName; LotOwner; LotWaferCount; 
+                // add additional information about the lot
+                // TODO: Missing information to map: LotAlias; BatchName; LotOwner; LotWaferCount;
                 materialNiceLabelPrintInformation.AddRange(new Dictionary<string, string>()
                 {
                     { "LABEL_NAME", row.Field<string>(amsOSRAMConstants.CustomMaterialNiceLabelPrintContextLabel) },
@@ -1887,7 +1993,7 @@ namespace Cmf.Custom.amsOSRAM.Common
         }
 
         /// <summary>
-        /// 
+        /// Resolve CertificateDataCollectionContext SmartTable
         /// </summary>
         /// <param name="lot"></param>
         /// <returns></returns>
@@ -2000,7 +2106,7 @@ namespace Cmf.Custom.amsOSRAM.Common
         }
 
         /// <summary>
-        /// Creates an outbound integration 
+        /// Creates an outbound integration
         /// </summary>
         /// <param name="message">Message</param>
         /// <param name="messageType">Type of message</param>
@@ -2024,7 +2130,7 @@ namespace Cmf.Custom.amsOSRAM.Common
         }
 
         /// <summary>
-        /// Creates an integration entry 
+        /// Creates an integration entry
         /// </summary>
         /// <param name="message">Message</param>
         /// <param name="messageType">Type of message</param>
@@ -2051,7 +2157,6 @@ namespace Cmf.Custom.amsOSRAM.Common
             ie.IsRetriable = true;
             ie.SystemState = IntegrationEntrySystemState.Received;
 
-
             if (headerAttributes != null)
             {
                 foreach (KeyValuePair<string, object> attr in headerAttributes)
@@ -2070,7 +2175,7 @@ namespace Cmf.Custom.amsOSRAM.Common
             return ie;
         }
 
-        #endregion
+        #endregion DEEActionUtilities
 
         #region Localized Messages
 
@@ -2155,9 +2260,57 @@ namespace Cmf.Custom.amsOSRAM.Common
             }
         }
 
-        #endregion
+        /// <summary>
+        /// Get Material Source Path
+        /// </summary>
+        /// <param name="material">Material</param>
+        /// <returns></returns>
+        public static string GetMaterialSourcePath(IMaterial material)
+        {
+            string stepLogicalName = string.Empty;
+            string facilityCode, siteCode;
+            facilityCode = siteCode = "EMPTY";
 
-        #region XML 
+            // Get FacilityCode attribute value
+            if (material.Facility.HasAttribute(amsOSRAMConstants.CustomFacilityCodeAttribute, true))
+            {
+                facilityCode = material.Facility.GetAttributeValue(amsOSRAMConstants.CustomFacilityCodeAttribute) as string;
+            }
+
+            // Get SiteCode attribute value
+            if (material.Facility.Site != null)
+            {
+                material.Facility.Site.Load();
+                if (material.Facility.Site.HasAttribute(amsOSRAMConstants.CustomSiteCodeAttribute, true))
+                {
+                    siteCode = material.Facility.Site.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute) as string;
+                }
+            }
+            // Get Step LogicalName value
+            if (material.Step.ContainsLogicalNames)
+            {
+                IServiceProvider serviceProvider = ApplicationContext.CurrentServiceProvider;
+                IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+
+                material.Flow.LoadRelations(Navigo.Common.Constants.FlowStep);
+                IFlowStep flowStep = entityFactory.Create<IFlowStep>();
+                IStep step = entityFactory.Create<IStep>();
+
+                material.Flow.GetFlowAndStepFromFlowpath(material.FlowPath, ref step, ref flowStep);
+                stepLogicalName = flowStep.LogicalName;
+            }
+            else
+            {
+                stepLogicalName = material.Step.Name;
+            }
+
+            // Build in a string the MaterialPath
+            return string.Format("{0}.{1}.{2}", siteCode, facilityCode, stepLogicalName);
+        }
+
+        #endregion Material
+
+        #region XML
 
         /// <summary>
         /// Deserialize Xml To Object
@@ -2197,7 +2350,7 @@ namespace Cmf.Custom.amsOSRAM.Common
             return output;
         }
 
-        #endregion
+        #endregion XML
 
         #region Queries
 
@@ -2322,7 +2475,7 @@ namespace Cmf.Custom.amsOSRAM.Common
             return productionOrder;
         }
 
-        #endregion
+        #endregion Queries
 
         #region ERP
 
@@ -2358,14 +2511,13 @@ namespace Cmf.Custom.amsOSRAM.Common
 
                     customReportToERPItem = new CustomReportToERPItem()
                     {
-                        CreatedOn = DateTime.Now,
+                        Id = DateTime.Now.ToString("yyyyMMdd_HHmmssfff"),
                         ProductionOrderNumber = productionOrder.OrderNumber,
                         MaterialName = material.Name,
                         ProductName = material.Product.Name,
-                        Quantity = material.PrimaryQuantity + material.SubMaterialsPrimaryQuantity,
+                        Quantity = (int)((material.PrimaryQuantity ?? 0) + (material.SubMaterialsPrimaryQuantity ?? 0)),
                         Units = material.PrimaryUnits,
-                        MovementType = amsOSRAMConstants.Type261,
-                        SubMaterialCount = material.SubMaterialCount,
+                        MovementType = movementType,
                         SAPStore = storageLocation,
                         Site = siteCode
                     };
@@ -2376,6 +2528,6 @@ namespace Cmf.Custom.amsOSRAM.Common
             return customReportToERPItem;
         }
 
-        #endregion
+        #endregion ERP
     }
 }

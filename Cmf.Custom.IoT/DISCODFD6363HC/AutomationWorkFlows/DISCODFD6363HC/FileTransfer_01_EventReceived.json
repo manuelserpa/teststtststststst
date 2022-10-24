@@ -1,0 +1,184 @@
+{
+  "tasks": [
+    {
+      "id": "task_29792",
+      "reference": {
+        "name": "move",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-filedrivers-tasks",
+          "version": "9.1.0-202209072"
+        }
+      },
+      "settings": {
+        "overwrite": false,
+        "attempts": 1,
+        "sleepBetweenAttempts": 1000,
+        "___cmf___name": "Move",
+        "destination": "\\\\tst-rbg213\\EXCHANGE\\FROM_CMF\\OutFile"
+      },
+      "driver": "FileDriver"
+    },
+    {
+      "id": "task_30537",
+      "reference": {
+        "name": "subWorkflowStart",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "9.1.0-202209072"
+        }
+      },
+      "settings": {
+        "outputs": [
+          {
+            "name": "source",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "Filename",
+            "valueType": {
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            },
+            "defaultValue": null
+          }
+        ],
+        "___cmf___name": "Start"
+      }
+    },
+    {
+      "id": "task_30647",
+      "reference": {
+        "name": "subWorkflowEnd",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "9.1.0-202209072"
+        }
+      },
+      "settings": {
+        "inputs": [
+          {
+            "name": "source",
+            "valueType": {
+              "friendlyName": "source",
+              "type": 4,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "converters": [
+    {
+      "id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+      "reference": {
+        "name": "anyToErrorCodeConstant",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+          "version": "2.0.0"
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "id": "6bbdf7bd-f479-419f-a52f-27233eb16488",
+      "sourceId": "task_29792",
+      "targetId": "task_30647",
+      "inputName": "success",
+      "outputName": "success"
+    },
+    {
+      "id": "8b83db01-64a8-4e4a-959d-192c81412180",
+      "sourceId": "task_30537",
+      "targetId": "task_29792",
+      "inputName": "source",
+      "outputName": "sourceOut"
+    },
+    {
+      "id": "6a8f1e10-bb4f-4c92-9039-aa0f66c8f5a9",
+      "sourceId": "task_30537",
+      "targetId": "task_29792",
+      "inputName": "activate",
+      "outputName": "sourceOut"
+    },
+    {
+      "id": "44c0f512-e96a-4eee-8877-a5705d7a1d5c",
+      "sourceId": "task_30537",
+      "targetId": "task_30647",
+      "inputName": "source",
+      "outputName": "sourceOut"
+    }
+  ],
+  "layout": {
+    "general": {
+      "color": "#ffff80",
+      "notes": []
+    },
+    "drawers": {
+      "DIAGRAM": {
+        "tasks": {
+          "task_30647": {
+            "collapsed": false,
+            "position": {
+              "x": 1585,
+              "y": 284
+            },
+            "outdated": false
+          },
+          "task_29792": {
+            "collapsed": false,
+            "position": {
+              "x": 952,
+              "y": 443
+            },
+            "outdated": false
+          },
+          "task_30537": {
+            "collapsed": false,
+            "position": {
+              "x": 228,
+              "y": 290
+            },
+            "outdated": false
+          }
+        },
+        "links": {
+          "6bbdf7bd-f479-419f-a52f-27233eb16488": {
+            "vertices": []
+          },
+          "8b83db01-64a8-4e4a-959d-192c81412180": {
+            "vertices": []
+          },
+          "6a8f1e10-bb4f-4c92-9039-aa0f66c8f5a9": {
+            "vertices": []
+          },
+          "44c0f512-e96a-4eee-8877-a5705d7a1d5c": {
+            "vertices": []
+          }
+        },
+        "notes": {},
+        "zoom": 0.6799999999999999,
+        "pan": {
+          "x": 101.25,
+          "y": 0
+        }
+      }
+    }
+  }
+}

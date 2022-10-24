@@ -35,7 +35,7 @@ export interface ContainerProcess {
      * update container
      * @param carrier  Container
      */
-     updateContainer(containerName: string, loadPortPosition: number, slotMap: object)
+    updateContainer(containerName: string, loadPortPosition: number, slotMap: object, slots: object)
 
     /**
      * Retrieves the Material object for a given Material slot
@@ -50,13 +50,13 @@ export interface ContainerProcess {
      * when a MO material is tracked in
      * @param material Material data
      */
-    setWaferToContainer(containerName: string, loadPortPosition: number, slot: number, equipmentWaferId: string, materialWaferId);
+    setWaferToContainer(containerName: string, loadPortPosition: number, slot: number, equipmentWaferId: string, materialWaferId, parentMaterialName: string);
 
-     /**
-     * Method to create the Material persistence file
-     * when a MO material is tracked in
-     * @param material Material data
-     */
+    /**
+    * Method to create the Material persistence file
+    * when a MO material is tracked in
+    * @param material Material data
+    */
     setWaferDataToContainerData(container: ContainerData, wafer: WaferData);
 
     /**
@@ -64,7 +64,7 @@ export interface ContainerProcess {
      * @param MaterialName Material Name
      */
     updateWaferOnContainer(containerName: string, loadPortPosition: number,
-        slot: number, equipmentWaferId: string, materialWaferId: string);
+        slot: number, equipmentWaferId: string, materialWaferId: string, parentMaterialName: string);
 
     /**
      * Updates the state for a given MaterialId
@@ -85,10 +85,10 @@ export interface ContainerProcess {
      */
     getWaferBySlot(container: ContainerData, slot: number);
 
-        /**
-     * Retrieves the Material object for a given MaterialId
-     * @param id Material Id
-     */
+    /**
+ * Retrieves the Material object for a given MaterialId
+ * @param id Material Id
+ */
     getWaferByEquipmentName(container: ContainerData, equipmentWaferId: string);
 
     /**

@@ -156,16 +156,229 @@
       }
     },
     {
-      "id": "task_169525",
+      "id": "task_126582",
       "reference": {
-        "name": "customCreateControlJob",
+        "name": "codeExecution",
         "package": {
-          "name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
-          "version": "2.0.0"
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "9.1.0-202209072"
         }
       },
       "settings": {
-        "objectSpec": "Equipment"
+        "tsCode": [
+          "import { Framework } from 'framework';",
+          "",
+          "export default class {",
+          "",
+          "    /** Allows accessing external functions */",
+          "    private framework: Framework;",
+          "",
+          "    constructor(framework: Framework) {",
+          "        this.framework = framework;",
+          "    }",
+          "",
+          "    /*",
+          "     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+          "     * Should return an object containing the values for each output to emit",
+          "     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+          "     */",
+          "    public async main(inputs: any, outputs: any): Promise<any> {",
+          "        // Add code here",
+          "        const materialData = inputs.MaterialData;",
+          "        const useCarrierAtLoadPortAsContainer: boolean = false;",
+          "        const controlJobIdentifier: string = undefined;",
+          "        const dataCollectionPlan: any = undefined;",
+          "        const mtrlOutByStatus: any = undefined;",
+          "        const pauseEvent: any = undefined;",
+          "        const processingControlSpecification: any = undefined;",
+          "        const startMethod: boolean = true;",
+          "        const objectSpec: string = \"Equipment\";",
+          "        const processOrderMgmt: number = 3;",
+          "        let materialMovement: any[] = [];",
+          "        ",
+          "        let material: any;",
+          "        if (Array.isArray(materialData)) {",
+          "            material = materialData[0];",
+          "        } else {",
+          "            material = materialData;",
+          "        }",
+          "",
+          "        // calculate MaterialOutSpec based on input or sorter job information (if existing) and calculate Carrier Input Spec",
+          "        const carrierInputSpec: any[] = [];",
+          "",
+          "        /*",
+          "        if (!materialMovement) {",
+          "            materialMovement = [];",
+          "             ",
+          "            if (material.ContainerName) { // if no container used, spec allows for empty list",
+          "                // if no sorter job exists push Container name to Carrier Input Spec",
+          "                carrierInputSpec.push({",
+          "                    type: \"A\", value: (useCarrierAtLoadPortAsContainer ?",
+          "                        `CarrierAtLoadPort${material.LoadPortPosition}` : material.ContainerName)",
+          "                }) // Carrier Name                ",
+          "            }",
+          "        }",
+          "        */",
+          "",
+          "        material.ControlJobId = controlJobIdentifier ? controlJobIdentifier : `CtrlJob_${material.MaterialName}`;",
+          "        ",
+          "        const objectContent = [];",
+          "        objectContent.push({",
+          "            type: \"L\", value: [",
+          "                { type: \"A\", value: \"ObjID\" }, // Control Job Id",
+          "                { type: \"A\", value: material.ControlJobId }, // Host defined identifier of the control job.",
+          "            ]",
+          "        });",
+          "",
+          "        //if (dataCollectionPlan) { // not mandatory per E94 standard",
+          "            objectContent.push({",
+          "                type: \"L\", value: [",
+          "                    { type: \"A\", value: \"DataCollectionPlan\" }, // Data Collection Plan",
+          "                    { type: \"A\", value: \"None\" },",
+          "                    // Identifier for a data collection plan to be used during execution of the control job.",
+          "                ]",
+          "            });",
+          "        //}",
+          "",
+          "        objectContent.push({",
+          "            type: \"L\", value: [",
+          "                { type: \"A\", value: \"CarrierInputSpec\" }, // Carrier Inputs",
+          "                {",
+          "                    // A list of carrierID for material that will be used by the ControlJob.",
+          "                    // An empty list is allowed.",
+          "                    type: \"L\", value: carrierInputSpec",
+          "                }",
+          "            ]",
+          "        });",
+          "",
+          "        objectContent.push({",
+          "            type: \"L\", value: [",
+          "                { type: \"A\", value: \"MtrlOutSpec\" }, // material movement Inputs",
+          "                { type: \"L\", value: materialMovement },  // Maps material from source to destination after processing.",
+          "                // For uni-carrier operation, the list shall be empty.",
+          "                // The list shall also be empty, if CarrierInputSpec is an empty list",
+          "            ]",
+          "        });",
+          "",
+          "        if (mtrlOutByStatus) { // not mandatory per E94 standard",
+          "            objectContent.push({",
+          "                type: \"L\", value: [",
+          "                    { type: \"A\", value: \"MtrlOutByStatus\" }, // Material Output by status",
+          "                    { type: \"L\", value: mtrlOutByStatus }, // List structure which maps locations or Carriers",
+          "                    // where processed material will be placed based on material status",
+          "                ]",
+          "            });",
+          "        }",
+          "",
+          "        if (pauseEvent) { // not mandatory per E94 standard",
+          "            objectContent.push({",
+          "                type: \"L\", value: [",
+          "                    { type: \"A\", value: \"PauseEvent\" }, // Pause Event",
+          "                    { type: \"L\", value: pauseEvent }, // Identifier of a list of events on which the Control Job shall PAUSE.",
+          "                ]",
+          "            });",
+          "        }",
+          "",
+          "        if (processingControlSpecification) {",
+          "            objectContent.push({",
+          "                type: \"L\", value: [",
+          "                    { type: \"A\", value: \"ProcessingCtrlSpec\" }, // Carrier Inputs",
+          "                    {",
+          "                        // A list of structures that defines the process jobs and rules for running each that will be run within this ControlJob.",
+          "                        type: \"L\", value: processingControlSpecification",
+          "                    }]",
+          "            });",
+          "        } else {",
+          "            objectContent.push({",
+          "                type: \"L\", value: [",
+          "                    { type: \"A\", value: \"ProcessingCtrlSpec\" }, // Carrier Inputs",
+          "                    {",
+          "                        // A list of structures that defines the process jobs and rules for running each that will be run within this ControlJob.",
+          "                        type: \"L\", value: [{",
+          "                            type: \"L\", value: [",
+          "                                { type: \"A\", value: material.ProcessJobId },",
+          "                                { type: \"L\", value: [] },",
+          "                                { type: \"L\", value: [] },",
+          "                            ]",
+          "                        }]",
+          "                    },",
+          "                ]",
+          "            })",
+          "        }",
+          "        objectContent.push({",
+          "            type: \"L\", value: [",
+          "                { type: \"A\", value: \"ProcessOrderMgmt\" }, // ProcessOrderMgmt",
+          "                { type: \"U1\", value: processOrderMgmt }, // Define the method for the order in which process  jobs are initiated (currently only 1)",
+          "                // possible values of Enum: LIST, ARRIVAL, OPTIMIZE",
+          "            ]",
+          "        });",
+          "        objectContent.push({",
+          "            type: \"L\", value: [",
+          "                { type: \"A\", value: \"StartMethod\" }, // Start Method",
+          "                { type: \"BO\", value: startMethod }, // A logical flag that determines if the ControlJob can start automatically",
+          "            ]",
+          "        });",
+          "",
+          "        const sendMessage: Object = {",
+          "            type: \"S14F9\", item: {",
+          "                type: \"L\", value: [",
+          "                    { type: \"A\", value: objectSpec }, // object Specification (E39 Structured Text)",
+          "                    { type: \"A\", value: \"ControlJob\" }, // type of object",
+          "                    { type: \"L\", value: objectContent }, // structure",
+          "                ]",
+          "            }",
+          "        }",
+          "",
+          "        const reply = await this.framework.driver.sendRaw(\"connect.iot.driver.secsgem.sendMessage\", sendMessage);",
+          "        let successFound = false;",
+          "",
+          "        if (reply && reply.item && parseInt(reply.item.value[2].value[0].value) === 0) {",
+          "            successFound = true;",
+          "        }",
+          "        if (!successFound) {",
+          "            const error = new Error(`EI: Create Control Job failed. Error ${reply.item.value[2].value[1].value[0].value[0].value.toString()} - ${reply.item.value[2].value[1].value[0].value[1].value.toString()}`);",
+          "            throw error;",
+          "        }",
+          "",
+          "        return {",
+          "            MaterialData: materialData",
+          "        };",
+          "    }",
+          "}",
+          ""
+        ],
+        "jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IG1hdGVyaWFsRGF0YSA9IGlucHV0cy5NYXRlcmlhbERhdGE7DQogICAgICAgIGNvbnN0IHVzZUNhcnJpZXJBdExvYWRQb3J0QXNDb250YWluZXIgPSBmYWxzZTsNCiAgICAgICAgY29uc3QgY29udHJvbEpvYklkZW50aWZpZXIgPSB1bmRlZmluZWQ7DQogICAgICAgIGNvbnN0IGRhdGFDb2xsZWN0aW9uUGxhbiA9IHVuZGVmaW5lZDsNCiAgICAgICAgY29uc3QgbXRybE91dEJ5U3RhdHVzID0gdW5kZWZpbmVkOw0KICAgICAgICBjb25zdCBwYXVzZUV2ZW50ID0gdW5kZWZpbmVkOw0KICAgICAgICBjb25zdCBwcm9jZXNzaW5nQ29udHJvbFNwZWNpZmljYXRpb24gPSB1bmRlZmluZWQ7DQogICAgICAgIGNvbnN0IHN0YXJ0TWV0aG9kID0gdHJ1ZTsNCiAgICAgICAgY29uc3Qgb2JqZWN0U3BlYyA9ICJFcXVpcG1lbnQiOw0KICAgICAgICBjb25zdCBwcm9jZXNzT3JkZXJNZ210ID0gMzsNCiAgICAgICAgbGV0IG1hdGVyaWFsTW92ZW1lbnQgPSBbXTsNCiAgICAgICAgbGV0IG1hdGVyaWFsOw0KICAgICAgICBpZiAoQXJyYXkuaXNBcnJheShtYXRlcmlhbERhdGEpKSB7DQogICAgICAgICAgICBtYXRlcmlhbCA9IG1hdGVyaWFsRGF0YVswXTsNCiAgICAgICAgfQ0KICAgICAgICBlbHNlIHsNCiAgICAgICAgICAgIG1hdGVyaWFsID0gbWF0ZXJpYWxEYXRhOw0KICAgICAgICB9DQogICAgICAgIC8vIGNhbGN1bGF0ZSBNYXRlcmlhbE91dFNwZWMgYmFzZWQgb24gaW5wdXQgb3Igc29ydGVyIGpvYiBpbmZvcm1hdGlvbiAoaWYgZXhpc3RpbmcpIGFuZCBjYWxjdWxhdGUgQ2FycmllciBJbnB1dCBTcGVjDQogICAgICAgIGNvbnN0IGNhcnJpZXJJbnB1dFNwZWMgPSBbXTsNCiAgICAgICAgLyoNCiAgICAgICAgaWYgKCFtYXRlcmlhbE1vdmVtZW50KSB7DQogICAgICAgICAgICBtYXRlcmlhbE1vdmVtZW50ID0gW107DQogICAgICAgICAgICAgDQogICAgICAgICAgICBpZiAobWF0ZXJpYWwuQ29udGFpbmVyTmFtZSkgeyAvLyBpZiBubyBjb250YWluZXIgdXNlZCwgc3BlYyBhbGxvd3MgZm9yIGVtcHR5IGxpc3QNCiAgICAgICAgICAgICAgICAvLyBpZiBubyBzb3J0ZXIgam9iIGV4aXN0cyBwdXNoIENvbnRhaW5lciBuYW1lIHRvIENhcnJpZXIgSW5wdXQgU3BlYw0KICAgICAgICAgICAgICAgIGNhcnJpZXJJbnB1dFNwZWMucHVzaCh7DQogICAgICAgICAgICAgICAgICAgIHR5cGU6ICJBIiwgdmFsdWU6ICh1c2VDYXJyaWVyQXRMb2FkUG9ydEFzQ29udGFpbmVyID8NCiAgICAgICAgICAgICAgICAgICAgICAgIGBDYXJyaWVyQXRMb2FkUG9ydCR7bWF0ZXJpYWwuTG9hZFBvcnRQb3NpdGlvbn1gIDogbWF0ZXJpYWwuQ29udGFpbmVyTmFtZSkNCiAgICAgICAgICAgICAgICB9KSAvLyBDYXJyaWVyIE5hbWUNCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgICAgICAqLw0KICAgICAgICBtYXRlcmlhbC5Db250cm9sSm9iSWQgPSBjb250cm9sSm9iSWRlbnRpZmllciA/IGNvbnRyb2xKb2JJZGVudGlmaWVyIDogYEN0cmxKb2JfJHttYXRlcmlhbC5NYXRlcmlhbE5hbWV9YDsNCiAgICAgICAgY29uc3Qgb2JqZWN0Q29udGVudCA9IFtdOw0KICAgICAgICBvYmplY3RDb250ZW50LnB1c2goew0KICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIk9iaklEIiB9LA0KICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogbWF0ZXJpYWwuQ29udHJvbEpvYklkIH0sDQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICAvL2lmIChkYXRhQ29sbGVjdGlvblBsYW4pIHsgLy8gbm90IG1hbmRhdG9yeSBwZXIgRTk0IHN0YW5kYXJkDQogICAgICAgIG9iamVjdENvbnRlbnQucHVzaCh7DQogICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiRGF0YUNvbGxlY3Rpb25QbGFuIiB9LA0KICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIk5vbmUiIH0sDQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICAvL30NCiAgICAgICAgb2JqZWN0Q29udGVudC5wdXNoKHsNCiAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJDYXJyaWVySW5wdXRTcGVjIiB9LA0KICAgICAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICAgICAgLy8gQSBsaXN0IG9mIGNhcnJpZXJJRCBmb3IgbWF0ZXJpYWwgdGhhdCB3aWxsIGJlIHVzZWQgYnkgdGhlIENvbnRyb2xKb2IuDQogICAgICAgICAgICAgICAgICAgIC8vIEFuIGVtcHR5IGxpc3QgaXMgYWxsb3dlZC4NCiAgICAgICAgICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogY2FycmllcklucHV0U3BlYw0KICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgIF0NCiAgICAgICAgfSk7DQogICAgICAgIG9iamVjdENvbnRlbnQucHVzaCh7DQogICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiTXRybE91dFNwZWMiIH0sDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiTCIsIHZhbHVlOiBtYXRlcmlhbE1vdmVtZW50IH0sDQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICBpZiAobXRybE91dEJ5U3RhdHVzKSB7DQogICAgICAgICAgICBvYmplY3RDb250ZW50LnB1c2goew0KICAgICAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiTXRybE91dEJ5U3RhdHVzIiB9LA0KICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJMIiwgdmFsdWU6IG10cmxPdXRCeVN0YXR1cyB9LA0KICAgICAgICAgICAgICAgIF0NCiAgICAgICAgICAgIH0pOw0KICAgICAgICB9DQogICAgICAgIGlmIChwYXVzZUV2ZW50KSB7DQogICAgICAgICAgICBvYmplY3RDb250ZW50LnB1c2goew0KICAgICAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiUGF1c2VFdmVudCIgfSwNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiTCIsIHZhbHVlOiBwYXVzZUV2ZW50IH0sDQogICAgICAgICAgICAgICAgXQ0KICAgICAgICAgICAgfSk7DQogICAgICAgIH0NCiAgICAgICAgaWYgKHByb2Nlc3NpbmdDb250cm9sU3BlY2lmaWNhdGlvbikgew0KICAgICAgICAgICAgb2JqZWN0Q29udGVudC5wdXNoKHsNCiAgICAgICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIlByb2Nlc3NpbmdDdHJsU3BlYyIgfSwNCiAgICAgICAgICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgICAgICAgICAgLy8gQSBsaXN0IG9mIHN0cnVjdHVyZXMgdGhhdCBkZWZpbmVzIHRoZSBwcm9jZXNzIGpvYnMgYW5kIHJ1bGVzIGZvciBydW5uaW5nIGVhY2ggdGhhdCB3aWxsIGJlIHJ1biB3aXRoaW4gdGhpcyBDb250cm9sSm9iLg0KICAgICAgICAgICAgICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogcHJvY2Vzc2luZ0NvbnRyb2xTcGVjaWZpY2F0aW9uDQogICAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICBdDQogICAgICAgICAgICB9KTsNCiAgICAgICAgfQ0KICAgICAgICBlbHNlIHsNCiAgICAgICAgICAgIG9iamVjdENvbnRlbnQucHVzaCh7DQogICAgICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJQcm9jZXNzaW5nQ3RybFNwZWMiIH0sDQogICAgICAgICAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICAgICAgICAgIC8vIEEgbGlzdCBvZiBzdHJ1Y3R1cmVzIHRoYXQgZGVmaW5lcyB0aGUgcHJvY2VzcyBqb2JzIGFuZCBydWxlcyBmb3IgcnVubmluZyBlYWNoIHRoYXQgd2lsbCBiZSBydW4gd2l0aGluIHRoaXMgQ29udHJvbEpvYi4NCiAgICAgICAgICAgICAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFt7DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogbWF0ZXJpYWwuUHJvY2Vzc0pvYklkIH0sDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJMIiwgdmFsdWU6IFtdIH0sDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJMIiwgdmFsdWU6IFtdIH0sDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF0NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICB9XQ0KICAgICAgICAgICAgICAgICAgICB9LA0KICAgICAgICAgICAgICAgIF0NCiAgICAgICAgICAgIH0pOw0KICAgICAgICB9DQogICAgICAgIG9iamVjdENvbnRlbnQucHVzaCh7DQogICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIHZhbHVlOiAiUHJvY2Vzc09yZGVyTWdtdCIgfSwNCiAgICAgICAgICAgICAgICB7IHR5cGU6ICJVMSIsIHZhbHVlOiBwcm9jZXNzT3JkZXJNZ210IH0sDQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICBvYmplY3RDb250ZW50LnB1c2goew0KICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogIlN0YXJ0TWV0aG9kIiB9LA0KICAgICAgICAgICAgICAgIHsgdHlwZTogIkJPIiwgdmFsdWU6IHN0YXJ0TWV0aG9kIH0sDQogICAgICAgICAgICBdDQogICAgICAgIH0pOw0KICAgICAgICBjb25zdCBzZW5kTWVzc2FnZSA9IHsNCiAgICAgICAgICAgIHR5cGU6ICJTMTRGOSIsIGl0ZW06IHsNCiAgICAgICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCB2YWx1ZTogb2JqZWN0U3BlYyB9LA0KICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJBIiwgdmFsdWU6ICJDb250cm9sSm9iIiB9LA0KICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJMIiwgdmFsdWU6IG9iamVjdENvbnRlbnQgfSwNCiAgICAgICAgICAgICAgICBdDQogICAgICAgICAgICB9DQogICAgICAgIH07DQogICAgICAgIGNvbnN0IHJlcGx5ID0gYXdhaXQgdGhpcy5mcmFtZXdvcmsuZHJpdmVyLnNlbmRSYXcoImNvbm5lY3QuaW90LmRyaXZlci5zZWNzZ2VtLnNlbmRNZXNzYWdlIiwgc2VuZE1lc3NhZ2UpOw0KICAgICAgICBsZXQgc3VjY2Vzc0ZvdW5kID0gZmFsc2U7DQogICAgICAgIGlmIChyZXBseSAmJiByZXBseS5pdGVtICYmIHBhcnNlSW50KHJlcGx5Lml0ZW0udmFsdWVbMl0udmFsdWVbMF0udmFsdWUpID09PSAwKSB7DQogICAgICAgICAgICBzdWNjZXNzRm91bmQgPSB0cnVlOw0KICAgICAgICB9DQogICAgICAgIGlmICghc3VjY2Vzc0ZvdW5kKSB7DQogICAgICAgICAgICBjb25zdCBlcnJvciA9IG5ldyBFcnJvcihgRUk6IENyZWF0ZSBDb250cm9sIEpvYiBmYWlsZWQuIEVycm9yICR7cmVwbHkuaXRlbS52YWx1ZVsyXS52YWx1ZVsxXS52YWx1ZVswXS52YWx1ZVswXS52YWx1ZS50b1N0cmluZygpfSAtICR7cmVwbHkuaXRlbS52YWx1ZVsyXS52YWx1ZVsxXS52YWx1ZVswXS52YWx1ZVsxXS52YWx1ZS50b1N0cmluZygpfWApOw0KICAgICAgICAgICAgdGhyb3cgZXJyb3I7DQogICAgICAgIH0NCiAgICAgICAgcmV0dXJuIHsNCiAgICAgICAgICAgIE1hdGVyaWFsRGF0YTogbWF0ZXJpYWxEYXRhDQogICAgICAgIH07DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
+        "inputs": [
+          {
+            "name": "MaterialData",
+            "valueType": {
+              "type": 10,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": ""
+            },
+            "defaultValue": {}
+          }
+        ],
+        "outputs": [
+          {
+            "name": "MaterialData",
+            "valueType": {
+              "type": 10,
+              "collectionType": 0,
+              "referenceType": null,
+              "referenceTypeName": null,
+              "referenceTypeId": null,
+              "friendlyName": "Material Data"
+            },
+            "defaultValue": null
+          }
+        ],
+        "contextExpirationInMilliseconds": 10000,
+        "executionExpirationInMilliseconds": 0,
+        "___cmf___name": "Code"
       },
       "driver": "SecsGemEquipment"
     }
@@ -175,6 +388,16 @@
       "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
       "reference": {
         "name": "anyToConstant",
+        "package": {
+          "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+          "version": "9.1.0-202209072"
+        }
+      }
+    },
+    {
+      "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+      "reference": {
+        "name": "anyToAny",
         "package": {
           "name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
           "version": "9.1.0-202209072"
@@ -192,41 +415,6 @@
       "converters": []
     },
     {
-      "id": "15638f57-dcb0-494f-8789-ec9b971c8075",
-      "sourceId": "task_169102",
-      "targetId": "task_169525",
-      "inputName": "MaterialData",
-      "outputName": "MaterialDataOut"
-    },
-    {
-      "id": "4dffe93a-6b32-4a40-b372-0646fb895d12",
-      "sourceId": "task_169102",
-      "targetId": "task_169525",
-      "inputName": "activate",
-      "outputName": "MaterialDataOut"
-    },
-    {
-      "id": "54567084-c949-446c-bfa1-8b0bf3924200",
-      "sourceId": "task_169525",
-      "targetId": "task_169100",
-      "inputName": "success",
-      "outputName": "success"
-    },
-    {
-      "id": "4a9d528c-3816-4527-9b6b-ab127749c8f7",
-      "sourceId": "task_169525",
-      "targetId": "task_169104",
-      "inputName": "activate",
-      "outputName": "error"
-    },
-    {
-      "id": "ced451b7-17bd-4cae-9a4f-8992c6e3e062",
-      "sourceId": "task_169525",
-      "targetId": "task_169104",
-      "inputName": "ErrorIn",
-      "outputName": "error"
-    },
-    {
       "id": "4334e1a1-dd01-4e5f-8633-a816a7a390ee",
       "sourceId": "task_169102",
       "targetId": "task_169104",
@@ -234,27 +422,52 @@
       "outputName": "MaterialDataOut"
     },
     {
-      "id": "b51e37b2-47f1-4865-900f-1e69888a246a",
-      "sourceId": "task_169525",
-      "targetId": "task_169100",
-      "inputName": "MaterialData",
-      "outputName": "Material"
+      "id": "4b58c0aa-7027-4365-95a9-4198c23cba1d",
+      "sourceId": "task_169102",
+      "targetId": "task_126582",
+      "inputName": "MaterialDataIn",
+      "outputName": "MaterialDataOut"
     },
     {
-      "id": "064d5a7a-1cbc-4653-b863-912d4003ce94",
+      "id": "1ea9f7e1-cbf0-4b3f-b9b6-c0eaf3c7fac2",
       "sourceId": "task_169102",
-      "targetId": "task_169525",
-      "inputName": "StartMethod",
+      "targetId": "task_126582",
+      "inputName": "activate",
+      "outputName": "activateOut"
+    },
+    {
+      "id": "d692c69f-b267-4cbb-9312-838d9e42f46d",
+      "sourceId": "task_126582",
+      "targetId": "task_169100",
+      "inputName": "MaterialData",
+      "outputName": "MaterialDataOut"
+    },
+    {
+      "id": "af7533cd-b8a8-48a4-bb42-50fecdd3e7b8",
+      "sourceId": "task_126582",
+      "targetId": "task_169100",
+      "inputName": "success",
       "outputName": "MaterialDataOut",
       "converters": [
         {
-          "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
-          "params": {
-            "type": 3,
-            "value": "true"
-          }
+          "id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+          "params": {}
         }
       ]
+    },
+    {
+      "id": "9df1488f-8fe3-4d5d-b5f9-bdafbdf9f94b",
+      "sourceId": "task_126582",
+      "targetId": "task_169104",
+      "inputName": "ErrorIn",
+      "outputName": "error"
+    },
+    {
+      "id": "252c5ad7-cc60-449f-85f1-f32418dab1d2",
+      "sourceId": "task_126582",
+      "targetId": "task_169104",
+      "inputName": "activate",
+      "outputName": "error"
     }
   ],
   "layout": {
@@ -268,32 +481,32 @@
           "task_169100": {
             "collapsed": false,
             "position": {
-              "x": 3315,
-              "y": 776
+              "x": 2039,
+              "y": 511
             },
             "outdated": false
           },
           "task_169102": {
             "collapsed": false,
             "position": {
-              "x": 953,
-              "y": 775
+              "x": 418,
+              "y": 509
             },
             "outdated": false
           },
           "task_169104": {
             "collapsed": false,
             "position": {
-              "x": 2810,
-              "y": 1342
+              "x": 1547,
+              "y": 789
             },
             "outdated": false
           },
-          "task_169525": {
+          "task_126582": {
             "collapsed": false,
             "position": {
-              "x": 2249,
-              "y": 775
+              "x": 1045,
+              "y": 515
             },
             "outdated": false
           }
@@ -302,36 +515,42 @@
           "task_169104_ErrorOut-task_169100_error": {
             "vertices": []
           },
-          "15638f57-dcb0-494f-8789-ec9b971c8075": {
-            "vertices": []
-          },
-          "4dffe93a-6b32-4a40-b372-0646fb895d12": {
-            "vertices": []
-          },
-          "54567084-c949-446c-bfa1-8b0bf3924200": {
-            "vertices": []
-          },
-          "4a9d528c-3816-4527-9b6b-ab127749c8f7": {
-            "vertices": []
-          },
-          "ced451b7-17bd-4cae-9a4f-8992c6e3e062": {
-            "vertices": []
-          },
           "4334e1a1-dd01-4e5f-8633-a816a7a390ee": {
+            "vertices": [
+              {
+                "x": 943,
+                "y": 670
+              },
+              {
+                "x": 1148,
+                "y": 1038
+              }
+            ]
+          },
+          "4b58c0aa-7027-4365-95a9-4198c23cba1d": {
             "vertices": []
           },
-          "b51e37b2-47f1-4865-900f-1e69888a246a": {
+          "1ea9f7e1-cbf0-4b3f-b9b6-c0eaf3c7fac2": {
             "vertices": []
           },
-          "064d5a7a-1cbc-4653-b863-912d4003ce94": {
+          "d692c69f-b267-4cbb-9312-838d9e42f46d": {
+            "vertices": []
+          },
+          "9df1488f-8fe3-4d5d-b5f9-bdafbdf9f94b": {
+            "vertices": []
+          },
+          "252c5ad7-cc60-449f-85f1-f32418dab1d2": {
+            "vertices": []
+          },
+          "af7533cd-b8a8-48a4-bb42-50fecdd3e7b8": {
             "vertices": []
           }
         },
         "notes": {},
-        "zoom": 0.5499999999999996,
+        "zoom": 0.7499999999999998,
         "pan": {
-          "x": 524.1500015258789,
-          "y": 426.25
+          "x": 313.5,
+          "y": 381.75
         }
       }
     }

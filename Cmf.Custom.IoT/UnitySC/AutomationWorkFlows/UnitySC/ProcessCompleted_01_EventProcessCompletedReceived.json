@@ -154,14 +154,14 @@
             "outputType": "Value"
           }
         ],
-        "___cmf___name": "On Equipment Event",
+        "___cmf___name": "OEV (940109)",
         "_events": [
           {
             "$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
             "Name": "E94_Executing2Completed"
           }
         ],
-        "___cmf___description": "E94_Executing2Completed (940109)"
+        "___cmf___description": "E94_Executing2Completed"
       },
       "driver": "SecsGemEquipment"
     }
@@ -242,8 +242,8 @@
           "task_127417": {
             "collapsed": false,
             "position": {
-              "x": 1063,
-              "y": 395
+              "x": 1062,
+              "y": 391
             },
             "outdated": false
           },
@@ -273,10 +273,10 @@
             }
           }
         },
-        "zoom": 0.5999999999999996,
+        "zoom": 0.6499999999999997,
         "pan": {
-          "x": 131.4000015258789,
-          "y": 234.60000610351562
+          "x": 142.35000038146973,
+          "y": 254.14999389648438
         }
       }
     }

@@ -1474,6 +1474,13 @@
       "Type": "Production",
       "ProcessingType": "Process",
       "IsEnabled": "Yes"
+    },
+    "12": {
+      "Name": "WaferReception",
+      "Description": "Wafer Reception Service used to resolve RecipeContext",
+      "Type": "Production",
+      "ProcessingType": "Process",
+      "IsEnabled": "Yes"
     }
   },
   "<DM>Step": {
