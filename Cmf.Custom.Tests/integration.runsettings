@@ -18,6 +18,8 @@
     <Parameter name="clientTenantName" value="amsOSRAM" />
     <Parameter name="culture" value="en-US" />
     <Parameter name="userRole" value="Administrators" />
+    <Parameter name="userName" value="CMF\cmfsu" />
+    <Parameter name="password" value="qaz123WSX" />
   	<Parameter name="securityAccessToken" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJZCI6Ik1FUyIsInRlbmFudE5hbWUiOiJhbXNPU1JBTSIsInN1YiI6IkFNU09TUkFNSU9UVVNFUiIsInNjb3BlIjpudWxsLCJleHRyYVZhbHVlcyI6bnVsbCwidHlwZSI6IlBBVCIsImlhdCI6MTY2MzY3MTQ5OCwiZXhwIjoxNjk1MzM3MTM5LCJhdWQiOiJBdXRoUG9ydGFsIiwiaXNzIjoiQXV0aFBvcnRhbCJ9.c2Z5VS98RHzrm26SMVHF_kxc4V4rs069P2FIBfeBtJE" />
     <Parameter name="securityPortalAddress" value="https://amsosramintegration.ds.criticalmanufacturing.dev/SecurityPortal/tenant" />
   	<Parameter name="securityToken" value="4n5g84uLK347" />
