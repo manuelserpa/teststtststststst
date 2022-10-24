@@ -1,0 +1,20 @@
+﻿{
+  "version": "2.1.0",
+  "packageId": "Cmf.Custom.IoT.CoreSolution",
+  "description": "Cmf Custom Template And Shared Solution Data Package",
+  "packageType": "IoTData",
+  "isInstallable": true,
+  "isUniqueInstall": true,
+  "contentToPack": [
+    {
+      "source": "MasterData/*",
+      "target": "MasterData/$(version)",
+      "contentType": "MasterData"
+    },
+    {
+      "source": "AutomationWorkFlows/*",
+      "target": "AutomationWorkFlows",
+      "contentType": "AutomationWorkFlows"
+    }
+  ]
+}

@@ -1,0 +1,367 @@
+{
+	"tasks": [
+		{
+			"id": "task_179236",
+			"reference": {
+				"name": "subWorkflowEnd",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"inputs": [
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"friendlyName": "LoadPort",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerId",
+						"valueType": {
+							"friendlyName": "ContainerId",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "End"
+			}
+		},
+		{
+			"id": "task_179238",
+			"reference": {
+				"name": "subWorkflowStart",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"outputs": [
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "ContainerId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					}
+				],
+				"___cmf___name": "Start"
+			}
+		},
+		{
+			"id": "task_179240",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ErrorHandling",
+					"IsShared": true,
+					"Name": "ErrorHandling"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorCode",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorText",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerData",
+						"valueType": {
+							"friendlyName": "ContainerData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"friendlyName": "Error",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Workflow",
+				"___cmf___color": "#ff0000"
+			}
+		},
+		{
+			"id": "task_179242",
+			"reference": {
+				"name": "equipmentCommand",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_inputs": [
+					{
+						"parameter": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
+							"Name": "PORT_ID",
+							"DataType": 5
+						},
+						"dataType": "Integer"
+					}
+				],
+				"_command": {
+					"$type": "Cmf.Foundation.BusinessObjects.AutomationCommand, Cmf.Foundation.BusinessObjects",
+					"Name": "CLAMP"
+				},
+				"___cmf___name": "Execute Equipment Command",
+				"___cmf___description": "CLAMP"
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [],
+	"links": [
+		{
+			"id": "task_179238_activateOut-task_179242_activate",
+			"sourceId": "task_179238",
+			"targetId": "task_179242",
+			"inputName": "activate",
+			"outputName": "activateOut",
+			"converters": []
+		},
+		{
+			"id": "task_179242_success-task_179236_success",
+			"sourceId": "task_179242",
+			"targetId": "task_179236",
+			"inputName": "success",
+			"outputName": "success",
+			"converters": []
+		},
+		{
+			"id": "task_179242_error-task_179240_ErrorIn",
+			"sourceId": "task_179242",
+			"targetId": "task_179240",
+			"inputName": "ErrorIn",
+			"outputName": "error",
+			"converters": []
+		},
+		{
+			"id": "task_179242_error-task_179240_activate",
+			"sourceId": "task_179242",
+			"targetId": "task_179240",
+			"inputName": "activate",
+			"outputName": "error",
+			"converters": []
+		},
+		{
+			"id": "task_179240_ErrorOut-task_179236_error",
+			"sourceId": "task_179240",
+			"targetId": "task_179236",
+			"inputName": "error",
+			"outputName": "ErrorOut",
+			"converters": []
+		},
+		{
+			"id": "494235fa-7079-47e9-8f74-1af4802b7a01",
+			"sourceId": "task_179238",
+			"targetId": "task_179236",
+			"inputName": "LoadPort",
+			"outputName": "LoadPortOut"
+		},
+		{
+			"id": "8dfced7f-b826-4978-b295-2cd75167dea9",
+			"sourceId": "task_179238",
+			"targetId": "task_179236",
+			"inputName": "ContainerId",
+			"outputName": "ContainerIdOut"
+		},
+		{
+			"id": "3fe29cc1-1414-4c89-aac1-a9d9a2a791a3",
+			"sourceId": "task_179238",
+			"targetId": "task_179242",
+			"inputName": "$PORT_ID",
+			"outputName": "LoadPortOut"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#ffff80",
+			"notes": [
+				{
+					"id": "note_179244",
+					"name": "How to use it",
+					"value": "<p><strong>What it does:</strong></p><p>This Workflow should execute the Carrier Clamped remote command.</p><p><strong>How to use it:</strong></p><ol><li>On the Execute Command Task select the&nbsp;Carrier Clamped command to your tool;</li></ol><p><strong>Note:</strong></p><p>If the inputs for the command are complex enough replace parsing and command execution task with a Code task</p><p>To execute a Command via code you can use the following code snippet (contains command call and validation.</p><div style=\"background-color:#fffffe;font-family:Consolas, 'Courier New', monospace;font-size:14px;line-height:19px;white-space:pre;\"><div style=\"background-color:#fffffe;font-family:Consolas, 'Courier New', monospace;font-size:14px;line-height:19px;white-space:pre;\"><span style=\"color:#0000ff;\">const</span> remoteCommandSuccessCode = <span style=\"color:#a31515;\">\"0x00,0x04\"</span>;</div><p><span style=\"color:#0000ff;\">let</span> commandParameters: <span style=\"color:#0000ff;\">any</span>[] = [];</p><p><span style=\"color:#0000ff;\">const</span> sendMessage: Object = {</p><p><span style=\"color:#0000ff;\">type</span>: <span style=\"color:#a31515;\">\"S2F41\" </span>, item: { <span style=\"color:#008000;\">//replace with Stream and function intended</span></p></div><div style=\"background-color:#fffffe;font-family:Consolas, 'Courier New', monospace;font-size:14px;line-height:19px;white-space:pre;\"><div style=\"margin-left:60px;\"><span style=\"color:#0000ff;\">type</span>: <span style=\"color:#a31515;\">\"L\"</span>, value: [</div><div style=\"margin-left:90px;\">{ <span style=\"color:#0000ff;\">type</span>: <span style=\"color:#a31515;\">\"A\"</span>, value: <span style=\"color:#a31515;\">\"CLAMPED\"</span> }, <span style=\"color:#008000;\">//data id</span></div><div style=\"margin-left:90px;\">{ <span style=\"color:#0000ff;\">type</span>: <span style=\"color:#a31515;\">\"L\"</span>, value: commandParameters}</div><div style=\"margin-left:60px;\">]}</div><div style=\"margin-left:30px;\">} </div><div></div><div><span style=\"color:#0000ff;\">const</span> reply = <span style=\"color:#0000ff;\">await</span> <span style=\"color:#0000ff;\">this</span>.framework.driver.sendRaw(<span style=\"color:#a31515;\">\"connect.iot.driver.secsgem.sendMessage\"</span>, sendMessage);</div><div><span style=\"color:#0000ff;\">let</span> successFound = <span style=\"color:#0000ff;\">false</span>;</div><div><span style=\"color:#0000ff;\">for</span> (<span style=\"color:#0000ff;\">const</span> successCode <span style=\"color:#0000ff;\">of</span> remoteCommandSuccessCode.split(<span style=\"color:#a31515;\">\",\"</span>)) {</div><div style=\"margin-left:30px;\"><span style=\"color:#0000ff;\">if</span> (reply &amp;&amp; reply.item &amp;&amp; parseInt(reply.item.value[<span style=\"color:#09885a;\">0</span>].value.data) === parseInt(successCode.trim())) {</div><div style=\"margin-left:30px;\">successFound = <span style=\"color:#0000ff;\">true</span>;</div><div style=\"margin-left:30px;\"><span style=\"color:#0000ff;\">break</span>;</div><div>}</div></div>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_179236": {
+						"collapsed": false,
+						"position": {
+							"x": 3410,
+							"y": 798
+						},
+						"outdated": false
+					},
+					"task_179238": {
+						"collapsed": false,
+						"position": {
+							"x": 952,
+							"y": 775
+						},
+						"outdated": false
+					},
+					"task_179240": {
+						"collapsed": false,
+						"position": {
+							"x": 2786,
+							"y": 1164
+						},
+						"outdated": false
+					},
+					"task_179242": {
+						"collapsed": false,
+						"position": {
+							"x": 2055,
+							"y": 1038
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"task_179238_activateOut-task_179242_activate": {
+						"vertices": []
+					},
+					"task_179242_success-task_179236_success": {
+						"vertices": []
+					},
+					"task_179242_error-task_179240_ErrorIn": {
+						"vertices": []
+					},
+					"task_179242_error-task_179240_activate": {
+						"vertices": []
+					},
+					"task_179240_ErrorOut-task_179236_error": {
+						"vertices": []
+					},
+					"494235fa-7079-47e9-8f74-1af4802b7a01": {
+						"vertices": []
+					},
+					"8dfced7f-b826-4978-b295-2cd75167dea9": {
+						"vertices": []
+					},
+					"3fe29cc1-1414-4c89-aac1-a9d9a2a791a3": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_179244": {
+						"collapsed": false,
+						"position": {
+							"x": 1534,
+							"y": 1236
+						}
+					}
+				},
+				"zoom": 0.6999999999999998,
+				"pan": {
+					"x": 872.6232344110631,
+					"y": 405.83449339287495
+				}
+			}
+		}
+	}
+}

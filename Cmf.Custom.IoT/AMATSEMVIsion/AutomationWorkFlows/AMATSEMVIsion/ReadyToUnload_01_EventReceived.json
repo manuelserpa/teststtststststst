@@ -1,0 +1,229 @@
+{
+	"tasks": [
+		{
+			"id": "task_158178",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ReadyToUnload",
+					"IsShared": true,
+					"Name": "ReadyToUnload"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "LoadPortNumber",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LoadPortNumber"
+						}
+					},
+					{
+						"name": "ContainerId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"friendlyName": "StateUpdatedOnMainEquipment",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "LoadPortName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "LoadPortNumber",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerName"
+						}
+					}
+				],
+				"___cmf___name": "Ready to Unload Workflow"
+			}
+		},
+		{
+			"id": "task_158180",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "ReadyToUnloadEvent"
+					}
+				],
+				"___cmf___description": "ReadyToUnloadEvent (7118)"
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "a2925b2f-e805-41ad-a7a0-c33ed6acd43d",
+			"sourceId": "task_158180",
+			"targetId": "task_158178",
+			"inputName": "LoadPortNumberIn",
+			"outputName": "$PortID",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		},
+		{
+			"id": "4731529a-7093-484f-af06-ee72d87ada74",
+			"sourceId": "task_158180",
+			"targetId": "task_158178",
+			"inputName": "activate",
+			"outputName": "$PortID"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#80ffff",
+			"notes": [
+				{
+					"id": "note_158182",
+					"name": "TosReadyToUnload",
+					"value": "<p><strong>What it does:</strong></p><p>Sets corresponding Load Port to ReadyToUnload;</p><p>Request Transport Job for Load Port;</p><p>&nbsp;</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to ReadyToUnload for the Tool;</li><li>Connect the value corresponding to the Load Port Id to the Load Port Id of the Workflow task;<ol><li>If the Equipment does not deliver that information and has only 1 port:<ol><li>Connect any event output to Load Port Id;</li><li>Use the Converter \"Any to Constant\" to send a value of Type Integer and Value 1;</li></ol></li><li>If the Equipment does not deliver that information and has multiple Load Port with multiple Event:<ol><li>Connect any event output to Load Port Id;</li><li>Use the Converter \"Any to Constant\" to send a value of Type Integer and Value corresponding to the Load Port;</li></ol></li></ol></li><li>Pass any event Output to the Activate Input of the Workflow;</li></ol>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_158178": {
+						"collapsed": false,
+						"position": {
+							"x": 1070,
+							"y": 253
+						},
+						"outdated": false
+					},
+					"task_158180": {
+						"collapsed": false,
+						"position": {
+							"x": 502,
+							"y": 250
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"4731529a-7093-484f-af06-ee72d87ada74": {
+						"vertices": []
+					},
+					"a2925b2f-e805-41ad-a7a0-c33ed6acd43d": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_158182": {
+						"collapsed": false,
+						"position": {
+							"x": 1529,
+							"y": 110
+						}
+					}
+				},
+				"pan": {
+					"x": 183,
+					"y": 25
+				}
+			}
+		}
+	}
+}
