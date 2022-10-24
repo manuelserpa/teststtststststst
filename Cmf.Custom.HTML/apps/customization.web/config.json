@@ -1,7 +1,7 @@
 {
   "ref": "MES",
   "debug": {
-    "isEnabled": false
+    "isEnabled": true
   },
   "host": {
     "rest": {
@@ -25,6 +25,7 @@
   },
   "packages": {
     "available": [
+      "cmf.core.app",
       "cmf.core.shell",
       "cmf.core.business.controls",
       "cmf.core.controls",
@@ -89,7 +90,7 @@
       "cmf.mes.materiallogistics",
       "cmf.mes.newproductintroduction",
       "cmf.mes.plan",
-      "customization.common"
+      "customization.amsosram.resource"
     ],
     "baseDir": "node_modules/",
     "bundlePath": "node_modules/@criticalmanufacturing/mes-ui-web/bundles",
@@ -158,6 +159,6 @@
       }
     ]
   },
-  "cacheId": "266259",
-  "version": "amsOSRAM $(Build.BuildNumber) - 9.1.0"
+  "cacheId": "266261",
+  "version": "9.1.0-266258"
 }

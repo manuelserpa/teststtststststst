@@ -1,0 +1,22 @@
+{
+  "name": "customization.amsosram.resource",
+  "version": "2.2.0",
+  "description": "customization.amsosram.resource package",
+  "main": "customization.amsosram.resource.js",
+  "types": "index.d.ts",
+  "dependencies": {},
+  "optionalDependencies": {
+    "@angular": "release-910",
+    "cmf.core.business.controls": "release-910",
+    "cmf.core.controls": "release-910",
+    "cmf.lbos": "release-910",
+    "cmf.core": "release-910"
+  },
+  "cmfLinkDependencies": {
+    "@angular": "file:../../../apps/customization.web/node_modules/@angular",
+    "cmf.core.business.controls": "file:../../../apps/customization.web/node_modules/cmf.core.business.controls",
+    "cmf.core.controls": "file:../../../apps/customization.web/node_modules/cmf.core.controls",
+    "cmf.lbos": "file:../../../apps/customization.web/node_modules/cmf.lbos",
+    "cmf.core": "file:../../../apps/customization.web/node_modules/cmf.core"
+  }
+}

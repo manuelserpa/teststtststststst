@@ -1,13 +1,16 @@
 {
   "name": "customization.web",
-  "version": "2.0.0",
+  "version": "2.2.0",
   "description": "customization.web package",
   "dependencies": {
     "@criticalmanufacturing/mes-ui-web": "release-910",
     "lodash": "3.10.1"
   },
+  "optionalDependencies": {
+    "customization.amsosram.resource": "release-910"
+  },
   "cmfLinkDependencies": {
     "cmf.lbos": "file:../../../Libs/LBOs/TypeScript",
-    "customization.common": "file:../../src/packages/customization.common"
+    "customization.amsosram.resource": "file:../../src/packages/customization.amsosram.resource"
   }
 }
