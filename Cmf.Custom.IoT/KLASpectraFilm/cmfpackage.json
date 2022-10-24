@@ -1,7 +1,7 @@
 ﻿{
   "version": "2.2.0",
-  "packageId": "Cmf.Custom.IoT.UnitySC",
-  "description": "Cmf Unity SC Data Package",
+  "packageId": "Cmf.Custom.IoT.KLASpectraFilm",
+  "description": "Cmf KLASpectraFilm Data Package",
   "packageType": "IoTData",
   "isInstallable": true,
   "isUniqueInstall": true,
@@ -16,11 +16,5 @@
       "target": "AutomationWorkFlows",
       "contentType": "AutomationWorkFlows"
     }
-  ],
-  "steps": [
-    { "order": "1", "type": "Generic", "onExecute": "$(Agent.Root)/agent/scripts/stop_host.ps1" },
-    { "order": "2", "type": "TransformFile", "file": "Cmf.Foundation.Services.HostService.dll.config", "tagFile": true },
-    { "order": "3", "type": "Generic", "onExecute": "$(Agent.Root)/agent/scripts/start_host.ps1" },
-    { "order": "4", "type": "Generic", "onExecute": "$(Package[Cmf.Custom.Package].TargetDirectory)/GenerateLBOs.ps1" }
   ]
 }
