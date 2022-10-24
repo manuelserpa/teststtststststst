@@ -295,5 +295,24 @@
       "zh-TW": "",
       "UsageType": "Biz"
     }
+  },
+  "<SM>ImportObject": {
+	  "1": {
+      "XmlFileRelativePath": "199-Custom_ResourceView_Cluster",
+      "ChangeSet": ""
+    }
+  },
+  "<ST>UIPageContext": {
+    "1": {
+      "Action": "FabExplorer.ResourceView.View",
+      "PrimaryRole": "",
+      "Facility": "",
+      "Area": "",
+      "Step": "",
+      "Resource": "",
+      "ResourceProcessingType": "",
+      "Page": "Custom_ResourceView_Cluster",
+      "BusinessRule": ""
+    }
   }
 }
