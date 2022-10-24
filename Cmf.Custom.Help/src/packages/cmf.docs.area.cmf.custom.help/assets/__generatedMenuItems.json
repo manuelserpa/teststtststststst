@@ -642,6 +642,12 @@
     "actionId": ""
   },
   {
+    "id": "klaspectrafilm",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "KLA SpectraFilm Ellipsometer",
+    "actionId": ""
+  },
+  {
     "id": "mechatronicmws200",
     "menuGroupId": "iotequipmenttypes",
     "title": "Mechatronic MWS200",
@@ -776,6 +782,30 @@
   {
     "id": "hermoslfm4xreader-workflows",
     "menuGroupId": "hermoslfm4xreader",
+    "title": "Workflows",
+    "actionId": ""
+  },
+  {
+    "id": "klaspectrafilm-configuration",
+    "menuGroupId": "klaspectrafilm",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "klaspectrafilm-features",
+    "menuGroupId": "klaspectrafilm",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "klaspectrafilm-setup",
+    "menuGroupId": "klaspectrafilm",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "klaspectrafilm-workflows",
+    "menuGroupId": "klaspectrafilm",
     "title": "Workflows",
     "actionId": ""
   },

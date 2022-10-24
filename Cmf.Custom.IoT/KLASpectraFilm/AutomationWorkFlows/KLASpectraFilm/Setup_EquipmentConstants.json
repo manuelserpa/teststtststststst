@@ -1,0 +1,140 @@
+{
+	"tasks": [
+		{
+			"id": "task_29645",
+			"reference": {
+				"name": "retrieve",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_retrieveOnValueChange": true,
+				"_emitInNewContext": false,
+				"___cmf___name": "Retrieve Data",
+				"_outputs": [
+					{
+						"name": "TriggerResetFlows",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "TriggerResetFlows"
+						},
+						"identifier": "_TriggerResetFlows",
+						"defaultValue": false
+					}
+				]
+			}
+		},
+		{
+			"id": "task_29647",
+			"reference": {
+				"name": "setEquipmentProperties",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_inputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "NotifyWaferIDRead",
+							"DataType": 5
+						},
+						"required": false,
+						"defaultValue": null,
+						"dataType": "Integer"
+					}
+				],
+				"___cmf___name": "Set Equipment Properties Values"
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "task_29645_success-task_29647_activate",
+			"sourceId": "task_29645",
+			"targetId": "task_29647",
+			"inputName": "activate",
+			"outputName": "success",
+			"converters": []
+		},
+		{
+			"id": "d3b0da91-ee99-4a65-9621-316cef3ef85f",
+			"sourceId": "task_29645",
+			"targetId": "task_29647",
+			"inputName": "$NotifyWaferIDRead",
+			"outputName": "TriggerResetFlows",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "1"
+					}
+				}
+			]
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#ffff00",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_29645": {
+						"collapsed": false,
+						"position": {
+							"x": 2242,
+							"y": 1235
+						},
+						"outdated": false
+					},
+					"task_29647": {
+						"collapsed": false,
+						"position": {
+							"x": 2827,
+							"y": 1241
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"task_29645_success-task_29647_activate": {
+						"vertices": []
+					},
+					"d3b0da91-ee99-4a65-9621-316cef3ef85f": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"zoom": 1,
+				"pan": {
+					"x": 2167,
+					"y": 1092
+				}
+			}
+		}
+	}
+}

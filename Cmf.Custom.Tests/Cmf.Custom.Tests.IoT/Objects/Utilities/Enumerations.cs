@@ -20,4 +20,13 @@
         Abort,
         Queued
     }
+
+    public enum EquipmentControlStateEnum
+    {
+        EquipmentOffline = 1,
+        AttemptOnline = 2,
+        HostOffline = 3,
+        OnlineLocal = 4,
+        OnlineRemote = 5
+    }
 }
