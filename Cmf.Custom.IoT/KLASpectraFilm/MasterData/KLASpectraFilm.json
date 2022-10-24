@@ -1281,7 +1281,7 @@
       "Name": "Setup",
       "DisplayName": "Setup",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\Setup.json",
+      "Workflow": "KLASpectraFilm/Setup.json",
       "Order": "1"
     },
     "2": {
@@ -1289,7 +1289,7 @@
       "Name": "Setup_RFIDReader",
       "DisplayName": "Setup_RFIDReader",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\Setup_RFIDReader.json",
+      "Workflow": "KLASpectraFilm/Setup_RFIDReader.json",
       "Order": "2"
     },
     "3": {
@@ -1297,7 +1297,7 @@
       "Name": "Setup_EquipmentConstants",
       "DisplayName": "Setup_EquipmentConstants",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\Setup_EquipmentConstants.json",
+      "Workflow": "KLASpectraFilm/Setup_EquipmentConstants.json",
       "Order": "3"
     },
     "4": {
@@ -1305,7 +1305,7 @@
       "Name": "MaterialReceived_01_MaterialReceivedCarrierIdReadRequest",
       "DisplayName": "MaterialReceived_01_MaterialReceivedCarrierIdReadRequest",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\MaterialReceived_01_MaterialReceivedCarrierIdReadRequest.json",
+      "Workflow": "KLASpectraFilm/MaterialReceived_01_MaterialReceivedCarrierIdReadRequest.json",
       "Order": "4"
     },
     "5": {
@@ -1313,7 +1313,7 @@
       "Name": "SlotMap_01_SlotMapReceived",
       "DisplayName": "SlotMap_01_SlotMapReceived",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\SlotMap_01_SlotMapReceived.json",
+      "Workflow": "KLASpectraFilm/SlotMap_01_SlotMapReceived.json",
       "Order": "5"
     },
     "6": {
@@ -1321,7 +1321,7 @@
       "Name": "ReadyToUnload_01_EventReceived",
       "DisplayName": "ReadyToUnload_01_EventReceived",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\ReadyToUnload_01_EventReceived.json",
+      "Workflow": "KLASpectraFilm/ReadyToUnload_01_EventReceived.json",
       "Order": "6"
     },
     "7": {
@@ -1329,7 +1329,7 @@
       "Name": "MaterialRemoved_01_MaterialRemovedEvent",
       "DisplayName": "MaterialRemoved_01_MaterialRemovedEvent",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\MaterialRemoved_01_MaterialRemovedEvent.json",
+      "Workflow": "KLASpectraFilm/MaterialRemoved_01_MaterialRemovedEvent.json",
       "Order": "7"
     },
     "8": {
@@ -1337,7 +1337,7 @@
       "Name": "TrackIn_01_TrackInRequestReceived300mm",
       "DisplayName": "TrackIn_01_TrackInRequestReceived300mm",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\TrackIn_01_TrackInRequestReceived300mm.json",
+      "Workflow": "KLASpectraFilm/TrackIn_01_TrackInRequestReceived300mm.json",
       "Order": "8"
     },
     "9": {
@@ -1345,7 +1345,7 @@
       "Name": "ProcessStarted_01_EventTosProcessStartedReceived",
       "DisplayName": "ProcessStarted_01_EventTosProcessStartedReceived",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\ProcessStarted_01_EventTosProcessStartedReceived.json",
+      "Workflow": "KLASpectraFilm/ProcessStarted_01_EventTosProcessStartedReceived.json",
       "Order": "9"
     },
     "10": {
@@ -1353,7 +1353,7 @@
       "Name": "WaferStart_01_EventWaferStarted",
       "DisplayName": "WaferStart_01_EventWaferStarted",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\WaferStart_01_EventWaferStarted.json",
+      "Workflow": "KLASpectraFilm/WaferStart_01_EventWaferStarted.json",
       "Order": "10"
     },
     "11": {
@@ -1361,7 +1361,7 @@
       "Name": "DataCollection_01_EventRecieved",
       "DisplayName": "DataCollection_01_EventRecieved",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\DataCollection_01_EventRecieved",
+      "Workflow": "KLASpectraFilm/DataCollection_01_EventRecieved",
       "Order": "11"
     },
     "12": {
@@ -1369,7 +1369,7 @@
       "Name": "WaferComplete_01_EventWaferCompleted",
       "DisplayName": "WaferComplete_01_EventWaferCompleted",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\WaferComplete_01_EventWaferCompleted.json",
+      "Workflow": "KLASpectraFilm/WaferComplete_01_EventWaferCompleted.json",
       "Order": "12"
     },
     "13": {
@@ -1377,7 +1377,7 @@
       "Name": "ProcessCompleted_01_EventProcessCompletedReceived",
       "DisplayName": "ProcessCompleted_01_EventProcessCompletedReceived",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\ProcessCompleted_01_EventProcessCompletedReceived.json",
+      "Workflow": "KLASpectraFilm/ProcessCompleted_01_EventProcessCompletedReceived.json",
       "Order": "13"
     },
     "14": {
@@ -1385,7 +1385,7 @@
       "Name": "TrackOut_01_TrackOutEventReceivedFromMES",
       "DisplayName": "TrackOut_01_TrackOutEventReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\TrackOut_01_TrackOutEventReceivedFromMES.json",
+      "Workflow": "KLASpectraFilm/TrackOut_01_TrackOutEventReceivedFromMES.json",
       "Order": "14"
     },
     "15": {
@@ -1393,7 +1393,7 @@
       "Name": "Abort_01_AbortEventReceivedFromMES300mm",
       "DisplayName": "Abort_01_AbortEventReceivedFromMES300mm",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\Abort_01_AbortEventReceivedFromMES300mm.json",
+      "Workflow": "KLASpectraFilm/Abort_01_AbortEventReceivedFromMES300mm.json",
       "Order": "15"
     },
     "16": {
@@ -1401,7 +1401,7 @@
       "Name": "Hold_01_HoldEventReceivedFromMES",
       "DisplayName": "Hold_01_HoldEventReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\Hold_01_HoldEventReceivedFromMES.json",
+      "Workflow": "KLASpectraFilm/Hold_01_HoldEventReceivedFromMES.json",
       "Order": "16"
     },
     "17": {
@@ -1409,7 +1409,7 @@
       "Name": "AlarmManagement_01_AlarmCollection",
       "DisplayName": "AlarmManagement_01_AlarmCollection",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\AlarmManagement_01_AlarmCollection.json",
+      "Workflow": "KLASpectraFilm/AlarmManagement_01_AlarmCollection.json",
       "Order": "17"
     },
     "18": {
@@ -1417,7 +1417,7 @@
       "Name": "RecipeManagement_01_GetRecipeList",
       "DisplayName": "RecipeManagement_01_GetRecipeList",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\RecipeManagement_01_GetRecipeList.json",
+      "Workflow": "KLASpectraFilm/RecipeManagement_01_GetRecipeList.json",
       "Order": "18"
     },
     "19": {
@@ -1425,7 +1425,7 @@
       "Name": "RecipeManagement_02_GetRecipeBody",
       "DisplayName": "RecipeManagement_02_GetRecipeBody",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\RecipeManagement_02_GetRecipeBody.json",
+      "Workflow": "KLASpectraFilm/RecipeManagement_02_GetRecipeBody.json",
       "Order": "19"
     },
     "20": {
@@ -1433,7 +1433,7 @@
       "Name": "RecipeManagement_03_SetRecipeBody",
       "DisplayName": "RecipeManagement_03_SetRecipeBody",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\RecipeManagement_03_SetRecipeBody.json",
+      "Workflow": "KLASpectraFilm/RecipeManagement_03_SetRecipeBody.json",
       "Order": "20"
     },
     "21": {
@@ -1441,7 +1441,7 @@
       "Name": "RecipeManagement_04_GetRecipeChecksum",
       "DisplayName": "RecipeManagement_04_GetRecipeChecksum",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\RecipeManagement_04_GetRecipeChecksum.json",
+      "Workflow": "KLASpectraFilm/RecipeManagement_04_GetRecipeChecksum.json",
       "Order": "21"
     },
     "22": {
@@ -1449,7 +1449,7 @@
       "Name": "ResourceState_01_ProcessStateChanged",
       "DisplayName": "ResourceState_01_ProcessStateChanged",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\ResourceState_01_ProcessStateChanged.json",
+      "Workflow": "KLASpectraFilm/ResourceState_01_ProcessStateChanged.json",
       "Order": "22"
     },
     "23": {
@@ -1457,7 +1457,7 @@
       "Name": "ControlState_01_ControlStateUpdateReceived",
       "DisplayName": "ControlState_01_ControlStateUpdateReceived",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\ControlState_01_ControlStateUpdateReceived.json",
+      "Workflow": "KLASpectraFilm/ControlState_01_ControlStateUpdateReceived.json",
       "Order": "23"
     },
     "24": {
@@ -1465,7 +1465,7 @@
       "Name": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "DisplayName": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
+      "Workflow": "KLASpectraFilm/SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
       "Order": "24"
     },
     "25": {
@@ -1473,7 +1473,7 @@
       "Name": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "DisplayName": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\RecipeValidation_01_UnformattedRecipeMainFlow.json",
+      "Workflow": "KLASpectraFilm/RecipeValidation_01_UnformattedRecipeMainFlow.json",
       "Order": "25"
     },
     "26": {
@@ -1481,7 +1481,7 @@
       "Name": "CreateProcessJob_01_CreateJob",
       "DisplayName": "CreateProcessJob_01_CreateJob",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\CreateProcessJob_01_CreateJob.json",
+      "Workflow": "KLASpectraFilm/CreateProcessJob_01_CreateJob.json",
       "Order": "26"
     },
     "27": {
@@ -1489,7 +1489,7 @@
       "Name": "CreateControlJob_01_CreateJob",
       "DisplayName": "CreateControlJob_01_CreateJob",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\CreateControlJob_01_CreateJob.json",
+      "Workflow": "KLASpectraFilm/CreateControlJob_01_CreateJob.json",
       "Order": "27"
     },
     "28": {
@@ -1497,7 +1497,7 @@
       "Name": "AbortJob_01_ExecuteControlJobAbort",
       "DisplayName": "AbortJob_01_ExecuteControlJobAbort",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm\\AbortJob_01_ExecuteControlJobAbort.json",
+      "Workflow": "KLASpectraFilm/AbortJob_01_ExecuteControlJobAbort.json",
       "Order": "28"
     }
   },
