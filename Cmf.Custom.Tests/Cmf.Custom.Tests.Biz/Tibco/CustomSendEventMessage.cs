@@ -1053,14 +1053,19 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             return waitForMessageBus;
         }
 
+        /// <summary>
+        /// Description:
+        ///     - Validates Header and Body message sent to Tibco when dispaching a material 
+        ///
+        /// Variable:
+        ///     hasSite - Determines whether the Facility has a Site assigned or not
+        ///
+        /// </summary>
         public void CustomSendEventMessage_ValidateMessage_Dispatch(bool hasSite)
         {
-            Facility originalFacility = null;
-            Site originalSite = null;
-            originalFacility = new Facility() { Name = _scenario.FacilityName };
+            Facility originalFacility = new Facility() { Name = _scenario.FacilityName };
             originalFacility.Load();
-            originalSite = originalFacility.Site;
-            ///<Step> Create a Lot and its wafers </Step>
+            Site originalSite = originalFacility.Site;
             _scenario.NumberOfMaterialsToGenerate = 1;
             _scenario.Setup();
 
@@ -1076,7 +1081,6 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             if (!hasSite)
             {
                 // Removal of site
-
                 originalFacility.Site = null;
                 originalFacility.Save();
             }
@@ -1097,7 +1101,6 @@ namespace Cmf.Custom.Tests.Biz.Tibco
 
                 ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialDispatch);
                 ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
-
             }
             finally
             {
