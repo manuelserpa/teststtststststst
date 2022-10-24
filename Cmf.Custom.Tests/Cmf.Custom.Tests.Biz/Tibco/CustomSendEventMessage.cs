@@ -12,6 +12,7 @@ using Cmf.MessageBus.Messages;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ContainerManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.ContainerManagement.OutputObjects;
+using Cmf.Navigo.BusinessOrchestration.FacilityManagement.AreaManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.TestScenarios.Others;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -269,6 +270,42 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialDispatch);
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
+
+
+
+        /// <summary>
+        /// Description:
+        ///     - Validates Header and Body message sent to Tibco when dispaching a material while the facility has a site assigned
+        ///
+        /// Acceptance Citeria:
+        ///     - Validate created message information
+        ///
+        /// </summary>
+        /// <TestCaseID>CustomSendEventMessage_ValidateMessage_Dispatch_WithSite</TestCaseID>
+        /// <Author>Gergoe Pajor</Author>
+        [TestMethod]
+        public void CustomSendEventMessage_ValidateMessage_Dispatch_WithSite()
+        {
+            CustomSendEventMessage_ValidateMessage_Dispatch(true);
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Validates Header and Body message sent to Tibco when dispaching a material while the facility has no site assigned
+        ///
+        /// Acceptance Citeria:
+        ///     - Validate created message information
+        ///
+        /// </summary>
+        /// <TestCaseID>CustomSendEventMessage_ValidateMessage_Dispatch_WithOutSite</TestCaseID>
+        /// <Author>Gergoe Pajor</Author>
+        [TestMethod]
+        public void CustomSendEventMessage_ValidateMessage_Dispatch_WithOutSite()
+        {
+            CustomSendEventMessage_ValidateMessage_Dispatch(false);
+        }
+
+
 
         /// <summary>
         /// Description:
@@ -946,6 +983,63 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             };
 
             return waitForMessageBus;
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Validates Header and Body message sent to Tibco when dispaching a material 
+        ///
+        /// Variable:
+        ///     hasSite - Determines whether the Facility has a Site assigned or not
+        ///
+        /// </summary>
+        public void CustomSendEventMessage_ValidateMessage_Dispatch(bool hasSite)
+        {
+            Facility originalFacility = new Facility() { Name = _scenario.FacilityName };
+            originalFacility.Load();
+            Site originalSite = originalFacility.Site;
+            _scenario.NumberOfMaterialsToGenerate = 1;
+            _scenario.Setup();
+
+            // Material created
+            Material material = _scenario.GeneratedLots.FirstOrDefault();
+
+            Resource resource = new Resource
+            {
+                Name = amsOSRAMConstants.DefaultTestResourceName
+            };
+            resource.Load();
+
+            if (!hasSite)
+            {
+                // Removal of site
+                originalFacility.Site = null;
+                originalFacility.Save();
+            }
+
+            try
+            {
+                Func<bool> waitForMessageBus = SuscribeMessageBus(CustomSendEventMessageTopics.CustomLotChange);
+
+                material.Dispatch(resource);
+
+                waitForMessageBus.WaitFor();
+
+                TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
+
+                Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
+                Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
+                Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
+
+                ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialDispatch);
+                ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
+            }
+            finally
+            {
+                //Readding of Site
+                originalFacility.Site = originalSite;
+                originalFacility.Save();
+            }
         }
     }
 }
