@@ -576,6 +576,12 @@
     "actionId": ""
   },
   {
+    "id": "klaspectrafilm",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "KLA SpectraFilm Ellipsometer",
+    "actionId": ""
+  },
+  {
     "id": "mechatronicmws200",
     "menuGroupId": "iotequipmenttypes",
     "title": "Mechatronic MWS200",
