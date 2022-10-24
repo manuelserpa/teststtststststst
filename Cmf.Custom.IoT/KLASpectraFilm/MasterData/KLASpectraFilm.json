@@ -1358,10 +1358,10 @@
     },
     "11": {
       "AutomationController": "KLASpectraFilmController",
-      "Name": "DataCollection_01_EventRecieved",
-      "DisplayName": "DataCollection_01_EventRecieved",
+      "Name": "DataCollection_01_EventRecieved.json",
+      "DisplayName": "DataCollection_01_EventRecieved.json",
       "IsFile": "Yes",
-      "Workflow": "KLASpectraFilm/DataCollection_01_EventRecieved",
+      "Workflow": "KLASpectraFilm/DataCollection_01_EventRecieved.json",
       "Order": "11"
     },
     "12": {
