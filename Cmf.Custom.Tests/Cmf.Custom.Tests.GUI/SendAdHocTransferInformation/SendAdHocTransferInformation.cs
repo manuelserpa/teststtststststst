@@ -188,7 +188,7 @@ namespace Cmf.Custom.Tests.GUI.SendAdHocTransferInformation
 
                 resource.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsSorter, true);
 
-                string productName = "11018814";
+                string productName = amsOSRAMConstants.DefaultTestProductName;
                 string sourceCapacity = "20";
 
                 smartTableManager.ClearSmartTable(amsOSRAMConstants.CustomProductContainerCapacitiesSmartTable);

@@ -296,12 +296,6 @@
       "UsageType": "Biz"
     }
   },
-  "<SM>ImportObject": {
-	  "1": {
-      "XmlFileRelativePath": "199-Custom_ResourceView_Cluster",
-      "ChangeSet": ""
-    }
-  },
   "<ST>UIPageContext": {
     "1": {
       "Action": "FabExplorer.ResourceView.View",

@@ -1025,6 +1025,15 @@
       "MonitorPackageVersion": "9.1.0-202209072",
       "ManagerPackageVersion": "9.1.0-202209072",
       "Configuration": ""
+    },
+    "11": {
+      "Name": "KLASpectraFilm",
+      "Description": "5FELL1",
+      "Type": "General",
+      "LogicalAddress": "5FELL1",
+      "MonitorPackageVersion": "9.1.0-202209072",
+      "ManagerPackageVersion": "9.1.0-202209072",
+      "Configuration": ""
     }
   },
   "<LOOKUP>AutomationInstances": {

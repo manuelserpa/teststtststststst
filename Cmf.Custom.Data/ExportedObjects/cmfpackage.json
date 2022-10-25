@@ -9,7 +9,7 @@
     {
       "source": "$(version)/*",
       "target": "ExportedObjects",
-	  "contentType": "ExportedObjects"
+	    "contentType": "ExportedObjects"
     }
   ]  
 }

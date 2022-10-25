@@ -39,14 +39,6 @@
       "contentType": "Maps"
     },
     {
-      "source": "ExportedObjects/*",
-      "target": "ExportedObjects",
-      "ignoreFiles": [
-        "../.cmfpackageignore"
-      ],
-      "contentType": "ExportedObjects"
-    },
-    {
       "source": "DEEs/ProcessRules/EntityTypes/*",
       "target": "DeeRules/ProcessRules/EntityTypes/",
       "contentType": "EntityTypes"

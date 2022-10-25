@@ -22,7 +22,7 @@ namespace Cmf.Custom.Tests.GUI.PageObjects.Components
         {
             get
             {
-                return "customization-amsosram-resource-wizardCustomAdhocTransfer";
+                return "customization-amsosram-resource-customwizardadhoctransfer";
             }
         }
 
