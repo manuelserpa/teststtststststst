@@ -4,6 +4,7 @@ import * as moment from "moment";
 import { ContainerProcess } from "../model/containerProcess";
 import { ContainerData } from "../model/containerData";
 import { WaferData } from "../model/waferData"
+import { container } from "@angular/core/src/render3";
 
 @inversify.injectable()
 export class ContainerProcessHandler implements ContainerProcess {
@@ -28,7 +29,7 @@ export class ContainerProcessHandler implements ContainerProcess {
             container = await this.setContainer(containerName, loadPortPosition, null)
         }
 
-        const wafer = await this.getWafer(container, slot, equipmentWaferId, null);
+        const wafer = await this.getWafer(container, slot, equipmentWaferId, materialWaferId);
 
         if (wafer) {
             this._logger.error("");
@@ -80,16 +81,14 @@ export class ContainerProcessHandler implements ContainerProcess {
 
     public async updateWaferDataOnContainer(container: ContainerData, wafer: WaferData): Promise<WaferData> {
 
-        const index = container?.Slots?.map(x => x.MaterialWaferId)?.indexOf(wafer.MaterialWaferId);
+        const index = this.getSlotIndex(container, wafer);
 
-        if (index === undefined || index === -1) {
-            this._logger.error("Wafer not found on container");
-            return null;
+        if (index === undefined) {
+            throw new Error("Wafer not on container slots");
         }
 
-        wafer = this.validateWafer(wafer);
+        container = this.updateContainerSlots(container, wafer, index);
 
-        container.Slots[index] = wafer;
         this.storeContainer(container);
 
         return wafer;
@@ -115,19 +114,19 @@ export class ContainerProcessHandler implements ContainerProcess {
             return wafer;
         }
 
-        if (wafer.Slot !== slot) {
+        if (wafer.Slot !== slot && slot !== undefined) {
             wafer.Slot = slot;
         }
 
-        if (wafer.EquipmentWaferId !== equipmentWaferId) {
+        if (wafer.EquipmentWaferId !== equipmentWaferId && equipmentWaferId !== undefined) {
             wafer.EquipmentWaferId = equipmentWaferId;
         }
 
-        if (wafer.MaterialWaferId !== materialWaferId) {
+        if (wafer.MaterialWaferId !== materialWaferId && materialWaferId !== undefined) {
             wafer.MaterialWaferId = materialWaferId;
         }
 
-        if (parentMaterialName && wafer.ParentMaterialName !== parentMaterialName) {
+        if (parentMaterialName !== undefined && wafer.ParentMaterialName !== parentMaterialName) {
             wafer.ParentMaterialName = parentMaterialName;
         }
 
@@ -144,6 +143,11 @@ export class ContainerProcessHandler implements ContainerProcess {
         if (targetSlot) {
             sourceWafer.Slot = targetSlot;
         }
+
+        if (this.getSlotIndex(targetContainer, sourceWafer)) {
+            throw new Error("Wafer already on target container!");
+        }
+
         targetContainer.Slots.push(sourceWafer);
         this.storeContainer(targetContainer);
         const waferToDelete = await this.getWaferBySlot(sourceContainer, slot);
@@ -159,7 +163,7 @@ export class ContainerProcessHandler implements ContainerProcess {
 
         let wafer: WaferData = null;
 
-        if (slot !== 0) {
+        if (slot !== undefined) {
             wafer = await this.getWaferBySlot(container, slot);
         }
         if (!wafer && equipmentWaferId) {
@@ -358,7 +362,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     }
 
     public validateWafer(wafer: WaferData): WaferData {
-        if (!wafer.Slot) {
+        if (wafer.Slot !== undefined) {
             wafer.Slot = null;
         }
         if (!wafer.EquipmentWaferId) {
@@ -377,5 +381,48 @@ export class ContainerProcessHandler implements ContainerProcess {
             wafer.ModifiedOn = wafer.CreatedOn;
         }
         return wafer;
+    }
+
+    public getSlotIndex(Container: ContainerData, wafer: WaferData): number {
+        let index = Container.Slots.map(x => x.Slot)?.indexOf(wafer.Slot);
+
+        if (index === undefined || index === -1) {
+            index = Container.Slots.map(x => x.EquipmentWaferId)?.indexOf(wafer.EquipmentWaferId);
+        }
+
+        if (index === undefined || index === -1) {
+            index = Container.Slots.map(x => x.MaterialWaferId)?.indexOf(wafer.MaterialWaferId);
+        }
+
+        if (index === undefined || index === -1) {
+            return undefined;
+        }
+
+        return index;
+    }
+
+    public updateContainerSlots(Container: ContainerData, wafer: WaferData, index: number): ContainerData {
+        const containerWafer = Container.Slots[index];
+
+        if (wafer.EquipmentWaferId) {
+            containerWafer.EquipmentWaferId = wafer.EquipmentWaferId;
+        }
+        if (wafer.MaterialWaferId) {
+            containerWafer.MaterialWaferId = wafer.MaterialWaferId;
+        }
+        if (wafer.ParentMaterialName) {
+            containerWafer.ParentMaterialName = wafer.ParentMaterialName;
+        }
+        if (wafer.Slot !== undefined) {
+            containerWafer.Slot = wafer.Slot;
+        }
+        if (wafer.CreatedOn) {
+            containerWafer.CreatedOn = wafer.CreatedOn;
+        }
+
+        Container.Slots[index] = containerWafer
+
+
+        return Container;
     }
 }

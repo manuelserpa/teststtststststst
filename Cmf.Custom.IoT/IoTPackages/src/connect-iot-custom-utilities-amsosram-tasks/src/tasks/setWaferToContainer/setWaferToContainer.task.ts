@@ -142,9 +142,12 @@ export class SetWaferToContainerTask implements Task.TaskInstance, SetWaferToCon
                             wafer.MaterialWaferId = movement.MaterialName;
                         }
 
-                    } else {
-                        wafer.MaterialWaferId = this.materialWaferId;
                     }
+
+                    if (wafer.MaterialWaferId === undefined && this.equipmentWaferId !== undefined) {
+                        wafer.MaterialWaferId = this.equipmentWaferId;
+                    }
+
                     wafer.Slot = slotNumber;
                     if (this.equipmentWaferId) {
                         wafer.EquipmentWaferId = this.equipmentWaferId;
