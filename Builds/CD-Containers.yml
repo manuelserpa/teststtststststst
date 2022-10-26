@@ -806,7 +806,7 @@ stages:
             testRunTitle: "IoT Tests"
             rerunFailedTests: true
             rerunType: "basedOnTestFailurePercentage" # Optional. Options: basedOnTestFailurePercentage, basedOnTestFailureCount
-            rerunFailedThreshold: "30"
+            rerunFailedThreshold: "60"
             rerunMaxAttempts: "3"
           continueOnError: true
           condition: eq(variables['ArtifactExists'], true)
