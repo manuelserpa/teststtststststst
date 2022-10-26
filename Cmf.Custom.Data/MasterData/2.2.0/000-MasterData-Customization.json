@@ -1,4 +1,10 @@
 {
+  "WorksheetNameMapping": {
+    "1": {
+        "WorksheetName": "TibcoGatewayResolver",
+        "Value": "<GT>CustomTibcoEMSGatewayResolver"
+    }
+  },
   "<SM>LookupTableValues": {
     "1": {
       "LookUp Table": "CustomSorterProcess",
@@ -379,6 +385,18 @@
       "ResourceProcessingType": "",
       "Page": "Custom_ResourceView_Cluster",
       "BusinessRule": ""
+    }
+  },
+  "<LOOKUP>TibcoGatewayResolver": {
+    "1": {
+        "Subject": "CustomReportEDCToSpace",
+        "Topic": "QUEUE.P.RBG.SPACE_INPUT",
+        "ReplyTo": "QUEUE.P.RBG.SPACE_OUTPUT",
+        "Rule": "",
+        "IsEnabled": "Yes",
+        "QueueMessage": "Yes",
+        "TextMessage": "No",
+        "CompressMessage": "No"
     }
   }
 }
