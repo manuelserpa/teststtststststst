@@ -44,7 +44,7 @@ export class ContainerProcessHandler implements ContainerProcess {
             wafer.ParentMaterialName = parentMaterialName;
         }
 
-        container.Slots.push(wafer);
+        container.Slots.push(this.validateWafer(wafer));
 
         this.storeContainer(container);
 
@@ -139,18 +139,25 @@ export class ContainerProcessHandler implements ContainerProcess {
         if (this._Containers === undefined) {
             await this.InitializePersistedData();
         }
+
         const slot = sourceWafer.Slot;
-        if (targetSlot) {
-            sourceWafer.Slot = targetSlot;
+        const waferToDelete = await this.getWafer(sourceContainer, sourceWafer.Slot, sourceWafer.EquipmentWaferId, sourceWafer.MaterialWaferId);
+
+        if (!waferToDelete) {
+            this._logger.error(`Source Container ${sourceContainer.ContainerName} dos not contain source wafer ${sourceWafer.MaterialWaferId} (slot ${sourceWafer.Slot}, equipment id ${sourceWafer.EquipmentWaferId})`)
         }
 
-        if (this.getSlotIndex(targetContainer, sourceWafer)) {
-            throw new Error("Wafer already on target container!");
+        const waferToStore: WaferData = {
+            Slot: targetSlot,
+            MaterialWaferId: waferToDelete.MaterialWaferId,
+            EquipmentWaferId: waferToDelete.EquipmentWaferId,
+            CreatedOn: waferToDelete.CreatedOn,
+            ModifiedOn: waferToDelete.ModifiedOn,
+            ParentMaterialName: waferToDelete.ParentMaterialName
         }
 
-        targetContainer.Slots.push(sourceWafer);
+        targetContainer.Slots.push(waferToStore);
         this.storeContainer(targetContainer);
-        const waferToDelete = await this.getWaferBySlot(sourceContainer, slot);
         this.deleteWafer(sourceContainer, waferToDelete);
 
         return targetContainer;
@@ -295,7 +302,7 @@ export class ContainerProcessHandler implements ContainerProcess {
         if (slotMap) {
             container.SlotMap = slotMap;
         }
-        if (slots) {
+        if (slots && Array.isArray(slots)) {
             container.Slots = slots as WaferData[];
         }
 
