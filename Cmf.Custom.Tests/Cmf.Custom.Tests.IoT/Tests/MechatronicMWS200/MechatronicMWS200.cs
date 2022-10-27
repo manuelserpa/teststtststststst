@@ -76,6 +76,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
         private int loadPortNumber = 1;
 
         private bool isOnlineRemote = true;
+        public bool successWaferIdRead = true;
 
         public bool createControlJobReceived = false;
         public bool createControlJobDenied = false;
@@ -842,6 +843,13 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             "- ")]
         public void MechatronicMWS200_WaferReception_WithSorterJobDefinitionContext()
         {
+            Step step = new Step();
+            step.Name = stepName;
+            step.Load();
+            step.LoadAttributes();
+
+            step.SaveAttribute("IsWaferReception", true);
+
             var wafersFirstContainer = 10;
             var wafersSecondContainer = 10;
             var wafersThirdContainer = 5;
@@ -1498,7 +1506,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             //base.Equipment.Variables["SubstID"] = String.Format("{0:D3}_{1:D3}", sourceLoadPort, waferPositionOnMES);
 
             //// Trigger event
-            base.Equipment.SendMessage("SOSM1_NOSTATE_ATSOURCE", null);
+            base.Equipment.SendMessage("SOSM11_NEEDSPROCESSING_INPROCESS", null);
             //// Trigger event
             //base.Equipment.SendMessage($"ProcessChamber{chamberToProcess}_ProcessStarted", null);
 
@@ -2178,19 +2186,19 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
                     }
                 };
 
-                base.Equipment.Variables["SubstID"] = String.Format("{0}.{1:D2}", sourceContainer, sourcePosition);
+                base.Equipment.Variables["SubstID"] = wafer.Name;
                 base.Equipment.Variables["SubstLotID"] = materialData.MaterialName;
-                base.Equipment.Variables["SubstSubstLocID"] = String.Format("{0}.{1:D2}", destinationContainer, destinationPosition);
+                base.Equipment.Variables["SubstSubstLocID"] = String.Format("{0}.{1:D2}", sourceContainer, sourcePosition); 
                 base.Equipment.Variables["SubstState"] = 2;
                 base.Equipment.Variables["SubstProcState"] = 2;
-                base.Equipment.Variables["AcquiredID"] = wafer.Name;
+                base.Equipment.Variables["AcquiredID"] = "";
                 base.Equipment.Variables["Clock"] =  DateTime.UtcNow.ToString("hh:mm:ss.fff");
                 base.Equipment.Variables["SubstHistory"] = substHistoryListDestination;
 
                 //base.Equipment.Variables["SubstID"] = String.Format("{0:D3}_{1:D3}", sourceLoadPort, waferPositionOnMES);
 
                 //// Trigger event
-                base.Equipment.SendMessage("SOSM1_NOSTATE_ATSOURCE", null);
+                base.Equipment.SendMessage("SOSM11_NEEDSPROCESSING_INPROCESS", null);
 
                 Thread.Sleep(2000);
                 #endregion Wafer Start
@@ -2204,26 +2212,38 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
                 #region Wafer Read
 
-                base.Equipment.Variables["SubstID"] = String.Format("{0}.{1:D2}", sourceContainer, sourcePosition);
+                base.Equipment.Variables["SubstID"] = wafer.Name;
                 base.Equipment.Variables["SubstLotID"] = materialData.MaterialName;
-                base.Equipment.Variables["SubstSubstLocID"] = String.Format("{0}.{1:D2}", destinationContainer, destinationPosition);
-                base.Equipment.Variables["SubstState"] = 2;
-                base.Equipment.Variables["SubstProcState"] = 2;
+                base.Equipment.Variables["SubstSubstLocID"] = "";
+                base.Equipment.Variables["SubstSource"] = String.Format("{0}.{1:D2}", sourceContainer, sourcePosition);
                 base.Equipment.Variables["AcquiredID"] = wafer.Name;
                 base.Equipment.Variables["Clock"] =  DateTime.UtcNow.ToString("hh:mm:ss.fff");
                 base.Equipment.Variables["SubstHistory"] = substHistoryListDestination;
 
-                //// Trigger event
-                base.Equipment.SendMessage("SOSM18_NOTCONFIRMED_WAITINGFORHOST", null);
+                if (successWaferIdRead)
+                {
+                    //// Trigger event
+                    base.Equipment.SendMessage("SOSM19_NOTCONFIRMED_WAITINGFORHOST", null);
+                                        
+                    TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve ProceedWithSubstrate", () =>
+                    {
+                        return proceedWithSubstrateCommandRecieved;
+                    });
+                    proceedWithSubstrateCommandRecieved = false;
+                }
+                else {
+                    //// Trigger event
+                    base.Equipment.SendMessage("SOSM18_NOTCONFIRMED_WAITINGFORHOST", null);
+
+                    TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve CancelSubstrate", () =>
+                    {
+                        return cancelSubstrateCommandRecieved;
+                    });
+                    cancelSubstrateCommandRecieved = false;
+                    continue;
+                }
 
                 #endregion Wafer Read
-
-                TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve ProceedWithSubstrate", () =>
-                {
-                    return proceedWithCarrierCommandRecieved;
-                });
-                proceedWithSubstrateCommandRecieved = false;
-
                 //now = DateTime.Now;
                 //while (DateTime.Now.Subtract(now).Seconds < 2)
                 //{
@@ -2233,12 +2253,12 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
                 #region Wafer complete              
 
-                base.Equipment.Variables["SubstID"] = String.Format("{0}.{1:D2}", sourceContainer, sourcePosition);
+                base.Equipment.Variables["SubstID"] = wafer.Name;
                 base.Equipment.Variables["SubstLotID"] = materialData.MaterialName;
                 base.Equipment.Variables["SubstSubstLocID"] = String.Format("{0}.{1:D2}", destinationContainer, destinationPosition);
                 base.Equipment.Variables["SubstState"] = 2;
                 base.Equipment.Variables["SubstProcState"] = 2;
-                base.Equipment.Variables["AcquiredID"] = wafer.Name;
+                base.Equipment.Variables["AcquiredID"] = "";
                 base.Equipment.Variables["Clock"] =  DateTime.UtcNow.ToString("hh:mm:ss.fff");
                 base.Equipment.Variables["SubstHistory"] = substHistoryListDestination;
 
@@ -2261,7 +2281,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
         private void CustomValidateContainerNumberOfWafers(Container container, int expectedNumberOfWafers)
         {
             // Validate container now has the expectedNumberOfWafers
-            TestUtilities.WaitFor(15, String.Format($"Destination Container must have ({expectedNumberOfWafers}) wafers"), () =>
+            TestUtilities.WaitFor(15, String.Format($"Container {container.Name} must have ({expectedNumberOfWafers}) wafers"), () =>
             {
                 container.Load();
                 return container.UsedPositions.Value == expectedNumberOfWafers;
