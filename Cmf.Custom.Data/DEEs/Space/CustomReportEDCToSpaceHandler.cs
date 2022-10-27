@@ -1,7 +1,6 @@
 ﻿using Cmf.Common.CustomActionUtilities;
 using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Custom.amsOSRAM.Common.DataStructures;
-using Cmf.Custom.amsOSRAM.Common.Space;
 using Cmf.Foundation.Common;
 using Cmf.Navigo.BusinessOrchestration.ExceptionManagement.InputObjects;
 using Newtonsoft.Json;
@@ -13,6 +12,7 @@ using System;
 using Cmf.Foundation.Common.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using Cmf.Navigo.BusinessOrchestration.Abstractions;
+using Cmf.Navigo.BusinessObjects;
 
 namespace Cmf.Custom.amsOSRAM.Actions.Space
 {
@@ -88,7 +88,6 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
             //Custom
             UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
             UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.DataStructures");
-            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.Space");
 
             // Get DataCollectionInstance from Input
             IDataCollectionInstance dataCollectionInstance = amsOSRAMUtilities.GetInputItem<IDataCollectionInstance>(Input, Navigo.Common.Constants.DataCollectionInstance);
@@ -145,6 +144,8 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
                 }
             }
 
+            IProtocolInstance protocolInstance = null;
+
             if (material.HoldCount == 0)
             {
                 IProtocol protocol = entityFactory.Create<IProtocol>();
@@ -165,12 +166,12 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
 
                     IExceptionOrchestration exceptionOrchestration = serviceProvider.GetService<IExceptionOrchestration>();
 
-                    exceptionOrchestration.OpenProtocolInstance(openProtocol);
+                    protocolInstance = exceptionOrchestration.OpenProtocolInstance(openProtocol).ProtocolInstance;
                 }
             }
 
             // Create Message to send for Space
-            CustomReportEDCToSpace dataCollectionInfoMessage = SpaceUtilities.CreateSpaceInfoWaferValues(material, dataCollectionInstance, dataCollectionLimitSet);
+            CustomReportEDCToSpace dataCollectionInfoMessage = amsOSRAMSpaceUtilities.CreateSpaceInfoWaferValues(material, dataCollectionInstance, dataCollectionLimitSet);
 
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(dataCollectionInfoMessage.SerializeToXML());
@@ -178,7 +179,13 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
             Utilities.PublishTransactionalMessage(amsOSRAMConstants.CustomReportEDCToSpace,
                                                   JsonConvert.SerializeObject(new
                                                   {
-                                                      Message = xmlDocument.InnerXml
+                                                      Message = xmlDocument.InnerXml,
+                                                      Context = new { 
+                                                          Subject = amsOSRAMConstants.CustomReportEDCToSpace,
+                                                          Lot = material.Name,
+                                                          ProtocolInstance = protocolInstance?.Name,
+                                                          ActionGroupName = amsOSRAMUtilities.GetInputItem<string>(Input, "ActionGroupName"),
+                                                      }
                                                   }));
 
             //---End DEE Code---

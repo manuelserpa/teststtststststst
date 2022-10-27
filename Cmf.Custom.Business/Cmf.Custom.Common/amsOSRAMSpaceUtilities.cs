@@ -14,12 +14,12 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 
-namespace Cmf.Custom.amsOSRAM.Common.Space
+namespace Cmf.Custom.amsOSRAM.Common
 {
     /// <summary>
     /// Support class to encapsulate methods to support the development for the business layer regarding Space
     /// </summary>
-    public static class SpaceUtilities
+    public static class amsOSRAMSpaceUtilities
     {
         #region Space
 
