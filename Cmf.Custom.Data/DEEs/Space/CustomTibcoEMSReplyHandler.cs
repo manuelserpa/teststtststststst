@@ -1,5 +1,6 @@
 ﻿using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Custom.amsOSRAM.Common.DataStructures;
+using Cmf.Custom.amsOSRAM.Common.Extensions;
 using Cmf.Foundation.Common.Abstractions;
 using Cmf.Navigo.BusinessObjects.Abstractions;
 using Cmf.Navigo.BusinessOrchestration.Abstractions;
@@ -7,6 +8,7 @@ using Cmf.Navigo.BusinessOrchestration.ExceptionManagement.InputObjects;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace Cmf.Custom.amsOSRAM.Actions.Space
@@ -58,108 +60,40 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
 
             // Get services provider information
             IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
-            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();;
 
-            string replyMessageMockUp = @"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
- <response uploadSuccess=""true"" validationSuccess=""true"">
-     <samples accepted=""true"" excluded=""0"" parameterName=""NZ-A8-AM-Flattening-MS-Test"" parameterUnit=""mm"" sampleId=""215916825"">
-         <keys>
-             <key id=""1"" name=""Materialsystem"" type=""ExKey"">InGaN</key>
-             <key id=""2"" name=""Equipment"" type=""ExKey"">EQ1</key>
-         </keys>
-         <channelCkdIds>
-             <channelCkdlds channelId=""119178"" ckcId=""1""/>
-         </channelCkdIds>
-         <violations>
-             <violation id=""1"" name=""Raw above specification""/>
-         </violations>
-     </samples>
-     <samples accepted=""true"" excluded=""0"" parameterName=""NZ-A8-AM-Flattening-MS-Test"" parameterUnit=""mm"" sampleId=""215916826"">
-         <keys>
-             <key id=""1"" name=""Materialsystem"" type=""ExKey"">InGaN</key>
-             <key id=""2"" name=""Equipment"" type=""ExKey"">EQ1</key>
-         </keys>
-         <channelCkdIds>
-             <channelCkdlds channelId=""119178"" ckcId=""1""/>
-         </channelCkdIds>
-         <violations>
-             <violation id=""1"" name=""Raw above specification""/>
-         </violations>
-     </samples>
- </response>";
+            string replyMessage = amsOSRAMUtilities.GetInputItem<string>(Input, "ReplyMessage");
+            Dictionary<string, object> context = amsOSRAMUtilities.GetInputItem<Dictionary<string, object>>(Input, "Context");
 
-            XDocument xml = XDocument.Parse(replyMessageMockUp);
-            
-
-            IDictionary<string, object> contextMockUp = new Dictionary<string, object>(){
-                {"Subject", "CustomReportEDCToSpace"},
-                {"Lot", "LotProposal_001"},
-                {"ProtocolInstance", "8D-000000003"},
-                {"ActionGroupName", "MaterialManagement.MaterialManagementOrchestration.ComplexTrackOutMaterials.Post"}
-            };
-
-
-            string replyMessage = xml.ToString();//amsOSRAMUtilities.GetInputItem<string>(Input, "ReplyMessage");
-            IDictionary<string, object> context = contextMockUp;//amsOSRAMUtilities.GetInputItem<IDictionary<string, object>>(Input, "Context");
-
-            if (context != null)
+            if (context != null && context.TryGetValueAs("Subject", out string contextSubject))
             {
-                string contextSubject = context["Subject"].ToString();
-
                 switch (contextSubject)
                 {
                     case amsOSRAMConstants.CustomReportEDCToSpace:
-
-                        string lotName = context["Lot"].ToString();
-                        string protocolInstanceName = context["ProtocolInstance"].ToString();
-                        string actionGroupName = context["ActionGroupName"].ToString();
-
-                        IProtocolInstance protocolInstance = serviceProvider.GetService<IProtocolInstance>();
-                        protocolInstance.Load(protocolInstanceName);
-                        if(protocolInstance.UniversalState != Foundation.Common.Base.UniversalState.Active)
+                        if (String.IsNullOrWhiteSpace(replyMessage))
                         {
                             break;
                         }
 
-                        bool allowMoveNext = false;
-                        bool uploadSuccess = false;
-                        bool validationSuccess = false;
-                        bool accepted = false;
-                        
-                        if (!string.IsNullOrWhiteSpace(replyMessage))
-                        {
-                            int outsideLimitCount = 0;
-                            try
-                            {
-                                CustomReportEDCToSpaceResponse customReportEDCToSpaceResponse = amsOSRAMUtilities.DeserializeXmlToObject<CustomReportEDCToSpaceResponse>(replyMessage);
-                                uploadSuccess = customReportEDCToSpaceResponse.UploadSuccess;
-                                validationSuccess = customReportEDCToSpaceResponse.ValidationSuccess;
+                        context.TryGetValueAs("ProtocolInstance", out string protocolInstanceName);
 
-                                foreach (var sample in customReportEDCToSpaceResponse.Samples)
-                                {
-                                    if (!sample.Accepted)
-                                    {
-                                        outsideLimitCount++;
-                                    }
-                                }
-                            }
-                            catch(Exception ex)
-                            {
-                                throw new Exception("Xml validation failed.");
-                            }
-                            
-                            
-                            if (outsideLimitCount == 0)
-                            {
-                                accepted = true;
-                            }
+                        IProtocolInstance protocolInstance = serviceProvider.GetService<IProtocolInstance>();
+                        protocolInstance.Load(protocolInstanceName);
+
+                        if (protocolInstance.UniversalState != Foundation.Common.Base.UniversalState.Active)
+                        {
+                            break;
                         }
 
-                        // If all conditions are true, close the protocol
-                        if (uploadSuccess && validationSuccess && accepted)
-                        {
-                            
+                        CustomReportEDCToSpaceResponse customReportEDCToSpaceResponse = amsOSRAMUtilities.DeserializeXmlToObject<CustomReportEDCToSpaceResponse>(replyMessage);
 
+                        bool uploadSuccess = customReportEDCToSpaceResponse.UploadSuccess;
+                        bool validationSuccess = customReportEDCToSpaceResponse.ValidationSuccess;
+                        bool anyFailed = customReportEDCToSpaceResponse.Samples.Any(sample => sample.Accepted == false);
+
+                        // If all conditions are true, close the protocol
+                        if (uploadSuccess && validationSuccess && !anyFailed)
+                        {
                             IExceptionOrchestration exceptionOrchestration = serviceProvider.GetService<IExceptionOrchestration>();
 
                             CloseProtocolInstanceInput closeProtocol = new CloseProtocolInstanceInput()
@@ -168,17 +102,18 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
                             };
                             exceptionOrchestration.CloseProtocolInstance(closeProtocol);
 
-                            allowMoveNext = true;
+                            context.TryGetValueAs("Lot", out string lotName);
+                            context.TryGetValueAs("ActionGroupName", out string actionGroupName);
+                            
+                            if (actionGroupName == "MaterialManagement.MaterialManagementOrchestration.ComplexTrackOutAndMoveMaterialsToNextStep.Post")
+                            {
+                                IMaterial material = entityFactory.Create<IMaterial>();
+                                material.Name = lotName;
+                                material.Load();
 
-                        }
+                                material.MoveToNextStep(material.FlowPath);
+                            }
 
-                        if (allowMoveNext && actionGroupName == "MaterialManagement.MaterialManagementOrchestration.ComplexTrackOutAndMoveMaterialsToNextStep.Post")
-                        {
-                            IMaterial material = entityFactory.Create<IMaterial>();
-                            material.Name = lotName;
-                            material.Load();
-
-                            material.MoveToNextStep(material.FlowPath);
                         }
 
                         break;

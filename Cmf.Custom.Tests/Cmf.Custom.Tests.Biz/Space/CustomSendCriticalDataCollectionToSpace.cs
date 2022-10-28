@@ -121,13 +121,6 @@ namespace Cmf.Custom.Tests.Biz.Space
 
             lot = PerformMaterialProcessToMeasurement(lot);
 
-            // Expected values
-            Dictionary<string, List<string>> mapLogicalWaferToWafers = new Dictionary<string, List<string>>
-            {
-                { firstLogicalWafer.Name, new List<string> { firstSubstrate.Name, firstCrystal.Name } },
-                { secondLogicalWafer.Name, new List<string> { secondSubstrate.Name } }
-            };
-
             DataCollection dataCollection = new DataCollection
             {
                 Name = DataCollectionName
@@ -171,10 +164,18 @@ namespace Cmf.Custom.Tests.Biz.Space
             ///<Step> Create a Lot and its wafers </Step>
             scenario.Setup();
 
-            Material material = scenario.GeneratedLots.FirstOrDefault();
-            material.LoadChildren();
+            Material lot = scenario.GeneratedLots.FirstOrDefault();
+            lot.LoadChildren();
 
-            ///<Step> Open Data Collection Instance </Step>
+            Material firstLogicalWafer = lot.SubMaterials[0];
+            (Material firstSubstrate, firstLogicalWafer) = scenario.GenerateWafer(parentMaterial: firstLogicalWafer, type: amsOSRAMConstants.MaterialWaferSubstrateType);
+            (Material firstCrystal, firstLogicalWafer) = scenario.GenerateWafer(parentMaterial: firstLogicalWafer, type: amsOSRAMConstants.MaterialWaferCrystalType);
+
+            Material secondLogicalWafer = lot.SubMaterials[1];
+            (Material secondSubstrate, secondLogicalWafer) = scenario.GenerateWafer(parentMaterial: secondLogicalWafer, type: amsOSRAMConstants.MaterialWaferSubstrateType);
+
+            lot = PerformMaterialProcessToMeasurement(lot);
+
             DataCollection dataCollection = new DataCollection
             {
                 Name = DataCollectionName
@@ -187,23 +188,23 @@ namespace Cmf.Custom.Tests.Biz.Space
             };
             datacollectionLimitSet.Load();
 
-            (DataCollectionPointCollection pointsToPost, Dictionary<string, Dictionary<string, List<decimal>>> mapParameterSamplePoints) = CreateDataCollectionPointCollection(dataCollection, datacollectionLimitSet, material);
+            (DataCollectionPointCollection pointsToPost, Dictionary<string, Dictionary<string, List<decimal>>> mapParameterSamplePoints) = CreateDataCollectionPointCollection(dataCollection, datacollectionLimitSet, lot);
 
-            string message = PostDataCollectionAndValidateSpaceMessage(material, dataCollection, datacollectionLimitSet, pointsToPost);
+            string message = PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, datacollectionLimitSet, pointsToPost);
 
-            ValidateMessage(message, material, pointsToPost, dataCollection, datacollectionLimitSet, mapParameterSamplePoints);
+            ValidateMessage(message, lot, pointsToPost, dataCollection, datacollectionLimitSet, mapParameterSamplePoints);
 
             ///<Step> Validate Protocol Opened.</Step>
             ///<ExpectedValue> The lot should have a protocol opened.</ExpectedValue>
-            material.Load();
-            material.LoadRelations(new Collection<string> { "ProtocolMaterial" });
-            Assert.IsTrue(material.OpenExceptionProtocolsCount == 1, $"Material should have one protocol instance opened, instead has {material.OpenExceptionProtocolsCount}.");
+            lot.Load();
+            lot.LoadRelations(new Collection<string> { "ProtocolMaterial" });
+            Assert.IsTrue(lot.OpenExceptionProtocolsCount == 1, $"Material should have one protocol instance opened, instead has {lot.OpenExceptionProtocolsCount}.");
 
-            ProtocolInstance protocolInstance = material.MaterialProtocols.FirstOrDefault().SourceEntity;
+            ProtocolInstance protocolInstance = lot.MaterialProtocols.FirstOrDefault().SourceEntity;
             protocolInstance.Load();
             protocolInstance.ParentEntity.Load();
             Assert.IsTrue(protocolInstance.ParentEntity.Name.Equals("8D"), $"Protocol should be 8D instead is {protocolInstance.ParentEntity.Name}");
-            Assert.IsTrue(material.HoldCount == 0, $"Material should have 1 reason instead has {material.HoldCount}");
+            Assert.IsTrue(lot.HoldCount == 0, $"Material should have 1 reason instead has {lot.HoldCount}");
         }
 
         private Material PerformMaterialProcessToMeasurement(Material lot)

@@ -512,6 +512,8 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
             // Remove created Integration Entries
             TerminateIntegrationEntries();
 
+            GeneratedLots.Load();
+
             foreach (Material material in GeneratedLots)
             {
                 if (material.HoldCount > 0)

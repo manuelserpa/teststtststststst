@@ -10,6 +10,7 @@ using Cmf.Foundation.Common;
 using Cmf.LightBusinessObjects.Infrastructure;
 using Cmf.MessageBus.Client;
 using Newtonsoft.Json;
+using SuperSocket.ClientEngine;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -49,8 +50,18 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
                         IsUsingLoadBalancer = bool.Parse(ConfigurationManager.AppSettings["IsUsingLoadBalancer"] ?? "false"),
                     };
 
-                    config.SecurityPortalBaseAddress = new Uri(ConfigurationManager.AppSettings["SecurityPortalBaseAddress"]);
-                    config.SecurityAccessToken = ConfigurationManager.AppSettings["SecurityAccessToken"];
+                    string userName = ConfigurationManager.AppSettings.GetValue("UserName", "");
+                    
+                    if (String.IsNullOrEmpty(userName))
+                    {
+                        config.SecurityPortalBaseAddress = new Uri(ConfigurationManager.AppSettings["SecurityPortalBaseAddress"]);
+                        config.SecurityAccessToken = ConfigurationManager.AppSettings["SecurityAccessToken"];
+                    } 
+                    else
+                    {
+                        config.UserName = ConfigurationManager.AppSettings["UserName"];
+                        config.Password = ConfigurationManager.AppSettings["Password"];
+                    }
                 }
                 return config;
             };
