@@ -5,6 +5,7 @@ using Cmf.Custom.amsOSRAM.Common.Extensions;
 using Cmf.Foundation.BusinessObjects.Abstractions;
 using Cmf.Foundation.Common;
 using Cmf.Foundation.Common.Abstractions;
+using Cmf.Foundation.Security.Abstractions;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessObjects.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
@@ -53,8 +54,12 @@ namespace Cmf.Custom.amsOSRAM.Common
 
             if (employee is null)
             {
+                IUser user = entityFactory.Create<IUser>();
+                user.Name = Utilities.DomainUserName;
+                user.Load();
+
                 employee = entityFactory.Create<IEmployee>();
-                employee.Name = Utilities.DomainUserName;
+                employee.Name = user.UserName;
             }
 
             if (employee.ObjectExists())
@@ -135,12 +140,12 @@ namespace Cmf.Custom.amsOSRAM.Common
                 new Key()
                 {
                     Name = "OPERATOR",
-                    Value = employee.EmployeeNumber ?? "-"
+                    Value = employee?.EmployeeNumber ?? "-"
                 },
                 new Key()
                 {
                     Name = "SHIFT",
-                    Value = employee.Workgroup?.ShiftPlan?.Name ?? "-"
+                    Value = employee?.Workgroup?.ShiftPlan?.Name ?? "-"
                 },
                 new Key()
                 {
@@ -214,12 +219,6 @@ namespace Cmf.Custom.amsOSRAM.Common
 
             foreach (IParameter parameter in eligbleParameters)
             {
-                // Get the DC Points for the specific parameter
-                IDataCollectionPointCollection points = entityFactory.CreateCollection<IDataCollectionPointCollection>();
-                points.AddRange(dataCollectionInstance.DataCollectionPoints.Where(p => p.TargetEntity.Name.Equals(parameter.Name)));
-
-                IDataCollectionPoint point = points.FirstOrDefault(f => f.TargetEntity.Name.Equals(parameter.Name));
-
                 SpecificationLimits limits = new SpecificationLimits();
 
                 if (limitSet.DataCollectionParameterLimits.Any(ls => ls.TargetEntity.Name.Equals(parameter.Name)))
@@ -242,118 +241,148 @@ namespace Cmf.Custom.amsOSRAM.Common
                     }
                 }
 
+                // Get the DC Points for the specific parameter
+                IDataCollectionPointCollection points = entityFactory.CreateCollection<IDataCollectionPointCollection>();
+                points.AddRange(dataCollectionInstance.DataCollectionPoints.Where(p => p.TargetEntity.Name == parameter.Name));
+
+                // Get Points by sample
+                Dictionary<string, List<decimal>> mapSampleDCPoints = new Dictionary<string, List<decimal>>();
+                
+                foreach(IDataCollectionPoint point in points)
+                {
+                    if (mapSampleDCPoints.ContainsKey(point.SampleId))
+                    {
+                        mapSampleDCPoints[point.SampleId].Add(Convert.ToDecimal(point.Value));
+                    }
+                    else
+                    {
+                        mapSampleDCPoints.Add(point.SampleId, new List<decimal> { Convert.ToDecimal(point.Value) });
+                    }
+                }
+
                 IDataCollectionParameter dataCollectionParameter = dc.DataCollectionParameters.FirstOrDefault(f => f.TargetEntity.Name == parameter.Name);
                 bool isSampleTypeMaterialId = dataCollectionParameter.SampleKey == DataCollectionParameterSampleKey.MaterialId;
 
-                IMaterial logicalWafer = isSampleTypeMaterialId ? lot.SubMaterials.FirstOrDefault(f => f.Name == point.SampleId) : null;
-                IMaterialContainer waferContainer = null;
-
-                if (logicalWafer != null)
+                IMaterialCollection logicalWafers = entityFactory.CreateCollection<IMaterialCollection>();
+                
+                if (isSampleTypeMaterialId)
                 {
-                    logicalWafer.LoadRelations(Cmf.Navigo.Common.Constants.MaterialContainer);
-                    waferContainer = logicalWafer.MaterialContainer?.FirstOrDefault(f => f.SourceEntity.Name == lot.Name);
+                    logicalWafers.AddRange(mapSampleDCPoints.Keys.Select(s =>
+                    {
+                        IMaterial logicalWafer = entityFactory.Create<IMaterial>();
+                        logicalWafer.Name = s;
+                        return logicalWafer;
+                    }));
 
-                    logicalWafer.LoadChildren();
+                    logicalWafers.Load();
+                    logicalWafers.LoadRelations(Cmf.Navigo.Common.Constants.MaterialContainer);
+                    logicalWafers.LoadChildren();
                 }
 
-                samples.Add(new Sample
+                foreach (KeyValuePair<string, List<decimal>> mapSampleDCPoint in mapSampleDCPoints)
                 {
-                    ParameterName = parameter.Name,
-                    ParameterUnit = parameter.DataUnit,
-                    SpecificationLimits = limits,
-                    Keys = new List<Key>(Keys)
+                    IMaterial logicalWafer = isSampleTypeMaterialId ? logicalWafers.FirstOrDefault(f => f.Name == mapSampleDCPoint.Key) : null;
+                    IMaterialContainer waferContainer = logicalWafer?.MaterialContainer?.FirstOrDefault(f => f.SourceEntity.Id == logicalWafer.Id);
+
+                    samples.Add(new Sample
                     {
-                        new Key()
+                        ParameterName = parameter.Name,
+                        ParameterUnit = parameter.DataUnit,
+                        SpecificationLimits = limits,
+                        Keys = new List<Key>(Keys)
                         {
-                            Name = "WAFER",
-                            Value = logicalWafer?.Name ?? "-"
-                        },
-                        new Key()
-                        {
-                            Name = "PRODUCT",
-                            Value = logicalWafer?.Product?.Name ?? lot.Product.Name
-                        },
-                        new Key()
-                        {
-                            Name = "PRODUCT VERSION",
-                            Value = logicalWafer?.Product?.Version.ToString() ?? lot.Product.Version.ToString()
-                        },
-                        new Key()
-                        {
-                            Name = "PRODUCT TECHNOLOGY",
-                            Value = logicalWafer?.Product?.ProductGroup?.Name ?? lot.Product.ProductGroup?.Name ?? "-"
-                        },
-                        new Key()
-                        {
-                            Name = "POSITION 1",
-                            Value = waferContainer?.Position.Value.ToString() ?? "-"
-                        },
-                        new Key()
-                        {
-                            Name = "POSITION 2",
-                            Value = "-"
-                        },
-                        new Key()
-                        {
-                            Name = "FLOW",
-                            Value = lot.Flow.Name
-                        },
-                        new Key()
-                        {
-                            Name = "SINGLE PROCESS",
-                            Value = stepLogicalName
-                        },
-                        new Key()
-                        {
-                            Name = "PROCESS EQUIPMENT CHAMBER",
-                            Value = logicalWafer?.LastProcessStepResource?.Name ?? "-"
-                        },
-                        new Key()
-                        {
-                            Name = "MEASUREMENT EQUIPMENT CHAMBER",
-                            Value = logicalWafer.SystemState == MaterialSystemState.Processed ? logicalWafer?.LastProcessedResource?.Name ?? "-" : "-"
-                        },
-                        new Key()
-                        {
-                            Name = "WILDCARD EX1",
-                            Value = !isSampleTypeMaterialId ? point.SampleId : "-"
-                        },
-                        new Key()
-                        {
-                            Name = "WILDCARD EX2",
-                            Value = "-"
-                        },
-                        new Key()
-                        {
-                            Name = "CRYSTAL",
-                            Value = logicalWafer?.SubMaterials.FirstOrDefault(f => f.Form == "Wafer" && f.Type == "Crystal")?.Name ?? "-"
-                        },
-                        new Key()
-                        {
-                            Name = "SUBSTRATE",
-                            Value = logicalWafer?.SubMaterials.FirstOrDefault(f => f.Form == "Wafer" && f.Type == "Substrate")?.Name ?? "-"
-                        },
-                        new Key()
-                        {
-                            Name = "CARRIER",
-                            Value = logicalWafer?.SubMaterials.FirstOrDefault(f => f.Form == "Wafer" && f.Type == "Carrier")?.Name ?? "-"
-                        },
-                        new Key()
-                        {
-                            Name = "VENDOR",
-                            Value = logicalWafer?.Manufacturer != null && logicalWafer.Manufacturer.IsSupplier ? lot.Manufacturer.Name : "-"
-                        },
-                    },
-                    Raws = new Raws
-                    {
-                        StoreRaws = "True",
-                        RawCollection = points.Select(s =>
-                            new Raw
+                            new Key()
                             {
-                                RawValue = Convert.ToDecimal(s.Value)
-                            }).ToList()
-                    }
-                });
+                                Name = "WAFER",
+                                Value = logicalWafer?.Name ?? "-"
+                            },
+                            new Key()
+                            {
+                                Name = "PRODUCT",
+                                Value = logicalWafer?.Product?.Name ?? lot.Product.Name
+                            },
+                            new Key()
+                            {
+                                Name = "PRODUCT VERSION",
+                                Value = logicalWafer?.Product?.Version.ToString() ?? lot.Product.Version.ToString()
+                            },
+                            new Key()
+                            {
+                                Name = "PRODUCT TECHNOLOGY",
+                                Value = logicalWafer?.Product?.ProductGroup?.Name ?? lot.Product.ProductGroup?.Name ?? "-"
+                            },
+                            new Key()
+                            {
+                                Name = "POSITION 1",
+                                Value = waferContainer?.Position.Value.ToString() ?? "-"
+                            },
+                            new Key()
+                            {
+                                Name = "POSITION 2",
+                                Value = "-"
+                            },
+                            new Key()
+                            {
+                                Name = "FLOW",
+                                Value = logicalWafer?.Flow?.Name ?? lot.Flow.Name
+                            },
+                            new Key()
+                            {
+                                Name = "SINGLE PROCESS",
+                                Value = stepLogicalName
+                            },
+                            new Key()
+                            {
+                                Name = "PROCESS EQUIPMENT CHAMBER",
+                                Value = logicalWafer?.LastProcessStepResource?.Name ?? "-"
+                            },
+                            new Key()
+                            {
+                                Name = "MEASUREMENT EQUIPMENT CHAMBER",
+                                Value = logicalWafer.SystemState == MaterialSystemState.Processed ? logicalWafer?.LastProcessedResource?.Name ?? "-" : "-"
+                            },
+                            new Key()
+                            {
+                                Name = "WILDCARD EX1",
+                                Value = logicalWafer == null ? mapSampleDCPoint.Key : "-"
+                            },
+                            new Key()
+                            {
+                                Name = "WILDCARD EX2",
+                                Value = "-"
+                            },
+                            new Key()
+                            {
+                                Name = "CRYSTAL",
+                                Value = logicalWafer?.SubMaterials.FirstOrDefault(f => f.Form == "Wafer" && f.Type == "Crystal")?.Name ?? "-"
+                            },
+                            new Key()
+                            {
+                                Name = "SUBSTRATE",
+                                Value = logicalWafer?.SubMaterials.FirstOrDefault(f => f.Form == "Wafer" && f.Type == "Substrate")?.Name ?? "-"
+                            },
+                            new Key()
+                            {
+                                Name = "CARRIER",
+                                Value = logicalWafer?.SubMaterials.FirstOrDefault(f => f.Form == "Wafer" && f.Type == "Carrier")?.Name ?? "-"
+                            },
+                            new Key()
+                            {
+                                Name = "VENDOR",
+                                Value = logicalWafer?.Manufacturer != null && logicalWafer.Manufacturer.IsSupplier ? logicalWafer.Manufacturer.Name : "-"
+                            },
+                        },
+                        Raws = new Raws
+                        {
+                            StoreRaws = "True",
+                            RawCollection = mapSampleDCPoint.Value.Select(s =>
+                                new Raw
+                                {
+                                    RawValue = s
+                                }).ToList()
+                        }
+                    });
+                }
             }
 
             return new CustomReportEDCToSpace()

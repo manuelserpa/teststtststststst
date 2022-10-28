@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DocumentFormat.OpenXml.Presentation;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace Cmf.Custom.amsOSRAM.Common.DataStructures.CustomReportEDCToSpaceDto
@@ -16,7 +17,7 @@ namespace Cmf.Custom.amsOSRAM.Common.DataStructures.CustomReportEDCToSpaceDto
         [XmlElement(ElementName = "raws")]
         public Raws Raws { get; set; }
 
-        [XmlElement(ElementName = "parameterName")]
+        [XmlAttribute(AttributeName = "parameterName")]
         public string ParameterName { get; set; }
 
         [XmlAttribute(AttributeName = "parameterUnit")]
