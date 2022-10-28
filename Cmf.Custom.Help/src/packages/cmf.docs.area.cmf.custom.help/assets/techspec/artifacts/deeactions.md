@@ -6,8 +6,10 @@ The following DEE Actions were created to support customer requirements.
 
 | DEE Action                     | Description       |
 | ------                    | ------            |
+| [CustomReportEDCToSpaceHandler](/cmf.custom.help/techspec>artifacts>deeactions>custom_report_edc_to_space_handler) | DEE action to validate DataCollection and create a XML message to be sent to Space system. |
 | [CustomSendAdHocTransferInformationToIoT](/cmf.custom.help/techspec>artifacts>deeactions>custom_send_adhoc_transfer_information_to_iot) | DEE Action responsible for sending AdHoc Transfer Information to IoT in order to process containers operations. |
 | [CustomSendEventMessage](/cmf.custom.help/techspec>artifacts>deeactions>custom_send_event_message) | DEE Action used to publish Lot event messages to MessageBus based on Material action. E.g.: Material.TrackIn, Material.TrackOut, Material.MoveNext. |
+| [CustomTibcoEMSReplyHandler](/cmf.custom.help/techspec>artifacts>deeactions>custom_tibco_ems_reply_handler) | DEE Action to handle the reply send from Tibco EMS. |
 | [CustomValidateMaterialReceptionSubstrate](/cmf.custom.help/techspec>artifacts>deeactions>custom_validate_material_reception_substrate) | DEE action responsible for validate if the wafer is valid to proceed with the process. |
 | [CustomAssociateSorterJobDefinitionToContextTable](/cmf.custom.help/techspec>artifacts>deeactions>customassociatesorterjobdefinitiontocontexttable) | DEE action to create CustomSorterJobDefinition and associate to the context on CustomSorterJobDefinitionContext smart table. |
 | [CustomAutomationAdjustLoadPortState](/cmf.custom.help/techspec>artifacts>deeactions>customautomationadjustloadportstate) | This DEE Action is triggered by IoT Automation in order to adjust the state of a Load Port. |
@@ -25,7 +27,6 @@ The following DEE Actions were created to support customer requirements.
 | [CustomProcessProductionOrder](/cmf.custom.help/techspec>artifacts>deeactions>customprocessproductionorder) | DEE action to receive a xml message with the needed information to create or update a **Production Order**. |
 | [Custom Process Products From ERP](/cmf.custom.help/techspec>artifacts>deeactions>customprocessproductsfromerp) | Action used to create an Integration Entry per Product using ERP received message. |
 | [CustomReportDataToFDC](/cmf.custom.help/techspec>artifacts>deeactions>customreportdatatofdc) | Dee action is triggered to create an integration entry with the material data to send to FDC. |
-| [CustomReportEDCToSpaceHandler](/cmf.custom.help/techspec>artifacts>deeactions>customreportedctospacehandler) | DEE action to validate DataCollection and create a XML message to be sent to Space system. |
 | [CustomSendAbortInformationToIoT](/cmf.custom.help/techspec>artifacts>deeactions>customsendabortinformationtoiot) | DEE action to Trigger IoT call to send information about Aborted Materials. |
 | [CustomSendFDCLotInfo](/cmf.custom.help/techspec>artifacts>deeactions>customsendfdclotinfo) | DEE action to be triggered by the Integration Entry Handler to process Integration Entries and send Lot data to Onto FDC. |
 | [CustomSendFDCWaferInfo](/cmf.custom.help/techspec>artifacts>deeactions>customsendfdcwaferinfo) | DEE action to be triggered by the Integration Entry Handler to process Integration Entries and send Lot data to Onto FDC. |
