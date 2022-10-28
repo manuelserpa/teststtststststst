@@ -144,6 +144,11 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         public MaterialCollection GeneratedLots { get; set; } = new MaterialCollection();
 
         /// <summary>
+        /// Collection of Wafers generated
+        /// </summary>
+        public MaterialCollection GeneratedWafers { get; set; } = new MaterialCollection();
+
+        /// <summary>
         /// Number of ProductionOrders to Generate by the Scenario
         /// </summary>
         public int NumberOfProductionOrdersToGenerate { get; set; } = 0;
@@ -420,7 +425,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                     {
                         Material = generatedMaterial,
                         SubMaterials = subMaterialsCollection,
-                        Form = amsOSRAMConstants.DefaultMaterialLogisticalWaferForm
+                        Form = amsOSRAMConstants.DefaultMaterialLogicalWaferForm
                     }.ExpandMaterialSync();
 
                     generatedMaterial = expandMaterialOutput.Material;
@@ -526,6 +531,34 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         }
 
         #region Private Methods
+
+        public Tuple<Material, Material> GenerateWafer(string type = null, Material parentMaterial = null, string productName = null, string flowPath = null, decimal? primaryQuantity = null, string faciltyName = null)
+        {
+            Material generatedWafer =
+                    CustomUtilities.CreateMaterial(
+                        type: type ?? amsOSRAMConstants.MaterialWaferSubstrateType,
+                        tearDownManager: TearDownManager,
+                        productName: productName ?? amsOSRAMConstants.DefaultTestProductName,
+                        flowPath: flowPath ?? FlowPath,
+                        primaryQuantity: primaryQuantity ?? 1,
+                        facilityName: faciltyName ?? FacilityName,
+                        form: amsOSRAMConstants.DefaultMaterialWaferForm);
+
+            Material parentMaterialLoaded = parentMaterial;
+
+            if (parentMaterialLoaded != null)
+            {
+                parentMaterialLoaded = new AttachMaterialsInput()
+                {
+                    Material = parentMaterial,
+                    SubMaterials = new MaterialCollection { generatedWafer }
+                }.AttachMaterialsSync().Material;
+            }
+
+            GeneratedWafers.Add(generatedWafer);
+
+            return Tuple.Create(generatedWafer, parentMaterialLoaded);
+        }
 
         /// <summary>
         /// Terminate created Integration Entries

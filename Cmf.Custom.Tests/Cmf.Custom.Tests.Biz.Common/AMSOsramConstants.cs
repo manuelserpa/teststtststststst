@@ -121,12 +121,17 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// <summary>
         /// DefaultMaterialFormName
         /// </summary>
-        public const string DefaultMaterialFormName = "Lot";
+        public const string DefaultMaterialFormName = FormLot;
 
         /// <summary>
-        /// Default Material Logistical Wafer Form
+        /// Form: Logical wafer
         /// </summary>
-        public const string DefaultMaterialLogisticalWaferForm = "Logistical wafer";
+        public const string DefaultMaterialLogicalWaferForm = FormLogicalWafer;
+
+        /// <summary>
+        /// Default Material Wafer Form
+        /// </summary>
+        public const string DefaultMaterialWaferForm = FormWafer;
 
         /// <summary>
         /// DefaultMaterialUnit
@@ -152,6 +157,21 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// Default Test Resource Name
         /// </summary>
         public const string DefaultTestResourceName = "CMFTestResource01";
+
+        /// <summary>
+        /// Default Test SubResource Name
+        /// </summary>
+        public const string DefaultTestSubResourceName = "CmfTestSubResource01";
+
+        /// <summary>
+        /// Default Test Resource Alternative Name
+        /// </summary>
+        public const string DefaultTestResourceAlternativeName = "CMFTestResource02";
+
+        /// <summary>
+        /// Default Test SubResource Alternative Name
+        /// </summary>
+        public const string DefaultTestSubResourceAlternativeName = "CmfTestSubResource02";
 
         /// <summary>
         /// Default Test Product without ProductionLine Name
@@ -183,6 +203,16 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// </summary>
         public const string DefaultRecipeName = "P-CLN024-TITIW";
 
+        /// <summary>
+        /// Default Space DataCollection Name
+        /// </summary>
+        public const string DefaultSpaceDataCollectionName = "SpaceDCTest";
+
+        /// <summary>
+        /// Default Space DataCollectionLimitSet Name
+        /// </summary>
+        public const string DefaultSpaceDataCollectionLimitSetName = "SpaceDCTestLimitSet";
+
         #endregion
 
         #region MasterData
@@ -208,11 +238,6 @@ namespace Cmf.Custom.Tests.Biz.Common
         public const string ContainerPeekCassete = "PEEK Cassette 8-Inch(13)";
 
         /// <summary>
-        /// Form: Logistical wafer
-        /// </summary>
-        public const string FormWafer = "Logistical wafer";
-
-        /// <summary>
         /// Unit: CM2
         /// </summary>
         public const string UnitWafers = "CM2";
@@ -221,6 +246,16 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// Form: Lot
         /// </summary>
         public const string FormLot = "Lot";
+
+        /// <summary>
+        /// Form: LogicalWafer
+        /// </summary>
+        public const string FormLogicalWafer = "Logical Wafer";
+
+        /// <summary>
+        /// Form: Wafer
+        /// </summary>
+        public const string FormWafer = "Wafer";
 
         /// <summary>
         /// Material Type: Production
@@ -236,6 +271,21 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// Service WaferReception
         /// </summary>
         public const string ServiceWaferReception = "WaferReception";
+
+        /// <summary>
+        /// Default Material Wafer Crystal Type
+        /// </summary>
+        public const string MaterialWaferCrystalType = "Crystal";
+
+        /// <summary>
+        /// Default Material Wafer Carrier Type
+        /// </summary>
+        public const string MaterialWaferCarrierType = "Carrier";
+
+        /// <summary>
+        /// Default Material Wafer Substrate Type
+        /// </summary>
+        public const string MaterialWaferSubstrateType = "Substrate";
 
         #region Flows and Steps
 
