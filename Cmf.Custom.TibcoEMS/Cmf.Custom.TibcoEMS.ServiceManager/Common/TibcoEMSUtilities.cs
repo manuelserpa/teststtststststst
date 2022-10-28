@@ -59,7 +59,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
                     } 
                     else
                     {
-                        config.UserName = ConfigurationManager.AppSettings["UserName"];
+                        config.UserName = userName;
                         config.Password = ConfigurationManager.AppSettings["Password"];
                     }
                 }

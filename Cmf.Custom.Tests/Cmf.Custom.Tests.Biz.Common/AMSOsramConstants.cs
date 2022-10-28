@@ -159,19 +159,24 @@ namespace Cmf.Custom.Tests.Biz.Common
         public const string DefaultTestResourceName = "CMFTestResource01";
 
         /// <summary>
+        /// Default Test Resource Name
+        /// </summary>
+        public const string DefaultTestProcessResourceName = "CMFTestProcessEquipment01";
+
+        /// <summary>
         /// Default Test SubResource Name
         /// </summary>
-        public const string DefaultTestSubResourceName = "CmfTestSubResource01";
+        public const string DefaultTestProcessSubResourceName = "CMFTestSubProcessEquipment01";
 
         /// <summary>
         /// Default Test Resource Alternative Name
         /// </summary>
-        public const string DefaultTestResourceAlternativeName = "CMFTestResource02";
+        public const string DefaultTestMeasurementResourceAlternativeName = "CMFTestMeasurementEquipment01";
 
         /// <summary>
         /// Default Test SubResource Alternative Name
         /// </summary>
-        public const string DefaultTestSubResourceAlternativeName = "CmfTestSubResource02";
+        public const string DefaultTestMeasurementSubResourceAlternativeName = "CMFTestSubMeasurementEquipment01";
 
         /// <summary>
         /// Default Test Product without ProductionLine Name

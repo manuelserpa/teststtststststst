@@ -10,16 +10,13 @@ using Cmf.MessageBus.Messages;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.OutputObjects;
-using Microsoft.VisualStudio.TestPlatform.CrossPlatEngine.DataCollection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Settings;
-using Stimulsoft.Base.Localization;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Security.Cryptography;
 
 namespace Cmf.Custom.Tests.Biz.Space
 {
@@ -29,10 +26,10 @@ namespace Cmf.Custom.Tests.Biz.Space
         private const string DataCollectionName = amsOSRAMConstants.DefaultSpaceDataCollectionName;
         private const string DataCollectionLimitSetName = amsOSRAMConstants.DefaultSpaceDataCollectionLimitSetName;
 
-        private const string ProcessResourceName = amsOSRAMConstants.DefaultTestResourceName;
-        private const string ProcessSubResourceName = amsOSRAMConstants.DefaultTestSubResourceName;
-        private const string MeasurementResourceName = amsOSRAMConstants.DefaultTestResourceAlternativeName;
-        private const string MeasurementSubResourceName = amsOSRAMConstants.DefaultTestSubResourceAlternativeName;
+        private const string ProcessResourceName = amsOSRAMConstants.DefaultTestProcessResourceName;
+        private const string ProcessSubResourceName = amsOSRAMConstants.DefaultTestProcessSubResourceName;
+        private const string MeasurementResourceName = amsOSRAMConstants.DefaultTestMeasurementResourceAlternativeName;
+        private const string MeasurementSubResourceName = amsOSRAMConstants.DefaultTestMeasurementSubResourceAlternativeName;
 
         private const string FacilityName = amsOSRAMConstants.DefaultFacilityName;
 
@@ -283,7 +280,7 @@ namespace Cmf.Custom.Tests.Biz.Space
                 if (sampleKey == DataCollectionParameterSampleKey.MaterialId)
                 {
                     Dictionary<string, List<decimal>> waferValues = new Dictionary<string, List<decimal>>();
-                    
+
                     foreach (Material wafer in material.SubMaterials)
                     {
                         List<decimal> values = new List<decimal>();
@@ -302,7 +299,7 @@ namespace Cmf.Custom.Tests.Biz.Space
 
                         waferValues.Add(wafer.Name, values);
                     }
-                    
+
                     if (isParameterElegible)
                     {
                         mapParameterSamplePoints.Add(parameter.Name, waferValues);
@@ -374,10 +371,10 @@ namespace Cmf.Custom.Tests.Biz.Space
         /// Validate message received from Message Bus
         /// </summary>
         /// <param name="message">Message to validate</param>
-        private void ValidateMessage(string message, 
-                                     Material material, 
-                                     DataCollectionPointCollection pointsToPost, 
-                                     DataCollection dataCollection, 
+        private void ValidateMessage(string message,
+                                     Material material,
+                                     DataCollectionPointCollection pointsToPost,
+                                     DataCollection dataCollection,
                                      DataCollectionLimitSet dataCollectionLimitSet,
                                      Dictionary<string, Dictionary<string, List<decimal>>> mapParametersSamplePoints,
                                      string lastRecipeName = "-",
@@ -468,7 +465,7 @@ namespace Cmf.Custom.Tests.Biz.Space
 
             foreach (KeyValuePair<string, Dictionary<string, List<decimal>>> mapParameterSamplePoints in mapParametersSamplePoints)
             {
-                foreach(Dictionary<string, List<decimal>> samplesPoints in mapParametersSamplePoints.Values)
+                foreach (Dictionary<string, List<decimal>> samplesPoints in mapParametersSamplePoints.Values)
                 {
                     foreach (KeyValuePair<string, List<decimal>> samplePoints in samplesPoints)
                     {
@@ -476,7 +473,7 @@ namespace Cmf.Custom.Tests.Biz.Space
                     }
                 }
             }
-            
+
             Assert.AreEqual(listPointsPerParameterSamples.Count, spaceInformation.Samples.Count, $"Should have {listPointsPerParameterSamples.Count} samples but got {spaceInformation.Samples.Count} instead");
             Assert.IsTrue(mapParametersSamplePoints.Keys.Except(spaceInformation.Samples.Select(s => s.ParameterName)).ToList().Count == 0, "There is a mismatch between the parameters that should be send to space and the ones sent to space");
 
@@ -500,7 +497,7 @@ namespace Cmf.Custom.Tests.Biz.Space
             int count = 0;
             foreach (Sample sample in spaceInformation.Samples)
             {
-               Parameter parameter = parameters.FirstOrDefault(f => f.Name == sample.ParameterName);
+                Parameter parameter = parameters.FirstOrDefault(f => f.Name == sample.ParameterName);
 
                 if (!String.IsNullOrEmpty(parameter.DataUnit))
                 {
