@@ -315,7 +315,7 @@
       "Transaction": "MaterialRelease",
       "IsEnabled": "No"
     },
-    "13": { 
+    "13": {
       "Transaction": "ContainerAssociation",
       "IsEnabled": "No"
     }

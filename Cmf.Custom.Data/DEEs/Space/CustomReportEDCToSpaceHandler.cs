@@ -2,17 +2,16 @@
 using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Custom.amsOSRAM.Common.DataStructures;
 using Cmf.Foundation.Common;
+using Cmf.Foundation.Common.Abstractions;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Navigo.BusinessOrchestration.Abstractions;
 using Cmf.Navigo.BusinessOrchestration.ExceptionManagement.InputObjects;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using Cmf.Navigo.BusinessObjects.Abstractions;
-using System;
-using Cmf.Foundation.Common.Abstractions;
-using Microsoft.Extensions.DependencyInjection;
-using Cmf.Navigo.BusinessOrchestration.Abstractions;
-using Cmf.Navigo.BusinessObjects;
 
 namespace Cmf.Custom.amsOSRAM.Actions.Space
 {
@@ -20,9 +19,10 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
     {
         public override bool DeeTestCondition(Dictionary<string, object> Input)
         {
-            //---Start DEE Condition Code---   
+            //---Start DEE Condition Code---
 
             #region Info
+
             /// <summary>
             /// Summary text
             ///     DEE Action to validate DataCollection and create a XML message to be sent to Space system.
@@ -35,7 +35,8 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
             /// Is Dependency For:
             /// Exceptions:
             /// </summary>
-            #endregion
+
+            #endregion Info
 
             bool canExecute = false;
             bool reportEDCToSpace = true;
@@ -108,10 +109,9 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
             dataCollectionLimitSet.LoadRelations(Navigo.Common.Constants.DataCollectionParameterLimit);
 
             // Check if Material associated to DataCollection have a Parent Material
-            IMaterial material = dataCollectionInstance.Material.ParentMaterial != null 
-                ? dataCollectionInstance.Material.ParentMaterial 
+            IMaterial material = dataCollectionInstance.Material.ParentMaterial != null
+                ? dataCollectionInstance.Material.ParentMaterial
                 : dataCollectionInstance.Material;
-
 
             material.Load();
 
@@ -180,7 +180,8 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
                                                   JsonConvert.SerializeObject(new
                                                   {
                                                       Message = xmlDocument.InnerXml,
-                                                      Context = new { 
+                                                      Context = new
+                                                      {
                                                           Subject = amsOSRAMConstants.CustomReportEDCToSpace,
                                                           Lot = material.Name,
                                                           ProtocolInstance = protocolInstance?.Name,

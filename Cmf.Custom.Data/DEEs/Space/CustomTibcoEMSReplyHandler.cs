@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 
 namespace Cmf.Custom.amsOSRAM.Actions.Space
 {
@@ -17,9 +16,10 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
     {
         public override bool DeeTestCondition(Dictionary<string, object> Input)
         {
-            //---Start DEE Condition Code---   
+            //---Start DEE Condition Code---
 
             #region Info
+
             /// <summary>
             /// Summary text
             ///     DEE Action to handle the reply send from Tibco EMS.
@@ -28,7 +28,8 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
             /// Is Dependency For:
             /// Exceptions:
             /// </summary>
-            #endregion
+
+            #endregion Info
 
             bool canExecute = true;
 
@@ -56,11 +57,12 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
 
             //Custom
             UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.Extensions");
             UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.DataStructures");
 
             // Get services provider information
             IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
-            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();;
+            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>(); ;
 
             string replyMessage = amsOSRAMUtilities.GetInputItem<string>(Input, "ReplyMessage");
             Dictionary<string, object> context = amsOSRAMUtilities.GetInputItem<Dictionary<string, object>>(Input, "Context");
@@ -104,7 +106,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
 
                             context.TryGetValueAs("Lot", out string lotName);
                             context.TryGetValueAs("ActionGroupName", out string actionGroupName);
-                            
+
                             if (actionGroupName == "MaterialManagement.MaterialManagementOrchestration.ComplexTrackOutAndMoveMaterialsToNextStep.Post")
                             {
                                 IMaterial material = entityFactory.Create<IMaterial>();
@@ -113,7 +115,6 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
 
                                 material.MoveToNextStep(material.FlowPath);
                             }
-
                         }
 
                         break;

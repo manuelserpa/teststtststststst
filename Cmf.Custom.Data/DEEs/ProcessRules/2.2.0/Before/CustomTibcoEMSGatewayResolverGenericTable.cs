@@ -45,20 +45,20 @@ namespace Cmf.Custom.amsOSRAM.Actions.ProcessRules._2._2._0.Before
 
             string tableName = "CustomTibcoEMSGatewayResolver";
 
-            dynamic propertyToAdd1 = new ExpandoObject();
-            propertyToAdd1.Name = "ReplyTo";
-            propertyToAdd1.Position = 2;
-            propertyToAdd1.Description = "Reply to Topic/Queue";
-            propertyToAdd1.IsKey = false;
-            propertyToAdd1.IsIndexed = false;
-            propertyToAdd1.IsMandatory = false;
-            propertyToAdd1.ReferenceType = ReferenceType.None;
-            propertyToAdd1.ScalarTypeName = "NVarChar";
-            propertyToAdd1.Size = 256;
+            dynamic newProperty = new ExpandoObject();
+            newProperty.Name = "ReplyTo";
+            newProperty.Position = 2;
+            newProperty.Description = "Reply to Topic/Queue";
+            newProperty.IsKey = false;
+            newProperty.IsIndexed = false;
+            newProperty.IsMandatory = false;
+            newProperty.ReferenceType = ReferenceType.None;
+            newProperty.ScalarTypeName = "NVarChar";
+            newProperty.Size = 256;
 
             List<ExpandoObject> propertiesToAdd = new List<ExpandoObject>
             {
-                propertyToAdd1
+                newProperty
             };
 
             #region Service Provider
@@ -122,17 +122,17 @@ namespace Cmf.Custom.amsOSRAM.Actions.ProcessRules._2._2._0.Before
                     ScalarType nVarcharScalarType = new ScalarType();
                     nVarcharScalarType.Load(propertyToAdd.ScalarTypeName);
 
-                    IGenericTableProperty add = serviceProvider.GetService<IGenericTableProperty>();
-                    add.Name = propertyToAdd.Name;
-                    add.Position = propertyToAdd.Position; // Property positions start on 0
-                    add.Description = propertyToAdd.Description;
-                    add.IsKey = propertyToAdd.IsKey;
-                    add.IsIndexed = propertyToAdd.IsIndexed;
-                    add.IsMandatory = propertyToAdd.IsMandatory;
-                    add.ReferenceType = propertyToAdd.ReferenceType;
-                    add.ScalarType = nVarcharScalarType;
-                    add.Size = propertyToAdd.Size;
-                    properties.Add(add);
+                    IGenericTableProperty genericTableProperty = serviceProvider.GetService<IGenericTableProperty>();
+                    genericTableProperty.Name = propertyToAdd.Name;
+                    genericTableProperty.Position = propertyToAdd.Position; // Property positions start on 0
+                    genericTableProperty.Description = propertyToAdd.Description;
+                    genericTableProperty.IsKey = propertyToAdd.IsKey;
+                    genericTableProperty.IsIndexed = propertyToAdd.IsIndexed;
+                    genericTableProperty.IsMandatory = propertyToAdd.IsMandatory;
+                    genericTableProperty.ReferenceType = propertyToAdd.ReferenceType;
+                    genericTableProperty.ScalarType = nVarcharScalarType;
+                    genericTableProperty.Size = propertyToAdd.Size;
+                    properties.Add(genericTableProperty);
                 }
 
                 // Update properties of the Generic Table
