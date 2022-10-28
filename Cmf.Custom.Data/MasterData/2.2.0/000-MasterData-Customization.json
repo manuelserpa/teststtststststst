@@ -192,6 +192,28 @@
 			"AccessLevel": "",
 			"ValidationRange": "",
 			"ValidationRegex": ""
+		},
+		"4": {
+			"EntityType": "Material",
+			"Name": "LastProcessRecipe",
+			"Description": "Name of last recipe used",
+			"PropertyType": "Attribute",
+			"ScalarType": "NVarChar",
+			"ReferenceType": "None",
+			"IsEnabled": "Yes",
+			"IsHistoryEnable": "Yes",
+			"CopyOnClone": "",
+			"BelongsTo": "",
+			"ScalarSize": "",
+			"ScalarPrecision": "",
+			"ReferenceName": "",
+			"DefaultValue": "",
+			"IsArray": "",
+			"IsIndexed": "",
+			"IsMandatory": "",
+			"AccessLevel": "340",
+			"ValidationRange": "",
+			"ValidationRegex": ""
 		}
 	},
 	"<SM>DEEAction": {
@@ -222,6 +244,13 @@
 			"CodeFileRelativePath": "Space//CustomTibcoEMSReplyHandler.cs",
 			"IsEnabled": "Yes",
 			"Classification": ""
+		},
+		"5": {
+			"Action": "CustomMaterialAttributesOnTrackOut",
+			"Description": "DEE action to set attributes on Material on TrackOut",
+			"CodeFileRelativePath": "Materials//CustomMaterialAttributesOnTrackOut.cs",
+			"IsEnabled": "Yes",
+			"Classification": ""
 		}
 	},
 	"DEEActionOrder": {
@@ -233,6 +262,11 @@
 		"2": {
 			"ActionGroup": "BusinessObjects.DataCollectionInstance.Close.Post",
 			"Action": "CustomReportEDCToSpaceHandler",
+			"Order": "100"
+		},
+		"3": {
+			"ActionGroup": "BusinessObjects.MaterialCollection.TrackOut.Post",
+			"Action": "CustomMaterialAttributesOnTrackOut",
 			"Order": "100"
 		}
 	},

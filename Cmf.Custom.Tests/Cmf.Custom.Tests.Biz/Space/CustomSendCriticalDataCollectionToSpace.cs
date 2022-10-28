@@ -23,6 +23,12 @@ namespace Cmf.Custom.Tests.Biz.Space
     [TestClass]
     public class CustomSendCriticalDataCollectionToSpace
     {
+        private static Dictionary<string, object> rollbackResourceProperties = new Dictionary<string, object>();
+        private static Cmf.Foundation.Common.DynamicExecutionEngine.Action rollbackDEEAction;
+        private static CustomExecutionScenario classExecutionScenario = new CustomExecutionScenario();
+        private static string ProcessRecipeName = amsOSRAMConstants.DefaultRecipeName;
+        private static string ProcessServiceName = amsOSRAMConstants.DefaultServiceName;
+
         private const string DataCollectionName = amsOSRAMConstants.DefaultSpaceDataCollectionName;
         private const string DataCollectionLimitSetName = amsOSRAMConstants.DefaultSpaceDataCollectionLimitSetName;
 
@@ -46,6 +52,32 @@ namespace Cmf.Custom.Tests.Biz.Space
         {
             transport = new Transport(BaseContext.GetMessageBusTransportConfiguration());
             transport.Start();
+
+            // Set IsRecipeManagementEnabled on the resource
+            Resource resource = new Resource();
+            resource.Name = ProcessResourceName;
+            resource.Load();
+
+            rollbackResourceProperties.Add("IsRecipeManagementEnabled", resource.IsRecipeManagementEnabled);
+            resource.IsRecipeManagementEnabled = true;
+
+            resource.Save();
+
+            classExecutionScenario = new CustomExecutionScenario
+            {
+                RecipeContext = new List<Dictionary<string, string>>
+                {
+                    {
+                        new Dictionary<string, string> {
+                            { "Service", ProcessServiceName },
+                            { "Resource",ProcessResourceName },
+                            { "Recipe", ProcessRecipeName }
+                        }
+                    }
+                }
+            };
+
+            classExecutionScenario.Setup();
         }
 
         [ClassCleanup]
@@ -55,6 +87,20 @@ namespace Cmf.Custom.Tests.Biz.Space
             {
                 transport.Stop();
             }
+
+            if (classExecutionScenario != null)
+            {
+                classExecutionScenario.CompleteCleanUp();
+            }
+
+            // Rollback IsRecipeManagementEnabled on the resource
+            Resource resource = new Resource();
+            resource.Name = amsOSRAMConstants.DefaultSorterResourceName;
+            resource.Load();
+
+            resource.IsRecipeManagementEnabled = (bool?)rollbackResourceProperties["IsRecipeManagementEnabled"];
+
+            resource.Save();
         }
 
         /// <summary>
@@ -134,7 +180,7 @@ namespace Cmf.Custom.Tests.Biz.Space
 
             string message = PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, datacollectionLimitSet, pointsToPost);
 
-            ValidateMessage(message, lot, pointsToPost, dataCollection, datacollectionLimitSet, mapParameterSamplePoints);
+            ValidateMessage(message, lot, pointsToPost, dataCollection, datacollectionLimitSet, mapParameterSamplePoints, lastRecipeName: ProcessRecipeName);
 
             lot.Load();
 
@@ -189,7 +235,7 @@ namespace Cmf.Custom.Tests.Biz.Space
 
             string message = PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, datacollectionLimitSet, pointsToPost);
 
-            ValidateMessage(message, lot, pointsToPost, dataCollection, datacollectionLimitSet, mapParameterSamplePoints);
+            ValidateMessage(message, lot, pointsToPost, dataCollection, datacollectionLimitSet, mapParameterSamplePoints, lastRecipeName: ProcessRecipeName);
 
             ///<Step> Validate Protocol Opened.</Step>
             ///<ExpectedValue> The lot should have a protocol opened.</ExpectedValue>

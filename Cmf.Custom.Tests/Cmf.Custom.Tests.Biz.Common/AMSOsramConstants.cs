@@ -209,6 +209,11 @@ namespace Cmf.Custom.Tests.Biz.Common
         public const string DefaultRecipeName = "P-CLN024-TITIW";
 
         /// <summary>
+        /// Default Service Name
+        /// </summary>
+        public const string DefaultServiceName = "CMFTestService";
+
+        /// <summary>
         /// Default Space DataCollection Name
         /// </summary>
         public const string DefaultSpaceDataCollectionName = "SpaceDCTest";

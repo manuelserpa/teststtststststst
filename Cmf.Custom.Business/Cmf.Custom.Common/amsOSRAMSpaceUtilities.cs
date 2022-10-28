@@ -85,6 +85,14 @@ namespace Cmf.Custom.amsOSRAM.Common
                 lot.Product.Attributes.TryGetValueAs(amsOSRAMConstants.ProductAttributeSAPProductType, out sapOwner);
             }
 
+            lot.LoadAttribute(amsOSRAMConstants.MaterialLastProcessRecipeAttribute);
+
+            string lastRecipeName = "-";
+            if (lot.Attributes.ContainsKey(amsOSRAMConstants.MaterialLastProcessRecipeAttribute))
+            {
+                lot.Attributes.TryGetValueAs(amsOSRAMConstants.MaterialLastProcessRecipeAttribute, out lastRecipeName);
+            }
+
             List<Key> Keys = new List<Key>()
             {
                 new Key()
@@ -115,7 +123,7 @@ namespace Cmf.Custom.amsOSRAM.Common
                 new Key()
                 {
                     Name = "PROCESS RECIPE 1",
-                    Value = lot.LastRecipe?.Name ?? "-"
+                    Value = lastRecipeName ?? "-"
                 },
                 new Key()
                 {
@@ -125,7 +133,7 @@ namespace Cmf.Custom.amsOSRAM.Common
                 new Key()
                 {
                     Name = "MEASUREMENT RECIPE",
-                    Value = !String.IsNullOrWhiteSpace(lot.CurrentRecipeInstance?.ParentEntity?.Name) ? lot.CurrentRecipeInstance.ParentEntity.Name : "-"
+                    Value = lot.LastRecipe?.Name ?? "-"
                 },
                 new Key()
                 {
