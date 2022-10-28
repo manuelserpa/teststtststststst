@@ -64,10 +64,10 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
             IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
             IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>(); ;
 
-            string replyMessage = amsOSRAMUtilities.GetInputItem<string>(Input, "ReplyMessage");
-            Dictionary<string, object> context = amsOSRAMUtilities.GetInputItem<Dictionary<string, object>>(Input, "Context");
+            string replyMessage = amsOSRAMUtilities.GetInputItem<string>(Input, amsOSRAMConstants.TibcoReplyMessage);
+            Dictionary<string, object> context = amsOSRAMUtilities.GetInputItem<Dictionary<string, object>>(Input, amsOSRAMConstants.TibcoReplyContext);
 
-            if (context != null && context.TryGetValueAs("Subject", out string contextSubject))
+            if (context != null && context.TryGetValueAs(amsOSRAMConstants.TibcoReplyContextSubject, out string contextSubject))
             {
                 switch (contextSubject)
                 {
@@ -77,7 +77,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
                             break;
                         }
 
-                        context.TryGetValueAs("ProtocolInstance", out string protocolInstanceName);
+                        context.TryGetValueAs(amsOSRAMConstants.TibcoReplyContextProtocolInstance, out string protocolInstanceName);
 
                         IProtocolInstance protocolInstance = serviceProvider.GetService<IProtocolInstance>();
                         protocolInstance.Load(protocolInstanceName);
@@ -104,10 +104,10 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
                             };
                             exceptionOrchestration.CloseProtocolInstance(closeProtocol);
 
-                            context.TryGetValueAs("Lot", out string lotName);
-                            context.TryGetValueAs("ActionGroupName", out string actionGroupName);
+                            context.TryGetValueAs(amsOSRAMConstants.TibcoReplyContextLot, out string lotName);
+                            context.TryGetValueAs(amsOSRAMConstants.TibcoReplyContextActionGroup, out string actionGroupName);
 
-                            if (actionGroupName == "MaterialManagement.MaterialManagementOrchestration.ComplexTrackOutAndMoveMaterialsToNextStep.Post")
+                            if (actionGroupName == amsOSRAMConstants.ComplexTrackOutAndMoveMaterialsToNextStepPost)
                             {
                                 IMaterial material = entityFactory.Create<IMaterial>();
                                 material.Name = lotName;
