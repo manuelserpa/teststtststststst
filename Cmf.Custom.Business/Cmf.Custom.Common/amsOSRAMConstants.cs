@@ -1432,6 +1432,38 @@
         /// </summary>
         public const string CustomEquipmentStatusChange = "CustomEquipmentStatusChange";
 
+        /// <summary>
+        /// Tibco Reply Message
+        /// </summary>
+        public const string TibcoReplyMessage = "ReplyMessage";
+
+        /// <summary>
+        /// Tibco Reply Message Context
+        /// </summary>
+        public const string TibcoReplyContext = "Context";
+
+        /// <summary>
+        /// Tibco Reply Message Context Subject
+        /// </summary>
+        public const string TibcoReplyContextSubject = "Subject";
+
+        /// <summary>
+        /// Tibco Reply Message Context ActionGroup
+        /// </summary>
+        public const string TibcoReplyContextActionGroup = "ActionGroup";
+
+        /// <summary>
+        /// Tibco Reply Message Context Lot
+        /// </summary>
+        public const string TibcoReplyContextLot = "Lot";
+
+        /// <summary>
+        /// Tibco Reply Message Context ProtocolInstance
+        /// </summary>
+        public const string TibcoReplyContextProtocolInstance = "ProtocolInstance";
+
+
+
 
         #endregion
 
@@ -1488,5 +1520,14 @@
         public static string OsramEventName = "OsramEventName";
 
         #endregion ONTO FDC
+
+        #region ActionGroups
+
+        /// <summary>
+        /// Action Group ComplexTrackOutAndMoveMaterialsToNextStep.Post
+        /// </summary>
+        public static string ComplexTrackOutAndMoveMaterialsToNextStepPost = "MaterialManagement.MaterialManagementOrchestration.ComplexTrackOutAndMoveMaterialsToNextStep.Post";
+
+        #endregion ActionsGroups
     }
 }
