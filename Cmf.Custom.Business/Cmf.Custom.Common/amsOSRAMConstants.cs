@@ -229,9 +229,9 @@
         public static string CustomSiteCodeAttribute = "SiteCode";
 
         /// <summary>
-        /// Area Code Attribute
+        /// Area LogicalDataSource Attribute (LDS ID)
         /// </summary>
-        public static string CustomAreaCodeAttribute = "AreaCode";
+        public static string AreaLdsIdAttribute = "LdsId";
 
         /// <summary>
         /// Parameter SendToSpace Attribute

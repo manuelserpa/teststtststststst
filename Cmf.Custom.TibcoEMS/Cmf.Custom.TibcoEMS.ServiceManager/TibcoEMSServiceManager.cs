@@ -333,7 +333,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                 this.Logger.LogInformation($"Create Queue with name {requestDestinationName} on Tibco Session...");
 
                 // TODO: This line should be removed or commented
-                new QueueSpaceReply(this.Logger, this.TibcoSession, requestDestinationName);
+                // new QueueSpaceReply(this.Logger, this.TibcoSession, requestDestinationName);
 
                 Queue requestQueue = this.TibcoSession.CreateQueue(requestDestinationName);
                 Queue replyQueue = this.TibcoSession.CreateQueue(replyDestinationName);

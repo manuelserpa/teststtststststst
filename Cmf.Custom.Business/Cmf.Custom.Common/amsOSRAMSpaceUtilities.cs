@@ -2,12 +2,12 @@
 using Cmf.Custom.amsOSRAM.Common.DataStructures;
 using Cmf.Custom.amsOSRAM.Common.DataStructures.CustomReportEDCToSpaceDto;
 using Cmf.Custom.amsOSRAM.Common.Extensions;
-using Cmf.Foundation.BusinessObjects.Abstractions;
 using Cmf.Foundation.Common;
 using Cmf.Foundation.Common.Abstractions;
 using Cmf.Foundation.Security.Abstractions;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessObjects.Abstractions;
+using Cmf.Navigo.BusinessOrchestration.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -36,6 +36,7 @@ namespace Cmf.Custom.amsOSRAM.Common
             // Get services provider information
             IServiceProvider serviceProvider = ApplicationContext.CurrentServiceProvider;
             IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+            ILaborOrchestration laborOrchestration = serviceProvider.GetService<ILaborOrchestration>();
 
             lot.Load(1);
             lot.LoadChildren();
@@ -62,19 +63,12 @@ namespace Cmf.Custom.amsOSRAM.Common
                 employee.Name = user.UserName;
             }
 
+            IShiftDefinitionShift shiftDefinitionShift = null;
+
             if (employee.ObjectExists())
             {
-                employee.Load();
-
-                if (employee.Workgroup != null && employee.Workgroup.Name == null)
-                {
-                    employee.Workgroup.Load();
-
-                    if (employee.Workgroup.ShiftPlan != null && employee.Workgroup.ShiftPlan.Name == null)
-                    {
-                        employee.Workgroup.ShiftPlan.Load();
-                    }
-                }
+                employee.Calendar.Load();
+                shiftDefinitionShift = amsOSRAMUtilities.GetShiftDefinitionShiftByCalendar(employee.Calendar);
             }
 
             lot.Product.LoadAttribute(amsOSRAMConstants.ProductAttributeSAPProductType);
@@ -153,7 +147,7 @@ namespace Cmf.Custom.amsOSRAM.Common
                 new Key()
                 {
                     Name = "SHIFT",
-                    Value = employee?.Workgroup?.ShiftPlan?.Name ?? "-"
+                    Value = shiftDefinitionShift?.Name ?? "-"
                 },
                 new Key()
                 {
@@ -177,20 +171,14 @@ namespace Cmf.Custom.amsOSRAM.Common
                 },
             };
 
-            string ldCode = String.Empty;
+            string ldsId = String.Empty;
 
-            // TODO: We need this fallback?
-            if (String.IsNullOrEmpty(ldCode) && lot.Facility.Site != null)
+            if (currentLotResource?.Area?.Id != null)
             {
-                // Load Site
-                ISite site = lot.Facility.Site;
-                if (String.IsNullOrEmpty(site.Name))
-                {
-                    site.Load();
-                }
+                currentLotResource.Area.Load();
+                currentLotResource.Area.LoadAttribute(amsOSRAMConstants.AreaLdsIdAttribute);
 
-                // Get SiteCode attribute value
-                ldCode = site.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute, true).ToString();
+                currentLotResource.Area.Attributes.TryGetValueAs(amsOSRAMConstants.AreaLdsIdAttribute, out ldsId);
             }
 
             // Get StepLogicalName to skip load on logical wafer if they match
@@ -217,15 +205,15 @@ namespace Cmf.Custom.amsOSRAM.Common
             parameters.Load();
             parameters.LoadAttributes(new Collection<string> { amsOSRAMConstants.CustomParameterSendToSpaceAttribute });
 
-            IParameterCollection eligbleParameters = entityFactory.CreateCollection<IParameterCollection>();
-            eligbleParameters.AddRange(parameters.Where(s =>
+            IParameterCollection eligibleParameters = entityFactory.CreateCollection<IParameterCollection>();
+            eligibleParameters.AddRange(parameters.Where(s =>
                 s.HasAttribute(amsOSRAMConstants.CustomParameterSendToSpaceAttribute) &&
                 s.GetAttributeValueOrDefault<bool>(amsOSRAMConstants.CustomParameterSendToSpaceAttribute, false) &&
                 (s.DataType == ParameterDataType.Decimal || s.DataType == ParameterDataType.Long)));
 
             List<Sample> samples = new List<Sample>();
 
-            foreach (IParameter parameter in eligbleParameters)
+            foreach (IParameter parameter in eligibleParameters)
             {
                 SpecificationLimits limits = new SpecificationLimits();
 
@@ -404,7 +392,7 @@ namespace Cmf.Custom.amsOSRAM.Common
                 {
                     new Ld()
                     {
-                       Id = !String.IsNullOrWhiteSpace(ldCode) ? ldCode : String.Empty
+                       Id = ldsId ?? String.Empty
                     }
                 },
                 Samples = samples

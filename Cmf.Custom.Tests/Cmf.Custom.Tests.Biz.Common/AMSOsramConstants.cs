@@ -46,9 +46,9 @@ namespace Cmf.Custom.Tests.Biz.Common
         public const string StepAttributeIsWaferReception = "IsWaferReception";
 
         /// <summary>
-        /// Area Attribute AreaCode
+        /// Area Attribute LdsId
         /// </summary>
-        public static string AreaAttributeAreaCode = "AreaCode";
+        public static string AreaAttributeLdsId = "LdsId";
 
         /// <summary>
         /// Product Attribute BasicType

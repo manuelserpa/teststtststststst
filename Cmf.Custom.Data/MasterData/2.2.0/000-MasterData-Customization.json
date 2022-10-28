@@ -151,8 +151,8 @@
 		},
 		"2": {
 			"EntityType": "Area",
-			"Name": "AreaCode",
-			"Description": "Represents the Area Code",
+			"Name": "LdsId",
+			"Description": "Represents the Logical Data Source (LDS Id)",
 			"PropertyType": "Attribute",
 			"ScalarType": "NVarChar",
 			"ReferenceType": "None",

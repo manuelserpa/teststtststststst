@@ -354,6 +354,12 @@
     "actionId": ""
   },
   {
+    "id": "custom_material_attributes_on_trackout",
+    "menuGroupId": "deeactions",
+    "title": "CustomMaterialAttributesOnTrackOut",
+    "actionId": ""
+  },
+  {
     "id": "custom_report_edc_to_space_handler",
     "menuGroupId": "deeactions",
     "title": "CustomReportEDCToSpaceHandler",
@@ -393,6 +399,12 @@
     "id": "et_area",
     "menuGroupId": "entitytypes",
     "title": "Area",
+    "actionId": ""
+  },
+  {
+    "id": "et_material",
+    "menuGroupId": "entitytypes",
+    "title": "Material",
     "actionId": ""
   },
   {

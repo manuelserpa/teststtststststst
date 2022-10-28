@@ -458,23 +458,13 @@ namespace Cmf.Custom.Tests.Biz.Space
                 sapProductType = (string)material.Product.Attributes.GetValueOrDefault(amsOSRAMConstants.ProductAttributeSAPProductType);
             }
 
-            Area area = measurementEquipment.Area;
+            Area area = material.GetArea();
+
             string ldCode = String.Empty;
             if (area != null)
             {
-                ldCode = area.Attributes.GetValueOrDefault(amsOSRAMConstants.AreaAttributeAreaCode, ldCode) as string;
-            }
 
-            if (String.IsNullOrEmpty(ldCode))
-            {
-                // Load Site
-                Site site = material.Facility?.Site;
-                site.Load();
-
-                site.LoadAttribute(amsOSRAMConstants.SiteAttributeSiteCode);
-
-                // Get SiteCode attribute value
-                ldCode = site.Attributes.GetValueOrDefault(amsOSRAMConstants.SiteAttributeSiteCode, ldCode) as string;
+                ldCode = area.Attributes.GetValueOrDefault(amsOSRAMConstants.AreaAttributeLdsId, ldCode) as string;
             }
 
             string stepLogicalName = material.Step.Name;
