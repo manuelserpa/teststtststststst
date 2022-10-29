@@ -74,7 +74,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Mock
                     logger.LogInformation("Message ID: " + requestMessage.MessageID);
                     logger.LogInformation("Correl. ID: " + requestMessage.CorrelationID);
                     logger.LogInformation("Reply to:   " + requestMessage.ReplyTo);
-                    logger.LogInformation("Contents:   " + requestMessage.Text);
+                    logger.LogDebug("Contents:   " + requestMessage.Text);
 
                     TextMessage replyMessage = session.CreateTextMessage();
                     replyMessage.Text = content;
@@ -89,7 +89,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Mock
                     logger.LogInformation("Message ID: " + replyMessage.MessageID);
                     logger.LogInformation("Correl. ID: " + replyMessage.CorrelationID);
                     logger.LogInformation("Reply to:   " + replyMessage.ReplyTo);
-                    logger.LogInformation("Contents:   " + replyMessage.Text);
+                    logger.LogDebug("Contents:   " + replyMessage.Text);
                 }
                 else if (message is MapMessage)
                 {
@@ -100,7 +100,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Mock
                     logger.LogInformation("Message ID: " + requestMessage.MessageID);
                     logger.LogInformation("Correl. ID: " + requestMessage.CorrelationID);
                     logger.LogInformation("Reply to:   " + requestMessage.ReplyTo);
-                    logger.LogInformation("Contents:   " + requestMessage);
+                    logger.LogDebug("Contents:   " + requestMessage);
 
                     MapMessage replyMessage = session.CreateMapMessage();
                     replyMessage.SetString(TibcoEMSConstants.TibcoEMSPropertyMapMessageField, content);
@@ -115,7 +115,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Mock
                     logger.LogInformation("Message ID: " + replyMessage.MessageID);
                     logger.LogInformation("Correl. ID: " + replyMessage.CorrelationID);
                     logger.LogInformation("Reply to:   " + replyMessage.ReplyTo);
-                    logger.LogInformation("Contents:   " + replyMessage);
+                    logger.LogDebug("Contents:   " + replyMessage);
                 }
                 else
                 {

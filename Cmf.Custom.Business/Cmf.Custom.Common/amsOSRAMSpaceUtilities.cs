@@ -67,24 +67,23 @@ namespace Cmf.Custom.amsOSRAM.Common
 
             if (employee.ObjectExists())
             {
+                employee.Load();
                 employee.Calendar.Load();
                 shiftDefinitionShift = amsOSRAMUtilities.GetShiftDefinitionShiftByCalendar(employee.Calendar);
             }
 
-            lot.Product.LoadAttribute(amsOSRAMConstants.ProductAttributeSAPProductType);
-
             string sapOwner = "-";
-            if (lot.Product.Attributes.ContainsKey(amsOSRAMConstants.ProductAttributeSAPProductType))
+            if (lot.Product.HasRelatedAttribute(amsOSRAMConstants.ProductAttributeSAPProductType, true))
             {
-                lot.Product.Attributes.TryGetValueAs(amsOSRAMConstants.ProductAttributeSAPProductType, out sapOwner);
+                sapOwner = (string)lot.Product.GetRelatedAttributeValue(amsOSRAMConstants.ProductAttributeSAPProductType);
             }
 
             lot.LoadAttribute(amsOSRAMConstants.MaterialLastProcessRecipeAttribute);
 
-            string lastRecipeName = "-";
+            string lastProcessRecipeName = "-";
             if (lot.Attributes.ContainsKey(amsOSRAMConstants.MaterialLastProcessRecipeAttribute))
             {
-                lot.Attributes.TryGetValueAs(amsOSRAMConstants.MaterialLastProcessRecipeAttribute, out lastRecipeName);
+                lot.Attributes.TryGetValueAs(amsOSRAMConstants.MaterialLastProcessRecipeAttribute, out lastProcessRecipeName);
             }
 
             List<Key> Keys = new List<Key>()
@@ -117,7 +116,7 @@ namespace Cmf.Custom.amsOSRAM.Common
                 new Key()
                 {
                     Name = "PROCESS RECIPE 1",
-                    Value = lastRecipeName ?? "-"
+                    Value = lastProcessRecipeName ?? "-"
                 },
                 new Key()
                 {
@@ -171,14 +170,13 @@ namespace Cmf.Custom.amsOSRAM.Common
                 },
             };
 
+            IArea area = lot.GetArea();
             string ldsId = String.Empty;
 
-            if (currentLotResource?.Area?.Id != null)
+            if (area != null)
             {
-                currentLotResource.Area.Load();
-                currentLotResource.Area.LoadAttribute(amsOSRAMConstants.AreaLdsIdAttribute);
-
-                currentLotResource.Area.Attributes.TryGetValueAs(amsOSRAMConstants.AreaLdsIdAttribute, out ldsId);
+                area.LoadAttribute(amsOSRAMConstants.AreaLdsIdAttribute);
+                area.Attributes.TryGetValueAs(amsOSRAMConstants.AreaLdsIdAttribute, out ldsId);
             }
 
             // Get StepLogicalName to skip load on logical wafer if they match
@@ -208,7 +206,7 @@ namespace Cmf.Custom.amsOSRAM.Common
             IParameterCollection eligibleParameters = entityFactory.CreateCollection<IParameterCollection>();
             eligibleParameters.AddRange(parameters.Where(s =>
                 s.HasAttribute(amsOSRAMConstants.CustomParameterSendToSpaceAttribute) &&
-                s.GetAttributeValueOrDefault<bool>(amsOSRAMConstants.CustomParameterSendToSpaceAttribute, false) &&
+                (bool)s.GetAttributeValue(amsOSRAMConstants.CustomParameterSendToSpaceAttribute) &&
                 (s.DataType == ParameterDataType.Decimal || s.DataType == ParameterDataType.Long)));
 
             List<Sample> samples = new List<Sample>();
@@ -225,14 +223,14 @@ namespace Cmf.Custom.amsOSRAM.Common
                     {
                         if (parameterLimit.LowerErrorLimit != null && parameterLimit.UpperErrorLimit != null)
                         {
-                            limits.Upper = parameterLimit.UpperErrorLimit.ToString();
-                            limits.Lower = parameterLimit.LowerErrorLimit.ToString();
+                            limits.Upper = Decimal.Truncate(parameterLimit.UpperErrorLimit.Value).ToString();
+                            limits.Lower = Decimal.Truncate(parameterLimit.LowerErrorLimit.Value).ToString();
                         }
 
                         if (parameterLimit.LowerWarningLimit != null && parameterLimit.UpperWarningLimit != null)
                         {
-                            limits.Upper = parameterLimit.UpperWarningLimit.ToString();
-                            limits.Lower = parameterLimit.LowerWarningLimit.ToString();
+                            limits.Upper = Decimal.Truncate(parameterLimit.UpperWarningLimit.Value).ToString();
+                            limits.Lower = Decimal.Truncate(parameterLimit.LowerWarningLimit.Value).ToString();
                         }
                     }
                 }
@@ -279,6 +277,7 @@ namespace Cmf.Custom.amsOSRAM.Common
                 {
                     IMaterial logicalWafer = isSampleTypeMaterialId ? logicalWafers.FirstOrDefault(f => f.Name == mapSampleDCPoint.Key) : null;
                     IMaterialContainer waferContainer = logicalWafer?.MaterialContainer?.FirstOrDefault(f => f.SourceEntity.Id == logicalWafer.Id);
+                    IMaterial substrate = logicalWafer?.SubMaterials?.FirstOrDefault(f => f.Form == "Wafer" && f.Type == "Substrate");
 
                     samples.Add(new Sample
                     {
@@ -335,12 +334,12 @@ namespace Cmf.Custom.amsOSRAM.Common
                             new Key()
                             {
                                 Name = "MEASUREMENT EQUIPMENT CHAMBER",
-                                Value = logicalWafer.SystemState == MaterialSystemState.Processed ? logicalWafer?.LastProcessedResource?.Name ?? "-" : "-"
+                                Value = logicalWafer?.SystemState == MaterialSystemState.Processed ? logicalWafer?.LastProcessedResource?.Name ?? "-" : "-"
                             },
                             new Key()
                             {
                                 Name = "WILDCARD EX1",
-                                Value = logicalWafer == null ? mapSampleDCPoint.Key : "-"
+                                Value = logicalWafer == null ? $"Sample {mapSampleDCPoint.Key}" : "-"
                             },
                             new Key()
                             {
@@ -350,22 +349,22 @@ namespace Cmf.Custom.amsOSRAM.Common
                             new Key()
                             {
                                 Name = "CRYSTAL",
-                                Value = logicalWafer?.SubMaterials.FirstOrDefault(f => f.Form == "Wafer" && f.Type == "Crystal")?.Name ?? "-"
+                                Value = logicalWafer?.SubMaterials?.FirstOrDefault(f => f.Form == "Wafer" && f.Type == "Crystal")?.Name ?? "-"
                             },
                             new Key()
                             {
                                 Name = "SUBSTRATE",
-                                Value = logicalWafer?.SubMaterials.FirstOrDefault(f => f.Form == "Wafer" && f.Type == "Substrate")?.Name ?? "-"
+                                Value = substrate?.Name ?? "-"
                             },
                             new Key()
                             {
                                 Name = "CARRIER",
-                                Value = logicalWafer?.SubMaterials.FirstOrDefault(f => f.Form == "Wafer" && f.Type == "Carrier")?.Name ?? "-"
+                                Value = logicalWafer?.SubMaterials?.FirstOrDefault(f => f.Form == "Wafer" && f.Type == "Carrier")?.Name ?? "-"
                             },
                             new Key()
                             {
                                 Name = "VENDOR",
-                                Value = logicalWafer?.Manufacturer != null && logicalWafer.Manufacturer.IsSupplier ? logicalWafer.Manufacturer.Name : "-"
+                                Value = substrate?.Supplier != null ? substrate.Supplier.Name : "-"
                             },
                         },
                         Raws = new Raws
@@ -374,7 +373,7 @@ namespace Cmf.Custom.amsOSRAM.Common
                             RawCollection = mapSampleDCPoint.Value.Select(s =>
                                 new Raw
                                 {
-                                    RawValue = s
+                                    RawValue = Decimal.Truncate(s)
                                 }).ToList()
                         }
                     });

@@ -76,11 +76,11 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
 
             if (message is TextMessage)
             {
-                logger.LogInformation("Contents:   " + (message as TextMessage).Text);
+                logger.LogDebug("Contents:   " + (message as TextMessage).Text);
             }
             else
             {
-                logger.LogInformation("Contents:   " + message);
+                logger.LogDebug("Contents:   " + message);
             }
 
             requestProducer.Send(message);
@@ -124,7 +124,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                     logger.LogInformation("Message ID: " + replyTextMessage.MessageID);
                     logger.LogInformation("Correl. ID: " + replyTextMessage.CorrelationID);
                     logger.LogInformation("Reply to:   " + replyTextMessage.ReplyTo);
-                    logger.LogInformation("Contents:   " + replyTextMessage.Text);
+                    logger.LogDebug("Contents:   " + replyTextMessage.Text);
                 }
                 else if (message is MapMessage)
                 {
@@ -136,7 +136,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                     logger.LogInformation("Message ID: " + replyMapMessage.MessageID);
                     logger.LogInformation("Correl. ID: " + replyMapMessage.CorrelationID);
                     logger.LogInformation("Reply to:   " + replyMapMessage.ReplyTo);
-                    logger.LogInformation("Contents:   " + replyMapMessage);
+                    logger.LogDebug("Contents:   " + replyMapMessage);
                 }
                 else
                 {

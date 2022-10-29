@@ -52,7 +52,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
                 IDataCollectionInstance dataCollectionInstance = amsOSRAMUtilities.GetInputItem<IDataCollectionInstance>(Input, Navigo.Common.Constants.DataCollectionInstance);
 
                 // Check if Input data returns DataCollection and associated DataCollection Limit Sets
-                if (reportEDCToSpace && dataCollectionInstance != null && dataCollectionInstance.DataCollectionLimitSet != null)
+                if (reportEDCToSpace && dataCollectionInstance != null && dataCollectionInstance.DataCollectionLimitSet != null && dataCollectionInstance.Material != null)
                 {
                     dataCollectionInstance.Step.Load();
 

@@ -9,7 +9,6 @@ using Cmf.Foundation.BusinessOrchestration.LocalizationManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.QueryManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.TestScenarios.Others;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -641,7 +640,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
 
         public static object RunDEEForTests(Foundation.Common.DynamicExecutionEngine.Action action, Dictionary<string, object> input)
         {
-            if (action== null || action.Name == null || action.Name == String.Empty)
+            if (action == null || action.Name == null || action.Name == String.Empty)
             {
                 throw new Exception("The DEE action must have a name");
             }
@@ -668,7 +667,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
                 Input = input
             }.ExecuteActionSync();
 
-            return deeOutput.Output["Result"];
+            return deeOutput.Output.GetValueOrDefault("Result", null);
         }
 
         #endregion

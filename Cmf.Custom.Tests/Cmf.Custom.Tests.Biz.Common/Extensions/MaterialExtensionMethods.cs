@@ -136,25 +136,6 @@ namespace Cmf.Custom.Tests.Biz.Common.Extensions
             instance.CopyFrom(output.Material);
         }
 
-        /// <summary>
-        /// returns the material's current area
-        /// </summary>
-        /// <param name="instance"></param>
-        /// <returns></returns>
-        public static Area GetArea(this Material instance)
-        {
-            instance.Step.SpecialLoad();
-            instance.Step.LoadRelation("StepArea", 1);
-
-            StepArea areaForStep = (StepArea)instance.Step.RelationCollection["StepArea"].Where(rel => ((StepArea)rel).TargetEntity.Facility.Id == instance.Facility.Id).FirstOrDefault();
-            if (areaForStep != null)
-            {
-                return areaForStep.TargetEntity;
-            }
-
-            return null;
-        }
-
         #endregion
     }
 }

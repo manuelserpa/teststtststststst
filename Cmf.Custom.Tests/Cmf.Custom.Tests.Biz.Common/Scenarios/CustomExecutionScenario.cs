@@ -11,6 +11,7 @@ using Cmf.Foundation.Common.Base;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
+using Cmf.TestScenarios.ContainerManagement.ContainerScenarios;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -187,6 +188,11 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// Step attributs to Rollback in TearDown
         /// </summary>
         private readonly Dictionary<string, AttributeCollection> StepAttributesToRollback = new Dictionary<string, AttributeCollection>();
+
+        /// <summary>
+        /// Container Scenario
+        /// </summary>
+        private ContainerScenario ContainerScenario = null;
 
         #endregion
 
@@ -529,6 +535,11 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                 }
             }
 
+            if (ContainerScenario != null)
+            {
+                ContainerScenario.TearDown();
+            }
+
             TearDownManager.TearDownSequentially();
         }
 
@@ -555,11 +566,48 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                     Material = parentMaterial,
                     SubMaterials = new MaterialCollection { generatedWafer }
                 }.AttachMaterialsSync().Material;
+
+                generatedWafer.Load();
             }
 
             GeneratedWafers.Add(generatedWafer);
 
             return Tuple.Create(generatedWafer, parentMaterialLoaded);
+        }
+
+        public Container GenerateContainer(MaterialCollection submaterials = null, bool automaticContainerPositions = true, string containerType = amsOSRAMConstants.ContainerSMIFPod, Facility facility = null, ContainerPositionSorting positionSorting = ContainerPositionSorting.Ascending)
+        {
+            // Facility
+            if (String.IsNullOrWhiteSpace(facility?.Name))
+            {
+                facility = new Facility();
+                facility.Name = FacilityName;
+            }
+
+            if (facility.Id <= 0)
+            {
+                facility.Load();
+            }
+
+            // Create one Container to put the Wafers
+            ContainerScenario = new ContainerScenario();
+            ContainerScenario.Entity.IsAutoGeneratePositionEnabled = automaticContainerPositions;
+            ContainerScenario.Entity.Name = "Container_" + DateTime.Now.ToString("yyyyMMdd_HHmmssfff");
+            ContainerScenario.Entity.Type = containerType;
+            ContainerScenario.Entity.PositionUnitType = ContainerPositionUnitType.Material;
+            ContainerScenario.Entity.Facility = facility;
+            ContainerScenario.Entity.CapacityUnits = amsOSRAMConstants.UnitWafers;
+            ContainerScenario.Entity.CapacityPerPosition = 1;
+            ContainerScenario.Entity.PositionSorting = positionSorting;
+            ContainerScenario.Entity.TotalPositions = amsOSRAMConstants.ContainerTotalPosition;
+            ContainerScenario.Setup();
+
+            if (submaterials != null && submaterials.Count > 0)
+            {
+                ContainerScenario.AssociateMaterials(submaterials);
+            }
+
+            return ContainerScenario.Entity;
         }
 
         /// <summary>

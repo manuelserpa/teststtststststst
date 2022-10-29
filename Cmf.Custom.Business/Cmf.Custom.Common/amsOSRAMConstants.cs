@@ -1463,7 +1463,7 @@
         /// <summary>
         /// Tibco Reply Message Context ActionGroup
         /// </summary>
-        public const string TibcoReplyContextActionGroup = "ActionGroup";
+        public const string TibcoReplyContextActionGroupName = "ActionGroupName";
 
         /// <summary>
         /// Tibco Reply Message Context Lot

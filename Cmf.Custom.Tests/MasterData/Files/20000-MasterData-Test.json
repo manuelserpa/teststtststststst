@@ -362,7 +362,8 @@
       "IncomingPickingPlace": "",
       "OutgoingPickingPlace": "",
       "PickingStrategy": "",
-      "PickingSequence": ""
+      "PickingSequence": "",
+      "LdsId": "12345"
     }
   },
   "<DM>Service": {
@@ -383,7 +384,7 @@
       "IsShippingAllowed": "No",
       "IsDecimalQuantityAllowed": "Yes",
       "IsAutoSplitByProductEnabled": "No",
-      "SubMaterialTrackStateDepth": "1",
+      "SubMaterialTrackStateDepth": "",
       "SortRuleSet": "",
       "PrimaryUnits": "CM2",
       "SecondaryUnits": "",
@@ -429,12 +430,11 @@
       "Name": "CMFTestStep02",
       "Description": "Second step of the Generic Flow ",
       "Type": "CMFTestStepType",
-      "ProcessingType": "Metrology",
       "DisplayOrder": "10",
       "IsShippingAllowed": "No",
       "IsDecimalQuantityAllowed": "Yes",
       "IsAutoSplitByProductEnabled": "No",
-      "SubMaterialTrackStateDepth": "1",
+      "SubMaterialTrackStateDepth": "",
       "SortRuleSet": "",
       "PrimaryUnits": "CM2",
       "SecondaryUnits": "",
@@ -473,8 +473,7 @@
       "DefaultInspectionAQLSeverity": "",
       "DefaultInspectionAQLInspectionLevel": "",
       "DefaultInspectionAQLAcceptanceLimit": "",
-      "CalculatePassYield": "",
-      "RequiresSpaceConfirmation": "Yes"
+      "CalculatePassYield": ""
     },
     "3": {
       "Name": "CMFTestStep03",
@@ -484,7 +483,7 @@
       "IsShippingAllowed": "No",
       "IsDecimalQuantityAllowed": "Yes",
       "IsAutoSplitByProductEnabled": "No",
-      "SubMaterialTrackStateDepth": "1",
+      "SubMaterialTrackStateDepth": "",
       "SortRuleSet": "",
       "PrimaryUnits": "CM2",
       "SecondaryUnits": "",
@@ -1633,16 +1632,6 @@
       "SourceEntity": "ENA01",
       "TargetEntity": "ENA01-LP04",
       "Order": "4"
-    },
-    "5": {
-      "SourceEntity": "CMFTestProcessEquipment01",
-      "TargetEntity": "CMFTestSubProcessEquipment01",
-      "Order": "1"
-    },
-    "6": {
-      "SourceEntity": "CMFTestMeasurementEquipment01",
-      "TargetEntity": "CMFTestSubMeasurementEquipment01",
-      "Order": "1"
     }
   },
   "<DM>ResourceService": {
@@ -1658,26 +1647,6 @@
     },
     "3": {
       "SourceEntity": "CMFTestResource01",
-      "TargetEntity": "CMFTestService",
-      "IsEnabled": "Yes"
-    },
-    "4": {
-      "SourceEntity": "CMFTestProcessEquipment01",
-      "TargetEntity": "CMFTestService",
-      "IsEnabled": "Yes"
-    },
-    "5": {
-      "SourceEntity": "CMFTestSubProcessEquipment01",
-      "TargetEntity": "CMFTestService",
-      "IsEnabled": "Yes"
-    },
-    "6": {
-      "SourceEntity": "CMFTestMeasurementEquipment01",
-      "TargetEntity": "CMFTestService",
-      "IsEnabled": "Yes"
-    },
-    "7": {
-      "SourceEntity": "CMFTestSubMeasurementEquipment01",
       "TargetEntity": "CMFTestService",
       "IsEnabled": "Yes"
     }
@@ -1752,49 +1721,12 @@
       "DataNumValidationMin": "",
       "DataNumValidationMax": "",
       "DataTextValidation": ""
-    },
-    "6": {
-      "Name": "SScOTest",
-      "Description": "",
-      "Type": "Metrology",
-      "DisplayName": "",
-      "ParameterScope": "EDC_SPC",
-      "DataType": "Decimal",
-      "DataFormat": "",
-      "DataUnit": "",
-      "DataScale": "",
-      "DataNumValidationMin": "",
-      "DataNumValidationMax": "",
-      "DataTextValidation": "",
-      "SendToSpace": "Yes"
-    },
-    "7": {
-      "Name": "QScOTest",
-      "Description": "",
-      "Type": "Metrology",
-      "DisplayName": "",
-      "ParameterScope": "EDC_SPC",
-      "DataType": "String",
-      "DataFormat": "",
-      "DataUnit": "",
-      "DataScale": "",
-      "DataNumValidationMin": "",
-      "DataNumValidationMax": "",
-      "DataTextValidation": "",
-      "SendToSpace": "No"
     }
   },
   "<DM>DataCollection": {
     "1": {
       "Name": "ProductCertificateDataUnitTest",
       "Description": "Product Certificate Data Unit Test",
-      "Type": "Production",
-      "Scope": "General",
-      "SPCPostMode": "OnPostPerSample"
-    },
-    "2": {
-      "Name": "SpaceDCTest",
-      "Description": "Data Collection to Test send information to Space",
       "Type": "Production",
       "Scope": "General",
       "SPCPostMode": "OnPostPerSample"
@@ -2030,94 +1962,6 @@
       "SampleKeySource": "",
       "MaterialSampleProperty": "",
       "Instruction": ""
-    },
-    "6": {
-      "DataCollection": "SpaceDCTest",
-      "Parameter": "SScOTest",
-      "Description": "",
-      "Order": "1",
-      "Calculation": "",
-      "CalculationGroupingMode": "",
-      "DataCollectionParameterGroup": "",
-      "DefaultValue": "",
-      "ErrorLimitViolationProtocol": "",
-      "IsOptional": "No",
-      "LimitCheckingMode": "",
-      "MaximumSampleReadings": "4",
-      "MinimumSampleReadings": "1",
-      "Rule": "",
-      "SampleCountPercentage": "100",
-      "SampleCountPercentageSource": "",
-      "SampleKey": "MaterialId",
-      "SampleNamesList": "",
-      "ReadingNamesList": "",
-      "WarningLimitViolationProtocol": "",
-      "IsReference": "",
-      "CaptureInstrumentBehavior": "",
-      "InstrumentType": "",
-      "InspectionFrequency": "",
-      "InspectionFrequencyConfigurationMode": "",
-      "AQLInspectionLevel": "",
-      "AQLSeverity": "",
-      "AQLAcceptanceLimit": "",
-      "CounterFrequency": "",
-      "MaximumAcceptableDefectsMode": "",
-      "MaximumAcceptableDefectsFixed": "",
-      "MaximumAcceptableDefectsPercentage": "",
-      "SampleValueType": "",
-      "SampleCountSource": "",
-      "FixedSampleSize": "",
-      "UseFirstPieceMeasurementStrategy": "",
-      "MeasureLastPiece": "",
-      "TestAllSinceLastPass": "",
-      "TestAllOnFail": "",
-      "SampleKeySource": "Logical Wafer",
-      "MaterialIdSampleProperty": "Name",
-      "Instruction": ""
-    },
-    "7": {
-      "DataCollection": "SpaceDCTest",
-      "Parameter": "QScOTest",
-      "Description": "",
-      "Order": "2",
-      "Calculation": "",
-      "CalculationGroupingMode": "",
-      "DataCollectionParameterGroup": "",
-      "DefaultValue": "",
-      "ErrorLimitViolationProtocol": "",
-      "IsOptional": "No",
-      "LimitCheckingMode": "",
-      "MaximumSampleReadings": "4",
-      "MinimumSampleReadings": "1",
-      "Rule": "",
-      "SampleCountPercentage": "100",
-      "SampleCountPercentageSource": "",
-      "SampleKey": "MaterialId",
-      "SampleNamesList": "",
-      "ReadingNamesList": "",
-      "WarningLimitViolationProtocol": "",
-      "IsReference": "",
-      "CaptureInstrumentBehavior": "",
-      "InstrumentType": "",
-      "InspectionFrequency": "",
-      "InspectionFrequencyConfigurationMode": "",
-      "AQLInspectionLevel": "",
-      "AQLSeverity": "",
-      "AQLAcceptanceLimit": "",
-      "CounterFrequency": "",
-      "MaximumAcceptableDefectsMode": "",
-      "MaximumAcceptableDefectsFixed": "",
-      "MaximumAcceptableDefectsPercentage": "",
-      "SampleValueType": "",
-      "SampleCountSource": "",
-      "FixedSampleSize": "",
-      "UseFirstPieceMeasurementStrategy": "",
-      "MeasureLastPiece": "",
-      "TestAllSinceLastPass": "",
-      "TestAllOnFail": "",
-      "SampleKeySource": "Logical Wafer",
-      "MaterialIdSampleProperty": "Name",
-      "Instruction": ""
     }
   },
   "<DM>DataCollectionLimitSet": {
@@ -2126,12 +1970,6 @@
       "Description": "Product Certificate Data Limit Set Unit Test",
       "DataCollection": "ProductCertificateDataUnitTest",
       "Parameter Limits": "Parameter[Thickness] MinValue[635] MaxValue[665] LimitType[Absolute] LowerErrorLimit[635] UpperErrorLimit[665];Parameter[Bow] MinValue[-6] MaxValue[0] LimitType[Absolute] LowerErrorLimit[-6] UpperErrotLimit[0]"
-    },
-    "2": {
-      "Name": "SpaceDCTestLimitSet",
-      "Description": "Data Collection to Test send information to Space Limit Set Unit Test",
-      "DataCollection": "SpaceDCTest",
-      "Parameter Limits": "Parameter[SScOTest] MinValue[635] MaxValue[665] LimitType[Absolute] LowerErrorLimit[635] UpperErrorLimit[665]"
     }
   },
   "DataCollectionSampleLimits": {},
