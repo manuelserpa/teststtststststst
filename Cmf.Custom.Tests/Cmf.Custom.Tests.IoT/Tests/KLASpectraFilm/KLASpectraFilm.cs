@@ -1,31 +1,29 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
+﻿using amsOSRAMEIAutomaticTests.Objects.Extensions;
+using amsOSRAMEIAutomaticTests.Objects.Utilities;
 using cmConnect.TestFramework.Common.Utilities;
 using cmConnect.TestFramework.EquipmentSimulator.Drivers;
+using cmConnect.TestFramework.EquipmentSimulator.Objects;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
+using Cmf.Custom.Tests.IoT.Tests.Common;
+using Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader;
+using Cmf.Custom.TestUtilities;
+using Cmf.Foundation.BusinessObjects.QueryObject;
+using Cmf.Foundation.BusinessObjects.SmartTables;
+using Cmf.Foundation.BusinessOrchestration.QueryManagement.InputObjects;
+using Cmf.Foundation.BusinessOrchestration.QueryManagement.OutputObjects;
+using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects;
 using Cmf.SECS.Driver;
-using Cmf.TestScenarios.ContainerManagement.ContainerScenarios;
-using amsOSRAMEIAutomaticTests.Objects.Extensions;
-using amsOSRAMEIAutomaticTests.Objects.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Cmf.Custom.TestUtilities;
-using cmConnect.TestFramework.EquipmentSimulator.Objects;
-using Cmf.Foundation.BusinessOrchestration.QueryManagement.InputObjects;
-using Cmf.Foundation.BusinessOrchestration.QueryManagement.OutputObjects;
-using System.Data;
-using Cmf.Foundation.BusinessObjects.QueryObject;
-using Cmf.Custom.Tests.IoT.Tests.Common;
-using System.Collections.Generic;
-using Cmf.Foundation.BusinessObjects.SmartTables;
-using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
-using Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader;
-using System.IO;
-using System.Text.Json;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Threading;
 
 namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
 {
@@ -91,7 +89,9 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
         private enum ControlJobStates { QUEUED = 0, SELECTED, WAITINGFORSTART, EXECUTING, PAUSED, COMPLETED }
         private enum SubstrateStates { ATSource = 0, ATWork, ATDestination }
         private enum SubstratProcessStates { NeedProcessing = 0, InProcess, Processed, Aborted, Stopped, Rejected, Lost, Skipped }
+       
         #region Test Basics
+
         [TestInitialize]
         public void TestInit()
         {
@@ -166,12 +166,6 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
         #endregion Test Basic
 
         #region Tests FullProcessScenario 
-        //[TestMethod]
-        //public void SendMetrics()
-        //{
-        //    SendMetrics();
-        //}
-
 
         /// <summary> 
         /// Scenario: Recipe Exists on Equipment
@@ -217,10 +211,8 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
 
-
             base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
         }
-
 
         /// <summary> 
         /// Scenario: Recipe Exists on Equipment
@@ -415,7 +407,6 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
         }
         #endregion Tests FullProcessScenario 
 
-
         #region Events
         public override bool CarrierIn(CustomMaterialScenario scenario, int loadPortToSet)
         {
@@ -545,8 +536,6 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
             return true;
         }
         #endregion Events
-
-
 
         public override bool PostTrackInActions(CustomMaterialScenario scenario)
         {
@@ -780,6 +769,7 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
                 }
                 newItem.U2 = valArray.ToArray();
             }
+
             return newItem;
         }
 
@@ -1067,8 +1057,6 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
             //table = new LoadSmartTableDataInput { SmartTable = (table as SmartTable) }.LoadSmartTableDataSync().SmartTable;
             DataSet ds = Cmf.TestScenarios.Others.Utilities.ToDataSet((table as SmartTable).Data);
 
-
-
             if (clearTable)
             {
 
@@ -1100,13 +1088,10 @@ namespace amsOSRAMEIAutomaticTests.KLASpectraFilm
                 dr["LastOperationHistorySeq"] = -1;
                 dr["Step"] = stepName;
                 ds.Tables[0].Rows.Add(dr);
-
             }
 
             try
             {
-
-
                 var input = new InsertOrUpdateSmartTableRowsInput { SmartTable = table, Table = Cmf.TestScenarios.Others.Utilities.FromDataSet(ds) };
                 var insert = input.InsertOrUpdateSmartTableRowsSync();
             }
