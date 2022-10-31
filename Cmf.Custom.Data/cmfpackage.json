@@ -5,7 +5,7 @@
   "packageType": "Data",
   "isInstallable": true,
   "isUniqueInstall": true,
-  "contentToPack": [  
+  "contentToPack": [
     {
       "source": "DEEs/*",
       "target": "DeeRules",

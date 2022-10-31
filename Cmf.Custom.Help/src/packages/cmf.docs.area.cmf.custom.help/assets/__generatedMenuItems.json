@@ -306,12 +306,6 @@
     "actionId": ""
   },
   {
-    "id": "customreportedctospacehandler",
-    "menuGroupId": "deeactions",
-    "title": "CustomReportEDCToSpaceHandler",
-    "actionId": ""
-  },
-  {
     "id": "customsendabortinformationtoiot",
     "menuGroupId": "deeactions",
     "title": "CustomSendAbortInformationToIoT",
@@ -360,6 +354,18 @@
     "actionId": ""
   },
   {
+    "id": "custom_material_attributes_on_trackout",
+    "menuGroupId": "deeactions",
+    "title": "CustomMaterialAttributesOnTrackOut",
+    "actionId": ""
+  },
+  {
+    "id": "custom_report_edc_to_space_handler",
+    "menuGroupId": "deeactions",
+    "title": "CustomReportEDCToSpaceHandler",
+    "actionId": ""
+  },
+  {
     "id": "custom_send_adhoc_transfer_information_to_iot",
     "menuGroupId": "deeactions",
     "title": "CustomSendAdHocTransferInformationToIoT",
@@ -372,6 +378,12 @@
     "actionId": ""
   },
   {
+    "id": "custom_tibco_ems_reply_handler",
+    "menuGroupId": "deeactions",
+    "title": "CustomTibcoEMSReplyHandler",
+    "actionId": ""
+  },
+  {
     "id": "custom_validate_material_reception_substrate",
     "menuGroupId": "deeactions",
     "title": "CustomValidateMaterialReceptionSubstrate",
@@ -381,6 +393,24 @@
     "id": "custom_sorter_job_definition",
     "menuGroupId": "entitytypes",
     "title": "CustomSorterJobDefinition",
+    "actionId": ""
+  },
+  {
+    "id": "et_area",
+    "menuGroupId": "entitytypes",
+    "title": "Area",
+    "actionId": ""
+  },
+  {
+    "id": "et_material",
+    "menuGroupId": "entitytypes",
+    "title": "Material",
+    "actionId": ""
+  },
+  {
+    "id": "et_parameter",
+    "menuGroupId": "entitytypes",
+    "title": "Area",
     "actionId": ""
   },
   {
@@ -420,7 +450,7 @@
     "actionId": ""
   },
   {
-    "id": "customtibcoemsgatewayresolver",
+    "id": "custom_tibco_ems_gateway_resolver",
     "menuGroupId": "generictables",
     "title": "CustomTibcoEMSGatewayResolver",
     "actionId": ""
@@ -1038,12 +1068,6 @@
     "actionId": ""
   },
   {
-    "id": "customsendmescriticaldatacollectiontospace",
-    "menuGroupId": "features",
-    "title": "Send Critical Data Collection to Space",
-    "actionId": ""
-  },
-  {
     "id": "customstibosystemintegration",
     "menuGroupId": "features",
     "title": "Stibo System Integration",
@@ -1056,12 +1080,6 @@
     "actionId": ""
   },
   {
-    "id": "customtibcoemsgateway",
-    "menuGroupId": "features",
-    "title": "Tibco EMS Gateway",
-    "actionId": ""
-  },
-  {
     "id": "customundockvendorcontainertype",
     "menuGroupId": "features",
     "title": "Undock Vendor Container Type",
@@ -1071,6 +1089,18 @@
     "id": "custom_lot_change_event",
     "menuGroupId": "features",
     "title": "Lot Change Event",
+    "actionId": ""
+  },
+  {
+    "id": "custom_send_mes_critical_data_collection_to_space",
+    "menuGroupId": "features",
+    "title": "Send Critical Data Collection to Space",
+    "actionId": ""
+  },
+  {
+    "id": "custom_tibco_ems_gateway",
+    "menuGroupId": "features",
+    "title": "Tibco EMS Gateway",
     "actionId": ""
   },
   {

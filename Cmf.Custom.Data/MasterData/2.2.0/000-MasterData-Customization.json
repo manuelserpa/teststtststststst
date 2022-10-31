@@ -1,10 +1,37 @@
 {
+  "WorksheetNameMapping": {
+    "1": {
+      "WorksheetName": "TibcoGatewayResolver",
+      "Value": "<GT>CustomTibcoEMSGatewayResolver"
+    }
+  },
   "<SM>LookupTableValues": {
     "1": {
       "LookUp Table": "CustomSorterProcess",
       "Lookup Table Value Parent": "",
       "Lookup Table Value": "WaferReception",
       "Lookup Table Value Description": "Wafer Reception",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "2": {
+      "LookUp Table": "MaterialType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Crystal",
+      "Lookup Table Value Description": "Crystal",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "3": {
+      "LookUp Table": "MaterialType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Substrate",
+      "Lookup Table Value Description": "Substrate",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "4": {
+      "LookUp Table": "MaterialType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Carrier",
+      "Lookup Table Value Description": "Carrier",
       "Lookup Table IsEnabled": "Yes"
     }
   },
@@ -100,28 +127,94 @@
     }
   },
   "<SM>EntityTypeProperty": {
-		"1": {
-			"EntityType": "Step",
-			"Name": "IsWaferReception",
-			"Description": "If set marks the Step as wafer reception",
-			"PropertyType": "Attribute",
-			"ScalarType": "Bit",
-			"ReferenceType": "None",
-			"IsEnabled": "Yes",
-			"IsHistoryEnable": "Yes",
-			"CopyOnClone": "",
-			"BelongsTo": "",
-			"ScalarSize": "",
-			"ScalarPrecision": "",
-			"ReferenceName": "",
-			"DefaultValue": "",
-			"IsArray": "",
-			"IsIndexed": "",
-			"IsMandatory": "",
-			"AccessLevel": "",
-			"ValidationRange": "",
-			"ValidationRegex": ""
-		}
+    "1": {
+      "EntityType": "Step",
+      "Name": "IsWaferReception",
+      "Description": "If set marks the Step as wafer reception",
+      "PropertyType": "Attribute",
+      "ScalarType": "Bit",
+      "ReferenceType": "None",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "CopyOnClone": "",
+      "BelongsTo": "",
+      "ScalarSize": "",
+      "ScalarPrecision": "",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "",
+      "IsIndexed": "",
+      "IsMandatory": "",
+      "AccessLevel": "",
+      "ValidationRange": "",
+      "ValidationRegex": ""
+    },
+    "2": {
+      "EntityType": "Area",
+      "Name": "LdsId",
+      "Description": "Represents the Logical Data Source (LDS Id)",
+      "PropertyType": "Attribute",
+      "ScalarType": "NVarChar",
+      "ReferenceType": "None",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "CopyOnClone": "",
+      "BelongsTo": "",
+      "ScalarSize": "",
+      "ScalarPrecision": "",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "",
+      "IsIndexed": "",
+      "IsMandatory": "",
+      "AccessLevel": "",
+      "ValidationRange": "",
+      "ValidationRegex": ""
+    },
+    "3": {
+      "EntityType": "Parameter",
+      "Name": "SendToSpace",
+      "Description": "If set sends the parameter to SPACE",
+      "PropertyType": "Attribute",
+      "ScalarType": "Bit",
+      "ReferenceType": "None",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "CopyOnClone": "",
+      "BelongsTo": "",
+      "ScalarSize": "",
+      "ScalarPrecision": "",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "",
+      "IsIndexed": "",
+      "IsMandatory": "",
+      "AccessLevel": "",
+      "ValidationRange": "",
+      "ValidationRegex": ""
+    },
+    "4": {
+      "EntityType": "Material",
+      "Name": "LastProcessRecipe",
+      "Description": "Name of last recipe used",
+      "PropertyType": "Attribute",
+      "ScalarType": "NVarChar",
+      "ReferenceType": "None",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "CopyOnClone": "",
+      "BelongsTo": "",
+      "ScalarSize": "",
+      "ScalarPrecision": "",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "",
+      "IsIndexed": "",
+      "IsMandatory": "",
+      "AccessLevel": "340",
+      "ValidationRange": "",
+      "ValidationRegex": ""
+    }
   },
   "<SM>DEEAction": {
     "1": {
@@ -137,9 +230,46 @@
       "CodeFileRelativePath": "Materials//CustomValidateMaterialReceptionSubstrate.cs",
       "IsEnabled": "Yes",
       "Classification": ""
+    },
+    "3": {
+      "Action": "CustomReportEDCToSpaceHandler",
+      "Description": "DEE Action to validate DataCollection and create a XML message to be sent to Space system.",
+      "CodeFileRelativePath": "Space//CustomReportEDCToSpaceHandler.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "4": {
+      "Action": "CustomTibcoEMSReplyHandler",
+      "Description": "DEE Action to handle the reply send from Tibco EMS.",
+      "CodeFileRelativePath": "Tibco//CustomTibcoEMSReplyHandler.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "5": {
+      "Action": "CustomMaterialAttributesOnTrackOut",
+      "Description": "DEE action to set attributes on Material on TrackOut",
+      "CodeFileRelativePath": "Materials//CustomMaterialAttributesOnTrackOut.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
     }
   },
-  "DEEActionOrder": {},
+  "DEEActionOrder": {
+    "1": {
+      "ActionGroup": "BusinessObjects.DataCollectionInstance.PerformImmediate.Post",
+      "Action": "CustomReportEDCToSpaceHandler",
+      "Order": "100"
+    },
+    "2": {
+      "ActionGroup": "BusinessObjects.DataCollectionInstance.Close.Post",
+      "Action": "CustomReportEDCToSpaceHandler",
+      "Order": "100"
+    },
+    "3": {
+      "ActionGroup": "BusinessObjects.MaterialCollection.TrackOut.Post",
+      "Action": "CustomMaterialAttributesOnTrackOut",
+      "Order": "100"
+    }
+  },
   "<SM>LocalizedMessageKey": {
     "1": {
       "Name": "CustomValueDoesNotExistLookupTable",
@@ -307,6 +437,18 @@
       "ResourceProcessingType": "",
       "Page": "Custom_ResourceView_Cluster",
       "BusinessRule": ""
+    }
+  },
+  "<LOOKUP>TibcoGatewayResolver": {
+    "1": {
+      "Subject": "CustomReportEDCToSpace",
+      "Topic": "QUEUE.P.RBG.SPACE_INPUT",
+      "ReplyTo": "QUEUE.P.RBG.SPACE_OUTPUT",
+      "Rule": "",
+      "IsEnabled": "Yes",
+      "QueueMessage": "Yes",
+      "TextMessage": "No",
+      "CompressMessage": "No"
     }
   }
 }

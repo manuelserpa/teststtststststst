@@ -21,7 +21,7 @@ namespace Cmf.Custom.amsOSRAM.Common.Extensions
         {
             if (dictionary.TryGetValue(key, out Value value))
             {
-                valueAs = (ValueAs)value;
+                valueAs = value == null ? default : (ValueAs)value;
                 return true;
             }
 

@@ -16,6 +16,11 @@
         public string Topic { get; set; }
 
         /// <summary>
+        /// ReplyTo
+        /// </summary>
+        public string ReplyTo { get; set; }
+
+        /// <summary>
         /// Rule
         /// </summary>
         public string Rule { get; set; }

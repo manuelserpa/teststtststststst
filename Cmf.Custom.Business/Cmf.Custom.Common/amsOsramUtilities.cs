@@ -1431,267 +1431,6 @@ namespace Cmf.Custom.amsOSRAM.Common
 
         #endregion Sorter
 
-        #region Space
-
-        /// <summary>
-        /// Method to create XML message with Lot and Data Collection Info to be sent to Space system
-        /// </summary>
-        public static CustomReportEDCToSpace CreateSpaceInfoDefaultValues(IMaterial material)
-        {
-            material.Load(1);
-
-            IProduct product = material.Product;
-            product.LoadAttributes(new Collection<string>
-            {
-                amsOSRAMConstants.ProductAttributeBasicType
-            });
-
-            string productBasicType = string.Empty;
-
-            if (product.Attributes.ContainsKey(amsOSRAMConstants.ProductAttributeBasicType))
-            {
-                product.Attributes.TryGetValueAs(amsOSRAMConstants.ProductAttributeBasicType, out productBasicType);
-            }
-
-            IArea area = null;
-
-            IResource subResource = null;
-
-            IResource resource = material.LastProcessedResource;
-
-            if (resource != null)
-            {
-                resource.LoadRelations(Cmf.Navigo.Common.Constants.SubResource);
-
-                if (resource.RelationCollection.ContainsKey(Cmf.Navigo.Common.Constants.SubResource))
-                {
-                    subResource = resource.RelationCollection[Navigo.Common.Constants.SubResource].FirstOrDefault().TargetEntity as IResource;
-                }
-
-                area = resource.Area;
-            }
-
-            // Load Site
-            ISite site = material.Facility?.Site;
-            site.Load();
-
-            // Get SiteCode attribute value
-            string siteCode = site.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute, true).ToString();
-
-            CustomReportEDCToSpace customReportEDCToSpace = new CustomReportEDCToSpace()
-            {
-                SampleDate = DateTime.Now.ToString(),
-                Sender = new Sender()
-                {
-                    Value = Environment.MachineName
-                },
-                Ids = new List<SiteCode>()
-                {
-                    new SiteCode()
-                    {
-                        Value = !string.IsNullOrWhiteSpace(siteCode) ? siteCode : string.Empty
-                    }
-                },
-                Keys = new List<Key>()
-                {
-                    new Key()
-                    {
-                        Name = "PROCESS",
-                        Value = product != null ? product.Name : string.Empty
-                    },
-                    new Key()
-                    {
-                        Name = "BASIC_TYPE",
-                        Value = productBasicType
-                    },
-                    new Key()
-                    {
-                        Name = "AREA",
-                        Value = area != null ? area.Name : string.Empty
-                    },
-                    new Key()
-                    {
-                        Name = "OWNER",
-                        Value = material.ProductionOrder != null ? material.ProductionOrder.Type : string.Empty
-                    },
-                    new Key()
-                    {
-                        Name = "ROUTE",
-                        Value = material.Flow != null ? $"{material.Flow.Name}_{material.Flow.Version}" : string.Empty
-                    },
-                    new Key()
-                    {
-                        Name = "OPERATION",
-                        Value = material.Step != null ? material.Step.Name : string.Empty
-                    },
-                    new Key()
-                    {
-                        Name = "PROCESS_SPS",
-                        Value = material.RequiredService != null ? material.RequiredService.Name : string.Empty
-                    },
-                    new Key()
-                    {
-                        Name = "EQUIPMENT",
-                        Value = resource != null ? resource.Name: string.Empty
-                    },
-                    new Key()
-                    {
-                        Name = "CHAMBER",
-                        Value = subResource != null ? subResource.Name : string.Empty
-                    },
-                    new Key()
-                    {
-                        Name = "RECIPE",
-                        Value = !string.IsNullOrWhiteSpace(material.CurrentRecipeInstance?.ParentEntity?.Name) ? material.CurrentRecipeInstance?.ParentEntity?.Name :string.Empty
-                    },
-                    new Key()
-                    {
-                        Name = "MEAS_EQUIPMENT",
-                        Value = resource != null && resource.Type.Equals("Measure") ? resource.Type : string.Empty
-                    },
-                    new Key()
-                    {
-                        Name = "BATCH_NAME",
-                        Value = Guid.NewGuid().ToString("N")
-                    },
-                    new Key()
-                    {
-                        Name = "LOT",
-                        Value = material.Name
-                    },
-                    new Key()
-                    {
-                        Name = "QTY",
-                        Value = $"{material.PrimaryQuantity + material.SubMaterialsPrimaryQuantity}"
-                    },
-                    new Key()
-                    {
-                        Name = "WAFER",
-                        Value = "."
-                    },
-                    new Key()
-                    {
-                        Name = "PUNKT",
-                        Value = "."
-                    },
-                    new Key()
-                    {
-                        Name = "X",
-                        Value = "."
-                    },
-                    new Key()
-                    {
-                        Name = "Y",
-                        Value = "."
-                    }
-                }
-            };
-
-            return customReportEDCToSpace;
-        }
-
-        /// <summary>
-        /// Method to create xml message with Wafer and Data Collection Info to be sent to Space system
-        /// </summary>
-        /// <param name="wafer"></param>
-        /// <param name="dataCollectionInstance"></param>
-        /// <returns></returns>
-        public static CustomReportEDCToSpace CreateSpaceInfoWaferValues(IMaterial wafer, IDataCollectionInstance dataCollectionInstance, IDataCollectionLimitSet limitSet)
-        {
-            // Get services provider information
-            IServiceProvider serviceProvider = ApplicationContext.CurrentServiceProvider;
-            IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
-
-            CustomReportEDCToSpace customReportEDCToSpace = CreateSpaceInfoDefaultValues(wafer);
-
-            List<Sample> samples = new List<Sample>();
-
-            // get distinct parameters
-            IParameterCollection parameters = entityFactory.CreateCollection<IParameterCollection>();
-
-            dataCollectionInstance.LoadRelations();
-
-            IDataCollection dc = dataCollectionInstance.DataCollection;
-            dc.LoadRelations(Navigo.Common.Constants.DataCollectionParameter);
-
-            parameters.AddRange(dc.DataCollectionParameters.Select(p => p.TargetEntity));
-            parameters.Load();
-
-            foreach (IParameter parameter in parameters)
-            {
-                if (parameter.DataType == ParameterDataType.Decimal || parameter.DataType == ParameterDataType.Long)
-                {
-                    Sample sample = new Sample();
-
-                    // Get the DC Points for the specific parameter
-                    IDataCollectionPointCollection points = entityFactory.CreateCollection<IDataCollectionPointCollection>();
-                    points.AddRange(dataCollectionInstance.DataCollectionPoints.Where(p => p.TargetEntity.Name.Equals(parameter.Name)));
-
-                    if (limitSet.DataCollectionParameterLimits.Any(ls => ls.TargetEntity.Name.Equals(parameter.Name)))
-                    {
-                        IDataCollectionParameterLimit parameterLimit = limitSet.DataCollectionParameterLimits.FirstOrDefault(ls => ls.TargetEntity.Name.Equals(parameter.Name));
-
-                        sample.ParameterName = parameter.Name;
-                        sample.ParameterUnit = parameter.DataUnit;
-
-                        List<Key> sampleKeys = new List<Key>();
-                        sampleKeys.Add(new Key()
-                        {
-                            Name = "Recipe",
-                            Value = !string.IsNullOrWhiteSpace(wafer.CurrentRecipeInstance?.ParentEntity?.Name) ? wafer.CurrentRecipeInstance?.ParentEntity?.Name : string.Empty
-                        });
-
-                        if (parameterLimit != null)
-                        {
-                            if (parameterLimit.LowerErrorLimit != null && parameterLimit.UpperErrorLimit != null)
-                            {
-                                sample.Upper = parameterLimit.UpperErrorLimit.ToString();
-                                sample.Lower = parameterLimit.LowerErrorLimit.ToString();
-                            }
-
-                            if (parameterLimit.LowerWarningLimit != null && parameterLimit.UpperWarningLimit != null)
-                            {
-                                sample.Upper = parameterLimit.UpperWarningLimit.ToString();
-                                sample.Lower = parameterLimit.LowerWarningLimit.ToString();
-                            }
-                        }
-                    }
-
-                    Raws raws = new Raws();
-                    raws.raws = new List<Raw>();
-                    raws.StoreRaws = "True";
-
-                    // Add the readings values
-                    foreach (IDataCollectionPoint dcPoint in points)
-                    {
-                        Raw raw = new Raw();
-                        raw.RawValue = Convert.ToDecimal(dcPoint.Value);
-
-                        List<Key> rawKeys = new List<Key>();
-                        rawKeys.Add(new Key()
-                        {
-                            Name = "WAFER",
-                            Value = dcPoint.SampleId
-                        });
-
-                        raw.Keys = rawKeys;
-
-                        raws.raws.Add(raw);
-                    }
-
-                    sample.Raws = raws;
-
-                    samples.Add(sample);
-                }
-            }
-
-            customReportEDCToSpace.Samples = samples;
-
-            return customReportEDCToSpace;
-        }
-
-        #endregion Space
-
         #region Data Collection
 
         /// <summary>
@@ -2041,6 +1780,81 @@ namespace Cmf.Custom.amsOSRAM.Common
 
                 material.SetMainStateModel(currentEntityState);
             }
+        }
+
+        public static IShiftDefinitionShift GetShiftDefinitionShiftByCalendar(ICalendar calendar)
+        {
+            // determine shift definition
+            IShiftDefinition shiftDefinition = null;
+            IShiftDefinitionShift employeeShiftDefinitionShift = null;
+
+            switch (DateTime.Now.DayOfWeek.ToString())
+            {
+                case "Sunday":
+                    shiftDefinition = calendar.DefaultSundayShiftDefinition;
+                    break;
+                case "Monday":
+                    shiftDefinition = calendar.DefaultMondayShiftDefinition;
+                    break;
+                case "Tuesday":
+                    shiftDefinition = calendar.DefaultTuesdayShiftDefinition;
+                    break;
+                case "Wednesday":
+                    shiftDefinition = calendar.DefaultWednesdayShiftDefinition;
+                    break;
+                case "Thursday":
+                    shiftDefinition = calendar.DefaultThursdayShiftDefinition;
+                    break;
+                case "Friday":
+                    shiftDefinition = calendar.DefaultFridayShiftDefinition;
+                    break;
+                case "Saturday":
+                    shiftDefinition = calendar.DefaultSaturdayShiftDefinition;
+                    break;
+            }
+
+            // determine the shift code
+            if (shiftDefinition != null)
+            {
+                // capture current time
+                DateTime currentTime = DateTime.Now;
+
+                // look at each shift definition shift to match with current time
+                foreach (ShiftDefinitionShift shiftDefinitionShift in shiftDefinition.ShiftsCollection)
+                {
+                    // get today as start and end dates
+                    DateTime startDate = DateTime.Today;
+                    DateTime endDate = DateTime.Today;
+
+                    // assign the times from the shift to get full datetime values for comparing
+                    startDate = startDate.Date + shiftDefinitionShift.StartTime.Value;
+                    endDate = endDate.Date + shiftDefinitionShift.EndTime.Value;
+
+                    // check if shift end time is less-than shift start time (indicating midnight shift)
+                    if (shiftDefinitionShift.StartTime.Value >= shiftDefinitionShift.EndTime.Value)
+                    {
+                        if (currentTime.Hour > 0 && (currentTime <= endDate))
+                        {
+                            // decrement startDate back 1 day
+                            startDate = startDate.AddDays(-1);
+                        }
+                        else
+                        {
+                            // increment endDate to next day
+                            endDate = endDate.AddDays(1);
+                        }
+                    }
+
+                    // now check if currentTime is between start and end
+                    if ((currentTime >= startDate) && (currentTime <= endDate))
+                    {
+                        employeeShiftDefinitionShift = shiftDefinitionShift;
+                        break;
+                    }
+                }
+            }
+
+            return employeeShiftDefinitionShift;
         }
 
         /// <summary>
