@@ -1,5 +1,6 @@
 ﻿using Cmf.Core.Business.Controls.PageObjects.Components;
 using Cmf.Core.Controls.PageObjects.Components;
+using Cmf.Core.PageObjects;
 using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Custom.Tests.GUI.PageObjects.Components;
 using Cmf.Custom.TestUtilities;
@@ -12,6 +13,7 @@ using OpenQA.Selenium;
 using Settings;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
 
 namespace Cmf.Custom.Tests.GUI.SendAdHocTransferInformation
@@ -316,10 +318,10 @@ namespace Cmf.Custom.Tests.GUI.SendAdHocTransferInformation
             //Navigates to Resource page
             NavigateTo(string.Format("Entity/Resource/{0}", resourceId));
 
-            EntityPage<Resource> resourcePage = CreatePageObject<EntityPage<Resource>>();
+            EntityPage<Resource> resourceEntityPage = CreatePageObject<EntityPage<Resource>>();
             WaitForLoadingStop();
 
-            return resourcePage;
+            return resourceEntityPage;
         }
 
         /// <summary>
@@ -330,13 +332,20 @@ namespace Cmf.Custom.Tests.GUI.SendAdHocTransferInformation
         /// </summary>
         private EntityPage<Resource> NavigateToResourceViewPage(long resourceId)
         {
-            //Navigates to Resource page
-            NavigateTo(string.Format("Entity/Resource/{0}/ResourceView", resourceId));
+            NavigateToResourceEntityPage(resourceId);
 
-            EntityPage<Resource> resourcePage = CreatePageObject<EntityPage<Resource>>();
+            ActionButtonGroup viewsButton = CreatePageObject<ActionButtonGroup>("cmf-core-controls-actionbuttongroup[button-id='Generic.Views']");
+            viewsButton.Click();
             WaitForLoadingStop();
 
-            return resourcePage;
+            ActionButtonGroupButton resourceViewButton = CreatePageObject<ActionButtonGroupButton>("cmf-core-controls-actionbuttongroupbutton[data-tag='cmf.mes.resource.view.resourceview']");
+            resourceViewButton.Click();
+            WaitForLoadingStop();
+
+            EntityPage<Resource> resourceViewPage = CreatePageObject<EntityPage<Resource>>();
+            WaitForLoadingStop();
+
+            return resourceViewPage;
         }
 
         /// <summary>
