@@ -153,10 +153,13 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             //regular teardown
             AfterTest();
 
+            loadPortsUsed.Clear();
+            containerScenariosUsed.Clear();
+
             var resourceToAbortMaterial = new Resource { Name = resourceName };
             resourceToAbortMaterial.Load();
             EnsureMaterialStartConditions(resourceToAbortMaterial);
-
+            
             RFIDReader.CleanUp(MESScenario);
             base.CleanUp(MESScenario);
 
@@ -211,6 +214,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
 
             containerScenariosUsed.Add(1, MESScenario.ContainerScenario);
+
             RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName);
 
             var recipe = new Recipe() { Name = RecipeName };
@@ -843,17 +847,18 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             "- ")]
         public void MechatronicMWS200_WaferReception_WithSorterJobDefinitionContext()
         {
-            Step step = new Step();
-            step.Name = stepName;
-            step.Load();
-            step.LoadAttributes();
+            int targetWafersFirstContainer, targetWafersSecondContainer, targetWafersThirdContainer, wafersOnSourceContainer;
 
-            step.SaveAttribute("IsWaferReception", true);
 
-            var wafersFirstContainer = 10;
-            var wafersSecondContainer = 10;
-            var wafersThirdContainer = 5;
-            
+            wafersOnSourceContainer = 25;
+            targetWafersSecondContainer = targetWafersFirstContainer = 10;
+            targetWafersThirdContainer = wafersOnSourceContainer - targetWafersSecondContainer - targetWafersFirstContainer;
+
+            var materialName = "MaterialTest_" + DateTime.Now.Ticks.ToString();
+            var productName = amsOSRAMConstants.DefaultWaferProductName;
+            var sourceCapacity = wafersOnSourceContainer.ToString();
+            var targetCapacity = targetWafersFirstContainer.ToString();
+
             base.LoadPortNumber = sourceLoadPortNumber = 1;
 
             loadPortsUsed.Add(1);
@@ -861,118 +866,109 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             loadPortsUsed.Add(3);
             loadPortsUsed.Add(4);
 
-            CustomMaterialScenario matScenario = InitializeMaterialScenario(resourceName, flowName, stepName);
-            base.MESScenario = matScenario;
-            base.MESScenario.Setup(containerType: "PEEK Cassette 8-Inch (25)");
             IgnoreMaterialScenarioSetup = true;
 
-            #region Create containers scenario
+            #region Pre-Conditions Setup
 
+            Step step = new Step();
+            step.Name = stepName;
+            step.Load();
+            step.LoadAttributes();
+
+            step.SaveAttribute("IsWaferReception", true);
+
+            Resource resource = new Resource { Name = resourceName };
+            resource.Load();
+            resource.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsSorter, true);
+
+            smartTableManager.ClearSmartTable(amsOSRAMConstants.CustomProductContainerCapacitiesSmartTable);
+            smartTableManager.SetSmartTableData(amsOSRAMConstants.CustomProductContainerCapacitiesSmartTable, new Dictionary<string, string>
+                {
+                    { "Product", productName },
+                    { "SourceCapacity", sourceCapacity },
+                    { "TargetCapacity", targetCapacity }
+                });
+
+            #endregion
+
+            #region Material Setup
+
+            MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, 0); 
+            MESScenario.Setup(productName: productName);
+
+            MaterialCollection materialsForContainer1 = new MaterialCollection();
+
+            for (int i = 1; i <= wafersOnSourceContainer; i++)
+            {
+                Material mat = new Material
+                {
+                    Name = materialName + "." + i,
+                    Flow = MESScenario.Flow,
+                    Step = MESScenario.Step,
+                    Product = MESScenario.Entity.Product,
+                    Type = amsOSRAMConstants.DefaultMaterialType,
+                    Form = amsOSRAMConstants.FormWafer,
+                    Facility = MESScenario.Facility,
+                    PrimaryUnits = amsOSRAMConstants.UnitWafers,
+                    PrimaryQuantity = 1
+                };
+
+                mat.Create();
+                materialsForContainer1.Add(mat);
+            }
+
+
+
+            #endregion
+
+            #region Recipe Setup
+
+            //var WaferVerificationScenario = new Parameter();
+            //WaferVerificationScenario.Name = nameof(WaferVerificationScenario).ToUpper();
+            //WaferVerificationScenario.Type = "Standard";
+
+            //parameters.Add(WaferVerificationScenario, "SEMISTANDARD");
+            var parameters = new Dictionary<Parameter, object>();
+
+            var test = new Parameter();
+            test.Name = "Param1";
+            test.Type = "Standard";
+
+            parameters.Add(test, "SEMISTANDARD");
+
+            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, amsOSRAMConstants.ServiceWaferReception, parameterCollection: parameters);
+
+            var recipe = new Recipe() { Name = RecipeName };
+            recipe.Load();
+
+            
+            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
+            RecipeManagement.FailOnNewBody = true;
+            RecipeManagement.RecipeExistsOnList = true;
+
+            #endregion
+
+            #region Create containers scenario
+            //ContainerScenario containerScenarioForLoadPort1 = CreateEmptyContainerScenario(1, MESScenario.Entity.Facility.Name ?? null, amsOSRAMConstants.ContainerSMIFPod);
             ContainerScenario containerScenarioForLoadPort2 = CreateEmptyContainerScenario(2, MESScenario.Entity.Facility.Name ?? null, amsOSRAMConstants.ContainerSMIFPod);
             ContainerScenario containerScenarioForLoadPort3 = CreateEmptyContainerScenario(3, MESScenario.Entity.Facility.Name ?? null, amsOSRAMConstants.ContainerSMIFPod);
             ContainerScenario containerScenarioForLoadPort4 = CreateEmptyContainerScenario(4, MESScenario.Entity.Facility.Name ?? null, amsOSRAMConstants.ContainerSMIFPod);
 
             containerAtLoadPort = new Dictionary<int, string>();
-            containerAtLoadPort.Add(1, matScenario.ContainerScenario.Entity.Name);
+            containerAtLoadPort.Add(1, MESScenario.ContainerScenario.Entity.Name);
             containerAtLoadPort.Add(2, containerScenarioForLoadPort2.Entity.Name);
             containerAtLoadPort.Add(3, containerScenarioForLoadPort3.Entity.Name);
             containerAtLoadPort.Add(4, containerScenarioForLoadPort4.Entity.Name);
 
             #endregion Create containers scenario
 
-            #region SPLIT
-
-            SplitInputParametersCollection splitInputParameters = new SplitInputParametersCollection();
-            string lotName = DateTime.Now.Ticks.ToString();
-            MESScenario.Entity.Load();
-            MESScenario.LoadChildren();
-
-            var SplitInputSubMaterialCollection1 = new SplitInputSubMaterialCollection();
-
-            //for(var i = 0; )
-
-
-            //SplitInputParameters splitInputParameters1 = new SplitInputParameters
-            //{
-            //    Name = lotName + ".001",
-            //    PrimaryQuantity = 0,
-            //    MaterialContainer = null,
-            //    SubMaterials = 
-            //};
-
-            //splitInputParameters.Add(splitInputParameters1);
-
-            SplitInputParameters splitInputParameters2 = new SplitInputParameters
-            {
-                Name = lotName + ".002",
-                PrimaryQuantity = 0,
-                MaterialContainer = null,
-                SubMaterials = new SplitInputSubMaterialCollection()
-                {
-                    new SplitInputSubMaterial
-                    {
-                        IsToDisassociate = false,
-                        SubMaterial = matScenario.Entity.SubMaterials[2],
-                        MaterialContainer = new MaterialContainer()
-                        {
-                            SourceEntity = matScenario.Entity.SubMaterials[2],
-                            TargetEntity = containerScenarioForLoadPort3.Entity,
-                            Position = 1
-                        }
-                    },
-                    new SplitInputSubMaterial
-                    {
-                        IsToDisassociate = false,
-                        SubMaterial = matScenario.Entity.SubMaterials[3],
-                        MaterialContainer = new MaterialContainer()
-                        {
-                            SourceEntity = matScenario.Entity.SubMaterials[3],
-                            TargetEntity = containerScenarioForLoadPort3.Entity,
-                            Position = 2
-                        }
-                    }
-                }
-            };
-
-            splitInputParameters.Add(splitInputParameters2);
-
-            MESScenario.Entity.Split(splitInputParameters);
-            MESScenario.Entity.Load();
-
-            Material materialToMerge1 = new Material { Name = lotName + ".001" };
-            Material materialToMerge2 = new Material { Name = lotName + ".002" };
-            materialsUsed.Add(materialToMerge1);
-            materialsUsed.Add(materialToMerge2);
-
-            #endregion SPLIT
-
-            customSorterJobDefinition = GetCustomSorterJobDefinition(amsOSRAMConstants.CustomSorterLogisticalProcessTransferWafers,
-                sourceContainers: new ContainerCollection() { containerScenarioForLoadPort2.Entity, containerScenarioForLoadPort3.Entity },
-                destinationContainers: new ContainerCollection() { base.MESScenario.ContainerScenario.Entity },
-                futureActionType: "Merge");
 
             containerScenariosUsed.Add(1, base.MESScenario.ContainerScenario);
             containerScenariosUsed.Add(2, containerScenarioForLoadPort2);
             containerScenariosUsed.Add(3, containerScenarioForLoadPort3);
+            containerScenariosUsed.Add(4, containerScenarioForLoadPort4);
 
-            InsertDataIntoCustomSorterJobDefinitionContextTable(stepName, customSorterJobDefinition.Name, materialName: matScenario.Entity.Name);
-
-            var parameters = new Dictionary<Parameter, object>();
-
-            var WaferVerificationScenario = new Parameter();
-            WaferVerificationScenario.Name = nameof(WaferVerificationScenario).ToUpper();
-            WaferVerificationScenario.Type = "Standard";
-
-            parameters.Add(WaferVerificationScenario, "SEMISTANDARD");
-
-            RecipeUtilities.CreateMESRecipeIfItDoesNotExist(resourceName, RecipeName, RecipeName, serviceName, parameterCollection: parameters);
-
-            var recipe = new Recipe() { Name = RecipeName };
-            recipe.Load();
-
-            RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
-            RecipeManagement.FailOnNewBody = true;
-            RecipeManagement.RecipeExistsOnList = true;
+            InsertDataIntoCustomSorterJobDefinitionContextTable(stepName, customSorterJobDefinition.Name);
 
             SorterCarrierIn();
 
@@ -983,11 +979,34 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             Log(String.Format("{0}: [S] Track In of Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
             try
             {
-                TrackInEvaluator(RecipeName);
+                //TrackInEvaluator(RecipeName);
+
+                var action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action();
+
+                //Call DEE action called by Operator when clicking on GUI to start the process
+                action = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.GetActionByNameInput()
+                {
+                    Name = "CustomSendAdHocTransferInformationToIoT"
+                }.GetActionByNameSync().Action;
+
+                var deeOutput = new Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects.ExecuteActionInput()
+                {
+                    Action = action,
+                    Input = new Dictionary<string, object>()
+                    {
+                        { "Resource", resourceName },
+                        { "SorterProcess", amsOSRAMConstants.CustomSorterProcessWaferReception},
+                        { "Quantity", wafersOnSourceContainer },
+                        { "Product", productName },
+                        { "LoadPort", loadPortNames[sourceLoadPortNumber] }
+
+                    }
+                }.ExecuteActionSync();
+
             }
             catch (Exception ex)
             {
-                if (ex.Message == "TrackInFailed")
+                if (ex.Message == "TrackInFailed" || TrackInMustFail)
                     return;
                 else
                     Assert.Fail(ex.Message);
@@ -1413,7 +1432,6 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             {
                 Assert.Fail("Track In must fail on Online Local");
             }
-
 
             TestUtilities.WaitFor(60, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
             {
@@ -1970,6 +1988,44 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
                         }
                     }
                 }
+                else if (futureActionType.Equals("WaferReception", StringComparison.InvariantCulture)) {
+                    Container theOneThatWillBeTranferred = sourceContainers.FirstOrDefault();
+                    theOneThatWillBeTranferred.LoadRelation("MaterialContainer");
+
+                    Container destinationContainer = destinationContainers.FirstOrDefault();
+                    destinationContainer.LoadRelation("MaterialContainer");
+
+                    Queue<string> freePositions = new Queue<string>();
+
+                    foreach (var targetContainer in destinationContainers)
+                    {
+                        for (int i = 1; i <= targetContainer.TotalPositions; i++)
+                        {
+                            if (destinationContainer.ContainerMaterials == null || !destinationContainer.ContainerMaterials.Any(m => m.Position == i))
+                            {
+                                freePositions.Enqueue(destinationContainer + "." + i);
+                            }
+                        }
+                    }
+
+                    foreach (var movement in theOneThatWillBeTranferred.ContainerMaterials)
+                    {
+                        var containerPos = freePositions.Dequeue().Split('.');
+
+                        JObject jObject = new JObject
+                        {
+                            ["MaterialName"] = "",
+                            ["SourceContainer"] = theOneThatWillBeTranferred.Name,
+                            ["SourcePosition"] = movement.Position,
+                            ["DestinationContainer"] = containerPos[0],
+                            ["DestinationPosition"] = containerPos[1]
+                        };
+
+                        temporaryMovementList.Add(jObject);
+
+                    }
+                }
+
                 else // Simple transfer scenario
                 {
                     if (!fullTransferWafers && !sortDescending)
@@ -2003,7 +2059,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
                             temporaryMovementList.Add(jObject);
                         }
                     }
-                    if(sortDescending)
+                    if (sortDescending)
                     {
                         Container theOneThatWillBeTranferred = sourceContainers.FirstOrDefault();
                         theOneThatWillBeTranferred.LoadRelation("MaterialContainer");
@@ -2062,9 +2118,8 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
                 temporaryMovementList.Add(jObject);
             }
-
+           
             customSorterJobDefinition.MovementList = mainObj.ToString();
-
             customSorterJobDefinition.Create();
             customSorterJobDefinition.Load();
 
