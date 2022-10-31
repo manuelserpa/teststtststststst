@@ -297,6 +297,31 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// </summary>
         public const string MaterialWaferSubstrateType = "Substrate";
 
+        /// <summary>
+        /// Product Lot Product
+        /// </summary>
+        public const string ProductLotProduct = "CMFTestLotProduct";
+
+        /// <summary>
+        /// FlowPath used on the Space flow
+        /// </summary>
+        public const string FlowPathSpace = "CMFTestSpaceFlow:A:1/CMFTestProcessStep:1";
+
+        /// <summary>
+        /// Service CMFTestProcessService
+        /// </summary>
+        public const string ServiceCMFTestProcessService = "CMFTestProcessService";
+
+        /// <summary>
+        /// Service CMFTestMeasurementService
+        /// </summary>
+        public const string ServiceCMFTestMeasurementService  = "CMFTestMeasurementService";
+
+        /// <summary>
+        /// Business Partner SpaceSupplier
+        /// </summary>
+        public const string BusinessPartnerSpaceSupplier  = "Space Supplier";
+
         #region Flows and Steps
 
         /// <summary>
@@ -496,6 +521,11 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// Movement type to send goods issue
         /// </summary>
         public const string DefaultGoodsIssueMovementTypeConfig = "/Cmf/Custom/ERP/MovementType/GoodsIssue";
+
+        /// <summary>
+        /// Protocol used by Space
+        /// </summary>
+        public const string DefaultProtocolSpaceConfig = "/amsOSRAM/Protocol/Space";
 
         #endregion Configurations
 

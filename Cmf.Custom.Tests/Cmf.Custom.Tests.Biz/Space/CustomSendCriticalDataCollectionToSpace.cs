@@ -24,13 +24,12 @@ namespace Cmf.Custom.Tests.Biz.Space
     [TestClass]
     public class CustomSendCriticalDataCollectionToSpace
     {
-        private const string LotProduct = "CMFTestLotProduct";
-        private const string FlowPath = "CMFTestSpaceFlow:A:1/CMFTestProcessStep:1";
+        private const string LotProduct = amsOSRAMConstants.ProductLotProduct;
+        private const string FlowPath = amsOSRAMConstants.FlowPathSpace;
         private const string FacilityName = amsOSRAMConstants.DefaultFacilityName;
-        private const string ProtocolName = "Space";
 
-        private const string ProcessServiceName = "CMFTestProcessService";
-        private const string MeasurementServiceName = "CMFTestMeasurementService";
+        private const string ProcessServiceName = amsOSRAMConstants.ServiceCMFTestProcessService;
+        private const string MeasurementServiceName = amsOSRAMConstants.ServiceCMFTestMeasurementService;
         private const string RecipeName = amsOSRAMConstants.DefaultRecipeName;
 
         private const string ProcessResourceName = amsOSRAMConstants.DefaultTestProcessResourceName;
@@ -41,7 +40,7 @@ namespace Cmf.Custom.Tests.Biz.Space
         private const string DataCollectionName = amsOSRAMConstants.DefaultSpaceDataCollectionName;
         private const string DataCollectionLimitSetName = amsOSRAMConstants.DefaultSpaceDataCollectionLimitSetName;
 
-        private const string BusinessParterName = "Space Supplier";
+        private const string BusinessParterName = amsOSRAMConstants.BusinessPartnerSpaceSupplier;
 
         private CustomExecutionScenario scenario;
         private Dictionary<string, bool?> rollbackIsRecipeManagementEnabled;
@@ -108,16 +107,17 @@ namespace Cmf.Custom.Tests.Biz.Space
 
         /// <summary>
         /// Description:
-        ///     - Execute a ComplexPerformDataCollection operation with parameter type equals to material Id
+        ///     - Creates a lot with one logical wafer with a substrate without recipes
+        ///     - Execute a ComplexPerformDataCollection operation on a given DataCollection with the parameters with different configurations
         ///     - Post with values outside the limits
         ///
-        /// Acceptance Citeria:
-        ///     - Lot is on hold with reason Out of Spec
+        /// Acceptance Criteria:
         ///     - Validate created message structure
+        ///     - Lot is on hold with reason Out of Spec
         ///
         /// </summary>
-        /// <TestCaseID>CustomSendCriticalDataCollectionToSpace.CustomSendCriticalDataCollectionToSpace_PostEDCDataOutsideLimits_ValidateAndCreateXMLMessage</TestCaseID>
-        /// <Author>David Guilherme</Author>
+        /// <TestCaseID>CustomSendCriticalDataCollectionToSpace_PostEDCDataOutsideLimits_ValidateAndCreateXMLMessage</TestCaseID>
+        /// <Author>Oliverio Sousa</Author>
         [TestMethod]
         public void CustomSendCriticalDataCollectionToSpace_PostEDCDataOutsideLimits_ValidateAndCreateXMLMessage()
         {
@@ -205,17 +205,18 @@ namespace Cmf.Custom.Tests.Biz.Space
 
         /// <summary>
         /// Description:
-        ///     - Execute a ComplexPerformDataCollection operation with parameter type equals to material Id
+        ///     - Creates a lot with one logical wafer with a substrate without recipes
+        ///     - Execute a ComplexPerformDataCollection operation on a given DataCollection with the parameters with different configurations
         ///     - Post with values inside the limits
         ///
-        /// Acceptance Citeria:
-        ///     - Lot is not on hold with reason Out of Spec
+        /// Acceptance Criteria:
+        ///     - Lot is not on hold
         ///     - Lot has a protocol instance
         ///     - Validate created message structure
         ///
         /// </summary>
-        /// <TestCaseID>CustomSendCriticalDataCollectionToSpace.CustomSendCriticalDataCollectionToSpace_PostEDCDataInsideLimits_ValidateAndCreateXMLMessage</TestCaseID>
-        /// <Author>David Guilherme</Author>
+        /// <TestCaseID>CustomSendCriticalDataCollectionToSpace_PostEDCDataInsideLimits_ValidateAndCreateXMLMessage</TestCaseID>
+        /// <Author>Oliverio Sousa</Author>
         [TestMethod]
         public void CustomSendCriticalDataCollectionToSpace_PostEDCDataInsideLimits_ValidateAndCreateXMLMessage()
         {
@@ -228,7 +229,7 @@ namespace Cmf.Custom.Tests.Biz.Space
             string facilityName = FacilityName;
             string productName = LotProduct;
             int logicalWaferQuantity = 1;
-            string protocolName = ProtocolName;
+            string protocolName = ConfigUtilities.GetConfigValue(amsOSRAMConstants.DefaultProtocolSpaceConfig) as string;
 
             scenario.NumberOfMaterialsToGenerate = 1;
             scenario.NumberOfChildMaterialsToGenerate = logicalWaferQuantity;
@@ -309,16 +310,15 @@ namespace Cmf.Custom.Tests.Biz.Space
 
         /// <summary>
         /// Description:
-        ///     - Execute a ComplexPerformDataCollection operation with parameter type equals to material Id
-        ///     - Post with values outside the limits
+        ///     - Creates a lot with one logical wafer with a substrate without recipes and without any process or measurement
+        ///     - Execute a ComplexPerformDataCollection operation on a given DataCollection with the parameters with different configurations
         ///
-        /// Acceptance Citeria:
-        ///     - Lot is on hold with reason Out of Spec
+        /// Acceptance Criteria:
         ///     - Validate created message structure
         ///
         /// </summary>
-        /// <TestCaseID>CustomSendCriticalDataCollectionToSpace.CustomSendCriticalDataCollectionToSpace_PostEDCDataOutsideLimits_ValidateAndCreateXMLMessage</TestCaseID>
-        /// <Author>David Guilherme</Author>
+        /// <TestCaseID>CustomSendCriticalDataCollectionToSpace_ValidateAndCreateXMLMessage_OnlyMandatoryFields</TestCaseID>
+        /// <Author>Oliverio Sousa</Author>
         [TestMethod]
         public void CustomSendCriticalDataCollectionToSpace_ValidateAndCreateXMLMessage_OnlyMandatoryFields()
         {
@@ -371,17 +371,19 @@ namespace Cmf.Custom.Tests.Biz.Space
 
         /// <summary>
         /// Description:
-        ///     - Execute a ComplexPerformDataCollection operation with parameter type equals to material Id
-        ///     - Post with values inside the limits
+        ///     - Creates a lot with two logical wafer
+        ///         - First one with a substrate, carrier and crystal
+        ///         - Second with only a crystal
+        ///     - Sets Recipes for process and measurement process
+        ///     - Performs the process and measurement of the Lot and Logical Wafers on theirs resources
+        ///     - Execute a ComplexPerformDataCollection operation on a given DataCollection with the parameters with different configurations
         ///
-        /// Acceptance Citeria:
-        ///     - Lot is not on hold with reason Out of Spec
-        ///     - Lot has a protocol instance
+        /// Acceptance Criteria:
         ///     - Validate created message structure
         ///
         /// </summary>
-        /// <TestCaseID>CustomSendCriticalDataCollectionToSpace.CustomSendCriticalDataCollectionToSpace_PostEDCDataInsideLimits_ValidateAndCreateXMLMessage</TestCaseID>
-        /// <Author>David Guilherme</Author>
+        /// <TestCaseID>CustomSendCriticalDataCollectionToSpace_ValidateAndCreateXMLMessage_AllFields</TestCaseID>
+        /// <Author>Oliverio Sousa</Author>
         [TestMethod]
         public void CustomSendCriticalDataCollectionToSpace_ValidateAndCreateXMLMessage_AllFields()
         {
@@ -449,6 +451,10 @@ namespace Cmf.Custom.Tests.Biz.Space
             rollbackIsRecipeManagementEnabled.Add(processResource.Name, processResource.IsRecipeManagementEnabled.GetValueOrDefault());
             processResource.IsRecipeManagementEnabled = true;
             processResource.Save();
+
+            rollbackIsRecipeManagementEnabled.Add(measurementResource.Name, measurementResource.IsRecipeManagementEnabled.GetValueOrDefault());
+            measurementResource.IsRecipeManagementEnabled = true;
+            measurementResource.Save();
 
             scenario.Setup();
 

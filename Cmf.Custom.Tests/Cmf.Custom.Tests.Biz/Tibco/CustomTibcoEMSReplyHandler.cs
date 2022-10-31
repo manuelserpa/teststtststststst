@@ -12,20 +12,18 @@ using Cmf.Navigo.BusinessOrchestration.EdcManagement.DataCollectionManagement.Ou
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Settings;
-using Stimulsoft.Base.Localization;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using static Stimulsoft.Report.Func;
 
 namespace Cmf.Custom.Tests.Biz.Tibco
 {
     [TestClass]
     public class CustomTibcoEMSReplyHandler
     {
-        private static CustomExecutionScenario classExecutionScenario = new CustomExecutionScenario();
-
+        private const string ActionName = "CustomTibcoEMSReplyHandler";
+        
         private CustomExecutionScenario scenario;
         private static Foundation.Common.DynamicExecutionEngine.Action action;
 
@@ -40,7 +38,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             transport.Start();
 
             action = new Foundation.Common.DynamicExecutionEngine.Action();
-            action.Name = "CustomTibcoEMSReplyHandler";
+            action.Name = ActionName;
             action.Load();
         }
 
@@ -73,31 +71,37 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             {
                 scenario.CompleteCleanUp();
             }
+
+            if (!String.IsNullOrEmpty(isToUnsubscribeTopic))
+            {
+                transport.Unsubscribe(isToUnsubscribeTopic);
+            }
         }
 
         /// <summary>
         /// Description:
-        ///     - Execute a ComplexPerformDataCollection operation with parameter type equals to material Id
-        ///     - Post with values inside the limits
+        ///     - Performs a TrackOut and MoveNext operation with a DataCollection that should be sent to 
+        ///     - Calls the Reply handler with a valid mocked response
         ///
-        /// Acceptance Citeria:
-        ///     - Lot is not on hold with reason Out of Spec
-        ///     - Lot has a protocol instance
-        ///     - Validate created message structure
+        /// Acceptance Criteria:
+        ///     - Lot has a protocol instance after performing the TrackOut and MoveNext
+        ///     - After handling the reply:
+        ///         - The Material should have the protocol closed
+        ///         - The Material should be in the next step
         ///
         /// </summary>
-        /// <TestCaseID>CustomSendCriticalDataCollectionToSpace.CustomSendCriticalDataCollectionToSpace_PostEDCDataInsideLimits_ValidateAndCreateXMLMessage</TestCaseID>
-        /// <Author>David Guilherme</Author>
+        /// <TestCaseID>CustomTibcoEMSReplyHandler_CustomReportEDCToSpace_ValidMessage</TestCaseID>
+        /// <Author>Oliverio Sousa</Author>
         [TestMethod]
         public void CustomTibcoEMSReplyHandler_CustomReportEDCToSpace_ValidMessage()
         {
-            string flowPath = "CMFTestSpaceFlow:A:1/CMFTestProcessStep:1"; ;
+            string flowPath = amsOSRAMConstants.FlowPathSpace;
             string dataCollectionName = amsOSRAMConstants.DefaultSpaceDataCollectionName;
             string dataCollectionLimitSetName = amsOSRAMConstants.DefaultSpaceDataCollectionLimitSetName;
             string facilityName = amsOSRAMConstants.DefaultFacilityName;
-            string productName = "CMFTestLotProduct";
+            string productName = amsOSRAMConstants.ProductLotProduct;
             int logicalWaferQuantity = 1;
-            string protocolName = "Space";
+            string protocolName = ConfigUtilities.GetConfigValue(amsOSRAMConstants.DefaultProtocolSpaceConfig) as string;
             string processResourceName = amsOSRAMConstants.DefaultTestProcessResourceName;
             string processSubResourceName = amsOSRAMConstants.DefaultTestProcessSubResourceName;
 
@@ -189,16 +193,30 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.AreEqual(MaterialSystemState.Queued, lot.SystemState, "Material should be Queued");
         }
 
+        /// <summary>
+        /// Description:
+        ///     - Performs a TrackOut and MoveNext operation with a DataCollection that should be sent to 
+        ///     - Calls the Reply handler with several invalid mocked response
+        ///
+        /// Acceptance Criteria:
+        ///     - Lot has a protocol instance after performing the TrackOut and MoveNext
+        ///     - After handling the reply:
+        ///         - The Material should remaining with the protocol opened
+        ///         - The Material should be in the same step on the same state
+        ///
+        /// </summary>
+        /// <TestCaseID>CustomTibcoEMSReplyHandler_CustomReportEDCToSpace_InvalidMessage</TestCaseID>
+        /// <Author>Oliverio Sousa</Author>
         [TestMethod]
         public void CustomTibcoEMSReplyHandler_CustomReportEDCToSpace_InvalidMessage()
         {
-            string flowPath = "CMFTestSpaceFlow:A:1/CMFTestProcessStep:1"; ;
+            string flowPath = amsOSRAMConstants.FlowPathSpace;
             string dataCollectionName = amsOSRAMConstants.DefaultSpaceDataCollectionName;
             string dataCollectionLimitSetName = amsOSRAMConstants.DefaultSpaceDataCollectionLimitSetName;
             string facilityName = amsOSRAMConstants.DefaultFacilityName;
-            string productName = "CMFTestLotProduct";
+            string productName = amsOSRAMConstants.ProductLotProduct;
             int logicalWaferQuantity = 1;
-            string protocolName = "Space";
+            string protocolName = ConfigUtilities.GetConfigValue(amsOSRAMConstants.DefaultProtocolSpaceConfig) as string;
 
             scenario.NumberOfMaterialsToGenerate = 1;
             scenario.NumberOfChildMaterialsToGenerate = logicalWaferQuantity;
