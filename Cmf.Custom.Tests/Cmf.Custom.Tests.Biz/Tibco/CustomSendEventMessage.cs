@@ -154,7 +154,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
             Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
-            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialDispatch);
+            ValidateHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialDispatch);
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
@@ -188,7 +188,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             // Material created
             Material material = _scenario.GeneratedLots.FirstOrDefault();
 
-            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialCreate);
+            ValidateHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialCreate);
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
@@ -224,7 +224,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
             Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
-            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialTerminate);
+            ValidateHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialTerminate);
 
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
@@ -267,7 +267,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
             Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
-            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialDispatch);
+            ValidateHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialDispatch);
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
@@ -347,7 +347,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
             Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
-            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialTrackIn);
+            ValidateHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialTrackIn);
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
@@ -392,7 +392,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
             Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
-            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialTrackOut);
+            ValidateHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialTrackOut);
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
@@ -440,7 +440,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
             Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
-            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialMoveNext, previousPath);
+            ValidateHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialMoveNext, previousPath);
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
@@ -488,8 +488,8 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.IsNotNull(tibcoCustomSendEventMessageTerminate.Header, $"The Header should not be null");
             Assert.IsFalse(tibcoCustomSendEventMessageTerminate.Message == null || tibcoCustomSendEventMessageTerminate.Message == String.Empty, $"The Message should not be null or empty");
 
-            ValiteHeaderMessage(material, tibcoCustomSendEventMessageSplit, CustomTransactionTypes.MaterialSplit);
-            ValiteHeaderMessage(material, tibcoCustomSendEventMessageTerminate, CustomTransactionTypes.MaterialTerminate);
+            ValidateHeaderMessage(material, tibcoCustomSendEventMessageSplit, CustomTransactionTypes.MaterialSplit);
+            ValidateHeaderMessage(material, tibcoCustomSendEventMessageTerminate, CustomTransactionTypes.MaterialTerminate);
 
             XDocument mesDocument = XDocument.Parse(GetExportedObjectOfMaterial(material));
 
@@ -539,8 +539,8 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.IsNotNull(tibcoCustomSendEventMessageTerminated.Header, $"The Header should not be null");
             Assert.IsFalse(tibcoCustomSendEventMessageTerminated.Message == null || tibcoCustomSendEventMessageTerminated.Message == String.Empty, $"The Message should not be null or empty");
 
-            ValiteHeaderMessage(materialMerged, tibcoCustomSendEventMessageMerged, CustomTransactionTypes.MaterialMerge);
-            ValiteHeaderMessage(materialTerminated, tibcoCustomSendEventMessageTerminated, CustomTransactionTypes.MaterialTerminate);
+            ValidateHeaderMessage(materialMerged, tibcoCustomSendEventMessageMerged, CustomTransactionTypes.MaterialMerge);
+            ValidateHeaderMessage(materialTerminated, tibcoCustomSendEventMessageTerminated, CustomTransactionTypes.MaterialTerminate);
 
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(materialMerged)), XDocument.Parse(tibcoCustomSendEventMessageMerged.Message));
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(materialTerminated)), XDocument.Parse(tibcoCustomSendEventMessageTerminated.Message));
@@ -581,7 +581,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
             Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
-            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialLoss);
+            ValidateHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialLoss);
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
@@ -620,7 +620,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
             Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
-            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialBonus);
+            ValidateHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialBonus);
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
@@ -659,7 +659,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
             Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
-            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialHold);
+            ValidateHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialHold);
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
@@ -713,7 +713,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
             Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
-            ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialRelease);
+            ValidateHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialRelease);
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
@@ -777,7 +777,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
 
             childMaterial.Load();
 
-            ValiteHeaderMessage(childMaterial, tibcoCustomSendEventMessage, CustomTransactionTypes.ContainerAssociation);
+            ValidateHeaderMessage(childMaterial, tibcoCustomSendEventMessage, CustomTransactionTypes.ContainerAssociation);
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(childMaterial)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
@@ -785,84 +785,91 @@ namespace Cmf.Custom.Tests.Biz.Tibco
         {
             // List of ElementNames to discard on output XML
             List<string> xmlElementsToDiscard = new List<string>()
-                {
-                    "CurrentBOMAssemblyType",
-                    "CurrentBOMVersion",
-                    "LineFlowVersion",
-                    "LineValidationMode",
-                    "LineAssemblyMode",
-                    "InhibitMoveFromStep",
-                    "OverrideProductBlock",
-                    "InhibitShip",
-                    "InTransitFromState",
-                    "InTransitType",
-                    "IsInNonSequentialBlock",
-                    "LocationAltitude",
-                    "LocationLatitude",
-                    "LocationLongitude",
-                    "ResourceAssociationType",
-                    "SplitMergeRestrictionType",
-                    "NotificationCount",
-                    "TimeConstraintsCount",
-                    "CurrentSamplingPattern",
-                    "SamplingSequence",
-                    "RequiredFutureAction",
-                    "MaterialTransferFromFacility",
-                    "MaterialTransferCostCenter",
-                    "MaximumAssembleDate",
-                    "CurrentBOMTrackOutLossesMode",
-                    "MaintenanceHoldCount",
-                    "AccountsToProductionOrderQuantity",
-                    "ExcludeFromScheduling",
-                    "HasFromDependencies",
-                    "HasToDependencies",
-                    "CurrentBOMWeighAndDispenseMode",
-                    "ExperimentMaterialGroupName",
-                    "ExperimentSubMaterialNumber",
-                    "TargetMaterialQuantity",
-                    "TargetMaterialUnits",
-                    "CurrentBOMUnits",
-                    "PickListItemCount",
-                    "IsInTransferOrderItem",
-                    "MoistureSensitivityLevel",
-                    "FloorLifeOpenDate",
-                    "FloorLifeCounterState",
-                    "FloorLifeRemainingHours",
-                    "FloorLifeSealed",
-                    "ManufacturerPartNumber",
-                    "ManufacturerLotNumber",
-                    "DateCode",
-                    "CapacityClass",
-                    "IsRoHSCompliant",
-                    "IsApproved",
-                    "RequiredResource",
-                    "OpenInspectionOrderCount",
-                    "OpenInspectionOrderStepSampleCount",
-                    "PendingLineReworkReturn",
-                    "InTransitToFacility",
-                    "IsDispatchable",
-                    "Priority",
-                    "RequiredService",
-                    "ShippingLabel",
-                    "SynchronizeMapUnits",
-                    "MasterMap",
-                    "IsTemplate",
-                    "RelationCollection",
-                    "DocumentationURL",
-                    "Image",
-                    "DataGroupName"
-                };
+            {
+                "CurrentBOMAssemblyType",
+                "CurrentBOMVersion",
+                "LineFlowVersion",
+                "LineValidationMode",
+                "LineAssemblyMode",
+                "InhibitMoveFromStep",
+                "OverrideProductBlock",
+                "InhibitShip",
+                "InTransitFromState",
+                "InTransitType",
+                "IsInNonSequentialBlock",
+                "LocationAltitude",
+                "LocationLatitude",
+                "LocationLongitude",
+                "ResourceAssociationType",
+                "SplitMergeRestrictionType",
+                "NotificationCount",
+                "TimeConstraintsCount",
+                "CurrentSamplingPattern",
+                "SamplingSequence",
+                "RequiredFutureAction",
+                "MaterialTransferFromFacility",
+                "MaterialTransferCostCenter",
+                "MaximumAssembleDate",
+                "CurrentBOMTrackOutLossesMode",
+                "MaintenanceHoldCount",
+                "AccountsToProductionOrderQuantity",
+                "ExcludeFromScheduling",
+                "HasFromDependencies",
+                "HasToDependencies",
+                "CurrentBOMWeighAndDispenseMode",
+                "ExperimentMaterialGroupName",
+                "ExperimentSubMaterialNumber",
+                "TargetMaterialQuantity",
+                "TargetMaterialUnits",
+                "CurrentBOMUnits",
+                "PickListItemCount",
+                "IsInTransferOrderItem",
+                "MoistureSensitivityLevel",
+                "FloorLifeOpenDate",
+                "FloorLifeCounterState",
+                "FloorLifeRemainingHours",
+                "FloorLifeSealed",
+                "ManufacturerPartNumber",
+                "ManufacturerLotNumber",
+                "DateCode",
+                "CapacityClass",
+                "IsRoHSCompliant",
+                "IsApproved",
+                "RequiredResource",
+                "OpenInspectionOrderCount",
+                "OpenInspectionOrderStepSampleCount",
+                "PendingLineReworkReturn",
+                "InTransitToFacility",
+                "IsDispatchable",
+                "Priority",
+                "RequiredService",
+                "ShippingLabel",
+                "SynchronizeMapUnits",
+                "MasterMap",
+                "IsTemplate",
+                "RelationCollection",
+                "DocumentationURL",
+                "Image",
+                "DataGroupName"
+            };
 
             // List of AttributeNames associated to the Elements to discard on output XML
             List<string> xmlAttributesToDiscard = new List<string>()
-                {
-                    "type",
-                    "actualtype",
-                    "ExportId"
-                };
+            {
+                "type",
+                "actualtype",
+                "ExportId"
+            };
+
+            // List of ElementNames to discard on Tests
+            List<string> xmlElementsToDiscardOnTests = new List<string>()
+            {
+                "ModifiedOn"
+            };
 
             // Remove Material discarded Elements
-            document1.Root.Descendants().Where(e => xmlElementsToDiscard.Contains(e.Name.LocalName)).Remove();
+            document1.Root.Descendants().Where(e => xmlElementsToDiscard.Contains(e.Name.LocalName) || xmlElementsToDiscardOnTests.Contains(e.Name.LocalName)).Remove();
+            document2.Root.Descendants().Where(e => xmlElementsToDiscardOnTests.Contains(e.Name.LocalName)).Remove();
 
             // Remove Material discarded Attributes
             document1.Root.Descendants().Attributes().Where(a => xmlAttributesToDiscard.Contains(a.Name.LocalName)).Remove();
@@ -900,7 +907,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             return output.Xml;
         }
 
-        private void ValiteHeaderMessage(Material material, TibcoCustomSendEventMessage message, CustomTransactionTypes customTransactionType, string previousPath = null)
+        private void ValidateHeaderMessage(Material material, TibcoCustomSendEventMessage message, CustomTransactionTypes customTransactionType, string previousPath = null)
         {
             material.Load();
 
@@ -1031,7 +1038,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
                 Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
                 Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
 
-                ValiteHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialDispatch);
+                ValidateHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialDispatch);
                 ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
             }
             finally
