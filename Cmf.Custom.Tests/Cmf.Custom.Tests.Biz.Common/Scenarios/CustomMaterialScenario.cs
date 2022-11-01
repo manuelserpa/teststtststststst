@@ -253,7 +253,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 
             // Setup the SubMaterial info (Wafers)
             this.MainForm = amsOSRAMConstants.FormLot;
-            this.SubForm = amsOSRAMConstants.FormWafer;
+            this.SubForm = amsOSRAMConstants.FormLogicalWafer;
             this.AddServiceContexts = false;
 
             base.Setup();
@@ -285,7 +285,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                     ms.Entity.Step = this.Entity.Step;
                     ms.Entity.FlowPath = this.Entity.FlowPath;
                     ms.Entity.Product = waferProduct;
-                    ms.Entity.Form = amsOSRAMConstants.FormWafer;
+                    ms.Entity.Form = amsOSRAMConstants.DefaultMaterialLogicalWaferForm;
                     ms.Entity.Type = materialType;
                     ms.Entity.PrimaryUnits = amsOSRAMConstants.UnitWafers;
                     ms.Entity.PrimaryQuantity = 1;
