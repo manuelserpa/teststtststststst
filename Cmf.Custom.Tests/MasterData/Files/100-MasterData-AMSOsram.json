@@ -1235,6 +1235,45 @@
       "Lookup Table Value": "Substrate",
       "Lookup Table Value Description": "Substrate",
       "Lookup Table IsEnabled": "Yes"
+    },
+    "175": {
+      "LookUp Table": "SamplingPatternType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Logical Wafer",
+      "Lookup Table Value Description": "Logical Wafer",
+      "Lookup Table IsEnabled": "Yes"
+    }
+  },
+  "<DM>SamplingPattern": {
+    "1": {
+      "Name": "FIRST",
+      "Type": "Logical Wafer",
+      "SamplingPatternType": "System",
+      "SystemSamplingSource": "Logical Wafer",
+      "SystemSamplingCount": "1",
+      "SystemSamplingCountIsPercentage": "0",
+      "SystemSamplingSelection": "Bottom",
+      "SystemSamplingSequence": "0"
+    },
+    "2": {
+      "Name": "MIDDLE",
+      "Type": "Logical Wafer",
+      "SamplingPatternType": "System",
+      "SystemSamplingSource": "Logical Wafer",
+      "SystemSamplingCount": "1",
+      "SystemSamplingCountIsPercentage": "0",
+      "SystemSamplingSelection": "Middle",
+      "SystemSamplingSequence": "0"
+    },
+    "3": {
+      "Name": "LAST",
+      "Type": "Logical Wafer",
+      "SamplingPatternType": "System",
+      "SystemSamplingSource": "Logical Wafer",
+      "SystemSamplingCount": "1",
+      "SystemSamplingCountIsPercentage": "0",
+      "SystemSamplingSelection": "Top",
+      "SystemSamplingSequence": "0"
     }
   },
   "<DM>Checklist": {
