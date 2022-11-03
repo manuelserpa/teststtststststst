@@ -141,19 +141,21 @@ namespace amsOSRAMEIAutomaticTests
             if (scenario != null && loadPort != null)
             {
                 // Undock if docked first
+
                 loadPort.LoadRelation("ContainerResource");
                 if (loadPort.ResourceContainers != null && loadPort.ResourceContainers.Count > 0)
                 {
-                    var containerToUndock = loadPort.ResourceContainers[0].SourceEntity;
-                    containerToUndock.Load();
+                    loadPort.ResourceContainers.ForEach((container) => { 
+                        var containerToUndock = container.SourceEntity;
+                        containerToUndock.Load();
 
-                    var undock = new Cmf.Navigo.BusinessOrchestration.ContainerManagement.InputObjects.UndockContainerInput()
-                    {
-                        Container = containerToUndock,
-                        NumberOfRetries = 3
-                    };
-                    undock.UndockContainerSync();
-
+                        var undock = new Cmf.Navigo.BusinessOrchestration.ContainerManagement.InputObjects.UndockContainerInput()
+                        {
+                            Container = containerToUndock,
+                            NumberOfRetries = 3
+                        };
+                        undock.UndockContainerSync();
+                    });
                 }
 
                 //
@@ -812,8 +814,12 @@ namespace amsOSRAMEIAutomaticTests
         /// </summary>
         /// <param name="materialName">The material name</param>
         /// <returns>The material data</returns>
-        public MaterialData GetMaterialDataFromPersistence(string materialName)
+        public MaterialData GetMaterialDataFromPersistence(string materialName = null)
 		{
+            if (materialName is null || !materialName.StartsWith("CarrierAtLoadPort")) {
+                materialName = MESScenario.Entity.Id.ToString();
+            }
+
             MaterialData materialData = null;
             var orderPersistenceObj = new StoredItem();
 
@@ -821,7 +827,7 @@ namespace amsOSRAMEIAutomaticTests
             {
                 try
                 {
-                    orderPersistenceObj = (this.Equipment.BaseImplementation as IoTEquipment).Persistency.StoredItems.FirstOrDefault(p => p.Identifier.Contains(MESScenario.Entity.Id.ToString()));
+                    orderPersistenceObj = (this.Equipment.BaseImplementation as IoTEquipment).Persistency.StoredItems.FirstOrDefault(p => p.Identifier.Contains(materialName));
                     return orderPersistenceObj != null;
                 }
                 catch
@@ -871,12 +877,17 @@ namespace amsOSRAMEIAutomaticTests
         public MaterialData GetMaterialPersistence(string materialName, bool waitForMaterialHasValue = false)
         {
 
+            if (materialName is null || !materialName.StartsWith("CarrierAtLoadPort"))
+            {
+                materialName = MESScenario.Entity.Id.ToString();
+            }
+
             var orderPersistenceObj = new StoredItem();
             TestUtilities.WaitFor(ValidationTimeout, String.Format($"MaterialData for Material name {materialName} does not exist"), () =>
             {
                 try
                 {
-                    orderPersistenceObj = (this.Equipment.BaseImplementation as IoTEquipment).Persistency.StoredItems.FirstOrDefault(p => p.Identifier.Contains(MESScenario.Entity.Id.ToString()));
+                    orderPersistenceObj = (this.Equipment.BaseImplementation as IoTEquipment).Persistency.StoredItems.FirstOrDefault(p => p.Identifier.Contains(materialName));
                     return orderPersistenceObj != null;
                 }
                 catch
@@ -917,6 +928,10 @@ namespace amsOSRAMEIAutomaticTests
 
         public void ValidatePersistenceState(string materialName, MaterialStateEnum state, int timeout = 30)
         {
+            if (materialName is null || !materialName.StartsWith("CarrierAtLoadPort"))
+            {
+                materialName = MESScenario.Entity.Id.ToString();
+            }
 
             TestUtilities.WaitFor(timeout, String.Format($"Order persistence for {materialName} did not change to expected {state}"), () =>
             {
@@ -927,7 +942,7 @@ namespace amsOSRAMEIAutomaticTests
                 {
                     try
                     {
-                        orderPersistenceObj = (this.Equipment.BaseImplementation as IoTEquipment).Persistency.StoredItems.FirstOrDefault(p => p.Identifier.Contains(MESScenario.Entity.Id.ToString()));
+                        orderPersistenceObj = (this.Equipment.BaseImplementation as IoTEquipment).Persistency.StoredItems.FirstOrDefault(p => p.Identifier.Contains(materialName));
                         return orderPersistenceObj != null;
                     }
                     catch
@@ -948,12 +963,17 @@ namespace amsOSRAMEIAutomaticTests
 
         public void ValidatePersistenceDoesNotExists(string materialName)
         {
+            if (materialName is null || !materialName.StartsWith("CarrierAtLoadPort"))
+            {
+                materialName = MESScenario.Entity.Id.ToString();
+            }
+
             var materialPersistenceObj = new StoredItem();
             TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material Data {materialName} should not exist on persistence"), () =>
             {
                 try
                 {
-                    materialPersistenceObj = (this.Equipment.BaseImplementation as IoTEquipment).Persistency.StoredItems.FirstOrDefault(p => p.Identifier.Contains(MESScenario.Entity.Id.ToString()));
+                    materialPersistenceObj = (this.Equipment.BaseImplementation as IoTEquipment).Persistency.StoredItems.FirstOrDefault(p => p.Identifier.Contains(materialName));
                 }
                 catch
                 {
@@ -965,12 +985,16 @@ namespace amsOSRAMEIAutomaticTests
 
         public void ValidatePersistenceExists(string materialName)
         {
+            if (materialName is null || !materialName.StartsWith("CarrierAtLoadPort")) {
+                materialName = MESScenario.Entity.Id.ToString();
+            }
+
             var materialPersistenceObj = new StoredItem();
             TestUtilities.WaitForNotChanged(ValidationTimeout, String.Format($"Material Data {materialName} should exist on persistence"), () =>
             {
                 try
                 {
-                    materialPersistenceObj = (this.Equipment.BaseImplementation as IoTEquipment).Persistency.StoredItems.FirstOrDefault(p => p.Identifier.Contains(MESScenario.Entity.Id.ToString()));
+                    materialPersistenceObj = (this.Equipment.BaseImplementation as IoTEquipment).Persistency.StoredItems.FirstOrDefault(p => p.Identifier.Contains(materialName));
                 }
                 catch
                 {
@@ -978,8 +1002,6 @@ namespace amsOSRAMEIAutomaticTests
                 }
                 return materialPersistenceObj == null;
             });
-
-
         }
 
         #endregion
