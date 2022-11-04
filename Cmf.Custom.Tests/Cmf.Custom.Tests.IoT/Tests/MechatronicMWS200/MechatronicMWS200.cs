@@ -224,7 +224,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
 
-            base.RunBasicTest(MESScenario, LoadPortNumber, false, automatedMaterialOut: true);
+            base.RunBasicTest(MESScenario, LoadPortNumber, false, automatedMaterialOut: true, fullyAutomatedMaterialMovement: true);
         }
 
         /// <summary>
@@ -976,7 +976,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
             //InsertDataIntoCustomSorterJobDefinitionContextTable(stepName, customSorterJobDefinition.Name);
 
-            SorterCarrierIn();
+            SorterCarrierIn(IsWaferReception : true);
 
             Thread.Sleep(1000);
 
@@ -1340,7 +1340,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
 
         #region Events
-        public bool SorterCarrierIn()
+        public bool SorterCarrierIn(bool IsWaferReception = false)
         {
             foreach (var lp in loadPortsUsed)
             {
@@ -1359,7 +1359,10 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
                 if (containerScenario is not null)
                 {
-                    RFIDReader.targetIdRFID.Add(lp.ToString(), containerScenario.Entity.Name);
+                    RFIDReader.targetIdRFID.Add(lp.ToString(), containerScenario?.Entity.Name);
+                }
+                else {
+                    RFIDReader.targetIdRFID.Add(lp.ToString(), "");
                 }
 
                 base.Equipment.Variables["PlacedCarrierPattern1"] = 1;
@@ -1378,62 +1381,77 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
                 MESScenario.Step.LoadAttributes();
                 
-                if (RFIDReader.TargetIdStatusS18F9(lp.ToString()) == "NO" && containerScenario is null) {
+                if (RFIDReader.TargetIdStatusS18F9(lp.ToString()) != "NO") {
                     Assert.Fail("Unexpected S18F9 status");
                 }
 
                 RFIDReader.ClearFlags(lp.ToString());
 
-                if(containerScenario is not null)
+                
+                TestUtilities.WaitFor(ValidationTimeout, String.Format($"ProceedWithCarrier request was never received"), () =>
                 {
-                    TestUtilities.WaitFor(60, String.Format($"ProceedWithCarrier request was never received"), () =>
-                    {
-                        return proceedWithCarrierCommandRecieved;
-                    });
-                    proceedWithCarrierCommandRecieved = false;
-                //}
+                    return proceedWithCarrierCommandRecieved;
+                });
+                proceedWithCarrierCommandRecieved = false;
+
+                //DockContainer(containerScenario, lp, MESScenario);
+
+                Thread.Sleep(1000);
+
+                containerScenario?.Entity.LoadRelation("MaterialContainer");
+
+                int[] slotMap = Enumerable.Repeat(1, 25).ToArray();
                 
-                    Thread.Sleep(300);
+                // scenario.containerScenario?.Entity
+                if (containerScenario?.Entity.ContainerMaterials != null)
+                {
+                    slotMap = new int[containerScenario?.Entity.TotalPositions ?? 0];
 
-                    int[] slotMap = Enumerable.Repeat(1,25).ToArray();
-
-                //if (containerScenario is not null)
-                //{                
-                    DockContainer(containerScenario, lp, MESScenario);
-
-                    Thread.Sleep(1000);
-
-                    containerScenario.Entity.LoadRelation("MaterialContainer");
-
-                    slotMap = new int[containerScenario.Entity.TotalPositions ?? 0];
-
-                    // scenario.ContainerScenario.Entity
-                    if (containerScenario.Entity.ContainerMaterials != null)
+                    for (int i = 0; i < containerScenario?.Entity.TotalPositions.Value; i++)
                     {
-
-                        for (int i = 0; i < containerScenario.Entity.TotalPositions.Value; i++)
-                        {
-                            slotMap[i] = containerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
-                        }
+                        slotMap[i] = containerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
                     }
-
-
-                    SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
-
-                    base.Equipment.Variables["PortID"] = lp;
-                    base.Equipment.Variables["CarrierID"] = containerScenario.Entity.Name;
-                    base.Equipment.Variables["ContentMap"] = slotMapDV;
-                    base.Equipment.Variables["SlotMap"] = slotMapDV;
-
-
-                    // Trigger event
-                    base.Equipment.SendMessage(String.Format($"COSM14_SLOTMAPNOTREAD_SLOTMAPWAITINGFORHOST"), null);
-                
                 }
+
+
+                SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
+
+                base.Equipment.Variables["PortID"] = lp;
+                base.Equipment.Variables["CarrierID"] = containerScenario?.Entity.Name;
+                base.Equipment.Variables["ContentMap"] = slotMapDV;
+                base.Equipment.Variables["SlotMap"] = slotMapDV;
+
+
+                // Trigger event
+                base.Equipment.SendMessage(String.Format($"COSM14_SLOTMAPNOTREAD_SLOTMAPWAITINGFORHOST"), null);
+
 
 
                 Thread.Sleep(200);
 
+                base.Equipment.Variables["CarrierID"] = containerScenario?.Entity.Name;
+                base.Equipment.Variables["PortID"] = lp;
+                base.Equipment.Variables["ContentMap"] = slotMapDV;
+                base.Equipment.Variables["SlotMap"] = slotMapDV;
+
+                TestUtilities.WaitFor(ValidationTimeout, String.Format($"ProceedWithCarrier request was never received"), () =>
+                {
+                    return proceedWithCarrierCommandRecieved;
+                });
+                proceedWithCarrierCommandRecieved = false;
+
+                base.Equipment.SendMessage("COSM15_SLOTMAPWAITINGFORHOST_SLOTMAPVERIFICATIONOK", null);
+                                
+            }
+
+            if (!IsWaferReception)
+            {
+                TestUtilities.WaitFor(ValidationTimeout, String.Format($"Control or Process Job creation requests were never received"), () =>
+                {
+                    return (createControlJobReceived && createProcessJobReceived);
+                });
+
+                createControlJobReceived = createProcessJobReceived = false;
             }
             return true;
         }
@@ -1498,7 +1516,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
         {
 
             //// wait for load 
-            //TestUtilities.WaitFor(60, String.Format($"Unload Container Command never received"), () =>
+            //TestUtilities.WaitFor(ValidationTimeout, String.Format($"Unload Container Command never received"), () =>
             //{
             //    return unloadCommandReceived;
             //});
@@ -1618,7 +1636,17 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
         }
         #endregion Events
 
-
+        public override void TrackInEvaluator(string expectedMaterialName)
+        {
+            if (TrackInMustFail)
+            {
+                ValidatePersistenceDoesNotExists(expectedMaterialName);
+            }
+            else
+            {
+                ValidatePersistenceExists(expectedMaterialName);
+            }
+        }
 
         public override bool PostTrackInActions(CustomMaterialScenario scenario)
         {
@@ -1627,13 +1655,13 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
                 Assert.Fail("Track In must fail on Online Local");
             }
 
-            TestUtilities.WaitFor(60, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
+            TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
             {
                 scenario.Entity.Load();
                 return scenario.Entity.CurrentMainState.CurrentState.Name.Equals(MaterialStateModelStateEnum.Setup.ToString());
             });
 
-            TestUtilities.WaitFor(60, String.Format($"Material {scenario.Entity.Name} System State is not {MaterialSystemState.InProcess.ToString()}"), () =>
+            TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material {scenario.Entity.Name} System State is not {MaterialSystemState.InProcess.ToString()}"), () =>
             {
                 scenario.Entity.Load();
                 return scenario.Entity.SystemState.ToString().Equals(MaterialSystemState.InProcess.ToString());
@@ -1772,7 +1800,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
                 }
             }
 
-            TestUtilities.WaitFor(90, String.Format($"Material {submaterial.Name} State is not {subMaterialState}"), () =>
+            TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material {submaterial.Name} State is not {subMaterialState}"), () =>
             {
                 submaterial.Load();
                 return submaterial.SystemState.ToString().Equals(subMaterialState);
@@ -2496,7 +2524,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
         private void CustomValidateContainerNumberOfWafers(Container container, int expectedNumberOfWafers)
         {
             // Validate container now has the expectedNumberOfWafers
-            TestUtilities.WaitFor(15, String.Format($"Container {container.Name} must have ({expectedNumberOfWafers}) wafers"), () =>
+            TestUtilities.WaitFor(ValidationTimeout, String.Format($"Container {container.Name} must have ({expectedNumberOfWafers}) wafers"), () =>
             {
                 container.Load();
                 return container.UsedPositions.Value == expectedNumberOfWafers;

@@ -64,7 +64,7 @@ namespace Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader
             replyList.Add(new SecsItem() { ASCII = targetId }); //adds target id
 
             //SSACK code
-            if (String.IsNullOrEmpty(mid))
+            if (mid is null) //According to customer empty string is valid
             {
                 replyList.Add(new SecsItem() { ASCII = "EE" });
             }
