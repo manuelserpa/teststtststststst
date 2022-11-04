@@ -12,7 +12,6 @@ using Cmf.MessageBus.Messages;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ContainerManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.ContainerManagement.OutputObjects;
-using Cmf.Navigo.BusinessOrchestration.FacilityManagement.AreaManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.TestScenarios.Others;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -46,7 +45,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             lookupTable.Load();
 
             _classScenario = new CustomExecutionScenario();
-            
+
             foreach (LookupTableValue lookupTableValue in lookupTable.Values)
             {
                 _classScenario.GenericTableManager.SetGenericTableData(amsOSRAMConstants.GenericTableCustomTransactionsToTibco, new Dictionary<string, object>
@@ -271,8 +270,6 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
-
-
         /// <summary>
         /// Description:
         ///     - Validates Header and Body message sent to Tibco when dispaching a material while the facility has a site assigned
@@ -304,8 +301,6 @@ namespace Cmf.Custom.Tests.Biz.Tibco
         {
             CustomSendEventMessage_ValidateMessage_Dispatch(false);
         }
-
-
 
         /// <summary>
         /// Description:
@@ -781,6 +776,88 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(childMaterial)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
         }
 
+        /// <summary>
+        /// Description:
+        ///     - Validates Header and Body message sent to Tibco when a material is shipped
+        ///
+        /// Acceptance Citeria:
+        ///     - Validate created message information
+        ///
+        /// </summary>
+        /// <TestCaseID>CustomSendEventMessage_ValidateMessage_MaterialShip</TestCaseID>
+        /// <Author>André Cruz</Author>
+        [TestMethod]
+        public void CustomSendEventMessage_ValidateMessage_MaterialShip()
+        {
+            ///<Step> Create a Lot and its wafers </Step>
+            _scenario.NumberOfMaterialsToGenerate = 1;
+            _scenario.FacilityName = amsOSRAMConstants.DefaultTestShippingFacilityName;
+            _scenario.ProductName = amsOSRAMConstants.DefaultTestProductName;
+            _scenario.Setup();
+
+            // Material created
+            Material material = _scenario.GeneratedLots.FirstOrDefault();
+
+            Func<bool> waitForMessageBus = SuscribeMessageBus(CustomSendEventMessageTopics.CustomLotChange);
+
+            material.Ship(false);
+
+            string previousPath = GetMessageHeaderComposedPath(material);
+
+            waitForMessageBus.WaitFor();
+
+            TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
+
+            Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
+            Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
+
+            ValidateHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialShip, previousPath);
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Validates Header and Body message sent to Tibco when a material is received
+        ///
+        /// Acceptance Citeria:
+        ///     - Validate created message information
+        ///
+        /// </summary>
+        /// <TestCaseID>CustomSendEventMessage_ValidateMessage_MaterialReceive</TestCaseID>
+        /// <Author>André Cruz</Author>
+        [TestMethod]
+        public void CustomSendEventMessage_ValidateMessage_MaterialReceive()
+        {
+            ///<Step> Create a Lot and its wafers </Step>
+            _scenario.NumberOfMaterialsToGenerate = 1;
+            _scenario.FacilityName = amsOSRAMConstants.DefaultTestShippingFacilityName;
+            _scenario.ProductName = amsOSRAMConstants.DefaultTestProductName;
+            _scenario.Setup();
+
+            // Material created
+            Material material = _scenario.GeneratedLots.FirstOrDefault();
+
+            material.Ship(false);
+
+            Func<bool> waitForMessageBus = SuscribeMessageBus(CustomSendEventMessageTopics.CustomLotChange);
+
+            string previousPath = GetMessageHeaderComposedPath(material);
+
+            material.Receive(amsOSRAMConstants.DefaultTestFlowPath);
+
+            waitForMessageBus.WaitFor();
+
+            TibcoCustomSendEventMessage tibcoCustomSendEventMessage = _tibcoCustomSendEventMessages.FirstOrDefault();
+
+            Assert.IsNotNull(tibcoCustomSendEventMessage, $"No Message received from MessageBus for the topic {CustomSendEventMessageTopics.CustomLotChange}");
+            Assert.IsNotNull(tibcoCustomSendEventMessage.Header, $"The Header should not be null");
+            Assert.IsFalse(tibcoCustomSendEventMessage.Message == null || tibcoCustomSendEventMessage.Message == String.Empty, $"The Message should not be null or empty");
+
+            ValidateHeaderMessage(material, tibcoCustomSendEventMessage, CustomTransactionTypes.MaterialReceive, previousPath);
+            ValidateXML(XDocument.Parse(GetExportedObjectOfMaterial(material)), XDocument.Parse(tibcoCustomSendEventMessage.Message));
+        }
+
         private void ValidateXML(XDocument document1, XDocument document2)
         {
             // List of ElementNames to discard on output XML
@@ -924,7 +1001,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.AreEqual(CustomUtilities.GetEnvironmentName(), message.Header.stdDataOrigin, $"The Header message doesnt have the correct data origin. Should be {Environment.MachineName} instead of {message.Header.stdDataOrigin}");
 
             // stdFrom  / stdTo
-            string expectedPathTo = GetMessageHeaderComposedPath(material);
+            string expectedPathTo = GetMessageHeaderComposedPath(material, material.InTransitToFacility);
             string expectedPathFrom = previousPath ?? expectedPathTo;
 
             Assert.AreEqual(expectedPathFrom, message.Header.stdFrom, $"The Header message doesnt have the correct origin path. Should be {expectedPathFrom} instead of {message.Header.stdFrom}");
@@ -934,19 +1011,22 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             Assert.AreEqual(message.Header.stdTransaction, customTransactionType.ToString(), $"The Header message doesnt have the correct transaction name. Should be {customTransactionType.ToString()} instead of {message.Header.stdTransaction}");
         }
 
-        private string GetMessageHeaderComposedPath(Material material)
+        private string GetMessageHeaderComposedPath(Material material, Facility facility = null)
         {
-            material.Facility.Load();
-            material.Facility.LoadAttribute(amsOSRAMConstants.FacilityAttributeFacilityCode);
+            // Get default Facility
+            Facility currentFacility = facility is null ? material.Facility : facility;
 
-            string expectedFacilityCode = (string)material.Facility.Attributes.GetValueOrDefault(amsOSRAMConstants.FacilityAttributeFacilityCode, "EMPTY");
+            currentFacility.Load();
+            currentFacility.LoadAttribute(amsOSRAMConstants.FacilityAttributeFacilityCode);
+
+            string expectedFacilityCode = (string)currentFacility.Attributes.GetValueOrDefault(amsOSRAMConstants.FacilityAttributeFacilityCode, "EMPTY");
             string expectedSiteCode = "EMPTY";
 
-            if (material.Facility.Site != null)
+            if (currentFacility.Site != null)
             {
-                material.Facility.Site.Load();
-                material.Facility.Site.LoadAttribute(amsOSRAMConstants.SiteAttributeSiteCode);
-                expectedSiteCode = (string)material.Facility.Site.Attributes.GetValueOrDefault(amsOSRAMConstants.SiteAttributeSiteCode, "EMPTY");
+                currentFacility.Site.Load();
+                currentFacility.Site.LoadAttribute(amsOSRAMConstants.SiteAttributeSiteCode);
+                expectedSiteCode = (string)currentFacility.Site.Attributes.GetValueOrDefault(amsOSRAMConstants.SiteAttributeSiteCode, "EMPTY");
             }
 
             material.Step.Load();

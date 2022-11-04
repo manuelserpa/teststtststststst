@@ -345,8 +345,40 @@
       "SiteCode": "TestSiteCode"
     }
   },
+  "<DM>Facility": {
+    "1": {
+      "Name": "CMFTestShippingFacility",
+      "Description": "CMFTestShippingFacility",
+      "Type": "Production",
+      "DisplayOrder": "0",
+      "DefaultCalendar": "General",
+      "TerminateOnShip": "No",
+      "DataGroup": "",
+      "Site": "",
+      "Shipping Facilities": "Regensburg Production",
+      "FacilityCode": "CMFShippingFacility"
+    }
+  },
   "<DM>Area": {
     "1": {
+      "Name": "CMFTestShippingArea",
+      "Description": "CMFTestShippingArea",
+      "Type": "Production",
+      "DisplayOrder": "10",
+      "Facility": "CMFTestShippingFacility",
+      "AreaType": "Area",
+      "ParentArea": "",
+      "Calendar": "General",
+      "Schedule": "",
+      "IsExternal": "",
+      "FlowPath": "",
+      "SetFlowPath": "",
+      "IncomingPickingPlace": "",
+      "OutgoingPickingPlace": "",
+      "PickingStrategy": "",
+      "PickingSequence": ""
+    },
+    "2": {
       "Name": "CMFTestArea",
       "Description": "CMFTestArea",
       "Type": "Production",
@@ -381,7 +413,7 @@
       "Description": "First step of the Generic Flow ",
       "Type": "CMFTestStepType",
       "DisplayOrder": "10",
-      "IsShippingAllowed": "No",
+      "IsShippingAllowed": "Yes",
       "IsDecimalQuantityAllowed": "Yes",
       "IsAutoSplitByProductEnabled": "No",
       "SubMaterialTrackStateDepth": "",
@@ -394,7 +426,7 @@
       "HideLossBonusAtTrackOut": "No",
       "DefaultLinkedDispatchAndTrackIn": "Yes",
       "DefaultLinkedTrackOutAndMoveNext": "Yes",
-      "Areas": "PhotoLithography",
+      "Areas": "PhotoLithography;CMFTestShippingArea",
       "FixedCost": "",
       "CostPerHour": "",
       "CostPerUnit": "",

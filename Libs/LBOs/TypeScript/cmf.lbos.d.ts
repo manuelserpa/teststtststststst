@@ -38564,7 +38564,9 @@ export declare namespace Cmf.Custom.amsOSRAM.Common.DataStructures {
         MaterialBonus = 9,
         MaterialHold = 10,
         MaterialRelease = 11,
-        ContainerAssociation = 12
+        ContainerAssociation = 12,
+        MaterialShip = 13,
+        MaterialReceive = 14
     }
 }
 export declare namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects {

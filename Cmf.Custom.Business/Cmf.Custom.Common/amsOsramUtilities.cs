@@ -2078,26 +2078,30 @@ namespace Cmf.Custom.amsOSRAM.Common
         /// Get Material Source Path
         /// </summary>
         /// <param name="material">Material</param>
+        /// <param name="facility">Facility</param>
         /// <returns></returns>
-        public static string GetMaterialSourcePath(IMaterial material)
+        public static string GetMaterialSourcePath(IMaterial material, IFacility facility = null)
         {
             string stepLogicalName = string.Empty;
             string facilityCode, siteCode;
             facilityCode = siteCode = "EMPTY";
 
+            // Get default Facility
+            IFacility currentFacility = facility is null ? material.Facility : facility;
+
             // Get FacilityCode attribute value
-            if (material.Facility.HasAttribute(amsOSRAMConstants.CustomFacilityCodeAttribute, true))
+            if (currentFacility.HasAttribute(amsOSRAMConstants.CustomFacilityCodeAttribute, true))
             {
-                facilityCode = material.Facility.GetAttributeValue(amsOSRAMConstants.CustomFacilityCodeAttribute) as string;
+                facilityCode = currentFacility.GetAttributeValue(amsOSRAMConstants.CustomFacilityCodeAttribute) as string;
             }
 
             // Get SiteCode attribute value
-            if (material.Facility.Site != null)
+            if (currentFacility.Site != null)
             {
-                material.Facility.Site.Load();
-                if (material.Facility.Site.HasAttribute(amsOSRAMConstants.CustomSiteCodeAttribute, true))
+                currentFacility.Site.Load();
+                if (currentFacility.Site.HasAttribute(amsOSRAMConstants.CustomSiteCodeAttribute, true))
                 {
-                    siteCode = material.Facility.Site.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute) as string;
+                    siteCode = currentFacility.Site.GetAttributeValue(amsOSRAMConstants.CustomSiteCodeAttribute) as string;
                 }
             }
             // Get Step LogicalName value

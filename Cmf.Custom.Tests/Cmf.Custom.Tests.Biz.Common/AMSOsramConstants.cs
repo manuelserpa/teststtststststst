@@ -39,7 +39,7 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// Site Attribute SiteCode
         /// </summary>
         public const string SiteAttributeSiteCode = "SiteCode";
-        
+
         /// <summary>
         /// Step Attribute IsWaferReception
         /// </summary>
@@ -222,6 +222,11 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// Default Space DataCollectionLimitSet Name
         /// </summary>
         public const string DefaultSpaceDataCollectionLimitSetName = "SpaceDCTestLimitSet";
+        
+        /// <summary>
+        /// Default Test Shipping Facility Name
+        /// </summary>
+        public const string DefaultTestShippingFacilityName = "CMFTestShippingFacility";
 
         #endregion
 
