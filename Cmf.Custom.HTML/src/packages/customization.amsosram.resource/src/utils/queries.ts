@@ -16,7 +16,6 @@ export const CustomGetResourceLoadPortsDataQueryParameters = ({
     parameter_0.Name = "ParentResource";
     parameter_0.Value = sourceEntityId;
     parameter_0.Direction = System.Data.ParameterDirection.Input;
-    parameter_0.EntityTypePropertyId = "1805111613350002954"
     parameter_0.FilterType = Cmf.Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal;
     parameter_0.IsOptional = false;
 
@@ -27,7 +26,6 @@ export const CustomGetResourceLoadPortsDataQueryParameters = ({
         parameter_1.Name = "ContainerResourceAssociationType";
         parameter_1.Value = containerAssociationType;
         parameter_1.Direction = System.Data.ParameterDirection.Input;
-        parameter_1.EntityTypePropertyId = "1805111613350000968"
         parameter_1.FilterType = Cmf.Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal;
         parameter_1.IsOptional = true
 
@@ -39,7 +37,6 @@ export const CustomGetResourceLoadPortsDataQueryParameters = ({
         parameter_2.Name = "LoadPortStateModelStateId";
         parameter_2.Value = loadPortStateModelStateId;
         parameter_2.Direction = System.Data.ParameterDirection.Input;
-        parameter_2.EntityTypePropertyId = "1805111613350001254"
         parameter_2.FilterType = Cmf.Foundation.BusinessObjects.QueryObject.Enums.FilterType.Normal;
         parameter_2.IsOptional = true;
 

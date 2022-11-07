@@ -901,21 +901,9 @@
       "MinimizeSetupTimes",
       "MinimizeTotalWaitingTime"
     ],
-    "SchedulingType": [
-      "Machine",
-      "Batch",
-      "Tunnel"
-    ],
-    "ContentStorageType": [
-      "Internal",
-      "External"
-    ],
-    "StepSetupCharacteristic": [
-      "Service",
-      "Product",
-      "ProductGroup",
-      "Recipe"
-    ],
+    "SchedulingType": ["Machine", "Batch", "Tunnel"],
+    "ContentStorageType": ["Internal", "External"],
+    "StepSetupCharacteristic": ["Service", "Product", "ProductGroup", "Recipe"],
     "ScheduleSortingRule": [
       "PossibleStartDate",
       "Priority",
@@ -926,31 +914,11 @@
       "DueDate",
       "ItemCode"
     ],
-    "DispatchScheduleType": [
-      "Dispatching",
-      "Scheduling"
-    ],
-    "DefaultSamplingType": [
-      "CounterBased",
-      "TimeBased",
-      "CounterAndTimeBased"
-    ],
-    "Frequency": [
-      "Daily",
-      "Weekly",
-      "Monthly",
-      "Yearly"
-    ],
-    "RuleSortingDirection": [
-      "Ascending",
-      "Descending"
-    ],
-    "TimeScale": [
-      "Days",
-      "Hours",
-      "Minutes",
-      "Seconds"
-    ],
+    "DispatchScheduleType": ["Dispatching", "Scheduling"],
+    "DefaultSamplingType": ["CounterBased", "TimeBased", "CounterAndTimeBased"],
+    "Frequency": ["Daily", "Weekly", "Monthly", "Yearly"],
+    "RuleSortingDirection": ["Ascending", "Descending"],
+    "TimeScale": ["Days", "Hours", "Minutes", "Seconds"],
     "SamplingContext": [
       "MaterialType",
       "MaterialProduct",
@@ -959,39 +927,13 @@
       "MaterialStep",
       "MaterialStepMaturity"
     ],
-    "BOMScope": [
-      "MaterialTracking",
-      "MaintenanceManagement"
-    ],
-    "TimeDueScale": [
-      "Hours",
-      "Days",
-      "Weeks",
-      "Months",
-      "Years"
-    ],
-    "FutureLogisticActionExecutionMode": [
-      "Manual",
-      "Automatic"
-    ],
-    "DefaultScheduleView": [
-      "Day",
-      "Week",
-      "Month"
-    ],
-    "MaintenanceInstanceType": [
-      "Resource",
-      "Container"
-    ],
-    "KPIType": [
-      "Maximum",
-      "Minimum",
-      "Deviation"
-    ],
-    "InstancesToSchedulePattern": [
-      "NumberOfInstances",
-      "Duration"
-    ]
+    "BOMScope": ["MaterialTracking", "MaintenanceManagement"],
+    "TimeDueScale": ["Hours", "Days", "Weeks", "Months", "Years"],
+    "FutureLogisticActionExecutionMode": ["Manual", "Automatic"],
+    "DefaultScheduleView": ["Day", "Week", "Month"],
+    "MaintenanceInstanceType": ["Resource", "Container"],
+    "KPIType": ["Maximum", "Minimum", "Deviation"],
+    "InstancesToSchedulePattern": ["NumberOfInstances", "Duration"]
   },
   "<DM>AutomationManager": {
     "1": {
@@ -1080,6 +1022,15 @@
       "Description": "5FETR1",
       "Type": "General",
       "LogicalAddress": "5FETR1",
+      "MonitorPackageVersion": "9.1.0-202209072",
+      "ManagerPackageVersion": "9.1.0-202209072",
+      "Configuration": ""
+    },
+    "11": {
+      "Name": "KLASpectraFilm",
+      "Description": "5FELL1",
+      "Type": "General",
+      "LogicalAddress": "5FELL1",
       "MonitorPackageVersion": "9.1.0-202209072",
       "ManagerPackageVersion": "9.1.0-202209072",
       "Configuration": ""
@@ -1253,6 +1204,24 @@
       "AutomationManager": "DISCODFD6363HC",
       "DriverName": "FileDriver",
       "EntityName": "5FETR1.FILE"
+    },
+    "29": {
+      "AutomationController": "KLASpectraFilmController",
+      "AutomationManager": "KLASpectraFilm",
+      "DriverName": "",
+      "EntityName": "5FELL1"
+    },
+    "30": {
+      "AutomationController": "KLASpectraFilmController",
+      "AutomationManager": "KLASpectraFilm",
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FELL1"
+    },
+    "31": {
+      "AutomationController": "KLASpectraFilmController",
+      "AutomationManager": "KLASpectraFilm",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FELL1.RFID"
     }
   }
 }

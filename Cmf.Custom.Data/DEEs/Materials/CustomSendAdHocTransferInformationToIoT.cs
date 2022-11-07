@@ -76,9 +76,6 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
             UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
             UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
 
-            // Other
-            UseReference("", "System.Threading");
-
             #region Check if all arguments exist
 
             if (!Input.TryGetValueAs("Resource", out string resourceName))
@@ -294,23 +291,27 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
                 throw new CmfBaseException(string.Format(localizationService.Localize(Thread.CurrentThread.CurrentCulture.Name, amsOSRAMConstants.LocalizedMessageCustomResourceNoDockerContainer), resource.Name));
             }
 
-            IContainerCollection containers = entityFactory.CreateCollection<IContainerCollection>();
-            containers.AddRange(dockedContainers
+            Dictionary<string, string> containerLoadPortMap = dockedContainers
                 .Where(w =>
                     w.ContainerTotalPositions > w.ContainerUsedPositions &&
                     containerMaxCapacity - w.ContainerUsedPositions > 0 &&
-                    w.LoadPortInUse == false
-                ).Select(s =>
-                {
-                    IContainer container = entityFactory.Create<IContainer>();
-                    container.Name = s.ContainerName;
-                    return container;
-                }));
+                    w.LoadPortInUse == false &&
+                    w.LoadPortName != null &&
+                    w.ContainerName != null
+                ).ToDictionary(x => x.ContainerName, y => y.LoadPortName);
 
-            if (containers.Count == 0)
+            if (containerLoadPortMap.Count == 0)
             {
                 throw new CmfBaseException(string.Format(localizationService.Localize(Thread.CurrentThread.CurrentCulture.Name, amsOSRAMConstants.LocalizedMessageCustomResourceNoEnoughPositionsOrInUse), resource.Name));
             }
+
+            IContainerCollection containers = entityFactory.CreateCollection<IContainerCollection>();
+            containers.AddRange(containerLoadPortMap.Keys.Select(s =>
+                {
+                    IContainer container = entityFactory.Create<IContainer>();
+                    container.Name = s;
+                    return container;
+                }));
 
             containers.Load();
             containers.LoadRelations(Navigo.Common.Constants.MaterialContainer);
@@ -343,6 +344,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
 
             JArray movementList = new JArray();
             int currentMovement = 0;
+            Dictionary<string, IResource> loadPortsToUpdate = new Dictionary<string, IResource>();
 
             foreach (IContainer container in eligibleContainers.OrderByDescending(o => o.UsedPositions))
             {
@@ -371,6 +373,14 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
                             [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer] = container.Name,
                             [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = i
                         };
+                        
+                        if (!loadPortsToUpdate.ContainsKey(container.Name))
+                        {
+                            IResource loadPortDestination = entityFactory.Create<IResource>();
+                            loadPortDestination.Name = containerLoadPortMap[container.Name];
+
+                            loadPortsToUpdate.Add(container.Name, loadPortDestination);
+                        }
 
                         movementList.Add(jObject);
                         containerMaterialsCount++;
@@ -388,6 +398,19 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
                         break;
                     }
                 }
+            }
+
+            if (containerLoadPortMap.Count > 0)
+            {
+                IResourceCollection resourcesToUpdate = entityFactory.CreateCollection<IResourceCollection>();
+                resourcesToUpdate.Add(sourceLoadPort);
+                resourcesToUpdate.AddRange(loadPortsToUpdate.Values);
+                resourcesToUpdate.Load();
+
+                resourcesToUpdate.SaveAttributes(new AttributeCollection
+                {
+                    { amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, true }
+                });
             }
 
             #endregion Create the movement list

@@ -25,6 +25,7 @@
   },
   "packages": {
     "available": [
+      "cmf.core.app",
       "cmf.core.shell",
       "cmf.core.business.controls",
       "cmf.core.controls",

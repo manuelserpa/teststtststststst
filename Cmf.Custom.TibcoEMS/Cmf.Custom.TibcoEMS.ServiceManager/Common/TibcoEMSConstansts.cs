@@ -10,41 +10,46 @@
         public const string GenericTableCustomTibcoEMSGatewayResolver = "CustomTibcoEMSGatewayResolver";
 
         /// <summary>
-        /// Custom TibcoEMS Gateway Resolver table Subject Property 
+        /// Custom TibcoEMS Gateway Resolver table Subject Property
         /// </summary>
         public const string GenericTableCustomTibcoEMSGatewayResolverSubjectProperty = "Subject";
 
         /// <summary>
-        /// Custom TibcoEMS Gateway Resolver table Topic Property 
+        /// Custom TibcoEMS Gateway Resolver table Topic Property
         /// </summary>
         public const string GenericTableCustomTibcoEMSGatewayResolverTopicProperty = "Topic";
 
         /// <summary>
-        /// Custom TibcoEMS Gateway Resolver table Rule Property 
+        /// Custom TibcoEMS Gateway Resolver table ReplyTo Property
+        /// </summary>
+        public const string GenericTableCustomTibcoEMSGatewayResolverReplyToProperty = "ReplyTo";
+
+        /// <summary>
+        /// Custom TibcoEMS Gateway Resolver table Rule Property
         /// </summary>
         public const string GenericTableCustomTibcoEMSGatewayResolverRuleProperty = "Rule";
 
         /// <summary>
-        /// Custom TibcoEMS Gateway Resolver table IsEnabled Property 
+        /// Custom TibcoEMS Gateway Resolver table IsEnabled Property
         /// </summary>
         public const string GenericTableCustomTibcoEMSGatewayResolverIsEnabledProperty = "IsEnabled";
 
         /// <summary>
-        /// Custom TibcoEMS Gateway Resolver table QueueMessage Property 
+        /// Custom TibcoEMS Gateway Resolver table QueueMessage Property
         /// </summary>
         public const string GenericTableCustomTibcoEMSGatewayResolverQueueMessageProperty = "QueueMessage";
 
         /// <summary>
-        /// Custom TibcoEMS Gateway Resolver table TextMessage Property 
+        /// Custom TibcoEMS Gateway Resolver table TextMessage Property
         /// </summary>
         public const string GenericTableCustomTibcoEMSGatewayResolverTextMessageProperty = "TextMessage";
 
         /// <summary>
-        /// Custom TibcoEMS Gateway Resolver table CompressMessage Property 
+        /// Custom TibcoEMS Gateway Resolver table CompressMessage Property
         /// </summary>
         public const string GenericTableCustomTibcoEMSGatewayResolverCompressMessageProperty = "CompressMessage";
 
-        #endregion
+        #endregion Generic Table
 
         #region Message Bus Subjects
 
@@ -53,7 +58,7 @@
         /// </summary>
         public const string SubjectCustomTibcoEMSGatewayInvalidateCache = "CustomTibcoEMSGatewayInvalidateCache";
 
-        #endregion
+        #endregion Message Bus Subjects
 
         #region Log Messages
 
@@ -62,7 +67,7 @@
         /// </summary>
         public static string DefaultLogDataFormat = "Message Received >> SUBJECT: {0}; TOPIC: {1}; ACTION: {2}";
 
-        #endregion
+        #endregion Log Messages
 
         #region DEE Actions
 
@@ -71,7 +76,12 @@
         /// </summary>
         public const string CustomGetTibcoConfigurations = "CustomGetTibcoConfigurations";
 
-        #endregion
+        /// <summary>
+        /// DEE Action: CustomTibcoEMSReplyHandler
+        /// </summary>
+        public const string CustomTibcoEMSReplyHandler = "CustomTibcoEMSReplyHandler";
+
+        #endregion DEE Actions
 
         #region TibcoEMS Properties
 
@@ -85,6 +95,6 @@
         /// </summary>
         public const string TibcoEMSPropertyMapMessageField = "field";
 
-        #endregion
+        #endregion TibcoEMS Properties
     }
 }

@@ -1,0 +1,147 @@
+{
+	"tasks": [
+		{
+			"id": "task_4909",
+			"reference": {
+				"name": "recipeBodyRequested",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-mes-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"autoActivate": true,
+				"recipeBodyRequestedSubject": "RecipeManagement.GetRecipeBody",
+				"replyTimeout": 60000,
+				"___cmf___name": "Recipe Body Requested",
+				"___cmf___color": "#0080ff"
+			}
+		},
+		{
+			"id": "task_30518",
+			"reference": {
+				"name": "customGetFormattedRecipe",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "2.0.0"
+				}
+			},
+			"settings": {
+				"primaryRequestMessage": "{\"type\":\"A\",\"name\":\"PPID\",\"value\":\"\"}",
+				"streamFunctionName": "S7F25",
+				"recipeNamePrimaryPath": "/",
+				"recipeNameSecondaryPath": "/[1]",
+				"recipeBodyPath": "/[4]",
+				"recipeBodyType": "Buffer",
+				"___cmf___name": "Get Formatted Recipe (S7F25)"
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "1ff5c546-bfbd-4d3f-9656-6a6e61fe3950",
+			"sourceId": "task_4909",
+			"targetId": "task_30518",
+			"inputName": "recipeName",
+			"outputName": "recipeName"
+		},
+		{
+			"id": "e6703758-23d2-4bca-99ae-bb47b61608d5",
+			"sourceId": "task_4909",
+			"targetId": "task_30518",
+			"inputName": "activate",
+			"outputName": "recipeName"
+		},
+		{
+			"id": "ae6dbda2-6c55-4444-8b98-928ebfaba052",
+			"sourceId": "task_30518",
+			"targetId": "task_4909",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "8ee174e3-a694-420f-92a7-2bb6aa7cf9bb",
+			"sourceId": "task_30518",
+			"targetId": "task_4909",
+			"inputName": "recipeBody",
+			"outputName": "recipeParameterList",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#0080ff",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_4909": {
+						"collapsed": false,
+						"position": {
+							"x": 826,
+							"y": 631
+						},
+						"outdated": false
+					},
+					"task_30518": {
+						"collapsed": false,
+						"position": {
+							"x": 1377,
+							"y": 618
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"1ff5c546-bfbd-4d3f-9656-6a6e61fe3950": {
+						"vertices": []
+					},
+					"e6703758-23d2-4bca-99ae-bb47b61608d5": {
+						"vertices": []
+					},
+					"ae6dbda2-6c55-4444-8b98-928ebfaba052": {
+						"vertices": [
+							{
+								"x": 1278,
+								"y": 1081
+							}
+						]
+					},
+					"8ee174e3-a694-420f-92a7-2bb6aa7cf9bb": {
+						"vertices": [
+							{
+								"x": 1362,
+								"y": 511
+							}
+						]
+					}
+				},
+				"notes": {},
+				"pan": {
+					"x": 804.8799697136565,
+					"y": 474.34424702060664
+				},
+				"zoom": 0.99
+			}
+		}
+	}
+}

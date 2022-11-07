@@ -1,0 +1,422 @@
+{
+	"tasks": [
+		{
+			"id": "task_11205",
+			"reference": {
+				"name": "subWorkflowStart",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"outputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialData"
+						}
+					}
+				],
+				"___cmf___name": "Start"
+			}
+		},
+		{
+			"id": "task_11277",
+			"reference": {
+				"name": "subWorkflowEnd",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialData"
+						}
+					}
+				],
+				"___cmf___name": "End"
+			}
+		},
+		{
+			"id": "task_11381",
+			"reference": {
+				"name": "customControlJobRequest",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "2.0.0"
+				}
+			},
+			"settings": {
+				"___cmf___name": "Custom Control Job Request",
+				"ControlJobCommand": 7,
+				"commandName": 7
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_11689",
+			"reference": {
+				"name": "retrieveMaterialProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "2.0.0"
+				}
+			},
+			"settings": {
+				"___cmf___name": "Retrieve Material Property",
+				"___cmf___color": "#808078",
+				"outputs": []
+			}
+		},
+		{
+			"id": "task_17717",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"       ",
+					"        if (inputs.MaterialData) {",
+					"            await this.framework.dataStore.store(\"AbortJob_MaterialsToAbort\", inputs.MaterialData, \"Temporary\")",
+					"        }",
+					"",
+					"        var materialData = await this.framework.dataStore.retrieve(\"AbortJob_MaterialsToAbort\", [])",
+					"        ",
+					"        if(materialData && materialData.lenght > 0) {",
+					"            var material = materialData[0]",
+					"            materialData.splice(0,1)     ",
+					"            await this.framework.dataStore.store(\"AbortJob_MaterialsToAbort\", materialData, \"Temporary\")",
+					"",
+					"            return { MaterialName: material.MaterialName, AbortMaterial: true}",
+					"        }",
+					"",
+					"        return { AllMaterialsAborted: true };",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICBpZiAoaW5wdXRzLk1hdGVyaWFsRGF0YSkgew0KICAgICAgICAgICAgYXdhaXQgdGhpcy5mcmFtZXdvcmsuZGF0YVN0b3JlLnN0b3JlKCJBYm9ydEpvYl9NYXRlcmlhbHNUb0Fib3J0IiwgaW5wdXRzLk1hdGVyaWFsRGF0YSwgIlRlbXBvcmFyeSIpOw0KICAgICAgICB9DQogICAgICAgIHZhciBtYXRlcmlhbERhdGEgPSBhd2FpdCB0aGlzLmZyYW1ld29yay5kYXRhU3RvcmUucmV0cmlldmUoIkFib3J0Sm9iX01hdGVyaWFsc1RvQWJvcnQiLCBbXSk7DQogICAgICAgIGlmIChtYXRlcmlhbERhdGEgJiYgbWF0ZXJpYWxEYXRhLmxlbmdodCA+IDApIHsNCiAgICAgICAgICAgIHZhciBtYXRlcmlhbCA9IG1hdGVyaWFsRGF0YVswXTsNCiAgICAgICAgICAgIG1hdGVyaWFsRGF0YS5zcGxpY2UoMCwgMSk7DQogICAgICAgICAgICBhd2FpdCB0aGlzLmZyYW1ld29yay5kYXRhU3RvcmUuc3RvcmUoIkFib3J0Sm9iX01hdGVyaWFsc1RvQWJvcnQiLCBtYXRlcmlhbERhdGEsICJUZW1wb3JhcnkiKTsNCiAgICAgICAgICAgIHJldHVybiB7IE1hdGVyaWFsTmFtZTogbWF0ZXJpYWwuTWF0ZXJpYWxOYW1lLCBBYm9ydE1hdGVyaWFsOiB0cnVlIH07DQogICAgICAgIH0NCiAgICAgICAgcmV0dXJuIHsgQWxsTWF0ZXJpYWxzQWJvcnRlZDogdHJ1ZSB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialName"
+						}
+					},
+					{
+						"name": "AbortMaterial",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "AllMaterialsAborted",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "AllMaterialsAborted"
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "964a4ea7-c59c-4c60-843f-dc358a177f3f",
+			"sourceId": "task_11689",
+			"targetId": "task_11381",
+			"inputName": "ControlJobName",
+			"outputName": "material",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "ControlJobId",
+						"type": 4
+					}
+				}
+			]
+		},
+		{
+			"id": "a8222086-4cad-4a0d-af77-0b937a09aa0c",
+			"sourceId": "task_11689",
+			"targetId": "task_11381",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "b950a93b-f1cf-46da-9ecd-f426a03de4d2",
+			"sourceId": "task_11689",
+			"targetId": "task_11277",
+			"inputName": "error",
+			"outputName": "error"
+		},
+		{
+			"id": "bfcd4175-6ffc-4ff2-b4eb-87c6300f42b7",
+			"sourceId": "task_11205",
+			"targetId": "task_11277",
+			"inputName": "MaterialData",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "74615f71-0af8-4c8c-a79e-85331c33b63a",
+			"sourceId": "task_11205",
+			"targetId": "task_17717",
+			"inputName": "MaterialDataIn",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "08bc908b-82f8-477c-8247-1aa7cf566fe7",
+			"sourceId": "task_11205",
+			"targetId": "task_17717",
+			"inputName": "activate",
+			"outputName": "activateOut"
+		},
+		{
+			"id": "41f53e57-a6c0-4c1d-a780-f164bb229f4d",
+			"sourceId": "task_11381",
+			"targetId": "task_17717",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "2480668d-f539-454c-895a-b16af234444d",
+			"sourceId": "task_17717",
+			"targetId": "task_11277",
+			"inputName": "error",
+			"outputName": "error"
+		},
+		{
+			"id": "2983c349-39a8-4e8a-9014-943597ffdb82",
+			"sourceId": "task_17717",
+			"targetId": "task_11277",
+			"inputName": "success",
+			"outputName": "AllMaterialsAbortedOut"
+		},
+		{
+			"id": "c5f0bdac-4dcb-4496-b978-a28f28b24dec",
+			"sourceId": "task_17717",
+			"targetId": "task_11689",
+			"inputName": "activate",
+			"outputName": "AbortMaterialOut"
+		},
+		{
+			"id": "4b9d82c9-254f-4c08-a5ce-e81fd8f362f6",
+			"sourceId": "task_17717",
+			"targetId": "task_11689",
+			"inputName": "materialName",
+			"outputName": "MaterialNameOut"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#ffff80",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_11277": {
+						"collapsed": false,
+						"position": {
+							"x": 2028,
+							"y": 697
+						},
+						"outdated": false
+					},
+					"task_11205": {
+						"collapsed": false,
+						"position": {
+							"x": 454,
+							"y": 294
+						},
+						"outdated": false
+					},
+					"task_11381": {
+						"collapsed": false,
+						"position": {
+							"x": 1928,
+							"y": 280
+						},
+						"outdated": false
+					},
+					"task_11689": {
+						"collapsed": false,
+						"position": {
+							"x": 1461,
+							"y": 290
+						},
+						"outdated": false
+					},
+					"task_17717": {
+						"collapsed": false,
+						"position": {
+							"x": 964,
+							"y": 285
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"a8222086-4cad-4a0d-af77-0b937a09aa0c": {
+						"vertices": [
+							{
+								"x": 1883,
+								"y": 648
+							}
+						]
+					},
+					"b950a93b-f1cf-46da-9ecd-f426a03de4d2": {
+						"vertices": [
+							{
+								"x": 1922,
+								"y": 761
+							},
+							{
+								"x": 1950,
+								"y": 914
+							}
+						]
+					},
+					"bfcd4175-6ffc-4ff2-b4eb-87c6300f42b7": {
+						"vertices": [
+							{
+								"x": 1138,
+								"y": 863
+							}
+						]
+					},
+					"74615f71-0af8-4c8c-a79e-85331c33b63a": {
+						"vertices": []
+					},
+					"08bc908b-82f8-477c-8247-1aa7cf566fe7": {
+						"vertices": []
+					},
+					"41f53e57-a6c0-4c1d-a780-f164bb229f4d": {
+						"vertices": [
+							{
+								"x": 2290,
+								"y": 254
+							},
+							{
+								"x": 1113,
+								"y": 233
+							}
+						]
+					},
+					"2480668d-f539-454c-895a-b16af234444d": {
+						"vertices": [
+							{
+								"x": 1595,
+								"y": 968
+							}
+						]
+					},
+					"2983c349-39a8-4e8a-9014-943597ffdb82": {
+						"vertices": [
+							{
+								"x": 1512,
+								"y": 843
+							}
+						]
+					},
+					"c5f0bdac-4dcb-4496-b978-a28f28b24dec": {
+						"vertices": []
+					},
+					"4b9d82c9-254f-4c08-a5ce-e81fd8f362f6": {
+						"vertices": []
+					},
+					"964a4ea7-c59c-4c60-843f-dc358a177f3f": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"zoom": 0.9500000000000001,
+				"pan": {
+					"x": 650,
+					"y": 186
+				}
+			}
+		}
+	}
+}

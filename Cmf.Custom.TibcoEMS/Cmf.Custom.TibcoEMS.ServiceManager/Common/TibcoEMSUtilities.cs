@@ -10,6 +10,7 @@ using Cmf.Foundation.Common;
 using Cmf.LightBusinessObjects.Infrastructure;
 using Cmf.MessageBus.Client;
 using Newtonsoft.Json;
+using SuperSocket.ClientEngine;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -25,7 +26,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
         #region Public Methods
 
         /// <summary>
-        /// LBOs Client Configuration 
+        /// LBOs Client Configuration
         /// </summary>
         private static ClientConfiguration config = null;
 
@@ -45,21 +46,30 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
                         HostAddress = ConfigurationManager.AppSettings["HostAddress"],
                         ClientTenantName = ConfigurationManager.AppSettings["ClientTenantName"],
                         ApplicationName = ConfigurationManager.AppSettings["ApplicationName"],
-                        UseSsl =  bool.Parse(ConfigurationManager.AppSettings["UseSsl"] ?? "false"), 
-                        IsUsingLoadBalancer = bool.Parse(ConfigurationManager.AppSettings["IsUsingLoadBalancer"] ?? "false"), 
+                        UseSsl = bool.Parse(ConfigurationManager.AppSettings["UseSsl"] ?? "false"),
+                        IsUsingLoadBalancer = bool.Parse(ConfigurationManager.AppSettings["IsUsingLoadBalancer"] ?? "false"),
                     };
 
-                    config.SecurityPortalBaseAddress = new Uri(ConfigurationManager.AppSettings["SecurityPortalBaseAddress"]);
-                    config.SecurityAccessToken = ConfigurationManager.AppSettings["SecurityAccessToken"];
+                    string userName = ConfigurationManager.AppSettings.GetValue("UserName", "");
+                    
+                    if (String.IsNullOrEmpty(userName))
+                    {
+                        config.SecurityPortalBaseAddress = new Uri(ConfigurationManager.AppSettings["SecurityPortalBaseAddress"]);
+                        config.SecurityAccessToken = ConfigurationManager.AppSettings["SecurityAccessToken"];
+                    } 
+                    else
+                    {
+                        config.UserName = userName;
+                        config.Password = ConfigurationManager.AppSettings["Password"];
+                    }
                 }
                 return config;
             };
 
-            
             if (messageBusTransportConfig == null)
             {
                 string transportConfigString = new GetApplicationBootInformationInput().GetApplicationBootInformationSync().TransportConfig;
-            
+
                 TransportConfig transportConfig = Newtonsoft.Json.JsonConvert.DeserializeObject<TransportConfig>(transportConfigString);
                 transportConfig.ApplicationName = ConfigurationManager.AppSettings["ApplicationName"];
                 transportConfig.TenantName = ConfigurationManager.AppSettings["ClientTenantName"];
@@ -99,7 +109,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
         }
 
         /// <summary>
-        /// Get data "IsEnabled" from Generic Table related to topics to be subscribed by Tibco 
+        /// Get data "IsEnabled" from Generic Table related to topics to be subscribed by Tibco
         /// </summary>
         public static Dictionary<string, TibcoResolverDto> GetTibcoConfigurations()
         {
@@ -139,6 +149,7 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
                                                         {
                                                             Subject = row.Field<string>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverSubjectProperty),
                                                             Topic = row.Field<string>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverTopicProperty),
+                                                            ReplyTo = row.Field<string>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverReplyToProperty),
                                                             Rule = row.Table.Columns.Contains(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverRuleProperty) ?
                                                                    row.Field<string>(TibcoEMSConstants.GenericTableCustomTibcoEMSGatewayResolverRuleProperty) :
                                                                    string.Empty,
@@ -202,6 +213,46 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Common
             }
         }
 
-        #endregion
+        #endregion Public Methods
+
+        public static TextMessage CreateTextMessage(Session session, string messageData, Dictionary<string, string> headersData, bool isToCompressMessage)
+        {
+            // Create Tibco Text Message with associated message
+            TextMessage tibcoTextMessage = session.CreateTextMessage(messageData);
+
+            // Set Headers on TextMessage
+            if (headersData != null && headersData.Any())
+            {
+                foreach (KeyValuePair<string, string> header in headersData)
+                {
+                    tibcoTextMessage.SetStringProperty(header.Key, header.Value);
+                }
+            }
+
+            // Set property to compress Text Message only if it is defined on GT with value "true"
+            if (isToCompressMessage)
+            {
+                tibcoTextMessage.SetBooleanProperty(TibcoEMSConstants.TibcoEMSPropertyCompressTextMessage, isToCompressMessage);
+            }
+
+            return tibcoTextMessage;
+        }
+
+        public static MapMessage CreateMapMessage(Session session, string messageData, Dictionary<string, string> headersData)
+        {
+            MapMessage tibcoMapMessage = session.CreateMapMessage();
+            tibcoMapMessage.SetString(TibcoEMSConstants.TibcoEMSPropertyMapMessageField, messageData);
+
+            // Set Headers on MapMessage
+            if (headersData != null && headersData.Any())
+            {
+                foreach (KeyValuePair<string, string> header in headersData)
+                {
+                    tibcoMapMessage.SetStringProperty(header.Key, header.Value);
+                }
+            }
+
+            return tibcoMapMessage;
+        }
     }
 }

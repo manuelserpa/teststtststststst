@@ -1,0 +1,518 @@
+{
+	"tasks": [
+		{
+			"id": "task_14097",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DP_SECD_LotSummary",
+							"DataType": 9
+						},
+						"outputType": "RawValue"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DP_SE_RawMeasurementsEx",
+							"DataType": 9
+						},
+						"outputType": "RawValue"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DP_SE_RawMeasurementsDeepFormat",
+							"DataType": 9
+						},
+						"outputType": "RawValue"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "Wafer_MeasurementDataReady"
+					}
+				],
+				"___cmf___description": "Wafer_MeasurementDataReady (704)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_14532",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"export default class {",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        const eventRawData = inputs.eventRawData;",
+					"        let raw: { [key: string]: any } = {};",
+					"        const setProperty = ((propertyName: string, sampleId: string, value: any) => {",
+					"            if (!raw[propertyName]) {",
+					"                raw[propertyName] = {};",
+					"                raw[propertyName][\"sampleId\"] = [];",
+					"                raw[propertyName][\"value\"] = [];",
+					"            }",
+					"            raw[propertyName][\"sampleId\"].push(sampleId);",
+					"            raw[propertyName][\"value\"].push(value);",
+					"        });",
+					"        const objectToDataCollection = ((obj: any, prefix: string) => {",
+					"            (Object.keys(waferData) as (keyof typeof waferData)[]).forEach((key, index) => {",
+					"                setProperty(prefix + key + '', waferId, waferData[key].length === 1 ? waferData[key][0] : waferData[key]);",
+					"            });",
+					"        });",
+					"        var rawMeasurementsDeep = (<any[]>eventRawData.values).find(v => v.property.Name === \"DP_SE_RawMeasurementsDeepFormat\");",
+					"        // Get generic info",
+					"        var waferData = this.getData(null, [rawMeasurementsDeep.originalValue.value[0]]);",
+					"        const lotId = waferData['Lot ID'][0];",
+					"        if (lotId == null) {",
+					"            throw new Error(\"Empty LotID\");",
+					"        }",
+					"        const waferId = waferData['Wafer ID'][0];",
+					"        if (waferId == null) {",
+					"            throw new Error(\"Empty WaferID\");",
+					"        }",
+					"        // Add generic info to data collection",
+					"        objectToDataCollection(waferData, '');",
+					"        // Get each test info",
+					"        for (let i = 1; i <= waferData['Number Of ADS Tests'][0]; i++) {",
+					"            let test = this.getArrayFromKey([rawMeasurementsDeep.originalValue.value[1]], 'ADS Test#' + i + ' Frame');",
+					"            let testData = this.getData(null, test.data.value);",
+					"            // Add generic test info to data collection",
+					"            objectToDataCollection(testData, 'Test#' + i + '.');",
+					"            // Get X / Y coordinates and add it to data collection",
+					"            let resXY = this.getValue(test.data.value, 'Sites X / Y Coordinates');",
+					"            if (resXY) {",
+					"                resXY.forEach((element: any) => {",
+					"                    setProperty('Test#' + i + '.X', waferId, element[0]);",
+					"                    setProperty('Test#' + i + '.Y', waferId, element[1]);",
+					"                });",
+					"            }",
+					"            // get Sites Row / Column and add it to data collection",
+					"            let resRowColumn = this.getValue(test.data.value, 'Sites Row / Column');",
+					"            if (resRowColumn) {",
+					"                resRowColumn.forEach((element: any) => {",
+					"                    setProperty('Test#' + i + '.Row', waferId, element[0]);",
+					"                    setProperty('Test#' + i + '.Column', waferId, element[1]);",
+					"                });",
+					"            }",
+					"            // get data for each frame",
+					"            const numberOfResults = testData['Number of measurement Results'][0]",
+					"            for (let j = 1; j <= numberOfResults; j++) {",
+					"                let dataFrame = this.getArrayFromKey(test.data.value, 'IDS #' + j + ' Data Frame');",
+					"                let resultDataFrame = this.getData(null, dataFrame.data.value);",
+					"                let typeString = resultDataFrame['Result Type String'];",
+					"                // Add frame info to data collection",
+					"                objectToDataCollection(resultDataFrame, 'Test#' + i + '.' + typeString + '.');",
+					"                // get results raw data and add it to data collection",
+					"                const resRawData = this.getValue(dataFrame.data.value, 'Measurement Raw Data');",
+					"                if (resRawData) {",
+					"                    resRawData.forEach((element: any) => {",
+					"                        setProperty('Test#' + i + '.' + typeString + '.MeasurementRawData', waferId, element);",
+					"                    });",
+					"                }",
+					"                // get results data range and add it to data collection",
+					"                const resDataRange = this.getValue(dataFrame.data.value, 'Measurement Data Range');",
+					"                if (resDataRange) {",
+					"                    resDataRange.forEach((element: any) => {",
+					"                        setProperty('Test#' + i + '.' + typeString + '.MeasurementDataRange', waferId, element);",
+					"                    });",
+					"                }",
+					"            }",
+					"        }",
+					"",
+					"        //this.framework.logger.error(JSON.stringify(raw));",
+					"        return {",
+					"            rawDataCollection: raw,",
+					"            materialName: lotId,",
+					"            subMaterialName: waferId",
+					"        }",
+					"        // emit output during execution: outputs.output1.emit(\"something\");",
+					"        // return example: return { output1: inputs.input1, output2: \"Hello World\" };",
+					"    }",
+					"    /** Get all direct key/value pairs inside the event */",
+					"    private getData(resultData: { [key: string]: any } | null, values: any[]): { [key: string]: any } {",
+					"        if (!resultData) {",
+					"            resultData = {};",
+					"        }",
+					"        let propertyName: string;",
+					"        var value: any;",
+					"        if (values.length >= 1) {",
+					"            for (let i = 0; i < values.length; i++) {",
+					"                let elm = values[i];",
+					"                if (elm.type === 'L') {",
+					"                    this.getData(resultData, elm.value);",
+					"                    continue;",
+					"                } else {",
+					"                    propertyName = elm.value;",
+					"                    i++;",
+					"                    let valElm = values[i];",
+					"                    if (!valElm) continue;",
+					"                    if (valElm.type === 'L') {",
+					"                        this.getData(resultData, valElm.value);",
+					"                        continue;",
+					"                    }",
+					"                    if (elm.type !== 'A') continue;",
+					"                    if (!Array.isArray(valElm.value)) {",
+					"                        value = valElm.value;",
+					"                        if (!resultData[propertyName]) {",
+					"                            resultData[propertyName] = [];",
+					"                        }",
+					"                        resultData[propertyName].push(value);",
+					"                    }",
+					"                }",
+					"            }",
+					"        }",
+					"        return resultData;",
+					"    }",
+					"    /** Gets an children from key node */",
+					"    private getArrayFromKey(list: any[], key: string): any {",
+					"        for (let i = 0; i < list.length; i++) {",
+					"            let elm = list[i];",
+					"            if (elm.type === 'L') {",
+					"                const res = this.getArrayFromKey(elm.value, key);",
+					"                if (res) {",
+					"                    return res;",
+					"                }",
+					"                continue;",
+					"            }",
+					"            if (elm.type === 'A' && elm.value === key) {",
+					"                return { name: elm.value, data: list[1] }",
+					"            }",
+					"        }",
+					"    }",
+					"    /** Get a value from a key */",
+					"    private getValue(list: any[], key: string): any {",
+					"        var res = this.getArrayFromKey(list, key);",
+					"        if (res && res.data && res.data.value) {",
+					"            var resValue: any = [];",
+					"            if (Array.isArray(res.data.value)) {",
+					"                res.data.value.forEach((element: any) => {",
+					"                    resValue.push(element.value);",
+					"                });",
+					"            } else {",
+					"                return res.data.value;",
+					"            }",
+					"            return resValue;",
+					"        }",
+					"    };",
+					"}"
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IGV2ZW50UmF3RGF0YSA9IGlucHV0cy5ldmVudFJhd0RhdGE7DQogICAgICAgIGxldCByYXcgPSB7fTsNCiAgICAgICAgY29uc3Qgc2V0UHJvcGVydHkgPSAoKHByb3BlcnR5TmFtZSwgc2FtcGxlSWQsIHZhbHVlKSA9PiB7DQogICAgICAgICAgICBpZiAoIXJhd1twcm9wZXJ0eU5hbWVdKSB7DQogICAgICAgICAgICAgICAgcmF3W3Byb3BlcnR5TmFtZV0gPSB7fTsNCiAgICAgICAgICAgICAgICByYXdbcHJvcGVydHlOYW1lXVsic2FtcGxlSWQiXSA9IFtdOw0KICAgICAgICAgICAgICAgIHJhd1twcm9wZXJ0eU5hbWVdWyJ2YWx1ZSJdID0gW107DQogICAgICAgICAgICB9DQogICAgICAgICAgICByYXdbcHJvcGVydHlOYW1lXVsic2FtcGxlSWQiXS5wdXNoKHNhbXBsZUlkKTsNCiAgICAgICAgICAgIHJhd1twcm9wZXJ0eU5hbWVdWyJ2YWx1ZSJdLnB1c2godmFsdWUpOw0KICAgICAgICB9KTsNCiAgICAgICAgY29uc3Qgb2JqZWN0VG9EYXRhQ29sbGVjdGlvbiA9ICgob2JqLCBwcmVmaXgpID0+IHsNCiAgICAgICAgICAgIE9iamVjdC5rZXlzKHdhZmVyRGF0YSkuZm9yRWFjaCgoa2V5LCBpbmRleCkgPT4gew0KICAgICAgICAgICAgICAgIHNldFByb3BlcnR5KHByZWZpeCArIGtleSArICcnLCB3YWZlcklkLCB3YWZlckRhdGFba2V5XS5sZW5ndGggPT09IDEgPyB3YWZlckRhdGFba2V5XVswXSA6IHdhZmVyRGF0YVtrZXldKTsNCiAgICAgICAgICAgIH0pOw0KICAgICAgICB9KTsNCiAgICAgICAgdmFyIHJhd01lYXN1cmVtZW50c0RlZXAgPSBldmVudFJhd0RhdGEudmFsdWVzLmZpbmQodiA9PiB2LnByb3BlcnR5Lk5hbWUgPT09ICJEUF9TRV9SYXdNZWFzdXJlbWVudHNEZWVwRm9ybWF0Iik7DQogICAgICAgIC8vIEdldCBnZW5lcmljIGluZm8NCiAgICAgICAgdmFyIHdhZmVyRGF0YSA9IHRoaXMuZ2V0RGF0YShudWxsLCBbcmF3TWVhc3VyZW1lbnRzRGVlcC5vcmlnaW5hbFZhbHVlLnZhbHVlWzBdXSk7DQogICAgICAgIGNvbnN0IGxvdElkID0gd2FmZXJEYXRhWydMb3QgSUQnXVswXTsNCiAgICAgICAgaWYgKGxvdElkID09IG51bGwpIHsNCiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcigiRW1wdHkgTG90SUQiKTsNCiAgICAgICAgfQ0KICAgICAgICBjb25zdCB3YWZlcklkID0gd2FmZXJEYXRhWydXYWZlciBJRCddWzBdOw0KICAgICAgICBpZiAod2FmZXJJZCA9PSBudWxsKSB7DQogICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoIkVtcHR5IFdhZmVySUQiKTsNCiAgICAgICAgfQ0KICAgICAgICAvLyBBZGQgZ2VuZXJpYyBpbmZvIHRvIGRhdGEgY29sbGVjdGlvbg0KICAgICAgICBvYmplY3RUb0RhdGFDb2xsZWN0aW9uKHdhZmVyRGF0YSwgJycpOw0KICAgICAgICAvLyBHZXQgZWFjaCB0ZXN0IGluZm8NCiAgICAgICAgZm9yIChsZXQgaSA9IDE7IGkgPD0gd2FmZXJEYXRhWydOdW1iZXIgT2YgQURTIFRlc3RzJ11bMF07IGkrKykgew0KICAgICAgICAgICAgbGV0IHRlc3QgPSB0aGlzLmdldEFycmF5RnJvbUtleShbcmF3TWVhc3VyZW1lbnRzRGVlcC5vcmlnaW5hbFZhbHVlLnZhbHVlWzFdXSwgJ0FEUyBUZXN0IycgKyBpICsgJyBGcmFtZScpOw0KICAgICAgICAgICAgbGV0IHRlc3REYXRhID0gdGhpcy5nZXREYXRhKG51bGwsIHRlc3QuZGF0YS52YWx1ZSk7DQogICAgICAgICAgICAvLyBBZGQgZ2VuZXJpYyB0ZXN0IGluZm8gdG8gZGF0YSBjb2xsZWN0aW9uDQogICAgICAgICAgICBvYmplY3RUb0RhdGFDb2xsZWN0aW9uKHRlc3REYXRhLCAnVGVzdCMnICsgaSArICcuJyk7DQogICAgICAgICAgICAvLyBHZXQgWCAvIFkgY29vcmRpbmF0ZXMgYW5kIGFkZCBpdCB0byBkYXRhIGNvbGxlY3Rpb24NCiAgICAgICAgICAgIGxldCByZXNYWSA9IHRoaXMuZ2V0VmFsdWUodGVzdC5kYXRhLnZhbHVlLCAnU2l0ZXMgWCAvIFkgQ29vcmRpbmF0ZXMnKTsNCiAgICAgICAgICAgIGlmIChyZXNYWSkgew0KICAgICAgICAgICAgICAgIHJlc1hZLmZvckVhY2goKGVsZW1lbnQpID0+IHsNCiAgICAgICAgICAgICAgICAgICAgc2V0UHJvcGVydHkoJ1Rlc3QjJyArIGkgKyAnLlgnLCB3YWZlcklkLCBlbGVtZW50WzBdKTsNCiAgICAgICAgICAgICAgICAgICAgc2V0UHJvcGVydHkoJ1Rlc3QjJyArIGkgKyAnLlknLCB3YWZlcklkLCBlbGVtZW50WzFdKTsNCiAgICAgICAgICAgICAgICB9KTsNCiAgICAgICAgICAgIH0NCiAgICAgICAgICAgIC8vIGdldCBTaXRlcyBSb3cgLyBDb2x1bW4gYW5kIGFkZCBpdCB0byBkYXRhIGNvbGxlY3Rpb24NCiAgICAgICAgICAgIGxldCByZXNSb3dDb2x1bW4gPSB0aGlzLmdldFZhbHVlKHRlc3QuZGF0YS52YWx1ZSwgJ1NpdGVzIFJvdyAvIENvbHVtbicpOw0KICAgICAgICAgICAgaWYgKHJlc1Jvd0NvbHVtbikgew0KICAgICAgICAgICAgICAgIHJlc1Jvd0NvbHVtbi5mb3JFYWNoKChlbGVtZW50KSA9PiB7DQogICAgICAgICAgICAgICAgICAgIHNldFByb3BlcnR5KCdUZXN0IycgKyBpICsgJy5Sb3cnLCB3YWZlcklkLCBlbGVtZW50WzBdKTsNCiAgICAgICAgICAgICAgICAgICAgc2V0UHJvcGVydHkoJ1Rlc3QjJyArIGkgKyAnLkNvbHVtbicsIHdhZmVySWQsIGVsZW1lbnRbMV0pOw0KICAgICAgICAgICAgICAgIH0pOw0KICAgICAgICAgICAgfQ0KICAgICAgICAgICAgLy8gZ2V0IGRhdGEgZm9yIGVhY2ggZnJhbWUNCiAgICAgICAgICAgIGNvbnN0IG51bWJlck9mUmVzdWx0cyA9IHRlc3REYXRhWydOdW1iZXIgb2YgbWVhc3VyZW1lbnQgUmVzdWx0cyddWzBdOw0KICAgICAgICAgICAgZm9yIChsZXQgaiA9IDE7IGogPD0gbnVtYmVyT2ZSZXN1bHRzOyBqKyspIHsNCiAgICAgICAgICAgICAgICBsZXQgZGF0YUZyYW1lID0gdGhpcy5nZXRBcnJheUZyb21LZXkodGVzdC5kYXRhLnZhbHVlLCAnSURTICMnICsgaiArICcgRGF0YSBGcmFtZScpOw0KICAgICAgICAgICAgICAgIGxldCByZXN1bHREYXRhRnJhbWUgPSB0aGlzLmdldERhdGEobnVsbCwgZGF0YUZyYW1lLmRhdGEudmFsdWUpOw0KICAgICAgICAgICAgICAgIGxldCB0eXBlU3RyaW5nID0gcmVzdWx0RGF0YUZyYW1lWydSZXN1bHQgVHlwZSBTdHJpbmcnXTsNCiAgICAgICAgICAgICAgICAvLyBBZGQgZnJhbWUgaW5mbyB0byBkYXRhIGNvbGxlY3Rpb24NCiAgICAgICAgICAgICAgICBvYmplY3RUb0RhdGFDb2xsZWN0aW9uKHJlc3VsdERhdGFGcmFtZSwgJ1Rlc3QjJyArIGkgKyAnLicgKyB0eXBlU3RyaW5nICsgJy4nKTsNCiAgICAgICAgICAgICAgICAvLyBnZXQgcmVzdWx0cyByYXcgZGF0YSBhbmQgYWRkIGl0IHRvIGRhdGEgY29sbGVjdGlvbg0KICAgICAgICAgICAgICAgIGNvbnN0IHJlc1Jhd0RhdGEgPSB0aGlzLmdldFZhbHVlKGRhdGFGcmFtZS5kYXRhLnZhbHVlLCAnTWVhc3VyZW1lbnQgUmF3IERhdGEnKTsNCiAgICAgICAgICAgICAgICBpZiAocmVzUmF3RGF0YSkgew0KICAgICAgICAgICAgICAgICAgICByZXNSYXdEYXRhLmZvckVhY2goKGVsZW1lbnQpID0+IHsNCiAgICAgICAgICAgICAgICAgICAgICAgIHNldFByb3BlcnR5KCdUZXN0IycgKyBpICsgJy4nICsgdHlwZVN0cmluZyArICcuTWVhc3VyZW1lbnRSYXdEYXRhJywgd2FmZXJJZCwgZWxlbWVudCk7DQogICAgICAgICAgICAgICAgICAgIH0pOw0KICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICAvLyBnZXQgcmVzdWx0cyBkYXRhIHJhbmdlIGFuZCBhZGQgaXQgdG8gZGF0YSBjb2xsZWN0aW9uDQogICAgICAgICAgICAgICAgY29uc3QgcmVzRGF0YVJhbmdlID0gdGhpcy5nZXRWYWx1ZShkYXRhRnJhbWUuZGF0YS52YWx1ZSwgJ01lYXN1cmVtZW50IERhdGEgUmFuZ2UnKTsNCiAgICAgICAgICAgICAgICBpZiAocmVzRGF0YVJhbmdlKSB7DQogICAgICAgICAgICAgICAgICAgIHJlc0RhdGFSYW5nZS5mb3JFYWNoKChlbGVtZW50KSA9PiB7DQogICAgICAgICAgICAgICAgICAgICAgICBzZXRQcm9wZXJ0eSgnVGVzdCMnICsgaSArICcuJyArIHR5cGVTdHJpbmcgKyAnLk1lYXN1cmVtZW50RGF0YVJhbmdlJywgd2FmZXJJZCwgZWxlbWVudCk7DQogICAgICAgICAgICAgICAgICAgIH0pOw0KICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgICAgICAvL3RoaXMuZnJhbWV3b3JrLmxvZ2dlci5lcnJvcihKU09OLnN0cmluZ2lmeShyYXcpKTsNCiAgICAgICAgcmV0dXJuIHsNCiAgICAgICAgICAgIHJhd0RhdGFDb2xsZWN0aW9uOiByYXcsDQogICAgICAgICAgICBtYXRlcmlhbE5hbWU6IGxvdElkLA0KICAgICAgICAgICAgc3ViTWF0ZXJpYWxOYW1lOiB3YWZlcklkDQogICAgICAgIH07DQogICAgICAgIC8vIGVtaXQgb3V0cHV0IGR1cmluZyBleGVjdXRpb246IG91dHB1dHMub3V0cHV0MS5lbWl0KCJzb21ldGhpbmciKTsNCiAgICAgICAgLy8gcmV0dXJuIGV4YW1wbGU6IHJldHVybiB7IG91dHB1dDE6IGlucHV0cy5pbnB1dDEsIG91dHB1dDI6ICJIZWxsbyBXb3JsZCIgfTsNCiAgICB9DQogICAgLyoqIEdldCBhbGwgZGlyZWN0IGtleS92YWx1ZSBwYWlycyBpbnNpZGUgdGhlIGV2ZW50ICovDQogICAgZ2V0RGF0YShyZXN1bHREYXRhLCB2YWx1ZXMpIHsNCiAgICAgICAgaWYgKCFyZXN1bHREYXRhKSB7DQogICAgICAgICAgICByZXN1bHREYXRhID0ge307DQogICAgICAgIH0NCiAgICAgICAgbGV0IHByb3BlcnR5TmFtZTsNCiAgICAgICAgdmFyIHZhbHVlOw0KICAgICAgICBpZiAodmFsdWVzLmxlbmd0aCA+PSAxKSB7DQogICAgICAgICAgICBmb3IgKGxldCBpID0gMDsgaSA8IHZhbHVlcy5sZW5ndGg7IGkrKykgew0KICAgICAgICAgICAgICAgIGxldCBlbG0gPSB2YWx1ZXNbaV07DQogICAgICAgICAgICAgICAgaWYgKGVsbS50eXBlID09PSAnTCcpIHsNCiAgICAgICAgICAgICAgICAgICAgdGhpcy5nZXREYXRhKHJlc3VsdERhdGEsIGVsbS52YWx1ZSk7DQogICAgICAgICAgICAgICAgICAgIGNvbnRpbnVlOw0KICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICBlbHNlIHsNCiAgICAgICAgICAgICAgICAgICAgcHJvcGVydHlOYW1lID0gZWxtLnZhbHVlOw0KICAgICAgICAgICAgICAgICAgICBpKys7DQogICAgICAgICAgICAgICAgICAgIGxldCB2YWxFbG0gPSB2YWx1ZXNbaV07DQogICAgICAgICAgICAgICAgICAgIGlmICghdmFsRWxtKQ0KICAgICAgICAgICAgICAgICAgICAgICAgY29udGludWU7DQogICAgICAgICAgICAgICAgICAgIGlmICh2YWxFbG0udHlwZSA9PT0gJ0wnKSB7DQogICAgICAgICAgICAgICAgICAgICAgICB0aGlzLmdldERhdGEocmVzdWx0RGF0YSwgdmFsRWxtLnZhbHVlKTsNCiAgICAgICAgICAgICAgICAgICAgICAgIGNvbnRpbnVlOw0KICAgICAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgICAgIGlmIChlbG0udHlwZSAhPT0gJ0EnKQ0KICAgICAgICAgICAgICAgICAgICAgICAgY29udGludWU7DQogICAgICAgICAgICAgICAgICAgIGlmICghQXJyYXkuaXNBcnJheSh2YWxFbG0udmFsdWUpKSB7DQogICAgICAgICAgICAgICAgICAgICAgICB2YWx1ZSA9IHZhbEVsbS52YWx1ZTsNCiAgICAgICAgICAgICAgICAgICAgICAgIGlmICghcmVzdWx0RGF0YVtwcm9wZXJ0eU5hbWVdKSB7DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVzdWx0RGF0YVtwcm9wZXJ0eU5hbWVdID0gW107DQogICAgICAgICAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgICAgICAgICByZXN1bHREYXRhW3Byb3BlcnR5TmFtZV0ucHVzaCh2YWx1ZSk7DQogICAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICAgICAgcmV0dXJuIHJlc3VsdERhdGE7DQogICAgfQ0KICAgIC8qKiBHZXRzIGFuIGNoaWxkcmVuIGZyb20ga2V5IG5vZGUgKi8NCiAgICBnZXRBcnJheUZyb21LZXkobGlzdCwga2V5KSB7DQogICAgICAgIGZvciAobGV0IGkgPSAwOyBpIDwgbGlzdC5sZW5ndGg7IGkrKykgew0KICAgICAgICAgICAgbGV0IGVsbSA9IGxpc3RbaV07DQogICAgICAgICAgICBpZiAoZWxtLnR5cGUgPT09ICdMJykgew0KICAgICAgICAgICAgICAgIGNvbnN0IHJlcyA9IHRoaXMuZ2V0QXJyYXlGcm9tS2V5KGVsbS52YWx1ZSwga2V5KTsNCiAgICAgICAgICAgICAgICBpZiAocmVzKSB7DQogICAgICAgICAgICAgICAgICAgIHJldHVybiByZXM7DQogICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgIGNvbnRpbnVlOw0KICAgICAgICAgICAgfQ0KICAgICAgICAgICAgaWYgKGVsbS50eXBlID09PSAnQScgJiYgZWxtLnZhbHVlID09PSBrZXkpIHsNCiAgICAgICAgICAgICAgICByZXR1cm4geyBuYW1lOiBlbG0udmFsdWUsIGRhdGE6IGxpc3RbMV0gfTsNCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgIH0NCiAgICAvKiogR2V0IGEgdmFsdWUgZnJvbSBhIGtleSAqLw0KICAgIGdldFZhbHVlKGxpc3QsIGtleSkgew0KICAgICAgICB2YXIgcmVzID0gdGhpcy5nZXRBcnJheUZyb21LZXkobGlzdCwga2V5KTsNCiAgICAgICAgaWYgKHJlcyAmJiByZXMuZGF0YSAmJiByZXMuZGF0YS52YWx1ZSkgew0KICAgICAgICAgICAgdmFyIHJlc1ZhbHVlID0gW107DQogICAgICAgICAgICBpZiAoQXJyYXkuaXNBcnJheShyZXMuZGF0YS52YWx1ZSkpIHsNCiAgICAgICAgICAgICAgICByZXMuZGF0YS52YWx1ZS5mb3JFYWNoKChlbGVtZW50KSA9PiB7DQogICAgICAgICAgICAgICAgICAgIHJlc1ZhbHVlLnB1c2goZWxlbWVudC52YWx1ZSk7DQogICAgICAgICAgICAgICAgfSk7DQogICAgICAgICAgICB9DQogICAgICAgICAgICBlbHNlIHsNCiAgICAgICAgICAgICAgICByZXR1cm4gcmVzLmRhdGEudmFsdWU7DQogICAgICAgICAgICB9DQogICAgICAgICAgICByZXR1cm4gcmVzVmFsdWU7DQogICAgICAgIH0NCiAgICB9DQogICAgOw0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
+				"inputs": [
+					{
+						"name": "eventRawData",
+						"valueType": {
+							"friendlyName": "eventRawData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "DP_SECD_LotSummary",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "DP_SECD_LotSummary"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "DP_SE_RawMeasurementsEx",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "DP_SE_RawMeasurementsEx"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "DP_SE_RawMeasurementsDeepFormat",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "DP_SE_RawMeasurementsDeepFormat"
+						},
+						"defaultValue": null
+					}
+				],
+				"outputs": [
+					{
+						"name": "rawDataCollection",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "rawDataCollection"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "materialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "materialName"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "subMaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "subMaterialName"
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
+		},
+		{
+			"id": "task_14913",
+			"reference": {
+				"name": "retrieve",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_retrieveOnValueChange": false,
+				"_emitInNewContext": false,
+				"___cmf___name": "Retrieve Data",
+				"_outputs": [
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ResourceName"
+						},
+						"defaultValue": "\"\"",
+						"identifier": "Generic_ResourceName"
+					}
+				]
+			}
+		},
+		{
+			"id": "task_13977",
+			"reference": {
+				"name": "dataCollection",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-mes-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"defaultDataCollection": null,
+				"complexPerformDataCollectionMode": 1,
+				"dataCollectionLimitSet": null,
+				"defaultMaterial": null,
+				"defaultResource": null,
+				"isToIgnoreInSPC": false,
+				"skipDCValidation": false,
+				"inputs": [],
+				"retries": 30,
+				"sleepBetweenRetries": 1000,
+				"autoClear": false,
+				"___cmf___name": "Data Collection"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringToEntityInstance",
+			"reference": {
+				"name": "stringToEntityInstance",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "64c545f3-5eee-40e1-bf74-8187dce1bbfa",
+			"sourceId": "task_14097",
+			"targetId": "task_14532",
+			"inputName": "eventRawDataIn",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "f28735cc-bcbd-461e-a359-acc9523de425",
+			"sourceId": "task_14097",
+			"targetId": "task_14532",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "f61a1e49-a5a7-42c5-9a11-4fef228a73a2",
+			"sourceId": "task_14532",
+			"targetId": "task_13977",
+			"inputName": "rawData",
+			"outputName": "rawDataCollectionOut"
+		},
+		{
+			"id": "0d59be9c-35d3-42b1-b08e-5013fe79fab3",
+			"sourceId": "task_14532",
+			"targetId": "task_14913",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "996bcd67-482a-44b6-a29e-51cddfdab105",
+			"sourceId": "task_14913",
+			"targetId": "task_13977",
+			"inputName": "resource",
+			"outputName": "ResourceName",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringToEntityInstance",
+					"params": {
+						"entityType": "Resource",
+						"identifier": "Name"
+					}
+				}
+			]
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff80",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_14097": {
+						"collapsed": false,
+						"position": {
+							"x": 321,
+							"y": 91
+						},
+						"outdated": false
+					},
+					"task_14532": {
+						"collapsed": false,
+						"position": {
+							"x": 886,
+							"y": 94
+						},
+						"outdated": false
+					},
+					"task_14913": {
+						"collapsed": false,
+						"position": {
+							"x": 1413,
+							"y": 88
+						},
+						"outdated": false
+					},
+					"task_13977": {
+						"collapsed": false,
+						"position": {
+							"x": 1902,
+							"y": 87
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"64c545f3-5eee-40e1-bf74-8187dce1bbfa": {
+						"vertices": []
+					},
+					"f28735cc-bcbd-461e-a359-acc9523de425": {
+						"vertices": []
+					},
+					"f61a1e49-a5a7-42c5-9a11-4fef228a73a2": {
+						"vertices": [
+							{
+								"x": 1505,
+								"y": 381
+							}
+						]
+					},
+					"0d59be9c-35d3-42b1-b08e-5013fe79fab3": {
+						"vertices": []
+					},
+					"996bcd67-482a-44b6-a29e-51cddfdab105": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"zoom": 0.7599999999999999,
+				"pan": {
+					"x": 0,
+					"y": 0
+				}
+			}
+		}
+	}
+}

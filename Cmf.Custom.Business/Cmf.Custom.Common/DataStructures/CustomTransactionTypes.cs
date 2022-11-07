@@ -84,6 +84,18 @@ namespace Cmf.Custom.amsOSRAM.Common.DataStructures
         /// Type that represents the ContainerAssociation action
         /// </summary>
         [EnumMember]
-        ContainerAssociation
+        ContainerAssociation,
+
+        /// <summary>
+        /// Type that represents the MaterialShip action
+        /// </summary>
+        [EnumMember]
+        MaterialShip,
+
+        /// <summary>
+        /// Type that represents the MaterialReceive action
+        /// </summary>
+        [EnumMember]
+        MaterialReceive
     }
 }

@@ -96,7 +96,7 @@ namespace Cmf.Custom.Tests.Biz.NiceLabelPrinting
             {
                 Material = lot,
                 SubMaterials = subMaterials,
-                Form = amsOSRAMConstants.DefaultMaterialLogisticalWaferForm
+                Form = amsOSRAMConstants.DefaultMaterialLogicalWaferForm
             };
 
             subMaterials = input.ExpandMaterialSync().ExpandedSubMaterials;

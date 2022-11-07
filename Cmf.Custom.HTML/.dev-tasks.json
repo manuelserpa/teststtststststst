@@ -2,7 +2,7 @@
   "packagePrefix": "customization",
   "framework": "",
   "webAppPrefix": "customization",
-  "isWebAppCompilable": false,
+  "isWebAppCompilable": true,
   "dependencies": [],
   "packages": [
     "customization.amsosram.resource"

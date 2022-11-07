@@ -8,7 +8,7 @@ import { Component, Module, CoreComponent } from "cmf.core/src/core";
 import { BaseWidgetModule } from "cmf.core.controls/src/components/baseWidget/baseWidget";
 
 import { PropertyContainerModule } from "cmf.core.business.controls/src/components/propertyContainer/propertyContainer";
-import { PropertyEditorModule } from "cmf.core.business.controls/src/components/PropertyEditor/PropertyEditor";
+import { PropertyEditorModule } from "cmf.core.business.controls/src/components/propertyEditor/propertyEditor";
 import { PropertyViewerModule } from "cmf.core.business.controls/src/components/propertyViewer/propertyViewer";
 
 /** i18n */

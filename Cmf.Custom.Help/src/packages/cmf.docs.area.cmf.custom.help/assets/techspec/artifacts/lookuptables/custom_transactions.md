@@ -19,3 +19,5 @@ Lookup Table with Tibco Transactions.
 * MaterialHold
 * MaterialRelease
 * ContainerAssociation
+* MaterialShip
+* MaterialReceive

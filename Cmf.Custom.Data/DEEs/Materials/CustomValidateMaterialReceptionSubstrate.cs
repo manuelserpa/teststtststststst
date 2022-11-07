@@ -49,16 +49,17 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessObjects.SmartTables");
             UseReference("Cmf.Foundation.BusinessObjects.dll", "Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects");
             UseReference("Cmf.Foundation.BusinessOrchestration.dll", "Cmf.Foundation.BusinessOrchestration.Abstractions");
+            UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common.LocalizationService");
+
+            // Navigo
+            UseReference("Cmf.Navigo.Common.dll", "Cmf.Navigo.Common");
 
             // Custom
-            UseReference("Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition.dll", "Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions");
             UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
             UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.Extensions");
 
             // System
-            UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
-            UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Linq");
-            UseReference("%MicrosoftNetPath%System.Data.Common.dll", "System.Data");
+            UseReference("", "System.Threading");
 
             #region Check if all arguments exist
 

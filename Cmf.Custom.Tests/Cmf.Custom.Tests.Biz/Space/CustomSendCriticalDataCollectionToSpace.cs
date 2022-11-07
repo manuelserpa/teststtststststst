@@ -1,9 +1,11 @@
 ﻿using Cmf.Custom.Tests.Biz.Common;
 using Cmf.Custom.Tests.Biz.Common.ERP.Space;
+using Cmf.Custom.Tests.Biz.Common.ERP.Spaces.CustomReportEDCToSpaceDto;
+using Cmf.Custom.Tests.Biz.Common.Extensions;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Cmf.Custom.TestUtilities;
-using Cmf.Foundation.BusinessObjects;
+using Cmf.Foundation.BusinessOrchestration.SecurityManagement.InputObjects;
 using Cmf.MessageBus.Client;
 using Cmf.MessageBus.Messages;
 using Cmf.Navigo.BusinessObjects;
@@ -22,16 +24,46 @@ namespace Cmf.Custom.Tests.Biz.Space
     [TestClass]
     public class CustomSendCriticalDataCollectionToSpace
     {
-        private const string DataCollectionName = "SpaceDCTest";
-        private const string DataCollectionLimitSetName = "SpaceDCTestLimitSet";
-        private List<string> parametersName = new List<string>() { "SScOTest", "QScOTest" };
+        private const string LotProduct = amsOSRAMConstants.ProductLotProduct;
+        private const string FlowPath = amsOSRAMConstants.FlowPathSpace;
+        private const string FacilityName = amsOSRAMConstants.DefaultFacilityName;
 
-        private CustomExecutionScenario _scenario;
-        private CustomTearDownManager customTeardownManager = null;
-        private MaterialCollection materials;
-        private DataCollectionInstance dataCollectionInstance = null;
-        private Material material = null;
-        private decimal defaultValue = 0;
+        private const string ProcessServiceName = amsOSRAMConstants.ServiceCMFTestProcessService;
+        private const string MeasurementServiceName = amsOSRAMConstants.ServiceCMFTestMeasurementService;
+        private const string RecipeName = amsOSRAMConstants.DefaultRecipeName;
+
+        private const string ProcessResourceName = amsOSRAMConstants.DefaultTestProcessResourceName;
+        private const string ProcessSubResourceName = amsOSRAMConstants.DefaultTestProcessSubResourceName;
+        private const string MeasurementResourceName = amsOSRAMConstants.DefaultTestMeasurementResourceAlternativeName;
+        private const string MeasurementSubResourceName = amsOSRAMConstants.DefaultTestMeasurementSubResourceAlternativeName;
+
+        private const string DataCollectionName = amsOSRAMConstants.DefaultSpaceDataCollectionName;
+        private const string DataCollectionLimitSetName = amsOSRAMConstants.DefaultSpaceDataCollectionLimitSetName;
+
+        private const string BusinessParterName = amsOSRAMConstants.BusinessPartnerSpaceSupplier;
+
+        private CustomExecutionScenario scenario;
+        private Dictionary<string, bool?> rollbackIsRecipeManagementEnabled;
+
+        private static Transport transport;
+        private string isToUnsubscribeTopic;
+        private List<Dictionary<string, object>> messageBusMessages;
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            transport = new Transport(BaseContext.GetMessageBusTransportConfiguration());
+            transport.Start();
+        }
+
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            if (transport != null)
+            {
+                transport.Stop();
+            }
+        }
 
         /// <summary>
         /// Test Initialization
@@ -39,13 +71,9 @@ namespace Cmf.Custom.Tests.Biz.Space
         [TestInitialize]
         public void TestInitialization()
         {
-            _scenario = new CustomExecutionScenario();
-            _scenario.NumberOfMaterialsToGenerate = 1;
-            _scenario.NumberOfChildMaterialsToGenerate = 3;
-
-            materials = new MaterialCollection();
-
-            customTeardownManager = new CustomTearDownManager();
+            scenario = new CustomExecutionScenario();
+            messageBusMessages = new List<Dictionary<string, object>>();
+            rollbackIsRecipeManagementEnabled = new Dictionary<string, bool?>();
         }
 
         /// <summary>
@@ -54,295 +82,861 @@ namespace Cmf.Custom.Tests.Biz.Space
         [TestCleanup]
         public void TestCleanup()
         {
-            foreach (Material material in materials)
+            if (scenario != null)
             {
-                if (material.HoldCount > 0)
+                scenario.CompleteCleanUp();
+            }
+
+            foreach (KeyValuePair<string, bool?> rollback in rollbackIsRecipeManagementEnabled)
+            {
+                Resource resource = new Resource
                 {
-                    material.LoadRelation("MaterialHoldReason");
+                    Name = rollback.Key
+                };
 
-                    EntityRelationCollection materialHoldReasons = material.RelationCollection["MaterialHoldReason"];
-
-                    foreach (MaterialHoldReason materialHoldReason in materialHoldReasons)
-                    {
-                        material.ReleaseByReason(materialHoldReason);
-                    }
-                }
+                resource.Load();
+                resource.IsRecipeManagementEnabled = rollback.Value;
+                resource.Save();
             }
 
-            if (dataCollectionInstance != null && dataCollectionInstance.UniversalState != Foundation.Common.Base.UniversalState.Terminated)
+            if (!String.IsNullOrEmpty(isToUnsubscribeTopic))
             {
-                dataCollectionInstance.Terminate();
-            }
-
-            if (customTeardownManager != null)
-            {
-                customTeardownManager.TearDownSequentially();
-            }
-
-            if (_scenario != null)
-            {
-                _scenario.CompleteCleanUp();
+                transport.Unsubscribe(isToUnsubscribeTopic);
             }
         }
 
         /// <summary>
         /// Description:
-        ///     - Execute a ComplexPerformDataCollection operation with parameter type equals to material Id
-        ///     - Post with values outside the limits 
+        ///     - Creates a lot with one logical wafer with a substrate without recipes
+        ///     - Execute a ComplexPerformDataCollection operation on a given DataCollection with the parameters with different configurations
+        ///     - Post with values outside the limits
         ///
-        /// Acceptance Citeria:
-        ///     - Lot is on hold with reason Out of Spec
+        /// Acceptance Criteria:
         ///     - Validate created message structure
-        ///     
+        ///     - Lot is on hold with reason Out of Spec
+        ///
         /// </summary>
-        /// <TestCaseID>CustomSendCriticalDataCollectionToSpace.CustomSendCriticalDataCollectionToSpace_PostEDCDataOutsideLimits_ValidateAndCreateXMLMessage</TestCaseID>
-        /// <Author>David Guilherme</Author>
+        /// <TestCaseID>CustomSendCriticalDataCollectionToSpace_PostEDCDataOutsideLimits_ValidateAndCreateXMLMessage</TestCaseID>
+        /// <Author>Oliverio Sousa</Author>
         [TestMethod]
         public void CustomSendCriticalDataCollectionToSpace_PostEDCDataOutsideLimits_ValidateAndCreateXMLMessage()
         {
-            ///<Step> Create a Lot and its wafers </Step>
-            _scenario.Setup();
+            string dataCollectionName = DataCollectionName;
+            string dataCollectionLimitSetName = DataCollectionLimitSetName;
+            string processResourceName = ProcessResourceName;
+            string processSubResourceName = ProcessSubResourceName;
+            string measurementResourceName = MeasurementResourceName;
+            string measurementSubResourceName = MeasurementSubResourceName;
+            string facilityName = FacilityName;
+            string productName = LotProduct;
+            int logicalWaferQuantity = 1;
 
-            defaultValue = 634;
+            scenario.NumberOfMaterialsToGenerate = 1;
+            scenario.NumberOfChildMaterialsToGenerate = logicalWaferQuantity;
+            scenario.FacilityName = facilityName;
+            scenario.ProductName = productName;
+            scenario.FlowPath = FlowPath;
+            scenario.SmartTablesToClearInSetup.Add("RecipeContext");
+            scenario.Setup();
 
-            material = _scenario.GeneratedLots.FirstOrDefault();
-            materials.Add(material);
-            material.LoadChildren();
+            Resource processResource = new Resource()
+            {
+                Name = processResourceName
+            };
+            processResource.Load();
 
-            ///<Step> Open Data Collection Instance </Step>
-            DataCollection dataCollection = new DataCollection() { Name = DataCollectionName };
+            rollbackIsRecipeManagementEnabled.Add(processResource.Name, processResource.IsRecipeManagementEnabled.GetValueOrDefault());
+            processResource.IsRecipeManagementEnabled = false;
+            processResource.Save();
+
+            Material lot = scenario.GeneratedLots.FirstOrDefault();
+            lot.LoadChildren();
+
+            Material firstLogicalWafer = lot.SubMaterials[0];
+            (Material firstSubstrate, firstLogicalWafer) = scenario.GenerateWafer(parentMaterial: firstLogicalWafer, type: amsOSRAMConstants.MaterialWaferSubstrateType);
+
+            Resource processSubResource = new Resource
+            {
+                Name = processSubResourceName
+            };
+            processSubResource.Load();
+
+            Resource measurementResource = new Resource
+            {
+                Name = measurementResourceName
+            };
+            measurementResource.Load();
+
+            Resource measurementSubResource = new Resource
+            {
+                Name = measurementSubResourceName
+            };
+            measurementSubResource.Load();
+
+            lot = PerformMaterialProcessToMeasurement(lot, processResource, processSubResource, measurementResource, measurementSubResource);
+
+            DataCollection dataCollection = new DataCollection
+            {
+                Name = dataCollectionName
+            };
             dataCollection.Load();
 
-            DataCollectionLimitSet datacollectionLimitSet = new DataCollectionLimitSet
+            DataCollectionLimitSet dataCollectionLimitSet = new DataCollectionLimitSet
             {
-                Name = DataCollectionLimitSetName
+                Name = dataCollectionLimitSetName
             };
-            datacollectionLimitSet.Load();
+            dataCollectionLimitSet.Load();
 
-            DataCollectionPointCollection pointsToPost = new DataCollectionPointCollection();
+            DataCollectionPointCollection pointsToPost = CreateDataCollectionPointCollection(dataCollection, dataCollectionLimitSet, lot, false);
 
-            int count = 0;
-            foreach (string parameterName in parametersName)
-            {
-                Parameter parameter = new Parameter() { Name = parameterName };
-                parameter.Load();
+            string message = PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, dataCollectionLimitSet, pointsToPost);
 
-                foreach (Material wafer in material.SubMaterials)
-                {
-                    DataCollectionPoint collectionPoint = new DataCollectionPoint();
-                    collectionPoint.Value = defaultValue + count;
-                    collectionPoint.TargetEntity = parameter;
-                    collectionPoint.ReadingNumber = 1;
-                    collectionPoint.SampleId = wafer.Name;
-                    pointsToPost.Add(collectionPoint);
-                    count++;
-                }
-            }
+            ValidateMessage(message, lot, pointsToPost, dataCollection, dataCollectionLimitSet, logicalWaferQuantity, facilityName, productName,
+                processResourceName: processResourceName,
+                processSubResourceName: processSubResourceName,
+                measurementResourceName: measurementResourceName,
+                measurementSubResourceName: measurementSubResourceName);
 
-            PostDataCollectionAndValidateSpaceMessage(dataCollection, datacollectionLimitSet, pointsToPost);
+            lot.Load();
 
-            ///<Step> Validate Material Hold Reasons.</Step>
-            ///<ExpectedValue> The Material has one Hold Reasons (Out of Spec).</ExpectedValue>
-            material.Load();
-            material.LoadRelations(new Collection<string>
-            {
-                "MaterialHoldReason"
-            });
-
-            Assert.IsTrue(material.HoldCount == 1, $"Material should have 1 reason instead has {material.HoldCount}");
-            MaterialHoldReason outOfSpecHoldReason = material.MaterialHoldReasons.FirstOrDefault();
-            outOfSpecHoldReason.TargetEntity.Load();
-            Assert.IsTrue(outOfSpecHoldReason.TargetEntity.Name.Equals("Out Of Spec"), $"Material Hold Reason Name should be: Out of Spec instead is: {outOfSpecHoldReason.TargetEntity.Name}");
-
-            Assert.IsTrue(material.OpenExceptionProtocolsCount == 0, $"Material shouldn't have protocol instance opened, instead has {material.OpenExceptionProtocolsCount}.");
+            Assert.IsTrue(lot.HoldCount == 1, $"Material should have 1 reason instead has {lot.HoldCount}");
+            Assert.IsTrue(lot.OpenExceptionProtocolsCount == 0, $"Material shouldn't have protocol instance opened, instead has {lot.OpenExceptionProtocolsCount}.");
         }
 
         /// <summary>
         /// Description:
-        ///     - Execute a ComplexPerformDataCollection operation with parameter type equals to material Id
-        ///     - Post with values inside the limits 
+        ///     - Creates a lot with one logical wafer with a substrate without recipes
+        ///     - Execute a ComplexPerformDataCollection operation on a given DataCollection with the parameters with different configurations
+        ///     - Post with values inside the limits
         ///
-        /// Acceptance Citeria:
-        ///     - Lot is not on hold with reason Out of Spec
+        /// Acceptance Criteria:
+        ///     - Lot is not on hold
         ///     - Lot has a protocol instance
         ///     - Validate created message structure
-        ///     
+        ///
         /// </summary>
-        /// <TestCaseID>CustomSendCriticalDataCollectionToSpace.CustomSendCriticalDataCollectionToSpace_PostEDCDataInsideLimits_ValidateAndCreateXMLMessage</TestCaseID>
-        /// <Author>David Guilherme</Author>
+        /// <TestCaseID>CustomSendCriticalDataCollectionToSpace_PostEDCDataInsideLimits_ValidateAndCreateXMLMessage</TestCaseID>
+        /// <Author>Oliverio Sousa</Author>
         [TestMethod]
         public void CustomSendCriticalDataCollectionToSpace_PostEDCDataInsideLimits_ValidateAndCreateXMLMessage()
         {
-            ///<Step> Create a Lot and its wafers </Step>
-            _scenario.Setup();
+            string dataCollectionName = DataCollectionName;
+            string dataCollectionLimitSetName = DataCollectionLimitSetName;
+            string processResourceName = ProcessResourceName;
+            string processSubResourceName = ProcessSubResourceName;
+            string measurementResourceName = MeasurementResourceName;
+            string measurementSubResourceName = MeasurementSubResourceName;
+            string facilityName = FacilityName;
+            string productName = LotProduct;
+            int logicalWaferQuantity = 1;
+            string protocolName = ConfigUtilities.GetConfigValue(amsOSRAMConstants.DefaultProtocolSpaceConfig) as string;
 
-            defaultValue = 640;
+            scenario.NumberOfMaterialsToGenerate = 1;
+            scenario.NumberOfChildMaterialsToGenerate = logicalWaferQuantity;
+            scenario.FacilityName = facilityName;
+            scenario.ProductName = productName;
+            scenario.FlowPath = FlowPath;
+            scenario.SmartTablesToClearInSetup.Add("RecipeContext");
+            scenario.Setup();
 
-            material = _scenario.GeneratedLots.FirstOrDefault();
-            materials.Add(material);
-            material.LoadChildren();
+            Resource processResource = new Resource()
+            {
+                Name = processResourceName
+            };
+            processResource.Load();
 
-            ///<Step> Open Data Collection Instance </Step>
-            DataCollection dataCollection = new DataCollection() { Name = DataCollectionName };
+            rollbackIsRecipeManagementEnabled.Add(processResource.Name, processResource.IsRecipeManagementEnabled.GetValueOrDefault());
+            processResource.IsRecipeManagementEnabled = false;
+            processResource.Save();
+
+            Material lot = scenario.GeneratedLots.FirstOrDefault();
+            lot.LoadChildren();
+
+            Material firstLogicalWafer = lot.SubMaterials[0];
+            (Material firstSubstrate, firstLogicalWafer) = scenario.GenerateWafer(parentMaterial: firstLogicalWafer, type: amsOSRAMConstants.MaterialWaferSubstrateType);
+
+            Resource processSubResource = new Resource
+            {
+                Name = processSubResourceName
+            };
+            processSubResource.Load();
+
+            Resource measurementResource = new Resource
+            {
+                Name = measurementResourceName
+            };
+            measurementResource.Load();
+
+            Resource measurementSubResource = new Resource
+            {
+                Name = measurementSubResourceName
+            };
+            measurementSubResource.Load();
+
+            lot = PerformMaterialProcessToMeasurement(lot, processResource, processSubResource, measurementResource, measurementSubResource);
+
+            DataCollection dataCollection = new DataCollection
+            {
+                Name = dataCollectionName
+            };
             dataCollection.Load();
 
-            DataCollectionLimitSet datacollectionLimitSet = new DataCollectionLimitSet
+            DataCollectionLimitSet dataCollectionLimitSet = new DataCollectionLimitSet
             {
-                Name = DataCollectionLimitSetName
+                Name = dataCollectionLimitSetName
             };
-            datacollectionLimitSet.Load();
+            dataCollectionLimitSet.Load();
 
-            DataCollectionPointCollection pointsToPost = new DataCollectionPointCollection();
+            DataCollectionPointCollection pointsToPost = CreateDataCollectionPointCollection(dataCollection, dataCollectionLimitSet, lot);
 
-            int count = 0;
-            foreach (string parameterName in parametersName)
-            {
-                Parameter parameter = new Parameter() { Name = parameterName };
-                parameter.Load();
+            string message = PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, dataCollectionLimitSet, pointsToPost);
 
-                foreach (Material wafer in material.SubMaterials)
-                {
-                    DataCollectionPoint collectionPoint = new DataCollectionPoint();
-                    collectionPoint.Value = defaultValue + count;
-                    collectionPoint.TargetEntity = parameter;
-                    collectionPoint.ReadingNumber = 1;
-                    collectionPoint.SampleId = wafer.Name;
-                    pointsToPost.Add(collectionPoint);
-                    count++;
-                }
-            }
+            ValidateMessage(message, lot, pointsToPost, dataCollection, dataCollectionLimitSet, logicalWaferQuantity, facilityName, productName,
+                processResourceName: processResourceName,
+                processSubResourceName: processSubResourceName,
+                measurementResourceName: measurementResourceName,
+                measurementSubResourceName: measurementSubResourceName);
 
-            PostDataCollectionAndValidateSpaceMessage(dataCollection, datacollectionLimitSet, pointsToPost);
+            lot.Load();
+            lot.LoadRelations(new Collection<string> { "ProtocolMaterial" });
+            Assert.IsTrue(lot.OpenExceptionProtocolsCount == 1, $"Material should have one protocol instance opened, instead has {lot.OpenExceptionProtocolsCount}.");
 
-            ///<Step> Validate Protocol Opened.</Step>
-            ///<ExpectedValue> The lot should have a protocol opened.</ExpectedValue>
-            material.Load();
-            material.LoadRelations(new Collection<string> { "MaterialHoldReason", "ProtocolMaterial" });
-            Assert.IsTrue(material.OpenExceptionProtocolsCount == 1, $"Material should have one protocol instance opened, instead has {material.OpenExceptionProtocolsCount}.");
-
-            ProtocolInstance protocolInstance = material.MaterialProtocols.FirstOrDefault().SourceEntity;
+            ProtocolInstance protocolInstance = lot.MaterialProtocols.FirstOrDefault().SourceEntity;
             protocolInstance.Load();
             protocolInstance.ParentEntity.Load();
-            Assert.IsTrue(protocolInstance.ParentEntity.Name.Equals("8D"), $"Protocol should be 8D instead is {protocolInstance.ParentEntity.Name}");
-
-            Assert.IsTrue(material.HoldCount == 0, $"Material should have 1 reason instead has {material.HoldCount}");
+            Assert.IsTrue(protocolInstance.ParentEntity.Name.Equals(protocolName), $"Protocol should be {protocolName} instead is {protocolInstance.ParentEntity.Name}");
+            Assert.IsTrue(lot.HoldCount == 0, $"Material should have 1 reason instead has {lot.HoldCount}");
         }
 
         /// <summary>
-        /// Post DataCollection and validate Space Message
+        /// Description:
+        ///     - Creates a lot with one logical wafer with a substrate without recipes and without any process or measurement
+        ///     - Execute a ComplexPerformDataCollection operation on a given DataCollection with the parameters with different configurations
+        ///
+        /// Acceptance Criteria:
+        ///     - Validate created message structure
+        ///
         /// </summary>
-        /// <param name="dataCollection">DataCollection</param>
-        /// <param name="datacollectionLimitSet">DataCollection Limit Set</param>
-        /// <param name="pointsToPost">Points to Post</param>
-        private void PostDataCollectionAndValidateSpaceMessage(DataCollection dataCollection, DataCollectionLimitSet datacollectionLimitSet, DataCollectionPointCollection pointsToPost)
+        /// <TestCaseID>CustomSendCriticalDataCollectionToSpace_ValidateAndCreateXMLMessage_OnlyMandatoryFields</TestCaseID>
+        /// <Author>Oliverio Sousa</Author>
+        [TestMethod]
+        public void CustomSendCriticalDataCollectionToSpace_ValidateAndCreateXMLMessage_OnlyMandatoryFields()
         {
-            bool messageBusMessageWasReceived = false;
+            string dataCollectionName = DataCollectionName;
+            string dataCollectionLimitSetName = DataCollectionLimitSetName;
+            string processResourceName = ProcessResourceName;
+            string facilityName = FacilityName;
+            string productName = LotProduct;
+            int logicalWaferQuantity = 1;
 
-            // Initialize message bus.
-            Transport messageBusTransport = new Transport(BaseContext.GetMessageBusTransportConfiguration());
+            scenario.NumberOfMaterialsToGenerate = 1;
+            scenario.NumberOfChildMaterialsToGenerate = logicalWaferQuantity;
+            scenario.FacilityName = facilityName;
+            scenario.ProductName = productName;
+            scenario.FlowPath = FlowPath;
+            scenario.SmartTablesToClearInSetup.Add("RecipeContext");
+            scenario.Setup();
 
-            // Connect to message bus.
-            messageBusTransport.Start();
-
-            // Subscribe to event.
-            messageBusTransport.Subscribe(amsOSRAMConstants.CustomReportEDCToSpace, (string subject, MbMessage message) =>
+            Resource processResource = new Resource()
             {
-                if (message != null && !string.IsNullOrWhiteSpace(message.Data))
+                Name = processResourceName
+            };
+            processResource.Load();
+
+            rollbackIsRecipeManagementEnabled.Add(processResource.Name, processResource.IsRecipeManagementEnabled.GetValueOrDefault());
+            processResource.IsRecipeManagementEnabled = false;
+            processResource.Save();
+
+            Material lot = scenario.GeneratedLots.FirstOrDefault();
+            lot.LoadChildren();
+
+            DataCollection dataCollection = new DataCollection
+            {
+                Name = dataCollectionName
+            };
+            dataCollection.Load();
+
+            DataCollectionLimitSet dataCollectionLimitSet = new DataCollectionLimitSet
+            {
+                Name = dataCollectionLimitSetName
+            };
+            dataCollectionLimitSet.Load();
+
+            DataCollectionPointCollection pointsToPost = CreateDataCollectionPointCollection(dataCollection, dataCollectionLimitSet, lot);
+
+            string message = PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, dataCollectionLimitSet, pointsToPost);
+
+            ValidateMessage(message, lot, pointsToPost, dataCollection, dataCollectionLimitSet, logicalWaferQuantity, facilityName, productName);
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Creates a lot with two logical wafer
+        ///         - First one with a substrate, carrier and crystal
+        ///         - Second with only a crystal
+        ///     - Sets Recipes for process and measurement process
+        ///     - Performs the process and measurement of the Lot and Logical Wafers on theirs resources
+        ///     - Execute a ComplexPerformDataCollection operation on a given DataCollection with the parameters with different configurations
+        ///
+        /// Acceptance Criteria:
+        ///     - Validate created message structure
+        ///
+        /// </summary>
+        /// <TestCaseID>CustomSendCriticalDataCollectionToSpace_ValidateAndCreateXMLMessage_AllFields</TestCaseID>
+        /// <Author>Oliverio Sousa</Author>
+        [TestMethod]
+        public void CustomSendCriticalDataCollectionToSpace_ValidateAndCreateXMLMessage_AllFields()
+        {
+            string dataCollectionName = DataCollectionName;
+            string dataCollectionLimitSetName = DataCollectionLimitSetName;
+            string processResourceName = ProcessResourceName;
+            string processSubResourceName = ProcessSubResourceName;
+            string measurementResourceName = MeasurementResourceName;
+            string measurementSubResourceName = MeasurementSubResourceName;
+            string processRecipeName = RecipeName;
+            string measurementRecipeName = RecipeName;
+            string vendor = BusinessParterName;
+            string facilityName = FacilityName;
+            string productName = LotProduct;
+            int logicalWaferQuantity = 2;
+
+            scenario.NumberOfMaterialsToGenerate = 1;
+            scenario.NumberOfChildMaterialsToGenerate = logicalWaferQuantity;
+            scenario.FacilityName = facilityName;
+            scenario.ProductName = productName;
+            scenario.FlowPath = FlowPath;
+
+            scenario.RecipeContext = new List<Dictionary<string, string>>
                 {
-                    // Deserialize MessageBus message received to a Dictionary
-                    // - Key: PropertyName
-                    // - Value: PropertyValue (MessageToSend)
-                    Dictionary<string, string> receivedMessage = JsonConvert.DeserializeObject<Dictionary<string, string>>(message.Data);
+                    {
+                        new Dictionary<string, string> {
+                            { "Service", ProcessServiceName },
+                            { "Resource",processResourceName },
+                            { "Recipe", processRecipeName }
+                        }
+                    },
+                    {
+                        new Dictionary<string, string> {
+                            { "Service", MeasurementServiceName },
+                            { "Resource",measurementResourceName },
+                            { "Recipe", measurementRecipeName }
+                        }
+                    }
+                };
 
-                    ValidateMessage(receivedMessage["Message"]);
+            Resource processResource = new Resource()
+            {
+                Name = processResourceName
+            };
+            processResource.Load();
 
-                    messageBusTransport.Unsubscribe(amsOSRAMConstants.CustomReportEDCToSpace);
+            Resource processSubResource = new Resource
+            {
+                Name = processSubResourceName
+            };
+            processSubResource.Load();
 
-                    messageBusMessageWasReceived = true;
+            Resource measurementResource = new Resource
+            {
+                Name = measurementResourceName
+            };
+            measurementResource.Load();
+
+            Resource measurementSubResource = new Resource
+            {
+                Name = measurementSubResourceName
+            };
+            measurementSubResource.Load();
+
+            rollbackIsRecipeManagementEnabled.Add(processResource.Name, processResource.IsRecipeManagementEnabled.GetValueOrDefault());
+            processResource.IsRecipeManagementEnabled = true;
+            processResource.Save();
+
+            rollbackIsRecipeManagementEnabled.Add(measurementResource.Name, measurementResource.IsRecipeManagementEnabled.GetValueOrDefault());
+            measurementResource.IsRecipeManagementEnabled = true;
+            measurementResource.Save();
+
+            scenario.Setup();
+
+            // Create 3 wafers for the first logicar wafer and set BusinessPartner
+            Material lot = scenario.GeneratedLots.FirstOrDefault();
+            lot.LoadChildren();
+
+            Material firstLogicalWafer = lot.SubMaterials[0];
+            (Material firstSubstrate, firstLogicalWafer) = scenario.GenerateWafer(parentMaterial: firstLogicalWafer, type: amsOSRAMConstants.MaterialWaferSubstrateType);
+            (Material firstCrystal, firstLogicalWafer) = scenario.GenerateWafer(parentMaterial: firstLogicalWafer, type: amsOSRAMConstants.MaterialWaferCrystalType);
+            (Material firstCarrier, firstLogicalWafer) = scenario.GenerateWafer(parentMaterial: firstLogicalWafer, type: amsOSRAMConstants.MaterialWaferCarrierType);
+
+            Container container = scenario.GenerateContainer(submaterials: new MaterialCollection { firstLogicalWafer });
+            firstLogicalWafer.Load();
+
+            BusinessPartner businessPartner = new BusinessPartner();
+            businessPartner.Name = vendor;
+            businessPartner.Load();
+            firstSubstrate.Supplier = businessPartner;
+            firstSubstrate.Save();
+
+            // Create only substrate for the second logicar wafer
+            Material secondLogicalWafer = lot.SubMaterials[1];
+            (Material secondSubstrate, secondLogicalWafer) = scenario.GenerateWafer(parentMaterial: secondLogicalWafer, type: amsOSRAMConstants.MaterialWaferSubstrateType);
+
+            lot = PerformMaterialProcessToMeasurement(lot, processResource, processSubResource, measurementResource, measurementSubResource);
+
+            DataCollection dataCollection = new DataCollection
+            {
+                Name = dataCollectionName
+            };
+            dataCollection.Load();
+
+            DataCollectionLimitSet dataCollectionLimitSet = new DataCollectionLimitSet
+            {
+                Name = dataCollectionLimitSetName
+            };
+            dataCollectionLimitSet.Load();
+
+            DataCollectionPointCollection pointsToPost = CreateDataCollectionPointCollection(dataCollection, dataCollectionLimitSet, lot);
+
+            string message = PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, dataCollectionLimitSet, pointsToPost);
+
+            ValidateMessage(message, lot, pointsToPost, dataCollection, dataCollectionLimitSet, logicalWaferQuantity, facilityName, productName,
+                lastRecipeName: processRecipeName,
+                currentRecipeName: measurementRecipeName,
+                processResourceName: processResourceName,
+                processSubResourceName: processSubResourceName,
+                measurementResourceName: measurementResourceName,
+                measurementSubResourceName: measurementSubResourceName);
+        }
+
+        /// <summary>
+        /// Performs the steps of Processing a Material on the Process flow on a given Material
+        /// </summary>
+        /// <param name="lot"></param>
+        /// <returns>Material with Process steps performed</returns>
+        public static Material PerformMaterialProcessToMeasurement(Material lot, Resource processResource, Resource processSubResource, Resource measurementResource, Resource measurementSubResource)
+        {
+            lot.Load();
+
+            lot.ComplexDispatchAndTrackIn(processResource);
+
+            lot.LoadChildren();
+            foreach (Material logicalWafer in lot.SubMaterials)
+            {
+                logicalWafer.ComplexTrackIn(processSubResource);
+                logicalWafer.ComplexTrackOutMaterial();
+                processSubResource.Load();
+            }
+
+            lot.ComplexTrackOutAndMoveNext();
+
+            lot = lot.ComplexDispatchAndTrackIn(measurementResource).Material;
+            lot.LoadChildren();
+
+            foreach (Material logicalWafer in lot.SubMaterials)
+            {
+                logicalWafer.ComplexTrackIn(measurementSubResource);
+                logicalWafer.ComplexTrackOutMaterial();
+                measurementSubResource.Load();
+            }
+
+            lot.LoadChildren();
+
+            return lot;
+        }
+
+        /// <summary>
+        /// Generates a Collection of DataCollectionPoint using a given DataCollection and DataCollectionLimitSet to be performed on a given Material. If has the possibility to generate inside or outside the limits
+        /// </summary>
+        /// <param name="dataCollection"></param>
+        /// <param name="dataCollectionLimitSet"></param>
+        /// <param name="material"></param>
+        /// <param name="insideLimits"></param>
+        /// <returns>Collection of DataCollectionPoint</returns>
+        public static DataCollectionPointCollection CreateDataCollectionPointCollection(DataCollection dataCollection, DataCollectionLimitSet dataCollectionLimitSet, Material material, bool insideLimits = true)
+        {
+            DataCollectionPointCollection pointsToPost = new DataCollectionPointCollection();
+
+            dataCollection.LoadRelation("DataCollectionParameter");
+
+            ParameterCollection parameters = new ParameterCollection();
+            parameters.AddRange(dataCollection.DataCollectionParameters.Select(s => s.TargetEntity));
+            parameters.Load();
+
+            dataCollectionLimitSet.LoadRelation("DataCollectionParameterLimit");
+            decimal defaultValue = 640;
+
+            foreach (Parameter parameter in parameters)
+            {
+                parameter.LoadAttributes(new Collection<string> { amsOSRAMConstants.ParameterAttributeSendToSpace });
+
+                DataCollectionParameterLimit parameterLimit = dataCollectionLimitSet.DataCollectionParameterLimits.FirstOrDefault(f => f.TargetEntity.Id == parameter.Id);
+
+                decimal insideLimitValue = parameterLimit != null && parameterLimit.MinValue.HasValue ? parameterLimit.MinValue.Value + 1 : defaultValue;
+                decimal outsideLimitValue = parameterLimit != null && parameterLimit.MaxValue.HasValue ? parameterLimit.MaxValue.Value + 1 : defaultValue;
+
+                decimal pointValue = insideLimits ? insideLimitValue : outsideLimitValue;
+
+                DataCollectionParameter dcParameter = dataCollection.DataCollectionParameters.FirstOrDefault(f => f.TargetEntity.Id == parameter.Id);
+                DataCollectionParameterSampleKey? sampleKey = dcParameter.SampleKey;
+
+                if (sampleKey == DataCollectionParameterSampleKey.MaterialId)
+                {
+                    Dictionary<string, List<decimal>> waferValues = new Dictionary<string, List<decimal>>();
+
+                    foreach (Material wafer in material.SubMaterials)
+                    {
+                        for (int readingNumber = 1; dcParameter.MaximumSampleReadings >= readingNumber; readingNumber++)
+                        {
+                            DataCollectionPoint collectionPoint = new DataCollectionPoint();
+                            collectionPoint.Value = pointValue;
+                            collectionPoint.TargetEntity = parameter;
+                            collectionPoint.ReadingNumber = readingNumber;
+                            collectionPoint.SampleId = wafer.Name;
+                            pointsToPost.Add(collectionPoint);
+                        }
+                    }
                 }
-            });
+                else
+                {
+                    Dictionary<string, List<decimal>> waferValues = new Dictionary<string, List<decimal>>();
 
-            ComplexPerformDataCollectionInput complexPostDCDataInput = new ComplexPerformDataCollectionInput()
+                    for (int sampleId = 1; dcParameter.MaximumSamples >= sampleId; sampleId++)
+                    {
+                        for (int readingNumber = 1; dcParameter.MaximumSampleReadings >= readingNumber; readingNumber++)
+                        {
+                            DataCollectionPoint collectionPoint = new DataCollectionPoint();
+                            collectionPoint.Value = pointValue;
+                            collectionPoint.TargetEntity = parameter;
+                            collectionPoint.ReadingNumber = 1;
+                            collectionPoint.SampleId = sampleId.ToString();
+                            pointsToPost.Add(collectionPoint);
+                        }
+                    }
+                }
+            }
+
+            return pointsToPost;
+        }
+
+        /// <summary>Post DataCollection and validate Space Message</summary>
+        /// <param name="material"></param>
+        /// <param name="dataCollection">DataCollection</param>
+        /// <param name="dataCollectionLimitSet">DataCollection Limit Set</param>
+        /// <param name="pointsToPost">Points to Post</param>
+        /// <returns>Message sent to message bus</returns>
+        private string PostDataCollectionAndValidateSpaceMessage(Material material, DataCollection dataCollection, DataCollectionLimitSet dataCollectionLimitSet, DataCollectionPointCollection pointsToPost)
+        {
+            Func<bool> waitForMessageBus = SubscribeMessageBus(amsOSRAMConstants.CustomReportEDCToSpace, 1);
+
+            ComplexPerformDataCollectionOutput complexPostDCDataOutput = new ComplexPerformDataCollectionInput()
             {
                 Material = material,
                 DataCollection = dataCollection,
-                DataCollectionLimitSet = datacollectionLimitSet,
+                DataCollectionLimitSet = dataCollectionLimitSet,
                 DataCollectionPointCollection = pointsToPost
-            };
-
-            ComplexPerformDataCollectionOutput complexPostDCDataOutput = complexPostDCDataInput.ComplexPerformDataCollectionSync();
-
-            Func<bool> waitForMessageBus = () =>
-            {
-                return messageBusMessageWasReceived;
-            };
+            }.ComplexPerformDataCollectionSync();
 
             waitForMessageBus.WaitFor();
 
-            Assert.IsTrue(messageBusMessageWasReceived, "Message was not received from message bus.");
+            Dictionary<string, object> messageBusMessage = messageBusMessages.FirstOrDefault();
+            Assert.IsTrue(messageBusMessage != null && messageBusMessage.Count > 0, "Message was not received from message bus.");
+
+            object message;
+            messageBusMessage.TryGetValue("Message", out message);
+
+            return (string)message;
         }
 
-        /// <summary>
-        /// Validate message received from Message Bus
-        /// </summary>
+        /// <summary>Validate message received from Message Bus</summary>
         /// <param name="message">Message to validate</param>
-        private void ValidateMessage(string message)
+        /// <param name="material"></param>
+        /// <param name="pointsToPost"></param>
+        /// <param name="dataCollection"></param>
+        /// <param name="dataCollectionLimitSet"></param>
+        /// <param name="logicalWaferQuantity"></param>
+        /// <param name="facilityName"></param>
+        /// <param name="lastRecipeName"></param>
+        /// <param name="currentRecipeName"></param>
+        /// <param name="processResourceName"></param>
+        /// <param name="processSubResourceName"></param>
+        /// <param name="measurementResourceName"></param>
+        /// <param name="measurementSubResourceName"></param>
+        private void ValidateMessage(string message,
+                                     Material material,
+                                     DataCollectionPointCollection pointsToPost,
+                                     DataCollection dataCollection,
+                                     DataCollectionLimitSet dataCollectionLimitSet,
+                                     int logicalWaferQuantity,
+                                     string facilityName,
+                                     string productName,
+                                     string lastRecipeName = "-",
+                                     string currentRecipeName = "-",
+                                     string processResourceName = "",
+                                     string processSubResourceName = "-",
+                                     string measurementResourceName = "-",
+                                     string measurementSubResourceName = "-"
+            )
         {
-            if (!string.IsNullOrWhiteSpace(message))
+            Assert.IsFalse(String.IsNullOrEmpty(message), "Message received from MessageBus cannot be null or empty");
+
+            material.Load(1);
+
+            Resource processEquipment = null;
+
+            if (!String.IsNullOrEmpty(processResourceName))
             {
-                Dictionary<string, string> expectedKeys = new Dictionary<string, string>()
+                processEquipment = new Resource
                 {
-                    {"PROCESS",  amsOSRAMConstants.DefaultTestProductName},
-                    {"BASIC_TYPE",string.Empty },
-                    {"AREA",string.Empty },
-                    {"OWNER", string.Empty},
-                    {"ROUTE",$"{amsOSRAMConstants.DefaultTestFlowName}_1"},
-                    {"OPERATION",amsOSRAMConstants.DefaultTestStepName},
-                    {"PROCESS_SPS","CMFTestService"},
-                    {"EQUIPMENT", string.Empty},
-                    {"CHAMBER",  string.Empty},
-                    {"RECIPE", string.Empty},
-                    {"MEAS_EQUIPMENT", string.Empty },
-                    {"BATCH_NAME", string.Empty },
-                    {"LOT",$"{material.Name}"},
-                    {"QTY","3.00000000"},
-                    {"WAFER","."},
-                    {"PUNKT","."},
-                    {"X","."},
-                    {"Y","."}
+                    Name = processResourceName
                 };
+                processEquipment.Load();
+            }
 
-                ///<Step> Validate the content of the Integration Entry </Step>
-                CustomReportEDCToSpace spaceInformation = CustomUtilities.DeserializeXmlToObject<CustomReportEDCToSpace>(message);
+            Product product = new Product
+            {
+                Name = productName
+            };
+            product.Load(1);
 
-                foreach (Key key in spaceInformation.Keys)
+            string sapProductType = "-";
+            if (product.HasRelatedAttributeDefined(amsOSRAMConstants.ProductAttributeSAPProductType))
+            {
+                sapProductType = (string)product.RelatedAttributes[amsOSRAMConstants.ProductAttributeSAPProductType];
+            }
+
+            Area area = material.GetArea();
+
+            string ldCode = String.Empty;
+            if (area.HasAttributeDefined(amsOSRAMConstants.AreaAttributeLdsId))
+            {
+                ldCode = (string)area.Attributes[amsOSRAMConstants.AreaAttributeLdsId];
+            }
+
+            string stepLogicalName = material.Step.Name;
+            if (material.Step.ContainsLogicalNames)
+            {
+                material.Flow.LoadRelation("FlowStep");
+                stepLogicalName = material.Flow.FlowSteps.FirstOrDefault(w => w.TargetEntity.Id == material.Step.Id).LogicalName;
+            }
+
+            Foundation.Security.User currentUser = new GetCurrentUserInput().GetCurrentUserSync().User;
+            Employee employee = new Employee();
+            employee.Name = currentUser.UserName;
+
+            ShiftDefinitionShift shift = null;
+
+            if (employee.ObjectExists())
+            {
+                employee.Load();
+                employee.Calendar.Load();
+                employee.Calendar.LoadRelations();
+
+                shift = employee.Calendar.GetShiftDefinitionShift();
+            }
+
+            Dictionary<string, string> materialExpectedKeys = new Dictionary<string, string>()
+            {
+                {"LOT",  material.Name},
+                {"BATCH", "-"},
+                {"LOT TYPE", sapProductType },
+                {"PROCESS EQUIPMENT 1", processEquipment?.Name },
+                {"EQUIPMENT PLATFORM", processEquipment?.Model },
+                {"PROCESS RECIPE 1", lastRecipeName },
+                {"MEASUREMENT EQUIPMENT", measurementResourceName },
+                {"MEASUREMENT RECIPE", currentRecipeName },
+                {"QUANTITY", logicalWaferQuantity.ToString() },
+                {"ACCESSORY", "-" },
+                {"OPERATOR", employee.EmployeeNumber },
+                {"SHIFT", shift?.Name ?? "-" },
+                {"SENDER", "CMF" },
+                {"AREA", facilityName },
+                {"WILDCARD DA1", "-" },
+                {"WILDCARD DA2", "-" },
+            };
+
+            CustomReportEDCToSpace spaceInformation = CustomUtilities.DeserializeXmlToObject<CustomReportEDCToSpace>(message);
+
+            Dictionary<string, List<decimal>> listPointsPerParameterSamples = new Dictionary<string, List<decimal>>();
+
+            ParameterCollection parameters = new ParameterCollection();
+            parameters.AddRange(pointsToPost
+                .Select(s =>
                 {
-                    if (!string.IsNullOrEmpty(expectedKeys[key.Name]))
-                    {
-                        Assert.IsTrue(key.Value.Equals(expectedKeys[key.Name]), $"The value for key with name {key.Name} is {key.Value}, but should be {expectedKeys[key.Name]}.");
-                    }
-                }
+                    s.TargetEntity.LoadAttribute(amsOSRAMConstants.ParameterAttributeSendToSpace);
+                    return s.TargetEntity;
+                })
+                .Where(p =>
+                    p.GetAttributeValue(amsOSRAMConstants.ParameterAttributeSendToSpace, false) &&
+                    (p.DataType == ParameterDataType.Decimal || p.DataType == ParameterDataType.Long)
+                ));
 
-                Assert.IsTrue(spaceInformation.Samples.Count == 1, $"The number of samples present on the message is {spaceInformation.Samples.Count}, but should be 1.");
-                Assert.IsTrue(spaceInformation.Samples[0].Raws.raws.Count == material.SubMaterialCount, $"Each wafer should be present on the sample data.");
+            foreach (DataCollectionPoint point in pointsToPost)
+            {
+                Parameter parameter = parameters.FirstOrDefault(s => s.Id == point.TargetEntity.Id);
 
-                int sampleCount = 0;
-                foreach (Sample sample in spaceInformation.Samples)
+                if (parameter != null)
                 {
-                    if (sample.ParameterName.Equals("SScOTest"))
-                    {
-                        Assert.IsTrue(sample.Lower.Equals("635.0000000000"), $"Sample field for parameter {sample.ParameterName} should have the lower limit error equal to 635.0000000000 instead is {sample.Lower}.");
-                        Assert.IsTrue(sample.Upper.Equals("665.0000000000"), $"Sample field for parameter {sample.ParameterName} should have the upper limit error equal to 665.0000000000 instead is {sample.Upper}.");
-                    }
+                    bool isSampleTypeMaterialId = dataCollection.DataCollectionParameters.FirstOrDefault(f => f.TargetEntity.Name == parameter.Name).SampleKey == DataCollectionParameterSampleKey.MaterialId;
 
-                    foreach (Raw sampleRaw in sample.Raws.raws)
+                    string key = parameter.Name + "-" + (isSampleTypeMaterialId ? point.SampleId : $"Sample {point.SampleId}");
+                    decimal value = (decimal)point.Value;
+
+                    if (listPointsPerParameterSamples.ContainsKey(key))
                     {
-                        decimal value = defaultValue + sampleCount;
-                        Assert.IsTrue(sampleRaw.RawValue.Equals(value), $"Value for parameter {sample.ParameterName} should be {value} instead is {sampleRaw.RawValue}.");
-                        sampleCount++;
+                        listPointsPerParameterSamples[key].Add(value);
+                    }
+                    else
+                    {
+                        listPointsPerParameterSamples.Add(key, new List<decimal> { value });
                     }
                 }
             }
+
+            Assert.AreEqual(listPointsPerParameterSamples.Count, spaceInformation.Samples.Count, $"Should have {listPointsPerParameterSamples.Count} samples but got {spaceInformation.Samples.Count} instead");
+
+            // Validate Sender
+            Assert.AreEqual(CustomUtilities.GetEnvironmentName(), spaceInformation.Sender.Value, $"The Sender should be {CustomUtilities.GetEnvironmentName()} instead of {spaceInformation.Sender.Value}");
+
+            // Validate LDS
+            Assert.AreEqual(1, spaceInformation.Lds.Count, $"Should have 1 LD instead of {spaceInformation.Lds.Count}");
+            Assert.AreEqual(ldCode, spaceInformation.Lds.FirstOrDefault().Id, $"The LDSCode should be {ldCode} instead of {spaceInformation.Lds.FirstOrDefault().Id}");
+
+            // Validate SampleDate
+            Assert.IsNotNull(spaceInformation.SampleDate, "The SampleDate cannot be null or empty");
+
+            dataCollectionLimitSet.LoadRelations(new Collection<string> { "DataCollectionParameterLimit" }, 1);
+            material.LoadChildren();
+
+            foreach (Sample sample in spaceInformation.Samples)
+            {
+                Parameter parameter = parameters.FirstOrDefault(f => f.Name == sample.ParameterName);
+
+                if (!String.IsNullOrEmpty(parameter.DataUnit))
+                {
+                    Assert.AreEqual(parameter.DataUnit, sample.ParameterUnit, $"Sample field for parameter {sample.ParameterName} should have the unit {parameter.DataUnit} but got {sample.ParameterUnit} instead.");
+                }
+
+                DataCollectionParameterLimit limits = dataCollectionLimitSet.DataCollectionParameterLimits.FirstOrDefault(f => f.TargetEntity.Name == sample.ParameterName);
+
+                if (limits != null)
+                {
+                    if (limits.LowerWarningLimit != null && limits.LowerWarningLimit.HasValue)
+                    {
+                        Assert.AreEqual(Decimal.Truncate((decimal)limits.LowerWarningLimit.Value), Decimal.Truncate(Decimal.Parse(sample.SpecificationLimits.Lower)), $"Sample field for parameter {sample.ParameterName} should have the lower limit error equal to {Decimal.Truncate((decimal)limits.LowerWarningLimit.Value)} instead is {Decimal.Truncate(Decimal.Parse(sample.SpecificationLimits.Lower))}.");
+                    }
+                    else if (limits.LowerErrorLimit != null && limits.LowerErrorLimit.HasValue)
+                    {
+                        Assert.AreEqual(Decimal.Truncate((decimal)limits.LowerErrorLimit.Value), Decimal.Truncate(Decimal.Parse(sample.SpecificationLimits.Lower)), $"Sample field for parameter {sample.ParameterName} should have the lower limit error equal to {Decimal.Truncate((decimal)limits.LowerErrorLimit.Value)} instead is {Decimal.Truncate(Decimal.Parse(sample.SpecificationLimits.Lower))}.");
+                    }
+
+                    if (limits.UpperWarningLimit != null && limits.UpperWarningLimit.HasValue)
+                    {
+                        Assert.AreEqual(Decimal.Truncate((decimal)limits.UpperWarningLimit.Value), Decimal.Truncate(Decimal.Parse(sample.SpecificationLimits.Upper)), $"Sample field for parameter {sample.ParameterName} should have the lower limit error equal to {Decimal.Truncate((decimal)limits.UpperWarningLimit.Value)} instead is {Decimal.Truncate(Decimal.Parse(sample.SpecificationLimits.Upper))}.");
+                    }
+                    else if (limits.UpperErrorLimit != null && limits.UpperErrorLimit.HasValue)
+                    {
+                        Assert.AreEqual(Decimal.Truncate((decimal)limits.UpperErrorLimit.Value), Decimal.Truncate(Decimal.Parse(sample.SpecificationLimits.Upper)), $"Sample field for parameter {sample.ParameterName} should have the lower limit error equal to {Decimal.Truncate((decimal)limits.UpperErrorLimit.Value)} instead is {Decimal.Truncate(Decimal.Parse(sample.SpecificationLimits.Upper))}.");
+                    }
+                }
+
+                bool isSampleTypeMaterialId = dataCollection.DataCollectionParameters.FirstOrDefault(f => f.TargetEntity.Name == parameter.Name).SampleKey == DataCollectionParameterSampleKey.MaterialId;
+                string sampleName = isSampleTypeMaterialId ? sample.Keys.FirstOrDefault(f => f.Name == "WAFER").Value : sample.Keys.FirstOrDefault(f => f.Name == "WILDCARD EX1").Value;
+
+                List<decimal> dcPoints = listPointsPerParameterSamples[parameter.Name + "-" + sampleName];
+
+                Assert.AreEqual(dcPoints.Count, sample.Raws.RawCollection.Count, $"Sample field for parameter {sample.ParameterName} should have {dcPoints.Count} raws instead of {sample.Raws.RawCollection.Count}.");
+                Assert.AreEqual("True", sample.Raws.StoreRaws, $"Sample field for parameter {sample.ParameterName} should have the StoreRaws set to True instead of {sample.Raws.StoreRaws}.");
+
+                int counter = 0;
+
+                foreach (Raw sampleRaw in sample.Raws.RawCollection)
+                {
+                    Assert.AreEqual(dcPoints[counter], sampleRaw.RawValue, $"Sample field for parameter {sample.ParameterName} should have the raw{counter} as {dcPoints[counter]} but got {sampleRaw.RawValue} instead.");
+                    counter++;
+                }
+
+                Material logicalWafer = null;
+                MaterialContainer waferContainer = null;
+
+                if (isSampleTypeMaterialId)
+                {
+                    logicalWafer = new Material
+                    {
+                        Name = sampleName
+                    };
+
+                    logicalWafer.Load(1);
+                    logicalWafer.LoadRelation("MaterialContainer");
+                    waferContainer = logicalWafer.MaterialContainer?.FirstOrDefault(f => f.SourceEntity.Id == logicalWafer.Id);
+
+                    logicalWafer.LoadChildren();
+                }
+
+                Material substrate = logicalWafer?.SubMaterials?.FirstOrDefault(f => f.Form == amsOSRAMConstants.FormWafer && f.Type == amsOSRAMConstants.MaterialWaferSubstrateType);
+
+                if (substrate?.Supplier != null)
+                {
+                    substrate.Supplier.Load();
+                }
+
+                Dictionary<string, string> waferExpectedKeys = new Dictionary<string, string>(materialExpectedKeys) {
+                    { "WAFER",  logicalWafer?.Name ?? "-"},
+                    { "PRODUCT", logicalWafer?.Product?.Name ?? product.Name },
+                    { "PRODUCT VERSION", logicalWafer?.Product?.Version.ToString() ?? product.Version.ToString() },
+                    { "PRODUCT TECHNOLOGY", logicalWafer?.Product.ProductGroup?.Name },
+                    { "POSITION 1", waferContainer?.Position.Value.ToString() ?? "-" },
+                    { "POSITION 2", "-" },
+                    { "FLOW", logicalWafer?.Flow?.Name ?? material.Flow.Name },
+                    { "SINGLE PROCESS", stepLogicalName },
+                    { "PROCESS EQUIPMENT CHAMBER", logicalWafer == null ? "-" : processSubResourceName ?? "-" },
+                    { "MEASUREMENT EQUIPMENT CHAMBER", logicalWafer?.SystemState == MaterialSystemState.Processed ? measurementSubResourceName ?? "-" : "-" },
+                    { "WILDCARD EX1", logicalWafer == null ? sampleName : "-" },
+                    { "WILDCARD EX2", "-" },
+                    { "CRYSTAL", logicalWafer?.SubMaterials?.FirstOrDefault(f => f.Form == amsOSRAMConstants.FormWafer && f.Type == amsOSRAMConstants.MaterialWaferCrystalType)?.Name ?? "-" },
+                    { "SUBSTRATE", substrate?.Name ?? "-" },
+                    { "CARRIER", logicalWafer?.SubMaterials?.FirstOrDefault(f => f.Form == amsOSRAMConstants.FormWafer && f.Type == amsOSRAMConstants.MaterialWaferCarrierType)?.Name ?? "-" },
+                    { "VENDOR", substrate?.Supplier?.Name ?? "-" }
+                };
+
+                foreach (Key key in sample.Keys)
+                {
+                    if (!string.IsNullOrEmpty(waferExpectedKeys[key.Name]))
+                    {
+                        Assert.AreEqual(waferExpectedKeys[key.Name], key.Value, $"Sample field for parameter {sample.ParameterName} should have the key with name {key.Name} with the value {waferExpectedKeys[key.Name]}, but got {key.Value} instead.");
+                    }
+                }
+            }
+        }
+
+        /// <summary>Subscribes the message bus.</summary>
+        /// <param name="topic">The topic.</param>
+        /// <param name="numberOfMessages">The number of messages.</param>
+        /// <returns>Function to wait for response</returns>
+        private Func<bool> SubscribeMessageBus(string topic, int numberOfMessages = 1)
+        {
+            transport.Subscribe(topic.ToString(), (string subject, MbMessage message) =>
+            {
+                if (message != null && !string.IsNullOrWhiteSpace(message.Data))
+                {
+                    messageBusMessages.Add(JsonConvert.DeserializeObject<Dictionary<string, object>>(message.Data));
+                }
+            });
+
+            isToUnsubscribeTopic = topic.ToString();
+
+            Func<bool> waitForMessageBus = () =>
+            {
+                bool isDone = messageBusMessages.Count == numberOfMessages;
+
+                if (isDone)
+                {
+                    transport.Unsubscribe(topic.ToString());
+                    isToUnsubscribeTopic = null;
+                }
+
+                return isDone;
+            };
+
+            return waitForMessageBus;
         }
     }
 }

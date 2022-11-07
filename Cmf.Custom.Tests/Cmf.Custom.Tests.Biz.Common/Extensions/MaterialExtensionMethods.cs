@@ -4,6 +4,7 @@ using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cmf.Custom.Tests.Biz.Common.Extensions
 {
