@@ -165,7 +165,10 @@
 				}
 			},
 			"settings": {
-				"objectSpec": "Equipment"
+				"objectSpec": "Equipment",
+				"ProcessOrderMgmtValue": 3,
+				"___cmf___name": "Custom Create Control Job",
+				"commandName": 3
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -190,20 +193,6 @@
 			"inputName": "error",
 			"outputName": "ErrorOut",
 			"converters": []
-		},
-		{
-			"id": "15638f57-dcb0-494f-8789-ec9b971c8075",
-			"sourceId": "task_169102",
-			"targetId": "task_169525",
-			"inputName": "MaterialData",
-			"outputName": "MaterialDataOut"
-		},
-		{
-			"id": "4dffe93a-6b32-4a40-b372-0646fb895d12",
-			"sourceId": "task_169102",
-			"targetId": "task_169525",
-			"inputName": "activate",
-			"outputName": "MaterialDataOut"
 		},
 		{
 			"id": "54567084-c949-446c-bfa1-8b0bf3924200",
@@ -241,7 +230,14 @@
 			"outputName": "Material"
 		},
 		{
-			"id": "e5499366-eab0-4b0a-b90c-71ce1b5fea54",
+			"id": "3e4888f2-c9af-44d6-b17d-3dfdf3c7cc22",
+			"sourceId": "task_169102",
+			"targetId": "task_169525",
+			"inputName": "MaterialData",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "1a003b97-89d8-495a-bee7-56bf7b413c78",
 			"sourceId": "task_169102",
 			"targetId": "task_169525",
 			"inputName": "StartMethod",
@@ -255,6 +251,13 @@
 					}
 				}
 			]
+		},
+		{
+			"id": "2afd4cd8-5410-422b-8834-de4f1baa2da2",
+			"sourceId": "task_169102",
+			"targetId": "task_169525",
+			"inputName": "activate",
+			"outputName": "MaterialDataOut"
 		}
 	],
 	"layout": {
@@ -268,7 +271,7 @@
 					"task_169100": {
 						"collapsed": false,
 						"position": {
-							"x": 3410,
+							"x": 3415,
 							"y": 798
 						},
 						"outdated": false
@@ -284,28 +287,22 @@
 					"task_169104": {
 						"collapsed": false,
 						"position": {
-							"x": 2747,
-							"y": 1349
+							"x": 2717,
+							"y": 1297
 						},
 						"outdated": false
 					},
 					"task_169525": {
 						"collapsed": false,
 						"position": {
-							"x": 2319,
-							"y": 769
+							"x": 1963,
+							"y": 779
 						},
 						"outdated": false
 					}
 				},
 				"links": {
 					"task_169104_ErrorOut-task_169100_error": {
-						"vertices": []
-					},
-					"15638f57-dcb0-494f-8789-ec9b971c8075": {
-						"vertices": []
-					},
-					"4dffe93a-6b32-4a40-b372-0646fb895d12": {
 						"vertices": []
 					},
 					"54567084-c949-446c-bfa1-8b0bf3924200": {
@@ -323,15 +320,21 @@
 					"b51e37b2-47f1-4865-900f-1e69888a246a": {
 						"vertices": []
 					},
-					"e5499366-eab0-4b0a-b90c-71ce1b5fea54": {
+					"3e4888f2-c9af-44d6-b17d-3dfdf3c7cc22": {
+						"vertices": []
+					},
+					"2afd4cd8-5410-422b-8834-de4f1baa2da2": {
+						"vertices": []
+					},
+					"1a003b97-89d8-495a-bee7-56bf7b413c78": {
 						"vertices": []
 					}
 				},
 				"notes": {},
-				"zoom": 0.5899999999999997,
+				"zoom": 0.7299999999999998,
 				"pan": {
-					"x": 541.1111450195312,
-					"y": 107.77777862548828
+					"x": 959.8470440522642,
+					"y": 383.2997287058745
 				}
 			}
 		}

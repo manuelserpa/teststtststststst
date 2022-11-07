@@ -1,0 +1,263 @@
+{
+	"tasks": [
+		{
+			"id": "task_33385",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CarrierID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "ContentMap",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SlotMap",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "COSM15_SLOTMAPWAITINGFORHOST_SLOTMAPVERIFICATIONOK"
+					}
+				]
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_11445",
+			"reference": {
+				"name": "customLBO",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"type": "Cmf.Custom.amsOSRAM.Orchestration.InputObjects.MaterialInInput, Cmf.Custom.amsOSRAM.Orchestration",
+				"method": "POST",
+				"urlSuffix": "api/amsOSRAM/MaterialIn",
+				"ignoreLastServiceId": true,
+				"numberOfRetries": 30,
+				"sleepBetweenRetries": 1000,
+				"serviceComments": "",
+				"clearInputs": true,
+				"inputs": [
+					{
+						"name": "CarrierId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "CarrierId"
+						},
+						"propertyName": "CarrierId",
+						"defaultValue": null
+					},
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ResourceName"
+						},
+						"propertyName": "ResourceName",
+						"defaultValue": null
+					}
+				],
+				"outputs": [],
+				"___cmf___name": "Custom LBO",
+				"___cmf___description": "Material IN",
+				"___cmf___color": "#0080ff"
+			}
+		},
+		{
+			"id": "task_11447",
+			"reference": {
+				"name": "retrieve",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_retrieveOnValueChange": false,
+				"_emitInNewContext": false,
+				"_outputs": [
+					{
+						"name": "Resource",
+						"identifier": "Generic_ResourceName",
+						"defaultValue": "-",
+						"valueType": {
+							"name": "",
+							"friendlyName": "",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null
+						}
+					}
+				],
+				"___cmf___name": "Retrieve Data",
+				"___cmf___color": "#808078"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks#anyToErrorCodeConstant",
+			"reference": {
+				"name": "anyToErrorCodeConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "2.0.0"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "task_11447_Resource-task_11445_ResourceName",
+			"sourceId": "task_11447",
+			"targetId": "task_11445",
+			"inputName": "ResourceName",
+			"outputName": "Resource",
+			"converters": []
+		},
+		{
+			"id": "task_11447_success-task_11445_activate",
+			"sourceId": "task_11447",
+			"targetId": "task_11445",
+			"inputName": "activate",
+			"outputName": "success",
+			"converters": []
+		},
+		{
+			"id": "c14376f4-3092-4bea-9aa5-2a60c2625a2f",
+			"sourceId": "task_33385",
+			"targetId": "task_11447",
+			"inputName": "activate",
+			"outputName": "$CarrierID"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff40",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_33385": {
+						"collapsed": false,
+						"position": {
+							"x": 242,
+							"y": 563
+						},
+						"outdated": false
+					},
+					"task_11445": {
+						"collapsed": false,
+						"position": {
+							"x": 1406,
+							"y": 626
+						},
+						"outdated": false
+					},
+					"task_11447": {
+						"collapsed": false,
+						"position": {
+							"x": 851,
+							"y": 949
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"task_11447_Resource-task_11445_ResourceName": {
+						"vertices": []
+					},
+					"task_11447_success-task_11445_activate": {
+						"vertices": []
+					},
+					"c14376f4-3092-4bea-9aa5-2a60c2625a2f": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"zoom": 0.7899999999999998,
+				"pan": {
+					"x": 150,
+					"y": 402
+				}
+			}
+		}
+	}
+}

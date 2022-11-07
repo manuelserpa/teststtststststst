@@ -12,12 +12,61 @@
 			"settings": {
 				"_workingMode": "AlwaysActive",
 				"_acceptAllEvents": false,
-				"_outputs": []
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PortID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PlacedCarrierPattern1",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PlacedCarrierPattern2",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PlacedCarrierPattern3",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PlacedCarrierPattern4",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "OEV (4)",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "MATERIAL_PLACED"
+					}
+				],
+				"___cmf___description": "MATERIAL_PLACED"
 			},
 			"driver": "SecsGemEquipment"
 		},
 		{
-			"id": "task_194517",
+			"id": "task_85488",
 			"reference": {
 				"name": "workflow",
 				"package": {
@@ -82,6 +131,17 @@
 				],
 				"outputs": [
 					{
+						"name": "LoadPort",
+						"valueType": {
+							"friendlyName": "LoadPort",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
 						"name": "container",
 						"valueType": {
 							"friendlyName": "container",
@@ -93,23 +153,365 @@
 						}
 					},
 					{
-						"name": "LoadPort",
+						"name": "ContainerName",
 						"valueType": {
-							"friendlyName": "LoadPort",
-							"type": 5,
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"___cmf___name": "Carrier Id Read Workflow"
+			}
+		},
+		{
+			"id": "task_85490",
+			"reference": {
+				"name": "customReadId",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "2.0.0"
+				}
+			},
+			"settings": {
+				"___cmf___name": "Custom Read Id (S18F9)"
+			},
+			"driver": "RFIDReader"
+		},
+		{
+			"id": "task_27485",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"",
+					"        let containerName: string = inputs.ContainerName;",
+					"        const loadPort: number = inputs.LoadPort;",
+					"",
+					"        if(!containerName){",
+					"            containerName = \"CarrierAtLoadPort\" + loadPort;",
+					"        }",
+					"",
+					"        this.framework.logger.debug(\"ContainerName : \" + containerName);",
+					"",
+					"        if (containerName.startsWith(\"CarrierAtLoadPort\")) {",
+					"            return {",
+					"                ContainerId: containerName,",
+					"                LoadPortNumber: loadPort,",
+					"                ProceedWithCarrier: true",
+					"            };",
+					"        }",
+					"",
+					"        return {",
+					"            ContainerId: containerName,",
+					"            LoadPortNumber: loadPort,",
+					"            CallDockContainer: true",
+					"        };",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGxldCBjb250YWluZXJOYW1lID0gaW5wdXRzLkNvbnRhaW5lck5hbWU7DQogICAgICAgIGNvbnN0IGxvYWRQb3J0ID0gaW5wdXRzLkxvYWRQb3J0Ow0KICAgICAgICBpZiAoIWNvbnRhaW5lck5hbWUpIHsNCiAgICAgICAgICAgIGNvbnRhaW5lck5hbWUgPSAiQ2FycmllckF0TG9hZFBvcnQiICsgbG9hZFBvcnQ7DQogICAgICAgIH0NCiAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLmRlYnVnKCJDb250YWluZXJOYW1lIDogIiArIGNvbnRhaW5lck5hbWUpOw0KICAgICAgICBpZiAoY29udGFpbmVyTmFtZS5zdGFydHNXaXRoKCJDYXJyaWVyQXRMb2FkUG9ydCIpKSB7DQogICAgICAgICAgICByZXR1cm4gew0KICAgICAgICAgICAgICAgIENvbnRhaW5lcklkOiBjb250YWluZXJOYW1lLA0KICAgICAgICAgICAgICAgIExvYWRQb3J0TnVtYmVyOiBsb2FkUG9ydCwNCiAgICAgICAgICAgICAgICBQcm9jZWVkV2l0aENhcnJpZXI6IHRydWUNCiAgICAgICAgICAgIH07DQogICAgICAgIH0NCiAgICAgICAgcmV0dXJuIHsNCiAgICAgICAgICAgIENvbnRhaW5lcklkOiBjb250YWluZXJOYW1lLA0KICAgICAgICAgICAgTG9hZFBvcnROdW1iZXI6IGxvYWRQb3J0LA0KICAgICAgICAgICAgQ2FsbERvY2tDb250YWluZXI6IHRydWUNCiAgICAgICAgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
+				"inputs": [
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"friendlyName": "Container Name",
+							"type": 4,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
 							"referenceTypeId": null
 						}
+					},
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Load Port"
+						},
+						"defaultValue": null
 					}
 				],
-				"___cmf___name": "Workflow"
+				"outputs": [
+					{
+						"name": "ContainerId",
+						"valueType": {
+							"friendlyName": "ContainerId",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "LoadPortNumber",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Load Port Number"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "CallDockContainer",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Call Dock Container"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "ProceedWithCarrier",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Proceed With Carrier"
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
+		},
+		{
+			"id": "task_6348",
+			"reference": {
+				"name": "customCarrierActionRequest",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "2.0.0"
+				}
+			},
+			"settings": {
+				"CarrierActionRequest": 2,
+				"___cmf___name": "Custom Carrier Action Request",
+				"commandName": 2
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringRemove",
+			"reference": {
+				"name": "stringRemove",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringConcatenate",
+			"reference": {
+				"name": "stringConcatenate",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
 			}
 		}
 	],
-	"converters": [],
-	"links": [],
+	"links": [
+		{
+			"id": "034da5d4-94a8-426c-88d3-e03cb51369dc",
+			"sourceId": "task_194418",
+			"targetId": "task_85490",
+			"inputName": "TargetId",
+			"outputName": "$PortID",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		},
+		{
+			"id": "885db525-8ee7-46af-93dd-5d0d758898a9",
+			"sourceId": "task_194418",
+			"targetId": "task_85490",
+			"inputName": "activate",
+			"outputName": "$PortID"
+		},
+		{
+			"id": "3631815f-7468-41ab-80bc-472ae25febf9",
+			"sourceId": "task_27485",
+			"targetId": "task_85488",
+			"inputName": "ContainerIdIn",
+			"outputName": "ContainerIdOut"
+		},
+		{
+			"id": "f573b1d3-05dc-43c7-a1d5-71d556d8072b",
+			"sourceId": "task_27485",
+			"targetId": "task_85488",
+			"inputName": "LoadPortIn",
+			"outputName": "LoadPortNumberOut"
+		},
+		{
+			"id": "5a7346ae-b425-443e-85dd-afe8456cf12a",
+			"sourceId": "task_27485",
+			"targetId": "task_85488",
+			"inputName": "activate",
+			"outputName": "CallDockContainerOut"
+		},
+		{
+			"id": "8aae727f-d9f5-400b-a2ae-74f8e706300c",
+			"sourceId": "task_85488",
+			"targetId": "task_6348",
+			"inputName": "PortNumber",
+			"outputName": "containerOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "LoadPortPosition",
+						"type": 4
+					}
+				},
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		},
+		{
+			"id": "04162d88-a6fa-4cb0-99f3-50c64d8001ca",
+			"sourceId": "task_27485",
+			"targetId": "task_6348",
+			"inputName": "PortNumber",
+			"outputName": "LoadPortNumberOut"
+		},
+		{
+			"id": "2cb18a9d-53fa-4394-8d10-4979250748fa",
+			"sourceId": "task_27485",
+			"targetId": "task_6348",
+			"inputName": "CarrierId",
+			"outputName": "ContainerIdOut"
+		},
+		{
+			"id": "f39f9c25-0c91-4684-8dd2-3004f8d59b37",
+			"sourceId": "task_85488",
+			"targetId": "task_6348",
+			"inputName": "CarrierId",
+			"outputName": "ContainerNameOut"
+		},
+		{
+			"id": "e7f629a9-b6c0-4947-864d-3215dc6db064",
+			"sourceId": "task_85488",
+			"targetId": "task_6348",
+			"inputName": "activate",
+			"outputName": "ContainerNameOut"
+		},
+		{
+			"id": "a4487084-7dde-4b14-8803-68202de76e02",
+			"sourceId": "task_27485",
+			"targetId": "task_6348",
+			"inputName": "activate",
+			"outputName": "ProceedWithCarrierOut"
+		},
+		{
+			"id": "787bf8a6-5868-42bb-a8b3-70cce12bc452",
+			"sourceId": "task_85490",
+			"targetId": "task_27485",
+			"inputName": "ContainerNameIn",
+			"outputName": "MaterialId"
+		},
+		{
+			"id": "b838a905-8956-4884-a4e6-1072d395b305",
+			"sourceId": "task_85490",
+			"targetId": "task_27485",
+			"inputName": "LoadPortIn",
+			"outputName": "TargetIdResult"
+		},
+		{
+			"id": "8a1a1246-ff21-48ec-8056-537a749a71f8",
+			"sourceId": "task_85490",
+			"targetId": "task_27485",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "5cac7e33-349f-448e-a8dd-6a209bcca5c2",
+			"sourceId": "task_85490",
+			"targetId": "task_27485",
+			"inputName": "activate",
+			"outputName": "error"
+		}
+	],
 	"layout": {
 		"general": {
 			"color": "#80ffff",
@@ -120,7 +522,8 @@
 					"value": "<p><strong>What it does:</strong></p><p>Stores Container In on Container Data for Load Port;</p><p>Default behavior executes Dock of Container On MES.</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to TosCarrierIDRead for the Tool;</li><li>Pass Load Port and Container Id to the Workflow;&nbsp;</li><li>Pass any event Output to the Activate Input of the Workflow;</li></ol><ol><p>&nbsp;</p><p>&nbsp;</p></ol><p>&nbsp;</p>",
 					"color": "#ffffa5"
 				}
-			]
+			],
+			"breakpoints": []
 		},
 		"drawers": {
 			"DIAGRAM": {
@@ -128,34 +531,104 @@
 					"task_194418": {
 						"collapsed": false,
 						"position": {
-							"x": 937.9310344827586,
-							"y": 551.7241379310344
+							"x": 517,
+							"y": 416
 						},
 						"outdated": false
 					},
-					"task_194517": {
+					"task_85488": {
 						"collapsed": false,
 						"position": {
-							"x": 1557,
-							"y": 485
+							"x": 3001,
+							"y": 447
+						},
+						"outdated": false
+					},
+					"task_85490": {
+						"collapsed": false,
+						"position": {
+							"x": 1053,
+							"y": 460
+						},
+						"outdated": false
+					},
+					"task_27485": {
+						"collapsed": false,
+						"position": {
+							"x": 1897,
+							"y": 450
+						},
+						"outdated": false
+					},
+					"task_6348": {
+						"collapsed": false,
+						"position": {
+							"x": 3876,
+							"y": 807
 						},
 						"outdated": false
 					}
 				},
-				"links": {},
+				"links": {
+					"885db525-8ee7-46af-93dd-5d0d758898a9": {
+						"vertices": []
+					},
+					"3631815f-7468-41ab-80bc-472ae25febf9": {
+						"vertices": []
+					},
+					"f573b1d3-05dc-43c7-a1d5-71d556d8072b": {
+						"vertices": []
+					},
+					"5a7346ae-b425-443e-85dd-afe8456cf12a": {
+						"vertices": []
+					},
+					"04162d88-a6fa-4cb0-99f3-50c64d8001ca": {
+						"vertices": []
+					},
+					"2cb18a9d-53fa-4394-8d10-4979250748fa": {
+						"vertices": []
+					},
+					"f39f9c25-0c91-4684-8dd2-3004f8d59b37": {
+						"vertices": []
+					},
+					"e7f629a9-b6c0-4947-864d-3215dc6db064": {
+						"vertices": []
+					},
+					"a4487084-7dde-4b14-8803-68202de76e02": {
+						"vertices": []
+					},
+					"787bf8a6-5868-42bb-a8b3-70cce12bc452": {
+						"vertices": []
+					},
+					"b838a905-8956-4884-a4e6-1072d395b305": {
+						"vertices": []
+					},
+					"8a1a1246-ff21-48ec-8056-537a749a71f8": {
+						"vertices": []
+					},
+					"5cac7e33-349f-448e-a8dd-6a209bcca5c2": {
+						"vertices": []
+					},
+					"034da5d4-94a8-426c-88d3-e03cb51369dc": {
+						"vertices": []
+					},
+					"8aae727f-d9f5-400b-a2ae-74f8e706300c": {
+						"vertices": []
+					}
+				},
 				"notes": {
 					"note_195558": {
 						"collapsed": false,
 						"position": {
-							"x": 2161,
-							"y": 523
+							"x": 213,
+							"y": 415
 						}
 					}
 				},
-				"zoom": 0.7300000000000004,
+				"zoom": 0.6999999999999998,
 				"pan": {
-					"x": 415.5555725097656,
-					"y": 185.55555725097656
+					"x": 221,
+					"y": 165
 				}
 			}
 		}

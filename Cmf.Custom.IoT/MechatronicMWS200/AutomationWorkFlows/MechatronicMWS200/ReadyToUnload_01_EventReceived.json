@@ -164,13 +164,14 @@
 						"outputType": "Value"
 					}
 				],
-				"___cmf___name": "On Equipment Event",
+				"___cmf___name": "OEV (107)",
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "LPTSM9_TRANSFERBLOCKED_READYTOUNLOAD"
+						"Name": "LPTSM8_TRANSFERBLOCKED_READYTOLOAD"
 					}
-				]
+				],
+				"___cmf___description": "LPTSM8_TRANSFERBLOCKED_READYTOLOAD"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -210,16 +211,16 @@
 					"task_158178": {
 						"collapsed": false,
 						"position": {
-							"x": 1030,
-							"y": 316
+							"x": 938,
+							"y": 388
 						},
 						"outdated": false
 					},
 					"task_158180": {
 						"collapsed": false,
 						"position": {
-							"x": 502,
-							"y": 250
+							"x": 409,
+							"y": 322
 						},
 						"outdated": false
 					}
@@ -236,16 +237,16 @@
 					"note_158182": {
 						"collapsed": false,
 						"position": {
-							"x": 1529,
-							"y": 110
+							"x": 103,
+							"y": 321
 						}
 					}
 				},
 				"pan": {
-					"x": 154.07408142089844,
-					"y": 191.85186767578125
+					"x": 0,
+					"y": 140
 				},
-				"zoom": 0.7300000000000002
+				"zoom": 0.6499999999999997
 			}
 		}
 	}

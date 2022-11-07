@@ -1,0 +1,420 @@
+{
+	"tasks": [
+		{
+			"id": "task_40175",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstLotID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstSubstLocID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstSource",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "AcquiredID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstHistory",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "Clock",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "OEV (319)",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "SOSM19_NOTCONFIRMED_WAITINGFORHOST"
+					}
+				],
+				"___cmf___description": "SOSM19_NOTCONFIRMED_WAITINGFORHOST"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_46208",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstLotID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstSubstLocID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstSource",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "AcquiredID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SubstHistory",
+							"DataType": 9
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "Clock",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "OEV (318)",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "SOSM18_NOTCONFIRMED_WAITINGFORHOST"
+					}
+				],
+				"___cmf___description": "SOSM18_NOTCONFIRMED_WAITINGFORHOST"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_51503",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ProceedWithSubstrate_01_SendCommand",
+					"IsShared": false
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "ProceedWithSubstrate",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ProceedWithSubstrate"
+						}
+					},
+					{
+						"name": "materialName",
+						"valueType": {
+							"friendlyName": "materialName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "SubstSource",
+						"valueType": {
+							"friendlyName": "SubstSource",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "AcquiredID",
+						"valueType": {
+							"friendlyName": "AcquiredID",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [],
+				"___cmf___name": "SubWorkflow",
+				"___cmf___description": "ProceedWithSubstrate_01_SendCommand"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringRemove",
+			"reference": {
+				"name": "stringRemove",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "03394d1d-7898-4872-9d2f-a6935a620200",
+			"sourceId": "task_46208",
+			"targetId": "task_51503",
+			"inputName": "ProceedWithSubstrateIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "false"
+					}
+				}
+			]
+		},
+		{
+			"id": "e86dad14-21cd-4dc2-811b-77487fa98d73",
+			"sourceId": "task_40175",
+			"targetId": "task_51503",
+			"inputName": "ProceedWithSubstrateIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "true"
+					}
+				}
+			]
+		},
+		{
+			"id": "d6472c48-4229-4f8c-9a48-b87fa71b0eac",
+			"sourceId": "task_46208",
+			"targetId": "task_51503",
+			"inputName": "materialNameIn",
+			"outputName": "$SubstLotID"
+		},
+		{
+			"id": "af673cc7-1d7e-4ca5-8eac-b2f11c1bda54",
+			"sourceId": "task_40175",
+			"targetId": "task_51503",
+			"inputName": "materialNameIn",
+			"outputName": "$SubstLotID"
+		},
+		{
+			"id": "f06bcf3b-bff8-4d56-9103-57e8a49c9cf3",
+			"sourceId": "task_46208",
+			"targetId": "task_51503",
+			"inputName": "SubstSourceIn",
+			"outputName": "$SubstSource"
+		},
+		{
+			"id": "aae747c0-f8da-4aa9-8dd2-8445e74c88db",
+			"sourceId": "task_46208",
+			"targetId": "task_51503",
+			"inputName": "AcquiredIDIn",
+			"outputName": "$AcquiredID"
+		},
+		{
+			"id": "f50335bb-a2c6-424d-8ccc-14c14578a4c9",
+			"sourceId": "task_40175",
+			"targetId": "task_51503",
+			"inputName": "SubstSourceIn",
+			"outputName": "$SubstSource"
+		},
+		{
+			"id": "81202264-185a-4604-a3f6-4744f23616c2",
+			"sourceId": "task_40175",
+			"targetId": "task_51503",
+			"inputName": "AcquiredIDIn",
+			"outputName": "$AcquiredID"
+		},
+		{
+			"id": "c4db8aae-1492-40cc-a302-bc1c52376272",
+			"sourceId": "task_40175",
+			"targetId": "task_51503",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "89335a38-5ac3-4c33-a0c0-d98f76ae375d",
+			"sourceId": "task_46208",
+			"targetId": "task_51503",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff80",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_40175": {
+						"collapsed": false,
+						"position": {
+							"x": 870,
+							"y": 2469
+						},
+						"outdated": false
+					},
+					"task_46208": {
+						"collapsed": false,
+						"position": {
+							"x": 876,
+							"y": 1701
+						},
+						"outdated": false
+					},
+					"task_51503": {
+						"collapsed": false,
+						"position": {
+							"x": 2056,
+							"y": 2253
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"d6472c48-4229-4f8c-9a48-b87fa71b0eac": {
+						"vertices": []
+					},
+					"af673cc7-1d7e-4ca5-8eac-b2f11c1bda54": {
+						"vertices": []
+					},
+					"f06bcf3b-bff8-4d56-9103-57e8a49c9cf3": {
+						"vertices": []
+					},
+					"aae747c0-f8da-4aa9-8dd2-8445e74c88db": {
+						"vertices": []
+					},
+					"f50335bb-a2c6-424d-8ccc-14c14578a4c9": {
+						"vertices": []
+					},
+					"81202264-185a-4604-a3f6-4744f23616c2": {
+						"vertices": []
+					},
+					"c4db8aae-1492-40cc-a302-bc1c52376272": {
+						"vertices": []
+					},
+					"89335a38-5ac3-4c33-a0c0-d98f76ae375d": {
+						"vertices": []
+					},
+					"03394d1d-7898-4872-9d2f-a6935a620200": {
+						"vertices": []
+					},
+					"e86dad14-21cd-4dc2-811b-77487fa98d73": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"zoom": 0.65,
+				"pan": {
+					"x": 336,
+					"y": 1150
+				}
+			}
+		}
+	}
+}

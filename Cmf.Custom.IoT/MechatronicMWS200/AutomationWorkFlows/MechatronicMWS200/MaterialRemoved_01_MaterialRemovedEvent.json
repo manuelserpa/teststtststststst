@@ -167,13 +167,14 @@
 						"outputType": "Value"
 					}
 				],
-				"___cmf___name": "On Equipment Event",
+				"___cmf___name": "OEV (5)",
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
 						"Name": "MATERIAL_REMOVED"
 					}
-				]
+				],
+				"___cmf___description": "MATERIAL_REMOVED"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -244,16 +245,16 @@
 					"task_95323": {
 						"collapsed": false,
 						"position": {
-							"x": 1066,
-							"y": 307
+							"x": 938,
+							"y": 336
 						},
 						"outdated": false
 					},
 					"task_189672": {
 						"collapsed": false,
 						"position": {
-							"x": 465,
-							"y": 240
+							"x": 393,
+							"y": 337
 						},
 						"outdated": false
 					}
@@ -270,16 +271,16 @@
 					"note_189487": {
 						"collapsed": false,
 						"position": {
-							"x": 1529,
-							"y": 110
+							"x": 87,
+							"y": 336
 						}
 					}
 				},
 				"pan": {
-					"x": 196.1455529428025,
-					"y": 36.805806480980266
+					"x": 0,
+					"y": 266
 				},
-				"zoom": 0.7100000000000002
+				"zoom": 0.8500000000000001
 			}
 		}
 	}
