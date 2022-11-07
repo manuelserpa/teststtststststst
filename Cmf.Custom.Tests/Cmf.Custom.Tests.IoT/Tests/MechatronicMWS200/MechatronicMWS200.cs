@@ -632,8 +632,6 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             CustomValidateContainerNumberOfWafers(MESScenario.ContainerScenario.Entity, 0);
 
             CarrierOutValidation(MESScenario, loadPortNumber);
-
-            //base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true);
         }
 
         /// <summary>
@@ -1488,6 +1486,19 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             foreach (var lp in loadPortsUsed)
             {
                 base.Equipment.Variables["PortID"] = lp;
+
+                base.Equipment.Variables["PortTransferState"] = 0;
+                base.Equipment.Variables["AccessMode"] = 0;
+                base.Equipment.Variables["LoadPortReservationState"] = 0;
+                base.Equipment.Variables["PortAssociationState"] = 0;
+                base.Equipment.Variables["PortStateInfo"] = null;
+                base.Equipment.SendMessage(String.Format($"LPTSM6_READYTOLOAD_TRANSFERBLOCKED"), null);
+
+                Thread.Sleep(200);
+
+                RFIDReader.targetIdRFID.Add(lp.ToString(), scenario.ContainerScenario.Entity.Name);
+
+                base.Equipment.Variables["PortID"] = lp;
                 base.Equipment.Variables["PlacedCarrierPattern1"] = 1;
                 base.Equipment.Variables["PlacedCarrierPattern2"] = 2;
                 base.Equipment.Variables["PlacedCarrierPattern3"] = 3;
@@ -1498,7 +1509,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
                 Thread.Sleep(300);
 
-                DockContainer(containerScenariosUsed[lp], lp, MESScenario);
+                //DockContainer(containerScenariosUsed[lp], lp, MESScenario);
 
             }
 
@@ -1509,7 +1520,9 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
         public override void CarrierInValidation(CustomMaterialScenario MESScenario, int loadPortToSet)
         {
-            
+            //clamped
+            base.CarrierInValidation(MESScenario, loadPortToSet);
+
             var slotMap = new int[MESScenario.ContainerScenario.Entity.TotalPositions.Value];
             // scenario.ContainerScenario.Entity
             if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
@@ -1520,10 +1533,6 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
                 }
             }
             SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
-
-
-
-
 
             base.Equipment.Variables["CarrierID"] = MESScenario.ContainerScenario.Entity.Name;
             base.Equipment.Variables["SlotMap"] = slotMapDV;
