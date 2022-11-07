@@ -396,6 +396,112 @@
 				"___cmf___name": "Workflow",
 				"___cmf___color": "#ff0000"
 			}
+		},
+		{
+			"id": "task_55438",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"",
+					"        const wafer: WaferData = inputs.Wafer;",
+					"        let waferId = wafer.MaterialWaferId;",
+					"        ",
+					"        if(wafer.EquipmentWaferId){",
+					"            waferId = wafer.EquipmentWaferId;",
+					"        }",
+					"",
+					"        return  {WaferId: waferId, Slot: wafer.Slot.toString()};",
+					"",
+					"        // emit output during execution: outputs.output1.emit(\"something\");",
+					"        // return example: return { output1: inputs.input1, output2: \"Hello World\" };",
+					"    }",
+					"}",
+					"",
+					"export interface WaferData {",
+					"    /** Slot Number */",
+					"    Slot: number,",
+					"    /** Equipment Wafer Id */",
+					"    EquipmentWaferId: string,",
+					"    /** Material Wafer Id */",
+					"    MaterialWaferId: string,",
+					"    /** Parent Material Id */",
+					"    ParentMaterialName: string,",
+					"    /** Created on */",
+					"    CreatedOn: string,",
+					"    /** Last Modified time */",
+					"    ModifiedOn: string",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IHdhZmVyID0gaW5wdXRzLldhZmVyOw0KICAgICAgICBsZXQgd2FmZXJJZCA9IHdhZmVyLk1hdGVyaWFsV2FmZXJJZDsNCiAgICAgICAgaWYgKHdhZmVyLkVxdWlwbWVudFdhZmVySWQpIHsNCiAgICAgICAgICAgIHdhZmVySWQgPSB3YWZlci5FcXVpcG1lbnRXYWZlcklkOw0KICAgICAgICB9DQogICAgICAgIHJldHVybiB7IFdhZmVySWQ6IHdhZmVySWQsIFNsb3Q6IHdhZmVyLlNsb3QudG9TdHJpbmcoKSB9Ow0KICAgICAgICAvLyBlbWl0IG91dHB1dCBkdXJpbmcgZXhlY3V0aW9uOiBvdXRwdXRzLm91dHB1dDEuZW1pdCgic29tZXRoaW5nIik7DQogICAgICAgIC8vIHJldHVybiBleGFtcGxlOiByZXR1cm4geyBvdXRwdXQxOiBpbnB1dHMuaW5wdXQxLCBvdXRwdXQyOiAiSGVsbG8gV29ybGQiIH07DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
+				"inputs": [
+					{
+						"name": "Wafer",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": {}
+					}
+				],
+				"outputs": [
+					{
+						"name": "WaferId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "Slot",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code"
+			}
 		}
 	],
 	"converters": [
@@ -435,13 +541,6 @@
 			"outputName": "activateOut"
 		},
 		{
-			"id": "b306623c-49be-4225-a90e-31d999694417",
-			"sourceId": "task_3581",
-			"targetId": "task_3466",
-			"inputName": "activate",
-			"outputName": "success"
-		},
-		{
 			"id": "01c01af5-8d71-4a60-8e63-eba4f63ea9f1",
 			"sourceId": "task_3464",
 			"targetId": "task_36237",
@@ -454,38 +553,6 @@
 			"targetId": "task_36237",
 			"inputName": "CreateInventoryFailed",
 			"outputName": "CreateInventoryFailed"
-		},
-		{
-			"id": "bae55ea7-e218-4c0e-9639-ee28666ea183",
-			"sourceId": "task_3581",
-			"targetId": "task_3464",
-			"inputName": "WaferId",
-			"outputName": "wafer",
-			"converters": [
-				{
-					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
-					"params": {
-						"path": "MaterialWaferId",
-						"type": 4
-					}
-				}
-			]
-		},
-		{
-			"id": "cd603fe0-2c4f-4e61-8caa-995e9b3183aa",
-			"sourceId": "task_3581",
-			"targetId": "task_3464",
-			"inputName": "SlotNumber",
-			"outputName": "wafer",
-			"converters": [
-				{
-					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
-					"params": {
-						"path": "Slot",
-						"type": 4
-					}
-				}
-			]
 		},
 		{
 			"id": "3f123eab-6701-49b5-a209-e060f2c16021",
@@ -628,6 +695,41 @@
 			"targetId": "task_36237",
 			"inputName": "error",
 			"outputName": "ErrorOut"
+		},
+		{
+			"id": "7da242a8-f779-4ef5-842b-80670b007317",
+			"sourceId": "task_3581",
+			"targetId": "task_55438",
+			"inputName": "WaferIn",
+			"outputName": "wafer"
+		},
+		{
+			"id": "c563fbfa-d208-4c9a-93be-5a2e8ff92ea0",
+			"sourceId": "task_3581",
+			"targetId": "task_55438",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "79a0cd09-6a1a-4a83-b1c2-1247b8611862",
+			"sourceId": "task_55438",
+			"targetId": "task_3464",
+			"inputName": "WaferId",
+			"outputName": "WaferIdOut"
+		},
+		{
+			"id": "129991f9-4cf5-4f27-b664-3797a46bc9b9",
+			"sourceId": "task_55438",
+			"targetId": "task_3464",
+			"inputName": "SlotNumber",
+			"outputName": "SlotOut"
+		},
+		{
+			"id": "5889ecdb-7a7a-4bc4-8189-f949e868f544",
+			"sourceId": "task_55438",
+			"targetId": "task_3466",
+			"inputName": "activate",
+			"outputName": "success"
 		}
 	],
 	"layout": {
@@ -657,16 +759,16 @@
 					"task_3464": {
 						"collapsed": false,
 						"position": {
-							"x": 2120,
-							"y": 367
+							"x": 2515,
+							"y": 426
 						},
 						"outdated": false
 					},
 					"task_3466": {
 						"collapsed": false,
 						"position": {
-							"x": 1304,
-							"y": 518
+							"x": 1968,
+							"y": 679
 						},
 						"outdated": false
 					},
@@ -681,8 +783,16 @@
 					"task_27711": {
 						"collapsed": false,
 						"position": {
-							"x": 2711,
+							"x": 2708,
 							"y": 1112
+						},
+						"outdated": false
+					},
+					"task_55438": {
+						"collapsed": false,
+						"position": {
+							"x": 1405,
+							"y": 367
 						},
 						"outdated": false
 					}
@@ -695,9 +805,6 @@
 						"vertices": []
 					},
 					"a1d485c6-8b20-4a83-96b3-585b895c8ab8": {
-						"vertices": []
-					},
-					"b306623c-49be-4225-a90e-31d999694417": {
 						"vertices": []
 					},
 					"01c01af5-8d71-4a60-8e63-eba4f63ea9f1": {
@@ -760,10 +867,19 @@
 					"9a62315e-b5d7-4835-9f63-8dfeb3dfcd4e": {
 						"vertices": []
 					},
-					"bae55ea7-e218-4c0e-9639-ee28666ea183": {
+					"7da242a8-f779-4ef5-842b-80670b007317": {
 						"vertices": []
 					},
-					"cd603fe0-2c4f-4e61-8caa-995e9b3183aa": {
+					"c563fbfa-d208-4c9a-93be-5a2e8ff92ea0": {
+						"vertices": []
+					},
+					"79a0cd09-6a1a-4a83-b1c2-1247b8611862": {
+						"vertices": []
+					},
+					"129991f9-4cf5-4f27-b664-3797a46bc9b9": {
+						"vertices": []
+					},
+					"5889ecdb-7a7a-4bc4-8189-f949e868f544": {
 						"vertices": []
 					},
 					"3f123eab-6701-49b5-a209-e060f2c16021": {
@@ -772,10 +888,10 @@
 				},
 				"notes": {},
 				"pan": {
-					"x": 462.22222900390625,
-					"y": 94.44445037841797
+					"x": 332,
+					"y": 86
 				},
-				"zoom": 0.8400000000000005
+				"zoom": 0.4900000000000002
 			}
 		}
 	}
