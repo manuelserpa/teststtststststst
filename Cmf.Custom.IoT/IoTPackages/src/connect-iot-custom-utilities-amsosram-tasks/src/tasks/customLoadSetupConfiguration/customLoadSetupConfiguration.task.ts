@@ -2,6 +2,8 @@ import { Task, Dependencies, System, DI, TYPES, Container, Utilities } from "@cr
 import i18n from "./i18n/customLoadSetupConfiguration.default";
 import { CustomSetupStoreHandler } from "../../persistence/implementation/customSetupStoreHandler";
 import { DriverSetupDefinition } from "../../persistence/model/customSetup";
+import { ContainerProcessHandler, EquipmentStateModelHandler, ProcessMaterialHandler, RecipeQueueHandler } from "../../persistence";
+
 /** Default settings */
 export const SETTINGS_DEFAULTS: CustomLoadSetupConfigurationSettings = {
     entityTypeName: "",
@@ -82,10 +84,19 @@ export class CustomLoadSetupConfigurationTask implements Task.TaskInstance, Cust
     @DI.Inject(TYPES.Dependencies.Injector)
     private _taskContainer: Container;
 
-    //    @DI.Inject(TYPES.System.PersistedDataStore)
+    // @DI.Inject(TYPES.System.PersistedDataStore)
     // private _dataStore: System.DataStore;
     @DI.Inject("GlobalCustomSetupStoreHandler")
     private _setupStore: CustomSetupStoreHandler;
+
+    @DI.Inject("GlobalContainerProcessHandler")
+    private _containerStore: ContainerProcessHandler;
+
+    @DI.Inject("GlobalProcessDataHandler")
+    private _processStore: ProcessMaterialHandler;
+
+    @DI.Inject("GlobalEquipmentStateModelHandler")
+    private _equipmentStateStore: EquipmentStateModelHandler;
 
     /** Callback used when instance is available. */
     private _instanceCallBack: System.InstanceProxyCallback;
@@ -101,7 +112,7 @@ export class CustomLoadSetupConfigurationTask implements Task.TaskInstance, Cust
     /** EntityType name */
     public entityTypeName: string = SETTINGS_DEFAULTS.entityTypeName;
     /** Array of chosen attributes to be loaded and their scalar type name */
-    public attributes: {Name: string, ScalarTypeName: string}[] = SETTINGS_DEFAULTS.attributes;
+    public attributes: { Name: string, ScalarTypeName: string }[] = SETTINGS_DEFAULTS.attributes;
     /** Load all attributes flag. If true, load all attributes. (ignore attributes property) */
     public loadAllAttributes: boolean = SETTINGS_DEFAULTS.loadAllAttributes;
     /** Levels to load to be used */
@@ -131,7 +142,7 @@ export class CustomLoadSetupConfigurationTask implements Task.TaskInstance, Cust
     public instance: Task.Output<System.LBOS.Cmf.Foundation.BusinessObjects.Entity> = new Task.Output<System.LBOS.Cmf.Foundation.BusinessObjects.Entity>();
 
     // outputs
-    public customLibrary:  Task.Output<String> = new Task.Output<String>();
+    public customLibrary: Task.Output<String> = new Task.Output<String>();
     public equipmentIPAddress: Task.Output<String> = new Task.Output<String>();
     public equipmentIPPort: Task.Output<number> = new Task.Output<number>();
     public equipmentSerialPortName: Task.Output<String> = new Task.Output<String>();
@@ -181,6 +192,12 @@ export class CustomLoadSetupConfigurationTask implements Task.TaskInstance, Cust
     public async onChanges(changes: Task.Changes): Promise<void> {
         const self = this;
         if (changes["activate"]) {
+            // initialize all relevant data store for IoT Semiconductor Template
+            this._setupStore.InitializePersistedData();
+            this._containerStore.InitializePersistedData();
+            this._processStore.InitializePersistedData();
+            this._equipmentStateStore.InitializePersistedData();
+
             // Reset flag
             self.activate = undefined;
 
@@ -193,32 +210,32 @@ export class CustomLoadSetupConfigurationTask implements Task.TaskInstance, Cust
             if (self._instance == null) {
                 const errorText: string = "CustomLoadSetupConfiguration was not yet notified about the entity it will represent.";
                 this._logger.error(errorText);
-                this.error.emit(new Error (errorText));
+                this.error.emit(new Error(errorText));
                 return;
             }
 
-           // If instance was not loaded or is to reload every time, load it
-           const attributes: string[] = [
-            "AutomationEquipmentSkipDefineReportMode",
-            "AutomationEquipmentSkipEstablishCommunication",
-            "AutomationEquipmentSkipLinkEvents",
-            "AutomationEquipmentSkipSetOnline",
-            "AutomationEquipmentWaitOnSetupTimeOutAndRetryIfErrorOccurs",
-            "AutomationEquipmentEnableDisableAlarmsMode",
-            "AutomationEquipmentEnableDisableEventsMode",
-            "AutomationEquipmentDeleteReportMode",
-            "AutomationEquipmentAddress",
-            "AutomationEquipmentDeviceId",
-            "AutomationEquipmentIPPort",
-            "AutomationEquipmentCustomLibrary",
-            "AutomationEquipmentSerialPortName",
-            "AutomationEquipmentSerialBaudRate"
-           ];
+            // If instance was not loaded or is to reload every time, load it
+            const attributes: string[] = [
+                "AutomationEquipmentSkipDefineReportMode",
+                "AutomationEquipmentSkipEstablishCommunication",
+                "AutomationEquipmentSkipLinkEvents",
+                "AutomationEquipmentSkipSetOnline",
+                "AutomationEquipmentWaitOnSetupTimeOutAndRetryIfErrorOccurs",
+                "AutomationEquipmentEnableDisableAlarmsMode",
+                "AutomationEquipmentEnableDisableEventsMode",
+                "AutomationEquipmentDeleteReportMode",
+                "AutomationEquipmentAddress",
+                "AutomationEquipmentDeviceId",
+                "AutomationEquipmentIPPort",
+                "AutomationEquipmentCustomLibrary",
+                "AutomationEquipmentSerialPortName",
+                "AutomationEquipmentSerialBaudRate"
+            ];
             const systemSettings: Utilities.SystemApiUtilsSettings = {
-                    maxRetries: this.retries,
-                    sleepBetweenRetries: this.sleepBetweenRetries,
-                    logger: this._logger,
-                }
+                maxRetries: this.retries,
+                sleepBetweenRetries: this.sleepBetweenRetries,
+                logger: this._logger,
+            }
 
             self._instance = await this._systemProxy.getObjectById(self._instance.Id, this.entityTypeName, this.levelsToLoad, null, systemSettings);
             self._instance = await this._systemProxy.loadAttributes(self._instance, attributes, systemSettings);
@@ -403,5 +420,5 @@ export class CustomLoadSetupConfigurationTask implements Task.TaskInstance, Cust
 
 /** Task Settings */
 export interface CustomLoadSetupConfigurationSettings {
-   [key: string]: any;
+    [key: string]: any;
 }
