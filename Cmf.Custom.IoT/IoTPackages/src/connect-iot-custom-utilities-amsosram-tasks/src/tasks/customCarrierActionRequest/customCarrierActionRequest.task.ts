@@ -96,10 +96,10 @@ export class CustomCarrierActionRequestTask implements Task.TaskInstance, Custom
                 const containerSlotMap: string = containerData.SlotMap?.toString();
 
                 // retrieve Capacity and SubstrateCount from slot map
-                const slotMapArray: string[] = containerSlotMap.split("");
+                const slotMapArray: string[] = containerSlotMap?.split("");
                 const waferParameters: any[] = [];
 
-                const substrateCount: number = slotMapArray.reduce((accumulator, current, currentIndex) => {
+                const substrateCount: number = slotMapArray?.reduce((accumulator, current, currentIndex) => {
 
                     if (containerData.Slots /* && containerData.Slots.length > 0*/) {
                         const subMaterialInSlot = (<any[]>containerData.Slots).find(subMaterial => subMaterial.Slot === currentIndex + 1) as WaferData

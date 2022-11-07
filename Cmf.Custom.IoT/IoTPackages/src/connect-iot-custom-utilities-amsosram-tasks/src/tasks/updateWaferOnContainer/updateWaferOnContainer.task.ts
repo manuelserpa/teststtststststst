@@ -41,7 +41,7 @@ export const SETTINGS_DEFAULTS: UpdateWaferOnContainerSettings = {
         material: Task.TaskValueType.Object,
         loadPort: Task.TaskValueType.Integer,
         slotNumber: Task.TaskValueType.Integer,
-        equipmentWaferId: Task.TaskValueType.String,   
+        equipmentWaferId: Task.TaskValueType.String,
         parentMaterialId: Task.TaskValueType.String,
         activate: Task.INPUT_ACTIVATE,
     },
