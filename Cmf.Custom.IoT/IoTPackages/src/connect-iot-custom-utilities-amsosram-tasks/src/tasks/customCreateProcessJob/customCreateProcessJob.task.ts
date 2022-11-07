@@ -1,14 +1,10 @@
 import { Task, Dependencies, System, DI, TYPES } from "@criticalmanufacturing/connect-iot-controller-engine";
 import i18n from "./i18n/customCreateProcessJob.default";
 
-import { SecsGem } from "../../common/secsGemItem"
-import { SecsItem } from "../../common/secsItem";
 import { SubMaterialStateEnum } from "../../persistence/model/subMaterialData";
 import { ContainerProcessHandler } from "../../persistence/implementation/containerDataHandler";
 import { MovementData } from "../../persistence/model/movementData";
 import { MaterialData } from "../../persistence";
-import { off } from "process";
-
 
 /**
  * @whatItDoes

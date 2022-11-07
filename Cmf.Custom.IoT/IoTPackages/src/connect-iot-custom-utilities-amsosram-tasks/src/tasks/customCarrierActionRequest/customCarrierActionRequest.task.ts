@@ -1,7 +1,6 @@
-import { Task, Dependencies, System, DI, TYPES } from "@criticalmanufacturing/connect-iot-controller-engine";
-import i18n from "./i18n/customCarrierActionRequest.default";
+import { Dependencies, DI, System, Task, TYPES } from "@criticalmanufacturing/connect-iot-controller-engine";
 import { ContainerData, WaferData } from "../../persistence";
-import { Attribute } from "@angular/core";
+import i18n from "./i18n/customCarrierActionRequest.default";
 
 
 /**

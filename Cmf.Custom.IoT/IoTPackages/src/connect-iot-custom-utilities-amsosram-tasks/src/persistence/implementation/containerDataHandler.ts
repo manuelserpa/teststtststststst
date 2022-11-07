@@ -1,10 +1,9 @@
-import { Dependencies, System, TYPES, DI, Container } from "@criticalmanufacturing/connect-iot-controller-engine";
+import { Dependencies, System, TYPES, DI } from "@criticalmanufacturing/connect-iot-controller-engine";
 import * as inversify from "inversify";
 import * as moment from "moment";
 import { ContainerProcess } from "../model/containerProcess";
 import { ContainerData } from "../model/containerData";
-import { WaferData } from "../model/waferData"
-import { container } from "@angular/core/src/render3";
+import { WaferData } from "../model/waferData";
 
 @inversify.injectable()
 export class ContainerProcessHandler implements ContainerProcess {
