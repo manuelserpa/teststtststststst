@@ -7371,10 +7371,10 @@
     },
     "9": {
       "AutomationController": "MechatronicMWS200Controller",
-      "Name": "TrackIn_01_TrackInRequestReceived300mm",
+      "Name": "TrackIn_01_TrackInRequestReceived",
       "DisplayName": "TrackIn_01_TrackInRequestReceived",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200/TrackIn_01_TrackInRequestReceived300mm.json",
+      "Workflow": "MechatronicMWS200/TrackIn_01_TrackInRequestReceived.json",
       "Order": "9"
     },
     "10": {
