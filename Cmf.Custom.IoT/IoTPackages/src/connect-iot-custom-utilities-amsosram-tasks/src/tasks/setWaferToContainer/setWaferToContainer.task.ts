@@ -119,7 +119,7 @@ export class SetWaferToContainerTask implements Task.TaskInstance, SetWaferToCon
                 let container: ContainerData = await this._containerProcess.getContainer(this.containerId, loadPort);
                 if (this.material) {
 
-                    if (this.containerId === containerName) {
+                    if (this.containerId === containerName && this.material.SubMaterials != null) {
                         // this._logger.warning("Entered here: 1");
                         slotMES = this.material.SubMaterials.find(s => s.Slot.toString() === Number(slotNumber).toString());
                         // this._logger.warning("SlotMES: " + JSON.stringify(slotMES));
