@@ -114,19 +114,19 @@ export class ContainerProcessHandler implements ContainerProcess {
             return wafer;
         }
 
-        if (wafer.Slot !== slot && slot !== undefined) {
+        if (wafer.Slot !== slot && slot != null) {
             wafer.Slot = slot;
         }
 
-        if (wafer.EquipmentWaferId !== equipmentWaferId && equipmentWaferId !== undefined) {
+        if (wafer.EquipmentWaferId !== equipmentWaferId && equipmentWaferId != null) {
             wafer.EquipmentWaferId = equipmentWaferId;
         }
 
-        if (wafer.MaterialWaferId !== materialWaferId && materialWaferId !== undefined) {
+        if (wafer.MaterialWaferId !== materialWaferId && materialWaferId != null) {
             wafer.MaterialWaferId = materialWaferId;
         }
 
-        if (parentMaterialName !== undefined && wafer.ParentMaterialName !== parentMaterialName) {
+        if (parentMaterialName != null && wafer.ParentMaterialName !== parentMaterialName) {
             wafer.ParentMaterialName = parentMaterialName;
         }
 
@@ -420,7 +420,7 @@ export class ContainerProcessHandler implements ContainerProcess {
         if (wafer.ParentMaterialName) {
             containerWafer.ParentMaterialName = wafer.ParentMaterialName;
         }
-        if (wafer.Slot !== undefined) {
+        if (wafer.Slot != null) {
             containerWafer.Slot = wafer.Slot;
         }
         if (wafer.CreatedOn) {
