@@ -278,11 +278,6 @@ namespace Cmf.Custom.Tests.Biz.Common
         public const string FormLogicalWafer = "Logical Wafer";
 
         /// <summary>
-        /// Form: Wafer
-        /// </summary>
-        public const string FormWafer = "Wafer";
-
-        /// <summary>
         /// Material Type: Production
         /// </summary>
         public const string MaterialTypeProduction = "Production";
