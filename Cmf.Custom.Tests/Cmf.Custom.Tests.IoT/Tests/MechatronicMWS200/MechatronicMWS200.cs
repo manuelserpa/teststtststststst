@@ -107,6 +107,33 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             base.Equipment.RegisterOnMessage("S16F11", OnS16F11);
 
             base.LoadPortNumber = loadPortNumber;
+            
+            loadPortNames.Values.ToList().ForEach(loadPortName =>
+            {
+                var loadPort = new Resource { Name = loadPortName };
+                loadPort.Load();
+                
+                if (loadPort.ProcessingType != ProcessingType.LoadPort) {
+                    Assert.Inconclusive($"LoadPort with name {loadPortName} is not properly set-up");
+                }
+                loadPort.LoadRelation("ContainerResource");
+
+                if (loadPort.ResourceContainers != null && loadPort.ResourceContainers.Count > 0)
+                {
+                    loadPort.ResourceContainers.ForEach((container) =>
+                    {
+                        var containerToUndock = container.SourceEntity;
+                        containerToUndock.Load();
+
+                        var undock = new Cmf.Navigo.BusinessOrchestration.ContainerManagement.InputObjects.UndockContainerInput()
+                        {
+                            Container = containerToUndock,
+                            NumberOfRetries = 3
+                        };
+                        undock.UndockContainerSync();
+                    });
+                }
+            });
 
             containerAtLoadPort = null;
             RFIDReader.TestInit(readerResourceName, m_Scenario);
@@ -831,7 +858,6 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
             CustomValidateContainerNumberOfWafers(MESScenario.ContainerScenario.Entity, 6);
 
-            CarrierOutValidation(MESScenario, loadPortNumber);
         }
 
 
@@ -1158,6 +1184,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
                     //// Trigger event
                     base.Equipment.SendMessage("SOSM19_NOTCONFIRMED_WAITINGFORHOST", null);
 
+                    
                     TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve ProceedWithSubstrate", () =>
                     {
                         return proceedWithSubstrateCommandRecieved;
@@ -1186,7 +1213,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
                 base.Equipment.Variables["SubstSubstLocID"] = String.Format("{0}.{1:D2}", destinationContainer, destinationPosition);
                 base.Equipment.Variables["SubstState"] = 2;
                 base.Equipment.Variables["SubstProcState"] = 2;
-                base.Equipment.Variables["AcquiredID"] = "";
+                base.Equipment.Variables["AcquiredID"] = materialsForContainer1[sourcePosition - 1].Name; 
                 base.Equipment.Variables["Clock"] = DateTime.UtcNow.ToString("hh:mm:ss.fff");
                 base.Equipment.Variables["SubstHistory"] = substHistoryListDestination;
 
@@ -1201,14 +1228,6 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             CustomProcessCompleteEvent(MESScenario, containerName: materialName);
             Log(String.Format("{0}: [E] Sending Process Complete Event Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
 
-            Log(String.Format("{0}: [S] Validate Material is Complete on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
-            foreach (var material in materialsForContainer1) {
-                ValidateSubMaterialState(material, SubMaterialStateEnum.Processed.ToString());
-            }
-            Log(String.Format("{0}: [E] Validate Material is Complete on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
-
-
-
             //Track Out occurs automatically, validate either Processed or Queued
             //TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material {MESScenario.Entity.Name} System State is not Processed or Queued, automatic Track Out Failed"), () =>
             //{
@@ -1216,16 +1235,20 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             //    return MESScenario.Entity.SystemState.ToString().Equals(MaterialSystemState.Processed.ToString()) || MESScenario.Entity.SystemState.ToString().Equals(MaterialSystemState.Queued.ToString());
             //});
 
-            Log(String.Format("{0}: [S] Validate Persistence Does Not Exist Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
-            ValidatePersistenceDoesNotExists(materialName);
-            Log(String.Format("{0}: [E] Validate Persistence Does Not Exist Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            //Log(String.Format("{0}: [S] Validate Persistence Does Not Exist Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
+            //ValidatePersistenceDoesNotExists(materialName);
+            //Log(String.Format("{0}: [E] Validate Persistence Does Not Exist Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
 
             //CustomValidateContainerNumberOfWafers(containerScenarioForLoadPort1.Entity, 0);
+
             CustomValidateContainerNumberOfWafers(containerScenarioForLoadPort2.Entity, 10);
             CustomValidateContainerNumberOfWafers(containerScenarioForLoadPort3.Entity, 10);
             CustomValidateContainerNumberOfWafers(containerScenarioForLoadPort4.Entity, 5);
 
-            CarrierOutValidation(MESScenario, loadPortNumber);
+            ContainerCarrierOut(null, 1);
+            ContainerCarrierOut(containerScenarioForLoadPort2, 2);
+            ContainerCarrierOut(containerScenarioForLoadPort3, 3);
+            ContainerCarrierOut(containerScenarioForLoadPort4, 4);
         }
 
         /// <summary> 
@@ -1400,13 +1423,18 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
                 containerScenario?.Entity.LoadRelation("MaterialContainer");
 
-                int[] slotMap = Enumerable.Repeat(1, 25).ToArray();
-                
+                int[] slotMap;
+
+                if (IsWaferReception && lp == sourceLoadPortNumber)
+                {
+                    slotMap = Enumerable.Repeat(3, 25).ToArray();
+                }
+                else {
+                    slotMap = new int[containerScenario?.Entity.TotalPositions ?? 0];
+                }
                 // scenario.containerScenario?.Entity
                 if (containerScenario?.Entity.ContainerMaterials != null)
                 {
-                    slotMap = new int[containerScenario?.Entity.TotalPositions ?? 0];
-
                     for (int i = 0; i < containerScenario?.Entity.TotalPositions.Value; i++)
                     {
                         slotMap[i] = containerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
@@ -1424,8 +1452,6 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
                 // Trigger event
                 base.Equipment.SendMessage(String.Format($"COSM14_SLOTMAPNOTREAD_SLOTMAPWAITINGFORHOST"), null);
-
-
 
                 Thread.Sleep(200);
 
@@ -1507,10 +1533,85 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             // Trigger event
             base.Equipment.SendMessage(String.Format($"COSM14_SLOTMAPNOTREAD_SLOTMAPWAITINGFORHOST"), null);
 
-
             Thread.Sleep(200);
 
+            TestUtilities.WaitFor(ValidationTimeout, String.Format($"ProceedWithCarrier request was never received"), () =>
+            {
+                return proceedWithCarrierCommandRecieved;
+            });
+            proceedWithCarrierCommandRecieved = false;
+
+            base.Equipment.SendMessage("COSM15_SLOTMAPWAITINGFORHOST_SLOTMAPVERIFICATIONOK", null);
+
+            TestUtilities.WaitFor(ValidationTimeout, String.Format($"Control or Process Job creation requests were never received"), () =>
+            {
+                return (createControlJobReceived && createProcessJobReceived);
+            });
+
+            createControlJobReceived = createProcessJobReceived = false;
         }
+
+        public bool ContainerCarrierOut(ContainerScenario containerScenario, int loadPortNumber)
+        {
+
+            //// wait for load 
+            //TestUtilities.WaitFor(ValidationTimeout, String.Format($"Unload Container Command never received"), () =>
+            //{
+            //    return unloadCommandReceived;
+            //});
+
+            //CarrierSMTrans21 ready to unload
+
+            var container = containerScenario?.Entity;
+
+            int[] slotMap;
+
+
+            if(container is null)
+            {
+                slotMap = Enumerable.Repeat(1, 25).ToArray();
+            }
+            else
+            {
+                slotMap = new int[containerScenario?.Entity.TotalPositions ?? 0];
+            }
+            // scenario.containerScenario?.Entity
+            if (containerScenario?.Entity.ContainerMaterials != null)
+            {
+                for (int i = 0; i < containerScenario?.Entity.TotalPositions.Value; i++)
+                {
+                    slotMap[i] = containerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
+                }
+            }
+
+            SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
+
+
+            base.Equipment.Variables["PortID"] = loadPortNumber;
+            base.Equipment.Variables["PortTransferState"] = 3;
+            base.Equipment.Variables["AccessMode"] = 0;
+            base.Equipment.Variables["LoadPortReservationState"] = 0;
+            base.Equipment.Variables["PortAssociationState"] = 1;
+            base.Equipment.Variables["PortStateInfo"] = slotMapDV;
+
+            // Trigger event
+            base.Equipment.SendMessage(String.Format($"LPTSM9_TRANSFERBLOCKED_READYTOUNLOAD"), null);
+
+            Thread.Sleep(2000);
+
+            base.Equipment.Variables["PortID"] = loadPortNumber;
+            base.Equipment.Variables["PlacedCarrierPattern1"] = 1;
+            base.Equipment.Variables["PlacedCarrierPattern2"] = 2;
+            base.Equipment.Variables["PlacedCarrierPattern3"] = 3;
+            base.Equipment.Variables["PlacedCarrierPattern4"] = 4;
+
+            // Trigger event
+            base.Equipment.SendMessage(String.Format($"MATERIAL_REMOVED"), null);
+
+            Thread.Sleep(200);
+            return true;
+        }
+
 
         public override bool CarrierOut(CustomMaterialScenario scenario)
         {
@@ -1789,11 +1890,11 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             {
                 submaterial.Load();
                 submaterial.LoadRelations();
-                submaterial.ParentMaterial.Load();
-                submaterial.ParentMaterial.LoadChildren();
-                if (submaterial.ParentMaterial.SubMaterials
+                submaterial.ParentMaterial?.Load();
+                submaterial.ParentMaterial?.LoadChildren();
+                if (submaterial.ParentMaterial?.SubMaterials
                     .Where(s => s.SystemState == MaterialSystemState.Queued).Count() == 0
-                    && submaterial.ParentMaterial.SubMaterials
+                    && submaterial.ParentMaterial?.SubMaterials
                     .Where(s => s.SystemState == MaterialSystemState.InProcess).Count() == 1)
                 {
                     return true;
