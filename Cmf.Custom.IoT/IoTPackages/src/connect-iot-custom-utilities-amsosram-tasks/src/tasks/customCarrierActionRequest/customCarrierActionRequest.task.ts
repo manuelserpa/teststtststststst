@@ -1,7 +1,6 @@
-import { Task, Dependencies, System, DI, TYPES } from "@criticalmanufacturing/connect-iot-controller-engine";
+import { Dependencies, DI, System, Task, TYPES } from "@criticalmanufacturing/connect-iot-controller-engine";
+import { ContainerData, WaferData } from "../../persistence";
 import i18n from "./i18n/customCarrierActionRequest.default";
-import { SecsGem } from "../../common/secsGemItem"
-import { SecsItem } from "../../common/secsItem";
 
 
 /**
@@ -30,6 +29,7 @@ import { SecsItem } from "../../common/secsItem";
         CarrierId: Task.TaskValueType.String,
         PortNumber: Task.TaskValueType.Integer,
         CarrierAttributes: Task.TaskValueType.Object,
+        ContainerData: Task.TaskValueType.Object,
         activate: Task.INPUT_ACTIVATE
     },
     outputs: {
@@ -48,6 +48,7 @@ export class CustomCarrierActionRequestTask implements Task.TaskInstance, Custom
     public CarrierId: String;
     public PortNumber: Number;
     public CarrierAttributes: any;
+    public ContainerData: ContainerData;
     public CarrierActionPortIDValueTypeRequest: any;
     /** **Inputs** */
     /** Activate task execution */
@@ -75,21 +76,84 @@ export class CustomCarrierActionRequestTask implements Task.TaskInstance, Custom
         if (changes["activate"]) {
             // It is advised to reset the activate to allow being reactivated without the value being different
             this.activate = undefined;
+            let commandParameters: any[] = [];
+            const containerData = this.ContainerData as ContainerData;
 
-            // clear the inputs before proceeding
-            // const inputValues: any = {};
-            // for (const input of this.inputs) {
-            //     const currentInputValue = this[input.name];
-            //     inputValues[input.name] = currentInputValue;
-            //     this[input.name] = undefined;
-            // };
             let portNumberConverted = '';
+
             if (this.PortNumber) {
                 portNumberConverted = this.PortNumber.toString();
             }
 
             if (this.CarrierActionPortIDValueTypeRequest === undefined) {
                 this.CarrierActionPortIDValueTypeRequest = CarrierActionPortIDValueTypeRequest.U1; // Default Value
+            }
+
+            if (containerData) {
+                this.CarrierId = containerData.ContainerName;
+                portNumberConverted = containerData.LoadPortPosition;
+                const containerSlotMap: string = containerData.SlotMap?.toString();
+
+                // retrieve Capacity and SubstrateCount from slot map
+                const slotMapArray: string[] = containerSlotMap?.split("");
+                const waferParameters: any[] = [];
+
+                const substrateCount: number = slotMapArray?.reduce((accumulator, current, currentIndex) => {
+
+                    if (containerData.Slots) {
+                        const subMaterialInSlot = (<any[]>containerData.Slots).find(subMaterial => subMaterial.Slot === currentIndex + 1) as WaferData
+
+                        if (subMaterialInSlot !== undefined && Number(current) === 1) {
+                            waferParameters.push({
+                                type: "L", value: [
+                                    { type: "A", value: subMaterialInSlot.ParentMaterialName },
+                                    { type: "A", value: subMaterialInSlot.MaterialWaferId }
+                                ]
+                            });
+                        } else {
+                            waferParameters.push({
+                                type: "L", value: [
+                                    { type: "A", value: "" },
+                                    { type: "A", value: "" }
+                                ]
+                            });
+                        }
+                    }
+
+                    return +accumulator + +current;
+                }, 0);
+
+                const capacity: number = containerSlotMap.length;
+
+                commandParameters.push({
+                    type: "L", value: [
+                        { type: "A", value: "ContentMap" },
+                        { type: "L", value: waferParameters }
+                    ]
+                });
+
+                commandParameters.push({
+                    type: "L", value: [
+                        { type: "A", value: "Capacity" },
+                        { type: "U1", value: capacity }
+                    ]
+                });
+
+                commandParameters.push({
+                    type: "L", value: [
+                        { type: "A", value: "SubstrateCount" },
+                        { type: "U1", value: substrateCount }
+                    ]
+                });
+
+                if (this.CarrierAttributes && Array.isArray(this.CarrierAttributes)) {
+                    this.CarrierAttributes.forEach((attribute) => {
+                        commandParameters.push(attribute);
+                    })
+                }
+
+            } else {
+                commandParameters = this.CarrierAttributes;
             }
 
             this._logger.info("\nPortNumber S3F17: " + this.PortNumber);
@@ -105,7 +169,7 @@ export class CustomCarrierActionRequestTask implements Task.TaskInstance, Custom
                             { type: "A", value: CarrierActionRequest[this.CarrierActionRequest] }, // carrierAction
                             { type: "A", value: this.CarrierId }, // carrier id
                             { type: CarrierActionPortIDValueTypeRequest[this.CarrierActionPortIDValueTypeRequest], value: portNumberConverted }, // portNumber
-                            { type: "L", value: this.CarrierAttributes }​​​​​​​ // carrier attributes list
+                            { type: "L", value: commandParameters }​​​​​​​ // carrier attributes list
                         ]
                     }
                 }

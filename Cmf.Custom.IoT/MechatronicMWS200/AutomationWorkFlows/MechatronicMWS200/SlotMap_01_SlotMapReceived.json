@@ -159,13 +159,14 @@
 						"outputType": "Value"
 					}
 				],
-				"___cmf___name": "On Equipment Event",
+				"___cmf___name": "OEV (194)",
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
 						"Name": "COSM14_SLOTMAPNOTREAD_SLOTMAPWAITINGFORHOST"
 					}
-				]
+				],
+				"___cmf___description": "COSM14_SLOTMAPNOTREAD_SLOTMAPWAITINGFORHOST"
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -209,21 +210,19 @@
 					"        let slotMap: String = \"\";",
 					"",
 					"        (<any[]>rawSlotMap.originalValue.value).forEach(slot => {",
-					"",
 					"            slotMap += slot.value > 1 ? \"1\" : \"0\";",
-					"",
 					"        });",
 					"",
-					"",
-					"        return { SlotMap: slotMap, PortId: portId.originalValue.value, ContainerId: containerId.originalValue.value};",
-					"",
-					"",
-					"",
+					"        return { ",
+					"            SlotMap: slotMap, ",
+					"            PortId: portId.originalValue.value, ",
+					"            ContainerId: containerId.originalValue.value ? containerId.originalValue.value : \"CarrierAtLoadPort\" + portId.originalValue.value",
+					"        };",
 					"    }",
 					"}",
 					""
 				],
-				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IHJhd1Nsb3RNYXAgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiU2xvdE1hcCIpOw0KICAgICAgICBjb25zdCBwb3J0SWQgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiUG9ydElEIik7DQogICAgICAgIGNvbnN0IGNvbnRhaW5lcklkID0gaW5wdXRzLmV2ZW50UmF3RGF0YS52YWx1ZXMuZmluZCh2ID0+IHYucHJvcGVydHkuTmFtZSA9PT0gIkNhcnJpZXJJRCIpOw0KICAgICAgICBpZiAocmF3U2xvdE1hcCA9PSBudWxsKSB7DQogICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoIkVtcHR5IHNsb3QgbWFwIik7DQogICAgICAgIH0NCiAgICAgICAgbGV0IHNsb3RNYXAgPSAiIjsNCiAgICAgICAgcmF3U2xvdE1hcC5vcmlnaW5hbFZhbHVlLnZhbHVlLmZvckVhY2goc2xvdCA9PiB7DQogICAgICAgICAgICBzbG90TWFwICs9IHNsb3QudmFsdWUgPiAxID8gIjEiIDogIjAiOw0KICAgICAgICB9KTsNCiAgICAgICAgcmV0dXJuIHsgU2xvdE1hcDogc2xvdE1hcCwgUG9ydElkOiBwb3J0SWQub3JpZ2luYWxWYWx1ZS52YWx1ZSwgQ29udGFpbmVySWQ6IGNvbnRhaW5lcklkLm9yaWdpbmFsVmFsdWUudmFsdWUgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IHJhd1Nsb3RNYXAgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiU2xvdE1hcCIpOw0KICAgICAgICBjb25zdCBwb3J0SWQgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiUG9ydElEIik7DQogICAgICAgIGNvbnN0IGNvbnRhaW5lcklkID0gaW5wdXRzLmV2ZW50UmF3RGF0YS52YWx1ZXMuZmluZCh2ID0+IHYucHJvcGVydHkuTmFtZSA9PT0gIkNhcnJpZXJJRCIpOw0KICAgICAgICBpZiAocmF3U2xvdE1hcCA9PSBudWxsKSB7DQogICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoIkVtcHR5IHNsb3QgbWFwIik7DQogICAgICAgIH0NCiAgICAgICAgbGV0IHNsb3RNYXAgPSAiIjsNCiAgICAgICAgcmF3U2xvdE1hcC5vcmlnaW5hbFZhbHVlLnZhbHVlLmZvckVhY2goc2xvdCA9PiB7DQogICAgICAgICAgICBzbG90TWFwICs9IHNsb3QudmFsdWUgPiAxID8gIjEiIDogIjAiOw0KICAgICAgICB9KTsNCiAgICAgICAgcmV0dXJuIHsNCiAgICAgICAgICAgIFNsb3RNYXA6IHNsb3RNYXAsDQogICAgICAgICAgICBQb3J0SWQ6IHBvcnRJZC5vcmlnaW5hbFZhbHVlLnZhbHVlLA0KICAgICAgICAgICAgQ29udGFpbmVySWQ6IGNvbnRhaW5lcklkLm9yaWdpbmFsVmFsdWUudmFsdWUgPyBjb250YWluZXJJZC5vcmlnaW5hbFZhbHVlLnZhbHVlIDogIkNhcnJpZXJBdExvYWRQb3J0IiArIHBvcnRJZC5vcmlnaW5hbFZhbHVlLnZhbHVlDQogICAgICAgIH07DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
 				"inputs": [
 					{
 						"name": "eventRawData",
@@ -276,8 +275,24 @@
 				],
 				"contextExpirationInMilliseconds": 10000,
 				"executionExpirationInMilliseconds": 0,
-				"___cmf___name": "Code"
+				"___cmf___name": "Code - Parse Slot Map"
 			}
+		},
+		{
+			"id": "task_8172",
+			"reference": {
+				"name": "customCarrierActionRequest",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "2.0.0"
+				}
+			},
+			"settings": {
+				"CarrierActionRequest": 2,
+				"___cmf___name": "Custom Carrier Action Request",
+				"commandName": 2
+			},
+			"driver": "SecsGemEquipment"
 		}
 	],
 	"converters": [
@@ -295,6 +310,16 @@
 			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
 			"reference": {
 				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
 					"version": "9.1.0-202209072"
@@ -334,13 +359,6 @@
 			]
 		},
 		{
-			"id": "6986cdec-4e14-4d8a-8ce2-104451d2d022",
-			"sourceId": "task_5796",
-			"targetId": "task_93884",
-			"inputName": "activate",
-			"outputName": "PortIdOut"
-		},
-		{
 			"id": "104ac73a-51e7-48b3-a0b9-a8c9b99db212",
 			"sourceId": "task_190927",
 			"targetId": "task_5796",
@@ -353,6 +371,34 @@
 			"targetId": "task_5796",
 			"inputName": "activate",
 			"outputName": "eventRawData"
+		},
+		{
+			"id": "883addba-0929-4028-bf8b-30437f2e2a2f",
+			"sourceId": "task_5796",
+			"targetId": "task_93884",
+			"inputName": "ContainerIdIn",
+			"outputName": "ContainerIdOut"
+		},
+		{
+			"id": "2754b798-112a-46a9-85a6-b8df94542fe9",
+			"sourceId": "task_5796",
+			"targetId": "task_93884",
+			"inputName": "activate",
+			"outputName": "PortIdOut"
+		},
+		{
+			"id": "7755484f-98a4-4a31-b585-f132a4ecf959",
+			"sourceId": "task_93884",
+			"targetId": "task_8172",
+			"inputName": "ContainerData",
+			"outputName": "containerOut"
+		},
+		{
+			"id": "a0c92854-6659-423e-b773-6615c2455340",
+			"sourceId": "task_93884",
+			"targetId": "task_8172",
+			"inputName": "activate",
+			"outputName": "containerOut"
 		}
 	],
 	"layout": {
@@ -373,24 +419,32 @@
 					"task_93884": {
 						"collapsed": false,
 						"position": {
-							"x": 1274,
-							"y": 162
+							"x": 1453,
+							"y": 347
 						},
 						"outdated": false
 					},
 					"task_190927": {
 						"collapsed": false,
 						"position": {
-							"x": 237,
-							"y": 135
+							"x": 361,
+							"y": 342
 						},
 						"outdated": false
 					},
 					"task_5796": {
 						"collapsed": false,
 						"position": {
-							"x": 710,
-							"y": 211
+							"x": 896,
+							"y": 342
+						},
+						"outdated": false
+					},
+					"task_8172": {
+						"collapsed": false,
+						"position": {
+							"x": 1996,
+							"y": 351
 						},
 						"outdated": false
 					}
@@ -402,13 +456,28 @@
 					"a8bcee28-455d-4f38-b74f-a1f55125e766": {
 						"vertices": []
 					},
-					"6986cdec-4e14-4d8a-8ce2-104451d2d022": {
-						"vertices": []
-					},
 					"104ac73a-51e7-48b3-a0b9-a8c9b99db212": {
 						"vertices": []
 					},
 					"277fe215-5df4-4e42-ae4b-f92e89ff7337": {
+						"vertices": []
+					},
+					"883addba-0929-4028-bf8b-30437f2e2a2f": {
+						"vertices": []
+					},
+					"efe3ce97-d2fa-48f3-abcf-90530076247c": {
+						"vertices": []
+					},
+					"c584bf32-36bb-47b3-a124-8767a69eec0f": {
+						"vertices": []
+					},
+					"2754b798-112a-46a9-85a6-b8df94542fe9": {
+						"vertices": []
+					},
+					"7755484f-98a4-4a31-b585-f132a4ecf959": {
+						"vertices": []
+					},
+					"a0c92854-6659-423e-b773-6615c2455340": {
 						"vertices": []
 					},
 					"11c17878-819e-4e1b-bbf8-eb6100d3484c": {
@@ -419,15 +488,15 @@
 					"note_191122": {
 						"collapsed": false,
 						"position": {
-							"x": 1742,
-							"y": 103
+							"x": 55,
+							"y": 342
 						}
 					}
 				},
-				"zoom": 0.7600000000000002,
+				"zoom": 0.55,
 				"pan": {
-					"x": 15.555556297302246,
-					"y": 6.6666669845581055
+					"x": 17,
+					"y": 101
 				}
 			}
 		}

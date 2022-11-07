@@ -7280,7 +7280,7 @@
   "<DM>AutomationController": {
     "1": {
       "Name": "MechatronicMWS200Controller",
-      "Description": "TemplateController",
+      "Description": "Mechatronic MWS200 Controller",
       "Type": "General",
       "ControllerPackageVersion": "9.1.0-202209072",
       "ObjectType": "Resource",
@@ -7295,6 +7295,13 @@
       "DisplayName": "SecsGemEquipment",
       "AutomationDriverDefinition": "MechatronicMWS200Driver",
       "Color": "#ffff80"
+    },
+    "2": {
+      "AutomationController": "MechatronicMWS200Controller",
+      "Name": "RFIDReader",
+      "DisplayName": "RFIDReader",
+      "AutomationDriverDefinition": "HermosLFM4xReaderDriver",
+      "Color": "#d0f061"
     }
   },
   "AutomationControllerWorkflow": {
@@ -7308,243 +7315,267 @@
     },
     "2": {
       "AutomationController": "MechatronicMWS200Controller",
+      "Name": "Setup.RFID",
+      "DisplayName": "Setup.RFID",
+      "IsFile": "Yes",
+      "Workflow": "MechatronicMWS200/Setup.RFID.json",
+      "Order": "2"
+    },
+    "3": {
+      "AutomationController": "MechatronicMWS200Controller",
       "Name": "MaterialReceived_01_MaterialReceivedEvent",
       "DisplayName": "MaterialReceived_01_MaterialReceivedEvent",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/MaterialReceived_01_MaterialReceivedEvent.json",
-      "Order": "2"
+      "Order": "3"
     },
-    "3": {
+    "4": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "CarrierIdRead_01_EventReceived",
       "DisplayName": "CarrierIdRead_01_EventReceived",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/CarrierIdRead_01_EventReceived.json",
-      "Order": "3"
+      "Order": "4"
     },
-    "4": {
+    "5": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "SlotMap_01_SlotMapReceived",
       "DisplayName": "SlotMap_01_SlotMapReceived",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/SlotMap_01_SlotMapReceived.json",
-      "Order": "4"
+      "Order": "5"
     },
-    "5": {
+    "6": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "ReadyToUnload_01_EventReceived",
       "DisplayName": "ReadyToUnload_01_EventReceived",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/ReadyToUnload_01_EventReceived.json",
-      "Order": "5"
+      "Order": "6"
     },
-    "6": {
+    "7": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "MaterialRemoved_01_MaterialRemovedEvent",
       "DisplayName": "MaterialRemoved_01_MaterialRemovedEvent",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/MaterialRemoved_01_MaterialRemovedEvent.json",
-      "Order": "6"
-    },
-    "7": {
-      "AutomationController": "MechatronicMWS200Controller",
-      "Name": "TrackIn_01_TrackInRequestReceived300mm",
-      "DisplayName": "TrackIn_01_TrackInRequestReceived",
-      "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200/TrackIn_01_TrackInRequestReceived300mm.json",
       "Order": "7"
     },
     "8": {
       "AutomationController": "MechatronicMWS200Controller",
-      "Name": "PostTrackIn_01_ExecuteStart",
-      "DisplayName": "PostTrackIn_01_ExecuteStart",
+      "Name": "PreTrackIn_01_ExecuteStart",
+      "DisplayName": "PreTrackIn_01_ExecuteStart",
       "IsFile": "Yes",
-      "Workflow": "MechatronicMWS200/PostTrackIn_01_ExecuteStart.json",
+      "Workflow": "MechatronicMWS200/PreTrackIn_01_ExecuteStart.json",
       "Order": "8"
     },
     "9": {
+      "AutomationController": "MechatronicMWS200Controller",
+      "Name": "TrackIn_01_TrackInRequestReceived",
+      "DisplayName": "TrackIn_01_TrackInRequestReceived",
+      "IsFile": "Yes",
+      "Workflow": "MechatronicMWS200/TrackIn_01_TrackInRequestReceived.json",
+      "Order": "9"
+    },
+    "10": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "ProcessStarted_01_EventTosProcessStartedReceived",
       "DisplayName": "ProcessStarted_01_EventTosProcessStartedReceived",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/ProcessStarted_01_EventTosProcessStartedReceived.json",
-      "Order": "9"
+      "Order": "10"
     },
-    "10": {
+    "11": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "WaferStart_01_EventWaferStarted",
       "DisplayName": "WaferStart_01_EventWaferStarted",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/WaferStart_01_EventWaferStarted.json",
-      "Order": "10"
+      "Order": "11"
     },
-    "11": {
+    "12": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "WaferIdRead_01_EventWaferIdRead",
       "DisplayName": "WaferIdRead_01_EventWaferIdRead",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/WaferIdRead_01_EventWaferIdRead.json",
-      "Order": "11"
+      "Order": "12"
     },
-    "12": {
+    "13": {
+      "AutomationController": "MechatronicMWS200Controller",
+      "Name": "WaferIdRead_01_EventWaferIdRead_WaitingForHost",
+      "DisplayName": "WaferIdRead_01_EventWaferIdRead_WaitingForHost",
+      "IsFile": "Yes",
+      "Workflow": "MechatronicMWS200/WaferIdRead_01_EventWaferIdRead_WaitingForHost.json",
+      "Order": "13"
+    },
+    "14": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "WaferComplete_01_EventWaferCompleted",
       "DisplayName": "WaferComplete_01_EventWaferCompleted",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/WaferComplete_01_EventWaferCompleted.json",
-      "Order": "12"
+      "Order": "14"
     },
-    "13": {
+    "15": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "ProcessCompleted_01_EventProcessCompletedReceived",
       "DisplayName": "ProcessCompleted_01_EventProcessCompletedReceived",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/ProcessCompleted_01_EventProcessCompletedReceived.json",
-      "Order": "13"
+      "Order": "15"
     },
-    "14": {
+    "16": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "TrackOut_01_TrackOutEventReceivedFromMES",
       "DisplayName": "TrackOut_01_TrackOutEventReceivedFromMES",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/TrackOut_01_TrackOutEventReceivedFromMES.json",
-      "Order": "14"
+      "Order": "16"
     },
-    "15": {
+    "17": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "Abort_01_AbortEventReceivedFromMES300mm",
       "DisplayName": "Abort_01_AbortEventReceivedFromMES300mm",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/Abort_01_AbortEventReceivedFromMES300mm.json",
-      "Order": "15"
+      "Order": "17"
     },
-    "16": {
+    "18": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "Hold_01_HoldEventReceivedFromMES",
       "DisplayName": "Hold_01_HoldEventReceivedFromMES",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/Hold_01_HoldEventReceivedFromMES.json",
-      "Order": "16"
+      "Order": "18"
     },
-    "17": {
+    "19": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "AlarmManagement_01_AlarmCollection",
       "DisplayName": "AlarmManagement_01_AlarmCollection",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/AlarmManagement_01_AlarmCollection.json",
-      "Order": "17"
+      "Order": "19"
     },
-    "18": {
+    "20": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "RecipeManagement_01_GetRecipeList",
       "DisplayName": "RecipeManagement_01_GetRecipeList",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/RecipeManagement_01_GetRecipeList.json",
-      "Order": "18"
+      "Order": "20"
     },
-    "19": {
+    "21": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "RecipeManagement_02_GetRecipeBody",
       "DisplayName": "RecipeManagement_02_GetRecipeBody",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/RecipeManagement_02_GetRecipeBody.json",
-      "Order": "19"
+      "Order": "21"
     },
-    "20": {
+    "22": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "RecipeManagement_03_SetRecipeBody",
       "DisplayName": "RecipeManagement_03_SetRecipeBody",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/RecipeManagement_03_SetRecipeBody.json",
-      "Order": "20"
+      "Order": "22"
     },
-    "21": {
+    "23": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "RecipeManagement_04_GetRecipeChecksum",
       "DisplayName": "RecipeManagement_04_GetRecipeChecksum",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/RecipeManagement_04_GetRecipeChecksum.json",
-      "Order": "21"
+      "Order": "23"
     },
-    "22": {
+    "24": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "ResourceState_01_ProcessStateChanged",
       "DisplayName": "ResourceState_01_ProcessStateChanged",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/ResourceState_01_ProcessStateChanged.json",
-      "Order": "22"
+      "Order": "24"
     },
-    "23": {
+    "25": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "ResourceEPTState_01_EptStateChangeReceived",
       "DisplayName": "ResourceEPTState_01_EptStateChangeReceived",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/ResourceEPTState_01_EptStateChangeReceived.json",
-      "Order": "23"
+      "Order": "25"
     },
-    "24": {
+    "26": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "ControlState_01_ControlStateEquipmentOfflineUpdateReceived",
       "DisplayName": "ControlState_01_ControlStateEquipmentOfflineUpdateReceived",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/ControlState_01_ControlStateEquipmentOfflineUpdateReceived.json",
-      "Order": "24"
+      "Order": "26"
     },
-    "25": {
+    "27": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "ControlState_02_ControlStateOnlineLocalUpdateReceived",
       "DisplayName": "ControlState_02_ControlStateOnlineLocalUpdateReceived",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/ControlState_02_ControlStateOnlineLocalUpdateReceived.json",
-      "Order": "25"
+      "Order": "27"
     },
-    "26": {
+    "28": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "ControlState_03_ControlStateOnlineRemoteUpdateReceived",
       "DisplayName": "ControlState_03_ControlStateOnlineRemoteUpdateReceived",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/ControlState_03_ControlStateOnlineRemoteUpdateReceived.json",
-      "Order": "26"
+      "Order": "28"
     },
-    "27": {
+    "29": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "DisplayName": "SendAdHocRequest_01_SendAdHocReceivedFromMES",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/SendAdHocRequest_01_SendAdHocReceivedFromMES.json",
-      "Order": "27"
+      "Order": "29"
     },
-    "28": {
+    "30": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "DisplayName": "RecipeValidation_01_UnformattedRecipeMainFlow",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/RecipeValidation_01_UnformattedRecipeMainFlow.json",
-      "Order": "28"
+      "Order": "30"
     },
-    "29": {
+    "31": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "CreateProcessJob_01_CreateJob",
       "DisplayName": "CreateProcessJob_01_CreateJob",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/CreateProcessJob_01_CreateJob.json",
-      "Order": "29"
+      "Order": "31"
     },
-    "30": {
+    "32": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "CreateControlJob_01_CreateJob",
       "DisplayName": "CreateControlJob_01_CreateJob",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/CreateControlJob_01_CreateJob.json",
-      "Order": "30"
+      "Order": "32"
     },
-    "31": {
+    "33": {
       "AutomationController": "MechatronicMWS200Controller",
       "Name": "AbortJob_01_ExecuteControlJobAbort",
       "DisplayName": "AbortJob_01_ExecuteControlJobAbort",
       "IsFile": "Yes",
       "Workflow": "MechatronicMWS200/AbortJob_01_ExecuteControlJobAbort.json",
-      "Order": "31"
+      "Order": "33"
+    },
+    "34": {
+      "AutomationController": "MechatronicMWS200Controller",
+      "Name": "ProceedWithSubstrate_01_SendCommand",
+      "DisplayName": "ProceedWithSubstrate_01_SendCommand",
+      "IsFile": "Yes",
+      "Workflow": "MechatronicMWS200/ProceedWithSubstrate_01_SendCommand.json",
+      "Order": "34"
     }
   },
   "<LOOKUP>AutomationInstances": {}

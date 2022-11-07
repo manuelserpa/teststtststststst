@@ -901,9 +901,21 @@
       "MinimizeSetupTimes",
       "MinimizeTotalWaitingTime"
     ],
-    "SchedulingType": ["Machine", "Batch", "Tunnel"],
-    "ContentStorageType": ["Internal", "External"],
-    "StepSetupCharacteristic": ["Service", "Product", "ProductGroup", "Recipe"],
+    "SchedulingType": [
+      "Machine",
+      "Batch",
+      "Tunnel"
+    ],
+    "ContentStorageType": [
+      "Internal",
+      "External"
+    ],
+    "StepSetupCharacteristic": [
+      "Service",
+      "Product",
+      "ProductGroup",
+      "Recipe"
+    ],
     "ScheduleSortingRule": [
       "PossibleStartDate",
       "Priority",
@@ -914,11 +926,31 @@
       "DueDate",
       "ItemCode"
     ],
-    "DispatchScheduleType": ["Dispatching", "Scheduling"],
-    "DefaultSamplingType": ["CounterBased", "TimeBased", "CounterAndTimeBased"],
-    "Frequency": ["Daily", "Weekly", "Monthly", "Yearly"],
-    "RuleSortingDirection": ["Ascending", "Descending"],
-    "TimeScale": ["Days", "Hours", "Minutes", "Seconds"],
+    "DispatchScheduleType": [
+      "Dispatching",
+      "Scheduling"
+    ],
+    "DefaultSamplingType": [
+      "CounterBased",
+      "TimeBased",
+      "CounterAndTimeBased"
+    ],
+    "Frequency": [
+      "Daily",
+      "Weekly",
+      "Monthly",
+      "Yearly"
+    ],
+    "RuleSortingDirection": [
+      "Ascending",
+      "Descending"
+    ],
+    "TimeScale": [
+      "Days",
+      "Hours",
+      "Minutes",
+      "Seconds"
+    ],
     "SamplingContext": [
       "MaterialType",
       "MaterialProduct",
@@ -927,13 +959,39 @@
       "MaterialStep",
       "MaterialStepMaturity"
     ],
-    "BOMScope": ["MaterialTracking", "MaintenanceManagement"],
-    "TimeDueScale": ["Hours", "Days", "Weeks", "Months", "Years"],
-    "FutureLogisticActionExecutionMode": ["Manual", "Automatic"],
-    "DefaultScheduleView": ["Day", "Week", "Month"],
-    "MaintenanceInstanceType": ["Resource", "Container"],
-    "KPIType": ["Maximum", "Minimum", "Deviation"],
-    "InstancesToSchedulePattern": ["NumberOfInstances", "Duration"]
+    "BOMScope": [
+      "MaterialTracking",
+      "MaintenanceManagement"
+    ],
+    "TimeDueScale": [
+      "Hours",
+      "Days",
+      "Weeks",
+      "Months",
+      "Years"
+    ],
+    "FutureLogisticActionExecutionMode": [
+      "Manual",
+      "Automatic"
+    ],
+    "DefaultScheduleView": [
+      "Day",
+      "Week",
+      "Month"
+    ],
+    "MaintenanceInstanceType": [
+      "Resource",
+      "Container"
+    ],
+    "KPIType": [
+      "Maximum",
+      "Minimum",
+      "Deviation"
+    ],
+    "InstancesToSchedulePattern": [
+      "NumberOfInstances",
+      "Duration"
+    ]
   },
   "<DM>AutomationManager": {
     "1": {
@@ -1098,126 +1156,132 @@
       "EntityName": "ENA01"
     },
     "11": {
-      "AutomationController": "TrymaxNEOController",
-      "AutomationManager": "TrymaxNEO",
-      "DriverName": "",
-      "EntityName": "5FASH1"
+      "AutomationController": "MechatronicMWS200Controller",
+      "AutomationManager": "MechatronicMWS200",
+      "DriverName": "RFIDReader",
+      "EntityName": "ENA01.RFID"
     },
     "12": {
       "AutomationController": "TrymaxNEOController",
       "AutomationManager": "TrymaxNEO",
-      "DriverName": "SecsGemEquipment",
+      "DriverName": "",
       "EntityName": "5FASH1"
     },
     "13": {
-      "AutomationController": "OmegaPlasmaController",
-      "AutomationManager": "OmegaPlasma",
-      "DriverName": "",
-      "EntityName": "5FICP1"
+      "AutomationController": "TrymaxNEOController",
+      "AutomationManager": "TrymaxNEO",
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FASH1"
     },
     "14": {
       "AutomationController": "OmegaPlasmaController",
       "AutomationManager": "OmegaPlasma",
-      "DriverName": "SecsGemEquipment",
+      "DriverName": "",
       "EntityName": "5FICP1"
     },
     "15": {
       "AutomationController": "OmegaPlasmaController",
       "AutomationManager": "OmegaPlasma",
-      "DriverName": "RFIDReader",
-      "EntityName": "5FICP1.RFID"
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FICP1"
     },
     "16": {
-      "AutomationController": "UnitySCController",
-      "AutomationManager": "UnitySC",
-      "DriverName": "",
-      "EntityName": "5FORI1"
+      "AutomationController": "OmegaPlasmaController",
+      "AutomationManager": "OmegaPlasma",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FICP1.RFID"
     },
     "17": {
       "AutomationController": "UnitySCController",
       "AutomationManager": "UnitySC",
-      "DriverName": "SecsGemEquipment",
+      "DriverName": "",
       "EntityName": "5FORI1"
     },
     "18": {
       "AutomationController": "UnitySCController",
       "AutomationManager": "UnitySC",
-      "DriverName": "RFIDReader",
-      "EntityName": "5FORI1.RFID"
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FORI1"
     },
     "19": {
-      "AutomationController": "BrukerInsightCAPController",
-      "AutomationManager": "BrukerInsightCAP",
-      "DriverName": "",
-      "EntityName": "5FAFM1"
+      "AutomationController": "UnitySCController",
+      "AutomationManager": "UnitySC",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FORI1.RFID"
     },
     "20": {
       "AutomationController": "BrukerInsightCAPController",
       "AutomationManager": "BrukerInsightCAP",
-      "DriverName": "SecsGemEquipment",
+      "DriverName": "",
       "EntityName": "5FAFM1"
     },
     "21": {
       "AutomationController": "BrukerInsightCAPController",
       "AutomationManager": "BrukerInsightCAP",
-      "DriverName": "RFIDReader",
-      "EntityName": "5FAFM1.RFID"
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FAFM1"
     },
     "22": {
-      "AutomationController": "Monarch25VHFController",
-      "AutomationManager": "Monarch25VHF",
-      "DriverName": "",
-      "EntityName": "5FVHF1"
+      "AutomationController": "BrukerInsightCAPController",
+      "AutomationManager": "BrukerInsightCAP",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FAFM1.RFID"
     },
     "23": {
       "AutomationController": "Monarch25VHFController",
       "AutomationManager": "Monarch25VHF",
-      "DriverName": "SecsGemEquipment",
+      "DriverName": "",
       "EntityName": "5FVHF1"
     },
     "24": {
       "AutomationController": "Monarch25VHFController",
       "AutomationManager": "Monarch25VHF",
-      "DriverName": "RFIDReader",
-      "EntityName": "5FVHF1.RFID"
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FVHF1"
     },
     "25": {
-      "AutomationController": "DISCODFD6363HCController",
-      "AutomationManager": "DISCODFD6363HC",
-      "DriverName": "",
-      "EntityName": "5FETR1"
+      "AutomationController": "Monarch25VHFController",
+      "AutomationManager": "Monarch25VHF",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FVHF1.RFID"
     },
     "26": {
       "AutomationController": "DISCODFD6363HCController",
       "AutomationManager": "DISCODFD6363HC",
-      "DriverName": "SecsGemEquipment",
+      "DriverName": "",
       "EntityName": "5FETR1"
     },
     "27": {
       "AutomationController": "DISCODFD6363HCController",
       "AutomationManager": "DISCODFD6363HC",
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FETR1"
+    },
+    "28": {
+      "AutomationController": "DISCODFD6363HCController",
+      "AutomationManager": "DISCODFD6363HC",
       "DriverName": "RFIDReader",
       "EntityName": "5FETR1.RFID"
     },
-    "28": {
+    "29": {
       "AutomationController": "DISCODFD6363HCController",
       "AutomationManager": "DISCODFD6363HC",
       "DriverName": "FileDriver",
       "EntityName": "5FETR1.FILE"
     },
-    "29": {
+    "30": {
       "AutomationController": "KLASpectraFilmController",
       "AutomationManager": "KLASpectraFilm",
       "DriverName": "",
       "EntityName": "5FELL1"
     },
-    "30": {
+    "31": {
       "AutomationController": "KLASpectraFilmController",
       "AutomationManager": "KLASpectraFilm",
       "DriverName": "SecsGemEquipment",
       "EntityName": "5FELL1"
     },
-    "31": {
+    "32": {
       "AutomationController": "KLASpectraFilmController",
       "AutomationManager": "KLASpectraFilm",
       "DriverName": "RFIDReader",

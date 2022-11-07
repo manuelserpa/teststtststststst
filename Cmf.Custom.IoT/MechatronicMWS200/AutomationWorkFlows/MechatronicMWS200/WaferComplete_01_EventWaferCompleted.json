@@ -235,7 +235,7 @@
 							"Name": "SubstHistory",
 							"DataType": 9
 						},
-						"outputType": "Value"
+						"outputType": "RawValue"
 					},
 					{
 						"property": {
@@ -286,65 +286,88 @@
 					"    public async main(inputs: any, outputs: any): Promise<any> {",
 					"        // Add code here",
 					"",
-					"        var substrateId = inputs.SubstSubstLocID.toString();",
-					"        var targetSplitted = substrateId.split(\".\");",
-					"        var targetCarrierId = targetSplitted[0].trim();",
-					"        var targetSlotNumber = targetSplitted[1].trim();",
+					"        let sourceWaferLocation: string = inputs.SourceWaferLocation;",
+					"        const targetWaferLocation: string = inputs.TargetWaferLocation;",
+					"        const substHist: any = inputs.SubstHistory.value[0].value;",
 					"",
-					"        const rawSubstHistoryList = (<any[]>inputs.eventRawData.values).find(v => v.property.Name === \"SubstHistory\");",
-					"",
-					"        if (rawSubstHistoryList) {",
-					"            if (rawSubstHistoryList.originalValue.value[0]",
-					"                && rawSubstHistoryList.originalValue.value[0].value.length > 0) {",
-					"",
-					"                const startContainer = rawSubstHistoryList.originalValue.value[0].value[0].value[0].value;",
-					"",
-					"                var sourceSplitted = startContainer.split(\".\");",
-					"                var sourceCarrierId = sourceSplitted[0].trim();",
-					"                var sourceSlotNumber = sourceSplitted[1].trim();",
-					"",
-					"                if (sourceCarrierId && sourceSlotNumber) {",
-					"",
-					"                    return { TargetContainerId: targetCarrierId, TargetSlotNumber: Number(targetSlotNumber),",
-					"                            SourceContainerId: sourceCarrierId, SourceSlotNumber: Number(sourceSlotNumber) }",
-					"                } else {",
-					"                    this.framework.logger.warning(\"The first item in the history is not valid: Skipping.\");",
-					"                }",
-					"            } else {",
-					"                this.framework.logger.warning(\"There is no item on HistoryList: Skipping.\");",
-					"            }",
-					"        } else {",
-					"            this.framework.logger.warning(\"There is no HistoryList: Skipping.\");",
+					"        if (substHist && Array.isArray(substHist) && substHist.length > 0) {",
+					"            sourceWaferLocation = substHist[0].value[0].value;",
 					"        }",
+					"        else {",
+					"            throw new Error(\"Not possible to parse Substrate History.\");",
+					"        } ",
 					"",
-					"        ",
+					"        let lastIndex = sourceWaferLocation.lastIndexOf('.');",
+					"",
+					"        let sourceContainer = '';",
+					"        let sourceContainerPosition = '';",
+					"",
+					"        if (lastIndex !== -1) {",
+					"            sourceContainer = sourceWaferLocation.slice(0, lastIndex);",
+					"            sourceContainerPosition = sourceWaferLocation.slice(lastIndex + 1);",
+					"        }",
+					"        else {",
+					"            throw new Error(\"Not possible to parse container and slot information from source.\");",
+					"        } ",
+					"",
+					"        lastIndex = targetWaferLocation.lastIndexOf('.');",
+					"        let targetContainer = '';",
+					"        let targetContainerPosition = '';",
+					"",
+					"        if (lastIndex !== -1) {",
+					"            targetContainer = targetWaferLocation.slice(0, lastIndex);",
+					"            targetContainerPosition = targetWaferLocation.slice(lastIndex + 1);",
+					"        }",
+					"        else {",
+					"            throw new Error(\"Not possible to parse container and slot information from target.\");",
+					"        } ",
+					"",
+					"",
+					"        return { ",
+					"            TargetContainerId: targetContainer, ",
+					"            TargetSlotNumber: Number(targetContainerPosition),",
+					"            SourceContainerId: sourceContainer, ",
+					"            SourceSlotNumber: Number(sourceContainerPosition),",
+					"            WaferId: inputs.WaferId",
+					"        };",
 					"    }",
-					"}",
-					""
+					"}"
 				],
-				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIHZhciBzdWJzdHJhdGVJZCA9IGlucHV0cy5TdWJzdFN1YnN0TG9jSUQudG9TdHJpbmcoKTsNCiAgICAgICAgdmFyIHRhcmdldFNwbGl0dGVkID0gc3Vic3RyYXRlSWQuc3BsaXQoIi4iKTsNCiAgICAgICAgdmFyIHRhcmdldENhcnJpZXJJZCA9IHRhcmdldFNwbGl0dGVkWzBdLnRyaW0oKTsNCiAgICAgICAgdmFyIHRhcmdldFNsb3ROdW1iZXIgPSB0YXJnZXRTcGxpdHRlZFsxXS50cmltKCk7DQogICAgICAgIGNvbnN0IHJhd1N1YnN0SGlzdG9yeUxpc3QgPSBpbnB1dHMuZXZlbnRSYXdEYXRhLnZhbHVlcy5maW5kKHYgPT4gdi5wcm9wZXJ0eS5OYW1lID09PSAiU3Vic3RIaXN0b3J5Iik7DQogICAgICAgIGlmIChyYXdTdWJzdEhpc3RvcnlMaXN0KSB7DQogICAgICAgICAgICBpZiAocmF3U3Vic3RIaXN0b3J5TGlzdC5vcmlnaW5hbFZhbHVlLnZhbHVlWzBdDQogICAgICAgICAgICAgICAgJiYgcmF3U3Vic3RIaXN0b3J5TGlzdC5vcmlnaW5hbFZhbHVlLnZhbHVlWzBdLnZhbHVlLmxlbmd0aCA+IDApIHsNCiAgICAgICAgICAgICAgICBjb25zdCBzdGFydENvbnRhaW5lciA9IHJhd1N1YnN0SGlzdG9yeUxpc3Qub3JpZ2luYWxWYWx1ZS52YWx1ZVswXS52YWx1ZVswXS52YWx1ZVswXS52YWx1ZTsNCiAgICAgICAgICAgICAgICB2YXIgc291cmNlU3BsaXR0ZWQgPSBzdGFydENvbnRhaW5lci5zcGxpdCgiLiIpOw0KICAgICAgICAgICAgICAgIHZhciBzb3VyY2VDYXJyaWVySWQgPSBzb3VyY2VTcGxpdHRlZFswXS50cmltKCk7DQogICAgICAgICAgICAgICAgdmFyIHNvdXJjZVNsb3ROdW1iZXIgPSBzb3VyY2VTcGxpdHRlZFsxXS50cmltKCk7DQogICAgICAgICAgICAgICAgaWYgKHNvdXJjZUNhcnJpZXJJZCAmJiBzb3VyY2VTbG90TnVtYmVyKSB7DQogICAgICAgICAgICAgICAgICAgIHJldHVybiB7IFRhcmdldENvbnRhaW5lcklkOiB0YXJnZXRDYXJyaWVySWQsIFRhcmdldFNsb3ROdW1iZXI6IE51bWJlcih0YXJnZXRTbG90TnVtYmVyKSwNCiAgICAgICAgICAgICAgICAgICAgICAgIFNvdXJjZUNvbnRhaW5lcklkOiBzb3VyY2VDYXJyaWVySWQsIFNvdXJjZVNsb3ROdW1iZXI6IE51bWJlcihzb3VyY2VTbG90TnVtYmVyKSB9Ow0KICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICBlbHNlIHsNCiAgICAgICAgICAgICAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLndhcm5pbmcoIlRoZSBmaXJzdCBpdGVtIGluIHRoZSBoaXN0b3J5IGlzIG5vdCB2YWxpZDogU2tpcHBpbmcuIik7DQogICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgfQ0KICAgICAgICAgICAgZWxzZSB7DQogICAgICAgICAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLndhcm5pbmcoIlRoZXJlIGlzIG5vIGl0ZW0gb24gSGlzdG9yeUxpc3Q6IFNraXBwaW5nLiIpOw0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgICAgIGVsc2Ugew0KICAgICAgICAgICAgdGhpcy5mcmFtZXdvcmsubG9nZ2VyLndhcm5pbmcoIlRoZXJlIGlzIG5vIEhpc3RvcnlMaXN0OiBTa2lwcGluZy4iKTsNCiAgICAgICAgfQ0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGxldCBzb3VyY2VXYWZlckxvY2F0aW9uID0gaW5wdXRzLlNvdXJjZVdhZmVyTG9jYXRpb247DQogICAgICAgIGNvbnN0IHRhcmdldFdhZmVyTG9jYXRpb24gPSBpbnB1dHMuVGFyZ2V0V2FmZXJMb2NhdGlvbjsNCiAgICAgICAgY29uc3Qgc3Vic3RIaXN0ID0gaW5wdXRzLlN1YnN0SGlzdG9yeS52YWx1ZVswXS52YWx1ZTsNCiAgICAgICAgaWYgKHN1YnN0SGlzdCAmJiBBcnJheS5pc0FycmF5KHN1YnN0SGlzdCkgJiYgc3Vic3RIaXN0Lmxlbmd0aCA+IDApIHsNCiAgICAgICAgICAgIHNvdXJjZVdhZmVyTG9jYXRpb24gPSBzdWJzdEhpc3RbMF0udmFsdWVbMF0udmFsdWU7DQogICAgICAgIH0NCiAgICAgICAgZWxzZSB7DQogICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoIk5vdCBwb3NzaWJsZSB0byBwYXJzZSBTdWJzdHJhdGUgSGlzdG9yeS4iKTsNCiAgICAgICAgfQ0KICAgICAgICBsZXQgbGFzdEluZGV4ID0gc291cmNlV2FmZXJMb2NhdGlvbi5sYXN0SW5kZXhPZignLicpOw0KICAgICAgICBsZXQgc291cmNlQ29udGFpbmVyID0gJyc7DQogICAgICAgIGxldCBzb3VyY2VDb250YWluZXJQb3NpdGlvbiA9ICcnOw0KICAgICAgICBpZiAobGFzdEluZGV4ICE9PSAtMSkgew0KICAgICAgICAgICAgc291cmNlQ29udGFpbmVyID0gc291cmNlV2FmZXJMb2NhdGlvbi5zbGljZSgwLCBsYXN0SW5kZXgpOw0KICAgICAgICAgICAgc291cmNlQ29udGFpbmVyUG9zaXRpb24gPSBzb3VyY2VXYWZlckxvY2F0aW9uLnNsaWNlKGxhc3RJbmRleCArIDEpOw0KICAgICAgICB9DQogICAgICAgIGVsc2Ugew0KICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKCJOb3QgcG9zc2libGUgdG8gcGFyc2UgY29udGFpbmVyIGFuZCBzbG90IGluZm9ybWF0aW9uIGZyb20gc291cmNlLiIpOw0KICAgICAgICB9DQogICAgICAgIGxhc3RJbmRleCA9IHRhcmdldFdhZmVyTG9jYXRpb24ubGFzdEluZGV4T2YoJy4nKTsNCiAgICAgICAgbGV0IHRhcmdldENvbnRhaW5lciA9ICcnOw0KICAgICAgICBsZXQgdGFyZ2V0Q29udGFpbmVyUG9zaXRpb24gPSAnJzsNCiAgICAgICAgaWYgKGxhc3RJbmRleCAhPT0gLTEpIHsNCiAgICAgICAgICAgIHRhcmdldENvbnRhaW5lciA9IHRhcmdldFdhZmVyTG9jYXRpb24uc2xpY2UoMCwgbGFzdEluZGV4KTsNCiAgICAgICAgICAgIHRhcmdldENvbnRhaW5lclBvc2l0aW9uID0gdGFyZ2V0V2FmZXJMb2NhdGlvbi5zbGljZShsYXN0SW5kZXggKyAxKTsNCiAgICAgICAgfQ0KICAgICAgICBlbHNlIHsNCiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcigiTm90IHBvc3NpYmxlIHRvIHBhcnNlIGNvbnRhaW5lciBhbmQgc2xvdCBpbmZvcm1hdGlvbiBmcm9tIHRhcmdldC4iKTsNCiAgICAgICAgfQ0KICAgICAgICByZXR1cm4gew0KICAgICAgICAgICAgVGFyZ2V0Q29udGFpbmVySWQ6IHRhcmdldENvbnRhaW5lciwNCiAgICAgICAgICAgIFRhcmdldFNsb3ROdW1iZXI6IE51bWJlcih0YXJnZXRDb250YWluZXJQb3NpdGlvbiksDQogICAgICAgICAgICBTb3VyY2VDb250YWluZXJJZDogc291cmNlQ29udGFpbmVyLA0KICAgICAgICAgICAgU291cmNlU2xvdE51bWJlcjogTnVtYmVyKHNvdXJjZUNvbnRhaW5lclBvc2l0aW9uKSwNCiAgICAgICAgICAgIFdhZmVySWQ6IGlucHV0cy5XYWZlcklkDQogICAgICAgIH07DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
 				"inputs": [
 					{
-						"name": "eventRawData",
-						"valueType": {
-							"friendlyName": "eventRawData",
-							"type": 10,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null
-						}
-					},
-					{
-						"name": "SubstSubstLocID",
+						"name": "WaferId",
 						"valueType": {
 							"type": 4,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
 							"referenceTypeId": null,
-							"friendlyName": "SubstSubstLocID"
+							"friendlyName": "Wafer Id"
 						}
+					},
+					{
+						"name": "TargetWaferLocation",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Target Wafer Location"
+						}
+					},
+					{
+						"name": "SubstHistory",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": []
 					}
 				],
 				"outputs": [
@@ -369,6 +392,18 @@
 							"referenceTypeName": null,
 							"referenceTypeId": null,
 							"friendlyName": "SourceSlotNumber"
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "WaferId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Wafer Id"
 						},
 						"defaultValue": null
 					},
@@ -431,30 +466,19 @@
 					"version": "9.1.0-202209072"
 				}
 			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
 		}
 	],
 	"links": [
-		{
-			"id": "ca7f4fa2-7432-4485-a6c8-e009d403a1a3",
-			"sourceId": "task_119709",
-			"targetId": "task_53372",
-			"inputName": "SubstSubstLocIDIn",
-			"outputName": "$SubstSubstLocID"
-		},
-		{
-			"id": "9896e109-38c2-4d7e-a6fd-dd8c99b13e75",
-			"sourceId": "task_119709",
-			"targetId": "task_53372",
-			"inputName": "eventRawDataIn",
-			"outputName": "eventRawData"
-		},
-		{
-			"id": "ed66efe1-1564-4f65-82d3-13261c712eb8",
-			"sourceId": "task_119709",
-			"targetId": "task_53372",
-			"inputName": "activate",
-			"outputName": "$SubstSubstLocID"
-		},
 		{
 			"id": "21d15bfc-6b25-4247-a51f-9ffebb5a80a9",
 			"sourceId": "task_53372",
@@ -484,11 +508,59 @@
 			"outputName": "TargetSlotNumberOut"
 		},
 		{
-			"id": "470fdce9-8dd1-443b-be0a-6abcfaf96770",
+			"id": "eaf3fdf0-42f4-4923-aad9-6ee183db4184",
+			"sourceId": "task_119709",
+			"targetId": "task_53372",
+			"inputName": "TargetWaferLocationIn",
+			"outputName": "$SubstSubstLocID"
+		},
+		{
+			"id": "ffb90e07-a482-492d-8321-ced3971b2782",
 			"sourceId": "task_53372",
 			"targetId": "task_126394",
 			"inputName": "activate",
-			"outputName": "TargetSlotNumberOut"
+			"outputName": "success"
+		},
+		{
+			"id": "f0d1c52b-8c81-4c9c-90c7-a59886d45e1d",
+			"sourceId": "task_119709",
+			"targetId": "task_53372",
+			"inputName": "SubstHistoryIn",
+			"outputName": "$SubstHistory",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		},
+		{
+			"id": "8f42d229-d903-4c90-94f3-3c31bc5624ef",
+			"sourceId": "task_119709",
+			"targetId": "task_53372",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "5c2e53a6-ff9a-43b2-a8d1-1482e799692f",
+			"sourceId": "task_119709",
+			"targetId": "task_53372",
+			"inputName": "WaferIdIn",
+			"outputName": "$AcquiredID"
+		},
+		{
+			"id": "f99f34dd-b741-4f08-884a-bdc5412abeb7",
+			"sourceId": "task_53372",
+			"targetId": "task_126394",
+			"inputName": "MaterialWaferIdIn",
+			"outputName": "WaferIdOut"
+		},
+		{
+			"id": "47d3d14b-e33b-49a4-bee2-4d007ea05bf7",
+			"sourceId": "task_53372",
+			"targetId": "task_126394",
+			"inputName": "EquipmentWaferIdIn",
+			"outputName": "WaferIdOut"
 		}
 	],
 	"layout": {
@@ -509,38 +581,29 @@
 					"task_126394": {
 						"collapsed": false,
 						"position": {
-							"x": 1790,
-							"y": 245
+							"x": 2234,
+							"y": 434
 						},
 						"outdated": false
 					},
 					"task_119709": {
 						"collapsed": false,
 						"position": {
-							"x": 189,
-							"y": 82
+							"x": 603,
+							"y": 369
 						},
 						"outdated": false
 					},
 					"task_53372": {
 						"collapsed": false,
 						"position": {
-							"x": 705,
-							"y": 391
+							"x": 1429,
+							"y": 562
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"ca7f4fa2-7432-4485-a6c8-e009d403a1a3": {
-						"vertices": []
-					},
-					"9896e109-38c2-4d7e-a6fd-dd8c99b13e75": {
-						"vertices": []
-					},
-					"ed66efe1-1564-4f65-82d3-13261c712eb8": {
-						"vertices": []
-					},
 					"21d15bfc-6b25-4247-a51f-9ffebb5a80a9": {
 						"vertices": []
 					},
@@ -553,7 +616,25 @@
 					"2f9e0af3-c031-45dc-839e-4b489529477b": {
 						"vertices": []
 					},
-					"470fdce9-8dd1-443b-be0a-6abcfaf96770": {
+					"eaf3fdf0-42f4-4923-aad9-6ee183db4184": {
+						"vertices": []
+					},
+					"ffb90e07-a482-492d-8321-ced3971b2782": {
+						"vertices": []
+					},
+					"8f42d229-d903-4c90-94f3-3c31bc5624ef": {
+						"vertices": []
+					},
+					"5c2e53a6-ff9a-43b2-a8d1-1482e799692f": {
+						"vertices": []
+					},
+					"f99f34dd-b741-4f08-884a-bdc5412abeb7": {
+						"vertices": []
+					},
+					"47d3d14b-e33b-49a4-bee2-4d007ea05bf7": {
+						"vertices": []
+					},
+					"f0d1c52b-8c81-4c9c-90c7-a59886d45e1d": {
 						"vertices": []
 					}
 				},
@@ -561,15 +642,15 @@
 					"note_119482": {
 						"collapsed": false,
 						"position": {
-							"x": 3791,
-							"y": 135
+							"x": 206,
+							"y": 325
 						}
 					}
 				},
-				"zoom": 0.6699999999999999,
+				"zoom": 0.5300000000000001,
 				"pan": {
-					"x": 150,
-					"y": 15.555556297302246
+					"x": 162.5769412858059,
+					"y": 125.85727347053523
 				}
 			}
 		}

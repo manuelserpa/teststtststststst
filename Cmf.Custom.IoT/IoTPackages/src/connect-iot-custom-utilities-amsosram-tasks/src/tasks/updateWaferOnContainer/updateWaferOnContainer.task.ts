@@ -120,13 +120,13 @@ export class UpdateWaferOnContainerTask implements Task.TaskInstance, UpdateWafe
 
                 if (slotMES) {
                     wafer = await this._containerProcess.updateWaferOnContainer(containerName, loadPort,
-                        slotNumber, slotMES.MaterialName, this.equipmentWaferId, this.parentMaterialId);
+                        slotNumber, this.equipmentWaferId, slotMES.MaterialName, this.parentMaterialId);
                 } else if (movement) {
                     wafer = await this._containerProcess.updateWaferOnContainer(containerName, loadPort,
-                        slotNumber, movement.MaterialName, this.equipmentWaferId, this.parentMaterialId);
+                        slotNumber, this.equipmentWaferId, movement.MaterialName, this.parentMaterialId);
                 } else {
                     wafer = await this._containerProcess.updateWaferOnContainer(containerName, loadPort,
-                        slotNumber, null, this.equipmentWaferId, this.parentMaterialId);
+                        slotNumber, this.equipmentWaferId, null, this.parentMaterialId);
                 }
 
                 container = await this._containerProcess.getContainer(this.containerId, loadPort);

@@ -253,6 +253,16 @@ namespace Cmf.Custom.Tests.Biz.Common
         public const string ContainerPeekCassete = "PEEK Cassette 8-Inch(13)";
 
         /// <summary>
+        /// Test Container Type: "PEEK Cassette 8-Inch(25)"
+        /// </summary
+        public const string ContainerPeekCassete25 = "PEEK Cassette 8-Inch (25)";
+
+        /// <summary>
+        /// Form: Logistical wafer
+        /// </summary>
+        public const string FormWafer = "Logistical wafer";
+
+        /// <summary>
         /// Unit: CM2
         /// </summary>
         public const string UnitWafers = "CM2";
@@ -266,11 +276,6 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// Form: LogicalWafer
         /// </summary>
         public const string FormLogicalWafer = "Logical Wafer";
-
-        /// <summary>
-        /// Form: Wafer
-        /// </summary>
-        public const string FormWafer = "Wafer";
 
         /// <summary>
         /// Material Type: Production

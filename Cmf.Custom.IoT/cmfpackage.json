@@ -1,6 +1,6 @@
 {
   "packageId": "Cmf.Custom.IoT",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Cmf Custom amsOSRAM Cmf.Custom.IoT Package",
   "packageType": "Root",
   "isInstallable": true,
@@ -17,11 +17,11 @@
     },
     {
       "id": "Cmf.Custom.IoT.Packages",
-      "version": "2.1.0"
+      "version": "2.3.0"
     },
     {
       "id": "Cmf.Custom.IoT.CoreSolution",
-      "version": "2.1.0"
+      "version": "2.3.0"
     },
     {
       "id": "Cmf.Custom.IoT.HermosLFM4xReader",
@@ -49,7 +49,7 @@
     },
     {
       "id": "Cmf.Custom.IoT.MechatronicMWS200",
-      "version": "2.0.0"
+      "version": "2.3.0"
     },
     {
       "id": "Cmf.Custom.IoT.OmegaPlasma",

@@ -82,7 +82,7 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "SOSM1_NOSTATE_ATSOURCE"
+						"Name": "SOSM11_NEEDSPROCESSING_INPROCESS"
 					}
 				]
 			},
@@ -300,6 +300,13 @@
 			"targetId": "task_101498",
 			"inputName": "equipmentWaferId",
 			"outputName": "$SubstID"
+		},
+		{
+			"id": "7e165a3f-81ac-49c1-95a9-904642f5cc4e",
+			"sourceId": "task_106935",
+			"targetId": "task_104947",
+			"inputName": "materialName",
+			"outputName": "$SubstLotID"
 		}
 	],
 	"layout": {
@@ -320,32 +327,32 @@
 					"task_106935": {
 						"collapsed": false,
 						"position": {
-							"x": 14,
-							"y": 40
+							"x": 123,
+							"y": 135
 						},
 						"outdated": false
 					},
 					"task_22511": {
 						"collapsed": false,
 						"position": {
-							"x": 553,
-							"y": 474
+							"x": 697,
+							"y": 457
 						},
 						"outdated": false
 					},
 					"task_101498": {
 						"collapsed": false,
 						"position": {
-							"x": 2601,
-							"y": 119
+							"x": 2538,
+							"y": 442
 						},
 						"outdated": false
 					},
 					"task_104947": {
 						"collapsed": false,
 						"position": {
-							"x": 1112,
-							"y": 0
+							"x": 1375,
+							"y": 39
 						},
 						"outdated": false
 					}
@@ -358,16 +365,7 @@
 						"vertices": []
 					},
 					"e6f24273-8cb3-44a1-8f4f-3c895e5e230a": {
-						"vertices": [
-							{
-								"x": 596,
-								"y": 864
-							},
-							{
-								"x": 1614,
-								"y": 737
-							}
-						]
+						"vertices": []
 					},
 					"c16c53b1-15df-432f-8649-e182d9eb3c5f": {
 						"vertices": []
@@ -386,6 +384,9 @@
 					},
 					"fc86bcfc-d0d2-4260-9c81-2bcc154a261a": {
 						"vertices": []
+					},
+					"7e165a3f-81ac-49c1-95a9-904642f5cc4e": {
+						"vertices": []
 					}
 				},
 				"notes": {
@@ -397,10 +398,10 @@
 						}
 					}
 				},
-				"zoom": 0.74,
+				"zoom": 0.45000000000000007,
 				"pan": {
-					"x": 438.8888854980469,
-					"y": 20
+					"x": 0,
+					"y": 0
 				}
 			}
 		}
