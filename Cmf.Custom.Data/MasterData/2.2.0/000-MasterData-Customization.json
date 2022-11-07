@@ -216,15 +216,6 @@
       "ValidationRegex": ""
     }
   },
-  "<DM>Service": {
-    "1": {
-      "Name": "WaferReception",
-      "Description": "Wafer Reception Service used to resolve RecipeContext",
-      "Type": "Production",
-      "ProcessingType": "Process",
-      "IsEnabled": "Yes"
-    }
-  },
   "<SM>DEEAction": {
     "1": {
       "Action": "CustomSendAdHocTransferInformationToIoT",
@@ -260,14 +251,6 @@
       "CodeFileRelativePath": "Materials//CustomMaterialAttributesOnTrackOut.cs",
       "IsEnabled": "Yes",
       "Classification": ""
-    }
-  },
-  "<DM>Rule": {
-    "1": {
-      "Name": "CustomValidateMaterialReceptionSubstrate",
-      "Description": "CustomValidateMaterialReceptionSubstrate",
-      "Scope": "ConnectIoT",
-      "DEERule": "CustomValidateMaterialReceptionSubstrate"
     }
   },
   "DEEActionOrder": {

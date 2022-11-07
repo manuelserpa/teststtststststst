@@ -1,54 +1,62 @@
 {
-    "<SM>LookupTableValues": {
-        "1": {
-            "LookUp Table": "CustomTransactions",
-            "Lookup Table Value Parent": "",
-            "Lookup Table Value": "MaterialShip",
-            "Lookup Table Value Description": "Material Ship",
-            "Lookup Table IsEnabled": "Yes"
-        },
-        "2": {
-            "LookUp Table": "CustomTransactions",
-            "Lookup Table Value Parent": "",
-            "Lookup Table Value": "MaterialReceive",
-            "Lookup Table Value Description": "Material Receive",
-            "Lookup Table IsEnabled": "Yes"
-        }
-    },
-    "<GT>CustomTransactionsToTibco": {
-        "1": {
-            "Transaction": "MaterialShip",
-            "IsEnabled": "No"
-        },
-        "2": {
-            "Transaction": "MaterialReceive",
-            "IsEnabled": "No"
-        }
-    },
-    "<SM>DEEAction": {
-        "1": {
-            "Action": "CustomSendEventMessage",
-            "Description": "DEE Action used to publish Lot event messages to MessageBus based on Material action. E.g.: Material.TrackIn, Material.TrackOut, Material.MoveNext.",
-            "CodeFileRelativePath": "Tibco//CustomSendEventMessage.cs",
-            "IsEnabled": "Yes",
-            "Classification": ""
-        }
-    },
-    "DEEActionOrder": {
-        "1": {
-            "ActionGroup": "BusinessObjects.MaterialCollection.Ship.Post",
-            "Action": "CustomSendEventMessage",
-            "Order": "100"
-        },
-        "2": {
-            "ActionGroup": "BusinessObjects.MaterialCollection.Receive.Post",
-            "Action": "CustomSendEventMessage",
-            "Order": "100"
-        },
-        "3": {
-            "ActionGroup": "BusinessObjects.MaterialCollection.Receive.Pre",
-            "Action": "CustomSendEventMessage",
-            "Order": "100"
-        }
-    }
+	"<SM>LookupTableValues": {
+		"1": {
+			"LookUp Table": "CustomTransactions",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "MaterialShip",
+			"Lookup Table Value Description": "Material Ship",
+			"Lookup Table IsEnabled": "Yes"
+		},
+		"2": {
+			"LookUp Table": "CustomTransactions",
+			"Lookup Table Value Parent": "",
+			"Lookup Table Value": "MaterialReceive",
+			"Lookup Table Value Description": "Material Receive",
+			"Lookup Table IsEnabled": "Yes"
+		}
+	},
+	"<GT>CustomTransactionsToTibco": {
+		"1": {
+			"Transaction": "MaterialShip",
+			"IsEnabled": "No"
+		},
+		"2": {
+			"Transaction": "MaterialReceive",
+			"IsEnabled": "No"
+		}
+	},
+	"<SM>DEEAction": {
+		"1": {
+			"Action": "CustomSendEventMessage",
+			"Description": "DEE Action used to publish Lot event messages to MessageBus based on Material action. E.g.: Material.TrackIn, Material.TrackOut, Material.MoveNext.",
+			"CodeFileRelativePath": "Tibco//CustomSendEventMessage.cs",
+			"IsEnabled": "Yes",
+			"Classification": ""
+		}
+	},
+	"DEEActionOrder": {
+		"1": {
+			"ActionGroup": "BusinessObjects.MaterialCollection.Ship.Post",
+			"Action": "CustomSendEventMessage",
+			"Order": "100"
+		},
+		"2": {
+			"ActionGroup": "BusinessObjects.MaterialCollection.Receive.Post",
+			"Action": "CustomSendEventMessage",
+			"Order": "100"
+		},
+		"3": {
+			"ActionGroup": "BusinessObjects.MaterialCollection.Receive.Pre",
+			"Action": "CustomSendEventMessage",
+			"Order": "100"
+		}
+	},
+	"<DM>Rule": {
+		"1": {
+			"Name": "CustomValidateMaterialReceptionSubstrate",
+			"Description": "Resolve DEE Action to validate material reception substrate",
+			"Scope": "ConnectIoT",
+			"DEERule": "CustomValidateMaterialReceptionSubstrate"
+		}
+	}
 }
