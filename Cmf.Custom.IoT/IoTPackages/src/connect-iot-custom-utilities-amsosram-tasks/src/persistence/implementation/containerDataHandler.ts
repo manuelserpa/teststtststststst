@@ -19,7 +19,7 @@ export class ContainerProcessHandler implements ContainerProcess {
 
     public async setWaferToContainer(containerName: string, loadPortPosition: number, slot: number,
         equipmentWaferId: string, materialWaferId: any, parentMaterialName: string): Promise<WaferData> {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
 
@@ -52,7 +52,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     }
 
     public async setWaferDataToContainerData(container: ContainerData, wafer: WaferData): Promise<WaferData> {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
 
@@ -83,7 +83,7 @@ export class ContainerProcessHandler implements ContainerProcess {
 
         const index = this.getSlotIndex(container, wafer);
 
-        if (index === undefined) {
+        if (index == null) {
             throw new Error("Wafer not on container slots");
         }
 
@@ -96,7 +96,7 @@ export class ContainerProcessHandler implements ContainerProcess {
 
     public async updateWaferOnContainer(containerName: string, loadPortPosition: number,
         slot: number, equipmentWaferId: string, materialWaferId: string, parentMaterialName: string): Promise<WaferData> {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
 
@@ -136,7 +136,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     }
     public async changeWaferFromContainer(sourceContainer: ContainerData, sourceWafer: WaferData, targetContainer: ContainerData,
         targetSlot: number): Promise<ContainerData> {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
 
@@ -164,13 +164,13 @@ export class ContainerProcessHandler implements ContainerProcess {
     }
 
     public async getWafer(container: ContainerData, slot: number, equipmentWaferId: string, materialWaferId: string): Promise<WaferData> {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
 
         let wafer: WaferData = null;
 
-        if (slot !== undefined) {
+        if (slot != null) {
             wafer = await this.getWaferBySlot(container, slot);
         }
         if (!wafer && equipmentWaferId) {
@@ -185,7 +185,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     };
 
     public async getWaferBySlot(container: ContainerData, slot: number): Promise<WaferData> {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
 
@@ -193,7 +193,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     }
 
     public async getWaferByEquipmentName(container: ContainerData, equipmentWaferId: string): Promise<WaferData> {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
 
@@ -201,7 +201,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     }
 
     public async getWaferByMaterialName(container: ContainerData, materialWaferId: string): Promise<WaferData> {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
 
@@ -209,7 +209,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     }
 
     public async deleteWafer(container: ContainerData, wafer: WaferData) {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
 
@@ -220,7 +220,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     }
 
     public async getContainer(containerName: string, loadPortPosition: number): Promise<ContainerData> {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
 
@@ -241,7 +241,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     }
 
     public async getContainerByNameAndLoadPort(containerName: string, loadPortPosition: number): Promise<ContainerData> {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
 
@@ -251,7 +251,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     }
 
     public async getContainerByName(containerName: string): Promise<ContainerData> {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
 
@@ -259,7 +259,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     }
 
     public async getContainerByLoadPort(loadPortPosition: number): Promise<ContainerData> {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
 
@@ -267,7 +267,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     }
 
     public async setContainer(containerName: string, loadPortPosition: number, slotMap: object): Promise<ContainerData> {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
 
@@ -289,7 +289,7 @@ export class ContainerProcessHandler implements ContainerProcess {
         loadPortPosition: number,
         slotMap: object,
         slots: WaferData[] = []): Promise<ContainerData> {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
 
@@ -311,7 +311,7 @@ export class ContainerProcessHandler implements ContainerProcess {
         return container;
     }
     public async storeContainer(container: ContainerData) {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
 
@@ -334,7 +334,7 @@ export class ContainerProcessHandler implements ContainerProcess {
             System.DataStoreLocation.Persistent);
     }
     public async deleteContainer(carrier: ContainerData) {
-        if (this._Containers === undefined) {
+        if (this._Containers == null) {
             await this.InitializePersistedData();
         }
         const containerIdentifier: string = `Carrier_${carrier.CreatedOn}_LoadPort_${carrier.LoadPortPosition}`;
@@ -369,7 +369,7 @@ export class ContainerProcessHandler implements ContainerProcess {
     }
 
     public validateWafer(wafer: WaferData): WaferData {
-        if (wafer.Slot !== undefined) {
+        if (wafer.Slot == null) { // This matches undefined as well
             wafer.Slot = null;
         }
         if (!wafer.EquipmentWaferId) {
@@ -393,15 +393,15 @@ export class ContainerProcessHandler implements ContainerProcess {
     public getSlotIndex(Container: ContainerData, wafer: WaferData): number {
         let index = Container.Slots.map(x => x.Slot)?.indexOf(wafer.Slot);
 
-        if (index === undefined || index === -1) {
+        if (index == null || index === -1) {
             index = Container.Slots.map(x => x.EquipmentWaferId)?.indexOf(wafer.EquipmentWaferId);
         }
 
-        if (index === undefined || index === -1) {
+        if (index == null || index === -1) {
             index = Container.Slots.map(x => x.MaterialWaferId)?.indexOf(wafer.MaterialWaferId);
         }
 
-        if (index === undefined || index === -1) {
+        if (index == null || index === -1) {
             return undefined;
         }
 
