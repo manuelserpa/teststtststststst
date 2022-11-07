@@ -101,7 +101,7 @@ export class CustomCarrierActionRequestTask implements Task.TaskInstance, Custom
 
                 const substrateCount: number = slotMapArray?.reduce((accumulator, current, currentIndex) => {
 
-                    if (containerData.Slots /* && containerData.Slots.length > 0*/) {
+                    if (containerData.Slots) {
                         const subMaterialInSlot = (<any[]>containerData.Slots).find(subMaterial => subMaterial.Slot === currentIndex + 1) as WaferData
 
                         if (subMaterialInSlot !== undefined && Number(current) === 1) {
