@@ -260,7 +260,7 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// <summary>
         /// Form: Logistical wafer
         /// </summary>
-        public const string FormWafer = "Logistical wafer";
+        public const string FormWafer = "Wafer";
 
         /// <summary>
         /// Unit: CM2
