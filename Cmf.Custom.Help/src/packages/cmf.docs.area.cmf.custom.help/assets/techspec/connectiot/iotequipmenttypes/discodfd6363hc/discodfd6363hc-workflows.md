@@ -10,264 +10,263 @@ Setup
 
 This is the workflow implemented for **Setup**
 
-![Setup](../../../../documents/equipmentTypes/discodfd6363hc\Setup.png)
+![Setup](../../../../documents/equipmenttypes/discodfd6363hc/setup.png)
 
 Setup_RFIDReader
 ============
 
 This is the workflow implemented for **Setup_RFIDReader**
 
-![Setup_RFIDReader](../../../../documents/equipmentTypes/discodfd6363hc\Setup_RFIDReader.png)
+![Setup_RFIDReader](../../../../documents/equipmenttypes/discodfd6363hc/setup_rfidreader.png)
 
 Setup_File
 ============
 
 This is the workflow implemented for **Setup_File**
 
-![Setup_File](../../../../documents/equipmentTypes/discodfd6363hc\Setup_File.png)
+![Setup_File](../../../../documents/equipmenttypes/discodfd6363hc/setup_file.png)
 
 MaterialReceived_01_MaterialReceivedCarrierIdReadRequest
 ============
 
 This is the workflow implemented for **MaterialReceived_01_MaterialReceivedCarrierIdReadRequest**
 
-![MaterialReceived_01_MaterialReceivedCarrierIdReadRequest](../../../../documents/equipmentTypes/discodfd6363hc\MaterialReceived_01_MaterialReceivedCarrierIdReadRequest.png)
+![MaterialReceived_01_MaterialReceivedCarrierIdReadRequest](../../../../documents/equipmenttypes/discodfd6363hc/materialreceived_01_materialreceivedcarrieridreadrequest.png)
 
 ReadyToLoad_01_EventReceived
 ============
 
 This is the workflow implemented for **ReadyToLoad_01_EventReceived**
 
-![ReadyToLoad_01_EventReceived](../../../../documents/equipmentTypes/discodfd6363hc\ReadyToLoad_01_EventReceived.png)
+![ReadyToLoad_01_EventReceived](../../../../documents/equipmenttypes/discodfd6363hc/readytoload_01_eventreceived.png)
 
 ReadyToInitialize_01_EventReceived
 ============
 
 This is the workflow implemented for **ReadyToInitialize_01_EventReceived**
 
-![ReadyToInitialize_01_EventReceived](../../../../documents/equipmentTypes/discodfd6363hc\ReadyToInitialize_01_EventReceived.png)
+![ReadyToInitialize_01_EventReceived](../../../../documents/equipmenttypes/discodfd6363hc/readytoinitialize_01_eventreceived.png)
 
 ReadyToSetCassette_01_EventReceived
 ============
 
 This is the workflow implemented for **ReadyToSetCassette_01_EventReceived**
 
-![ReadyToSetCassette_01_EventReceived](../../../../documents/equipmentTypes/discodfd6363hc\ReadyToSetCassette_01_EventReceived.png)
+![ReadyToSetCassette_01_EventReceived](../../../../documents/equipmenttypes/discodfd6363hc/readytosetcassette_01_eventreceived.png)
 
 SlotMap_01_SlotMapReceived
 ============
 
 This is the workflow implemented for **SlotMap_01_SlotMapReceived**
 
-![SlotMap_01_SlotMapReceived](../../../../documents/equipmentTypes/discodfd6363hc\SlotMap_01_SlotMapReceived.png)
+![SlotMap_01_SlotMapReceived](../../../../documents/equipmenttypes/discodfd6363hc/slotmap_01_slotmapreceived.png)
 
 ReadyToUnload_01_EventReceived
 ============
 
 This is the workflow implemented for **ReadyToUnload_01_EventReceived**
 
-![ReadyToUnload_01_EventReceived](../../../../documents/equipmentTypes/discodfd6363hc\ReadyToUnload_01_EventReceived.png)
+![ReadyToUnload_01_EventReceived](../../../../documents/equipmenttypes/discodfd6363hc/readytounload_01_eventreceived.png)
 
 MaterialRemoved_01_MaterialRemovedEvent
 ============
 
 This is the workflow implemented for **MaterialRemoved_01_MaterialRemovedEvent**
 
-![MaterialRemoved_01_MaterialRemovedEvent](../../../../documents/equipmentTypes/discodfd6363hc\MaterialRemoved_01_MaterialRemovedEvent.png)
+![MaterialRemoved_01_MaterialRemovedEvent](../../../../documents/equipmenttypes/discodfd6363hc/materialremoved_01_materialremovedevent.png)
 
 PreTrackIn_01_TrackInRequestReceived
 ============
 
 This is the workflow implemented for **PreTrackIn_01_TrackInRequestReceived**
 
-![PreTrackIn_01_TrackInRequestReceived](../../../../documents/equipmentTypes/discodfd6363hc\PreTrackIn_01_TrackInRequestReceived.png)
+![PreTrackIn_01_TrackInRequestReceived](../../../../documents/equipmenttypes/discodfd6363hc/pretrackin_01_trackinrequestreceived.png)
 
 TrackIn_01_TrackInRequestReceived
 ============
 
 This is the workflow implemented for **TrackIn_01_TrackInRequestReceived**
 
-![TrackIn_01_TrackInRequestReceived](../../../../documents/equipmentTypes/discodfd6363hc\TrackIn_01_TrackInRequestReceived.png)
+![TrackIn_01_TrackInRequestReceived](../../../../documents/equipmenttypes/discodfd6363hc/trackin_01_trackinrequestreceived.png)
 
 PostTrackIn_01_ExecuteStart
 ============
 
 This is the workflow implemented for **PostTrackIn_01_ExecuteStart**
 
-![PostTrackIn_01_ExecuteStart](../../../../documents/equipmentTypes/discodfd6363hc\PostTrackIn_01_ExecuteStart.png)
+![PostTrackIn_01_ExecuteStart](../../../../documents/equipmenttypes/discodfd6363hc/posttrackin_01_executestart.png)
 
 ProcessStarted_01_EventTosProcessStartedReceived
 ============
 
 This is the workflow implemented for **ProcessStarted_01_EventTosProcessStartedReceived**
 
-![ProcessStarted_01_EventTosProcessStartedReceived](../../../../documents/equipmentTypes/discodfd6363hc\ProcessStarted_01_EventTosProcessStartedReceived.png)
+![ProcessStarted_01_EventTosProcessStartedReceived](../../../../documents/equipmenttypes/discodfd6363hc/processstarted_01_eventtosprocessstartedreceived.png)
 
 WaferStart_01_EventWaferStarted
 ============
 
 This is the workflow implemented for **WaferStart_01_EventWaferStarted**
 
-![WaferStart_01_EventWaferStarted](../../../../documents/equipmentTypes/discodfd6363hc\WaferStart_01_EventWaferStarted.png)
+![WaferStart_01_EventWaferStarted](../../../../documents/equipmenttypes/discodfd6363hc/waferstart_01_eventwaferstarted.png)
 
 WaferIdRead_01_EventIdRead
 ============
 
 This is the workflow implemented for **WaferIdRead_01_EventIdRead**
 
-![WaferIdRead_01_EventIdRead](../../../../documents/equipmentTypes/discodfd6363hc\WaferIdRead_01_EventIdRead.png)
+![WaferIdRead_01_EventIdRead](../../../../documents/equipmenttypes/discodfd6363hc/waferidread_01_eventidread.png)
 
 WaferComplete_01_EventWaferCompleted
 ============
 
 This is the workflow implemented for **WaferComplete_01_EventWaferCompleted**
 
-![WaferComplete_01_EventWaferCompleted](../../../../documents/equipmentTypes/discodfd6363hc\WaferComplete_01_EventWaferCompleted.png)
+![WaferComplete_01_EventWaferCompleted](../../../../documents/equipmenttypes/discodfd6363hc/wafercomplete_01_eventwafercompleted.png)
 
 ProcessCompleted_01_EventProcessCompletedReceived
 ============
 
 This is the workflow implemented for **ProcessCompleted_01_EventProcessCompletedReceived**
 
-![ProcessCompleted_01_EventProcessCompletedReceived](../../../../documents/equipmentTypes/discodfd6363hc\ProcessCompleted_01_EventProcessCompletedReceived.png)
+![ProcessCompleted_01_EventProcessCompletedReceived](../../../../documents/equipmenttypes/discodfd6363hc/processcompleted_01_eventprocesscompletedreceived.png)
 
 TrackOut_01_TrackOutEventReceivedFromMES
 ============
 
 This is the workflow implemented for **TrackOut_01_TrackOutEventReceivedFromMES**
 
-![TrackOut_01_TrackOutEventReceivedFromMES](../../../../documents/equipmentTypes/discodfd6363hc\TrackOut_01_TrackOutEventReceivedFromMES.png)
+![TrackOut_01_TrackOutEventReceivedFromMES](../../../../documents/equipmenttypes/discodfd6363hc/trackout_01_trackouteventreceivedfrommes.png)
 
 Abort_01_AbortEventReceivedFromMES
 ============
 
 This is the workflow implemented for **Abort_01_AbortEventReceivedFromMES**
 
-![Abort_01_AbortEventReceivedFromMES](../../../../documents/equipmentTypes/discodfd6363hc\Abort_01_AbortEventReceivedFromMES.png)
+![Abort_01_AbortEventReceivedFromMES](../../../../documents/equipmenttypes/discodfd6363hc/abort_01_aborteventreceivedfrommes.png)
 
 Hold_01_HoldEventReceivedFromMES
 ============
 
 This is the workflow implemented for **Hold_01_HoldEventReceivedFromMES**
 
-![Hold_01_HoldEventReceivedFromMES](../../../../documents/equipmentTypes/discodfd6363hc\Hold_01_HoldEventReceivedFromMES.png)
+![Hold_01_HoldEventReceivedFromMES](../../../../documents/equipmenttypes/discodfd6363hc/hold_01_holdeventreceivedfrommes.png)
 
 AlarmManagement_01_AlarmCollection
 ============
 
 This is the workflow implemented for **AlarmManagement_01_AlarmCollection**
 
-![AlarmManagement_01_AlarmCollection](../../../../documents/equipmentTypes/discodfd6363hc\AlarmManagement_01_AlarmCollection.png)
+![AlarmManagement_01_AlarmCollection](../../../../documents/equipmenttypes/discodfd6363hc/alarmmanagement_01_alarmcollection.png)
 
 RecipeManagement_01_GetRecipeList
 ============
 
 This is the workflow implemented for **RecipeManagement_01_GetRecipeList**
 
-![RecipeManagement_01_GetRecipeList](../../../../documents/equipmentTypes/discodfd6363hc\RecipeManagement_01_GetRecipeList.png)
+![RecipeManagement_01_GetRecipeList](../../../../documents/equipmenttypes/discodfd6363hc/recipemanagement_01_getrecipelist.png)
 
 RecipeManagement_02_GetRecipeBody
 ============
 
 This is the workflow implemented for **RecipeManagement_02_GetRecipeBody**
 
-![RecipeManagement_02_GetRecipeBody](../../../../documents/equipmentTypes/discodfd6363hc\RecipeManagement_02_GetRecipeBody.png)
+![RecipeManagement_02_GetRecipeBody](../../../../documents/equipmenttypes/discodfd6363hc/recipemanagement_02_getrecipebody.png)
 
 RecipeManagement_03_SetRecipeBody
 ============
 
 This is the workflow implemented for **RecipeManagement_03_SetRecipeBody**
 
-![RecipeManagement_03_SetRecipeBody](../../../../documents/equipmentTypes/discodfd6363hc\RecipeManagement_03_SetRecipeBody.png)
+![RecipeManagement_03_SetRecipeBody](../../../../documents/equipmenttypes/discodfd6363hc/recipemanagement_03_setrecipebody.png)
 
 RecipeManagement_04_GetRecipeChecksum
 ============
 
 This is the workflow implemented for **RecipeManagement_04_GetRecipeChecksum**
 
-![RecipeManagement_04_GetRecipeChecksum](../../../../documents/equipmentTypes/discodfd6363hc\RecipeManagement_04_GetRecipeChecksum.png)
+![RecipeManagement_04_GetRecipeChecksum](../../../../documents/equipmenttypes/discodfd6363hc/recipemanagement_04_getrecipechecksum.png)
 
 ControlState_01_ControlStateUpdateReceived
 ============
 
 This is the workflow implemented for **ControlState_01_ControlStateUpdateReceived**
 
-![ControlState_01_ControlStateUpdateReceived](../../../../documents/equipmentTypes/discodfd6363hc\ControlState_01_ControlStateUpdateReceived.png)
+![ControlState_01_ControlStateUpdateReceived](../../../../documents/equipmenttypes/discodfd6363hc/controlstate_01_controlstateupdatereceived.png)
 
 SendAdHocRequest_01_SendAdHocReceivedFromMES
 ============
 
 This is the workflow implemented for **SendAdHocRequest_01_SendAdHocReceivedFromMES**
 
-![SendAdHocRequest_01_SendAdHocReceivedFromMES](../../../../documents/equipmentTypes/discodfd6363hc\SendAdHocRequest_01_SendAdHocReceivedFromMES.png)
+![SendAdHocRequest_01_SendAdHocReceivedFromMES](../../../../documents/equipmenttypes/discodfd6363hc/sendadhocrequest_01_sendadhocreceivedfrommes.png)
 
 RecipeValidation_01_UnformattedRecipeMainFlow
 ============
 
 This is the workflow implemented for **RecipeValidation_01_UnformattedRecipeMainFlow**
 
-![RecipeValidation_01_UnformattedRecipeMainFlow](../../../../documents/equipmentTypes/discodfd6363hc\RecipeValidation_01_UnformattedRecipeMainFlow.png)
+![RecipeValidation_01_UnformattedRecipeMainFlow](../../../../documents/equipmenttypes/discodfd6363hc/recipevalidation_01_unformattedrecipemainflow.png)
 
 PPSelect_01_ExecuteCommand
 ============
 
 This is the workflow implemented for **PPSelect_01_ExecuteCommand**
 
-![PPSelect_01_ExecuteCommand](../../../../documents/equipmentTypes/discodfd6363hc\PPSelect_01_ExecuteCommand.png)
+![PPSelect_01_ExecuteCommand](../../../../documents/equipmenttypes/discodfd6363hc/ppselect_01_executecommand.png)
 
 StartCommand_01_ExecuteCommand
 ============
 
 This is the workflow implemented for **StartCommand_01_ExecuteCommand**
 
-![StartCommand_01_ExecuteCommand](../../../../documents/equipmentTypes/discodfd6363hc\StartCommand_01_ExecuteCommand.png)
+![StartCommand_01_ExecuteCommand](../../../../documents/equipmenttypes/discodfd6363hc/startcommand_01_executecommand.png)
 
 CassetteLoad_01_ExecuteCommand
 ============
 
 This is the workflow implemented for **CassetteLoad_01_ExecuteCommand**
 
-![CassetteLoad_01_ExecuteCommand](../../../../documents/equipmentTypes/discodfd6363hc\CassetteLoad_01_ExecuteCommand.png)
+![CassetteLoad_01_ExecuteCommand](../../../../documents/equipmenttypes/discodfd6363hc/cassetteload_01_executecommand.png)
 
 CassetteUnload_01_ExecuteCommand
 ============
 
 This is the workflow implemented for **CassetteUnload_01_ExecuteCommand**
 
-![CassetteUnload_01_ExecuteCommand](../../../../documents/equipmentTypes/discodfd6363hc\CassetteUnload_01_ExecuteCommand.png)
+![CassetteUnload_01_ExecuteCommand](../../../../documents/equipmenttypes/discodfd6363hc/cassetteunload_01_executecommand.png)
 
 CarrierClamped_01_ExecuteCommand
 ============
 
 This is the workflow implemented for **CarrierClamped_01_ExecuteCommand**
 
-![CarrierClamped_01_ExecuteCommand](../../../../documents/equipmentTypes/discodfd6363hc\CarrierClamped_01_ExecuteCommand.png)
+![CarrierClamped_01_ExecuteCommand](../../../../documents/equipmenttypes/discodfd6363hc/carrierclamped_01_executecommand.png)
 
 CarrierUnclamped_01_ExecuteCommand
 ============
 
 This is the workflow implemented for **CarrierUnclamped_01_ExecuteCommand**
 
-![CarrierUnclamped_01_ExecuteCommand](../../../../documents/equipmentTypes/discodfd6363hc\CarrierUnclamped_01_ExecuteCommand.png)
+![CarrierUnclamped_01_ExecuteCommand](../../../../documents/equipmenttypes/discodfd6363hc/carrierunclamped_01_executecommand.png)
 
 Initialize_01_ExecuteCommand
 ============
 
 This is the workflow implemented for **Initialize_01_ExecuteCommand**
 
-![Initialize_01_ExecuteCommand](../../../../documents/equipmentTypes/discodfd6363hc\Initialize_01_ExecuteCommand.png)
+![Initialize_01_ExecuteCommand](../../../../documents/equipmenttypes/discodfd6363hc/initialize_01_executecommand.png)
 
 CassetteNew_01_ExecuteCommand
 ============
 
 This is the workflow implemented for **CassetteNew_01_ExecuteCommand**
 
-![CassetteNew_01_ExecuteCommand](../../../../documents/equipmentTypes/discodfd6363hc\CassetteNew_01_ExecuteCommand.png)
+![CassetteNew_01_ExecuteCommand](../../../../documents/equipmenttypes/discodfd6363hc/cassettenew_01_executecommand.png)
 
 Grant_Deny_01_ExecuteCommand
 ============
 
 This is the workflow implemented for **Grant_Deny_01_ExecuteCommand**
 
-![Grant_Deny_01_ExecuteCommand](../../../../documents/equipmentTypes/discodfd6363hc\Grant_Deny_01_ExecuteCommand.png)
-
+![Grant_Deny_01_ExecuteCommand](../../../../documents/equipmenttypes/discodfd6363hc/grant_deny_01_executecommand.png)

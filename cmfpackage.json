@@ -1,6 +1,6 @@
 {
   "packageId": "Cmf.Custom.Package",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "This package deploys Critical Manufacturing MES amsOSRAM Customization",
   "packageType": "Root",
   "isInstallable": true,
@@ -33,7 +33,7 @@
     },
     {
       "id": "Cmf.Custom.Help",
-      "version": "2.3.0"
+      "version": "2.4.0"
     },
     {
       "id": "Cmf.Custom.IoT",
