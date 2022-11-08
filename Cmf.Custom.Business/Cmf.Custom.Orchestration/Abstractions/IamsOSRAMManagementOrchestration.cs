@@ -43,5 +43,12 @@ namespace Cmf.Custom.amsOSRAM.Orchestration.Abstractions
         /// <returns>GetFlowInformationForERP Output</returns>
         /// <exception cref="Cmf.Foundation.Common.CmfBaseException">If any unexpected error occurs.</exception>
         CustomGetFlowInformationForERPOutput GetFlowInformationForERP(CustomGetFlowInformationForERPInput input);
+
+        /// <summary>
+        /// Serializes the MaterialOutput into an XML
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns>MaterialAttributes Output object</returns>
+        MaterialAttributesOutput CustomRetrieveAllAttributesForMaterial(MaterialInInput input);
     }
 }
