@@ -113,17 +113,6 @@
 						driver="SecsGem"
 						port="5014"/>
 		</Cluster>
-		<Equipment name="ENA01"
-					automationManager="MechatronicMWS200"
-					driverAlias="SecsGemEquipment"
-					description="SecsGemEquipment"
-					driver="SecsGem"
-					port="5015"
-					serviceMachine="vm-ams-osram"
-					serviceName="ConnectIoT (ENA01)"
-					configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\ENA01\remoteTestingConfig.json"
-					library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>
-					
 		<Cluster name="ENA01" 
 					automationManager="MechatronicMWS200" 
 					serviceMachine="vm-ams-osram" 

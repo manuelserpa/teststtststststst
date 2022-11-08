@@ -936,7 +936,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
                     Step = waferReceptionStep,
                     Product = MESScenario.Entity.Product,
                     Type = amsOSRAMConstants.DefaultMaterialType,
-                    Form = amsOSRAMConstants.FormWafer,
+                    Form = amsOSRAMConstants.FormLogicalWafer,
                     Facility = MESScenario.Facility,
                     PrimaryUnits = amsOSRAMConstants.UnitWafers,
                     PrimaryQuantity = 1

@@ -10,5 +10,4 @@ Setup
 
 This is the workflow implemented for **Setup**
 
-![Setup](../../../../documents/equipmentTypes/HermosLFM4xReader\Setup.png)
-
+![Setup](../../../../documents/equipmenttypes/hermoslfm4xreader/setup.png)
