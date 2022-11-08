@@ -2,7 +2,9 @@ import { Task } from "@criticalmanufacturing/connect-iot-controller-engine";
 import { CustomLoadSetupConfigurationTask } from "./customLoadSetupConfiguration.task";
 import { CustomLoadSetupConfigurationDesigner } from "./customLoadSetupConfiguration.designer";
 import { CustomSetupStoreHandler } from "../../persistence/implementation/customSetupStoreHandler";
-import { ContainerProcessHandler, EquipmentStateModelHandler, ProcessMaterialHandler, RecipeQueueHandler } from "../../persistence";
+import { ContainerProcessHandler } from "../../persistence/implementation/containerDataHandler";
+import { EquipmentStateModelHandler } from "../../persistence/implementation/equipmentStateModelHandler";
+import { ProcessMaterialHandler } from "../../persistence/implementation/processMaterialHandler";
 
 @Task.TaskModule({
     task: CustomLoadSetupConfigurationTask,
@@ -33,7 +35,7 @@ import { ContainerProcessHandler, EquipmentStateModelHandler, ProcessMaterialHan
             scope: Task.ProviderScope.Controller
         }
     ]
-    })
+})
 export default class CustomLoadSetupConfigurationTaskModule {
 
 }
