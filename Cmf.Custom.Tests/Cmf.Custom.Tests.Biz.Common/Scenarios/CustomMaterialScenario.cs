@@ -6,6 +6,7 @@
 //</FileInfo>
 
 using Cmf.Custom.Tests.Biz.Common.Extensions;
+using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Cmf.Custom.TestUtilities;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.DispatchManagement.InputObjects;
@@ -29,15 +30,15 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 
         private const int DefaultNumberOfWafers = 13;
 
-        #endregion
+        #endregion constants
 
         #region Resource
+
         private class OriginalResourceData
         {
             public Resource Resource { get; set; }
             public ResourceAutomationMode AutomationMode { get; set; }
             public string AutomationAddress { get; set; }
-
         }
 
         /// <summary>
@@ -49,10 +50,12 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// Control variable isResourceOnlineModeChanged
         /// </summary>
         private bool isResourceOnlineModeChanged = false;
+
         /// <summary>
         /// Original AutomationMode
         /// </summary>
         private ResourceAutomationMode OriginalAutomationMode { get; set; }
+
         /// <summary>
         /// Original AutomationAddress
         /// </summary>
@@ -62,18 +65,27 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// Modified Resource (Material TrackInOut)
         /// </summary>
         public Resource ResourceMaterialInOut { get; set; }
+
         /// <summary>
         /// Control variable isSubMaterialTrackingEnabledOriginalValue
         /// </summary>
         private bool? isSubMaterialTrackingEnabledOriginalValue = null;
+
         /// <summary>
         /// Control variable isSubMaterialTrackingEnabledChanged
         /// </summary>
         private bool isSubMaterialTrackingEnabledChanged = false;
+
         /// <summary>
         /// Set the Resource online. Default should be true for IoT tests to work.
         /// </summary>
         public bool SetResourceOnline { get; private set; }
+
+        /// <summary>
+        /// Set the Resource offline. Default should be false for IoT tests to work.
+        /// </summary>
+        public bool SetResourceOffline { get; private set; }
+
         /// <summary>
         /// Indicates if the Dispatch must be performed during the setup.
         /// Default is true.
@@ -83,28 +95,33 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         public Flow Flow = null;
         public Step Step = null;
         public Facility Facility = null;
-        #endregion
 
-        #region Step 
+        #endregion Resource
+
+        #region Step
 
         /// <summary>
         /// Modified Step
         /// </summary>
         private Step step = null;
+
         /// <summary>
         /// Control variable subMaterialTrackStateDeptOriginalValue
         /// </summary>
         private int? subMaterialTrackStateDeptOriginalValue = null;
+
         /// <summary>
         /// Control variable subMaterialTrackStateDeptChanged
         /// </summary>
         private bool subMaterialTrackStateDeptChanged = false;
 
-        #endregion
+        #endregion Step
+
         /// <summary>
         /// Container Scenario
         /// </summary>
         public ContainerScenario ContainerScenario { get; private set; }
+
         public Collection<MaterialScenario> waferScenarios = new Collection<MaterialScenario>();
         public MaterialCollection SubMaterials = new MaterialCollection();
         public Resource Resource = null;
@@ -132,7 +149,15 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// </remarks>
         public bool AssociateSubMaterialsToContainer = true;
 
-        #endregion
+        /// <summary>
+        /// Define if sub materials should be assigned to containers. Default is true.
+        /// </summary>
+        /// <remarks>
+        /// Set this flag to false if your test does not require container validation.
+        /// </remarks>
+        public bool CreateContainer = true;
+
+        #endregion Material
 
         #region Constructors
 
@@ -140,19 +165,23 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// Default constructor
         /// Default value for setResourceOnline should be true for IoT tests to work.
         /// </summary>
-        public CustomMaterialScenario(bool setResourceOnline = true)
+        public CustomMaterialScenario(bool setResourceOnline = true, bool createContainer = true, bool setResourceOffline = false)
         {
             this.SetResourceOnline = setResourceOnline;
+            this.SetResourceOffline = setResourceOffline;
+            this.CreateContainer = createContainer;
         }
 
-        #endregion
+        #endregion Constructors
+
         /// <summary>
         /// Setup the Scenario
         /// </summary>
         public void Setup(bool isMaterialInOut = false,
-            bool isToSetAutomationModeOnline = true,
+            bool isToSetAutomationMode = true,
             bool automaticContainerPositions = true,
             string containerType = amsOSRAMConstants.ContainerSMIFPod,
+            ContainerPositionSorting positionSorting = ContainerPositionSorting.Ascending,
             string productName = amsOSRAMConstants.TestProduct,
             string subMaterialProductName = null)
         {
@@ -199,7 +228,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
             }
 
             // Top Most Material - Lot
-            this.Entity.Name = "MESTest_Material_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            this.Entity.Name = CustomUtilities.GenerateName() + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
             this.Entity.Facility = this.Facility;
 
             // If the Flow and Step are available then set them in the entity including respective flowpath
@@ -224,7 +253,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 
             // Setup the SubMaterial info (Wafers)
             this.MainForm = amsOSRAMConstants.FormLot;
-            this.SubForm = amsOSRAMConstants.FormWafer;
+            this.SubForm = amsOSRAMConstants.FormLogicalWafer;
             this.AddServiceContexts = false;
 
             base.Setup();
@@ -256,7 +285,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                     ms.Entity.Step = this.Entity.Step;
                     ms.Entity.FlowPath = this.Entity.FlowPath;
                     ms.Entity.Product = waferProduct;
-                    ms.Entity.Form = amsOSRAMConstants.FormWafer;
+                    ms.Entity.Form = amsOSRAMConstants.DefaultMaterialLogicalWaferForm;
                     ms.Entity.Type = materialType;
                     ms.Entity.PrimaryUnits = amsOSRAMConstants.UnitWafers;
                     ms.Entity.PrimaryQuantity = 1;
@@ -285,15 +314,15 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                 this.SubMaterials.AddRange(waferScenarios.Select(M => M.Entity));
             }
 
-            #endregion
+            #endregion Material Setup
 
             Resource resourceToUse = Resource;
 
-            this.SetResourceAutomationModeOnline(isToSetAutomationModeOnline);
+            this.SetResourceAutomationModeOnlineOrOffline(isToSetAutomationMode);
 
             #region Container creation and Sub-Material (Wafers) Association
 
-            if (numberOfWafers > 0 && AssociateSubMaterialsToContainer)
+            if (CreateContainer)
             {
                 // Create one Container to put the Wafers
                 this.ContainerScenario = new ContainerScenario();
@@ -305,14 +334,18 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                 this.ContainerScenario.Entity.CapacityUnits = amsOSRAMConstants.UnitWafers;
                 //this.ContainerScenario.Entity.CapacityUnits = "CARRIER";
                 this.ContainerScenario.Entity.CapacityPerPosition = 1;
+                this.ContainerScenario.Entity.PositionSorting = positionSorting;
                 this.ContainerScenario.Entity.TotalPositions = amsOSRAMConstants.ContainerTotalPosition;
                 this.ContainerScenario.Setup();
+            }
 
+            if (numberOfWafers > 0 && AssociateSubMaterialsToContainer && CreateContainer)
+            {
                 // Associate the Wafers to Container
                 this.ContainerScenario.AssociateMaterials(this.SubMaterials);
             }
 
-            #endregion
+            #endregion Container creation and Sub-Material (Wafers) Association
 
             Flow flow = null;
             string flowPath = String.Empty;
@@ -389,7 +422,8 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                     this.Dispath(resourceToUse);
                 }
             }
-            #endregion
+
+            #endregion MaterialInOut
 
             base.Refresh();
         }
@@ -430,19 +464,17 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 
             if (base.Entity.Flow.DefinitionId != flow.DefinitionId || base.Entity.Step.Id != step.Id)
             {
-
                 var flowPath = FlowExtensionMethods.CustomGetFlowPath(flow, step.Name);
                 base.Entity.ChangeFlowAndStep(flow, step, flowPath);
             }
         }
 
-
         /// <summary>
         /// Change the resource AutomationMode to Online for testing
         /// </summary>
-        public void SetResourceAutomationModeOnline(bool isToSetAutomationModeOnline = true)
+        public void SetResourceAutomationModeOnlineOrOffline(bool isToSetAutomationModeOnline = true)
         {
-            if (SetResourceOnline) // Assuming that ResourceAutomationMode is not Online by default
+            if (SetResourceOnline || SetResourceOffline) // Assuming that ResourceAutomationMode is not Online by default
             {
                 #region Resource and AutomationMode
 
@@ -466,30 +498,54 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                 }
                 resourceToUse.Load();
 
-                if (resourceToUse.AutomationMode != ResourceAutomationMode.Online && isToSetAutomationModeOnline)
+                if (isToSetAutomationModeOnline)
                 {
-                    if (!ModifiedResources.ContainsKey(resourceToUse.Name))
+                    if (resourceToUse.AutomationMode != ResourceAutomationMode.Online && SetResourceOnline)
                     {
-                        OriginalResourceData originalData = new OriginalResourceData()
+                        if (!ModifiedResources.ContainsKey(resourceToUse.Name))
                         {
-                            Resource = resourceToUse,
-                            AutomationMode = resourceToUse.AutomationMode,
-                            AutomationAddress = resourceToUse.AutomationAddress
-                        };
+                            OriginalResourceData originalData = new OriginalResourceData()
+                            {
+                                Resource = resourceToUse,
+                                AutomationMode = resourceToUse.AutomationMode,
+                                AutomationAddress = resourceToUse.AutomationAddress
+                            };
 
-                        // change the values to test
-                        resourceToUse.AutomationMode = ResourceAutomationMode.Online;
-                        resourceToUse.AutomationAddress = "127.0.0.1";
-                        resourceToUse.Save();
+                            // change the values to test
+                            resourceToUse.AutomationMode = ResourceAutomationMode.Online;
+                            resourceToUse.AutomationAddress = "127.0.0.1";
+                            resourceToUse.Save();
 
-                        isResourceOnlineModeChanged = true;
+                            isResourceOnlineModeChanged = true;
 
-                        ModifiedResources.Add(resourceToUse.Name, originalData);
+                            ModifiedResources.Add(resourceToUse.Name, originalData);
+                        }
+                    }
+                    else if (resourceToUse.AutomationMode != ResourceAutomationMode.Offline && SetResourceOffline)
+                    {
+                        if (!ModifiedResources.ContainsKey(resourceToUse.Name))
+                        {
+                            OriginalResourceData originalData = new OriginalResourceData()
+                            {
+                                Resource = resourceToUse,
+                                AutomationMode = resourceToUse.AutomationMode,
+                                AutomationAddress = resourceToUse.AutomationAddress
+                            };
+
+                            // change the values to test
+                            resourceToUse.AutomationMode = ResourceAutomationMode.Offline;
+                            resourceToUse.AutomationAddress = "127.0.0.1";
+                            resourceToUse.Save();
+
+                            isResourceOnlineModeChanged = true;
+
+                            ModifiedResources.Add(resourceToUse.Name, originalData);
+                        }
                     }
                 }
             }
 
-            #endregion
+            #endregion Resource and AutomationMode
         }
 
         public void DockContainer(Resource loadPort)
@@ -509,7 +565,6 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                         NumberOfRetries = 3
                     };
                     undock.UndockContainerSync();
-
                 }
 
                 //
@@ -568,7 +623,6 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                         MaterialHoldReasonCollection = holdReasons
                     }.ReleaseMaterialSync();
                 }
-
             }
         }
 
@@ -598,7 +652,6 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                         MaterialHoldReasonCollection = holdReasons
                     }.SpecialReleaseMaterialSync();
                 }
-
             }
         }
 

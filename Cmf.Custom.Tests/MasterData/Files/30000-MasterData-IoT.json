@@ -1083,6 +1083,15 @@
       "MonitorPackageVersion": "9.1.0-202209072",
       "ManagerPackageVersion": "9.1.0-202209072",
       "Configuration": ""
+    },
+    "11": {
+      "Name": "KLASpectraFilm",
+      "Description": "5FELL1",
+      "Type": "General",
+      "LogicalAddress": "5FELL1",
+      "MonitorPackageVersion": "9.1.0-202209072",
+      "ManagerPackageVersion": "9.1.0-202209072",
+      "Configuration": ""
     }
   },
   "<LOOKUP>AutomationInstances": {
@@ -1147,112 +1156,136 @@
       "EntityName": "ENA01"
     },
     "11": {
-      "AutomationController": "TrymaxNEOController",
-      "AutomationManager": "TrymaxNEO",
-      "DriverName": "",
-      "EntityName": "5FASH1"
+      "AutomationController": "MechatronicMWS200Controller",
+      "AutomationManager": "MechatronicMWS200",
+      "DriverName": "RFIDReader",
+      "EntityName": "ENA01.RFID"
     },
     "12": {
       "AutomationController": "TrymaxNEOController",
       "AutomationManager": "TrymaxNEO",
-      "DriverName": "SecsGemEquipment",
+      "DriverName": "",
       "EntityName": "5FASH1"
     },
     "13": {
-      "AutomationController": "OmegaPlasmaController",
-      "AutomationManager": "OmegaPlasma",
-      "DriverName": "",
-      "EntityName": "5FICP1"
+      "AutomationController": "TrymaxNEOController",
+      "AutomationManager": "TrymaxNEO",
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FASH1"
     },
     "14": {
       "AutomationController": "OmegaPlasmaController",
       "AutomationManager": "OmegaPlasma",
-      "DriverName": "SecsGemEquipment",
+      "DriverName": "",
       "EntityName": "5FICP1"
     },
     "15": {
       "AutomationController": "OmegaPlasmaController",
       "AutomationManager": "OmegaPlasma",
-      "DriverName": "RFIDReader",
-      "EntityName": "5FICP1.RFID"
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FICP1"
     },
     "16": {
-      "AutomationController": "UnitySCController",
-      "AutomationManager": "UnitySC",
-      "DriverName": "",
-      "EntityName": "5FORI1"
+      "AutomationController": "OmegaPlasmaController",
+      "AutomationManager": "OmegaPlasma",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FICP1.RFID"
     },
     "17": {
       "AutomationController": "UnitySCController",
       "AutomationManager": "UnitySC",
-      "DriverName": "SecsGemEquipment",
+      "DriverName": "",
       "EntityName": "5FORI1"
     },
     "18": {
       "AutomationController": "UnitySCController",
       "AutomationManager": "UnitySC",
-      "DriverName": "RFIDReader",
-      "EntityName": "5FORI1.RFID"
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FORI1"
     },
     "19": {
-      "AutomationController": "BrukerInsightCAPController",
-      "AutomationManager": "BrukerInsightCAP",
-      "DriverName": "",
-      "EntityName": "5FAFM1"
+      "AutomationController": "UnitySCController",
+      "AutomationManager": "UnitySC",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FORI1.RFID"
     },
     "20": {
       "AutomationController": "BrukerInsightCAPController",
       "AutomationManager": "BrukerInsightCAP",
-      "DriverName": "SecsGemEquipment",
+      "DriverName": "",
       "EntityName": "5FAFM1"
     },
     "21": {
       "AutomationController": "BrukerInsightCAPController",
       "AutomationManager": "BrukerInsightCAP",
-      "DriverName": "RFIDReader",
-      "EntityName": "5FAFM1.RFID"
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FAFM1"
     },
     "22": {
-      "AutomationController": "Monarch25VHFController",
-      "AutomationManager": "Monarch25VHF",
-      "DriverName": "",
-      "EntityName": "5FVHF1"
+      "AutomationController": "BrukerInsightCAPController",
+      "AutomationManager": "BrukerInsightCAP",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FAFM1.RFID"
     },
     "23": {
       "AutomationController": "Monarch25VHFController",
       "AutomationManager": "Monarch25VHF",
-      "DriverName": "SecsGemEquipment",
+      "DriverName": "",
       "EntityName": "5FVHF1"
     },
     "24": {
       "AutomationController": "Monarch25VHFController",
       "AutomationManager": "Monarch25VHF",
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FVHF1"
+    },
+    "25": {
+      "AutomationController": "Monarch25VHFController",
+      "AutomationManager": "Monarch25VHF",
       "DriverName": "RFIDReader",
       "EntityName": "5FVHF1.RFID"
     },
-    "25": {
+    "26": {
       "AutomationController": "DISCODFD6363HCController",
       "AutomationManager": "DISCODFD6363HC",
       "DriverName": "",
       "EntityName": "5FETR1"
     },
-    "26": {
+    "27": {
       "AutomationController": "DISCODFD6363HCController",
       "AutomationManager": "DISCODFD6363HC",
       "DriverName": "SecsGemEquipment",
       "EntityName": "5FETR1"
     },
-    "27": {
+    "28": {
       "AutomationController": "DISCODFD6363HCController",
       "AutomationManager": "DISCODFD6363HC",
       "DriverName": "RFIDReader",
       "EntityName": "5FETR1.RFID"
     },
-    "28": {
+    "29": {
       "AutomationController": "DISCODFD6363HCController",
       "AutomationManager": "DISCODFD6363HC",
       "DriverName": "FileDriver",
       "EntityName": "5FETR1.FILE"
+    },
+    "30": {
+      "AutomationController": "KLASpectraFilmController",
+      "AutomationManager": "KLASpectraFilm",
+      "DriverName": "",
+      "EntityName": "5FELL1"
+    },
+    "31": {
+      "AutomationController": "KLASpectraFilmController",
+      "AutomationManager": "KLASpectraFilm",
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FELL1"
+    },
+    "32": {
+      "AutomationController": "KLASpectraFilmController",
+      "AutomationManager": "KLASpectraFilm",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FELL1.RFID"
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "packageId": "Cmf.Custom.Help",
-  "version": "2.1.0",
+  "version": "2.3.0",
   "description": "Cmf Custom amsOSRAM Cmf.Custom.Help Package",
   "packageType": "Help",
   "isInstallable": true,

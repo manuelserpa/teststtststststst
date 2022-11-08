@@ -47,7 +47,7 @@
         /// </summary>
         public static string AutomationRequestSendNiceLabelPrintInformation = "NiceLabelPrintInformation";
 
-        #endregion
+        #endregion Automation
 
         #region Defaults
 
@@ -76,7 +76,7 @@
         /// </summary>
         public const string MaterialLotForm = "Lot";
 
-        #endregion
+        #endregion Defaults
 
         #region GenericTables
 
@@ -86,71 +86,71 @@
         public static string GenericTableCustomReclaimContainerType = "CustomReclaimContainerType";
 
         /// <summary>
-        /// Custom Reclaim Container Type table SourceContainerType Property 
+        /// Custom Reclaim Container Type table SourceContainerType Property
         /// </summary>
         public static string GenericTableCustomReclaimContainerTypeSourceContainerTypeProperty = "SourceContainerType";
 
         /// <summary>
-        /// CustomReclaimContainerType table ReclaimContainerType Property 
+        /// CustomReclaimContainerType table ReclaimContainerType Property
         /// </summary>
         public static string GenericTableCustomReclaimContainerTypeReclaimContainerTypeProperty = "ReclaimContainerType";
 
         /// <summary>
-        /// Custom TibcoEMS Gateway Resolver table name 
+        /// Custom TibcoEMS Gateway Resolver table name
         /// </summary>
         public static string GenericTableCustomTibcoEMSGatewayResolver = "CustomTibcoEMSGatewayResolver";
 
         /// <summary>
-        /// Custom TibcoEMS Gateway Resolver table queue flag property 
+        /// Custom TibcoEMS Gateway Resolver table queue flag property
         /// </summary>
         public static string GenericTableCustomTibcoEMSGatewayResolverQueueMessageProperty = "QueueMessage";
 
         /// <summary>
-        /// Custom TibcoEMS Gateway Resolver table MapText flag property 
+        /// Custom TibcoEMS Gateway Resolver table MapText flag property
         /// </summary>
         public static string GenericTableCustomTibcoEMSGatewayResolverTextMessageProperty = "TextMessage";
 
         /// <summary>
-        /// Custom TibcoEMS Gateway Resolver table compress flag property 
+        /// Custom TibcoEMS Gateway Resolver table compress flag property
         /// </summary>
         public static string GenericTableCustomTibcoEMSGatewayResolverCompressMessageProperty = "CompressMessage";
 
         /// <summary>
-        /// Custom Production Line Conversion table name 
+        /// Custom Production Line Conversion table name
         /// </summary>
         public static string GenericTableCustomProductionLineConversion = "CustomProductionLineConversion";
 
         /// <summary>
-        /// Custom Production Line Conversion table ProductionLine property 
+        /// Custom Production Line Conversion table ProductionLine property
         /// </summary>
         public static string GenericTableCustomProductionLineConversionProductionLineProperty = "ProductionLine";
 
         /// <summary>
-        /// Custom Production Line Conversion table Site property 
+        /// Custom Production Line Conversion table Site property
         /// </summary>
         public static string GenericTableCustomProductionLineConversionSiteProperty = "Site";
 
         /// <summary>
-        /// Custom Production Line Conversion table Facility property 
+        /// Custom Production Line Conversion table Facility property
         /// </summary>
         public static string GenericTableCustomProductionLineConversionFacilityProperty = "Facility";
 
         /// <summary>
-        /// Custom Transactions to Tibco table name 
+        /// Custom Transactions to Tibco table name
         /// </summary>
         public static string GenericTableCustomTransactionsToTibco = "CustomTransactionsToTibco";
 
         /// <summary>
-        /// Custom Transactions to Tibco table Transaction property 
+        /// Custom Transactions to Tibco table Transaction property
         /// </summary>
         public static string GenericTableCustomTransactionsToTibcoTransactionProperty = "Transaction";
 
         /// <summary>
-        /// Custom Transactions to Tibco table IsEnabled property 
+        /// Custom Transactions to Tibco table IsEnabled property
         /// </summary>
         public static string GenericTableCustomTransactionsToTibcoIsEnabledProperty = "IsEnabled";
 
-        #endregion
+        #endregion GenericTables
 
         #region LookupTables
 
@@ -179,7 +179,12 @@
         /// </summary>
         public static string LookupTableContainerType = "ContainerType";
 
-        #endregion
+        /// <summary>
+        /// Custom Sorter Process
+        /// </summary>
+        public static string LookupTableCustomSorterProcess = "CustomSorterProcess";
+
+        #endregion LookupTables
 
         #region Attributes
 
@@ -224,9 +229,24 @@
         public static string CustomSiteCodeAttribute = "SiteCode";
 
         /// <summary>
+        /// Area LogicalDataSource Attribute (LDS ID)
+        /// </summary>
+        public static string AreaLdsIdAttribute = "LdsId";
+
+        /// <summary>
+        /// Parameter SendToSpace Attribute
+        /// </summary>
+        public static string CustomParameterSendToSpaceAttribute = "SendToSpace";
+
+        /// <summary>
         /// Step Attribute RequiresSpaceConfirmation
         /// </summary>
         public static string StepAttributeRequiresSpaceConfirmation = "RequiresSpaceConfirmation";
+
+        /// <summary>
+        /// Step Attribute IsWaferReception
+        /// </summary>
+        public static string StepAttributeIsWaferReception = "IsWaferReception";
 
         /// <summary>
         /// Product Attribute BasicType
@@ -258,7 +278,12 @@
         /// </summary>
         public static string CustomFacilityCodeAttribute = "FacilityCode";
 
-        #endregion
+        /// <summary>
+        /// Material LastProcessRecipe Attribute
+        /// </summary>
+        public static string MaterialLastProcessRecipeAttribute = "LastProcessRecipe";
+
+        #endregion Attributes
 
         #region SmartTables
 
@@ -314,17 +339,18 @@
         /// </summary>
         public static string CustomSorterJobDefinitionContextColumnCustomSorterJobDefinition = "CustomSorterJobDefinition";
 
-        #endregion
+        #endregion CustomSorterJobDefinitionContext
 
         #region Smart Table Columns
 
         public const string CustomStorageLocation = "StorageLocation";
 
-        #endregion
+        #endregion Smart Table Columns
 
-        #endregion
+        #endregion SmartTables
 
         #region JSON Schemas
+
         /// <summary>
         /// JSON Schema for Custom Sorter Job Definition for Map Carrier Logistical Process
         /// </summary>
@@ -356,7 +382,7 @@
 					            'DestinationPosition': {
 						            'type': 'integer'
 					            }
-				            }              
+				            }
                         },
                         'required': true
                     },
@@ -402,7 +428,7 @@
 						            'type': 'integer',
                                     'required': true
 					            }
-				            }              
+				            }
                         },
                         'required': true,
                         'minItems': 0
@@ -465,7 +491,7 @@
 					            'DestinationPosition': {
 						            'type': 'integer'
 					            }
-				            }              
+				            }
                         },
                         'required': true,
                         'minItems': 1,
@@ -475,7 +501,8 @@
                     }
                 }
             }";
-        #endregion
+
+        #endregion JSON Schemas
 
         #region Localized Messages
 
@@ -504,12 +531,12 @@
         /// </summary>
         public static string LocalizedMessageNoHoldReasonAvailableErrorMessage = "CustomLocalizedMessageNoHoldReasonAvailableErrorMessage";
 
-        /// <summary> 
+        /// <summary>
         /// Localized Message: Custom Localized Message Recipe Body Empty
         /// </summary>
         public static string LocalizedMessageRecipeBodyEmpty = "CustomLocalizedMessageRecipeBodyEmpty";
 
-        /// <summary> 
+        /// <summary>
         /// Localized Message: Custom Localized Message Recipe Without Body
         /// </summary>
         public static string LocalizedMessageRecipeWithoutBody = "CustomLocalizedMessageRecipeWithoutBody";
@@ -604,59 +631,130 @@
         /// </summary>
         public const string LocalizedMessageCustomPrimaryUnitObjectNull = "CustomPrimaryUnitObjectNull";
 
-        /// <summary> 
+        /// <summary>
         /// Localized Message: Custom Localized Message CustomLocalizedMessageContainerCannotBeUndocked
         /// </summary>
-        public static string LocalizedMessageContainerCannotBeUndocked = "CustomLocalizedMessageContainerCannotBeUndocked";
+        public const string LocalizedMessageContainerCannotBeUndocked = "CustomLocalizedMessageContainerCannotBeUndocked";
 
         /// <summary>
         /// Localized Message: Custom Localized Message CustomLocalizedMessageProductNameAndFlowNameAtSameTime
         /// </summary>
-        public static string LocalizedMessageProductNameAndFlowNameAtSameTime = "CustomLocalizedMessageProductNameAndFlowNameAtSameTime";
+        public const string LocalizedMessageProductNameAndFlowNameAtSameTime = "CustomLocalizedMessageProductNameAndFlowNameAtSameTime";
 
         /// <summary>
         /// Localized Message: Custom Localized Message CustomLocalizedMessageProductNameOrFlowNameNotDefined
         /// </summary>
-        public static string LocalizedMessageProductNameOrFlowNameNotDefined = "CustomLocalizedMessageProductNameOrFlowNameNotDefined";
+        public const string LocalizedMessageProductNameOrFlowNameNotDefined = "CustomLocalizedMessageProductNameOrFlowNameNotDefined";
 
         /// <summary>
         /// Localized Message: Custom Localized Message CustomLocalizedMessageFlowVersionWithoutFlowName
         /// </summary>
-        public static string LocalizedMessageFlowVersionWithoutFlowName = "CustomLocalizedMessageFlowVersionWithoutFlowName";
+        public const string LocalizedMessageFlowVersionWithoutFlowName = "CustomLocalizedMessageFlowVersionWithoutFlowName";
 
         /// <summary>
         /// Localized Message: Custom Localized Message CustomLocalizedMessageProductHasNoFlowPath
         /// </summary>
-        public static string LocalizedMessageProductHasNoFlowPath = "CustomLocalizedMessageProductHasNoFlowPath";
+        public const string LocalizedMessageProductHasNoFlowPath = "CustomLocalizedMessageProductHasNoFlowPath";
 
         /// <summary>
         /// Localized Message: Custom Localized Message CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull
         /// </summary>
-        public static string LocalizedMessageCustomFlowInformationToERPDataObjectNull = "CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull";
+        public const string LocalizedMessageCustomFlowInformationToERPDataObjectNull = "CustomLocalizedMessageCustomFlowInformationToERPDataObjectNull";
 
         /// <summary>
         /// Localized Message: CustomProductionLineAttributeWithoutValue
         /// </summary>
-        public static string LocalizedMessageProductionLineAttributeWithoutValue = "CustomProductionLineAttributeWithoutValue";
+        public const string LocalizedMessageProductionLineAttributeWithoutValue = "CustomProductionLineAttributeWithoutValue";
 
         /// <summary>
         /// Localized Message: CustomGTWihtoutDataForSpecificProductionLine
         /// </summary>
-        public static string LocalizedMessageGTWihtoutDataForSpecificProductionLine = "CustomGTWihtoutDataForSpecificProductionLine";
+        public const string LocalizedMessageGTWihtoutDataForSpecificProductionLine = "CustomGTWihtoutDataForSpecificProductionLine";
 
         /// <summary>
         /// Localized Message: CustomInsufficientDigitsForNameGenerator
         /// </summary>
-        public static string LocalizedMessageInsufficientDigitsForNameGenerator = "CustomInsufficientDigitsForNameGenerator";
+        public const string LocalizedMessageInsufficientDigitsForNameGenerator = "CustomInsufficientDigitsForNameGenerator";
 
         /// <summary>
         /// Localized Message: CustomConfigMissingValue
         /// </summary>
-        public static string LocalizedMessageConfigMissingValue = "CustomConfigMissingValue";
+        public const string LocalizedMessageConfigMissingValue = "CustomConfigMissingValue";
 
-        #endregion
+        /// <summary>
+        /// Localized Message: CustomValueDoesNotExistLookupTable
+        /// </summary>
+        public const string LocalizedMessageCustomValueDoesNotExistLookupTable = "CustomValueDoesNotExistLookupTable";
+
+        /// <summary>
+        /// Localized Message: CustomResourceIsNotSorter
+        /// </summary>
+        public const string LocalizedMessageCustomResourceIsNotSorter = "CustomResourceIsNotSorter";
+
+        /// <summary>
+        /// Localized Message: CustomResourceNotOnline
+        /// </summary>
+        public const string LocalizedMessageCustomResourceNotOnline = "CustomResourceNotOnline";
+
+        /// <summary>
+        /// Localized Message: CustomResourceNotDescendant
+        /// </summary>
+        public const string LocalizedMessageCustomResourceNotDescendant = "CustomResourceNotDescendant";
+
+        /// <summary>
+        /// Localized Message: CustomResourceInUse
+        /// </summary>
+        public const string LocalizedMessageCustomResourceInUse = "CustomResourceInUse";
+
+        /// <summary>
+        /// Localized Message: CustomSmartTableNoResolution
+        /// </summary>
+        public const string LocalizedMessageCustomSmartTableNoResolution = "CustomSmartTableNoResolution";
+
+        /// <summary>
+        /// Localized Message: CustomConvertToType
+        /// </summary>
+        public const string LocalizedMessageCustomConvertToType = "CustomConvertToType";
+
+        /// <summary>
+        /// Localized Message: CustomResourceNoDockerContainer
+        /// </summary>
+        public const string LocalizedMessageCustomResourceNoDockerContainer = "CustomResourceNoDockerContainer";
+
+        /// <summary>
+        /// Localized Message: CustomResourceNoEnoughPositionsOrInUse
+        /// </summary>
+        public const string LocalizedMessageCustomResourceNoEnoughPositionsOrInUse = "CustomResourceNoEnoughPositionsOrInUse";
+
+        /// <summary>
+        /// Localized Message: CustomResourceContainerDockedDifferentProducts
+        /// </summary>
+        public const string LocalizedMessageCustomResourceContainerDockedDifferentProducts = "CustomResourceContainerDockedDifferentProducts";
+
+        /// <summary>
+        /// Localized Message: CustomResourceContainersNoEnoughPositions
+        /// </summary>
+        public const string LocalizedMessageCustomResourceContainersNoEnoughPositions = "CustomResourceContainersNoEnoughPositions";
+
+        /// <summary>
+        /// Localized Message: CustomResourceContainersWrongPositions
+        /// </summary>
+        public const string LocalizedMessageCustomResourceContainersWrongPositions = "CustomResourceContainersWrongPositions";
+
+        /// <summary>
+        /// Localized Message: CustomStepNoWaferReception
+        /// </summary>
+        public const string LocalizedMessageCustomStepNoWaferReception = "CustomStepNoWaferReception";
+
+        /// <summary>
+        /// Localized Message: CustomContainerDifferentProducts
+        /// </summary>
+        public const string LocalizedMessageCustomContainerDifferentProducts = "CustomContainerDifferentProducts";
+
+        #endregion Localized Messages
 
         #region State Model
+
         /// <summary>
         /// Custom Material State Model
         /// </summary>
@@ -692,8 +790,7 @@
         /// </summary>
         public static string MaterialStateModelStateSetup = "Setup";
 
-
-        #endregion
+        #endregion State Model
 
         #region Configuration
 
@@ -703,7 +800,7 @@
         public static string DefaultAbortProcessHoldReasonConfig = "/amsOSRAM/AbortProcess/HoldReason/";
 
         /// <summary>
-        /// Hold Step reason for lot incoming 
+        /// Hold Step reason for lot incoming
         /// </summary>
         public static string DefaultLotIncomingHoldReasonConfig = "/Cmf/Guis/Configuration/Material/IncomingLotAutoHoldReason";
 
@@ -727,7 +824,7 @@
         /// </summary>
         public static string DefaultLotNameAllowedCharacters = "/amsOSRAM/Material/LotNameAllowedCharacters";
 
-        #endregion
+        #endregion Configuration
 
         #region Parameters
 
@@ -736,9 +833,12 @@
         /// </summary>
         public const string CustomParameterWaferQuantity = "Wafer Size";
 
-        #endregion 
+        #endregion Parameters
+
+
 
         #region Queries
+
         ///// <summary>
         ///// CustomCarrierTransportMovementQuery query object name
         ///// </summary>
@@ -999,9 +1099,10 @@
         /// </summary>
         public static string QueryCustomGetContainersDockedOnResourceLoadPortsContainerTransportRequestedAttributeColumn = "TargetEntityContainerResourceSourceEntityTransportRequested";
 
-        #endregion
+        #endregion Queries
 
         #region Custom Sorter Job Definition Movement List Properties
+
         /// <summary>
         /// Custom Sorter Job Json Moves Material Name Property
         /// </summary>
@@ -1092,7 +1193,7 @@
         /// </summary>
         public static string CustomSorterJobDefinitionJsonPropertyScrapFutureActionType = "Scrap";
 
-        #endregion
+        #endregion Custom Sorter Job Definition Movement List Properties
 
         #region Integration Entries
 
@@ -1126,7 +1227,7 @@
         /// </summary>
         public const string CustomPerformConsumption = "CustomPerformConsumption";
 
-        #endregion
+        #endregion Integration Entries
 
         #region Name Generators
 
@@ -1140,7 +1241,7 @@
         /// </summary>
         public const string CustomGenerateProductionLotNames = "CustomProductionLotNameGenerator";
 
-        #endregion
+        #endregion Name Generators
 
         #region EntityTypes
 
@@ -1157,7 +1258,7 @@
             public const string IntegrationEntry = "IntegrationEntry";
         }
 
-        #endregion
+        #endregion EntityTypes
 
         #region ERP
 
@@ -1191,9 +1292,9 @@
         /// </summary>
         public const string ERPCredentialsPasswordConfigurationPath = "/amsOSRAM/ERP/Credentials/Password/";
 
-        #endregion
+        #endregion ERP
 
-        #region Smart Tables
+        #region SmartTables
 
         /// <summary>
         /// smartTable NotificationTitleMessage Property
@@ -1209,6 +1310,7 @@
         /// smartTable NotificationTitleMessageCritical Property
         /// </summary>
         public static string smartTablePropertyNotificationTitleMessageCritical = "NotificationTitleMessageCritical";
+
         /// <summary>
         /// smartTable NotificationBodyMessage Property
         /// </summary>
@@ -1223,6 +1325,7 @@
         /// SmartTable CustomConfigResourceNotification Action Value Email
         /// </summary>
         public static string smartTableResultActionEmail = "Email";
+
         /// <summary>
         /// smartTable ToState Property
         /// </summary>
@@ -1278,7 +1381,27 @@
         /// </summary>
         public static string smartTablePropertyNotificationType = "NotificationType";
 
-        #endregion
+        /// <summary>
+        /// SmartTable CustomProductContainerCapacities Name
+        /// </summary>
+        public static string CustomProductContainerCapacitiesSTName = "CustomProductContainerCapacities";
+
+        /// <summary>
+        /// SmartTable SourceCapacity Property
+        /// </summary>
+        public static string SmartTablePropertySourceCapacity = "SourceCapacity";
+
+        /// <summary>
+        /// SmartTable TargetCapacity Property
+        /// </summary>
+        public static string SmartTablePropertyTargetCapacity = "TargetCapacity";
+
+        /// <summary>
+        /// SmartTable RunningMode Property
+        /// </summary>
+        public static string SmartTablePropertyRunningMode = "RunningMode";
+
+        #endregion SmartTables
 
         #region Tibco
 
@@ -1322,8 +1445,37 @@
         /// </summary>
         public const string CustomEquipmentStatusChange = "CustomEquipmentStatusChange";
 
+        /// <summary>
+        /// Tibco Reply Message
+        /// </summary>
+        public const string TibcoReplyMessage = "ReplyMessage";
 
-        #endregion
+        /// <summary>
+        /// Tibco Reply Message Context
+        /// </summary>
+        public const string TibcoReplyContext = "Context";
+
+        /// <summary>
+        /// Tibco Reply Message Context Subject
+        /// </summary>
+        public const string TibcoReplyContextSubject = "Subject";
+
+        /// <summary>
+        /// Tibco Reply Message Context ActionGroup
+        /// </summary>
+        public const string TibcoReplyContextActionGroupName = "ActionGroupName";
+
+        /// <summary>
+        /// Tibco Reply Message Context Lot
+        /// </summary>
+        public const string TibcoReplyContextLot = "Lot";
+
+        /// <summary>
+        /// Tibco Reply Message Context ProtocolInstance
+        /// </summary>
+        public const string TibcoReplyContextProtocolInstance = "ProtocolInstance";
+
+        #endregion Tibco
 
         #region ONTO FDC
 
@@ -1378,5 +1530,14 @@
         public static string OsramEventName = "OsramEventName";
 
         #endregion ONTO FDC
+
+        #region ActionGroups
+
+        /// <summary>
+        /// Action Group ComplexTrackOutAndMoveMaterialsToNextStep.Post
+        /// </summary>
+        public static string ComplexTrackOutAndMoveMaterialsToNextStepPost = "MaterialManagement.MaterialManagementOrchestration.ComplexTrackOutAndMoveMaterialsToNextStep.Post";
+
+        #endregion ActionGroups
     }
 }

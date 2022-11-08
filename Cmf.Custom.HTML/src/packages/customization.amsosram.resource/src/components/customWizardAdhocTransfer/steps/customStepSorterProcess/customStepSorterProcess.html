@@ -1,0 +1,51 @@
+<cmf-core-controls-baseWidget [hideHeader]="true">
+  <cmf-core-business-controls-propertyContainer>
+    <cmf-core-business-controls-propertyViewer
+      [label]="i18n.form.RESOURCE"
+      valueType="ReferenceType"
+      valueReferenceType="EntityType"
+      referenceTypeName="Resource"
+      [value]="resource"
+    ></cmf-core-business-controls-propertyViewer>
+
+    <cmf-core-business-controls-propertyEditor
+      [label]="i18n.form.LOAD_PORT"
+      valueType="ReferenceType"
+      valueReferenceType="EntityType"
+      referenceTypeName="SubResource"
+      [data]="loadPorts"
+      [(value)]="selectedLoadPort"
+      [required]="true"
+      [disabled]="false"
+    ></cmf-core-business-controls-propertyEditor>
+
+    <cmf-core-business-controls-propertyEditor
+      [label]="i18n.form.PRODUCT"
+      valueType="ReferenceType"
+      valueReferenceType="EntityType"
+      referenceTypeName="Product"
+      [(value)]="selectedProduct"
+      (valueChange)="onSelectedProductChange($event)"
+      [required]="true"
+      [disabled]="false"
+    ></cmf-core-business-controls-propertyEditor>
+
+    <cmf-core-business-controls-propertyEditor
+      [label]="i18n.form.SORTER_PROCESS"
+      valueType="ReferenceType"
+      valueReferenceType="LookupValue"
+      referenceTypeName="CustomSorterProcess"
+      [(value)]="selectedSorterProcess"
+      [required]="true"
+      [disabled]="false"
+    ></cmf-core-business-controls-propertyEditor>
+
+    <cmf-core-business-controls-propertyEditor
+      [label]="i18n.form.QUANTITY"
+      valueType="Integer"
+      [(value)]="selectedQuantity"
+      [required]="true"
+      [disabled]="false"
+    ></cmf-core-business-controls-propertyEditor>
+  </cmf-core-business-controls-propertyContainer>
+</cmf-core-controls-baseWidget>

@@ -1,0 +1,20 @@
+﻿{
+  "version": "2.2.0",
+  "packageId": "Cmf.Custom.IoT.KLASpectraFilm",
+  "description": "Cmf KLASpectraFilm Data Package",
+  "packageType": "IoTData",
+  "isInstallable": true,
+  "isUniqueInstall": true,
+  "contentToPack": [
+    {
+      "source": "MasterData/*",
+      "target": "MasterData/$(version)",
+      "contentType": "MasterData"
+    },
+    {
+      "source": "AutomationWorkFlows/*",
+      "target": "AutomationWorkFlows",
+      "contentType": "AutomationWorkFlows"
+    }
+  ]
+}

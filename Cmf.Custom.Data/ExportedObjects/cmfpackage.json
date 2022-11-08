@@ -1,6 +1,6 @@
 {
   "packageId": "Cmf.Custom.Data.ExportedObjects",
-  "version": "2.0.0",
+  "version": "2.2.0",
   "description": "Cmf Custom amsOSRAM Data Exported Objects Package",
   "packageType": "ExportedObjects",
   "isInstallable": true,
@@ -9,7 +9,7 @@
     {
       "source": "$(version)/*",
       "target": "ExportedObjects",
-	  "contentType": "ExportedObjects"
+	    "contentType": "ExportedObjects"
     }
   ]  
 }

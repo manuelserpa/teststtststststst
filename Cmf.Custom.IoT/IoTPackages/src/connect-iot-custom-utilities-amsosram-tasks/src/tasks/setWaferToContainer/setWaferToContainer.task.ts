@@ -119,10 +119,8 @@ export class SetWaferToContainerTask implements Task.TaskInstance, SetWaferToCon
                 let container: ContainerData = await this._containerProcess.getContainer(this.containerId, loadPort);
                 if (this.material) {
 
-                    if (this.containerId === containerName) {
-                        // this._logger.warning("Entered here: 1");
+                    if (this.containerId === containerName && this.material.SubMaterials != null) {
                         slotMES = this.material.SubMaterials.find(s => s.Slot.toString() === Number(slotNumber).toString());
-                        // this._logger.warning("SlotMES: " + JSON.stringify(slotMES));
                     } else if (movementList) {
                         movement = movementList.find(w => (w.SourceContainer === this.containerId && w.SourcePosition.toString() === slotNumber.toString())
                             || (w.DestinationContainer === this.containerId && w.Destination.toString() === slotNumber.toString()))
@@ -142,9 +140,12 @@ export class SetWaferToContainerTask implements Task.TaskInstance, SetWaferToCon
                             wafer.MaterialWaferId = movement.MaterialName;
                         }
 
-                    } else {
-                        wafer.MaterialWaferId = this.materialWaferId;
                     }
+
+                    if (wafer.MaterialWaferId == null && this.equipmentWaferId != null) {
+                        wafer.MaterialWaferId = this.equipmentWaferId;
+                    }
+
                     wafer.Slot = slotNumber;
                     if (this.equipmentWaferId) {
                         wafer.EquipmentWaferId = this.equipmentWaferId;

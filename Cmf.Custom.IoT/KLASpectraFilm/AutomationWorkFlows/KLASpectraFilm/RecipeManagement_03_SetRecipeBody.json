@@ -1,0 +1,516 @@
+{
+	"tasks": [
+		{
+			"id": "task_19364",
+			"reference": {
+				"name": "customDownloadRecipeToEquipment",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "2.0.0"
+				}
+			},
+			"settings": {
+				"primaryRequestMessage": "{\"type\":\"L\",\"value\":[{\"type\":\"A\",\"name\":\"PPID\",\"value\":\"\"},{\"type\":\"BI\",\"name\":\"PPBODY\",\"value\":\"\"}]}",
+				"primaryInquiryRequestMessage": "{\"type\":\"L\",\"value\":[{\"type\":\"A\",\"name\":\"PPID\",\"value\":\"\"},{\"type\":\"U4\",\"name\":\"LENGTH\",\"value\":\"\"}]}",
+				"streamFunctionName": "S7F3",
+				"useS7F1Message": true,
+				"successCodesS7F1": "0x00",
+				"recipeNameInquiryPrimaryPath": "/[1]",
+				"recipeBodyLengthInquiryPrimaryPath": "/[2]",
+				"recipeNamePrimaryPath": "/[1]",
+				"recipeBodyPrimaryPath": "/[2]",
+				"recipeBodyType": "Buffer",
+				"replyPath": "/",
+				"successCodes": "0x00",
+				"___cmf___name": "Custom Set Recipe Body (S7F3)",
+				"___cmf___color": "#ffff80"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_19517",
+			"reference": {
+				"name": "systemActionGroupEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"replyTimeout": 60000,
+				"___cmf___name": "On System Event",
+				"___cmf___color": "#0080ff",
+				"actionGroup": "SetRecipeBodyOnEquipment"
+			}
+		},
+		{
+			"id": "task_20061",
+			"reference": {
+				"name": "expressionEvaluator",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_expressionType": 0,
+				"_evaluatorBehavior": "EvaluateAll",
+				"___cmf___name": "Expression Evaluator",
+				"_clearInputs": true,
+				"_inputs": [
+					{
+						"name": "RecipeToSetData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": {},
+						"required": true
+					}
+				],
+				"_outputs": [
+					{
+						"name": "RecipeName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "RecipeName"
+						},
+						"defaultValue": null,
+						"expression": "RecipeToSetData.RecipeName"
+					},
+					{
+						"name": "RecipeNameOnEquipment",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "RecipeNameOnEquipment"
+						},
+						"expression": "RecipeToSetData.RecipeNameOnEquipment",
+						"defaultValue": null
+					},
+					{
+						"name": "RecipeBody",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "RecipeBody"
+						},
+						"expression": "RecipeToSetData.RecipeBody",
+						"defaultValue": null
+					}
+				]
+			}
+		},
+		{
+			"id": "task_22427",
+			"reference": {
+				"name": "getRecipeBody",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-secsgem-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"primaryRequestMessage": "{\"type\":\"A\",\"name\":\"PPID\",\"value\":\"\"}",
+				"streamFunctionName": "S7F5",
+				"recipeNamePrimaryPath": "/",
+				"recipeNameSecondaryPath": "/[1]",
+				"recipeBodyPath": "/[2]",
+				"recipeBodyType": "Buffer",
+				"___cmf___name": "Get Recipe Body (S7F5)",
+				"___cmf___color": "#ffff80"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_22859",
+			"reference": {
+				"name": "customCalculateChecksum",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "2.0.0"
+				}
+			},
+			"settings": {
+				"hashFunctionSetting": "Sha256"
+			}
+		},
+		{
+			"id": "task_11077",
+			"reference": {
+				"name": "expressionEvaluator",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_expressionType": 0,
+				"_evaluatorBehavior": "EvaluateAll",
+				"___cmf___name": "Expression Evaluator",
+				"_clearInputs": true,
+				"_inputs": [
+					{
+						"name": "RecipeName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "RecipeName"
+						},
+						"defaultValue": "-",
+						"required": true
+					},
+					{
+						"name": "Checksum",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Checksum"
+						},
+						"defaultValue": "-",
+						"required": true
+					}
+				],
+				"_outputs": [
+					{
+						"name": "ChecksumObject",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ChecksumObject"
+						},
+						"defaultValue": null,
+						"expression": "eval(concat(\"{\\\"\",RecipeName,\"\\\":\\\"\",Checksum,\"\\\"}\"))"
+					}
+				]
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "4ba1778d-88ea-4b3a-8e08-b78e83ab222a",
+			"sourceId": "task_19517",
+			"targetId": "task_20061",
+			"inputName": "RecipeToSetData",
+			"outputName": "data"
+		},
+		{
+			"id": "e24ad992-95a9-415d-af4b-eac7013b752f",
+			"sourceId": "task_20061",
+			"targetId": "task_19364",
+			"inputName": "recipeBody",
+			"outputName": "RecipeBody"
+		},
+		{
+			"id": "59feb8d9-186a-4a8b-8e9c-67ab7fbc34bc",
+			"sourceId": "task_20061",
+			"targetId": "task_19364",
+			"inputName": "activate",
+			"outputName": "RecipeBody"
+		},
+		{
+			"id": "d79fc555-3509-49fb-8874-0b29e71e4988",
+			"sourceId": "task_19364",
+			"targetId": "task_19517",
+			"inputName": "reply",
+			"outputName": "error"
+		},
+		{
+			"id": "830b1ce2-950c-4b7f-8eef-c9be6cf6c852",
+			"sourceId": "task_19364",
+			"targetId": "task_22427",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "c75b264a-26c0-4c97-a597-cbc82da2222a",
+			"sourceId": "task_22427",
+			"targetId": "task_22859",
+			"inputName": "data",
+			"outputName": "recipeBody"
+		},
+		{
+			"id": "ac8c3b45-e388-42c0-b0ac-dffca348cd26",
+			"sourceId": "task_22427",
+			"targetId": "task_22859",
+			"inputName": "activate",
+			"outputName": "recipeBody"
+		},
+		{
+			"id": "532aa7eb-d30e-45fe-b76e-897e0d27a392",
+			"sourceId": "task_22427",
+			"targetId": "task_19517",
+			"inputName": "reply",
+			"outputName": "error"
+		},
+		{
+			"id": "bf14435c-7a6d-47bc-9d8b-4aa558a90dd3",
+			"sourceId": "task_20061",
+			"targetId": "task_19517",
+			"inputName": "reply",
+			"outputName": "error"
+		},
+		{
+			"id": "9b7091f4-8d7e-42c6-a334-5ae4fe7b126c",
+			"sourceId": "task_22859",
+			"targetId": "task_19517",
+			"inputName": "reply",
+			"outputName": "error"
+		},
+		{
+			"id": "6a8929ac-02ce-4865-b2c4-3ac79a17d75a",
+			"sourceId": "task_20061",
+			"targetId": "task_19364",
+			"inputName": "recipeName",
+			"outputName": "RecipeNameOnEquipment"
+		},
+		{
+			"id": "382e24b9-62c3-460c-99b6-8a0e1e806a0f",
+			"sourceId": "task_20061",
+			"targetId": "task_22427",
+			"inputName": "recipeName",
+			"outputName": "RecipeNameOnEquipment"
+		},
+		{
+			"id": "89dad6e6-396c-4da0-b225-d30bb2baf99f",
+			"sourceId": "task_22859",
+			"targetId": "task_11077",
+			"inputName": "Checksum",
+			"outputName": "checksum"
+		},
+		{
+			"id": "79dd614a-c29c-4e9f-8557-ca22c3dfc88c",
+			"sourceId": "task_20061",
+			"targetId": "task_11077",
+			"inputName": "RecipeName",
+			"outputName": "RecipeName"
+		},
+		{
+			"id": "9bec2fca-593a-4901-9f7f-120abde98679",
+			"sourceId": "task_11077",
+			"targetId": "task_19517",
+			"inputName": "reply",
+			"outputName": "ChecksumObject",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#0080ff",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_19517": {
+						"collapsed": false,
+						"position": {
+							"x": 564,
+							"y": 495
+						},
+						"outdated": false
+					},
+					"task_19364": {
+						"collapsed": false,
+						"position": {
+							"x": 1743,
+							"y": 690
+						},
+						"outdated": false
+					},
+					"task_20061": {
+						"collapsed": false,
+						"position": {
+							"x": 1051,
+							"y": 508
+						},
+						"outdated": false
+					},
+					"task_22427": {
+						"collapsed": false,
+						"position": {
+							"x": 2254,
+							"y": 571
+						},
+						"outdated": false
+					},
+					"task_22859": {
+						"collapsed": false,
+						"position": {
+							"x": 2744,
+							"y": 566
+						},
+						"outdated": false
+					},
+					"task_11077": {
+						"collapsed": false,
+						"position": {
+							"x": 3222,
+							"y": 566
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"4ba1778d-88ea-4b3a-8e08-b78e83ab222a": {
+						"vertices": []
+					},
+					"e24ad992-95a9-415d-af4b-eac7013b752f": {
+						"vertices": []
+					},
+					"59feb8d9-186a-4a8b-8e9c-67ab7fbc34bc": {
+						"vertices": []
+					},
+					"d79fc555-3509-49fb-8874-0b29e71e4988": {
+						"vertices": [
+							{
+								"x": 2088,
+								"y": 1015
+							},
+							{
+								"x": 611,
+								"y": 924
+							}
+						]
+					},
+					"830b1ce2-950c-4b7f-8eef-c9be6cf6c852": {
+						"vertices": []
+					},
+					"c75b264a-26c0-4c97-a597-cbc82da2222a": {
+						"vertices": []
+					},
+					"ac8c3b45-e388-42c0-b0ac-dffca348cd26": {
+						"vertices": []
+					},
+					"532aa7eb-d30e-45fe-b76e-897e0d27a392": {
+						"vertices": [
+							{
+								"x": 2556,
+								"y": 1051
+							},
+							{
+								"x": 541,
+								"y": 962
+							}
+						]
+					},
+					"bf14435c-7a6d-47bc-9d8b-4aa558a90dd3": {
+						"vertices": [
+							{
+								"x": 1387,
+								"y": 917
+							},
+							{
+								"x": 614,
+								"y": 839
+							}
+						]
+					},
+					"9b7091f4-8d7e-42c6-a334-5ae4fe7b126c": {
+						"vertices": [
+							{
+								"x": 2751,
+								"y": 1077
+							},
+							{
+								"x": 438,
+								"y": 1018
+							}
+						]
+					},
+					"6a8929ac-02ce-4865-b2c4-3ac79a17d75a": {
+						"vertices": []
+					},
+					"382e24b9-62c3-460c-99b6-8a0e1e806a0f": {
+						"vertices": []
+					},
+					"89dad6e6-396c-4da0-b225-d30bb2baf99f": {
+						"vertices": []
+					},
+					"79dd614a-c29c-4e9f-8557-ca22c3dfc88c": {
+						"vertices": [
+							{
+								"x": 2449,
+								"y": 468
+							},
+							{
+								"x": 3015,
+								"y": 492
+							}
+						]
+					},
+					"9bec2fca-593a-4901-9f7f-120abde98679": {
+						"vertices": [
+							{
+								"x": 3631,
+								"y": 534
+							},
+							{
+								"x": 3100,
+								"y": 429
+							},
+							{
+								"x": 2308,
+								"y": 419
+							},
+							{
+								"x": 946,
+								"y": 423
+							},
+							{
+								"x": 542,
+								"y": 495
+							}
+						]
+					}
+				},
+				"notes": {},
+				"pan": {
+					"x": 131,
+					"y": 134
+				},
+				"zoom": 0.54
+			}
+		}
+	}
+}

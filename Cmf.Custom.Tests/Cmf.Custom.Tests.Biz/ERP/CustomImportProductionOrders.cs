@@ -199,96 +199,88 @@ namespace Cmf.Custom.Tests.Biz.ERP
         [TestMethod]
         public void CustomImportProductionOrders_UpdatePO_HappyPath()
         {
-            ///<Step> Create Message to send to MES System </Step>
-            string productionOrdersSample = FileUtilities.LoadFile($@"ERP\Samples\SampleImportProductionOrder.xml");
-            CustomImportProductionOrderCollection productionOrdersMessage = new CustomImportProductionOrderCollection();
-            productionOrdersMessage = CustomUtilities.DeserializeXmlToObject<CustomImportProductionOrderCollection>(productionOrdersSample);
-
-            productionOrdersMessage[0].Name = Guid.NewGuid().ToString("N");
-            productionOrdersMessage[0].OrderNumber = Guid.NewGuid().ToString("N").Substring(0, 3);
-
-            _scenario.CustomImportProductionOrderCollection = productionOrdersMessage;
-            _scenario.Setup();
-
-            ///<Step> Validate integration entry with the list of Production Orders </Step>
-            ///<ExpectedResult> Integration entry should be processed </ExpectedResult>
-            Assert.IsTrue(_scenario.IntegrationEntries.Count > 0, "Integration Entries should have been created");
-            foreach (IntegrationEntry ie in _scenario.IntegrationEntries)
+            CustomExecutionScenario updateScenario = null;
+            try
             {
-                Assert.IsTrue(ie.IsIntegrationEntryProcessed(secondsBetweenAttempts: 10), "Integration Entry was not processed. Error Message: {0}", ie.ResultDescription);
+                ///<Step> Create Message to send to MES System </Step>
+                string productionOrdersSample = FileUtilities.LoadFile($@"ERP\Samples\SampleImportProductionOrder.xml");
+                CustomImportProductionOrderCollection productionOrdersMessage = CustomUtilities.DeserializeXmlToObject<CustomImportProductionOrderCollection>(productionOrdersSample);
+
+                productionOrdersMessage[0].Name = Guid.NewGuid().ToString("N");
+                productionOrdersMessage[0].OrderNumber = Guid.NewGuid().ToString("N").Substring(0, 3);
+
+                _scenario.CustomImportProductionOrderCollection = productionOrdersMessage;
+                _scenario.Setup();
+
+                ///<Step> Validate integration entry with the list of Production Orders </Step>
+                ///<ExpectedResult> Integration entry should be processed </ExpectedResult>
+                Assert.IsTrue(_scenario.IntegrationEntries.Count > 0, "Integration Entries should have been created");
+                foreach (IntegrationEntry ie in _scenario.IntegrationEntries)
+                {
+                    Assert.IsTrue(ie.IsIntegrationEntryProcessed(secondsBetweenAttempts: 10), "Integration Entry was not processed. Error Message: {0}", ie.ResultDescription);
+                }
+
+                ///<Step> Validate integration entry with the Production Order </Step>
+                ///<ExpectedResult> Integration entry should be processed </ExpectedResult>
+                IntegrationEntry productionOrderIntegrationEntry = CustomUtilities.GetIntegrationEntry(productionOrdersMessage[0].Name);
+                Assert.IsTrue(productionOrderIntegrationEntry.IsIntegrationEntryProcessed(secondsBetweenAttempts: 10), "Integration Entry was not processed. Error Message: {0}", productionOrderIntegrationEntry.ResultDescription);
+
+                ProductionOrder po = new ProductionOrder()
+                {
+                    Name = productionOrdersMessage[0].Name
+                };
+
+                Assert.IsTrue(po.ObjectExists(), $"Production Order named {productionOrdersMessage[0].Name} should have been created.");
+
+                customTeardownManager.Push(po);
+                po.Load();
+                po.Product.Load();
+                po.Facility.Load();
+
+                ///<Step> Validate Production Order created </Step>
+                ///<ExpectedResult> Production Order should have the correct information </ExpectedResult>
+                ValidateProductionOrder(productionOrdersMessage[0], po);
+
+                #region UpdatePO
+
+                ///<Step> Create Message to send to MES System </Step>
+                productionOrdersMessage[0].Units = "BARS";
+                productionOrdersMessage[0].UnderDeliveryTolerance = (decimal?)0.5;
+                productionOrdersMessage[0].OverDeliveryTolerance = (decimal?)0.6;
+
+                updateScenario = new CustomExecutionScenario();
+                updateScenario.CustomImportProductionOrderCollection = productionOrdersMessage;
+                updateScenario.Setup();
+
+                ///<Step> Validate integration entry with the list of Production Orders </Step>
+                ///<ExpectedResult> Integration entry should be processed </ExpectedResult>
+                Assert.IsTrue(updateScenario.IntegrationEntries.Count > 0, "Integration Entries should have been created");
+                foreach (IntegrationEntry ie in updateScenario.IntegrationEntries)
+                {
+                    Assert.IsTrue(ie.IsIntegrationEntryProcessed(secondsBetweenAttempts: 10), "Integration Entry was not processed. Error Message: {0}", ie.ResultDescription);
+                }
+
+                ///<Step> Validate integration entry with the Production Order to be updated </Step>
+                ///<ExpectedResult> Integration entry should be processed </ExpectedResult>
+                productionOrderIntegrationEntry = CustomUtilities.GetIntegrationEntry(productionOrdersMessage[0].Name);
+                Assert.IsTrue(productionOrderIntegrationEntry.IsIntegrationEntryProcessed(secondsBetweenAttempts: 10), "Integration Entry was not processed. Error Message: {0}", productionOrderIntegrationEntry.ResultDescription);
+
+                po.Load();
+                po.Product.Load();
+                po.Facility.Load();
+
+                ///<Step> Validate Production Order was updated </Step>
+                ///<ExpectedResult> Production Order should have the correct updated information </ExpectedResult>
+                ValidateProductionOrder(productionOrdersMessage[0], po);
+
+                #endregion
+            } finally
+            {
+                if (updateScenario != null)
+                {
+                    updateScenario.CompleteCleanUp();
+                }
             }
-
-            ///<Step> Validate integration entry with the Production Order </Step>
-            ///<ExpectedResult> Integration entry should be processed </ExpectedResult>
-            IntegrationEntry productionOrderIntegrationEntry = CustomUtilities.GetIntegrationEntry(productionOrdersMessage[0].Name);
-            Assert.IsTrue(productionOrderIntegrationEntry.IsIntegrationEntryProcessed(secondsBetweenAttempts: 10), "Integration Entry was not processed. Error Message: {0}", productionOrderIntegrationEntry.ResultDescription);
-
-            ProductionOrder po = new ProductionOrder()
-            {
-                Name = productionOrdersMessage[0].Name
-            };
-
-            Assert.IsTrue(po.ObjectExists(), $"Production Order named {productionOrdersMessage[0].Name} should have been created.");
-
-            customTeardownManager.Push(po);
-            po.Load();
-            po.Product.Load();
-            po.Facility.Load();
-
-            ///<Step> Validate Production Order created </Step>
-            ///<ExpectedResult> Production Order should have the correct information </ExpectedResult>
-            ValidateProductionOrder(productionOrdersMessage[0], po);
-
-            #region UpdatePO
-
-            ///<Step> Create Message to send to MES System </Step>
-            productionOrdersSample = FileUtilities.LoadFile($@"ERP\Samples\SampleImportProductionOrder.xml");
-            CustomImportProductionOrderCollection updateProductionOrdersMessage = new CustomImportProductionOrderCollection();
-            updateProductionOrdersMessage = CustomUtilities.DeserializeXmlToObject<CustomImportProductionOrderCollection>(productionOrdersSample);
-
-            updateProductionOrdersMessage[0].Name = productionOrdersMessage[0].Name;
-            updateProductionOrdersMessage[0].OrderNumber = productionOrdersMessage[0].OrderNumber;
-            updateProductionOrdersMessage[0].Units = "BARS";
-            updateProductionOrdersMessage[0].UnderDeliveryTolerance = (decimal?)0.5;
-            updateProductionOrdersMessage[0].OverDeliveryTolerance = (decimal?)0.6;
-
-            CustomExecutionScenario updateScenario = new CustomExecutionScenario();
-            updateScenario.CustomImportProductionOrderCollection = updateProductionOrdersMessage;
-            updateScenario.Setup();
-
-            ///<Step> Validate integration entry with the list of Production Orders </Step>
-            ///<ExpectedResult> Integration entry should be processed </ExpectedResult>
-            Assert.IsTrue(updateScenario.IntegrationEntries.Count > 0, "Integration Entries should have been created");
-            foreach (IntegrationEntry ie in updateScenario.IntegrationEntries)
-            {
-                Assert.IsTrue(ie.IsIntegrationEntryProcessed(secondsBetweenAttempts: 10), "Integration Entry was not processed. Error Message: {0}", ie.ResultDescription);
-            }
-
-            ///<Step> Validate integration entry with the Production Order to be updated </Step>
-            ///<ExpectedResult> Integration entry should be processed </ExpectedResult>
-            productionOrderIntegrationEntry = CustomUtilities.GetIntegrationEntry(updateProductionOrdersMessage[0].Name);
-            Assert.IsTrue(productionOrderIntegrationEntry.IsIntegrationEntryProcessed(secondsBetweenAttempts: 10), "Integration Entry was not processed. Error Message: {0}", productionOrderIntegrationEntry.ResultDescription);
-
-            po = new ProductionOrder()
-            {
-                Name = updateProductionOrdersMessage[0].Name
-            };
-
-            Assert.IsTrue(po.ObjectExists(), $"Production Order named {updateProductionOrdersMessage[0].Name} should have been created.");
-
-            customTeardownManager.Push(po);
-
-            Thread.Sleep(18000);
-
-            po.Load();
-            po.Product.Load();
-            po.Facility.Load();
-
-            ///<Step> Validate Production Order was updated </Step>
-            ///<ExpectedResult> Production Order should have the correct updated information </ExpectedResult>
-            ValidateProductionOrder(updateProductionOrdersMessage[0], po);
-
-            #endregion
         }
 
         /// <summary>

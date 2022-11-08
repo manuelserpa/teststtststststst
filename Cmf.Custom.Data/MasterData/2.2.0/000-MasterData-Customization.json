@@ -1,0 +1,454 @@
+{
+  "WorksheetNameMapping": {
+    "1": {
+      "WorksheetName": "TibcoGatewayResolver",
+      "Value": "<GT>CustomTibcoEMSGatewayResolver"
+    }
+  },
+  "<SM>LookupTableValues": {
+    "1": {
+      "LookUp Table": "CustomSorterProcess",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "WaferReception",
+      "Lookup Table Value Description": "Wafer Reception",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "2": {
+      "LookUp Table": "MaterialType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Crystal",
+      "Lookup Table Value Description": "Crystal",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "3": {
+      "LookUp Table": "MaterialType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Substrate",
+      "Lookup Table Value Description": "Substrate",
+      "Lookup Table IsEnabled": "Yes"
+    },
+    "4": {
+      "LookUp Table": "MaterialType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Carrier",
+      "Lookup Table Value Description": "Carrier",
+      "Lookup Table IsEnabled": "Yes"
+    }
+  },
+  "<ST>SmartTable": {
+    "1": {
+      "Name": "CustomProductContainerCapacities",
+      "Description": "Used to discover the reception container capacity",
+      "HistoryRetentionTime": "",
+      "IsHistoryEnabled": "Yes",
+      "IsRepeatedValuesAllowed": "No",
+      "DataGroup": ""
+    }
+  },
+  "SmartTableProperties": {
+    "1": {
+      "SmartTable": "CustomProductContainerCapacities",
+      "Name": "Product",
+      "Position": "1",
+      "Description": "Product",
+      "IsKey": "Yes",
+      "IsIndexed": "Yes",
+      "IsMandatory": "No",
+      "ScalarType": "NVarChar",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "EntityType",
+      "ReferenceName": "Product.Name",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": "",
+      "ResolutionMode": "Full"
+    },
+    "2": {
+      "SmartTable": "CustomProductContainerCapacities",
+      "Name": "ProductGroup",
+      "Position": "2",
+      "Description": "ProductGroup",
+      "IsKey": "Yes",
+      "IsIndexed": "Yes",
+      "IsMandatory": "No",
+      "ScalarType": "NVarChar",
+      "Size": "256",
+      "Precision": "",
+      "ReferenceType": "EntityType",
+      "ReferenceName": "ProductGroup.Name",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": "",
+      "ResolutionMode": "Full"
+    },
+    "3": {
+      "SmartTable": "CustomProductContainerCapacities",
+      "Name": "SourceCapacity",
+      "Position": "3",
+      "Description": "Vendor Capacity",
+      "IsKey": "No",
+      "IsIndexed": "No",
+      "IsMandatory": "Yes",
+      "ScalarType": "Int",
+      "Size": "",
+      "Precision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": "",
+      "ResolutionMode": "Full"
+    },
+    "4": {
+      "SmartTable": "CustomProductContainerCapacities",
+      "Name": "TargetCapacity",
+      "Position": "4",
+      "Description": "Container Max Capacity",
+      "IsKey": "No",
+      "IsIndexed": "No",
+      "IsMandatory": "Yes",
+      "ScalarType": "Int",
+      "Size": "",
+      "Precision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": "",
+      "ResolutionMode": "Full"
+    }
+  },
+  "SmartTablePrecedenceKeys": {
+    "1": {
+      "SmartTable": "CustomProductContainerCapacities",
+      "PrecedenceKey1": "Product",
+      "PrecedenceKey2": "ProductGroup"
+    }
+  },
+  "<SM>EntityTypeProperty": {
+    "1": {
+      "EntityType": "Step",
+      "Name": "IsWaferReception",
+      "Description": "If set marks the Step as wafer reception",
+      "PropertyType": "Attribute",
+      "ScalarType": "Bit",
+      "ReferenceType": "None",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "CopyOnClone": "",
+      "BelongsTo": "",
+      "ScalarSize": "",
+      "ScalarPrecision": "",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "",
+      "IsIndexed": "",
+      "IsMandatory": "",
+      "AccessLevel": "",
+      "ValidationRange": "",
+      "ValidationRegex": ""
+    },
+    "2": {
+      "EntityType": "Area",
+      "Name": "LdsId",
+      "Description": "Represents the Logical Data Source (LDS Id)",
+      "PropertyType": "Attribute",
+      "ScalarType": "NVarChar",
+      "ReferenceType": "None",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "CopyOnClone": "",
+      "BelongsTo": "",
+      "ScalarSize": "",
+      "ScalarPrecision": "",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "",
+      "IsIndexed": "",
+      "IsMandatory": "",
+      "AccessLevel": "",
+      "ValidationRange": "",
+      "ValidationRegex": ""
+    },
+    "3": {
+      "EntityType": "Parameter",
+      "Name": "SendToSpace",
+      "Description": "If set sends the parameter to SPACE",
+      "PropertyType": "Attribute",
+      "ScalarType": "Bit",
+      "ReferenceType": "None",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "CopyOnClone": "",
+      "BelongsTo": "",
+      "ScalarSize": "",
+      "ScalarPrecision": "",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "",
+      "IsIndexed": "",
+      "IsMandatory": "",
+      "AccessLevel": "",
+      "ValidationRange": "",
+      "ValidationRegex": ""
+    },
+    "4": {
+      "EntityType": "Material",
+      "Name": "LastProcessRecipe",
+      "Description": "Name of last recipe used",
+      "PropertyType": "Attribute",
+      "ScalarType": "NVarChar",
+      "ReferenceType": "None",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "CopyOnClone": "",
+      "BelongsTo": "",
+      "ScalarSize": "",
+      "ScalarPrecision": "",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "",
+      "IsIndexed": "",
+      "IsMandatory": "",
+      "AccessLevel": "340",
+      "ValidationRange": "",
+      "ValidationRegex": ""
+    }
+  },
+  "<SM>DEEAction": {
+    "1": {
+      "Action": "CustomSendAdHocTransferInformationToIoT",
+      "Description": "DEE Action used to send AdHoc Transfer Information to Lot.",
+      "CodeFileRelativePath": "Materials//CustomSendAdHocTransferInformationToIoT.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "2": {
+      "Action": "CustomValidateMaterialReceptionSubstrate",
+      "Description": "DEE Action used by IoT to validate Material Reception of substrates.",
+      "CodeFileRelativePath": "Materials//CustomValidateMaterialReceptionSubstrate.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "3": {
+      "Action": "CustomReportEDCToSpaceHandler",
+      "Description": "DEE Action to validate DataCollection and create a XML message to be sent to Space system.",
+      "CodeFileRelativePath": "Space//CustomReportEDCToSpaceHandler.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "4": {
+      "Action": "CustomTibcoEMSReplyHandler",
+      "Description": "DEE Action to handle the reply send from Tibco EMS.",
+      "CodeFileRelativePath": "Tibco//CustomTibcoEMSReplyHandler.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "5": {
+      "Action": "CustomMaterialAttributesOnTrackOut",
+      "Description": "DEE action to set attributes on Material on TrackOut",
+      "CodeFileRelativePath": "Materials//CustomMaterialAttributesOnTrackOut.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    }
+  },
+  "DEEActionOrder": {
+    "1": {
+      "ActionGroup": "BusinessObjects.DataCollectionInstance.PerformImmediate.Post",
+      "Action": "CustomReportEDCToSpaceHandler",
+      "Order": "100"
+    },
+    "2": {
+      "ActionGroup": "BusinessObjects.DataCollectionInstance.Close.Post",
+      "Action": "CustomReportEDCToSpaceHandler",
+      "Order": "100"
+    },
+    "3": {
+      "ActionGroup": "BusinessObjects.MaterialCollection.TrackOut.Post",
+      "Action": "CustomMaterialAttributesOnTrackOut",
+      "Order": "100"
+    }
+  },
+  "<SM>LocalizedMessageKey": {
+    "1": {
+      "Name": "CustomValueDoesNotExistLookupTable",
+      "Description": "Error message to inform that value does not exist on LookupTable.",
+      "MessageType": "Message",
+      "en-US": "Row {0} does not exist on LookupTable {1}.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    },
+    "2": {
+      "Name": "CustomResourceIsNotSorter",
+      "Description": "Error message to inform that a Resource is not a Sorter.",
+      "MessageType": "Message",
+      "en-US": "Resource {0} is not a sorter.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    },
+    "3": {
+      "Name": "CustomResourceNotOnline",
+      "Description": "Error message to inform that a Resource is not online.",
+      "MessageType": "Message",
+      "en-US": "Resource {0} does not have automation mode online.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    },
+    "4": {
+      "Name": "CustomResourceNotDescendant",
+      "Description": "Error message to inform that a SubResource is descendant of a given Parent Resource.",
+      "MessageType": "Message",
+      "en-US": "Resource {0} is not a descendent of {1}.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    },
+    "5": {
+      "Name": "CustomResourceInUse",
+      "Description": "Error message to inform that a SubResource is descendant of a given Parent Resource.",
+      "MessageType": "Message",
+      "en-US": "Resource {0} is currently in use.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    },
+    "6": {
+      "Name": "CustomSmartTableNoResolution",
+      "Description": "Error message to inform that does not exist any row resolved for a given SmartTable",
+      "MessageType": "Message",
+      "en-US": "Not able to resolve any {0} from SmartTable {1}.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    },
+    "7": {
+      "Name": "CustomConvertToType",
+      "Description": "Error message to inform that is not possible to convert to a given type",
+      "MessageType": "Message",
+      "en-US": "Not able to convert {0} to {1}.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    },
+    "8": {
+      "Name": "CustomResourceNoDockerContainer",
+      "Description": "Error message to inform that does not exist any Container docked on a given Resource",
+      "MessageType": "Message",
+      "en-US": "Resource {0} does not have any container docked.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    },
+    "9": {
+      "Name": "CustomResourceNoEnoughPositionsOrInUse",
+      "Description": "Error message to inform that does not exist enough position on the docked Containers or are all in use on a given Resource",
+      "MessageType": "Message",
+      "en-US": "Resource {0} does not have any sufficient positions or it is in use.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    },
+    "10": {
+      "Name": "CustomResourceContainerDockedDifferentProducts",
+      "Description": "Error message to inform that does not exist docked Containers with the same product on a given Resource",
+      "MessageType": "Message",
+      "en-US": "Resource {0} containers are from different Product(s). Expected: {1}.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    },
+    "11": {
+      "Name": "CustomResourceContainersNoEnoughPositions",
+      "Description": "Error message to inform that does not exist enough available positions in docked containers on a given Resource",
+      "MessageType": "Message",
+      "en-US": "Not enough available positions in docked containers. Expected: {0}. Found {1}.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    },
+    "12": {
+      "Name": "CustomResourceContainersWrongPositions",
+      "Description": "Error message to inform that exists Materials docked on the wrong positions on a given Resource",
+      "MessageType": "Message",
+      "en-US": "Found materials on the wrong positions. Check position {0} on {1}.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    },
+    "13": {
+      "Name": "CustomStepNoWaferReception",
+      "Description": "Error message to inform that Step is not marked as Wafer Reception",
+      "MessageType": "Message",
+      "en-US": "Step {0} is not marked as Wafer Reception. Expected: {1} attribute set to true.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    },
+    "14": {
+      "Name": "CustomContainerDifferentProducts",
+      "Description": "Error message to inform that Container has a different product from a given one",
+      "MessageType": "Message",
+      "en-US": "Container {0} has materials of different product(s). Expected: {1}.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": "",
+      "UsageType": "Biz"
+    }
+  },
+  "<ST>UIPageContext": {
+    "1": {
+      "Action": "FabExplorer.ResourceView.View",
+      "PrimaryRole": "",
+      "Facility": "",
+      "Area": "",
+      "Step": "",
+      "Resource": "",
+      "ResourceProcessingType": "",
+      "Page": "Custom_ResourceView_Cluster",
+      "BusinessRule": ""
+    }
+  },
+  "<LOOKUP>TibcoGatewayResolver": {
+    "1": {
+      "Subject": "CustomReportEDCToSpace",
+      "Topic": "QUEUE.P.RBG.SPACE_INPUT",
+      "ReplyTo": "QUEUE.P.RBG.SPACE_OUTPUT",
+      "Rule": "",
+      "IsEnabled": "Yes",
+      "QueueMessage": "Yes",
+      "TextMessage": "No",
+      "CompressMessage": "No"
+    }
+  }
+}

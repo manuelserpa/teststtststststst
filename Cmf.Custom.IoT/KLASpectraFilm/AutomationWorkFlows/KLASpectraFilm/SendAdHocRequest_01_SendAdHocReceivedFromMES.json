@@ -1,0 +1,154 @@
+{
+	"tasks": [
+		{
+			"id": "task_2516",
+			"reference": {
+				"name": "systemActionGroupEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"replyTimeout": 60000,
+				"___cmf___name": "On System Event",
+				"___cmf___color": "#0080ff",
+				"actionGroup": "SendAdHocRequest"
+			}
+		},
+		{
+			"id": "task_2584",
+			"reference": {
+				"name": "customSendAdHocEquipmentRequest",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "2.0.0"
+				}
+			},
+			"settings": {
+				"___cmf___name": "Custom Send AdHoc Equipment Request"
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToString",
+			"reference": {
+				"name": "anyToString",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "1208e165-a389-4be1-b6f8-027c8f3f1337",
+			"sourceId": "task_2516",
+			"targetId": "task_2584",
+			"inputName": "adHocRequest",
+			"outputName": "data",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+					"params": {}
+				}
+			]
+		},
+		{
+			"id": "64ab32fd-5380-407e-9e5f-9f56fc9ef054",
+			"sourceId": "task_2516",
+			"targetId": "task_2584",
+			"inputName": "activate",
+			"outputName": "data"
+		},
+		{
+			"id": "f9c2b1f6-2f35-4270-bf8c-398a0bec1ea9",
+			"sourceId": "task_2584",
+			"targetId": "task_2516",
+			"inputName": "reply",
+			"outputName": "returnObject",
+			"converters": []
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#0080ff",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_2516": {
+						"collapsed": false,
+						"position": {
+							"x": 3832,
+							"y": 615
+						},
+						"outdated": false
+					},
+					"task_2584": {
+						"collapsed": false,
+						"position": {
+							"x": 4322,
+							"y": 610
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"64ab32fd-5380-407e-9e5f-9f56fc9ef054": {
+						"vertices": []
+					},
+					"f9c2b1f6-2f35-4270-bf8c-398a0bec1ea9": {
+						"vertices": [
+							{
+								"x": 4754,
+								"y": 599
+							},
+							{
+								"x": 4568,
+								"y": 553
+							},
+							{
+								"x": 3886,
+								"y": 581
+							}
+						]
+					},
+					"1208e165-a389-4be1-b6f8-027c8f3f1337": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"zoom": 1,
+				"pan": {
+					"x": 3792.177978515625,
+					"y": 525.3330078125
+				}
+			}
+		}
+	}
+}

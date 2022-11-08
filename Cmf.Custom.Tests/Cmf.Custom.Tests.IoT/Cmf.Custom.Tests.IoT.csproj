@@ -63,5 +63,8 @@
     <None Update="RecipeBinaryFiles\testRecipe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Tests\KLASpectraFilm\KLASpectraFilmDataCollection.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

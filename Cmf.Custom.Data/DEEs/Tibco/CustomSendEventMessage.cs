@@ -42,6 +42,9 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
             ///   BusinessObjects.Material.Release.Post
             ///   BusinessObjects.Material.Merge.Post
             ///   BusinessObjects.Container.AssociateMaterials.Post
+            ///   BusinessObjects.MaterialCollection.Ship.Post
+            ///   BusinessObjects.MaterialCollection.Receive.Pre
+            ///   BusinessObjects.MaterialCollection.Receive.Post
             /// Depends On:
             /// Is Dependency For:
             /// Exceptions:
@@ -56,19 +59,18 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
 
             if (Input.TryGetValueAs("ActionGroupName", out string actionGroupName) && !string.IsNullOrWhiteSpace(actionGroupName))
             {
-                if (actionGroupName == "BusinessObjects.MaterialCollection.MoveToNextStep.Pre")
+                if (actionGroupName == "BusinessObjects.MaterialCollection.MoveToNextStep.Pre" ||
+                    actionGroupName == "BusinessObjects.MaterialCollection.Receive.Pre")
                 {
-                    IMaterialCollection materialCollection = DeeActionHelper.GetInputItem<IMaterialCollection>(Input, Navigo.Common.Constants.MaterialCollection);
-
                     Dictionary<string, string> materialsSourcePath = new Dictionary<string, string>();
 
+                    IMaterialCollection materialCollection = DeeActionHelper.GetInputItem<IMaterialCollection>(Input, Navigo.Common.Constants.MaterialCollection);
                     foreach (IMaterial material in materialCollection)
                     {
                         materialsSourcePath.Add(material.Name, amsOSRAMUtilities.GetMaterialSourcePath(material));
                     }
 
                     DeeContextHelper.SetContextParameter("MaterialsPreSourcePath", materialsSourcePath);
-
                     return canExecute;
                 }
 
@@ -87,6 +89,8 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                     { "BusinessObjects.Material.Merge.Post", CustomTransactionTypes.MaterialMerge },
                     { "BusinessObjects.Material.Release.Post", CustomTransactionTypes.MaterialRelease },
                     { "BusinessObjects.Container.AssociateMaterials.Post", CustomTransactionTypes.ContainerAssociation },
+                    { "BusinessObjects.MaterialCollection.Ship.Post", CustomTransactionTypes.MaterialShip },
+                    { "BusinessObjects.MaterialCollection.Receive.Post", CustomTransactionTypes.MaterialReceive }
                 };
 
                 if (associatedTransactions.ContainsKey(actionGroupName))
@@ -168,6 +172,8 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
                 case CustomTransactionTypes.MaterialLoss:
                 case CustomTransactionTypes.MaterialBonus:
                 case CustomTransactionTypes.MaterialHold:
+                case CustomTransactionTypes.MaterialShip:
+                case CustomTransactionTypes.MaterialReceive:
                     {
                         materialCollection = DeeActionHelper.GetInputItem<IMaterialCollection>(Input, Navigo.Common.Constants.MaterialCollection);
                         messageSubject = amsOSRAMConstants.CustomLotChange;
@@ -216,20 +222,35 @@ namespace Cmf.Custom.amsOSRAM.Actions.Tibco
 
             #region Auxiliar Methods
 
+            /// <summary>
+            /// Get Message Header for Tibco
+            /// </summary>
+            /// <param name="material">Material</param>
+            /// <param name="transactionToExecute">Transaction type to exectute</param>
+            /// <returns>Json object with Header</returns>
             object GetMessageHeader(IMaterial material, CustomTransactionTypes transactionToExecute)
             {
                 // Get stdObjectName key header message value
                 string lotName = material.Name;
 
-                // Get stdTo key header message value
-                string pathTo = amsOSRAMUtilities.GetMaterialSourcePath(material);
-
                 // Get stdFrom key header message value
-                string pathFrom = pathTo;
-                if (transactionToExecute == CustomTransactionTypes.MaterialMoveNext)
+                string pathFrom = amsOSRAMUtilities.GetMaterialSourcePath(material);
+
+                // Get stdTo key header message value
+                string pathTo = pathFrom;
+
+                // Get the InTransit Facility when Material is shipped
+                if (material.InTransitToFacility is not null)
+                {
+                    pathTo = amsOSRAMUtilities.GetMaterialSourcePath(material, material.InTransitToFacility);
+                }
+
+                // When the transaction is MoveNext or Receive the pathTo is obtained from the Material in the Post action
+                // but the pathFrom must be retrieved from the Material on Pre action (when its possible to get the previous Step name).
+                if (transactionToExecute == CustomTransactionTypes.MaterialMoveNext ||
+                    transactionToExecute == CustomTransactionTypes.MaterialReceive)
                 {
                     Dictionary<string, string> materialsSourcePath = DeeContextHelper.GetContextParameter("MaterialsPreSourcePath") as Dictionary<string, string>;
-
                     pathFrom = materialsSourcePath.GetValueOrDefault(material.Name);
                 }
 

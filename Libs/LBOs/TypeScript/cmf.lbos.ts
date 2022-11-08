@@ -60240,6 +60240,8 @@ export namespace Cmf.Custom.amsOSRAM.Common.DataStructures
         MaterialHold = 10,
         MaterialRelease = 11,
         ContainerAssociation = 12,
+        MaterialShip = 13,
+        MaterialReceive = 14,
     }
     
 }

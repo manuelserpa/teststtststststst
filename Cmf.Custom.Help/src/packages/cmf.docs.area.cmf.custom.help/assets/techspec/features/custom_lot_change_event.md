@@ -31,6 +31,7 @@ N/A
 
 The table below describes the user stories that affect the current functionality.
 
-| User Story | Type       | Title                                             | Description |
-| :--------- | :--------- | :------------------------------------------------ | :---------- |
-| 194969     | User Story | Lot Change Event Message (Tibco MES Message to provide EADOS and GDPS related wafer information) |  |
+| User Story | Type       | Title                                             |
+| :--------- | :--------- | :------------------------------------------------ |
+| 194969     | User Story | Lot Change Event Message (Tibco MES Message to provide EADOS and GDPS related wafer information) |
+| 203944     | Bug        | Transactions are missing in generic table "Custom Transactions To Tibco"                         |

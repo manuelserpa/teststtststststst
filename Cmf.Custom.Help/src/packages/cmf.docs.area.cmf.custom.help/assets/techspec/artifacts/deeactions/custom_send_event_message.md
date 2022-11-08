@@ -20,6 +20,9 @@ DEE Action used to publish Lot event messages to MessageBus based on Material ac
 * BusinessObjects.Material.Release.Post
 * BusinessObjects.Material.Merge.Post
 * BusinessObjects.Container.AssociateMaterials.Post
+* BusinessObjects.MaterialCollection.Ship.Post
+* BusinessObjects.MaterialCollection.Receive.Pre
+* BusinessObjects.MaterialCollection.Receive.Post
 
 ## Pre Conditions
 

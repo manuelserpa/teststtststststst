@@ -1,11 +1,11 @@
 {
   "packageId": "Cmf.Custom.Data",
-  "version": "2.1.0",
+  "version": "2.3.0",
   "description": "Cmf Custom amsOSRAM Cmf.Custom.Data Package",
   "packageType": "Data",
   "isInstallable": true,
   "isUniqueInstall": true,
-  "contentToPack": [  
+  "contentToPack": [
     {
       "source": "DEEs/*",
       "target": "DeeRules",
@@ -37,14 +37,6 @@
         "../.cmfpackageignore"
       ],
       "contentType": "Maps"
-    },
-    {
-      "source": "ExportedObjects/*",
-      "target": "ExportedObjects",
-      "ignoreFiles": [
-        "../.cmfpackageignore"
-      ],
-      "contentType": "ExportedObjects"
     },
     {
       "source": "DEEs/ProcessRules/EntityTypes/*",
