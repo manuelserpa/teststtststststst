@@ -1,6 +1,6 @@
 {
   "name": "cmf.docs.area",
-  "version": "2.4.0",
+  "version": "2.3.1",
   "description": "Help customization package for amsOSRAM",
   "private": true,
   "scripts": {
