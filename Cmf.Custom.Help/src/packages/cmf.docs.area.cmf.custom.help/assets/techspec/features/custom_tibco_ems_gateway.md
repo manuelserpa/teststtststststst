@@ -44,7 +44,7 @@ The Generic Table CustomTibcoEMSGatewayResolver contains all the subjects that a
   - If the configuration in Generic Table CustomTibcoEMSGatewayResolver **does not have** an Action associated:
     - The message received from the Message Bus is directly sent to Tibco along the corresponding Topic or Queue.
   - If the configuration in Generic Table CustomTibcoEMSGatewayResolver **has** a ReplyTo associated:
-    - The Tibco gateway will create a listener to that specific Topic/Queue and it will wait for a reply.
+    - The Tibco gateway will create a listener to that specific Topic/Queue that will handle the reply asynchronously.
     - As soon as the reply arrives it will call the DEE Action (CustomTibcoEMSReplyHandler).
 
 When the subject CustomTibcoEMSGatewayInvalidateCache is received the cache with the subscribed subjects will be reloaded from MES.
@@ -55,13 +55,15 @@ The following behavior will be applied:
 - When any **record is updated** in Generic Table **the service will reload the corresponding configuration** on the Message Bus.
 - When any **record is deleted** from Generic Table **the service will unsubscribe** the corresponding subject on the Message Bus.
 
+When a **ReplyTo** is configured, Tibco Gateway needs a way to associate the message sent by MES (request) and the correspondent reply (sent by Tibco). In order to do that, the reply must have the **CorrelationID** equals to the **MessageID** used on the request. If exists a match, the Reply will be handled accordingly. 
+
 The Reply must have the following structure to handle the reply accordingly:
 
 - ReplyMessage (mandatory, string)
 - Context
   - Subject (mandatory, string)
 
-This context is set when sending the message to Tibco EMS. This middleware will save the context and attach it to the reply.
+This context is set when set by Tibco Gateway when sending the message to Tibco EMS. This middleware will save the context and attach it to the reply to be sent to MES later. With this mechanism it's possible to handle the reply with all the needed information regardless of the reply.
 
 ## Technical Configurations
 
