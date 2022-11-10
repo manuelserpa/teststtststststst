@@ -1,0 +1,416 @@
+{
+	"tasks": [
+		{
+			"id": "task_93884",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "SlotMapReceived",
+					"IsShared": true,
+					"Name": "SlotMapReceived"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "ContainerId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "SlotMap",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SlotMap"
+						}
+					},
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LoadPort"
+						}
+					},
+					{
+						"name": "DoNotTriggerMaterialIn",
+						"valueType": {
+							"friendlyName": "DoNotTriggerMaterialIn",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"friendlyName": "ContainerName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "slotMap",
+						"valueType": {
+							"friendlyName": "slotMap",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "container",
+						"valueType": {
+							"friendlyName": "container",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Slot Map Received Workflow"
+			}
+		},
+		{
+			"id": "task_190927",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "JobID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "LotID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "StationID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "SlotDataMap",
+							"DataType": 0
+						},
+						"outputType": "RawValue"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CLOCK",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "WaferMappingDone"
+					}
+				],
+				"___cmf___description": "WaferMappingDone (1007)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_26473",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"",
+					"        const slotMapValue = inputs.SlotDataMap;        ",
+					"",
+					"        if (slotMapValue == null) {",
+					"            throw new Error(\"Empty slot map\");",
+					"        }",
+					"",
+					"        let slotMap: string = \"\";",
+					"",
+					"        (<any[]>slotMapValue.value[0].value).forEach(slot => {",
+					"            slotMap += slot.value == 1 ? \"1\" : \"0\";",
+					"        });",
+					"",
+					"        this.framework.logger.info(`Slot map parsed value: ${slotMap}`);",
+					"",
+					"        return { ",
+					"            SlotMap: slotMap",
+					"        };",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IHNsb3RNYXBWYWx1ZSA9IGlucHV0cy5TbG90RGF0YU1hcDsNCiAgICAgICAgaWYgKHNsb3RNYXBWYWx1ZSA9PSBudWxsKSB7DQogICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoIkVtcHR5IHNsb3QgbWFwIik7DQogICAgICAgIH0NCiAgICAgICAgbGV0IHNsb3RNYXAgPSAiIjsNCiAgICAgICAgc2xvdE1hcFZhbHVlLnZhbHVlWzBdLnZhbHVlLmZvckVhY2goc2xvdCA9PiB7DQogICAgICAgICAgICBzbG90TWFwICs9IHNsb3QudmFsdWUgPT0gMSA/ICIxIiA6ICIwIjsNCiAgICAgICAgfSk7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrLmxvZ2dlci5pbmZvKGBTbG90IG1hcCBwYXJzZWQgdmFsdWU6ICR7c2xvdE1hcH1gKTsNCiAgICAgICAgcmV0dXJuIHsNCiAgICAgICAgICAgIFNsb3RNYXA6IHNsb3RNYXANCiAgICAgICAgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
+				"inputs": [
+					{
+						"name": "SlotDataMap",
+						"valueType": {
+							"type": 1001,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "SlotMap",
+						"valueType": {
+							"friendlyName": "SlotMap",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code - Parse Slot Map"
+			}
+		},
+		{
+			"id": "task_34108",
+			"reference": {
+				"name": "logMessage",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"message": "",
+				"verbosity": "Warning",
+				"clearInputs": true,
+				"mode": "RawText",
+				"isCustomFormat": false,
+				"messageFormat": "",
+				"inputs": [],
+				"___cmf___name": "Log Message"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "8b1ab319-0bc2-4c92-9b51-80c0d1607095",
+			"sourceId": "task_190927",
+			"targetId": "task_26473",
+			"inputName": "SlotDataMapIn",
+			"outputName": "$SlotDataMap"
+		},
+		{
+			"id": "a3e6f835-29f5-46b3-a8f7-be82dfc60e4a",
+			"sourceId": "task_190927",
+			"targetId": "task_26473",
+			"inputName": "activate",
+			"outputName": "$SlotDataMap"
+		},
+		{
+			"id": "1be75e1b-46ff-483e-8e08-b7496401f5cc",
+			"sourceId": "task_26473",
+			"targetId": "task_93884",
+			"inputName": "SlotMapIn",
+			"outputName": "SlotMapOut"
+		},
+		{
+			"id": "0c8539bf-6c7c-4d18-9845-4c1dd1cb8047",
+			"sourceId": "task_26473",
+			"targetId": "task_93884",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "6a275919-592b-41c7-8839-3bb7ea378dcf",
+			"sourceId": "task_190927",
+			"targetId": "task_34108",
+			"inputName": "message",
+			"outputName": "$SlotDataMap"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#80ffff",
+			"notes": [
+				{
+					"id": "note_191122",
+					"name": "TosCassetteSlotMap",
+					"value": "<p><strong>What it does:</strong></p><p>Stores Slot Map on Container Data for Load Port/Container;</p><p>Default behavior executes Material In for Lot (Parent Material) of Wafers associated with the Container on MES.</p><p>If&nbsp;DoNotTriggerMaterialIn is passed as true Material In will not be executed;</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to TosCassetteSlotMap for the Tool;</li><li>If needed convert Slot Map variable to a supported format and connect to the Slot Map input of the workflow;&nbsp;</li><li>Use either Container Id or Load Port to define which ContainerData the Slot Map belongs to;</li><li>To not execute the Material In:<ol><li>Drag any output of the event to DoNotTriggerMaterialIn workflow Input;</li><li>Set a Converter of Any to Constant with Type Boolean and Value True.</li></ol></li><li>Pass any event Output to the Activate Input of the Workflow;</li></ol><ol><p>&nbsp;</p><p>&nbsp;</p></ol><p>&nbsp;</p>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_34108": {
+						"collapsed": false,
+						"position": {
+							"x": 963,
+							"y": 774
+						},
+						"outdated": false
+					},
+					"task_93884": {
+						"collapsed": false,
+						"position": {
+							"x": 1476,
+							"y": 202
+						},
+						"outdated": false
+					},
+					"task_190927": {
+						"collapsed": false,
+						"position": {
+							"x": 277,
+							"y": 187
+						},
+						"outdated": false
+					},
+					"task_26473": {
+						"collapsed": false,
+						"position": {
+							"x": 901,
+							"y": 372
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"8b1ab319-0bc2-4c92-9b51-80c0d1607095": {
+						"vertices": []
+					},
+					"a3e6f835-29f5-46b3-a8f7-be82dfc60e4a": {
+						"vertices": []
+					},
+					"1be75e1b-46ff-483e-8e08-b7496401f5cc": {
+						"vertices": []
+					},
+					"0c8539bf-6c7c-4d18-9845-4c1dd1cb8047": {
+						"vertices": []
+					},
+					"6a275919-592b-41c7-8839-3bb7ea378dcf": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_191122": {
+						"collapsed": false,
+						"position": {
+							"x": 1910,
+							"y": 119
+						}
+					}
+				},
+				"zoom": 0.7000000000000002,
+				"pan": {
+					"x": 157,
+					"y": 12
+				}
+			}
+		}
+	}
+}

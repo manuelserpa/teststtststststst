@@ -1,0 +1,310 @@
+{
+	"tasks": [
+		{
+			"id": "task_158178",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ReadyToUnload",
+					"IsShared": true,
+					"Name": "ReadyToUnload"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "LoadPortNumber",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LoadPortNumber"
+						}
+					},
+					{
+						"name": "ContainerId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"friendlyName": "StateUpdatedOnMainEquipment",
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "LoadPortName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "LoadPortNumber",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerName"
+						}
+					}
+				],
+				"___cmf___name": "Ready to Unload Workflow"
+			}
+		},
+		{
+			"id": "task_158180",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "JobID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "LotID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "DestinationStationID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CLOCK",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "CarrierPlacedToPod"
+					}
+				],
+				"___cmf___description": "CarrierPlacedToPod (4103)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_33224",
+			"reference": {
+				"name": "expressionEvaluator",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_expressionType": 0,
+				"_evaluatorBehavior": "EvaluateAll",
+				"___cmf___name": "Expression Evaluator",
+				"_inputs": [
+					{
+						"name": "PORT_ID",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": -1,
+						"required": true
+					}
+				],
+				"_outputs": [
+					{
+						"name": "LoadPortNumber",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null,
+						"expression": "PORT_ID == 14 ?  1 : PORT_ID == 15 ? 2 : PORT_ID == 16 ? 3 : 0"
+					}
+				]
+			}
+		}
+	],
+	"converters": [],
+	"links": [
+		{
+			"id": "1737443a-0fbf-4879-8448-85cb36641939",
+			"sourceId": "task_158180",
+			"targetId": "task_33224",
+			"inputName": "PORT_ID",
+			"outputName": "$DestinationStationID"
+		},
+		{
+			"id": "db8d4279-e05f-4f0b-b8d8-c61b4d9df689",
+			"sourceId": "task_158180",
+			"targetId": "task_33224",
+			"inputName": "activate",
+			"outputName": "$DestinationStationID"
+		},
+		{
+			"id": "30ba9872-17bd-4070-a403-7d2411cea1f6",
+			"sourceId": "task_33224",
+			"targetId": "task_158178",
+			"inputName": "LoadPortNumberIn",
+			"outputName": "LoadPortNumber"
+		},
+		{
+			"id": "67fbc25a-2a4d-41cc-a93f-6467b531f345",
+			"sourceId": "task_33224",
+			"targetId": "task_158178",
+			"inputName": "activate",
+			"outputName": "LoadPortNumber"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#80ffff",
+			"notes": [
+				{
+					"id": "note_158182",
+					"name": "TosReadyToUnload",
+					"value": "<p><strong>What it does:</strong></p><p>Sets corresponding Load Port to ReadyToUnload;</p><p>Request Transport Job for Load Port;</p><p>&nbsp;</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to ReadyToUnload for the Tool;</li><li>Connect the value corresponding to the Load Port Id to the Load Port Id of the Workflow task;<ol><li>If the Equipment does not deliver that information and has only 1 port:<ol><li>Connect any event output to Load Port Id;</li><li>Use the Converter \"Any to Constant\" to send a value of Type Integer and Value 1;</li></ol></li><li>If the Equipment does not deliver that information and has multiple Load Port with multiple Event:<ol><li>Connect any event output to Load Port Id;</li><li>Use the Converter \"Any to Constant\" to send a value of Type Integer and Value corresponding to the Load Port;</li></ol></li></ol></li><li>Pass any event Output to the Activate Input of the Workflow;</li></ol>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_158178": {
+						"collapsed": false,
+						"position": {
+							"x": 1483,
+							"y": 257
+						},
+						"outdated": false
+					},
+					"task_158180": {
+						"collapsed": false,
+						"position": {
+							"x": 405,
+							"y": 223
+						},
+						"outdated": false
+					},
+					"task_33224": {
+						"collapsed": false,
+						"position": {
+							"x": 972,
+							"y": 401
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"1737443a-0fbf-4879-8448-85cb36641939": {
+						"vertices": []
+					},
+					"db8d4279-e05f-4f0b-b8d8-c61b4d9df689": {
+						"vertices": []
+					},
+					"30ba9872-17bd-4070-a403-7d2411cea1f6": {
+						"vertices": []
+					},
+					"67fbc25a-2a4d-41cc-a93f-6467b531f345": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_158182": {
+						"collapsed": false,
+						"position": {
+							"x": 1902,
+							"y": 99
+						}
+					}
+				},
+				"pan": {
+					"x": -14.673438254274174,
+					"y": -8.82813293013146
+				},
+				"zoom": 0.48
+			}
+		}
+	}
+}
