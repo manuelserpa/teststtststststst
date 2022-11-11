@@ -17,5 +17,6 @@ The features are grouped in the following sections:
 * [Terminate Vendor Container Type](/cmf.custom.help/techspec>features>customterminatevendorcontainertype)
 * [Undock Vendor Container Type](/cmf.custom.help/techspec>features>customundockvendorcontainertype)
 * [Generate Sorter Job Definition From Future Action](/cmf.custom.help/techspec>features>generatesorterjobdefinitionfromfutureaction)
+* [Custom Retrieve Attributes For Material](/cmf.custom.help/techspec>features>customretrieveattributesformaterial)
 
 

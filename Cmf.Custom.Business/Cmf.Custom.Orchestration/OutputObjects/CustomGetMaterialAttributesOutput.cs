@@ -1,16 +1,22 @@
 ﻿using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessOrchestration;
 using Cmf.Navigo.BusinessObjects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects
+namespace Cmf.Custom.amsOSRAM.Orchestration.OutputObjects
 {
     /// <summary>
-    /// Input Object for MaterialAttribute Service
+    /// Output Object for MaterialAttribute Service
     /// </summary>
-    [DataContract(Name = "MaterialAttributesInput")]
-    public class MaterialAttributesInput : BaseInput
+    [DataContract(Name = "CustomGetMaterialAttributesOutput")]
+    public class CustomGetMaterialAttributesOutput : BaseOutput
     {
+        #region Properties
         #region Private Variables
         #endregion
 
@@ -20,20 +26,10 @@ namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects
         #region Properties
 
         /// <summary>
-		/// Message
+		/// Result
 		/// </summary>
-		[DataMember(Name = "Message", Order = 100)]
-        public string Message
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// MessageType
-        /// </summary>
-        [DataMember(Name = "MessageType", Order = 100)]
-        public string MessageType
+		[DataMember(Name = "Result", Order = 100)]
+        public string Result
         {
             get;
             set;
@@ -52,5 +48,7 @@ namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects
 
         #region Event handling Methods
         #endregion
+        #endregion
+
     }
 }

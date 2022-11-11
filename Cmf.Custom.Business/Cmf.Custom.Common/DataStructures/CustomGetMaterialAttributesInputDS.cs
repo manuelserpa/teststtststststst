@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cmf.Custom.amsOSRAM.Orchestration.DataStructures
 {
-    public class MaterialAttributesDataStructure
+    public class CustomGetMaterialAttributesInputDS
     {
         public MaterialCollection MaterialName { get; set; }
         public AttributeCollection AttributeName { get; set; }

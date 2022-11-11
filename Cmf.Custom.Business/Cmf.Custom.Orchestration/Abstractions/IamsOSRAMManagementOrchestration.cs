@@ -49,6 +49,6 @@ namespace Cmf.Custom.amsOSRAM.Orchestration.Abstractions
         /// </summary>
         /// <param name="input"></param>
         /// <returns>MaterialAttributes Output object</returns>
-        MaterialAttributesOutput CustomRetrieveAllAttributesForMaterial(MaterialInInput input);
+        CustomGetMaterialAttributesOutput CustomGetMaterialAttributes(CustomGetMaterialAttributesInput input);
     }
 }

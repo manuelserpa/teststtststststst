@@ -21,16 +21,16 @@ using Cmf.Foundation.Common.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
 using Cmf.Foundation.Common.LocalizationService;
-using Cmf.Foundation.BusinessObjects.Cultures;
-using Cmf.Common.CustomActionUtilities;
-using Cmf.Foundation.BusinessObjects.GenericTables;
 using Cmf.Foundation.BusinessObjects;
 using System.Data;
-using static Cmf.Custom.amsOSRAM.Common.DataStructures.CustomFlowInformationToERPData;
 using System.Xml;
 using System.Xml.Serialization;
 using Cmf.Custom.amsOSRAM.Orchestration.DataStructures;
 using System.IO;
+using Cmf.Common.CustomActionUtilities;
+using Cmf.Foundation.BusinessObjects.GenericTables;
+using static Cmf.Custom.amsOSRAM.Common.DataStructures.CustomFlowInformationToERPData;
+using System.Collections.ObjectModel;
 
 namespace Cmf.Custom.amsOSRAM.Orchestration
 {
@@ -60,9 +60,9 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
         private const string MATERIAL_OUT_INPUT = "MaterialOutInput";
         private const string MATERIAL_OUT_OUTPUT = "MaterialOutOutput";
 
-        private const string RETRIEVE_ALL_ATTRIBUTES_FOR_MATERIAL = "CustomRetrieveAllAttributesForMaterial";
-        private const string MATERIAL_ATTRIBUTES_OUTPUT = "MaterialAttributesOutput";
-        private const string MATERIAL_ATTRIBUTES_INPUT = "MaterialAttributesInput";
+        private const string CUSTOM_GET_MATERIAL_ATTRIBUTES = "CustomGetMaterialAttributes";
+        private const string CUSTOM_GET_MATERIAL_ATTRIBUTES_OUTPUT = "MaterialAttributesOutput";
+        private const string CUSTOM_GET_MATERIAL_ATTRIBUTES_INPUT = "MaterialAttributesInput";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="amsOSRAMManagementOrchestration"/> class.
@@ -799,81 +799,466 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
         /// </summary>
         /// <param name="CustomGetFlowInformationForERPInput">Input Object</param>
         /// <returns></returns>
-        public MaterialAttributesOutput CustomRetrieveAllAttributesForMaterial(MaterialAttributesInput input)
+        public CustomGetFlowInformationForERPOutput GetFlowInformationForERP(CustomGetFlowInformationForERPInput input)
         {
-            MaterialAttributesOutput output = new MaterialAttributesOutput();
-            bool allAttributesNeeded = false;
-            AttributeCollection attributesToBeReturned = null;
-            MaterialAttributesDataStructure dataHolder;
-            MaterialCollection loadedMaterials = new MaterialCollection();
+            Utilities.StartMethod(OBJECT_TYPE_NAME, GET_FLOW_INFORMATION_FOR_ERP,
+                                  new KeyValuePair<string, object>(GET_FLOW_INFORMATION_FOR_ERP_INPUT, input));
 
-            Utilities.StartMethod(OBJECT_TYPE_NAME, RETRIEVE_ALL_ATTRIBUTES_FOR_MATERIAL,
-                new KeyValuePair<string, object>(MATERIAL_ATTRIBUTES_INPUT, input));
+            CustomGetFlowInformationForERPOutput output = new CustomGetFlowInformationForERPOutput();
+
             try
             {
-                //reading the contents of the string XML
-                if (!string.IsNullOrEmpty(input.Message) && !string.IsNullOrEmpty(input.Message))
+                Utilities.ValidateNullInput(input);
+
+                if (!string.IsNullOrWhiteSpace(input.ProductName) && !string.IsNullOrWhiteSpace(input.FlowName))
                 {
-                    var serializer = new XmlSerializer(typeof(MaterialAttributesDataStructure));                    
-                    using (TextReader reader = new StringReader(input.Message))
+                    throw new Exception(_localizationService.Localize(amsOSRAMConstants.LocalizedMessageProductNameAndFlowNameAtSameTime));
+                }
+
+                if (string.IsNullOrWhiteSpace(input.ProductName) && string.IsNullOrWhiteSpace(input.FlowName))
+                {
+                    throw new Exception(_localizationService.Localize(amsOSRAMConstants.LocalizedMessageProductNameOrFlowNameNotDefined));
+                }
+
+                if (string.IsNullOrWhiteSpace(input.FlowName) && !string.IsNullOrWhiteSpace(input.FlowVersion))
+                {
+                    throw new Exception(_localizationService.Localize(amsOSRAMConstants.LocalizedMessageFlowVersionWithoutFlowName));
+                }
+
+                // Use input FlowName by default
+                string flowName = input.FlowName;
+
+                CustomFlowInformationToERPData flowInfoData = new CustomFlowInformationToERPData();
+
+                #region Product Info
+
+                if (!string.IsNullOrWhiteSpace(input.ProductName))
+                {
+                    IProduct product = _entityFactory.Create<IProduct>();
+                    product.Name = input.ProductName;
+                    product.Load();
+
+                    if (string.IsNullOrWhiteSpace(product.FlowPath))
                     {
-                        dataHolder = (MaterialAttributesDataStructure)serializer.Deserialize(reader);
+                        throw new Exception(_localizationService.Localize(amsOSRAMConstants.LocalizedMessageProductHasNoFlowPath));
+                    }
+
+                    // Set Flow associated to the product
+                    flowName = product.Flow.Name;
+
+                    product.LoadAttributes();
+
+                    #region Site Mapping
+
+                    // Set Site associated to ProductLine product attribute
+                    if (product.HasRelatedAttribute(amsOSRAMConstants.ProductAttributeProductionLine))
+                    {
+                        string productionLine = product.GetRelatedAttributeValue(amsOSRAMConstants.ProductAttributeProductionLine, true) as string;
+
+                        if (!string.IsNullOrWhiteSpace(productionLine))
+                        {
+                            // Load Generic Table CustomProductionLineConversion
+                            GenericTable customProdLineConversionGT = new GenericTable() { Name = amsOSRAMConstants.GenericTableCustomProductionLineConversion };
+                            customProdLineConversionGT.Load();
+
+                            // Based on ProductLine Product attribute get Site and Facility name from Generic Table
+                            customProdLineConversionGT.LoadData(new Foundation.BusinessObjects.QueryObject.FilterCollection()
+                                {
+                                    new Foundation.BusinessObjects.QueryObject.Filter()
+                                    {
+                                        Name = amsOSRAMConstants.GenericTableCustomProductionLineConversionProductionLineProperty,
+                                        Operator = FieldOperator.IsEqualTo,
+                                        LogicalOperator = LogicalOperator.Nothing,
+                                        Value = productionLine
+                                    }
+                                });
+
+                            if (customProdLineConversionGT.HasData)
+                            {
+                                DataSet prodLineConversionDataSet = NgpDataSet.ToDataSet(customProdLineConversionGT.Data);
+
+                                flowInfoData.Site = prodLineConversionDataSet.Tables[0].Rows[0][amsOSRAMConstants.GenericTableCustomProductionLineConversionSiteProperty].ToString();
+                            }
+                        }
+                    }
+
+                    #endregion Site Mapping
+
+                    #region Product Mapping
+
+                    flowInfoData.ProductInformationData = new ProductInformation()
+                    {
+                        Name = product.Name,
+                        Description = product.Description,
+                        Timestamp = product.CreatedOn.ToString(),
+                        Type = product.Type,
+                        State = product.UniversalState.ToString(),
+                        Maturity = product.Maturity,
+                        Yield = product.Yield.ToString(),
+                        CycleTime = product.CycleTime.ToString(),
+                        MaximumMaterialSize = product.MaximumMaterialSize.ToString()
+                    };
+
+                    #region Attributes Mapping
+
+                    flowInfoData.ProductInformationData.ProductAttributes = new List<AttributeInformation>();
+
+                    if (product.RelatedAttributes.Any())
+                    {
+                        foreach (KeyValuePair<string, object> relatedAttribute in product.RelatedAttributes)
+                        {
+                            AttributeInformation productRelatedAttribute = new AttributeInformation()
+                            {
+                                Name = relatedAttribute.Key,
+                                Value = relatedAttribute.Value.ToString()
+                            };
+
+                            flowInfoData.ProductInformationData.ProductAttributes.Add(productRelatedAttribute);
+                        }
+                    }
+
+                    if (product.Attributes.Any())
+                    {
+                        foreach (KeyValuePair<string, object> relatedAttribute in product.Attributes)
+                        {
+                            AttributeInformation productAttribute = new AttributeInformation()
+                            {
+                                Name = relatedAttribute.Key,
+                                Value = relatedAttribute.Value.ToString()
+                            };
+
+                            flowInfoData.ProductInformationData.ProductAttributes.Add(productAttribute);
+                        }
+                    }
+
+                    #endregion Attributes Mapping
+
+                    #region Parameters Mapping
+
+                    ParameterSourceCollection productParameters = (ParameterSourceCollection)product.GetProductParameters();
+
+                    if (productParameters != null && productParameters.Any())
+                    {
+                        flowInfoData.ProductInformationData.ProductParameters = new List<ParameterInformation>();
+
+                        foreach (ParameterSource parameter in productParameters)
+                        {
+                            ParameterInformation productParameter = new ParameterInformation()
+                            {
+                                Name = parameter.Parameter.Name,
+                                Type = parameter.Type.ToString(),
+                                Value = parameter.Value
+                            };
+
+                            flowInfoData.ProductInformationData.ProductParameters.Add(productParameter);
+                        }
+                    }
+
+                    #endregion Parameters Mapping
+
+                    #endregion Product Mapping
+
+                }
+
+                #endregion Product Info
+
+                #region Flow Info
+
+                IFlow flow = _entityFactory.Create<IFlow>();
+                flow.Name = flowName;
+                flow.Version = !string.IsNullOrWhiteSpace(input.FlowVersion) ? Convert.ToInt32(input.FlowVersion) : 0;
+                flow.Load();
+
+                #region Flow Mapping
+
+                flowInfoData.FlowInformationData = new FlowInformation()
+                {
+                    Name = flow.Name,
+                    Description = flow.Description,
+                    Timestamp = flow.CreatedOn.ToString(),
+                    Type = flow.Type.ToString(),
+                    State = flow.UniversalState.ToString(),
+                    Version = flow.Version.ToString(),
+                    LogicalName = flow.LogicalNames?.FirstOrDefault()?.LogicalName
+                };
+
+                #endregion Flow Mapping
+
+                #region Steps Mapping
+
+                flow.LoadChilds();
+
+                IFlowStepCollection flowSteps = flow.FlowSteps;
+
+                if (flowSteps != null && flowSteps.Any())
+                {
+                    #region Area Mapping
+
+                    flowSteps.FirstOrDefault().TargetEntity.LoadRelations(Cmf.Navigo.Common.Constants.StepArea, 1);
+
+                    // Set Cost Center associated to the first Area of the first FlowStep
+                    flowInfoData.CostCenter = flowSteps.FirstOrDefault().TargetEntity?.StepAreas?.FirstOrDefault()?.TargetEntity?.CostCenter;
+
+                    #endregion Area Mapping
+
+                    flowInfoData.FlowInformationData.Steps = new List<StepInformation>();
+
+                    foreach (IFlowStep flowStep in flowSteps)
+                    {
+                        StepInformation stepInformation = new StepInformation()
+                        {
+                            Name = flowStep.TargetEntity?.Name,
+                            Description = flowStep.TargetEntity?.Description,
+                            Timestamp = flowStep.TargetEntity?.CreatedOn.ToString(),
+                            Type = flowStep.TargetEntity?.Type,
+                            State = flowStep.TargetEntity?.UniversalState.ToString(),
+                            LogicalName = flowStep.LogicalName,
+                            Maturity = flowStep.TargetEntity?.Maturity
+                        };
+
+                        flowInfoData.FlowInformationData.Steps.Add(stepInformation);
+
+                        #region Attributes Mapping
+
+                        flowStep.TargetEntity?.LoadAttributes();
+
+                        if (flowStep.TargetEntity?.Attributes != null && flowStep.TargetEntity.Attributes.Any())
+                        {
+                            stepInformation.StepAttributes = new List<AttributeInformation>();
+
+                            foreach (KeyValuePair<string, object> attribute in flowStep.TargetEntity?.Attributes)
+                            {
+                                AttributeInformation stepAttribute = new AttributeInformation()
+                                {
+                                    Name = attribute.Key,
+                                    Value = attribute.Value.ToString()
+                                };
+
+                                stepInformation.StepAttributes.Add(stepAttribute);
+                            }
+                        }
+
+                        #endregion Attributes Mapping
                     }
                 }
-                else
+
+                #endregion FlowSteps Mapping
+
+                #endregion Flow Info
+
+                #region Returned Message
+
+                if (flowInfoData is null && flowInfoData.ProductInformationData is null && flowInfoData.FlowInformationData is null)
                 {
-                    throw new MissingMandatoryFieldCmfException("Message or MessageType");
+                    throw new Exception(_localizationService.Localize(amsOSRAMConstants.LocalizedMessageCustomFlowInformationToERPDataObjectNull));
                 }
 
-                #region Execution
+                XmlDocument xmlDocument = new XmlDocument();
+                xmlDocument.LoadXml(flowInfoData.SerializeToXML());
 
-                foreach(Material mat in dataHolder.MaterialName)
+                output.ResultXml = xmlDocument.InnerXml;
+
+                #endregion Returned Message
+
+                Utilities.EndMethod(-1, -1,
+                                    new KeyValuePair<string, object>(GET_FLOW_INFORMATION_FOR_ERP_INPUT, input),
+                                    new KeyValuePair<string, object>(GET_FLOW_INFORMATION_FOR_ERP_OUTPUT, output));
+            }
+            catch (CmfBaseException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new CmfBaseException(ex.Message, ex);
+            }
+
+            return output;
+        }
+
+        /// <summary>
+        /// Service to provide material attribute information to EADOS
+        /// </summary>
+        /// <param name="customGetMaterialAttributesInput">Input Object</param>
+        /// <returns></returns>
+        public CustomGetMaterialAttributesOutput CustomGetMaterialAttributes(CustomGetMaterialAttributesInput customGetMaterialAttributesInput)
+        {
+            Utilities.StartMethod(OBJECT_TYPE_NAME, CUSTOM_GET_MATERIAL_ATTRIBUTES,
+                new KeyValuePair<string, object>(CUSTOM_GET_MATERIAL_ATTRIBUTES_INPUT, customGetMaterialAttributesInput));
+
+            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesOutput();
+            CustomGetMaterialAttributesDS dataToXML = new CustomGetMaterialAttributesDS();
+            string[] separatedMaterialList;
+            string[] separatedAttributeList;
+            string[] separatedSubMaterialList;
+            bool attributeListNeeded;
+            bool subMaterialInlcusionIsDefaultValue;
+            bool subMaterialAttributeListNeeded;
+
+            if (string.IsNullOrWhiteSpace(customGetMaterialAttributesInput.MaterialList))
+            {
+                throw new MissingMandatoryFieldCmfException("MaterialList");
+            }
+            else
+            {
+                separatedMaterialList = customGetMaterialAttributesInput.MaterialList.Split(',');
+            }
+
+            if (string.IsNullOrWhiteSpace(customGetMaterialAttributesInput.AttributeList))
+            {
+                attributeListNeeded = false;
+            }
+            else
+            {
+                attributeListNeeded = true;                
+            }
+
+            if (string.IsNullOrWhiteSpace(customGetMaterialAttributesInput.IncludeSubMaterials))
+            {
+                subMaterialInlcusionIsDefaultValue = true;
+            }
+            else
+            {
+                subMaterialInlcusionIsDefaultValue = false;
+            }
+
+            if (string.IsNullOrWhiteSpace(customGetMaterialAttributesInput.SubMaterialAttributeList))
+            {
+                subMaterialAttributeListNeeded = false;
+            }
+            else
+            {
+                subMaterialAttributeListNeeded = true;
+            }
+
+            CustomGetMaterialAttributesInputDS dataHolder;
+            MaterialCollection loadedMaterials = new MaterialCollection();
+
+            try
+            {
+                List<MaterialForXML> materialsForXML = new List<MaterialForXML>();
+                foreach(string materialname in separatedMaterialList)
                 {
-                    mat.Load();
-                    if (allAttributesNeeded)
+                    MaterialForXML materialForXML = new MaterialForXML() { Name = materialname };
+                    List<AttributeForXML> attributesForXML = new List<AttributeForXML>();                    
+                    
+                    IMaterial materialToAdd = _entityFactory.Create<IMaterial>();
+                    materialToAdd.Name = materialname;
+                    materialToAdd.Load();
+                    materialForXML.Form = materialToAdd.Form;
+
+                    if (attributeListNeeded)
                     {
-                        mat.LoadAttributes();
-                        if (dataHolder.IncludeSubMaterial && mat.SubMaterialCount != 0)
+                        separatedAttributeList = customGetMaterialAttributesInput.AttributeList.Split(',');
+                        Collection<string> mainMaterialAttributeNameCollection = new Collection<string>();
+                        List<AttributeForXML> mainMaterialAttributes = new List<AttributeForXML>();
+
+                        foreach (string mainMaterialAttribute in separatedAttributeList)
                         {
-                            mat.LoadChildren();
-                            mat.SubMaterials.LoadAttributes();                            
+                            mainMaterialAttributeNameCollection.Add(mainMaterialAttribute);
+                        }
+                        materialToAdd.LoadAttributes(mainMaterialAttributeNameCollection);
+
+                        foreach(var attributeOfMainMAterial in materialToAdd.Attributes)
+                        {
+                            if(attributeOfMainMAterial.Value != null)
+                            {
+                                mainMaterialAttributes.Add(new AttributeForXML() { Name = attributeOfMainMAterial.Key, Value = (string)attributeOfMainMAterial.Value});
+                            }
+
                         }
                     }
                     else
                     {
-                        OperationAttributeCollection attributesToLoad = new OperationAttributeCollection();
-
-                        foreach(KeyValuePair<string,object>attribute in dataHolder.AttributeName)
+                        materialToAdd.LoadAttributes();
+                        foreach(var attributeOfMainMat in materialToAdd.Attributes)
                         {
-                            OperationAttribute attributeToAdd = new OperationAttribute();
-                            attributeToAdd.Name = attribute.Key;
-                            attributeToAdd.Value = attribute.Value;
-                            attributesToLoad.Add(attributeToAdd);
+                            attributesForXML.Add(new AttributeForXML() { Name = attributeOfMainMat.Key, Value = (string)attributeOfMainMat.Value });
                         }
-                        mat.LoadAttributes(attributesToLoad);
+                        materialForXML.Attributes = attributesForXML;
+                    }
 
-                        if (dataHolder.IncludeSubMaterial && mat.SubMaterialCount != 0)
+                    if (subMaterialInlcusionIsDefaultValue)
+                    {
+                        materialToAdd.LoadChildren(1);
+
+                        if (subMaterialAttributeListNeeded)
                         {
-                            mat.SubMaterials.LoadAttributes(attributesToLoad);
+                            
+                            separatedSubMaterialList = customGetMaterialAttributesInput.SubMaterialAttributeList.Split(',');
+                            Collection<string> subMaterialAttributeNameCollection = new Collection<string>();
+                            List<SubMaterialForXML> subMaterialsForXML = new List<SubMaterialForXML>();
+                            List<AttributeForXML> subMaterialAttributesForXML = new List<AttributeForXML>();
+
+                            foreach (string subMaterialAttributeName in separatedSubMaterialList)
+                            {
+                                subMaterialAttributeNameCollection.Add(subMaterialAttributeName);
+                            }
+                            materialToAdd.SubMaterials.LoadAttributes(subMaterialAttributeNameCollection);
+
+
+                            foreach (Material subMat in materialToAdd.SubMaterials)
+                            {
+                                foreach (var attributeOfSubmaterial in subMat.Attributes)
+                                {
+                                    if (attributeOfSubmaterial.Value != null)
+                                    {
+                                        subMaterialAttributesForXML.Add(new AttributeForXML() { Name = attributeOfSubmaterial.Key, Value = (string)attributeOfSubmaterial.Value });
+                                    }
+                                }
+                                SubMaterialForXML subMaterialToAdd = new SubMaterialForXML();
+                                subMaterialToAdd.Name = subMat.Name;
+                                subMaterialToAdd.Form = subMat.Form;
+                                subMaterialToAdd.Attributes = subMaterialAttributesForXML;
+
+                                subMaterialsForXML.Add(subMaterialToAdd);
+                                subMaterialAttributesForXML.Clear();
+                            }
+                            materialForXML.SubMaterials = subMaterialsForXML;
+                        }
+                        else
+                        {
+                            materialToAdd.SubMaterials.LoadAttributes();
+                            List<SubMaterialForXML> subMaterialsForXML = new List<SubMaterialForXML>();
+                            List<AttributeForXML> subMaterialAttributesForXML = new List<AttributeForXML>();
+                            foreach (Material subMaterial in materialToAdd.SubMaterials)
+                            {
+                                foreach(var attributeOfSubmaterial in subMaterial.Attributes)
+                                {
+                                    subMaterialAttributesForXML.Add(new AttributeForXML() { Name = attributeOfSubmaterial.Key, Value = (string)attributeOfSubmaterial.Value });
+                                }
+                                SubMaterialForXML subMaterialToAdd = new SubMaterialForXML();
+                                subMaterialToAdd.Name = subMaterial.Name;
+                                subMaterialToAdd.Form = subMaterial.Form;
+                                subMaterialToAdd.Attributes = subMaterialAttributesForXML;
+                                
+                                subMaterialsForXML.Add(subMaterialToAdd);
+                                subMaterialAttributesForXML.Clear();
+                            }
+                            materialForXML.SubMaterials = subMaterialsForXML;
                         }
                     }
-                    loadedMaterials.Add(mat);                    
+                    materialsForXML.Add(materialForXML);
                 }
 
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(MaterialCollection));
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<MaterialForXML>));
                 var xmlToReturn = "";
 
                 using(var stringWriter = new StringWriter())
                 {
                     using(XmlWriter xmlWriter = XmlWriter.Create(stringWriter))
                     {
-                        xmlSerializer.Serialize(xmlWriter, loadedMaterials);
+                        xmlSerializer.Serialize(xmlWriter, materialsForXML);
                         xmlToReturn = stringWriter.ToString();
                     }
                 }
-                #endregion Execution
-
-                output.Result = xmlToReturn;
+                customGetMaterialAttributesOutput.Result = xmlToReturn;
+                
+                Utilities.EndMethod(
+                    -1,-1,
+                    new KeyValuePair<string, object>(GET_FLOW_INFORMATION_FOR_ERP_INPUT, customGetMaterialAttributesInput),
+                    new KeyValuePair<string, object>(GET_FLOW_INFORMATION_FOR_ERP_OUTPUT, customGetMaterialAttributesOutput));
+                
             }
             catch (CmfBaseException)
             {
@@ -885,9 +1270,9 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
             }
 
 
-            return output;
+            return customGetMaterialAttributesOutput;
         }
-    
-        
+
+       
     }
 }
