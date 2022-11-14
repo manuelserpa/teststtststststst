@@ -1,8 +1,10 @@
 import { Task, Dependencies, System, DI, TYPES, Container, Utilities } from "@criticalmanufacturing/connect-iot-controller-engine";
 import i18n from "./i18n/customLoadSetupConfiguration.default";
-import { CustomSetupStoreHandler } from "../../persistence/implementation/customSetupStoreHandler";
 import { DriverSetupDefinition } from "../../persistence/model/customSetup";
-import { ContainerProcessHandler, EquipmentStateModelHandler, ProcessMaterialHandler, RecipeQueueHandler } from "../../persistence";
+import { CustomSetupStoreHandler } from "../../persistence/implementation/customSetupStoreHandler";
+import { ContainerProcessHandler } from "../../persistence/implementation/containerDataHandler";
+import { EquipmentStateModelHandler } from "../../persistence/implementation/equipmentStateModelHandler";
+import { ProcessMaterialHandler } from "../../persistence/implementation/processMaterialHandler";
 
 /** Default settings */
 export const SETTINGS_DEFAULTS: CustomLoadSetupConfigurationSettings = {

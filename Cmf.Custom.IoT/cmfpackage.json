@@ -1,6 +1,6 @@
 {
   "packageId": "Cmf.Custom.IoT",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Cmf Custom amsOSRAM Cmf.Custom.IoT Package",
   "packageType": "Root",
   "isInstallable": true,
@@ -17,7 +17,7 @@
     },
     {
       "id": "Cmf.Custom.IoT.Packages",
-      "version": "2.3.0"
+      "version": "2.3.1"
     },
     {
       "id": "Cmf.Custom.IoT.CoreSolution",

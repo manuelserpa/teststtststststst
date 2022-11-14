@@ -1,6 +1,6 @@
 {
   "name": "cmf.docs.area.web",
-  "version": "2.2.0",
+  "version": "2.3.1",
   "description": "cmf.docs.area.web package",
   "dependencies": {
     "cmf.docs.web": "release-910",
