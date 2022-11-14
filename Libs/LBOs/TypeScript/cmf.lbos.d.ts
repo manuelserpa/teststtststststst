@@ -38606,6 +38606,14 @@ export declare namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects {
         FlowName: string;
         FlowVersion: string;
     }
+    class CustomGetMaterialAttributesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput {
+        protected $id: string;
+        protected $type: string;
+        MaterialList: string;
+        AttributeList: string;
+        IncludeSubMaterials: string;
+        SubMaterialAttributeList: string;
+    }
 }
 export declare namespace Cmf.Custom.amsOSRAM.Orchestration.OutputObjects {
     class MaterialInOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
@@ -38633,6 +38641,11 @@ export declare namespace Cmf.Custom.amsOSRAM.Orchestration.OutputObjects {
         protected $id: string;
         protected $type: string;
         ResultXml: string;
+    }
+    class CustomGetMaterialAttributesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
+        protected $id: string;
+        protected $type: string;
+        Result: string;
     }
 }
 export declare namespace Cmf.MessageBus.Client.messages {
@@ -38668,6 +38681,11 @@ export declare namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects.CustomRe
     var _CMFInternal_HTTPMethod: string;
 }
 export declare namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects.CustomGetFlowInformationForERPInput {
+    var _CMFInternal_URLSuffix: string;
+    var _CMFInternal_FullNamespace: string;
+    var _CMFInternal_HTTPMethod: string;
+}
+export declare namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects.CustomGetMaterialAttributesInput {
     var _CMFInternal_URLSuffix: string;
     var _CMFInternal_FullNamespace: string;
     var _CMFInternal_HTTPMethod: string;

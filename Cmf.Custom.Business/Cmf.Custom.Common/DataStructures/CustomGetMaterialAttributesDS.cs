@@ -8,12 +8,14 @@ using System.Xml.Serialization;
 namespace Cmf.Custom.amsOSRAM.Common.DataStructures
 {
     [XmlRoot(ElementName="CustomGetMaterialAttributes")]
+    [XmlType(TypeName ="CustomGetMaterialAttributes")]
     public class CustomGetMaterialAttributesDS
     {
         [XmlElement(ElementName = "Material", IsNullable = false)]
-        public List<MaterialForXML> materialList { get; set; }
+        public List<Material> materialList { get; set; }
     }
-    public class MaterialForXML
+
+    public class Material
     {
         [XmlElement(IsNullable = false)]
         public string Name { get; set; }
@@ -30,6 +32,7 @@ namespace Cmf.Custom.amsOSRAM.Common.DataStructures
         public List<SubMaterialForXML> SubMaterials { get; set; }
     }
 
+    [XmlType(TypeName = "Submaterial")]
     public class SubMaterialForXML
     {
         [XmlElement(IsNullable = false)]

@@ -1113,7 +1113,9 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                 attributeListNeeded = true;                
             }
 
-            if (string.IsNullOrWhiteSpace(customGetMaterialAttributesInput.IncludeSubMaterials))
+            if (string.IsNullOrWhiteSpace(customGetMaterialAttributesInput.IncludeSubMaterials) ||
+                customGetMaterialAttributesInput.IncludeSubMaterials == "True" ||
+                customGetMaterialAttributesInput.IncludeSubMaterials == "true")
             {
                 subMaterialInlcusionIsDefaultValue = true;
             }
@@ -1136,10 +1138,10 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
 
             try
             {
-                List<MaterialForXML> materialsForXML = new List<MaterialForXML>();
+                List<Common.DataStructures.Material> materialsForXML = new List<Common.DataStructures.Material>();
                 foreach(string materialname in separatedMaterialList)
                 {
-                    MaterialForXML materialForXML = new MaterialForXML() { Name = materialname };
+                    Common.DataStructures.Material materialForXML = new Common.DataStructures.Material() { Name = materialname };
                     List<AttributeForXML> attributesForXML = new List<AttributeForXML>();                    
                     
                     IMaterial materialToAdd = _entityFactory.Create<IMaterial>();
@@ -1167,6 +1169,7 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                             }
 
                         }
+                        materialForXML.Attributes = mainMaterialAttributes;
                     }
                     else
                     {
@@ -1188,7 +1191,7 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                             separatedSubMaterialList = customGetMaterialAttributesInput.SubMaterialAttributeList.Split(',');
                             Collection<string> subMaterialAttributeNameCollection = new Collection<string>();
                             List<SubMaterialForXML> subMaterialsForXML = new List<SubMaterialForXML>();
-                            List<AttributeForXML> subMaterialAttributesForXML = new List<AttributeForXML>();
+                            
 
                             foreach (string subMaterialAttributeName in separatedSubMaterialList)
                             {
@@ -1197,8 +1200,9 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                             materialToAdd.SubMaterials.LoadAttributes(subMaterialAttributeNameCollection);
 
 
-                            foreach (Material subMat in materialToAdd.SubMaterials)
+                            foreach (Navigo.BusinessObjects.Material subMat in materialToAdd.SubMaterials)
                             {
+                                List<AttributeForXML> subMaterialAttributesForXML = new List<AttributeForXML>();
                                 foreach (var attributeOfSubmaterial in subMat.Attributes)
                                 {
                                     if (attributeOfSubmaterial.Value != null)
@@ -1212,7 +1216,6 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                                 subMaterialToAdd.Attributes = subMaterialAttributesForXML;
 
                                 subMaterialsForXML.Add(subMaterialToAdd);
-                                subMaterialAttributesForXML.Clear();
                             }
                             materialForXML.SubMaterials = subMaterialsForXML;
                         }
@@ -1220,10 +1223,10 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                         {
                             materialToAdd.SubMaterials.LoadAttributes();
                             List<SubMaterialForXML> subMaterialsForXML = new List<SubMaterialForXML>();
-                            List<AttributeForXML> subMaterialAttributesForXML = new List<AttributeForXML>();
-                            foreach (Material subMaterial in materialToAdd.SubMaterials)
+                            foreach (Navigo.BusinessObjects.Material subMaterial in materialToAdd.SubMaterials)
                             {
-                                foreach(var attributeOfSubmaterial in subMaterial.Attributes)
+                                List<AttributeForXML> subMaterialAttributesForXML = new List<AttributeForXML>();
+                                foreach (var attributeOfSubmaterial in subMaterial.Attributes)
                                 {
                                     subMaterialAttributesForXML.Add(new AttributeForXML() { Name = attributeOfSubmaterial.Key, Value = (string)attributeOfSubmaterial.Value });
                                 }
@@ -1233,7 +1236,6 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                                 subMaterialToAdd.Attributes = subMaterialAttributesForXML;
                                 
                                 subMaterialsForXML.Add(subMaterialToAdd);
-                                subMaterialAttributesForXML.Clear();
                             }
                             materialForXML.SubMaterials = subMaterialsForXML;
                         }
@@ -1241,7 +1243,7 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                     materialsForXML.Add(materialForXML);
                 }
 
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<MaterialForXML>));
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Common.DataStructures.Material>), new XmlRootAttribute("CustomGetMaterialAttributes"));
                 var xmlToReturn = "";
 
                 using(var stringWriter = new StringWriter())
