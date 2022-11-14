@@ -1,7 +1,7 @@
 # CustomRetrieveAttributesForMaterial
 
 ## Requirement Specification
-Mechanism to return a(n) *Material(s)* attributes and it's *SubMaterials* attributes.
+Mechanism to return one or more *Materials* attributes and it's *SubMaterials* attributes.
 
 ## Design Specification
 
@@ -19,7 +19,7 @@ N/A
 
 ## Work items
 
-Upon receiving an XML file the system will create an XML output with the requested material(s) attributes.
+Upon receiving an input the system will create an XML output with the requested materials attributes.
 
 User Story | Type | Title | Description|
 :---|:---|:---|:---|
