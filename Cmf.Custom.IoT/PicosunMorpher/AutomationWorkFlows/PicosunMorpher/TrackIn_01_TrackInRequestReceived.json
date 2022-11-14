@@ -447,34 +447,6 @@
 			"outputName": "success"
 		},
 		{
-			"id": "5870f17f-a532-4ead-9ea6-080675dd036b",
-			"sourceId": "task_34616",
-			"targetId": "task_1677",
-			"inputName": "materialObject",
-			"outputName": "MaterialDataOut"
-		},
-		{
-			"id": "13221f9f-ab82-4846-80e3-44a0b18b7862",
-			"sourceId": "task_34616",
-			"targetId": "task_1677",
-			"inputName": "activate",
-			"outputName": "success"
-		},
-		{
-			"id": "665a4c69-d1e4-48a7-a62f-d3cb1f600ea0",
-			"sourceId": "task_34616",
-			"targetId": "task_137349",
-			"inputName": "TrackIn01_ActivatePostTrackIn",
-			"outputName": "success"
-		},
-		{
-			"id": "c7f03834-120a-4aae-afce-27debab2fd50",
-			"sourceId": "task_34616",
-			"targetId": "task_137349",
-			"inputName": "activate",
-			"outputName": "success"
-		},
-		{
 			"id": "f5e66a95-b9f5-444a-8441-26737bb53dca",
 			"sourceId": "task_34616",
 			"targetId": "task_1796",
@@ -503,6 +475,34 @@
 					}
 				}
 			]
+		},
+		{
+			"id": "230b632a-7227-42df-9d3a-29a36c90ef27",
+			"sourceId": "task_34616",
+			"targetId": "task_1677",
+			"inputName": "materialObject",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "b2b14b10-36b9-4811-a1e2-953d6b738034",
+			"sourceId": "task_34616",
+			"targetId": "task_1677",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "9b7b6e16-e7c2-4eed-bc58-81753fc3fb76",
+			"sourceId": "task_34616",
+			"targetId": "task_137349",
+			"inputName": "TrackIn01_ActivatePostTrackIn",
+			"outputName": "success"
+		},
+		{
+			"id": "cce56c56-7c00-46f7-834e-d17d543cb630",
+			"sourceId": "task_34616",
+			"targetId": "task_137349",
+			"inputName": "activate",
+			"outputName": "success"
 		}
 	],
 	"layout": {
@@ -519,12 +519,6 @@
 					"id": "note_200147",
 					"name": "Track In - Recipe Validation Customization",
 					"value": "<p><strong>What it does:</strong></p><p>Runs through the RecipeData structure of the Material Data structure from the lowest level to the highest one (Child Recipes to Parent Recipe), doing:</p><ul><li>Verify Recipe exists on equipment by comparing PPID with field NameOnEquipment of RecipeData structure;<ul><li>Executes S7F19</li></ul></li><li>Verify Recipe checksum on MES matches checksum of the Recipe existing on the Equipment;<ul><li>Executes S7F5</li></ul></li><li>If any verification fails and MES Resource has the attribute AllowDownloadRecipeAtTrackIn set to true, download Recipe to tool;<ul><li>&nbsp;Executes S7F1 and S7F3</li></ul></li><li>Else fail Track In;</li></ul><p><strong>Note:</strong></p><p>By default the Workflow task is pointing to&nbsp;RecipeValidation_01_UnformattedRecipeMainFlow which implements Unformatted Recipe logic, to set to Formatted recipes logic change the workflow to&nbsp;RecipeValidation_01_FormattedRecipeMainFlow which implements the behavior and Stream and Functions corresponding to that.</p><ul></ul><p><strong>How to use it:</strong></p><ol><li>Pass Material Data to the MaterialData input of the of workflow;</li><li>Activate after executing the initial validation;</li></ol>",
-					"color": "#ffffa5"
-				},
-				{
-					"id": "note_36668",
-					"name": "Track In - Execute PP-Select",
-					"value": "<p><strong>What it does:</strong></p><p>Executes PP-Select.</p><ul></ul><p><strong>Note:</strong></p><p>Workflow executed on this task must be customized for every tool;</p><ul>&nbsp;</ul><p><strong>How to use it:</strong></p><ol><li>Pass Material Data to the MaterialData input of the of workflow;</li><li>Activate after executing the recipe validation;</li></ol>",
 					"color": "#ffffa5"
 				},
 				{
@@ -549,8 +543,8 @@
 					"task_1677": {
 						"collapsed": false,
 						"position": {
-							"x": 4589,
-							"y": 360
+							"x": 4607,
+							"y": 389
 						},
 						"outdated": false
 					},
@@ -581,8 +575,8 @@
 					"task_137349": {
 						"collapsed": false,
 						"position": {
-							"x": 4589,
-							"y": 580
+							"x": 4607,
+							"y": 595
 						},
 						"outdated": false
 					},
@@ -641,18 +635,6 @@
 					"988fa7e7-cd09-4307-81d7-14809c907b57": {
 						"vertices": []
 					},
-					"5870f17f-a532-4ead-9ea6-080675dd036b": {
-						"vertices": []
-					},
-					"13221f9f-ab82-4846-80e3-44a0b18b7862": {
-						"vertices": []
-					},
-					"665a4c69-d1e4-48a7-a62f-d3cb1f600ea0": {
-						"vertices": []
-					},
-					"c7f03834-120a-4aae-afce-27debab2fd50": {
-						"vertices": []
-					},
 					"f5e66a95-b9f5-444a-8441-26737bb53dca": {
 						"vertices": [
 							{
@@ -668,15 +650,23 @@
 					"a33f1225-15ec-4198-800e-0ffa165439e3": {
 						"vertices": []
 					},
+					"230b632a-7227-42df-9d3a-29a36c90ef27": {
+						"vertices": []
+					},
+					"b2b14b10-36b9-4811-a1e2-953d6b738034": {
+						"vertices": []
+					},
+					"9b7b6e16-e7c2-4eed-bc58-81753fc3fb76": {
+						"vertices": []
+					},
+					"cce56c56-7c00-46f7-834e-d17d543cb630": {
+						"vertices": []
+					},
 					"cc8ce25c-4960-4556-84a0-86daf88a8e99": {
 						"vertices": [
 							{
-								"x": 5058,
-								"y": 342
-							},
-							{
-								"x": 4784,
-								"y": 254
+								"x": 5185,
+								"y": 327
 							},
 							{
 								"x": 3202,
@@ -707,25 +697,18 @@
 							"y": 735
 						}
 					},
-					"note_36668": {
-						"collapsed": false,
-						"position": {
-							"x": 3912,
-							"y": 690
-						}
-					},
 					"note_37658": {
 						"collapsed": false,
 						"position": {
-							"x": 4588,
-							"y": 809
+							"x": 5217,
+							"y": 597
 						}
 					}
 				},
-				"zoom": 0.6400000000000003,
+				"zoom": 0.40000000000000013,
 				"pan": {
-					"x": 1921,
-					"y": 168
+					"x": 916,
+					"y": 30
 				}
 			}
 		}

@@ -134,31 +134,89 @@
 			}
 		},
 		{
-			"id": "task_44592",
+			"id": "task_2331",
 			"reference": {
-				"name": "equipmentCommand",
+				"name": "codeExecution",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
 					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
-				"_inputs": [
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"export default class {",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here       ",
+					"        const materialData = inputs.MaterialData;",
+					"        let JobID = materialData.ProcessJobId;",
+					"        const remoteCommandSuccessCode = \"0x00, 0x04\";",
+					"        let commandParameters: any[] = [];",
+					"        let JobId: any[] = [];",
+					"        ",
+					"",
+					"        const sendMessage: Object = {",
+					"            type: \"S2F49\",",
+					"            item: {",
+					"                type: \"L\", value: [",
+					"                    { type: \"A\", name: \"RCMD\", value: \"STARTJOB\" },",
+					"                    { type: \"L\", value: commandParameters }",
+					"                ]",
+					"            }",
+					"        }",
+					"",
+					"        commandParameters.push(",
+					"            { type: \"L\", value: JobId },",
+					"        );",
+					"",
+					"        JobId.push(",
+					"            { type: \"A\", name: \"CPNAME\", value: \"JobID\" },",
+					"            { type: \"A\", name: \"CPVAL\", value: JobID }",
+					"        );",
+					"        ",
+					"        const reply = await this.framework.driver.sendRaw(\"connect.iot.driver.secsgem.sendMessage\", sendMessage);",
+					"        let successFound = false;",
+					"        for (const successCode of remoteCommandSuccessCode.split(\",\")) {",
+					"            if (reply && reply.item && parseInt(reply.item.value[0].value.data[0]) === parseInt(successCode.trim())) {",
+					"                successFound = true;",
+					"                break;",
+					"            }",
+					"        }",
+					"        if (!successFound) {",
+					"            throw new Error(`S2F49 CREATEJOBWAFERLIST Command failed in PostTrackIn for LP${materialData.LoadPortPosition}: \\nReply:${JSON.stringify(reply)}`);",
+					"        }",
+					"        ",
+					"    }",
+					"}"
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlICAgICAgIA0KICAgICAgICBjb25zdCBtYXRlcmlhbERhdGEgPSBpbnB1dHMuTWF0ZXJpYWxEYXRhOw0KICAgICAgICBsZXQgSm9iSUQgPSBtYXRlcmlhbERhdGEuUHJvY2Vzc0pvYklkOw0KICAgICAgICBjb25zdCByZW1vdGVDb21tYW5kU3VjY2Vzc0NvZGUgPSAiMHgwMCwgMHgwNCI7DQogICAgICAgIGxldCBjb21tYW5kUGFyYW1ldGVycyA9IFtdOw0KICAgICAgICBsZXQgSm9iSWQgPSBbXTsNCiAgICAgICAgY29uc3Qgc2VuZE1lc3NhZ2UgPSB7DQogICAgICAgICAgICB0eXBlOiAiUzJGNDkiLA0KICAgICAgICAgICAgaXRlbTogew0KICAgICAgICAgICAgICAgIHR5cGU6ICJMIiwgdmFsdWU6IFsNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIG5hbWU6ICJSQ01EIiwgdmFsdWU6ICJTVEFSVEpPQiIgfSwNCiAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiTCIsIHZhbHVlOiBjb21tYW5kUGFyYW1ldGVycyB9DQogICAgICAgICAgICAgICAgXQ0KICAgICAgICAgICAgfQ0KICAgICAgICB9Ow0KICAgICAgICBjb21tYW5kUGFyYW1ldGVycy5wdXNoKHsgdHlwZTogIkwiLCB2YWx1ZTogSm9iSWQgfSk7DQogICAgICAgIEpvYklkLnB1c2goeyB0eXBlOiAiQSIsIG5hbWU6ICJDUE5BTUUiLCB2YWx1ZTogIkpvYklEIiB9LCB7IHR5cGU6ICJBIiwgbmFtZTogIkNQVkFMIiwgdmFsdWU6IEpvYklEIH0pOw0KICAgICAgICBjb25zdCByZXBseSA9IGF3YWl0IHRoaXMuZnJhbWV3b3JrLmRyaXZlci5zZW5kUmF3KCJjb25uZWN0LmlvdC5kcml2ZXIuc2Vjc2dlbS5zZW5kTWVzc2FnZSIsIHNlbmRNZXNzYWdlKTsNCiAgICAgICAgbGV0IHN1Y2Nlc3NGb3VuZCA9IGZhbHNlOw0KICAgICAgICBmb3IgKGNvbnN0IHN1Y2Nlc3NDb2RlIG9mIHJlbW90ZUNvbW1hbmRTdWNjZXNzQ29kZS5zcGxpdCgiLCIpKSB7DQogICAgICAgICAgICBpZiAocmVwbHkgJiYgcmVwbHkuaXRlbSAmJiBwYXJzZUludChyZXBseS5pdGVtLnZhbHVlWzBdLnZhbHVlLmRhdGFbMF0pID09PSBwYXJzZUludChzdWNjZXNzQ29kZS50cmltKCkpKSB7DQogICAgICAgICAgICAgICAgc3VjY2Vzc0ZvdW5kID0gdHJ1ZTsNCiAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgICAgICBpZiAoIXN1Y2Nlc3NGb3VuZCkgew0KICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBTMkY0OSBDUkVBVEVKT0JXQUZFUkxJU1QgQ29tbWFuZCBmYWlsZWQgaW4gUG9zdFRyYWNrSW4gZm9yIExQJHttYXRlcmlhbERhdGEuTG9hZFBvcnRQb3NpdGlvbn06IFxuUmVwbHk6JHtKU09OLnN0cmluZ2lmeShyZXBseSl9YCk7DQogICAgICAgIH0NCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
+				"inputs": [
 					{
-						"parameter": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationCommandParameter, Cmf.Foundation.BusinessObjects",
-							"Name": "JobID",
-							"DataType": 0
-						},
-						"dataType": "String"
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
 					}
 				],
-				"_command": {
-					"$type": "Cmf.Foundation.BusinessObjects.AutomationCommand, Cmf.Foundation.BusinessObjects",
-					"Name": "STARTJOB"
-				},
-				"___cmf___name": "Execute Equipment Command",
-				"___cmf___description": "STARTJOB S2F49"
+				"outputs": [],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code STARTJOB Command"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -174,44 +232,47 @@
 			"converters": []
 		},
 		{
-			"id": "task_44588_activateOut-task_44592_activate",
-			"sourceId": "task_44588",
-			"targetId": "task_44592",
-			"inputName": "activate",
-			"outputName": "activateOut",
-			"converters": []
-		},
-		{
-			"id": "task_44592_success-task_44586_success",
-			"sourceId": "task_44592",
-			"targetId": "task_44586",
-			"inputName": "success",
-			"outputName": "success",
-			"converters": []
-		},
-		{
-			"id": "task_44592_error-task_44590_ErrorIn",
-			"sourceId": "task_44592",
-			"targetId": "task_44590",
-			"inputName": "ErrorIn",
-			"outputName": "error",
-			"converters": []
-		},
-		{
-			"id": "task_44592_error-task_44590_activate",
-			"sourceId": "task_44592",
-			"targetId": "task_44590",
-			"inputName": "activate",
-			"outputName": "error",
-			"converters": []
-		},
-		{
 			"id": "task_44590_ErrorOut-task_44586_error",
 			"sourceId": "task_44590",
 			"targetId": "task_44586",
 			"inputName": "error",
 			"outputName": "ErrorOut",
 			"converters": []
+		},
+		{
+			"id": "1275199f-becc-4cb6-9c4d-96c2d720f7b1",
+			"sourceId": "task_44588",
+			"targetId": "task_2331",
+			"inputName": "MaterialDataIn",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "34e9fb86-8c67-49b5-bcf7-e028de0e9262",
+			"sourceId": "task_44588",
+			"targetId": "task_2331",
+			"inputName": "activate",
+			"outputName": "activateOut"
+		},
+		{
+			"id": "e7d8b5e1-efed-478c-b46f-bff9a15de94f",
+			"sourceId": "task_2331",
+			"targetId": "task_44586",
+			"inputName": "success",
+			"outputName": "success"
+		},
+		{
+			"id": "aa0dfb1d-3fcc-4d1e-bdb3-acb89fd709b0",
+			"sourceId": "task_2331",
+			"targetId": "task_44590",
+			"inputName": "ErrorIn",
+			"outputName": "error"
+		},
+		{
+			"id": "0f266155-cd97-495c-88eb-8252363a9d05",
+			"sourceId": "task_2331",
+			"targetId": "task_44590",
+			"inputName": "activate",
+			"outputName": "error"
 		}
 	],
 	"layout": {
@@ -233,8 +294,8 @@
 					"task_44588": {
 						"collapsed": false,
 						"position": {
-							"x": 953,
-							"y": 775
+							"x": 607,
+							"y": 765
 						},
 						"outdated": false
 					},
@@ -246,11 +307,11 @@
 						},
 						"outdated": false
 					},
-					"task_44592": {
+					"task_2331": {
 						"collapsed": false,
 						"position": {
-							"x": 1916,
-							"y": 1019
+							"x": 1682,
+							"y": 1002
 						},
 						"outdated": false
 					}
@@ -259,27 +320,30 @@
 					"task_44588_MaterialDataOut-task_44586_MaterialData": {
 						"vertices": []
 					},
-					"task_44588_activateOut-task_44592_activate": {
-						"vertices": []
-					},
-					"task_44592_success-task_44586_success": {
-						"vertices": []
-					},
-					"task_44592_error-task_44590_ErrorIn": {
-						"vertices": []
-					},
-					"task_44592_error-task_44590_activate": {
-						"vertices": []
-					},
 					"task_44590_ErrorOut-task_44586_error": {
+						"vertices": []
+					},
+					"1275199f-becc-4cb6-9c4d-96c2d720f7b1": {
+						"vertices": []
+					},
+					"34e9fb86-8c67-49b5-bcf7-e028de0e9262": {
+						"vertices": []
+					},
+					"e7d8b5e1-efed-478c-b46f-bff9a15de94f": {
+						"vertices": []
+					},
+					"aa0dfb1d-3fcc-4d1e-bdb3-acb89fd709b0": {
+						"vertices": []
+					},
+					"0f266155-cd97-495c-88eb-8252363a9d05": {
 						"vertices": []
 					}
 				},
 				"notes": {},
-				"zoom": 0.4399999999999996,
+				"zoom": 0.49999999999999967,
 				"pan": {
-					"x": 321.28885918889705,
-					"y": 274.5649176128285
+					"x": 387,
+					"y": 326
 				}
 			}
 		}

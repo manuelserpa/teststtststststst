@@ -361,6 +361,90 @@
 				],
 				"___cmf___name": "Create Error Message"
 			}
+		},
+		{
+			"id": "task_134982",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"",
+					"export default class {",
+					"",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here",
+					"        const jobId: any = inputs.JobID;",
+					"        const material: any = inputs.material;",
+					"",
+					"        material.ProcessJobId = jobId;",
+					"",
+					"        return{",
+					"            MaterialData: material",
+					"        }",
+					"    }",
+					"}",
+					""
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IGpvYklkID0gaW5wdXRzLkpvYklEOw0KICAgICAgICBjb25zdCBtYXRlcmlhbCA9IGlucHV0cy5tYXRlcmlhbDsNCiAgICAgICAgbWF0ZXJpYWwuUHJvY2Vzc0pvYklkID0gam9iSWQ7DQogICAgICAgIHJldHVybiB7DQogICAgICAgICAgICBNYXRlcmlhbERhdGE6IG1hdGVyaWFsDQogICAgICAgIH07DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
+				"inputs": [
+					{
+						"name": "material",
+						"valueType": {
+							"friendlyName": "material",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "JobID",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "JobID"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code Add JobId in MaterialData"
+			}
 		}
 	],
 	"converters": [
@@ -435,27 +519,6 @@
 					}
 				}
 			]
-		},
-		{
-			"id": "e35ea977-f024-4408-a2d6-bc894019dcc9",
-			"sourceId": "task_41812",
-			"targetId": "task_129232",
-			"inputName": "activate",
-			"outputName": "eventRawData"
-		},
-		{
-			"id": "3c0d95e7-5219-422d-8196-5cc6b2c31c33",
-			"sourceId": "task_129232",
-			"targetId": "task_43411",
-			"inputName": "MaterialDataIn",
-			"outputName": "material"
-		},
-		{
-			"id": "9f75100c-97d1-493e-a113-44907ec966f8",
-			"sourceId": "task_129232",
-			"targetId": "task_43411",
-			"inputName": "activate",
-			"outputName": "success"
 		},
 		{
 			"id": "433ee7f9-c314-460e-a143-f9ecd87665aa",
@@ -565,6 +628,48 @@
 			"targetId": "task_42157",
 			"inputName": "MaterialDataIn",
 			"outputName": "material"
+		},
+		{
+			"id": "89f50a63-6e5f-4808-bd8b-d64e5ee38827",
+			"sourceId": "task_41812",
+			"targetId": "task_129232",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "d252feac-762c-4ebe-9276-c9896262bb2e",
+			"sourceId": "task_129232",
+			"targetId": "task_134982",
+			"inputName": "materialIn",
+			"outputName": "material"
+		},
+		{
+			"id": "a090b874-3194-439a-b8d8-b47bf1ae32d6",
+			"sourceId": "task_41812",
+			"targetId": "task_134982",
+			"inputName": "JobIDIn",
+			"outputName": "$JobID"
+		},
+		{
+			"id": "820fa3cb-60a2-4ef4-9d1d-b2da7e131e41",
+			"sourceId": "task_129232",
+			"targetId": "task_134982",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "ea9f3aea-8a9d-4e54-8cbb-ff84e21340fa",
+			"sourceId": "task_134982",
+			"targetId": "task_43411",
+			"inputName": "MaterialDataIn",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "9ed7e2d8-af30-473b-a593-296fbf2588a1",
+			"sourceId": "task_134982",
+			"targetId": "task_43411",
+			"inputName": "activate",
+			"outputName": "success"
 		}
 	],
 	"layout": {
@@ -591,7 +696,7 @@
 					"task_120235": {
 						"collapsed": false,
 						"position": {
-							"x": 2449,
+							"x": 2812,
 							"y": 1467
 						},
 						"outdated": false
@@ -599,8 +704,8 @@
 					"task_123453": {
 						"collapsed": false,
 						"position": {
-							"x": 2470,
-							"y": 796
+							"x": 3212,
+							"y": 822
 						},
 						"outdated": false
 					},
@@ -623,40 +728,48 @@
 					"task_129232": {
 						"collapsed": false,
 						"position": {
-							"x": 1206,
-							"y": 768
+							"x": 1083,
+							"y": 961
 						},
 						"outdated": false
 					},
 					"task_132762": {
 						"collapsed": false,
 						"position": {
-							"x": 1852,
-							"y": 1398
+							"x": 1987,
+							"y": 1411
 						},
 						"outdated": false
 					},
 					"task_41812": {
 						"collapsed": false,
 						"position": {
-							"x": 386,
-							"y": 769
+							"x": 47,
+							"y": 654
 						},
 						"outdated": false
 					},
 					"task_42157": {
 						"collapsed": false,
 						"position": {
-							"x": 3246,
-							"y": 1078
+							"x": 4021,
+							"y": 1057
 						},
 						"outdated": false
 					},
 					"task_43411": {
 						"collapsed": false,
 						"position": {
-							"x": 1817,
-							"y": 984
+							"x": 2429,
+							"y": 1009
+						},
+						"outdated": false
+					},
+					"task_134982": {
+						"collapsed": false,
+						"position": {
+							"x": 1772,
+							"y": 817
 						},
 						"outdated": false
 					}
@@ -666,15 +779,6 @@
 						"vertices": []
 					},
 					"de5963ee-e370-44c7-b1bb-2e723dd11ed2": {
-						"vertices": []
-					},
-					"e35ea977-f024-4408-a2d6-bc894019dcc9": {
-						"vertices": []
-					},
-					"3c0d95e7-5219-422d-8196-5cc6b2c31c33": {
-						"vertices": []
-					},
-					"9f75100c-97d1-493e-a113-44907ec966f8": {
 						"vertices": []
 					},
 					"433ee7f9-c314-460e-a143-f9ecd87665aa": {
@@ -710,6 +814,24 @@
 					"d16a4aab-ca34-4ff4-bf14-18f071e02b25": {
 						"vertices": []
 					},
+					"89f50a63-6e5f-4808-bd8b-d64e5ee38827": {
+						"vertices": []
+					},
+					"d252feac-762c-4ebe-9276-c9896262bb2e": {
+						"vertices": []
+					},
+					"a090b874-3194-439a-b8d8-b47bf1ae32d6": {
+						"vertices": []
+					},
+					"820fa3cb-60a2-4ef4-9d1d-b2da7e131e41": {
+						"vertices": []
+					},
+					"ea9f3aea-8a9d-4e54-8cbb-ff84e21340fa": {
+						"vertices": []
+					},
+					"9ed7e2d8-af30-473b-a593-296fbf2588a1": {
+						"vertices": []
+					},
 					"0744934e-8081-43bd-87c3-1be9665912a9": {
 						"vertices": []
 					},
@@ -724,22 +846,22 @@
 					"note_47497": {
 						"collapsed": false,
 						"position": {
-							"x": 868,
-							"y": 476
+							"x": 918,
+							"y": 226
 						}
 					},
 					"note_48680": {
 						"collapsed": false,
 						"position": {
-							"x": 1359,
-							"y": 1333
+							"x": 1296,
+							"y": 1800
 						}
 					}
 				},
-				"zoom": 0.5599999999999997,
+				"zoom": 0.45999999999999963,
 				"pan": {
-					"x": 269.0175438596491,
-					"y": 259.9021577981844
+					"x": 0,
+					"y": 226
 				}
 			}
 		}

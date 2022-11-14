@@ -1092,6 +1092,15 @@
       "MonitorPackageVersion": "9.1.0-202209072",
       "ManagerPackageVersion": "9.1.0-202209072",
       "Configuration": ""
+    },
+    "12": {
+      "Name": "PicosunMorpher",
+      "Description": "5FALD2",
+      "Type": "General",
+      "LogicalAddress": "5FALD2",
+      "MonitorPackageVersion": "9.1.0-202209072",
+      "ManagerPackageVersion": "9.1.0-202209072",
+      "Configuration": ""
     }
   },
   "<LOOKUP>AutomationInstances": {
@@ -1286,6 +1295,24 @@
       "AutomationManager": "KLASpectraFilm",
       "DriverName": "RFIDReader",
       "EntityName": "5FELL1.RFID"
+    },
+    "33": {
+      "AutomationController": "PicosunMorpherController",
+      "AutomationManager": "PicosunMorpher",
+      "DriverName": "",
+      "EntityName": "5FALD2"
+    },
+    "34": {
+      "AutomationController": "PicosunMorpherController",
+      "AutomationManager": "PicosunMorpher",
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FALD2"
+    },
+    "35": {
+      "AutomationController": "PicosunMorpherController",
+      "AutomationManager": "PicosunMorpher",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FALD2.RFID"
     }
   }
 }

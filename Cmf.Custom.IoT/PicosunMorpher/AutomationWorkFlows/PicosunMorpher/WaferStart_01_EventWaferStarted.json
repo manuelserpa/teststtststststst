@@ -287,11 +287,11 @@
 			"outputName": "$JobID"
 		},
 		{
-			"id": "1d1e0525-68e1-4f0b-a120-f32b96cbb819",
+			"id": "28ac8cca-de2e-436e-8aeb-3c8b887230b7",
 			"sourceId": "task_106935",
 			"targetId": "task_122639",
-			"inputName": "SubMaterialSlotIn",
-			"outputName": "$SourceSlot"
+			"inputName": "LoadPortIdIn",
+			"outputName": "$SourceStationID"
 		}
 	],
 	"layout": {
@@ -333,7 +333,7 @@
 					"42e42a85-f1f5-4f21-82e9-0634f7d42748": {
 						"vertices": []
 					},
-					"1d1e0525-68e1-4f0b-a120-f32b96cbb819": {
+					"28ac8cca-de2e-436e-8aeb-3c8b887230b7": {
 						"vertices": []
 					}
 				},

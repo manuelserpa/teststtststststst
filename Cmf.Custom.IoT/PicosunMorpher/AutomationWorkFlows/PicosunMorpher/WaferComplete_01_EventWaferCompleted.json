@@ -208,18 +208,18 @@
 	],
 	"links": [
 		{
-			"id": "bb3920cd-4b76-4657-9766-ec23ad4afd36",
+			"id": "3a2520c1-c597-4368-b08a-13fce1b7d201",
 			"sourceId": "task_119709",
 			"targetId": "task_126394",
-			"inputName": "SubMaterialSlotIn",
-			"outputName": "$DestinationSlot"
+			"inputName": "LoadPortIdIn",
+			"outputName": "$DestinationStationID"
 		},
 		{
-			"id": "bc8c89e0-1bad-4da0-a721-49c538f85d6b",
+			"id": "6e7178b6-19b0-42de-bc6a-9cec7b4fc984",
 			"sourceId": "task_119709",
 			"targetId": "task_126394",
 			"inputName": "activate",
-			"outputName": "$DestinationSlot"
+			"outputName": "$DestinationStationID"
 		}
 	],
 	"layout": {
@@ -255,10 +255,10 @@
 					}
 				},
 				"links": {
-					"bb3920cd-4b76-4657-9766-ec23ad4afd36": {
+					"3a2520c1-c597-4368-b08a-13fce1b7d201": {
 						"vertices": []
 					},
-					"bc8c89e0-1bad-4da0-a721-49c538f85d6b": {
+					"6e7178b6-19b0-42de-bc6a-9cec7b4fc984": {
 						"vertices": []
 					}
 				},
