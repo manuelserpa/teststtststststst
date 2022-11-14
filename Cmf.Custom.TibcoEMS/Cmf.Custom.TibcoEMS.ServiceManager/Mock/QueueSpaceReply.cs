@@ -128,7 +128,6 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager.Mock
 
                     if (invalidProducer != null)
                     {
-                        message.CorrelationID = message.MessageID;
                         invalidProducer.Send(message);
 
                         logger.LogInformation("---------------------------------------------------------");

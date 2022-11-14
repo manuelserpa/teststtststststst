@@ -41,15 +41,6 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
                 {
                     invalidProducer = session.CreateProducer(invalidDestination);
                 }
-
-                if (replyDestination != null)
-                {
-                    replyConsumer = session.CreateConsumer(replyDestination);
-
-                    logger.LogInformation($"Listening to {replyDestination}...");
-
-                    replyConsumer.MessageListener = this;
-                }
             }
             catch (Exception e)
             {
@@ -88,31 +79,25 @@ namespace Cmf.Custom.TibcoEMS.ServiceManager
 
             logger.LogInformation("Sent with Message ID: " + message.MessageID);
 
+            if (replyDestination != null)
+            {
+                replyConsumer = session.CreateConsumer(replyDestination, $"JMSCorrelationID ='{message.MessageID}'");
+
+                logger.LogInformation($"Listening to {replyDestination} for reply with CorrelationID: {message.MessageID}...");
+
+                replyConsumer.MessageListener = this;
+            }
+
             requestProducer.Close();
         }
 
         public void OnMessage(Message message)
         {
-            if (requestMessage == null || message.CorrelationID != requestMessage.MessageID)
-            {
-                return;
-            }
-
             try
             {
                 logger.LogInformation("---------------------------------------------------------");
                 
-                string requestContent = "";
                 string replyContent = "";
-
-                if (requestMessage is TextMessage)
-                {
-                    requestContent = ((TextMessage)requestMessage).Text;
-                } 
-                else if (requestMessage is MapMessage)
-                {
-                    requestContent = ((MapMessage)requestMessage).GetString(TibcoEMSConstants.TibcoEMSPropertyMapMessageField);
-                }
 
                 if (message is TextMessage)
                 {
