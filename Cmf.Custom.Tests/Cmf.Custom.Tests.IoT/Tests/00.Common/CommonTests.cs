@@ -429,7 +429,8 @@ namespace amsOSRAMEIAutomaticTests
 					MESScenario.Entity.Load();
 
 					if (MESScenario.Entity.LastRecipe != null &&
-						MESScenario.Entity.LastRecipe.UniversalState != Cmf.Foundation.Common.Base.UniversalState.Terminated)
+						MESScenario.Entity.LastRecipe.UniversalState != Cmf.Foundation.Common.Base.UniversalState.Terminated &&
+                        MESScenario.Entity.UniversalState != Cmf.Foundation.Common.Base.UniversalState.Terminated)
 					{
 
 						if (MESScenario.Entity.SystemState == MaterialSystemState.InProcess)

@@ -523,7 +523,9 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             loadPortsUsed.Add(2);
             loadPortsUsed.Add(3);
 
-            CustomMaterialScenario matScenario = InitializeMaterialScenario(resourceName, flowName, stepName, 6);
+            numberOfWafersPerLot = 6;
+
+            CustomMaterialScenario matScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot);
             base.MESScenario = matScenario;
             base.MESScenario.Setup();
 
@@ -621,10 +623,10 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
 
             //Track Out occurs automatically, validate either Processed or Queued
-            TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material {MESScenario.Entity.Name} System State is not Processed or Queued, automatic Track Out Failed"), () =>
+            TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material {MESScenario.Entity.Name} System State is not Terminated"), () =>
             {
                 MESScenario.Entity.Load();
-                return MESScenario.Entity.SystemState.ToString().Equals(MaterialSystemState.Processed.ToString()) || MESScenario.Entity.SystemState.ToString().Equals(MaterialSystemState.Queued.ToString());
+                return MESScenario.Entity.IsTerminatedOrScrapped();
             });
 
             Log(String.Format("{0}: [S] Validate Persistence Does Not Exist Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
@@ -633,7 +635,24 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
             CustomValidateContainerNumberOfWafers(MESScenario.ContainerScenario.Entity, 0);
 
-            CarrierOutValidation(MESScenario, loadPortNumber);
+            CustomValidateMultipleContainerNumberOfWafers(containerScenariosUsed.Values.Select(cs => cs.Entity).ToList(), numberOfWafersPerLot);
+
+            MESScenario.Entity.Load();
+            var geneology = MESScenario.Entity.GetMaterialGenealogy(GenealogyDirection.Descendant);
+
+            TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material {MESScenario.Entity.Name} should have splitted into two"), () =>
+            {
+                return MESScenario.Entity.GetMaterialGenealogy(GenealogyDirection.Descendant)[0].AffectedMaterials.Count() == 2;
+            });
+
+            //CarrierOutValidation(MESScenario, 1);
+            //CarrierOutValidation(MESScenario, 2);
+            //CarrierOutValidation(MESScenario, 3);
+
+            ContainerCarrierOut(MESScenario.ContainerScenario, 1);
+            ContainerCarrierOut(containerScenarioForLoadPort2, 2);
+            ContainerCarrierOut(containerScenarioForLoadPort3, 3);
+
         }
 
         /// <summary>
@@ -1421,28 +1440,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
                 Thread.Sleep(1000);
 
-                containerScenario?.Entity.LoadRelation("MaterialContainer");
-
-                int[] slotMap;
-
-                if (IsWaferReception && lp == sourceLoadPortNumber)
-                {
-                    slotMap = Enumerable.Repeat(3, 25).ToArray();
-                }
-                else {
-                    slotMap = new int[containerScenario?.Entity.TotalPositions ?? 0];
-                }
-                // scenario.containerScenario?.Entity
-                if (containerScenario?.Entity.ContainerMaterials != null)
-                {
-                    for (int i = 0; i < containerScenario?.Entity.TotalPositions.Value; i++)
-                    {
-                        slotMap[i] = containerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
-                    }
-                }
-
-
-                SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
+                SlotMapVariable slotMapDV = GenerateSlotMapByContainer(containerScenario?.Entity);
 
                 base.Equipment.Variables["PortID"] = lp;
                 base.Equipment.Variables["CarrierID"] = containerScenario?.Entity.Name;
@@ -1525,16 +1523,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             //clamped
             base.CarrierInValidation(MESScenario, loadPortToSet);
 
-            var slotMap = new int[MESScenario.ContainerScenario.Entity.TotalPositions.Value];
-            // scenario.ContainerScenario.Entity
-            if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
-            {
-                for (int i = 0; i < MESScenario.ContainerScenario.Entity.TotalPositions.Value; i++)
-                {
-                    slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
-                }
-            }
-            SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
+            SlotMapVariable slotMapDV = GenerateSlotMapByContainer(MESScenario.ContainerScenario.Entity);
 
             base.Equipment.Variables["CarrierID"] = MESScenario.ContainerScenario.Entity.Name;
             base.Equipment.Variables["SlotMap"] = slotMapDV;
@@ -1564,7 +1553,6 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
         public bool ContainerCarrierOut(ContainerScenario containerScenario, int loadPortNumber)
         {
-
             //// wait for load 
             //TestUtilities.WaitFor(ValidationTimeout, String.Format($"Unload Container Command never received"), () =>
             //{
@@ -1573,60 +1561,41 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
             //CarrierSMTrans21 ready to unload
 
-            var container = containerScenario?.Entity;
+            SlotMapVariable slotMapDV = GenerateSlotMapByContainer(containerScenario?.Entity);
 
-            int[] slotMap;
+            MechatronicsCarrierOut(slotMapDV, loadPortNumber);
 
-
-            if(container is null)
-            {
-                slotMap = Enumerable.Repeat(1, 25).ToArray();
-            }
-            else
-            {
-                slotMap = new int[containerScenario?.Entity.TotalPositions ?? 0];
-            }
-            // scenario.containerScenario?.Entity
-            if (containerScenario?.Entity.ContainerMaterials != null)
-            {
-                for (int i = 0; i < containerScenario?.Entity.TotalPositions.Value; i++)
-                {
-                    slotMap[i] = containerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
-                }
-            }
-
-            SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
-
-
-            base.Equipment.Variables["PortID"] = loadPortNumber;
-            base.Equipment.Variables["PortTransferState"] = 3;
-            base.Equipment.Variables["AccessMode"] = 0;
-            base.Equipment.Variables["LoadPortReservationState"] = 0;
-            base.Equipment.Variables["PortAssociationState"] = 1;
-            base.Equipment.Variables["PortStateInfo"] = slotMapDV;
-
-            // Trigger event
-            base.Equipment.SendMessage(String.Format($"LPTSM9_TRANSFERBLOCKED_READYTOUNLOAD"), null);
-
-            Thread.Sleep(2000);
-
-            base.Equipment.Variables["PortID"] = loadPortNumber;
-            base.Equipment.Variables["PlacedCarrierPattern1"] = 1;
-            base.Equipment.Variables["PlacedCarrierPattern2"] = 2;
-            base.Equipment.Variables["PlacedCarrierPattern3"] = 3;
-            base.Equipment.Variables["PlacedCarrierPattern4"] = 4;
-
-            // Trigger event
-            base.Equipment.SendMessage(String.Format($"MATERIAL_REMOVED"), null);
-
-            Thread.Sleep(200);
             return true;
         }
 
+        private SlotMapVariable GenerateSlotMapByContainer(Container container)
+        {
+            int[] slotMap;
+
+            if (container is null) 
+            {
+                slotMap = Enumerable.Repeat(1, 25).ToArray(); //[1,1,1,1,1,...,1] size 25
+            }
+            else
+            {
+                container.LoadRelation("MaterialContainer");
+                slotMap = new int[container.TotalPositions ?? 0];
+            }
+
+            if (container?.ContainerMaterials != null)
+            {
+                for (int i = 0; i < container.TotalPositions.Value; i++)
+                {
+                    slotMap[i] = container.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
+                }
+            }
+
+            SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
+            return slotMapDV;
+        }
 
         public override bool CarrierOut(CustomMaterialScenario scenario)
         {
-
             //// wait for load 
             //TestUtilities.WaitFor(ValidationTimeout, String.Format($"Unload Container Command never received"), () =>
             //{
@@ -1635,18 +1604,15 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
             //CarrierSMTrans21 ready to unload
 
-            var slotMap = new int[13];
-            // scenario.ContainerScenario.Entity
-            if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
-            {
-                for (int i = 0; i < 13; i++)
-                {
-                    slotMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 3 : 1;
-                }
-            }
-            SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = slotMap };
+            SlotMapVariable slotMapDV = GenerateSlotMapByContainer(scenario.ContainerScenario.Entity);
 
+            MechatronicsCarrierOut(slotMapDV, loadPortNumber);
 
+            return true;
+        }
+
+        private void MechatronicsCarrierOut(SlotMapVariable slotMapDV, int loadPortNumber)
+        {
             base.Equipment.Variables["PortID"] = loadPortNumber;
             base.Equipment.Variables["PortTransferState"] = 3;
             base.Equipment.Variables["AccessMode"] = 0;
@@ -1669,9 +1635,6 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             base.Equipment.SendMessage(String.Format($"MATERIAL_REMOVED"), null);
 
             Thread.Sleep(200);
-
-
-            return true;
         }
 
         /// <summary>
@@ -2640,6 +2603,17 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             {
                 container.Load();
                 return container.UsedPositions.Value == expectedNumberOfWafers;
+            });
+        }
+
+        private void CustomValidateMultipleContainerNumberOfWafers(List<Container> containers, int expectedNumberOfWafers)
+        {
+            // Validate container now has the expectedNumberOfWafers
+            TestUtilities.WaitFor(ValidationTimeout, String.Format($"Containers must have ({expectedNumberOfWafers}) wafers"), () =>
+            {
+                containers.ForEach((container) => { container.Load(); });
+
+                return containers.Sum((container) => { return container.UsedPositions; }) == expectedNumberOfWafers;
             });
         }
 
