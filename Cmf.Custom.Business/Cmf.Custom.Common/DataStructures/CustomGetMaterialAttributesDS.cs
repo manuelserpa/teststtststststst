@@ -14,7 +14,6 @@ namespace Cmf.Custom.amsOSRAM.Common.DataStructures
         [XmlElement(ElementName = "Material", IsNullable = false)]
         public List<Material> materialList { get; set; }
     }
-
     public class Material
     {
         [XmlElement(IsNullable = false)]

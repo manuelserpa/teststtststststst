@@ -1187,18 +1187,15 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
 
                         if (subMaterialAttributeListNeeded)
                         {
-                            
                             separatedSubMaterialList = customGetMaterialAttributesInput.SubMaterialAttributeList.Split(',');
                             Collection<string> subMaterialAttributeNameCollection = new Collection<string>();
                             List<SubMaterialForXML> subMaterialsForXML = new List<SubMaterialForXML>();
-                            
 
                             foreach (string subMaterialAttributeName in separatedSubMaterialList)
                             {
                                 subMaterialAttributeNameCollection.Add(subMaterialAttributeName);
                             }
                             materialToAdd.SubMaterials.LoadAttributes(subMaterialAttributeNameCollection);
-
 
                             foreach (Navigo.BusinessObjects.Material subMat in materialToAdd.SubMaterials)
                             {
@@ -1270,7 +1267,6 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
             {
                 throw new CmfBaseException(ex.Message, ex);
             }
-
 
             return customGetMaterialAttributesOutput;
         }
