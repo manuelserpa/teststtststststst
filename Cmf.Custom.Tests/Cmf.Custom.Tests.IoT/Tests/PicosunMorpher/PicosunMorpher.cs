@@ -1,28 +1,26 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
+﻿using amsOSRAMEIAutomaticTests.Objects.Extensions;
+using amsOSRAMEIAutomaticTests.Objects.Utilities;
+using cmConnect.TestFramework.Common.Interfaces;
 using cmConnect.TestFramework.Common.Utilities;
 using cmConnect.TestFramework.EquipmentSimulator.Drivers;
+using cmConnect.TestFramework.EquipmentSimulator.Objects;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
 using Cmf.Custom.Tests.Biz.Common.Utilities;
+using Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader;
+using Cmf.Custom.TestUtilities;
+using Cmf.Foundation.BusinessObjects.QueryObject;
+using Cmf.Foundation.BusinessObjects.SmartTables;
+using Cmf.Foundation.BusinessOrchestration.QueryManagement.InputObjects;
+using Cmf.Foundation.BusinessOrchestration.QueryManagement.OutputObjects;
+using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.Navigo.BusinessOrchestration.ResourceManagement.InputObjects;
 using Cmf.SECS.Driver;
-using amsOSRAMEIAutomaticTests.Objects.Extensions;
-using amsOSRAMEIAutomaticTests.Objects.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Cmf.Custom.TestUtilities;
-using cmConnect.TestFramework.EquipmentSimulator.Objects;
-using Cmf.Foundation.BusinessOrchestration.QueryManagement.InputObjects;
-using Cmf.Foundation.BusinessOrchestration.QueryManagement.OutputObjects;
+using System;
 using System.Data;
-using Cmf.Foundation.BusinessObjects.QueryObject;
-using Cmf.Custom.Tests.IoT.Tests.Common;
-using Cmf.Foundation.BusinessObjects.SmartTables;
-using Cmf.Foundation.BusinessOrchestration.TableManagement.InputObjects;
-using Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader;
-using cmConnect.TestFramework.Common.Interfaces;
-using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 
 namespace amsOSRAMEIAutomaticTests.PicosunMorpher
 {
@@ -54,7 +52,6 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
         public int LoadPort = 0;
 
         public string jobId = "TestJobIdForPicosunMorpher";
-
 
         public HermosLFM4xReader RFIDReader = new HermosLFM4xReader();
         public const string readerResourceName = "5FALD2.RFID";
@@ -96,8 +93,8 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-			ConfigureConnection(readerResourceName, 5014, prepareTestScenario: false);
-			ConfigureConnection(resourceName, 5013, isEnableAllAlarms: true, killProcess: false);
+            ConfigureConnection(readerResourceName, 5014, prepareTestScenario: false);
+            ConfigureConnection(resourceName, 5013, isEnableAllAlarms: true, killProcess: false);
 
             Resource lp1 = new Resource() { Name = "5FALD2-LP1" };
             lp1.Load();
@@ -233,7 +230,6 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
             base.RunBasicTest(MESScenario, LoadPortNumber, subMaterialTrackin, automatedMaterialOut: true, fullyAutomatedLoadPorts: true, fullyAutomatedMaterialMovement: true);
         }
 
-
         /// <summary> 
         /// Scenario: Recipe Exists on Equipment
         /// </summary>
@@ -265,10 +261,10 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
         public void PicosunMorpher_ControlStateUpdateTest()
         {
             base.Equipment.Variables["CONTROL_STATE"] = 1;
+
             // Trigger event
             base.Equipment.SendMessage("EquipmentOFFLINE", null);
 
-            //
             TestUtilities.WaitFor(ValidationTimeout, "Control State was not updated to Equipment Offline", () =>
             {
                 Resource resource = new Resource { Name = resourceName };
@@ -289,6 +285,7 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
             Thread.Sleep(1000);
 
             base.Equipment.Variables["CONTROL_STATE"] = 5;
+
             // Trigger event
             base.Equipment.SendMessage("ControlStateREMOTE", null);
 
@@ -313,6 +310,7 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
             Thread.Sleep(1000);
 
             base.Equipment.Variables["CONTROL_STATE"] = 4;
+
             // Trigger event
             base.Equipment.SendMessage("ControlStateLOCAL", null);
 
@@ -332,9 +330,8 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
                     return false;
 
                 return resource.CurrentStates.FirstOrDefault(s => s.StateModel.Name == "CustomSecsGemControlStateModel" && s.CurrentState.Name == "OnlineLocal") != null;
-            });           
+            });
         }
-
 
         /// <summary> 
         /// Scenario: Control State to Host Offline
@@ -357,7 +354,6 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
             // Trigger event
             base.Equipment.SendMessage("EquipmentEPTStateChangeEvent", null);
 
-            //
             TestUtilities.WaitFor(10/*ValidationTimeout*/, "Equipment State was not updated to Idle", () =>
             {
                 Resource resource = new Resource { Name = resourceName };
@@ -391,7 +387,6 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
             // Trigger event
             base.Equipment.SendMessage("EquipmentEPTStateChangeEvent", null);
 
-            ////
             TestUtilities.WaitFor(10/*ValidationTimeout*/, "Equipment State was not updated to Busy", () =>
             {
                 Resource resource = new Resource { Name = resourceName };
@@ -426,7 +421,6 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
             // Trigger event
             base.Equipment.SendMessage("EquipmentEPTStateChangeEvent", null);
 
-            //
             TestUtilities.WaitFor(10/*ValidationTimeout*/, "Equipment State was not updated to Blocked", () =>
             {
                 Resource resource = new Resource { Name = resourceName };
@@ -471,7 +465,6 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
 
             base.Equipment.SendAlarm(alarmExample, 0x01, null);
 
-
             TestUtilities.WaitFor(30/*ValidationTimeout*/, "Alarm was not received", () =>
             {
                 var dataCollectionInstancesAfter = this.GetDataCollectionInstanceByResourceId(resource.Id).Count;
@@ -479,7 +472,6 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
             });
         }
         #endregion Tests FullProcessScenario 
-
 
         #region Events
         public override bool CarrierIn(CustomMaterialScenario scenario, int loadPortToSet)
@@ -489,6 +481,7 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
             base.Equipment.Variables["StationID"] = LoadPort;
             base.Equipment.Variables["CarrierRole"] = 0;
             base.Equipment.Variables["CLOCK"] = DateTime.UtcNow.ToString("yyyyMMddhhmmss");
+
             // Trigger event
             base.Equipment.SendMessage("CarrierReceived", null);
 
@@ -502,29 +495,13 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
 
             base.CarrierInValidation(MESScenario, loadPortToSet);
 
-         //   Thread.Sleep(300);
-
             //if carried id read succesfull container must now be docked
             ValidatePersistenceContainerExists(LoadPortNumber, MESScenario.ContainerScenario.Entity.Name);
-            ValidateContainerIsDocked(MESScenario, loadPortToSet);
-
-            /*
-            var SlotDataMap = new int[13];
-
-            // scenario.ContainerScenario.Entity
-            if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
-            {
-                for (int i = 0; i < 13; i++)
-                {
-                    SlotDataMap[i] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 1 : 0;
-                }
-            }
-
-            SlotMapVariable slotMapDV = new SlotMapVariable(base.Equipment) { Presence = SlotDataMap };
-            */
+            ValidateContainerIsDocked(MESScenario, loadPortToSet);            
 
             SecsItem slotMap = new SecsItem();
             slotMap.SetTypeToList();
+
             // scenario.ContainerScenario.Entity
             if (MESScenario.ContainerScenario.Entity.ContainerMaterials != null)
             {
@@ -551,10 +528,10 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
 
             SecsItem outerList = new SecsItem();
             outerList.Add(slotMap);
-            
+
             base.Equipment.Variables["JobID"] = new SecsItem() { ASCII = jobId };
             base.Equipment.Variables["LotID"] = new SecsItem() { ASCII = MESScenario.Entity.Name.ToString() };
-            base.Equipment.Variables["StationID"] = new SecsItem() { U1 = new byte[] { (byte)(LoadPort - 13)} }; // for WaferMappingDone envent the number of load port is direct
+            base.Equipment.Variables["StationID"] = new SecsItem() { U1 = new byte[] { (byte)(LoadPort - 13) } }; // for WaferMappingDone envent the number of load port is direct
             base.Equipment.Variables["SlotDataMap"] = slotMap;
             base.Equipment.Variables["CLOCK"] = new SecsItem() { ASCII = DateTime.UtcNow.ToString("yyyyMMddhhmmss") };
 
@@ -564,8 +541,8 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
             ValidatePersistenceContainerExists(loadPortToSet);
         }
 
-
-        private SecsTransaction sendCustomMessage(string messageName) {
+        private SecsTransaction sendCustomMessage(string messageName)
+        {
             IEvent @event = base.Equipment.Events[messageName];
             SecsTransaction secsTransaction = base.Equipment.Driver.Library.GetTransaction("S6F11").Duplicate();
 
@@ -583,7 +560,7 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
                 secsItem3.U4 = new uint[] { uint.Parse(report.DataItemId) };
                 secsItem2.Add(secsItem3);
                 SecsItem secsItem4 = new SecsItem();
-                secsItem4.SetTypeToList();                
+                secsItem4.SetTypeToList();
 
                 foreach (IVariable variable in report.Variables)
                 {
@@ -591,24 +568,19 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
                     if (base.Equipment.Variables.ContainsKey(variable.AbstractName))
                     {
                         secsItem4.Add(base.Equipment.Variables[variable.AbstractName] as SecsItem);
-                    }                    
+                    }
                 }
-            
+
                 secsItem2.Add(secsItem4);
 
                 secsItem.Add(secsItem2);
             }
 
             return secsTransaction;
-        }            
-
-
-        
-
+        }
 
         public override bool CarrierOut(CustomMaterialScenario scenario)
         {
-
             base.Equipment.Variables["JobID"] = jobId;
             base.Equipment.Variables["LotID"] = MESScenario.Entity.Name;
             base.Equipment.Variables["DestinationStationID"] = LoadPort;
@@ -618,7 +590,6 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
             base.Equipment.SendMessage("CarrierPlacedToPod", null);
 
             ValidateLoadPortState(scenario, LoadPortStateModelStateEnum.ReadyToUnload.ToString());
-            // MaterialRemoved
 
             Thread.Sleep(2000);
 
@@ -661,14 +632,14 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
             });
             receivedCreateJobWaferListCommand = false;
 
-            Thread.Sleep(500);           
+            Thread.Sleep(500);
 
             base.Equipment.Variables["JobID"] = jobId;
             base.Equipment.Variables["WaferLayoutPlan"] = "0";
             base.Equipment.Variables["CLOCK"] = DateTime.UtcNow.ToString("yyyyMMddhhmmss");
 
             // Trigger event
-            base.Equipment.SendMessage("CjNoStateToCreated", null);            
+            base.Equipment.SendMessage("CjNoStateToCreated", null);
 
             TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
             {
@@ -682,12 +653,8 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
                 return scenario.Entity.SystemState.ToString().Equals(MaterialSystemState.InProcess.ToString());
             });
 
-
-
             return true;
         }
-
-       
 
         public override bool ProcessStartEvent(CustomMaterialScenario scenario)
         {
@@ -709,7 +676,6 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
 
         public override bool ProcessCompleteEvent(CustomMaterialScenario scenario)
         {
-
             base.Equipment.Variables["JobID"] = jobId;
             base.Equipment.Variables["CLOCK"] = DateTime.UtcNow.ToString("yyyyMMddhhmmss");
 
@@ -721,17 +687,9 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
 
         public override bool ProcessStateChange(CustomMaterialScenario scenario)
         {
-            /*
-            //TODO:Update for correct values
-            base.Equipment.Variables["ProcessState"] = 4;// Executing
-            base.Equipment.Variables["PreviousProcessState"] = 3;
-
-            base.Equipment.SendMessage("ProcessStateChange", null);
-            */
             return true;
         }
         #endregion Events
-
 
         public override bool WaferStart(Material wafer)
         {
@@ -777,32 +735,10 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
             return true;
         }
 
-
         public override bool ValidateSubMaterialState(Material submaterial, string subMaterialState)
-        {
-            //if (MaterialSystemState.Processed.ToString().Equals(subMaterialState))
-            //{
-            //    submaterial.Load();
-            //    submaterial.LoadRelations();
-            //    submaterial.ParentMaterial.Load();
-            //    submaterial.ParentMaterial.LoadChildren();
-            //    if (submaterial.ParentMaterial.SubMaterials
-            //        .Where(s => s.SystemState == MaterialSystemState.Queued).Count() == 0
-            //        && submaterial.ParentMaterial.SubMaterials
-            //        .Where(s => s.SystemState == MaterialSystemState.InProcess).Count() == 1)
-            //    {
-            //        return true;
-            //    }
-            //}
-
-            //TestUtilities.WaitFor(90, String.Format($"Material {submaterial.Name} State is not {subMaterialState}"), () =>
-            //{
-            //    submaterial.Load();
-            //    return submaterial.SystemState.ToString().Equals(subMaterialState);
-            //});
-
+        {            
             return true;
-        }              
+        }
 
         protected virtual bool OnS1F3(SecsMessage request, SecsMessage reply)
         {
@@ -833,7 +769,7 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
                 recievedStartJobCommand = true;
                 CommandSuccess = true;
             }
-            
+
             reply.Item.GetChildList()[0].Binary = new byte[] { (byte)(CommandSuccess ? 0x00 : 0x02) };
             return true;
         }
@@ -859,11 +795,8 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
             //table = new LoadSmartTableDataInput { SmartTable = (table as SmartTable) }.LoadSmartTableDataSync().SmartTable;
             DataSet ds = Cmf.TestScenarios.Others.Utilities.ToDataSet((table as SmartTable).Data);
 
-
-
             if (clearTable)
             {
-
                 var drToDelete = ds.Tables[0].AsEnumerable().FirstOrDefault(drow => drow["Step"].ToString() == stepName);
 
                 if (drToDelete != null)
@@ -897,8 +830,6 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
 
             try
             {
-
-
                 var input = new InsertOrUpdateSmartTableRowsInput { SmartTable = table, Table = Cmf.TestScenarios.Others.Utilities.FromDataSet(ds) };
                 var insert = input.InsertOrUpdateSmartTableRowsSync();
             }
@@ -994,23 +925,6 @@ namespace amsOSRAMEIAutomaticTests.PicosunMorpher
             }
 
             return dcic;
-        }
-
-        /*private void ValidateProceedWithCarrierReceived(int numberExpected = -1)
-        {
-            TestUtilities.WaitFor(30, "Notification mismatch.", () =>
-            {
-                if (numberExpected >= 0)
-                {
-                    return numberExpected == proceedWithCarriersReceived;
-                }
-                else
-                {
-                    return true;
-                }
-
-
-            });
-        }*/
+        }        
     }
 }
