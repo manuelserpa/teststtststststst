@@ -720,6 +720,12 @@
     "actionId": ""
   },
   {
+    "id": "picosunmorpher",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "Picosun Morpher",
+    "actionId": ""
+  },
+  {
     "id": "trymaxneo",
     "menuGroupId": "iotequipmenttypes",
     "title": "Trymax NEO",
@@ -968,6 +974,30 @@
   {
     "id": "omegaplasma-workflows",
     "menuGroupId": "omegaplasma",
+    "title": "Workflows",
+    "actionId": ""
+  },
+  {
+    "id": "picosunmorpher-configuration",
+    "menuGroupId": "picosunmorpher",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "picosunmorpher-features",
+    "menuGroupId": "picosunmorpher",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "picosunmorpher-setup",
+    "menuGroupId": "picosunmorpher",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "picosunmorpher-workflows",
+    "menuGroupId": "picosunmorpher",
     "title": "Workflows",
     "actionId": ""
   },
