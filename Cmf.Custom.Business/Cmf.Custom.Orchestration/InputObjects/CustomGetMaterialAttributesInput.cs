@@ -1,6 +1,4 @@
-﻿using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessOrchestration;
-using Cmf.Navigo.BusinessObjects;
+﻿using Cmf.Foundation.BusinessOrchestration;
 using System.Runtime.Serialization;
 
 namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects

@@ -190,10 +190,10 @@ namespace Cmf.Custom.amsOSRAM.Services
         }
 
         /// <summary>
-        /// GetFlowInformationForERP
+        /// CustomGetMaterialAttributes
         /// </summary>
-        /// <param name="input">CustomGetFlowInformationForERP Input Object</param>
-        /// <returns>CustomGetFlowInformationForERP Output Object</returns>
+        /// <param name="input">CustomGetMaterialAttributes Input Object</param>
+        /// <returns>CustomGetMaterialAttributes Output Object</returns>
         /// <exception cref="Cmf.Foundation.Common.CmfBaseException">If any unexpected error occurs.</exception>
         [HttpPost()]
         public CustomGetMaterialAttributesOutput CustomGetMaterialAttributes(CustomGetMaterialAttributesInput input)

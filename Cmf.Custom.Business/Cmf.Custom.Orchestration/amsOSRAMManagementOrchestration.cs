@@ -1088,6 +1088,8 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
 
             CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesOutput();
             CustomGetMaterialAttributesDS dataToXML = new CustomGetMaterialAttributesDS();
+            CustomGetMaterialAttributesInputDS dataHolder;
+            MaterialCollection loadedMaterials = new MaterialCollection();
             string[] separatedMaterialList;
             string[] separatedAttributeList;
             string[] separatedSubMaterialList;
@@ -1132,9 +1134,6 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
             {
                 subMaterialAttributeListNeeded = true;
             }
-
-            CustomGetMaterialAttributesInputDS dataHolder;
-            MaterialCollection loadedMaterials = new MaterialCollection();
 
             try
             {
@@ -1270,7 +1269,5 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
 
             return customGetMaterialAttributesOutput;
         }
-
-       
     }
 }
