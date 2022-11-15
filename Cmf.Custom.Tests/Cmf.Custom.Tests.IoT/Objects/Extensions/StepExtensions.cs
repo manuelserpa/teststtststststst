@@ -66,27 +66,6 @@ namespace amsOSRAMEIAutomaticTests.Objects.Extensions
             }
         }
 
-    
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="instance"></param>
-        /// <param name="reasonType"></param>
-        /// <returns></returns>
-        public static Reason GetRandomReason(this Step instance, ReasonType reasonType = ReasonType.Loss)
-        {
-            Reason reasonToReturn = null;
-
-            ReasonCollection reasons = instance.GetRandomReasons(1, reasonType);
-            if (reasons != null && reasons.Count > 0)
-            {
-                reasonToReturn = reasons[0];
-            }
-
-            return reasonToReturn;
-        }
-
         /// <summary>
         /// 
         /// </summary>
