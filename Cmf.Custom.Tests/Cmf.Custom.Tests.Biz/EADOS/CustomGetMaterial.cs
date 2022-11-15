@@ -1,6 +1,8 @@
 ﻿using Cmf.Custom.amsOSRAM.Orchestration.InputObjects;
 using Cmf.Custom.amsOSRAM.Orchestration.OutputObjects;
 using Cmf.Custom.Tests.Biz.Common.Scenarios;
+using Cmf.Custom.TestUtilities;
+using Cmf.Navigo.BusinessObjects;
 using Cmf.TestScenarios.MaterialManagement.MaterialScenarios;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -14,6 +16,82 @@ namespace Cmf.Custom.Tests.Biz.EADOS
     [TestClass]
     public class CustomGetMaterial
     {
+        #region Constants and Variables
+        private Material mainMaterial = null;
+        private Material firstSubMaterial = null;
+        private Material secondSubMaterial = null;
+        private Dictionary<string,string> originalAttributeValues = new Dictionary<string,string>();
+
+
+        #endregion Constants and Variables
+
+        [TestInitialize] 
+        public void Init()
+        {
+            mainMaterial = new Material()
+            {
+                Name = "TestMaterialWithAttributes"
+            };
+
+            firstSubMaterial = new Material()
+            {
+                Name = "TestSubMaterialWithAttributes_1"
+            };
+
+            secondSubMaterial = new Material()
+            {
+                Name = "TestSubMaterialWithAttributes_2"
+            };
+
+            mainMaterial.Load();
+            firstSubMaterial.Load();
+            secondSubMaterial.Load();
+
+            mainMaterial.LoadAttributes();
+            firstSubMaterial.LoadAttributes();
+            secondSubMaterial.LoadAttributes();
+
+            #region SetAttributes
+            mainMaterial.SaveAttribute("GoodsReceiptNo","70112202");
+            mainMaterial.SaveAttribute("GoodsReceiptDate","20221107");
+            mainMaterial.Save();
+            mainMaterial.Load();
+
+            firstSubMaterial.SaveAttribute("GoodsReceiptNo","41112202");
+            firstSubMaterial.SaveAttribute("GoodsReceiptDate","20221114");
+            firstSubMaterial.Save();
+            firstSubMaterial.Load();
+
+            secondSubMaterial.SaveAttribute("GoodsReceiptNo","20221114");
+            secondSubMaterial.SaveAttribute("GoodsReceiptDate","41112202");
+            secondSubMaterial.Save();
+            secondSubMaterial.Load();
+
+            #endregion SetAttributes
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            #region
+            mainMaterial.SaveAttribute("GoodsReceiptNo", "");
+            mainMaterial.SaveAttribute("GoodsReceiptDate", "");
+            mainMaterial.Save();
+            mainMaterial.Load();
+
+            firstSubMaterial.SaveAttribute("GoodsReceiptNo", "");
+            firstSubMaterial.SaveAttribute("GoodsReceiptDate", "");
+            firstSubMaterial.Save();
+            firstSubMaterial.Load();
+
+            secondSubMaterial.SaveAttribute("GoodsReceiptNo", "");
+            secondSubMaterial.SaveAttribute("GoodsReceiptDate", "");
+            secondSubMaterial.Save();
+            secondSubMaterial.Load();
+            #endregion
+        }
+
+
         /// <summary>
         /// Description:
         ///     - Send an XML Message to the custom service CustomGetMaterialAttributes
