@@ -26,6 +26,7 @@ using Cmf.Foundation.Common.Base;
 using Newtonsoft.Json.Linq;
 using amsOSRAMEIAutomaticTests.Objects.Persistence;
 using Cmf.Custom.Tests.IoT.Tests.HermosLFM4xReader;
+using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 
 namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 {
@@ -94,9 +95,10 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
         [TestInitialize]
         public void TestInit()
         {
+            StepPreparations();
 
             base.Equipment = m_Scenario.GetEquipment(m_Scenario.EquipmentToTest) as SecsGemEquipment;
-
+            
             base.Initialize(recipeName);
             base.SubMaterialTrackin = subMaterialTrackin;
 
@@ -2731,5 +2733,91 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
             return dcic;
         }
+
+        /// <summary>
+		/// This terminates all materials currently at this step.
+		/// Also, makes sures sub material track depth is 0 for this step.
+		/// </summary>
+		private void StepPreparations()
+        {
+            Step step = new Step() { Name = stepName };
+            step.Load();
+            var output = new LoadStepMaterialsWithResourcesInput
+            {
+                Step = step
+            }.LoadStepMaterialsWithResourcesSync();
+
+            System.Data.DataSet dataSet = Cmf.TestScenarios.Others.Utilities.ToDataSet(output.LoadStepMaterialsWithResourcesResults);
+
+            if (Cmf.Custom.TestUtilities.Generalization.HasData(dataSet))
+            {
+                foreach (DataRow row in dataSet.Tables[0].Rows)
+                {
+                    Material materialAtStep = new Material() { Id = (long)row["MaterialId"] };
+                    materialAtStep.Load(0);
+
+                    if (materialAtStep.ParentMaterial == null)
+                    {
+                        if (materialAtStep.SystemState == MaterialSystemState.InProcess)
+                        {
+                            try
+                            {
+                                AbortMaterialProcessInput abortMaterialProcessInput = new AbortMaterialProcessInput()
+                                {
+                                    Material = materialAtStep,
+                                    NumberOfRetries = 1,
+                                };
+
+                                materialAtStep = abortMaterialProcessInput.AbortMaterialProcessSync().Material;
+                            }
+                            catch (Exception)
+                            {
+                                // Could not abort. Carry on.
+                            }
+                        }
+
+                        if (materialAtStep.UniversalState != UniversalState.Terminated ||
+                            materialAtStep.UniversalState != UniversalState.Frozen)
+                        {
+                            if (materialAtStep.HoldCount > 0)
+                            {
+                                MaterialHoldReasonUserInformationCollection getHoldReasons = new GetMaterialHoldReasonsWithUserInformationInput()
+                                {
+                                    Material = materialAtStep,
+                                    LevelsToLoad = 1
+                                }.GetMaterialHoldReasonsWithUserInformationSync().MaterialHoldReasonUserInformationCollection;
+
+                                if (getHoldReasons != null)
+                                {
+                                    MaterialHoldReasonCollection holdReasons = new MaterialHoldReasonCollection();
+                                    getHoldReasons.ForEach(a => holdReasons.Add(a.MaterialHoldReason));
+
+                                    materialAtStep = new ReleaseMaterialInput()
+                                    {
+                                        Material = materialAtStep,
+                                        IgnoreLastServiceId = true,
+                                        MaterialHoldReasonCollection = holdReasons
+                                    }.ReleaseMaterialSync().Material;
+                                }
+                            }
+                            Reason loss = materialAtStep.Step.GetRandomReason();
+
+                            if (loss != null)
+                            {
+                                materialAtStep.Terminate(reasonToUse: loss);
+                            }
+                            else
+                            {
+                                materialAtStep.Terminate();
+                            }
+                        }
+                    }
+                }
+            }
+
+            step.SubMaterialTrackStateDepth = 0;
+            step.Save();
+        }
+
     }
 }
