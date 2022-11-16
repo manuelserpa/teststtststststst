@@ -1153,7 +1153,6 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
 
                         if (!string.IsNullOrWhiteSpace(customGetMaterialAttributesInput.SubMaterialAttributeList))
                         {
-                            
                             Collection<string> subMaterialAttributeNameCollection = new Collection<string>();
                             List<Cmf.Custom.amsOSRAM.Common.DataStructures.CustomGetMaterialAttributesDS.SubMaterialForXML> subMaterialsForXML = new List<Cmf.Custom.amsOSRAM.Common.DataStructures.CustomGetMaterialAttributesDS.SubMaterialForXML>();
 
