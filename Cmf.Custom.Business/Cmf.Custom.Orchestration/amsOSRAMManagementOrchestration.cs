@@ -1113,7 +1113,7 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                     materialToAdd.Name = materialname;
                     if (!materialToAdd.ObjectExists())
                     {
-                        throw new Exception("The requested Material does not exists");
+                        throw new Exception(_localizationService.Localize(amsOSRAMConstants.LocalizedMessageCustomMaterialDoesNotExistMessage));
                     }
                     materialToAdd.Load();
                     materialForXML.Form = materialToAdd.Form;

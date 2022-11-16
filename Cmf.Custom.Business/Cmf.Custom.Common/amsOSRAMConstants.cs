@@ -750,6 +750,11 @@
         /// Localized Message: CustomContainerDifferentProducts
         /// </summary>
         public const string LocalizedMessageCustomContainerDifferentProducts = "CustomContainerDifferentProducts";
+        
+        /// <summary>
+        /// Localized Message: CustomMaterialDoesNotExistMessage
+        /// </summary>
+        public const string LocalizedMessageCustomMaterialDoesNotExistMessage = "CustomMaterialDoesNotExistMessage";
 
         #endregion Localized Messages
 
