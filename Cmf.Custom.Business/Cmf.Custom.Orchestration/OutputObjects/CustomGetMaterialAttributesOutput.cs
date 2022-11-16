@@ -1,54 +1,26 @@
-﻿using Cmf.Foundation.BusinessObjects;
-using Cmf.Foundation.BusinessOrchestration;
-using Cmf.Navigo.BusinessObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Cmf.Foundation.BusinessOrchestration;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cmf.Custom.amsOSRAM.Orchestration.OutputObjects
 {
     /// <summary>
-    /// Output Object for MaterialAttribute Service
+    /// Output Object for GetMaterialAttributes Service
     /// </summary>
     [DataContract(Name = "CustomGetMaterialAttributesOutput")]
     public class CustomGetMaterialAttributesOutput : BaseOutput
     {
         #region Properties
-        #region Private Variables
-        #endregion
-
-        #region Public Variables
-        #endregion
-
-        #region Properties
 
         /// <summary>
-		/// Result
+		/// ResultXML
 		/// </summary>
-		[DataMember(Name = "Result", Order = 100)]
-        public string Result
+		[DataMember(Name = "ResultXML", Order = 100)]
+        public string ResultXML
         {
             get;
             set;
         }
 
         #endregion
-
-        #region Constructors
-        #endregion
-
-        #region Private & Internal Methods
-        #endregion
-
-        #region Public Methods
-        #endregion
-
-        #region Event handling Methods
-        #endregion
-        #endregion
-
     }
 }

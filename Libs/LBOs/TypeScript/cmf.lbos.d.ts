@@ -38645,7 +38645,7 @@ export declare namespace Cmf.Custom.amsOSRAM.Orchestration.OutputObjects {
     class CustomGetMaterialAttributesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput {
         protected $id: string;
         protected $type: string;
-        Result: string;
+        ResultXML: string;
     }
 }
 export declare namespace Cmf.MessageBus.Client.messages {

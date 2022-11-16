@@ -119,7 +119,7 @@ namespace Cmf.Custom.Tests.Biz.EADOS
 
                 customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
 
-                Assert.IsTrue(customGetMaterialAttributesOutput.Result == expectedReturn);
+                Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
             }
             finally
             {
@@ -154,7 +154,7 @@ namespace Cmf.Custom.Tests.Biz.EADOS
 
                 customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
 
-                Assert.IsTrue(customGetMaterialAttributesOutput.Result == expectedReturn);
+                Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
             }
             finally
             {
@@ -189,7 +189,7 @@ namespace Cmf.Custom.Tests.Biz.EADOS
 
                 customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
 
-                Assert.IsTrue(customGetMaterialAttributesOutput.Result == expectedReturn);
+                Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
             }
             finally
             {

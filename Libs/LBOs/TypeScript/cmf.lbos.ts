@@ -60366,7 +60366,7 @@ export namespace Cmf.Custom.amsOSRAM.Orchestration.OutputObjects
     {
         protected $id:string = null;
         protected $type:string = "Cmf.Custom.amsOSRAM.Orchestration.OutputObjects.CustomGetMaterialAttributesOutput, Cmf.Custom.amsOSRAM.Orchestration";
-        public Result : string;
+        public ResultXML : string;
 		
     }
 }

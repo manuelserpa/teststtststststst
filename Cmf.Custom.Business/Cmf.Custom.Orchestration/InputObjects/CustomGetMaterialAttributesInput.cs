@@ -4,13 +4,13 @@ using System.Runtime.Serialization;
 namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects
 {
     /// <summary>
-    /// Input Object for MaterialAttribute Service
+    /// Input Object for GetMaterialAttributes Service
     /// </summary>
     [DataContract(Name = "CustomGetMaterialAttributesInput")]
     public class CustomGetMaterialAttributesInput : BaseInput
     {
         /// <summary>
-		/// Message
+		/// MaterialList
 		/// </summary>
 		[DataMember(Name = "MaterialList", Order = 0)]
         public string MaterialList
@@ -20,7 +20,7 @@ namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects
         }
 
         /// <summary>
-        /// MessageType
+        /// AttributeList
         /// </summary>
         [DataMember(Name = "AttributeList", Order = 0)]
         public string AttributeList
@@ -30,7 +30,7 @@ namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects
         }
 
         /// <summary>
-        /// MessageType
+        /// IncludeSubMaterials
         /// </summary>
         [DataMember(Name = "IncludeSubMaterials", Order = 0)]
         public string IncludeSubMaterials
@@ -40,7 +40,7 @@ namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects
         }
 
         /// <summary>
-        /// MessageType
+        /// SubMaterialAttributeList
         /// </summary>
         [DataMember(Name = "SubMaterialAttributeList", Order = 0)]
         public string SubMaterialAttributeList
