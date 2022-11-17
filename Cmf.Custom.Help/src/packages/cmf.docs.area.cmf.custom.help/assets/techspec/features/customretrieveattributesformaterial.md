@@ -46,7 +46,7 @@ The system processes the input and gradually fills up the output datastructure. 
 				<Form>Logical Wafer</Form>
 				<Attributes>
 					<Attribute Name=\"GoodsReceiptNo\">20221114</Attribute>
-					<Attribute Name=\"GoodsReceiptDate\">41112202</Attribute>
+					<Attribute Name=\"GoodsReceiptDate\">20221114</Attribute>
 				</Attributes>
 			</Material>
 		</SubMaterials>

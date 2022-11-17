@@ -17,16 +17,19 @@ namespace Cmf.Custom.Tests.Biz.EADOS
     public class CustomGetMaterial
     {
         #region Constants and Variables
-        private Material mainMaterial = null;
-        private Material firstSubMaterial = null;
-        private Material secondSubMaterial = null;
+        private static Material mainMaterial = null;
+        private static Material firstSubMaterial = null;
+        private static Material secondSubMaterial = null;
+        private static Material thirdMaterial = null;
+        private static Material fourthMaterial = null;
+        private static Material fifthMaterial = null;
         private Dictionary<string,string> originalAttributeValues = new Dictionary<string,string>();
 
 
         #endregion Constants and Variables
 
-        [TestInitialize] 
-        public void Init()
+        [ClassInitialize] 
+        public static void Init(TestContext testContext)
         {
             mainMaterial = new Material()
             {
@@ -43,13 +46,34 @@ namespace Cmf.Custom.Tests.Biz.EADOS
                 Name = "TestSubMaterialWithAttributes_2"
             };
 
+            thirdMaterial = new Material()
+            {
+                Name = "TestMaterialWithAttributes_3"
+            };
+
+            fourthMaterial = new Material()
+            {
+                Name = "TestSubMaterialWithAttributes_4"
+            };
+
+            fifthMaterial = new Material()
+            {
+                Name = "TestSubMaterialWithAttributes_5"
+            };
+
             mainMaterial.Load();
             firstSubMaterial.Load();
             secondSubMaterial.Load();
+            thirdMaterial.Load();
+            fourthMaterial.Load();
+            fifthMaterial.Load();
 
             mainMaterial.LoadAttributes();
             firstSubMaterial.LoadAttributes();
             secondSubMaterial.LoadAttributes();
+            thirdMaterial.LoadAttributes();
+            fourthMaterial.LoadAttributes();
+            fifthMaterial.LoadAttributes();
 
             #region SetAttributes
             mainMaterial.SaveAttribute("GoodsReceiptNo","70112202");
@@ -67,11 +91,26 @@ namespace Cmf.Custom.Tests.Biz.EADOS
             secondSubMaterial.Save();
             secondSubMaterial.Load();
 
+            thirdMaterial.SaveAttribute("GoodsReceiptNo", "70112202");
+            thirdMaterial.SaveAttribute("GoodsReceiptDate", "20221107");
+            thirdMaterial.Save();
+            thirdMaterial.Load();
+
+            fourthMaterial.SaveAttribute("GoodsReceiptNo", "70112202");
+            fourthMaterial.SaveAttribute("GoodsReceiptDate", "20221107");
+            fourthMaterial.Save();
+            fourthMaterial.Load();
+
+            fifthMaterial.SaveAttribute("GoodsReceiptNo", "70112202");
+            fifthMaterial.SaveAttribute("GoodsReceiptDate", "20221107");
+            fifthMaterial.Save();
+            fifthMaterial.Load();
+
             #endregion SetAttributes
         }
 
-        [TestCleanup]
-        public void Cleanup()
+        [ClassCleanup]
+        public static void Cleanup()
         {
             #region
             mainMaterial.SaveAttribute("GoodsReceiptNo", "");
@@ -88,9 +127,23 @@ namespace Cmf.Custom.Tests.Biz.EADOS
             secondSubMaterial.SaveAttribute("GoodsReceiptDate", "");
             secondSubMaterial.Save();
             secondSubMaterial.Load();
+
+            thirdMaterial.SaveAttribute("GoodsReceiptNo", "");
+            thirdMaterial.SaveAttribute("GoodsReceiptDate", "");
+            thirdMaterial.Save();
+            thirdMaterial.Load();
+
+            fourthMaterial.SaveAttribute("GoodsReceiptNo", "");
+            fourthMaterial.SaveAttribute("GoodsReceiptDate", "");
+            fourthMaterial.Save();
+            fourthMaterial.Load();
+
+            fifthMaterial.SaveAttribute("GoodsReceiptNo", "");
+            fifthMaterial.SaveAttribute("GoodsReceiptDate", "");
+            fifthMaterial.Save();
+            fifthMaterial.Load();
             #endregion
         }
-
 
         /// <summary>
         /// Description:
@@ -107,24 +160,17 @@ namespace Cmf.Custom.Tests.Biz.EADOS
         {
             CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesOutput();
             string expectedReturn = "<?xml version=\"1.0\" encoding=\"utf-16\"?><CustomGetMaterialAttributes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Material><Name>TestMaterialWithAttributes</Name><Form>Lot</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">70112202</Attribute><Attribute Name=\"GoodsReceiptDate\">20221107</Attribute></Attributes></Material></CustomGetMaterialAttributes>";
-            try
+            CustomGetMaterialAttributesInput customGetMaterialAttributesInput = new CustomGetMaterialAttributesInput()
             {
-                CustomGetMaterialAttributesInput customGetMaterialAttributesInput = new CustomGetMaterialAttributesInput()
-                {
-                    MaterialList = "TestMaterialWithAttributes",
-                    AttributeList = "",
-                    IncludeSubMaterials = "false",
-                    SubMaterialAttributeList = ""
-                };
+                MaterialList = "TestMaterialWithAttributes",
+                AttributeList = "",
+                IncludeSubMaterials = "false",
+                SubMaterialAttributeList = ""
+            };
 
-                customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
+            customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
 
-                Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
-            }
-            finally
-            {
-
-            }
+            Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
         }
 
         /// <summary>
@@ -142,24 +188,17 @@ namespace Cmf.Custom.Tests.Biz.EADOS
         {
             CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesOutput();
             string expectedReturn = "<?xml version=\"1.0\" encoding=\"utf-16\"?><CustomGetMaterialAttributes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Material><Name>TestMaterialWithAttributes</Name><Form>Lot</Form><Attributes><Attribute Name=\"GoodsReceiptDate\">20221107</Attribute></Attributes><SubMaterials><Material><Name>TestSubMaterialWithAttributes_1</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">41112202</Attribute></Attributes></Material><Material><Name>TestSubMaterialWithAttributes_2</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">20221114</Attribute></Attributes></Material></SubMaterials></Material></CustomGetMaterialAttributes>";
-            try
+            CustomGetMaterialAttributesInput customGetMaterialAttributesInput = new CustomGetMaterialAttributesInput()
             {
-                CustomGetMaterialAttributesInput customGetMaterialAttributesInput = new CustomGetMaterialAttributesInput()
-                {
-                    MaterialList = "TestMaterialWithAttributes",
-                    AttributeList = "GoodsReceiptDate",
-                    IncludeSubMaterials = "",
-                    SubMaterialAttributeList = "GoodsReceiptNo"
-                };
+                MaterialList = "TestMaterialWithAttributes",
+                AttributeList = "GoodsReceiptDate",
+                IncludeSubMaterials = "",
+                SubMaterialAttributeList = "GoodsReceiptNo"
+            };
 
-                customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
+            customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
 
-                Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
-            }
-            finally
-            {
-
-            }
+            Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
         }
 
         /// <summary>
@@ -177,24 +216,102 @@ namespace Cmf.Custom.Tests.Biz.EADOS
         {
             CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesOutput();
             string expectedReturn = "<?xml version=\"1.0\" encoding=\"utf-16\"?><CustomGetMaterialAttributes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Material><Name>TestMaterialWithAttributes</Name><Form>Lot</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">70112202</Attribute><Attribute Name=\"GoodsReceiptDate\">20221107</Attribute></Attributes><SubMaterials><Material><Name>TestSubMaterialWithAttributes_1</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">41112202</Attribute><Attribute Name=\"GoodsReceiptDate\">20221114</Attribute></Attributes></Material><Material><Name>TestSubMaterialWithAttributes_2</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">20221114</Attribute><Attribute Name=\"GoodsReceiptDate\">41112202</Attribute></Attributes></Material></SubMaterials></Material></CustomGetMaterialAttributes>";
-            try
+            
+            CustomGetMaterialAttributesInput customGetMaterialAttributesInput = new CustomGetMaterialAttributesInput()
             {
-                CustomGetMaterialAttributesInput customGetMaterialAttributesInput = new CustomGetMaterialAttributesInput()
-                {
-                    MaterialList = "TestMaterialWithAttributes",
-                    AttributeList = "",
-                    IncludeSubMaterials = "",
-                    SubMaterialAttributeList = ""
-                };
+                MaterialList = "TestMaterialWithAttributes",
+                AttributeList = "",
+                IncludeSubMaterials = "",
+                SubMaterialAttributeList = ""
+            };
 
-                customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
+            customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
 
-                Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
-            }
-            finally
+            Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Send an XML Message to the custom service CustomGetMaterialAttributes
+        /// 
+        /// Acceptance Citeria:
+        ///     - Return message created with the Materials Name, Form, and requested Attributes, Submaterials Names Forms and requested Attributes
+        /// 
+        /// </summary>
+        /// <TestCaseID>CustomGetMaterialAttributes_HappyPath_Two_Main_Materials_AllSubMaterials_AllAttributes</TestCaseID>
+        /// <Author>Gergoe Pajor</Author>
+        [TestMethod]
+        public void CustomGetMaterialAttributes_HappyPath_Two_Main_Materials_AllSubMaterials_AllAttributes()
+        {
+            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesOutput();
+            string expectedReturn = "<?xml version=\"1.0\" encoding=\"utf-16\"?><CustomGetMaterialAttributes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Material><Name>TestMaterialWithAttributes</Name><Form>Lot</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">70112202</Attribute><Attribute Name=\"GoodsReceiptDate\">20221107</Attribute></Attributes><SubMaterials><Material><Name>TestSubMaterialWithAttributes_1</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">41112202</Attribute><Attribute Name=\"GoodsReceiptDate\">20221114</Attribute></Attributes></Material><Material><Name>TestSubMaterialWithAttributes_2</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">20221114</Attribute><Attribute Name=\"GoodsReceiptDate\">41112202</Attribute></Attributes></Material></SubMaterials></Material><Material><Name>TestMaterialWithAttributes_3</Name><Form>Lot</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">70112202</Attribute><Attribute Name=\"GoodsReceiptDate\">20221107</Attribute></Attributes><SubMaterials><Material><Name>TestSubMaterialWithAttributes_4</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">70112202</Attribute><Attribute Name=\"GoodsReceiptDate\">20221107</Attribute></Attributes></Material><Material><Name>TestSubMaterialWithAttributes_5</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">70112202</Attribute><Attribute Name=\"GoodsReceiptDate\">20221107</Attribute></Attributes></Material></SubMaterials></Material></CustomGetMaterialAttributes>";
+            CustomGetMaterialAttributesInput customGetMaterialAttributesInput = new CustomGetMaterialAttributesInput()
             {
+                MaterialList = "TestMaterialWithAttributes,TestMaterialWithAttributes_3",
+                AttributeList = "",
+                IncludeSubMaterials = "",
+                SubMaterialAttributeList = ""
+            };
 
-            }
+            customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
+
+            Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Send an XML Message to the custom service CustomGetMaterialAttributes
+        /// 
+        /// Acceptance Citeria:
+        ///     - Return message created with the Materials Name, Form, and requested Attributes, Submaterials Names Forms and requested Attributes
+        /// 
+        /// </summary>
+        /// <TestCaseID>CustomGetMaterialAttributes_HappyPath_Two_Main_Materials_Limited_SubMaterials_AllAttributes</TestCaseID>
+        /// <Author>Gergoe Pajor</Author>
+        [TestMethod]
+        public void CustomGetMaterialAttributes_HappyPath_Two_Main_Materials_Limited_SubMaterials_AllAttributes()
+        {
+            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesOutput();
+            string expectedReturn = "<?xml version=\"1.0\" encoding=\"utf-16\"?><CustomGetMaterialAttributes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Material><Name>TestMaterialWithAttributes</Name><Form>Lot</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">70112202</Attribute><Attribute Name=\"GoodsReceiptDate\">20221107</Attribute></Attributes></Material><Material><Name>TestMaterialWithAttributes_3</Name><Form>Lot</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">70112202</Attribute><Attribute Name=\"GoodsReceiptDate\">20221107</Attribute></Attributes></Material></CustomGetMaterialAttributes>";
+            CustomGetMaterialAttributesInput customGetMaterialAttributesInput = new CustomGetMaterialAttributesInput()
+            {
+                MaterialList = "TestMaterialWithAttributes,TestMaterialWithAttributes_3",
+                AttributeList = "",
+                IncludeSubMaterials = "false",
+                SubMaterialAttributeList = ""
+            };
+
+            customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
+
+            Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
+        }
+
+        /// <summary>
+        /// Description:
+        ///     - Send an XML Message to the custom service CustomGetMaterialAttributes
+        /// 
+        /// Acceptance Citeria:
+        ///     - Return message created with the Materials Name, Form, and requested Attributes, Submaterials Names Forms and requested Attributes
+        /// 
+        /// </summary>
+        /// <TestCaseID>CustomGetMaterialAttributes_HappyPath_Two_Main_Materials_Limited_SubMaterials_Limited_Attributes</TestCaseID>
+        /// <Author>Gergoe Pajor</Author>
+        [TestMethod]
+        public void CustomGetMaterialAttributes_HappyPath_Two_Main_Materials_Limited_SubMaterials_Limited_Attributes()
+        {
+            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesOutput();
+            string expectedReturn = "<?xml version=\"1.0\" encoding=\"utf-16\"?><CustomGetMaterialAttributes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Material><Name>TestMaterialWithAttributes</Name><Form>Lot</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">70112202</Attribute></Attributes><SubMaterials><Material><Name>TestSubMaterialWithAttributes_1</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptDate\">20221114</Attribute></Attributes></Material><Material><Name>TestSubMaterialWithAttributes_2</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptDate\">41112202</Attribute></Attributes></Material></SubMaterials></Material><Material><Name>TestMaterialWithAttributes_3</Name><Form>Lot</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">70112202</Attribute></Attributes><SubMaterials><Material><Name>TestSubMaterialWithAttributes_4</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptDate\">20221107</Attribute></Attributes></Material><Material><Name>TestSubMaterialWithAttributes_5</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptDate\">20221107</Attribute></Attributes></Material></SubMaterials></Material></CustomGetMaterialAttributes>";
+            CustomGetMaterialAttributesInput customGetMaterialAttributesInput = new CustomGetMaterialAttributesInput()
+            {
+                MaterialList = "TestMaterialWithAttributes,TestMaterialWithAttributes_3",
+                AttributeList = "GoodsReceiptNo",
+                IncludeSubMaterials = "True",
+                SubMaterialAttributeList = "GoodsReceiptDate"
+            };
+
+            customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
+
+            Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
         }
     }
 }
