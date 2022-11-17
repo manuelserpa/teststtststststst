@@ -1119,7 +1119,7 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                     materialToAdd.Name = materialname;
                     if (!materialToAdd.ObjectExists())
                     {
-                        throw new Exception();
+                        throw new ObjectNotFoundCmfException("Material", materialname);
                     }
                     materialToAdd.Load();
                     materialForXML.Form = materialToAdd.Form;
