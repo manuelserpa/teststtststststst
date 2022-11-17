@@ -183,7 +183,8 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
             string containerType = amsOSRAMConstants.ContainerSMIFPod,
             ContainerPositionSorting positionSorting = ContainerPositionSorting.Ascending,
             string productName = amsOSRAMConstants.TestProduct,
-            string subMaterialProductName = null)
+            string subMaterialProductName = null,
+            bool osramMaterialStructure = false)
         {
             Cmf.TestScenarios.Others.Utilities.RunTearDown = true;
 
@@ -285,13 +286,43 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                     ms.Entity.Step = this.Entity.Step;
                     ms.Entity.FlowPath = this.Entity.FlowPath;
                     ms.Entity.Product = waferProduct;
-                    ms.Entity.Form = amsOSRAMConstants.DefaultMaterialLogicalWaferForm;
+                    ms.Entity.Form = amsOSRAMConstants.FormWafer;
                     ms.Entity.Type = materialType;
                     ms.Entity.PrimaryUnits = amsOSRAMConstants.UnitWafers;
                     ms.Entity.PrimaryQuantity = 1;
                     ms.AddServiceContexts = false;
                     ms.Setup();
-                    waferScenarios.Add(ms);
+
+                    MaterialScenario lw = null;
+
+                    if (osramMaterialStructure)
+                    {
+                        lw = new MaterialScenario();
+                        lw.Entity.Name = $"{Entity.Name}_{i + 1}";
+                        lw.Entity.Facility = this.Facility;
+                        lw.Entity.Flow = this.Entity.Flow;
+                        lw.Entity.Step = this.Entity.Step;
+                        lw.Entity.FlowPath = this.Entity.FlowPath;
+                        lw.Entity.Product = waferProduct;
+                        lw.Entity.Form = amsOSRAMConstants.FormLogicalWafer;
+                        lw.Entity.Type = materialType;
+                        lw.Entity.PrimaryUnits = amsOSRAMConstants.UnitWafers;
+                        lw.Entity.PrimaryQuantity = 1;
+                        lw.AddServiceContexts = false;
+                        lw.Setup();
+
+                        var subMaterials = new MaterialCollection();
+                        subMaterials.Add(ms.Entity);
+
+                        new Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects.AttachMaterialsInput
+                        {
+                            Material = lw.Entity,
+                            SubMaterials = subMaterials
+                        }.AttachMaterialsSync();
+                        lw.Entity.Load();
+                    }
+                    
+                    waferScenarios.Add(lw ?? ms);
                 }
 
                 this.SubMaterials = new MaterialCollection();
