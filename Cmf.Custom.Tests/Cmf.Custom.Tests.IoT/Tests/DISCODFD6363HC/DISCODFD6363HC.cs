@@ -67,6 +67,8 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
         public bool receivedNewCommand = false;
         public bool receivedGrantDenyCommand = false;
 
+        public bool receivedEnableAlarm = false;
+
         public HermosLFM4xReader RFIDReader = new HermosLFM4xReader();
         public const string readerResourceName = "5FETR1.RFID";
         public const string fileResourceName = "5FETR1.FILE";
@@ -78,11 +80,12 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
 
             base.Equipment = m_Scenario.GetEquipment(m_Scenario.EquipmentToTest) as SecsGemEquipment;
 
+            base.Equipment.RegisterOnMessage("S1F3", OnS1F3);
+            base.Equipment.RegisterOnMessage("S5F3", OnS5F3);
+            base.Equipment.RegisterOnMessage("S2F41", OnS2F41);            
+
             base.Initialize(recipeName);
             base.SubMaterialTrackin = subMaterialTrackin;
-
-            base.Equipment.RegisterOnMessage("S1F3", OnS1F3);
-            base.Equipment.RegisterOnMessage("S2F41", OnS2F41);
 
             base.LoadPortNumber = 1;
 
@@ -116,7 +119,7 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
         {
             ConfigureConnection(fileResourceName, 5015, prepareTestScenario: false);
             ConfigureConnection(readerResourceName, 5014, prepareTestScenario: false);
-			ConfigureConnection(resourceName, 5013, isEnableAllAlarms: true, killProcess: false);
+			ConfigureConnection(resourceName, 5013, isEnableAllAlarms: false, killProcess: false);
 
             Resource lp1 = new Resource() { Name = "5FETR1-LP1" };
             lp1.Load();
@@ -426,18 +429,16 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
                 return ((dataCollectionInstancesBefore + 1) == dataCollectionInstancesAfter);
             });
         }
-        #endregion Tests FullProcessScenario 
 
-
-        #region Events
-        public override bool CarrierIn(CustomMaterialScenario scenario, int loadPortToSet)
+        /// <summary> 
+        /// Scenario: Alarm occurrs, validate ollection of alarm
+        /// </summary>
+        [TestMethod]
+        public void DISCODFD6363HC_EnableDisableNothing()
         {
-            base.Equipment.Variables.Clear();
-            
-            // Trigger event
-            base.Equipment.SendMessage("Smif_Pod_Arrived", null);
-
-            return true;
+            TestUtilities.WaitForNotChanged(20/*ValidationTimeout*/, "Failed to recieve Enable Alarms", () => {
+                return receivedEnableAlarm;
+            });
         }
 
         public override void CarrierInValidation(CustomMaterialScenario MESScenario, int loadPortToSet)
@@ -693,6 +694,13 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
                 }
             }
 
+            return true;
+        }
+
+        protected virtual bool OnS5F3(SecsMessage request, SecsMessage reply)
+        {
+            receivedEnableAlarm = true;
+            
             return true;
         }
 
