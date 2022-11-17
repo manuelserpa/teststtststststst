@@ -1,4 +1,50 @@
 {
+  "<SM>EntityTypeProperty": {
+    "1": {
+      "EntityType": "BOM",
+      "Name": "StartingCarrierType",
+      "Description": "The starting carrier type of the product",
+      "PropertyType": "Attribute",
+      "ScalarType": "NVarChar",
+      "ReferenceType": "LookupValue",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "CopyOnClone": "",
+      "BelongsTo": "Definition",
+      "ScalarSize": "256",
+      "ScalarPrecision": "",
+      "ReferenceName": "ContainerType",
+      "DefaultValue": "",
+      "IsArray": "No",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "AccessLevel": "",
+      "ValidationRange": "",
+      "ValidationRegex": ""
+    },
+    "2": {
+      "EntityType": "BOM",
+      "Name": "IsForLotCompose",
+      "Description": "Used to define if BOM is used for lot compose",
+      "PropertyType": "Attribute",
+      "ScalarType": "Bit",
+      "ReferenceType": "None",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "CopyOnClone": "",
+      "BelongsTo": "Definition",
+      "ScalarSize": "",
+      "ScalarPrecision": "",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "No",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "AccessLevel": "",
+      "ValidationRange": "",
+      "ValidationRegex": ""
+    }
+  },
   "<SM>DEEAction": {
     "1": {
       "Action": "CustomMaterialInValidation",
@@ -69,7 +115,21 @@
 			"CodeFileRelativePath": "Automation//CustomSetWaferToContainerSlot.cs",
 			"IsEnabled": "Yes",
 			"Classification": "ConnectIoT"
-		}
+		},
+    "11": {
+      "Action": "CustomUpdateComposeCustomSorterJobDefinition",
+      "Description": "DEE responsible for updating the Compose CustomSorterJobDefinition based on BOMs.",
+      "CodeFileRelativePath": "SorterJobDefinitions//CustomUpdateComposeCustomSorterJobDefinition.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "12": {
+      "Action": "CustomCreateComposeSorterJobDefinition",
+			"Description": "DEE responsible for creating the Compose CustomSorterJobDefinition based on BOMs.",
+      "CodeFileRelativePath": "SorterJobDefinitions//CustomCreateComposeSorterJobDefinition.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    }
   },
   "DEEActionOrder": {
     "1": {
@@ -85,6 +145,16 @@
     "3": {
       "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.AbortMaterialsProcess.Post",
       "Action": "CustomSendAbortInformationToIoT",
+      "Order": "100"
+    },
+    "4": {
+      "ActionGroup": "BusinessObjects.BOM.MakeEffective.Pre",
+      "Action": "CustomUpdateComposeCustomSorterJobDefinition",
+      "Order": "100"
+    },
+    "5": {
+      "ActionGroup": "BusinessObjects.BOM.MakeEffective.Post",
+      "Action": "CustomUpdateComposeCustomSorterJobDefinition",
       "Order": "100"
     }
   },
@@ -138,7 +208,57 @@
 			"zh-CN": "",
 			"pt-PT": "",
 			"zh-TW": ""
-		}
+		},
+    "6": {
+      "Name": "CustomLocalizedMessageCustomSorterJobDefinitionTerminated",
+      "Description": "",
+      "MessageType": "Message",
+      "en-US": "CustomSorterJobDefinition {0} is Terminated. No changes were made in {1} SmartTable.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": ""
+    },
+    "7": {
+      "Name": "CustomLocalizedMessageCustomSorterJobDefinitionWasNotCreated",
+      "Description": "",
+      "MessageType": "Message",
+      "en-US": "Not possible to create the CustomSorterJobDefinition {0}. Please check the BOM {1}.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": ""
+    },
+    "8": {
+      "Name": "CustomLocalizedMessageCustomSorterJobDefinitionContextUpdated",
+      "Description": "",
+      "MessageType": "Message",
+      "en-US": "CustomSorterJobDefinitions were updated in {0} SmartTable according to the newer version {1}.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": ""
+    },
+    "9": {
+      "Name": "CustomLocalizedMessageCustomSorterJobDefinitionContextConfigurationNeeded",
+      "Description": "",
+      "MessageType": "Message",
+      "en-US": "CustomSorterJobDefinition {0} has to be configured in {1} SmartTable for the new contexts.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": ""
+    },
+    "10": {
+      "Name": "CustomLocalizedMessageBomForLotComposeRequiresStartingCarrierType",
+      "Description": "",
+      "MessageType": "Message",
+      "en-US": "BOM {0} was set to be used for Lot Compose therefore StartingCarrierType attribute is required.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": ""
+    }
   },
   "<DM>Rule": {
     "1": {

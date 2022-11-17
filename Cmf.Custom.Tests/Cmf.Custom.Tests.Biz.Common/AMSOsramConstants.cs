@@ -406,6 +406,11 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// </summary>
         public const string CustomProductContainerCapacitiesSmartTable = "CustomProductContainerCapacities";
 
+        /// <summary>
+        /// Smart Table Name CustomSorterJobDefinitionContext
+        /// </summary>
+        public const string CustomSorterJobDefinitionContextSmartTable = "CustomSorterJobDefinitionContext";
+
         #endregion
 
         #region LookupTables
