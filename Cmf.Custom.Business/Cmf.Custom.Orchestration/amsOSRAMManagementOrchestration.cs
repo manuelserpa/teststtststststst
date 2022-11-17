@@ -1124,10 +1124,8 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                     materialToAdd.Load();
                     materialForXML.Form = materialToAdd.Form;
                     
-                    Collection<string> mainMaterialAttributeNameCollection = new Collection<string>();
                     List<Cmf.Custom.amsOSRAM.Common.DataStructures.Attribute> mainMaterialAttributes = new List<Cmf.Custom.amsOSRAM.Common.DataStructures.Attribute>();
                    
-                    mainMaterialAttributeNameCollection.AddRange(separatedAttributeList);
 
                     if (string.IsNullOrWhiteSpace(customGetMaterialAttributesInput.AttributeList))
                     {
@@ -1135,6 +1133,8 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                     }
                     else
                     {
+                        Collection<string> mainMaterialAttributeNameCollection = new Collection<string>();
+                        mainMaterialAttributeNameCollection.AddRange(separatedAttributeList);
                         materialToAdd.LoadAttributes(mainMaterialAttributeNameCollection);
                     }
 
@@ -1146,10 +1146,9 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                         }
                     }
                     materialForXML.Attributes = mainMaterialAttributes;
-                    
+
                     if (string.IsNullOrWhiteSpace(customGetMaterialAttributesInput.IncludeSubMaterials) ||
-                        customGetMaterialAttributesInput.IncludeSubMaterials == "True" ||
-                        customGetMaterialAttributesInput.IncludeSubMaterials == "true")
+                        customGetMaterialAttributesInput.IncludeSubMaterials.Equals("true", StringComparison.InvariantCultureIgnoreCase))
                     {
                         materialToAdd.LoadChildren(1);
                         Collection<string> subMaterialAttributeNameCollection = new Collection<string>();
