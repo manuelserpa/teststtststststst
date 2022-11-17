@@ -740,6 +740,41 @@
     }
   },
   "ProductManufacturer": {},
+  "<DM>BOM": {
+    "1": {
+      "Name": "BOM_11018814",
+      "Description": "BOM for lot composing",
+      "Type": "Standard",
+      "Scope": "Materials",
+      "Units": "CM2",
+      "Diagram": "",
+      "IsTemplate": "No",
+      "IncludesAssemblySteps": "Yes"
+    }
+  },
+  "BOMProducts": {
+    "1": {
+      "BOM": "BOM_11018814",
+      "SourceProduct": "11018814",
+      "Step": "EPI Sorting",
+      "Location": "",
+      "Position": "1",
+      "NamedPosition": "",
+      "Quantity": "10",
+      "LowerTolerance": "",
+      "UpperTolerance": "",
+      "Units": "CM2",
+      "ReferenceDesignator": "",
+      "AssemblyStep": "EPI Sorting",
+      "AssemblyLogicalFlowPath": "",
+      "RequiredInstrumentType": "",
+      "IsReference": "No",
+      "IsProductMixAllowed": "Yes",
+      "Substitutes": "SourceProduct[11065179 [A]]Description[]IsProductMixAllowed[Yes]IsReference[No]Quantity[10.00000000]Step[EPI Sorting]Units[CM2]Order[2];SourceProduct[11063210 [A]]Description[]IsProductMixAllowed[Yes]IsReference[No]Quantity[10.00000000]Step[EPI Sorting]Units[CM2]Order[1]",
+      "IsOptional": "No",
+      "QuantityCalculationRule": ""
+    }
+  },
   "<DM>Resource": {
     "1": {
       "Name": "ENA01",
@@ -760,7 +795,7 @@
       "IsProductMixAllowed": "",
       "IsSubMaterialTrackingEnabled": "Yes",
       "RestrictedToMaterialForm": "",
-      "SortRuleSet": "",
+      "SortRuleSet": "MaterialSortRuleSorterProcess",
       "MaxConcurrentMaterialsInProcess": "",
       "IsRecipeManagementEnabled": "",
       "VerifyMaterialRecipeAtTrackIn": "",

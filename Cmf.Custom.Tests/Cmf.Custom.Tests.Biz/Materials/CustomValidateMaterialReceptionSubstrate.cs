@@ -26,7 +26,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
         private static Material GeneratedMaterial = null;
         private static string DEEActionName = "CustomValidateMaterialReceptionSubstrate";
 
-        private static string loadPortDestinationName = amsOSRAMConstants.DefaultSorterLoadPortResourceNames[1];
+        private static string loadPortDestinationName = amsOSRAMConstants.DefaultSorterLoadPort2Name;
         private static string flowPathName = amsOSRAMConstants.DefaultTestFlowPath;
         private static string stepName = amsOSRAMConstants.DefaultTestStepName;
         private static string productName = amsOSRAMConstants.DefaultWaferProductName;
