@@ -1,4 +1,5 @@
-﻿using Cmf.Custom.amsOSRAM.Orchestration.InputObjects;
+﻿using Cmf.Custom.amsOSRAM.BusinessObjects;
+using Cmf.Custom.amsOSRAM.Orchestration.InputObjects;
 using Cmf.Custom.amsOSRAM.Orchestration.OutputObjects;
 using Cmf.Custom.Tests.Biz.Common.ERP.Material;
 using Cmf.Custom.Tests.Biz.Common.ERP.Product;
@@ -9,9 +10,13 @@ using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
 using Cmf.Foundation.Common.Base;
 using Cmf.Navigo.BusinessObjects;
+using Cmf.Navigo.BusinessOrchestration.ContainerManagement.InputObjects;
+using Cmf.Navigo.BusinessOrchestration.ContainerManagement.OutputObjects;
+using Cmf.Navigo.BusinessOrchestration.DispatchManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
 using Cmf.TestScenarios.ContainerManagement.ContainerScenarios;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -85,6 +90,16 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         public List<Dictionary<string, string>> RecipeContext = new List<Dictionary<string, string>>();
 
         /// <summary>
+        /// SmartTable BOMContext 
+        /// </summary>
+        public List<Dictionary<string, string>> BOMContext = new List<Dictionary<string, string>>();
+
+        /// <summary>
+        /// SmartTable CustomSorterJobDefinition 
+        /// </summary>
+        public List<Dictionary<string, string>> CustomSorterJobDefinitionContext = new List<Dictionary<string, string>>();
+
+        /// <summary>
         /// SmartTable CustomReportConsumptionToSAP 
         /// </summary>
         public List<Dictionary<string, string>> CustomReportConsumptionToSAP = new List<Dictionary<string, string>>();
@@ -150,6 +165,11 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         public MaterialCollection GeneratedWafers { get; set; } = new MaterialCollection();
 
         /// <summary>
+        /// Collection of CustomSorterJobDefinition generated
+        /// </summary>
+        public CustomSorterJobDefinitionCollection GeneratedCustomSorterJobDefinition { get; set; } = new CustomSorterJobDefinitionCollection();
+
+        /// <summary>
         /// Number of ProductionOrders to Generate by the Scenario
         /// </summary>
         public int NumberOfProductionOrdersToGenerate { get; set; } = 0;
@@ -194,6 +214,11 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// </summary>
         private ContainerScenario ContainerScenario = null;
 
+        /// <summary>
+        /// Modified Resource (AutomationMode changed)
+        /// </summary>
+        private Dictionary<string, dynamic> ModifiedResourceAutomationMode = new Dictionary<string, dynamic>();
+
         #endregion
 
         /// <summary>
@@ -226,6 +251,22 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                 foreach (Dictionary<string, string> row in MaterialDCContext)
                 {
                     SmartTableManager.SetSmartTableData("MaterialDataCollectionContext", row);
+                }
+            }
+
+            if (BOMContext.Any())
+            {
+                foreach (Dictionary<string, string> row in BOMContext)
+                {
+                    SmartTableManager.SetSmartTableData("BOMContext", row);
+                }
+            }
+
+            if (CustomSorterJobDefinitionContext.Any())
+            {
+                foreach (Dictionary<string, string> row in CustomSorterJobDefinitionContext)
+                {
+                    SmartTableManager.SetSmartTableData("CustomSorterJobDefinitionContext", row);
                 }
             }
 
@@ -510,7 +551,11 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                 }
             }
 
-            if (MaterialDCContext.Any() || SmartTablesToClearInSetup.Any() || RecipeContext.Any() || CustomProductContainerCapacities.Any())
+            if (MaterialDCContext.Any() 
+                || SmartTablesToClearInSetup.Any() 
+                || RecipeContext.Any() 
+                || CustomProductContainerCapacities.Any() 
+                || BOMContext.Any())
             {
                 SmartTableManager.TearDown();
             }
@@ -535,9 +580,34 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                 }
             }
 
+            GeneratedCustomSorterJobDefinition.Load();
+
+            if (GeneratedCustomSorterJobDefinition.Any())
+            {
+                foreach (CustomSorterJobDefinition customSorterJobDefinition in GeneratedCustomSorterJobDefinition)
+                {
+                    customSorterJobDefinition.Terminate();
+                }
+            }
+
             if (ContainerScenario != null)
             {
                 ContainerScenario.TearDown();
+            }
+
+            if (ModifiedResourceAutomationMode.Any())
+            {
+                foreach(KeyValuePair<string, dynamic> modifyResourceAutomationMode in ModifiedResourceAutomationMode)
+                {
+                    Resource resource = new Resource();
+                    resource.Name = modifyResourceAutomationMode.Key;
+                    resource.Load();
+                    
+                    resource.AutomationMode = modifyResourceAutomationMode.Value.AutomationMode;
+                    resource.AutomationAddress = modifyResourceAutomationMode.Value.AutomationAddress;
+                    
+                    resource.Save();
+                }
             }
 
             TearDownManager.TearDownSequentially();
@@ -575,7 +645,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
             return Tuple.Create(generatedWafer, parentMaterialLoaded);
         }
 
-        public Container GenerateContainer(MaterialCollection submaterials = null, bool automaticContainerPositions = true, string containerType = amsOSRAMConstants.ContainerSMIFPod, Facility facility = null, ContainerPositionSorting positionSorting = ContainerPositionSorting.Ascending)
+        public Container GenerateContainer(MaterialCollection submaterials = null, Resource loadPortToDock = null, bool undockContainers = true, bool automaticContainerPositions = true, string containerType = amsOSRAMConstants.ContainerSMIFPod, Facility facility = null, ContainerPositionSorting positionSorting = ContainerPositionSorting.Ascending)
         {
             // Facility
             if (String.IsNullOrWhiteSpace(facility?.Name))
@@ -607,7 +677,145 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                 ContainerScenario.AssociateMaterials(submaterials);
             }
 
+            if (loadPortToDock != null)
+            {
+                if (undockContainers)
+                {
+                    loadPortToDock.LoadRelation("ContainerResource");
+
+                    if (loadPortToDock.ResourceContainers != null && loadPortToDock.ResourceContainers.Count > 0)
+                    {
+                        foreach (ContainerResource containerResource in loadPortToDock.ResourceContainers)
+                        {
+                            containerResource.SourceEntity.Load();
+
+                            new UndockContainerInput()
+                            {
+                                Container = containerResource.SourceEntity,
+                                NumberOfRetries = 3
+                            }.UndockContainerSync();
+                        }
+                    }
+                }
+
+                ContainerScenario.Entity.LoadRelation("ResourceContainer");
+                loadPortToDock.Load();
+
+                DockContainerOutput dock = new DockContainerInput()
+                {
+                    Container = this.ContainerScenario.Entity,
+                    Resource = loadPortToDock,
+                    IgnoreLastServiceId = true,
+                    NumberOfRetries = 10,
+                }.DockContainerSync();
+
+                ContainerScenario.Entity = dock.Container;
+                ContainerScenario.Entity.LoadRelations(new Collection<String>() { "ContainerResource" });
+            }
+
             return ContainerScenario.Entity;
+        }
+
+        /// <summary>
+        /// Change the resource AutomationMode to Online for testing
+        /// </summary>
+        public void SetResourceAutomationModeOnlineOrOffline(Material material = null,  Resource resource = null, bool isToSetResourceAutomationMode = true)
+        {
+            if (material == null && resource == null)
+            {
+                throw new ArgumentNullException("Should be provided a Material or a Resource");
+            }
+
+            #region Resource and AutomationMode
+
+            if (resource == null)
+            {
+                // Get the possible resource and set the AutomationMode to Online so the DEEs can be triggered
+                GetDispatchListForMaterialInput serviceInput = new GetDispatchListForMaterialInput
+                {
+                    Material = material,
+                    DispatchType = ProcessingType.Process
+                };
+                var serviceOutput = serviceInput.GetDispatchListForMaterialSync();
+
+                if (serviceOutput.Resources == null || serviceOutput.Resources.Count == 0)
+                {
+                    throw new Exception("Missing resource for testing!");
+                }
+
+                resource = serviceOutput.Resources[0];
+            }
+
+            resource.Load();
+
+            if (resource.AutomationMode != ResourceAutomationMode.Online && isToSetResourceAutomationMode)
+            {
+                ModifiedResourceAutomationMode.Add(resource.Name, new
+                {
+                    AutomationMode = resource.AutomationMode,
+                    AutomationAddress = resource.AutomationAddress
+                });
+
+                // change the values to test
+                resource.AutomationMode = ResourceAutomationMode.Online;
+                resource.AutomationAddress = "127.0.0.1";
+                resource.Save();
+            }
+            else if (resource.AutomationMode != ResourceAutomationMode.Offline && !isToSetResourceAutomationMode)
+            {
+                ModifiedResourceAutomationMode.Add(resource.Name, new
+                {
+                    AutomationMode = resource.AutomationMode,
+                    AutomationAddress = resource.AutomationAddress
+                });
+
+                // change the values to test
+                resource.AutomationMode = ResourceAutomationMode.Offline;
+                resource.AutomationAddress = "127.0.0.1";
+                resource.Save();
+            }
+
+            #endregion Resource and AutomationMode
+        }
+
+        public CustomSorterJobDefinition GenerateCustomSorterJobDefinition(string logisticalProcess,
+            string sourceContaineType = amsOSRAMConstants.ContainerSMIFPod,
+            string targetContainerType = amsOSRAMConstants.ContainerSMIFPod,
+            string description = "",
+            bool alignWafer = false,
+            bool flipWafer = false,
+            bool readWaferId = false,
+            bool waferIdOnBottom = false,
+            string futureActionType = "")
+        {
+            JArray temporaryMovementList = new JArray();
+
+            JObject mainObj = new JObject
+            {
+                ["FutureActionType"] = futureActionType,
+                ["Moves"] = temporaryMovementList,
+            };
+
+            CustomSorterJobDefinition customSorterJobDefinition = new CustomSorterJobDefinition
+            {
+                Name = Guid.NewGuid().ToString(),
+                Description = description,
+                SourceCarrierType = sourceContaineType,
+                TargetCarrierType = targetContainerType,
+                LogisticalProcess = logisticalProcess,
+                AlignWafer = alignWafer,
+                FlipWafer = flipWafer,
+                ReadWaferId = readWaferId,
+                WaferIdOnBottom = waferIdOnBottom,
+                MovementList = mainObj.ToString()
+            };
+
+            customSorterJobDefinition.Create();
+            GeneratedCustomSorterJobDefinition.Add(customSorterJobDefinition);
+
+            customSorterJobDefinition.Load();
+
+            return customSorterJobDefinition;
         }
 
         /// <summary>

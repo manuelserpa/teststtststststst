@@ -17,7 +17,7 @@
     },
     {
       "id": "Cmf.Custom.Business",
-      "version": "2.3.0"
+      "version": "2.4.0"
     },
     {
       "id": "Cmf.Custom.Data.ExportedObjects",
@@ -25,7 +25,7 @@
     },
     {
       "id": "Cmf.Custom.Data",
-      "version": "2.3.0"
+      "version": "2.4.0"
     },
     {
       "id": "Cmf.Custom.Html",
@@ -47,11 +47,11 @@
   "testPackages": [
     {
       "id": "Cmf.Custom.Tests",
-      "version": "2.3.0"
+      "version": "2.4.0"
     },
     {
       "id": "Cmf.Custom.Tests.MasterData",
-      "version": "2.3.0"
+      "version": "2.4.0"
     }
   ]
 }

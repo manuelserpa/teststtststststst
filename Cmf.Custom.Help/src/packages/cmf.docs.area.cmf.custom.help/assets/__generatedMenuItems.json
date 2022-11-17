@@ -1104,6 +1104,12 @@
     "actionId": ""
   },
   {
+    "id": "custom_lot_composing",
+    "menuGroupId": "features",
+    "title": "Lot Composing",
+    "actionId": ""
+  },
+  {
     "id": "custom_send_mes_critical_data_collection_to_space",
     "menuGroupId": "features",
     "title": "Send Critical Data Collection to Space",

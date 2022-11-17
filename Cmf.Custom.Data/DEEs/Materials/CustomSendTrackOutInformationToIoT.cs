@@ -15,7 +15,7 @@ using Cmf.Foundation.Common.LocalizationService;
 
 namespace Cmf.Custom.amsOSRAM.Actions.Materials
 {
-    class CustomSendTrackOutInformationToIoT : DeeDevBase
+    public class CustomSendTrackOutInformationToIoT : DeeDevBase
     {
         /// <summary>
         /// Dee test condition.
@@ -110,6 +110,8 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
                 materialData.MaterialName = materialIn.Name;
                 materialDataToIot.Add(materialData);
             }
+
+            // DO NOT DELETE: This is a hook for test purposes
 
             #region IoT call
 

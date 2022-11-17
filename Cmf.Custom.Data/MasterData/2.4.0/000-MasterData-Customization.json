@@ -1,0 +1,164 @@
+{
+  "<SM>DEEAction": {
+    "1": {
+      "Action": "CustomMaterialInValidation",
+      "Description": "DEE Action to validate input for the material in service.",
+      "CodeFileRelativePath": "Materials//CustomMaterialInValidation.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "2": {
+      "Action": "CustomMaterialInGetLotsFromDockedContainers",
+      "Description": "DEE Action to retrieve lots on containers docked on the resource load ports.",
+      "CodeFileRelativePath": "Materials//CustomMaterialInGetLotsFromDockedContainers.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "3": {
+      "Action": "CustomMaterialInProcessSorterJobDefinition",
+      "Description": "DEE Action responsible to check if it's possible to start the execution of the given sorter job definition.",
+      "CodeFileRelativePath": "Materials//CustomMaterialInProcessSorterJobDefinition.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "4": {
+      "Action": "CustomMaterialOutProcessSorterJobDefinition",
+      "Description": "DEE Action responsible to handle custom sorter job definition information.",
+      "CodeFileRelativePath": "Materials//CustomMaterialOutProcessSorterJobDefinition.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "5": {
+      "Action": "CustomSendTrackInInformationToIoT",
+      "Description": "",
+      "CodeFileRelativePath": "Materials//CustomSendTrackInInformationToIoT.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "6": {
+      "Action": "CustomSendTrackOutInformationToIoT",
+      "Description": "",
+      "CodeFileRelativePath": "Materials//CustomSendTrackOutInformationToIoT.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "7": {
+      "Action": "CustomSendAbortInformationToIoT",
+      "Description": "",
+      "CodeFileRelativePath": "Materials//CustomSendAbortInformationToIoT.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "8": {
+      "Action": "CustomSendAdHocTransferInformationToIoT",
+      "Description": "DEE Action used to send AdHoc Transfer Information to Lot.",
+      "CodeFileRelativePath": "Materials//CustomSendAdHocTransferInformationToIoT.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+    "9": {
+      "Action": "CustomMaterialPossibleStartDate",
+      "Description": "DEE Action to sort material by PossibleStartDate",
+      "CodeFileRelativePath": "SortRules//CustomMaterialPossibleStartDate.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
+    },
+		"10": {
+			"Action": "CustomSetWaferToContainerSlot",
+			"Description": "",
+			"CodeFileRelativePath": "Automation//CustomSetWaferToContainerSlot.cs",
+			"IsEnabled": "Yes",
+			"Classification": "ConnectIoT"
+		}
+  },
+  "DEEActionOrder": {
+    "1": {
+      "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.ComplexTrackInMaterials.Post",
+      "Action": "CustomSendTrackInInformationToIoT",
+      "Order": "100"
+    },
+    "2": {
+      "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.ComplexTrackOutMaterials.Post",
+      "Action": "CustomSendTrackOutInformationToIoT",
+      "Order": "100"
+    },
+    "3": {
+      "ActionGroup": "MaterialManagement.MaterialManagementOrchestration.AbortMaterialsProcess.Post",
+      "Action": "CustomSendAbortInformationToIoT",
+      "Order": "100"
+    }
+  },
+  "<SM>LocalizedMessageKey": {
+		"1": {
+			"Name": "CustomMismatchMovementList",
+			"Description": "",
+			"MessageType": "Message",
+			"en-US": "CustomSorterJobDefinition movement list sent to IoT does not match the movement list received. Please check the container materials and their positions",
+			"de-DE": "",
+			"zh-CN": "",
+			"pt-PT": "",
+			"zh-TW": ""
+		},
+    "2": {
+			"Name": "CustomSetWaferToContainerSlotParentWrongForm",
+			"Description": "",
+			"MessageType": "Message",
+			"en-US": "Material {0} does not have a Parent of Form {1}.",
+			"de-DE": "",
+			"zh-CN": "",
+			"pt-PT": "",
+			"zh-TW": ""
+		},
+    "3": {
+			"Name": "CustomLogicalWaferDifferentLot",
+			"Description": "",
+			"MessageType": "Message",
+			"en-US": "Material {0} (Logical Wafer) has the wrong parent Material. Should have the lot: {1}.",
+			"de-DE": "",
+			"zh-CN": "",
+			"pt-PT": "",
+			"zh-TW": ""
+		},
+    "4": {
+			"Name": "CustomLogicalWaferWaferAlreadyAssociated",
+			"Description": "",
+			"MessageType": "Message",
+			"en-US": "Material {0} (Logical Wafer) already has a Wafer {1} associated",
+			"de-DE": "",
+			"zh-CN": "",
+			"pt-PT": "",
+			"zh-TW": ""
+		},
+    "5": {
+			"Name": "CustomLogicalWaferContainerAlreadyAssociated",
+			"Description": "",
+			"MessageType": "Message",
+			"en-US": "Material {0} (Logical Wafer) already has a Container {1} associated",
+			"de-DE": "",
+			"zh-CN": "",
+			"pt-PT": "",
+			"zh-TW": ""
+		}
+  },
+  "<DM>Rule": {
+    "1": {
+      "Name": "CustomSortRuleMaterialPossibleStartDate",
+      "Description": "Sort Rule to sort material by PossibleStartDate and Priority",
+      "Type": "UserDefined",
+      "Scope": "SortRuleSetMaterial",
+      "DEERule": "CustomMaterialPossibleStartDate",
+      "DocumentationURL": "",
+      "IsTemplate": "No",
+      "Context": ""
+    }
+  },
+  "<DM>SortRuleSet": {
+    "1": {
+      "Name": "MaterialSortRuleSorterProcess",
+      "Description": "Sort Rule to sort material by PossibleStartDate and Priority",
+      "Type": "Standard",
+      "Scope": "Material",
+      "Rules": "Name[CustomSortRuleMaterialPossibleStartDate] Direction[Ascending];Name[MaterialPriority] Direction[Ascending]"
+    }
+  }
+}

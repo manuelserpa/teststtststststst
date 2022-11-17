@@ -19,7 +19,7 @@ using Cmf.Foundation.Common.LocalizationService;
 
 namespace Cmf.Custom.amsOSRAM.Actions.Materials
 {
-	class CustomSendTrackInInformationToIoT : DeeDevBase
+	public class CustomSendTrackInInformationToIoT : DeeDevBase
 	{
 		/// <summary>
 		/// Dee test condition.
@@ -183,7 +183,10 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
 								string futureActionType = string.Empty;
 								List<ResourceLoadPortData> containersDocked = null;
 
-								if (customSorterJobDefinition.LogisticalProcess == amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessCompose)
+								// Flag to check if container and load port can be retrieved for the main lot
+								bool containerAndLoadPortFound = amsOSRAMUtilities.RetrieveContainerAndLoadPortFromMaterial(material, ref currentContainer, ref currentLoadPort);
+
+                                if (customSorterJobDefinition.LogisticalProcess == amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessCompose)
 								{
 									bom = amsOSRAMUtilities.ResolveBOMContext(material);
 
@@ -191,10 +194,32 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
 									{
 										throw new CmfBaseException($"No BOM was found for material ({material.Name}).");
 									}
-								}
 
-								// Flag to check if container and load port can be retrieved for the main lot
-								bool containerAndLoadPortFound = amsOSRAMUtilities.RetrieveContainerAndLoadPortFromMaterial(material, ref currentContainer, ref currentLoadPort);
+									if (!containerAndLoadPortFound)
+									{
+                                        List<ResourceLoadPortData> dockedContainersOnResourceLoadPorts = amsOSRAMUtilities.DockedContainersOnLoadPortsByParentResource(resourceToTrackIn);
+                                        ResourceLoadPortData containerAtLoadPort = dockedContainersOnResourceLoadPorts
+                                            .Where(w =>
+												w.LoadPortInUse == false &&
+												string.IsNullOrWhiteSpace(w.ContainerLotAttribute) &&
+												string.IsNullOrWhiteSpace(w.ParentMaterialName) &&
+												w.ContainerMapContainerNeededAttribute == false)
+											.OrderBy(d => d.LoadPortModifiedOn).ThenBy(d => d.ContainerLotAttribute).FirstOrDefault();
+
+										if (containerAtLoadPort != null)
+										{
+											currentContainer = entityFactory.Create<IContainer>();
+											currentContainer.Name = containerAtLoadPort.ContainerName;
+											currentContainer.Load();
+
+                                            currentLoadPort = entityFactory.Create<IResource>();
+                                            currentLoadPort.Name = containerAtLoadPort.LoadPortName;
+                                            currentLoadPort.Load();
+
+                                            containerAndLoadPortFound = true;
+                                        }
+                                    }
+								}
 
 								// Check if it is possible to retrieve the container and the load port from a sub material of the current lot
 								if (!containerAndLoadPortFound)
@@ -483,9 +508,11 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
 				materialsToSave.Save();
 			}
 
-			#region IoT call
+            // DO NOT DELETE: This is a hook for test purposes
 
-			if (materialDataToIot.Count > 0)
+            #region IoT call
+
+            if (materialDataToIot.Count > 0)
 			{
 				// TODO: Later confirm that message was sent to IoT correctly (find a way to test it automatically)
 				// Utilities.PublishMessage("amsOSRAM.Test.SendTrackInInformationToIoT", new Dictionary<string, object>() { { "Data", materialDataToIot.ToJsonString() } });

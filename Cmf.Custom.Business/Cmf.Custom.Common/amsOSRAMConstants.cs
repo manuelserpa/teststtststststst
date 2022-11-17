@@ -76,6 +76,11 @@
         /// </summary>
         public const string MaterialLotForm = "Lot";
 
+        /// <summary>
+        /// Default Material LogicalWafer Form
+        /// </summary>
+        public const string MaterialLogicalWaferForm = "Logical Wafer";
+
         #endregion Defaults
 
         #region GenericTables
@@ -750,6 +755,31 @@
         /// Localized Message: CustomContainerDifferentProducts
         /// </summary>
         public const string LocalizedMessageCustomContainerDifferentProducts = "CustomContainerDifferentProducts";
+
+        /// <summary>
+        /// Localized Message: CustomMismatchMovementList
+        /// </summary>
+        public const string LocalizedMessageCustomMismatchMovementList = "CustomMismatchMovementList";
+
+        /// <summary>
+        /// Localized Message: CustomSetWaferToContainerSlotParentWrongForm
+        /// </summary>
+        public const string LocalizedMessageCustomSetWaferToContainerSlotParentWrongForm = "CustomSetWaferToContainerSlotParentWrongForm";
+
+        /// <summary>
+        /// Localized Message: CustomLogicalWaferDifferentLot
+        /// </summary>
+        public const string LocalizedMessageCustomLogicalWaferDifferentLot = "CustomLogicalWaferDifferentLot";
+
+        /// <summary>
+        /// Localized Message: CustomLogicalWaferWaferAlreadyAssociated
+        /// </summary>
+        public const string LocalizedMessageCustomLogicalWaferWaferAlreadyAssociated = "CustomLogicalWaferWaferAlreadyAssociated";
+
+        /// <summary>
+        /// Localized Message: CustomLogicalWaferContainerAlreadyAssociated
+        /// </summary>
+        public const string LocalizedMessageCustomLogicalWaferContainerAlreadyAssociated = "CustomLogicalWaferContainerAlreadyAssociated";
 
         #endregion Localized Messages
 
