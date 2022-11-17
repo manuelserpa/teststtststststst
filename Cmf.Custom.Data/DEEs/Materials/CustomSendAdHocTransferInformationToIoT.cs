@@ -415,7 +415,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
 
             #endregion Create the movement list
 
-            #region Create In-Memory Custom Sorter Job Definition and send it to IoT
+            #region Create In-Memory Custom Sorter Job Definition
 
             ICustomSorterJobDefinition customSorterJobDefinition = entityFactory.Create<ICustomSorterJobDefinition>();
             customSorterJobDefinition.LogisticalProcess = "AdHocTransferWafers-WaferReception";
@@ -441,7 +441,12 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
             List<MaterialData> materialDataToIot = new List<MaterialData>();
             materialDataToIot.Add(materialData);
 
+            #endregion Create In-Memory Custom Sorter Job Definition
+
             // DO NOT DELETE: This is a hook for test purposes
+
+            #region IoT call
+
             IAutomationControllerInstance controllerInstance = resource.GetAutomationControllerInstance();
 
             if (controllerInstance != null)
@@ -465,7 +470,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
                 }
             }
 
-            #endregion Create In-Memory Custom Sorter Job Definition and send it to IoT
+            #endregion IoT call
 
             //---End DEE Code---
 

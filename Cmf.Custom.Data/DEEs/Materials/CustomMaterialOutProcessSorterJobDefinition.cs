@@ -13,10 +13,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions;
 using Cmf.Navigo.BusinessOrchestration.Abstractions;
 using System.Collections.ObjectModel;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Foundation.Common.LocalizationService;
+using Cmf.Navigo.BusinessOrchestration.ContainerManagement.InputObjects;
 
 namespace Cmf.Custom.amsOSRAM.Actions.Materials
 {
-    class CustomMaterialOutProcessSorterJobDefinition : DeeDevBase
+    public class CustomMaterialOutProcessSorterJobDefinition : DeeDevBase
 	{
         /// <summary>
 		/// DEE Test Condition.
@@ -47,9 +50,13 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
 		{
             //---Start DEE Code---
 
+            // Foundation
+            UseReference("Cmf.Foundation.Common.dll", "Cmf.Foundation.Common.LocalizationService");
+
             // Navigo
             UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.Abstractions");
-            
+            UseReference("Cmf.Navigo.BusinessOrchestration.dll", "Cmf.Navigo.BusinessOrchestration.ContainerManagement.InputObjects");
+
             // Custom
             UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
             UseReference("Cmf.Custom.amsOSRAM.BusinessObjects.CustomSorterJobDefinition.dll", "Cmf.Custom.amsOSRAM.BusinessObjects");
@@ -62,6 +69,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
             // Get services provider information
             IServiceProvider serviceProvider = (IServiceProvider)Input["ServiceProvider"];
             IEntityFactory entityFactory = serviceProvider.GetService<IEntityFactory>();
+            ILocalizationService localizationService = serviceProvider.GetService<ILocalizationService>();
 
             CustomSorterJobDefinition customSorterJobDefinitionFromEquipment = Input["CustomSorterJobDefinition"] as CustomSorterJobDefinition;
             IResource resource = Input["Resource"] as IResource;
@@ -137,22 +145,28 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
             }
 
             Dictionary<IContainer, IMaterialContainerCollection> materialsOnEachContainer = new Dictionary<IContainer, IMaterialContainerCollection>();
+            IContainerCollection destinationContainers = entityFactory.CreateCollection<IContainerCollection>();
+            destinationContainers.AddRange(movementListMap.Keys.Select(containerName =>
+            {
+                IContainer container = entityFactory.Create<IContainer>();
+                container.Name = containerName;
+                return container;
+            }));
+            destinationContainers.Load();
+            destinationContainers.LoadRelations("MaterialContainer");
 
             foreach (KeyValuePair<string, List<Tuple<string, int>>> movement in movementListMap)
             {
-                string containerName = movement.Key;
-                IContainer container = entityFactory.Create<IContainer>();
-                container.Load(containerName);
-                container.LoadRelations("MaterialContainer");
+                IContainer container = destinationContainers.FirstOrDefault(f => f.Name == movement.Key);
 
                 foreach (Tuple<string, int> materialMovement in movement.Value)
                 {
                     string materialName = materialMovement.Item1;
                     int positionOnContainer = materialMovement.Item2;
 
-                    IMaterialContainer materialContainer = container?.ContainerMaterials?.FirstOrDefault(f => f.Position == positionOnContainer) ?? null;
+                    IMaterialContainer materialContainer = container.ContainerMaterials?.FirstOrDefault(f => f.SourceEntity.Name == materialName);
 
-                    if (materialContainer != null && materialContainer.SourceEntity.Name == materialName)
+                    if (materialContainer != null && materialContainer.Position == positionOnContainer)
                     {
                         if (materialsOnEachContainer.ContainsKey(container))
                         {
@@ -164,6 +178,9 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
                             materialContainerCollection.Add(materialContainer);
                             materialsOnEachContainer.Add(container, materialContainerCollection);
                         }
+                    } else if (customSorterJobDefinitionFromEquipment.LogisticalProcess == amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessCompose)
+                    {
+                        throw new CmfBaseException(localizationService.Localize(amsOSRAMConstants.LocalizedMessageCustomMismatchMovementList));
                     }
                 }
             }
@@ -172,8 +189,9 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
             {
                 foreach (KeyValuePair<IContainer, IMaterialContainerCollection> item in materialsOnEachContainer)
                 {
+                    IContainer currentContainer = item.Key;
                     List<IMaterial> materials = item.Value.Select(s => s.SourceEntity).ToList();
-                    Dictionary<string, IMaterialCollection> topMostMaterialSubmaterials = new Dictionary<string, IMaterialCollection>();
+                    Dictionary<string, IMaterialCollection> topMostMaterialSubMaterials = new Dictionary<string, IMaterialCollection>();
                     IMaterialCollection materialsToAttach = entityFactory.CreateCollection<IMaterialCollection>();
 
                     foreach (IMaterial material in materials)
@@ -187,26 +205,26 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
                         else // This should be a Merge
                         {
                             string topMostMaterialName = material.ParentMaterial.Name;
-                            if (topMostMaterialSubmaterials.ContainsKey(topMostMaterialName))
+                            if (topMostMaterialSubMaterials.ContainsKey(topMostMaterialName))
                             {
-                                topMostMaterialSubmaterials[topMostMaterialName].Add(material);
+                                topMostMaterialSubMaterials[topMostMaterialName].Add(material);
                             }
                             else
                             {
                                 IMaterialCollection topMostMaterialCollection = entityFactory.CreateCollection<IMaterialCollection>();
                                 topMostMaterialCollection.Add(material);
-                                topMostMaterialSubmaterials.Add(topMostMaterialName, topMostMaterialCollection);
+                                topMostMaterialSubMaterials.Add(topMostMaterialName, topMostMaterialCollection);
                             }
                         }
                     }
 
                     // We need to detach from the material parent resource
-                    if (topMostMaterialSubmaterials.Count > 0)
+                    if (topMostMaterialSubMaterials.Count > 0)
                     {
                         resource.Load();
                         Dictionary<IMaterial, IMergeMaterialParameters> childMaterials = new Dictionary<IMaterial, IMergeMaterialParameters>();
 
-                        foreach (KeyValuePair<string, IMaterialCollection> topMostMaterial in topMostMaterialSubmaterials)
+                        foreach (KeyValuePair<string, IMaterialCollection> topMostMaterial in topMostMaterialSubMaterials)
                         {
                             IMaterial lotToMerge = entityFactory.Create<IMaterial>();
                             lotToMerge.Name = topMostMaterial.Key;
@@ -230,15 +248,114 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
                         }
                     }
 
-                    if (materialsToAttach.Count > 0) // just need to transfer wafers because they have no parent lot
+                    if (materialsToAttach.Count > 0)
                     {
-                        lot.SpecialAddSubMaterials(materialsToAttach, new OperationAttributeCollection());
+                        IMaterialCollection logicalWafers = entityFactory.CreateCollection<IMaterialCollection>();
+                        Dictionary<string, string> mapLogicalWaferToWafer = new Dictionary<string, string>();
+                        Dictionary<string, int> mapLogicalWaferToContainerPosition = new Dictionary<string, int>();
+                        
+                        foreach (IMaterial wafer in materialsToAttach)
+                        {
+                            IMaterial logicalWafer = entityFactory.Create<IMaterial>();
+                            int position = item.Value.FirstOrDefault(f => f.SourceEntity.Name == wafer.Name).Position.Value;
+
+                            logicalWafer.Name = $"{lot.Name}_{position}";
+                            logicalWafer.PrimaryQuantity = 0;
+                            logicalWafer.PrimaryUnits = lot.PrimaryUnits;
+                            logicalWafer.Form = amsOSRAMConstants.MaterialLogicalWaferForm;
+
+                            bool isAssociatedWithTheLot = false;
+
+                            if (logicalWafer.ObjectExists())
+                            {
+                                logicalWafer.Load();
+                                
+                                // Validates if Logical Wafer has a different Parent Lot
+                                if (logicalWafer.ParentMaterial != null && 
+                                    (logicalWafer.ParentMaterial.Id != lot.Id || logicalWafer.ParentMaterial.Form != amsOSRAMConstants.MaterialLotForm))
+                                {
+                                    throw new CmfBaseException(string.Format(
+                                        localizationService.Localize(amsOSRAMConstants.LocalizedMessageCustomLogicalWaferDifferentLot),
+                                        logicalWafer.Name, 
+                                        lot.Name));
+                                }
+
+                                isAssociatedWithTheLot = logicalWafer.ParentMaterial?.Id == lot.Id;
+
+                                // Validates if there is a Wafer of the same type as the one we are attaching
+                                // E.g.: Cannot attach more than one Wafer of the type "Substrate".
+                                if (logicalWafer.SubMaterialCount > 0)
+                                {
+                                    logicalWafer.LoadChildren();
+
+                                    if (logicalWafer.SubMaterials.Any(m => m.Type == wafer.Type && m.Form == wafer.Form))
+                                    {
+                                        throw new CmfBaseException(string.Format(
+                                            localizationService.Localize(amsOSRAMConstants.LocalizedMessageCustomLogicalWaferWaferAlreadyAssociated),
+                                            logicalWafer.Name, 
+                                            logicalWafer.SubMaterials.First(m => m.Type == wafer.Type && m.Form == wafer.Form).Name));
+                                    }
+                                }
+
+                                // Validates if Logical Wafer is associated with a container
+                                logicalWafer.LoadRelations(Cmf.Navigo.Common.Constants.MaterialContainer);
+
+                                if (logicalWafer.MaterialContainer != null && logicalWafer.MaterialContainer.Count > 0)
+                                {
+                                    throw new CmfBaseException(String.Format(
+                                        localizationService.Localize(amsOSRAMConstants.LocalizedMessageCustomLogicalWaferContainerAlreadyAssociated),
+                                        logicalWafer.Name,
+                                        logicalWafer.MaterialContainer.FirstOrDefault()?.TargetEntity?.Name));
+                                }
+                            } 
+
+                            if (!isAssociatedWithTheLot)
+                            {
+                                logicalWafers.Add(logicalWafer);
+                            }
+
+                            mapLogicalWaferToWafer.Add(logicalWafer.Name, wafer.Name);
+                            mapLogicalWaferToContainerPosition.Add(logicalWafer.Name, position);
+                        }
+
+                        logicalWafers = lot.Expand(logicalWafers, amsOSRAMConstants.MaterialLogicalWaferForm, serviceProvider.GetService<IOperationAttributeCollection>());
+
+                        // Attach Wafer to Logical Wafers
+                        foreach (KeyValuePair<string, string> values in mapLogicalWaferToWafer)
+                        {
+                            IMaterial logicalWafer = logicalWafers.FirstOrDefault(f => f.Name == values.Key);
+                            IMaterialCollection wafers = entityFactory.CreateCollection<IMaterialCollection>();
+                            wafers.Add(materialsToAttach.FirstOrDefault(f => f.Name == values.Value));
+
+                            logicalWafer.SpecialAddSubMaterials(wafers, new OperationAttributeCollection());
+                        }
+
+                        // Empty container and associate logical wafers instead
+                        IContainerOrchestration containerOrchestration = serviceProvider.GetService<IContainerOrchestration>();
+                        currentContainer = containerOrchestration.EmptyContainer(new EmptyContainerInput
+                        {
+                            Container = currentContainer
+                        }).Container;
+
+                        IMaterialContainerCollection materialContainers = serviceProvider.GetService<IMaterialContainerCollection>();
+
+                        foreach(KeyValuePair<string, int> logicalWaferToContainerPosition in mapLogicalWaferToContainerPosition)
+                        {
+                            IMaterialContainer materialContainer = serviceProvider.GetService<IMaterialContainer>();
+                            materialContainer.TargetEntity = currentContainer;
+                            materialContainer.SourceEntity = logicalWafers.FirstOrDefault(f => f.Name == logicalWaferToContainerPosition.Key);
+                            materialContainer.Position = logicalWaferToContainerPosition.Value;
+
+                            materialContainers.Add(materialContainer);
+                        }
+
+                        currentContainer.AssociateMaterials(materialContainers);
                     }
 
                     // Clear lot compose attribute
                     if(customSorterJobDefinitionFromEquipment.LogisticalProcess == amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessCompose)
 					{
-                        item.Key.SaveAttributes(new AttributeCollection() { { amsOSRAMConstants.ContainerAttributeLot, string.Empty } });
+                        currentContainer.SaveAttributes(new AttributeCollection() { { amsOSRAMConstants.ContainerAttributeLot, string.Empty } });
                     }
                 }
             }
@@ -317,7 +434,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
                     IContainer targetContainer = item.Key;
 
                     // Check if the target container (from the sorter job movement list) belongs
-                    //      to the containers retireved from the lot above.
+                    //      to the containers retrieved from the lot above.
                     if (containers.Any(c => c.Name.Equals(targetContainer.Name, StringComparison.InvariantCultureIgnoreCase)))
                     {
                         targetContainer.LoadRelations("MaterialContainer");

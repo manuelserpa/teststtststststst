@@ -25,10 +25,10 @@ namespace Cmf.Custom.Tests.Biz.Materials
         private static CustomMaterialScenario classMaterialScenario = null;
         private static string resourceName = amsOSRAMConstants.DefaultSorterResourceName;
         private static string sorterProcess = amsOSRAMConstants.CustomSorterProcessWaferReception;
-        private static string loadPortName = amsOSRAMConstants.DefaultSorterLoadPortResourceNames[0];
+        private static string loadPortName = amsOSRAMConstants.DefaultSorterLoadPort1Name;
         private static string productName = amsOSRAMConstants.DefaultWaferProductName;
-        private static string loadPortToDockName = amsOSRAMConstants.DefaultSorterLoadPortResourceNames[1];
-        private static string loadPortToDock2Name = amsOSRAMConstants.DefaultSorterLoadPortResourceNames[2];
+        private static string loadPortToDockName = amsOSRAMConstants.DefaultSorterLoadPort2Name;
+        private static string loadPortToDock2Name = amsOSRAMConstants.DefaultSorterLoadPort3Name;
         private static string recipeName = amsOSRAMConstants.DefaultRecipeName;
         private static string serviceName = amsOSRAMConstants.ServiceWaferReception;
         private static int sourceCapacity = 10;

@@ -4,6 +4,7 @@ Everything that is created or updated in the MES system to support customer requ
 
 The features are grouped in the following sections:
 * [Lot Change Event](/cmf.custom.help/techspec>features>custom_lot_change_event)
+* [Lot Composing](/cmf.custom.help/techspec>features>custom_lot_composing)
 * [Send Critical Data Collection to Space](/cmf.custom.help/techspec>features>custom_send_mes_critical_data_collection_to_space)
 * [Tibco EMS Gateway](/cmf.custom.help/techspec>features>custom_tibco_ems_gateway)
 * [Wafer Reception (AdHoc Sorter Job)](/cmf.custom.help/techspec>features>custom_wafer_reception)

@@ -1,19 +1,20 @@
-﻿using Cmf.Custom.amsOSRAM.Common;
+﻿using Cmf.Common.CustomActionUtilities;
+using Cmf.Custom.amsOSRAM.Common;
 using Cmf.Custom.amsOSRAM.Common.Extensions;
 using Cmf.Custom.amsOSRAM.Orchestration.InputObjects;
 using Cmf.Foundation.Common;
+using Cmf.Foundation.Common.Abstractions;
+using Cmf.Navigo.BusinessObjects.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Cmf.Navigo.BusinessObjects.Abstractions;
-using System;
-using Cmf.Foundation.Common.Abstractions;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Cmf.Custom.amsOSRAM.Actions.Materials
 {
-    class CustomMaterialInValidation : DeeDevBase
-	{
+    public class CustomMaterialInValidation : DeeDevBase
+    {
         /// <summary>
         /// Dee test condition.
         /// </summary>
@@ -27,7 +28,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
 
             /* Description:
              *     DEE Action to validate input for the material in service.
-             *     Also, tries to retrieve if the current resource is a Sorter and 
+             *     Also, tries to retrieve if the current resource is a Sorter and
              *      if there is a Material to TrackIn.
             */
 
@@ -35,24 +36,26 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
              *     N/A
             */
 
-            #endregion
+            #endregion Info
 
             return true;
 
             //---End DEE Condition Code---
         }
+
         /// <summary>
         /// Dee action code.
         /// </summary>
         /// <param name="Input">The input.</param>
         /// <returns></returns>
 		public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
-		{
+        {
             //---Start DEE Code---
 
             // Custom
+            UseReference("Cmf.Common.CustomActionUtilities.dll", "Cmf.Common.CustomActionUtilities");
             UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common");
-            UseReference("", "Cmf.Custom.amsOSRAM.Common.Extensions");
+            UseReference("Cmf.Custom.amsOSRAM.Common.dll", "Cmf.Custom.amsOSRAM.Common.Extensions");
             UseReference("Cmf.Custom.amsOSRAM.Orchestration.dll", "Cmf.Custom.amsOSRAM.Orchestration.InputObjects");
 
             // Get services provider information
@@ -122,13 +125,19 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
                 // Assuming one container only has one Parent Material
                 if (container.ContainerMaterials != null && container.ContainerMaterials.Count > 0)
                 {
-                    waferToTrackIn = container.ContainerMaterials.First().SourceEntity.TopMostMaterial ?? container.ContainerMaterials.First().SourceEntity;
+                    IMaterial possibleLotToTrackIn = container.ContainerMaterials.First().SourceEntity.TopMostMaterial ?? container.ContainerMaterials.First().SourceEntity;
+
+                    if (possibleLotToTrackIn.Step.HasAttribute(amsOSRAMConstants.StepAttributeIsWaferReception, true) &&
+                        !possibleLotToTrackIn.Step.GetAttributeValueOrDefault<bool>(amsOSRAMConstants.StepAttributeIsWaferReception, false, false))
+                    {
+                        waferToTrackIn = possibleLotToTrackIn;
+                    }
                 }
             }
 
             Input.Add("Resource", resource);
             Input.Add("Material", waferToTrackIn);
-            Input.Add("IsSorter", isSorter.ToString());
+            Input.Add("IsSorter", isSorter);
 
             //---End DEE Code---
 

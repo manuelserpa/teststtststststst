@@ -1113,7 +1113,7 @@
       "Lookup Table Value Description": "",
       "Lookup Table IsEnabled": "Yes"
     }
-  }, 
+  },
   "<DM>Step": {
     "1": {
       "Name": "Incoming Wafer",
@@ -1619,7 +1619,7 @@
       "SecondaryUnits": "",
       "QueuedStorageService": "",
       "ProcessedStorageService": "",
-      "IsPassThrough": "Yes",
+      "IsPassThrough": "No",
       "HideLossBonusAtTrackOut": "No",
       "DefaultLinkedDispatchAndTrackIn": "Yes",
       "DefaultLinkedTrackOutAndMoveNext": "Yes",
@@ -1652,7 +1652,8 @@
       "DefaultInspectionAQLSeverity": "",
       "DefaultInspectionAQLInspectionLevel": "",
       "DefaultInspectionAQLAcceptanceLimit": "",
-      "CalculatePassYield": ""
+      "CalculatePassYield": "",
+      "IsWaferReception": "Yes"
     },
     "12": {
       "Name": "EPI Inspection",
@@ -3739,6 +3740,11 @@
       "SourceEntity": "5FSTEP5",
       "TargetEntity": "Stepper-L7",
       "IsEnabled": "Yes"
+    },
+    "8": {
+      "SourceEntity": "EPI Sorting",
+      "TargetEntity": "Sorter-Split",
+      "IsEnabled": "Yes"
     }
   },
   "<DM>BOM": {
@@ -3904,6 +3910,14 @@
       "Flow": "",
       "Material": "",
       "Service": "Stepper-L7"
+    },
+    "11": {
+      "Step": "EPI Sorting",
+      "Product": "",
+      "ProductGroup": "",
+      "Flow": "",
+      "Material": "",
+      "Service": "Sorter-Split"
     }
   },
   "<ST>MaterialChecklistContext": {},

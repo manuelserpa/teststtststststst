@@ -1,6 +1,6 @@
 {
   "packageId": "Cmf.Custom.Package",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "description": "This package deploys Critical Manufacturing MES amsOSRAM Customization",
   "packageType": "Root",
   "isInstallable": true,
@@ -17,7 +17,7 @@
     },
     {
       "id": "Cmf.Custom.Business",
-      "version": "2.3.0"
+      "version": "2.4.0"
     },
     {
       "id": "Cmf.Custom.Data.ExportedObjects",
@@ -25,7 +25,7 @@
     },
     {
       "id": "Cmf.Custom.Data",
-      "version": "2.3.0"
+      "version": "2.4.0"
     },
     {
       "id": "Cmf.Custom.Html",
@@ -33,7 +33,7 @@
     },
     {
       "id": "Cmf.Custom.Help",
-      "version": "2.3.1"
+      "version": "2.4.0"
     },
     {
       "id": "Cmf.Custom.IoT",
@@ -47,11 +47,11 @@
   "testPackages": [
     {
       "id": "Cmf.Custom.Tests",
-      "version": "2.3.0"
+      "version": "2.4.0"
     },
     {
       "id": "Cmf.Custom.Tests.MasterData",
-      "version": "2.3.0"
+      "version": "2.4.0"
     }
   ]
 }
