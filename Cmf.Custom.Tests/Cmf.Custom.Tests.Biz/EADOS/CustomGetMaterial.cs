@@ -1,18 +1,11 @@
 ﻿using Cmf.Custom.amsOSRAM.Orchestration.InputObjects;
 using Cmf.Custom.amsOSRAM.Orchestration.OutputObjects;
-using Cmf.Custom.Tests.Biz.Common.Scenarios;
 using Cmf.Custom.TestUtilities;
-using Cmf.Foundation.BusinessObjects;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.TestScenarios;
 using Cmf.TestScenarios.MaterialManagement.MaterialScenarios;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cmf.Custom.Tests.Biz.EADOS
 {
