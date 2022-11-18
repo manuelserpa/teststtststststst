@@ -15,7 +15,7 @@ using Cmf.Navigo.BusinessObjects;
 
 namespace Cmf.Custom.amsOSRAM.Actions.Materials
 {
-    class CustomMaterialInPostProcessSorterJobDefinition : DeeDevBase
+    public class CustomMaterialInPostProcessSorterJobDefinition : DeeDevBase
 	{
         /// <summary>
 		/// DEE Test Condition.

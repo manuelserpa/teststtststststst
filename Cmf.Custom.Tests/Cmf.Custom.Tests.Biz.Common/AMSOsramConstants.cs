@@ -196,12 +196,15 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// <summary>
         /// Default LoadPorts Resource Name of Sorter used on wafer reception
         /// </summary>
-        public static readonly List<string> DefaultSorterLoadPortResourceNames = new List<string> { "ENA01-LP01", "ENA01-LP02", "ENA01-LP03", "ENA01-LP04" };
+        public const string DefaultSorterLoadPort1Name = "ENA01-LP01";
+        public const string DefaultSorterLoadPort2Name = "ENA01-LP02";
+        public const string DefaultSorterLoadPort3Name = "ENA01-LP03";
+        public const string DefaultSorterLoadPort4Name = "ENA01-LP04";
 
         /// <summary>
         /// Default Product Name used on wafer reception
         /// </summary>
-        public const string DefaultWaferProductName = "11018814";
+        public const string DefaultWaferProductName = Product_11018814;
 
         /// <summary>
         /// Default Recipe Name
@@ -318,6 +321,16 @@ namespace Cmf.Custom.Tests.Biz.Common
         public const string FlowPathSpace = "CMFTestSpaceFlow:A:1/CMFTestProcessStep:1";
 
         /// <summary>
+        /// FlowPath for EPI on Step EPI Proposal
+        /// </summary>
+        public const string FlowPathEPI_EPIProposal = "EPI:A:1/EPI Proposal:1";
+
+        /// <summary>
+        /// FlowPath for EPI on Step EPI Sorting
+        /// </summary>
+        public const string FlowPathEPI_EPISorting = "EPI:A:1/EPI Sorting:2";
+
+        /// <summary>
         /// Service CMFTestProcessService
         /// </summary>
         public const string ServiceCMFTestProcessService = "CMFTestProcessService";
@@ -331,6 +344,21 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// Business Partner SpaceSupplier
         /// </summary>
         public const string BusinessPartnerSpaceSupplier  = "Space Supplier";
+
+        /// <summary>
+        /// Product 11018814
+        /// </summary>
+        public const string Product_11018814 = "11018814";
+
+        /// <summary>
+        /// Product 11065179
+        /// </summary>
+        public const string Product_11065179 = "11065179";
+
+        /// <summary>
+        /// BOM BOM_11018814
+        /// </summary>
+        public const string BOM_BOM_11018814 = "BOM_11018814";
 
         #region Flows and Steps
 
@@ -392,6 +420,11 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// Smart Table Name CustomProductContainerCapacities
         /// </summary>
         public const string CustomProductContainerCapacitiesSmartTable = "CustomProductContainerCapacities";
+
+        /// <summary>
+        /// Smart Table Name CustomSorterJobDefinitionContext
+        /// </summary>
+        public const string CustomSorterJobDefinitionContextSmartTable = "CustomSorterJobDefinitionContext";
 
         #endregion
 
@@ -680,6 +713,11 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// Localized Message: CustomContainerDifferentProducts
         /// </summary>
         public const string LocalizedMessageCustomContainerDifferentProducts = "CustomContainerDifferentProducts";
+
+        /// <summary>
+        /// Localized Message: CustomMismatchMovementList
+        /// </summary>
+        public const string LocalizedMessageCustomMismatchMovementList = "CustomMismatchMovementList";
 
         #endregion Localized Messages
 

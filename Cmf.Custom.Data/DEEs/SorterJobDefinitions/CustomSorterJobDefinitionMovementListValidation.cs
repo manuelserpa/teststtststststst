@@ -12,15 +12,15 @@ using System.Threading;
 
 namespace Cmf.Custom.amsOSRAM.Actions.SorterJobDefinitions
 {
-	internal class CustomSorterJobDefinitionMovementListValidation : DeeDevBase
-	{
-		public override bool DeeTestCondition(Dictionary<string, object> Input)
-		{
-			//---Start DEE Condition Code---
+    public class CustomSorterJobDefinitionMovementListValidation : DeeDevBase
+    {
+        public override bool DeeTestCondition(Dictionary<string, object> Input)
+        {
+            //---Start DEE Condition Code---
 
-			#region Info
+            #region Info
 
-			/* Description:
+            /* Description:
              *     DEE Action responsible to validate the JSON structure for the Custom Sorter Job Definition Movement List.
              *
              * Action Groups:
@@ -28,23 +28,23 @@ namespace Cmf.Custom.amsOSRAM.Actions.SorterJobDefinitions
              *     - BusinessObjects.CustomSorterJobDefinition.Save.Pre
             */
 
-			#endregion Info
+            #endregion Info
 
-			ICustomSorterJobDefinition customSorterJobDefinition = null;
+            ICustomSorterJobDefinition customSorterJobDefinition = null;
 
-			if (Input.ContainsKey("CustomSorterJobDefinition") && Input["CustomSorterJobDefinition"] is ICustomSorterJobDefinition inputCustomSorterJobDefinition)
-			{
-				customSorterJobDefinition = inputCustomSorterJobDefinition;
-				ApplicationContext.CallContext.SetInformationContext("CustomSorterJobDefinition", customSorterJobDefinition);
-			}
+            if (Input.ContainsKey("CustomSorterJobDefinition") && Input["CustomSorterJobDefinition"] is ICustomSorterJobDefinition inputCustomSorterJobDefinition)
+            {
+                customSorterJobDefinition = inputCustomSorterJobDefinition;
+                ApplicationContext.CallContext.SetInformationContext("CustomSorterJobDefinition", customSorterJobDefinition);
+            }
 
-			return customSorterJobDefinition != null;
+            return customSorterJobDefinition != null;
 
-			//---End DEE Condition Code---
-		}
+            //---End DEE Condition Code---
+        }
 
-		public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
-		{
+        public override Dictionary<string, object> DeeActionCode(Dictionary<string, object> Input)
+        {
             //---Start DEE Code---
 
             // Foundation
@@ -60,7 +60,6 @@ namespace Cmf.Custom.amsOSRAM.Actions.SorterJobDefinitions
             UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json");
             UseReference("Newtonsoft.Json.dll", "Newtonsoft.Json.Schema");
             UseReference("%MicrosoftNetPath%System.Private.CoreLib.dll", "System.Threading");
-
 
             string schemaJson = string.Empty;
             ICustomSorterJobDefinition customSorterJobDefinition = ApplicationContext.CallContext.GetInformationContext("CustomSorterJobDefinition") as ICustomSorterJobDefinition;
@@ -108,6 +107,6 @@ namespace Cmf.Custom.amsOSRAM.Actions.SorterJobDefinitions
             //---End DEE Code---
 
             return Input;
-		}
-	}
+        }
+    }
 }

@@ -461,7 +461,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
 
             Func<bool> waitForMessageBus = SuscribeMessageBus(CustomSendEventMessageTopics.CustomLotChange, 2);
 
-            MaterialCollection splitedMaterials = material.Split(new SplitInputParametersCollection
+            MaterialCollection splittedMaterials = material.Split(new SplitInputParametersCollection
             {
                 new SplitInputParameters
                 {
@@ -469,6 +469,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
                     MaterialContainer = null
                 }
             });
+            _scenario.TearDownManager.Push(splittedMaterials);
 
             waitForMessageBus.WaitFor();
 

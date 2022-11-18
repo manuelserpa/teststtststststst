@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Data;
-using System.Xml;
-using System.Xml.Serialization;
-using System.IO;
-using Microsoft.Extensions.DependencyInjection;
-
-using Cmf.Common.CustomActionUtilities;
+﻿using Cmf.Common.CustomActionUtilities;
+using Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions;
+using Cmf.Custom.amsOSRAM.Common;
+using Cmf.Custom.amsOSRAM.Common.DataStructures;
+using Cmf.Custom.amsOSRAM.Orchestration.Abstractions;
+using Cmf.Custom.amsOSRAM.Orchestration.InputObjects;
+using Cmf.Custom.amsOSRAM.Orchestration.OutputObjects;
+using Cmf.Foundation.BusinessObjects;
+using Cmf.Foundation.BusinessObjects.Abstractions;
+using Cmf.Foundation.BusinessObjects.GenericTables;
+using Cmf.Foundation.BusinessOrchestration.Abstractions;
 using Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects;
 using Cmf.Foundation.BusinessObjects.Abstractions;
 using Cmf.Foundation.BusinessOrchestration.Abstractions;
@@ -20,16 +18,21 @@ using Cmf.Foundation.Common;
 using Cmf.Foundation.Common.Abstractions;
 using Cmf.Foundation.Common.LocalizationService;
 using Cmf.Navigo.BusinessObjects;
-using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects.Abstractions;
 using Cmf.Navigo.BusinessOrchestration.Abstractions;
+using Cmf.Navigo.BusinessOrchestration.MaterialManagement.InputObjects;
 using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
-using Cmf.Custom.amsOSRAM.BusinessObjects.Abstractions;
-using Cmf.Custom.amsOSRAM.Common;
-using Cmf.Custom.amsOSRAM.Common.DataStructures;
-using Cmf.Custom.amsOSRAM.Orchestration.Abstractions;
-using Cmf.Custom.amsOSRAM.Orchestration.InputObjects;
-using Cmf.Custom.amsOSRAM.Orchestration.OutputObjects;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Xml;
+using System.Xml.Serialization;
 using static Cmf.Custom.amsOSRAM.Common.DataStructures.CustomFlowInformationToERPData;
 
 namespace Cmf.Custom.amsOSRAM.Orchestration
@@ -38,6 +41,7 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
     {
         // Entity Factory
         private readonly IEntityFactory _entityFactory;
+
         private readonly ILocalizationService _localizationService;
 
         // Orchestrations
@@ -55,6 +59,14 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
         private const string GET_FLOW_INFORMATION_FOR_ERP = "GetFlowInformationForERP";
         private const string GET_FLOW_INFORMATION_FOR_ERP_INPUT = "GetFlowInformationForERPInput";
         private const string GET_FLOW_INFORMATION_FOR_ERP_OUTPUT = "GetFlowInformationForERPOutput";
+
+        private const string CUSTOM_RECEIVE_STIBO_MESSAGE = "CustomReceiveStiboMessage";
+        private const string CUSTOM_RECEIVE_STIBO_MESSAGE_INPUT = "CustomReceiveStiboMessageInput";
+        private const string CUSTOM_RECEIVE_STIBO_MESSAGE_OUTPUT = "CustomReceiveStiboMessageOutput";
+
+        private const string CUSTOM_RECEIVE_ERP_MESSAGE = "CustomReceiveERPMessage";
+        private const string CUSTOM_RECEIVE_ERP_MESSAGE_INPUT = "CustomReceiveERPMessageInput";
+        private const string CUSTOM_RECEIVE_ERP_MESSAGE_OUTPUT = "CustomReceiveERPMessageOutput";
 
         private const string MATERIAL_OUT = "MaterialOut";
         private const string MATERIAL_OUT_INPUT = "MaterialOutInput";
@@ -80,6 +92,7 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
         }
 
         #region Material
+
         /// <summary>
         /// Performs the Material Track In in the Resource
         /// </summary>
@@ -94,23 +107,22 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
             {
                 output = new MaterialInOutput();
 
-                #region validation input
-
-                IAction actionCustomMaterialInValidation = new Foundation.Common.DynamicExecutionEngine.Action();
-                actionCustomMaterialInValidation.Load("CustomMaterialInValidation");
+                #region Input Validation
 
                 Dictionary<string, object> customMaterialInValidationInput = new Dictionary<string, object>()
                 {
                     { "MaterialInInput", input }
                 };
 
-                actionCustomMaterialInValidation.ExecuteAction(customMaterialInValidationInput);
+                IAction actionCustomMaterialInValidation = new Foundation.Common.DynamicExecutionEngine.Action();
+                actionCustomMaterialInValidation.Load("CustomMaterialInValidation");
+                Dictionary<string, object> customMaterialInValidationOutput = actionCustomMaterialInValidation.ExecuteAction(customMaterialInValidationInput);
 
-                IResource resource = customMaterialInValidationInput["Resource"] as IResource;
-                IMaterial waferToTrackIn = customMaterialInValidationInput["Material"] as IMaterial;
-                bool.TryParse(customMaterialInValidationInput["IsSorter"] as string, out bool isSorter);
+                IResource resource = DeeActionHelper.GetInputItem<IResource>(customMaterialInValidationOutput, "Resource");
+                IMaterial waferToTrackIn = DeeActionHelper.GetInputItem<IMaterial>(customMaterialInValidationOutput, "Material");
+                bool isSorter = DeeActionHelper.GetInputItem<bool>(customMaterialInValidationOutput, "IsSorter");
 
-                #endregion
+                #endregion Input Validation
 
                 // Tuple structure
                 //	- Item 1: Material
@@ -127,24 +139,23 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                 {
                     #region Trying to fetch materials docked on load ports
 
-                    IAction actionCustomMaterialInGetLotsFromDockedContainers = new Foundation.Common.DynamicExecutionEngine.Action();
-                    actionCustomMaterialInGetLotsFromDockedContainers.Load("CustomMaterialInGetLotsFromDockedContainers");
-
                     Dictionary<string, object> actionInputCustomMaterialInGetLotsFromDockedContainers = new Dictionary<string, object>()
                     {
                         { "Resource", resource }
                     };
 
+                    IAction actionCustomMaterialInGetLotsFromDockedContainers = new Foundation.Common.DynamicExecutionEngine.Action();
+                    actionCustomMaterialInGetLotsFromDockedContainers.Load("CustomMaterialInGetLotsFromDockedContainers");
                     actionCustomMaterialInGetLotsFromDockedContainers.ExecuteAction(actionInputCustomMaterialInGetLotsFromDockedContainers);
 
                     lotsAssociatedToContainersDockedOnResource = actionInputCustomMaterialInGetLotsFromDockedContainers["LotsDockedOnSorters"] as List<(IMaterial material, string loadPort, string container, bool mapContainerNeeded)>;
 
-                    if (lotsAssociatedToContainersDockedOnResource.Count == 0)
-                    {
-                        throw new Exception($"No materials found to Track-In in the resource ({resource.Name}).");
-                    }
+                    #endregion Trying to fetch materials docked on load ports
+                }
 
-                    #endregion
+                if (lotsAssociatedToContainersDockedOnResource.Count == 0)
+                {
+                    throw new Exception($"No materials found to Track-In in the resource ({resource.Name}).");
                 }
 
                 bool isToThrowException = false;
@@ -162,279 +173,274 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                     // Also, if it is a Forced Map Carrier we cannot perform a track-in we just want to read the wafers on the container.
                     if (isSorter && lotDockedOnSorter.mapContainerNeeded)
                     {
-                        IAction actionCustomSendStartMapProccessToIoT = new Foundation.Common.DynamicExecutionEngine.Action();
-                        actionCustomSendStartMapProccessToIoT.Load("CustomSendStartMapProccessToIoT");
-
                         Dictionary<string, object> actionInputCustomSendStartMapProccessToIoT = new Dictionary<string, object>()
                         {
                             { "ContainerName", lotDockedOnSorter.container },
                             { "ResourceName",  input.ResourceName}
                         };
 
-                        actionCustomSendStartMapProccessToIoT.ExecuteAction(actionInputCustomSendStartMapProccessToIoT);
+                        IAction actionCustomSendStartMapProcessToIoT = new Foundation.Common.DynamicExecutionEngine.Action();
+                        actionCustomSendStartMapProcessToIoT.Load("CustomSendStartMapProccessToIoT");
+                        actionCustomSendStartMapProcessToIoT.ExecuteAction(actionInputCustomSendStartMapProccessToIoT);
 
                         break;
                     }
 
-                    IMaterial materialToTrackIn = null;
+                    IMaterial materialToTrackIn = lotDockedOnSorter.material;
 
-                    if (lotDockedOnSorter.material != null)
+                    if (materialToTrackIn != null)
                     {
-                        materialToTrackIn = lotDockedOnSorter.material;
                         materialToTrackIn.Load();
-                    }
 
-                    if (materialToTrackIn != null && materialToTrackIn.SystemState != MaterialSystemState.InProcess)
-                    {
-                        // IS TOP MOST MATERIAL
-                        if (materialToTrackIn.ParentMaterial == null && materialToTrackIn.Form == "Lot")
+                        if (materialToTrackIn.SystemState != MaterialSystemState.InProcess)
                         {
-                            // Validate if a lot can start the process
-                            bool canStartProcess = true;
-                            ICustomSorterJobDefinition customSorterJobDefinition = null;
-                            string futureActionType = string.Empty;
-
-                            // Containers docked will be updated by DEE Action 'CustomProcessSorterJobDefinition'
-                            // Because it will be that information used to check if we can start a process or not
-                            List<ResourceLoadPortData> containersDocked = null;
-
-                            if (isSorter)
+                            // IS TOP MOST MATERIAL
+                            if (materialToTrackIn.ParentMaterial == null && materialToTrackIn.Form == "Lot")
                             {
-                                // Validate current load port
-                                IResource currentLoadPort = _entityFactory.Create<IResource>();
-                                currentLoadPort.Name = lotDockedOnSorter.loadPort;
+                                // Validate if a lot can start the process
+                                bool canStartProcess = true;
+                                ICustomSorterJobDefinition customSorterJobDefinition = null;
+                                string futureActionType = string.Empty;
 
-                                if (string.IsNullOrWhiteSpace(lotDockedOnSorter.loadPort) || !currentLoadPort.ObjectExists())
+                                // Containers docked will be updated by DEE Action 'CustomProcessSorterJobDefinition'
+                                // Because it will be that information used to check if we can start a process or not
+                                List<ResourceLoadPortData> containersDocked = null;
+
+                                if (isSorter)
                                 {
-                                    throw new Exception($"There isn't a valid load port associated with the material ({materialToTrackIn.Name}).");
-                                }
-                                else
-                                {
-                                    currentLoadPort.Load();
-                                }
+                                    // Validate current load port
+                                    IResource currentLoadPort = _entityFactory.Create<IResource>();
+                                    currentLoadPort.Name = lotDockedOnSorter.loadPort;
 
-                                // Validate current container
-                                IContainer currentContainer = _entityFactory.Create<IContainer>();
-                                currentContainer.Name = lotDockedOnSorter.container;
-
-                                if (string.IsNullOrWhiteSpace(lotDockedOnSorter.container) || !currentContainer.ObjectExists())
-                                {
-                                    throw new Exception($"There isn't a valid container associated with the material ({materialToTrackIn.Name}).");
-                                }
-                                else
-                                {
-                                    currentContainer.Load();
-                                }
-
-                                IBOM bom = null;
-
-                                #region SmartTable resolution for a valid custom sorter job
-                                customSorterJobDefinition = amsOSRAMUtilities.GetSorterJobDefinition(materialToTrackIn);
-                                #endregion
-
-                                if (customSorterJobDefinition != null)
-                                {
-                                    if (customSorterJobDefinition.LogisticalProcess == amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessCompose)
+                                    if (string.IsNullOrWhiteSpace(lotDockedOnSorter.loadPort) || !currentLoadPort.ObjectExists())
                                     {
-                                        bom = amsOSRAMUtilities.ResolveBOMContext(materialToTrackIn);
-
-                                        if (bom is null)
-                                        {
-                                            isToThrowException = true;
-                                            exceptionMessage = $"Cannot resolve a BOM context for the material: ({materialToTrackIn.Name}).{Environment.NewLine}";
-                                            // Jump to the next foreach element
-                                            continue;
-                                        }
-                                    }
-
-                                    IAction actionCustomMaterialInProcessSorterJobDefinition = new Foundation.Common.DynamicExecutionEngine.Action();
-                                    actionCustomMaterialInProcessSorterJobDefinition.Load("CustomMaterialInProcessSorterJobDefinition");
-
-                                    Dictionary<string, object> actionInputCustomMaterialInProcessSorterJobDefinition = new Dictionary<string, object>()
-                                    {
-                                        { "Resource", resource },
-                                        { "Container",  currentContainer },
-                                        { "LoadPort",  currentLoadPort },
-                                        { "CustomSorterJobDefinition",  customSorterJobDefinition },
-                                        { "BOM",  bom }
-                                    };
-
-                                    actionCustomMaterialInProcessSorterJobDefinition.ExecuteAction(actionInputCustomMaterialInProcessSorterJobDefinition);
-
-                                    if (actionInputCustomMaterialInProcessSorterJobDefinition.ContainsKey("CanStartProcess") &&
-                                        actionInputCustomMaterialInProcessSorterJobDefinition["CanStartProcess"] != null &&
-                                        actionInputCustomMaterialInProcessSorterJobDefinition["CanStartProcess"] is string strCanStartProcess)
-                                    {
-                                        canStartProcess = bool.Parse(strCanStartProcess);
-                                    }
-
-                                    if (actionInputCustomMaterialInProcessSorterJobDefinition.ContainsKey("FutureActionType") &&
-                                        actionInputCustomMaterialInProcessSorterJobDefinition["FutureActionType"] != null &&
-                                        actionInputCustomMaterialInProcessSorterJobDefinition["FutureActionType"] is string strFutureActionType)
-                                    {
-                                        futureActionType = strFutureActionType;
-                                    }
-
-                                    if (actionInputCustomMaterialInProcessSorterJobDefinition.ContainsKey("ContainersDocked") &&
-                                        actionInputCustomMaterialInProcessSorterJobDefinition["ContainersDocked"] != null &&
-                                        actionInputCustomMaterialInProcessSorterJobDefinition["ContainersDocked"] is List<ResourceLoadPortData> tempContainersDocked)
-                                    {
-                                        containersDocked = tempContainersDocked;
-                                    }
-
-                                    if (canStartProcess)
-                                    {
-                                        // Set the CustomSorterJobDefinition in the context for future usage
-                                        ApplicationContext.CallContext.SetInformationContext("CustomSorterJobDefinitionName", customSorterJobDefinition.Name);
-                                        ApplicationContext.CallContext.SetInformationContext("CustomSorterJobDefinitionMovementList", customSorterJobDefinition.MovementList);
+                                        throw new Exception($"There isn't a valid load port associated with the material ({materialToTrackIn.Name}).");
                                     }
                                     else
                                     {
+                                        currentLoadPort.Load();
+                                    }
+
+                                    // Validate current container
+                                    IContainer currentContainer = _entityFactory.Create<IContainer>();
+                                    currentContainer.Name = lotDockedOnSorter.container;
+
+                                    if (string.IsNullOrWhiteSpace(lotDockedOnSorter.container) || !currentContainer.ObjectExists())
+                                    {
+                                        throw new Exception($"There isn't a valid container associated with the material ({materialToTrackIn.Name}).");
+                                    }
+                                    else
+                                    {
+                                        currentContainer.Load();
+                                    }
+
+                                    IBOM bom = null;
+
+                                    // SmartTable resolution for a valid custom sorter job
+
+                                    customSorterJobDefinition = amsOSRAMUtilities.GetSorterJobDefinition(materialToTrackIn);
+
+                                    if (customSorterJobDefinition != null)
+                                    {
+                                        if (customSorterJobDefinition.LogisticalProcess == amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessCompose)
+                                        {
+                                            bom = amsOSRAMUtilities.ResolveBOMContext(materialToTrackIn);
+
+                                            if (bom is null)
+                                            {
+                                                isToThrowException = true;
+                                                exceptionMessage = $"Cannot resolve a BOM context for the material: ({materialToTrackIn.Name}).{Environment.NewLine}";
+                                                // Jump to the next foreach element
+                                                continue;
+                                            }
+                                        }
+
+                                        IAction actionCustomMaterialInProcessSorterJobDefinition = new Foundation.Common.DynamicExecutionEngine.Action();
+                                        actionCustomMaterialInProcessSorterJobDefinition.Load("CustomMaterialInProcessSorterJobDefinition");
+
+                                        Dictionary<string, object> actionInputCustomMaterialInProcessSorterJobDefinition = new Dictionary<string, object>()
+                                        {
+                                            { "Resource", resource },
+                                            { "Container",  currentContainer },
+                                            { "LoadPort",  currentLoadPort },
+                                            { "CustomSorterJobDefinition",  customSorterJobDefinition },
+                                            { "BOM",  bom }
+                                        };
+
+                                        actionCustomMaterialInProcessSorterJobDefinition.ExecuteAction(actionInputCustomMaterialInProcessSorterJobDefinition);
+
+                                        if (actionInputCustomMaterialInProcessSorterJobDefinition.ContainsKey("CanStartProcess") &&
+                                            actionInputCustomMaterialInProcessSorterJobDefinition["CanStartProcess"] != null &&
+                                            actionInputCustomMaterialInProcessSorterJobDefinition["CanStartProcess"] is string strCanStartProcess)
+                                        {
+                                            canStartProcess = bool.Parse(strCanStartProcess);
+                                        }
+
+                                        if (actionInputCustomMaterialInProcessSorterJobDefinition.ContainsKey("FutureActionType") &&
+                                            actionInputCustomMaterialInProcessSorterJobDefinition["FutureActionType"] != null &&
+                                            actionInputCustomMaterialInProcessSorterJobDefinition["FutureActionType"] is string strFutureActionType)
+                                        {
+                                            futureActionType = strFutureActionType;
+                                        }
+
+                                        if (actionInputCustomMaterialInProcessSorterJobDefinition.ContainsKey("ContainersDocked") &&
+                                            actionInputCustomMaterialInProcessSorterJobDefinition["ContainersDocked"] != null &&
+                                            actionInputCustomMaterialInProcessSorterJobDefinition["ContainersDocked"] is List<ResourceLoadPortData> tempContainersDocked)
+                                        {
+                                            containersDocked = tempContainersDocked;
+                                        }
+
+                                        if (canStartProcess)
+                                        {
+                                            // Set the CustomSorterJobDefinition in the context for future usage
+                                            ApplicationContext.CallContext.SetInformationContext("CustomSorterJobDefinitionName", customSorterJobDefinition.Name);
+                                            ApplicationContext.CallContext.SetInformationContext("CustomSorterJobDefinitionMovementList", customSorterJobDefinition.MovementList);
+                                        }
+                                        else
+                                        {
+                                            isToThrowException = true;
+                                            exceptionMessage = $"Cannot TrackIn material({materialToTrackIn.Name}) because conditions where not met for Custom Sorter Job Definition ({customSorterJobDefinition.Name}).{Environment.NewLine}";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        canStartProcess = false;
                                         isToThrowException = true;
-                                        exceptionMessage = $"Cannot TrackIn material({materialToTrackIn.Name}) because conditions where not met for Custom Sorter Job Definition ({customSorterJobDefinition.Name}).{Environment.NewLine}";
+                                        exceptionMessage = $"Cannot TrackIn material({materialToTrackIn.Name}) because no Custom Sorter Job Definition context was found.{Environment.NewLine}";
                                     }
                                 }
-                                else
+
+                                if (canStartProcess)
                                 {
-                                    canStartProcess = false;
-                                    isToThrowException = true;
-                                    exceptionMessage = $"Cannot TrackIn material({materialToTrackIn.Name}) because no Custom Sorter Job Definition context was found.{Environment.NewLine}";
+                                    #region Check Material dispatch status
+
+                                    if (materialToTrackIn.SystemState == MaterialSystemState.Queued)
+                                    {
+                                        IMaterialResource materialResource = _entityFactory.Create<IMaterialResource>();
+                                        materialResource.SourceEntity = materialToTrackIn;
+                                        materialResource.TargetEntity = resource;
+
+                                        DispatchMaterialOutput dispatchOutput = _materialOrchestration.DispatchMaterial(new DispatchMaterialInput()
+                                        {
+                                            Material = materialToTrackIn,
+                                            Resource = resource,
+                                            MaterialResource = materialResource
+                                        });
+
+                                        materialToTrackIn = dispatchOutput.Material;
+                                        resource = dispatchOutput.Resource;
+                                    }
+
+                                    #endregion Check Material dispatch status
+
+                                    #region TrackIn current Material
+
+                                    if (materialToTrackIn.SystemState == MaterialSystemState.Dispatched)
+                                    {
+                                        GetDataForTrackInWizardOutput dataForTrackIn = _materialOrchestration.GetDataForTrackInWizard(new GetDataForTrackInWizardInput()
+                                        {
+                                            Material = materialToTrackIn,
+                                            Resource = resource
+                                        });
+
+                                        ComplexTrackInMaterialInput complexTrackIn = new ComplexTrackInMaterialInput()
+                                        {
+                                            Material = materialToTrackIn,
+                                            Resource = resource,
+                                            StateModel = resource?.CurrentMainState?.StateModel ?? null,
+                                            StateModelTransition = dataForTrackIn.ResourcePossibleTransitions?.DefaultTransition ?? null,
+                                            StateModelTransitionReason = dataForTrackIn.ResourcePossibleTransitions?.DefaultTransition?.ReasonDefaultValue ?? null
+                                        };
+
+                                        if (!string.IsNullOrWhiteSpace(lotDockedOnSorter.loadPort))
+                                        {
+                                            ApplicationContext.CallContext.SetInformationContext("CurrentLoadPort", lotDockedOnSorter.loadPort);
+                                        }
+
+                                        if (!string.IsNullOrWhiteSpace(lotDockedOnSorter.container))
+                                        {
+                                            ApplicationContext.CallContext.SetInformationContext("CurrentContainer", lotDockedOnSorter.container);
+                                        }
+
+                                        waferToTrackIn = _materialOrchestration.ComplexTrackInMaterial(complexTrackIn).Material;
+                                        isToThrowException = false;
+                                    }
+
+                                    #endregion TrackIn current Material
+
+                                    // If it was possible to process a custom sorter job definition we will need to check
+                                    //		what are the load ports to update its state to inUse.
+                                    // Also, if it's a merge we also need to Track-In lots associated with the containers defined as source carriers
+                                    //		on the movement list.
+                                    if (waferToTrackIn.SystemState == MaterialSystemState.InProcess &&
+                                        isSorter &&
+                                        customSorterJobDefinition != null)
+                                    {
+                                        IAction actionCustomMaterialInPostProcessSorterJobDefinition = new Foundation.Common.DynamicExecutionEngine.Action();
+                                        actionCustomMaterialInPostProcessSorterJobDefinition.Load("CustomMaterialInPostProcessSorterJobDefinition");
+
+                                        Dictionary<string, object> actionInputCustomMaterialInPostProcessSorterJobDefinition = new Dictionary<string, object>()
+                                        {
+                                            { "Resource", resource },
+                                            { "CurrentContainerName",  lotDockedOnSorter.container},
+                                            { "CurrentMaterialName",  waferToTrackIn.Name},
+                                            { "CustomSorterJobDefinition",  customSorterJobDefinition},
+                                            { "ContainersDocked", containersDocked},
+                                            { "CurrentLoadPort", lotDockedOnSorter.loadPort},
+                                            { "FutureActionType", futureActionType}
+                                        };
+
+                                        actionCustomMaterialInPostProcessSorterJobDefinition.ExecuteAction(actionInputCustomMaterialInPostProcessSorterJobDefinition);
+                                    }
+
+                                    break;
                                 }
                             }
-
-                            if (canStartProcess)
+                            else if (materialToTrackIn.ParentMaterial != null)
                             {
-                                #region Check Material dispatch status
+                                List<IEntityRelation> subResourceToTrackIn;
 
-                                if (materialToTrackIn.SystemState == MaterialSystemState.Queued)
-                                {
-                                    IMaterialResource materialResource = _entityFactory.Create<IMaterialResource>();
-                                    materialResource.SourceEntity = materialToTrackIn;
-                                    materialResource.TargetEntity = resource;
+                                resource.LoadRelations("SubResource");
 
-                                    DispatchMaterialOutput dispatchOutput = _materialOrchestration.DispatchMaterial(new DispatchMaterialInput()
-                                    {
-                                        Material = materialToTrackIn,
-                                        Resource = resource,
-                                        MaterialResource = materialResource
-                                    });
+                                IResource resourceToTrackIn = null;
+                                int subResourceOrder = 0;
 
-                                    materialToTrackIn = dispatchOutput.Material;
-                                    resource = dispatchOutput.Resource;
-                                }
-
-                                #endregion
-
-                                #region TrackIn current Material
-
-                                if (materialToTrackIn.SystemState == MaterialSystemState.Dispatched)
-                                {
-                                    GetDataForTrackInWizardOutput dataForTrackIn = _materialOrchestration.GetDataForTrackInWizard(new GetDataForTrackInWizardInput()
-                                    {
-                                        Material = materialToTrackIn,
-                                        Resource = resource
-                                    });
-
-                                    ComplexTrackInMaterialInput complexTrackIn = new ComplexTrackInMaterialInput()
-                                    {
-                                        Material = materialToTrackIn,
-                                        Resource = resource,
-                                        StateModel = resource?.CurrentMainState?.StateModel ?? null,
-                                        StateModelTransition = dataForTrackIn.ResourcePossibleTransitions?.DefaultTransition ?? null,
-                                        StateModelTransitionReason = dataForTrackIn.ResourcePossibleTransitions?.DefaultTransition?.ReasonDefaultValue ?? null
-                                    };
-
-                                    if (!string.IsNullOrWhiteSpace(lotDockedOnSorter.loadPort))
-                                    {
-                                        ApplicationContext.CallContext.SetInformationContext("CurrentLoadPort", lotDockedOnSorter.loadPort);
-                                    }
-
-                                    if (!string.IsNullOrWhiteSpace(lotDockedOnSorter.container))
-                                    {
-                                        ApplicationContext.CallContext.SetInformationContext("CurrentContainer", lotDockedOnSorter.container);
-                                    }
-
-                                    waferToTrackIn = _materialOrchestration.ComplexTrackInMaterial(complexTrackIn).Material;
-                                    isToThrowException = false;
-                                }
-
-                                #endregion
-
-                                // If it was possible to process a custom sorter job definition we will need to check
-                                //		what are the load ports to update its state to inUse.
-                                // Also, if it's a merge we also need to Track-In lots associated with the containers defined as source carriers
-                                //		on the movement list.
-                                if (waferToTrackIn.SystemState == MaterialSystemState.InProcess &&
-                                    isSorter &&
-                                    customSorterJobDefinition != null)
-                                {
-                                    IAction actionCustomMaterialInPostProcessSorterJobDefinition = new Foundation.Common.DynamicExecutionEngine.Action();
-                                    actionCustomMaterialInPostProcessSorterJobDefinition.Load("CustomMaterialInPostProcessSorterJobDefinition");
-
-                                    Dictionary<string, object> actionInputCustomMaterialInPostProcessSorterJobDefinition = new Dictionary<string, object>()
-                                    {
-                                        { "Resource", resource },
-                                        { "CurrentContainerName",  lotDockedOnSorter.container},
-                                        { "CurrentMaterialName",  waferToTrackIn.Name},
-                                        { "CustomSorterJobDefinition",  customSorterJobDefinition},
-                                        { "ContainersDocked", containersDocked},
-                                        { "CurrentLoadPort", lotDockedOnSorter.loadPort},
-                                        { "FutureActionType", futureActionType}
-                                    };
-
-                                    actionCustomMaterialInPostProcessSorterJobDefinition.ExecuteAction(actionInputCustomMaterialInPostProcessSorterJobDefinition);
-                                }
-
-                                break;
-                            }
-                        }
-                        else if (materialToTrackIn.ParentMaterial != null)
-                        {
-                            List<IEntityRelation> subResourceToTrackin;
-
-                            resource.LoadRelations("SubResource");
-
-                            IResource resourceToTrackIn = null;
-                            int subResourceOrder = 0;
-
-                            if (resource.RelationCollection.ContainsKey("SubResource") && resource.RelationCollection["SubResource"] != null)
-                            {
-                                //SubResourceOrder Starts in 1
-                                if (input.SubResourceOrder != null)
+                                if (resource.RelationCollection.ContainsKey("SubResource") && resource.RelationCollection["SubResource"] != null)
                                 {
                                     //SubResourceOrder Starts in 1
-                                    subResourceOrder = input.SubResourceOrder.Value - 1;
-                                }
-
-                                subResourceToTrackin = resource.RelationCollection["SubResource"].Where(sbr => (sbr as ISubResource).TargetEntity.ProcessingType == ProcessingType.Process).OrderBy(sbr => (sbr as ISubResource).Order).ToList();
-
-                                if (subResourceToTrackin.Count > 0)
-                                {
-                                    if (subResourceToTrackin.Count < subResourceOrder || subResourceOrder < 0)
+                                    if (input.SubResourceOrder != null)
                                     {
-                                        throw new IndexOutOfRangeException("Sub Resource Order parameter is Out of Range");
+                                        //SubResourceOrder Starts in 1
+                                        subResourceOrder = input.SubResourceOrder.Value - 1;
                                     }
 
-                                    resourceToTrackIn = (IResource)subResourceToTrackin[subResourceOrder].TargetEntity;
+                                    subResourceToTrackIn = resource.RelationCollection["SubResource"].Where(sbr => (sbr as ISubResource).TargetEntity.ProcessingType == ProcessingType.Process).OrderBy(sbr => (sbr as ISubResource).Order).ToList();
+
+                                    if (subResourceToTrackIn.Count > 0)
+                                    {
+                                        if (subResourceToTrackIn.Count < subResourceOrder || subResourceOrder < 0)
+                                        {
+                                            throw new IndexOutOfRangeException("Sub Resource Order parameter is Out of Range");
+                                        }
+
+                                        resourceToTrackIn = (IResource)subResourceToTrackIn[subResourceOrder].TargetEntity;
+                                    }
                                 }
+
+                                materialToTrackIn.TrackIn(resourceToTrackIn);
                             }
-
-                            materialToTrackIn.TrackIn(resourceToTrackIn);
                         }
-
-                        //materialToTrackIn.Load();
                     }
                 }
 
                 if (isToThrowException)
                 {
-                    throw new Exception(exceptionMessage);
+                    throw new CmfBaseException(exceptionMessage);
                 }
-
 
                 output.Material = waferToTrackIn;
 
-                #endregion
+                #endregion Execution
 
                 Utilities.EndMethod(-1, -1,
                         new KeyValuePair<string, object>(MATERIAL_IN_INPUT, input),
@@ -464,14 +470,14 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                 new KeyValuePair<string, object>(MATERIAL_OUT_INPUT, input));
             try
             {
-                bool canTrackOut = false;
                 output = new MaterialOutOutput();
-                #region validation input
+
+                #region Input Validation
 
                 Utilities.ValidateNullInput(input, new List<string> { "CustomSorterJobDefinition" });
 
                 bool containerOnlyProcess = input.ContainerOnlyProcess;
-                canTrackOut = !containerOnlyProcess;
+                bool canTrackOut = !containerOnlyProcess;
 
                 if (string.IsNullOrWhiteSpace(input.MaterialName) && string.IsNullOrEmpty(input.CarrierId))
                 {
@@ -483,7 +489,6 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                     throw new MissingMandatoryFieldCmfException("ResourceName");
                 }
 
-
                 IResource resource = _entityFactory.Create<IResource>();
                 resource.Name = input.ResourceName;
 
@@ -492,9 +497,10 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                     throw new ObjectNotFoundCmfException(Navigo.Common.Constants.Resource, input.ResourceName);
                 }
 
-                #endregion
+                #endregion Input Validation
 
                 #region Execution
+
                 if (canTrackOut)
                 {
                     IMaterial lot = _entityFactory.Create<IMaterial>();
@@ -516,9 +522,6 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                     if (input.CustomSorterJobDefinition != null &&
                         input.CustomSorterJobDefinition.LogisticalProcess != amsOSRAMConstants.LookupTableCustomSorterLogisticalProcessMapCarrier)
                     {
-                        IAction actionCustomMaterialOutProcessSorterJobDefinition = new Foundation.Common.DynamicExecutionEngine.Action();
-                        actionCustomMaterialOutProcessSorterJobDefinition.Load("CustomMaterialOutProcessSorterJobDefinition");
-
                         Dictionary<string, object> actionInputCustomMaterialOutProcessSorterJobDefinition = new Dictionary<string, object>()
                         {
                             { "Resource", resource },
@@ -526,10 +529,12 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                             { "CustomSorterJobDefinition",  input.CustomSorterJobDefinition },
                         };
 
+                        IAction actionCustomMaterialOutProcessSorterJobDefinition = new Foundation.Common.DynamicExecutionEngine.Action();
+                        actionCustomMaterialOutProcessSorterJobDefinition.Load("CustomMaterialOutProcessSorterJobDefinition");
                         actionCustomMaterialOutProcessSorterJobDefinition.ExecuteAction(actionInputCustomMaterialOutProcessSorterJobDefinition);
                     }
 
-                    #endregion
+                    #endregion Handle Sorter Job Definition for different scenarios (Split, Merge, Compose)
 
                     if (lot.UniversalState != Foundation.Common.Base.UniversalState.Terminated)
                     {
@@ -556,9 +561,9 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                             if (material.ParentMaterial == null)
                             {
                                 // Load resource to get the Main State Model.
-                                IResource currentTrackoutResource = _entityFactory.Create<IResource>();
-                                currentTrackoutResource.Name = resource.Name;
-                                currentTrackoutResource.Load();
+                                IResource currentTrackOutResource = _entityFactory.Create<IResource>();
+                                currentTrackOutResource.Name = resource.Name;
+                                currentTrackOutResource.Load();
 
                                 IMaterialCollection materials = _entityFactory.CreateCollection<IMaterialCollection>();
                                 materials.Add(material);
@@ -571,7 +576,7 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                                 _materialOrchestration.ComplexTrackOutAndMoveMaterialToNextStep(new ComplexTrackOutAndMoveMaterialToNextStepInput()
                                 {
                                     Material = material,
-                                    StateModel = currentTrackoutResource?.CurrentMainState?.StateModel ?? null,
+                                    StateModel = currentTrackOutResource?.CurrentMainState?.StateModel ?? null,
                                     StateModelTransition = getDataForMultipleTrackOutAndMoveNextWizardOutput.ResourcePossibleTransitions?.DefaultTransition ?? null,
                                     StateModelTransitionReason = getDataForMultipleTrackOutAndMoveNextWizardOutput.ResourcePossibleTransitions?.DefaultTransition?.ReasonDefaultValue ?? null
                                 });
@@ -604,7 +609,7 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                     }
                 }
 
-                #endregion
+                #endregion Execution
 
                 Utilities.EndMethod(-1, -1,
                     new KeyValuePair<string, object>(MATERIAL_OUT_INPUT, input),
@@ -672,8 +677,8 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
         {
             Utilities.StartMethod(
                 OBJECT_TYPE_NAME,
-                "CustomReceiveStiboMessage",
-                new KeyValuePair<string, object>("CustomReceiveStiboMessageInput", input));
+                CUSTOM_RECEIVE_STIBO_MESSAGE,
+                new KeyValuePair<string, object>(CUSTOM_RECEIVE_STIBO_MESSAGE_INPUT, input));
 
             CustomReceiveStiboMessageOutput output = new CustomReceiveStiboMessageOutput();
 
@@ -713,8 +718,8 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                 Utilities.EndMethod(
                     -1,
                     -1,
-                    new KeyValuePair<string, object>("CustomReceiveStiboMessageInput", input),
-                    new KeyValuePair<string, object>("CustomReceiveStiboMessageOutput", output));
+                    new KeyValuePair<string, object>(CUSTOM_RECEIVE_STIBO_MESSAGE_INPUT, input),
+                    new KeyValuePair<string, object>(CUSTOM_RECEIVE_STIBO_MESSAGE_OUTPUT, output));
             }
             catch (CmfBaseException)
             {
@@ -736,11 +741,10 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
         /// <exception cref="CmfBaseException">If any unexpected error occurs.</exception>
         public CustomReceiveERPMessageOutput CustomReceiveERPMessage(CustomReceiveERPMessageInput input)
         {
-
             Utilities.StartMethod(
                 OBJECT_TYPE_NAME,
-                "CustomReceiveERPMessage",
-                new KeyValuePair<string, object>("CustomReceiveERPMessageInput", input));
+                CUSTOM_RECEIVE_ERP_MESSAGE,
+                new KeyValuePair<string, object>(CUSTOM_RECEIVE_ERP_MESSAGE_INPUT, input));
 
             CustomReceiveERPMessageOutput output = new CustomReceiveERPMessageOutput();
 
@@ -769,7 +773,6 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                     {
                         Object = integrationEntry
                     }).Object as IIntegrationEntry;
-
                 }
                 else
                 {
@@ -779,8 +782,8 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                 Utilities.EndMethod(
                     -1,
                     -1,
-                    new KeyValuePair<string, object>("CustomReceiveERPMessageInput", input),
-                    new KeyValuePair<string, object>("CustomReceiveERPMessageOutput", output));
+                    new KeyValuePair<string, object>(CUSTOM_RECEIVE_ERP_MESSAGE_INPUT, input),
+                    new KeyValuePair<string, object>(CUSTOM_RECEIVE_ERP_MESSAGE_OUTPUT, output));
             }
             catch (CmfBaseException)
             {
@@ -957,7 +960,6 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                     #endregion Parameters Mapping
 
                     #endregion Product Mapping
-
                 }
 
                 #endregion Product Info
@@ -1042,7 +1044,7 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                     }
                 }
 
-                #endregion FlowSteps Mapping
+                #endregion Steps Mapping
 
                 #endregion Flow Info
 
@@ -1126,7 +1128,6 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                     
                     List<Cmf.Custom.amsOSRAM.Common.DataStructures.Attribute> mainMaterialAttributes = new List<Cmf.Custom.amsOSRAM.Common.DataStructures.Attribute>();
                    
-
                     if (string.IsNullOrWhiteSpace(customGetMaterialAttributesInput.AttributeList))
                     {
                         materialToAdd.LoadAttributes();
@@ -1207,7 +1208,6 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                     -1,-1,
                     new KeyValuePair<string, object>(GET_FLOW_INFORMATION_FOR_ERP_INPUT, customGetMaterialAttributesInput),
                     new KeyValuePair<string, object>(GET_FLOW_INFORMATION_FOR_ERP_OUTPUT, customGetMaterialAttributesOutput));
-                
             }
             catch (CmfBaseException)
             {
