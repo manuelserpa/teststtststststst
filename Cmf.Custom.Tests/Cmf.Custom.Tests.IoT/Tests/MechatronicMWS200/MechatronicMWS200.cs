@@ -1854,14 +1854,30 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             wafer.LoadRelations();
             wafer.ParentMaterial.Load();
 
+            SubstHistoryList substHistoryListSource = new SubstHistoryList(base.Equipment)
+            {
+                SubstHistoryInternalList = new SubstHistoryInternalList
+                {
+                    SubstHistoryEntryList = new List<SubstHistoryEntry>
+                        {
+                            new SubstHistoryEntry
+                            {
+                                Location = String.Format("{0}.{1:D3}", MESScenario.ContainerScenario?.Entity, initialWaferPositions[wafer.Name]),
+            TimeIn = "11",
+                                TimeOut = "12"
+                            }
+                        }
+                }
+            };
+
             base.Equipment.Variables["SubstID"] = wafer.Name;
-            base.Equipment.Variables["SubstLotID"] = wafer.ParentMaterial.Name;
+            base.Equipment.Variables["SubstLotID"] = MESScenario.Entity.Name;
             base.Equipment.Variables["SubstSubstLocID"] = String.Format("{0}.{1:D2}", MESScenario.ContainerScenario?.Entity.Name, initialWaferPositions[wafer.Name]);
-            base.Equipment.Variables["SubstState"] = 0;
-            base.Equipment.Variables["SubstProcState"] = 0;
+            base.Equipment.Variables["SubstState"] = 2;
+            base.Equipment.Variables["SubstProcState"] = 2;
             base.Equipment.Variables["AcquiredID"] = "";
             base.Equipment.Variables["Clock"] = DateTime.UtcNow.ToString("hh:mm:ss.fff");
-            base.Equipment.Variables["SubstHistory"] = null;
+            base.Equipment.Variables["SubstHistory"] = substHistoryListSource;
 
             //base.Equipment.Variables["SubstID"] = String.Format("{0:D3}_{1:D3}", sourceLoadPort, waferPositionOnMES);
 
