@@ -90,8 +90,8 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
 
             BOM newBom = cloneOutput.Targets.FirstOrDefault() as BOM;
 
-            TearDownManager.Push(bom);
-            GeneratedBOMs.Add(bom);
+            TearDownManager.Push(newBom);
+            GeneratedBOMs.Add(newBom);
 
             AttributeCollection attributes = new AttributeCollection();
 
