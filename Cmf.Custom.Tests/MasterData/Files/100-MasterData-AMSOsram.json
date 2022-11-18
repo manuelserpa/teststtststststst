@@ -67917,5 +67917,11 @@
       "IsAutoGeneratePositionEnabled": "No",
       "TotalPositions": "13"
     }
+  },
+  "<GT>MaterialFormRelation": {
+      "1": {
+        "MainForm": "Lot",
+        "SubForm": "Wafer"
+      }
   }
 }
