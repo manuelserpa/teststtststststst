@@ -111,6 +111,8 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
                 materialDataToIot.Add(materialData);
             }
 
+            // DO NOT DELETE: This is a hook for test purposes
+
             #region IoT call
 
             if (materialDataToIot.Count > 0)

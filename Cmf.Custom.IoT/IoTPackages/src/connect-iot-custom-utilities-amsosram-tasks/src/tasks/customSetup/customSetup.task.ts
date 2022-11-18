@@ -173,28 +173,28 @@ export class CustomSetupTask implements Task.TaskInstance, CustomSetupSettings {
                         this._logger.warning("Using old configuration, consider using task customLoadSetupConfiguration");
                         this.driverSetupDefinition = {} as DriverSetupDefinition;
                         this.driverSetupDefinition.AutomationEquipmentSkipEstablishCommunication =
-                        await this._setupDataStore.getValue(
-                            "AutomationEquipmentWaitOnSetupTimeoutAndRetryIfErrorOccurs", this.driverName, false);
+                            await this._setupDataStore.getValue(
+                                "AutomationEquipmentWaitOnSetupTimeoutAndRetryIfErrorOccurs", this.driverName, false);
                         this.driverSetupDefinition.AutomationEquipmentSkipEstablishCommunication =
-                           await this._setupDataStore.getValue(
-                               "AutomationEquipmentSkipEstablishCommunication", this.driverName, false);
-                               this.driverSetupDefinition.AutomationEquipmentSkipDefineReportMode =
+                            await this._setupDataStore.getValue(
+                                "AutomationEquipmentSkipEstablishCommunication", this.driverName, false);
+                        this.driverSetupDefinition.AutomationEquipmentSkipDefineReportMode =
                             await this._setupDataStore.getValue("AutomationEquipmentSkipSetOnline", this.driverName, false);
-                            this.driverSetupDefinition.AutomationEquipmentSkipDefineReportMode =
+                        this.driverSetupDefinition.AutomationEquipmentSkipDefineReportMode =
                             await this._setupDataStore.getValue(
                                 "AutomationEquipmentSkipDefineReportMode", this.driverName, false);
-                                this.driverSetupDefinition.AutomationEquipmentSkipDefineReportMode =
+                        this.driverSetupDefinition.AutomationEquipmentSkipDefineReportMode =
                             await this._setupDataStore.getValue(
                                 "AutomationEquipmentSkipDefineReportMode", this.driverName, false);
-                                this.driverSetupDefinition.AutomationEquipmentDeleteReportMode =
+                        this.driverSetupDefinition.AutomationEquipmentDeleteReportMode =
                             await this._setupDataStore.getValue("AutomationEquipmentDeleteReportMode", this.driverName, null);
-                            this.driverSetupDefinition.AutomationEquipmentDeleteReportMode =
+                        this.driverSetupDefinition.AutomationEquipmentDeleteReportMode =
                             await this._setupDataStore.getValue("AutomationEquipmentDeleteReportMode", this.driverName, null);
-                            this.driverSetupDefinition.AutomationEquipmentEnableDisableAlarmsMode =
+                        this.driverSetupDefinition.AutomationEquipmentEnableDisableAlarmsMode =
                             await this._setupDataStore.getValue(
                                 "AutomationEquipmentEnableDisableAlarmsMode", this.driverName, "DisableAllEnableSelection");
-                        }
                     }
+                }
             }
             if (changes["activate"] && internalState !== CustomSetupStatesEnum.EstablishCommunication) {
                 await this.ResetTask();
@@ -404,7 +404,7 @@ export class CustomSetupTask implements Task.TaskInstance, CustomSetupSettings {
             if (!successFound) {
                 const error = new Error("Failed to Establish Communication, equipment reported reply code: "
                     + reply.item.value[0].value.data.toString());
-               this._logger.error(error.message);
+                this._logger.error(error.message);
                 throw error;
             } else {
                 if (this.resetSetupOnEstablishCommunicationReceived) {
@@ -767,6 +767,9 @@ export class CustomSetupTask implements Task.TaskInstance, CustomSetupSettings {
                 }
             };
             await this._driverProxy.sendRaw("connect.iot.driver.secsgem.sendMessage", message);
+        } else if (AutomationEquipmentEnableDisableAlarmsMode === "EnableDisableNothing") {
+            this._logger.info('EnableDisableAlarms disabled in settings');
+            return true;
         } else {
             // else execute product logic
             await this._driverProxy.sendRaw("connect.iot.driver.secsgem.internalEnableDisableAlarms", undefined, this.enableDisableAlarmsTimeout * 1000);
@@ -788,7 +791,7 @@ export class CustomSetupTask implements Task.TaskInstance, CustomSetupSettings {
         } catch (error) {
             this._logger.error(`Failed to subscribe topic S1F13 in driver communication: ${error.message}`);
             if (!this.driverSetupDefinition.AutomationEquipmentWaitOnSetupTimeoutAndRetryIfErrorOccurs) {
-            this.error.emit(error);
+                this.error.emit(error);
             }
         }
     }

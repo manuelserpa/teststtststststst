@@ -1,0 +1,50 @@
+## Generates Templates and MenuItems on the documentation using the CMF CLI
+##	Sample usage:
+##		.\Help_GenerateAll.ps1 
+
+if (!(Get-Command cmf -errorAction SilentlyContinue))
+{
+    throw "CMF command is missing. Please install it first before use this script."
+}
+
+$root = ""
+
+while (Split-Path -Path $root -and !($root)) {
+	$current = Get-Location
+
+	if (Test-Path -Path ".project-config.json") {
+		$root = $current
+	} else {
+		Set-Location (Split-Path -Path $current)
+	}
+}
+
+$scriptLocation = Split-Path $MyInvocation.MyCommand.Path -Parent
+
+$rootSolutionRelativePath = "..\"
+$rootSolutionAbsolutePath = Join-Path -Path $scriptLocation -ChildPath $rootSolutionRelativePath
+
+$helpFolder = Join-Path -Path $rootSolutionAbsolutePath -ChildPath "Cmf.Custom.Help"
+$currentLocation = Get-Location
+
+try {
+	Set-Location $helpFolder
+ 
+	Write-Host "`nRunning generateBasedOnTemplates...`n" -ForegroundColor blue
+	cmf build help generateBasedOnTemplates
+
+	Write-Host "`nRunning generateMenuItems...`n" -ForegroundColor blue
+	cmf build help generateMenuItems
+
+	Write-Host "`nBuilding the solution...`n" -ForegroundColor blue
+	gulp build
+}
+catch {
+  	Write-Host "`nGulp is not installed or the build is failing. Please, make sure the Help solution builds with success." -ForegroundColor red
+	Write-Host "See more info about the error below.`n" -ForegroundColor red
+  	$error = $_
+ 	Write-Error $error
+}
+finally {	
+	Set-Location $currentLocation
+}
