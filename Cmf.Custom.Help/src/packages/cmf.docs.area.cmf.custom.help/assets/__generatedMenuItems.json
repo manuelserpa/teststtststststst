@@ -366,6 +366,12 @@
     "actionId": ""
   },
   {
+    "id": "custom_create_compose_sorter_job_definition",
+    "menuGroupId": "deeactions",
+    "title": "CustomCreateComposeSorterJobDefinition",
+    "actionId": ""
+  },
+  {
     "id": "custom_material_attributes_on_trackout",
     "menuGroupId": "deeactions",
     "title": "CustomMaterialAttributesOnTrackOut",
@@ -396,6 +402,12 @@
     "actionId": ""
   },
   {
+    "id": "custom_update_compose_custom_sorter_job_definition",
+    "menuGroupId": "deeactions",
+    "title": "CustomUpdateComposeCustomSorterJobDefinition",
+    "actionId": ""
+  },
+  {
     "id": "custom_validate_material_reception_substrate",
     "menuGroupId": "deeactions",
     "title": "CustomValidateMaterialReceptionSubstrate",
@@ -411,6 +423,12 @@
     "id": "et_area",
     "menuGroupId": "entitytypes",
     "title": "Area",
+    "actionId": ""
+  },
+  {
+    "id": "et_bom",
+    "menuGroupId": "entitytypes",
+    "title": "BOM",
     "actionId": ""
   },
   {
@@ -1149,6 +1167,12 @@
     "id": "custom_tibco_ems_gateway",
     "menuGroupId": "features",
     "title": "Tibco EMS Gateway",
+    "actionId": ""
+  },
+  {
+    "id": "custom_update_compose_custom_sorter_job_definition",
+    "menuGroupId": "features",
+    "title": "Update Compose CustomSorterJobDefinition",
     "actionId": ""
   },
   {
