@@ -97,6 +97,8 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
         {
             StepPreparations();
 
+            ValidationTimeout = 30;
+
             base.Equipment = m_Scenario.GetEquipment(m_Scenario.EquipmentToTest) as SecsGemEquipment;
 
             base.Initialize(recipeName);
@@ -272,7 +274,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             "- ")]
         public void MechatronicMWS200_LotCompose_WithSorterJobDefinitionContext()
         {
-            
+
             var waferName = "MaterialTest_" + DateTime.Now.Ticks.ToString();
             var productName = amsOSRAMConstants.DefaultWaferProductName;
 
@@ -294,17 +296,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
             epiSortingStep.SaveAttribute("IsWaferReception", true);
 
-            Resource resource = new Resource { Name = resourceName };
-            resource.Load();
-            resource.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsSorter, true);
-
-            #region Clean Materials from resource
-            resource.Load();
-            resource.LoadRelations();
-            resource.ResourceMaterials.ForEach(x => x.SourceEntity.Undispatch());
-
-            resource.GetDispatchList().ForEach(x => x.Terminate(reasonToUse: epiSortingStep.GetRandomReason()));
-            #endregion
+            ClearResource(epiSortingStep.Name, resourceName);
 
             #endregion
 
@@ -355,11 +347,11 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             RecipeManagement.SetRecipe(recipe.ResourceRecipeName, RecipeName);
             RecipeManagement.FailOnNewBody = true;
             RecipeManagement.RecipeExistsOnList = true;
-            
+
             MESScenario.Entity.IsHot = true;
 
             base.IgnoreMaterialScenarioSetup = true;
-            base.IgnoreCarrierIn= true;
+            base.IgnoreCarrierIn = true;
 
             SorterCarrierIn();
 
@@ -372,13 +364,16 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             ProcessCompleteEvent(MESScenario);
 
             CarrierOut(MESScenario);
-            MESScenario.Entity.Load();
-            MESScenario.Entity.LoadChildren();
-            Assert.AreEqual(numberOfWafersPerLot, MESScenario.Entity.SubMaterialCount, $"Lot should have {numberOfLoadPorts} Sub-Materials");
+
+            TestUtilities.WaitFor(ValidationTimeout, $"Lot should have {numberOfLoadPorts} Sub-Materials", () =>
+            {
+                MESScenario.Entity.Load();
+                MESScenario.Entity.LoadChildren();
+                return MESScenario.Entity.SubMaterialCount == numberOfWafersPerLot;
+            });
+
             CustomValidateContainerNumberOfWafers(MESScenario.ContainerScenario.Entity, numberOfWafersPerLot);
         }
-
-
         /// <summary>
         /// Perform Transfer with a CustomSorterJobDefinitionContext in place
         /// </summary>
@@ -2922,7 +2917,31 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
             step.SubMaterialTrackStateDepth = 0;
             step.Save();
+
+            ClearResource(step.Name, resourceName);
         }
 
+        /// <summary>
+        /// Claeans the test resource of any Material on the Dispatch list
+        /// </summary>
+        /// <param name="stepName"></param>
+        /// <param name="resourceName"></param>
+        private static void ClearResource(string stepName, string resourceName)
+        {
+            Step step = new Step { Name = stepName };
+            step.Load();
+
+            Resource resource = new Resource { Name = resourceName };
+            resource.Load();
+            resource.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsSorter, true);
+
+            #region Clean Materials from resource
+            resource.Load();
+            resource.LoadRelations();
+            resource.ResourceMaterials.ForEach(x => x.SourceEntity.Undispatch());
+
+            resource.GetDispatchList().ForEach(x => x.Terminate(reasonToUse: step.GetRandomReason()));
+            #endregion
+        }
     }
 }
