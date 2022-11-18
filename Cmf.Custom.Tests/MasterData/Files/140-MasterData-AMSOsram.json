@@ -4528,5 +4528,29 @@
       "IsRoHSCompliant": ""
     }
   },
+  "<SM>EntityTypeProperty": {
+		"1": {
+			"EntityType": "Material",
+			"Name": "GoodsReceiptComponentNo",
+			"Description": "Test attribute",
+			"PropertyType": "Attribute",
+			"ScalarType": "NVarChar",
+			"ReferenceType": "None",
+			"IsEnabled": "Yes",
+			"IsHistoryEnable": "Yes",
+			"CopyOnClone": "",
+			"BelongsTo": "",
+			"ScalarSize": "",
+			"ScalarPrecision": "",
+			"ReferenceName": "",
+			"DefaultValue": "",
+			"IsArray": "",
+			"IsIndexed": "",
+			"IsMandatory": "",
+			"AccessLevel": "",
+			"ValidationRange": "",
+			"ValidationRegex": ""
+		}
+  },
   "<DM>Container": {}
 }
