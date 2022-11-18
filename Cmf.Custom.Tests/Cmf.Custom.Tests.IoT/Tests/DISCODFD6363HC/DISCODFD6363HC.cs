@@ -116,7 +116,7 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
         {
             ConfigureConnection(fileResourceName, 5015, prepareTestScenario: false);
             ConfigureConnection(readerResourceName, 5014, prepareTestScenario: false);
-			ConfigureConnection(resourceName, 5013, isEnableAllAlarms: true, killProcess: false);
+            ConfigureConnection(resourceName, 5013, isEnableAllAlarms: true, killProcess: false);
 
             Resource lp1 = new Resource() { Name = "5FETR1-LP1" };
             lp1.Load();
@@ -280,7 +280,7 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
                     return false;
 
                 return resource.CurrentStates.FirstOrDefault(s => s.StateModel.Name == "CustomSecsGemControlStateModel" && s.CurrentState.Name == "OnlineLocal") != null;
-            });           
+            });
         }
 
 
@@ -433,7 +433,7 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
         public override bool CarrierIn(CustomMaterialScenario scenario, int loadPortToSet)
         {
             base.Equipment.Variables.Clear();
-            
+
             // Trigger event
             base.Equipment.SendMessage("Smif_Pod_Arrived", null);
 
@@ -445,7 +445,7 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
             //add carrier id to load port on rfid reader
             RFIDReader.targetIdRFID.Add(loadPortToSet.ToString(), MESScenario.ContainerScenario.Entity.Name);
 
-            base.CarrierInValidation(MESScenario, loadPortToSet);         
+            base.CarrierInValidation(MESScenario, loadPortToSet);
 
             //if carried id read succesfull container must now be docked
             ValidatePersistenceContainerExists(LoadPortNumber, MESScenario.ContainerScenario.Entity.Name);
@@ -455,8 +455,8 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
                 return receivedLockPodCommand;
             });
 
-            receivedLockPodCommand = false;            
-            
+            receivedLockPodCommand = false;
+
             // Trigger event
             base.Equipment.SendMessage("SMIF_POD_READY_TO_LOAD", null);
 
@@ -465,7 +465,7 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
             });
 
             receivedLoadPodCommand = false;
-            
+
             // Trigger event
             base.Equipment.SendMessage("Smif_Cass_UnloadedFromPod", null);
 
@@ -486,7 +486,7 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
 
             // Trigger event
             base.Equipment.SendMessage("NEW_CASSETTE_SET", null);
-            
+
         }
 
 
@@ -537,14 +537,14 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
 
             // Trigger event
             base.Equipment.SendMessage("PP_SELECTED", null);
-            
-            
+
+
             TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material {scenario.Entity.Name} State is not {MaterialStateModelStateEnum.Setup.ToString()}"), () =>
             {
                 scenario.Entity.Load();
                 return scenario.Entity.CurrentMainState.CurrentState.Name.Equals(MaterialStateModelStateEnum.Setup.ToString());
             });
-            
+
 
             TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material {scenario.Entity.Name} System State is not {MaterialSystemState.InProcess.ToString()}"), () =>
             {
@@ -555,7 +555,7 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
 
             return true;
         }
-        
+
         public override bool ProcessStartEvent(CustomMaterialScenario scenario)
         {
             TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve START_S command", () =>
@@ -563,7 +563,7 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
                 return receivedStartCommand;
             });
 
-            receivedStartCommand = false;            
+            receivedStartCommand = false;
 
             // Trigger event
             base.Equipment.SendMessage("FULL_AUTOMATION_START", null);
@@ -575,7 +575,7 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
                 for (int i = 0; i < 25; i++)
                 {
                     string slotStatus = "MAP_STATE_" + (i + 1).ToString();
-                    base.Equipment.Variables[slotStatus] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 1 : 0; ;                    
+                    base.Equipment.Variables[slotStatus] = MESScenario.ContainerScenario.Entity.ContainerMaterials.Exists(p => p.Position != null && p.Position == i + 1) ? 1 : 0; ;
                 }
             }
 
@@ -644,7 +644,7 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
             wafer.Load();
             wafer.LoadRelations();
             wafer.ParentMaterial.Load();
-            wafer.MaterialContainer.First().TargetEntity.Load();            
+            wafer.MaterialContainer.First().TargetEntity.Load();
 
             // Trigger event
             base.Equipment.SendMessage("WAFER_UNLOAD_END", null);
@@ -679,7 +679,7 @@ namespace AMSOsramEIAutomaticTests.DISCODFD6363HC
             //});
 
             return true;
-        }        
+        }
 
         protected virtual bool OnS1F3(SecsMessage request, SecsMessage reply)
         {
