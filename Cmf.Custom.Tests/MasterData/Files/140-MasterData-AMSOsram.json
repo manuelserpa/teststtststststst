@@ -3740,11 +3740,6 @@
       "SourceEntity": "5FSTEP5",
       "TargetEntity": "Stepper-L7",
       "IsEnabled": "Yes"
-    },
-    "8": {
-      "SourceEntity": "EPI Sorting",
-      "TargetEntity": "Sorter-Split",
-      "IsEnabled": "Yes"
     }
   },
   "<DM>BOM": {

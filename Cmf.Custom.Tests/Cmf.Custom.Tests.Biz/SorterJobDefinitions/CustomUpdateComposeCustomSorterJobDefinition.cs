@@ -27,8 +27,8 @@ namespace Cmf.Custom.Tests.Biz.SorterJobDefinitions
     [TestClass]
     public class CustomUpdateComposeCustomSorterJobDefinition
     {
-        private static string BOMName = "BOM_11018814";
-        private static string FlowPath = "EPI:A:1/EPI Sorting:2";
+        private static string BOMName = amsOSRAMConstants.BOM_BOM_11018814;
+        private static string FlowPath = amsOSRAMConstants.FlowPathEPI_EPISorting;
         private static string SmartTableToClear = amsOSRAMConstants.CustomSorterJobDefinitionContextSmartTable;
 
         private static Step step = null;

@@ -32,13 +32,13 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
         private static string ResourceName = amsOSRAMConstants.DefaultSorterResourceName;
         private static string LoadPortName = amsOSRAMConstants.DefaultSorterLoadPort1Name;
-        private static string BOMName = "BOM_11018814";
+        private static string BOMName = amsOSRAMConstants.BOM_BOM_11018814;
         private static int NumberSusbtratesToCreate = 5;
         private static int NumberSusbtratesSubstituteToCreate = 5;
         private static string ProductName = amsOSRAMConstants.DefaultWaferProductName;
         private static string ProductSubstituteName = amsOSRAMConstants.Product_11065179;
-        private static string FlowPath = "EPI:A:1/EPI Sorting:2";
-        private static string FlowPathNoReceptionStep = "EPI:A:1/EPI Proposal:1";
+        private static string FlowPath = amsOSRAMConstants.FlowPathEPI_EPISorting;
+        private static string FlowPathNoReceptionStep = amsOSRAMConstants.FlowPathEPI_EPIProposal;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
