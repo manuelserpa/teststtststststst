@@ -1,38 +1,47 @@
 {
 	"tasks": [
 		{
-			"id": "task_6988",
+			"id": "task_75124",
 			"reference": {
-				"name": "retrieve",
+				"name": "equipmentEvent",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
 					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
-				"_retrieveOnValueChange": false,
-				"_emitInNewContext": false,
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
 				"_outputs": [
 					{
-						"name": "Resource",
-						"identifier": "Generic_ResourceName",
-						"defaultValue": "-",
-						"valueType": {
-							"name": "",
-							"friendlyName": "",
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null
-						}
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CtrlJobID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CtrlJobState",
+							"DataType": 5
+						},
+						"outputType": "Value"
 					}
 				],
-				"___cmf___name": "Retrieve Data",
-				"___cmf___color": "#c0c0c0"
-			}
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "CJSM10_EXECUTING_COMPLETED"
+					}
+				]
+			},
+			"driver": "SecsGemEquipment"
 		},
 		{
-			"id": "task_127417",
+			"id": "task_5509",
 			"reference": {
 				"name": "workflow",
 				"package": {
@@ -156,44 +165,449 @@
 			}
 		},
 		{
-			"id": "task_75124",
+			"id": "task_5513",
 			"reference": {
-				"name": "equipmentEvent",
+				"name": "customLBO",
 				"package": {
 					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
 					"version": "9.1.0-202209072"
 				}
 			},
 			"settings": {
-				"_workingMode": "AlwaysActive",
-				"_acceptAllEvents": false,
-				"_outputs": [
+				"type": "Cmf.Custom.amsOSRAM.Orchestration.InputObjects.MaterialOutInput, Cmf.Custom.amsOSRAM.Orchestration",
+				"method": "POST",
+				"urlSuffix": "api/amsOSRAM/MaterialOut",
+				"ignoreLastServiceId": false,
+				"numberOfRetries": 5,
+				"sleepBetweenRetries": 1000,
+				"serviceComments": "",
+				"clearInputs": true,
+				"inputs": [
 					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "CtrlJobID",
-							"DataType": 0
+						"name": "MaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialName"
 						},
-						"outputType": "Value"
+						"propertyName": "MaterialName",
+						"defaultValue": "\"\""
 					},
 					{
-						"property": {
-							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
-							"Name": "CtrlJobState",
-							"DataType": 5
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ResourceName"
 						},
-						"outputType": "Value"
+						"propertyName": "ResourceName",
+						"defaultValue": "\"\""
+					},
+					{
+						"name": "ContainerOnlyProcess",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerOnlyProcess"
+						},
+						"propertyName": "ContainerOnlyProcess",
+						"defaultValue": false
+					},
+					{
+						"name": "CustomSorterJobDefinition",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"propertyName": "CustomSorterJobDefinition",
+						"defaultValue": []
+					},
+					{
+						"name": "CarrierId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Carrier Id"
+						},
+						"propertyName": "CarrierId",
+						"defaultValue": " "
 					}
 				],
-				"___cmf___name": "On Equipment Event",
-				"_events": [
+				"outputs": [],
+				"___cmf___name": "Custom LBO",
+				"___cmf___description": "Material OUT",
+				"___cmf___color": "#0080ff"
+			}
+		},
+		{
+			"id": "task_5515",
+			"reference": {
+				"name": "retrieveMaterialProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-custom-utilities-amsosram-tasks",
+					"version": "2.0.0"
+				}
+			},
+			"settings": {
+				"___cmf___name": "Retrieve Material Property",
+				"___cmf___color": "#808078",
+				"outputs": []
+			}
+		},
+		{
+			"id": "task_5517",
+			"reference": {
+				"name": "expressionEvaluator",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_expressionType": 0,
+				"_evaluatorBehavior": "EvaluateUntilTrue",
+				"___cmf___name": "Expression Evaluator",
+				"_clearInputs": true,
+				"_inputs": [
 					{
-						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "CJSM10_EXECUTING_COMPLETED"
+						"name": "ContainerOnlyProcess",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Container Only Process"
+						},
+						"defaultValue": false,
+						"required": true
+					}
+				],
+				"_outputs": [
+					{
+						"name": "NotContainerProcess",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Not Container Process"
+						},
+						"expression": "not ContainerOnlyProcess",
+						"defaultValue": null
+					},
+					{
+						"name": "ContainerProcess",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Container Process"
+						},
+						"defaultValue": null,
+						"expression": "ContainerOnlyProcess"
 					}
 				]
+			}
+		},
+		{
+			"id": "task_5519",
+			"reference": {
+				"name": "expressionEvaluator",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
 			},
-			"driver": "SecsGemEquipment"
+			"settings": {
+				"_expressionType": 0,
+				"_evaluatorBehavior": "EvaluateAll",
+				"___cmf___name": "Expression Evaluator",
+				"_inputs": [
+					{
+						"name": "SorterJobInformation",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Sorter Job Information"
+						},
+						"defaultValue": {},
+						"required": true
+					},
+					{
+						"name": "ContainerOnlyProcess",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Container Only Process"
+						},
+						"defaultValue": "true",
+						"required": true
+					},
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Material Name"
+						},
+						"defaultValue": " ",
+						"required": true
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Container Name"
+						},
+						"defaultValue": " ",
+						"required": true
+					}
+				],
+				"_clearInputs": true,
+				"_outputs": [
+					{
+						"name": "SorterJobInformationOut",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "SorterJobInformation"
+						},
+						"defaultValue": null,
+						"expression": "SorterJobInformation"
+					},
+					{
+						"name": "ContainerOnlyProcessOut",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerOnlyProcess"
+						},
+						"expression": "ContainerOnlyProcess",
+						"defaultValue": null
+					},
+					{
+						"name": "MaterialNameOut",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialName"
+						},
+						"expression": "MaterialName",
+						"defaultValue": null
+					},
+					{
+						"name": "ContainerNameOut",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerName"
+						},
+						"expression": "ContainerName",
+						"defaultValue": null
+					}
+				]
+			}
+		},
+		{
+			"id": "task_25267",
+			"reference": {
+				"name": "retrieve",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_retrieveOnValueChange": false,
+				"_emitInNewContext": false,
+				"___cmf___name": "Retrieve Resource",
+				"_outputs": [
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"identifier": "Generic_ResourceName",
+						"defaultValue": "-"
+					}
+				],
+				"___cmf___description": "",
+				"___cmf___color": "#808078"
+			}
+		},
+		{
+			"id": "task_29426",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ProcessComplete",
+					"IsShared": true,
+					"Name": "ProcessComplete"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialName"
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerName"
+						}
+					},
+					{
+						"name": "LoadPortId",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LoadPortId"
+						}
+					},
+					{
+						"name": "ControlJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ControlJobId"
+						}
+					},
+					{
+						"name": "ProcessJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ProcessJobId"
+						}
+					},
+					{
+						"name": "IsBatchAction",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "IsBatchAction"
+						}
+					},
+					{
+						"name": "DoNotTriggerMaterialOut",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "MaterialDataObjects",
+						"valueType": {
+							"friendlyName": "MaterialDataObjects",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Process Complete Workflow"
+			}
 		}
 	],
 	"converters": [
@@ -240,18 +654,304 @@
 	],
 	"links": [
 		{
-			"id": "581475a5-af39-4b7e-8601-f1b947b047c0",
+			"id": "task_5509_MaterialDataObjectsOut-task_5513_ContainerOnlyProcess",
+			"sourceId": "task_5509",
+			"targetId": "task_5513",
+			"inputName": "ContainerOnlyProcess",
+			"outputName": "MaterialDataObjectsOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "ContainerOnlyProcess",
+						"type": 3,
+						"defaultValue": "false"
+					}
+				}
+			]
+		},
+		{
+			"id": "task_5509_MaterialDataObjectsOut-task_5513_CustomSorterJobDefinition",
+			"sourceId": "task_5509",
+			"targetId": "task_5513",
+			"inputName": "CustomSorterJobDefinition",
+			"outputName": "MaterialDataObjectsOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "SorterJobInformation",
+						"type": 10,
+						"defaultValue": "{}"
+					}
+				}
+			]
+		},
+		{
+			"id": "task_5509_MaterialDataObjectsOut-task_5513_MaterialName",
+			"sourceId": "task_5509",
+			"targetId": "task_5513",
+			"inputName": "MaterialName",
+			"outputName": "MaterialDataObjectsOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "MaterialName",
+						"type": 4
+					}
+				}
+			]
+		},
+		{
+			"id": "task_5515_material-task_5517_ContainerOnlyProcess",
+			"sourceId": "task_5515",
+			"targetId": "task_5517",
+			"inputName": "ContainerOnlyProcess",
+			"outputName": "material",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "ContainerOnlyProcess",
+						"type": 3
+					}
+				}
+			]
+		},
+		{
+			"id": "task_5517_NotContainerProcess-task_5509_activate",
+			"sourceId": "task_5517",
+			"targetId": "task_5509",
+			"inputName": "activate",
+			"outputName": "NotContainerProcess",
+			"converters": []
+		},
+		{
+			"id": "task_5509_MaterialDataObjectsOut-task_5513_CarrierId",
+			"sourceId": "task_5509",
+			"targetId": "task_5513",
+			"inputName": "CarrierId",
+			"outputName": "MaterialDataObjectsOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "ContainerName",
+						"type": 4,
+						"defaultValue": " "
+					}
+				}
+			]
+		},
+		{
+			"id": "task_5515_material-task_5519_SorterJobInformation",
+			"sourceId": "task_5515",
+			"targetId": "task_5519",
+			"inputName": "SorterJobInformation",
+			"outputName": "material",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "SorterJobInformation",
+						"type": 10,
+						"defaultValue": "{}"
+					}
+				}
+			]
+		},
+		{
+			"id": "task_5515_material-task_5519_ContainerName",
+			"sourceId": "task_5515",
+			"targetId": "task_5519",
+			"inputName": "ContainerName",
+			"outputName": "material",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "MaterialName",
+						"type": 4
+					}
+				}
+			]
+		},
+		{
+			"id": "task_5515_material-task_5519_ContainerName",
+			"sourceId": "task_5515",
+			"targetId": "task_5519",
+			"inputName": "ContainerName",
+			"outputName": "material",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "ContainerName",
+						"type": 4
+					}
+				}
+			]
+		},
+		{
+			"id": "task_5515_material-task_5519_MaterialName",
+			"sourceId": "task_5515",
+			"targetId": "task_5519",
+			"inputName": "MaterialName",
+			"outputName": "material",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "MaterialName",
+						"type": 4
+					}
+				}
+			]
+		},
+		{
+			"id": "task_5519_SorterJobInformationOut-task_5513_CustomSorterJobDefinition",
+			"sourceId": "task_5519",
+			"targetId": "task_5513",
+			"inputName": "CustomSorterJobDefinition",
+			"outputName": "SorterJobInformationOut",
+			"converters": []
+		},
+		{
+			"id": "task_5519_ContainerOnlyProcessOut-task_5513_ContainerOnlyProcess",
+			"sourceId": "task_5519",
+			"targetId": "task_5513",
+			"inputName": "ContainerOnlyProcess",
+			"outputName": "ContainerOnlyProcessOut",
+			"converters": []
+		},
+		{
+			"id": "task_5519_MaterialNameOut-task_5513_MaterialName",
+			"sourceId": "task_5519",
+			"targetId": "task_5513",
+			"inputName": "MaterialName",
+			"outputName": "MaterialNameOut",
+			"converters": []
+		},
+		{
+			"id": "task_5519_ContainerNameOut-task_5513_CarrierId",
+			"sourceId": "task_5519",
+			"targetId": "task_5513",
+			"inputName": "CarrierId",
+			"outputName": "ContainerNameOut",
+			"converters": []
+		},
+		{
+			"id": "937ef93f-294c-4c41-bd13-c2bfc7aa0677",
 			"sourceId": "task_75124",
-			"targetId": "task_127417",
+			"targetId": "task_5515",
+			"inputName": "controlJobId",
+			"outputName": "$CtrlJobID"
+		},
+		{
+			"id": "9980a781-85e3-4ce9-90ae-6ff23fbe17f8",
+			"sourceId": "task_5515",
+			"targetId": "task_5509",
+			"inputName": "MaterialNameIn",
+			"outputName": "material",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "MaterialName",
+						"type": 4,
+						"failIfNotFound": true
+					}
+				}
+			]
+		},
+		{
+			"id": "c8461dc6-983b-4d57-9aea-da38663f38ef",
+			"sourceId": "task_5515",
+			"targetId": "task_5509",
+			"inputName": "DoNotTriggerMaterialOutIn",
+			"outputName": "material",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "true"
+					}
+				}
+			]
+		},
+		{
+			"id": "d13c98ee-908f-43ac-8bfb-1b7d5947c22f",
+			"sourceId": "task_25267",
+			"targetId": "task_5513",
+			"inputName": "ResourceName",
+			"outputName": "ResourceName"
+		},
+		{
+			"id": "475db2ab-aaea-47a9-af00-75fe0429fa16",
+			"sourceId": "task_5519",
+			"targetId": "task_25267",
+			"inputName": "activate",
+			"outputName": "ContainerNameOut"
+		},
+		{
+			"id": "d3444593-9add-4c89-896a-1ecb23f77013",
+			"sourceId": "task_25267",
+			"targetId": "task_5513",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "9702a9d2-bd88-4f7e-b378-2f701ef91f68",
+			"sourceId": "task_75124",
+			"targetId": "task_29426",
 			"inputName": "ControlJobIdIn",
 			"outputName": "$CtrlJobID"
 		},
 		{
-			"id": "edf30cc6-3d25-40c5-a034-c8326e2dc100",
+			"id": "e1f31e46-2fd3-4daf-87ae-f6d9c6c6d347",
 			"sourceId": "task_75124",
-			"targetId": "task_127417",
+			"targetId": "task_5515",
 			"inputName": "activate",
 			"outputName": "$CtrlJobID"
+		},
+		{
+			"id": "84355065-eeef-4c6b-9fb0-429194d24991",
+			"sourceId": "task_5509",
+			"targetId": "task_5519",
+			"inputName": "ContainerOnlyProcess",
+			"outputName": "success",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 3,
+						"value": "false"
+					}
+				}
+			]
+		},
+		{
+			"id": "34da3c28-5f26-44ce-ba48-f598da45520c",
+			"sourceId": "task_5517",
+			"targetId": "task_5519",
+			"inputName": "ContainerOnlyProcess",
+			"outputName": "ContainerProcess"
+		},
+		{
+			"id": "775a2b4c-399d-4b0e-a61b-8b33a26bc69b",
+			"sourceId": "task_5509",
+			"targetId": "task_5519",
+			"inputName": "activate",
+			"outputName": "success"
+		},
+		{
+			"id": "51c5fd9f-e597-4f84-9359-49e7bb85f76e",
+			"sourceId": "task_5517",
+			"targetId": "task_5519",
+			"inputName": "activate",
+			"outputName": "ContainerProcess"
 		}
 	],
 	"layout": {
@@ -269,36 +969,145 @@
 		"drawers": {
 			"DIAGRAM": {
 				"tasks": {
-					"task_6988": {
-						"collapsed": false,
-						"position": {
-							"x": 1608,
-							"y": 1909
-						},
-						"outdated": false
-					},
-					"task_127417": {
-						"collapsed": false,
-						"position": {
-							"x": 1134,
-							"y": 301
-						},
-						"outdated": false
-					},
 					"task_75124": {
 						"collapsed": false,
 						"position": {
-							"x": 508,
-							"y": 437
+							"x": 40,
+							"y": 526
+						},
+						"outdated": false
+					},
+					"task_5509": {
+						"collapsed": false,
+						"position": {
+							"x": 2459,
+							"y": 166
+						},
+						"outdated": false
+					},
+					"task_5513": {
+						"collapsed": false,
+						"position": {
+							"x": 5354,
+							"y": 463
+						},
+						"outdated": false
+					},
+					"task_5515": {
+						"collapsed": false,
+						"position": {
+							"x": 952,
+							"y": 801
+						},
+						"outdated": false
+					},
+					"task_5517": {
+						"collapsed": false,
+						"position": {
+							"x": 1674,
+							"y": 982
+						},
+						"outdated": false
+					},
+					"task_5519": {
+						"collapsed": false,
+						"position": {
+							"x": 3887,
+							"y": 812
+						},
+						"outdated": false
+					},
+					"task_25267": {
+						"collapsed": false,
+						"position": {
+							"x": 4521,
+							"y": 1076
+						},
+						"outdated": false
+					},
+					"task_29426": {
+						"collapsed": false,
+						"position": {
+							"x": 950,
+							"y": 110
 						},
 						"outdated": false
 					}
 				},
 				"links": {
-					"581475a5-af39-4b7e-8601-f1b947b047c0": {
+					"task_5517_NotContainerProcess-task_5509_activate": {
 						"vertices": []
 					},
-					"edf30cc6-3d25-40c5-a034-c8326e2dc100": {
+					"task_5519_SorterJobInformationOut-task_5513_CustomSorterJobDefinition": {
+						"vertices": []
+					},
+					"task_5519_ContainerOnlyProcessOut-task_5513_ContainerOnlyProcess": {
+						"vertices": []
+					},
+					"task_5519_MaterialNameOut-task_5513_MaterialName": {
+						"vertices": []
+					},
+					"task_5519_ContainerNameOut-task_5513_CarrierId": {
+						"vertices": []
+					},
+					"937ef93f-294c-4c41-bd13-c2bfc7aa0677": {
+						"vertices": []
+					},
+					"d13c98ee-908f-43ac-8bfb-1b7d5947c22f": {
+						"vertices": []
+					},
+					"475db2ab-aaea-47a9-af00-75fe0429fa16": {
+						"vertices": []
+					},
+					"d3444593-9add-4c89-896a-1ecb23f77013": {
+						"vertices": []
+					},
+					"9702a9d2-bd88-4f7e-b378-2f701ef91f68": {
+						"vertices": []
+					},
+					"e1f31e46-2fd3-4daf-87ae-f6d9c6c6d347": {
+						"vertices": []
+					},
+					"34da3c28-5f26-44ce-ba48-f598da45520c": {
+						"vertices": []
+					},
+					"775a2b4c-399d-4b0e-a61b-8b33a26bc69b": {
+						"vertices": []
+					},
+					"51c5fd9f-e597-4f84-9359-49e7bb85f76e": {
+						"vertices": []
+					},
+					"task_5509_MaterialDataObjectsOut-task_5513_ContainerOnlyProcess": {
+						"vertices": []
+					},
+					"task_5509_MaterialDataObjectsOut-task_5513_CustomSorterJobDefinition": {
+						"vertices": []
+					},
+					"task_5509_MaterialDataObjectsOut-task_5513_MaterialName": {
+						"vertices": []
+					},
+					"task_5515_material-task_5517_ContainerOnlyProcess": {
+						"vertices": []
+					},
+					"task_5509_MaterialDataObjectsOut-task_5513_CarrierId": {
+						"vertices": []
+					},
+					"task_5515_material-task_5519_SorterJobInformation": {
+						"vertices": []
+					},
+					"task_5515_material-task_5519_ContainerName": {
+						"vertices": []
+					},
+					"task_5515_material-task_5519_MaterialName": {
+						"vertices": []
+					},
+					"9980a781-85e3-4ce9-90ae-6ff23fbe17f8": {
+						"vertices": []
+					},
+					"c8461dc6-983b-4d57-9aea-da38663f38ef": {
+						"vertices": []
+					},
+					"84355065-eeef-4c6b-9fb0-429194d24991": {
 						"vertices": []
 					}
 				},
@@ -306,15 +1115,15 @@
 					"note_60654": {
 						"collapsed": false,
 						"position": {
-							"x": 1631,
-							"y": 74
+							"x": 5883,
+							"y": 346
 						}
 					}
 				},
-				"zoom": 0.7600000000000005,
+				"zoom": 0.25,
 				"pan": {
-					"x": 150,
-					"y": 179
+					"x": 10,
+					"y": 27.5
 				}
 			}
 		}
