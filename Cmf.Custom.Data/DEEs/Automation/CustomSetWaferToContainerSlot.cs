@@ -179,16 +179,18 @@ namespace Cmf.Custom.amsOSRAM.Actions.Automation
             {
                 material.Load();
 
-                if (material.ParentMaterial != null)
-                {
-                    if (material.ParentMaterial.Form != amsOSRAMConstants.MaterialLogicalWaferForm)
-                    {
-                        ILocalizationService localizationService = serviceProvider.GetService<ILocalizationService>();
-                        throw new CmfBaseException(string.Format(localizationService.Localize(Thread.CurrentThread.CurrentCulture.Name, amsOSRAMConstants.LocalizedMessageCustomSetWaferToContainerSlotParentWrongForm), material.Name, amsOSRAMConstants.MaterialLogicalWaferForm));
-                    }
+                //TODO: To Uncomment when updating the Material Structre
+                //if (material.ParentMaterial != null)
+                //{
 
-                    material = material.ParentMaterial;
-                }
+                //if (material.ParentMaterial.Form != amsOSRAMConstants.MaterialLogicalWaferForm)
+                //{
+                //    ILocalizationService localizationService = serviceProvider.GetService<ILocalizationService>();
+                //    throw new CmfBaseException(string.Format(localizationService.Localize(Thread.CurrentThread.CurrentCulture.Name, amsOSRAMConstants.LocalizedMessageCustomSetWaferToContainerSlotParentWrongForm), material.Name, amsOSRAMConstants.MaterialLogicalWaferForm));
+                //}
+
+                //material = material.ParentMaterial;
+                //}
 
                 material.LoadRelations("MaterialContainer");
 
