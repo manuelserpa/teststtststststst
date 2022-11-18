@@ -368,7 +368,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
                 if (containers.Count > 0)
                 {
                     int index = 0;
-                    Collection<string> splitNames = NameGenerator.GenerateName("CustomSplitLotNameGenerator", lot, materialsOnEachContainer.Count);
+                    Collection<string> splitNames = NameGenerator.GenerateName("CustomGenerateSplitLotNames", lot, materialsOnEachContainer.Count);
 
                     foreach (KeyValuePair<IContainer, IMaterialContainerCollection> item in materialsOnEachContainer)
                     {
