@@ -212,7 +212,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
         /// <summary>
         /// Container Scenario
         /// </summary>
-        private ContainerScenario ContainerScenario = null;
+        private List<ContainerScenario> ContainerScenarios = new List<ContainerScenario>();
 
         /// <summary>
         /// Modified Resource (AutomationMode changed)
@@ -590,9 +590,13 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                 }
             }
 
-            if (ContainerScenario != null)
+            if (ContainerScenarios != null)
             {
-                ContainerScenario.TearDown();
+                foreach (ContainerScenario containerScenario in ContainerScenarios)
+                {
+                    containerScenario.Terminate();
+                    containerScenario.TearDown();
+                }
             }
 
             if (ModifiedResourceAutomationMode.Any())
@@ -645,7 +649,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
             return Tuple.Create(generatedWafer, parentMaterialLoaded);
         }
 
-        public Container GenerateContainer(MaterialCollection submaterials = null, Resource loadPortToDock = null, bool undockContainers = true, bool automaticContainerPositions = true, string containerType = amsOSRAMConstants.ContainerSMIFPod, Facility facility = null, ContainerPositionSorting positionSorting = ContainerPositionSorting.Ascending)
+        public ContainerScenario GenerateContainer(MaterialCollection subMaterials = null, Resource loadPortToDock = null, bool undockContainers = true, bool automaticContainerPositions = true, string containerType = amsOSRAMConstants.ContainerSMIFPod, Facility facility = null, ContainerPositionSorting positionSorting = ContainerPositionSorting.Ascending)
         {
             // Facility
             if (String.IsNullOrWhiteSpace(facility?.Name))
@@ -660,21 +664,23 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
             }
 
             // Create one Container to put the Wafers
-            ContainerScenario = new ContainerScenario();
-            ContainerScenario.Entity.IsAutoGeneratePositionEnabled = automaticContainerPositions;
-            ContainerScenario.Entity.Name = "Container_" + DateTime.Now.ToString("yyyyMMdd_HHmmssfff");
-            ContainerScenario.Entity.Type = containerType;
-            ContainerScenario.Entity.PositionUnitType = ContainerPositionUnitType.Material;
-            ContainerScenario.Entity.Facility = facility;
-            ContainerScenario.Entity.CapacityUnits = amsOSRAMConstants.UnitWafers;
-            ContainerScenario.Entity.CapacityPerPosition = 1;
-            ContainerScenario.Entity.PositionSorting = positionSorting;
-            ContainerScenario.Entity.TotalPositions = amsOSRAMConstants.ContainerTotalPosition;
-            ContainerScenario.Setup();
+            ContainerScenario containerScenario = new ContainerScenario();
+            containerScenario.Entity.IsAutoGeneratePositionEnabled = automaticContainerPositions;
+            containerScenario.Entity.Name = "Container_" + DateTime.Now.ToString("yyyyMMdd_HHmmssfff");
+            containerScenario.Entity.Type = containerType;
+            containerScenario.Entity.PositionUnitType = ContainerPositionUnitType.Material;
+            containerScenario.Entity.Facility = facility;
+            containerScenario.Entity.CapacityUnits = amsOSRAMConstants.UnitWafers;
+            containerScenario.Entity.CapacityPerPosition = 1;
+            containerScenario.Entity.PositionSorting = positionSorting;
+            containerScenario.Entity.TotalPositions = amsOSRAMConstants.ContainerTotalPosition;
+            containerScenario.Setup();
 
-            if (submaterials != null && submaterials.Count > 0)
+            ContainerScenarios.Add(containerScenario);
+
+            if (subMaterials != null && subMaterials.Count > 0)
             {
-                ContainerScenario.AssociateMaterials(submaterials);
+                containerScenario.AssociateMaterials(subMaterials);
             }
 
             if (loadPortToDock != null)
@@ -698,22 +704,22 @@ namespace Cmf.Custom.Tests.Biz.Common.Scenarios
                     }
                 }
 
-                ContainerScenario.Entity.LoadRelation("ResourceContainer");
+                containerScenario.Entity.LoadRelation("ResourceContainer");
                 loadPortToDock.Load();
 
                 DockContainerOutput dock = new DockContainerInput()
                 {
-                    Container = this.ContainerScenario.Entity,
+                    Container = containerScenario.Entity,
                     Resource = loadPortToDock,
                     IgnoreLastServiceId = true,
                     NumberOfRetries = 10,
                 }.DockContainerSync();
 
-                ContainerScenario.Entity = dock.Container;
-                ContainerScenario.Entity.LoadRelations(new Collection<String>() { "ContainerResource" });
+                containerScenario.Entity = dock.Container;
+                containerScenario.Entity.LoadRelations(new Collection<String>() { "ContainerResource" });
             }
 
-            return ContainerScenario.Entity;
+            return containerScenario;
         }
 
         /// <summary>

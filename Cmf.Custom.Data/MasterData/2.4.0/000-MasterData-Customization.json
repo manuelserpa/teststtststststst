@@ -258,6 +258,16 @@
       "zh-CN": "",
       "pt-PT": "",
       "zh-TW": ""
+    },
+    "11": {
+      "Name": "CustomResourceNoEnoughPositionsOrInUse",
+      "Description": "Error message to inform that does not exist enough position on the docked Containers or are all in use on a given Resource",
+      "MessageType": "Message",
+      "en-US": "Resource {0} does not have sufficient positions or the LoadPorts are in use.",
+      "de-DE": "",
+      "zh-CN": "",
+      "pt-PT": "",
+      "zh-TW": ""
     }
   },
   "<DM>Rule": {

@@ -467,7 +467,7 @@ namespace Cmf.Custom.Tests.Biz.Space
             (Material firstCrystal, firstLogicalWafer) = scenario.GenerateWafer(parentMaterial: firstLogicalWafer, type: amsOSRAMConstants.MaterialWaferCrystalType);
             (Material firstCarrier, firstLogicalWafer) = scenario.GenerateWafer(parentMaterial: firstLogicalWafer, type: amsOSRAMConstants.MaterialWaferCarrierType);
 
-            Container container = scenario.GenerateContainer(submaterials: new MaterialCollection { firstLogicalWafer });
+            scenario.GenerateContainer(subMaterials: new MaterialCollection { firstLogicalWafer });
             firstLogicalWafer.Load();
 
             BusinessPartner businessPartner = new BusinessPartner();

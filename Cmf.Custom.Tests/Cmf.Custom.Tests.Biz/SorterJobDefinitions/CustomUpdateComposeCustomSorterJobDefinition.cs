@@ -62,7 +62,7 @@ namespace Cmf.Custom.Tests.Biz.SorterJobDefinitions
                 classSmartTableManager.UndoSmartTableChanges(SmartTableToClear);
             }
         }
-        
+
         /// <summary>
         /// Tests initialization.
         /// </summary>
@@ -249,7 +249,7 @@ namespace Cmf.Custom.Tests.Biz.SorterJobDefinitions
         /// <param name="feedbackMessages">The feedback messages.</param>
         /// <param name="customSorterJobDefinition">The custom sorter job definition.</param>
         private void ValidateBOMCloneOrCreation(Collection<FeedbackMessage> feedbackMessages, CustomSorterJobDefinition customSorterJobDefinition)
-        {          
+        {
             string errorMessage = CustomUtilities.GetLocalizedMessageByName("CustomLocalizedMessageCustomSorterJobDefinitionContextConfigurationNeeded",
                                                                             customSorterJobDefinition.Name, amsOSRAMConstants.CustomSorterJobDefinitionContextSmartTable);
 
