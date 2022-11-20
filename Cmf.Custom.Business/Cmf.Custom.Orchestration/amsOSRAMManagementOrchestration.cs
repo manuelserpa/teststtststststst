@@ -527,13 +527,6 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
 
                     if (lot.UniversalState != Foundation.Common.Base.UniversalState.Terminated)
                     {
-                        MaterialInInput materialInInput = new MaterialInInput()
-                        {
-                            MaterialName = input.MaterialName,
-                            ResourceName = input.ResourceName,
-                            CarrierId = input.CarrierId
-                        };
-
                         IMaterial material;
 
                         if (lot.SystemState == MaterialSystemState.InProcess)
@@ -542,6 +535,13 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
                         }
                         else
                         {
+                            MaterialInInput materialInInput = new MaterialInInput()
+                            {
+                                MaterialName = input.MaterialName,
+                                ResourceName = input.ResourceName,
+                                CarrierId = input.CarrierId
+                            };
+
                             material = MaterialIn(materialInInput).Material;
                         }
 
