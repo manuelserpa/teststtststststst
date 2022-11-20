@@ -143,7 +143,7 @@ RecipeManagement_04_GetRecipeChecksum
 
 This is the workflow implemented for **RecipeManagement_04_GetRecipeChecksum**
 
-![RecipeManagement_04_GetRecipeChecksum](../../../../documents/equipmenttypes/brukerinsightca/recipemanagement_04_getrecipechecksum.png)
+![RecipeManagement_04_GetRecipeChecksum](../../../../documents/equipmenttypes/brukerinsightcap/recipemanagement_04_getrecipechecksum.png)
 
 ResourceEPTState_01_EptStateChangeReceived
 ============

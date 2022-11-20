@@ -12,7 +12,7 @@ The following Automation Drivers are referenced on the Automation Controller as:
 Drivers contain the information regarding all the items needed for the automation of the equipment.
 ## Automation Driver Definition - BrukerInsightCAPDriver
 ### Protocol
-The protocol used by the Automation Driver referenced on the Automation Controller is named **ProtocolNamePlaceHolder** and used the package **ProtocolPackagePlaceHolder**, using version **ProtocolVersionPlaceHolder** at the time of writing.
+The protocol used by the Automation Driver referenced on the Automation Controller is named **SecsGem** and used the package **criticalmanufacturing/connect-iot-driver-secsgem**, using version **9.1.0-202209072** at the time of writing.
 
 ### Properties
 
