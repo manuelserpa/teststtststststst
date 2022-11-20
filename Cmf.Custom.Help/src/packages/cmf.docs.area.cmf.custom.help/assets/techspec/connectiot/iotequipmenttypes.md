@@ -11,6 +11,7 @@ The details for each Equipment Type is available in the sections:
 * [Muetec DaVinci](/cmf.custom.help/techspec>connectiot>iotequipmenttypes>muetecdavinci)
 * [Nice Label](/cmf.custom.help/techspec>connectiot>iotequipmenttypes>nicelabel)
 * [Omega Plasma](/cmf.custom.help/techspec>connectiot>iotequipmenttypes>omegaplasma)
+* [Picosun Morpher](/cmf.custom.help/techspec>connectiot>iotequipmenttypes>picosunmorpher)
 * [Trymax NEO](/cmf.custom.help/techspec>connectiot>iotequipmenttypes>trymaxneo)
 * [Unity SC](/cmf.custom.help/techspec>connectiot>iotequipmenttypes>unitysc)
 

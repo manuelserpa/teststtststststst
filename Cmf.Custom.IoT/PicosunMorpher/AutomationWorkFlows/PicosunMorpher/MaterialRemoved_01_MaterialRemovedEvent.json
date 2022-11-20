@@ -1,0 +1,368 @@
+{
+	"tasks": [
+		{
+			"id": "task_95323",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "CarrierRemoved",
+					"IsShared": true,
+					"Name": "CarrierRemoved"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "ContainerId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerId"
+						}
+					},
+					{
+						"name": "LoadPortNumber",
+						"valueType": {
+							"friendlyName": "LoadPortNumber",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "LoadPortName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LoadPortName"
+						}
+					},
+					{
+						"name": "LoadPortNumber",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"friendlyName": "LoadPort",
+							"type": null,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "ContainerId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerId"
+						}
+					},
+					{
+						"name": "Container",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "Container"
+						}
+					}
+				],
+				"___cmf___name": "Carrier Removed Workflow"
+			}
+		},
+		{
+			"id": "task_189672",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "JobID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "LotID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PodID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "StationID",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CarrierRole",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "CLOCK",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "CarrierRemoved"
+					}
+				],
+				"___cmf___description": "CarrierRemoved (9002)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_32411",
+			"reference": {
+				"name": "expressionEvaluator",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_expressionType": 0,
+				"_evaluatorBehavior": "EvaluateAll",
+				"___cmf___name": "Expression Evaluator",
+				"_inputs": [
+					{
+						"name": "PORT_ID",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": -1,
+						"required": true
+					}
+				],
+				"_outputs": [
+					{
+						"name": "LoadPortNumber",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null,
+						"expression": "PORT_ID == 14 ?  1 : PORT_ID == 15 ? 2 : PORT_ID == 16 ? 3 : 0"
+					}
+				]
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "fee591a1-f0b5-44dc-a2ac-168de3ca05a9",
+			"sourceId": "task_189672",
+			"targetId": "task_32411",
+			"inputName": "PORT_ID",
+			"outputName": "$StationID"
+		},
+		{
+			"id": "2d2e23c5-0e3c-44b1-ac24-4371b41ddee7",
+			"sourceId": "task_189672",
+			"targetId": "task_32411",
+			"inputName": "activate",
+			"outputName": "$StationID"
+		},
+		{
+			"id": "4333640e-1477-4cc6-ad5c-07034c500aee",
+			"sourceId": "task_32411",
+			"targetId": "task_95323",
+			"inputName": "LoadPortNumberIn",
+			"outputName": "LoadPortNumber"
+		},
+		{
+			"id": "0b191bfb-eef4-4468-b9a7-d134bdd43357",
+			"sourceId": "task_32411",
+			"targetId": "task_95323",
+			"inputName": "activate",
+			"outputName": "LoadPortNumber"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#80ffff",
+			"notes": [
+				{
+					"id": "note_189487",
+					"name": "TosMaterialRemoved",
+					"value": "<p><strong>What it does:</strong></p><p>Sets corresponding Load Port to Available;</p><p>Undocks Container Docked from Load Port;</p><p>Clears ContainerData associated with undocked Container;</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to TosMaterialRemoved for the Tool;</li><li>Connect the value corresponding to the Load Port Id to the Load Port Id of the Workflow task;<ol><li>If the Equipment does not deliver that information and has only 1 port:<ol><li>Connect any event output to Load Port Id;</li><li>Use the Converter \"Any to Constant\" to send a value of Type Integer and Value 1;</li></ol></li><li>If the Equipment does not deliver that information and has multiple Load Port with multiple Event:<ol><li>Connect any event output to Load Port Id;</li><li>Use the Converter \"Any to Constant\" to send a value of Type Integer and Value corresponding to the Load Port;</li></ol></li></ol></li><li>Pass any event Output to the Activate Input of the Workflow;</li></ol>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_95323": {
+						"collapsed": false,
+						"position": {
+							"x": 1486,
+							"y": 323
+						},
+						"outdated": false
+					},
+					"task_189672": {
+						"collapsed": false,
+						"position": {
+							"x": 410,
+							"y": 250
+						},
+						"outdated": false
+					},
+					"task_32411": {
+						"collapsed": false,
+						"position": {
+							"x": 968,
+							"y": 516
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"fee591a1-f0b5-44dc-a2ac-168de3ca05a9": {
+						"vertices": []
+					},
+					"2d2e23c5-0e3c-44b1-ac24-4371b41ddee7": {
+						"vertices": []
+					},
+					"4333640e-1477-4cc6-ad5c-07034c500aee": {
+						"vertices": []
+					},
+					"0b191bfb-eef4-4468-b9a7-d134bdd43357": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_189487": {
+						"collapsed": false,
+						"position": {
+							"x": 1916,
+							"y": 129
+						}
+					}
+				},
+				"pan": {
+					"x": 210.5138281618929,
+					"y": 79.21636671360403
+				},
+				"zoom": 0.7300000000000002
+			}
+		}
+	}
+}

@@ -1,0 +1,20 @@
+﻿{
+  "version": "2.4.0",
+  "packageId": "Cmf.Custom.IoT.PicosunMorpher",
+  "description": "Cmf Picosun Morpher Data Package",
+  "packageType": "IoTData",
+  "isInstallable": true,
+  "isUniqueInstall": true,
+  "contentToPack": [
+    {
+      "source": "MasterData/*",
+      "target": "MasterData/$(version)",
+      "contentType": "MasterData"
+    },
+    {
+      "source": "AutomationWorkFlows/*",
+      "target": "AutomationWorkFlows",
+      "contentType": "AutomationWorkFlows"
+    }
+  ]
+}

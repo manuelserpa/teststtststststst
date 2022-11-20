@@ -6,11 +6,13 @@ The following DEE Actions were created to support customer requirements.
 
 | DEE Action                     | Description       |
 | ------                    | ------            |
+| [CustomCreateComposeSorterJobDefinition](/cmf.custom.help/techspec>artifacts>deeactions>custom_create_compose_sorter_job_definition) | Responsible for create compose sorter job definitions based on BOMs. |
 | [CustomMaterialAttributesOnTrackOut](/cmf.custom.help/techspec>artifacts>deeactions>custom_material_attributes_on_trackout) | DEE action responsible to set attributes on Material on TrackOut |
 | [CustomReportEDCToSpaceHandler](/cmf.custom.help/techspec>artifacts>deeactions>custom_report_edc_to_space_handler) | DEE action to validate DataCollection and create a XML message to be sent to Space system. |
 | [CustomSendAdHocTransferInformationToIoT](/cmf.custom.help/techspec>artifacts>deeactions>custom_send_adhoc_transfer_information_to_iot) | DEE Action responsible for sending AdHoc Transfer Information to IoT in order to process containers operations. |
 | [CustomSendEventMessage](/cmf.custom.help/techspec>artifacts>deeactions>custom_send_event_message) | DEE Action used to publish Lot event messages to MessageBus based on Material action. E.g.: Material.TrackIn, Material.TrackOut, Material.MoveNext. |
 | [CustomTibcoEMSReplyHandler](/cmf.custom.help/techspec>artifacts>deeactions>custom_tibco_ems_reply_handler) | DEE Action to handle the reply send from Tibco EMS. |
+| [CustomUpdateComposeCustomSorterJobDefinition](/cmf.custom.help/techspec>artifacts>deeactions>custom_update_compose_custom_sorter_job_definition) | Responsible for updating the Compose CustomSorterJobDefinition based on BOMs. |
 | [CustomValidateMaterialReceptionSubstrate](/cmf.custom.help/techspec>artifacts>deeactions>custom_validate_material_reception_substrate) | DEE action responsible for validate if the wafer is valid to proceed with the process. |
 | [CustomAssociateSorterJobDefinitionToContextTable](/cmf.custom.help/techspec>artifacts>deeactions>customassociatesorterjobdefinitiontocontexttable) | DEE action to create CustomSorterJobDefinition and associate to the context on CustomSorterJobDefinitionContext smart table. |
 | [CustomAutomationAdjustLoadPortState](/cmf.custom.help/techspec>artifacts>deeactions>customautomationadjustloadportstate) | This DEE Action is triggered by IoT Automation in order to adjust the state of a Load Port. |
