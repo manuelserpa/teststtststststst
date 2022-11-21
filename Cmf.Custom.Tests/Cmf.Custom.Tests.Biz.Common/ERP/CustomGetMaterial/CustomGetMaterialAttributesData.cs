@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
-using Cmf.Custom.amsOSRAM.Common.DataStructures.CustomGetMaterialAttributesDataDto;
 
-namespace Cmf.Custom.amsOSRAM.Common.DataStructures
+namespace Cmf.Custom.Tests.Biz.Common.ERP.CustomGetMaterial
 {
     [XmlRoot(ElementName = "CustomGetMaterialAttributes")]
     [XmlType(TypeName = "CustomGetMaterialAttributes")]
     public class CustomGetMaterialAttributesData
     {
         [XmlElement(ElementName = "Material", IsNullable = false)]
-        public List<Material> materialList { get; set; }
+        public List<CustomGetMaterialAttributesDataDto.Material> MaterialList { get; set; }
     }
 }

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
-namespace Cmf.Custom.amsOSRAM.Common.DataStructures
+namespace Cmf.Custom.Tests.Biz.Common.ERP.CustomGetMaterial.CustomGetMaterialAttributesDataDto
 {
     /// <summary>
     /// Attribute information class

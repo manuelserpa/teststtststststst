@@ -1,11 +1,21 @@
 ﻿using Cmf.Custom.amsOSRAM.Orchestration.InputObjects;
 using Cmf.Custom.amsOSRAM.Orchestration.OutputObjects;
+using Cmf.Custom.Tests.Biz.Common.ERP.CustomGetMaterial;
+using Cmf.Custom.Tests.Biz.Common.ERP.Space;
+using Cmf.Custom.Tests.Biz.Common.Scenarios;
+using Cmf.Custom.Tests.Biz.Common.Utilities;
 using Cmf.Custom.TestUtilities;
+using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects;
 using Cmf.TestScenarios;
 using Cmf.TestScenarios.MaterialManagement.MaterialScenarios;
+using Microsoft.AspNetCore.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics.Metrics;
+using System.Linq;
 
 namespace Cmf.Custom.Tests.Biz.EADOS
 {
@@ -13,56 +23,68 @@ namespace Cmf.Custom.Tests.Biz.EADOS
     public class CustomGetMaterial
     {
         #region Constants and Variables
-        private static Material mainMaterial = null;
-        private static Material firstSubMaterial = null;
-        private static Material secondSubMaterial = null;
-        private static Material thirdMaterial = null;
-        private static Material fourthMaterial = null;
-        private static Material fifthMaterial = null;
-        private static BaseScenario<Material> baseScenario = null;
-        private static List<MaterialScenario> materialScenarioList= null;
-        private static Foundation.BusinessObjects.AttributeCollection attributeCollection = new Foundation.BusinessObjects.AttributeCollection();
-        private static List<string> materialNameList = new List<string> {   "TestMaterialWithAttributes",
-                                                                            "TestSubMaterialWithAttributes_1",
-                                                                            "TestSubMaterialWithAttributes_2",
-                                                                            "TestMaterialWithAttributes_3",
-                                                                            "TestSubMaterialWithAttributes_4",
-                                                                            "TestSubMaterialWithAttributes_5"
-        };
+
+        private static Material firstLot = null;
+        private static Material firstChildFirstLot = null;
+        private static Material secondChildFirstLot = null;
+        private static Material secondLot = null;
+        private static Material firstChildSecondLot = null;
+        private static Material secondChildSecondLot = null;
+        private static Collection<string> allAttributes = new Collection<string> { "GoodsReceiptNo", "GoodsReceiptDate", "Gravure", "GoodsReceiptComponentNo" };
+
+        private static CustomExecutionScenario customExecutionScenario = null;
 
         #endregion Constants and Variables
 
         [ClassInitialize] 
         public static void Init(TestContext testContext)
         {
+            Foundation.BusinessObjects.AttributeCollection attributeCollection = new Foundation.BusinessObjects.AttributeCollection();
             attributeCollection.Add("GoodsReceiptNo", "81112022");
             attributeCollection.Add("GoodsReceiptDate", "20221118");
             attributeCollection.Add("GoodsReceiptComponentNo", "71112022");
             attributeCollection.Add("Gravure", "81112022");
 
-            foreach(string name in materialNameList)
+            customExecutionScenario = new CustomExecutionScenario();
+            customExecutionScenario.NumberOfMaterialsToGenerate = 2;
+            customExecutionScenario.NumberOfChildMaterialsToGenerate= 2;
+            customExecutionScenario.Setup();
+
+            MaterialCollection materials = new MaterialCollection();
+            MaterialCollection lots = customExecutionScenario.GeneratedLots;
+            
+            foreach(Material lot in lots)
             {
-                MaterialScenario materialScenario = new MaterialScenario();
-                materialScenario.Entity.Name = name;
-                materialScenario.Entity.Load();
-                materialScenario.Entity.SaveAttributes(attributeCollection);
+                lot.LoadChildren();
+                materials.AddRange(lot.SubMaterials);
+                materials.Add(lot);
             }
+
+            materials.SaveCollectionAttributes(attributeCollection);
+
+            firstLot = lots.First();
+            secondLot = lots.Last();
+
+            firstLot.LoadAttributes(allAttributes);
+            secondLot.LoadAttributes(allAttributes);
+
+            firstLot.LoadChildren();
+            firstLot.SubMaterials.LoadCollectionAttributes(allAttributes);
+            firstChildFirstLot = firstLot.SubMaterials.First();
+            secondChildFirstLot = firstLot.SubMaterials.Last();
+
+            secondLot.LoadChildren();
+            secondLot.SubMaterials.LoadCollectionAttributes(allAttributes);
+            firstChildSecondLot = secondLot.SubMaterials.First();
+            secondChildSecondLot = secondLot.SubMaterials.Last();
         }
 
         [ClassCleanup]
         public static void Cleanup()
         {
-            System.Collections.ObjectModel.Collection<string> keysToDelete = new System.Collections.ObjectModel.Collection<string> {    "GoodsReceiptNo",
-                                                                                                                                        "GoodsReceiptDate",
-                                                                                                                                        "GoodsReceiptComponentNo",
-                                                                                                                                        "Gravure"
-            };
-            foreach (string name in materialNameList)
+           if (customExecutionScenario != null)
             {
-                MaterialScenario materialScenario = new MaterialScenario();
-                materialScenario.Entity.Name = name;
-                materialScenario.Entity.Load();
-                materialScenario.Entity.RemoveAttributes(keysToDelete);
+                customExecutionScenario.CompleteCleanUp();
             }
         }
 
@@ -79,19 +101,24 @@ namespace Cmf.Custom.Tests.Biz.EADOS
         [TestMethod]
         public void CustomGetMaterialAttributes_HappyPath_MainMaterial_Not_Restricted_No_Submaterials()
         {
-            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesOutput();
-            string expectedReturn = "<?xml version=\"1.0\" encoding=\"utf-16\"?><CustomGetMaterialAttributes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Material><Name>TestMaterialWithAttributes</Name><Form>Lot</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes></Material><Material><Name>TestMaterialWithAttributes_3</Name><Form>Lot</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes></Material></CustomGetMaterialAttributes>";
-            CustomGetMaterialAttributesInput customGetMaterialAttributesInput = new CustomGetMaterialAttributesInput()
+            MaterialCollection lots = customExecutionScenario.GeneratedLots;
+
+            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesInput()
             {
-                MaterialList = "TestMaterialWithAttributes,TestMaterialWithAttributes_3",
+                MaterialList = String.Join(",", lots.Select(s => s.Name)),
                 AttributeList = "",
                 IncludeSubMaterials = "false",
                 SubMaterialAttributeList = ""
-            };
+            }.CustomGetMaterialAttributesSync();
 
-            customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
+            CustomGetMaterialAttributesData customGetMaterialAttributesData = CustomUtilities.DeserializeXmlToObject<CustomGetMaterialAttributesData>(customGetMaterialAttributesOutput.ResultXML);
 
-            Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
+            ValidateMessage(customGetMaterialAttributesData.MaterialList, lots, allAttributes);
+
+            foreach (Common.ERP.CustomGetMaterial.CustomGetMaterialAttributesDataDto.Material material in customGetMaterialAttributesData.MaterialList)
+            {
+                Assert.AreEqual(0, material.SubMaterials.Count);
+            }
         }
 
         /// <summary>
@@ -107,19 +134,20 @@ namespace Cmf.Custom.Tests.Biz.EADOS
         [TestMethod]
         public void CustomGetMaterialAttributes_HappyPath_MainMaterial_Not_Restricted_AllSubMaterials_Not_Restricted()
         {
-            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesOutput();
-            string expectedReturn = "<?xml version=\"1.0\" encoding=\"utf-16\"?><CustomGetMaterialAttributes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Material><Name>TestMaterialWithAttributes</Name><Form>Lot</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes><SubMaterials><Material><Name>TestSubMaterialWithAttributes_1</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes></Material><Material><Name>TestSubMaterialWithAttributes_2</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes></Material></SubMaterials></Material><Material><Name>TestMaterialWithAttributes_3</Name><Form>Lot</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes><SubMaterials><Material><Name>TestSubMaterialWithAttributes_4</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes></Material><Material><Name>TestSubMaterialWithAttributes_5</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes></Material></SubMaterials></Material></CustomGetMaterialAttributes>";
-            CustomGetMaterialAttributesInput customGetMaterialAttributesInput = new CustomGetMaterialAttributesInput()
+            MaterialCollection lots = customExecutionScenario.GeneratedLots;
+
+            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesInput()
             {
-                MaterialList = "TestMaterialWithAttributes,TestMaterialWithAttributes_3",
+                MaterialList = String.Join(",", lots.Select(s => s.Name)),
                 AttributeList = "",
                 IncludeSubMaterials = "",
                 SubMaterialAttributeList = ""
-            };
+            }.CustomGetMaterialAttributesSync();
 
-            customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
+            CustomGetMaterialAttributesData customGetMaterialAttributesData = CustomUtilities.DeserializeXmlToObject<CustomGetMaterialAttributesData>(customGetMaterialAttributesOutput.ResultXML);
 
-            Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
+            ValidateMessage(customGetMaterialAttributesData.MaterialList, lots, allAttributes);
+            ValidateSubMaterialMessage(customGetMaterialAttributesData.MaterialList, lots, allAttributes);
         }
 
         /// <summary>
@@ -135,19 +163,21 @@ namespace Cmf.Custom.Tests.Biz.EADOS
         [TestMethod]
         public void CustomGetMaterialAttributes_HappyPath_MainMaterial_Not_Restricted_AllSubMaterials_Restricted()
         {
-            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesOutput();
-            string expectedReturn = "<?xml version=\"1.0\" encoding=\"utf-16\"?><CustomGetMaterialAttributes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Material><Name>TestMaterialWithAttributes</Name><Form>Lot</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes><SubMaterials><Material><Name>TestSubMaterialWithAttributes_1</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes></Material><Material><Name>TestSubMaterialWithAttributes_2</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes></Material></SubMaterials></Material><Material><Name>TestMaterialWithAttributes_3</Name><Form>Lot</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes><SubMaterials><Material><Name>TestSubMaterialWithAttributes_4</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes></Material><Material><Name>TestSubMaterialWithAttributes_5</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes></Material></SubMaterials></Material></CustomGetMaterialAttributes>";
-            CustomGetMaterialAttributesInput customGetMaterialAttributesInput = new CustomGetMaterialAttributesInput()
+            Collection<string> subAttributes = new Collection<string> { "Gravure", "GoodsReceiptComponentNo" };
+            MaterialCollection lots = customExecutionScenario.GeneratedLots;
+
+            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesInput()
             {
-                MaterialList = "TestMaterialWithAttributes,TestMaterialWithAttributes_3",
+                MaterialList = String.Join(",", lots.Select(s => s.Name)),
                 AttributeList = "",
                 IncludeSubMaterials = "",
-                SubMaterialAttributeList = "Gravure,GoodsReceiptComponentNo"
-            };
+                SubMaterialAttributeList = String.Join(",", subAttributes)
+            }.CustomGetMaterialAttributesSync();
 
-            customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
+            CustomGetMaterialAttributesData customGetMaterialAttributesData = CustomUtilities.DeserializeXmlToObject<CustomGetMaterialAttributesData>(customGetMaterialAttributesOutput.ResultXML);
 
-            Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
+            ValidateMessage(customGetMaterialAttributesData.MaterialList, lots, allAttributes);
+            ValidateSubMaterialMessage(customGetMaterialAttributesData.MaterialList, lots, subAttributes);
         }
 
         /// <summary>
@@ -163,19 +193,25 @@ namespace Cmf.Custom.Tests.Biz.EADOS
         [TestMethod]
         public void CustomGetMaterialAttributes_HappyPath_MainMaterial__Restricted_No_SubMaterials()
         {
-            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesOutput();
-            string expectedReturn = "<?xml version=\"1.0\" encoding=\"utf-16\"?><CustomGetMaterialAttributes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Material><Name>TestMaterialWithAttributes</Name><Form>Lot</Form><Attributes><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes></Material><Material><Name>TestMaterialWithAttributes_3</Name><Form>Lot</Form><Attributes><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes></Material></CustomGetMaterialAttributes>";
-            CustomGetMaterialAttributesInput customGetMaterialAttributesInput = new CustomGetMaterialAttributesInput()
+            Collection<string> attributes = new Collection<string> { "Gravure", "GoodsReceiptComponentNo" };
+            MaterialCollection lots = customExecutionScenario.GeneratedLots;
+
+            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesInput()
             {
-                MaterialList = "TestMaterialWithAttributes,TestMaterialWithAttributes_3",
-                AttributeList = "Gravure,GoodsReceiptComponentNo",
+                MaterialList = String.Join(",", lots.Select(s => s.Name)),
+                AttributeList = String.Join(",", attributes),
                 IncludeSubMaterials = "false",
                 SubMaterialAttributeList = ""
-            };
+            }.CustomGetMaterialAttributesSync();
 
-            customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
+            CustomGetMaterialAttributesData customGetMaterialAttributesData = CustomUtilities.DeserializeXmlToObject<CustomGetMaterialAttributesData>(customGetMaterialAttributesOutput.ResultXML);
 
-            Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
+            ValidateMessage(customGetMaterialAttributesData.MaterialList, lots, attributes);
+
+            foreach(Common.ERP.CustomGetMaterial.CustomGetMaterialAttributesDataDto.Material material in customGetMaterialAttributesData.MaterialList)
+            {
+                Assert.AreEqual(0, material.SubMaterials.Count);
+            }
         }
 
         /// <summary>
@@ -191,19 +227,21 @@ namespace Cmf.Custom.Tests.Biz.EADOS
         [TestMethod]
         public void CustomGetMaterialAttributes_HappyPath_MainMaterial_Restricted_AllSubMaterials()
         {
-            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesOutput();
-            string expectedReturn = "<?xml version=\"1.0\" encoding=\"utf-16\"?><CustomGetMaterialAttributes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Material><Name>TestMaterialWithAttributes</Name><Form>Lot</Form><Attributes><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes><SubMaterials><Material><Name>TestSubMaterialWithAttributes_1</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes></Material><Material><Name>TestSubMaterialWithAttributes_2</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes></Material></SubMaterials></Material><Material><Name>TestMaterialWithAttributes_3</Name><Form>Lot</Form><Attributes><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes><SubMaterials><Material><Name>TestSubMaterialWithAttributes_4</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes></Material><Material><Name>TestSubMaterialWithAttributes_5</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes></Material></SubMaterials></Material></CustomGetMaterialAttributes>";
-            CustomGetMaterialAttributesInput customGetMaterialAttributesInput = new CustomGetMaterialAttributesInput()
+            Collection<string> attributes = new Collection<string> { "Gravure", "GoodsReceiptComponentNo" };
+            MaterialCollection lots = customExecutionScenario.GeneratedLots;
+            
+            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesInput()
             {
-                MaterialList = "TestMaterialWithAttributes,TestMaterialWithAttributes_3",
-                AttributeList = "Gravure,GoodsReceiptComponentNo",
+                MaterialList = String.Join(",", customExecutionScenario.GeneratedLots.Select(s => s.Name)),
+                AttributeList = String.Join(",", attributes),
                 IncludeSubMaterials = "true",
                 SubMaterialAttributeList = ""
-            };
+            }.CustomGetMaterialAttributesSync();
 
-            customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
+            CustomGetMaterialAttributesData customGetMaterialAttributesData = CustomUtilities.DeserializeXmlToObject<CustomGetMaterialAttributesData>(customGetMaterialAttributesOutput.ResultXML);
 
-            Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
+            ValidateMessage(customGetMaterialAttributesData.MaterialList, lots, attributes);
+            ValidateSubMaterialMessage(customGetMaterialAttributesData.MaterialList, lots, allAttributes);
         }
 
         /// <summary>
@@ -219,19 +257,67 @@ namespace Cmf.Custom.Tests.Biz.EADOS
         [TestMethod]
         public void CustomGetMaterialAttributes_HappyPath_MainMaterial_Restricted_Submaterial_Restricted()
         {
-            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesOutput();
-            string expectedReturn = "<?xml version=\"1.0\" encoding=\"utf-16\"?><CustomGetMaterialAttributes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><Material><Name>TestMaterialWithAttributes</Name><Form>Lot</Form><Attributes><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes><SubMaterials><Material><Name>TestSubMaterialWithAttributes_1</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute></Attributes></Material><Material><Name>TestSubMaterialWithAttributes_2</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute></Attributes></Material></SubMaterials></Material><Material><Name>TestMaterialWithAttributes_3</Name><Form>Lot</Form><Attributes><Attribute Name=\"Gravure\">81112022</Attribute><Attribute Name=\"GoodsReceiptComponentNo\">71112022</Attribute></Attributes><SubMaterials><Material><Name>TestSubMaterialWithAttributes_4</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute></Attributes></Material><Material><Name>TestSubMaterialWithAttributes_5</Name><Form>Logical Wafer</Form><Attributes><Attribute Name=\"GoodsReceiptNo\">81112022</Attribute><Attribute Name=\"GoodsReceiptDate\">20221118</Attribute></Attributes></Material></SubMaterials></Material></CustomGetMaterialAttributes>";
-            CustomGetMaterialAttributesInput customGetMaterialAttributesInput = new CustomGetMaterialAttributesInput()
+            Collection<string> attributes = new Collection<string> { "Gravure", "GoodsReceiptComponentNo" };
+            Collection<string> subAttributes = new Collection<string> { "GoodsReceiptNo", "GoodsReceiptDate" };
+            MaterialCollection lots = customExecutionScenario.GeneratedLots;
+
+            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesInput()
             {
-                MaterialList = "TestMaterialWithAttributes,TestMaterialWithAttributes_3",
-                AttributeList = "Gravure,GoodsReceiptComponentNo",
-                IncludeSubMaterials = "True",
-                SubMaterialAttributeList = "GoodsReceiptDate,GoodsReceiptNo"
-            };
+                MaterialList = String.Join(",", lots.Select(s => s.Name)),
+                AttributeList = String.Join(",", attributes),
+                IncludeSubMaterials = "true",
+                SubMaterialAttributeList = String.Join(",", subAttributes)
+            }.CustomGetMaterialAttributesSync();
 
-            customGetMaterialAttributesOutput = customGetMaterialAttributesInput.CustomGetMaterialAttributesSync();
+            CustomGetMaterialAttributesData customGetMaterialAttributesData = CustomUtilities.DeserializeXmlToObject<CustomGetMaterialAttributesData>(customGetMaterialAttributesOutput.ResultXML);
 
-            Assert.IsTrue(customGetMaterialAttributesOutput.ResultXML == expectedReturn);
+            ValidateMessage(customGetMaterialAttributesData.MaterialList, lots, attributes);
+            ValidateSubMaterialMessage(customGetMaterialAttributesData.MaterialList, lots, subAttributes);
+        }
+
+        /// <summary>
+        /// Validates the material message.
+        /// </summary>
+        /// <param name="materialList">The material list.</param>
+        /// <param name="materials">The materials.</param>
+        /// <param name="attributes">The attributes.</param>
+        private void ValidateMessage(List<Common.ERP.CustomGetMaterial.CustomGetMaterialAttributesDataDto.Material> materialList, MaterialCollection materials, Collection<string> attributes)
+        {
+            int counter = 0;
+
+            foreach (Material material in materials)
+            {
+                Common.ERP.CustomGetMaterial.CustomGetMaterialAttributesDataDto.Material customGetMaterial = materialList[counter];
+
+                Assert.AreEqual(material.Name, customGetMaterial.Name);
+                Assert.AreEqual(material.Form, customGetMaterial.Form);
+
+                Assert.AreEqual(attributes.Count, customGetMaterial.Attributes.Count);
+
+                foreach (string attribute in attributes)
+                {
+                    Assert.AreEqual(material.Attributes[attribute], customGetMaterial.Attributes.First(f => f.Name == attribute).Value);
+                }
+
+                counter++;
+            }
+        }
+
+        /// <summary>
+        /// Validates the sub material message.
+        /// </summary>
+        /// <param name="materialList">The material list.</param>
+        /// <param name="materials">The materials.</param>
+        /// <param name="attributes">The attributes.</param>
+        private void ValidateSubMaterialMessage(List<Common.ERP.CustomGetMaterial.CustomGetMaterialAttributesDataDto.Material> materialList, MaterialCollection materials, Collection<string> attributes)
+        {
+            int counter = 0;
+
+            foreach (Material material in materials)
+            {
+                ValidateMessage(materialList[counter].SubMaterials, material.SubMaterials, attributes);
+                counter++;
+            }
         }
     }
 }
