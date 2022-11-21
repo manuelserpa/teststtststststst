@@ -1,5 +1,5 @@
 ﻿{
-  "version": "2.0.0",
+  "version": "2.4.0",
   "packageId": "Cmf.Custom.IoT.TrymaxNEO",
   "description": "Cmf Trymax NEO Equipment Integration Data Package",
   "packageType": "IoTData",

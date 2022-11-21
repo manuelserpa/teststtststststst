@@ -1,5 +1,5 @@
 ﻿{
-  "version": "2.0.0",
+  "version": "2.4.0",
   "packageId": "Cmf.Custom.IoT.EvatecClusterline200II",
   "description": "Cmf Custom Template And Shared Solution Data Package",
   "packageType": "IoTData",

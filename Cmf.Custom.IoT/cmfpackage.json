@@ -37,7 +37,7 @@
     },
     {
       "id": "Cmf.Custom.IoT.EvatecClusterline200II",
-      "version": "2.0.0"
+      "version": "2.4.0"
     },
     {
       "id": "Cmf.Custom.IoT.NiceLabel",
@@ -57,7 +57,7 @@
     },
     {
       "id": "Cmf.Custom.IoT.TrymaxNEO",
-      "version": "2.0.0"
+      "version": "2.4.0"
     },
     {
       "id": "Cmf.Custom.IoT.UnitySC",
