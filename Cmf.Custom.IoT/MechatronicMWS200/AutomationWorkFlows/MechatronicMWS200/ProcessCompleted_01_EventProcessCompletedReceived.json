@@ -484,130 +484,6 @@
 				"___cmf___description": "",
 				"___cmf___color": "#808078"
 			}
-		},
-		{
-			"id": "task_29426",
-			"reference": {
-				"name": "workflow",
-				"package": {
-					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
-					"version": "9.1.0-202209072"
-				}
-			},
-			"settings": {
-				"automationWorkflow": {
-					"DisplayName": "ProcessComplete",
-					"IsShared": true,
-					"Name": "ProcessComplete"
-				},
-				"executeWhenAllInputsDefined": false,
-				"contextsExpirationInMilliseconds": 60000,
-				"executionExpirationInMilliseconds": 1200000,
-				"inputs": [
-					{
-						"name": "MaterialName",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "MaterialName"
-						}
-					},
-					{
-						"name": "ContainerName",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "ContainerName"
-						}
-					},
-					{
-						"name": "LoadPortId",
-						"valueType": {
-							"type": 5,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "LoadPortId"
-						}
-					},
-					{
-						"name": "ControlJobId",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "ControlJobId"
-						}
-					},
-					{
-						"name": "ProcessJobId",
-						"valueType": {
-							"type": 4,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "ProcessJobId"
-						}
-					},
-					{
-						"name": "IsBatchAction",
-						"valueType": {
-							"type": 3,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": "IsBatchAction"
-						}
-					},
-					{
-						"name": "DoNotTriggerMaterialOut",
-						"valueType": {
-							"type": 3,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						}
-					},
-					{
-						"name": "StateUpdatedOnMainEquipment",
-						"valueType": {
-							"type": 3,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null,
-							"friendlyName": ""
-						}
-					}
-				],
-				"outputs": [
-					{
-						"name": "MaterialDataObjects",
-						"valueType": {
-							"friendlyName": "MaterialDataObjects",
-							"type": 10,
-							"collectionType": 0,
-							"referenceType": null,
-							"referenceTypeName": null,
-							"referenceTypeId": null
-						}
-					}
-				],
-				"___cmf___name": "Process Complete Workflow"
-			}
 		}
 	],
 	"converters": [
@@ -903,13 +779,6 @@
 			"outputName": "success"
 		},
 		{
-			"id": "9702a9d2-bd88-4f7e-b378-2f701ef91f68",
-			"sourceId": "task_75124",
-			"targetId": "task_29426",
-			"inputName": "ControlJobIdIn",
-			"outputName": "$CtrlJobID"
-		},
-		{
 			"id": "e1f31e46-2fd3-4daf-87ae-f6d9c6c6d347",
 			"sourceId": "task_75124",
 			"targetId": "task_5515",
@@ -972,64 +841,56 @@
 					"task_75124": {
 						"collapsed": false,
 						"position": {
-							"x": 40,
-							"y": 526
+							"x": 147,
+							"y": 1486
 						},
 						"outdated": false
 					},
 					"task_5509": {
 						"collapsed": false,
 						"position": {
-							"x": 2459,
-							"y": 166
+							"x": 2513,
+							"y": 828
 						},
 						"outdated": false
 					},
 					"task_5513": {
 						"collapsed": false,
 						"position": {
-							"x": 5354,
-							"y": 463
+							"x": 5189,
+							"y": 994
 						},
 						"outdated": false
 					},
 					"task_5515": {
 						"collapsed": false,
 						"position": {
-							"x": 952,
-							"y": 801
+							"x": 757,
+							"y": 1472
 						},
 						"outdated": false
 					},
 					"task_5517": {
 						"collapsed": false,
 						"position": {
-							"x": 1674,
-							"y": 982
+							"x": 1523,
+							"y": 1724
 						},
 						"outdated": false
 					},
 					"task_5519": {
 						"collapsed": false,
 						"position": {
-							"x": 3887,
-							"y": 812
+							"x": 3432,
+							"y": 1604
 						},
 						"outdated": false
 					},
 					"task_25267": {
 						"collapsed": false,
 						"position": {
-							"x": 4521,
-							"y": 1076
-						},
-						"outdated": false
-					},
-					"task_29426": {
-						"collapsed": false,
-						"position": {
-							"x": 950,
-							"y": 110
+							"x": 4337,
+							"y": 1724
 						},
 						"outdated": false
 					}
@@ -1115,15 +976,15 @@
 					"note_60654": {
 						"collapsed": false,
 						"position": {
-							"x": 5883,
-							"y": 346
+							"x": 5640,
+							"y": 920
 						}
 					}
 				},
-				"zoom": 0.25,
+				"zoom": 0.32000000000000006,
 				"pan": {
-					"x": 10,
-					"y": 27.5
+					"x": 28,
+					"y": 16
 				}
 			}
 		}
