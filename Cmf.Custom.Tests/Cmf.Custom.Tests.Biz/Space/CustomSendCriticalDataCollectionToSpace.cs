@@ -886,7 +886,7 @@ namespace Cmf.Custom.Tests.Biz.Space
                 {
                     bool isSampleTypeMaterialId = dataCollection.DataCollectionParameters.FirstOrDefault(f => f.TargetEntity.Name == parameter.Name).SampleKey == DataCollectionParameterSampleKey.MaterialId;
 
-                    string key = parameter.Name + "-" + (isSampleTypeMaterialId ? point.SampleId : $"Sample {point.SampleId}");
+                    string key = parameter.Name + "-" + (isSampleTypeMaterialId ? point.SampleId : $"{point.SampleId}");
                     decimal value = (decimal)point.Value;
 
                     if (listPointsPerParameterSamples.ContainsKey(key))
