@@ -839,28 +839,7 @@
   "<SM>EntityTypeProperty": {},
   "<SM>StateModel": {},
   "StateModelState": {},
-  "StateModelTransition": {
-    "1": {
-      "StateModel": "CustomPlaceHolderStateModel",
-      "Name": "Standby to Executing",
-      "Description": "Standby to Executing",
-      "FromState": "PlaceHolderStandby",
-      "ToState": "PlaceHolderExecuting",
-      "Role": "",
-      "ReasonLookupTable": "",
-      "ReasonDefaultValue": ""
-    },
-    "2": {
-      "StateModel": "CustomPlaceHolderStateModel",
-      "Name": "Executing to Standby",
-      "Description": "Executing to Standby",
-      "FromState": "PlaceHolderExecuting",
-      "ToState": "PlaceHolderStandby",
-      "Role": "",
-      "ReasonLookupTable": "",
-      "ReasonDefaultValue": ""
-    }
-  },
+  "StateModelTransition": {},
   "<SM>DEEAction": {},
   "DEEActionOrder": {},
   "<DM>Rule": {},
@@ -870,7 +849,7 @@
   "<DM>AutomationDriverDefinition": {
     "1": {
       "Name": "EvatecClusterline200IIDriver",
-      "Description": "PlaceHolderDriver to be replaced",
+      "Description": "Evatec Clusterline 200II Driver",
       "Type": "General",
       "AutomationProtocol": "SecsGem",
       "ObjectType": "Resource"

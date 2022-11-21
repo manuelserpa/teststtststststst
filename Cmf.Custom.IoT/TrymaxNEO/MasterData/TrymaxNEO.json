@@ -837,56 +837,9 @@
   },
   "<SM>EntityType": {},
   "<SM>EntityTypeProperty": {},
-  "<SM>StateModel": {
-    "1": {
-      "Name": "CustomPlaceHolderStateModel",
-      "Description": "",
-      "DataGroup": "",
-      "EntityTypeName": "Resource"
-    }
-  },
-  "StateModelState": {
-    "1": {
-      "StateModel": "CustomPlaceHolderStateModel",
-      "Name": "PlaceHolderStandby",
-      "Description": "Standby Example",
-      "Role": "",
-      "IsInitial": "Yes",
-      "IsFinal": "No",
-      "Attributes": "Name[SEMI-E10] ScalarType[VarChar] Value[Standby]"
-    },
-    "2": {
-      "StateModel": "CustomPlaceHolderStateModel",
-      "Name": "PlaceHolderExecuting",
-      "Description": "PlaceHolderExecuting",
-      "Role": "",
-      "IsInitial": "No",
-      "IsFinal": "No",
-      "Attributes": "Name[SEMI-E10] ScalarType[VarChar] Value[Productive]"
-    }
-  },
-  "StateModelTransition": {
-    "1": {
-      "StateModel": "CustomPlaceHolderStateModel",
-      "Name": "Standby to Executing",
-      "Description": "Standby to Executing",
-      "FromState": "PlaceHolderStandby",
-      "ToState": "PlaceHolderExecuting",
-      "Role": "",
-      "ReasonLookupTable": "",
-      "ReasonDefaultValue": ""
-    },
-    "2": {
-      "StateModel": "CustomPlaceHolderStateModel",
-      "Name": "Executing to Standby",
-      "Description": "Executing to Standby",
-      "FromState": "PlaceHolderExecuting",
-      "ToState": "PlaceHolderStandby",
-      "Role": "",
-      "ReasonLookupTable": "",
-      "ReasonDefaultValue": ""
-    }
-  },
+  "<SM>StateModel": {},
+  "StateModelState": {},
+  "StateModelTransition": {},
   "<SM>DEEAction": {},
   "DEEActionOrder": {},
   "<DM>Rule": {},
@@ -896,7 +849,7 @@
   "<DM>AutomationDriverDefinition": {
     "1": {
       "Name": "TrymaxNEODriver",
-      "Description": "PlaceHolderDriver to be replaced",
+      "Description": "Trymax NEO Driver",
       "Type": "General",
       "AutomationProtocol": "SecsGem",
       "ObjectType": "Resource"
