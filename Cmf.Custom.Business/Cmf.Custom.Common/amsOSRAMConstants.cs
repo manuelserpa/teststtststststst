@@ -288,6 +288,20 @@
         /// </summary>
         public static string MaterialLastProcessRecipeAttribute = "LastProcessRecipe";
 
+        /// <summary>
+        /// BOM Attribute IsForLotCompose
+        /// </summary>
+        public static string BOMAttributeIsForLotCompose = "IsForLotCompose";
+
+        /// <summary>
+        /// BOM Attribute StartingCarrierType
+        /// </summary>
+        public static string BOMAttributeIsStartingCarrierType = "StartingCarrierType";
+
+        /// Material Attribute SAPOwner
+        /// </summary>
+        public static string MaterialAttributeSAPOwner = "SAPOwner";
+
         #endregion Attributes
 
         #region SmartTables
@@ -781,6 +795,30 @@
         /// </summary>
         public const string LocalizedMessageCustomLogicalWaferContainerAlreadyAssociated = "CustomLogicalWaferContainerAlreadyAssociated";
 
+        /// Localized Message: CustomLocalizedMessageCustomSorterJobDefinitionTerminated
+        /// </summary>
+        public static string LocalizedMessageCustomSorterJobDefinitionTerminated = "CustomLocalizedMessageCustomSorterJobDefinitionTerminated";
+
+        /// <summary>
+        /// Localized Message: CustomLocalizedMessageCustomSorterJobDefinitionWasNotCreated
+        /// </summary>
+        public static string LocalizedMessageCustomSorterJobDefinitionWasNotCreated = "CustomLocalizedMessageCustomSorterJobDefinitionWasNotCreated";
+
+        /// <summary>
+        /// Localized Message: CustomLocalizedMessageCustomSorterJobDefinitionContextUpdated
+        /// </summary>
+        public static string LocalizedMessageCustomSorterJobDefinitionContextUpdated = "CustomLocalizedMessageCustomSorterJobDefinitionContextUpdated";
+
+        /// <summary>
+        /// Localized Message: CustomLocalizedMessageCustomSorterJobDefinitionContextConfigurationNeeded
+        /// </summary>
+        public static string LocalizedMessageCustomSorterJobDefinitionContextConfigurationNeeded = "CustomLocalizedMessageCustomSorterJobDefinitionContextConfigurationNeeded";
+
+        /// <summary>
+        /// Localized Message: CustomLocalizedMessageBomForLotComposeRequiresStartingCarrierType
+        /// </summary>
+        public static string LocalizedMessageBomForLotComposeRequiresStartingCarrierType = "CustomLocalizedMessageBomForLotComposeRequiresStartingCarrierType";
+
         #endregion Localized Messages
 
         #region State Model
@@ -864,8 +902,6 @@
         public const string CustomParameterWaferQuantity = "Wafer Size";
 
         #endregion Parameters
-
-
 
         #region Queries
 
@@ -1569,5 +1605,14 @@
         public static string ComplexTrackOutAndMoveMaterialsToNextStepPost = "MaterialManagement.MaterialManagementOrchestration.ComplexTrackOutAndMoveMaterialsToNextStep.Post";
 
         #endregion ActionGroups
+
+        #region DEE Names
+
+        /// <summary>
+        /// DEE CustomCreateComposeSorterJobDefinition
+        /// </summary>
+        public static string DEECustomCreateComposeSorterJobDefinition = "CustomCreateComposeSorterJobDefinition";
+
+        #endregion DEE Names
     }
 }

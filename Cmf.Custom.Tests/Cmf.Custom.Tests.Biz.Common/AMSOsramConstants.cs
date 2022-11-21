@@ -60,6 +60,11 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// </summary>
         public static string ParameterAttributeSendToSpace = "SendToSpace";
 
+        /// <summary>
+        /// Material Attribute SAPOwner
+        /// </summary>
+        public static string MaterialAttributeSAPOwner = "SAPOwner";
+
         #endregion
 
         #region DEE
@@ -321,6 +326,16 @@ namespace Cmf.Custom.Tests.Biz.Common
         public const string FlowPathSpace = "CMFTestSpaceFlow:A:1/CMFTestProcessStep:1";
 
         /// <summary>
+        /// FlowPath for EPI on Step EPI Proposal
+        /// </summary>
+        public const string FlowPathEPI_EPIProposal = "EPI:A:1/EPI Proposal:1";
+
+        /// <summary>
+        /// FlowPath for EPI on Step EPI Sorting
+        /// </summary>
+        public const string FlowPathEPI_EPISorting = "EPI:A:1/EPI Sorting:2";
+
+        /// <summary>
         /// Service CMFTestProcessService
         /// </summary>
         public const string ServiceCMFTestProcessService = "CMFTestProcessService";
@@ -344,6 +359,11 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// Product 11065179
         /// </summary>
         public const string Product_11065179 = "11065179";
+
+        /// <summary>
+        /// BOM BOM_11018814
+        /// </summary>
+        public const string BOM_BOM_11018814 = "BOM_11018814";
 
         #region Flows and Steps
 
@@ -405,6 +425,11 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// Smart Table Name CustomProductContainerCapacities
         /// </summary>
         public const string CustomProductContainerCapacitiesSmartTable = "CustomProductContainerCapacities";
+
+        /// <summary>
+        /// Smart Table Name CustomSorterJobDefinitionContext
+        /// </summary>
+        public const string CustomSorterJobDefinitionContextSmartTable = "CustomSorterJobDefinitionContext";
 
         #endregion
 

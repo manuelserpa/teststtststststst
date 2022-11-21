@@ -1,0 +1,384 @@
+{
+	"tasks": [
+		{
+			"id": "task_28709",
+			"reference": {
+				"name": "subWorkflowStart",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"outputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					}
+				],
+				"___cmf___name": "Start"
+			}
+		},
+		{
+			"id": "task_28781",
+			"reference": {
+				"name": "subWorkflowEnd",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				]
+			}
+		},
+		{
+			"id": "task_29612",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ErrorHandling",
+					"IsShared": true,
+					"Name": "ErrorHandling"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorCode",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ErrorText",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "ResourceName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "Error",
+						"valueType": {
+							"friendlyName": "Error",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Workflow",
+				"___cmf___color": "#ff0000"
+			}
+		},
+		{
+			"id": "task_43411",
+			"reference": {
+				"name": "codeExecution",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"tsCode": [
+					"import { Framework } from 'framework';",
+					"export default class {",
+					"    /** Allows accessing external functions */",
+					"    private framework: Framework;",
+					"    constructor(framework: Framework) {",
+					"        this.framework = framework;",
+					"    }",
+					"    /*",
+					"     * Entry point of the class (IMPORTANT: don't change the signature of this method)",
+					"     * Should return an object containing the values for each output to emit",
+					"     * If necessary, use the parameter \"outputs\" to emit data while running the code.",
+					"     */",
+					"    public async main(inputs: any, outputs: any): Promise<any> {",
+					"        // Add code here       ",
+					"        const materialData = inputs.MaterialData[0];",
+					"        const remoteCommandSuccessCode = \"0x00, 0x04\";",
+					"        let commandParameters: any[] = [];",
+					"        let JobTemplateName: any[] = [];",
+					"        let WaferSelectionList: any[] = [];",
+					"        let Wafer: any[] = [];",
+					"        ",
+					"",
+					"        const sendMessage: Object = {",
+					"            type: \"S2F49\",",
+					"            item: {",
+					"                type: \"L\", value: [",
+					"                    { type: \"A\", name: \"RCMD\", value: \"CREATEJOBWAFERLIST\" },",
+					"                    { type: \"L\", value: commandParameters }",
+					"                ]",
+					"            }",
+					"        }",
+					"",
+					"        commandParameters.push(",
+					"            { type: \"L\", value: JobTemplateName },",
+					"            { type: \"L\", value: WaferSelectionList },",
+					"        );",
+					"",
+					"        JobTemplateName.push(",
+					"            { type: \"A\", name: \"CPNAME\", value: \"JobTemplateName\" },",
+					"            { type: \"A\", name: \"CPVAL\", value: materialData.Recipe.RecipeName }",
+					"        );",
+					"",
+					"        WaferSelectionList.push(",
+					"            { type: \"A\", name: \"CPNAME\", value: \"WaferSelectionList\" },",
+					"            { type: \"L\", value: Wafer }",
+					"        );",
+					"        ",
+					"        for (let i = 0; i < materialData.SubMaterials.length; i++) {",
+					"            if (materialData.SubMaterials[i].MaterialState == \"Queued\") { ",
+					"                let Wafers: any[] = [];",
+					"                let PortId: any[] = [];",
+					"                let SlotId: any[] = [];            ",
+					"                Wafer.push({",
+					"                    type: \"L\", value: [",
+					"                        { type: \"A\", name: \"CPNAME\", value: \"Wafer\" },",
+					"                        { type: \"L\", value: Wafers }",
+					"                    ]                    ",
+					"                });",
+					"",
+					"                Wafers.push(",
+					"                    { type: \"L\", value: PortId },",
+					"                    { type: \"L\", value: SlotId }",
+					"                );",
+					"",
+					"                PortId.push(",
+					"                    { type: \"A\", name: \"CPNAME\", value: \"SourcePort\" },",
+					"                    { type: \"U1\", name: \"CPVAL\", value: materialData.LoadPortPosition }",
+					"                );",
+					"",
+					"                SlotId.push(",
+					"                    { type: \"A\", name: \"CPNAME\", value: \"SourceSlot\" },",
+					"                    { type: \"U1\", name: \"CPVAL\", value: materialData.SubMaterials[i].Slot }",
+					"                );",
+					"            }",
+					"        }",
+					"        const reply = await this.framework.driver.sendRaw(\"connect.iot.driver.secsgem.sendMessage\", sendMessage);",
+					"        let successFound = false;",
+					"        for (const successCode of remoteCommandSuccessCode.split(\",\")) {",
+					"            if (reply && reply.item && parseInt(reply.item.value[0].value.data[0]) === parseInt(successCode.trim())) {",
+					"                successFound = true;",
+					"                break;",
+					"            }",
+					"        }",
+					"        if (!successFound) {",
+					"            throw new Error(`S2F49 CREATEJOBWAFERLIST Command failed in PostTrackIn for LP${materialData.LoadPortPosition}: \\nReply:${JSON.stringify(reply)}`);",
+					"        }",
+					"        ",
+					"    }",
+					"}"
+				],
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlICAgICAgIA0KICAgICAgICBjb25zdCBtYXRlcmlhbERhdGEgPSBpbnB1dHMuTWF0ZXJpYWxEYXRhWzBdOw0KICAgICAgICBjb25zdCByZW1vdGVDb21tYW5kU3VjY2Vzc0NvZGUgPSAiMHgwMCwgMHgwNCI7DQogICAgICAgIGxldCBjb21tYW5kUGFyYW1ldGVycyA9IFtdOw0KICAgICAgICBsZXQgSm9iVGVtcGxhdGVOYW1lID0gW107DQogICAgICAgIGxldCBXYWZlclNlbGVjdGlvbkxpc3QgPSBbXTsNCiAgICAgICAgbGV0IFdhZmVyID0gW107DQogICAgICAgIGNvbnN0IHNlbmRNZXNzYWdlID0gew0KICAgICAgICAgICAgdHlwZTogIlMyRjQ5IiwNCiAgICAgICAgICAgIGl0ZW06IHsNCiAgICAgICAgICAgICAgICB0eXBlOiAiTCIsIHZhbHVlOiBbDQogICAgICAgICAgICAgICAgICAgIHsgdHlwZTogIkEiLCBuYW1lOiAiUkNNRCIsIHZhbHVlOiAiQ1JFQVRFSk9CV0FGRVJMSVNUIiB9LA0KICAgICAgICAgICAgICAgICAgICB7IHR5cGU6ICJMIiwgdmFsdWU6IGNvbW1hbmRQYXJhbWV0ZXJzIH0NCiAgICAgICAgICAgICAgICBdDQogICAgICAgICAgICB9DQogICAgICAgIH07DQogICAgICAgIGNvbW1hbmRQYXJhbWV0ZXJzLnB1c2goeyB0eXBlOiAiTCIsIHZhbHVlOiBKb2JUZW1wbGF0ZU5hbWUgfSwgeyB0eXBlOiAiTCIsIHZhbHVlOiBXYWZlclNlbGVjdGlvbkxpc3QgfSk7DQogICAgICAgIEpvYlRlbXBsYXRlTmFtZS5wdXNoKHsgdHlwZTogIkEiLCBuYW1lOiAiQ1BOQU1FIiwgdmFsdWU6ICJKb2JUZW1wbGF0ZU5hbWUiIH0sIHsgdHlwZTogIkEiLCBuYW1lOiAiQ1BWQUwiLCB2YWx1ZTogbWF0ZXJpYWxEYXRhLlJlY2lwZS5SZWNpcGVOYW1lIH0pOw0KICAgICAgICBXYWZlclNlbGVjdGlvbkxpc3QucHVzaCh7IHR5cGU6ICJBIiwgbmFtZTogIkNQTkFNRSIsIHZhbHVlOiAiV2FmZXJTZWxlY3Rpb25MaXN0IiB9LCB7IHR5cGU6ICJMIiwgdmFsdWU6IFdhZmVyIH0pOw0KICAgICAgICBmb3IgKGxldCBpID0gMDsgaSA8IG1hdGVyaWFsRGF0YS5TdWJNYXRlcmlhbHMubGVuZ3RoOyBpKyspIHsNCiAgICAgICAgICAgIGlmIChtYXRlcmlhbERhdGEuU3ViTWF0ZXJpYWxzW2ldLk1hdGVyaWFsU3RhdGUgPT0gIlF1ZXVlZCIpIHsNCiAgICAgICAgICAgICAgICBsZXQgV2FmZXJzID0gW107DQogICAgICAgICAgICAgICAgbGV0IFBvcnRJZCA9IFtdOw0KICAgICAgICAgICAgICAgIGxldCBTbG90SWQgPSBbXTsNCiAgICAgICAgICAgICAgICBXYWZlci5wdXNoKHsNCiAgICAgICAgICAgICAgICAgICAgdHlwZTogIkwiLCB2YWx1ZTogWw0KICAgICAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiQSIsIG5hbWU6ICJDUE5BTUUiLCB2YWx1ZTogIldhZmVyIiB9LA0KICAgICAgICAgICAgICAgICAgICAgICAgeyB0eXBlOiAiTCIsIHZhbHVlOiBXYWZlcnMgfQ0KICAgICAgICAgICAgICAgICAgICBdDQogICAgICAgICAgICAgICAgfSk7DQogICAgICAgICAgICAgICAgV2FmZXJzLnB1c2goeyB0eXBlOiAiTCIsIHZhbHVlOiBQb3J0SWQgfSwgeyB0eXBlOiAiTCIsIHZhbHVlOiBTbG90SWQgfSk7DQogICAgICAgICAgICAgICAgUG9ydElkLnB1c2goeyB0eXBlOiAiQSIsIG5hbWU6ICJDUE5BTUUiLCB2YWx1ZTogIlNvdXJjZVBvcnQiIH0sIHsgdHlwZTogIlUxIiwgbmFtZTogIkNQVkFMIiwgdmFsdWU6IG1hdGVyaWFsRGF0YS5Mb2FkUG9ydFBvc2l0aW9uIH0pOw0KICAgICAgICAgICAgICAgIFNsb3RJZC5wdXNoKHsgdHlwZTogIkEiLCBuYW1lOiAiQ1BOQU1FIiwgdmFsdWU6ICJTb3VyY2VTbG90IiB9LCB7IHR5cGU6ICJVMSIsIG5hbWU6ICJDUFZBTCIsIHZhbHVlOiBtYXRlcmlhbERhdGEuU3ViTWF0ZXJpYWxzW2ldLlNsb3QgfSk7DQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICAgICAgY29uc3QgcmVwbHkgPSBhd2FpdCB0aGlzLmZyYW1ld29yay5kcml2ZXIuc2VuZFJhdygiY29ubmVjdC5pb3QuZHJpdmVyLnNlY3NnZW0uc2VuZE1lc3NhZ2UiLCBzZW5kTWVzc2FnZSk7DQogICAgICAgIGxldCBzdWNjZXNzRm91bmQgPSBmYWxzZTsNCiAgICAgICAgZm9yIChjb25zdCBzdWNjZXNzQ29kZSBvZiByZW1vdGVDb21tYW5kU3VjY2Vzc0NvZGUuc3BsaXQoIiwiKSkgew0KICAgICAgICAgICAgaWYgKHJlcGx5ICYmIHJlcGx5Lml0ZW0gJiYgcGFyc2VJbnQocmVwbHkuaXRlbS52YWx1ZVswXS52YWx1ZS5kYXRhWzBdKSA9PT0gcGFyc2VJbnQoc3VjY2Vzc0NvZGUudHJpbSgpKSkgew0KICAgICAgICAgICAgICAgIHN1Y2Nlc3NGb3VuZCA9IHRydWU7DQogICAgICAgICAgICAgICAgYnJlYWs7DQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICAgICAgaWYgKCFzdWNjZXNzRm91bmQpIHsNCiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcihgUzJGNDkgQ1JFQVRFSk9CV0FGRVJMSVNUIENvbW1hbmQgZmFpbGVkIGluIFBvc3RUcmFja0luIGZvciBMUCR7bWF0ZXJpYWxEYXRhLkxvYWRQb3J0UG9zaXRpb259OiBcblJlcGx5OiR7SlNPTi5zdHJpbmdpZnkocmVwbHkpfWApOw0KICAgICAgICB9DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
+				"inputs": [
+					{
+						"name": "MaterialData",
+						"valueType": {
+							"friendlyName": "MaterialData",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [],
+				"contextExpirationInMilliseconds": 10000,
+				"executionExpirationInMilliseconds": 0,
+				"___cmf___name": "Code CREATEJOBWAFERLIST Command"
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [],
+	"links": [
+		{
+			"id": "ccb69b57-6ab4-4c00-a904-d6df674c72da",
+			"sourceId": "task_28709",
+			"targetId": "task_28781",
+			"inputName": "MaterialData",
+			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "a2e0d65f-1dac-4282-919b-d2f36d569e00",
+			"sourceId": "task_29612",
+			"targetId": "task_28781",
+			"inputName": "error",
+			"outputName": "ErrorOut"
+		},
+		{
+			"id": "1060e6f7-3826-4123-ae6e-4e975f0aff01",
+			"sourceId": "task_43411",
+			"targetId": "task_28781",
+			"inputName": "success",
+			"outputName": "success"
+		},
+		{
+			"id": "0dd050c2-4ef9-4479-aa1c-af1957675392",
+			"sourceId": "task_43411",
+			"targetId": "task_29612",
+			"inputName": "ErrorIn",
+			"outputName": "error"
+		},
+		{
+			"id": "e6bdf97a-ed1d-477b-ab8f-790780662532",
+			"sourceId": "task_43411",
+			"targetId": "task_29612",
+			"inputName": "activate",
+			"outputName": "error"
+		},
+		{
+			"id": "98c663eb-d724-4ff1-bb74-3184af8b8c6b",
+			"sourceId": "task_28709",
+			"targetId": "task_43411",
+			"inputName": "activate",
+			"outputName": "activateOut"
+		},
+		{
+			"id": "25e32af5-b13c-43c2-98b3-71aa5287c86c",
+			"sourceId": "task_28709",
+			"targetId": "task_43411",
+			"inputName": "MaterialDataIn",
+			"outputName": "MaterialDataOut"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#ffff80",
+			"notes": []
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_28781": {
+						"collapsed": false,
+						"position": {
+							"x": 3410,
+							"y": 798
+						},
+						"outdated": false
+					},
+					"task_28709": {
+						"collapsed": false,
+						"position": {
+							"x": 953,
+							"y": 775
+						},
+						"outdated": false
+					},
+					"task_29612": {
+						"collapsed": false,
+						"position": {
+							"x": 2787,
+							"y": 1164
+						},
+						"outdated": false
+					},
+					"task_43411": {
+						"collapsed": false,
+						"position": {
+							"x": 2057,
+							"y": 983
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"ccb69b57-6ab4-4c00-a904-d6df674c72da": {
+						"vertices": []
+					},
+					"a2e0d65f-1dac-4282-919b-d2f36d569e00": {
+						"vertices": []
+					},
+					"1060e6f7-3826-4123-ae6e-4e975f0aff01": {
+						"vertices": []
+					},
+					"0dd050c2-4ef9-4479-aa1c-af1957675392": {
+						"vertices": []
+					},
+					"e6bdf97a-ed1d-477b-ab8f-790780662532": {
+						"vertices": []
+					},
+					"98c663eb-d724-4ff1-bb74-3184af8b8c6b": {
+						"vertices": []
+					},
+					"25e32af5-b13c-43c2-98b3-71aa5287c86c": {
+						"vertices": []
+					}
+				},
+				"notes": {},
+				"zoom": 0.5599999999999997,
+				"pan": {
+					"x": 623,
+					"y": 242
+				}
+			}
+		}
+	}
+}

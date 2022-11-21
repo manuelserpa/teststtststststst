@@ -32,19 +32,18 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
         private static string ResourceName = amsOSRAMConstants.DefaultSorterResourceName;
         private static string LoadPortName = amsOSRAMConstants.DefaultSorterLoadPort1Name;
-        private static string BOMName = "BOM_11018814";
-        private static int NumberSusbtratesToCreate = 5;
-        private static int NumberSusbtratesSubstituteToCreate = 5;
+        private static string BOMName = amsOSRAMConstants.BOM_BOM_11018814;
+        private static int NumberSubstratesToCreate = 5;
+        private static int NumberSubstratesSubstituteToCreate = 5;
         private static string ProductName = amsOSRAMConstants.DefaultWaferProductName;
         private static string ProductSubstituteName = amsOSRAMConstants.Product_11065179;
-        private static string FlowPath = "EPI:A:1/EPI Sorting:2";
-        private static string FlowPathNoReceptionStep = "EPI:A:1/EPI Proposal:1";
+        private static string FlowPath = amsOSRAMConstants.FlowPathEPI_EPISorting;
+        private static string FlowPathNoReceptionStep = amsOSRAMConstants.FlowPathEPI_EPIProposal;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
             Step = GenericUtilities.GetStepFromFlowPath(FlowPath);
-            Step.LoadAttribute(amsOSRAMConstants.StepAttributeIsWaferReception);
 
             if (!Step.HasAttributeDefined(amsOSRAMConstants.StepAttributeIsWaferReception)
                 || (bool)Step.Attributes.GetValueOrDefault(amsOSRAMConstants.StepAttributeIsWaferReception, false) == false)
@@ -58,7 +57,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 Name = ResourceName
             };
             Resource.Load();
-            Resource.LoadAttribute(amsOSRAMConstants.ResourceAttributeIsSorter);
 
             if (!Resource.HasAttributeDefined(amsOSRAMConstants.ResourceAttributeIsSorter)
                 || (bool)Resource.Attributes.GetValueOrDefault(amsOSRAMConstants.ResourceAttributeIsSorter, false) == false)
@@ -86,6 +84,19 @@ namespace Cmf.Custom.Tests.Biz.Materials
             executionScenario.Setup();
 
             executionScenario.SetResourceAutomationModeOnlineOrOffline(resource: Resource);
+
+            LoadPort = new Resource
+            {
+                Name = LoadPortName
+            };
+            LoadPort.Load();
+
+            if (!LoadPort.HasAttributeDefined(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse)
+                || (bool)LoadPort.Attributes.GetValueOrDefault(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false) == true)
+            {
+                IsLoadPortInUse = true;
+                LoadPort.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false);
+            }
 
             // Run DEE with our custom hook to capture the message sent to IoT
             foreach (string deeName in new List<string> { "CustomSendTrackInInformationToIoT", "CustomSendTrackOutInformationToIoT" })
@@ -117,35 +128,21 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 Resource.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsSorter, IsSorter);
             }
 
+            if (LoadPort != null && IsLoadPortInUse.HasValue)
+            {
+                LoadPort.Load();
+                LoadPort.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, IsLoadPortInUse);
+            }
+
             if (executionScenario != null)
             {
                 executionScenario.CompleteCleanUp();
             }
 
             // Rollback DEE
-            foreach(Foundation.Common.DynamicExecutionEngine.Action action in RollbackDEEActions)
+            foreach (Foundation.Common.DynamicExecutionEngine.Action action in RollbackDEEActions)
             {
                 CustomUtilities.UpdateOrCreateDEE(action.Name, action.ActionCode);
-            }
-        }
-
-        /// <summary>
-        /// Test Initialization
-        /// </summary>
-        [TestInitialize]
-        public void TestInitialization()
-        {
-            LoadPort = new Resource
-            {
-                Name = LoadPortName
-            };
-            LoadPort.Load();
-
-            if (!LoadPort.HasAttributeDefined(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse)
-                || (bool)LoadPort.Attributes.GetValueOrDefault(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false) == true)
-            {
-                IsLoadPortInUse = true;
-                LoadPort.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false);
             }
         }
 
@@ -155,10 +152,12 @@ namespace Cmf.Custom.Tests.Biz.Materials
         [TestCleanup]
         public void TestCleanup()
         {
-            if (LoadPort != null && IsLoadPortInUse.HasValue)
+            LoadPort.Load();
+
+            if (!LoadPort.HasAttributeDefined(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse)
+            || (bool)LoadPort.Attributes.GetValueOrDefault(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false) == true)
             {
-                LoadPort.Load();
-                LoadPort.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, IsLoadPortInUse);
+                LoadPort.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false);
             }
         }
 
@@ -167,7 +166,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
         ///     - Create Lots on the Sorting Step (EPI Sorting)
         ///     - Create Wafers on the Sorting Step (EPI Sorting) inside a container docked to a LoadPort (ENA01-LP01) on the Resource (ENA01)
         ///     - Performs the MaterialIn and MaterialOut
-        ///     
+        ///
         /// Acceptance Criteria:
         ///   - Should be used the Lot with the lower PlannedDate and higher priority
         ///   - Should create the MovementList mapping the source to be the destination (pick and store in the same position on the same container)
@@ -196,17 +195,17 @@ namespace Cmf.Custom.Tests.Biz.Materials
                     generatedLot.Save();
                 }
 
-                for (int i = 0; i < NumberSusbtratesToCreate; i++)
+                for (int i = 0; i < NumberSubstratesToCreate; i++)
                 {
                     testScenario.GenerateWafer(type: amsOSRAMConstants.MaterialWaferSubstrateType, productName: ProductName, flowPath: FlowPath);
                 }
 
-                for (int i = 0; i < NumberSusbtratesSubstituteToCreate; i++)
+                for (int i = 0; i < NumberSubstratesSubstituteToCreate; i++)
                 {
                     testScenario.GenerateWafer(type: amsOSRAMConstants.MaterialWaferSubstrateType, productName: ProductSubstituteName, flowPath: FlowPath);
                 }
 
-                Container container  = testScenario.GenerateContainer(submaterials: testScenario.GeneratedWafers, loadPortToDock: LoadPort);
+                Container container = testScenario.GenerateContainer(subMaterials: testScenario.GeneratedWafers, loadPortToDock: LoadPort).Entity;
 
                 MaterialInOutput materialInOutput = new MaterialInInput()
                 {
@@ -225,7 +224,8 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 }.MaterialOutSync();
 
                 ValidateMaterialOut(materialOutOutput.MaterialName, lot, testScenario.GeneratedWafers);
-            } finally
+            }
+            finally
             {
                 if (testScenario != null)
                 {
@@ -239,7 +239,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
         ///     - Create Lots on the Sorting Step (EPI Sorting)
         ///     - Create Wafers on the Sorting Step (EPI Sorting) inside a container docked to a LoadPort (ENA01-LP01) on the Resource (ENA01)
         ///     - Performs the Orchestration TrackIn and TrackOut
-        ///     
+        ///
         /// Acceptance Criteria:
         ///   - Should be used the Lot with the lower PlannedDate and higher priority
         ///   - Should create the MovementList mapping the source to be the destination (pick and store in the same position on the same container)
@@ -268,17 +268,17 @@ namespace Cmf.Custom.Tests.Biz.Materials
                     generatedLot.Save();
                 }
 
-                for (int i = 0; i < NumberSusbtratesToCreate; i++)
+                for (int i = 0; i < NumberSubstratesToCreate; i++)
                 {
                     testScenario.GenerateWafer(type: amsOSRAMConstants.MaterialWaferSubstrateType, productName: ProductName, flowPath: FlowPath);
                 }
 
-                for (int i = 0; i < NumberSusbtratesSubstituteToCreate; i++)
+                for (int i = 0; i < NumberSubstratesSubstituteToCreate; i++)
                 {
                     testScenario.GenerateWafer(type: amsOSRAMConstants.MaterialWaferSubstrateType, productName: ProductSubstituteName, flowPath: FlowPath);
                 }
 
-                Container container = testScenario.GenerateContainer(submaterials: testScenario.GeneratedWafers, loadPortToDock: LoadPort);
+                Container container = testScenario.GenerateContainer(subMaterials: testScenario.GeneratedWafers, loadPortToDock: LoadPort).Entity;
 
                 Material lot = testScenario.GeneratedLots[1];
                 Resource.Load();
@@ -306,7 +306,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
         ///     - Performs the MaterialIn
         ///     - Change MovementList to have one invalid move
         ///     - Performs the MaterialOut
-        ///     
+        ///
         /// Acceptance Criteria:
         ///   - Should throw an error with mismatch movement list
         /// </summary>
@@ -325,17 +325,17 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 testScenario.NumberOfMaterialsToGenerate = 1;
                 testScenario.Setup();
 
-                for (int i = 0; i < NumberSusbtratesToCreate; i++)
+                for (int i = 0; i < NumberSubstratesToCreate; i++)
                 {
                     testScenario.GenerateWafer(type: amsOSRAMConstants.MaterialWaferSubstrateType, productName: ProductName, flowPath: FlowPath);
                 }
 
-                for (int i = 0; i < NumberSusbtratesSubstituteToCreate; i++)
+                for (int i = 0; i < NumberSubstratesSubstituteToCreate; i++)
                 {
                     testScenario.GenerateWafer(type: amsOSRAMConstants.MaterialWaferSubstrateType, productName: ProductSubstituteName, flowPath: FlowPath);
                 }
 
-                Container container = testScenario.GenerateContainer(submaterials: testScenario.GeneratedWafers, loadPortToDock: LoadPort);
+                Container container = testScenario.GenerateContainer(subMaterials: testScenario.GeneratedWafers, loadPortToDock: LoadPort).Entity;
 
                 MaterialInOutput materialInOutput = new MaterialInInput()
                 {
@@ -344,7 +344,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
                 Material lot = testScenario.GeneratedLots.OrderBy(w => w.PossibleStartDate).ThenBy(w => w.Priority).FirstOrDefault();
 
-                // Change 
+                // Change
                 JArray movementList = GenerateMovementList(container);
                 movementList[0]["DestinationPosition"] = movementList[1]["DestinationPosition"];
                 CustomSorterJobDefinition.MovementList = movementList.ToString();
@@ -373,7 +373,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
         ///     - Create Lots on the Sorting Step (EPI Sorting)
         ///     - Create Wafers on the Sorting Step (EPI Sorting) and substitutes on non Sorting Step (EPI Proposal) inside a container docked to a LoadPort (ENA01-LP01) on the Resource (ENA01)
         ///     - Performs the MaterialIn
-        ///     
+        ///
         /// Acceptance Criteria:
         ///   - Should throw an error with no materials to TrackIn
         /// </summary>
@@ -392,17 +392,17 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 testScenario.NumberOfMaterialsToGenerate = 1;
                 testScenario.Setup();
 
-                for (int i = 0; i < NumberSusbtratesToCreate; i++)
+                for (int i = 0; i < NumberSubstratesToCreate; i++)
                 {
                     testScenario.GenerateWafer(type: amsOSRAMConstants.MaterialWaferSubstrateType, productName: ProductName, flowPath: FlowPath);
                 }
 
-                for (int i = 0; i < NumberSusbtratesSubstituteToCreate; i++)
+                for (int i = 0; i < NumberSubstratesSubstituteToCreate; i++)
                 {
                     testScenario.GenerateWafer(type: amsOSRAMConstants.MaterialWaferSubstrateType, productName: ProductSubstituteName, flowPath: FlowPathNoReceptionStep);
                 }
 
-                Container container = testScenario.GenerateContainer(submaterials: testScenario.GeneratedWafers, loadPortToDock: LoadPort);
+                Container container = testScenario.GenerateContainer(subMaterials: testScenario.GeneratedWafers, loadPortToDock: LoadPort).Entity;
 
                 CmfFaultException cmfFaultException = Assert.ThrowsException<CmfFaultException>(() => new MaterialInInput()
                 {
@@ -426,7 +426,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
         ///     - Create Lots on the Sorting Step (EPI Sorting)
         ///     - Create Wafers on the Sorting Step (EPI Sorting) without container docked to a LoadPort (ENA01-LP01) on the Resource (ENA01)
         ///     - Performs the MaterialIn
-        ///     
+        ///
         /// Acceptance Criteria:
         ///   - Should throw an error with no materials to TrackIn
         /// </summary>
@@ -445,12 +445,12 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 testScenario.NumberOfMaterialsToGenerate = 1;
                 testScenario.Setup();
 
-                for (int i = 0; i < NumberSusbtratesToCreate; i++)
+                for (int i = 0; i < NumberSubstratesToCreate; i++)
                 {
                     testScenario.GenerateWafer(type: amsOSRAMConstants.MaterialWaferSubstrateType, productName: ProductName, flowPath: FlowPath);
                 }
 
-                for (int i = 0; i < NumberSusbtratesSubstituteToCreate; i++)
+                for (int i = 0; i < NumberSubstratesSubstituteToCreate; i++)
                 {
                     testScenario.GenerateWafer(type: amsOSRAMConstants.MaterialWaferSubstrateType, productName: ProductSubstituteName, flowPath: FlowPath);
                 }
@@ -477,7 +477,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
         ///     - Create Lots on the Sorting Step (EPI Sorting)
         ///     - Create multiple Wafers on the Sorting Step (EPI Sorting) inside a multiple container docked to a LoadPort (ENA01-LP01) on the Resource (ENA01)
         ///     - Performs the MaterialIn and MaterialOut
-        ///     
+        ///
         /// Acceptance Criteria:
         ///   - Should be used the Lot with the lower PlannedDate and higher priority
         ///   - Should create the MovementList mapping the source to be the destination (pick and store in the same position on the same container)
@@ -499,28 +499,28 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 testScenario.Setup();
 
                 MaterialCollection waferCollectionToTrackOut = new MaterialCollection();
-                for (int i = 0; i < NumberSusbtratesToCreate; i++)
+                for (int i = 0; i < NumberSubstratesToCreate; i++)
                 {
                     System.Tuple<Material, Material> generatedWafer = testScenario.GenerateWafer(type: amsOSRAMConstants.MaterialWaferSubstrateType, productName: ProductName, flowPath: FlowPath);
                     waferCollectionToTrackOut.Add(generatedWafer.Item1);
                 }
 
-                for (int i = 0; i < NumberSusbtratesSubstituteToCreate; i++)
+                for (int i = 0; i < NumberSubstratesSubstituteToCreate; i++)
                 {
                     System.Tuple<Material, Material> generatedWafer = testScenario.GenerateWafer(type: amsOSRAMConstants.MaterialWaferSubstrateType, productName: ProductSubstituteName, flowPath: FlowPath);
                     waferCollectionToTrackOut.Add(generatedWafer.Item1);
                 }
 
-                Container containerToTrackOut = testScenario.GenerateContainer(submaterials: waferCollectionToTrackOut, loadPortToDock: LoadPort);
+                Container containerToTrackOut = testScenario.GenerateContainer(subMaterials: waferCollectionToTrackOut, loadPortToDock: LoadPort).Entity;
 
                 MaterialCollection waferCollection = new MaterialCollection();
-                for (int i = 0; i < NumberSusbtratesToCreate + NumberSusbtratesSubstituteToCreate; i++)
+                for (int i = 0; i < NumberSubstratesToCreate + NumberSubstratesSubstituteToCreate; i++)
                 {
                     System.Tuple<Material, Material> generatedWafer = testScenario.GenerateWafer(type: amsOSRAMConstants.MaterialWaferSubstrateType, productName: ProductName, flowPath: FlowPath);
                     waferCollection.Add(generatedWafer.Item1);
                 }
 
-                Container container = testScenario.GenerateContainer(submaterials: waferCollection, loadPortToDock: LoadPort);
+                Container container = testScenario.GenerateContainer(subMaterials: waferCollection, loadPortToDock: LoadPort).Entity;
 
                 MaterialInOutput materialInOutput = new MaterialInInput()
                 {
@@ -607,10 +607,10 @@ namespace Cmf.Custom.Tests.Biz.Materials
         {
             container.Load();
             container.LoadRelation("MaterialContainer", 2);
-            
+
             JArray jArray = new JArray();
 
-            foreach(MaterialContainer containerMaterial in container.ContainerMaterials)
+            foreach (MaterialContainer containerMaterial in container.ContainerMaterials)
             {
                 jArray.Add(new JObject
                 {

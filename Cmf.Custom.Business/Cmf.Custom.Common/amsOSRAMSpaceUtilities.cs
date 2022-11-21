@@ -73,9 +73,9 @@ namespace Cmf.Custom.amsOSRAM.Common
             }
 
             string sapOwner = "-";
-            if (lot.Product.HasRelatedAttribute(amsOSRAMConstants.ProductAttributeSAPProductType, true))
+            if (lot.Form == amsOSRAMConstants.MaterialLotForm && lot.HasAttribute(amsOSRAMConstants.MaterialAttributeSAPOwner, true))
             {
-                sapOwner = (string)lot.Product.GetRelatedAttributeValue(amsOSRAMConstants.ProductAttributeSAPProductType);
+                sapOwner = (string)lot.GetAttributeValue(amsOSRAMConstants.MaterialAttributeSAPOwner);
             }
 
             lot.LoadAttribute(amsOSRAMConstants.MaterialLastProcessRecipeAttribute);
@@ -215,7 +215,7 @@ namespace Cmf.Custom.amsOSRAM.Common
             {
                 SpecificationLimits limits = new SpecificationLimits();
 
-                if (limitSet.DataCollectionParameterLimits.Any(ls => ls.TargetEntity.Name.Equals(parameter.Name)))
+                if (limitSet?.DataCollectionParameterLimits != null && limitSet.DataCollectionParameterLimits.Any(ls => ls.TargetEntity.Name.Equals(parameter.Name)))
                 {
                     IDataCollectionParameterLimit parameterLimit = limitSet.DataCollectionParameterLimits.FirstOrDefault(ls => ls.TargetEntity.Name.Equals(parameter.Name));
 
@@ -339,7 +339,7 @@ namespace Cmf.Custom.amsOSRAM.Common
                             new Key()
                             {
                                 Name = "WILDCARD EX1",
-                                Value = logicalWafer == null ? $"Sample {mapSampleDCPoint.Key}" : "-"
+                                Value = logicalWafer == null ? mapSampleDCPoint.Key : "-"
                             },
                             new Key()
                             {

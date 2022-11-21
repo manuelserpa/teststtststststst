@@ -127,8 +127,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
                 {
                     IMaterial possibleLotToTrackIn = container.ContainerMaterials.First().SourceEntity.TopMostMaterial ?? container.ContainerMaterials.First().SourceEntity;
 
-                    if (possibleLotToTrackIn.Step.HasAttribute(amsOSRAMConstants.StepAttributeIsWaferReception, true) &&
-                        !possibleLotToTrackIn.Step.GetAttributeValueOrDefault<bool>(amsOSRAMConstants.StepAttributeIsWaferReception, false, false))
+                    if (possibleLotToTrackIn.Step.GetAttributeValueOrDefault<bool>(amsOSRAMConstants.StepAttributeIsWaferReception, false, true))
                     {
                         waferToTrackIn = possibleLotToTrackIn;
                     }

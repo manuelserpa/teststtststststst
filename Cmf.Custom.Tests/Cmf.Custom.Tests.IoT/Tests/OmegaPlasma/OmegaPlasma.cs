@@ -66,6 +66,7 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
         public bool recievedUnloadPodCommand = false;
         public bool receivedPPSelectCommand = false;
 
+        public bool receivedEnableAlarm = false;
 
         private int chamberToProcess = 1;
 
@@ -79,11 +80,13 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
         {
 
             base.Equipment = m_Scenario.GetEquipment(m_Scenario.EquipmentToTest) as SecsGemEquipment;
+            
+            base.Equipment.RegisterOnMessage("S1F3", OnS1F3);
+            base.Equipment.RegisterOnMessage("S5F3", OnS5F3);
 
             base.Initialize(recipeName);
             base.SubMaterialTrackin = subMaterialTrackin;
-
-            base.Equipment.RegisterOnMessage("S1F3", OnS1F3);
+            
             base.Equipment.RegisterOnMessage("S2F41", OnS2F41);
 
             base.Equipment.RegisterOnMessage("S3F17", OnS3F17);
@@ -125,7 +128,7 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
         public static void ClassInitialize(TestContext context)
         {
 			ConfigureConnection(readerResourceName, 5013, prepareTestScenario: false);
-			ConfigureConnection(resourceName, 5012, isEnableAllAlarms: true, killProcess: false);
+			ConfigureConnection(resourceName, 5012, isEnableAllAlarms: false, killProcess: false);
 
             Resource lp1 = new Resource() { Name = "5FICP1-LP1" };
             lp1.Load();
@@ -440,6 +443,18 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
                 return ((dataCollectionInstancesBefore + 1) == dataCollectionInstancesAfter);
             });
         }
+
+        /// <summary> 
+        /// Scenario: Alarm occurrs, validate EnableDisableNothing Alarms
+        /// </summary>
+        [TestMethod]
+        public void OmegaPlasma_EnableDisableNothing()
+        {
+            TestUtilities.WaitForNotChanged(20/*ValidationTimeout*/, "Failed to recieve Enable Alarms", () => {
+                return receivedEnableAlarm;
+            });
+        }
+
         #endregion Tests FullProcessScenario 
 
 
@@ -958,6 +973,13 @@ namespace amsOSRAMEIAutomaticTests.OmegaPlasma
                     reply.Item.Add(new SecsItem { U1 = new byte[] { (byte)(isOnlineRemote ? 5 : 4) } });
                 }
             }
+
+            return true;
+        }
+
+        protected virtual bool OnS5F3(SecsMessage request, SecsMessage reply)
+        {
+            receivedEnableAlarm = true;
 
             return true;
         }

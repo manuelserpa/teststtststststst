@@ -196,6 +196,31 @@
       "DataGroup": "",
       "LoadToDWH": "",
       "LocalizedMessageKey": ""
+    },
+    "7": {
+      "EntityType": "Material",
+      "Name": "SAPOwner",
+      "Description": "",
+      "PropertyType": "Attribute",
+      "CopyOnClone": "No",
+      "BelongsTo": "Definition",
+      "ScalarType": "NVarChar",
+      "ScalarSize": "256",
+      "ScalarPrecision": "",
+      "ReferenceType": "None",
+      "ReferenceName": "",
+      "DefaultValue": "",
+      "IsArray": "No",
+      "IsEnabled": "Yes",
+      "IsHistoryEnable": "Yes",
+      "IsIndexed": "No",
+      "IsMandatory": "No",
+      "AccessLevel": "",
+      "ValidationRange": "",
+      "ValidationRegex": "",
+      "DataGroup": "",
+      "LoadToDWH": "",
+      "LocalizedMessageKey": ""
     }
   },
   "<SM>User": {

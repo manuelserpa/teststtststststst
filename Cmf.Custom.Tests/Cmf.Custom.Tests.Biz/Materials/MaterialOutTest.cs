@@ -5,6 +5,7 @@ using Cmf.Custom.Tests.Biz.Common.Scenarios;
 using Cmf.Custom.TestUtilities;
 using Cmf.Navigo.BusinessObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace Cmf.Custom.Tests.Biz.Materials
 {
@@ -14,9 +15,40 @@ namespace Cmf.Custom.Tests.Biz.Materials
     [TestClass]
     public class MaterialOutTest
     {
+        private static string StepName = amsOSRAMConstants.TestM3MTZnOSputterCluster6in00126F008_E;
+        private static bool? IsWaferReception = null;
+
         private Resource resource = null;
         private CustomMaterialScenario materialScenario = null;
         private bool? isRecipeManagementEnabled = null;
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            Step step = new Step();
+            step.Name = StepName;
+            step.Load();
+
+            if (!step.HasAttributeDefined(amsOSRAMConstants.StepAttributeIsWaferReception)
+                || (bool)step.Attributes.GetValueOrDefault(amsOSRAMConstants.StepAttributeIsWaferReception, false) == false)
+            {
+                IsWaferReception = false;
+                step.SaveAttribute(amsOSRAMConstants.StepAttributeIsWaferReception, true);
+            }
+        }
+
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            if (IsWaferReception.HasValue)
+            {
+                Step step = new Step();
+                step.Name = StepName;
+                step.Load();
+
+                step.SaveAttribute(amsOSRAMConstants.StepAttributeIsWaferReception, IsWaferReception);
+            }
+        }
 
         /// <summary>
         /// Test Cleanup
@@ -138,7 +170,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
             //Change material to a step where the resource has subResource of type Process
             materialScenario.FlowName = amsOSRAMConstants.TestFlow;
-            materialScenario.StepName = amsOSRAMConstants.TestM3MTZnOSputterCluster6in00126F008_E;
+            materialScenario.StepName = StepName;
             materialScenario.NumberOfSubMaterials = 1;
 
             // Create the Material and TrackIn
@@ -216,12 +248,14 @@ namespace Cmf.Custom.Tests.Biz.Materials
             Flow flow = new Flow() { Name = amsOSRAMConstants.TestFlow };
             flow.Load();
 
-            Step step = new Step() { Name = amsOSRAMConstants.TestM3MTZnOSputterCluster6in00126F008_E };
+            Step step = new Step() { Name = StepName };
             step.Load();
 
             string flowPath = FlowExtensionMethods.CustomGetFlowPath(flow, step.Name);
 
             materialScenario.ChangeFlowAndStep(flow, step, flowPath);
+
+            #endregion
 
             new MaterialOutInput()
             {
@@ -233,7 +267,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
             Assert.AreEqual(MaterialSystemState.Queued, materialScenario.Entity.SystemState, "Material state does not match!");
 
-            #endregion
         }
 
         /// <summary>
@@ -247,7 +280,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
             materialScenario = new CustomMaterialScenario(false);
             //Change material to a step where the resource has subResource of type Process
             materialScenario.FlowName = amsOSRAMConstants.TestFlow;
-            materialScenario.StepName = amsOSRAMConstants.TestM3MTZnOSputterCluster6in00126F008_E;
+            materialScenario.StepName = StepName;
             materialScenario.NumberOfSubMaterials = 0;
 
             // Create the Material and TrackIn

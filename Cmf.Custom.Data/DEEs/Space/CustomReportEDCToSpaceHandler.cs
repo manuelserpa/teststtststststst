@@ -51,8 +51,8 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
 
                 IDataCollectionInstance dataCollectionInstance = amsOSRAMUtilities.GetInputItem<IDataCollectionInstance>(Input, Navigo.Common.Constants.DataCollectionInstance);
 
-                // Check if Input data returns DataCollection and associated DataCollection Limit Sets
-                if (reportEDCToSpace && dataCollectionInstance != null && dataCollectionInstance.DataCollectionLimitSet != null && dataCollectionInstance.Material != null)
+                // Check if Input data returns DataCollection and associated DataCollection Limit Sets (if exists)
+                if (reportEDCToSpace && dataCollectionInstance != null && dataCollectionInstance.Material != null)
                 {
                     dataCollectionInstance.Step.Load();
 
@@ -106,7 +106,11 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
             dataCollectionInstance.LoadRelations(Navigo.Common.Constants.DataCollectionPoint);
 
             IDataCollectionLimitSet dataCollectionLimitSet = dataCollectionInstance.DataCollectionLimitSet;
-            dataCollectionLimitSet.LoadRelations(Navigo.Common.Constants.DataCollectionParameterLimit);
+
+            if (dataCollectionLimitSet != null)
+            {
+                dataCollectionLimitSet.LoadRelations(Navigo.Common.Constants.DataCollectionParameterLimit);
+            }
 
             // Check if Material associated to DataCollection have a Parent Material
             IMaterial material = dataCollectionInstance.Material.ParentMaterial != null
@@ -118,7 +122,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Space
             // Check limits of Data Collection Points
             foreach (IDataCollectionPoint dataCollectionPoint in dataCollectionInstance.DataCollectionPoints)
             {
-                IDataCollectionParameterLimit parameterLimit = dataCollectionLimitSet.DataCollectionParameterLimits?.FirstOrDefault(limit => limit.TargetEntity.Name == dataCollectionPoint.TargetEntity.Name);
+                IDataCollectionParameterLimit parameterLimit = dataCollectionLimitSet?.DataCollectionParameterLimits?.FirstOrDefault(limit => limit.TargetEntity.Name == dataCollectionPoint.TargetEntity.Name);
 
                 if (parameterLimit == null)
                 {

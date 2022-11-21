@@ -35,6 +35,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
         private static int targetCapacity = amsOSRAMConstants.ContainerTotalPosition - 2;
 
         private ExecuteActionInput actionToExecute;
+        private ResourceCollection resourcesToCleanup;
 
         /// <summary>
         /// Test Initialize
@@ -69,6 +70,11 @@ namespace Cmf.Custom.Tests.Biz.Materials
                     },
                     {
                         loadPortToDockName, new Foundation.BusinessObjects.AttributeCollection {
+                            { amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false }
+                        }
+                    },
+                    {
+                        loadPortToDock2Name, new Foundation.BusinessObjects.AttributeCollection {
                             { amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false }
                         }
                     }
@@ -169,6 +175,22 @@ namespace Cmf.Custom.Tests.Biz.Materials
                     { "LoadPort", loadPortName }
                 }
             };
+
+            resourcesToCleanup = new ResourceCollection();
+        }
+
+        /// <summary>
+        /// Test Cleanup
+        /// </summary>
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            resourcesToCleanup.Load();
+
+            foreach (Resource resource in resourcesToCleanup)
+            {
+                resource.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false);
+            }
         }
 
         /// <summary>
@@ -196,9 +218,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
         {
             CustomMaterialScenario materialScenario = null;
 
-            Resource sourceLoadPort = new Resource();
-            Resource loadPortToDock1 = new Resource();
-
             try
             {
                 materialScenario = new CustomMaterialScenario(setResourceOnline: false, createContainer: true, setResourceOffline: false)
@@ -207,6 +226,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 };
                 materialScenario.Setup(productName: productName, positionSorting: ContainerPositionSorting.Descending);
 
+                Resource loadPortToDock1 = new Resource();
                 loadPortToDock1.Name = loadPortToDockName;
                 loadPortToDock1.Load();
 
@@ -214,8 +234,12 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
                 MaterialData materialData = RunExecuteAction(actionToExecute);
 
+                Resource sourceLoadPort = new Resource();
                 sourceLoadPort.Name = loadPortName;
                 sourceLoadPort.Load();
+
+                resourcesToCleanup.Add(loadPortToDock1);
+                resourcesToCleanup.Add(sourceLoadPort);
 
                 Recipe recipe = new Recipe();
                 recipe.Name = recipeName;
@@ -247,12 +271,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
             }
             finally
             {
-                sourceLoadPort.Load();
-                loadPortToDock1.Load();
-                
-                sourceLoadPort.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false);
-                loadPortToDock1.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false);
-                
                 if (materialScenario != null)
                 {
                     materialScenario.TearDown();
@@ -286,10 +304,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
             CustomMaterialScenario materialScenarioLP1 = null;
             CustomMaterialScenario materialScenarioLP2 = null;
 
-            Resource sourceLoadPort = new Resource();
-            Resource loadPortToDock1 = new Resource();
-            Resource loadPortToDock2 = new Resource();
-
             try
             {
                 materialScenarioLP1 = new CustomMaterialScenario(setResourceOnline: false, createContainer: true, setResourceOffline: false)
@@ -319,11 +333,13 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
                 materialScenarioLP2.ContainerScenario.AssociateMaterials(materialContainerCollection);
 
+                Resource loadPortToDock1 = new Resource();
                 loadPortToDock1.Name = loadPortToDockName;
                 loadPortToDock1.Load();
 
                 materialScenarioLP1.DockContainer(loadPortToDock1);
 
+                Resource loadPortToDock2 = new Resource();
                 loadPortToDock2.Name = loadPortToDock2Name;
                 loadPortToDock2.Load();
 
@@ -334,8 +350,13 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
                 MaterialData materialData = RunExecuteAction(actionToExecute);
 
+                Resource sourceLoadPort = new Resource();
                 sourceLoadPort.Name = loadPortName;
                 sourceLoadPort.Load();
+
+                resourcesToCleanup.Add(loadPortToDock1);
+                resourcesToCleanup.Add(loadPortToDock2);
+                resourcesToCleanup.Add(sourceLoadPort);
 
                 Recipe recipe = new Recipe();
                 recipe.Name = recipeName;
@@ -373,14 +394,6 @@ namespace Cmf.Custom.Tests.Biz.Materials
             }
             finally
             {
-                sourceLoadPort.Load();
-                loadPortToDock1.Load();
-                loadPortToDock2.Load();
-
-                sourceLoadPort.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false);
-                loadPortToDock1.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false);
-                loadPortToDock2.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false);
-
                 if (materialScenarioLP1 != null)
                 {
                     materialScenarioLP1.TearDown();
@@ -389,6 +402,85 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 if (materialScenarioLP2 != null)
                 {
                     materialScenarioLP2.TearDown();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Description: Validates Message sent to IoT triggered by DEE SendAdHocTransferInformationToIoT with a single container docked
+        /// Acceptance Criteria:
+        ///   - Inputs must be valid and entities must exist in the system
+        ///   - Resource (Parent resource of LoadPorts) must have IsRecipeManagementEnabled set to true
+        ///   - Resource (Parent resource of LoadPorts) must be a Sorter. The attribute isSorter set to true
+        ///   - Resource (Parent resource of LoadPorts) must be online.
+        ///   - Source LoadPort must be a SubResource of the given Resource
+        ///   - Source LoadPort must not be in use. The attribute IsLoadPortInUse set to false
+        ///   - SmartTable CustomProductContainerCapacities must have at least one resolved row.
+        ///   - SmartTable RecipeContext must have at least one resolved row with the `WaferReception` as a Service.
+        ///   - To be a possible destination port:
+        ///       - Must have a container docked
+        ///       - Must not be in use. The attribute IsLoadPortInUse set to false
+        ///       - Must have free positions
+        ///       - Must have a match between the product provided and the product materials on the docked container, if exists.
+        ///   - The sum of possible destination port positions must fulfill the given quantity
+        /// </summary>
+        /// <TestCaseID>CustomSendAdHocTransferInformationToIoT_SingleContainerSourceLoadPort_HappyPath</TestCaseID>
+        /// <Author>Oliverio Sousa</Author>
+        [TestMethod]
+        public void CustomSendAdHocTransferInformationToIoT_SingleContainerSourceLoadPort_HappyPath()
+        {
+            CustomMaterialScenario materialScenario = null;
+
+            try
+            {
+                materialScenario = new CustomMaterialScenario(setResourceOnline: false, createContainer: true, setResourceOffline: false)
+                {
+                    NumberOfSubMaterials = 0
+                };
+                materialScenario.Setup(productName: productName, positionSorting: ContainerPositionSorting.Descending);
+
+                Resource sourceLoadPort = new Resource();
+                sourceLoadPort.Name = loadPortName;
+                sourceLoadPort.Load();
+
+                materialScenario.DockContainer(sourceLoadPort);
+
+                MaterialData materialData = RunExecuteAction(actionToExecute);
+
+                resourcesToCleanup.Add(sourceLoadPort);
+
+                Recipe recipe = new Recipe();
+                recipe.Name = recipeName;
+                recipe.Load();
+
+                string loadPortPosition = sourceLoadPort.DisplayOrder.Value.ToString();
+                string carrierAtLoadPort = $"CarrierAtLoadPort{loadPortPosition}";
+
+                ValidateMaterialData(materialData, carrierAtLoadPort, loadPortPosition);
+                ValidateRecipe(recipe, materialData.Recipe);
+                ValidateCustomSorterJobDefinition(materialData);
+
+                dynamic movementList = JsonArray.Parse(materialData.SorterJobInformation.MovementList.ToString());
+                int quantityToFullfil = (int)actionToExecute.Input["Quantity"];
+
+                Container container = materialScenario.ContainerScenario.Entity;
+
+                ContainerCollection containers = new ContainerCollection();
+                containers.Add(container);
+
+                ValidateMovementList(movementList, containers, quantityToFullfil, targetCapacity, carrierAtLoadPort);
+
+                Assert.IsTrue(sourceLoadPort.GetAttributeValue(amsOSRAMConstants.ResourceAttributeIsLoadPortInUse, false), $"LoadPort {sourceLoadPort.Name} should have the attribute {amsOSRAMConstants.ResourceAttributeIsLoadPortInUse} set to true");
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+            finally
+            {
+                if (materialScenario != null)
+                {
+                    materialScenario.TearDown();
                 }
             }
         }
@@ -403,7 +495,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
         public void CustomSendAdHocTransferInformationToIoT_ValidateInput_MissingInvalidInput()
         {
             #region Validate missing inputs
-         
+
             Dictionary<string, object> newInput;
             CmfFaultException inputCmfFaultException;
 
@@ -777,10 +869,12 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 loadPortToDock.Name = loadPortToDockName;
                 loadPortToDock.Load();
 
+                resourcesToCleanup.Add(loadPortToDock);
+
                 materialScenario.DockContainer(loadPortToDock);
 
                 CmfFaultException inputCmfFaultException = Assert.ThrowsException<CmfFaultException>(() => actionToExecute.ExecuteActionSync());
-                
+
                 string errorMessage = CustomUtilities.GetLocalizedMessageByName(amsOSRAMConstants.LocalizedMessageCustomResourceNoEnoughPositionsOrInUse, resourceName);
 
                 Assert.IsTrue(inputCmfFaultException.Message.Contains(errorMessage), $"Should have the following error message: {errorMessage}");
