@@ -318,3 +318,4 @@ The table below describes the user stories that affect the current functionality
 
 User Story | Type | Title | Description
 :--------- | :--- | :---- | :----------
+201255 | UserStory | Lot Composing - EI | Lot Composing Implementation
