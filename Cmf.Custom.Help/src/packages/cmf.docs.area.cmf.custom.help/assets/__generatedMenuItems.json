@@ -126,6 +126,12 @@
     "actionId": ""
   },
   {
+    "id": "amsosram-20221122-2.4.0",
+    "menuGroupId": "releasenotes",
+    "title": "amsosram-20221122-2.4.0",
+    "actionId": ""
+  },
+  {
     "id": "artifacts",
     "menuGroupId": "techspec",
     "title": "Artifacts",
@@ -591,6 +597,12 @@
     "id": "customreceivestibomessage",
     "menuGroupId": "services",
     "title": "Custom Receive Stibo Message",
+    "actionId": ""
+  },
+  {
+    "id": "customretrieveattributesformaterial",
+    "menuGroupId": "services",
+    "title": "CustomRetrieveAttributesForMaterial",
     "actionId": ""
   },
   {
@@ -1125,6 +1137,12 @@
     "id": "customnicelabelprintfeature",
     "menuGroupId": "features",
     "title": "Nice Label Print",
+    "actionId": ""
+  },
+  {
+    "id": "customretrieveattributesformaterial",
+    "menuGroupId": "features",
+    "title": "Retrieve Attributes for Material",
     "actionId": ""
   },
   {

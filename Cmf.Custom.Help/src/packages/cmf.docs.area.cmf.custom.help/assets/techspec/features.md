@@ -15,10 +15,10 @@ The features are grouped in the following sections:
 * [Import Production Orders](/cmf.custom.help/techspec>features>customimportproductionorders)
 * [Inform Goods Issue to ERP](/cmf.custom.help/techspec>features>custominformgoodsissuetoerp)
 * [Nice Label Print](/cmf.custom.help/techspec>features>customnicelabelprintfeature)
+* [Retrieve Attributes for Material](/cmf.custom.help/techspec>features>customretrieveattributesformaterial)
 * [Stibo System Integration](/cmf.custom.help/techspec>features>customstibosystemintegration)
 * [Terminate Vendor Container Type](/cmf.custom.help/techspec>features>customterminatevendorcontainertype)
 * [Undock Vendor Container Type](/cmf.custom.help/techspec>features>customundockvendorcontainertype)
 * [Generate Sorter Job Definition From Future Action](/cmf.custom.help/techspec>features>generatesorterjobdefinitionfromfutureaction)
-* [Custom Retrieve Attributes For Material](/cmf.custom.help/techspec>features>customretrieveattributesformaterial)
 
 

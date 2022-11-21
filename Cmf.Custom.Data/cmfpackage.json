@@ -5,6 +5,13 @@
   "packageType": "Data",
   "isInstallable": true,
   "isUniqueInstall": true,
+  "dependencies": [
+    {
+      "id": "Cmf.Custom.Data",
+      "version": "2.3.0",
+      "mandatory": false
+    }
+  ],
   "contentToPack": [
     {
       "source": "DEEs/*",

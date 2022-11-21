@@ -1,4 +1,4 @@
-# CustomRetrieveAttributesForMaterial
+# Retrieve Attributes for Material
 
 ## Requirement Specification
 Mechanism to return one or more *Materials* attributes and it's *SubMaterials* attributes.
