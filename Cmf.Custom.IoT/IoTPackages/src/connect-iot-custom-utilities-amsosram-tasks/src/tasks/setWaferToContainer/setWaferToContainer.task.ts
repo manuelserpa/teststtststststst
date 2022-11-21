@@ -120,10 +120,10 @@ export class SetWaferToContainerTask implements Task.TaskInstance, SetWaferToCon
                 if (this.material) {
 
                     if (this.containerId === containerName && this.material.SubMaterials != null) {
-                        slotMES = this.material.SubMaterials.find(s => s.Slot.toString() === Number(slotNumber).toString());
+                        slotMES = this.material.SubMaterials.find(s => s.Slot?.toString() === Number(slotNumber)?.toString());
                     } else if (movementList) {
-                        movement = movementList.find(w => (w.SourceContainer === this.containerId && w.SourcePosition.toString() === slotNumber.toString())
-                            || (w.DestinationContainer === this.containerId && w.Destination.toString() === slotNumber.toString()))
+                        movement = movementList.find(w => (w.SourceContainer === this.containerId && w.SourcePosition?.toString() === slotNumber?.toString())
+                            || (w.DestinationContainer === this.containerId && w.Destination?.toString() === slotNumber?.toString()))
                     }
                 }
                 let wafer: WaferData = {} as WaferData;

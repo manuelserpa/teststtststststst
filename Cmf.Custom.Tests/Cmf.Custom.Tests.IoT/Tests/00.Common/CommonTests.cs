@@ -429,7 +429,8 @@ namespace amsOSRAMEIAutomaticTests
 					MESScenario.Entity.Load();
 
 					if (MESScenario.Entity.LastRecipe != null &&
-						MESScenario.Entity.LastRecipe.UniversalState != Cmf.Foundation.Common.Base.UniversalState.Terminated)
+						MESScenario.Entity.LastRecipe.UniversalState != Cmf.Foundation.Common.Base.UniversalState.Terminated &&
+                        MESScenario.Entity.UniversalState != Cmf.Foundation.Common.Base.UniversalState.Terminated)
 					{
 
 						if (MESScenario.Entity.SystemState == MaterialSystemState.InProcess)
@@ -550,13 +551,23 @@ namespace amsOSRAMEIAutomaticTests
                 Log(String.Format("{0}: [S] SubMaterial Process Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
                 foreach (Material material in MESScenario.SubMaterials)
                 {
-                    Log(String.Format("{0}: [S] SubMaterial Wafer Start Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, material.Name));
-                    WaferStartValidation(material);
-                    Log(String.Format("{0}: [E] SubMaterial Wafer Start Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, material.Name));
+                    Material subMaterial = material;
 
-                    Log(String.Format("{0}: [S] SubMaterial Wafer Complete Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, material.Name));
-                    WaferCompleteValidation(material);
-                    Log(String.Format("{0}: [E] SubMaterial Wafer Complete Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, material.Name));
+                    if (material.Form == amsOSRAMConstants.FormLogicalWafer)
+                    {
+                        material.LoadChildren();
+                        if (material.SubMaterialCount > 0) {
+                            subMaterial = material.SubMaterials[0];
+                        }
+                    }
+
+                    Log(String.Format("{0}: [S] SubMaterial Wafer Start Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, subMaterial.Name));
+                    WaferStartValidation(subMaterial);
+                    Log(String.Format("{0}: [E] SubMaterial Wafer Start Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, subMaterial.Name));
+
+                    Log(String.Format("{0}: [S] SubMaterial Wafer Complete Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, subMaterial.Name));
+                    WaferCompleteValidation(subMaterial);
+                    Log(String.Format("{0}: [E] SubMaterial Wafer Complete Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, subMaterial.Name));
 
                 }
                 Log(String.Format("{0}: [E] SubMaterial Process Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));

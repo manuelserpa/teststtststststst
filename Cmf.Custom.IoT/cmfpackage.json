@@ -49,7 +49,7 @@
     },
     {
       "id": "Cmf.Custom.IoT.MechatronicMWS200",
-      "version": "2.3.0"
+      "version": "2.4.0"
     },
     {
       "id": "Cmf.Custom.IoT.OmegaPlasma",
@@ -67,7 +67,7 @@
       "id": "Cmf.Custom.IoT.BrukerInsigthCAP",
       "version": "2.1.0"
     },
-	{
+    {
       "id": "Cmf.Custom.IoT.KLASpectraFilm",
       "version": "2.2.0"
     },

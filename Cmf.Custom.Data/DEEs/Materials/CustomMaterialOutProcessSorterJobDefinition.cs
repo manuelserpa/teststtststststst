@@ -367,16 +367,15 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
 
                 if (containers.Count > 0)
                 {
-                    int index = 0;
-                    Collection<string> splitNames = NameGenerator.GenerateName("CustomSplitLotNameGenerator", lot, materialsOnEachContainer.Count);
-
                     foreach (KeyValuePair<IContainer, IMaterialContainerCollection> item in materialsOnEachContainer)
                     {
+                        var splitName = NameGenerator.GenerateName("CustomGenerateSplitLotNames", lot);
+                        
                         IContainer destinationContainer = item.Key;
                         destinationContainer.LoadRelations("MaterialContainer");
                         ISplitInputSubMaterialCollection splitInputSubMaterials = new SplitInputSubMaterialCollection();
 
-                        materialNamesToTrackout.Add(splitNames[index]);
+                        materialNamesToTrackout.Add(splitName);
 
                         foreach (IMaterialContainer subMaterialContainer in item.Value)
                         {
@@ -391,14 +390,12 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
 
                         ISplitInputParameters splitInputParameter = new SplitInputParameters
                         {
-                            Name = splitNames[index],
+                            Name = splitName,
                             SubMaterials = splitInputSubMaterials
                         };
 
                         splitInputParameters.Add(splitInputParameter);
-
-                        index++;
-                    }
+                        }
                 }
 
                 lot.Split(splitInputParameters, containers.Count == numberOfDestinationContainers);//containers.Count == numberOfDestinationContainers);
