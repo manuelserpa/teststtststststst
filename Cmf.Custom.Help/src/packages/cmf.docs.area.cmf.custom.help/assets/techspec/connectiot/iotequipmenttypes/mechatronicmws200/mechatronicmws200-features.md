@@ -268,7 +268,7 @@ Material Out| MES Service| Yes| N/A| Service responsible for executing the Track
 ### How it works
 
 Upon receiving the Process Complete equivalent event, if it is not a container only process, it will update Material Data on persistence and then update it on MES.
-When the state is updated, execute the Material Out service to trigger the automated Track Out.
+After the state is updated, or skipped in case it is just a container only process, it will execute the Material Out service to trigger the automated Track Out.
 
 ### Assumptions
 Material must have been tracked in previously, and have defined the CustomMaterialStateModel as main state.
