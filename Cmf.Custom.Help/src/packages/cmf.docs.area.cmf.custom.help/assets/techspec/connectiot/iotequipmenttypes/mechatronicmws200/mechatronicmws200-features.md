@@ -231,6 +231,8 @@ CustomAutomationSetMaterialState| DEE Action| Yes| N/A| Action responsible for u
 
 Upon receiving the Process Started equivalent event, update Material Data on persistence and then update it on MES.
 
+If the SorterJob is of type MapCarrier or Compose the container will also be cleared on MES, so it can later be recreated.
+
 ### Assumptions
 Material must have been tracked in previously, and have defined the CustomMaterialStateModel as main state.
 
@@ -265,11 +267,50 @@ Material Out| MES Service| Yes| N/A| Service responsible for executing the Track
 
 ### How it works
 
-Upon receiving the Process Complete equivalent event, update Material Data on persistence and then update it on MES.
+Upon receiving the Process Complete equivalent event, if it not a container only process, it will update Material Data on persistence and then update it on MES.
 When the state is updated, execute the Material Out service to trigger the automated Track Out.
 
 ### Assumptions
 Material must have been tracked in previously, and have defined the CustomMaterialStateModel as main state.
+
+### Work items
+
+The table below describes the user stories that affect the current functionality
+
+User Story | Type | Title | Description
+:--------- | :--- | :---- | :----------
+
+
+Wafer Id Read
+============
+
+### Requirement Specification
+When a Wafer Id Read equivalent event is received:
+
+- ProceedWithSubstrate or CancelSubstrate remote commands must be sent
+
+### Design Specification
+
+### Relevant Artifacts
+The table below describes the properties for this entity type:
+
+Name          | Type      | Is Mandatory | Data Type | Description 
+:------------ | :-------- | :----------: | :-------- | :-----------
+Material object| Material object| Yes| MaterialData| Object containing all the information needed for the Material, will be persisted;
+CustomMaterialStateModel|State Model| Yes| N/A| State Model for the Material entity instance
+CustomValidateMaterialReceptionSubstrate| DEE Action| Yes| N/A| Action responsible for updating the state of Material on MES
+
+### How it works
+
+Upon receiving the Wafer Id Read equivalent event that requires host input, the ProceedWithSubstrate sub-workflow will be called. This workflow will retrieve the MaterialData from the persistance and, with its information, call the CustomValidateMaterialReceptionSubstrate DEE to validate the Acquired ID on MES (Wafer ID read from the machine). After the DEE execution the persistance will then be updated.
+
+At the end, if the DEE is **successfull**, and the event is a **missmatch event**, a **ProceedWithCarrier** remote command will be sent. 
+
+However, if the DEE **fails**, or if the triggering event is a **failed to read event**, a **CancelSubstrate** remote command will be sent
+
+
+### Assumptions
+
 
 ### Work items
 
