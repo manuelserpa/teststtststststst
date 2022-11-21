@@ -2936,11 +2936,28 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             resource.SaveAttribute(amsOSRAMConstants.ResourceAttributeIsSorter, true);
 
             #region Clean Materials from resource
+            
             resource.Load();
             resource.LoadRelations();
             resource.ResourceMaterials.ForEach(x => x.SourceEntity.Undispatch());
 
-            resource.GetDispatchList().ForEach(x => x.Terminate(reasonToUse: step.GetRandomReason()));
+            // TODO: Reduce the load level
+            MaterialCollection dispatchList = resource.GetDispatchList();
+            dispatchList.Load(2);
+
+            foreach (Material material in dispatchList) {
+                Reason loss = material.Step.GetRandomReason();
+
+                if (loss != null)
+                {
+                    material.Terminate(reasonToUse: loss);
+                }
+                else
+                {
+                    material.Terminate();
+                }
+            }
+
             #endregion
         }
     }
