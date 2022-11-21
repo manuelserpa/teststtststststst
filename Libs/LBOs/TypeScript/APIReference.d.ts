@@ -207,6 +207,47 @@ declare const _default: {
                     })[];
                 };
             };
+            CustomGetMaterialAttributes: {
+                Description: string;
+                Input: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: string;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+                Output: {
+                    Name: string;
+                    FullNamespace: string;
+                    Properties: ({
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: string;
+                        CollectionType: string;
+                        FullNamespace: any;
+                    } | {
+                        Name: string;
+                        ReferenceType: string;
+                        ReferenceTypeName: any;
+                        ScalarType: any;
+                        CollectionType: string;
+                        FullNamespace: string;
+                    })[];
+                };
+            };
         };
     };
     Administration: {

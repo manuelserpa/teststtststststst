@@ -188,5 +188,39 @@ namespace Cmf.Custom.amsOSRAM.Services
 
             return output;
         }
+
+        /// <summary>
+        /// CustomGetMaterialAttributes
+        /// </summary>
+        /// <param name="input">CustomGetMaterialAttributes Input Object</param>
+        /// <returns>CustomGetMaterialAttributes Output Object</returns>
+        /// <exception cref="Cmf.Foundation.Common.CmfBaseException">If any unexpected error occurs.</exception>
+        [HttpPost()]
+        public CustomGetMaterialAttributesOutput CustomGetMaterialAttributes(CustomGetMaterialAttributesInput input)
+        {
+            Utilities.StartMethod(OBJECT_TYPE_NAME, "CustomGetMaterialAttributes",
+                                  new KeyValuePair<string, object>("CustomGetMaterialAttributesInput", input));
+
+            CustomGetMaterialAttributesOutput output = null;
+
+            try
+            {
+                output = _amsOSRAMManagementOrchestration.CustomGetMaterialAttributes(input);
+
+                Utilities.EndMethod(-1, -1,
+                                    new KeyValuePair<string, object>("CustomGetMaterialAttributesInput", input),
+                                    new KeyValuePair<string, object>("CustomGetMaterialAttributesOutput", output));
+            }
+            catch (CmfBaseException)
+            {
+                throw;
+            }
+            catch (Exception excep)
+            {
+                throw new CmfBaseException(excep.Message, excep);
+            }
+
+            return output;
+        }
     }
 }

@@ -21,11 +21,14 @@ using Cmf.Navigo.BusinessOrchestration.MaterialManagement.OutputObjects;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Xml;
+using System.Xml.Serialization;
 using static Cmf.Custom.amsOSRAM.Common.DataStructures.CustomFlowInformationToERPData;
 
 namespace Cmf.Custom.amsOSRAM.Orchestration
@@ -64,6 +67,10 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
         private const string MATERIAL_OUT = "MaterialOut";
         private const string MATERIAL_OUT_INPUT = "MaterialOutInput";
         private const string MATERIAL_OUT_OUTPUT = "MaterialOutOutput";
+
+        private const string CUSTOM_GET_MATERIAL_ATTRIBUTES = "CustomGetMaterialAttributes";
+        private const string CUSTOM_GET_MATERIAL_ATTRIBUTES_OUTPUT = "CustomGetMaterialAttributesOutput";
+        private const string CUSTOM_GET_MATERIAL_ATTRIBUTES_INPUT = "CustomGetMaterialAttributesInput";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="amsOSRAMManagementOrchestration"/> class.
@@ -1065,6 +1072,158 @@ namespace Cmf.Custom.amsOSRAM.Orchestration
             }
 
             return output;
+        }
+
+        /// <summary>
+        /// Service to provide material attribute information to EADOS
+        /// </summary>
+        /// <param name="customGetMaterialAttributesInput">Input Object</param>
+        /// <returns></returns>
+        public CustomGetMaterialAttributesOutput CustomGetMaterialAttributes(CustomGetMaterialAttributesInput customGetMaterialAttributesInput)
+        {
+            Utilities.StartMethod(OBJECT_TYPE_NAME, CUSTOM_GET_MATERIAL_ATTRIBUTES,
+                new KeyValuePair<string, object>(CUSTOM_GET_MATERIAL_ATTRIBUTES_INPUT, customGetMaterialAttributesInput));
+
+            CustomGetMaterialAttributesOutput customGetMaterialAttributesOutput = new CustomGetMaterialAttributesOutput();
+
+            try
+            {
+                Utilities.ValidateNullInput(customGetMaterialAttributesInput);
+
+                if (string.IsNullOrWhiteSpace(customGetMaterialAttributesInput.MaterialList))
+                {
+                    throw new MissingMandatoryFieldCmfException("MaterialList");
+                }
+
+                List<string> separatedMaterialList = customGetMaterialAttributesInput.MaterialList.Split(',').ToList();
+
+                CustomGetMaterialAttributesData dataToXML = new CustomGetMaterialAttributesData();
+                IMaterialCollection loadedMaterials = _entityFactory.CreateCollection<IMaterialCollection>();
+
+                List<Common.DataStructures.CustomGetMaterialAttributesDataDto.Material> materialsForXML = new List<Common.DataStructures.CustomGetMaterialAttributesDataDto.Material>();
+                List<string> separatedAttributeList = null;
+                List<string> separatedSubMaterialList = null;
+
+                if (!string.IsNullOrWhiteSpace(customGetMaterialAttributesInput.AttributeList))
+                {
+                    separatedAttributeList = customGetMaterialAttributesInput.AttributeList.Split(',').ToList();
+                }
+                if (!string.IsNullOrWhiteSpace(customGetMaterialAttributesInput.SubMaterialAttributeList))
+                {
+                    separatedSubMaterialList = customGetMaterialAttributesInput.SubMaterialAttributeList.Split(',').ToList();
+                }
+
+                foreach (string materialName in separatedMaterialList)
+                {
+                    IMaterial materialToAdd = _entityFactory.Create<IMaterial>();
+                    materialToAdd.Name = materialName;
+                    materialToAdd.Load();
+
+                    List<Common.DataStructures.CustomGetMaterialAttributesDataDto.Attribute> mainMaterialAttributes = new List<Common.DataStructures.CustomGetMaterialAttributesDataDto.Attribute>();
+
+                    if (separatedAttributeList != null)
+                    {
+                        Collection<string> mainMaterialAttributeNameCollection = new Collection<string>();
+                        mainMaterialAttributeNameCollection.AddRange(separatedAttributeList);
+                        materialToAdd.LoadAttributes(mainMaterialAttributeNameCollection);
+                    } else
+                    {
+                        materialToAdd.LoadAttributes();
+                    }
+
+                    foreach (KeyValuePair<string, object> attributeOfMainMaterial in materialToAdd.Attributes)
+                    {
+                        if (attributeOfMainMaterial.Value != null)
+                        {
+                            mainMaterialAttributes.Add(new Common.DataStructures.CustomGetMaterialAttributesDataDto.Attribute()
+                            {
+                                Name = attributeOfMainMaterial.Key,
+                                Value = attributeOfMainMaterial.Value.ToString()
+                            });
+                        }
+                    }
+
+                    Common.DataStructures.CustomGetMaterialAttributesDataDto.Material materialForXML = new Common.DataStructures.CustomGetMaterialAttributesDataDto.Material();
+
+                    materialForXML.Name = materialToAdd.Name;
+                    materialForXML.Form = materialToAdd.Form;
+                    materialForXML.Attributes = mainMaterialAttributes;
+
+                    if (string.IsNullOrWhiteSpace(customGetMaterialAttributesInput.IncludeSubMaterials) ||
+                        customGetMaterialAttributesInput.IncludeSubMaterials.Equals("true", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        materialToAdd.LoadChildren();
+
+                        List<Common.DataStructures.CustomGetMaterialAttributesDataDto.Material> subMaterialsForXML = new List<Common.DataStructures.CustomGetMaterialAttributesDataDto.Material>();
+
+                        if (separatedSubMaterialList != null)
+                        {
+                            Collection<string> subMaterialAttributeNameCollection = new Collection<string>();
+                            subMaterialAttributeNameCollection.AddRange(separatedSubMaterialList);
+                            materialToAdd.SubMaterials.LoadAttributes(subMaterialAttributeNameCollection);
+                        } else
+                        {
+                            materialToAdd.SubMaterials.LoadAttributes();
+                        }
+
+                        foreach (IMaterial subMat in materialToAdd.SubMaterials)
+                        {
+                            List<Common.DataStructures.CustomGetMaterialAttributesDataDto.Attribute> subMaterialAttributesForXML = new List<Common.DataStructures.CustomGetMaterialAttributesDataDto.Attribute>();
+
+                            foreach (KeyValuePair<string, object> attributeOfSubMaterial in subMat.Attributes)
+                            {
+                                if (attributeOfSubMaterial.Value != null)
+                                {
+                                    subMaterialAttributesForXML.Add(new Common.DataStructures.CustomGetMaterialAttributesDataDto.Attribute() { 
+                                        Name = attributeOfSubMaterial.Key, 
+                                        Value = attributeOfSubMaterial.Value.ToString() 
+                                    });
+                                }
+                            }
+
+                            subMaterialsForXML.Add(new Common.DataStructures.CustomGetMaterialAttributesDataDto.Material()
+                            {
+                                Name = subMat.Name,
+                                Form = subMat.Form,
+                                Attributes = subMaterialAttributesForXML
+                            });
+                        }
+
+                        materialForXML.SubMaterials = subMaterialsForXML;
+                    }
+
+                    materialsForXML.Add(materialForXML);
+                }
+
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Common.DataStructures.CustomGetMaterialAttributesDataDto.Material>), new XmlRootAttribute("CustomGetMaterialAttributes"));
+                string xmlToReturn = "";
+
+                using (StringWriter stringWriter = new StringWriter())
+                {
+                    using (XmlWriter xmlWriter = XmlWriter.Create(stringWriter))
+                    {
+                        xmlSerializer.Serialize(xmlWriter, materialsForXML);
+                        xmlToReturn = stringWriter.ToString();
+                    }
+                }
+
+                customGetMaterialAttributesOutput.ResultXML = xmlToReturn;
+
+                Utilities.EndMethod(
+                    -1, -1,
+                    new KeyValuePair<string, object>(GET_FLOW_INFORMATION_FOR_ERP_INPUT, customGetMaterialAttributesInput),
+                    new KeyValuePair<string, object>(GET_FLOW_INFORMATION_FOR_ERP_OUTPUT, customGetMaterialAttributesOutput));
+            }
+            catch (CmfBaseException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new CmfBaseException(ex.Message, ex);
+            }
+
+            return customGetMaterialAttributesOutput;
         }
     }
 }

@@ -60307,6 +60307,18 @@ export namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects
         public FlowVersion : string;		
     }
 
+    
+
+    export class CustomGetMaterialAttributesInput extends Cmf.Foundation.BusinessOrchestration.BaseInput
+    {
+        protected $id:string = null;
+        protected $type:string = "Cmf.Custom.amsOSRAM.Orchestration.InputObjects.CustomGetMaterialAttributesInput, Cmf.Custom.amsOSRAM.Orchestration";
+        public MaterialList : string;		
+        public AttributeList : string;		
+        public IncludeSubMaterials : string;		
+        public SubMaterialAttributeList : string;		
+    }
+
 }
 export namespace Cmf.Custom.amsOSRAM.Orchestration.OutputObjects
 {
@@ -60348,6 +60360,13 @@ export namespace Cmf.Custom.amsOSRAM.Orchestration.OutputObjects
         protected $id:string = null;
         protected $type:string = "Cmf.Custom.amsOSRAM.Orchestration.OutputObjects.CustomGetFlowInformationForERPOutput, Cmf.Custom.amsOSRAM.Orchestration";
         public ResultXml : string;
+		
+    }
+    export class CustomGetMaterialAttributesOutput extends Cmf.Foundation.BusinessOrchestration.BaseOutput
+    {
+        protected $id:string = null;
+        protected $type:string = "Cmf.Custom.amsOSRAM.Orchestration.OutputObjects.CustomGetMaterialAttributesOutput, Cmf.Custom.amsOSRAM.Orchestration";
+        public ResultXML : string;
 		
     }
 }
@@ -60408,6 +60427,12 @@ export namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects.CustomGetFlowInf
 {
     export var _CMFInternal_URLSuffix = "api/amsOSRAM/GetFlowInformationForERP";
     export var _CMFInternal_FullNamespace = "Cmf.Custom.amsOSRAM.Orchestration.InputObjects.CustomGetFlowInformationForERPInput";
+    export var _CMFInternal_HTTPMethod = "POST";                
+}
+export namespace Cmf.Custom.amsOSRAM.Orchestration.InputObjects.CustomGetMaterialAttributesInput
+{
+    export var _CMFInternal_URLSuffix = "api/amsOSRAM/CustomGetMaterialAttributes";
+    export var _CMFInternal_FullNamespace = "Cmf.Custom.amsOSRAM.Orchestration.InputObjects.CustomGetMaterialAttributesInput";
     export var _CMFInternal_HTTPMethod = "POST";                
 }
 export namespace Cmf.Foundation.BusinessOrchestration.Administration.InputObjects.GetAllAddressInput
