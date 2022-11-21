@@ -5,7 +5,6 @@ using Cmf.Custom.amsOSRAM.Common.DataStructures;
 using Cmf.Custom.amsOSRAM.Common.Extensions;
 using Cmf.Foundation.BusinessObjects;
 using Cmf.Foundation.BusinessObjects.Abstractions;
-using Cmf.Foundation.BusinessObjects.LocalizationService;
 using Cmf.Foundation.Common;
 using Cmf.Foundation.Common.Abstractions;
 using Cmf.Foundation.Common.LocalizationService;
@@ -145,7 +144,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
             if (!lookupTable.Values.Any(val => val.Value == sorterProcess))
             {
                 throw new CmfBaseException(
-                    string.Format(localizationService.Localize(Thread.CurrentThread.CurrentCulture.Name, amsOSRAMConstants.LocalizedMessageCustomValueDoesNotExistLookupTable), 
+                    string.Format(localizationService.Localize(Thread.CurrentThread.CurrentCulture.Name, amsOSRAMConstants.LocalizedMessageCustomValueDoesNotExistLookupTable),
                     sorterProcess, amsOSRAMConstants.LookupTableCustomSorterProcess));
             }
 
@@ -344,7 +343,9 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
 
             JArray movementList = new JArray();
             int currentMovement = 0;
-            Dictionary<string, IResource> loadPortsToUpdate = new Dictionary<string, IResource>();
+            Dictionary<string, IResource> loadPortsToUpdate = new Dictionary<string, IResource> {
+                { sourceLoadPort.Name, sourceLoadPort }
+            };
 
             foreach (IContainer container in eligibleContainers.OrderByDescending(o => o.UsedPositions))
             {
@@ -373,7 +374,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
                             [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationContainer] = container.Name,
                             [amsOSRAMConstants.CustomSorterJobDefinitionJsonMovesPropertyDestinationPosition] = i
                         };
-                        
+
                         if (!loadPortsToUpdate.ContainsKey(container.Name))
                         {
                             IResource loadPortDestination = entityFactory.Create<IResource>();
@@ -403,8 +404,7 @@ namespace Cmf.Custom.amsOSRAM.Actions.Materials
             if (containerLoadPortMap.Count > 0)
             {
                 IResourceCollection resourcesToUpdate = entityFactory.CreateCollection<IResourceCollection>();
-                resourcesToUpdate.Add(sourceLoadPort);
-                resourcesToUpdate.AddRange(loadPortsToUpdate.Values);
+                resourcesToUpdate.AddRange(loadPortsToUpdate.Values.DistinctBy(loadPortToUpdate => loadPortToUpdate.Name));
                 resourcesToUpdate.Load();
 
                 resourcesToUpdate.SaveAttributes(new AttributeCollection
