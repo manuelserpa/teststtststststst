@@ -60,6 +60,11 @@ namespace Cmf.Custom.Tests.Biz.Common
         /// </summary>
         public static string ParameterAttributeSendToSpace = "SendToSpace";
 
+        /// <summary>
+        /// Material Attribute SAPOwner
+        /// </summary>
+        public static string MaterialAttributeSAPOwner = "SAPOwner";
+
         #endregion
 
         #region DEE

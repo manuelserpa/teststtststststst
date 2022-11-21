@@ -6,7 +6,7 @@ namespace Cmf.Custom.amsOSRAM.Common.DataStructures.CustomReportEDCToSpaceDto
     [XmlRoot(ElementName = "Sender")]
     public class Sender
     {
-        [XmlElement(ElementName = "value")]
+        [XmlText]
         public string Value { get; set; }
     }
 }

@@ -105,6 +105,105 @@ namespace Cmf.Custom.Tests.Biz.Space
             }
         }
 
+
+        /// <summary>
+        /// Description:
+        ///     - Creates a lot with one logical wafer with a substrate without recipes
+        ///     - Execute a ComplexPerformDataCollection operation on a given DataCollection with the parameters with different configurations without DataCollectionLimitSet
+        ///     - Post with values inside the limits
+        ///
+        /// Acceptance Criteria:
+        ///     - Lot is not on hold
+        ///     - Lot has a protocol instance
+        ///     - Validate created message structure
+        ///
+        /// </summary>
+        /// <TestCaseID>CustomSendCriticalDataCollectionToSpace_PostEDCDataWithoutDataCollectionLimitSet_ValidateAndCreateXMLMessage</TestCaseID>
+        /// <Author>Oliverio Sousa</Author>
+        [TestMethod]
+        public void CustomSendCriticalDataCollectionToSpace_PostEDCDataWithoutDataCollectionLimitSet_ValidateAndCreateXMLMessage()
+        {
+            string dataCollectionName = DataCollectionName;
+            string processResourceName = ProcessResourceName;
+            string processSubResourceName = ProcessSubResourceName;
+            string measurementResourceName = MeasurementResourceName;
+            string measurementSubResourceName = MeasurementSubResourceName;
+            string facilityName = FacilityName;
+            string productName = LotProduct;
+            int logicalWaferQuantity = 1;
+            string protocolName = ConfigUtilities.GetConfigValue(amsOSRAMConstants.DefaultProtocolSpaceConfig) as string;
+
+            scenario.NumberOfMaterialsToGenerate = 1;
+            scenario.NumberOfChildMaterialsToGenerate = logicalWaferQuantity;
+            scenario.FacilityName = facilityName;
+            scenario.ProductName = productName;
+            scenario.FlowPath = FlowPath;
+            scenario.SmartTablesToClearInSetup.Add("RecipeContext");
+            scenario.Setup();
+
+            Resource processResource = new Resource()
+            {
+                Name = processResourceName
+            };
+            processResource.Load();
+
+            rollbackIsRecipeManagementEnabled.Add(processResource.Name, processResource.IsRecipeManagementEnabled.GetValueOrDefault());
+            processResource.IsRecipeManagementEnabled = false;
+            processResource.Save();
+
+            Material lot = scenario.GeneratedLots.FirstOrDefault();
+            lot.LoadChildren();
+
+            Material firstLogicalWafer = lot.SubMaterials[0];
+            (Material firstSubstrate, firstLogicalWafer) = scenario.GenerateWafer(parentMaterial: firstLogicalWafer, type: amsOSRAMConstants.MaterialWaferSubstrateType);
+
+            Resource processSubResource = new Resource
+            {
+                Name = processSubResourceName
+            };
+            processSubResource.Load();
+
+            Resource measurementResource = new Resource
+            {
+                Name = measurementResourceName
+            };
+            measurementResource.Load();
+
+            Resource measurementSubResource = new Resource
+            {
+                Name = measurementSubResourceName
+            };
+            measurementSubResource.Load();
+
+            lot = PerformMaterialProcessToMeasurement(lot, processResource, processSubResource, measurementResource, measurementSubResource);
+
+            DataCollection dataCollection = new DataCollection
+            {
+                Name = dataCollectionName
+            };
+            dataCollection.Load();
+
+            DataCollectionPointCollection pointsToPost = CreateDataCollectionPointCollection(dataCollection, lot);
+
+            string message = PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, pointsToPost);
+
+            ValidateMessage(message, lot, pointsToPost, dataCollection, logicalWaferQuantity, facilityName, productName,
+                processResourceName: processResourceName,
+                processSubResourceName: processSubResourceName,
+                measurementResourceName: measurementResourceName,
+                measurementSubResourceName: measurementSubResourceName);
+
+            lot.Load();
+            lot.LoadRelations(new Collection<string> { "ProtocolMaterial" });
+            Assert.IsTrue(lot.OpenExceptionProtocolsCount == 1, $"Material should have one protocol instance opened, instead has {lot.OpenExceptionProtocolsCount}.");
+
+            ProtocolInstance protocolInstance = lot.MaterialProtocols.FirstOrDefault().SourceEntity;
+            protocolInstance.Load();
+            protocolInstance.ParentEntity.Load();
+            Assert.IsTrue(protocolInstance.ParentEntity.Name.Equals(protocolName), $"Protocol should be {protocolName} instead is {protocolInstance.ParentEntity.Name}");
+            Assert.IsTrue(lot.HoldCount == 0, $"Material should have 1 reason instead has {lot.HoldCount}");
+        }
+
         /// <summary>
         /// Description:
         ///     - Creates a lot with one logical wafer with a substrate without recipes
@@ -187,11 +286,12 @@ namespace Cmf.Custom.Tests.Biz.Space
             };
             dataCollectionLimitSet.Load();
 
-            DataCollectionPointCollection pointsToPost = CreateDataCollectionPointCollection(dataCollection, dataCollectionLimitSet, lot, false);
+            DataCollectionPointCollection pointsToPost = CreateDataCollectionPointCollection(dataCollection, lot, dataCollectionLimitSet, false);
 
-            string message = PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, dataCollectionLimitSet, pointsToPost);
+            string message = PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, pointsToPost, dataCollectionLimitSet);
 
-            ValidateMessage(message, lot, pointsToPost, dataCollection, dataCollectionLimitSet, logicalWaferQuantity, facilityName, productName,
+            ValidateMessage(message, lot, pointsToPost, dataCollection, logicalWaferQuantity, facilityName, productName,
+                dataCollectionLimitSet: dataCollectionLimitSet,
                 processResourceName: processResourceName,
                 processSubResourceName: processSubResourceName,
                 measurementResourceName: measurementResourceName,
@@ -287,11 +387,12 @@ namespace Cmf.Custom.Tests.Biz.Space
             };
             dataCollectionLimitSet.Load();
 
-            DataCollectionPointCollection pointsToPost = CreateDataCollectionPointCollection(dataCollection, dataCollectionLimitSet, lot);
+            DataCollectionPointCollection pointsToPost = CreateDataCollectionPointCollection(dataCollection, lot, dataCollectionLimitSet);
 
-            string message = PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, dataCollectionLimitSet, pointsToPost);
+            string message = PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, pointsToPost, dataCollectionLimitSet);
 
-            ValidateMessage(message, lot, pointsToPost, dataCollection, dataCollectionLimitSet, logicalWaferQuantity, facilityName, productName,
+            ValidateMessage(message, lot, pointsToPost, dataCollection, logicalWaferQuantity, facilityName, productName,
+                dataCollectionLimitSet: dataCollectionLimitSet,
                 processResourceName: processResourceName,
                 processSubResourceName: processSubResourceName,
                 measurementResourceName: measurementResourceName,
@@ -362,11 +463,11 @@ namespace Cmf.Custom.Tests.Biz.Space
             };
             dataCollectionLimitSet.Load();
 
-            DataCollectionPointCollection pointsToPost = CreateDataCollectionPointCollection(dataCollection, dataCollectionLimitSet, lot);
+            DataCollectionPointCollection pointsToPost = CreateDataCollectionPointCollection(dataCollection, lot, dataCollectionLimitSet);
 
-            string message = PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, dataCollectionLimitSet, pointsToPost);
+            string message = PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, pointsToPost, dataCollectionLimitSet);
 
-            ValidateMessage(message, lot, pointsToPost, dataCollection, dataCollectionLimitSet, logicalWaferQuantity, facilityName, productName);
+            ValidateMessage(message, lot, pointsToPost, dataCollection, logicalWaferQuantity, facilityName, productName, dataCollectionLimitSet: dataCollectionLimitSet);
         }
 
         /// <summary>
@@ -398,6 +499,7 @@ namespace Cmf.Custom.Tests.Biz.Space
             string vendor = BusinessParterName;
             string facilityName = FacilityName;
             string productName = LotProduct;
+            string materialSapOwner = "SapOwner123";
             int logicalWaferQuantity = 2;
 
             scenario.NumberOfMaterialsToGenerate = 1;
@@ -460,6 +562,7 @@ namespace Cmf.Custom.Tests.Biz.Space
 
             // Create 3 wafers for the first logicar wafer and set BusinessPartner
             Material lot = scenario.GeneratedLots.FirstOrDefault();
+            lot.SaveAttribute(amsOSRAMConstants.MaterialAttributeSAPOwner, materialSapOwner);
             lot.LoadChildren();
 
             Material firstLogicalWafer = lot.SubMaterials[0];
@@ -476,7 +579,7 @@ namespace Cmf.Custom.Tests.Biz.Space
             firstSubstrate.Supplier = businessPartner;
             firstSubstrate.Save();
 
-            // Create only substrate for the second logicar wafer
+            // Create only substrate for the second logical wafer
             Material secondLogicalWafer = lot.SubMaterials[1];
             (Material secondSubstrate, secondLogicalWafer) = scenario.GenerateWafer(parentMaterial: secondLogicalWafer, type: amsOSRAMConstants.MaterialWaferSubstrateType);
 
@@ -494,11 +597,13 @@ namespace Cmf.Custom.Tests.Biz.Space
             };
             dataCollectionLimitSet.Load();
 
-            DataCollectionPointCollection pointsToPost = CreateDataCollectionPointCollection(dataCollection, dataCollectionLimitSet, lot);
+            DataCollectionPointCollection pointsToPost = CreateDataCollectionPointCollection(dataCollection, lot, dataCollectionLimitSet);
 
-            string message = PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, dataCollectionLimitSet, pointsToPost);
+            string message = PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, pointsToPost, dataCollectionLimitSet);
 
-            ValidateMessage(message, lot, pointsToPost, dataCollection, dataCollectionLimitSet, logicalWaferQuantity, facilityName, productName,
+            ValidateMessage(message, lot, pointsToPost, dataCollection, logicalWaferQuantity, facilityName, productName,
+                dataCollectionLimitSet: dataCollectionLimitSet,
+                materialSapOwner: materialSapOwner,
                 lastRecipeName: processRecipeName,
                 currentRecipeName: measurementRecipeName,
                 processResourceName: processResourceName,
@@ -551,7 +656,7 @@ namespace Cmf.Custom.Tests.Biz.Space
         /// <param name="material"></param>
         /// <param name="insideLimits"></param>
         /// <returns>Collection of DataCollectionPoint</returns>
-        public static DataCollectionPointCollection CreateDataCollectionPointCollection(DataCollection dataCollection, DataCollectionLimitSet dataCollectionLimitSet, Material material, bool insideLimits = true)
+        public static DataCollectionPointCollection CreateDataCollectionPointCollection(DataCollection dataCollection, Material material, DataCollectionLimitSet dataCollectionLimitSet = null, bool insideLimits = true)
         {
             DataCollectionPointCollection pointsToPost = new DataCollectionPointCollection();
 
@@ -561,14 +666,18 @@ namespace Cmf.Custom.Tests.Biz.Space
             parameters.AddRange(dataCollection.DataCollectionParameters.Select(s => s.TargetEntity));
             parameters.Load();
 
-            dataCollectionLimitSet.LoadRelation("DataCollectionParameterLimit");
+            if (dataCollectionLimitSet != null)
+            {
+                dataCollectionLimitSet.LoadRelation("DataCollectionParameterLimit");
+            }
+
             decimal defaultValue = 640;
 
             foreach (Parameter parameter in parameters)
             {
                 parameter.LoadAttributes(new Collection<string> { amsOSRAMConstants.ParameterAttributeSendToSpace });
 
-                DataCollectionParameterLimit parameterLimit = dataCollectionLimitSet.DataCollectionParameterLimits.FirstOrDefault(f => f.TargetEntity.Id == parameter.Id);
+                DataCollectionParameterLimit parameterLimit = dataCollectionLimitSet?.DataCollectionParameterLimits?.FirstOrDefault(f => f.TargetEntity.Id == parameter.Id);
 
                 decimal insideLimitValue = parameterLimit != null && parameterLimit.MinValue.HasValue ? parameterLimit.MinValue.Value + 1 : defaultValue;
                 decimal outsideLimitValue = parameterLimit != null && parameterLimit.MaxValue.HasValue ? parameterLimit.MaxValue.Value + 1 : defaultValue;
@@ -607,7 +716,7 @@ namespace Cmf.Custom.Tests.Biz.Space
                             collectionPoint.Value = pointValue;
                             collectionPoint.TargetEntity = parameter;
                             collectionPoint.ReadingNumber = 1;
-                            collectionPoint.SampleId = sampleId.ToString();
+                            collectionPoint.SampleId = $"Sample {sampleId}";
                             pointsToPost.Add(collectionPoint);
                         }
                     }
@@ -623,7 +732,7 @@ namespace Cmf.Custom.Tests.Biz.Space
         /// <param name="dataCollectionLimitSet">DataCollection Limit Set</param>
         /// <param name="pointsToPost">Points to Post</param>
         /// <returns>Message sent to message bus</returns>
-        private string PostDataCollectionAndValidateSpaceMessage(Material material, DataCollection dataCollection, DataCollectionLimitSet dataCollectionLimitSet, DataCollectionPointCollection pointsToPost)
+        private string PostDataCollectionAndValidateSpaceMessage(Material material, DataCollection dataCollection, DataCollectionPointCollection pointsToPost, DataCollectionLimitSet dataCollectionLimitSet = null)
         {
             Func<bool> waitForMessageBus = SubscribeMessageBus(amsOSRAMConstants.CustomReportEDCToSpace, 1);
 
@@ -664,10 +773,11 @@ namespace Cmf.Custom.Tests.Biz.Space
                                      Material material,
                                      DataCollectionPointCollection pointsToPost,
                                      DataCollection dataCollection,
-                                     DataCollectionLimitSet dataCollectionLimitSet,
                                      int logicalWaferQuantity,
                                      string facilityName,
                                      string productName,
+                                     DataCollectionLimitSet dataCollectionLimitSet = null,
+                                     string materialSapOwner = "-",
                                      string lastRecipeName = "-",
                                      string currentRecipeName = "-",
                                      string processResourceName = "",
@@ -697,10 +807,9 @@ namespace Cmf.Custom.Tests.Biz.Space
             };
             product.Load(1);
 
-            string sapProductType = "-";
-            if (product.HasRelatedAttributeDefined(amsOSRAMConstants.ProductAttributeSAPProductType))
+            if (material.HasAttributeDefined(amsOSRAMConstants.MaterialAttributeSAPOwner))
             {
-                sapProductType = (string)product.RelatedAttributes[amsOSRAMConstants.ProductAttributeSAPProductType];
+                materialSapOwner = (string)material.Attributes[amsOSRAMConstants.MaterialAttributeSAPOwner];
             }
 
             Area area = material.GetArea();
@@ -737,7 +846,7 @@ namespace Cmf.Custom.Tests.Biz.Space
             {
                 {"LOT",  material.Name},
                 {"BATCH", "-"},
-                {"LOT TYPE", sapProductType },
+                {"LOT TYPE", materialSapOwner },
                 {"PROCESS EQUIPMENT 1", processEquipment?.Name },
                 {"EQUIPMENT PLATFORM", processEquipment?.Model },
                 {"PROCESS RECIPE 1", lastRecipeName },
@@ -803,7 +912,11 @@ namespace Cmf.Custom.Tests.Biz.Space
             // Validate SampleDate
             Assert.IsNotNull(spaceInformation.SampleDate, "The SampleDate cannot be null or empty");
 
-            dataCollectionLimitSet.LoadRelations(new Collection<string> { "DataCollectionParameterLimit" }, 1);
+            if (dataCollectionLimitSet != null)
+            {
+                dataCollectionLimitSet.LoadRelations(new Collection<string> { "DataCollectionParameterLimit" }, 1);
+            }
+
             material.LoadChildren();
 
             foreach (Sample sample in spaceInformation.Samples)
@@ -815,7 +928,7 @@ namespace Cmf.Custom.Tests.Biz.Space
                     Assert.AreEqual(parameter.DataUnit, sample.ParameterUnit, $"Sample field for parameter {sample.ParameterName} should have the unit {parameter.DataUnit} but got {sample.ParameterUnit} instead.");
                 }
 
-                DataCollectionParameterLimit limits = dataCollectionLimitSet.DataCollectionParameterLimits.FirstOrDefault(f => f.TargetEntity.Name == sample.ParameterName);
+                DataCollectionParameterLimit limits = dataCollectionLimitSet?.DataCollectionParameterLimits?.FirstOrDefault(f => f.TargetEntity.Name == sample.ParameterName);
 
                 if (limits != null)
                 {
@@ -836,6 +949,10 @@ namespace Cmf.Custom.Tests.Biz.Space
                     {
                         Assert.AreEqual(Decimal.Truncate((decimal)limits.UpperErrorLimit.Value), Decimal.Truncate(Decimal.Parse(sample.SpecificationLimits.Upper)), $"Sample field for parameter {sample.ParameterName} should have the lower limit error equal to {Decimal.Truncate((decimal)limits.UpperErrorLimit.Value)} instead is {Decimal.Truncate(Decimal.Parse(sample.SpecificationLimits.Upper))}.");
                     }
+                } else
+                {
+                    Assert.IsNull(sample.SpecificationLimits.Upper);
+                    Assert.IsNull(sample.SpecificationLimits.Lower);
                 }
 
                 bool isSampleTypeMaterialId = dataCollection.DataCollectionParameters.FirstOrDefault(f => f.TargetEntity.Name == parameter.Name).SampleKey == DataCollectionParameterSampleKey.MaterialId;

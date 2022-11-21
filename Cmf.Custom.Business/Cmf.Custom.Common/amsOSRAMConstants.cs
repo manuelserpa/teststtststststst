@@ -298,6 +298,10 @@
         /// </summary>
         public static string BOMAttributeIsStartingCarrierType = "StartingCarrierType";
 
+        /// Material Attribute SAPOwner
+        /// </summary>
+        public static string MaterialAttributeSAPOwner = "SAPOwner";
+
         #endregion Attributes
 
         #region SmartTables

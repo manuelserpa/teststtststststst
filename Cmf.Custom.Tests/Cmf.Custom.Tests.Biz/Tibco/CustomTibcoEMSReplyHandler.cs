@@ -136,7 +136,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             };
             dataCollectionLimitSet.Load();
 
-            DataCollectionPointCollection pointsToPost = CustomSendCriticalDataCollectionToSpace.CreateDataCollectionPointCollection(dataCollection, dataCollectionLimitSet, lot);
+            DataCollectionPointCollection pointsToPost = CustomSendCriticalDataCollectionToSpace.CreateDataCollectionPointCollection(dataCollection, lot, dataCollectionLimitSet);
 
             Resource processResource = new Resource()
             {
@@ -241,7 +241,7 @@ namespace Cmf.Custom.Tests.Biz.Tibco
             };
             dataCollectionLimitSet.Load();
 
-            DataCollectionPointCollection pointsToPost = CustomSendCriticalDataCollectionToSpace.CreateDataCollectionPointCollection(dataCollection, dataCollectionLimitSet, lot);
+            DataCollectionPointCollection pointsToPost = CustomSendCriticalDataCollectionToSpace.CreateDataCollectionPointCollection(dataCollection, lot, dataCollectionLimitSet);
 
             PostDataCollectionAndValidateSpaceMessage(lot, dataCollection, dataCollectionLimitSet, pointsToPost);
 
