@@ -121,7 +121,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
             Assert.IsNotNull(getActionByNameOutput.Action, $"The DEE {deeName} is missing");
 
             rollbackDEEAction = getActionByNameOutput.Action;
-            CustomUtilities.UpdateOrCreateDEE(getActionByNameOutput.Action.Name, getActionByNameOutput.Action.ActionCode, "Input[\"Result\"] = materialDataToIot;return Input;");
+            CustomUtilities.UpdateOrCreateDEE(getActionByNameOutput.Action.Name, getActionByNameOutput.Action.ActionCode, "Input[\"Result\"] = materialDataToIot;return Input;", validationCode: getActionByNameOutput.Action.ValidationCode);
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
             }
 
             // Rollback DEE
-            CustomUtilities.UpdateOrCreateDEE(rollbackDEEAction.Name, rollbackDEEAction.ActionCode);
+            CustomUtilities.UpdateOrCreateDEE(rollbackDEEAction.Name, rollbackDEEAction.ActionCode, validationCode: rollbackDEEAction.ValidationCode);
         }
 
         /// <summary>

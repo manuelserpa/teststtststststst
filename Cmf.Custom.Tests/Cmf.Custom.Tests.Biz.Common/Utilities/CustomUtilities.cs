@@ -606,7 +606,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
 
         #region DEE
 
-        public static Foundation.Common.DynamicExecutionEngine.Action UpdateOrCreateDEE(string actionName, string actionCode, string codeToReplace = null)
+        public static Foundation.Common.DynamicExecutionEngine.Action UpdateOrCreateDEE(string actionName, string actionCode, string codeToReplace = null, string validationCode = null)
         {
             if (actionName == null || actionName == String.Empty || actionCode == null && actionCode == String.Empty)
             {
@@ -626,6 +626,7 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
                 {
                     Name = actionName,
                     ActionCode = actionCodeToSave,
+                    ValidationCode = validationCode,
                     IsEnabled = true
                 }
             }.CreateActionSync().Action;

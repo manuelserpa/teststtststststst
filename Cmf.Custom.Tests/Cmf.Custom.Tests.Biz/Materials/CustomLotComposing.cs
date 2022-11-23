@@ -109,7 +109,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
                 Assert.IsNotNull(getActionByNameOutput.Action, $"The DEE {deeName} is missing");
 
                 RollbackDEEActions.Add(getActionByNameOutput.Action);
-                CustomUtilities.UpdateOrCreateDEE(getActionByNameOutput.Action.Name, getActionByNameOutput.Action.ActionCode, "return Input;");
+                CustomUtilities.UpdateOrCreateDEE(getActionByNameOutput.Action.Name, getActionByNameOutput.Action.ActionCode, "return Input;", getActionByNameOutput.Action.ValidationCode);
             }
         }
 
@@ -142,7 +142,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
             // Rollback DEE
             foreach (Foundation.Common.DynamicExecutionEngine.Action action in RollbackDEEActions)
             {
-                CustomUtilities.UpdateOrCreateDEE(action.Name, action.ActionCode);
+                CustomUtilities.UpdateOrCreateDEE(action.Name, action.ActionCode, validationCode: action.ValidationCode);
             }
         }
 
