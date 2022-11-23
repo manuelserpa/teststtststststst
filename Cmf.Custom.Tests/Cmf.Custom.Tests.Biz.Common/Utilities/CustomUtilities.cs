@@ -5,6 +5,8 @@ using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.OutputObjects;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
+using Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects;
+using Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.OutputObjects;
 using Cmf.Foundation.BusinessOrchestration.LocalizationManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.QueryManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects;
@@ -610,10 +612,18 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
         {
             if (action.Id <= 0 && !String.IsNullOrEmpty(action.Name))
             {
-                action = new GetActionByNameInput()
+                try
                 {
-                    Name = action.Name
-                }.GetActionByNameSync().Action;
+                    GetActionByNameOutput actionOutput = new GetActionByNameInput
+                    {
+                        Name = action.Name
+                    }.GetActionByNameSync();
+
+                    action = actionOutput.Action;
+                } catch
+                {
+
+                }
             }
 
             Assert.IsNotNull(action, $"The DEE {action.Name} is missing");
@@ -632,12 +642,29 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
 
             action.ActionCode = actionCodeToSave;
 
-            return new CompileAndSaveWithNewVersionInput()
+            if (action.Id <= 0)
             {
-                Action = action,
-                IsNewVersion = true,
-                IsToMakeNewVersionEffective = true
-            }.CompileAndSaveWithNewVersionSync().Action;
+                action = new CreateActionInput()
+                {
+                    Action = action
+                }.CreateActionSync().Action;
+
+                action = new MakeActionVersionEffectiveInput()
+                {
+                    Action = action
+                }.MakeActionVersionEffectiveSync().Action;
+            } 
+            else
+            {
+                action = new CompileAndSaveWithNewVersionInput()
+                {
+                    Action = action,
+                    IsNewVersion = true,
+                    IsToMakeNewVersionEffective = true
+                }.CompileAndSaveWithNewVersionSync().Action;
+            }
+
+            return action;
         }
 
         public static Foundation.Common.DynamicExecutionEngine.Action RollbackDEE(long actionId)
