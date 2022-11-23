@@ -9,30 +9,34 @@ param (
 	[string]$packageId
 )
 
-$scriptLocation = Split-Path $MyInvocation.MyCommand.Path -Parent
+$root = Split-Path $MyInvocation.MyCommand.Path -Parent
 
-$rootSolutionRelativePath = "..\"
-$rootSolutionAbsolutePath = Join-Path -Path $scriptLocation -ChildPath $rootSolutionRelativePath
+while ((Split-Path -Path $root) -and !(Test-Path -Path (Join-Path -Path $root -ChildPath ".project-config.json"))) {
+	$root = Split-Path -Path $root
+}
+
+if (!(Split-Path -Path $root)) {
+	throw "Project not found!"
+}
 
 $deeFolderRelative = "Cmf.Custom.Data\DEEs\*"
-$deeFolder = Join-Path -Path $rootSolutionAbsolutePath -ChildPath $deeFolderRelative 
+$deeFolder = Join-Path -Path $root -ChildPath $deeFolderRelative 
 
 if (!(Test-Path -Path $deeFolder)) {
    throw "${deeFolderRelative} does not exist."
 }
 
 $mdFolderRelative = "Cmf.Custom.Data\MasterData\${packageId}\*"
-$mdFolder = Join-Path -Path $rootSolutionAbsolutePath -ChildPath $mdFolderRelative
+$mdFolder = Join-Path -Path $root -ChildPath $mdFolderRelative
 
 if (!(Test-Path -Path $mdFolder)) {
    throw "${mdFolderRelative} does not exist."
 }
 
 $fileName = "MD-${packageId}"
-$countFileName = Get-ChildItem -filter "$fileName*" -path $scriptLocation | Measure-Object | Select -ExpandProperty Count
+$countFileName = Get-ChildItem -filter "$fileName*" -path $root | Measure-Object | Select -ExpandProperty Count
 
-Write-Output $countFileName
-$scriptName = Join-Path -Path $scriptLocation -ChildPath "MD-${packageId}-${countFileName}.zip"
+$scriptName = Join-Path -Path $root -ChildPath "MD-${packageId}-${countFileName}.zip"
 
 $compress = @{
   Path = $deeFolder, $mdFolder

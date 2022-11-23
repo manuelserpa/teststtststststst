@@ -20,7 +20,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
     public class CustomLotComposing
     {
         private static CustomExecutionScenario executionScenario = null;
-        private static List<Cmf.Foundation.Common.DynamicExecutionEngine.Action> RollbackDEEActions = new List<Foundation.Common.DynamicExecutionEngine.Action>();
+        private static List<long> RollbackDEEActions = new List<long>();
 
         private static bool? IsWaferReception;
         private static bool? IsSorter;
@@ -101,15 +101,13 @@ namespace Cmf.Custom.Tests.Biz.Materials
             // Run DEE with our custom hook to capture the message sent to IoT
             foreach (string deeName in new List<string> { "CustomSendTrackInInformationToIoT", "CustomSendTrackOutInformationToIoT" })
             {
-                GetActionByNameOutput getActionByNameOutput = new GetActionByNameInput()
+                Foundation.Common.DynamicExecutionEngine.Action action = new GetActionByNameInput()
                 {
                     Name = deeName
-                }.GetActionByNameSync();
+                }.GetActionByNameSync().Action;
 
-                Assert.IsNotNull(getActionByNameOutput.Action, $"The DEE {deeName} is missing");
-
-                RollbackDEEActions.Add(getActionByNameOutput.Action);
-                CustomUtilities.UpdateOrCreateDEE(getActionByNameOutput.Action.Name, getActionByNameOutput.Action.ActionCode, "return Input;", getActionByNameOutput.Action.ValidationCode);
+                RollbackDEEActions.Add(action.Id);
+                CustomUtilities.UpdateOrCreateDEE(action, "return Input;");
             }
         }
 
@@ -140,9 +138,9 @@ namespace Cmf.Custom.Tests.Biz.Materials
             }
 
             // Rollback DEE
-            foreach (Foundation.Common.DynamicExecutionEngine.Action action in RollbackDEEActions)
+            foreach (long actionId in RollbackDEEActions)
             {
-                CustomUtilities.UpdateOrCreateDEE(action.Name, action.ActionCode, validationCode: action.ValidationCode);
+                CustomUtilities.RollbackDEE(actionId);
             }
         }
 

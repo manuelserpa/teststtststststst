@@ -606,37 +606,51 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
 
         #region DEE
 
-        public static Foundation.Common.DynamicExecutionEngine.Action UpdateOrCreateDEE(string actionName, string actionCode, string codeToReplace = null, string validationCode = null)
+        public static Foundation.Common.DynamicExecutionEngine.Action UpdateOrCreateDEE(Foundation.Common.DynamicExecutionEngine.Action action, string codeToReplace = null)
         {
-            if (actionName == null || actionName == String.Empty || actionCode == null && actionCode == String.Empty)
+            if (action.Id <= 0 && !String.IsNullOrEmpty(action.Name))
+            {
+                action = new GetActionByNameInput()
+                {
+                    Name = action.Name
+                }.GetActionByNameSync().Action;
+            }
+
+            Assert.IsNotNull(action, $"The DEE {action.Name} is missing");
+
+            string actionCodeToSave = action.ActionCode;
+
+            if (action.Name == null || action.Name == String.Empty || actionCodeToSave == null && actionCodeToSave == String.Empty)
             {
                 throw new Exception("The DEE action must have a name and code");
             }
-
-            string actionCodeToSave = actionCode;
 
             if (codeToReplace != null && codeToReplace != String.Empty)
             {
                 actionCodeToSave = actionCodeToSave.Replace("// DO NOT DELETE: This is a hook for test purposes", codeToReplace);
             }
 
-            Cmf.Foundation.Common.DynamicExecutionEngine.Action action = new CreateActionInput()
-            {
-                Action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action()
-                {
-                    Name = actionName,
-                    ActionCode = actionCodeToSave,
-                    ValidationCode = validationCode,
-                    IsEnabled = true
-                }
-            }.CreateActionSync().Action;
+            action.ActionCode = actionCodeToSave;
 
-            action = new MakeActionVersionEffectiveInput()
+            return new CompileAndSaveWithNewVersionInput()
             {
-                Action = action
+                Action = action,
+                IsNewVersion = true,
+                IsToMakeNewVersionEffective = true
+            }.CompileAndSaveWithNewVersionSync().Action;
+        }
+
+        public static Foundation.Common.DynamicExecutionEngine.Action RollbackDEE(long actionId)
+        {
+            GetActionByIdOutput getActionByNameOutput = new GetActionByIdInput()
+            {
+                Id = actionId
+            }.GetActionByIdSync();
+
+            return new MakeActionVersionEffectiveInput
+            {
+                Action = getActionByNameOutput.Action
             }.MakeActionVersionEffectiveSync().Action;
-
-            return action;
         }
 
         public static object RunDEEForTests(Foundation.Common.DynamicExecutionEngine.Action action, Dictionary<string, object> input)
@@ -676,7 +690,15 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
         public static string GetEnvironmentName()
         {
             string ruleCode = @"string environmentMachineName = Environment.MachineName; Input[""Result""] = environmentMachineName.ToString();";
-            Foundation.Common.DynamicExecutionEngine.Action action = UpdateOrCreateDEE("CustomGetEnvironmentMachineName", ruleCode);
+
+            Cmf.Foundation.Common.DynamicExecutionEngine.Action action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action()
+            {
+                Name = "CustomGetEnvironmentMachineName",
+                ActionCode = ruleCode,
+                IsEnabled = true
+            };
+
+            action = UpdateOrCreateDEE(action);
 
             return (string)RunDEEForTests(action, new Dictionary<string, object>());
         }

@@ -31,6 +31,6 @@ List of delivered packages:
 * [amsOSRAM-20221012-2.1.0](/cmf.custom.help/releasenotes>amsosram-20221012-2.1.0)
 * [amsosram-20221102-2.2.0](/cmf.custom.help/releasenotes>amsosram-20221102-2.2.0)
 * [amsosram-20221109-2.3.1](/cmf.custom.help/releasenotes>amsosram-20221109-2.3.1)
-* [amsosram-20221122-2.4.0](/cmf.custom.help/releasenotes>amsosram-20221122-2.4.0)
+* [amsosram-20221124-2.4.0](/cmf.custom.help/releasenotes>amsosram-20221124-2.4.0)
 
 
