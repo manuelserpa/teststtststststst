@@ -1242,14 +1242,21 @@
       "Lookup Table Value": "Logical Wafer",
       "Lookup Table Value Description": "Logical Wafer",
       "Lookup Table IsEnabled": "Yes"
+    },
+    "176": {
+      "LookUp Table": "SamplingPatternType",
+      "Lookup Table Value Parent": "",
+      "Lookup Table Value": "Wafer",
+      "Lookup Table Value Description": "Wafer",
+      "Lookup Table IsEnabled": "Yes"
     }
   },
   "<DM>SamplingPattern": {
     "1": {
       "Name": "FIRST",
-      "Type": "Logical Wafer",
+      "Type": "Wafer",
       "SamplingPatternType": "System",
-      "SystemSamplingSource": "Logical Wafer",
+      "SystemSamplingSource": "Wafer",
       "SystemSamplingCount": "1",
       "SystemSamplingCountIsPercentage": "0",
       "SystemSamplingSelection": "Bottom",
@@ -1257,9 +1264,9 @@
     },
     "2": {
       "Name": "MIDDLE",
-      "Type": "Logical Wafer",
+      "Type": "Wafer",
       "SamplingPatternType": "System",
-      "SystemSamplingSource": "Logical Wafer",
+      "SystemSamplingSource": "Wafer",
       "SystemSamplingCount": "1",
       "SystemSamplingCountIsPercentage": "0",
       "SystemSamplingSelection": "Middle",
@@ -1267,9 +1274,9 @@
     },
     "3": {
       "Name": "LAST",
-      "Type": "Logical Wafer",
+      "Type": "Wafer",
       "SamplingPatternType": "System",
-      "SystemSamplingSource": "Logical Wafer",
+      "SystemSamplingSource": "Wafer",
       "SystemSamplingCount": "1",
       "SystemSamplingCountIsPercentage": "0",
       "SystemSamplingSelection": "Top",
