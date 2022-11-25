@@ -109,14 +109,26 @@
       "Roles": ""
     },
     "10": {
-      "UserAccount": "CMF\\CMFSU",
+      "UserAccount": "amsOSRAMTestUser",
       "PrimaryRole": "Administrators",
       "Token": "",
       "Pin": "",
-      "AutenticationStrategy": "",
+      "AutenticationStrategy": "LocalUsers",
       "AutoLockTimeOut": "0",
       "IsEnabled": "Yes",
       "IsIntegrationUser": "No",
+      "RequirePasswordChange": "",
+      "Roles": ""
+    },
+    "11": {
+      "UserAccount": "amsOSRAMIoTUser",
+      "PrimaryRole": "Administrators",
+      "Token": "",
+      "Pin": "",
+      "AutenticationStrategy": "LocalUsers",
+      "AutoLockTimeOut": "0",
+      "IsEnabled": "Yes",
+      "IsIntegrationUser": "Yes",
       "RequirePasswordChange": "",
       "Roles": ""
     }

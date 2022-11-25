@@ -35,7 +35,8 @@
 
         public static string ResourceDefaultStateModelStandby = "Standby";
 
-        public static string UserName = "CMF\\CMFSU";
+        public static string UserName = "amsOSRAMIoTUser";
+
         /// <summary>
         /// Relation name between a material and resource
         /// </summary>

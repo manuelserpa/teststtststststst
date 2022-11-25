@@ -16,7 +16,10 @@ using Cmf.MessageBus.Client;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 
@@ -89,6 +92,30 @@ namespace Settings
             private set;
         }
 
+        /// <summary>
+        /// IoT Tests Mode
+        /// </summary>
+        /// <value>
+        /// Enum with modes
+        /// </value>
+        public static IoTModes Mode
+        {
+            get;
+            private set;
+        } = IoTModes.Local;
+
+        /// <summary>
+        /// Absolute Path to RunSettings File
+        /// </summary>
+        /// <value>
+        /// Absolute Path to RunSettings File
+        /// </value>
+        public static string FilePath
+        {
+            get;
+            private set;
+        }
+
         #endregion
 
         #region Constructors
@@ -111,6 +138,7 @@ namespace Settings
         public static void BaseInit(TestContext context)
         {
             // Set custom test context
+            LoadEnv(ref context);
             BaseContext.testContext = context;
 
             ClientConfigurationProvider.ConfigurationFactory = () =>
@@ -128,18 +156,18 @@ namespace Settings
                         RequestTimeout = GetString(context, "requestTimeout")
                     };
 
-                    string mode = GetString(context, "mode");
-
-                    if (mode == "Local")
+                    if (context.Properties.Contains("userName"))
                     {
                         config.UserName = GetString(context, "userName");
+                    }
+
+                    if (context.Properties.Contains("password"))
+                    {
                         config.Password = GetString(context, "password");
                     }
-                    else
-                    {
-                        config.SecurityPortalBaseAddress = new Uri(GetString(context, "securityPortalBaseAddress"));
-                        config.SecurityAccessToken = GetString(context, "securityPortalAccessToken");
-                    }
+                    
+                    config.SecurityPortalBaseAddress = new Uri(GetString(context, "securityPortalBaseAddress"));
+                    config.SecurityAccessToken = GetString(context, "securityPortalAccessToken");
                 }
                 return config;
             };
@@ -163,6 +191,26 @@ namespace Settings
             //    Utilities.DWHConnection = new SqlConnection(GetString(context, "DWHConnection"));
             //}
             #endregion
+
+            #region Connect IoT
+
+            if (context.Properties.Contains("mode"))
+            {
+                IoTModes ioTMode;
+                Enum.TryParse(GetString(context, "mode"), out ioTMode);
+
+                Mode = ioTMode;
+            }
+
+            if (GetString(context, "TestRunDirectory").Contains("TestExecution"))
+            {
+                FilePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), GetString(context, "filePathRemote")));
+            } else
+            {
+                FilePath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), GetString(context, "filePathLocal")));
+            }
+
+            #endregion Connect IoT
         }
 
         /// <summary>
@@ -215,6 +263,55 @@ namespace Settings
             }
 
             return messageBusTransportConfig;
+        }
+
+        public enum IoTModes
+        {
+            Local,
+            RemoteDownload,
+            RemoteService
+        }
+
+        public static void LoadEnv(ref TestContext context)
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
+            string fileName = ".env";
+
+            while (!File.Exists(Path.Combine(dirInfo.FullName, fileName)) && dirInfo.Parent != null)
+            {
+                dirInfo = dirInfo.Parent;
+            }
+
+            string filePath = Path.Combine(dirInfo.FullName, fileName);
+
+            if (!File.Exists(filePath))
+            {
+                return;
+            }
+
+            Dictionary<string, string> env = new Dictionary<string, string>();
+
+            foreach (string line in File.ReadAllLines(filePath))
+            {
+                string[] parts = line.Split(
+                    '=',
+                    StringSplitOptions.RemoveEmptyEntries);
+
+                if (parts.Length != 2)
+                    continue;
+
+                env.Add(parts[0], parts[1]);
+            }
+
+            if (env.ContainsKey("USERNAME"))
+            {
+                context.Properties["userName"] = env.GetValueOrDefault("USERNAME");
+            }
+
+            if (env.ContainsKey("PASSWORD") && context.Properties.Contains("password"))
+            {
+                context.Properties["password"] = env.GetValueOrDefault("PASSWORD");
+            }
         }
 
         #endregion

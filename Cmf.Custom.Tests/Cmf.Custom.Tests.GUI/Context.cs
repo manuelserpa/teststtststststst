@@ -9,8 +9,9 @@
 
 #region Using Directives
 
-using Cmf.Core.PageObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.IO;
 
 #endregion Using Directives
 
@@ -21,7 +22,7 @@ namespace Settings
     /// </summary>
     /// <seealso cref="BaseContext" />
     [TestClass]
-    public class Context : BaseContext
+    public class Context : Cmf.Core.PageObjects.BaseContext
     {
         #region Private Variables
         #endregion
@@ -44,6 +45,8 @@ namespace Settings
         [AssemblyInitialize]
         public static void Init(TestContext context)
         {
+            Settings.BaseContext.LoadEnv(ref context);
+
             BaseInit(context);
         }
 
