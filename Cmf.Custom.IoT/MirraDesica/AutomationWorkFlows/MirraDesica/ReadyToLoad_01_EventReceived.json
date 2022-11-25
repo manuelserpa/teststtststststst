@@ -1,0 +1,374 @@
+{
+	"tasks": [
+		{
+			"id": "task_158178",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "CassetteLoad_01_ExecuteCommand",
+					"IsShared": false
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "CarrierId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"friendlyName": "LoadPort",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "CarrierId",
+						"valueType": {
+							"friendlyName": "CarrierId",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Internal Workflow",
+				"___cmf___description": "CassetteLoad_01_ExecuteCommand"
+			}
+		},
+		{
+			"id": "task_5596",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "PodLockedPort1"
+					}
+				],
+				"___cmf___description": "PodLockedPort1 (4121)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_5674",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "PodLockedPort2"
+					}
+				],
+				"___cmf___description": "PodLockedPort2 (4221)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_20387",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "PodLockedPort2"
+					}
+				],
+				"___cmf___description": "PodLockedPort2 (4221)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_20496",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "PodLockedPort2"
+					}
+				],
+				"___cmf___description": "PodLockedPort2 (4221)"
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "ac382a11-1eb5-43ca-b5be-66cfca84b084",
+			"sourceId": "task_5596",
+			"targetId": "task_158178",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "824d1e84-56d1-4829-8e96-489e671e9bc7",
+			"sourceId": "task_5674",
+			"targetId": "task_158178",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "a1381904-5b9d-4baf-9b7c-76e063a4ce82",
+			"sourceId": "task_5596",
+			"targetId": "task_158178",
+			"inputName": "LoadPortIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "1"
+					}
+				}
+			]
+		},
+		{
+			"id": "d782ea83-821b-4aba-957a-22f348b4b81c",
+			"sourceId": "task_5674",
+			"targetId": "task_158178",
+			"inputName": "LoadPortIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "2"
+					}
+				}
+			]
+		},
+		{
+			"id": "b07de1d4-8c01-4f57-8a1b-f82a4ec85872",
+			"sourceId": "task_20387",
+			"targetId": "task_158178",
+			"inputName": "LoadPortIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "3"
+					}
+				}
+			]
+		},
+		{
+			"id": "757fff2b-8e8a-420e-9b1b-84b585f2bcf2",
+			"sourceId": "task_20387",
+			"targetId": "task_158178",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "99fae16d-6caf-4419-8380-b6115f11cb40",
+			"sourceId": "task_20496",
+			"targetId": "task_158178",
+			"inputName": "LoadPortIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "4"
+					}
+				}
+			]
+		},
+		{
+			"id": "7e80c3f8-3562-473f-8dc7-5846bfe92b49",
+			"sourceId": "task_20496",
+			"targetId": "task_158178",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#80ffff",
+			"notes": [
+				{
+					"id": "note_158182",
+					"name": "TosReadyToUnload",
+					"value": "<p><strong>What it does:</strong></p><p>Sets corresponding Load Port to ReadyToUnload;</p><p>Request Transport Job for Load Port;</p><p>&nbsp;</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to ReadyToUnload for the Tool;</li><li>Connect the value corresponding to the Load Port Id to the Load Port Id of the Workflow task;<ol><li>If the Equipment does not deliver that information and has only 1 port:<ol><li>Connect any event output to Load Port Id;</li><li>Use the Converter \"Any to Constant\" to send a value of Type Integer and Value 1;</li></ol></li><li>If the Equipment does not deliver that information and has multiple Load Port with multiple Event:<ol><li>Connect any event output to Load Port Id;</li><li>Use the Converter \"Any to Constant\" to send a value of Type Integer and Value corresponding to the Load Port;</li></ol></li></ol></li><li>Pass any event Output to the Activate Input of the Workflow;</li></ol>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_158178": {
+						"collapsed": false,
+						"position": {
+							"x": 1787,
+							"y": 424
+						},
+						"outdated": false
+					},
+					"task_5596": {
+						"collapsed": false,
+						"position": {
+							"x": 810,
+							"y": 14
+						},
+						"outdated": false
+					},
+					"task_5674": {
+						"collapsed": false,
+						"position": {
+							"x": 816,
+							"y": 305
+						},
+						"outdated": false
+					},
+					"task_20387": {
+						"collapsed": false,
+						"position": {
+							"x": 816,
+							"y": 597
+						},
+						"outdated": false
+					},
+					"task_20496": {
+						"collapsed": false,
+						"position": {
+							"x": 814,
+							"y": 884
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"ac382a11-1eb5-43ca-b5be-66cfca84b084": {
+						"vertices": []
+					},
+					"824d1e84-56d1-4829-8e96-489e671e9bc7": {
+						"vertices": []
+					},
+					"757fff2b-8e8a-420e-9b1b-84b585f2bcf2": {
+						"vertices": []
+					},
+					"7e80c3f8-3562-473f-8dc7-5846bfe92b49": {
+						"vertices": []
+					},
+					"a1381904-5b9d-4baf-9b7c-76e063a4ce82": {
+						"vertices": []
+					},
+					"d782ea83-821b-4aba-957a-22f348b4b81c": {
+						"vertices": []
+					},
+					"b07de1d4-8c01-4f57-8a1b-f82a4ec85872": {
+						"vertices": []
+					},
+					"99fae16d-6caf-4419-8380-b6115f11cb40": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_158182": {
+						"collapsed": false,
+						"position": {
+							"x": 2250,
+							"y": 47
+						}
+					}
+				},
+				"zoom": 0.8700000000000003,
+				"pan": {
+					"x": 587.5,
+					"y": 135
+				}
+			}
+		}
+	}
+}

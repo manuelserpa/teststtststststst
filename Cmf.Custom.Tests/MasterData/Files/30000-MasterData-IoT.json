@@ -1101,6 +1101,15 @@
       "MonitorPackageVersion": "9.1.0-202209072",
       "ManagerPackageVersion": "9.1.0-202209072",
       "Configuration": ""
+    },
+    "13": {
+      "Name": "MirraDesica",
+      "Description": "5FCMP2",
+      "Type": "General",
+      "LogicalAddress": "5FCMP2",
+      "MonitorPackageVersion": "9.1.0-202209072",
+      "ManagerPackageVersion": "9.1.0-202209072",
+      "Configuration": ""
     }
   },
   "<LOOKUP>AutomationInstances": {
@@ -1313,6 +1322,24 @@
       "AutomationManager": "PicosunMorpher",
       "DriverName": "RFIDReader",
       "EntityName": "5FALD2.RFID"
+    },
+    "36": {
+      "AutomationController": "MirraDesica",
+      "AutomationManager": "MirraDesica",
+      "DriverName": "",
+      "EntityName": "5FCMP2"
+    },
+    "37": {
+      "AutomationController": "MirraDesica",
+      "AutomationManager": "MirraDesica",
+      "DriverName": "SecsGemEquipment",
+      "EntityName": "5FCMP2"
+    },
+    "38": {
+      "AutomationController": "MirraDesica",
+      "AutomationManager": "MirraDesica",
+      "DriverName": "RFIDReader",
+      "EntityName": "5FCMP2.RFID"
     }
   }
 }
