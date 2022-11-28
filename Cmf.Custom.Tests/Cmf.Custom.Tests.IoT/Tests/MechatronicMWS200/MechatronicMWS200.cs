@@ -89,6 +89,10 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
         public bool proceedWithSubstrateCommandRecieved = false;
         public bool cancelSubstrateCommandRecieved = false;
 
+        public List<string> waferIDWithProceedWithSubstrateCommand = new List<string>();
+        public List<string> waferIDWithCancelSubstrateCommand = new List<string>();
+
+
         public HermosLFM4xReader RFIDReader = new HermosLFM4xReader();
         public const string readerResourceName = "ENA01.RFID";
 
@@ -1308,11 +1312,13 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
                 #region Wafer Read
 
+                string waferToProcess = wafersToProcess[sourcePosition - 1].Name;
+
                 base.Equipment.Variables["SubstID"] = movementWaferName;
                 base.Equipment.Variables["SubstLotID"] = materialData.MaterialName;
                 base.Equipment.Variables["SubstSubstLocID"] = "";
                 base.Equipment.Variables["SubstSource"] = String.Format("{0}.{1:D2}", sourceContainer, sourcePosition);
-                base.Equipment.Variables["AcquiredID"] = wafersToProcess[sourcePosition - 1].Name;
+                base.Equipment.Variables["AcquiredID"] = waferToProcess;
                 base.Equipment.Variables["Clock"] = DateTime.UtcNow.ToString("hh:mm:ss.fff");
                 base.Equipment.Variables["SubstHistory"] = substHistoryListDestination;
 
@@ -1321,22 +1327,24 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
                     //// Trigger event
                     base.Equipment.SendMessage("SOSM19_NOTCONFIRMED_WAITINGFORHOST", null);
 
-                    TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve ProceedWithSubstrate", () =>
+                    TestUtilities.WaitFor(ValidationTimeout, $"Failed to recieve ProceedWithSubstrate for {waferToProcess}", () =>
                     {
-                        return proceedWithSubstrateCommandRecieved;
+                        return proceedWithSubstrateCommandRecieved && waferIDWithProceedWithSubstrateCommand.Count(x => x.Equals(waferToProcess)) == 1 ;
                     });
                     proceedWithSubstrateCommandRecieved = false;
+                    waferIDWithProceedWithSubstrateCommand.Remove(waferToProcess);
                 }
                 else
                 {
                     //// Trigger event
                     base.Equipment.SendMessage("SOSM18_NOTCONFIRMED_WAITINGFORHOST", null);
 
-                    TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve CancelSubstrate", () =>
+                    TestUtilities.WaitFor(ValidationTimeout, $"Failed to recieve CancelSubstrate for {waferToProcess}", () =>
                     {
-                        return cancelSubstrateCommandRecieved;
+                        return cancelSubstrateCommandRecieved && waferIDWithCancelSubstrateCommand.Count(x => x.Equals(waferToProcess)) == 1;
                     });
                     cancelSubstrateCommandRecieved = false;
+                    waferIDWithCancelSubstrateCommand.Remove(waferToProcess);
                     continue;
                 }
 
@@ -2111,14 +2119,22 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             errorList.SetTypeToList();
 
             var substrateVerification = request.Item[3].GetValue();
+            
+            string waferId = request.Item[4][0][1].ASCII; // Location of SubstId (Paremeter (List with ID and value) inside a List of parameters)
+            
+            if (String.IsNullOrEmpty(waferId)) {
+                Assert.Fail($"No SubstId was sent with the {substrateVerification}");
+            }
 
             switch (substrateVerification)
             {
                 case "ProceedWithSubstrate":
                     proceedWithSubstrateCommandRecieved = true;
+                    waferIDWithProceedWithSubstrateCommand.Add(waferId);
                     break;
                 case "CancelSubstrate":
                     cancelSubstrateCommandRecieved = true;
+                    waferIDWithCancelSubstrateCommand.Add(waferId);
                     break;
                 default:
                     Assert.Fail("Invalid S14F19");
@@ -2917,6 +2933,9 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
             step.SubMaterialTrackStateDepth = 0;
             step.Save();
+
+            waferIDWithProceedWithSubstrateCommand.Clear();
+            waferIDWithCancelSubstrateCommand.Clear();
 
             ClearResource(step.Name, resourceName);
         }
