@@ -2664,22 +2664,24 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
                     //// Trigger event
                     base.Equipment.SendMessage("SOSM19_NOTCONFIRMED_WAITINGFORHOST", null);
 
-                    TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve ProceedWithSubstrate", () =>
+                    TestUtilities.WaitFor(ValidationTimeout, $"Failed to recieve ProceedWithSubstrate for {wafer.Name}", () =>
                     {
-                        return proceedWithSubstrateCommandRecieved;
+                        return proceedWithSubstrateCommandRecieved && waferIDWithProceedWithSubstrateCommand.Count(x => x.Equals(wafer.Name)) == 1;
                     });
                     proceedWithSubstrateCommandRecieved = false;
+                    waferIDWithProceedWithSubstrateCommand.Remove(wafer.Name);
                 }
                 else
                 {
                     //// Trigger event
                     base.Equipment.SendMessage("SOSM18_NOTCONFIRMED_WAITINGFORHOST", null);
 
-                    TestUtilities.WaitFor(ValidationTimeout, "Failed to recieve CancelSubstrate", () =>
+                    TestUtilities.WaitFor(ValidationTimeout, $"Failed to recieve CancelSubstrate for { wafer.Name}", () =>
                     {
-                        return cancelSubstrateCommandRecieved;
+                        return cancelSubstrateCommandRecieved && waferIDWithCancelSubstrateCommand.Count(x => x.Equals(wafer.Name)) == 1;
                     });
                     cancelSubstrateCommandRecieved = false;
+                    waferIDWithCancelSubstrateCommand.Remove(wafer.Name);
                     continue;
                 }
 
