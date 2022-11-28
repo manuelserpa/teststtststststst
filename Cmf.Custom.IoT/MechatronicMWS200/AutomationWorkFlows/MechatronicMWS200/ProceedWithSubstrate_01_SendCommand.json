@@ -258,7 +258,13 @@
 					"        var movementList = JSON.parse(material.SorterJobInformation.MovementList)",
 					"        var movement = movementList.find((x:any) => x.SourceContainer === inputs.Container);",
 					"",
-					"        return { TargetContainer: movement.DestinationContainer }",
+					"        if (material.SorterJobInformation.LogisticalProcess.includes(\"WaferReception\")){",
+					"            return { TargetContainer: movement.DestinationContainer, IsWaferReception: true }",
+					"        } else {",
+					"            return { TargetContainer: movement.DestinationContainer, IsNotWaferReception: true }",
+					"        }",
+					"",
+					"        ",
 					"        // emit output during execution: outputs.output1.emit(\"something\");",
 					"        // return example: return { output1: inputs.input1, output2: \"Hello World\" };",
 					"    }",
@@ -267,7 +273,7 @@
 					"",
 					""
 				],
-				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIHZhciBtYXRlcmlhbCA9IGlucHV0cy5NYXRlcmlhbERhdGE7DQogICAgICAgIHZhciBtb3ZlbWVudExpc3QgPSBKU09OLnBhcnNlKG1hdGVyaWFsLlNvcnRlckpvYkluZm9ybWF0aW9uLk1vdmVtZW50TGlzdCk7DQogICAgICAgIHZhciBtb3ZlbWVudCA9IG1vdmVtZW50TGlzdC5maW5kKCh4KSA9PiB4LlNvdXJjZUNvbnRhaW5lciA9PT0gaW5wdXRzLkNvbnRhaW5lcik7DQogICAgICAgIHJldHVybiB7IFRhcmdldENvbnRhaW5lcjogbW92ZW1lbnQuRGVzdGluYXRpb25Db250YWluZXIgfTsNCiAgICAgICAgLy8gZW1pdCBvdXRwdXQgZHVyaW5nIGV4ZWN1dGlvbjogb3V0cHV0cy5vdXRwdXQxLmVtaXQoInNvbWV0aGluZyIpOw0KICAgICAgICAvLyByZXR1cm4gZXhhbXBsZTogcmV0dXJuIHsgb3V0cHV0MTogaW5wdXRzLmlucHV0MSwgb3V0cHV0MjogIkhlbGxvIFdvcmxkIiB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIHZhciBtYXRlcmlhbCA9IGlucHV0cy5NYXRlcmlhbERhdGE7DQogICAgICAgIHZhciBtb3ZlbWVudExpc3QgPSBKU09OLnBhcnNlKG1hdGVyaWFsLlNvcnRlckpvYkluZm9ybWF0aW9uLk1vdmVtZW50TGlzdCk7DQogICAgICAgIHZhciBtb3ZlbWVudCA9IG1vdmVtZW50TGlzdC5maW5kKCh4KSA9PiB4LlNvdXJjZUNvbnRhaW5lciA9PT0gaW5wdXRzLkNvbnRhaW5lcik7DQogICAgICAgIGlmIChtYXRlcmlhbC5Tb3J0ZXJKb2JJbmZvcm1hdGlvbi5Mb2dpc3RpY2FsUHJvY2Vzcy5pbmNsdWRlcygiV2FmZXJSZWNlcHRpb24iKSkgew0KICAgICAgICAgICAgcmV0dXJuIHsgVGFyZ2V0Q29udGFpbmVyOiBtb3ZlbWVudC5EZXN0aW5hdGlvbkNvbnRhaW5lciwgSXNXYWZlclJlY2VwdGlvbjogdHJ1ZSB9Ow0KICAgICAgICB9DQogICAgICAgIGVsc2Ugew0KICAgICAgICAgICAgcmV0dXJuIHsgVGFyZ2V0Q29udGFpbmVyOiBtb3ZlbWVudC5EZXN0aW5hdGlvbkNvbnRhaW5lciwgSXNOb3RXYWZlclJlY2VwdGlvbjogdHJ1ZSB9Ow0KICAgICAgICB9DQogICAgICAgIC8vIGVtaXQgb3V0cHV0IGR1cmluZyBleGVjdXRpb246IG91dHB1dHMub3V0cHV0MS5lbWl0KCJzb21ldGhpbmciKTsNCiAgICAgICAgLy8gcmV0dXJuIGV4YW1wbGU6IHJldHVybiB7IG91dHB1dDE6IGlucHV0cy5pbnB1dDEsIG91dHB1dDI6ICJIZWxsbyBXb3JsZCIgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
 				"inputs": [
 					{
 						"name": "MaterialData",
@@ -299,6 +305,30 @@
 						"name": "TargetContainer",
 						"valueType": {
 							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "IsWaferReception",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "IsNotWaferReception",
+						"valueType": {
+							"type": 3,
 							"collectionType": 0,
 							"referenceType": null,
 							"referenceTypeName": null,
@@ -688,21 +718,21 @@
 					"    public async main(inputs: any, outputs: any): Promise<any> {",
 					"        // Add code here",
 					"        var updateContainer = !inputs.SourceContainerId.includes(\"CarrierAtLoadPort\");",
+					"        ",
+					"        var proceedWithSubstrate = inputs.ProceedWithSubstrate;",
 					"",
-					"        inputs.SourceContainerId",
-					"",
-					"        if (inputs.Success){",
-					"            return { ProceedWithSubstrate: inputs.ProceedWithSubstrate }",
+					"        if (inputs.Error){",
+					"            proceedWithSubstrate = false;",
 					"        }",
 					"",
-					"        return { ProceedWithSubstrate: false}",
+					"        return { ProceedWithSubstrate: proceedWithSubstrate}",
 					"        // emit output during execution: outputs.output1.emit(\"something\");",
 					"        // return example: return { output1: inputs.input1, output2: \"Hello World\" };",
 					"    }",
 					"}",
 					""
 				],
-				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIHZhciB1cGRhdGVDb250YWluZXIgPSAhaW5wdXRzLlNvdXJjZUNvbnRhaW5lcklkLmluY2x1ZGVzKCJDYXJyaWVyQXRMb2FkUG9ydCIpOw0KICAgICAgICBpbnB1dHMuU291cmNlQ29udGFpbmVySWQ7DQogICAgICAgIGlmIChpbnB1dHMuU3VjY2Vzcykgew0KICAgICAgICAgICAgcmV0dXJuIHsgUHJvY2VlZFdpdGhTdWJzdHJhdGU6IGlucHV0cy5Qcm9jZWVkV2l0aFN1YnN0cmF0ZSB9Ow0KICAgICAgICB9DQogICAgICAgIHJldHVybiB7IFByb2NlZWRXaXRoU3Vic3RyYXRlOiBmYWxzZSB9Ow0KICAgICAgICAvLyBlbWl0IG91dHB1dCBkdXJpbmcgZXhlY3V0aW9uOiBvdXRwdXRzLm91dHB1dDEuZW1pdCgic29tZXRoaW5nIik7DQogICAgICAgIC8vIHJldHVybiBleGFtcGxlOiByZXR1cm4geyBvdXRwdXQxOiBpbnB1dHMuaW5wdXQxLCBvdXRwdXQyOiAiSGVsbG8gV29ybGQiIH07DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIHZhciB1cGRhdGVDb250YWluZXIgPSAhaW5wdXRzLlNvdXJjZUNvbnRhaW5lcklkLmluY2x1ZGVzKCJDYXJyaWVyQXRMb2FkUG9ydCIpOw0KICAgICAgICB2YXIgcHJvY2VlZFdpdGhTdWJzdHJhdGUgPSBpbnB1dHMuUHJvY2VlZFdpdGhTdWJzdHJhdGU7DQogICAgICAgIGlmIChpbnB1dHMuRXJyb3IpIHsNCiAgICAgICAgICAgIHByb2NlZWRXaXRoU3Vic3RyYXRlID0gZmFsc2U7DQogICAgICAgIH0NCiAgICAgICAgcmV0dXJuIHsgUHJvY2VlZFdpdGhTdWJzdHJhdGU6IHByb2NlZWRXaXRoU3Vic3RyYXRlIH07DQogICAgICAgIC8vIGVtaXQgb3V0cHV0IGR1cmluZyBleGVjdXRpb246IG91dHB1dHMub3V0cHV0MS5lbWl0KCJzb21ldGhpbmciKTsNCiAgICAgICAgLy8gcmV0dXJuIGV4YW1wbGU6IHJldHVybiB7IG91dHB1dDE6IGlucHV0cy5pbnB1dDEsIG91dHB1dDI6ICJIZWxsbyBXb3JsZCIgfTsNCiAgICB9DQp9DQpleHBvcnRzLmRlZmF1bHQgPSBkZWZhdWx0XzE7DQo=",
 				"inputs": [
 					{
 						"name": "ProceedWithSubstrate",
@@ -857,14 +887,6 @@
 			"converters": []
 		},
 		{
-			"id": "task_39416_success-task_39408_activate",
-			"sourceId": "task_39416",
-			"targetId": "task_39408",
-			"inputName": "activate",
-			"outputName": "success",
-			"converters": []
-		},
-		{
 			"id": "task_39414_material-task_39412_material",
 			"sourceId": "task_39414",
 			"targetId": "task_39412",
@@ -927,13 +949,6 @@
 			"targetId": "task_39410",
 			"inputName": "activate",
 			"outputName": "SubstSourceOut"
-		},
-		{
-			"id": "15438ea1-42b7-4d67-816e-eae9811a6f30",
-			"sourceId": "task_41235",
-			"targetId": "task_39418",
-			"inputName": "subMaterialNameIn",
-			"outputName": "materialNameOut"
 		},
 		{
 			"id": "61a02816-5b22-4064-8059-663ae129cc5e",
@@ -1025,6 +1040,27 @@
 			"targetId": "task_39412",
 			"inputName": "activate",
 			"outputName": "success"
+		},
+		{
+			"id": "358ec672-e76c-41dd-be3b-cea7da26f5a6",
+			"sourceId": "task_39410",
+			"targetId": "task_39418",
+			"inputName": "subMaterialNameIn",
+			"outputName": "AcquiredIDOut"
+		},
+		{
+			"id": "b3c23a8b-106e-4edf-9b88-bf534c643dd5",
+			"sourceId": "task_39416",
+			"targetId": "task_39408",
+			"inputName": "activate",
+			"outputName": "IsWaferReceptionOut"
+		},
+		{
+			"id": "0b6c950a-c4b8-479d-b72d-49fb3505f155",
+			"sourceId": "task_39416",
+			"targetId": "task_12632",
+			"inputName": "activate",
+			"outputName": "IsNotWaferReceptionOut"
 		}
 	],
 	"layout": {
@@ -1038,16 +1074,16 @@
 					"task_41299": {
 						"collapsed": false,
 						"position": {
-							"x": 8459,
-							"y": 1488
+							"x": 8639,
+							"y": 1521
 						},
 						"outdated": false
 					},
 					"task_39408": {
 						"collapsed": false,
 						"position": {
-							"x": 4434,
-							"y": 967
+							"x": 4227,
+							"y": 1095
 						},
 						"outdated": false
 					},
@@ -1062,40 +1098,40 @@
 					"task_39412": {
 						"collapsed": false,
 						"position": {
-							"x": 5929,
-							"y": 1869
+							"x": 6502,
+							"y": 1603
 						},
 						"outdated": false
 					},
 					"task_39414": {
 						"collapsed": false,
 						"position": {
-							"x": 2384,
-							"y": 1864
+							"x": 2407,
+							"y": 1853
 						},
 						"outdated": false
 					},
 					"task_39416": {
 						"collapsed": false,
 						"position": {
-							"x": 3153,
-							"y": 1986
+							"x": 3127,
+							"y": 1941
 						},
 						"outdated": false
 					},
 					"task_39418": {
 						"collapsed": false,
 						"position": {
-							"x": 6830,
-							"y": 1365
+							"x": 7189,
+							"y": 1234
 						},
 						"outdated": false
 					},
 					"task_40896": {
 						"collapsed": false,
 						"position": {
-							"x": 7773,
-							"y": 1781
+							"x": 8101,
+							"y": 1775
 						},
 						"outdated": false
 					},
@@ -1110,8 +1146,8 @@
 					"task_12632": {
 						"collapsed": false,
 						"position": {
-							"x": 5278,
-							"y": 694
+							"x": 5362,
+							"y": 837
 						},
 						"outdated": false
 					}
@@ -1144,9 +1180,6 @@
 					"task_39410_SourceContainerIdOut-task_39416_ContainerIn": {
 						"vertices": []
 					},
-					"task_39416_success-task_39408_activate": {
-						"vertices": []
-					},
 					"task_39414_material-task_39412_material": {
 						"vertices": []
 					},
@@ -1172,9 +1205,6 @@
 						"vertices": []
 					},
 					"f3ea0fe3-f8a6-479e-a4f3-e883bd4239fe": {
-						"vertices": []
-					},
-					"15438ea1-42b7-4d67-816e-eae9811a6f30": {
 						"vertices": []
 					},
 					"61a02816-5b22-4064-8059-663ae129cc5e": {
@@ -1215,13 +1245,22 @@
 					},
 					"e9cd13fe-712f-4dd9-9d16-673b83a2ceb8": {
 						"vertices": []
+					},
+					"358ec672-e76c-41dd-be3b-cea7da26f5a6": {
+						"vertices": []
+					},
+					"b3c23a8b-106e-4edf-9b88-bf534c643dd5": {
+						"vertices": []
+					},
+					"0b6c950a-c4b8-479d-b72d-49fb3505f155": {
+						"vertices": []
 					}
 				},
 				"notes": {},
-				"zoom": 0.25,
+				"zoom": 0.7000000000000004,
 				"pan": {
-					"x": 306,
-					"y": 93
+					"x": 3439,
+					"y": 543
 				}
 			}
 		}
