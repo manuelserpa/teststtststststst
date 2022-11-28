@@ -197,7 +197,7 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             var resourceToAbortMaterial = new Resource { Name = resourceName };
             resourceToAbortMaterial.Load();
             EnsureMaterialStartConditions(resourceToAbortMaterial);
-
+                        
             RFIDReader.CleanUp(MESScenario);
             base.CleanUp(MESScenario);
 
@@ -1153,17 +1153,6 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             }
             Log(String.Format("{0}: [E] Track In of Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
 
-            //Log(String.Format("{0}: [S] Post Track In Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
-            //bool postTrackInResult = PostTrackInActions(MESScenario);
-            //Log(String.Format("{0}: [E] Post Track In Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
-
-            ////intentional step out of the test by returning false on post track in result
-            //if (!postTrackInResult)
-            //{
-            //    Log(String.Format("{0}: [S] Test Concluded by Returning false on Post Track In Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name));
-            //    return;
-            //}
-
             #endregion
             var materialName = "CarrierAtLoadPort1";
 
@@ -1176,15 +1165,10 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
 
             System.Threading.Thread.Sleep(5000);
 
-            //Log(String.Format("{0}: [S] Validate Material is In Progress on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
-
-            //Log(String.Format("{0}: [E] Validate Material is In Progress on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
-
             Log(String.Format("{0}: [S] Validate Material Persistence is In Process on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
             ValidatePersistenceState(materialName, MaterialStateEnum.InProcess);
             Log(String.Format("{0}: [E] Validate Material Persistence is In Process on MES Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
 
-            //            CustomProcessWafersInMovementList(materialData, 25, "AdHocTransferWafers-WaferReception");
 
             #region Validate MovementList
 
@@ -1200,19 +1184,6 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             CustomProcessCompleteEvent(MESScenario, containerName: materialName);
             Log(String.Format("{0}: [E] Sending Process Complete Event Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
 
-            //Track Out occurs automatically, validate either Processed or Queued
-            //TestUtilities.WaitFor(ValidationTimeout, String.Format($"Material {MESScenario.Entity.Name} System State is not Processed or Queued, automatic Track Out Failed"), () =>
-            //{
-            //    MESScenario.Entity.Load();
-            //    return MESScenario.Entity.SystemState.ToString().Equals(MaterialSystemState.Processed.ToString()) || MESScenario.Entity.SystemState.ToString().Equals(MaterialSystemState.Queued.ToString());
-            //});
-
-            //Log(String.Format("{0}: [S] Validate Persistence Does Not Exist Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
-            //ValidatePersistenceDoesNotExists(materialName);
-            //Log(String.Format("{0}: [E] Validate Persistence Does Not Exist Material {2} Resource {1}", DateTime.UtcNow.ToString("hh:mm:ss.fff"), MESScenario.Resource.Name, MESScenario.Entity.Name));
-
-            //CustomValidateContainerNumberOfWafers(containerScenarioForLoadPort1.Entity, 0);
-
             CustomValidateContainerNumberOfWafers(containerScenarioForLoadPort2.Entity, 10);
             CustomValidateContainerNumberOfWafers(containerScenarioForLoadPort3.Entity, 10);
             CustomValidateContainerNumberOfWafers(containerScenarioForLoadPort4.Entity, 5);
@@ -1221,6 +1192,13 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             ContainerCarrierOut(containerScenarioForLoadPort2, 2);
             ContainerCarrierOut(containerScenarioForLoadPort3, 3);
             ContainerCarrierOut(containerScenarioForLoadPort4, 4);
+
+            //Reset IsWaferReception step flag
+            waferReceptionStep.Load();
+            waferReceptionStep.LoadAttributes();
+
+            waferReceptionStep.SaveAttribute("IsWaferReception", false);
+
         }
 
         private void ProccessWafersOnMovementList(MaterialCollection wafersToProcess, string lotName, int expectedNumberOfMovements = 25)
@@ -2862,6 +2840,9 @@ namespace amsOSRAMEIAutomaticTests.MechatronicMWS200
             {
                 Step = step
             }.LoadStepMaterialsWithResourcesSync();
+
+            step.LoadAttributes(); //Reset WaferReception flag if not properly cleared on previous test run
+            step.SaveAttribute("IsWaferReception", false);
 
             System.Data.DataSet dataSet = Cmf.TestScenarios.Others.Utilities.ToDataSet(output.LoadStepMaterialsWithResourcesResults);
 
