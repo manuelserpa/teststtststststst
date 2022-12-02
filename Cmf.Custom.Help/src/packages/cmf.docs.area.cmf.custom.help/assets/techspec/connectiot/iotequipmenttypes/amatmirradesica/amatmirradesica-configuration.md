@@ -5,12 +5,12 @@ This section describe the setup for Mirra Desica Equipment Type
 Driver Definitions
 =================
 The following Automation Drivers are referenced on the Automation Controller as:
-- **SecsGemEquipment** for the Automation Driver **MirraDesicaDriver**;
+- **SecsGemEquipment** for the Automation Driver **AmatMirraDesicaDriver**;
 
 - **RFIDReader** for the Automation Driver **HermosLFM4xReaderDriver**;
 
 Drivers contain the information regarding all the items needed for the automation of the equipment.
-## Automation Driver Definition - MirraDesicaDriver
+## Automation Driver Definition - AmatMirraDesicaDriver
 ### Protocol
 The protocol used by the Automation Driver referenced on the Automation Controller is named **SecsGem** and used the package **criticalmanufacturing/connect-iot-driver-secsgem**, using version **9.1.0-202209072** at the time of writing.
 

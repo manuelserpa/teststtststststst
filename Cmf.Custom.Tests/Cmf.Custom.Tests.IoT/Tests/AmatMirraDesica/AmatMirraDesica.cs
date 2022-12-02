@@ -26,10 +26,10 @@ using amsOSRAMEIAutomaticTests;
 using amsOSRAMEIAutomaticTests.Objects.Utilities;
 using amsOSRAMEIAutomaticTests.Objects.Extensions;
 
-namespace AMSOsramEIAutomaticTests.MirraDesica
+namespace AMSOsramEIAutomaticTests.AmatMirraDesica
 {
     [TestClass]
-    public class MirraDesica : CommonTests
+    public class AmatMirraDesica : CommonTests
     {
         private const string resourceName = "5FCMP2";
 
@@ -40,7 +40,7 @@ namespace AMSOsramEIAutomaticTests.MirraDesica
 
         public const bool subMaterialTrackin = true;
 
-        public string recipeName = "TestRecipeForMirraDesica";
+        public string recipeName = "TestRecipeForAmatMirraDesica";
         public const string serviceName = "CD-Measurement";
 
         private string samplingPattern = "";
@@ -194,7 +194,7 @@ namespace AMSOsramEIAutomaticTests.MirraDesica
         /// Scenario: Recipe Exists on Equipment
         /// </summary>
         [TestMethod]
-        public void MirraDesica_FullProcessRecipeExists()
+        public void AmatMirraDesica_FullProcessRecipeExists()
         {
             updateEvents();
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
@@ -218,7 +218,7 @@ namespace AMSOsramEIAutomaticTests.MirraDesica
         /// Scenario: Recipe Exists on Equipment
         /// </summary>
         [TestMethod]
-        public void MirraDesica_SameRecipeOnlineLocal()
+        public void AmatMirraDesica_SameRecipeOnlineLocal()
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
 
@@ -244,7 +244,7 @@ namespace AMSOsramEIAutomaticTests.MirraDesica
         /// Scenario: Recipe Exists on Equipment
         /// </summary>
         [TestMethod]
-        public void MirraDesica_RecipeDoesNotExist()
+        public void AmatMirraDesica_RecipeDoesNotExist()
         {
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
             base.MESScenario = InitializeMaterialScenario(resourceName, flowName, stepName, numberOfWafersPerLot, false);
@@ -265,7 +265,7 @@ namespace AMSOsramEIAutomaticTests.MirraDesica
         /// Scenario: Control State to Host Offline
         /// </summary>
         [TestMethod]
-        public void MirraDesica_ControlStateUpdateTest()
+        public void AmatMirraDesica_ControlStateUpdateTest()
         {
 
             base.Equipment.Variables["ControlState"] = 1;
@@ -344,7 +344,7 @@ namespace AMSOsramEIAutomaticTests.MirraDesica
         /// Scenario: Control State to Host Offline
         /// </summary>
         //[TestMethod]
-        //public void MirraDesica_EPTStateChangeTest()
+        //public void AmatMirraDesica_EPTStateChangeTest()
         //{
 
         //    base.Equipment.Variables["BlockedReason"] = 0;
@@ -456,7 +456,7 @@ namespace AMSOsramEIAutomaticTests.MirraDesica
         /// Scenario: Alarm occurrs, validate ollection of alarm
         /// </summary>
         [TestMethod]
-        public void MirraDesica_AlarmDataCollection()
+        public void AmatMirraDesica_AlarmDataCollection()
         {
 
             Resource resource = new Resource { Name = resourceName };
