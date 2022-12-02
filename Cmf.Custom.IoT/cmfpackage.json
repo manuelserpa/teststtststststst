@@ -79,6 +79,10 @@
       "id": "Cmf.Custom.IoT.DISCODFD6363HC",
       "version": "2.1.0"
     },
+	{
+      "id": "Cmf.Custom.IoT.MirraDesica",
+      "version": "2.5.0"
+    },
     {
       "id": "Cmf.Custom.IoT.PicosunMorpher",
       "version": "2.4.0"
