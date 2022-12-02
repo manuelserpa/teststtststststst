@@ -1,321 +1,370 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RunSettings>
-  <!-- Configurations that affect the Test Framework -->
-  <RunConfiguration>
-    <!--0 = As many processes as possible, limited by number of cores on machine, 1 = Sequential (1 process), 2-> Given number of processes up to limit by number of cores on machine-->
-    <MaxCpuCount>1</MaxCpuCount>
-  </RunConfiguration>
+    <!-- Configurations that affect the Test Framework -->
+    <RunConfiguration>
+        <!--0 = As many processes as possible, limited by number of cores on machine, 1 = Sequential (1 process), 2-> Given number of processes up to limit by number of cores on machine-->
+        <MaxCpuCount>1</MaxCpuCount>
+    </RunConfiguration>
 
-  <!-- Parameters used by tests at runtime -->
-  <TestRunParameters>
-    <Parameter name="applicationName" value="AutomaticTests" />
-    <Parameter name="websiteAdress" value="amsOSRAMIntegration.ds.criticalmanufacturing.dev" />
-    <Parameter name="websitePort" value="443" />
-    <Parameter name="websiteUseSSL" value="True" />
-    <Parameter name="hostAdress" value="amsOSRAMIntegration.ds.criticalmanufacturing.dev" />
-    <Parameter name="hostPort" value="443" />
-    <Parameter name="hostUseSSL" value="true" />
-    <Parameter name="clientTenantName" value="amsOSRAM" />
-    <Parameter name="culture" value="en-US" />
-    <Parameter name="userRole" value="Administrators" />
-    <Parameter name="userName" value="CMF\cmfsu" />
-    <Parameter name="password" value="qaz123WSX" />
-    <Parameter name="authenticateViaSecurityPortalToken" value="true" />
-    <Parameter name="securityPortalClientId" value="MES" />
-  	<Parameter name="securityPortalAccessToken" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJZCI6Ik1FUyIsInRlbmFudE5hbWUiOiJhbXNPU1JBTSIsInN1YiI6IkFNU09TUkFNSU9UVVNFUiIsInNjb3BlIjpudWxsLCJleHRyYVZhbHVlcyI6bnVsbCwidHlwZSI6IlBBVCIsImlhdCI6MTY2MzY3MTQ5OCwiZXhwIjoxNjk1MzM3MTM5LCJhdWQiOiJBdXRoUG9ydGFsIiwiaXNzIjoiQXV0aFBvcnRhbCJ9.c2Z5VS98RHzrm26SMVHF_kxc4V4rs069P2FIBfeBtJE" />
-    <Parameter name="securityPortalBaseAddress" value="https://amsosramintegration.ds.criticalmanufacturing.dev/SecurityPortal/tenant" />
-  	<Parameter name="securityToken" value="4n5g84uLK347" />
-    <Parameter name="skipLogin" value="true" />
-    <Parameter name="useLoadBalancer" value="false" />
-    <Parameter name="requestTimeout" value="00:10:00" />
-    <Parameter name="reuseWebDriver" value="true" />
-    <Parameter name="browser" value="chrome" />
-    <Parameter name="debug" value="false" />
+    <!-- Parameters used by tests at runtime -->
+    <TestRunParameters>
+        <Parameter name="applicationName" value="AutomaticTests" />
+        <Parameter name="websiteAdress" value="amsOSRAMIntegration.ds.criticalmanufacturing.dev" />
+        <Parameter name="websitePort" value="443" />
+        <Parameter name="websiteUseSSL" value="True" />
+        <Parameter name="hostAdress" value="amsOSRAMIntegration.ds.criticalmanufacturing.dev" />
+        <Parameter name="hostPort" value="443" />
+        <Parameter name="hostUseSSL" value="true" />
+        <Parameter name="clientTenantName" value="amsOSRAM" />
+        <Parameter name="culture" value="en-US" />
+        <Parameter name="userRole" value="Administrators" />
+        <Parameter name="userName" value="amsOSRAMTestUser" />
+        <Parameter name="password" value="amsOSRAMTestUser" />
+        <Parameter name="authenticateViaSecurityPortalToken" value="true" />
+        <Parameter name="securityPortalClientId" value="MES" />
+        <Parameter name="securityPortalAccessToken" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJZCI6Ik1FUyIsInRlbmFudE5hbWUiOiJhbXNPU1JBTSIsInN1YiI6IkFNU09TUkFNSU9UVVNFUiIsInNjb3BlIjpudWxsLCJleHRyYVZhbHVlcyI6bnVsbCwidHlwZSI6IlBBVCIsImlhdCI6MTY2MzY3MTQ5OCwiZXhwIjoxNjk1MzM3MTM5LCJhdWQiOiJBdXRoUG9ydGFsIiwiaXNzIjoiQXV0aFBvcnRhbCJ9.c2Z5VS98RHzrm26SMVHF_kxc4V4rs069P2FIBfeBtJE" />
+        <Parameter name="securityPortalBaseAddress" value="https://amsosramintegration.ds.criticalmanufacturing.dev/SecurityPortal/tenant" />
+        <Parameter name="securityToken" value="4n5g84uLK347" />
+        <Parameter name="skipLogin" value="true" />
+        <Parameter name="useLoadBalancer" value="false" />
+        <Parameter name="requestTimeout" value="00:10:00" />
+        <Parameter name="reuseWebDriver" value="true" />
+        <Parameter name="browser" value="chrome" />
+        <Parameter name="debug" value="false" />
+        <!-- Connect IoT -->
+        <Parameter name="mode" value="RemoteService" />
+        <!-- This is For build, to Run Locally point to your directory -->
+        <Parameter name="filePathRemote" value="../RunSettings/integration.runsettings" />
+        <Parameter name="filePathLocal" value="../../../integration.runsettings" />
+        <Parameter name="filePath" value="../../../integration.runsettings" />
+        <!-- test output -->
+        <Parameter name="screenshotPath" value="\\cmffs\public\amsOSRAM\amsOSRAMIntegration\TestArtifacts" />
+        <Parameter name="logsPath" value="\\cmffs\public\amsOSRAM\amsOSRAMIntegration\TestArtifacts" />
+        <Parameter name="documentationScreenshotPath" value="\\cmffs\public\amsOSRAM\amsOSRAMIntegration\Documentation" />
+    </TestRunParameters>
+
+    <!-- MSTest adapter -->
+    <MSTest>
+        <KeepExecutorAliveAfterLegacyRun>true</KeepExecutorAliveAfterLegacyRun>
+        <MapInconclusiveToFailed>true</MapInconclusiveToFailed>
+        <CaptureTraceOutput>true</CaptureTraceOutput>
+        <DeleteDeploymentDirectoryAfterTestRunIsComplete>false</DeleteDeploymentDirectoryAfterTestRunIsComplete>
+        <DeploymentEnabled>false</DeploymentEnabled>
+        <InProcMode>false</InProcMode>
+    </MSTest>
+
     <!-- Connect IoT -->
-    <Parameter name="mode" value="RemoteService" />
-    <!-- This is For build, to Run Locally point to your directory -->
-    <Parameter name="filePathRemote" value="../RunSettings/integration.runsettings" />
-    <Parameter name="filePathLocal" value="../../../integration.runsettings" />
-    <Parameter name="filePath" value="../../../integration.runsettings" />
-    <!-- test output -->
-    <Parameter name="screenshotPath" value="\\cmffs\public\amsOSRAM\amsOSRAMIntegration\TestArtifacts" />
-    <Parameter name="logsPath" value="\\cmffs\public\amsOSRAM\amsOSRAMIntegration\TestArtifacts" />
-    <Parameter name="documentationScreenshotPath" value="\\cmffs\public\amsOSRAM\amsOSRAMIntegration\Documentation" />
-  </TestRunParameters>
+    <connectIotAutomaticTests>
+        <Global dataDir="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\" logDebug="true" />
+        <!-- dataDir="%TestsPath%\Cmf.Custom.Tests.IoT\bin\Debug\" -->
+        <!--setAutomationControllerInstanceToNotRunning="false"/>-->
+        <!--   configLocation="C:\Users\raazevedo\Downloads\MCSInterface\config.json"/>-->
+        <Equipments>
+            <!--Equipment name="PDSP0101" automationManager="EvatecClusterline200II" driverAlias="SecsGemEquipment"
+            description="SecsGemEquipment" driver="SecsGem" port="5011" serviceMachine="vm-ams-osram"
+            serviceName="ConnectIoT (PDSP0101)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json"
+            library ="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc">
+            </Equipment-->
+            <!-- Generated by cmf-cli
+			<Cluster name="%ResourceName%" automationManager="%ManagerName%">
+                <Equipment name="%EquipmentFriendlyName%" driverAlias="%DriverAlias%" description="" driver="%DriverType%" dataDir="" 
+                    serviceName="%ManagerServiceName%" configLocation="%ConfigLocation%">
+                    <Directory name="" path="" />
+                </Equipment>
+			</Cluster>
+			-->
+            <Cluster 
+                name="PDSP0101"
+                automationManager="EvatecClusterline200II"
+                serviceMachine="vm-ams-osram"
+                serviceName="ConnectIoT (PDSP0101)"
+                configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json">
+                <Equipment 
+                    name="PDSP0101"
+                    driverAlias="SecsGemEquipment"
+                    description="SecsGemEquipment"
+                    driver="SecsGem"
+                    port="5011"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (PDSP0101)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json"
+                    library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc" />
+                <Equipment
+                    name="PDSP0101.RFID"
+                    driverAlias="RFIDReader"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (PDSP0101)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json"
+                    description="RFIDReader"
+                    driver="SecsGem"
+                    port="5012" />
+            </Cluster>
 
-  <!-- MSTest adapter -->
-  <MSTest>
-    <KeepExecutorAliveAfterLegacyRun>true</KeepExecutorAliveAfterLegacyRun>
-    <MapInconclusiveToFailed>true</MapInconclusiveToFailed>
-    <CaptureTraceOutput>true</CaptureTraceOutput>
-    <DeleteDeploymentDirectoryAfterTestRunIsComplete>false</DeleteDeploymentDirectoryAfterTestRunIsComplete>
-    <DeploymentEnabled>false</DeploymentEnabled>
-    <InProcMode>false</InProcMode>
-  </MSTest>
+            <Cluster
+                name="MECD0101"
+                automationManager="MuetecDaVinci"
+                serviceMachine="vm-ams-osram"
+                serviceName="ConnectIoT (MECD0101)"
+                configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\MECD0101\remoteTestingConfig.json">
+                <Equipment
+                    name="MECD0101"
+                    driverAlias="SecsGemEquipment"
+                    description="SecsGemEquipment"
+                    driver="SecsGem"
+                    port="5013"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (MECD0101)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\MECD0101\remoteTestingConfig.json"
+                    library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc" />
+                <Equipment
+                    name="MECD0101.RFID"
+                    driverAlias="RFIDReader"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (MECD0101)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\MECD0101\remoteTestingConfig.json"
+                    description="RFIDReader"
+                    driver="SecsGem"
+                    port="5014" />
+            </Cluster>
 
-  <!-- Connect IoT -->
-  <connectIotAutomaticTests>
-    <Global dataDir="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\" logDebug="true" />
-    <!-- dataDir="%TestsPath%\Cmf.Custom.Tests.IoT\bin\Debug\" -->
-    <!--setAutomationControllerInstanceToNotRunning="false"/>-->
-    <!--   configLocation="C:\Users\raazevedo\Downloads\MCSInterface\config.json"/>-->
+            <Cluster 
+                name="ENA01"
+                automationManager="MechatronicMWS200"
+                serviceMachine="vm-ams-osram"
+                serviceName="ConnectIoT (ENA01)"
+                configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\ENA01\remoteTestingConfig.json">
+                <Equipment
+                    name="ENA01"
+                    driverAlias="SecsGemEquipment"
+                    description="SecsGemEquipment"
+                    driver="SecsGem"
+                    port="5015"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (ENA01)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\ENA01\remoteTestingConfig.json"
+                    library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc" />
+                <Equipment
+                    name="ENA01.RFID"
+                    driverAlias="RFIDReader"
+                    description="SecsGemEquipment"
+                    driver="SecsGem"
+                    port="5014"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (ENA01)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\ENA01\remoteTestingConfig.json" library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc" />
+            </Cluster>
 
+            <Equipment
+                name="5FASH1"
+                automationManager="TrymaxNEO"
+                driverAlias="SecsGemEquipment"
+                description="SecsGemEquipment"
+                driver="SecsGem"
+                port="5011"
+                serviceMachine="vm-ams-osram"
+                serviceName="ConnectIoT (5FASH1)"
+                configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FASH1\remoteTestingConfig.json"
+                library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc" />
 
-	<Equipments>
-		<!--Equipment name="PDSP0101" automationManager="EvatecClusterline200II" driverAlias="SecsGemEquipment"
-    description="SecsGemEquipment" driver="SecsGem" port="5011" serviceMachine="vm-ams-osram"
-    serviceName="ConnectIoT (PDSP0101)" configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json"
-    library ="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc">
-    </Equipment-->
-		<Cluster name="PDSP0101"
-					automationManager="EvatecClusterline200II"
-					serviceMachine="vm-ams-osram"
-					serviceName="ConnectIoT (PDSP0101)"
-					configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json">
-			<Equipment name="PDSP0101"
-						driverAlias="SecsGemEquipment"
-						description="SecsGemEquipment"
-						driver="SecsGem"
-						port="5011"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (PDSP0101)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json"
-						library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>
-			<Equipment name="PDSP0101.RFID"
-						driverAlias="RFIDReader"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (PDSP0101)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\PDSP0101\remoteTestingConfig.json"
-						description="RFIDReader"
-						driver="SecsGem"
-						port="5012"/>
-		</Cluster>
-		<Cluster name="MECD0101"
-					automationManager="MuetecDaVinci"
-					serviceMachine="vm-ams-osram"
-					serviceName="ConnectIoT (MECD0101)"
-					configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\MECD0101\remoteTestingConfig.json">
-			<Equipment name="MECD0101"
-						driverAlias="SecsGemEquipment"
-						description="SecsGemEquipment"
-						driver="SecsGem"
-						port="5013"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (MECD0101)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\MECD0101\remoteTestingConfig.json"
-						library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>
-			<Equipment name="MECD0101.RFID"
-						driverAlias="RFIDReader"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (MECD0101)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\MECD0101\remoteTestingConfig.json"
-						description="RFIDReader"
-						driver="SecsGem"
-						port="5014"/>
-		</Cluster>
-		<Cluster name="ENA01" 
-					automationManager="MechatronicMWS200" 
-					serviceMachine="vm-ams-osram" 
-					serviceName="ConnectIoT (ENA01)" 
-					configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\ENA01\remoteTestingConfig.json">
-			<Equipment name="ENA01" 
-						driverAlias="SecsGemEquipment" 
-						description="SecsGemEquipment" 
-						driver="SecsGem" 
-						port="5015" 
-						serviceMachine="vm-ams-osram" 
-						serviceName="ConnectIoT (ENA01)" 
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\ENA01\remoteTestingConfig.json"
-						library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>
-			<Equipment name="ENA01.RFID" 
-						driverAlias="RFIDReader" 
-						description="SecsGemEquipment" 
-						driver="SecsGem" 
-						port="5014" 
-						serviceMachine="vm-ams-osram" 
-						serviceName="ConnectIoT (ENA01)" 
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\ENA01\remoteTestingConfig.json" library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>  
-		</Cluster>
-		<Equipment name="5FASH1"
-					automationManager="TrymaxNEO"
-					driverAlias="SecsGemEquipment"
-					description="SecsGemEquipment"
-					driver="SecsGem"
-					port="5011"
-					serviceMachine="vm-ams-osram"
-					serviceName="ConnectIoT (5FASH1)"
-					configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FASH1\remoteTestingConfig.json"
-					library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>
-		<Cluster name="5FICP1"
-					automationManager="OmegaPlasma"
-					serviceMachine="vm-ams-osram"
-					serviceName="ConnectIoT (5FICP1)"
-					configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FICP1\remoteTestingConfig.json">
-			<Equipment name="5FICP1"
-						driverAlias="SecsGemEquipment"
-						description="SecsGemEquipment"
-						driver="SecsGem"
-						port="5012"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (5FICP1)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FICP1\remoteTestingConfig.json"
-						library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>
-			<Equipment name="5FICP1.RFID"
-						driverAlias="RFIDReader"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (5FICP1)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FICP1\remoteTestingConfig.json"
-						description="RFIDReader"
-						driver="SecsGem"
-						port="5013"/>
-		</Cluster>
-		<Cluster name="5FAFM1"
-					automationManager="BrukerInsightCAP"
-					serviceMachine="vm-ams-osram"
-					serviceName="ConnectIoT (5FAFM1)"
-					configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FAFM1\remoteTestingConfig.json">
-			<Equipment name="5FAFM1"
-						driverAlias="SecsGemEquipment"
-						description="SecsGemEquipment"
-						driver="SecsGem"
-						port="5014"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (5FAFM1)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FAFM1\remoteTestingConfig.json"
-						library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>
-			<Equipment name="5FAFM1.RFID"
-						driverAlias="RFIDReader"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (5FAFM1)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FAFM1\remoteTestingConfig.json"
-						description="RFIDReader"
-						driver="SecsGem"
-						port="5015"/>
-		</Cluster>
-		<Cluster name="5FORI1"
-					automationManager="UnitySC"
-					serviceMachine="vm-ams-osram"
-					serviceName="ConnectIoT (5FORI1)"
-					configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FORI1\remoteTestingConfig.json">
-			<Equipment name="5FORI1"
-						driverAlias="SecsGemEquipment"
-						description="SecsGemEquipment"
-						driver="SecsGem"
-						port="5011"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (5FORI1)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FORI1\remoteTestingConfig.json"
-						library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>
-			<Equipment name="5FORI1.RFID"
-						driverAlias="RFIDReader"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (5FORI1)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FORI1\remoteTestingConfig.json"
-						description="RFIDReader"
-						driver="SecsGem"
-						port="5012"/>
-		</Cluster>
-		<Cluster name="5FVHF1"
-					automationManager="Monarch25VHF"
-					serviceMachine="vm-ams-osram"
-					serviceName="ConnectIoT (5FVHF1)"
-					configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FVHF1\remoteTestingConfig.json">
-			<Equipment name="5FVHF1"
-						driverAlias="SecsGemEquipment"
-						description="SecsGemEquipment"
-						driver="SecsGem"
-						port="5013"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (5FVHF1)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FVHF1\remoteTestingConfig.json"
-						library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>
-			<Equipment name="5FVHF1.RFID"
-						driverAlias="RFIDReader"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (5FVHF1)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FVHF1\remoteTestingConfig.json"
-						description="RFIDReader"
-						driver="SecsGem"
-						port="5014"/>
-		</Cluster>
-		<Cluster name="5FETR1"
-					automationManager="DISCODFD6363HC"
-					serviceMachine="vm-ams-osram"
-					serviceName="ConnectIoT (5FETR1)"
-					configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FETR1\remoteTestingConfig.json">
-			<Equipment name="5FETR1"
-						driverAlias="SecsGemEquipment"
-						description="SecsGemEquipment"
-						driver="SecsGem"
-						port="5013"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (5FETR1)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FETR1\remoteTestingConfig.json"
-						library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>
-			<Equipment name="5FETR1.RFID"
-						driverAlias="RFIDReader"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (5FETR1)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FETR1\remoteTestingConfig.json"
-						description="RFIDReader"
-						driver="SecsGem"
-						port="5014"/>
-			<Equipment name="5FETR1.FILE"
-						driverAlias="FileDriver"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (5FETR1)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FETR1\remoteTestingConfig.json"
-						description="FileDriver"
-						driver="SecsGem"
-						port="5015"/>
-		</Cluster>
-		<Cluster name="5FELL1"
-					automationManager="KLASpectraFilm"
-					serviceMachine="vm-ams-osram"
-					serviceName="ConnectIoT (5FELL1)"
-					configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FELL1\remoteTestingConfig.json">
-			<Equipment name="5FELL1"
-						driverAlias="SecsGemEquipment"
-						description="SecsGemEquipment"
-						driver="SecsGem"
-						port="5011"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (5FELL1)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FELL1\remoteTestingConfig.json"
-						library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>
-			<Equipment name="5FELL1.RFID"
-						driverAlias="RFIDReader"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (5FELL1)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FELL1\remoteTestingConfig.json"
-						description="RFIDReader"
-						driver="SecsGem"
-						port="5012"/>			
-		</Cluster>
-		<Cluster name="5FALD2"
-					automationManager="PicosunMorpher"
-					serviceMachine="vm-ams-osram"
-					serviceName="ConnectIoT (5FALD2)"
-					configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FALD2\remoteTestingConfig.json">
-			<Equipment name="5FALD2"
-						driverAlias="SecsGemEquipment"
-						description="SecsGemEquipment"
-						driver="SecsGem"
-						port="5013"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (5FALD2)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FALD2\remoteTestingConfig.json"
-						library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>
-			<Equipment name="5FALD2.RFID"
-						driverAlias="RFIDReader"
-						serviceMachine="vm-ams-osram"
-						serviceName="ConnectIoT (5FALD2)"
-						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FALD2\remoteTestingConfig.json"
-						description="RFIDReader"
-						driver="SecsGem"
-						port="5014"/>			
-		</Cluster>
-		<Cluster name="5FCMP2"
+            <Cluster
+                name="5FICP1"
+                automationManager="OmegaPlasma"
+                serviceMachine="vm-ams-osram"
+                serviceName="ConnectIoT (5FICP1)"
+                configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FICP1\remoteTestingConfig.json">
+                <Equipment
+                    name="5FICP1"
+                    driverAlias="SecsGemEquipment"
+                    description="SecsGemEquipment"
+                    driver="SecsGem"
+                    port="5012"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (5FICP1)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FICP1\remoteTestingConfig.json"
+                    library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc" />
+                <Equipment
+                    name="5FICP1.RFID"
+                    driverAlias="RFIDReader"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (5FICP1)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FICP1\remoteTestingConfig.json"
+                    description="RFIDReader"
+                    driver="SecsGem"
+                    port="5013" />
+            </Cluster>
+
+            <Cluster
+                name="5FAFM1"
+                automationManager="BrukerInsightCAP"
+                serviceMachine="vm-ams-osram"
+                serviceName="ConnectIoT (5FAFM1)"
+                configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FAFM1\remoteTestingConfig.json">
+                <Equipment
+                    name="5FAFM1"
+                    driverAlias="SecsGemEquipment"
+                    description="SecsGemEquipment"
+                    driver="SecsGem"
+                    port="5014"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (5FAFM1)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FAFM1\remoteTestingConfig.json"
+                    library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc" />
+                <Equipment
+                    name="5FAFM1.RFID"
+                    driverAlias="RFIDReader"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (5FAFM1)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FAFM1\remoteTestingConfig.json"
+                    description="RFIDReader"
+                    driver="SecsGem"
+                    port="5015" />
+            </Cluster>
+
+            <Cluster
+                name="5FORI1"
+                automationManager="UnitySC"
+                serviceMachine="vm-ams-osram"
+                serviceName="ConnectIoT (5FORI1)"
+                configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FORI1\remoteTestingConfig.json">
+                <Equipment
+                    name="5FORI1"
+                    driverAlias="SecsGemEquipment"
+                    description="SecsGemEquipment"
+                    driver="SecsGem"
+                    port="5011"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (5FORI1)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FORI1\remoteTestingConfig.json"
+                    library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc" />
+                <Equipment
+                    name="5FORI1.RFID"
+                    driverAlias="RFIDReader"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (5FORI1)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FORI1\remoteTestingConfig.json"
+                    description="RFIDReader"
+                    driver="SecsGem"
+                    port="5012" />
+            </Cluster>
+
+            <Cluster
+                name="5FVHF1"
+                automationManager="Monarch25VHF"
+                serviceMachine="vm-ams-osram"
+                serviceName="ConnectIoT (5FVHF1)"
+                configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FVHF1\remoteTestingConfig.json">
+                <Equipment
+                    name="5FVHF1"
+                    driverAlias="SecsGemEquipment"
+                    description="SecsGemEquipment"
+                    driver="SecsGem"
+                    port="5013"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (5FVHF1)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FVHF1\remoteTestingConfig.json"
+                    library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc" />
+                <Equipment
+                    name="5FVHF1.RFID"
+                    driverAlias="RFIDReader"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (5FVHF1)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FVHF1\remoteTestingConfig.json"
+                    description="RFIDReader"
+                    driver="SecsGem"
+                    port="5014" />
+            </Cluster>
+
+            <Cluster
+                name="5FETR1"
+                automationManager="DISCODFD6363HC"
+                serviceMachine="vm-ams-osram"
+                serviceName="ConnectIoT (5FETR1)"
+                configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FETR1\remoteTestingConfig.json">
+                <Equipment
+                    name="5FETR1"
+                    driverAlias="SecsGemEquipment"
+                    description="SecsGemEquipment"
+                    driver="SecsGem"
+                    port="5013"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (5FETR1)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FETR1\remoteTestingConfig.json"
+                    library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc" />
+                <Equipment
+                    name="5FETR1.RFID"
+                    driverAlias="RFIDReader"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (5FETR1)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FETR1\remoteTestingConfig.json"
+                    description="RFIDReader"
+                    driver="SecsGem"
+                    port="5014" />
+                <Equipment
+                    name="5FETR1.FILE"
+                    driverAlias="FileDriver"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (5FETR1)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FETR1\remoteTestingConfig.json"
+                    description="FileDriver"
+                    driver="SecsGem"
+                    port="5015" />
+            </Cluster>
+
+            <Cluster
+                name="5FELL1"
+                automationManager="KLASpectraFilm"
+                serviceMachine="vm-ams-osram"
+                serviceName="ConnectIoT (5FELL1)"
+                configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FELL1\remoteTestingConfig.json">
+                <Equipment
+                    name="5FELL1"
+                    driverAlias="SecsGemEquipment"
+                    description="SecsGemEquipment"
+                    driver="SecsGem"
+                    port="5011"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (5FELL1)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FELL1\remoteTestingConfig.json"
+                    library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc" />
+                <Equipment
+                    name="5FELL1.RFID"
+                    driverAlias="RFIDReader"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (5FELL1)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FELL1\remoteTestingConfig.json"
+                    description="RFIDReader"
+                    driver="SecsGem"
+                    port="5012" />
+            </Cluster>
+
+            <Cluster
+                name="5FALD2"
+                automationManager="PicosunMorpher"
+                serviceMachine="vm-ams-osram"
+                serviceName="ConnectIoT (5FALD2)"
+                configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FALD2\remoteTestingConfig.json">
+                <Equipment
+                    name="5FALD2"
+                    driverAlias="SecsGemEquipment"
+                    description="SecsGemEquipment"
+                    driver="SecsGem"
+                    port="5013"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (5FALD2)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FALD2\remoteTestingConfig.json"
+                    library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc" />
+                <Equipment
+                    name="5FALD2.RFID"
+                    driverAlias="RFIDReader"
+                    serviceMachine="vm-ams-osram"
+                    serviceName="ConnectIoT (5FALD2)"
+                    configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FALD2\remoteTestingConfig.json"
+                    description="RFIDReader"
+                    driver="SecsGem"
+                    port="5014" />
+            </Cluster>
+
+            <Cluster name="5FCMP2"
 					automationManager="MirraDesica"
 					serviceMachine="vm-ams-osram"
 					serviceName="ConnectIoT (5FCMP2)"
@@ -338,14 +387,6 @@
 						driver="SecsGem"
 						port="5014"/>			
 		</Cluster>
-		<!-- Generated by cmf-cli
-			<Cluster name="%ResourceName%" automationManager="%ManagerName%">
-			<Equipment name="%EquipmentFriendlyName%" driverAlias="%DriverAlias%" description="" driver="%DriverType%" dataDir="" 
-				serviceName="%ManagerServiceName%" configLocation="%ConfigLocation%">
-				<Directory name="" path="" />
-			</Equipment>
-			</Cluster>
-			-->
-	</Equipments>
-  </connectIotAutomaticTests>
+        </Equipments>
+    </connectIotAutomaticTests>
 </RunSettings>

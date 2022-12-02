@@ -7,24 +7,17 @@ if (!(Get-Command cmf -errorAction SilentlyContinue))
     throw "CMF command is missing. Please install it first before use this script."
 }
 
-$root = ""
+$root = Split-Path $MyInvocation.MyCommand.Path -Parent
 
-while (Split-Path -Path $root -and !($root)) {
-	$current = Get-Location
-
-	if (Test-Path -Path ".project-config.json") {
-		$root = $current
-	} else {
-		Set-Location (Split-Path -Path $current)
-	}
+while ((Split-Path -Path $root) -and !(Test-Path -Path (Join-Path -Path $root -ChildPath ".project-config.json"))) {
+	$root = Split-Path -Path $root
 }
 
-$scriptLocation = Split-Path $MyInvocation.MyCommand.Path -Parent
+if (!(Split-Path -Path $root)) {
+	throw "Project not found!"
+}
 
-$rootSolutionRelativePath = "..\"
-$rootSolutionAbsolutePath = Join-Path -Path $scriptLocation -ChildPath $rootSolutionRelativePath
-
-$helpFolder = Join-Path -Path $rootSolutionAbsolutePath -ChildPath "Cmf.Custom.Help"
+$helpFolder = Join-Path -Path $root -ChildPath "Cmf.Custom.Help"
 $currentLocation = Get-Location
 
 try {

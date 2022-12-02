@@ -28,82 +28,30 @@ namespace Cmf.Custom.Tests.IoT.Tests.Common
 		{
 			secsItem2Set.SetTypeToList();
 
-			foreach (PropertyInfo prop in SubstHistoryInternalList.GetType().GetProperties())
-			{
-				var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
-
-				var attributes = prop.GetCustomAttributes();
-				var attributeCasted = attributes.ToList().First() as SecsItemTypeAttribute;
-
-				AddVariableValue(secsItem2Set, "", prop.GetValue(SubstHistoryInternalList), attributeCasted.Type);
-			}
-
+			SubstHistoryInternalList.SetValue(secsItem2Set);
 		}
-
-
-		private SecsItem AddVariableValue(SecsItem list, string abstractVariable, object dummyValue = null, SecsItem.ItemType dummyValueType = SecsItem.ItemType.Error)
-		{
-			SecsItem varValue = new SecsItem();
-
-
-			if (dummyValueType == SecsItem.ItemType.List)
-			{
-				varValue.SetTypeToList();
-
-				foreach (PropertyInfo prop in dummyValue.GetType().GetProperties())
-				{
-					var type = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
-
-					var attributes = prop.GetCustomAttributes();
-					var attributeCasted = attributes.ToList().First() as SecsItemTypeAttribute;
-
-					AddVariableValue(varValue, "", prop.GetValue(dummyValue), attributeCasted.Type);
-				}
-			}
-			else if (dummyValueType == SecsItem.ItemType.Variant)
-			{
-				varValue.SetTypeToList();
-
-				if (dummyValue is IList)
-				{
-					var genericType = dummyValue.GetType().GenericTypeArguments[0];
-
-					var attributes = genericType.GetCustomAttributes();
-					var attributeCasted = attributes.ToList().First() as SecsItemTypeAttribute;
-
-					foreach (var itemValue in (dummyValue as IList))
-					{
-						SecsItem varSubValue = new SecsItem();
-						AddVariableValue(varValue, "", itemValue, attributeCasted.Type);
-					}
-				}
-
-			}
-			else
-			{
-				if (m_Driver.EquipmentVariables.ContainsKey(abstractVariable))
-				{
-					var variable = m_Driver.EquipmentVariables[abstractVariable];
-					m_Driver.SetValue(varValue, m_Driver.FromEquipmentDataType(variable.EquipmentDataType), m_Driver.Variables[abstractVariable]);
-				}
-				else
-					m_Driver.SetValue(varValue, dummyValueType, dummyValue);
-			}
-
-			list.Add(varValue);
-
-			return (varValue);
-		}
-
-
 	}
 
 
-	public class SubstHistoryInternalList
+	public class SubstHistoryInternalList : ICustomVariable
 	{
 		[SecsItemType(SecsItem.ItemType.Variant)]
 		public List<SubstHistoryEntry> SubstHistoryEntryList { get; set; }
-	}
+
+		public void SetValue(SecsItem secsList, SecsItem.ItemType referenceItemType = SecsItem.ItemType.List) {
+			secsList.SetTypeToList();
+			foreach (var entry in SubstHistoryEntryList){
+				var secsEntry = new SecsItem();
+				secsEntry.SetTypeToList();
+
+				secsEntry.Add(new SecsItem { ASCII = entry.Location });
+				secsEntry.Add(new SecsItem { ASCII = entry.TimeIn	});
+				secsEntry.Add(new SecsItem { ASCII = entry.TimeOut	});
+
+				secsList.Add(secsEntry);
+			}
+		}
+    }
 
 	[SecsItemType(SecsItem.ItemType.List)]
 	public class SubstHistoryEntry

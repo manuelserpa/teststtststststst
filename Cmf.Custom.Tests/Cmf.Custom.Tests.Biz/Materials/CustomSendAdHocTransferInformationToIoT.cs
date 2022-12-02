@@ -20,7 +20,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
     public class CustomSendAdHocTransferInformationToIoT
     {
         private static Dictionary<string, object> rollbackResourceProperties = new Dictionary<string, object>();
-        private static Cmf.Foundation.Common.DynamicExecutionEngine.Action rollbackDEEAction;
+        private static long rollbackDEEActionId;
         private static CustomExecutionScenario classExecutionScenario = new CustomExecutionScenario();
         private static CustomMaterialScenario classMaterialScenario = null;
         private static string resourceName = amsOSRAMConstants.DefaultSorterResourceName;
@@ -120,8 +120,8 @@ namespace Cmf.Custom.Tests.Biz.Materials
 
             Assert.IsNotNull(getActionByNameOutput.Action, $"The DEE {deeName} is missing");
 
-            rollbackDEEAction = getActionByNameOutput.Action;
-            CustomUtilities.UpdateOrCreateDEE(getActionByNameOutput.Action.Name, getActionByNameOutput.Action.ActionCode, "Input[\"Result\"] = materialDataToIot;return Input;");
+            rollbackDEEActionId = getActionByNameOutput.Action.Id;
+            CustomUtilities.UpdateOrCreateDEE(getActionByNameOutput.Action, "Input[\"Result\"] = materialDataToIot;return Input;");
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace Cmf.Custom.Tests.Biz.Materials
             }
 
             // Rollback DEE
-            CustomUtilities.UpdateOrCreateDEE(rollbackDEEAction.Name, rollbackDEEAction.ActionCode);
+            CustomUtilities.RollbackDEE(rollbackDEEActionId);
         }
 
         /// <summary>

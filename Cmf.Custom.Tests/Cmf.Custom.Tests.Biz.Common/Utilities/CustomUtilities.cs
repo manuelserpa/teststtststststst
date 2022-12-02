@@ -5,6 +5,8 @@ using Cmf.Foundation.BusinessObjects.QueryObject;
 using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.DynamicExecutionEngineManagement.OutputObjects;
 using Cmf.Foundation.BusinessOrchestration.ErpManagement.InputObjects;
+using Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.InputObjects;
+using Cmf.Foundation.BusinessOrchestration.GenericServiceManagement.OutputObjects;
 using Cmf.Foundation.BusinessOrchestration.LocalizationManagement.InputObjects;
 using Cmf.Foundation.BusinessOrchestration.QueryManagement.InputObjects;
 using Cmf.Navigo.BusinessObjects;
@@ -606,36 +608,76 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
 
         #region DEE
 
-        public static Foundation.Common.DynamicExecutionEngine.Action UpdateOrCreateDEE(string actionName, string actionCode, string codeToReplace = null)
+        public static Foundation.Common.DynamicExecutionEngine.Action UpdateOrCreateDEE(Foundation.Common.DynamicExecutionEngine.Action action, string codeToReplace = null)
         {
-            if (actionName == null || actionName == String.Empty || actionCode == null && actionCode == String.Empty)
+            if (action.Id <= 0 && !String.IsNullOrEmpty(action.Name))
+            {
+                try
+                {
+                    GetActionByNameOutput actionOutput = new GetActionByNameInput
+                    {
+                        Name = action.Name
+                    }.GetActionByNameSync();
+
+                    action = actionOutput.Action;
+                } catch
+                {
+
+                }
+            }
+
+            Assert.IsNotNull(action, $"The DEE {action.Name} is missing");
+
+            string actionCodeToSave = action.ActionCode;
+
+            if (action.Name == null || action.Name == String.Empty || actionCodeToSave == null && actionCodeToSave == String.Empty)
             {
                 throw new Exception("The DEE action must have a name and code");
             }
-
-            string actionCodeToSave = actionCode;
 
             if (codeToReplace != null && codeToReplace != String.Empty)
             {
                 actionCodeToSave = actionCodeToSave.Replace("// DO NOT DELETE: This is a hook for test purposes", codeToReplace);
             }
 
-            Cmf.Foundation.Common.DynamicExecutionEngine.Action action = new CreateActionInput()
-            {
-                Action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action()
-                {
-                    Name = actionName,
-                    ActionCode = actionCodeToSave,
-                    IsEnabled = true
-                }
-            }.CreateActionSync().Action;
+            action.ActionCode = actionCodeToSave;
 
-            action = new MakeActionVersionEffectiveInput()
+            if (action.Id <= 0)
             {
-                Action = action
-            }.MakeActionVersionEffectiveSync().Action;
+                action = new CreateActionInput()
+                {
+                    Action = action
+                }.CreateActionSync().Action;
+
+                action = new MakeActionVersionEffectiveInput()
+                {
+                    Action = action
+                }.MakeActionVersionEffectiveSync().Action;
+            } 
+            else
+            {
+                action = new CompileAndSaveWithNewVersionInput()
+                {
+                    Action = action,
+                    IsNewVersion = true,
+                    IsToMakeNewVersionEffective = true
+                }.CompileAndSaveWithNewVersionSync().Action;
+            }
 
             return action;
+        }
+
+        public static Foundation.Common.DynamicExecutionEngine.Action RollbackDEE(long actionId)
+        {
+            GetActionByIdOutput getActionByNameOutput = new GetActionByIdInput()
+            {
+                Id = actionId
+            }.GetActionByIdSync();
+
+            return new MakeActionVersionEffectiveInput
+            {
+                Action = getActionByNameOutput.Action
+            }.MakeActionVersionEffectiveSync().Action;
         }
 
         public static object RunDEEForTests(Foundation.Common.DynamicExecutionEngine.Action action, Dictionary<string, object> input)
@@ -675,7 +717,15 @@ namespace Cmf.Custom.Tests.Biz.Common.Utilities
         public static string GetEnvironmentName()
         {
             string ruleCode = @"string environmentMachineName = Environment.MachineName; Input[""Result""] = environmentMachineName.ToString();";
-            Foundation.Common.DynamicExecutionEngine.Action action = UpdateOrCreateDEE("CustomGetEnvironmentMachineName", ruleCode);
+
+            Cmf.Foundation.Common.DynamicExecutionEngine.Action action = new Cmf.Foundation.Common.DynamicExecutionEngine.Action()
+            {
+                Name = "CustomGetEnvironmentMachineName",
+                ActionCode = ruleCode,
+                IsEnabled = true
+            };
+
+            action = UpdateOrCreateDEE(action);
 
             return (string)RunDEEForTests(action, new Dictionary<string, object>());
         }

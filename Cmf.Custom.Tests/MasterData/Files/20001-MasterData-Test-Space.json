@@ -27,20 +27,6 @@
   },
   "<DM>Employee": {
     "1": {
-      "Name": "CMFSU",
-      "User": "cmf\\cmfsu",
-      "Description": "",
-      "Type": "Generic",
-      "EmployeeNumber": "1",
-      "EffectiveCertification": "",
-      "Area": "",
-      "Calendar": "General",
-      "CostCenter": "",
-      "CostPerHour": "",
-      "Team": "",
-      "Manager": ""
-    },
-    "2": {
       "Name": "amsOSRAMIoTUser",
       "User": "amsOSRAMIoTUser",
       "Description": "",

@@ -129,6 +129,13 @@
       "CodeFileRelativePath": "SorterJobDefinitions//CustomCreateComposeSorterJobDefinition.cs",
       "IsEnabled": "Yes",
       "Classification": ""
+    },
+    "13": {
+      "Action": "CustomReportEDCToSpaceHandler",
+      "Description": "DEE Action to validate DataCollection and create a XML message to be sent to Space system.",
+      "CodeFileRelativePath": "Space//CustomReportEDCToSpaceHandler.cs",
+      "IsEnabled": "Yes",
+      "Classification": ""
     }
   },
   "DEEActionOrder": {
@@ -155,6 +162,16 @@
     "5": {
       "ActionGroup": "BusinessObjects.BOM.MakeEffective.Post",
       "Action": "CustomUpdateComposeCustomSorterJobDefinition",
+      "Order": "100"
+    },
+    "6": {
+      "ActionGroup": "BusinessObjects.DataCollectionInstance.PerformImmediate.Post",
+      "Action": "CustomReportEDCToSpaceHandler",
+      "Order": "100"
+    },
+    "7": {
+      "ActionGroup": "BusinessObjects.DataCollectionInstance.Close.Post",
+      "Action": "CustomReportEDCToSpaceHandler",
       "Order": "100"
     }
   },
