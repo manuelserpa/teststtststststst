@@ -220,10 +220,10 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "ProcessingStartedPort1"
+						"Name": "ProcessingStartedPort2"
 					}
 				],
-				"___cmf___description": "ProcessingStartedPort1 (1100)"
+				"___cmf___description": "ProcessingStartedPort2 (1200)"
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -277,10 +277,10 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "ProcessingStartedPort1"
+						"Name": "ProcessingStartedPort3"
 					}
 				],
-				"___cmf___description": "ProcessingStartedPort1 (1100)"
+				"___cmf___description": "ProcessingStartedPort3 (1300)"
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -334,10 +334,10 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "ProcessingStartedPort1"
+						"Name": "ProcessingStartedPort4"
 					}
 				],
-				"___cmf___description": "ProcessingStartedPort1 (1100)"
+				"___cmf___description": "ProcessingStartedPort4 (1100)"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -569,10 +569,10 @@
 						}
 					}
 				},
-				"zoom": 0.6300000000000003,
+				"zoom": 0.45,
 				"pan": {
-					"x": 127.5,
-					"y": 70
+					"x": 108,
+					"y": 105.3
 				}
 			}
 		}

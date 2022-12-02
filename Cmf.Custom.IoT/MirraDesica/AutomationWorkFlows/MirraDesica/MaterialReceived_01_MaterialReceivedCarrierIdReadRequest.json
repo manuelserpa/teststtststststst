@@ -536,6 +536,16 @@
 					"version": "9.1.0-202209072"
 				}
 			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
 		}
 	],
 	"links": [
@@ -721,6 +731,22 @@
 			"targetId": "task_70474",
 			"inputName": "activate",
 			"outputName": "success"
+		},
+		{
+			"id": "581cdad7-1d0a-43ff-afe5-a10b361819f9",
+			"sourceId": "task_29636",
+			"targetId": "task_70474",
+			"inputName": "ContainerIdIn",
+			"outputName": "containerOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "ContainerName",
+						"type": 4
+					}
+				}
+			]
 		}
 	],
 	"layout": {
@@ -817,8 +843,8 @@
 					"task_70474": {
 						"collapsed": false,
 						"position": {
-							"x": 2851,
-							"y": 548
+							"x": 2879,
+							"y": 492
 						},
 						"outdated": false
 					}
@@ -877,6 +903,9 @@
 					},
 					"165321ab-ade3-4ec7-af00-5a6598f42bb0": {
 						"vertices": []
+					},
+					"581cdad7-1d0a-43ff-afe5-a10b361819f9": {
+						"vertices": []
 					}
 				},
 				"notes": {
@@ -902,10 +931,10 @@
 						}
 					}
 				},
-				"zoom": 0.6399999999999997,
+				"zoom": 0.6300000000000001,
 				"pan": {
-					"x": 602.5,
-					"y": 96.25
+					"x": 765,
+					"y": 207
 				}
 			}
 		}

@@ -203,6 +203,8 @@
 					"        const PortID = materialData.LoadPortPosition;",
 					"        const LotID = materialData.MaterialName;",
 					"",
+					"        //this.framework.logger.warning(PortID);",
+					"        //this.framework.logger.error(LotID);",
 					"        return {",
 					"            PORT_ID: PortID,",
 					"            Lot_ID: LotID",
@@ -214,7 +216,7 @@
 					"}",
 					""
 				],
-				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IG1hdGVyaWFsRGF0YSA9IGlucHV0cy5NYXRlcmlhbERhdGFbMF07DQogICAgICAgIGNvbnN0IFBvcnRJRCA9IG1hdGVyaWFsRGF0YS5Mb2FkUG9ydFBvc2l0aW9uOw0KICAgICAgICBjb25zdCBMb3RJRCA9IG1hdGVyaWFsRGF0YS5NYXRlcmlhbE5hbWU7DQogICAgICAgIHJldHVybiB7DQogICAgICAgICAgICBQT1JUX0lEOiBQb3J0SUQsDQogICAgICAgICAgICBMb3RfSUQ6IExvdElEDQogICAgICAgIH07DQogICAgfQ0KfQ0KZXhwb3J0cy5kZWZhdWx0ID0gZGVmYXVsdF8xOw0K",
+				"jsCodeBase64": "T2JqZWN0LmRlZmluZVByb3BlcnR5KGV4cG9ydHMsICJfX2VzTW9kdWxlIiwgeyB2YWx1ZTogdHJ1ZSB9KTsNCmNsYXNzIGRlZmF1bHRfMSB7DQogICAgY29uc3RydWN0b3IoZnJhbWV3b3JrKSB7DQogICAgICAgIHRoaXMuZnJhbWV3b3JrID0gZnJhbWV3b3JrOw0KICAgIH0NCiAgICAvKg0KICAgICAqIEVudHJ5IHBvaW50IG9mIHRoZSBjbGFzcyAoSU1QT1JUQU5UOiBkb24ndCBjaGFuZ2UgdGhlIHNpZ25hdHVyZSBvZiB0aGlzIG1ldGhvZCkNCiAgICAgKiBTaG91bGQgcmV0dXJuIGFuIG9iamVjdCBjb250YWluaW5nIHRoZSB2YWx1ZXMgZm9yIGVhY2ggb3V0cHV0IHRvIGVtaXQNCiAgICAgKiBJZiBuZWNlc3NhcnksIHVzZSB0aGUgcGFyYW1ldGVyICJvdXRwdXRzIiB0byBlbWl0IGRhdGEgd2hpbGUgcnVubmluZyB0aGUgY29kZS4NCiAgICAgKi8NCiAgICBhc3luYyBtYWluKGlucHV0cywgb3V0cHV0cykgew0KICAgICAgICAvLyBBZGQgY29kZSBoZXJlDQogICAgICAgIGNvbnN0IG1hdGVyaWFsRGF0YSA9IGlucHV0cy5NYXRlcmlhbERhdGFbMF07DQogICAgICAgIGNvbnN0IFBvcnRJRCA9IG1hdGVyaWFsRGF0YS5Mb2FkUG9ydFBvc2l0aW9uOw0KICAgICAgICBjb25zdCBMb3RJRCA9IG1hdGVyaWFsRGF0YS5NYXRlcmlhbE5hbWU7DQogICAgICAgIC8vdGhpcy5mcmFtZXdvcmsubG9nZ2VyLndhcm5pbmcoUG9ydElEKTsNCiAgICAgICAgLy90aGlzLmZyYW1ld29yay5sb2dnZXIuZXJyb3IoTG90SUQpOw0KICAgICAgICByZXR1cm4gew0KICAgICAgICAgICAgUE9SVF9JRDogUG9ydElELA0KICAgICAgICAgICAgTG90X0lEOiBMb3RJRA0KICAgICAgICB9Ow0KICAgIH0NCn0NCmV4cG9ydHMuZGVmYXVsdCA9IGRlZmF1bHRfMTsNCg==",
 				"inputs": [
 					{
 						"name": "MaterialData",
@@ -318,6 +320,20 @@
 			"targetId": "task_42679",
 			"inputName": "activate",
 			"outputName": "MaterialDataOut"
+		},
+		{
+			"id": "1767572c-80c8-4a56-ac95-6cb2f5c56aeb",
+			"sourceId": "task_42679",
+			"targetId": "task_29125",
+			"inputName": "$LOT_ID",
+			"outputName": "Lot_IDOut"
+		},
+		{
+			"id": "714222b7-b55c-442c-9b53-880e91ee51a4",
+			"sourceId": "task_42679",
+			"targetId": "task_29125",
+			"inputName": "activate",
+			"outputName": "success"
 		}
 	],
 	"layout": {
@@ -370,8 +386,8 @@
 					"task_42679": {
 						"collapsed": false,
 						"position": {
-							"x": 1730,
-							"y": 954
+							"x": 1620,
+							"y": 922
 						},
 						"outdated": false
 					}
@@ -400,6 +416,12 @@
 					},
 					"52d26fe1-6563-4fdf-a136-de8ea8b2d1c7": {
 						"vertices": []
+					},
+					"1767572c-80c8-4a56-ac95-6cb2f5c56aeb": {
+						"vertices": []
+					},
+					"714222b7-b55c-442c-9b53-880e91ee51a4": {
+						"vertices": []
 					}
 				},
 				"notes": {
@@ -413,8 +435,8 @@
 				},
 				"zoom": 0.5599999999999997,
 				"pan": {
-					"x": 625,
-					"y": 358
+					"x": 843,
+					"y": 369
 				}
 			}
 		}

@@ -242,6 +242,34 @@
 					}
 				}
 			]
+		},
+		{
+			"id": "ddc2e654-1e40-4a9f-88b8-904f7bef8b63",
+			"sourceId": "task_11331",
+			"targetId": "task_11329",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "6fb336e4-1053-4366-bf91-b2a99be0a51c",
+			"sourceId": "task_75726",
+			"targetId": "task_11329",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "86fa4848-4709-429e-a927-69b807a8b881",
+			"sourceId": "task_75793",
+			"targetId": "task_11329",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "a8e81f1b-459a-4bb7-bcf2-6ea9e3185dd4",
+			"sourceId": "task_75880",
+			"targetId": "task_11329",
+			"inputName": "activate",
+			"outputName": "eventRawData"
 		}
 	],
 	"layout": {
@@ -294,6 +322,18 @@
 					}
 				},
 				"links": {
+					"ddc2e654-1e40-4a9f-88b8-904f7bef8b63": {
+						"vertices": []
+					},
+					"6fb336e4-1053-4366-bf91-b2a99be0a51c": {
+						"vertices": []
+					},
+					"86fa4848-4709-429e-a927-69b807a8b881": {
+						"vertices": []
+					},
+					"a8e81f1b-459a-4bb7-bcf2-6ea9e3185dd4": {
+						"vertices": []
+					},
 					"a7a5f156-d324-4754-a517-7a9876f1d5a7": {
 						"vertices": []
 					},
@@ -308,10 +348,10 @@
 					}
 				},
 				"notes": {},
-				"zoom": 0.6999999999999998,
+				"zoom": 0.9,
 				"pan": {
-					"x": 376.25,
-					"y": 32.5
+					"x": 890,
+					"y": 265
 				}
 			}
 		}

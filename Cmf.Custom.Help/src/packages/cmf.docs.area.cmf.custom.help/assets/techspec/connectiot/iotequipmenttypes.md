@@ -7,6 +7,7 @@ The details for each Equipment Type is available in the sections:
 * [Hermos LFM 4x Reader](/cmf.custom.help/techspec>connectiot>iotequipmenttypes>hermoslfm4xreader)
 * [KLA SpectraFilm Ellipsometer](/cmf.custom.help/techspec>connectiot>iotequipmenttypes>klaspectrafilm)
 * [Mechatronic MWS200](/cmf.custom.help/techspec>connectiot>iotequipmenttypes>mechatronicmws200)
+* [Mirra Desica](/cmf.custom.help/techspec>connectiot>iotequipmenttypes>mirradesica)
 * [Monarch25 VHF](/cmf.custom.help/techspec>connectiot>iotequipmenttypes>monarch25vhf)
 * [Muetec DaVinci](/cmf.custom.help/techspec>connectiot>iotequipmenttypes>muetecdavinci)
 * [Nice Label](/cmf.custom.help/techspec>connectiot>iotequipmenttypes>nicelabel)

@@ -726,6 +726,12 @@
     "actionId": ""
   },
   {
+    "id": "mirradesica",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "Mirra Desica",
+    "actionId": ""
+  },
+  {
     "id": "monarch25vhf",
     "menuGroupId": "iotequipmenttypes",
     "title": "Monarch25 VHF",
@@ -908,6 +914,30 @@
   {
     "id": "mechatronicmws200-workflows",
     "menuGroupId": "mechatronicmws200",
+    "title": "Workflows",
+    "actionId": ""
+  },
+  {
+    "id": "mirradesica-configuration",
+    "menuGroupId": "mirradesica",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "mirradesica-features",
+    "menuGroupId": "mirradesica",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "mirradesica-setup",
+    "menuGroupId": "mirradesica",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "mirradesica-workflows",
+    "menuGroupId": "mirradesica",
     "title": "Workflows",
     "actionId": ""
   },

@@ -154,10 +154,10 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "PodRemovedPort1"
+						"Name": "PodRemovedPort2"
 					}
 				],
-				"___cmf___description": "PodRemovedPort1 (4104)"
+				"___cmf___description": "PodRemovedPort2 (4204)"
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -178,10 +178,10 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "PodRemovedPort1"
+						"Name": "PodRemovedPort3"
 					}
 				],
-				"___cmf___description": "PodRemovedPort1 (4104)"
+				"___cmf___description": "PodRemovedPort3 (4304)"
 			},
 			"driver": "SecsGemEquipment"
 		},
@@ -202,10 +202,10 @@
 				"_events": [
 					{
 						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
-						"Name": "PodRemovedPort1"
+						"Name": "PodRemovedPort4"
 					}
 				],
-				"___cmf___description": "PodRemovedPort1 (4104)"
+				"___cmf___description": "PodRemovedPort4 (4404)"
 			},
 			"driver": "SecsGemEquipment"
 		}
@@ -428,8 +428,8 @@
 					}
 				},
 				"pan": {
-					"x": 146.25,
-					"y": 0
+					"x": 347,
+					"y": 89
 				},
 				"zoom": 0.6900000000000002
 			}

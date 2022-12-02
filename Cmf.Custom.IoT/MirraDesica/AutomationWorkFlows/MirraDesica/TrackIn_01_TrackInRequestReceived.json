@@ -701,7 +701,7 @@
 					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
 					"params": {
 						"type": 3,
-						"value": "false"
+						"value": "true"
 					}
 				}
 			]
@@ -767,16 +767,16 @@
 					"task_1677": {
 						"collapsed": false,
 						"position": {
-							"x": 5518,
-							"y": 446
+							"x": 5515,
+							"y": 437
 						},
 						"outdated": false
 					},
 					"task_70871": {
 						"collapsed": false,
 						"position": {
-							"x": 1567,
-							"y": 489
+							"x": 1592,
+							"y": 468
 						},
 						"outdated": false
 					},
@@ -1045,10 +1045,10 @@
 						}
 					}
 				},
-				"zoom": 0.6000000000000003,
+				"zoom": 0.5200000000000002,
 				"pan": {
-					"x": 522.5,
-					"y": 27.5
+					"x": 1432,
+					"y": 64
 				}
 			}
 		}
