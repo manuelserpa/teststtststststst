@@ -51,6 +51,6 @@
     <PackageReference Include="Cmf.MES.PageObjects" Version="9.1.1.180" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="106.0.5249.6100" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="108.0.5359.7100" />
   </ItemGroup>
 </Project>
