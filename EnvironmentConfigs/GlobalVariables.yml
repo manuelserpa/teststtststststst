@@ -11,10 +11,14 @@ variables:
   CmfCliRepository: 'https://registry.npmjs.com'
   # cmf cli Version
   CmfCliVersion: '3.x.x'
+  # cmf cli Path
+  CmfCliPath: '$(Agent.TempDirectory)/node_modules/.bin/cmf-cli'
   # cmf pipeline Repository
   CmfPipelineRepository: 'http://vm-it:4873'
   # cmf pipeline Version
   CmfPipelineVersion: '1.x.x'
+  # cmf pipeline Path
+  CmfPipelinePath: '$(Agent.TempDirectory)/node_modules/@criticalmanufacturing/cmf-pipeline/dist/win-x64'
   # Iso Image Path
   ISOImagePath: '\\management\Setups\cmNavigo\v9.1.x\Critical Manufacturing 9.1.0.iso'
   # Current refspec to get the tools for the package (by default, a tagged MES version release)
