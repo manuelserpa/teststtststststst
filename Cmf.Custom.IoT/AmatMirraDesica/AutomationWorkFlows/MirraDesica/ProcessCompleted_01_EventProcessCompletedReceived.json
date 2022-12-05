@@ -1,0 +1,729 @@
+{
+	"tasks": [
+		{
+			"id": "task_127417",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "ProcessComplete",
+					"IsShared": true,
+					"Name": "ProcessComplete"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "MaterialName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "MaterialName"
+						}
+					},
+					{
+						"name": "ContainerName",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ContainerName"
+						}
+					},
+					{
+						"name": "LoadPortId",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "LoadPortId"
+						}
+					},
+					{
+						"name": "ControlJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ControlJobId"
+						}
+					},
+					{
+						"name": "ProcessJobId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "ProcessJobId"
+						}
+					},
+					{
+						"name": "IsBatchAction",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": "IsBatchAction"
+						}
+					},
+					{
+						"name": "DoNotTriggerMaterialOut",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "StateUpdatedOnMainEquipment",
+						"valueType": {
+							"type": 3,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "MaterialDataObjects",
+						"valueType": {
+							"friendlyName": "MaterialDataObjects",
+							"type": 10,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Process Complete Workflow"
+			}
+		},
+		{
+			"id": "task_75124",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PPID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "JOB_ID_1",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "JOB_ID_2",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "JOB_ID_3",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "WAFERSTATUSCASS1",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "ProcessingCompletedPort1"
+					}
+				],
+				"___cmf___description": "ProcessingCompletedPort1 (1101)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_31143",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PPID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "JOB_ID_1",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "JOB_ID_2",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "JOB_ID_3",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "WAFERSTATUSCASS2",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "ProcessingCompletedPort2"
+					}
+				],
+				"___cmf___description": "ProcessingCompletedPort2 (1201)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_31446",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PPID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "JOB_ID_1",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "JOB_ID_2",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "JOB_ID_3",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "WAFERSTATUSCASS3",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "ProcessingCompletedPort3"
+					}
+				],
+				"___cmf___description": "ProcessingCompletedPort3 (1301)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_31774",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "PPID",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "JOB_ID_1",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "JOB_ID_2",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "JOB_ID_3",
+							"DataType": 0
+						},
+						"outputType": "Value"
+					},
+					{
+						"property": {
+							"$type": "Cmf.Foundation.BusinessObjects.AutomationProperty, Cmf.Foundation.BusinessObjects",
+							"Name": "WAFERSTATUSCASS4",
+							"DataType": 5
+						},
+						"outputType": "Value"
+					}
+				],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "ProcessingCompletedPort4"
+					}
+				],
+				"___cmf___description": "ProcessingCompletedPort4 (1401)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_66545",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "CassetteUnload_01_ExecuteCommand",
+					"IsShared": false
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					},
+					{
+						"name": "CarrierId",
+						"valueType": {
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null,
+							"friendlyName": ""
+						}
+					}
+				],
+				"outputs": [
+					{
+						"name": "LoadPort",
+						"valueType": {
+							"friendlyName": "LoadPort",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "CarrierId",
+						"valueType": {
+							"friendlyName": "CarrierId",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"___cmf___name": "Internal Workflow",
+				"___cmf___description": "CassetteUnload_01_ExecuteCommand"
+			}
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToAny",
+			"reference": {
+				"name": "anyToAny",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#stringToEntityInstance",
+			"reference": {
+				"name": "stringToEntityInstance",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+			"reference": {
+				"name": "objectProperty",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		},
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "255a21b4-80b8-499b-b7de-0c48190e98b2",
+			"sourceId": "task_75124",
+			"targetId": "task_127417",
+			"inputName": "LoadPortIdIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "1"
+					}
+				}
+			]
+		},
+		{
+			"id": "ef5d8128-1074-49ca-8965-56ea293479cc",
+			"sourceId": "task_31143",
+			"targetId": "task_127417",
+			"inputName": "LoadPortIdIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "2"
+					}
+				}
+			]
+		},
+		{
+			"id": "4cf54c0a-c471-40dc-8b8d-195fb2e736df",
+			"sourceId": "task_31446",
+			"targetId": "task_127417",
+			"inputName": "LoadPortIdIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "3"
+					}
+				}
+			]
+		},
+		{
+			"id": "758fd786-7225-47b6-afae-784e3fecc1dd",
+			"sourceId": "task_31774",
+			"targetId": "task_127417",
+			"inputName": "LoadPortIdIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "4"
+					}
+				}
+			]
+		},
+		{
+			"id": "c00f8d1d-242c-4ce9-812d-a7ab6bd59af5",
+			"sourceId": "task_31774",
+			"targetId": "task_127417",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "07e2a08e-1afc-420a-a77e-d18c00823ff0",
+			"sourceId": "task_31446",
+			"targetId": "task_127417",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "b4f189a5-392c-4ffb-901a-585078846118",
+			"sourceId": "task_31143",
+			"targetId": "task_127417",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "6738c143-bf43-4495-9ac7-a661ffe34ffd",
+			"sourceId": "task_75124",
+			"targetId": "task_127417",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "77edc307-b722-4c9b-b709-52ea2d934e30",
+			"sourceId": "task_127417",
+			"targetId": "task_66545",
+			"inputName": "LoadPortIn",
+			"outputName": "MaterialDataObjectsOut",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#objectProperty",
+					"params": {
+						"path": "LoadPortPosition",
+						"type": 4
+					}
+				}
+			]
+		},
+		{
+			"id": "f67b563d-b0f0-43cf-8962-080c7c4ef457",
+			"sourceId": "task_127417",
+			"targetId": "task_66545",
+			"inputName": "activate",
+			"outputName": "success"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#00ff80",
+			"notes": [
+				{
+					"id": "note_60654",
+					"name": "TosProcessComplete",
+					"value": "<p><strong>What it does:</strong></p><p>Updates MaterialData state from Setup to Complete.</p><p>Updates MES Material CustomMaterialStateModel state (Main State Model State) to Complete.</p><p>Executes Material Out.</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to TosProcessComplete for the Tool;</li><li>Use the information received to drive the Process Complete workflow;</li><li>Pass any event Output to the Activate Input of the Workflow;</li></ol><p><strong>Note:</strong><strong></strong></p><p>The Workflow Process Complete will try to retrieve the MaterialData using the inputs following the next logic:</p><ol><li>If the materialName is available retrieve the corresponding materialData;</li><li>If the containerName is available retrieve the materialData which references it on containerName;</li><li>If the loadPortId is passed it will use a match using load port id and materialState defined on the settings;</li><li>If no information is available on the inputs, if defined, use the materialState defined on the settings to retrieve the first (oldest) materialData available in the persistence;</li><li>If none of this criteria corresponds to available information, return an error.</li></ol><p>The logic described before will be triggered by order, but only one the first matching selection criteria will be run. If the criteria fails to return a materialData an Error will be returned.<br /><br />If a material is found, then it sets its state to the state defined in the setting parameter Material To Set, update the materialData on persistence. When successful output the updated materialData on the output material.</p><p>If IsBatch input is passed as True all the MaterialData that match the inputs, and corresponding Material on MES, will be set to the new state and Material Out executed, if not passed or passed as False only the first one will be actuated.&nbsp;</p>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_127417": {
+						"collapsed": false,
+						"position": {
+							"x": 1991,
+							"y": 865
+						},
+						"outdated": false
+					},
+					"task_75124": {
+						"collapsed": false,
+						"position": {
+							"x": 450,
+							"y": 97
+						},
+						"outdated": false
+					},
+					"task_31143": {
+						"collapsed": false,
+						"position": {
+							"x": 453,
+							"y": 720
+						},
+						"outdated": false
+					},
+					"task_31446": {
+						"collapsed": false,
+						"position": {
+							"x": 456,
+							"y": 1336
+						},
+						"outdated": false
+					},
+					"task_31774": {
+						"collapsed": false,
+						"position": {
+							"x": 457,
+							"y": 1947
+						},
+						"outdated": false
+					},
+					"task_66545": {
+						"collapsed": false,
+						"position": {
+							"x": 2583,
+							"y": 1040
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"c00f8d1d-242c-4ce9-812d-a7ab6bd59af5": {
+						"vertices": []
+					},
+					"07e2a08e-1afc-420a-a77e-d18c00823ff0": {
+						"vertices": []
+					},
+					"b4f189a5-392c-4ffb-901a-585078846118": {
+						"vertices": []
+					},
+					"6738c143-bf43-4495-9ac7-a661ffe34ffd": {
+						"vertices": []
+					},
+					"f67b563d-b0f0-43cf-8962-080c7c4ef457": {
+						"vertices": []
+					},
+					"255a21b4-80b8-499b-b7de-0c48190e98b2": {
+						"vertices": []
+					},
+					"ef5d8128-1074-49ca-8965-56ea293479cc": {
+						"vertices": []
+					},
+					"4cf54c0a-c471-40dc-8b8d-195fb2e736df": {
+						"vertices": []
+					},
+					"758fd786-7225-47b6-afae-784e3fecc1dd": {
+						"vertices": []
+					},
+					"77edc307-b722-4c9b-b709-52ea2d934e30": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_60654": {
+						"collapsed": false,
+						"position": {
+							"x": 3082,
+							"y": 713
+						}
+					}
+				},
+				"zoom": 0.4,
+				"pan": {
+					"x": 180,
+					"y": 38.800000000000004
+				}
+			}
+		}
+	}
+}

@@ -363,6 +363,30 @@
                     driver="SecsGem"
                     port="5014" />
             </Cluster>
+
+            <Cluster name="5FCMP2"
+					automationManager="MirraDesica"
+					serviceMachine="vm-ams-osram"
+					serviceName="ConnectIoT (5FCMP2)"
+					configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FCMP2\remoteTestingConfig.json">
+			<Equipment name="5FCMP2"
+						driverAlias="SecsGemEquipment"
+						description="SecsGemEquipment"
+						driver="SecsGem"
+						port="5013"
+						serviceMachine="vm-ams-osram"
+						serviceName="ConnectIoT (5FCMP2)"
+						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FCMP2\remoteTestingConfig.json"
+						library="\\vm-ams-osram\c$\IoTTestsAutomationManagers\Libs\DefaultLibrary.xsc"/>
+			<Equipment name="5FCMP2.RFID"
+						driverAlias="RFIDReader"
+						serviceMachine="vm-ams-osram"
+						serviceName="ConnectIoT (5FCMP2)"
+						configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FCMP2\remoteTestingConfig.json"
+						description="RFIDReader"
+						driver="SecsGem"
+						port="5014"/>			
+		</Cluster>
         </Equipments>
     </connectIotAutomaticTests>
 </RunSettings>

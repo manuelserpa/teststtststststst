@@ -1,0 +1,290 @@
+{
+	"tasks": [
+		{
+			"id": "task_141393",
+			"reference": {
+				"name": "workflow",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"automationWorkflow": {
+					"DisplayName": "UpdateControlState",
+					"IsShared": true,
+					"Name": "UpdateControlState"
+				},
+				"executeWhenAllInputsDefined": false,
+				"contextsExpirationInMilliseconds": 60000,
+				"executionExpirationInMilliseconds": 1200000,
+				"inputs": [
+					{
+						"name": "StateName",
+						"valueType": {
+							"friendlyName": "StateName",
+							"type": 4,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					},
+					{
+						"name": "value",
+						"valueType": {
+							"friendlyName": "ControlState",
+							"type": 5,
+							"collectionType": 0,
+							"referenceType": null,
+							"referenceTypeName": null,
+							"referenceTypeId": null
+						}
+					}
+				],
+				"outputs": [],
+				"___cmf___name": "Update Control State Workflow"
+			}
+		},
+		{
+			"id": "task_124716",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "ControlStateLOCAL"
+					}
+				],
+				"___cmf___description": "ControlStateLOCAL (4)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_34382",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "EquipmentOFFLINE"
+					}
+				],
+				"___cmf___description": "EquipmentOFFLINE (3)"
+			},
+			"driver": "SecsGemEquipment"
+		},
+		{
+			"id": "task_34455",
+			"reference": {
+				"name": "equipmentEvent",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			},
+			"settings": {
+				"_workingMode": "AlwaysActive",
+				"_acceptAllEvents": false,
+				"_outputs": [],
+				"___cmf___name": "On Equipment Event",
+				"_events": [
+					{
+						"$type": "Cmf.Foundation.BusinessObjects.AutomationEvent, Cmf.Foundation.BusinessObjects",
+						"Name": "ControlStateREMOTE"
+					}
+				],
+				"___cmf___description": "ControlStateLOCAL (5)"
+			},
+			"driver": "SecsGemEquipment"
+		}
+	],
+	"converters": [
+		{
+			"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+			"reference": {
+				"name": "anyToConstant",
+				"package": {
+					"name": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks",
+					"version": "9.1.0-202209072"
+				}
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "795711f3-5f1e-4261-a4f2-9d719e8be047",
+			"sourceId": "task_34382",
+			"targetId": "task_141393",
+			"inputName": "valueIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "1"
+					}
+				}
+			]
+		},
+		{
+			"id": "c71102f7-e44f-4884-8d0e-8dd822b69ed3",
+			"sourceId": "task_124716",
+			"targetId": "task_141393",
+			"inputName": "valueIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "4"
+					}
+				}
+			]
+		},
+		{
+			"id": "dac4a9fb-ea5d-4f9a-8f9e-f3e0cbb90b02",
+			"sourceId": "task_34455",
+			"targetId": "task_141393",
+			"inputName": "valueIn",
+			"outputName": "eventRawData",
+			"converters": [
+				{
+					"id": "@criticalmanufacturing/connect-iot-controller-engine-core-tasks#anyToConstant",
+					"params": {
+						"type": 5,
+						"value": "5"
+					}
+				}
+			]
+		},
+		{
+			"id": "52291778-dee2-44bc-a300-cf07c0747c44",
+			"sourceId": "task_34455",
+			"targetId": "task_141393",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "942cf80a-9bd9-4927-ae87-6bace8c89509",
+			"sourceId": "task_124716",
+			"targetId": "task_141393",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		},
+		{
+			"id": "11be6014-5e03-4096-8cfc-a9816194e669",
+			"sourceId": "task_34382",
+			"targetId": "task_141393",
+			"inputName": "activate",
+			"outputName": "eventRawData"
+		}
+	],
+	"layout": {
+		"general": {
+			"color": "#0080ff",
+			"notes": [
+				{
+					"id": "note_124525",
+					"name": "Control State Updated",
+					"value": "<p><strong>What it does:</strong></p><p>Updates the Control State of the Resource it is connected to (CustomAutomationSetCustomResourceState stored as Current State for the Resource).</p><p><strong>How to use it:</strong></p><ol><li>Open the Event task and select the Event corresponding to the Control State update for the Tool;</li><li>If State Model values corresponds to the following enumeration pass the current Control State to the Control State input of the Workflow.<ul><li>EquipmentOffline = 1;</li><li>AttemptOnline = 2;</li><li>HostOffline = 3;</li><li>OnlineLocal = 4;</li><li>OnlineRemote = 5;</li></ul></li><li>If there is no Input with that information available, convert the received information to a valid state name and pass it to the State Name input of the Workflow;</li><li>Use any event Output to connect to the Workflow Activate input;</li></ol><ol><p>&nbsp;</p></ol><p>&nbsp;</p>",
+					"color": "#ffffa5"
+				}
+			]
+		},
+		"drawers": {
+			"DIAGRAM": {
+				"tasks": {
+					"task_141393": {
+						"collapsed": false,
+						"position": {
+							"x": 1447,
+							"y": 427
+						},
+						"outdated": false
+					},
+					"task_124716": {
+						"collapsed": false,
+						"position": {
+							"x": 676,
+							"y": 423
+						},
+						"outdated": false
+					},
+					"task_34382": {
+						"collapsed": false,
+						"position": {
+							"x": 677,
+							"y": 135
+						},
+						"outdated": false
+					},
+					"task_34455": {
+						"collapsed": false,
+						"position": {
+							"x": 676,
+							"y": 713
+						},
+						"outdated": false
+					}
+				},
+				"links": {
+					"52291778-dee2-44bc-a300-cf07c0747c44": {
+						"vertices": []
+					},
+					"942cf80a-9bd9-4927-ae87-6bace8c89509": {
+						"vertices": []
+					},
+					"11be6014-5e03-4096-8cfc-a9816194e669": {
+						"vertices": []
+					},
+					"795711f3-5f1e-4261-a4f2-9d719e8be047": {
+						"vertices": []
+					},
+					"c71102f7-e44f-4884-8d0e-8dd822b69ed3": {
+						"vertices": []
+					},
+					"dac4a9fb-ea5d-4f9a-8f9e-f3e0cbb90b02": {
+						"vertices": []
+					}
+				},
+				"notes": {
+					"note_124525": {
+						"collapsed": false,
+						"position": {
+							"x": 1973,
+							"y": 276
+						}
+					}
+				},
+				"pan": {
+					"x": 399.5671510560859,
+					"y": 68.9764719708387
+				},
+				"zoom": 0.6599999999999999
+			}
+		}
+	}
+}
