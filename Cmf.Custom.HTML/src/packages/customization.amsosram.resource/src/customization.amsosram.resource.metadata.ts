@@ -61,7 +61,7 @@ const CustomSendAdHocTransferInformationCanExecute: ActionCanExecuteHandler =
 
 function applyConfig(packageName: string) {
   const config: PackageMetadata = {
-    version: "2.2.0",
+    version: "2.5.0",
     name: `${packageName}`,
     components: [
       // Below this line all components are attached automatically during build

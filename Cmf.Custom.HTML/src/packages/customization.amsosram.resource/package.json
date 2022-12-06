@@ -1,6 +1,6 @@
 {
   "name": "customization.amsosram.resource",
-  "version": "2.2.0",
+  "version": "2.5.0",
   "description": "customization.amsosram.resource package",
   "main": "customization.amsosram.resource.js",
   "types": "index.d.ts",

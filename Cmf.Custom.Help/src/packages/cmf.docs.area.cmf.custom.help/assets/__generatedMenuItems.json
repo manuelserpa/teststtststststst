@@ -132,6 +132,12 @@
     "actionId": ""
   },
   {
+    "id": "amsosram-20221207-2.5.0",
+    "menuGroupId": "releasenotes",
+    "title": "amsosram-20221207-2.5.0",
+    "actionId": ""
+  },
+  {
     "id": "artifacts",
     "menuGroupId": "techspec",
     "title": "Artifacts",
@@ -690,6 +696,12 @@
     "actionId": ""
   },
   {
+    "id": "amatmirradesica",
+    "menuGroupId": "iotequipmenttypes",
+    "title": "Amat Mirra Desica",
+    "actionId": ""
+  },
+  {
     "id": "brukerinsightcap",
     "menuGroupId": "iotequipmenttypes",
     "title": "BrukerInsightCAP",
@@ -723,12 +735,6 @@
     "id": "mechatronicmws200",
     "menuGroupId": "iotequipmenttypes",
     "title": "Mechatronic MWS200",
-    "actionId": ""
-  },
-  {
-    "id": "mirradesica",
-    "menuGroupId": "iotequipmenttypes",
-    "title": "Mirra Desica",
     "actionId": ""
   },
   {
@@ -771,6 +777,30 @@
     "id": "unitysc",
     "menuGroupId": "iotequipmenttypes",
     "title": "Unity SC",
+    "actionId": ""
+  },
+  {
+    "id": "amatmirradesica-configuration",
+    "menuGroupId": "amatmirradesica",
+    "title": "Configuration",
+    "actionId": ""
+  },
+  {
+    "id": "amatmirradesica-features",
+    "menuGroupId": "amatmirradesica",
+    "title": "Features",
+    "actionId": ""
+  },
+  {
+    "id": "amatmirradesica-setup",
+    "menuGroupId": "amatmirradesica",
+    "title": "Setup",
+    "actionId": ""
+  },
+  {
+    "id": "amatmirradesica-workflows",
+    "menuGroupId": "amatmirradesica",
+    "title": "Workflows",
     "actionId": ""
   },
   {
@@ -914,30 +944,6 @@
   {
     "id": "mechatronicmws200-workflows",
     "menuGroupId": "mechatronicmws200",
-    "title": "Workflows",
-    "actionId": ""
-  },
-  {
-    "id": "mirradesica-configuration",
-    "menuGroupId": "mirradesica",
-    "title": "Configuration",
-    "actionId": ""
-  },
-  {
-    "id": "mirradesica-features",
-    "menuGroupId": "mirradesica",
-    "title": "Features",
-    "actionId": ""
-  },
-  {
-    "id": "mirradesica-setup",
-    "menuGroupId": "mirradesica",
-    "title": "Setup",
-    "actionId": ""
-  },
-  {
-    "id": "mirradesica-workflows",
-    "menuGroupId": "mirradesica",
     "title": "Workflows",
     "actionId": ""
   },
