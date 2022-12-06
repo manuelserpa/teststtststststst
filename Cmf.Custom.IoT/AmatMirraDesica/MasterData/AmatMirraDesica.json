@@ -2214,7 +2214,7 @@
       "Order": "3"
     },
     "4": {
-      "AutomationController": "",
+      "AutomationController": "AmatMirraDesicaController",
       "Name": "CassetteLoad_01_CassetteLoadEvent",
       "DisplayName": "CassetteLoad_01_CassetteLoadEvent",
       "IsFile": "Yes",

@@ -4149,7 +4149,7 @@
     },
     "40": {
       "Name": "5FCMP2",
-      "Description": "5FCMP2 - Mirra Desica",
+      "Description": "5FCMP2 - Amat Mirra Desica",
       "Type": "Process",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",
@@ -4217,7 +4217,7 @@
     },
     "41": {
       "Name": "5FCMP2.RFID",
-      "Description": "5FCMP2 - Mirra Desica",
+      "Description": "5FCMP2 - Amat Mirra Desica",
       "Type": "Other Auxiliary",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",
@@ -4285,7 +4285,7 @@
     },
     "42": {
       "Name": "5FCMP2-LP1",
-      "Description": "5FCMP2 - Mirra Desica",
+      "Description": "5FCMP2 - Amat Mirra Desica",
       "Type": "Process",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",
@@ -4353,7 +4353,7 @@
     },
     "43": {
       "Name": "5FCMP2-LP2",
-      "Description": "5FCMP2 - Mirra Desica",
+      "Description": "5FCMP2 - Amat Mirra Desica",
       "Type": "Process",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",
@@ -4421,7 +4421,7 @@
     },
     "44": {
       "Name": "5FCMP2-LP3",
-      "Description": "5FCMP2 - Mirra Desica",
+      "Description": "5FCMP2 - Amat Mirra Desica",
       "Type": "Process",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",
@@ -4489,7 +4489,7 @@
     },
     "45": {
       "Name": "5FCMP2-LP4",
-      "Description": "5FCMP2 - Mirra Desica",
+      "Description": "5FCMP2 - Amat Mirra Desica",
       "Type": "Process",
       "IsTemplate": "No",
       "MainStateModel": "SEMI E10>Standby",

@@ -1103,7 +1103,7 @@
       "Configuration": ""
     },
     "13": {
-      "Name": "MirraDesica",
+      "Name": "AmatMirraDesica",
       "Description": "5FCMP2",
       "Type": "General",
       "LogicalAddress": "5FCMP2",
@@ -1324,20 +1324,20 @@
       "EntityName": "5FALD2.RFID"
     },
     "36": {
-      "AutomationController": "MirraDesica",
-      "AutomationManager": "MirraDesica",
+      "AutomationController": "AmatMirraDesica",
+      "AutomationManager": "AmatMirraDesica",
       "DriverName": "",
       "EntityName": "5FCMP2"
     },
     "37": {
-      "AutomationController": "MirraDesica",
-      "AutomationManager": "MirraDesica",
+      "AutomationController": "AmatMirraDesica",
+      "AutomationManager": "AmatMirraDesica",
       "DriverName": "SecsGemEquipment",
       "EntityName": "5FCMP2"
     },
     "38": {
-      "AutomationController": "MirraDesica",
-      "AutomationManager": "MirraDesica",
+      "AutomationController": "AmatMirraDesica",
+      "AutomationManager": "AmatMirraDesica",
       "DriverName": "RFIDReader",
       "EntityName": "5FCMP2.RFID"
     }
