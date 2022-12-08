@@ -365,7 +365,7 @@
             </Cluster>
 
             <Cluster name="5FCMP2"
-					automationManager="MirraDesica"
+					automationManager="AmatMirraDesica"
 					serviceMachine="vm-ams-osram"
 					serviceName="ConnectIoT (5FCMP2)"
 					configLocation="\\vm-ams-osram\c$\IoTTestsAutomationManagers\5FCMP2\remoteTestingConfig.json">

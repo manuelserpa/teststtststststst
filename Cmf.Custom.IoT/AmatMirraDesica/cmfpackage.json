@@ -1,7 +1,7 @@
 ﻿{
   "version": "2.5.0",
   "packageId": "Cmf.Custom.IoT.AmatMirraDesica",
-  "description": "Cmf Custom Mirra Desica Workflows Package",
+  "description": "Cmf Custom Amat Mirra Desica Workflows Package",
   "packageType": "IoTData",
   "isInstallable": true,
   "isUniqueInstall": true,
